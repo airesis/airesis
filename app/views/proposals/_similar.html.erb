@@ -2,7 +2,7 @@
 	Guardale e continua con la creazione solo se pensi che la tua problematica non possa essere 
 	discussa in uno dei moduli di dibattito già presenti</h4>          
 <ul>
-<%@similars.each do |proposal|%>
+<%@proposals.each do |proposal|%>
 <div>
 	<%=link_to proposal.title, proposal, target: "_blank"%>
 </div>

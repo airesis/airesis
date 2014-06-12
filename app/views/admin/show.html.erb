@@ -49,7 +49,9 @@
     <h3>Elenco utenti bloccati</h3>
     <ul>
       <% User.blocked.each do |user| %>
-          <li><%=raw "#{user.id}: #{ link_to user.fullname, user} (#{user.login || 'no username'}) (#{user.blocked_name} #{user.blocked_surname}) (#{user.email})" %>  <%= link_to 'Sblocca', {controller: 'admin', action: 'unblock', user_id: user.id} %></li>
+          <li>
+            <%=user.id%>: <%=link_to user.fullname, user%> (<%=user.login || 'no username'%>) (<%="#{user.blocked_name} #{user.blocked_surname}) (#{user.email}"%>)" %>
+            <%= link_to 'Sblocca', {controller: 'admin', action: 'unblock', user_id: user.id} %></li>
       <% end %>
     </ul>
     </div>

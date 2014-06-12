@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def load_tutorial
-    @step = get_next_step(current_user) if current_user && !Rails.env.test?
+    @step = get_next_step(current_user) if (current_user && !Rails.env.test?)
   end
 
   def ckeditor_filebrowser_scope(options = {})

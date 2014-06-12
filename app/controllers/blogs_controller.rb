@@ -2,26 +2,12 @@
 class BlogsController < ApplicationController
   layout :choose_layout
 
+  load_and_authorize_resource
 
-  before_filter :load_blog, only: [:show, :by_year_and_month]
   before_filter :load_blog_data, only: [:show, :by_year_and_month]
 
-  before_filter :authenticate_user!, only: [:edit, :update, :destroy, :new, :create]
-  before_filter :check_author, only: [:edit, :update, :destroy]
-
-
-  def check_author
-    @blog = Blog.friendly.find(params[:id])
-    if !(current_user.is_my_blog? @blog.id) && !is_admin?
-      flash[:notice] = t('error.blog.cannot_edit')
-      redirect_to :back
-    end
-  end
-
   def index
-    unless request.xhr?
-      @tags = Tag.most_blogs.shuffle
-    end
+    @tags = Tag.most_blogs.shuffle unless request.xhr?
     @page_title = t('pages.blogs.show.title')
     @blogs = Blog.look(params)
     respond_to do |format|
@@ -31,19 +17,15 @@ class BlogsController < ApplicationController
   end
 
   def show
+    @page_title = @blog.title
+    @blog_posts = @blog_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
     respond_to do |format|
-      format.js {
-        @blog_posts = @blog_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
-      }
-      format.html {
-        @page_title = @blog.title
-        @blog_posts = @blog_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
-      }
+      format.js
+      format.html
       format.atom
       format.json
     end
   end
-
 
   def by_year_and_month
     @page_title = t('pages.blog_posts.archives.title', year: params[:year], month: t('date.month_names')[params[:month].to_i])
@@ -61,7 +43,7 @@ class BlogsController < ApplicationController
       redirect_to root_path
     else
       @user = current_user
-      @blog = Blog.new
+      @blog.user = current_user
 
       respond_to do |format|
         format.html # new.html.erb
@@ -70,13 +52,11 @@ class BlogsController < ApplicationController
   end
 
   def edit
-    @blog = Blog.friendly.find(params[:id])
     @user = @blog.user
   end
 
   def create
-    params[:blog][:user_id] = current_user.id
-    @blog = Blog.new(params[:blog])
+    @blog.user = current_user
     if @blog.save
       flash[:notice] = t('info.blog.blog_created')
       if session[:blog_return_to]
@@ -84,14 +64,13 @@ class BlogsController < ApplicationController
       else
         redirect_to @blog
       end
-
     else
+      @user = current_user
       render action: "new"
     end
   end
 
   def update
-    @blog = Blog.friendly.find(params[:id])
     if @blog.update_attributes(params[:blog])
       flash[:notice] = t('info.blog.title_updated')
       redirect_to @blog
@@ -108,13 +87,12 @@ class BlogsController < ApplicationController
 
   protected
 
+  def blog_params
+    params.require(:blog).permit(:title)
+  end
+
   def load_blog
     @blog = Blog.friendly.find(params[:id])
-    @user = @blog.user
-    @blog_posts = @blog.posts.published.includes(:user, :blog, :tags).order('published_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
-    @recent_comments = @blog.comments.order('created_at DESC').limit(10)
-    @recent_posts = @blog.posts.published.order('published_at DESC').limit(10)
-    @archives = @blog.posts.select("COUNT(*) AS posts, extract(month from created_at) AS MONTH , extract(year from created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from created_at) desc")
   end
 
   def choose_layout

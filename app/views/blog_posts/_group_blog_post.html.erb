@@ -16,7 +16,7 @@
   <% end %>
 
   <h3 class="blogPostTitle">
-    <%= link_to(h(blog_post.title), group_blog_post_url(@group, blog_post)) %>
+    <%= link_to blog_post.title, group_blog_post_url(@group, blog_post) %>
   </h3>
 
   <div class="blogPostBody">

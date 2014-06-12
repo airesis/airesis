@@ -2,7 +2,7 @@
   <% @unread.each do |alert| %>
       <a class="mess new" href="<%= check_alert_path(alert) %>">
         <p class="p2"><%= l alert.created_at %></p>
-        <p class="p2"><%=raw alert.message %></p>
+        <p class="p2"><%=alert.message %></p>
       </a>
   <% end %>
 </div>

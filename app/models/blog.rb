@@ -4,7 +4,7 @@ class Blog < ActiveRecord::Base
 
   include BlogKitModelHelper
 
-  belongs_to :user, class_name: 'User', foreign_key: :user_id
+  belongs_to :user
   has_many :posts, class_name: 'BlogPost', dependent: :destroy
   has_many :comments, through: :posts, source: :blog_comments
   

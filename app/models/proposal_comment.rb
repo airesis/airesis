@@ -59,8 +59,7 @@ class ProposalComment < ActiveRecord::Base
   end
 
   def set_paragraph_id
-    self.paragraph = Paragraph.first(conditions: {section_id: self.section_id})
-
+    self.paragraph = Paragraph.where(section_id: self.section_id).first
   end
 
   def set_collapsed

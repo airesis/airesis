@@ -12,10 +12,10 @@ class TagsController < ApplicationController
     if @kt
       @page_title = "Elenco elementi con tag '" + params[:id] + "'"
       @tag = params[:id]
-      @blog_posts_ids = BlogPost.published.joins(:tags).where({'tags.text' => @tag}).pluck('blog_posts.id')
+      @blog_posts_ids = BlogPost.published.joins(:tags).where('tags.text = ?',@tag).pluck('blog_posts.id')
       @blog_posts = BlogPost.where(id: @blog_posts_ids).includes(:blog, :tags, :user).order('created_at desc')
-      @proposals = Proposal.all(joins: :tags, conditions: {'tags.text' => @tag}, include: [:category, :quorum, :users, :vote_period, :proposal_type])
-      @groups = Group.all(joins: :tags, conditions: {'tags.text' => @tag})
+      @proposals = Proposal.joins(:tags).includes(:category, :quorum, :users, :vote_period, :proposal_type).where('tags.text = ?',@tag)
+      @groups = Group.joins(:tags).where('tags.text = ?',@tag)
 
       @similars = Tag.find_by_text(@tag).nearest
 

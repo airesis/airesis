@@ -285,21 +285,22 @@ class GroupsController < ApplicationController
   #fa partire una richiesta per la partecipazione dell'utente corrente al gruppo
   def ask_for_participation
     #verifica se l'utente ha già effettuato una richiesta di partecipazione a questo gruppo
-    request = current_user.group_participation_requests.find_by_group_id(@group.id)
-
-    if (!request) #se non l'ha mai fatta
-      participation = current_user.groups.find_by_id(@group.id)
-      if (participation) #verifica se per caso non fa già parte del gruppo
+    request = current_user.group_participation_requests.find_by(group_id: @group.id)
+    if request #se non l'ha mai fatta
+      flash[:notice] = t('info.group_participations.request_alredy_sent')
+    else
+      participation = current_user.groups.find_by(@group.id)
+      if participation #verifica se per caso non fa già parte del gruppo
         #crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
         request = GroupParticipationRequest.new
         request.user_id = current_user.id
         request.group_id = @group.id
         request.group_participation_request_status_id = 3 #accettata, dati corretti
         saved = request.save
-        if (!saved)
-          flash[:notice] = t('error.group_participations.already_member')
-        else
+        if saved
           flash[:error] = t('error.group_participations.request_not_registered')
+        else
+          flash[:notice] = t('error.group_participations.already_member')
         end
       else
         #inoltra la richiesta di partecipazione con stato IN ATTESA
@@ -308,16 +309,13 @@ class GroupsController < ApplicationController
         request.group_id = @group.id
         request.group_participation_request_status_id = 1 #in attesa...
         saved = request.save
-        if (!saved)
-          flash[:error] = t('error.group_participations.request_sent')
-        else
+        if saved
           flash[:notice] = t('info.group_participations.request_sent')
           notify_user_asked_for_participation(@group) #invia notifica ai portavoce
+        else
+          flash[:error] = t('error.group_participations.request_sent')
         end
       end
-    else
-      flash[:notice] = t('info.group_participations.request_alredy_sent')
-
     end
     redirect_to group_url(@group)
   end
@@ -325,7 +323,7 @@ class GroupsController < ApplicationController
   #fa partire una richiesta per seguire il gruppo
   def ask_for_follow
     #verifica se l'utente stà già seguendo questo gruppo
-    follow = current_user.group_follows.find_by_group_id(@group.id)
+    follow = current_user.group_follows.find_by(group_id: @group.id)
 
     if (!follow) #se non lo segue
       #segui il gruppo
@@ -350,7 +348,7 @@ class GroupsController < ApplicationController
       number = 0
       groups.each do |group_id|
         group = Group.find(group_id)
-        request = current_user.group_participation_requests.find_by_group_id(group.id)
+        request = current_user.group_participation_requests.find_by(group_id: group.id)
         unless request #se non l'ha mai fatta
           participation = current_user.groups.find_by_id(group.id)
           if participation #verifica se per caso non fa già parte del gruppo

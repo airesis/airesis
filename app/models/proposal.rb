@@ -461,6 +461,9 @@ class Proposal < ActiveRecord::Base
       (sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content } } +
           solutions.map { |solution| solution.sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content } } }).flatten
     end
+    text :tags_list do
+      self.tags.map(&:text).join(' ')
+    end
     boolean :visible_outside
     boolean :private
     integer :id

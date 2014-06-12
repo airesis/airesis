@@ -1,32 +1,17 @@
-<%= form_for([@blog, @blog_post], html: {multipart: true}) do |f| %>
+<%= simple_form_for [@blog, @blog_post], html: {multipart: true} do |f| %>
 
     <div class="editBlogPost">
-      <% if @blog_post.errors.size > 0 %>
-          <div id="errorExplanation" class="ui-state-error ui-corner-all">
-            <h2><%= t('pages.groups.new.errors_title') %></h2>
-            <ul>
-              <% @blog_post.errors.full_messages.each do |msg| %>
-                  <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
-      <% end %>
-      <p>
-        <%= f.label :title %>
-        <%= f.text_field :title, style: 'width:80%' %>
-      </p>
+      <%= f.error_notification %>
 
-      <p>
+
+        <%= f.input :title, style: 'width:80%' %>
+
         <%= f.label :body %>
         <%= f.cktext_area :body, ckeditor: {toolbar: 'blog', language: I18n.locale} %>
-      </p>
 
-      <p>
-        <%= f.label :tags_list, t('pages.groups.new.tags.title') %>
-        <%= f.text_field :tags_list %>
-      </p>
 
-      <p>
+        <%= f.input :tags_list, label: t('pages.groups.new.tags.title') %>
+
         <%= f.label :status %>
         <%= f.label :status_p, title: t('.published_title') do %>
             <%= f.radio_button :status, 'P', checked: "checked" %>
@@ -40,7 +25,6 @@
             <%= f.radio_button :status, 'D'%>
             <%= t('activerecord.attributes.blog_post.published_false') %>
         <% end %>
-      </p>
 
       <% if @groups.count > 0 %>
           <p>
@@ -48,11 +32,11 @@
             <%= f.select :group_ids, @groups.map { |group| [group.name, group.id, {'data-image' => group.image_url}] }, {}, multiple: '', style: 'width: 80%;' %>
           </p>
       <% end %>
+
       <p>
         <input type="hidden" name="group_id" value="<%= params[:group_id] %>"/>
         <%= link_to t('buttons.cancel'), :back, class: 'btn', id: 'cancel_button', data: {disable_with: t('loading')} %>
         <%= f.submit t('buttons.save'), class: 'btn blue', id: 'save_button', data: {disable_with: t('loading')} %>
-
       </p>
 
       <div style="clear: both;"></div>

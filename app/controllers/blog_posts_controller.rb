@@ -2,11 +2,7 @@
 class BlogPostsController < ApplicationController
   include NotificationHelper, GroupsHelper
 
-
   helper :blog
-
-  #l'utente deve aver fatto login
-  before_filter :authenticate_user!, except: [:index, :show]
 
   #l'utente deve aver creato un blog personale, oppure viene rimandato alla pagina per la creazione
   before_filter :require_blog, except: [:index, :show]
@@ -28,6 +24,13 @@ class BlogPostsController < ApplicationController
   before_filter :check_page_alerts, only: :show
 
   layout :choose_layout
+
+
+  load_and_authorize_resource :blog
+  load_and_authorize_resource :group
+
+  load_and_authorize_resource through: [:blog, :group], shallow: true
+
 
   def index
     @blog_posts = @blog.posts.published.order('published_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE) if @blog

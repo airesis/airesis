@@ -179,7 +179,6 @@ class ProposalsController < ApplicationController
         render nothing: true
       }
       format.html {
-        @step = get_next_step(current_user) if current_user
         if @proposal.proposal_state_id == ProposalState::WAIT_DATE.to_s
           flash.now[:info] = I18n.t('info.proposal.waiting_date')
         elsif @proposal.proposal_state_id == ProposalState::VOTING.to_s
@@ -426,25 +425,14 @@ class ProposalsController < ApplicationController
   #se è indicato un group_id cerca anche tra quelle interne a quel gruppo
   def similar
     authorize! :index, Proposal
-    tags = params[:tags].downcase.gsub('.', '').gsub("'", "").split(",").map { |t| "'#{t.strip}'" }.join(",").html_safe
-    if tags.empty?
-      tags = "''"
-    end
-    sql_q ="SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content,
-            p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
-            p.rank, p.show_comment_authors, COUNT(*) AS closeness
-            FROM proposal_tags pt join proposals p on pt.proposal_id = p.id"
-    sql_q += " left join group_proposals gp on gp.proposal_id = p.id " if params[:group_id]
-    sql_q += " WHERE pt.tag_id IN (SELECT pti.id
-               FROM tags pti
-               WHERE pti.text in (#{tags}))"
-    sql_q += " AND (p.private = false OR p.visible_outside = true "
-    sql_q += params[:group_id] ? " OR (p.private = true AND gp.group_id = #{@group.id.to_s}))" : ")"
-    sql_q +=" GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content,
-p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
-p.rank, p.show_comment_authors
-                                      ORDER BY closeness DESC LIMIT 10"
-    @similars = Proposal.find_by_sql(sql_q)
+    tags = params[:tags].downcase.gsub('.', '').gsub("'", '').split(',').map { |t| t.strip }.join(' ').html_safe if params[:tags]
+    search_q = "#{params[:title]} #{tags}"
+
+    search = SearchProposal.new(text: search_q)
+
+    search.user_id = current_user.id if current_user
+    search.group_id = @group.id if @group
+    @proposals = search.similar
 
     respond_to do |format|
       format.js
@@ -569,11 +557,11 @@ p.rank, p.show_comment_authors
   def query_index
     populate_search
 
-    if params[:state] == ProposalState::VOTATION_STATE
+    if params[:state] == ProposalState::TAB_VOTATION.to_s
       @replace_id = 'votation'
-    elsif params[:state] == ProposalState::ACCEPTED_STATE
+    elsif params[:state] == ProposalState::TAB_VOTED.to_s
       @replace_id = 'accepted'
-    elsif params[:state] == ProposalState::REVISION_STATE
+    elsif params[:state] == ProposalState::TAB_REVISION.to_s
       @replace_id = 'revision'
     else
       @replace_id = 'debate'
@@ -628,10 +616,6 @@ p.rank, p.show_comment_authors
   #carica l'area di lavoro
   def load_group_area
     @group_area = @group.group_areas.find(params[:group_area_id]) if @group && params[:group_area_id]
-  end
-
-  def load_proposal
-    @proposal = @group ? @group.proposals.find(params[:id]) : Proposal.find(params[:id])
   end
 
   def load_my_vote

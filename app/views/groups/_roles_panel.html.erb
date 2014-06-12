@@ -1,12 +1,10 @@
 <dl id="roles_accordion" class="accordion" data-accordion>
-  <% @participation_roles.each_with_index do |role, idx|
-    abilitations = role.action_abilitations.by_group(@group).all %>
+  <% @participation_roles.each_with_index do |role, idx| %>
       <dd>
         <a href="#role_<%= role.id %>"><%= role.name %>
           <% if role.id == @group.participation_role_id %> (default)
           <% end %>
         </a>
-
         <div id="role_<%= role.id %>" class="content <%= 'active' if idx==0 %>">
 
           <%= link_to t('buttons.delete'), group_participation_role_url(@group, role), method: :delete, class: 'btn deleteButton', style: 'float:right', data: {remote: true, confirm: t('pages.groups.edit_permissions.confirm_role_deletion'), disable_with: t('loading')} if can? :destroy, role %>
@@ -14,7 +12,7 @@
           <%= link_to t('buttons.edit'), edit_group_participation_role_url(@group, role), class: 'btn editButton', style: 'float:right', data: {remote: true, disable_with: t('loading')} %>
           <h4><%= role.description %></h4>
           <% GroupAction.order(:seq).each do |action| %>
-              <input type="checkbox" data-action-abilitation data-participation_role_id=<%= role.id %>  data-action_id=<%= action.id %> <%= 'checked="true"' if abilitations.find { |a| a.group_action_id == action.id } %>/>
+              <input type="checkbox" data-action-abilitation data-participation_role_id=<%= role.id %>  data-action_id=<%= action.id %> <%= 'checked="true"' if role.group_actions.include? action %>/>
               <span><%= action.description %></span> <br/>
           <% end %>
         </div>

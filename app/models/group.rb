@@ -36,7 +36,7 @@ class Group < ActiveRecord::Base
   has_many :followers, through: :group_follows, source: :user, class_name: 'User'
   has_many :posts, through: :post_publishings, source: :blog_post, class_name: 'BlogPost'
   has_many :participation_requests, class_name: 'GroupParticipationRequest', dependent: :destroy
-  has_many :participation_roles, -> { order 'id DESC' }, class_name: 'ParticipationRole', dependent: :destroy
+  has_many :participation_roles, -> { order 'participation_roles.id DESC' }, class_name: 'ParticipationRole', dependent: :destroy
   #has_many :participation_roles, class_name: 'ParticipationRole'
   belongs_to :interest_border, class_name: 'InterestBorder', foreign_key: :interest_border_id
   belongs_to :default_role, class_name: 'ParticipationRole', foreign_key: :participation_role_id
@@ -137,6 +137,11 @@ class Group < ActiveRecord::Base
   end
 
 
+  def description
+    super.try(:html_safe)
+  end
+
+
   def normalize_blank_values
     [:admin_title].each do |att|
       self[att] = nil if self[att].blank?
@@ -158,7 +163,6 @@ class Group < ActiveRecord::Base
     role = participation_roles.build({name: default_role_name, description: I18n.t('pages.groups.edit_permissions.default_role')})
     default_role_actions.each do |action_id|
       abilitation = role.action_abilitations.build(group_action_id: action_id)
-      abilitation.save!
     end if default_role_actions
     role.save!
     self.participation_role_id = role.id

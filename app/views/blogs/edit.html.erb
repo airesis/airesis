@@ -1,16 +1,12 @@
-<%@page_title = t('pages.blogs.edit.title', title: @blog.title) %>
+<% @page_title = t('pages.blogs.edit.title', title: @blog.title) %>
 <h1><%= t('pages.blogs.edit.title', title: @blog.title) %></h1>
 
-<%= form_for(@blog) do |f| %>
-  <%= render partial: 'fragments/error_messages', locals: {resource: @blog} %>
-
-  <p>
-    <%= f.label t('pages.blogs.edit.title_label') %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= link_to t('pages.blogs.edit.back_to_blog'), @blog, class: 'btn backButton' %>
-    <%= f.button t('buttons.update'), class: 'btn blue updateButton' %>
-  </p>
+<%= simple_form_for @blog do |f| %>
+    <%= f.error_notification %>
+    <%= f.input :title %>
+    <p>
+      <%= link_to t('pages.blogs.edit.back_to_blog'), @blog, class: 'btn backButton' %>
+      <%= f.button :submit, t('buttons.update'), class: 'btn blue updateButton' %>
+    </p>
 <% end %>
 

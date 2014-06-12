@@ -21,6 +21,7 @@ class Ability
     can :read, Announcement, ["starts_at <= :now and ends_at >= :now", now: Time.zone.now] do |a|
       true
     end
+
     if user
 
       can :create, Proposal, group_proposals: {group: {group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::PROPOSAL_INSERT}}}}}
@@ -75,7 +76,14 @@ class Ability
       can [:index, :list, :edit_list, :left_list], ProposalComment
       can :show, ProposalComment, user_id: user.id
       can :show, ProposalComment, proposal: {groups: {group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::PROPOSAL_VIEW}}}}}
+      can :create, ProposalComment, proposal: {private: false}
       can :create, ProposalComment, proposal: {groups: {group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::PROPOSAL_PARTICIPATION}}}}}
+
+
+      cannot :create, ProposalComment do |proposal_comment|
+        LIMIT_COMMENTS && user.last_proposal_comment && (user.last_proposal_comment.created_at > COMMENTS_TIME_LIMIT.ago)
+      end
+
 
       can :update, ProposalComment, user: {id: user.id}
 
@@ -131,7 +139,7 @@ class Ability
       can :view_data, Group, private: false
       can :view_data, Group, group_participations: {user: {id: user.id}}
 
-      can [:read, :create, :update, :change_group_permission], ParticipationRole, group_id: user.portavoce_group_ids
+      can [:read, :create, :update, :change_group_permission], ParticipationRole, group: {group_participations: {user_id: user.id, participation_role_id: ParticipationRole::ADMINISTRATOR}}
 
       can :destroy, ParticipationRole do |participation_role|
         participation_role.id != participation_role.group.participation_role_id
@@ -211,6 +219,10 @@ class Ability
       can :destroy, Authentication do |authentication|
         user == authentication.user && user.email #can destroy an identity provider only if the set a valid email address
       end
+
+      can [:edit, :update, :destroy], Blog, user_id: user.id
+
+      can [:new, :create], Blog unless user.blog
 
       can :read, BlogPost, reserved: true, groups: {group_participations: {user_id: user.id}}
       can :read, BlogPost, user_id: user.id
@@ -293,6 +305,7 @@ class Ability
           can :destroy, Proposal
           can :destroy, ProposalComment
           can :manage, Group
+          can :manage, Blog
           can :manage, BlogPost
           can :manage, Quorum
           can [:read, :create, :update, :change_group_permission], ParticipationRole

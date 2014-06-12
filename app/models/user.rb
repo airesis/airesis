@@ -159,6 +159,11 @@ class User < ActiveRecord::Base
     super && !(has_provider('twitter') || has_provider('linkedin'))
   end
 
+
+  def last_proposal_comment
+    self.proposal_comments.order('created_at desc').first
+  end
+
   #dopo aver creato un nuovo utente gli assegno il primo tutorial e
   #disattivo le notifiche standard
   def assign_tutorials
@@ -378,7 +383,7 @@ class User < ActiveRecord::Base
 
   #restituisce la richiesta di partecipazione 
   def has_asked_for_participation?(group_id)
-    self.group_participation_requests.find_by_group_id(group_id)
+    self.group_participation_requests.find_by(group_id: group_id)
   end
 
   def fullname
@@ -675,4 +680,6 @@ class User < ActiveRecord::Base
       return user
     end
   end
+
+
 end

@@ -107,8 +107,7 @@ class RequestVotesController < ApplicationController
   
   #fa partire una richiesta per la partecipazione dell'utente corrente al gruppo
   def ask_for_participation
-          
-   request = current_user.group_participation_requests.find_by_group_id(@group.id)
+   request = current_user.group_participation_requests.find_by(group_id: @group.id)
    if (!request)
      participation = current_user.groups.find_by_id(@group.id)
      if (participation)

@@ -11,7 +11,6 @@ class AreaRolesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :portavoce_required, only: [:edit, :update, :edit_permissions]
 
-
   #load_and_authorize_resource
 
   def new
@@ -56,13 +55,13 @@ class AreaRolesController < ApplicationController
   def change
     AreaActionAbilitation.transaction do
       if params[:block] == "true" #devo togliere i permessi
-        abilitation = @area_role.area_action_abilitations.find_by_group_action_id_and_group_area_id(params[:action_id], params[:group_area_id])
+        abilitation = @area_role.area_action_abilitations.find_by(group_action_id: params[:action_id], group_area_id: params[:group_area_id])
         if abilitation
           abilitation.destroy
           flash[:notice] =t('info.participation_roles.permissions_updated')
         end
       else #devo abilitare
-        abilitation = @area_role.area_action_abilitations.find_or_create_by_group_action_id_and_group_area_id(params[:action_id], params[:group_area_id])
+        abilitation = @area_role.area_action_abilitations.find_or_create_by(group_action_id: params[:action_id], group_area_id: params[:group_area_id])
         flash[:notice] =t('info.participation_roles.permissions_updated')
       end
     end
@@ -73,7 +72,7 @@ class AreaRolesController < ApplicationController
   end
 
   def change_permissions
-    gp = @group_area.area_participations.find_by_user_id(params[:user_id])
+    gp = @group_area.area_participations.find_by(user_id: params[:user_id])
     gp.area_role_id = @area_role.id
     gp.save!
     flash[:notice] = t('info.participation_roles.role_changed')
