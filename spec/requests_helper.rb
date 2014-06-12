@@ -17,6 +17,12 @@ def fill_in_ckeditor(locator, opts)
   SCRIPT
 end
 
+def toastr_clear
+  page.execute_script <<-SCRIPT
+    toastr.clear();
+  SCRIPT
+end
+
 
 def fill_tokeninput(locator, opts)
   content = opts.fetch(:with)
@@ -32,4 +38,32 @@ def page_should_be_ok
   expect(page).to_not have_content(I18n.t('error.error_500.title'))
   expect(page).to_not have_content(I18n.t('error.error_302.title'))
   expect(page).to_not have_content(I18n.t('error.error_404.title'))
+end
+
+def create_participation(user,group)
+  group.participation_requests.build(user: user,group_participation_request_status_id: 3)
+  group.group_participations.build(user: user,participation_role_id: group.participation_role_id)
+  group.save
+end
+
+def create_public_proposal(user_id)
+  create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: user_id)
+end
+
+def activate_areas(group)
+  group.enable_areas = true
+  create(:group_area, group: group)
+  create(:group_area, group: group)
+  group.save
+  group.reload
+end
+
+def wait_for_ajax
+  Timeout.timeout(Capybara.default_wait_time) do
+    loop until finished_all_ajax_requests?
+  end
+end
+
+def finished_all_ajax_requests?
+  page.evaluate_script('jQuery.active').zero?
 end

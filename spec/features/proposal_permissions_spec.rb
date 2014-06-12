@@ -39,7 +39,7 @@ describe "check user permissions on proposals", type: :feature do
     @proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: @second_user.id, group_proposals: [GroupProposal.new(group: @second_group)])
     visit group_proposal_path(@second_group, @proposal)
     expect(page.current_path).to eq(group_proposal_path(@second_group,@proposal))
-    @ability.should_not be_able_to(:show, @proposal)
+    @ability.should be_able_to(:show, @proposal)
   end
 
   it "can't view private proposals in others group" do
@@ -50,4 +50,5 @@ describe "check user permissions on proposals", type: :feature do
     expect(page).to have_content(I18n.t('error.error_302.title'))
     @ability.should_not be_able_to(:show, @proposal)
   end
+
 end

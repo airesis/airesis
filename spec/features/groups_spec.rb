@@ -2,12 +2,8 @@ require 'spec_helper'
 require 'requests_helper'
 
 describe "the creation of a group process", type: :feature, js: true do
-  before :all do
-    @user = create(:default_user)
-
-  end
-
   before :each do
+    @user = create(:default_user)
     login_as @user, scope: :user
   end
 
@@ -29,14 +25,12 @@ describe "the creation of a group process", type: :feature, js: true do
       fill_in I18n.t('activerecord.attributes.group.default_role_name'), with: Faker::Name.title
       click_button I18n.t('pages.groups.new.create_button')
     end
-    #success message!
-    expect(page).to have_content(I18n.t('info.groups.group_created'))
-    #the group name is certainly displayed somewhere
     expect(page).to have_content group_name
+    @group = Group.order(created_at: :desc).first
+    #the group name is certainly displayed somewhere
+    expect(page.current_path).to eq(group_path(@group))
     #the user is a participant
     page.should have_selector('#participants_container', text: /#{@user.name}/i)
-
-    @group = Group.order(created_at: :desc).first
 
     visit group_proposals_path(@group)
     page_should_be_ok

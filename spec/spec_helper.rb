@@ -1,13 +1,16 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-
 require 'database_cleaner'
+require 'sidekiq/testing'
+
+#require 'capybara-screenshot/rspec'
+
+Sidekiq::Testing.inline!
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
-
 
 RSpec.configure do |config|
 
@@ -58,4 +61,7 @@ RSpec.configure do |config|
   Capybara.register_driver :selenium do |app|
     Capybara::Selenium::Driver.new(app, :browser => :chrome)
   end
+
+  #Capybara.javascript_driver = :webkit
+  #Capybara::Screenshot.autosave_on_failure = true
 end

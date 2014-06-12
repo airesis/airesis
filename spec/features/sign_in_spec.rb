@@ -2,11 +2,8 @@ require 'spec_helper'
 require 'requests_helper'
 
 describe "the authenticated user process", type: :feature, js: true do
-  before :all do
-    @user = create(:default_user)
-  end
-
   before :each do
+    @user = create(:default_user)
     login @user, 'topolino'
     #login_as @user, scope: :user
   end

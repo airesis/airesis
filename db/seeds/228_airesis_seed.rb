@@ -1,17 +1,19 @@
 #encoding: utf-8
 EventType.create(name: "vote", color: "#C7E4C8") { |c| c.id = 2 }.save
 EventType.create(name: "meeting", color: "#EDD4B6") { |c| c.id = 1 }.save
-GroupAction.create(name: "PROPOSAL")
-GroupAction.create(name: "PROPOSAL_VIEW")
-GroupAction.create(name: "PROPOSAL_PARTICIPATION")
-GroupAction.create(name: "PROPOSAL_VOTE")
-GroupAction.create(name: "PROPOSAL_INSERT")
-GroupAction.create(name: "DOCUMENT_VIEW")
-GroupAction.create(name: "DOCUMENT_MANAGE")
-GroupAction.create(name: "CREATE_EVENT")
-GroupAction.create(name: "PROPOSAL_DATE")
-GroupAction.create(name: "STREAM_POST")
-GroupAction.create(name: "REQUEST_ACCEPT")
+
+GroupAction.create(name: "STREAM_POST") { |c| c.id = 1 }.save
+GroupAction.create(name: "CREATE_EVENT") { |c| c.id = 2 }.save
+GroupAction.create(name: "PROPOSAL") { |c| c.id = 3 }.save
+GroupAction.create(name: "REQUEST_ACCEPT") { |c| c.id = 4 }.save
+GroupAction.create(name: "PROPOSAL_VIEW") { |c| c.id = 6 }.save
+GroupAction.create(name: "PROPOSAL_PARTICIPATION") { |c| c.id = 7 }.save
+GroupAction.create(name: "PROPOSAL_INSERT") { |c| c.id = 8 }.save
+GroupAction.create(name: "DOCUMENT_VIEW") { |c| c.id = 9 }.save
+GroupAction.create(name: "DOCUMENT_MANAGE") { |c| c.id = 10 }.save
+GroupAction.create(name: "PROPOSAL_VOTE") { |c| c.id = 11 }.save
+GroupAction.create(name: "PROPOSAL_DATE") { |c| c.id = 12 }.save
+
 GroupParticipationRequestStatus.create(description: "Inoltrata") { |c| c.id = 1 }.save
 GroupParticipationRequestStatus.create(description: "In votazione") { |c| c.id = 2 }.save
 GroupParticipationRequestStatus.create(description: "Accettata") { |c| c.id = 3 }.save
