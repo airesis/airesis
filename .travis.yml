@@ -1,4 +1,9 @@
+before_install:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
 language: ruby
 rvm:
   - 2.1.0
-script: xvfb-run rspec
+before_script: curl https://raw.githubusercontent.com/moliware/travis-solr/master/travis-solr.sh | SOLR_VERSION=4.2.0 bash
+script: xvfb-run bundle exec rspec spec
+
