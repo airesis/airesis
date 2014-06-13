@@ -18,22 +18,24 @@ GroupParticipationRequestStatus.create(description: "Inoltrata") { |c| c.id = 1 
 GroupParticipationRequestStatus.create(description: "In votazione") { |c| c.id = 2 }.save
 GroupParticipationRequestStatus.create(description: "Accettata") { |c| c.id = 3 }.save
 GroupParticipationRequestStatus.create(description: "Negata") { |c| c.id = 4 }.save
+
 nc6 = NotificationCategory.create(seq: 1, short: "MYPROP")
-NotificationType.create(name: "new_contributes_mine", notification_category_id: nc6.id) { |c| c.id = 5 }.save
-NotificationType.create(name: "change_status_mine", notification_category_id: nc6.id) { |c| c.id = 6 }.save
-NotificationType.create(name: "new_valutation_mine", notification_category_id: nc6.id) { |c| c.id = 20 }.save
-NotificationType.create(name: "available_author", notification_category_id: nc6.id) { |c| c.id = 22 }.save
-NotificationType.create(name: "author_accepted", notification_category_id: nc6.id) { |c| c.id = 23 }.save
-NotificationType.create(name: "unintegrated_contribute", notification_category_id: nc6.id) { |c| c.id = 25 }.save
-NotificationType.create(name: "new_comments_mine", notification_category_id: nc6.id) { |c| c.id = 27 }.save
+NotificationType.create(name: 'new_contributes_mine', notification_category_id: nc6.id) { |c| c.id = 5 }.save
+NotificationType.create(name: 'change_status_mine', notification_category_id: nc6.id) { |c| c.id = 6 }.save
+NotificationType.create(name: 'new_valutation_mine', notification_category_id: nc6.id) { |c| c.id = 20 }.save
+NotificationType.create(name: 'available_author', notification_category_id: nc6.id) { |c| c.id = 22 }.save
+NotificationType.create(name: 'author_accepted', notification_category_id: nc6.id) { |c| c.id = 23 }.save
+NotificationType.create(name: 'unintegrated_contribute', notification_category_id: nc6.id) { |c| c.id = 25 }.save
+NotificationType.create(name: 'new_comments_mine', notification_category_id: nc6.id) { |c| c.id = 27 }.save
 nc7 = NotificationCategory.create(seq: 2, short: "PROP")
-NotificationType.create(name: "new_contributes", notification_category_id: nc7.id) { |c| c.id = 1 }.save
-NotificationType.create(name: "text_update", notification_category_id: nc7.id) { |c| c.id = 2 }.save
-NotificationType.create(name: "change_status", notification_category_id: nc7.id) { |c| c.id = 4 }.save
-NotificationType.create(name: "new_valutation", notification_category_id: nc7.id) { |c| c.id = 21 }.save
-NotificationType.create(name: "new_authors", notification_category_id: nc7.id) { |c| c.id = 24 }.save
-NotificationType.create(name: "new_comments", notification_category_id: nc7.id) { |c| c.id = 28 }.save
-NotificationType.create(name: "contribute_update", notification_category_id: nc7.id) { |c| c.id = 29 }.save
+NotificationType.create(name: 'new_contributes', notification_category_id: nc7.id) { |c| c.id = 1 }.save
+NotificationType.create(name: 'text_update', notification_category_id: nc7.id) { |c| c.id = 2 }.save
+NotificationType.create(name: 'change_status', notification_category_id: nc7.id) { |c| c.id = 4 }.save
+NotificationType.create(name: 'new_valutation', notification_category_id: nc7.id) { |c| c.id = 21 }.save
+NotificationType.create(name: 'new_authors', notification_category_id: nc7.id) { |c| c.id = 24 }.save
+NotificationType.create(name: 'new_comments', notification_category_id: nc7.id) { |c| c.id = 28 }.save
+NotificationType.create(name: 'contribute_update', notification_category_id: nc7.id) { |c| c.id = 29 }.save
+NotificationType.create(name: 'proposal_phase_ending', notification_category_id: nc7.id) { |c| c.id = 30 }.save
 nc8 = NotificationCategory.create(seq: 3, short: "NEWPROP")
 NotificationType.create(name: "new_public_proposals", notification_category_id: nc8.id) { |c| c.id = 3 }.save
 NotificationType.create(name: "new_proposals", notification_category_id: nc8.id) { |c| c.id = 10 }.save
@@ -121,6 +123,8 @@ BestQuorum.create(name: "7 giorni", percentage: nil, minutes_m: 0, hours_m: 0, d
 BestQuorum.create(name: "15 giorni", percentage: nil, minutes_m: 0, hours_m: 0, days_m: 15, good_score: 50, bad_score: 50, vote_percentage: 0, vote_minutes: nil, vote_good_score: 50, t_percentage: "s", t_minutes: "s", t_good_score: "s", t_vote_percentage: "s", t_vote_minutes: "f", t_vote_good_score: "s", public: true, seq: 4)
 BestQuorum.create(name: "30 giorni", percentage: nil, minutes_m: 0, hours_m: 0, days_m: 30, good_score: 50, bad_score: 50, vote_percentage: 0, vote_minutes: nil, vote_good_score: 50, t_percentage: "s", t_minutes: "s", t_good_score: "s", t_vote_percentage: "s", t_vote_minutes: "f", t_vote_good_score: "s", public: true, seq: 5)
 admin = ParticipationRole.create(name: "amministratore", description: "Amministratore") { |c| c.id = 2 }
+ActiveRecord::Base.connection.execute('ALTER SEQUENCE participation_roles_id_seq RESTART WITH 3')
+
 admin.save
 GroupAction.all.each do |group_action|
   ActionAbilitation.create!(group_action: group_action, participation_role: admin)
