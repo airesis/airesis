@@ -109,16 +109,7 @@ Airesis::Application.routes.draw do
 
   resources :proposal_categories
 
-  resources :blogs do
 
-    resources :blog_posts do
-      #match :tag, on: :member
-      get :drafts, on: :collection
-
-      resources :blog_comments
-    end
-    get '/:year/:month' => 'blogs#by_year_and_month', :as => :posts_by_year_and_month, on: :member
-  end
 
   resources :announcements do
     member do
@@ -205,7 +196,19 @@ Airesis::Application.routes.draw do
     end
   end
 
-  resources :blog_posts
+  concern :blog_posts do
+    resources :blog_posts do
+      get :drafts, on: :collection
+      resources :blog_comments
+    end
+  end
+
+  concerns :blog_posts
+
+  resources :blogs do
+    concerns :blog_posts
+    get '/:year/:month' => 'blogs#by_year_and_month', :as => :posts_by_year_and_month, on: :member
+  end
 
 
   resources :tags
@@ -498,11 +501,7 @@ Airesis::Application.routes.draw do
         resources :area_participations, only: [:create, :update, :destroy]
       end
 
-      resources :blog_posts do
-        #match :tag, on: :member
-        get :drafts, on: :collection
-        resources :blog_comments
-      end
+      concerns :blog_posts
 
       get '/:year/:month' => 'groups#by_year_and_month', :as => :posts_by_year_and_month, on: :member
     end

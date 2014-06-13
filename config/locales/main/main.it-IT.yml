@@ -669,7 +669,7 @@ it-IT:
       view:
         comments: "Commenti (%{count})"
       index:
-        title: "Blogs"
+        title: "Ultimi post su Airesis"
       edit:
         title: "Modifica il post"
     alerts:

@@ -679,7 +679,7 @@ en:
       view:
         comments: "Comments (%{count})"
       index:
-        title: "Blogs"
+        title: "Last posts on Airesis"
       edit:
         title: "Edit the post"
       archives:

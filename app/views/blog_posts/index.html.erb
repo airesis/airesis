@@ -1,22 +1,12 @@
-<% self.respond_to?(:title) && title(@index_title) -%>
-<% @show_title = false -%>
-<%= auto_discovery_link_tag :atom, blog_posts_path(format: :atom) %>
+<% javascript 'endless_page' %>
 
-
-<% if @blog_posts.size == 0 && !params[:page] %>
+<% if @blog_posts.size == 0  %>
 	<div class="blogPost">
 		<h1><%=t('pages.blogs.show.no_posts')%></h1>
 		<p><%=t('pages.blogs.show.no_posts_long')%></p>
 	</div>
 <% else %>
-	<% if @tag %>
-		<h1>Elenco dei post presenti nel portale con tag: '<%= @tag %>'</h1>
-	<% end %>
+    <div id="blogPostContainer">
 	<%= render collection: @blog_posts, partial: 'blog_post' %>
+    </div>
 <% end %>
-
-<div class="blogPages">
-	<%= paginate @blog_posts %>
-</div>
-
-<%= render partial: 'admin_links' %>

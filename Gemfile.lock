@@ -82,9 +82,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-select2 (0.0.8)
-      capybara
-      rspec
+    capybara-screenshot (0.3.19)
+      capybara (>= 1.0, < 3)
+      launchy
     capybara-webkit (1.1.0)
       capybara (~> 2.0, >= 2.0.2)
       json
@@ -204,6 +204,8 @@ GEM
       addressable
       faraday
       multi_json
+    launchy (2.4.2)
+      addressable (~> 2.3)
     libv8 (3.16.14.3)
     listen (2.7.4)
       celluloid (>= 0.15.2)
@@ -282,8 +284,6 @@ GEM
       htmlentities (>= 4.0.0)
     private_pub (1.0.3)
       faye
-    protected_attributes (1.0.7)
-      activemodel (>= 4.0.1, < 5.0)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
@@ -323,10 +323,6 @@ GEM
     rotp (1.6.1)
     rsolr (1.0.10)
       builder (>= 2.1.2)
-    rspec (3.0.0)
-      rspec-core (~> 3.0.0)
-      rspec-expectations (~> 3.0.0)
-      rspec-mocks (~> 3.0.0)
     rspec-core (3.0.0)
       rspec-support (~> 3.0.0)
     rspec-expectations (3.0.0)
@@ -445,7 +441,7 @@ DEPENDENCIES
   bullet
   cancancan (~> 1.7)
   capybara
-  capybara-select2
+  capybara-screenshot
   capybara-webkit
   ckeditor
   client_side_validations!
@@ -485,7 +481,6 @@ DEPENDENCIES
   paperclip
   pg
   private_pub
-  protected_attributes
   quiet_assets
   rails (= 4.0.2)
   rails_autolink

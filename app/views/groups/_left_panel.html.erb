@@ -61,8 +61,8 @@
       <% if can? :view_data, @group %>
 
           <% if user_signed_in? && current_user.blog %>
-              <% if (can? :post_to, @group) %>
-                  <%= link_to t('pages.groups.show.post_button'), new_blog_blog_post_url(current_user.blog, group_id: @group.id), class: 'btn green newButton', style: "margin-top:4px;" %>
+              <% if can? :post_to, @group %>
+                  <%= link_to t('pages.groups.show.post_button'), new_group_blog_post_url(@group), class: 'btn green newButton', style: "margin-top:4px;" %>
                   <br/>
               <% end %>
           <% else %>

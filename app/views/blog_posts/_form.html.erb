@@ -26,10 +26,11 @@
             <%= t('activerecord.attributes.blog_post.published_false') %>
         <% end %>
 
-      <% if @groups.count > 0 %>
+      <% if Group.accessible_by(current_ability, :post_to).size > 0 %>
+          <%groups = @blog_post.publishings.map(&:group)%>
           <p>
             <%= f.label :group_ids %>
-            <%= f.select :group_ids, @groups.map { |group| [group.name, group.id, {'data-image' => group.image_url}] }, {}, multiple: '', style: 'width: 80%;' %>
+            <%= f.select :group_ids, Group.accessible_by(current_ability, :post_to).map { |group| [group.name, group.id, {'data-image' => group.image_url, selected: (groups.include? group)}] }, {}, multiple: '', style: 'width: 80%;' %>
           </p>
       <% end %>
 

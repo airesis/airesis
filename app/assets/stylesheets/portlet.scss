@@ -18,13 +18,9 @@
 
 #homecont, #homegroup {
   position: relative;
+  padding-right: 0;
   .portlet_panel {
-    float: left;
-
     .inner {
-      margin-left: 10px;
-      margin-right: 10px;
-      margin-bottom: 20px;
       height: 400px;
 
       .scrollable {

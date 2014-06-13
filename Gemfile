@@ -13,7 +13,7 @@ gem 'turnout'
 gem 'sass-rails', "~> 4.0.0"
 gem 'coffee-rails', "~> 4.0.0"
 gem 'uglifier', ">= 1.3.0"
-gem 'foundation-rails', '~> 5.1.1.0' #waiting for 5.3 to fix some important bugs
+gem 'foundation-rails', '~> 5.1.1.0' #waiting for 5.3 to fix some important bugs (menu not diplayed correctly)
 
 gem 'pg'
 
@@ -32,8 +32,8 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'selenium-webdriver'
   gem 'capybara-webkit'
+  gem 'capybara-screenshot'
   gem "spring"
-  gem 'capybara-select2'
 end
 
 
@@ -132,8 +132,6 @@ gem 'mailman', require: false
 gem 'email_reply_parser'
 
 gem 'paper_trail', '~> 3.0.0'
-
-gem 'protected_attributes'
 
 gem 'client_side_validations', github: 'coorasse/client_side_validations', branch: '4-0-beta'
 

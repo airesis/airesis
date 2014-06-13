@@ -9,8 +9,8 @@
                                            else
                                              "#{request.protocol}#{request.host_with_port}#{asset_path("gruppo-anonimo.png")}"
                                            end %>"/>
-    <meta property="og:description" content="<%= @group.description %>"/>
-    <meta name="description" content="<%= @group.description %>">
+    <meta property="og:description" content="<%=CGI::escapeHTML(@group.description) %>"/>
+    <meta name="description" content="<%= CGI::escapeHTML(@group.description) %>">
     <%= auto_discovery_link_tag(:atom, group_url(@group, format: 'atom')) %>
 <% end %>
 
@@ -19,7 +19,7 @@
 
 
     <div class="row full-width">
-      <div class="column medium-12 large-8" style="padding-left:0;padding-right:0;">
+      <div class="columns medium-12 large-8" style="padding-left:0;padding-right:0;">
 
 
         <% if params[:action] == 'by_year_and_month' %>
