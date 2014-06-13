@@ -25,9 +25,11 @@ describe "create a proposal in his group", type: :feature, js: true do
       fill_tokeninput '#proposal_tags_list', with: ['tag1', 'tag2', 'tag3']
       fill_in_ckeditor 'proposal_sections_attributes_0_paragraphs_attributes_0_content', with: Faker::Lorem.paragraph
       select2("15 giorni", xpath: "//div[@id='s2id_proposal_quorum_id']")
-      sleep 0.5
+      wait_for_ajax
       click_button I18n.t('pages.proposals.new.create_button')
     end
+    page_should_be_ok
+
     @proposal = Proposal.order(:created_at).first
     #the proposal title is certainly displayed somewhere
     expect(page).to have_content @proposal.title

@@ -1,7 +1,9 @@
 require 'spec_helper'
 require 'requests_helper'
+require "cancan/matchers"
 
-describe "the management of participation roles in a group", type: :feature, js: true do
+describe 'the management of the forum', type: :feature, js: true do
+
   before :each do
     @user = create(:default_user)
     @ability = Ability.new(@user)
@@ -12,111 +14,110 @@ describe "the management of participation roles in a group", type: :feature, js:
     logout(:user)
   end
 
-  it "can't manage nothing if not logged in but asks to log in" do
-    visit group_participation_roles_path(@group)
-    expect(page.current_path).to eq('/users/sign_in')
-    visit new_group_participation_role_path(@group)
-    expect(page.current_path).to eq('/users/sign_in')
+  it "can view groups fora (only public), can't view private fora if not logged in" do
+    visit group_forums_path(@group)
+    @group.forums.each do |forum|
+      if forum.visible_outside
+        expect(page).to have_content(forum.title)
+      else
+        expect(page).to_not have_content(forum.title)
+      end
+    end
   end
 
-  it "can't manage other groups participation roles" do
+  it "can't view private fora of other groups if does not participate" do
     @user2 = create(:second_user)
     login_as @user2, scope: :user
-    visit group_participation_roles_path(@group)
-    expect(page).to have_content(I18n.t('error.error_302.title'))
-    visit new_group_participation_role_path(@group)
-    expect(page).to have_content(I18n.t('error.error_302.title'))
+
+    visit group_forums_path(@group)
+    @group.forums.each do |forum|
+      if forum.visible_outside
+        expect(page).to have_content(forum.title)
+      else
+        expect(page).to_not have_content(forum.title)
+      end
+    end
   end
 
-  it "can't manage participation roles in a group in which participates" do
+  it "can view all fora in his group" do
+    login_as @user, scope: :user
+    visit group_forums_path(@group)
+    @group.forums.each do |forum|
+        expect(page).to have_content(forum.title)
+    end
+  end
+
+  it "can view all fora in group in which participate" do
     @user2 = create(:second_user)
     create_participation(@user2,@group)
     login_as @user2, scope: :user
 
-    visit group_participation_roles_path(@group)
+    visit group_forums_path(@group)
+    @group.forums.each do |forum|
+      expect(page).to have_content(forum.title)
+    end
+  end
+
+  #user created group1 and group2
+  #user2 participate in group2
+  it "can create a new topic only in his group or in a group in which participate" do
+    @group2 = create(:group, current_user_id: @user.id)
+    @user2 = create(:second_user)
+    create_participation(@user2,@group2)
+    @ability = Ability.new(@user2)
+
+    visit new_group_forum_topic_path(@group,@group.forums.sample)
+    expect_sign_in_page
+
+    visit new_group_forum_topic_path(@group2,@group2.forums.sample)
+    expect_sign_in_page
+
+    visit new_group_forum_topic_path(@group,@group2.forums.sample)
+    expect_sign_in_page
+
+    login_as @user2, scope: :user
+
+    forum = @group.forums.sample
+    topic = forum.topics.build
+    @ability.should_not be_able_to(:create, topic)
+
+
+
+    visit new_group_forum_topic_path(@group,forum)
     expect(page).to have_content(I18n.t('error.error_302.title'))
-    visit new_group_participation_role_path(@group)
+
+    forum = @group2.forums.sample
+    topic = forum.topics.build
+
+    @ability.should be_able_to(:create, topic)
+
+    visit new_group_forum_topic_path(@group2,forum)
+    expect(page).to have_content(I18n.t('frm.topic.new'))
+
+    visit new_group_forum_topic_path(@group,forum)
     expect(page).to have_content(I18n.t('error.error_302.title'))
+
+    visit new_group_forum_topic_path(@group2,@group.forums.sample.id)
+    expect(page).to have_content(I18n.t('error.error_404.title'))
   end
 
 
-  it "view participation roles page and manage them" do
-    login_as @user, scope: :user
+  #user created group1 and group2
+  #user2 participate in group2
+  it "can create qwdqwqwff " do
+    @group2 = create(:group, current_user_id: @user.id)
+    @user2 = create(:second_user)
+    create_participation(@user2,@group2)
+    @ability = Ability.new(@user2)
 
-    visit group_participation_roles_path(@group)
-    page_should_be_ok
+    login_as @user2, scope: :user
 
-    expect(page).to have_content I18n.t('pages.groups.edit_permissions.title')
-
-
-    within("#main-copy") do
-      @group.participation_roles.each_with_index do |participation_role, i|
-        click_link participation_role.name if i > 0
-        within("#role_#{participation_role.id}") do
-          GroupAction.all.each do |group_action|
-            if DEFAULT_GROUP_ACTIONS.include? group_action.id
-              expect(find(:css, "[data-action_id='#{group_action.id}']")).to be_checked
-            else
-              expect(find(:css, "[data-action_id='#{group_action.id}']")).to_not be_checked
-            end
-          end
-        end
-      end
-    end
-
-    visit new_group_participation_role_path(@group)
-
-    role_name = Faker::Name.title
-    within('#main-copy') do
-      fill_in I18n.t('activerecord.attributes.participation_role.name'), with: role_name
-      fill_in I18n.t('activerecord.attributes.participation_role.description'), with: Faker::Lorem.sentence
-      click_button I18n.t('buttons.create')
-    end
-
-    expect(page).to have_content role_name
-
-    @group.reload
-    within("#main-copy") do
-      @group.participation_roles.each_with_index do |participation_role, i|
-        click_link participation_role.name if i > 0
-        within("#role_#{participation_role.id}") do
-          GroupAction.all.each do |group_action|
-            if (DEFAULT_GROUP_ACTIONS.include? group_action.id) && (participation_role == @group.default_role)
-              expect(find(:css, "[data-action_id='#{group_action.id}']")).to be_checked
-            else
-              expect(find(:css, "[data-action_id='#{group_action.id}']")).to_not be_checked
-            end
-          end
-        end
-      end
-
-      toastr_clear
-
-      click_link @group.participation_roles.first.name
-      within("#role_#{@group.participation_roles.first.id}") do
-        DEFAULT_GROUP_ACTIONS.each do |group_action|
-          find(:css, "[data-action_id='#{group_action}']").click
-        end
-      end
-    end
-
-    wait_for_ajax
-
-    visit group_participation_roles_path(@group)
-
-    within("#main-copy") do
-      @group.participation_roles.each_with_index do |participation_role, i|
-        click_link participation_role.name if i > 0
-        within("#role_#{participation_role.id}") do
-          GroupAction.all.each do |group_action|
-            if DEFAULT_GROUP_ACTIONS.include? group_action.id
-              expect(find(:css, "[data-action_id='#{group_action.id}']")).to be_checked
-            else
-              expect(find(:css, "[data-action_id='#{group_action.id}']")).to_not be_checked
-            end
-          end
-        end
-      end
-    end
+    forum = @group2.forums.sample
+    topic = forum.topics.build
+    @ability.should be_able_to(:read, @group2)
+    @ability.should be_able_to(:read, forum)
+    @ability.should be_able_to(:new, topic)
+    visit new_group_forum_topic_path(@group2,forum)
+    expect(page).to have_content(I18n.t('frm.topic.new'))
   end
 end

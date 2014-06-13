@@ -50,7 +50,7 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
       puts "Accessing blog " + blog.id.to_s
       get blog_path(blog)
       assert_response :success, "Can't access blog page #{blog.id}"
-      blog.posts.each do |post|
+      blog.blog_posts.each do |post|
         get blog_blog_post_path(blog,post)
         assert_response :success, "Can't access blog post page #{post.id}"
       end

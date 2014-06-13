@@ -4,7 +4,10 @@ require 'rspec/rails'
 require 'database_cleaner'
 require 'sidekiq/testing'
 
-require 'capybara-screenshot/rspec'
+WEBKIT=false
+if WEBKIT
+  require 'capybara-screenshot/rspec'
+end
 
 Sidekiq::Testing.inline!
 
@@ -52,16 +55,23 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
 
   config.include Warden::Test::Helpers
+
+  config.include Capybara::Select2
+
   Warden.test_mode!
 
   # loading seeds
   #config.include Rails.application.routes.url_helpers
   config.include Rails.application.routes.url_helpers
 
-  #Capybara.register_driver :selenium do |app|
-  #  Capybara::Selenium::Driver.new(app, :browser => :chrome)
-  #end
 
-  Capybara.javascript_driver = :webkit
-  Capybara::Screenshot.autosave_on_failure = true
+
+  if WEBKIT
+    Capybara.javascript_driver = :webkit
+    Capybara::Screenshot.autosave_on_failure = true
+  else
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(app, :browser => :chrome)
+    end
+  end
 end

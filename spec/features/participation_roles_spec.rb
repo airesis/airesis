@@ -14,9 +14,9 @@ describe "the management of participation roles in a group", type: :feature, js:
 
   it "can't manage nothing if not logged in but asks to log in" do
     visit group_participation_roles_path(@group)
-    expect(page.current_path).to eq('/users/sign_in')
+    expect_sign_in_page
     visit new_group_participation_role_path(@group)
-    expect(page.current_path).to eq('/users/sign_in')
+    expect_sign_in_page
   end
 
   it "can't manage other groups participation roles" do

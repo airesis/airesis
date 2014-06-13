@@ -67,3 +67,7 @@ end
 def finished_all_ajax_requests?
   page.evaluate_script('jQuery.active').zero?
 end
+
+def expect_sign_in_page
+  expect(page.current_path).to eq('/users/sign_in')
+end
