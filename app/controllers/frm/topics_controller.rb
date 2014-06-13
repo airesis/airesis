@@ -1,9 +1,15 @@
 module Frm
   class TopicsController < Frm::ApplicationController
-
     helper 'frm/posts'
-    before_filter :authenticate_user!, except: [:show]
-    before_filter :find_forum
+
+    before_filter :load_group
+
+    authorize_resource :group
+
+    before_filter :load_forum
+    authorize_resource :forum, through: :group
+    load_and_authorize_resource through: :forum
+
     before_filter :block_spammers, only: [:new, :create]
 
     def show
@@ -15,8 +21,8 @@ module Frm
     end
 
     def new
-      authorize! :create_topic, @forum
-      @topic = @forum.topics.build
+      #authorize! :create_topic, @forum
+      #@topic = @forum.topics.build
       @topic.posts.build
     end
 
@@ -102,11 +108,18 @@ module Frm
       end
     end
 
-    private
-    def find_forum
+
+    protected
+
+
+    def load_forum
       @forum = @group.forums.friendly.find(params[:forum_id])
-      authorize! :read, @forum
     end
+
+    def topic_params
+      params.require(:frm_topic).permit(:subject, :posts_attributes, :tags_list)
+    end
+
 
     def find_posts(topic)
       posts = topic.posts

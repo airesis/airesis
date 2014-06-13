@@ -17,8 +17,6 @@ module Frm
     # Used in the moderation tools partial
     attr_accessor :moderation_option
 
-    attr_accessible :text, :reply_to_id
-
     belongs_to :topic
     belongs_to :user,     class_name: 'User'
     belongs_to :reply_to, class_name: "Post"

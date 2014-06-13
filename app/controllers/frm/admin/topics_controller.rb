@@ -38,6 +38,12 @@ module Frm
         redirect_to group_forum_topic_url(@group,@topic.forum, @topic)
       end
 
+      protected
+
+      def topic_params
+        params.require(:frm_topic).permit(:subject, :posts_attributes, :tags_list, :pinned, :locked, :hidden, :forum_id, as: :admin)
+      end
+
       private
         def find_topic
           @topic = Frm::Topic.find(params[:id])

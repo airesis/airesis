@@ -2,7 +2,8 @@ module Frm
   module Admin
     class CategoriesController < BaseController
 
-      before_filter :find_category, only: [:edit, :update, :destroy]
+      load_and_authorize_resource :group
+      load_and_authorize_resource class: 'Frm::Category', through: :group
 
       def index
         @categories = @group.categories.all
@@ -35,6 +36,12 @@ module Frm
         @category.destroy
         @categories = @group.categories
         destroy_successful
+      end
+
+      protected
+
+      def category_params
+        params.require(:category).permit(:name, :visible_outside, :tags_list)
       end
 
       private

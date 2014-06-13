@@ -313,7 +313,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
 
-      if @user.update_attributes(params[:user])
+      if @user.update_attributes(user_params)
         flash[:notice] = t('info.user.info_updated')
         if params[:user][:email] && @user.email != params[:user][:email]
           flash[:notice] += t('info.user.confirm_email')
@@ -373,6 +373,11 @@ class UsersController < ApplicationController
   end
 
   protected
+
+
+  def user_params
+    params.require(:user).permit(:login, :name, :email, :surname, :password, :password_confirmation, :blog_image_url, :sex, :remember_me, :accept_conditions, :receive_newsletter, :facebook_page_url, :linkedin_page_url, :google_page_url, :sys_locale_id, :time_zone)
+  end
 
   def choose_layout
     if ['index'].include? action_name

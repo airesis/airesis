@@ -396,7 +396,7 @@ class Proposal < ActiveRecord::Base
     c = (a | b)
     if self.private
       #all users that are part of the group of the proposal
-      d = self.presentation_groups.map { |group| group.participants }.flatten
+      d = self.supporting_groups.map { |group| group.participants }.flatten
       e = self.groups.map { |group| group.participants }.flatten
       f = d | e
       #the participants are user that partecipated the proposal and are still in the group

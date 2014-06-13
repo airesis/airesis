@@ -2,8 +2,6 @@ class InterestBorder < ActiveRecord::Base
   has_many :proposal_borders, class_name: 'ProposalBorder'
   has_many :groups, class_name: 'Group'
 
-  attr_accessible :territory_id, :territory_type
-
   belongs_to :territory, polymorphic: true
 
   CIRCOSCRIZIONE = 'Circoscrizione'

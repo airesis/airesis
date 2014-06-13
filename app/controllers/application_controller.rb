@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age, :is_group_admin?, :in_subdomain?
 
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :name, :surname, :accept_conditions, :sys_locale_id, :password) }
   end
@@ -69,10 +70,10 @@ class ApplicationController < ActionController::Base
   def load_blog_data
     if @blog
       @user = @blog.user
-      @blog_posts = @blog.posts.published.includes(:user, :blog, :tags).order('published_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
+      @blog_posts = @blog.blog_posts.published.includes(:user, :blog, :tags).page(params[:page]).per(COMMENTS_PER_PAGE)
       @recent_comments = @blog.comments.includes(:blog_post, user: [:image, :user_type]).order('created_at DESC').limit(10)
-      @recent_posts = @blog.posts.published.order('published_at DESC').limit(10)
-      @archives = @blog.posts.select("COUNT(*) AS posts, extract(month from created_at) AS MONTH , extract(year from created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from created_at) desc")
+      @recent_posts = @blog.blog_posts.published.limit(10)
+      @archives = @blog.blog_posts.select("COUNT(*) AS posts, extract(month from created_at) AS MONTH , extract(year from created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from created_at) desc")
     end
   end
 

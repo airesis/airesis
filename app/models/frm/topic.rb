@@ -22,10 +22,7 @@ module Frm
     extend FriendlyId
     friendly_id :subject, use: :scoped, scope: :forum
 
-    attr_accessible :subject, :posts_attributes
-    attr_accessible :subject, :posts_attributes, :pinned, :locked, :hidden, :forum_id, as: :admin
-
-    belongs_to :forum
+    belongs_to :forum, class_name: 'Frm::Forum'
     belongs_to :user, class_name: 'User'
     has_many   :subscriptions
     has_many   :posts, -> {order 'frm_posts.created_at ASC'}, dependent: :destroy

@@ -20,7 +20,6 @@ class RequestVotesController < ApplicationController
   
   def index
     @groups = Group.all
-
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -29,7 +28,7 @@ class RequestVotesController < ApplicationController
   
   def show
     @group_participations = @group.participants
-    @group_posts = @group.posts.published.order('published_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
+    @group_posts = @group.blog_posts.published.page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
       format.html # show.html.erb

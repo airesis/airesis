@@ -29,7 +29,7 @@ class BlogsController < ApplicationController
 
   def by_year_and_month
     @page_title = t('pages.blog_posts.archives.title', year: params[:year], month: t('date.month_names')[params[:month].to_i])
-    @blog_posts = @blog.posts.where("extract(year from created_at) = ? AND extract(month from created_at) = ? ", params[:year], params[:month]).order("created_at DESC").page(params[:page]).per(COMMENTS_PER_PAGE)
+    @blog_posts = @blog.blog_posts.where("extract(year from created_at) = ? AND extract(month from created_at) = ? ", params[:year], params[:month]).order("created_at DESC").page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
       format.js
@@ -71,7 +71,7 @@ class BlogsController < ApplicationController
   end
 
   def update
-    if @blog.update_attributes(params[:blog])
+    if @blog.update_attributes(blog_params)
       flash[:notice] = t('info.blog.title_updated')
       redirect_to @blog
     else

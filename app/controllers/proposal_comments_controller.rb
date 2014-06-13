@@ -249,6 +249,10 @@ class ProposalCommentsController < ApplicationController
 
   protected
 
+  def proposal_comment_params
+    params.require(:proposal_comment).permit(:content, :parent_proposal_comment_id, :section_id)
+  end
+
   #questo metodo permette di verificare che l'utente collegato sia l'autore del commento
   def check_author
     @proposal_comment = ProposalComment.find(params[:id])

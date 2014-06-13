@@ -48,7 +48,7 @@ class GroupsController < ApplicationController
     if current_user
       @group_posts = @group.post_publishings.viewable_by(current_user).order('post_publishings.featured desc, published_at DESC').select('post_publishings.*, published_at').uniq
     else
-      @group_posts = @group.posts.published.includes([:blog, {user: :image}, :tags]).order('post_publishings.featured desc, published_at DESC')
+      @group_posts = @group.blog_posts.published.includes([:blog, {user: :image}, :tags]).order('post_publishings.featured desc, published_at DESC')
     end
 
     respond_to do |format|
@@ -63,7 +63,7 @@ class GroupsController < ApplicationController
         @page_title = @group.name
         @group_participations = @group.participants
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
-        @archives = @group.posts.select("COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH , extract(year from blog_posts.created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from blog_posts.created_at) desc")
+        @archives = @group.blog_posts.select("COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH , extract(year from blog_posts.created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from blog_posts.created_at) desc")
       }
       format.atom
       format.json
@@ -75,7 +75,7 @@ class GroupsController < ApplicationController
     if current_user
       @group_posts = @group.post_publishings.viewable_by(current_user).order('post_publishings.featured desc, published_at DESC').select('post_publishings.*, published_at').uniq
     else
-      @group_posts = @group.posts.published.includes([:blog, {user: :image}, :tags]).order('post_publishings.featured desc, published_at DESC')
+      @group_posts = @group.blog_posts.published.includes([:blog, {user: :image}, :tags]).order('post_publishings.featured desc, published_at DESC')
     end
     @group_posts = @group_posts.where("extract(year from blog_posts.created_at) = ? AND extract(month from blog_posts.created_at) = ? ", params[:year], params[:month])
 
@@ -88,7 +88,7 @@ class GroupsController < ApplicationController
         @page_title = t('pages.groups.archives.title', group: @group.name, year: params[:year], month: t('date.month_names')[params[:month].to_i])
         @group_participations = @group.participants
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
-        @archives = @group.posts.select("COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH , extract(year from blog_posts.created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from blog_posts.created_at) desc")
+        @archives = @group.blog_posts.select("COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH , extract(year from blog_posts.created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from blog_posts.created_at) desc")
         render 'show'
       }
       format.json { render 'show' }

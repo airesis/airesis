@@ -4,7 +4,6 @@ module Concerns
 
     included do
       before_save :save_tags, if: :not_resaving?
-      attr_accessible :tags_list
     end
 
     def tags_list

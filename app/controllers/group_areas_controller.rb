@@ -110,6 +110,11 @@ class GroupAreasController < ApplicationController
 
   protected
 
+
+  def group_area_params
+    params.require(:group_area).permit(:name, :description, :default_role_name, :default_role_actions)
+  end
+
   def configuration_required
     unless ::Configuration.group_areas
       flash[:error] = t('error.configuration_required')

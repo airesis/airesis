@@ -11,7 +11,7 @@ module Frm
     has_many :tags, through: :category_tags, class_name: 'Tag'
 
     validates :name, presence: true
-    attr_accessible :name, :visible_outside
+
 
     validate :visibility
 

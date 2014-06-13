@@ -8,7 +8,6 @@ class GroupArea < ActiveRecord::Base
   validates :group_id, presence: true
   validates :default_role_name, presence: true, on: :create
 
-  attr_accessible :name, :description, :default_role_name, :default_role_actions
   attr_accessor :default_role_name, :default_role_actions, :current_user_id
 
   belongs_to :group, class_name: 'Group', foreign_key: :group_id

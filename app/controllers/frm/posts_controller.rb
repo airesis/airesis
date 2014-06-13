@@ -43,6 +43,13 @@ module Frm
       destroy_successful
     end
 
+
+    protected
+
+    def post_params
+      params.require(:frm_post).permit(:text, :reply_to_id)
+    end
+
     private
 
     def authorize_reply_for_topic!

@@ -14,7 +14,6 @@ class BlogPost < ActiveRecord::Base
   has_many :publishings, class_name: "PostPublishing", dependent: :destroy
   has_many :groups, through: :publishings, class_name: "Group"
 
-
   validates_presence_of :title
   validates_presence_of :body
 
@@ -24,6 +23,8 @@ class BlogPost < ActiveRecord::Base
 
   before_save :check_published, if: :not_resaving?
   before_save :save_tags, if: :not_resaving?
+
+  after_commit :send_notifications, on: :create
 
   PUBLISHED = 'P'
   DRAFT = 'D'
@@ -96,5 +97,11 @@ class BlogPost < ActiveRecord::Base
   # Provide SEO Friendly URL's
   def to_param
     "#{id}-#{title.gsub(/[^a-z0-9]+/i, '-')}"
+  end
+
+  protected
+
+  def send_notifications
+    NotificationBlogPostCreate.perform_async(self.id) unless self.draft?
   end
 end

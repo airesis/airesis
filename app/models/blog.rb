@@ -5,14 +5,14 @@ class Blog < ActiveRecord::Base
   include BlogKitModelHelper
 
   belongs_to :user
-  has_many :posts, class_name: 'BlogPost', dependent: :destroy
-  has_many :comments, through: :posts, source: :blog_comments
+  has_many :blog_posts, dependent: :destroy
+  has_many :comments, through: :blog_posts, source: :blog_comments
   
   has_many :blog_tags, dependent: :destroy
   has_many :tags, through: :blog_tags, class_name: 'Tag'
 
   def last_post
-    self.posts.order(created_at: :desc).first
+    self.blog_posts.order(created_at: :desc).first
   end
 
   searchable do
@@ -36,7 +36,7 @@ class Blog < ActiveRecord::Base
     limite = params[:limit] || 30
 
     if tag
-      Blog.joins(posts: :tags).where(['tags.text = ?', tag]).page(page).per(limite)
+      Blog.joins(blog_posts: :tags).where(['tags.text = ?', tag]).page(page).per(limite)
     else
       Blog.search do
         fulltext search, minimum_match: params[:minimum] if search
@@ -49,5 +49,4 @@ class Blog < ActiveRecord::Base
       end.results
     end
   end
-
 end

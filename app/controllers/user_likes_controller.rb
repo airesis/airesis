@@ -2,7 +2,7 @@ class UserLikesController < ApplicationController
   before_filter :authenticate_user!
 
   def create
-    @user_like = UserLike.new(params[:user_like])
+    @user_like = UserLike.new(user_like_params)
     @user_like.user_id = current_user.id
     respond_to do |format|
       if @user_like.save
@@ -20,5 +20,11 @@ class UserLikesController < ApplicationController
     respond_to do |format|
       format.js { render nothing: true, status: 200 }
     end
+  end
+
+  protected
+
+  def user_like_params
+    params.require(:user_like).permit(:likeable_id, :likeable_type)
   end
 end

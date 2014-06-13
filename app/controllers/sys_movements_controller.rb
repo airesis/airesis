@@ -5,7 +5,6 @@ class SysMovementsController < ApplicationController
 
   before_filter :moderator_required
 
-
   def index
     @sys_movements = SysMovement.all
 
@@ -14,7 +13,6 @@ class SysMovementsController < ApplicationController
       format.json { render json: @sys_movements }
     end
   end
-
 
   def show
     @sys_movement = SysMovement.find(params[:id])
@@ -25,7 +23,6 @@ class SysMovementsController < ApplicationController
     end
   end
 
-
   def new
     @sys_movement = SysMovement.new
 
@@ -35,11 +32,9 @@ class SysMovementsController < ApplicationController
     end
   end
 
-
   def edit
     @sys_movement = SysMovement.find(params[:id])
   end
-
 
   def create
     @sys_movement = SysMovement.new(params[:sys_movement])
@@ -79,5 +74,11 @@ class SysMovementsController < ApplicationController
       format.html { redirect_to sys_movements_url }
       format.json { head :no_content }
     end
+  end
+
+  protected
+
+  def sys_movement_params
+    params.require(:sys_movement).permit(:sys_currency_id, :sys_movement_type_id, :amount, :made_on, :description)
   end
 end

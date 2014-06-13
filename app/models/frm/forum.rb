@@ -6,12 +6,12 @@ module Frm
     extend FriendlyId
     friendly_id :name, use: :scoped, scope: :group
 
-    belongs_to :category
+    belongs_to :category, class_name: 'Frm::Category'
 
     belongs_to :group, class_name: '::Group', foreign_key: 'group_id'
 
-    has_many :topics,     dependent: :destroy
-    has_many :posts,      through: :topics, dependent: :destroy
+    has_many :topics, class_name: 'Frm::Topic', dependent: :destroy
+    has_many :posts, class_name: 'Frm::Post', through: :topics, dependent: :destroy
     has_many :moderators, through: :moderator_groups, source: :frm_group, class_name: 'Frm::Group'
     has_many :moderator_groups
 
@@ -22,11 +22,9 @@ module Frm
 
     validate :visibility
 
-    attr_accessible :category_id, :title, :name, :description, :moderator_ids, :visible_outside
-
     alias_attribute :title, :name
 
-    default_scope {order('name ASC')}
+    default_scope { order('name ASC') }
 
     def last_post_for(forem_user)
       if forem_user && (forem_user.forem_admin?(group) || moderator?(forem_user))
@@ -52,7 +50,7 @@ module Frm
     protected
 
     def visibility
-      self.errors.add(:visible_outside,"Un forum non può essere visibile all''esterno se la sezione in cui è contenuto non è visibile") if (self.visible_outside && !self.category.visible_outside)
+      self.errors.add(:visible_outside, "Un forum non può essere visibile all''esterno se la sezione in cui è contenuto non è visibile") if (self.visible_outside && !self.category.visible_outside)
     end
   end
 end

@@ -1,19 +1,17 @@
 module Frm
   class CategoriesController < Frm::ApplicationController
     helper 'frm/forums'
-    #load_and_authorize_resource class: 'Frm::Category'
 
-    before_filter :load_category
+    load_and_authorize_resource :group
+    load_and_authorize_resource class: 'Frm::Category', through: :group
 
     def show
-      authorize! :read, @category
     end
-
 
     protected
 
-    def load_category
-      @category = @group.categories.friendly.find(params[:id])
+    def category_params
+      params.require(:category).permit(:name, :visible_outside, :tags_list)
     end
   end
 end

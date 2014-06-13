@@ -224,10 +224,18 @@ class Ability
 
       can [:new, :create], Blog unless user.blog
 
-      can :read, BlogPost, reserved: true, groups: {group_participations: {user_id: user.id}}
+      can :read, BlogPost, status: BlogPost::RESERVED, groups: {group_participations: {user_id: user.id}}
+
+      can :drafts, BlogPost, status: BlogPost::DRAFT, user_id: user.id
+
       can :read, BlogPost, user_id: user.id
 
       can :update, BlogPost, user_id: user.id
+
+      if user.blog
+        can :create, BlogPost, blog: {user_id: user.id}
+        can :create, BlogPost, publishings: {group: {group_participations: {user_id: user.id}}}
+      end
 
       can :change_rotp_enabled, User if user.email
 
@@ -262,6 +270,8 @@ class Ability
       can :read, Frm::Forum, group: {group_participations: {user_id: user.id}}
 
       can :create_topic, Frm::Forum, group: {group_participations: {user_id: user.id}}
+
+      can [:new,:create], Frm::Topic, forum: {group: {group_participations: {user_id: user.id}}}
 
       can :reply, Frm::Topic, group: {group_participations: {user_id: user.id}}
 

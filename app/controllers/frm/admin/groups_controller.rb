@@ -36,6 +36,12 @@ module Frm
         redirect_to group_frm_admin_frm_groups_url(@group)
       end
 
+      protected
+
+      def group_params
+        params.require(:frm_group).permit(:name)
+      end
+
       private
 
       def find_group

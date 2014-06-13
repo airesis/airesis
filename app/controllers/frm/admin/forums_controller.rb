@@ -2,25 +2,19 @@ module Frm
   module Admin
     class ForumsController < BaseController
 
-
-
-      before_filter :load_group
-      before_filter :find_forum, only: [:edit, :update, :destroy]
+      load_and_authorize_resource :group
+      load_and_authorize_resource through: :group
 
       def index
-        @forums = @group.forums.all
       end
 
       def new
-        @forum = @group.forums.build
         category = @group.categories.first
         @forum.category = category
         @forum.tags = category.tags
       end
 
       def create
-        @forum = Frm::Forum.new(params[:frm_forum])
-        @forum.group_id = @group.id
         if @forum.save
           create_successful
         else
@@ -29,7 +23,7 @@ module Frm
       end
 
       def update
-        if @forum.update_attributes(params[:frm_forum])
+        if @forum.update_attributes(frm_forum_params)
           update_successful
         else
           update_failed
@@ -43,9 +37,10 @@ module Frm
 
       private
 
-      def find_forum
-        @forum = @group.forums.find(params[:id])
+      def frm_forum_params
+        params.require(:frm_forum).permit(:category_id, :title, :name, :description, :moderator_ids, :visible_outside, :tags_list)
       end
+
 
       def create_successful
         flash[:notice] = t("frm.admin.forum.created")

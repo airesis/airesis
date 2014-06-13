@@ -34,7 +34,7 @@ class Group < ActiveRecord::Base
   has_many :portavoce, -> { where(["group_participations.participation_role_id = ?", ParticipationRole::ADMINISTRATOR]) }, through: :group_participations, source: :user, class_name: 'User'
 
   has_many :followers, through: :group_follows, source: :user, class_name: 'User'
-  has_many :posts, through: :post_publishings, source: :blog_post, class_name: 'BlogPost'
+  has_many :blog_posts, through: :post_publishings, source: :blog_post
   has_many :participation_requests, class_name: 'GroupParticipationRequest', dependent: :destroy
   has_many :participation_roles, -> { order 'participation_roles.id DESC' }, class_name: 'ParticipationRole', dependent: :destroy
   #has_many :participation_roles, class_name: 'ParticipationRole'
