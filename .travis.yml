@@ -5,5 +5,5 @@ language: ruby
 rvm:
   - 2.1.0
 before_script: curl https://raw.githubusercontent.com/moliware/travis-solr/master/travis-solr.sh | SOLR_VERSION=4.2.0 bash
-script: xvfb-run bundle exec rspec spec
+script: xvfb-run  -e /dev/stdout bundle exec rspec spec
 
