@@ -40,46 +40,30 @@ class GroupAreasController < ApplicationController
   end
 
   def create
-    begin
-      GroupArea.transaction do
-        params[:group_area][:default_role_actions]
-        @group_area = @group.group_areas.build(params[:group_area]) #crea il gruppo
-        @group_area.current_user_id = current_user.id
-        @group_area.save!
-      end
+    @group_area.current_user_id = current_user.id
+    if @group_area.save
       @group_areas = @group.group_areas.includes(:participants)
       @group_participations = @group.participants
       flash[:notice] = t('info.groups.work_area.area_created')
-    rescue ActiveRecord::ActiveRecordError => e
-      puts e
+      redirect_to @group_area
+    else
       respond_to do |format|
         flash[:error] = t('error.groups.work_area.area_created')
-        format.js { render 'group_areas/errors/create'}
+        format.html {render action: :new}
+        format.js { render 'group_areas/errors/create' }
       end
     end
   end
 
   def update
-    authorize! :update, @group_area
-    begin
-      GroupArea.transaction do
-        @group_area.attributes = params[:group_area]
-      end
-
+    if @group_area.update_attributes(group_area_params)
       respond_to do |format|
-        if @group_area.save
           flash[:notice] = t('info.groups.group_updated')
-          format.html { redirect_to(@group) }
-        else
-          format.html { render action: "edit" }
-        end
+          format.html { redirect_to(@group_area) }
       end
-    rescue Exception => e
-      puts e
-      respond_to do |format|
-        flash[:error] = t('error.groups.update')
-        format.html { render action: "edit" }
-      end
+    else
+      flash[:error] = t('error.groups.update')
+      format.html { render action: :edit }
     end
   end
 
@@ -100,8 +84,6 @@ class GroupAreasController < ApplicationController
   def destroy
     authorize! :destroy, @group_area
     @group_area.destroy
-#    @group_areas = @group.group_areas.includes(:participants)
-#    @group_participations = @group.participants
   end
 
   def participants_list_panel
@@ -109,7 +91,6 @@ class GroupAreasController < ApplicationController
   end
 
   protected
-
 
   def group_area_params
     params.require(:group_area).permit(:name, :description, :default_role_name, :default_role_actions)

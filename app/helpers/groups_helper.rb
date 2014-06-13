@@ -249,12 +249,6 @@ module GroupsHelper
         super
   end
 
-  def manage_group_group_areas_url(group, options={})
-    (group_in_subdomain? group) ?
-        manage_group_areas_url(options) :
-        super
-  end
-
   def change_group_group_areas_url(group, options={})
     (group_in_subdomain? group) ?
         change_group_areas_url(options) :

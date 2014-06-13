@@ -1,9 +1,9 @@
 <ul class="breadcrumbs">
   <li><%= link_to 'All working areas', group_group_areas_url(@group) %></li>
-  <li class="current"><%= @group_area.name %></li>
+  <li class="current"><%= 'New group Area' %></li>
 </ul>
 
-<%= render 'group_areas/edit'%>
+<%= render 'group_areas/form'%>
 
 <%= content_for :left_panel do %>
     <%= render partial: 'groups/administration_panel' %>

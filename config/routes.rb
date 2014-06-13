@@ -278,9 +278,11 @@ Airesis::Application.routes.draw do
 
     resources :group_areas do
       resources :area_roles do
+        member do
+          patch :change
+        end
         collection do
-          put :change
-          put :change_permissions
+          patch :change_permissions
         end
       end
     end
@@ -492,8 +494,10 @@ Airesis::Application.routes.draw do
 
       resources :group_areas do
         resources :area_roles do
+          member do
+            patch :change
+          end
           collection do
-            put :change
             put :change_permissions
           end
         end

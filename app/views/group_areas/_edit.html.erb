@@ -13,6 +13,20 @@
 </div>
 
 <script type="text/javascript">
+    $(document).on('click','[data-area-action-abilitation]',function() {
+        var role_id = $(this).data('area_role_id');
+        var action_id = $(this).data('action_id');
+        var block_ = !this.checked;
+        $.ajax({
+            data: "action_id="+action_id+"&block="+block_+"&l=<%=I18n.locale%>",
+            url: "/groups/<%=@group.id%>/group_areas/<%=@group_area.id%>/area_roles/"+role_id+"/change",
+            dataType: 'script',
+            type: 'patch'
+        });
+    });
+</script>
+
+<script type="text/javascript">
     $(function () {
         generateTable();
         disegnaBottoni();
@@ -72,15 +86,7 @@
         $('#roles_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");
     }
 
-    function change_permission_block(el, role_id, action_id) {
-        var block_ = !el.checked
-        $.ajax({
-            data: "action_id=" + action_id + "&id=" + role_id + "&block=" + block_,
-            url: "<%=change_group_group_area_area_roles_url(@group,@group_area)%>",
-            dataType: 'script',
-            type: 'put'
-        });
-    }
+
 
     disegnaBottoni();
 </script>

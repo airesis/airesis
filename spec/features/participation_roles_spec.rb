@@ -52,6 +52,7 @@ describe "the management of participation roles in a group", type: :feature, js:
     within("#main-copy") do
       @group.participation_roles.each_with_index do |participation_role, i|
         click_link participation_role.name if i > 0
+        sleep 0.5
         within("#role_#{participation_role.id}") do
           GroupAction.all.each do |group_action|
             if DEFAULT_GROUP_ACTIONS.include? group_action.id
@@ -79,6 +80,7 @@ describe "the management of participation roles in a group", type: :feature, js:
     within("#main-copy") do
       @group.participation_roles.each_with_index do |participation_role, i|
         click_link participation_role.name if i > 0
+        sleep 0.5
         within("#role_#{participation_role.id}") do
           GroupAction.all.each do |group_action|
             if (DEFAULT_GROUP_ACTIONS.include? group_action.id) && (participation_role == @group.default_role)
@@ -93,6 +95,7 @@ describe "the management of participation roles in a group", type: :feature, js:
       toastr_clear
 
       click_link @group.participation_roles.first.name
+      sleep 0.5
       within("#role_#{@group.participation_roles.first.id}") do
         DEFAULT_GROUP_ACTIONS.each do |group_action|
           find(:css, "[data-action_id='#{group_action}']").click
@@ -107,6 +110,7 @@ describe "the management of participation roles in a group", type: :feature, js:
     within("#main-copy") do
       @group.participation_roles.each_with_index do |participation_role, i|
         click_link participation_role.name if i > 0
+        sleep 0.5
         within("#role_#{participation_role.id}") do
           GroupAction.all.each do |group_action|
             if DEFAULT_GROUP_ACTIONS.include? group_action.id

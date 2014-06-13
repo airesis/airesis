@@ -1,38 +1,25 @@
-<table>
-  <thead>
-  <th><%= t('pages.groups.edit_permissions.role_title') %></th>
-  <th><%= t('activerecord.attributes.group_area.description') %></th>
-
-  <% GroupAction.for_group_areas.order(:seq).each do |action| %>
-      <th><%= action.description %></th>
-  <% end %>
-  <th></th>
-  </thead>
-  <tbody>
-
-  <% @group_area.area_roles.each do |role|
-    abilitations = role.area_action_abilitations.by_group_area(@group_area).all %>
-      <tr>
-        <td>
-          <%= role.name %>
-        </td>
-        <td> <%= role.description %>
-        </td>
-        <% GroupAction.for_group_areas.order(:seq).each do |action| %>
-            <td><input type="checkbox" onclick="return change_permission_block(this,<%=role.id%>,<%=action.id%>);"
-                       <% if (abilitations.find { |a| a.group_action_id == action.id }) %>
-                       checked="true"
-                       <% end %>
-                       /></td>
-        <% end %>
-
-        <td>
-          <% if role.id != @group_area.area_role_id %>
-              <%= link_to t('buttons.delete'), [@group, @group_area, role], method: :delete, remote: true, data: {confirm: t('pages.groups.edit_permissions.confirm_role_deletion')} %>
+<dl id="roles_accordion" class="accordion" data-accordion>
+  <% @group_area.area_roles.each_with_index do |role, idx| %>
+      <dd>
+        <a href="#role_<%= role.id %>"><%= role.name %>
+          <% if role.id == @group_area.area_role_id %> (default)
           <% end %>
-          <%= link_to t('buttons.edit'), edit_group_group_area_area_role_url(@group, @group_area, role), remote: true %>
-        </td>
-      </tr>
+        </a>
+        <div id="role_<%= role.id %>" class="content <%= 'active' if idx==0 %>">
+          <%= link_to t('buttons.delete'), [@group, @group_area, role], method: :delete, class: 'btn deleteButton', style: 'float:right', data: {remote: true, confirm: t('pages.groups.edit_permissions.confirm_role_deletion'), disable_with: t('loading')} if can? :destroy, role %>
+
+          <%= link_to t('buttons.edit'), edit_group_group_area_area_role_url(@group, @group_area, role), class: 'btn editButton', style: 'float:right', data: {remote: true, disable_with: t('loading')} %>
+          <h4><%= role.description %></h4>
+          <% GroupAction.for_group_areas.order(:seq).each do |action| %>
+              <input type="checkbox" data-area-action-abilitation data-area_role_id=<%= role.id %>  data-action_id=<%= action.id %> <%= 'checked="true"' if role.area_actions.include? action %>/>
+              <span><%= action.description %></span> <br/>
+          <% end %>
+        </div>
+      </dd>
   <% end %>
-  </tbody>
-</table>
+</dl>
+<script>
+    $(function () {
+        disegnaBottoni();
+    });
+</script>

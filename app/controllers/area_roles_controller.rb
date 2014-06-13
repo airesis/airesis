@@ -3,18 +3,13 @@ class AreaRolesController < ApplicationController
   layout :choose_layout
 
   before_filter :load_group
-  before_filter :load_group_area
-  before_filter :load_area_role, only: [:edit, :change, :update, :destroy, :change_permissions]
 
-  ###SECURITY###
-
-  before_filter :authenticate_user!
-  before_filter :portavoce_required, only: [:edit, :update, :edit_permissions]
-
-  #load_and_authorize_resource
+  authorize_resource :group
+  load_and_authorize_resource :group_area, through: :group
+  load_and_authorize_resource through: :group_area
 
   def new
-    @area_role = @group_area.area_roles.build
+
   end
 
   def edit
@@ -22,28 +17,27 @@ class AreaRolesController < ApplicationController
   end
 
   def create
-    AreaRole.transaction do
-      @group_area.area_roles.create(params[:area_role])
-    end
-    flash[:notice] = t('info.participation_roles.role_created')
-  rescue ActiveRecord::ActiveRecordError => e
     respond_to do |format|
-      flash[:error] = t('error.participation_roles.role_created')
-      format.html { render action: "new" }
+      if @area_role.save
+        flash[:notice] = t('info.participation_roles.role_created')
+        format.js
+        format.html { redirect_to [@group, @group_area] }
+      else
+        flash[:error] = t('error.participation_roles.role_created')
+        format.js { render 'layouts/active_record_error', locals: {object: @area_role} }
+        format.html { render action: :new }
+      end
     end
   end
 
   def update
-    authorize! :update, @area_role
-    AreaRole.transaction do
-      @area_role.attributes = params[:area_role]
-      @area_role.save!
-    end
-    flash[:notice] = t('info.participation_roles.role_updated')
-  rescue Exception => e
-    respond_to do |format|
-      flash[:error] = t('error.participation_roles.role_updated')
-      format.js { render 'layouts/success' }
+    if @area_role.update_attributes(area_role_params)
+      flash[:notice] = t('info.participation_roles.role_updated')
+    else
+      respond_to do |format|
+        flash[:error] = t('error.participation_roles.role_updated')
+        format.js { render 'layouts/success' }
+      end
     end
   end
 
@@ -83,6 +77,10 @@ class AreaRolesController < ApplicationController
 
 
   protected
+
+  def area_role_params
+    params[:area_role].permit(:name, :description)
+  end
 
   def load_group_area
     @group_area = GroupArea.find(params[:group_area_id])

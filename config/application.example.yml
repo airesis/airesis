@@ -24,9 +24,9 @@ RECAPTCHA_PRIVATE: ""
 
 GEOSPATIAL_NAME: ""
 
-APP_SHORT_NAME: ""
-APP_LONG_NAME: ""
-APP_EMAIL_ADDRESS: ""
+APP_SHORT_NAME: "Airesis"
+APP_LONG_NAME: "Airesis - Scegli di partecipare"
+APP_EMAIL_ADDRESS: "info@example.com"
 
 NEWSLETTER_FROM_ADDRESS: ""
 NEWSLETTER_TWITTER_URL: ""
@@ -40,7 +40,7 @@ ERROR_SENDER: ""
 #can also be a list of addresses separated by comma
 ERROR_RECEIVER: ""
 
-MAILER_DEFAULT_HOST: ""
+MAILER_DEFAULT_HOST: "www.airesis.eu"
 
 BUGTRACKING_URL: ""
 BUGTRACKING_USERNAME: ""

@@ -140,13 +140,13 @@ class Ability
       can :view_data, Group, group_participations: {user: {id: user.id}}
 
       can [:read, :create, :update, :change_group_permission], ParticipationRole, group: {group_participations: {user_id: user.id, participation_role_id: ParticipationRole::ADMINISTRATOR}}
-
       can :destroy, ParticipationRole do |participation_role|
         participation_role.id != participation_role.group.participation_role_id
       end
 
-      can :update, AreaRole do |area_role|
-        area_role.group_area.group.portavoce.include? user
+      can [:read, :create, :update], AreaRole, group_area: {group: {group_participations: {user_id: user.id, participation_role_id: ParticipationRole::ADMINISTRATOR}}}
+      can :destroy, AreaRole do |area_role|
+        area_role.id != area_role.group_area.area_role_id
       end
 
       can :view_proposal, GroupArea, area_participations: {user_id: user.id, area_role: {area_action_abilitations: {group_action_id: GroupAction::PROPOSAL_VIEW}}}
@@ -327,6 +327,14 @@ class Ability
           can :manage, Frm::Forum
           can :manage, GroupArea
           can :index, GroupParticipation
+          can :manage, ParticipationRole
+          cannot :destroy, ParticipationRole do |participation_role|
+            participation_role.id == participation_role.group.participation_role_id
+          end
+          can :manage, AreaRole
+          cannot :destroy, AreaRole do |area_role|
+            area_role.id == area_role.group_area.area_role_id
+          end
         end
       end
 

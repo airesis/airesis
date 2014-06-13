@@ -7,6 +7,7 @@ class AreaRole < ActiveRecord::Base
 
   belongs_to :group_area, class_name: 'GroupArea', foreign_key: :group_area_id
 
+
   validates_uniqueness_of :name, scope: :group_area_id
   
   validates_presence_of :name, :description

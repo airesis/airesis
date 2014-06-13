@@ -1,3 +1,5 @@
 $('#roles_panel_container').html('<%= j render 'group_areas/roles_panel'%>');
+$("#roles_accordion").foundation('accordion');
 $('#roles_table_container').html('<%= j render 'group_areas/user_roles_panel'%>');
-$('#area_role_container').foundation('reveal','close');generateTable();
+$('#area_role_container').foundation('reveal','close');
+generateTable();

@@ -3,6 +3,9 @@ before_install:
 language: ruby
 rvm:
   - 2.1.0
-before_script: curl https://raw.githubusercontent.com/moliware/travis-solr/master/travis-solr.sh | SOLR_VERSION=4.2.0 bash
+before_script:
+ - "curl https://raw.githubusercontent.com/moliware/travis-solr/master/travis-solr.sh | SOLR_VERSION=4.2.0 bash"
+ - "cp config/database.example.yml config/database.yml"
+ - "cp config/application.example.yml config/application.yml"
 script: bundle exec rspec spec
 
