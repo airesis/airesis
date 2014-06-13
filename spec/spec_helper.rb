@@ -4,7 +4,7 @@ require 'rspec/rails'
 require 'database_cleaner'
 require 'sidekiq/testing'
 
-#require 'capybara-screenshot/rspec'
+require 'capybara-screenshot/rspec'
 
 Sidekiq::Testing.inline!
 
@@ -58,10 +58,10 @@ RSpec.configure do |config|
   #config.include Rails.application.routes.url_helpers
   config.include Rails.application.routes.url_helpers
 
-  Capybara.register_driver :selenium do |app|
-    Capybara::Selenium::Driver.new(app, :browser => :chrome)
-  end
+  #Capybara.register_driver :selenium do |app|
+  #  Capybara::Selenium::Driver.new(app, :browser => :chrome)
+  #end
 
-  #Capybara.javascript_driver = :webkit
-  #Capybara::Screenshot.autosave_on_failure = true
+  Capybara.javascript_driver = :webkit
+  Capybara::Screenshot.autosave_on_failure = true
 end
