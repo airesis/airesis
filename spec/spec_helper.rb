@@ -4,7 +4,7 @@ require 'rspec/rails'
 require 'database_cleaner'
 require 'sidekiq/testing'
 
-WEBKIT=false
+WEBKIT=true
 if WEBKIT
   require 'capybara-screenshot/rspec'
 end
