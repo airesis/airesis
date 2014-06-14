@@ -7,5 +7,6 @@ before_script:
  - "curl https://raw.githubusercontent.com/moliware/travis-solr/master/travis-solr.sh | SOLR_VERSION=4.2.0 bash"
  - "cp config/database.example.yml config/database.yml"
  - "cp config/application.example.yml config/application.yml"
+ - "cp config/paypal.example.yml config/paypal.yml"
 script: bundle exec rspec spec
 
