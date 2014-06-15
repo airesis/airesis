@@ -4,8 +4,8 @@ require 'rspec/rails'
 require 'database_cleaner'
 require 'sidekiq/testing'
 
-WEBKIT=false
-if WEBKIT
+DEBUG=true
+unless DEBUG
   require 'capybara-screenshot/rspec'
 end
 
@@ -43,6 +43,7 @@ RSpec.configure do |config|
       end
       #ActiveRecord::Base.connection.execute('ALTER SEQUENCE participation_roles_id_seq RESTART WITH 3')
     end
+
   end
 
   config.after(:each) do
@@ -67,12 +68,12 @@ RSpec.configure do |config|
 
 
 
-  if WEBKIT
-    Capybara.javascript_driver = :webkit
-    Capybara::Screenshot.autosave_on_failure = true
-  else
+  if DEBUG
     Capybara.register_driver :selenium do |app|
       Capybara::Selenium::Driver.new(app, :browser => :chrome)
     end
+  else
+    Capybara.javascript_driver = :webkit
+    Capybara::Screenshot.autosave_on_failure = true
   end
 end
