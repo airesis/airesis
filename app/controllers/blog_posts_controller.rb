@@ -46,7 +46,6 @@ class BlogPostsController < ApplicationController
   end
 
   def show
-    authorize! :read, @blog_post
     @user = @blog_post.user
     @page_title = @blog_post.title
     @blog_comment = @blog_post.blog_comments.new
@@ -62,30 +61,22 @@ class BlogPostsController < ApplicationController
   end
 
   def edit
-    @blog_post = @blog.blog_posts.find(params[:id])
     @user = @blog.user
   end
 
   def create
     @blog = current_user.blog
-    BlogPost.transaction do
-      @blog_post = @blog.blog_posts.build(blog_post_params)
-      @blog_post.user_id = current_user.id
-      respond_to do |format|
-        if @blog_post.save
-          flash[:notice] = t('info.blog_created')
-          format.html {
-            if params[:group_id].to_s != ''
-              @group = Group.friendly.find(params[:group_id])
-              redirect_to group_url(@group)
-            else
-              redirect_to @blog
-            end
-          }
-        else
-          @user = @blog.user
-          format.html { render action: "new" }
-        end
+    @blog_post = @blog.blog_posts.build(blog_post_params)
+    @blog_post.user_id = current_user.id
+    respond_to do |format|
+      if @blog_post.save
+        flash[:notice] = t('info.blog_created')
+        format.html {
+          redirect_to @group ? group_url(@group) : @blog
+        }
+      else
+        @user = @blog.user
+        format.html { render action: :new }
       end
     end
   end

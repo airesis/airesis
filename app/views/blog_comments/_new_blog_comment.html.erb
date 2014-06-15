@@ -1,57 +1,18 @@
-<div id="blogNewComment" class="blogNewComment">
-	
-	<script type="text/javascript">
-		function sblank() {
-			var el = document.getElementById('blog_comment_body');
-		}
-		
-		function hideinsertcomment() {
-			$('#insert_comment').hide();			
-			$('#insert_comment_loading').show();
-		}
-		
-	</script>
-	
-	<% if !user_signed_in? %>
-		<h2><%= t('pages.proposals.show.login_to_comment')%></h2>
-	<% else %>
-		<label><%= t('pages.proposals.show.add_comment')%></label>
-		<%= form_for [@blog_post.blog, @blog_post, blog_comment],remote: true do |f| %>
-			<% if blog_comment.errors.any? %>
-			  <ul>
-			    <% blog_comment.errors.full_messages.each do |msg| %>
-			      <li><%= msg %></li>
-			    <% end %>
-			  </ul>
-			<% end %>			
-		
-				<div class="comment-form-comment">
-				<%= f.text_area :body, class: 'blogNewCommentField', rows: 5, cols: 70  %>
-				</div>
-			
-			<p>
-				<%= f.submit t('pages.blog_comments.new.insert_comment'), id: 'insert_comment', onclick: "hideinsertcomment();return true;", class: 'btn green' %>
-				<%= image_tag "spinner.gif", style: 'display: none;', id: 'insert_comment_loading' %>
-			</p>
-		<% end %>
-	<% end %>
-</div>
+<%= simple_form_for [@blog_post.blog, @blog_post, blog_comment], remote: true do |f| %>
+    <%= f.error_notification %>
+    <%= f.input :body, label: t('pages.proposals.show.add_comment'), html_input: {class: 'blogNewCommentField', rows: 5, cols: 70} %>
+    <%= f.submit t('pages.blog_comments.new.insert_comment'), data: {disable_with: t('loading')}, class: 'btn green' %>
+<% end %>
+
 <script type="text/javascript">
-			$(function() {
-
-                $('#blog_comment_body').each(function() {
-                    if ($(this).attr('data-initialized') != 1) {
-                        $(this).charCount({
-                            allowed : <%=CONTRIBUTE_MAX_LENGTH%>,
-                            warning : 100,
-                            counterText : '<%=t('pages.proposals.show.characters_left')%> '
-                        });
-                        $(this).elastic();
-                        $(this).attr('data-initialized',1);
-                    }
-                });
-
-            });
-			disegnaCountdown();
-		
-		</script>
+    $(function () {
+        $('#blog_comment_body').charCount({
+            allowed: <%=CONTRIBUTE_MAX_LENGTH%>,
+            warning: 100,
+            counterText: '<%=t('pages.proposals.show.characters_left')%> '
+        });
+        $(this).elastic();
+        $(this).attr('data-initialized', 1);
+    });
+    disegnaCountdown();
+</script>

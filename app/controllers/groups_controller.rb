@@ -45,11 +45,7 @@ class GroupsController < ApplicationController
   end
 
   def show
-    if current_user
-      @group_posts = @group.post_publishings.viewable_by(current_user).order('post_publishings.featured desc, published_at DESC').select('post_publishings.*, published_at').uniq
-    else
-      @group_posts = @group.blog_posts.published.includes([:blog, {user: :image}, :tags]).order('post_publishings.featured desc, published_at DESC')
-    end
+    @group_posts = @group.post_publishings.accessible_by(current_ability).order('post_publishings.featured desc, published_at DESC')
 
     respond_to do |format|
       format.js {

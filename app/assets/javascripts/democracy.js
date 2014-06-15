@@ -878,7 +878,7 @@ if (!jQuery.browser) {
 var rails = $.rails;
 rails.handleRemote = function (element) {
     console.log('handle remote');
-    if ($(window).width() <= 768) return;
+
     var method, url, data,
         crossDomain = element.data('cross-domain') || null,
         dataType = element.data('type') || ($.ajaxSettings && $.ajaxSettings.dataType),
@@ -902,6 +902,7 @@ rails.handleRemote = function (element) {
             data = element.serialize();
             if (element.data('params')) data = data + "&" + element.data('params');
         } else {
+            if ($(window).width() <= 768) return true;
             method = element.data('method');
             url = element.attr('href');
             data = element.data('params') || null;

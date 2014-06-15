@@ -1,3 +1,7 @@
+<% if current_user %>
+    <%= subscribe_to blog_blog_post_path(@blog,@blog_post) %>
+<% end %>
+
 <% content_for :html_options do %>
     itemscope itemtype="http://schema.org/Blog"
 <% end %>
@@ -5,12 +9,12 @@
 <% javascript 'endless_page'
    @title = @blog_post.title
    if @blog_post.draft?
-    @title += " [#{t('pages.blog_posts.show.draft')}]"
+     @title += " [#{t('pages.blog_posts.show.draft')}]"
    elsif @blog_post.reserved?
-    @title += " [#{t('pages.blog_posts.show.reserved')}]"
+     @title += " [#{t('pages.blog_posts.show.reserved')}]"
    end
 
-   @blog_url = @group ? group_blog_post_url(@group,@blog_post) : blog_blog_post_url(@blog, @blog_post)
+   @blog_url = @group ? group_blog_post_url(@group, @blog_post) : blog_blog_post_url(@blog, @blog_post)
 %>
 
 <%= render layout: "layouts/page_title", locals: {title: @title} do %>
@@ -67,9 +71,9 @@
     </div>
   </div>
 
-
-  <%= render partial: 'blog_comments/new_blog_comment', locals: {blog_comment: @blog_comment} %>
-
+  <div id="blogNewComment" class="blogNewComment">
+    <%= render partial: 'blog_comments/new_blog_comment', locals: {blog_comment: @blog_comment} %>
+  </div>
   <div id="blogPostCommentsContainer">
     <%= render partial: 'blog_posts/comments' %>
   </div>

@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_filter :store_location
   before_filter :set_locale
   around_filter :user_time_zone, if: :current_user
-  before_filter :prepare_for_mobile
+
 
   before_filter :load_tutorial
 
@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
-  helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age, :is_group_admin?, :in_subdomain?
+  helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :age, :is_group_admin?, :in_subdomain?
 
 
   def configure_permitted_parameters
@@ -33,11 +33,31 @@ class ApplicationController < ActionController::Base
       session[:proposal_comment] = nil
       post_contribute rescue nil
       proposal_path(@proposal)
+    elsif session[:blog_comment] && session[:blog_post_id] && session[:blog_id]
+      blog = Blog.friendly.find(session[:blog_id])
+      blog_post = blog.blog_posts.find(session[:blog_post_id])
+      blog_comment = blog_post.blog_comments.build(session[:blog_comment])
+
+      session[:blog_id] = nil
+      session[:blog_post_id] = nil
+      session[:blog_comment] = nil
+      if save_blog_comment(blog_comment)
+        flash[:notice] = t('info.blog.comment_added')
+      else
+        flash[:error] = t('error.blog.comment_added')
+      end
+      blog_blog_post_path(blog, blog_post)
     else
       env = request.env
       ret = env['omniauth.origin'] || stored_location_for(resource) || root_path
       ret
     end
+  end
+
+  def save_blog_comment(blog_comment)
+    blog_comment.user_id = current_user.id
+    blog_comment.request = request
+    blog_comment.save
   end
 
   #redirect alla pagina delle proposte
@@ -161,7 +181,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   def current_url(overwrite={})
     url_for params.merge(overwrite).merge(only_path: false)
   end
@@ -241,15 +260,23 @@ class ApplicationController < ActionController::Base
 
   #response if you do not have permissions to do an action
   def permissions_denied(exception=nil)
-    authenticate_user! unless current_user
     respond_to do |format|
       format.js do #se era una chiamata ajax, mostra il messaggio
-        flash.now[:error] = exception.message
-        render 'layouts/error', status: :forbidden
+
+        if current_user
+          flash.now[:error] = exception.message
+          render 'layouts/error', status: :forbidden
+        else
+          render 'layouts/authenticate'
+        end
       end
       format.html do #ritorna indietro oppure all'HomePage
-        flash[:error] = exception.message
-        render 'errors/access_denied', status: :forbidden
+        if current_user
+          flash[:error] = exception.message
+          render 'errors/access_denied', status: :forbidden
+        else
+          redirect_to new_user_session_path
+        end
       end
     end
   end
@@ -382,18 +409,5 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :forem_admin_or_moderator?
-
-  def prepare_for_mobile
-    session[:mobile_param] = params[:mobile] if params[:mobile]
-    request.format = :mobile if false #mobile_device?
-  end
-
-  def mobile_device?
-    if session[:mobile_param]
-      session[:mobile_param] == "1"
-    else
-      request.user_agent =~ /Mobile|webOS/
-    end
-  end
 
 end

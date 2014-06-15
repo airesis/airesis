@@ -6,28 +6,34 @@ class Ability
     {group_participations: {user_id: user_id, participation_role: {action_abilitations: {group_action_id: action_id}}}}
   end
 
+
   def initialize(user)
+    r_category_is_public = {visible_outside: true}
+    r_blog_post_is_public = {status: BlogPost::PUBLISHED}
+
     can [:index, :show, :read], [Blog, Group]
     can :view_data, Group, private: false
-    can :read, Frm::Category, visible_outside: true
-    can :read, Frm::Forum, visible_outside: true, category: {visible_outside: true}
-    can :read, Frm::Topic, forum: {visible_outside: true, category: {visible_outside: true}}
+    can :read, Frm::Category, r_category_is_public
+    can :read, Frm::Forum, visible_outside: true, category: r_category_is_public
+    can :read, Frm::Topic, forum: {visible_outside: true, category: r_category_is_public}
     can :read, Event, private: false
-    can :read, BlogPost, status: BlogPost::PUBLISHED
+    can :read, BlogPost, r_blog_post_is_public
+    can :read, PostPublishing, blog_post: r_blog_post_is_public
+    can :new, BlogComment, blog_post: r_blog_post_is_public
+    can [:read, :new], BlogComment, blog: r_blog_post_is_public
     can :index, Proposal
     can :show, Proposal, private: false
-    can :read, ProposalComment, proposal: {private: false}
+    can [:read, :new], ProposalComment, proposal: {private: false}
     can :show, Proposal, visible_outside: true
     can :read, Announcement, ["starts_at <= :now and ends_at >= :now", now: Time.zone.now] do |a|
       true
     end
 
     if user
-
-      can :create, Proposal, group_proposals: {group: {group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::PROPOSAL_INSERT}}}}}
+      can :create, Proposal, group_proposals: {group: can_do_on_group(user, GroupAction::PROPOSAL_INSERT)}
 
       #can see proposals in groups in which has permission, not belonging to any area
-      can :show, Proposal, group_proposals: {group: {group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::PROPOSAL_VIEW}}}}}
+      can :show, Proposal, group_proposals: {group: can_do_on_group(user, GroupAction::PROPOSAL_VIEW)}
 
       #but can't see all proposals in presentation area
       #cannot :show, Proposal, presentation_areas: [area_participations: {user_id}]
@@ -40,7 +46,7 @@ class Ability
       #he can participate to public proposals
       can :participate, Proposal, private: false
       #in groups
-      can :participate, Proposal, group_proposals: {group: {group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::PROPOSAL_PARTICIPATION}}}}}
+      can :participate, Proposal, group_proposals: {group: can_do_on_group(user, GroupAction::PROPOSAL_PARTICIPATION)}
       #in areas
       can :participate, Proposal, presentation_areas: {area_participations: {user_id: user.id, area_role: {area_action_abilitations: {group_action_id: GroupAction::PROPOSAL_PARTICIPATION}}}}
 
@@ -49,7 +55,7 @@ class Ability
 
 
       can :vote, Proposal, private: false, proposal_state_id: ProposalState::VOTING
-      can :vote, Proposal, proposal_state_id: ProposalState::VOTING, group_proposals: {group: {group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::PROPOSAL_VOTE}}}}}
+      can :vote, Proposal, proposal_state_id: ProposalState::VOTING, group_proposals: {group: can_do_on_group(user, GroupAction::PROPOSAL_VOTE)}
       can :vote, Proposal, proposal_state_id: ProposalState::VOTING, presentation_areas: {area_participations: {user_id: user.id, area_role: {area_action_abilitations: {group_action_id: GroupAction::PROPOSAL_PARTICIPATION}}}}
       cannot :vote, Proposal, user_votes: {user_id: user.id}
 
@@ -62,7 +68,7 @@ class Ability
       end
 
       can :regenerate, Proposal, proposal_state_id: ProposalState::ABANDONED, private: false
-      can :regenerate, Proposal, proposal_state_id: ProposalState::ABANDONED, group_proposals: {group: {group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::PROPOSAL_INSERT}}}}}
+      can :regenerate, Proposal, proposal_state_id: ProposalState::ABANDONED, group_proposals: {group: can_do_on_group(user, GroupAction::PROPOSAL_INSERT)}
 
       #it's by block cause of count()
       can :destroy, Proposal do |proposal|
@@ -75,9 +81,9 @@ class Ability
 
       can [:index, :list, :edit_list, :left_list], ProposalComment
       can :show, ProposalComment, user_id: user.id
-      can :show, ProposalComment, proposal: {groups: {group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::PROPOSAL_VIEW}}}}}
+      can :show, ProposalComment, proposal: {groups: can_do_on_group(user, GroupAction::PROPOSAL_VIEW)}
       can :create, ProposalComment, proposal: {private: false}
-      can :create, ProposalComment, proposal: {groups: {group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::PROPOSAL_PARTICIPATION}}}}}
+      can :create, ProposalComment, proposal: {groups: can_do_on_group(user, GroupAction::PROPOSAL_PARTICIPATION)}
 
 
       cannot :create, ProposalComment do |proposal_comment|
@@ -115,22 +121,22 @@ class Ability
 
       can :remove_post, Group, group_participations: {user_id: user.id, participation_role_id: ParticipationRole::ADMINISTRATOR}
 
-      can :view_documents, Group, group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::DOCUMENTS_VIEW}}}
-      can :manage_documents, Group, group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::DOCUMENTS_MANAGE}}}
+      can :view_documents, Group, can_do_on_group(user, GroupAction::DOCUMENTS_VIEW)
+      can :manage_documents, Group, can_do_on_group(user, GroupAction::DOCUMENTS_MANAGE)
 
-      can :post_to, Group, group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::STREAM_POST}}}
+      can :post_to, Group, can_do_on_group(user, GroupAction::STREAM_POST)
 
-      can :create_event, Group, group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::CREATE_EVENT}}}
+      can :create_event, Group, can_do_on_group(user, GroupAction::CREATE_EVENT)
 
-      can :support_proposal, Group, group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::SUPPORT_PROPOSAL}}}
-      can :accept_requests, Group, group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::REQUEST_ACCEPT}}}
+      can :support_proposal, Group, can_do_on_group(user, GroupAction::SUPPORT_PROPOSAL)
+      can :accept_requests, Group, can_do_on_group(user, GroupAction::REQUEST_ACCEPT)
 
-      can :view_proposal, Group, group_participations: {user_id: user.id, participation_role_id: ParticipationRole::ADMINISTRATOR}
-      can :view_proposal, Group, group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::PROPOSAL_VIEW}}}
+      can :view_proposal, Group, is_admin_of_group(user)
+      can :view_proposal, Group, can_do_on_group(user, GroupAction::PROPOSAL_VIEW)
 
-      can :insert_proposal, Group, group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::PROPOSAL_INSERT}}}
+      can :insert_proposal, Group, can_do_on_group(user, GroupAction::PROPOSAL_INSERT)
 
-      can :create_date, Group, group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::PROPOSAL_DATE}}}
+      can :create_date, Group, can_do_on_group(user, GroupAction::PROPOSAL_DATE)
 
       can :create_any_event, Group do |group|
         (can? :create_date, group) && (can? :create_event, group)
@@ -139,12 +145,12 @@ class Ability
       can :view_data, Group, private: false
       can :view_data, Group, group_participations: {user: {id: user.id}}
 
-      can [:read, :create, :update, :change_group_permission], ParticipationRole, group: {group_participations: {user_id: user.id, participation_role_id: ParticipationRole::ADMINISTRATOR}}
+      can [:read, :create, :update, :change_group_permission], ParticipationRole, group: is_admin_of_group(user)
       can :destroy, ParticipationRole do |participation_role|
         participation_role.id != participation_role.group.participation_role_id
       end
 
-      can [:read, :create, :update], AreaRole, group_area: {group: {group_participations: {user_id: user.id, participation_role_id: ParticipationRole::ADMINISTRATOR}}}
+      can [:read, :create, :update], AreaRole, group_area: {group: is_admin_of_group(user)}
       can :destroy, AreaRole do |area_role|
         area_role.id != area_role.group_area.area_role_id
       end
@@ -221,21 +227,27 @@ class Ability
       end
 
       can [:edit, :update, :destroy], Blog, user_id: user.id
-
       can [:new, :create], Blog unless user.blog
 
       can :read, BlogPost, status: BlogPost::RESERVED, groups: {group_participations: {user_id: user.id}}
+      can :read, PostPublishings, blog_post: {status: BlogPost::RESERVED, groups: {group_participations: {user_id: user.id}}}
 
       can :drafts, BlogPost, status: BlogPost::DRAFT, user_id: user.id
-
       can :read, BlogPost, user_id: user.id
+      can :read, PostPublishing, user_id: user.id
 
       can :update, BlogPost, user_id: user.id
-
       if user.blog
         can :create, BlogPost, blog: {user_id: user.id}
         can :create, BlogPost, publishings: {group: {group_participations: {user_id: user.id}}}
       end
+
+      can :create, BlogComment, blog_post: r_blog_post_is_public
+      can :create, BlogComment, blog_post: {user_id: user.id}
+      can :create, BlogComment, blog_post: {groups: {group_participations: {user_id: user.id}}}
+
+      can :destroy, BlogComment, user_id: user.id
+      can :destroy, BlogComment, blog_post: {user_id: user.id}
 
       can :change_rotp_enabled, User if user.email
 
@@ -244,8 +256,8 @@ class Ability
       can :create, Event
 
       can [:update, :destroy], Event, user_id: user.id #can update my event
-      can [:update, :destroy], Event, groups: {group_participations: {user_id: user.id, participation_role_id: ParticipationRole::ADMINISTRATOR}}
-      can [:update, :destroy], Event, groups: {participation_roles: {action_abilitations: {group_action_id: GroupAction::CREATE_EVENT, group_id: 'groups.id'}}}
+      can [:update, :destroy], Event, groups: is_admin_of_group(user)
+      can [:update, :destroy], Event, groups: can_do_on_group(user, GroupAction::CREATE_EVENT)
       cannot [:update, :destroy], Event, event_type_id: EventType::VOTAZIONE, proposals: ['proposals.id != null'], possible_proposals: ['proposals.id != null']
 
       can :read, Alert, user_id: user.id
@@ -271,7 +283,7 @@ class Ability
 
       can :create_topic, Frm::Forum, group: {group_participations: {user_id: user.id}}
 
-      can [:new,:create], Frm::Topic, forum: {group: {group_participations: {user_id: user.id}}}
+      can [:new, :create], Frm::Topic, forum: {group: {group_participations: {user_id: user.id}}}
 
       can :reply, Frm::Topic, group: {group_participations: {user_id: user.id}}
 
@@ -341,9 +353,19 @@ class Ability
     end
   end
 
+  def can_do_on_group(user, action)
+    {group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: action}}}}
+  end
+
+  def is_admin_of_group(user)
+    {group_participations: {user_id: user.id, participation_role_id: ParticipationRole::ADMINISTRATOR}}
+  end
+
   def can_do_on_group?(user, group, action)
     group.group_participations
     .joins(:participation_role => :action_abilitations)
     .where(["group_participations.user_id = :user_id and (participation_roles.id = #{ParticipationRole::ADMINISTRATOR} or action_abilitations.group_action_id = :action_id)", user_id: user.id, action_id: action]).uniq.exists?
   end
+
+
 end

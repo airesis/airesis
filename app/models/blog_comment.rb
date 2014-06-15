@@ -11,6 +11,9 @@ class BlogComment < ActiveRecord::Base
   
   attr_accessor :collapsed
 
+
+  after_commit :send_notifications, only: :create
+
   
   def after_initialize     
      @collapsed = false     
@@ -76,8 +79,11 @@ class BlogComment < ActiveRecord::Base
 	    :comment_content      => body
 	  }
 	end
-	
-  
-  
-  
+
+
+  protected
+
+  def send_notifications
+    NotificationBlogCommentCreate.perform_async(self.id)
+  end
 end

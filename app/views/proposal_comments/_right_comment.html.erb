@@ -6,15 +6,11 @@
 <% @comment = ProposalComment.new %>
 <% @comment.section_id = @section.id %>
 <%= form_for [@proposal, @comment], remote: true do |f| %>
-
-    <p>
-
     <div class="comment-form-comment">
       <%= f.text_area :content, class: 'blogNewCommentField', rows: 5, cols: 70 %>
       <%= f.hidden_field :section_id %>
       <%= hidden_field 'right', true %>
     </div>
-    </p>
     <p>
       <%= f.submit t('pages.proposals.show.send_contribute_button'), id: 'insert_comment', class: 'btn green', data:{disable_with: t('sending')}, style: "width: 100px;height:35px;" %>
     </p>

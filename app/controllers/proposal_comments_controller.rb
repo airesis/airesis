@@ -1,10 +1,6 @@
 #encoding: utf-8
 class ProposalCommentsController < ApplicationController
 
-
-#l'utente deve aver fatto login
-  before_filter :authenticate_user!, only: [:edit, :update, :new, :report, :mark_noise]
-
   before_filter :save_post_and_authenticate_user, only: [:create]
   before_filter :check_author, only: [:edit, :update]
   before_filter :already_ranked, only: [:rankup, :rankdown, :ranknil]
@@ -263,17 +259,10 @@ class ProposalCommentsController < ApplicationController
   end
 
   def save_post_and_authenticate_user
-    unless current_user
-      session[:proposal_comment] = params[:proposal_comment]
-      session[:proposal_id] = params[:proposal_id]
-      flash[:info] = t('info.proposal.login_to_contribute')
-      respond_to do |format|
-        format.js { render :update do |page|
-          page.redirect_to new_user_session_path
-        end
-        }
-      end
-    end
+    return if current_user
+    session[:proposal_comment] = params[:proposal_comment]
+    session[:proposal_id] = params[:proposal_id]
+    flash[:info] = t('info.proposal.login_to_contribute')
   end
 
 
