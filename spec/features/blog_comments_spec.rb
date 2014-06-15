@@ -1,92 +1,113 @@
 require 'spec_helper'
 require 'requests_helper'
+require "cancan/matchers"
 
-describe "the blog posts process", type: :feature, js: true do
+describe 'the management of the blog posts', type: :feature, js: true do
 
   before :each do
     @user = create(:default_user)
-    login_as @user, scope: :user
+    @group = create(:default_group, current_user_id: @user.id)
     @blog = create(:blog, user: @user)
+    @blog_post = create(:blog_post, blog: @blog, user: @user)
   end
 
   after :each do
     logout(:user)
   end
 
-  it "can insert a blog_post in his blog and edit it" do
-    visit blog_path(@blog)
-    expect(page).to have_content(I18n.t('pages.blog_posts.new_button'))
-    click_link I18n.t('pages.blog_posts.new_button')
+  it "can create blog comments if not logged in" do
+    visit blog_blog_post_path(@blog,@blog_post)
 
-    blog_post_name = Faker::Company.name
-    #fill form fields
-    within("#main-copy") do
-      fill_in I18n.t('activerecord.attributes.blog_post.title'), with: blog_post_name
-      fill_in_ckeditor 'blog_post_body', with: Faker::Lorem.paragraph
-      click_button I18n.t('buttons.save')
+    expect(page).to have_content(@blog_post.title)
+    expect(page).to have_content(I18n.t('pages.proposals.show.add_comment'))
+    comment = Faker::Lorem.sentence
+    within('#blogNewComment') do
+      fill_in 'blog_comment_body', with: comment
+      click_button I18n.t('pages.blog_comments.new.insert_comment')
     end
 
-    #success message!
-    expect(page).to have_content(I18n.t('info.blog_created'))
-    #the group name is certainly displayed somewhere
-    expect(page).to have_content blog_post_name
-
-    within('#blogPostContainer') do
-      click_link blog_post_name
+    expect(page).to have_selector('form#new_user', visible: true)
+    within('form#new_user') do
+      fill_in 'user_login', :with => @user.email
+      fill_in 'user_password', :with => 'topolino'
+      click_button 'Login'
     end
-    click_link I18n.t('pages.blog_posts.show.edit_button')
-
-    #fill form fields
-    blog_post_title = Faker::Company.name
-    within("#main-copy") do
-      fill_in I18n.t('activerecord.attributes.blog_post.title'), with: blog_post_title
-      click_button I18n.t('buttons.save')
-    end
-    #success message!
-    expect(page).to have_content(I18n.t('info.blog_post_updated'))
-    #the new blog name is certainly displayed somewhere
-    expect(page).to have_content blog_post_title
-
-
+    expect(page).to have_content(comment)
   end
 
-  it "can insert a blog_post in his group and edit it" do
-    @ability = Ability.new(@user)
-    @group = create(:default_group, current_user_id: @user.id)
-    visit group_path(@group)
+  it "can create blog comments if logged in" do
+    login_as @user, scope: :user
+    visit blog_blog_post_path(@blog,@blog_post)
 
-    expect(page).to have_content @group.name
-
-    click_link I18n.t('pages.groups.show.post_button')
-
-    blog_post_name = Faker::Company.name
-    #fill form fields
-    within("#main-copy") do
-      fill_in I18n.t('activerecord.attributes.blog_post.title'), with: blog_post_name
-      fill_in_ckeditor 'blog_post_body', with: Faker::Lorem.paragraph
-      click_button I18n.t('buttons.save')
+    expect(page).to have_content(@blog_post.title)
+    expect(page).to have_content(I18n.t('pages.proposals.show.add_comment'))
+    comment = Faker::Lorem.sentence
+    within('#blogNewComment') do
+      fill_in 'blog_comment_body', with: comment
+      click_button I18n.t('pages.blog_comments.new.insert_comment')
     end
+    expect(page).to have_content(comment)
+  end
 
-    #success message!
-    expect(page).to have_content(I18n.t('info.blog_created'))
-    #the group name is certainly displayed somewhere
-    expect(page).to have_content @group.name
-    expect(page).to have_content blog_post_name
+  it "can create blog comments in reserved post if it's his post" do
+    login_as @user, scope: :user
+    @blog_post.update_attributes(status: BlogPost::RESERVED)
+    visit blog_blog_post_path(@blog,@blog_post)
 
-    within('#posts_container') do
-      click_link blog_post_name
+    expect(page).to have_content(@blog_post.title)
+    expect(page).to have_content(I18n.t('pages.proposals.show.add_comment'))
+    comment = Faker::Lorem.sentence
+    within('#blogNewComment') do
+      fill_in 'blog_comment_body', with: comment
+      click_button I18n.t('pages.blog_comments.new.insert_comment')
     end
-    click_link I18n.t('pages.blog_posts.show.edit_button')
+    expect(page).to have_content(comment)
+  end
 
-    #fill form fields
-    blog_post_title = Faker::Company.name
-    within("#main-copy") do
-      fill_in I18n.t('activerecord.attributes.blog_post.title'), with: blog_post_title
-      click_button I18n.t('buttons.save')
+  it "can create blog comments in draft post if it's his post" do
+    login_as @user, scope: :user
+    @blog_post.update_attributes(status: BlogPost::DRAFT)
+    visit blog_blog_post_path(@blog,@blog_post)
+
+    expect(page).to have_content(@blog_post.title)
+    expect(page).to have_content(I18n.t('pages.proposals.show.add_comment'))
+    comment = Faker::Lorem.sentence
+    within('#blogNewComment') do
+      fill_in 'blog_comment_body', with: comment
+      click_button I18n.t('pages.blog_comments.new.insert_comment')
     end
-    #success message!
-    expect(page).to have_content(I18n.t('info.blog_post_updated'))
-    #the new blog name is certainly displayed somewhere
-    expect(page).to have_content blog_post_title
+    expect(page).to have_content(comment)
+  end
+
+  it "can create blog comments in reserved post if it's in one of the groups in which participate" do
+    @blog_post.groups << @group
+    @blog_post.status = BlogPost::RESERVED
+    @blog_post.save
+    @user2 = create(:user)
+    create_participation(@user2,@group)
+
+    login_as @user2, scope: :user
+
+    visit blog_blog_post_path(@blog,@blog_post)
+
+    expect(page).to have_content(@blog_post.title)
+    expect(page).to have_content(I18n.t('pages.proposals.show.add_comment'))
+    comment = Faker::Lorem.sentence
+    within('#blogNewComment') do
+      fill_in 'blog_comment_body', with: comment
+      click_button I18n.t('pages.blog_comments.new.insert_comment')
+    end
+    expect(page).to have_content(comment)
+
+    visit group_blog_post_path(@group,@blog_post)
+
+    expect(page).to have_content(@blog_post.title)
+    expect(page).to have_content(I18n.t('pages.proposals.show.add_comment'))
+    comment = Faker::Lorem.sentence
+    within('#blogNewComment') do
+      fill_in 'blog_comment_body', with: comment
+      click_button I18n.t('pages.blog_comments.new.insert_comment')
+    end
+    expect(page).to have_content(comment)
   end
 end

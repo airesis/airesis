@@ -104,7 +104,7 @@ describe 'the management of the forum', type: :feature, js: true do
 
   #user created group1 and group2
   #user2 participate in group2
-  it "can create qwdqwqwff " do
+  it "can create in group in which participate " do
     @group2 = create(:group, current_user_id: @user.id)
     @user2 = create(:second_user)
     create_participation(@user2,@group2)
