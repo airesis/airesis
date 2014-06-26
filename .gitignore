@@ -12,7 +12,6 @@ pkg
 tmp
 log
 app/assets/images/users
-config/environments/
 config/database.yml
 config/application.yml
 config/paypal.yml

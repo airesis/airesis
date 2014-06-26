@@ -17,7 +17,7 @@
 	
 	<body>
 			<%=@alert.created_at.strftime("%d/%m/%Y %H:%M")%> <br/>
-		<a href="<%=SITE + "" + check_alert_url(@alert)%>">
+		<a href="<%=ENV['SITE'] + "" + check_alert_url(@alert)%>">
 			<%=raw @alert.notification.message%>
 		</a>
 		

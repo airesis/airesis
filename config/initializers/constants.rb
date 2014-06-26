@@ -24,3 +24,30 @@ DEFAULT_AREA_ACTIONS = [6,7,8,11,12]
 CONTRIBUTE_MARKS = 3
 
 DEBATE_VOTE_DIFFERENCE = 10.minutes
+
+#indirizzo del sito
+SITE="http://airesisdev.it:3000"
+#numero massimo di commenti per pagina
+COMMENTS_PER_PAGE=5
+#numero massimo di proposte per pagina
+PROPOSALS_PER_PAGE=10
+
+#topics per page
+TOPICS_PER_PAGE=10
+
+#numero di giorni senza aggiornamenti dopo i quali la proposta viene abolita
+PROP_DAY_STALLED=2
+
+#limita il numero di commenti
+LIMIT_COMMENTS=false
+COMMENTS_TIME_LIMIT=30.seconds
+
+#limita il numero di proposte
+LIMIT_PROPOSALS=false
+PROPOSALS_TIME_LIMIT=1.minute
+
+#limita il numero di gruppi
+LIMIT_GROUPS=true
+GROUPS_TIME_LIMIT=24.hours
+
+ROTP_DRIFT = 20
