@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe "create proposal comments", type: :feature, js: true do
+describe 'create proposal comments', type: :feature, js: true do
   before :each do
 
   end
@@ -11,7 +11,34 @@ describe "create proposal comments", type: :feature, js: true do
 
   end
 
-  it "creates comments in public proposals" do
+
+  it 'creates comments if not logged in' do
+    @luser = create(:user)
+    @user = create(:default_user)
+    @ability = Ability.new(@user)
+    @public_proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: @user.id)
+
+    visit proposal_path(@public_proposal)
+    page_should_be_ok
+    expect(page).to have_content @public_proposal.title
+
+    comment = Faker::Lorem.sentence
+    within('#proposalNewComment') do
+      fill_in I18n.t('pages.proposals.show.add_contribute'), with: comment
+      click_button I18n.t('pages.proposals.show.send_contribute_button')
+    end
+
+    expect(page).to have_selector('form#new_user')
+    within('form#new_user') do
+      fill_in 'user_login', :with => @luser.email
+      fill_in 'user_password', :with => 'topolino'
+      click_button 'Login'
+    end
+    expect(page).to have_content(comment)
+  end
+
+
+  it 'creates comments in his public proposal' do
     @user = create(:default_user)
     @ability = Ability.new(@user)
     @public_proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: @user.id)
@@ -62,7 +89,7 @@ describe "create proposal comments", type: :feature, js: true do
     end
   end
 
-  it "create comments in proposals inside his group" do
+  it 'create comments in proposals inside his group' do
     @user = create(:default_user)
     @ability = Ability.new(@user)
     @group = create(:default_group, current_user_id: @user.id)
@@ -114,9 +141,8 @@ describe "create proposal comments", type: :feature, js: true do
     end
   end
 
-  it "create comments in proposals inside a group where has permissions to participate" do
+  it 'create comments in proposals inside a group where has permissions to participate' do
     @user = create(:default_user)
-
 
     @user2 = create(:second_user)
     @group = create(:default_group, current_user_id: @user2.id)

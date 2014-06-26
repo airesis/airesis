@@ -40,7 +40,7 @@ describe "the management of participation roles in a group", type: :feature, js:
   end
 
 
-  it "view participation roles page and manage them" do
+  it "view participation roles page and manage them", driver: :selenium do
     login_as @user, scope: :user
 
     visit group_participation_roles_path(@group)

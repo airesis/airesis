@@ -112,7 +112,12 @@
             $('#login_panel').foundation('reveal', 'open');
         });
         <%end%>
+
+
     });
+    <%if Rails.env.test?%>
+    $.fx.off = true;
+    <%end%>
 </script>
 
 <%= render '/layouts/top_menu' %>

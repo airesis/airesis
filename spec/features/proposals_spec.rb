@@ -36,10 +36,11 @@ describe "create a proposal in his group", type: :feature, js: true do
     expect(page.current_path).to eq(edit_group_proposal_path(@group,@proposal))
 
     page.execute_script 'window.confirm = function () { return true }'
+    page.execute_script 'safe_exit = true;'
     within('.edit_proposal_panel') do
       click_link I18n.t('buttons.cancel')
     end
-    page.driver.browser.switch_to.alert.accept
+    #page.driver.browser.switch_to.alert.accept
 
     expect(page).to have_content @proposal.title
   end

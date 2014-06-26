@@ -1,2 +1,6 @@
-$('#blogPostCommentsContainer').html('<%=j render 'blog_posts/comments'%>');
+$('#blogPostCommentsContainer').prepend('<%=j render partial: 'blog_posts/comment', locals: {comment: @blog_comment} %>');
 $('#blogNewComment').html('<%=j render partial: 'blog_comments/new_blog_comment', locals: {blog_comment: @blog_post.blog_comments.new}%>');
+$('[data-collapsed=true]').show(600, function () {
+    $(this).data('collapsed', false);
+});
+

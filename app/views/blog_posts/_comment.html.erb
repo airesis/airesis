@@ -1,4 +1,4 @@
-<div id="comment<%= comment.id %>" class="blogComment card"
+<div data-collapsed="true" id="comment<%= comment.id %>" class="blogComment card"
      <% if (comment.collapsed) %>style="display:none"
      <% end %>>
   <div class="blog-comment-image">
@@ -20,10 +20,5 @@
       <% end %>
     </div>
   </div>
-  <script type="text/javascript">
-      <%if (comment.collapsed) %>
-      $('#comment<%= comment.id%>').show(600);
-      <%end%>
-  </script>
   <div style="clear:both;"></div>
 </div>

@@ -531,7 +531,7 @@ class Proposal < ActiveRecord::Base
       end
       self.private = true
 
-      group_area = GroupArea.find_by(self.group_area_id) unless self.group_area_id.to_s.empty?
+      group_area = GroupArea.find(self.group_area_id) unless self.group_area_id.to_s.empty?
       if group_area #check user permissions for this group area
         self.errors.add(:group_area_id, I18n.t('permissions_required')) unless self.users.first.scoped_areas(group, GroupAction::PROPOSAL_INSERT).include? group_area
         self.presentation_areas << group_area
@@ -637,7 +637,7 @@ class Proposal < ActiveRecord::Base
 
   def assign_quorum
     group = self.group_proposals.first.try(:group)
-    group_area = GroupArea.find_by(self.group_area_id) unless self.group_area_id.to_s.empty?
+    group_area = GroupArea.find(self.group_area_id) unless self.group_area_id.to_s.empty?
 
     quorum = self.quorum
     copy = quorum.dup

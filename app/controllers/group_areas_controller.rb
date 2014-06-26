@@ -45,7 +45,7 @@ class GroupAreasController < ApplicationController
       @group_areas = @group.group_areas.includes(:participants)
       @group_participations = @group.participants
       flash[:notice] = t('info.groups.work_area.area_created')
-      redirect_to @group_area
+      redirect_to [@group,@group_area]
     else
       respond_to do |format|
         flash[:error] = t('error.groups.work_area.area_created')
@@ -59,7 +59,7 @@ class GroupAreasController < ApplicationController
     if @group_area.update_attributes(group_area_params)
       respond_to do |format|
           flash[:notice] = t('info.groups.group_updated')
-          format.html { redirect_to(@group_area) }
+          format.html { redirect_to([@group,@group_area]) }
       end
     else
       flash[:error] = t('error.groups.update')

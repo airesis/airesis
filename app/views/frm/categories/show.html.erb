@@ -4,10 +4,13 @@
   <li><%= link_to t('frm.forum.forums'), group_forums_url(@group) %></li>
   <li class="current"><%= link_to @category, group_frm_category_url(@group, @category) %></li>
 </ul>
-<h2><%= @category %></h2>
-<div class='category'>
 
+<div class='category'>
   <%= render @category %>
 </div>
+
+<%= content_for :left_panel do %>
+    <%= render partial: 'groups/administration_panel' %>
+<% end %>
 
 <%= render partial: '/frm/application/forem_footer' %>

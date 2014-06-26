@@ -3,8 +3,9 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'database_cleaner'
 require 'sidekiq/testing'
+require 'sunspot_test/rspec'
 
-DEBUG=true
+DEBUG=false
 unless DEBUG
   require 'capybara-screenshot/rspec'
 end
@@ -67,13 +68,16 @@ RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers
 
 
+  Capybara.register_driver :selenium do |app|
+    Capybara::Selenium::Driver.new(app, :browser => :chrome)
+  end
 
-  if DEBUG
-    Capybara.register_driver :selenium do |app|
-      Capybara::Selenium::Driver.new(app, :browser => :chrome)
-    end
-  else
+  unless DEBUG
     Capybara.javascript_driver = :webkit
     Capybara::Screenshot.autosave_on_failure = true
+    Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
+      "screenshot_#{example.description.gsub(' ', '-').gsub(/^.*\/spec\//, '')}"
+    end
+    Capybara::Screenshot.append_timestamp = false
   end
 end

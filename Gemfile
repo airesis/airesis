@@ -19,6 +19,10 @@ gem 'pg'
 
 gem 'sunspot_rails'
 
+gem 'capistrano', '~> 3.2.0'
+gem 'capistrano-bundler', '~> 1.1.2'
+gem 'rvm1-capistrano3', require: false
+
 group :development do
   gem 'sunspot_solr'
   gem "better_errors"
@@ -34,6 +38,7 @@ group :development, :test do
   gem 'capybara-webkit'
   gem 'capybara-screenshot'
   gem "spring"
+  gem "sunspot_test"
 end
 
 

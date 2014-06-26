@@ -26,8 +26,6 @@ describe "the blog posts process", type: :feature, js: true do
       click_button I18n.t('buttons.save')
     end
 
-    #success message!
-    expect(page).to have_content(I18n.t('info.blog_created'))
     #the group name is certainly displayed somewhere
     expect(page).to have_content blog_post_name
 

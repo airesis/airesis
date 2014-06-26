@@ -21,9 +21,9 @@ class Ability
     can :read, PostPublishing, blog_post: r_blog_post_is_public
     can :new, BlogComment, blog_post: r_blog_post_is_public
     can [:read, :new], BlogComment, blog: r_blog_post_is_public
+    can [:read, :new], ProposalComment, proposal: {private: false}
     can :index, Proposal
     can :show, Proposal, private: false
-    can [:read, :new], ProposalComment, proposal: {private: false}
     can :show, Proposal, visible_outside: true
     can :read, Announcement, ["starts_at <= :now and ends_at >= :now", now: Time.zone.now] do |a|
       true
@@ -35,11 +35,13 @@ class Ability
       #can see proposals in groups in which has permission, not belonging to any area
       can :show, Proposal, group_proposals: {group: can_do_on_group(user, GroupAction::PROPOSAL_VIEW)}
 
-      #but can't see all proposals in presentation area
-      #cannot :show, Proposal, presentation_areas: [area_participations: {user_id}]
+      #but can't see proposals in presentation areas. it will be allowed in next condition
+      cannot :show, Proposal do |proposal|
+        proposal.private && !proposal.visible_outside && proposal.presentation_areas.count > 0
+      end
 
       #can see proposals in group areas in which has permission
-      can :show, Proposal, presentation_areas: {area_participations: {user_id: user.id, area_role: {area_action_abilitations: {group_action_id: GroupAction::PROPOSAL_VIEW}}}}
+      can :show, Proposal, presentation_areas: can_do_on_group_area(user, GroupAction::PROPOSAL_VIEW)
 
       can [:edit, :update], Proposal, users: {id: user.id}, proposal_state_id: ProposalState::VALUTATION
 
@@ -47,16 +49,22 @@ class Ability
       can :participate, Proposal, private: false
       #in groups
       can :participate, Proposal, group_proposals: {group: can_do_on_group(user, GroupAction::PROPOSAL_PARTICIPATION)}
+
+      #but can't see proposals in presentation areas. it will be allowed in next condition
+      cannot :participate, Proposal do |proposal|
+        proposal.private && !proposal.visible_outside && proposal.presentation_areas.count > 0
+      end
       #in areas
-      can :participate, Proposal, presentation_areas: {area_participations: {user_id: user.id, area_role: {area_action_abilitations: {group_action_id: GroupAction::PROPOSAL_PARTICIPATION}}}}
+      can :participate, Proposal, presentation_areas: can_do_on_group_area(user, GroupAction::PROPOSAL_PARTICIPATION)
 
       #can never participate if not in valutation or voted
       cannot :participate, Proposal, proposal_state_id: [ProposalState::WAIT_DATE, ProposalState::WAIT, ProposalState::VOTING, ProposalState::REVISION, ProposalState::ABANDONED]
 
-
       can :vote, Proposal, private: false, proposal_state_id: ProposalState::VOTING
       can :vote, Proposal, proposal_state_id: ProposalState::VOTING, group_proposals: {group: can_do_on_group(user, GroupAction::PROPOSAL_VOTE)}
-      can :vote, Proposal, proposal_state_id: ProposalState::VOTING, presentation_areas: {area_participations: {user_id: user.id, area_role: {area_action_abilitations: {group_action_id: GroupAction::PROPOSAL_PARTICIPATION}}}}
+      can :vote, Proposal, proposal_state_id: ProposalState::VOTING, presentation_areas: can_do_on_group_area(user, GroupAction::PROPOSAL_VOTE)
+
+      #can't vote if has already voted
       cannot :vote, Proposal, user_votes: {user_id: user.id}
 
       can :set_votation_date, Proposal, proposal_state_id: ProposalState::WAIT_DATE, users: {id: user.id}
@@ -70,7 +78,6 @@ class Ability
       can :regenerate, Proposal, proposal_state_id: ProposalState::ABANDONED, private: false
       can :regenerate, Proposal, proposal_state_id: ProposalState::ABANDONED, group_proposals: {group: can_do_on_group(user, GroupAction::PROPOSAL_INSERT)}
 
-      #it's by block cause of count()
       can :destroy, Proposal do |proposal|
         (proposal.users.include? user) &&
             !(((Time.now - proposal.created_at) > 10.minutes) && (proposal.valutations > 0 || proposal.contributes.count > 0)) &&
@@ -85,11 +92,9 @@ class Ability
       can :create, ProposalComment, proposal: {private: false}
       can :create, ProposalComment, proposal: {groups: can_do_on_group(user, GroupAction::PROPOSAL_PARTICIPATION)}
 
-
       cannot :create, ProposalComment do |proposal_comment|
         LIMIT_COMMENTS && user.last_proposal_comment && (user.last_proposal_comment.created_at > COMMENTS_TIME_LIMIT.ago)
       end
-
 
       can :update, ProposalComment, user: {id: user.id}
 
@@ -113,13 +118,13 @@ class Ability
       end
 
       can :read, Group
-      can :update, Group, group_participations: {user_id: user.id, participation_role_id: ParticipationRole::ADMINISTRATOR}
+      can [:update, :enable_areas], Group, is_admin_of_group(user)
 
       can :destroy, Group do |group|
         (group.portavoce.include? user) && (group.participants.count < 2)
       end
 
-      can :remove_post, Group, group_participations: {user_id: user.id, participation_role_id: ParticipationRole::ADMINISTRATOR}
+      can :remove_post, Group, is_admin_of_group(user)
 
       can :view_documents, Group, can_do_on_group(user, GroupAction::DOCUMENTS_VIEW)
       can :manage_documents, Group, can_do_on_group(user, GroupAction::DOCUMENTS_MANAGE)
@@ -155,8 +160,8 @@ class Ability
         area_role.id != area_role.group_area.area_role_id
       end
 
-      can :view_proposal, GroupArea, area_participations: {user_id: user.id, area_role: {area_action_abilitations: {group_action_id: GroupAction::PROPOSAL_VIEW}}}
-      can :insert_proposal, GroupArea, area_participations: {user_id: user.id, area_role: {area_action_abilitations: {group_action_id: GroupAction::PROPOSAL_INSERT}}}
+      can :view_proposal, GroupArea, can_do_on_group_area(user, GroupAction::PROPOSAL_VIEW)
+      can :insert_proposal, GroupArea, can_do_on_group_area(user, GroupAction::PROPOSAL_INSERT)
 
       can :update, GroupArea do |area|
         area.group.portavoce.include? user
@@ -194,11 +199,11 @@ class Ability
       end
 
 
-      can :index, [GroupParticipation, GroupArea], group: {participants: {id: user.id}}
-      can :manage, [Quorum, BestQuorum, OldQuorum], group: {id: user.portavoce_group_ids}
-      can :manage, GroupArea, group: {id: user.portavoce_group_ids, enable_areas: true}
+      can :index, [GroupParticipation, GroupArea], group: participate_in_group(user)
+      can :manage, [Quorum, BestQuorum, OldQuorum], group: is_admin_of_group(user)
+      can :manage, GroupArea, group: [is_admin_of_group(user), enable_areas: true]
 
-      can [:create, :destroy], AreaParticipation, group_area: {group: {id: user.portavoce_group_ids}, area_participations: {user_id: :user_id}}
+      can [:create, :destroy], AreaParticipation, group_area: {group: is_admin_of_group(user), area_participations: {user_id: :user_id}}
 
       #e sia l'amministratore o portavoce del gruppo
       #e che il ruolo appartenga al gruppo indicato o sia generico,
@@ -229,29 +234,29 @@ class Ability
       can [:edit, :update, :destroy], Blog, user_id: user.id
       can [:new, :create], Blog unless user.blog
 
-      can :read, BlogPost, status: BlogPost::RESERVED, groups: {group_participations: {user_id: user.id}}
-      can :read, PostPublishings, blog_post: {status: BlogPost::RESERVED, groups: {group_participations: {user_id: user.id}}}
+      can :read, BlogPost, status: BlogPost::RESERVED, groups: participate_in_group(user)
+      can :read, PostPublishing, blog_post: {status: BlogPost::RESERVED, groups: participate_in_group(user)}
 
       can :drafts, BlogPost, status: BlogPost::DRAFT, user_id: user.id
       can :read, BlogPost, user_id: user.id
-      can :read, PostPublishing, user_id: user.id
+      can :read, PostPublishing, blog_post: {user_id: user.id}
 
       can :update, BlogPost, user_id: user.id
       if user.blog
         can :create, BlogPost, blog: {user_id: user.id}
-        can :create, BlogPost, publishings: {group: {group_participations: {user_id: user.id}}}
+        can :create, BlogPost, publishings: {group: participate_in_group(user)}
       end
 
       can :create, BlogComment, blog_post: r_blog_post_is_public
       can :create, BlogComment, blog_post: {user_id: user.id}
-      can :create, BlogComment, blog_post: {groups: {group_participations: {user_id: user.id}}}
+      can :create, BlogComment, blog_post: {groups: participate_in_group(user)}
 
       can :destroy, BlogComment, user_id: user.id
       can :destroy, BlogComment, blog_post: {user_id: user.id}
 
       can :change_rotp_enabled, User if user.email
 
-      can :read, Event, groups: {group_participations: {user_id: user.id}} #can also view private events of groups in which participates
+      can :read, Event, groups: participate_in_group(user) #can also view private events of groups in which participates
 
       can :create, Event
 
@@ -267,27 +272,27 @@ class Ability
             proposal_nickname.created_at > 10.minutes.ago
       end
 
-      can [:create, :like], EventComment, event: {groups: {group_participations: {user_id: user.id}}}
+      can [:create, :like], EventComment, event: {groups: participate_in_group(user)}
       can [:create, :like], EventComment, event: {private: false}
 
       can :destroy, EventComment, user_id: user.id
 
       can :create, MeetingParticipation, meeting: {event: {private: false}}
-      can :create, MeetingParticipation, meeting: {event: {groups: {group_participations: {user_id: user.id}}}}
+      can :create, MeetingParticipation, meeting: {event: {groups: participate_in_group(user)}}
       cannot :create, MeetingParticipation, meeting: {event: ['endtime < :limit', limit: Time.now]}
 
       #forum permissions
-      can :read, Frm::Category, group: {group_participations: {user_id: user.id}}
-      can :read, Frm::Topic, group: {group_participations: {user_id: user.id}}
-      can :read, Frm::Forum, group: {group_participations: {user_id: user.id}}
+      can :read, Frm::Category, group: participate_in_group(user)
+      can :read, Frm::Topic, group: participate_in_group(user)
+      can :read, Frm::Forum, group: participate_in_group(user)
 
-      can :create_topic, Frm::Forum, group: {group_participations: {user_id: user.id}}
+      can :create_topic, Frm::Forum, group: participate_in_group(user)
 
-      can [:new, :create], Frm::Topic, forum: {group: {group_participations: {user_id: user.id}}}
+      can [:new, :create], Frm::Topic, forum: participate_in_group(user)
 
-      can :reply, Frm::Topic, group: {group_participations: {user_id: user.id}}
+      can :reply, Frm::Topic, group: participate_in_group(user)
 
-      can :edit_post, Frm::Forum, group: {group_participations: {user_id: user.id}}
+      can :edit_post, Frm::Forum, group: participate_in_group(user)
 
       can :moderate, Frm::Forum do |forum|
         user.can_moderate_forem_forum?(forum) || user.forem_admin?(forum.group)
@@ -355,6 +360,14 @@ class Ability
 
   def can_do_on_group(user, action)
     {group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: action}}}}
+  end
+
+  def participate_in_group(user)
+    {group_participations: {user_id: user.id}}
+  end
+
+  def can_do_on_group_area(user, action)
+    {area_participations: {user_id: user.id, area_role: {area_action_abilitations: {group_action_id: action}}}}
   end
 
   def is_admin_of_group(user)

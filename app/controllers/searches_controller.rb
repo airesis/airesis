@@ -19,7 +19,7 @@ class SearchesController < ApplicationController
       @search.proposals.each do |proposal|
         url = proposal.private? ?
             group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal)
-        results << {value: proposal.title, type: 'Proposal', url: url, image: '/assets/gruppo-anonimo.png'}
+        results << {value: proposal.title, type: 'Proposal', url: url, image: ActionController::Base.helpers.asset_path("gruppo-anonimo.png")}
       end
     end
     if @search.blogs.count > 0

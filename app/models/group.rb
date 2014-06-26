@@ -232,7 +232,7 @@ class Group < ActiveRecord::Base
     elsif read_attribute(:image_url) != nil
       read_attribute(:image_url)
     else
-      '/assets/gruppo-anonimo.png'
+      ActionController::Base.helpers.asset_path("gruppo-anonimo.png")
     end
   end
 

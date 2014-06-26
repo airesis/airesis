@@ -1,5 +1,5 @@
 <% if current_user %>
-    <%= subscribe_to blog_blog_post_path(@blog,@blog_post) %>
+    <%= subscribe_to blog_blog_post_path(@blog_post.blog,@blog_post) %>
 <% end %>
 
 <% content_for :html_options do %>

@@ -23,24 +23,23 @@ describe "the management of group areas", type: :feature, js: true do
   end
 
   it "can manage group areas" do
-    @group.update_attributes(:enable_areas, true)
+    @group.update_attributes(enable_areas: true)
     visit new_group_group_area_path(@group)
     role_name = Faker::Name.title
     within('#main-copy') do
       fill_in I18n.t('activerecord.attributes.group_area.name'), with: role_name
       fill_in I18n.t('activerecord.attributes.group_area.description'), with: Faker::Lorem.sentence
+      fill_in I18n.t('activerecord.attributes.group_area.default_role_name'), with: Faker::Name.title
       click_button I18n.t('buttons.create')
     end
     expect(page).to have_content role_name
     @group_area = GroupArea.order(created_at: :desc).first
-    expect(page.current_path).to eq(group_group_area_path(@group_area))
-
-
+    expect(page.current_path).to eq(group_group_area_path(@group,@group_area))
 
   end
 
   it "can manage users inside a group area" do
-    @group.update_attributes(:enable_areas, true)
+    @group.update_attributes(enable_areas: true)
     group_area = create(:group_area,group: @group)
 
     visit group_group_area_path(@group,group_area)

@@ -18,7 +18,7 @@ FactoryGirl.define do
     end
 
     after(:create) do
-      Proposal.reindex
+      Sunspot.commit
     end
   end
 end

@@ -46,6 +46,11 @@ def create_participation(user,group)
   group.save
 end
 
+def create_area_participation(user,group_area)
+  group_area.area_participations.build(user: user,participation_role_id: group_area.area_role_id)
+  group_area.save
+end
+
 def create_public_proposal(user_id)
   create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: user_id)
 end
@@ -70,4 +75,8 @@ end
 
 def expect_sign_in_page
   expect(page.current_path).to eq('/users/sign_in')
+end
+
+def expect_forbidden_page
+  expect(page).to have_content(I18n.t('error.error_302.title'))
 end

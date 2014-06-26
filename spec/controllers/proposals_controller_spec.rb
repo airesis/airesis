@@ -201,7 +201,7 @@ describe ProposalsController, :type => :controller, search: :true do
     it "retrieve both proposals with correct tag" do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', quorum: BestQuorum.public.first, current_user_id: @user.id)
       get :similar, tags: 'tag1', format: :js
-      expect(assigns(:proposals)).to eq([@proposal1, proposal2])
+      expect(assigns(:proposals)).to match_array([@proposal1, proposal2])
     end
 
     it "retrieve both proposals matching title with tag" do

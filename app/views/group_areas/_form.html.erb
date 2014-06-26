@@ -1,5 +1,5 @@
 <h2><%= t('pages.groups.edit_work_areas.form.title') %></h2>
-<%= simple_form_for !in_subdomain? ? [@group, @group_area] : @group_area, validate: true, remote: true do |e| %>
+<%= simple_form_for !in_subdomain? ? [@group, @group_area] : @group_area, validate: true, remote: request.xhr? do |e| %>
 
     <%= e.input :name %>
 

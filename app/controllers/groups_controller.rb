@@ -10,9 +10,6 @@ class GroupsController < ApplicationController
 
   load_and_authorize_resource
 
-  #l'utente deve essere portavoce o amministratore
-  before_filter :portavoce_required, only: [:edit, :update, :enable_areas, :edit_proposals]
-
   before_filter :admin_required, only: [:autocomplete]
 
   def autocomplete
@@ -45,7 +42,7 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group_posts = @group.post_publishings.accessible_by(current_ability).order('post_publishings.featured desc, published_at DESC')
+    @group_posts = @group.post_publishings.accessible_by(current_ability).order('post_publishings.featured desc, blog_posts.published_at DESC')
 
     respond_to do |format|
       format.js {
@@ -531,14 +528,6 @@ class GroupsController < ApplicationController
   def group_params
     params[:group][:default_role_actions].reject!(&:empty?) if params[:group][:default_role_actions]
     params.require(:group).permit(:participant_tokens, :name, :description, :accept_requests, :facebook_page_url, :group_participations, :interest_border_tkn, :title_bar, :image_url, :default_role_name, :default_role_actions, :image, :admin_title, :private, :rule_book, :tags_list)
-  end
-
-
-  def portavoce_required
-    unless (current_user && (@group.portavoce.include? current_user)) || is_admin?
-      flash[:error] = t('error.portavoce_required')
-      redirect_to group_url(@group)
-    end
   end
 
   def render_404(exception=nil)

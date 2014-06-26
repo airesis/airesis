@@ -18,9 +18,7 @@ class BlogCommentsController < ApplicationController
     respond_to do |format|
       if save_blog_comment(@blog_comment)
         flash[:notice] = t('info.blog.comment_added')
-        @blog_comments = @blog_post.blog_comments.order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
-        @saved = @blog_comments.find { |comment| comment.id == @blog_comment.id }
-        @saved.collapsed = true
+        @blog_comment.collapsed = true
         format.js
         format.html
       else

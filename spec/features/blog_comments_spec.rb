@@ -4,6 +4,16 @@ require "cancan/matchers"
 
 describe 'the management of the blog posts', type: :feature, js: true do
 
+  def fill_and_submit(page)
+    expect(page).to have_content(I18n.t('pages.proposals.show.add_comment'))
+    comment = Faker::Lorem.sentence
+    within('#blogNewComment') do
+      fill_in 'blog_comment_body', with: comment
+      click_button I18n.t('pages.blog_comments.new.insert_comment')
+    end
+    return comment
+  end
+
   before :each do
     @user = create(:default_user)
     @group = create(:default_group, current_user_id: @user.id)
@@ -19,14 +29,8 @@ describe 'the management of the blog posts', type: :feature, js: true do
     visit blog_blog_post_path(@blog,@blog_post)
 
     expect(page).to have_content(@blog_post.title)
-    expect(page).to have_content(I18n.t('pages.proposals.show.add_comment'))
-    comment = Faker::Lorem.sentence
-    within('#blogNewComment') do
-      fill_in 'blog_comment_body', with: comment
-      click_button I18n.t('pages.blog_comments.new.insert_comment')
-    end
-
-    expect(page).to have_selector('form#new_user', visible: true)
+    comment = fill_and_submit(page)
+    expect(page).to have_selector('form#new_user')
     within('form#new_user') do
       fill_in 'user_login', :with => @user.email
       fill_in 'user_password', :with => 'topolino'
@@ -40,12 +44,7 @@ describe 'the management of the blog posts', type: :feature, js: true do
     visit blog_blog_post_path(@blog,@blog_post)
 
     expect(page).to have_content(@blog_post.title)
-    expect(page).to have_content(I18n.t('pages.proposals.show.add_comment'))
-    comment = Faker::Lorem.sentence
-    within('#blogNewComment') do
-      fill_in 'blog_comment_body', with: comment
-      click_button I18n.t('pages.blog_comments.new.insert_comment')
-    end
+    comment = fill_and_submit(page)
     expect(page).to have_content(comment)
   end
 
@@ -55,12 +54,7 @@ describe 'the management of the blog posts', type: :feature, js: true do
     visit blog_blog_post_path(@blog,@blog_post)
 
     expect(page).to have_content(@blog_post.title)
-    expect(page).to have_content(I18n.t('pages.proposals.show.add_comment'))
-    comment = Faker::Lorem.sentence
-    within('#blogNewComment') do
-      fill_in 'blog_comment_body', with: comment
-      click_button I18n.t('pages.blog_comments.new.insert_comment')
-    end
+    comment = fill_and_submit(page)
     expect(page).to have_content(comment)
   end
 
@@ -70,12 +64,7 @@ describe 'the management of the blog posts', type: :feature, js: true do
     visit blog_blog_post_path(@blog,@blog_post)
 
     expect(page).to have_content(@blog_post.title)
-    expect(page).to have_content(I18n.t('pages.proposals.show.add_comment'))
-    comment = Faker::Lorem.sentence
-    within('#blogNewComment') do
-      fill_in 'blog_comment_body', with: comment
-      click_button I18n.t('pages.blog_comments.new.insert_comment')
-    end
+    comment = fill_and_submit(page)
     expect(page).to have_content(comment)
   end
 
@@ -91,23 +80,13 @@ describe 'the management of the blog posts', type: :feature, js: true do
     visit blog_blog_post_path(@blog,@blog_post)
 
     expect(page).to have_content(@blog_post.title)
-    expect(page).to have_content(I18n.t('pages.proposals.show.add_comment'))
-    comment = Faker::Lorem.sentence
-    within('#blogNewComment') do
-      fill_in 'blog_comment_body', with: comment
-      click_button I18n.t('pages.blog_comments.new.insert_comment')
-    end
-    expect(page).to have_content(comment)
 
+    comment = fill_and_submit(page)
+    expect(page).to have_content(comment)
     visit group_blog_post_path(@group,@blog_post)
 
     expect(page).to have_content(@blog_post.title)
-    expect(page).to have_content(I18n.t('pages.proposals.show.add_comment'))
-    comment = Faker::Lorem.sentence
-    within('#blogNewComment') do
-      fill_in 'blog_comment_body', with: comment
-      click_button I18n.t('pages.blog_comments.new.insert_comment')
-    end
+    comment = fill_and_submit(page)
     expect(page).to have_content(comment)
   end
 end
