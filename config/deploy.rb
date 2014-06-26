@@ -37,6 +37,8 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 
 set :linked_files, %w{config/application.yml  config/database.yml  config/paypal.yml  config/private_pub.yml  config/sidekiq.yml  config/sunspot.yml config/environments/staging.rb}
 
+set :sidekiq_config, "#{current_path}/config/sidekiq.yml"
+
 namespace :deploy do
 
   desc 'Restart application'

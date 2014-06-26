@@ -28,6 +28,7 @@ group :development do
   gem 'sunspot_solr'
   gem "better_errors"
   gem 'quiet_assets'
+  gem 'capistrano-sidekiq' , group: :development
 end
 
 group :development, :test do
