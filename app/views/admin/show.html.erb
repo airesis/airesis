@@ -25,7 +25,7 @@
           <%= submit_tag 'Send' %>
       <% end %>
     </div>
-    <%if CROWDIN_API %>
+    <%if ENV['CROWDIN_API'] %>
         <div class="card">
             <h3>Crowdin</h3>
             <%= link_to 'Upload sources', {controller: "admin", action: "upload_sources"}, class: 'btn'%>

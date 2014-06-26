@@ -14,7 +14,7 @@ module Crowdin
     FAKE_LANGUAGE = "en-GB"
 
     def auth
-      @crowdin = Crowdin::API.new(api_key: CROWDIN_API , project_id: CROWDIN_PROJECT_ID, account_key: CROWDIN_ACCOUNT_KEY)
+      @crowdin = Crowdin::API.new(api_key: ENV['CROWDIN_API'] , project_id: ENV['CROWDIN_PROJECT_ID'], account_key: ENV['CROWDIN_ACCOUNT_KEY'])
       @crowdin.log = Logger.new $stderr
     end
 

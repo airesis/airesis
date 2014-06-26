@@ -1,6 +1,6 @@
 <% content_for :menu do %>
     <div class="topimage hide-for-small">
-      <%= @group ? (@group.group_image_tag 30) : (image_tag 'logo120.png', alt: APP_LONG_NAME) %>
+      <%= @group ? (@group.group_image_tag 30) : (image_tag 'logo120.png', alt: ENV['APP_LONG_NAME']) %>
     </div>
 
     <div class="topmenu">

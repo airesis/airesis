@@ -66,21 +66,6 @@ namespace :airesis do
       else
         ::Configuration.find_by_name(::Configuration::RECAPTCHA).update_attribute(:value,0)
       end
-      environmentfilename = 'config/environment.rb'
-      environmenttext = File.read(environmentfilename)
-      default_email = 'Newsletter <newsletter@testairesis.com>'
-
-      puts ""
-      puts "Please enter the email address from which send newsletters. Leave blank for '#{default_email}'"
-      print "Email address: "
-      email = STDIN.gets
-      email = email.chomp
-      unless email.blank?
-        environmenttext = environmenttext.gsub(/NEWSLETTER_FROM_ADDRESS=.*/,"NEWSLETTER_FROM_ADDRESS=\"#{email}\"")
-        File.open(environmentfilename, "w") {|file| file.puts environmenttext}
-      end
-
-
 
       puts ""
       puts "OK! Well done! We have finished! Now just start your Airesis environment with rails s and if something goes wrong please blame the developer."

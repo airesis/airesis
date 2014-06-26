@@ -1,5 +1,5 @@
 <%= t('mailer.invite.hi_user') %><br/>
-<%=raw t('mailer.invite.invitation', {user: @group_invitation.inviter.fullname, group: (link_to @group.name, group_url(@group)), app_name: (link_to APP_LONG_NAME, Maktoub.home_domain)}) %><br />
+<%=raw t('mailer.invite.invitation', {user: @group_invitation.inviter.fullname, group: (link_to @group.name, group_url(@group)), app_name: (link_to ENV['APP_LONG_NAME'], Maktoub.home_domain)}) %><br />
 <%if @group_invitation.testo %>
 <%= t('mailer.invite.message_intro') %><br/>
     <p style="font-style: italic;">

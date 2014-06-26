@@ -52,7 +52,7 @@
                 var issue = issues[i];
                 if (issue.fixed_version != null) {
                     var vcontainer_ = containers[issue.fixed_version.id];
-                    var icontainer_ = $('<li><a href="http://<%=BUGTRACKING_URL%>/issues/' + issue.id + '" target="_blank">' + issue.subject + '</a></li>');
+                    var icontainer_ = $('<li><a href="http://<%=ENV['BUGTRACKING_URL']%>/issues/' + issue.id + '" target="_blank">' + issue.subject + '</a></li>');
                     vcontainer_.append(icontainer_);
                 }
 

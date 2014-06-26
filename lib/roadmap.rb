@@ -1,9 +1,7 @@
 class Roadmap
   include HTTParty
 
-  base_uri BUGTRACKING_URL
-
-
+  base_uri ENV['BUGTRACKING_URL']
 
   def initialize(u, p)
     @auth = {username: u, password: p}

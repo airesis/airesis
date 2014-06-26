@@ -17,4 +17,4 @@
 
 <p><%= t('devise.mailer.confirmation_instructions.access_by_email', {app_name: ENV['APP_SHORT_NAME']}) %></p>
 
-<p><%= t('devise.mailer.confirmation_instructions.contact_assistance', {mail: APP_EMAIL_ADDRESS}) %></p>
+<p><%= t('devise.mailer.confirmation_instructions.contact_assistance', {mail: ENV['APP_EMAIL_ADDRESS']}) %></p>

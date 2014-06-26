@@ -1,7 +1,7 @@
 namespace :airesis do
   namespace :seed do
 
-    desc 'Dump all Airesis Seed Data and split them in a good way. Take options from config/seed_dump.yml'
+    desc 'Dump all Airesis Seed Data and split them in a good way.'
     task dump: :environment do
       def filename(num)
         "db/seeds/#{num}_airesis_seed.rb"

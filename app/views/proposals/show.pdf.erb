@@ -17,7 +17,7 @@
   <div>
     <%= params[:debug].present? ? image_tag('logo_head.png', style: 'width:22px;padding-top:2px;', align: 'left') : wicked_pdf_image_tag('logo_head.png', style: 'width:22px;padding-top:2px;', align: 'left') %>
     <div class="headerTitle" lang="la">
-      <%= APP_LONG_NAME %>
+      <%= ENV['APP_LONG_NAME'] %>
     </div>
   </div>
   <hr/>

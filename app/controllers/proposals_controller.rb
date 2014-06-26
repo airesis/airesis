@@ -537,7 +537,7 @@ class ProposalsController < ApplicationController
       message.subject = subject
       client = Jabber::Client.new Jabber::JID.new(id)
       client.connect
-      client.auth_sasl(Jabber::SASL::XFacebookPlatform.new(client, FACEBOOK_APP_ID, current_user.authentications.find_by_provider(Authentication::FACEBOOK).token, FACEBOOK_APP_SECRET), nil)
+      client.auth_sasl(Jabber::SASL::XFacebookPlatform.new(client, ENV['FACEBOOK_APP_ID'], current_user.authentications.find_by_provider(Authentication::FACEBOOK).token, ENV['FACEBOOK_APP_SECRET']), nil)
       client.send message
       client.close
     end

@@ -1,10 +1,10 @@
 <% content_for :menu do %>
 
     <div class="topimage">
-      <%= image_tag 'logo120.png', width: 40, alt: APP_LONG_NAME %>
+      <%= image_tag 'logo120.png', width: 40, alt: ENV['APP_LONG_NAME'] %>
     </div>
     <div class="topmenu">
-      <span class="tit"><%= APP_LONG_NAME %></span>
+      <span class="tit"><%= ENV['APP_LONG_NAME'] %></span>
 
       <div class="submenu">
         <%= link_to(proposals_path, class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '')) do %>

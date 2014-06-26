@@ -1,3 +1,3 @@
 Timezone::Configure.begin do |c|
-  c.username = GEOSPATIAL_NAME
+  c.username = ENV['GEOSPATIAL_NAME']
 end

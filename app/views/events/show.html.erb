@@ -12,7 +12,7 @@
 <div class="row full-width">
   <% if !@event.is_elezione? %>
       <script type="text/javascript"
-              src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false">
+              src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false">
       </script>
 
       <div class="columns large-6">

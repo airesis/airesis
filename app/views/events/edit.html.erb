@@ -1,5 +1,5 @@
 <script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false">
+        src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false">
 </script>
 
 <%= render 'edit_form'  %>
