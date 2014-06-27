@@ -6,7 +6,7 @@
 
 
     <%= link_to 'Ricalcola ranking utenti', {controller: "admin", action: "calculate_ranking"}, class: 'btn' %>
-    <%= link_to 'Ricalcola stato proposte', {action: "change_proposals_state", controller: "admin"}, class: 'btn' %>
+    <%= link_to 'Ricalcola stato proposte', {action: "change_proposals_state", controller: "admin"}, class: 'btn', title: 'Verifica lo stato di tutte le proposte in votazione. Se il temrine è scaduto e non sono state elaborate, le elabora' %>
     <%= link_to 'Verifica validità Gruppi', {action: "validate_groups", controller: "admin"}, class: 'btn' %>
     <%= link_to 'Aggiorna sitemap', {action: "write_sitemap", controller: "admin"}, class: 'btn' %>
     <%= link_to 'Cancella vecchie notifiche', {action: "delete_old_notifications", controller: "admin"}, class: 'btn' %>
