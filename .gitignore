@@ -26,3 +26,4 @@ solr/development
 solr/test
 solr/default
 *.orig
+bin/alwaysdata
