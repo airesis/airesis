@@ -217,7 +217,7 @@ class Group < ActiveRecord::Base
   #utenti che possono eseguire un'azione
   def scoped_participants(action_id)
     self.participants
-    .joins("joins participation_roles on group_participations.participation_role_id = participation_roles.id join action_abilitations on participation_roles.id = action_abilitations.participation_role_id")
+    .joins("join participation_roles on group_participations.participation_role_id = participation_roles.id join action_abilitations on participation_roles.id = action_abilitations.participation_role_id")
     .where(["(action_abilitations.group_action_id = ? AND action_abilitations.group_id = ?) or (participation_roles.id = ?)", action_id, self.id, ParticipationRole::ADMINISTRATOR])
   end
 
