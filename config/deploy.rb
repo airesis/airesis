@@ -9,7 +9,7 @@ set :repo_url, 'git@github.com:coorasse/airesis.git'
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
- set :deploy_to, '~/airesis_capistrano'
+set :deploy_to, '~/airesis_capistrano'
 
 # Default value for :scm is :git
 # set :scm, :git

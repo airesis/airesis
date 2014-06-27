@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   after_filter :discard_flash_if_xhr
 
   before_filter :store_location
+
   before_filter :set_locale
   around_filter :user_time_zone, if: :current_user
 
@@ -103,13 +104,14 @@ class ApplicationController < ActionController::Base
   def set_locale
     @domain_locale = request.host.split('.').last
     params[:l] = SysLocale.find_by_key(params[:l]) ? params[:l] : nil
-    if Rails.env.staging?
-      params[:l] || I18n.default_locale
-    elsif Rails.env.test?
-      params[:l] || I18n.default_locale
-    else
-      params[:l] || @domain_locale || I18n.default_locale
-    end
+    @locale =
+        if Rails.env.staging?
+          params[:l] || I18n.default_locale
+        elsif Rails.env.test?
+          params[:l] || I18n.default_locale
+        else
+          params[:l] || @domain_locale || I18n.default_locale
+        end
     @locale = 'en' if ['en', 'eu'].include? @locale
     @locale = 'en-US' if ['us'].include? @locale
     @locale = 'zh' if ['cn'].include? @locale

@@ -114,7 +114,7 @@ class ResqueMailer < ActionMailer::Base
 
 
 
-  def test
+  def test_mail
     mail(to: "coorasse@gmail.com", subject: "Test Redis To Go")
   end
 

@@ -64,7 +64,7 @@ class AdminController < ManagerController
 
   #invia una mail di prova tramite resque e redis
   def test_redis
-    ResqueMailer.delay.test
+    ResqueMailer.delay.test_mail
     flash[:notice] = 'Test avviato'
     redirect_to admin_panel_path
   end
