@@ -33,12 +33,18 @@ class AdminController < ManagerController
 
   #change proposal states
   def change_proposals_state
-    return if Rails.env.production? #security check. not ready for production
+    #check all proposals waiting and put them in votation
+    voting = Proposal.waiting.joins(:vote_period).where('current_timestamp > events.starttime')
+    voting.each do |proposal| #per ciascuna proposta da chiudere
+      EventsWorker.new.start_votation(proposal.vote_period.id)
+    end
+
     #check all proposals in votation that has to be closed but are still in votation and the period has passed
     voting = Proposal.voting.joins(:vote_period).where('current_timestamp > events.endtime')
     voting.each do |proposal| #per ciascuna proposta da chiudere
       proposal.quorum.close_vote_phase
     end
+
     flash[:notice] = 'Stato proposte aggiornato'
     redirect_to admin_panel_path
   end

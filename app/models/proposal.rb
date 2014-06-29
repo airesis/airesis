@@ -8,11 +8,10 @@ class Proposal < ActiveRecord::Base
   has_many :proposal_presentations, -> { order 'id DESC' }, class_name: 'ProposalPresentation', dependent: :destroy
 
   has_many :proposal_borders, class_name: 'ProposalBorder', dependent: :destroy
-  has_many :proposal_histories, class_name: 'ProposalHistory'
 
-  has_many :revisions, class_name: 'ProposalRevision', dependent: :destroy
+  has_many :proposal_revisions, dependent: :destroy
+  has_many :paragraph_histories, dependent: :destroy
 
-  #  has_many :proposal_watches, class_name: 'ProposalWatch'
   has_one :vote, class_name: 'ProposalVote', dependent: :destroy
 
   has_many :user_votes, class_name: 'UserVote'
@@ -88,13 +87,14 @@ class Proposal < ActiveRecord::Base
   scope :in_valutation, -> { where(proposal_state_id: ProposalState::VALUTATION) }
   #tutte le proposte in attesa di votazione o attualmente in votazione
 
-  #scope :waiting, {conditions: {proposal_state_id: [ProposalState::WAIT_DATE, ProposalState::WAIT]}}
 
   #retrieve proposals in a state before votation, exclude petitions
   scope :before_votation, -> { where(['proposal_state_id in (?) and proposal_type_id != ?', [ProposalState::VALUTATION, PROP_WAIT_DATE, PROP_WAIT], 11]) }
 
   scope :in_votation, -> { where(proposal_state_id: [ProposalState::WAIT_DATE, ProposalState::WAIT, PROP_VOTING]) }
 
+  #waiting for the votation to start (already choosen)
+  scope :waiting, -> { where(proposal_state_id: ProposalState::WAIT) }
   scope :voting, -> { where(proposal_state_id: ProposalState::VOTING) }
 
   scope :not_voted_by, lambda { |user_id| {conditions: ['proposal_state_id = ? and proposals.id not in (select proposal_id from user_votes where user_id = ?)', ProposalState::VOTING, user_id]} }
@@ -458,8 +458,8 @@ class Proposal < ActiveRecord::Base
     text :title, boost: 5
     text :content, boost: 2
     text :paragraphs do
-      (sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content } } +
-          solutions.map { |solution| solution.sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content } } }).flatten
+      (sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content.gsub!(/\p{Cc}/, '') } } +
+          solutions.map { |solution| solution.sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content.gsub!(/\p{Cc}/, '') } } }).flatten
     end
     text :tags_list do
       self.tags.map(&:text).join(' ')
@@ -582,8 +582,8 @@ class Proposal < ActiveRecord::Base
 
   def save_history
     something = false
-    seq = (self.revisions.maximum(:seq) || 0) + 1
-    revision = self.revisions.build(user_id: self.update_user_id, valutations: self.valutations_was, rank: self.rank_was, seq: seq)
+    seq = (self.proposal_revisions.maximum(:seq) || 0) + 1
+    revision = self.proposal_revisions.build(user_id: self.update_user_id, valutations: self.valutations_was, rank: self.rank_was, seq: seq)
     self.sections.each do |section|
       paragraph = section.paragraphs.first
       paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')

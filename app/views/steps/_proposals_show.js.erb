@@ -65,7 +65,7 @@
         position: 'right'
 
     },
-    <%if @proposal.revisions.count > 0%>
+    <%if @proposal.proposal_revisions.count > 0%>
     {
         element: '#history',
         intro: "<%=t('tutorial.proposals_show.history')%>",
