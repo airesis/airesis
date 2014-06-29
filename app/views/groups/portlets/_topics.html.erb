@@ -1,18 +1,10 @@
 <div class="title">
   <%= t('pages.groups.show.last_topics') %>
 </div>
-<% @c = @group.topics.includes(:views, :forum).order('created_at desc').limit(10) %>
-<% unless @c.empty? %>
+<% if @group.last_topics.size > 0 %>
     <div class="scrollable">
       <div class="mini_topics">
-      <%= render partial: 'frm/topics/mini_topic', collection: @c, as: 'topic' %>
+      <%= render partial: 'frm/topics/mini_topic', collection: @group.last_topics, as: 'topic' %>
       </div>
     </div>
-
-
 <% end %>
-
-
-<script type="text/javascript">
-
-</script>
