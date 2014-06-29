@@ -1,8 +1,15 @@
-<div>
+<div class="cont-mess gray scrollable">
   <% @unread.each do |alert| %>
-      <a class="mess new" href="<%= check_alert_path(alert) %>">
-        <p class="p2"><%= l alert.created_at %></p>
-        <p class="p2"><%=alert.message %></p>
-      </a>
+      <li>
+        <a class="card mess new" href="<%= check_alert_path(alert) %>" data-proposal-id="<%= @proposal_id %>">
+          <div>
+            <p class="p2"><%= alert.message.html_safe %></p>
+
+            <div class="p1"><%= l alert.created_at %></div>
+          </div>
+          <div class="clearboth"></div>
+        </a>
+      </li>
   <% end %>
+
 </div>

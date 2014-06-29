@@ -163,7 +163,6 @@ function disegnaProgressBar() {
                     type: 'GET', // POST or GET
                     data: 'proposal_id=' + $(this).data('proposal-id'),
                     success: function (data, status) {
-
                         this.set('content.text', data);
                     }
                 }
@@ -631,7 +630,7 @@ function poll() {
                 var notif_container = $('<div class="mess_desc"></div>');
                 notif_container.append($('<p class="p2">' + alert.text + '</p>'));
                 notif_container.append($('<div class="p1">' + alert.created_at + '</div>'));
-                alert_container.append(alert.image);
+                alert_container.append($('<img src="'+alert.image+'"/>'));
                 alert_container.append(notif_container);
                 alert_container.append('<div class="clearboth"></div>');
                 sub_container.append(li_alert_con);

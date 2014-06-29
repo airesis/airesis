@@ -1,10 +1,10 @@
 <div class="title">
   <%= t('pages.home.index.next_events') %>
-  <%=link_to t('pages.home.index.show_events'), events_path, class: 'btn' %>
-  <% @c = Event.public.next.order('starttime asc').limit(10) %>
+  <%= link_to t('pages.home.index.show_events'), events_path, class: 'btn' %>
+</div>
+<% @c = Event.public.next.order('starttime asc').limit(10) %>
+<div class="scrollable">
   <% unless @c.empty? %>
-      <div class="scrollable">
-        <%= render partial: 'events/mini_event', collection: @c, as: 'event' %>
-      </div>
+      <%= render partial: 'events/mini_event', collection: @c, as: 'event' %>
   <% end %>
 </div>

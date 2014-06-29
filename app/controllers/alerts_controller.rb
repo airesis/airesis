@@ -28,7 +28,7 @@ class AlertsController < ApplicationController
            proposal_id: alert.data[:proposal_id],
            category_name: alert.notification_category.short.downcase,
            category_title: alert.notification_category.description.upcase,
-           image: "<img src=\"/assets/notification_categories/#{alert.notification_category.short.downcase}.png\"/>"}
+           image: ActionController::Base.helpers.asset_path("notification_categories/#{alert.notification_category.short.downcase}.png")}
         end
         @map = {count: numunread, alerts: alerts}
         render json: @map
@@ -71,7 +71,8 @@ class AlertsController < ApplicationController
 
   #return notification tooltip for a specific proposal and user
   def proposal
-    @unread = current_user.alerts.where(["(notifications.properties -> 'proposal_id') = ? and alerts.checked = ?", params[:proposal_id].to_s, false])
+    @proposal_id = params[:proposal_id]
+    @unread = current_user.alerts.where(["(notifications.properties -> 'proposal_id') = ? and alerts.checked = ?", @proposal_id.to_s, false])
     render layout: false
   end
 end

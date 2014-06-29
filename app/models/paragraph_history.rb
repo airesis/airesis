@@ -1,7 +1,6 @@
 class ParagraphHistory < ActiveRecord::Base
   belongs_to :section, class_name: 'SectionHistory'
 
-
   #we remove title and username
   def parsed_content(anonimous=true)
     if anonimous

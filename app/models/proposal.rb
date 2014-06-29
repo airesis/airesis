@@ -219,8 +219,8 @@ class Proposal < ActiveRecord::Base
 
 
   def count_notifications(user_id)
-    (alerts = self.proposal_alerts.where(user_id: user_id).first) ? alerts.count : 0
-
+    alerts = self.proposal_alerts.where(user_id: user_id).first
+    alerts ? alerts.count : 0
   end
 
 #after_find :calculate_percentage

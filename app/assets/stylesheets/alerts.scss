@@ -20,9 +20,31 @@
 }
 
 
+.scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 0px rgb(0, 0, 0);
+  border-radius: 10px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0);
+}
+
+
 /*ALERTS CSS*/
 .cont-mess {
   font-size: 0.9rem;
+
+  &.scrollable {
+    max-height: 450px;
+    overflow-y: auto;
+  }
+
   .tool {
     height: 60px;
     margin-right: 5px;
@@ -39,7 +61,6 @@
       margin-top: 10px;
       line-height: 1.1em;
       margin-left: 2px;
-      width: 190px;
     }
     .logo {
       height: 40px;
@@ -54,6 +75,9 @@
 
   .mess {
     cursor: pointer;
+    display: block;
+    padding: 0.9 rem 0.5 rem;
+    color: #555555;
     &:hover {
       border: 1px dotted black;
       button {
@@ -82,7 +106,7 @@
       display: none;
     }
     .read {
-      float: right;
+      position: absolute;
       border-radius: 10px;
       visibility: hidden;
       width: 20px;
@@ -90,13 +114,16 @@
       &:hover {
         background-color: rgba(255, 255, 255, 0.5);
       }
+      top: 5px;
+      right: 5px;
     }
     img {
-      float: left;
+      display: inline-block;
+      width: 50px;
     }
     .mess_desc {
-      width: 204px;
-      float: left;
+      display: inline-block;
+      width: calc(100% - 50px - 10px - 10px);
     }
   }
 
@@ -109,7 +136,6 @@
   }
   .p2 {
     margin: 0px;
-    height: 60px;
     overflow: hidden;
   }
   .p1 {
