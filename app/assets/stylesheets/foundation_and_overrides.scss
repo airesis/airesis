@@ -1757,7 +1757,9 @@ $logo-width: 92px;
   }
   &.contributes_shown {
     opacity: 0.6;
-
+    &.editing {
+      opacity: 1;
+    }
   }
 }
 
@@ -1770,6 +1772,9 @@ $logo-width: 92px;
 
 .contributes_shown .centerfloat {
   opacity: 0.6;
+  .editing & {
+    opacity: 1;
+  }
 }
 
 @media #{$medium-only} {
