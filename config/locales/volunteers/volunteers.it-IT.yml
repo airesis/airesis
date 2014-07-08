@@ -111,29 +111,18 @@ it-IT:
            </p>
       communication_area: "Area Comunicazione"
       curini_simone:
-        title: "Divulgazione del progetto sul territorio e contatti con i Meetup"
+        title: "Analista - Divulgatore"
         content_html: |
           <p>
-            Ho %{age} anni e da circa %{volunteers} sono impegnato in
-            attività
-            politiche e sociali su Firenze col movimento 5 stelle . Ho studiato economia e commercio (mercati
-            finanziari)
-            ,
-            poi ho capito chi ( o cosa ) sarei dovuto essere per onorare i miei studi ed ho preferito lidi familiari .
-            Faccio
-            l'antiquario ed il tempo che questo lavoro mi ha regalato l'ho impiegato per perfezionare la conoscenza di
-            alcuni
-            linguaggi di programmazione quali php e java.
+            Ho studiato economia e commercio (mercati finanziari),
+            poi ho capito chi ( o cosa ) sarei dovuto essere per onorare i miei studi ed ho preferito lidi familiari.
+            Faccio l'antiquario ed il tempo che questo lavoro mi ha regalato l'ho impiegato per perfezionare la conoscenza di
+            alcuni linguaggi di programmazione quali php e java.
             In Agorà 2.0 - Airesis sono stato coinvolto da Nicola nel 2010 per lo studio delle logiche, per la creazione
-            degli
-            spazi virtuali in cui ha avuto luogo il confronto tra i vari programmatori, ed infine per la sua
-            presentazione
-            e
-            promozione . Attualmente sto studiando Ruby nonostante una figlia di 8 mesi meravigliosamente impegnativa.
-            La
-            speranza è quella di dare vita ad un sogno in cui la politica sia fatta dai cittadini per i cittadini per
-            ottenere
-            sempre la soluzione più condivisa e ponderata possibile.
+            degli spazi virtuali in cui ha avuto luogo il confronto tra i vari programmatori, ed infine per la sua
+            presentazione e promozione.
+            La speranza è quella di dare vita ad un sogno in cui la politica sia fatta dai cittadini per i cittadini per
+            ottenere sempre la soluzione più condivisa e ponderata possibile.
           </p>
       test_area: "Area Test"
       mion_carlo:
