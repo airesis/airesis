@@ -75,7 +75,7 @@ Airesis::Application.routes.draw do
       end
     end
 
-    resources :proposal_histories
+    resources :proposal_revisions
     resources :proposal_lives
     resources :proposal_supports
     resources :proposal_presentations

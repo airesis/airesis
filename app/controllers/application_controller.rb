@@ -139,9 +139,11 @@ class ApplicationController < ActionController::Base
       env['exception_notifier.options'] = notifier.args.first || {}
       ExceptionNotifier.notify_exception(exception, env).deliver
       env['exception_notifier.delivered'] = true
+      message = "\n#{exception.class} (#{exception.message}):\n"
+      Rails.logger.error(message)
+    else
+      Rails.logger.error exception.backtrace.join("\n")
     end
-    message = "\n#{exception.class} (#{exception.message}):\n"
-    Rails.logger.error(message)
   end
 
 

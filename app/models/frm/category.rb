@@ -4,7 +4,7 @@ module Frm
     extend FriendlyId
     friendly_id :name, use: :scoped, scope: :group
 
-    has_many :forums
+    has_many :forums, -> {order(name: :asc)}
     belongs_to :group, class_name: '::Group', foreign_key: :group_id
 
     has_many :category_tags, dependent: :destroy, foreign_key: 'frm_category_id'

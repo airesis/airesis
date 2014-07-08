@@ -762,8 +762,15 @@ class ProposalsController < ApplicationController
   def proposal_params
     params.require(:proposal).permit(:proposal_category_id, :content, :title, :interest_borders_tkn, :tags_list,
                                      :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id, :group_area_id, :topic_id,
-                                     :sections_attributes, :solutions_attributes, :proposal_type_id, :proposal_votation_type_id,
-                                     :integrated_contributes_ids_list, :votation, :signatures, :petition_phase)
+                                     :proposal_type_id, :proposal_votation_type_id,
+                                     :integrated_contributes_ids_list, :votation, :signatures, :petition_phase,
+                                     sections_attributes:
+                                         [:id, :seq, :_destroy, :title, paragraphs_attributes:
+                                             [:id, :seq, :content, :content_dirty]],
+                                     :solutions_attributes =>
+                                         [:id, :seq, :_destroy, :title, sections_attributes:
+                                             [:id, :seq, :_destroy, :title, paragraphs_attributes:
+                                                 [:id, :seq, :content, :content_dirty]]])
   end
 
   def update_proposal_params

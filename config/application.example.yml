@@ -55,3 +55,7 @@ CROWDIN_ACCOUNT_KEY: ""
 REDIS_URL: "redis://127.0.0.1:6379/12"
 
 SITE: "http://www.airesis.eu"
+
+
+CAP_STAGING_USER: ""
+CAP_STAGING_SERVER: ""

@@ -78,6 +78,9 @@ class Group < ActiveRecord::Base
   #forum
   has_many :forums, class_name: 'Frm::Forum', foreign_key: 'group_id', dependent: :destroy
   has_many :topics, through: :forums, class_name: 'Frm::Topic', source: :topics
+
+  has_many :last_topics, -> {includes(:views, :forum).order(created_at: :desc).limit(10)}, through: :forums, class_name: 'Frm::Topic', source: :topics
+
   has_many :categories, class_name: 'Frm::Category', foreign_key: 'group_id', dependent: :destroy
   has_many :moderator_groups, class_name: 'Frm::Group', foreign_key: 'group_id', dependent: :destroy
 
@@ -217,7 +220,7 @@ class Group < ActiveRecord::Base
   #utenti che possono eseguire un'azione
   def scoped_participants(action_id)
     self.participants
-    .joins("joins participation_roles on group_participations.participation_role_id = participation_roles.id join action_abilitations on participation_roles.id = action_abilitations.participation_role_id")
+    .joins("join participation_roles on group_participations.participation_role_id = participation_roles.id join action_abilitations on participation_roles.id = action_abilitations.participation_role_id")
     .where(["(action_abilitations.group_action_id = ? AND action_abilitations.group_id = ?) or (participation_roles.id = ?)", action_id, self.id, ParticipationRole::ADMINISTRATOR])
   end
 

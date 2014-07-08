@@ -31,14 +31,20 @@ class AdminController < ManagerController
     redirect_to admin_panel_path
   end
 
-  #change proposal states in development. make a check and fix wrong situations
+  #change proposal states
   def change_proposals_state
-    return unless Rails.env == 'development'
-    #check all proposals in votation that has to be closed, in votation but the period has passed
-    voting = Proposal.all(joins: [:vote_period], conditions: ["proposal_state_id = #{ProposalState::VOTING} and current_timestamp > events.endtime"], readonly: false)
+    #check all proposals waiting and put them in votation
+    voting = Proposal.waiting.joins(:vote_period).where('current_timestamp > events.starttime')
     voting.each do |proposal| #per ciascuna proposta da chiudere
-      close_vote_phase(proposal)
-    end if voting
+      EventsWorker.new.start_votation(proposal.vote_period.id)
+    end
+
+    #check all proposals in votation that has to be closed but are still in votation and the period has passed
+    voting = Proposal.voting.joins(:vote_period).where('current_timestamp > events.endtime')
+    voting.each do |proposal| #per ciascuna proposta da chiudere
+      proposal.quorum.close_vote_phase
+    end
+
     flash[:notice] = 'Stato proposte aggiornato'
     redirect_to admin_panel_path
   end

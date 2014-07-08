@@ -13,13 +13,13 @@ class GroupArea < ActiveRecord::Base
   belongs_to :group, class_name: 'Group', foreign_key: :group_id
   belongs_to :default_role, class_name: 'AreaRole', foreign_key: :area_role_id
 
-  has_many :area_participations, -> {order 'id DESC'}, class_name: 'AreaParticipation', dependent: :destroy
+  has_many :area_participations, -> { order 'id DESC' }, class_name: 'AreaParticipation', dependent: :destroy
   has_many :participants, through: :area_participations, source: :user, class_name: 'User'
 
-  has_many :area_proposals, class_name: 'AreaProposal'#, dependent: :destroy
+  has_many :area_proposals, class_name: 'AreaProposal' #, dependent: :destroy
   has_many :proposals, through: :area_proposals, class_name: 'Proposal', source: :proposal
 
-  has_many :area_roles, -> {order 'id DESC'}, class_name: 'AreaRole', dependent: :destroy
+  has_many :area_roles, -> { order 'id DESC' }, class_name: 'AreaRole', dependent: :destroy
 
   before_create :pre_populate
   after_create :after_populate
@@ -63,11 +63,9 @@ class GroupArea < ActiveRecord::Base
 
   #utenti che possono eseguire un'azione
   def scoped_participants(action_id)
-    return self.participants.all(
-        joins: "join area_roles
-               on area_participations.area_role_id = area_roles.id
-               left join area_action_abilitations on area_roles.id = area_action_abilitations.area_role_id",
-        conditions: ["area_action_abilitations.group_action_id = ? AND area_action_abilitations.group_area_id = ?", action_id, self.id])
+    self.participants
+    .joins("join area_roles on area_participations.area_role_id = area_roles.id left join area_action_abilitations on area_roles.id = area_action_abilitations.area_role_id")
+    .where("area_action_abilitations.group_action_id = ? AND area_action_abilitations.group_area_id = ?", action_id, self.id)
   end
 
   def to_param
