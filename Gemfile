@@ -37,6 +37,8 @@ gem 'jquery-rails', '3.0.4'
 
 gem 'jquery-rjs', :git => 'https://github.com/coorasse/jquery-rjs.git'
 
+gem 'will_paginate'
+
 gem 'devise', '2.0.4'
 
 gem 'devise_traceable', :git => 'https://github.com/coorasse/devise_traceable.git'
