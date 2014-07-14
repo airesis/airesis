@@ -378,6 +378,7 @@ GEM
       rails
     workflow (1.1.0)
     xmpp4r (0.5.5)
+    will_paginate (3.0.3)
     xmpp4r_facebook (0.1.1)
       xmpp4r
     zurb-foundation (4.3.2)
@@ -454,4 +455,5 @@ DEPENDENCIES
   wicked_pdf
   workflow
   xmpp4r_facebook
+  will_paginate
   zurb-foundation
