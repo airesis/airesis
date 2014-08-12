@@ -172,3 +172,13 @@ SysLocale.create(key: "en", host: "www.airesisdev.eu:3000", territory_type: "Con
 SysLocale.create(key: "en-US", host: "www.airesisdev.us:3000", territory_type: "Continente", territory_id: "2")
 SysMovementType.create(description: "Entrata")
 SysMovementType.create(description: "Uscita")
+
+connection = ActiveRecord::Base.connection()
+connection.execute "CREATE OR REPLACE FUNCTION lower_unaccent(text)
+    RETURNS text
+    AS $$
+    SELECT lower(translate($1
+    , '¹²³áàâãäåāăąÀÁÂÃÄÅĀĂĄÆćčç©ĆČÇĐÐèéêёëēĕėęěÈÊËЁĒĔĖĘĚ€ğĞıìíîïìĩīĭÌÍÎÏЇÌĨĪĬłŁńňñŃŇÑòóôõöōŏőøÒÓÔÕÖŌŎŐØŒř®ŘšşșßŠŞȘùúûüũūŭůÙÚÛÜŨŪŬŮýÿÝŸžżźŽŻŹ'
+    , '123aaaaaaaaaaaaaaaaaaacccccccddeeeeeeeeeeeeeeeeeeeeggiiiiiiiiiiiiiiiiiillnnnnnnooooooooooooooooooorrrsssssssuuuuuuuuuuuuuuuuyyyyzzzzzz'
+    ));
+    $$ IMMUTABLE STRICT LANGUAGE SQL"

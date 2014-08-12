@@ -1,4 +1,4 @@
-module Frm
+module Frm  #todo use cancancan
   module Admin
     class GroupsController < BaseController
 
@@ -15,7 +15,7 @@ module Frm
 
       def create
         @frm_groups = @group.moderator_groups
-        @frm_group = @frm_groups.build(params[:frm_group])
+        @frm_group = @frm_groups.build(group_params)
         if @frm_group.save
           flash[:notice] = t("frm.admin.group.created")
           respond_to do |format|

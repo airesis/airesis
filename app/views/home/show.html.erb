@@ -1,20 +1,21 @@
-<%@extend = true %>
+<% @extend = true %>
 <!--Scrivania dell'utente -->
 
 <div id="homecont">
-
-  <%= render partial: "home/portlets/proposals", layout: "layouts/portlet"%>
-<%= render partial: "home/portlets/votation", layout: "layouts/portlet"%>
-<!--<%#= render partial: "home/portlets/notifications", layout: "layouts/portlet"%>
-<%#= render partial: "home/portlets/blogs", layout: "layouts/portlet"%>
-<%#= render partial: "home/portlets/groups", layout: "layouts/portlet"%>
-<%#= render partial: "home/portlets/last_contributes", layout: "layouts/portlet"%>-->
-<%= render partial: "home/portlets/topics", layout: "layouts/portlet"%>
-<%= render partial: "home/portlets/territory", layout: "layouts/portlet"%>
+  <ul class="small-block-grid-1 medium-block-grid-1 large-block-grid-2 xlarge-block-grid-3 xxlarge-block-grid-4">
+    <li><%= render partial: "home/portlets/proposals", layout: "layouts/portlet" %></li>
+    <li><%= render partial: "home/portlets/votation", layout: "layouts/portlet" %></li>
+    <li><%= render partial: "home/portlets/topics", layout: "layouts/portlet" %></li>
+    <li><%= render partial: "home/portlets/territory", layout: "layouts/portlet" %></li>
+    <!--<%#= render partial: "home/portlets/notifications", layout: "layouts/portlet"%>
+    <%#= render partial: "home/portlets/blogs", layout: "layouts/portlet"%>
+    <%#= render partial: "home/portlets/groups", layout: "layouts/portlet"%>
+    <%#= render partial: "home/portlets/last_contributes", layout: "layouts/portlet"%>-->
+  </ul>
 
 </div>
 
 
-<%=content_for :left_panel do%>    
-	<%=render partial: 'users/user_groups_panel'%>
-<%end%>
+<%= content_for :left_panel do %>
+    <%= render partial: 'users/user_groups_panel' %>
+<% end %>

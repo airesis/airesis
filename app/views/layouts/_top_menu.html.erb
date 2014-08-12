@@ -1,9 +1,9 @@
 <div class="fixed">
   <nav class="top-bar" data-topbar>
     <section class="top-bar-section">
-      <div class="logo-wrapper hide-for-small-only">
+      <div class="logo-wrapper show-for-large-up">
         <div class="logo">
-          <%= link_to (image_tag 'logo_new.png', class: "logo1", style: 'height:30px', data: ({dropdown: "airesis_panel", options: "is_hover:true;align:center;"} unless true)), root_path, tabindex: 1 %>
+          <%= link_to (image_tag 'logo_new.png', class: "logo1", style: 'height:30px', data: ({dropdown: "airesis_panel", options: "is_hover:false;align:center;"} unless true)), root_path, tabindex: 1 %>
         </div>
       </div>
 
@@ -11,7 +11,7 @@
       <ul class="left">
         <% unless in_subdomain? %>
             <li class="has-form">
-              <a id="logo-but" href="#" class="button" data-dropdown="hover1" data-options="is_hover:true">
+              <a id="logo-but" href="#" class="button"  data-dropdown="hover1" data-options="is_hover:false">
                 <span class="icon-users small"></span>
                 <span class="show-for-large-up"><%= t('pages.header.groups_title') %></span>
               </a>
@@ -41,25 +41,25 @@
               <div class="icon-heart medium"></div>
           <% end %></li>
         <li class="hide-for-small">
-          <%= link_to "#", onclick: "return false;", data: {dropdown: "help_panel", options: "is_hover:true"} do %>
+          <%= link_to "#", onclick: "return false;", data: {dropdown: "help_panel", options: "is_hover:false"} do %>
               <div class="icon-question medium cur info" title="TUTORIAL"></div>
           <% end %>
         </li>
 
         <% if current_user %>
             <li>
-              <%= link_to '#', class: 'button account show-for-large-up', data: {dropdown: "personal_menu_large", options: "is_hover:true"} do %>
+              <%= link_to '#', class: 'button account show-for-large-up', data: {dropdown: "personal_menu_large", options: "is_hover:false"} do %>
                   <%= current_user.user_image_tag 30, cert: false %>
                   <span><%= current_user.fullname %></span>
               <% end %>
-              <%= link_to '#', class: 'account hide-for-large-up', data: {dropdown: "personal_menu_small", options: "is_hover:true"} do %>
+              <%= link_to '#', class: 'account hide-for-large-up', data: {dropdown: "personal_menu_small", options: "is_hover:false"} do %>
                   <%= current_user.user_image_tag 30, cert: false %>
               <% end %>
             </li>
             <li>
             </li>
             <li>
-              <%= link_to "#", onclick: "return false;", id: "alerts_link", data: {dropdown: "alert_cont", options: "is_hover:true"} do %>
+              <%= link_to "#", onclick: "return false;", id: "alerts_link", data: {dropdown: "alert_cont", options: "is_hover:false"} do %>
                   <div class="icon-bell medium" title="ALERTS"></div>
               <% end %>
             </li>

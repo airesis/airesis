@@ -3,7 +3,7 @@ module Frm
     class ForumsController < BaseController
 
       load_and_authorize_resource :group
-      load_and_authorize_resource through: :group
+      load_and_authorize_resource class: 'Frm::Forum', through: :group
 
       def index
       end

@@ -13,7 +13,7 @@ gem 'turnout'
 gem 'sass-rails', "~> 4.0.0"
 gem 'coffee-rails', "~> 4.0.0"
 gem 'uglifier', ">= 1.3.0"
-gem 'foundation-rails', '~> 5.1.1.0' #waiting for 5.3 to fix some important bugs (menu not diplayed correctly)
+gem 'foundation-rails', '~> 5.1.1.0' #waiting for 5.4 to fix some important bugs (menu not diplayed correctly)
 
 gem 'pg'
 
@@ -59,6 +59,8 @@ gem 'omniauth-linkedin'
 
 gem 'paperclip'
 
+gem 'aws-sdk'
+
 gem 'jquery-rails'
 
 gem 'turbolinks'
@@ -83,7 +85,7 @@ gem 'sidetiq'
 
 gem 'sunspot-queue', github: 'coorasse/sunspot-queue'
 
-gem 'cancancan', '~> 1.7'
+gem 'cancancan', '~> 1.9'
 
 gem 'foreigner'
 

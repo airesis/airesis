@@ -10,7 +10,7 @@
                                                  "#{request.protocol}#{request.host_with_port}#{asset_path("gruppo-anonimo.png")}"
                                                end %>
                                           "/>
-        <meta property="og:description" content="<%= @group.description %>"/>
+        <meta property="og:description" content="<%= CGI::escapeHTML(@group.description) %>"/>
     <% end %>
 <% end %>
 
@@ -34,7 +34,7 @@
     <a href="#revision" data-href="<%= tab_list_proposals_path(params.merge({scroll: true, state: ProposalState::TAB_REVISION, group_id: (@group.id if @group), group_area_id: (@group_area.id if @group_area)})) %>"><%= t('pages.proposals.index.revision_title', count: @revision_count) %></a>
   </dd>
 </dl>
-<div class="tabs-content twocols" id="proposals-content">
+<div class="tabs-content" id="proposals-content">
   <div class="content active" data-content id="debate" data-state="<%= ProposalState::TAB_DEBATE %>">
     <div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
       <%= image_tag 'ajax-loader.gif', alt: t('pages.proposals.index.loading_alt') %>
@@ -68,6 +68,9 @@
 <% content_for :left_panel do %>
     <%= render 'left_panel_index' %>
 <% end %>
+
+<div id="create_proposal_container" class="reveal-modal large" data-reveal data-options="close_on_background_click:false;close_on_esc:false;">
+</div>
 
 <script>
 
@@ -147,18 +150,21 @@
         }));
 
 
-        <%if params[:time] && params[:time][:type]%>
-        var selected_ = $('#creation_date .hidden_menu a[data-type=<%=params[:time][:type]%>]');
-        <%if params[:time][:type] == 'f'%>
-        $('#creation_date .hidden_link b').text("<%=params[:time][:start_w]%>" + " - <%=params[:time][:end_w]%>");
-        <%else%>
-        $('#creation_date .hidden_link b').text(selected_.text());
-        <%end%>
-        <% else %>
-        var selected_ = $('#creation_date .hidden_menu a[data-type=w]');
-        $('#creation_date .hidden_link b').text(selected_.text());
-        <%end%>
-        selected_.addClass('checked');
+        $('.creation_date').each(function() {
+            <%if params[:time] && params[:time][:type]%>
+                var selected_ = $(this).find('.hidden_menu a[data-type=<%=params[:time][:type]%>]');
+                <%if params[:time][:type] == 'f'%>
+                    $(this).find('.hidden_link b').text("<%=params[:time][:start_w]%>" + " - <%=params[:time][:end_w]%>");
+                <%else%>
+                $(this).find('.hidden_link b').text(selected_.text());
+                <%end%>
+            <% else %>
+                var selected_ = $(this).find('.hidden_menu a[data-type=w]');
+                console.log('text:' + selected_.text());
+                $(this).find('.hidden_link b').text(selected_.text());
+            <%end%>
+            selected_.addClass('checked');
+        });
 
 
         $('.hidden_menu')

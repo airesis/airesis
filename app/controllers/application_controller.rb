@@ -414,4 +414,9 @@ class ApplicationController < ActionController::Base
 
   helper_method :forem_admin_or_moderator?
 
+
+  def redirect_url(proposal)
+    proposal.private? ? group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal)
+  end
+
 end

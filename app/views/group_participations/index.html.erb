@@ -1,72 +1,77 @@
 <% @extend = true %>
 <% javascript 'endless_page' %>
 <h1><%= t('pages.groups.participations.list_participations') %></h1>
-<% if can? :update, @group %>
+<% if can? :create, SearchParticipant %>
     <div class="row full-width">
-      <div class="column small-12 large-6">
-        <div class="card">
-          <h2><%= t('pages.groups.participations.search') %></h2>
+      <div class="row">
+        <div class="column small-12 large-6">
+          <div class="card">
+            <h2><%= t('pages.groups.participations.search') %></h2>
 
-          <%= simple_form_for !in_subdomain? ? [@group, @search_participant] : @search_participant, remote: true do |f| %>
-              <div class="row">
-                <div class="large-8 columns">
-                  <%= f.input :keywords %>
+            <%= simple_form_for !in_subdomain? ? [@group, @search_participant] : @search_participant, remote: true do |f| %>
+                <div class="row">
+                  <div class="large-8 columns">
+                    <%= f.input :keywords %>
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="large-8 columns">
-                  <%= f.label :role_id %>
-                  <%= f.select :role_id, options_from_collection_for_select([OpenStruct.new({id: ParticipationRole::ADMINISTRATOR, name: @group.admin_title || t('pages.groups.default_admin_title')})] + @group.participation_roles, :id, :name, (params[:search_participant][:role_id] if params[:search_participant])), include_blank: t('pages.groups.participations.anything') %>
+                <div class="row">
+                  <div class="large-8 columns">
+                    <%= f.label :role_id %>
+                    <%= f.select :role_id, options_from_collection_for_select([OpenStruct.new({id: ParticipationRole::ADMINISTRATOR, name: @group.admin_title || t('pages.groups.default_admin_title')})] + @group.participation_roles, :id, :name, (params[:search_participant][:role_id] if params[:search_participant])), include_blank: t('pages.groups.participations.anything') %>
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="large-8 columns">
-                  <%= f.label :status_id %>
-                  <%= f.select :status_id, options_from_collection_for_select(GroupParticipationRequestStatus.active, :id, :description, (params[:search_participant][:status_id] if params[:search_participant])), include_blank: t('pages.groups.participations.anything') %>
+                <div class="row">
+                  <div class="large-8 columns">
+                    <%= f.label :status_id %>
+                    <%= f.select :status_id, options_from_collection_for_select(GroupParticipationRequestStatus.active, :id, :description, (params[:search_participant][:status_id] if params[:search_participant])), include_blank: t('pages.groups.participations.anything') %>
+                  </div>
                 </div>
-              </div>
 
-              <%= f.button :submit, t('pages.groups.participations.filter'), class: 'btn blue', data: {disable_with: t('loading')} %>
-          <% end %>
-
-        </div>
-      </div>
-      <div class="column small-12 large-6">
-        <div class="card">
-          <h2><%= t('pages.groups.participations.operations_on_user') %></h2>
-          <%= link_to t('pages.groups.participations.send_email'), '#', class: 'btn inviteButton', data: {'reveal-id' => 'email_panel'} %>
-
-          <div id="email_panel" class="reveal-modal small" data-reveal>
-            <h2><%= t('pages.users.send_message.massive_email') %></h2>
-            <%= simple_form_for 'message', url: send_email_group_group_participations_path(@group), remote: true, method: :post, class: 'disableForm' do |e| %>
-                <%= e.input 'subject', label: t('pages.users.send_message.subject_label') %>
-
-
-                <%= e.label t('pages.users.send_message.body_label') %>
-                <%= e.text_area 'body', rows: 10 %>
-
-                <%= e.hidden_field 'receiver_ids', value: @group_participations.map { |p| p.user_id }.join(',') %>
-
-
-                <a href="#" class="btn" onclick="$('#email_panel').foundation('reveal','close');return false;"><%= t('buttons.cancel') %></a>
-                <%= e.submit t('buttons.send'), class: 'btn blue', data: {disable_with: t('sending')} %>
+                <%= f.button :submit, t('pages.groups.participations.filter'), class: 'btn blue', data: {disable_with: t('loading')} %>
             <% end %>
-            <a class="close-reveal-modal">&#215;</a>
+
           </div>
-          <%= form_for 'destroy', url: destroy_all_group_group_participations_path(@group), remote: true, method: :post, html: {style: 'display:inline;'} do |e| %>
+        </div>
+        <div class="column small-12 large-6">
+          <div class="card">
+            <h2><%= t('pages.groups.participations.operations_on_user') %></h2>
+            <%= link_to t('pages.groups.participations.send_email'), '#', class: 'btn inviteButton', data: {'reveal-id' => 'email_panel'} %>
 
-              <%= e.hidden_field 'ids', value: @group_participations.map { |p| p.id }.join(',') %>
+            <div id="email_panel" class="reveal-modal small" data-reveal>
+              <h2><%= t('pages.users.send_message.massive_email') %></h2>
+              <%= simple_form_for 'message', url: send_email_group_group_participations_path(@group), remote: true, method: :post, class: 'disableForm' do |e| %>
+                  <%= e.input 'subject', label: t('pages.users.send_message.subject_label') %>
 
-              <%= link_to t('pages.groups.participations.remove_all'), '#', class: 'btn trashButton', id: 'remove_all' %>
-          <% end %>
+
+                  <%= e.label t('pages.users.send_message.body_label') %>
+                  <%= e.text_area 'body', rows: 10 %>
+
+                  <%= e.hidden_field 'receiver_ids', value: @group_participations.map { |p| p.user_id }.join(',') %>
+
+
+                  <a href="#" class="btn" onclick="$('#email_panel').foundation('reveal','close');return false;"><%= t('buttons.cancel') %></a>
+                  <%= e.submit t('buttons.send'), class: 'btn blue', data: {disable_with: t('sending')} %>
+              <% end %>
+              <a class="close-reveal-modal">&#215;</a>
+            </div>
+            <%= form_for 'destroy', url: destroy_all_group_group_participations_path(@group), remote: true, method: :post, html: {style: 'display:inline;'} do |e| %>
+
+                <%= e.hidden_field 'ids', value: @group_participations.map { |p| p.id }.join(',') %>
+
+                <%= link_to t('pages.groups.participations.remove_all'), '#', class: 'btn trashButton', id: 'remove_all' %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
 <% end %>
 
-<div id="results_container" class="row full-width">
-  <%= render partial: 'group_participation_results' %>
+<div class="row full-width">
+  <div id="results_container" class="row">
+    <%= render partial: 'group_participation_results' %>
+  </div>
 </div>
+
 <% if @group_participations.size > GroupParticipation::PER_PAGE %>
     <div id="loading_results" class="participant_results">
       <span><%= t('pages.blogs.show.more_participants') %></span>
@@ -89,6 +94,7 @@
 
     $(function () {
         $(window).bind('popstate', function (event) {
+            console.log('popstate');
             var onloadPop = !everPushedSomething && location.href == initialUrl;
             everPushedSomething = true;
             if (onloadPop) {
@@ -103,6 +109,7 @@
         });
 
         $(document).on('change', '.user_role_changer', function (event) {
+            console.log('changed role');
             var select = $(this);
             var username = select.data('fullname');
             var group_participation_id = select.data("id");
@@ -129,6 +136,9 @@
             }
         });
 
+        $('.inviteButton').click(function() {
+            $('#message_receiver_ids').val($('#ids_results').val());
+        });
 
         $('#remove_all').click(function (e) {
             if (confirm('<%=j t('pages.groups.edit_permissions.confirm_delete_1', count: @group_participations.count)%>')) {
@@ -177,6 +187,7 @@
             }, 200);
         });
         $(document).on('click', '[data-change-area-participation]', function (event) {
+            console.log('change area participation');
             var group_area_id = $(this).data('group_area_id');
             var user_id = $(this).data('user_id');
             var area_participation_id = $(this).data('area_participation_id');
@@ -184,7 +195,7 @@
             if (checked_) {
                 $.ajax({
                     data: "area_participation[user_id]=" + user_id,
-                    url: "/groups/<%=@group.id%>/group_areas/"+group_area_id+"/area_participations",
+                    url: "/groups/<%=@group.id%>/group_areas/" + group_area_id + "/area_participations",
                     dataType: 'script',
                     type: 'POST'
                 });
@@ -192,7 +203,7 @@
             else {
                 $.ajax({
                     data: "area_participation[user_id]=" + user_id,
-                    url: "/groups/<%=@group.id%>/group_areas/"+group_area_id+"/area_participations/-1",
+                    url: "/groups/<%=@group.id%>/group_areas/" + group_area_id + "/area_participations/-1",
                     dataType: 'script',
                     type: 'DELETE'
                 });

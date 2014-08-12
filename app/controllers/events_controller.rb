@@ -25,7 +25,6 @@ class EventsController < ApplicationController
       end
       format.json do
         @events = @events.time_scoped(Time.at(params['start'].to_i), Time.at(params['end'].to_i))
-        @events = @events.public unless @group #restrict only to public events, do not show groups events if I'm not in a group
         events = []
         @events.each do |event|
           event_obj = event.to_fc
@@ -36,7 +35,7 @@ class EventsController < ApplicationController
             event_obj[:group] = event.groups.first.name
             event_obj[:group_url] = group_url(event.groups.first)
           end
-          event_obj[:url] = event_url(event)
+          event_obj[:url] = @group ? group_event_url(@group,event) : event_url(event)
           events << event_obj
         end
         render text: events.to_json
@@ -95,7 +94,7 @@ class EventsController < ApplicationController
       @event.private = true
       respond_to do |format|
         format.js
-        format.html { redirect_to controller: 'events', action: 'index', group_id: params[:group_id], new_event: 'true', type: params[:type] }
+        format.html { redirect_to controller: 'events', action: 'index', group_id: params[:group_id], new_event: 'true', event_type_id: (params[:event_type_id] || EventType::INCONTRO)  }
       end
     end
   end

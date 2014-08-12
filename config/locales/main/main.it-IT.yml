@@ -634,7 +634,7 @@ it-IT:
         no_voting_proposals: "Ancora nessuna proposta in votazione durante queste giornate"
     votations:
         show:
-          vote_positive: "Voto positivo"
+          vote_positive: "Voto favorevole"
           vote_neutral: "Voto neutrale"
           vote_negative: "Voto negativo"
           confirm_positive: "Confermi il tuo voto FAVOREVOLE alla proposta '%{name}'? Non potrai più cambiarlo!"

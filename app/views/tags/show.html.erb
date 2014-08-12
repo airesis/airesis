@@ -1,5 +1,5 @@
-<%@extend=true%>
-<h1><%=@tag%></h1>
+<% @extend=true %>
+<h1><%= @tag %></h1>
 <dl class="section-container tabs" data-tab>
 
   <dd class="active"><a href="#proposals"><%= t('pages.tags.proposals_tab') %></a></dd>
@@ -8,14 +8,16 @@
 </dl>
 
 <div class="tabs-content">
-  <div class="content active twocols" id="proposals">
+  <div class="content active" id="proposals">
     <h2><%= t('pages.tags.list_proposals_with_tag') %></h2>
     <% if @proposals.size == 0 %>
         <div class="Proposal">
           <p><%= t('pages.tags.no_proposals_with_tag') %></p>
         </div>
     <% else %>
-        <%= render collection: @proposals, partial: 'proposals/proposal_list_element', as: 'proposal' %>
+        <ul class="small-block-grid-1 xlarge-block-grid-2">
+          <%= render collection: @proposals, partial: 'proposals/proposal_list_element', as: 'proposal' %>
+        </ul>
     <% end %>
   </div>
 
@@ -26,10 +28,10 @@
           <p><%= t('pages.tags.no_posts_with_tag') %></p>
         </div>
     <% else %>
-        <%@blog_posts.each do |blog_post| %>
-        <div class="container-2">
-        <%= render 'blog_posts/blog_post', blog_post: blog_post %>
-        </div>
+        <% @blog_posts.each do |blog_post| %>
+            <div>
+              <%= render 'blog_posts/blog_post', blog_post: blog_post %>
+            </div>
         <% end %>
     <% end %>
   </div>
@@ -39,8 +41,9 @@
     <% if @groups.size == 0 %>
         <p><%= t('pages.tags.no_groups_with_tag') %></p>
     <% else %>
+        <ul class="small-block-grid-1 large-block-grid-2 xlarge-block-grid-3 xxlarge-block-grid-4">
         <%= render collection: @groups, partial: 'groups/group_tag', as: 'group' %>
-        <div class="clearboth"></div>
+        </ul>
     <% end %>
   </div>
 </div>

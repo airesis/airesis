@@ -139,11 +139,9 @@ class Group < ActiveRecord::Base
     !@resaving
   end
 
-
   def description
     super.try(:html_safe)
   end
-
 
   def normalize_blank_values
     [:admin_title].each do |att|

@@ -8,6 +8,7 @@ class DocumentsController < ApplicationController
 
   def index
     authorize! :view_data, @group
+    authorize! :view_documents, @group
   end
 
   def view

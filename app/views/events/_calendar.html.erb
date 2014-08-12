@@ -28,18 +28,34 @@
 
 </div>
 
+<div class="choose_event_type" style="display:none;">
+  <h2 class="modal_title"><%= t('pages.events.index.choose_type') %></h2>
 
+  <div style="max-width:540px;margin:auto;">
+    <% EventType.active.each do |event_type| %>
+        <div class="event_model_option" data-id="<%= event_type.id %>" style="background-color: <%= event_type.color %>">
+          <div class="model_name">
+            <div class="name"><%= event_type.description.upcase %></div>
+            <div class="icon">
+              <%= image_tag "event_types/#{event_type.name.downcase}.png", align: 'middle', alt: event_type.description, title: event_type.description, style: 'width:160px' %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
 
 <%= content_for :left_panel do %>
 
     <% if @group %>
         <div class="mybox">
           <% if can? :create_any_event, @group %>
-              <%= link_to t('pages.calendar.create_event_button'), '#', onclick: 'return chooseEventType();', class: 'btn blue newButton' %>
+              <%= link_to t('pages.calendar.create_event_button'), '#', class: 'btn blue newButton create_event' %>
           <% elsif can? :create_event, @group %>
-              <%= link_to t('pages.calendar.create_event_button'), new_group_event_url(@group, event_type_id: EventType::INCONTRO), remote: true, class: 'btn blue newButton', data:{disable_with: t('loading')} %>
+              <%= link_to t('pages.calendar.create_event_button'), new_group_event_url(@group, event_type_id: EventType::INCONTRO), remote: true, class: 'btn blue newButton', data: {disable_with: t('loading')} %>
           <% elsif can? :create_date, @group %>
-              <%= link_to t('pages.calendar.create_event_button'), new_group_event_url(@group, event_type_id: EventType::VOTAZIONE), remote: true, class: 'btn blue newButton', data:{disable_with: t('loading')} %>
+              <%= link_to t('pages.calendar.create_event_button'), new_group_event_url(@group, event_type_id: EventType::VOTAZIONE), remote: true, class: 'btn blue newButton', data: {disable_with: t('loading')} %>
           <% end %>
 
           <%= link_to '<img src="//www.google.com/calendar/images/ext/gc_button6.gif" border=0>'.html_safe, "http://www.google.com/calendar/render?cid=#{group_events_url(@group, format: :ics)}", target: '_blank', style: 'display: table; margin: 25px auto;' %>
@@ -47,68 +63,41 @@
     <% else %>
         <% if is_admin? %>
             <div class="mybox">
-              <%= link_to t('pages.calendar.create_event_button'), '#', onclick: 'return chooseEventType();', class: 'btn blue newButton disable' %>
+              <%= link_to t('pages.calendar.create_event_button'), '#', class: 'btn blue newButton disable create_event' %>
             </div>
         <% end %>
     <% end %>
-
-
-
-    <div class="choose_event_type" style="display:none;">
-      <h2 class="modal_title"><%= t('pages.events.index.choose_type') %></h2>
-
-      <div style="max-width:540px;margin:auto;">
-        <% EventType.active.each do |event_type| %>
-            <div class="event_model_option" data-id="<%= event_type.id %>" style="background-color: <%= event_type.color %>">
-              <div class="model_name">
-                <div class="name"><%= event_type.description.upcase %></div>
-                <div class="icon">
-                  <%= image_tag "event_types/#{event_type.name.downcase}.png", align: 'middle', alt: event_type.description, title: event_type.description, style: 'width:160px' %>
-                </div>
-              </div>
-            </div>
-        <% end %>
-      </div>
-      <a class="close-reveal-modal">&#215;</a>
-    </div>
-
 <% end %>
 
-
 <script type="text/javascript">
-    function chooseEventType() {
-        var create_event_ = $('#create_event_dialog');
-        create_event_.empty();
-        create_event_.append($('.choose_event_type').clone().show());
+    $(function () {
+        $('.create_event').on('click', function () {
+            var create_event_ = $('#create_event_dialog');
+            create_event_.empty();
+            create_event_.append($('.choose_event_type').clone().show());
+
+            $('.event_model_option', create_event_).click(function () {
+                var create_event_inner_ = $('.choose_event_type', create_event_);
+                var type_id = $(this).data('id');
+                create_event_inner_.hide(1000, function () {
+                    create_event_inner_.remove();
+                    create_event_.append('<%=j render "fragments/loading"%>');
+                    $.ajax({
+                        url: '<%=new_event_path(group_id: (@group.id if @group), models: true)%>',
+                        data: 'event_type_id=' + type_id,
+                        dataType: 'script'
+                    })
+                });
 
 
-        $('.event_model_option', create_event_).click(function () {
-            var create_event_inner_ = $('.choose_event_type', create_event_);
-            var type_id = $(this).data('id');
-            create_event_inner_.hide(1000, function () {
-                create_event_inner_.remove();
-                create_event_.append('<%=j render "fragments/loading"%>');
-                $.ajax({
-                    url: '<%=new_event_path(group_id: (@group.id if @group), models: true)%>',
-                    data: 'event_type_id=' + type_id,
-                    dataType: 'script'
-                })
             });
 
-
+            create_event_.foundation('reveal', 'open', {
+                closeOnBackgroundClick: false,
+                closeOnEsc: false
+            });
         });
 
-
-        create_event_.foundation('reveal', 'open', {
-            closeOnBackgroundClick: false,
-            closeOnEsc: false
-        });
-
-        return false;
-    }
-
-
-    $(function () {
         //$('.calendar_container').height($(window).height());
         $(window).resize(function () {
             $('#calendar').fullCalendar('option', 'height', $(window).height() - 170);
@@ -145,21 +134,21 @@
             },
             events: '<%=@group ? group_events_url(@group) : events_url%>',
             timeFormat: {
-        	    month:'<%=t('calendar.timeFormat')%>',
-                week:'',
-                agenda:''
+                month: '<%=t('calendar.timeFormat')%>',
+                week: '',
+                agenda: ''
             },
-			columnFormat: {
-                        month: 'ddd',
-                        week: 'ddd M/d',
-                        day: 'dddd M/d'
+            columnFormat: {
+                month: 'ddd',
+                week: 'ddd M/d',
+                day: 'dddd M/d'
             },
             titleFormat: {                                          //TODO:I18n
                 month: 'MMMM yyyy',
                 week: "MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}",
                 day: 'dddd, MMM d, yyyy'
             },
-           	axisFormat: 'H:mm',
+            axisFormat: 'H:mm',
             dragOpacity: "0.5",
             eventDrop: function (event, dayDelta, minuteDelta, allDay, revertFunc) {
                 moveEvent(event, dayDelta, minuteDelta, allDay);
@@ -195,6 +184,5 @@
         });
         /*$('.newButton').click();*/
         <%end%>
-
     });
 </script>

@@ -5,8 +5,6 @@ class ProposalsController < ApplicationController
   before_filter :load_group
   before_filter :load_group_area
 
-#  authorize_resource :group
-#  authorize_resource :group_area
   before_filter :authorize_parent
 
   def authorize_parent
@@ -14,21 +12,12 @@ class ProposalsController < ApplicationController
     authorize! :read, @group_area if @group_area
   end
 
-  load_and_authorize_resource through: [:group, :group_area], shallow: true, except: [:tab_list, :similar]
+  load_and_authorize_resource through: [:group, :group_area], shallow: true, except: [:tab_list, :similar, :endless_index]
 
   layout :choose_layout
 
-  #l'utente deve essere autore della proposta
-  before_filter :check_author, only: [:set_votation_date, :add_authors, :geocode]
-
   #la proposta deve essere in stato 'IN VALUTAZIONE'
   before_filter :valutation_state_required, only: [:rankup, :rankdown, :available_author, :add_authors, :geocode]
-
-  #la proposta deve essere in stato 'VOTATA'
-  before_filter :voted_state_required, only: [:vote_results]
-
-  #l'utente deve poter visualizzare la proposta
-  before_filter :can_view, only: [:vote_results]
 
   #l'utente deve poter valutare la proposta
   before_filter :can_valutate, only: [:rankup, :rankdown]
@@ -140,32 +129,37 @@ class ProposalsController < ApplicationController
   end
 
   def show
-    if @proposal.private && @group #la proposta è interna ad un gruppo
-      if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio
-        if !current_user
-          flash[:info] = I18n.t('info.proposal.ask_participation')
-        elsif !(can? :participate, @proposal) && @proposal.in_valutation?
-          flash[:info] = I18n.t('error.proposals.participate')
-        end
-      else #se è bloccata alla visione di utenti esterni
-        if !current_user #se l'utente non è loggato richiedi l'autenticazione
-          authenticate_user!
-        elsif !(can? :show, @proposal) #se è loggato ma non ha i permessi caccialo fuori
-          respond_to do |format|
-            flash[:error] = I18n.t('error.proposals.view_proposal')
-            format.html {
-              redirect_to group_proposals_path(@group)
-            }
-            format.json {
-              render json: {error: flash[:error]}, status: 401
-              return
-            }
+    if @proposal.private
+      if @group #la proposta è interna ad un gruppo
+        if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio
+          if !current_user
+            flash[:info] = I18n.t('info.proposal.ask_participation')
+          elsif !(can? :participate, @proposal) && @proposal.in_valutation?
+            flash[:info] = I18n.t('error.proposals.participate')
+          end
+        else #se è bloccata alla visione di utenti esterni
+          if !current_user #se l'utente non è loggato richiedi l'autenticazione
+            authenticate_user!
+          elsif !(can? :show, @proposal) #se è loggato ma non ha i permessi caccialo fuori
+            respond_to do |format|
+              flash[:error] = I18n.t('error.proposals.view_proposal')
+              format.html {
+                redirect_to group_proposals_path(@group)
+              }
+              format.json {
+                render json: {error: flash[:error]}, status: 401
+                return
+              }
+            end
+          end
+          if !(can? :participate, @proposal) && @proposal.in_valutation?
+            flash[:info] = I18n.t('error.proposals.participate')
           end
         end
-        if !(can? :participate, @proposal) && @proposal.in_valutation?
-          flash[:info] = I18n.t('error.proposals.participate')
-        end
+      else
+        redirect_to redirect_url(@proposal) and return
       end
+
     end
 
     flash.now[:info] = I18n.t('info.proposal.public_visible') if @proposal.visible_outside
@@ -314,7 +308,7 @@ class ProposalsController < ApplicationController
         respond_to do |format|
           format.js
           format.html {
-            redirect_to @proposal.private? ? group_proposal_url(@proposal.groups.first, @proposal) : proposal_url(@proposal)
+            redirect_to redirect_url(@proposal)
           }
         end
       end
@@ -633,46 +627,6 @@ class ProposalsController < ApplicationController
         end
       else
         @can_vote_again = 1
-      end
-    end
-  end
-
-  #questo metodo permette di verificare che l'utente collegato
-  #sia l'autore della proposta il cui id è presente nei parametri
-  def check_author
-    unless (is_proprietary? @proposal) || is_admin?
-      flash[:error] = I18n.t('error.proposals.proposal_not_your')
-      redirect_to proposals_path
-    end
-  end
-
-  def can_view
-    unless can? :read, @proposal
-      flash[:error] = t('unauthorized.default')
-      respond_to do |format|
-        format.js { render :update do |page|
-          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-        end
-        }
-        format.html {
-          redirect_to :back
-        }
-      end
-    end
-  end
-
-
-  def voted_state_required
-    unless @proposal.voted?
-      flash[:error] = I18n.t('error.proposals.proposal_not_voted')
-      respond_to do |format|
-        format.js { render :update do |page|
-          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-        end
-        }
-        format.html {
-          redirect_to :back
-        }
       end
     end
   end

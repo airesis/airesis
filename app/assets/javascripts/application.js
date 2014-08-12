@@ -38,7 +38,6 @@
 //= require jquery.switchbutton
 //= require introjs.min
 //= require select2
-//= require ckeditor/override
 //= require ckeditor/init
 //= require underscore
 //= require jquery.textntags

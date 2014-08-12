@@ -11,7 +11,7 @@
 
 <%= simple_form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, validate: true, remote: @remote do |f| %>
     <% if can? :destroy, @proposal %>
-        <div class="panel warning">
+        <div class="panel callout">
           <p>
             <% last = (10.minutes - (Time.now - @proposal.created_at)) / 60 %>
 

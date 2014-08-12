@@ -30,7 +30,7 @@ module Airesis
     end
 
     config.action_view.sanitized_allowed_tags = %w(u iframe table tr td th)
-    config.action_view.sanitized_allowed_attributes = %w(id class style data-cke-realelement cellspacing cellpadding border)
+    config.action_view.sanitized_allowed_attributes = %w(id class style data-cke-realelement cellspacing cellpadding border target)
     #  ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
     #    include ActionView::Helpers::OutputSafetyHelper
     #    raw %(<span class="field_with_errors">#{html_tag}</span>)

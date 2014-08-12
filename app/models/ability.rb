@@ -11,6 +11,8 @@ class Ability
     r_category_is_public = {visible_outside: true}
     r_blog_post_is_public = {status: BlogPost::PUBLISHED}
 
+    alias_action :vote_results, to: :read
+
     can [:index, :show, :read], [Blog, Group]
     can :view_data, Group, private: false
     can :read, Frm::Category, r_category_is_public
@@ -21,15 +23,19 @@ class Ability
     can :read, PostPublishing, blog_post: r_blog_post_is_public
     can :new, BlogComment, blog_post: r_blog_post_is_public
     can [:read, :new], BlogComment, blog: r_blog_post_is_public
-    can [:read, :new], ProposalComment, proposal: {private: false}
+    can [:read, :new, :report, :history], ProposalComment, proposal: {private: false}
     can :index, Proposal
     can :show, Proposal, private: false
     can :show, Proposal, visible_outside: true
+    can :ask_for_participation, Group
     can :read, Announcement, ["starts_at <= :now and ends_at >= :now", now: Time.zone.now] do |a|
       true
     end
 
     if user
+      can :create, Proposal do |proposal|
+        proposal.group_proposals.empty?
+      end
       can :create, Proposal, group_proposals: {group: can_do_on_group(user, GroupAction::PROPOSAL_INSERT)}
 
       #can see proposals in groups in which has permission, not belonging to any area
@@ -43,7 +49,7 @@ class Ability
       #can see proposals in group areas in which has permission
       can :show, Proposal, presentation_areas: can_do_on_group_area(user, GroupAction::PROPOSAL_VIEW)
 
-      can [:edit, :update], Proposal, users: {id: user.id}, proposal_state_id: ProposalState::VALUTATION
+      can [:edit, :update, :geocode, :add_authors], Proposal, users: {id: user.id}, proposal_state_id: ProposalState::VALUTATION
 
       #he can participate to public proposals
       can :participate, Proposal, private: false
@@ -87,8 +93,8 @@ class Ability
       can :unintegrate, ProposalComment, user: {id: user.id}, integrated: true
 
       can [:index, :list, :edit_list, :left_list], ProposalComment
-      can :show, ProposalComment, user_id: user.id
-      can :show, ProposalComment, proposal: {groups: can_do_on_group(user, GroupAction::PROPOSAL_VIEW)}
+      can [:show, :history, :report], ProposalComment, user_id: user.id
+      can [:show, :history, :report], ProposalComment, proposal: {groups: can_do_on_group(user, GroupAction::PROPOSAL_VIEW)}
       can :create, ProposalComment, proposal: {private: false}
       can :create, ProposalComment, proposal: {groups: can_do_on_group(user, GroupAction::PROPOSAL_PARTICIPATION)}
 
@@ -100,7 +106,7 @@ class Ability
 
       can :destroy, ProposalComment do |proposal_comment|
         (proposal_comment.user_id = user.id) &&
-            (proposal_comment.created_at > 5.minutes.ago)
+            (proposal_comment.created_at < 5.minutes.ago)
       end
 
       can :rank, ProposalComment do |comment|
@@ -111,14 +117,15 @@ class Ability
       can :create, ProposalSupport do |support|
         user.groups.include? support.group
       end
+
+      can :new, Group
       can :create, Group do |group|
-        !LIMIT_GROUPS ||
-            (user.portavoce_groups.maximum(:created_at) &&
-                (user.portavoce_groups.maximum(:created_at) > GROUPS_TIME_LIMIT.ago))
+        !LIMIT_GROUPS || !user.portavoce_groups.maximum(:created_at) || (user.portavoce_groups.maximum(:created_at) > GROUPS_TIME_LIMIT.ago)
       end
 
       can :read, Group
-      can [:update, :enable_areas], Group, is_admin_of_group(user)
+      can [:update, :enable_areas, :change_advanced_options, :change_default_anonima, :change_default_visible_outside, :change_default_secret_vote], Group, is_admin_of_group(user)
+      can :create, SearchParticipant, group: is_admin_of_group(user)
 
       can :destroy, Group do |group|
         (group.portavoce.include? user) && (group.participants.count < 2)
@@ -200,8 +207,12 @@ class Ability
 
 
       can :index, [GroupParticipation, GroupArea], group: participate_in_group(user)
+
+      can [:read, :dates], [Quorum, BestQuorum, OldQuorum], group: participate_in_group(user)
+      can [:read, :dates], [Quorum, BestQuorum, OldQuorum], public: true
+
       can :manage, [Quorum, BestQuorum, OldQuorum], group: is_admin_of_group(user)
-      can :manage, GroupArea, group: [is_admin_of_group(user), enable_areas: true]
+      can :manage, GroupArea, group: is_admin_of_group(user).merge(enable_areas: true)
 
       can [:create, :destroy], AreaParticipation, group_area: {group: is_admin_of_group(user), area_participations: {user_id: :user_id}}
 
@@ -286,9 +297,11 @@ class Ability
       can :read, Frm::Topic, group: participate_in_group(user)
       can :read, Frm::Forum, group: participate_in_group(user)
 
+      can :manage, Frm::Category, group: is_admin_of_group(user)
+
       can :create_topic, Frm::Forum, group: participate_in_group(user)
 
-      can [:new, :create], Frm::Topic, forum: participate_in_group(user)
+      can [:new, :create], Frm::Topic, forum: {group: participate_in_group(user)}
 
       can :reply, Frm::Topic, group: participate_in_group(user)
 
@@ -326,7 +339,7 @@ class Ability
           # can send messages to every user although they denied it
           can :send_message, User
 
-          can :update, Proposal
+          can [:edit, :update, :geocode, :add_authors], Proposal
           can :participate, Proposal
           can :set_votation_date, Proposal
           can :destroy, Proposal

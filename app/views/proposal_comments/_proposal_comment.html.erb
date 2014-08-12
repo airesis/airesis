@@ -7,13 +7,10 @@
           <%= image_tag 'icon_info.gif', style: 'cursor:pointer' %>
         </span>
       <% end %>
-
       <%= f.text_area :content, class: 'blogNewCommentField', rows: 10, cols: 70 %>
-
-
     </p>
     <p>
-      <%= f.submit t('pages.proposals.show.send_contribute_button'), id: 'insert_comment', class: 'btn green', data:{disable_with: t('sending')}, style: "width: 100px;height:35px;" %>
+      <%= f.submit t('pages.proposals.show.send_contribute_button'), class: 'btn green', data:{disable_with: t('sending')}, style: "width: 100px;height:35px;" %>
     </p>
 <% end %>
 

@@ -36,7 +36,7 @@ class Blog < ActiveRecord::Base
     limite = params[:limit] || 30
 
     if tag
-      Blog.joins(blog_posts: :tags).where(['tags.text = ?', tag]).page(page).per(limite)
+      Blog.joins(blog_posts: :tags).where(['tags.text = ?', tag]).uniq.page(page).per(limite)
     else
       Blog.search do
         fulltext search, minimum_match: params[:minimum] if search

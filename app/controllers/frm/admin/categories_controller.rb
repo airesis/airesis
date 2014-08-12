@@ -6,15 +6,12 @@ module Frm
       load_and_authorize_resource class: 'Frm::Category', through: :group
 
       def index
-        @categories = @group.categories.all
       end
 
       def new
-        @category = @group.categories.build
       end
 
       def create
-        @category = @group.categories.build(params[:frm_category])
         if @category.save
           @categories = @group.categories
           create_successful
@@ -24,7 +21,7 @@ module Frm
       end
 
       def update
-        if @category.update_attributes(params[:frm_category])
+        if @category.update(category_params)
           @categories = @group.categories
           update_successful
         else
@@ -41,13 +38,10 @@ module Frm
       protected
 
       def category_params
-        params.require(:category).permit(:name, :visible_outside, :tags_list)
+        params.require(:frm_category).permit(:name, :visible_outside, :tags_list)
       end
 
       private
-      def find_category
-        @category = @group.categories.friendly.find(params[:id])
-      end
 
       def create_successful
         flash[:notice] = t("frm.admin.category.created")
@@ -61,7 +55,7 @@ module Frm
 
       def create_failed
         flash.now.alert = t("frm.admin.category.not_created")
-        render action: "new"
+        render action: :new
       end
 
       def destroy_successful
@@ -89,7 +83,7 @@ module Frm
         flash.now.alert = t("frm.admin.category.not_updated")
         respond_to do |format|
           format.html {
-            render action: "edit"
+            render action: :edit
           }
           format.js {
             render :update do |page|

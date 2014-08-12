@@ -50,7 +50,8 @@ Reference website
 
 
 License to use
--
+--------------
+
 This software is released under AGPL .
 
 For the terms of the license can be found in the LICENSE file available within the project.
@@ -61,23 +62,42 @@ Powered by <a href="http://www.airesis.eu"> Airesis - Scegli di partecipare </ a
 
 
 Setup and Installation
--
+----------------------
+
 The application installs itself as a RubyOnRails any application .
 
 Download the project
 
-    git clone https://github.com/coorasse/Airesis.git
-    cd Airesis
+`git clone https://github.com/coorasse/Airesis.git`
+`cd airesis`
 
 Install the libraries
 
-    bundle install
-    
-Configure the database
+`bundle install`
 
-    vim config / database.yml
-    rake db : setup
-    
+Configure database, application and PayPal
+
+`cp config/database.example.yml config/database.yml`
+
+`cp config/application.example.yml config/application.yml`
+
+`cp config/paypal.example.yml config/paypal.yml`
+
+edit the files and set your custom values    
+    
+`rake db:setup`
+
 run Airesis
 
-    rails s
+`rails s`
+
+run SOLR
+
+`rake sunspot:solr:run`
+
+run Sidekiq
+
+`sidekiq`
+
+
+That's it!

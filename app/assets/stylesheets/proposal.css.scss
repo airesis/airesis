@@ -5,9 +5,6 @@
 
 @import "foundation/components/global";
 
-.order_options {
-  margin-bottom: 5px;
-}
 
 .loading_proposals.card {
   display: block;
@@ -25,6 +22,17 @@
 
 .new_section {
   text-align: center;
+}
+
+.comment-form-comment {
+  margin-bottom: 13px;
+}
+
+.close-right-section {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
 }
 
 .proposalComment {
@@ -153,8 +161,8 @@
   width: 90%;
 }
 
-.order_options {
-  margin: 15px 5px;
+.order-options {
+  margin: 15px 0px;
   .order_option {
     padding: 0.8rem 1rem;
     cursor: pointer;
@@ -210,12 +218,8 @@
   }
 
   .proposal_cont {
-    margin: 5px;
-    position: relative;
     display: table;
-    width: 98%;
-    height: 162px;
-
+    width: 100%;
     .left_cont {
       width: 90px;
     }
@@ -912,11 +916,7 @@ input.edit_label {
 }
 
 .hidden_link {
-  float: right;
   background: no-repeat asset_url("arrow.png") right;
-  width: 13px;
-  height: 13px;
-
 }
 
 .hidden_link:hover {
@@ -1070,7 +1070,7 @@ input.edit_label {
         color: #CCCCCC;
         background: #F8F8F8;
         border: 1px solid #CCC;
-        padding: 3px 20px;
+        padding: 3px;
         border-radius: 5px;
 
         &.first {
@@ -1085,7 +1085,7 @@ input.edit_label {
           display: inline-block;
           font-size: 2em;
           font-family: verdana;
-          width: 23px;
+          width: 10%;
         }
 
         .title {
@@ -1119,9 +1119,9 @@ input.edit_label {
 #create_proposal, #create_event {
   .bread-crumb {
     li {
-      width: 240px;
+      width: 20%;
       .title {
-        width: 165px;
+        width: 80%;
       }
     }
   }
@@ -1305,7 +1305,7 @@ ul {
 
     .sec_title_c {
       overflow: hidden;
-      width: 136px;
+      width: 155px;
       white-space: nowrap;
       margin-left: -20px;
       padding-left: 20px;
@@ -1437,4 +1437,9 @@ ul.friends_list {
   position: fixed;
   color: #333;
   z-index: 1;
+}
+
+.report_contribute {
+  height: 17px;
+  width: 17px;
 }

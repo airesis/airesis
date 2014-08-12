@@ -1,28 +1,30 @@
-<%@extend = true%>
+<% @extend = true %>
 <h1><%= t('pages.blogs.index.find_blog_label') %></h1>
-<div class="row full-width groups_row">
-  <div class="columns large-6" id="blog_search_form">
-    <div class="card">
+<div class="row full-width">
+  <div class="row">
+    <div class="columns large-6" id="blog_search_form">
+      <div class="card">
 
-      <%= form_for blogs_path, method: 'get', remote: true do |f| %>
-          <%= f.label t('buttons.search'), t('pages.blogs.index.search_with_query') %>
-          <div style="float:left">
-            <%= text_field_tag :search, params[:search], title: t('pages.groups.index.find_title'), style: 'width:300px' %>
-          </div>
-          <div class="search_words">
-            <%= check_box_tag :and, params[:and], title: "Scegli se cercare tutte le parole o almeno una" %>
-          </div>
+        <%= form_for blogs_path, method: 'get', remote: true do |f| %>
+            <%= f.label t('buttons.search'), t('pages.blogs.index.search_with_query') %>
+            <div style="float:left">
+              <%= text_field_tag :search, params[:search], title: t('pages.groups.index.find_title'), style: 'width:300px' %>
+            </div>
+            <div class="search_words">
+              <%= check_box_tag :and, params[:and], title: "Scegli se cercare tutte le parole o almeno una" %>
+            </div>
 
-          <div class="clearboth"></div>
-          <%= f.button t('pages.blogs.index.find_button'), onclick: 'return checkCharacters();', class: 'btn searchButton', data: {disable_with: t('loading')} %>
-      <% end %>
+            <div class="clearboth"></div>
+            <%= f.button t('pages.blogs.index.find_button'), onclick: 'return checkCharacters();', class: 'btn searchButton', data: {disable_with: t('loading')} %>
+        <% end %>
+      </div>
     </div>
-  </div>
-  <div class="columns large-6 show-for-large-up">
-    <div id="tag_cloud" class="card">
-      <% @tags.each do |tag| %>
-          <%= link_to tag.text, blogs_url(tag: tag.text), remote: true, rel: tag.blog_posts_count %>
-      <% end %>
+    <div class="columns large-6 show-for-large-up">
+      <div id="tag_cloud" class="card">
+        <% @tags.each do |tag| %>
+            <%= link_to tag.text, blogs_url(tag: tag.text), remote: true, rel: tag.blog_posts_count %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
@@ -81,20 +83,22 @@
 </script>
 
 
-<div id="blogs_list">
-  <% if @blogs.count > 0 %>
-      <%= render partial: "blog", collection: @blogs %>
-  <% else %>
-      <h2><%= t('pages.blogs.index.search_description') %></h2>
-  <% end %>
-  <div class="clearboth"></div>
-</div>
+<% if @blogs.count > 0 %>
+    <ul id="blogs_list" class="small-block-grid-2 medium-block-grid-3 large-block-grid-4 xlarge-block-grid-5 xxlarge-block-grid-6">
+      <% @blogs.each do |blog| %>
+          <%= render partial: "blog", locals: {blog: blog} %>
+      <% end %>
+    </ul>
+
+<% else %>
+    <h2><%= t('pages.blogs.index.search_description') %></h2>
+<% end %>
 <div class="clearboth"></div>
 <div id="more_blogs_container">
   <%= render partial: 'more_blogs' %>
 </div>
 
 
-<%content_for :left_panel do%>
+<% content_for :left_panel do %>
 
-<%end%>
+<% end %>

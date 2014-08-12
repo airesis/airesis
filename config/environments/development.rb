@@ -4,7 +4,7 @@ Airesis::Application.configure do
 
   config.eager_load = false
 
-  config.consider_all_requests_local = false
+  config.consider_all_requests_local = true
   config.action_controller.perform_caching = false
 
   # Print deprecation notices to the Rails logger
@@ -14,7 +14,7 @@ Airesis::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 
   # Raise an error on page load if there are pending migrations
-  config.active_record.migration_error = :page_load
+  #config.active_record.migration_error = :page_load
 
   config.i18n.fallbacks = true
 
@@ -23,6 +23,14 @@ Airesis::Application.configure do
 
   config.force_ssl = false
 
+  config.paperclip_defaults = {
+      storage: :s3,
+      bucket: ENV['AWS_BUCKET'],
+      s3_credentials: {
+          access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+          secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+      }
+  }
 end
 
 Airesis::Application.default_url_options = Airesis::Application.config.action_mailer.default_url_options

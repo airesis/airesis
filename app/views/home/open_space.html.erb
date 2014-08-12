@@ -1,13 +1,12 @@
-<%@extend = true %>
+<% @extend = true %>
 <!--Scrivania dell'utente -->
 
 <div id="homecont">
-<%= render partial: "home/portlets/last_proposals", layout: "layouts/portlet"%>
-<%#= render partial: "home/portlets/last_petitions", layout: "layouts/portlet"%>
-  <%= render partial: "home/portlets/from_blogs", layout: "layouts/portlet"%>
-  <%= render partial: "home/portlets/most_active_groups", layout: "layouts/portlet"%>
-  <%= render partial: "home/portlets/next_events", layout: "layouts/portlet"%>
-  <%= render partial: "home/portlets/tags", layout: "layouts/portlet"%>
-
-<div class="clearboth"></div>
+  <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2 xlarge-block-grid-3 xxlarge-block-grid-4">
+    <li><%= render partial: "home/portlets/last_proposals", layout: "layouts/portlet" %></li>
+    <li><%= render partial: "home/portlets/from_blogs", layout: "layouts/portlet" %></li>
+    <li><%= render partial: "home/portlets/most_active_groups", layout: "layouts/portlet" %></li>
+    <li><%= render partial: "home/portlets/next_events", layout: "layouts/portlet" %></li>
+    <li><%= render partial: "home/portlets/tags", layout: "layouts/portlet" %></li>
+  </ul>
 </div>

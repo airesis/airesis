@@ -2,7 +2,7 @@
 </div>
 <div>
   <div class="baloon_header">
-    <a href="#" class="report_contribute hidden_link" data-dropdown="commentdropdown<%= comment.id %>"></a>
+    <a href="#" class="right report_contribute hidden_link" data-dropdown="commentdropdown<%= comment.id %>"></a>
     <ul class="f-dropdown" id="commentdropdown<%= comment.id %>" data-dropdown-content>
       <% if can? :update, comment %>
           <li><%= link_to t('pages.proposals.update_comment'), edit_proposal_proposal_comment_path(@proposal, comment), class: "editCommentLink menu_item", onclick: "edit_contribute(#{comment.id}); return false;" %></li>

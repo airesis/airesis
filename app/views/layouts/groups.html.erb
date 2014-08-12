@@ -16,7 +16,7 @@
 
       <div class="submenu">
         <% if @group && @group.id && (can? :view_data, @group) %>
-            <%= link_to(@group, class: ((controller_name == 'groups' && (['show','by_year_and_month'].include? action_name)) || (controller_name == 'blog_posts') || (!(can? :update, @group) && controller_name == 'group_participations')) ? 'sel' : '') do %>
+            <%= link_to(@group, class: ((controller_name == 'groups' && (['show', 'by_year_and_month'].include? action_name)) || (controller_name == 'blog_posts') || (!(can? :update, @group) && controller_name == 'group_participations')) ? 'sel' : '') do %>
                 <span class="show-for-large-up"><%= t('pages.groups.layout.home_button') %></span>
 
                 <div class="icon-home small hide-for-large-up" title="<%= t('pages.groups.layout.home_button') %>"></div>
@@ -35,14 +35,12 @@
                     <div class="icon-calendar small hide-for-large-up" title="<%= t('pages.groups.layout.calendar') %>"></div>
                 <% end %>
             <% end %>
-            <% unless @group.disable_documents %>
-                <% if ::Configuration::documents_active %>
-                    <span> ⋅ </span>
-                    <%= link_to(group_documents_url(@group), class: (controller_name == 'documents' ? 'sel' : '')) do %>
-                        <span class="show-for-large-up"><%= t('pages.groups.header.documents') %></span>
+            <% if ::Configuration::documents_active && !@group.disable_documents && (can? :view_documents, @group) %>
+                <span> ⋅ </span>
+                <%= link_to(group_documents_url(@group), class: (controller_name == 'documents' ? 'sel' : '')) do %>
+                    <span class="show-for-large-up"><%= t('pages.groups.header.documents') %></span>
 
-                        <div class="icon-folder-open small hide-for-large-up" title="<%= t('pages.groups.header.documents') %>"></div>
-                    <% end %>
+                    <div class="icon-folder-open small hide-for-large-up" title="<%= t('pages.groups.header.documents') %>"></div>
                 <% end %>
             <% end %>
 

@@ -411,18 +411,15 @@
         }
 
         function onEditorBlur (e) {
-            console.log('blur');
             _.delay(hideTagList, 300);
         }
 
         function hideTagList () {
-            console.log('hide');
             elTagListItemActive = null;
             elTagList.hide().empty();
         }
 
         function onTagListItemClick (e) {
-            console.log('click');
             addTag($(this).data('tag'));
             return false;
         }

@@ -100,116 +100,6 @@ class GroupsController < ApplicationController
     @page_title = t("pages.groups.edit.title")
   end
 
-  def change_advanced_options
-    advanced_options = params[:active]
-    @group.change_advanced_options = advanced_options
-    @group.save
-    if advanced_options == 'true'
-      flash[:notice] = t('info.quorums.can_modify_advanced_proposals_settings')
-    else
-      flash[:notice] = t('info.quorums.cannot_modify_advanced_proposals_settings')
-    end
-
-    respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
-    end
-
-  rescue Exception => e
-    respond_to do |format|
-      flash[:error] = t('error.quorums.advanced_proposals_settings')
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
-    end
-  end
-
-
-  def change_default_anonima
-    default_anonima = params[:active]
-    @group.default_anonima = default_anonima
-    @group.save
-    if (default_anonima == 'true')
-      flash[:notice] = t('info.quorums.anonymous_proposals')
-    else
-      flash[:notice] = t('info.quorums.non_anonymous_proposals')
-    end
-
-    respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
-    end
-
-  rescue Exception => e
-    respond_to do |format|
-      flash[:error] = t('error.quorums.advanced_proposals_settings')
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
-    end
-  end
-
-  #change the default option in a group for the public proposals
-  def change_default_visible_outside
-    default_visible_outside = params[:active]
-    @group.default_visible_outside = default_visible_outside
-    @group.save
-    if (default_visible_outside == 'true')
-      flash[:notice] = t('info.quorums.public_proposals')
-    else
-      flash[:notice] = t('info.quorums.private_proposals')
-    end
-
-    respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
-    end
-
-  rescue Exception => e
-    respond_to do |format|
-      flash[:error] = t('error.quorums.advanced_proposals_settings')
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
-    end
-  end
-
-  #change the default option in a group for the secret vote
-  def change_default_secret_vote
-    default_secret_vote = params[:active]
-    @group.default_secret_vote = default_secret_vote
-    @group.save
-    if default_secret_vote == 'true'
-      flash[:notice] = t('info.quorums.secret_vote')
-    else
-      flash[:notice] = t('info.quorums.non_secret_vote')
-    end
-
-    respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
-    end
-
-  rescue Exception => e
-    respond_to do |format|
-      flash[:error] = t('error.quorums.advanced_proposals_settings')
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
-    end
-  end
 
   #crea un nuovo gruppo
   def create
@@ -228,39 +118,12 @@ class GroupsController < ApplicationController
   end
 
   def update
-    authorize! :update, @group
-    begin
-      Group.transaction do
-
-        @group.attributes = params[:group]
-
-        if @group.name_changed?
-          @group.proposals.each do |proposal|
-            proposal.update_column(:url, group_proposal_path(@group, proposal))
-          end
-        end
-
-
-        participant_ids = @group.participant_ids
-        participant_ids.each do |id|
-          r = GroupParticipationRequest.new({group_id: @group.id, user_id: id, group_participation_request_status_id: 3})
-          r.save
-        end
-
-        @group.save!
-      end
-
-      respond_to do |format|
-        flash[:notice] = t('info.groups.group_updated')
-        format.html { render action: "edit" }
-      end
-
-    rescue Exception => e
-      puts e
-      respond_to do |format|
-        flash[:error] = t('error.groups.update')
-        format.html { render action: "edit" }
-      end
+    if @group.update(group_params)
+      flash[:notice] = t('info.groups.group_updated')
+      redirect_to edit_group_url @group
+    else
+      flash[:error] = t('error.groups.update')
+      render action: "edit"
     end
   end
 
@@ -282,7 +145,7 @@ class GroupsController < ApplicationController
     if request #se non l'ha mai fatta
       flash[:notice] = t('info.group_participations.request_alredy_sent')
     else
-      participation = current_user.groups.find_by(@group.id)
+      participation = @group.participants.include? current_user
       if participation #verifica se per caso non fa già parte del gruppo
         #crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
         request = GroupParticipationRequest.new
@@ -474,6 +337,64 @@ class GroupsController < ApplicationController
     end
   end
 
+  def change_advanced_options
+    advanced_option = (params[:active] == 'true')
+    @group.change_advanced_options = advanced_option
+    if @group.save
+      flash[:notice] = advanced_option ?
+          t('info.quorums.can_modify_advanced_proposals_settings') :
+          t('info.quorums.cannot_modify_advanced_proposals_settings')
+      render 'layouts/success'
+    else
+      flash[:error] = t('error.quorums.advanced_proposals_settings')
+      render 'layouts/error'
+    end
+  end
+
+  def change_default_anonima
+    default_anonima = (params[:active] == 'true')
+    @group.default_anonima = default_anonima
+    if @group.save
+      flash[:notice] = default_anonima ?
+          t('info.quorums.anonymous_proposals') :
+          t('info.quorums.non_anonymous_proposals')
+      render 'layouts/success'
+    else
+      flash[:error] = t('error.quorums.advanced_proposals_settings')
+      render 'layouts/error'
+    end
+  end
+
+  #change the default option in a group for the public proposals
+  def change_default_visible_outside
+    default_visible_outside = (params[:active] == 'true')
+    @group.default_visible_outside = default_visible_outside
+    if @group.save
+      flash[:notice] = default_visible_outside ?
+          t('info.quorums.public_proposals') :
+          t('info.quorums.private_proposals')
+      render 'layouts/success'
+    else
+      flash[:error] = t('error.quorums.advanced_proposals_settings')
+      render 'layouts/error'
+    end
+  end
+
+  #change the default option in a group for the secret vote
+  def change_default_secret_vote
+    default_secret_vote = (params[:active] == 'true')
+    @group.default_secret_vote = default_secret_vote
+    if @group.save
+      flash[:notice] =  default_secret_vote ?
+      t('info.quorums.secret_vote') :
+      t('info.quorums.non_secret_vote')
+      render 'layouts/success'
+    else
+      flash[:error] = t('error.quorums.advanced_proposals_settings')
+      render 'layouts/error'
+    end
+  end
+
 
   def reload_storage_size
 
@@ -527,7 +448,12 @@ class GroupsController < ApplicationController
 
   def group_params
     params[:group][:default_role_actions].reject!(&:empty?) if params[:group][:default_role_actions]
-    params.require(:group).permit(:participant_tokens, :name, :description, :accept_requests, :facebook_page_url, :group_participations, :interest_border_tkn, :title_bar, :image_url, :default_role_name, :default_role_actions, :image, :admin_title, :private, :rule_book, :tags_list)
+    params.require(:group).permit(:participant_tokens, :name, :description,
+                                  :accept_requests, :facebook_page_url, :group_participations,
+                                  :interest_border_tkn, :title_bar, :image_url, :default_role_name,
+                                  :image, :admin_title, :private, :rule_book, :tags_list,
+                                  :change_advanced_options, :default_anonima, :default_visible_outside, :default_secret_vote,
+                                  default_role_actions: [])
   end
 
   def render_404(exception=nil)

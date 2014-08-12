@@ -7,54 +7,71 @@
 <body>
 
 <%= render partial: "layouts/header" %>
-
-<div id="main">
-  <div id="menu-top">
-    <div style="position:relative">
-      <div id="menu-group" class="title-area">
-        <% if content_for? :left_panel %>
-            <a href="#" onclick="return false;" class="menu-activator icon-menu2 medium show-for-small-only left">
-              <div></div>
-            </a>
-        <% end %>
-        <%= yield :menu %>
-      </div>
-
+<div id="menu-top">
+  <div style="position:relative">
+    <div id="menu-group" class="title-area">
+      <% if content_for? :left_panel %>
+          <a class="left-off-canvas-toggle show-for-small-only left icon-menu2 medium" href="#"></a>
+          <!--<a href="#" onclick="return false;" class="menu-activator icon-menu2 medium show-for-small-only left">
+            <div></div>
+          </a>-->
+      <% end %>
+      <%= yield :menu %>
     </div>
-  </div>
-  <div id="main-copy">
-    <% if @noleft %>
-        <div class="row" style="padding-bottom:30px;">
-          <div class="columns large-12">
-            <%= yield :left_panel %>
-            <div id="flash_messages">
-              <%= render partial: 'layouts/flash', locals: {flash: flash} %>
-            </div>
-            <%= render partial: 'layouts/tutorials' %>
-            <%= yield :layout %>
-          </div>
-        </div>
-    <% else %>
-        <% if content_for?(:left_panel) %>
-            <div id="menu-left" class="show-for-medium-up">
-              <div class="menu2">
-                <%= yield :left_panel %>
-              </div>
-            </div>
-        <% end %>
-        <div id="centerpanelextended" class="centerpanelextended <%= 'noleft' unless content_for?(:left_panel) %> <%= 'nomargin' if @nomargin %>">
-          <div class="centerfloat <%= 'extended' if @extend %>">
-            <div id="flash_messages">
-              <%= render partial: 'layouts/flash', locals: {flash: flash} %>
-            </div>
-            <%= render partial: 'layouts/tutorials' %>
-            <%= yield :layout %>
-          </div>
-          <div class="clearboth"></div>
-        </div>
-    <% end %>
-    <%= render partial: "layouts/footer" %>
+
   </div>
 </div>
+<div class="off-canvas-wrap" data-offcanvas>
+  <div class="inner-wrap">
+    <!-- Off Canvas Menu -->
+    <aside class="left-off-canvas-menu">
+      <div class="menu2">
+        <%= yield :left_panel %>
+      </div>
+    </aside>
+
+
+    <div id="main">
+
+
+      <div id="main-copy">
+        <% if @noleft %>
+            <div class="row" style="padding-bottom:30px;">
+              <div class="columns large-12">
+                <%= yield :left_panel %>
+                <div id="flash_messages">
+                  <%= render partial: 'layouts/flash', locals: {flash: flash} %>
+                </div>
+                <%= render partial: 'layouts/tutorials' %>
+                <%= yield :layout %>
+              </div>
+            </div>
+        <% else %>
+            <% if content_for?(:left_panel) %>
+                <div id="menu-left" class="show-for-medium-up">
+                  <div class="menu2">
+                    <%= yield :left_panel %>
+                  </div>
+                </div>
+            <% end %>
+            <div id="centerpanelextended" class="centerpanelextended <%= 'noleft' unless content_for?(:left_panel) %> <%= 'nomargin' if @nomargin %>">
+              <div class="centerfloat <%= 'extended' if @extend %>">
+                <div id="flash_messages">
+                  <%= render partial: 'layouts/flash', locals: {flash: flash} %>
+                </div>
+                <%= render partial: 'layouts/tutorials' %>
+                <%= yield :layout %>
+              </div>
+              <div class="clearboth"></div>
+            </div>
+        <% end %>
+
+      </div>
+    </div>
+    <a class="exit-off-canvas"></a>
+  </div>
+</div>
+<%= render partial: "layouts/footer" %>
+
 </body>
 </html>

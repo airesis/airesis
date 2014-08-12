@@ -1,4 +1,8 @@
 #encoding: utf-8
+#####################
+#social networks and services keys
+#####################
+
 FACEBOOK_APP_ID: ""
 GOOGLE_APP_ID: ""
 TWITTER_APP_ID: ""
@@ -15,18 +19,24 @@ MEETUP_APP_SECRET: ""
 LINKEDIN_APP_SECRET: ""
 PARMA_APP_SECRET: ""
 
-EMAIL_ADDRESS: ""
-EMAIL_USERNAME: ""
-EMAIL_PASSWORD: ""
-
 RECAPTCHA_PUBLIC: ""
 RECAPTCHA_PRIVATE: ""
 
 GEOSPATIAL_NAME: ""
 
-APP_SHORT_NAME: "Airesis"
-APP_LONG_NAME: "Airesis - Scegli di partecipare"
-APP_EMAIL_ADDRESS: "info@example.com"
+#####################
+#email service
+#####################
+
+EMAIL_ADDRESS: ""
+EMAIL_USERNAME: ""
+EMAIL_PASSWORD: ""
+
+MAILER_DEFAULT_HOST: "www.airesis.eu"
+
+#####################
+#newsletter parameters
+#####################
 
 NEWSLETTER_FROM_ADDRESS: ""
 NEWSLETTER_TWITTER_URL: ""
@@ -35,27 +45,53 @@ NEWSLETTER_GOOGLEPLUS_URL: ""
 NEWSLETTER_PREFERENCES_URL: ""
 NEWSLETTER_HOME_URL: ""
 
-ERROR_SENDER: ""
+#####################
+#error reporting addresses
+#####################
 
+ERROR_SENDER: ""
 #can also be a list of addresses separated by comma
 ERROR_RECEIVER: ""
 
-MAILER_DEFAULT_HOST: "www.airesis.eu"
+#####################
+#redmine integration (optional)
+#####################
 
 BUGTRACKING_URL: ""
 BUGTRACKING_USERNAME: ""
 BUGTRACKING_PASSWORD: ""
 
+#####################
+#application parameters
+#####################
+
+APP_SHORT_NAME: "Airesis"
+APP_LONG_NAME: "Airesis - Scegli di partecipare"
+APP_EMAIL_ADDRESS: "info@example.com"
+SITE: "http://www.airesis.eu"
+ADMIN_EMAIL: "youremail@example.com"
+ADMIN_PASSWORD: "password"
+
 DEVISE_SECRET_KEY: ""
+
+REDIS_URL: "redis://127.0.0.1:6379/12"
+
+AWS_BUCKET: ""
+AWS_ACCESS_KEY_ID: ""
+AWS_SECRET_ACCESS_KEY: ""
+
+
+#####################
+#crowdin integration (optional)
+#####################
 
 CROWDIN_API: ""
 CROWDIN_PROJECT_ID: ""
 CROWDIN_ACCOUNT_KEY: ""
 
-REDIS_URL: "redis://127.0.0.1:6379/12"
-
-SITE: "http://www.airesis.eu"
-
+#####################
+#capistrano settings (optional)
+#####################
 
 CAP_STAGING_USER: ""
 CAP_STAGING_SERVER: ""

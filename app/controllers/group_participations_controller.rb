@@ -13,7 +13,7 @@ class GroupParticipationsController < ApplicationController
 
   def index
     @page_title = t('pages.group_participations.index.title')
-    @search_participant = @group.search_participants.build(params[:search_participant])
+    @search_participant = @group.search_participants.build(search_participant_params)
     @group_participations = @search_participant.results.page(params[:page]).per(GroupParticipation::PER_PAGE)
 
     respond_to do |format|
@@ -95,5 +95,13 @@ class GroupParticipationsController < ApplicationController
             t('info.participation_roles.user_removed_from_group', name: @group_participation.user.fullname)
 
     redirect_to :back
+  end
+
+
+  protected
+
+
+  def search_participant_params
+    params[:search_participant] ? params.require(:search_participant).permit(:keywords, :role_id, :status_id) : {}
   end
 end

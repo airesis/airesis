@@ -18,6 +18,7 @@ namespace :airesis do
       puts "Something like: 'Press Y or (N)'."
       puts "If you press y or Y will be yes, if you press n, N or Enter will be no."
       puts "We suggest you to keep default configuration if that is your first configuration."
+      puts "We suggest you to not try this if you don't know how a RoR App works."
       print "Press ENTER when you are ready to proceed"
       STDIN.gets
       puts ""
@@ -28,7 +29,7 @@ namespace :airesis do
       sh "rake db:setup"
       sh "mkdir -p private/elfinder"
       Timeout::timeout(1) do
-	STDIN.gets
+	      STDIN.gets
       end rescue nil
 	
       dbconfig = YAML::load(File.open('config/database.yml'))
@@ -70,7 +71,7 @@ namespace :airesis do
       puts ""
       puts "OK! Well done! We have finished! Now just start your Airesis environment with rails s and if something goes wrong please blame the developer."
       puts "If you want to change other options please edit '#{environmentfilename}'"
-      puts "By bye!"
+      puts "See ya!"
 
     end
 end

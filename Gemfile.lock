@@ -67,6 +67,9 @@ GEM
       tzinfo (~> 0.3.37)
     addressable (2.3.6)
     arel (4.0.2)
+    aws-sdk (1.50.0)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
     bcrypt (3.1.7)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
@@ -75,7 +78,7 @@ GEM
     bullet (4.9.0)
       activesupport
       uniform_notifier (~> 1.6.0)
-    cancancan (1.7.1)
+    cancancan (1.9.1)
     capistrano (3.2.1)
       i18n
       rake (>= 10.0.0)
@@ -108,7 +111,7 @@ GEM
       nio4r (>= 0.5.0)
     childprocess (0.5.3)
       ffi (~> 1.0, >= 1.0.11)
-    ckeditor (4.0.11)
+    ckeditor (4.1.0)
       mime-types
       orm_adapter (~> 0.5.0)
     climate_control (0.0.3)
@@ -463,9 +466,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-sdk
   better_errors
   bullet
-  cancancan (~> 1.7)
+  cancancan (~> 1.9)
   capistrano (~> 3.2.0)
   capistrano-bundler (~> 1.1.2)
   capistrano-rails (~> 1.1)

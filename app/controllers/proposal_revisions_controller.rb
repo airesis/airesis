@@ -5,7 +5,7 @@ class ProposalRevisionsController < ApplicationController
   before_filter :authenticate_user!
 
   load_and_authorize_resource :proposal
-  load_and_authorize_resource through: :proposal
+  load_resource through: :proposal
 
   def index
     respond_to do |format|

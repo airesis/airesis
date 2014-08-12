@@ -1,12 +1,12 @@
 class AnableHstoreForAlerts < ActiveRecord::Migration
   def up
-    execute "CREATE EXTENSION IF NOT EXISTS hstore"
+    enable_extension "hstore"
     add_column :user_alerts, :properties, :hstore
     add_column :notifications, :properties, :hstore
     Notification.all.each do |notification|
       data = {}
       notification.notification_data.each do |d|
-          name = d
+          name = d.name
           value = d.value
           data[name] = value
         end
@@ -16,7 +16,7 @@ class AnableHstoreForAlerts < ActiveRecord::Migration
   end
 
   def down
-    execute "DROP EXTENSION IF NOT EXISTS hstore"
+    disable_extension "hstore"
     remove_column :user_alerts, :properties
     remove_column :notifications, :properties
   end

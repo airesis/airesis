@@ -6,7 +6,7 @@ ul.token-input-list {
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   cursor: text;
   z-index: 1004;
-  margin: 0;
+  margin: 0 0 1.23077rem 0;
   padding: 0;
   background-color: #fff;
   list-style-type: none;
@@ -26,8 +26,9 @@ ul.token-input-list {
       padding: 1px 0px;
       margin-left: 6px;
       margin-bottom: 0px;
-      height:  32px;
-      background-color: white;
+      height:  31px;
+      background-color: transparent;
+      box-shadow: none;
       -webkit-appearance: caret;
     }
   }
@@ -126,7 +127,7 @@ ul.token-input-list-facebook {
   font-family: Verdana;
   min-height: 1px;
   z-index: 999;
-  margin: 0;
+  margin: 0 0 1.23077rem 0;
   padding: 0;
   background-color: #fff;
   list-style-type: none;
@@ -139,9 +140,11 @@ ul.token-input-list-facebook {
     border: 0;
     width: 100px;
     padding: 3px 8px;
-    background-color: white;
+    background-color: transparent;
+    box-shadow: none;
     margin: 2px 0;
     -webkit-appearance: caret;
+    height: 31px;
   }
 }
 

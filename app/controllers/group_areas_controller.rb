@@ -56,7 +56,7 @@ class GroupAreasController < ApplicationController
   end
 
   def update
-    if @group_area.update_attributes(group_area_params)
+    if @group_area.update(group_area_params)
       respond_to do |format|
           flash[:notice] = t('info.groups.group_updated')
           format.html { redirect_to([@group,@group_area]) }

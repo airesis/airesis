@@ -1,4 +1,5 @@
 <%= simple_form_for @group, url: in_subdomain? ? '/update' : nil, validate: true, html: {multipart: true} do |f| %>
+    <%= f.error_notification %>
     <% if @group.is_private? %>
         <div class="panel callout">
           <p>
@@ -9,8 +10,7 @@
 
     <%= f.input :name, placeholder: t('activerecord.attributes.group.name_placeholder') %>
 
-    <%= f.label :description %>
-    <%= f.cktext_area :description, row: 5, ckeditor: {toolbar: 'blog', language: I18n.locale, wordcount: {showCharCount: true, showWordCount: false, charLimit: 2000, countHTML: true}} %>
+    <%= f.input :description, as: :ckeditor, input_html: {row: 5, ckeditor: {toolbar: 'blog', language: I18n.locale, wordcount: {showCharCount: true, showWordCount: false, charLimit: 2000, countHTML: true}}}, required: true %>
 
     <% if ['edit', 'update'].include? action_name %>
         <%= f.label :rule_book %>
@@ -21,16 +21,17 @@
 
     <%= f.input :image, accept: "image/jpeg,image/png" %>
 
-    <%= f.input :interest_border_tkn, input_html: {data: {pre: ([@group.interest_border].to_json if @group.interest_border)}} %>
+    <%= f.input :interest_border_tkn, input_html: {data: {pre: ([@group.interest_border].to_json if @group.interest_border)}}, required: true %>
 
     <% if ['new', 'create'].include? action_name %>
         <%= f.input :default_role_name, placeholder: t('activerecord.attributes.group.default_role_name_placeholder') %>
         <a href="#" data-reveal-id="permessi"><%= t('pages.groups.new.change_permissions_button') %></a>
+
         <div id="permessi" class="reveal-modal" data-reveal>
           <h2><%= t('pages.groups.new.change_permissions_title') %></h2>
 
-          <div class="panel alert">
-            <p><%= t('pages.groups.new.change_permissions_description') %></p>
+          <div class="alert-box info">
+            <%= t('pages.groups.new.change_permissions_description') %>
           </div>
 
           <% GroupAction.all.each do |action| %>
@@ -58,9 +59,10 @@
         <% end %>
 
         <%= link_to t('pages.groups.edit.change_permissions'), group_participation_roles_path(@group) %>
-
-        <%= f.submit button_name, class: 'btn blue', data: {disable_with: t('updating')} %>
-        <%= link_to t('pages.groups.show.destroy_button'), @group, method: :delete, data: {confirm: t('pages.groups.show.confirm_destroy')}, class: 'btn red trashButton right' if can? :destroy, @group %>
+        <div>
+          <%= f.submit button_name, class: 'btn blue', data: {disable_with: t('updating')} %>
+          <%= link_to t('pages.groups.show.destroy_button'), @group, method: :delete, data: {confirm: t('pages.groups.show.confirm_destroy')}, class: 'btn red trashButton right' if can? :destroy, @group %>
+        </div>
     <% end %>
 <% end %>
 

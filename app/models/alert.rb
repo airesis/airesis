@@ -31,12 +31,6 @@ class Alert < ActiveRecord::Base
     self.notification.email_subject
   end
 
-
-  def message
-    super.html_safe
-  end
-
-
   def check!
     self.update_attributes({checked: true, checked_at: Time.now})
     if proposal_id = self.data[:proposal_id]

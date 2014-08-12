@@ -1,26 +1,17 @@
-<span class="ui-icon ui-icon-close" style="position: absolute; top: 5px; right: 5px; cursor: pointer;" onclick="close_right_contributes($('.contributeButton[data-section_id=<%=@section.id%>]'));return false;"></span>
+<i class="fi-x close-right-section" data-close-section-id="<%=@section.id%>"></i>
 <h2><%= t('pages.proposals.show.contributes_list', section: @section.title) %></h2>
 
-
-
-<% @comment = ProposalComment.new %>
-<% @comment.section_id = @section.id %>
-<%= form_for [@proposal, @comment], remote: true do |f| %>
+<%= form_for [@proposal, ProposalComment.new(section_id: @section.id)], remote: true do |f| %>
     <div class="comment-form-comment">
       <%= f.text_area :content, class: 'blogNewCommentField', rows: 5, cols: 70 %>
       <%= f.hidden_field :section_id %>
       <%= hidden_field 'right', true %>
     </div>
-    <p>
-      <%= f.submit t('pages.proposals.show.send_contribute_button'), id: 'insert_comment', class: 'btn green', data:{disable_with: t('sending')}, style: "width: 100px;height:35px;" %>
-    </p>
+    <%= f.submit t('pages.proposals.show.send_contribute_button'), class: 'btn green', data: {disable_with: t('sending')}, style: "width: 100px;height:35px;" %>
 <% end %>
 
 <script type="text/javascript">
-
-
     $(function () {
-
         $('.blogNewCommentField').each(function () {
             if ($(this).attr('data-initialized') != 1) {
                 $(this).textntags({
@@ -39,8 +30,8 @@
                 $(this).focus(function () {
                     $(this).parent().parent().toggleClass("active");
                 }).focusout(function () {
-                            $(this).parent().parent().toggleClass("active");
-                        });
+                    $(this).parent().parent().toggleClass("active");
+                });
                 $(this).attr('data-initialized', 1);
                 $(this).charCount({
                     allowed: <%=CONTRIBUTE_MAX_LENGTH%>,

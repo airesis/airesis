@@ -16,29 +16,25 @@
       </script>
 
       <div class="columns large-6">
-        <div class="event_main">
-          <h3>
-            <div class="tit1">
-              <div class="tit2" itemprop="name">
-                <%= raw '<div class="label round">public event</div>' unless @event.private %>
-                <%= @event.title %>
-              </div>
-            </div>
-          </h3>
+        <div class="card">
+          <div class="card_title">
+            <% if @event.private %>
+                <div class="label round">private</div>
+            <% else %>
+                <div class="label round">public</div>
+            <% end %>
+            <%= @event.title %>
+          </div>
 
           <div class="event_content" itemprop="description">
             <%= simple_format(@event.description) %>
           </div>
         </div>
 
-        <div class="event_main">
-          <h3>
-            <div class="tit1">
-              <div class="tit2">
-                <%= @event.is_past? ? t('pages.events.show.when_past') : t('pages.events.show.when') %>
-              </div>
-            </div>
-          </h3>
+        <div class="card">
+          <div class="card_title">
+            <%= @event.is_past? ? t('pages.events.show.when_past') : t('pages.events.show.when') %>
+          </div>
           <div class="event_content">
             <%= render partial: 'events/calendar_icon', locals: {time: @event.starttime} %>
             <div style="float:left;margin-top: 10px;">
@@ -58,14 +54,10 @@
       </div>
       <% if @event.place %>
           <div class="columns large-6">
-            <div class="event_main">
-              <h3>
-                <div class="tit1">
-                  <div class="tit2">
-                    <%= @event.is_past? ? t('pages.events.show.where_past') : t('pages.events.show.where') %>
-                  </div>
-                </div>
-              </h3>
+            <div class="card">
+              <div class="card_title">
+                <%= @event.is_past? ? t('pages.events.show.where_past') : t('pages.events.show.where') %>
+              </div>
               <div class="event_content" itemprop="location" itemscope itemtype="http://schema.org/Place">
                 <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
                   <h2>
@@ -126,8 +118,8 @@
       <% content_for :left_panel do %>
           <% if can? :update, @event %>
               <div class="mybox">
-                <%= link_to t('buttons.edit'), edit_event_path(@event), remote: true, class: 'btn editButton', data:{disable_with: t('loading')} if can? :update, @event %>
-                <%= link_to t('buttons.delete'), @event, method: :delete, class: 'btn red trashButton', confirm: 'Sei sicuro di voler eliminare questo evento?', data:{disable_with: t('loading')} if can? :destroy, @event %>
+                <%= link_to t('buttons.edit'), edit_event_path(@event), remote: true, class: 'btn editButton', data: {disable_with: t('loading')} if can? :update, @event %>
+                <%= link_to t('buttons.delete'), @event, method: :delete, class: 'btn red trashButton', confirm: 'Sei sicuro di voler eliminare questo evento?', data: {disable_with: t('loading')} if can? :destroy, @event %>
               </div>
           <% end %>
 
@@ -175,7 +167,7 @@
                 <% if @event.proposals.count > 0 %>
                     <%= t('pages.events.show.voting_proposals') %>
                 <% else %>
-                    <%= t('pages.events.show.no_voting_proposals')%>
+                    <%= t('pages.events.show.no_voting_proposals') %>
                 <% end %>
               </div>
             </div>

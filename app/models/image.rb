@@ -1,7 +1,5 @@
 #todo to remove
 class Image < ActiveRecord::Base
-
-
   attr_accessor :random_id
   
   # Check for paperclip

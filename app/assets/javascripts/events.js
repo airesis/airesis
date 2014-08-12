@@ -92,7 +92,7 @@ var basename = "event_meeting_attributes_place_attributes_";
  */
 function codeAddress(id) {
     delay(function () {
-        var comune = $('#' + id + ' .token-input-list .token-input-token p').html();
+        var comune = $('#event_meeting_attributes_place_attributes_comune_id').select2('data')['text'];
         if (comune != null) {
             var address = comune + ", " + document.getElementById(basename + "address").value;
             putMarker(address);
@@ -106,6 +106,7 @@ var marker_cache = {}
  * Posiziona il marcatore in un indirizzo specifico
  */
 function putMarker(address) {
+    console.log('put marker on', address);
     if (marker_cache[address] == null) {
         $('.loading_place').show();
         geocoder.geocode({

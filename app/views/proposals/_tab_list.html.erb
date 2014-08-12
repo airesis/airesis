@@ -2,9 +2,9 @@
     <%= render partial: '/proposals/orders/order_bar' %>
 <% end %>
 
-<div id="proposalsListContainer<%= params[:state] || params[:view] %>">
+<ul id="proposalsListContainer<%= params[:state] || params[:view] %>" class="small-block-grid-1 xlarge-block-grid-2">
   <%= render partial: 'list', locals: {proposals: @proposals} %>
-</div>
+</ul>
 <% unless @proposals.last_page? %>
     <div id="loading_proposals<%= params[:state] || params[:view] %>" class="loading_proposals card">
       <span><%= t('pages.proposals.index.show_more') %></span>

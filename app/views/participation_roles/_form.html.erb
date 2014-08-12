@@ -1,4 +1,4 @@
-<%= simple_form_for ((@group && !in_subdomain?) ? [@group, @participation_role] : @participation_role), remote: request.xhr?, validate: true do |f| %>
+<%= simple_form_for ((@group && !in_subdomain?) ? [@group, @participation_role] : @participation_role), remote: request.xhr? do |f| %>
 
     <%= f.input :name %>
 

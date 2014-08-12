@@ -126,6 +126,19 @@ class User < ActiveRecord::Base
 
   validate :check_uncertified
 
+  # Check for paperclip
+  has_attached_file :avatar,
+                    styles: {
+                        thumb: "100x100#",
+                        small: "150x150>"
+                    },
+                    path: "avatars/:id/:style/:basename.:extension"
+
+  validates_attachment_size :avatar, less_than: 2.megabytes
+  validates_attachment_content_type :avatar, content_type: ['image/jpeg', 'image/png', 'image/gif']
+
+
+
   scope :blocked, -> {where(blocked: true)}
   scope :unblocked, -> {where(blocked: false)}
   scope :confirmed, -> {where 'confirmed_at is not null'}

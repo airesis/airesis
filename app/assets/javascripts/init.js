@@ -37,14 +37,14 @@ $(function () {
 
 
 //    $(document.body).on('appear', '.card.appear', function (e, $affected) {
- //       cards_delay = 0;
-  //      $(this).addClass('appeared');
-        /*$affected.each(function() {
-         var $this_ = $(this);
-         setTimeout(function() {$this_.addClass("appeared")},cards_delay);
-         cards_delay += 300;
-         });*/
- //       cards_delay = 0;
+    //       cards_delay = 0;
+    //      $(this).addClass('appeared');
+    /*$affected.each(function() {
+     var $this_ = $(this);
+     setTimeout(function() {$this_.addClass("appeared")},cards_delay);
+     cards_delay += 300;
+     });*/
+    //       cards_delay = 0;
 //    });
 
 //    $('.card.appear').appear({force_process: true});
@@ -146,6 +146,12 @@ $(function () {
         show: {
             solo: true
         }
+    });
+
+
+    $(document).on('click', '[data-close-section-id]', function () {
+        close_right_contributes($('.contributeButton[data-section_id=' + $(this).data('close-section-id') + ']'));
+        return false;
     });
 
 });

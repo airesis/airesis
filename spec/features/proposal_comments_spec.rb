@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe 'create proposal comments', type: :feature, js: true do
+describe 'create proposal comments', type: :feature, js: true, driver: :selenium do
   before :each do
 
   end

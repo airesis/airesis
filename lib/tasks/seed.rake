@@ -4,7 +4,7 @@ namespace :airesis do
     desc 'Dump all Airesis Seed Data and split them in a good way.'
     task dump: :environment do
       def filename(num)
-        "db/seeds/#{num}_airesis_seed.rb"
+        "db/new_seeds/#{num}_airesis_seed.rb"
       end
 
       num = 0
