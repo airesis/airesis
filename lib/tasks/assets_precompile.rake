@@ -16,11 +16,11 @@ task "assets:precompile" => :environment do
     filename = nondigest.sub 'public/assets/', ''
     filename = filename.sub /.gz$/, ''          # Remove .gz for correct asset checking
 
-    # Fetch the latest digest for this file from assets
-    latest_digest = Rails.application.assets.find_asset(filename).digest
-
     # Debug information
     STDOUT.puts '---- ' + file + ' ----'
+    STDOUT.puts 'searching digest for ' + filename
+    # Fetch the latest digest for this file from assets
+    latest_digest = Rails.application.assets.find_asset(filename).digest
 
     # Compare digest of this file to latest digest
     # [1] is the enclosed capture in the fingerprint regex above
