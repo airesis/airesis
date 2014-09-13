@@ -761,8 +761,10 @@ function fitRightMenu(fetched) {
 
 //custom formatter for categories in select2 dropdown
 function formatCategory(state) {
+    console.log(state);
     if (!state.id) return state.text; // optgroup
-    return "<img src='/assets/proposal_categories/" + state.id.toLowerCase() + "_s.png'/> " + state.text;
+    var imgsrc = $(state.element).data('imagesrc');
+    return "<img src=\""+imgsrc+"\"/> " + state.text;
 }
 
 //custom formatter for quora in select2 dropdown

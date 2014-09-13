@@ -113,7 +113,7 @@
                 <a href="#" class="btn green contributeButton contributeSectionButton" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>"><%= t('pages.proposals.show.give_contribute') %> <%= "(#{unread}/#{contributes_num})" %></a>
 
                 <div class="suggest_l" style="display: none;">
-                  <img class="tria" src="/assets/suggest.png">
+                  <%=image_tag 'suggest.png', class: 'tria'%>
                 </div>
               </div>
           <% end %>
@@ -148,7 +148,7 @@
                       <% unread = current_user ? section.proposal_comments.listable.unread(current_user.id, @proposal.id).count : contributes_num %>
                       <div class="suggest">
                         <a href="#" class="btn green contributeButton contributeSectionButton" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>"><%= t('pages.proposals.show.give_contribute') %> <%= "(#{unread}/#{contributes_num})" %></a>
-                        <img class="tria" src="/assets/suggest.png" style="display: none;">
+                        <%=image_tag 'suggest.png', class: 'tria', style: 'display:none'%>
                       </div>
                   <% end %>
                 </div>
