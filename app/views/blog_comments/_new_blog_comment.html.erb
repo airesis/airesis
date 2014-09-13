@@ -6,13 +6,14 @@
 
 <script type="text/javascript">
     $(function () {
-        $('#blog_comment_body').charCount({
+        var comment_input = $('#blog_comment_body');
+        comment_input.charCount({
             allowed: <%=CONTRIBUTE_MAX_LENGTH%>,
             warning: 100,
             counterText: '<%=t('pages.proposals.show.characters_left')%> '
         });
-        $(this).elastic();
-        $(this).attr('data-initialized', 1);
+        comment_input.elastic();
+        comment_input.attr('data-initialized', 1);
     });
     disegnaCountdown();
 </script>

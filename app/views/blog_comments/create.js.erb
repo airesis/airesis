@@ -4,3 +4,12 @@ $('[data-collapsed=true]').show(600, function () {
     $(this).data('collapsed', false);
 });
 
+<% publish_to blog_blog_post_path(@blog_post.blog,@blog_post) do %>
+if (Airesis.id != <%=current_user.id%>) {
+    $('#blogPostCommentsContainer').prepend('<%=j render partial: 'blog_posts/comment', locals: {comment: @blog_comment} %>');
+    $('[data-collapsed=true]').show(600, function () {
+        $(this).data('collapsed', false);
+    });
+}
+<% end rescue nil%>
+

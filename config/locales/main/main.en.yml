@@ -1445,7 +1445,7 @@ en:
     blog:
       blog_created: "Blog successfully created"
       title_updated: "The title of the blog has been successfully updated"
-      comment_added: "Comment successfully updated"
+      comment_added: "Comment successfully created"
     events:
       event_deleted: "Event successfully deleted"
       event_updated: "Event successfully updated"

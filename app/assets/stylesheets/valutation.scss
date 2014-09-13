@@ -1,0 +1,171 @@
+.votedup {
+  background: asset_url('like.gif') 0 0 no-repeat;
+  width: 35px;
+  height: 35px;
+  display: block;
+}
+
+.voteddown {
+  background: asset_url('dislike.gif') 0 0 no-repeat;
+  width: 35px;
+  height: 35px;
+  display: block;
+}
+
+.notvotedup {
+  background: asset_url('like-blank.gif') 0 0 no-repeat;
+  width: 35px;
+  height: 35px;
+  display: block;
+}
+
+.notvoteddown {
+  background: asset_url('dislike-blank.gif') 0 0 no-repeat;
+  width: 35px;
+  height: 35px;
+  display: block;
+}
+
+/*pulsanti valutazione positiva contributo*/
+
+.notvotedup-mini {
+  background: asset_url('faces/green_empty_16.png') 0 0 no-repeat;
+  width: 19px;
+  height: 18px;
+  float: right;
+  display: inline-block;
+}
+
+.voteup-mini {
+  background: asset_url('faces/green_empty_16.png') 0 0 no-repeat;
+  width: 19px;
+  height: 18px;
+  float: right;
+  display: inline-block;
+}
+
+.voteup-mini:hover {
+  background: asset_url('faces/green_full_16.png') 0 0 no-repeat;
+
+}
+
+.votedup-mini {
+  background: asset_url('faces/green_full_16.png') 0 0 no-repeat;
+  width: 19px;
+  height: 18px;
+  display: inline-block;
+  float: right;
+}
+
+/*pulsanti valutazione neutra contributo*/
+.notvotednil-mini {
+  background: asset_url('faces/white_empty_16.png') 0 0 no-repeat;
+  width: 19px;
+  height: 18px;
+  float: right;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.votenil-mini {
+  background: asset_url('faces/white_empty_16.png') 0 0 no-repeat;
+  width: 19px;
+  height: 18px;
+  float: right;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.votenil-mini:hover {
+  background: asset_url('faces/white_full_16.png') 0 0 no-repeat;
+
+}
+
+.votednil-mini {
+  background: asset_url('faces/white_full_16.png') 0 0 no-repeat;
+  width: 19px;
+  height: 18px;
+  display: inline-block;
+  float: right;
+}
+
+/*pulsanti valutazione negativa contributo*/
+.notvoteddown-mini {
+  background: asset_url('faces/red_empty_16.png') 0 0 no-repeat;
+  width: 19px;
+  height: 18px;
+  float: right;
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.votedown-mini {
+  background: asset_url('faces/red_empty_16.png') 0 0 no-repeat;
+  width: 19px;
+  height: 18px;
+  float: right;
+  display: inline-block;
+}
+
+.votedown-mini:hover {
+  background: asset_url('faces/red_full_16.png') 0 0 no-repeat;
+}
+
+.voteddown-mini {
+  background: asset_url('faces/red_full_16.png') 0 0 no-repeat;
+  width: 19px;
+  height: 18px;
+  display: inline-block;
+  float: right;
+}
+
+.votered {
+  background: asset_url('red-2.png') 0 0 no-repeat;
+  width: 32px;
+  height: 32px;
+  display: block;
+  margin-left: 7px;
+  margin-top: 5px;
+}
+
+.votered:hover {
+  background: asset_url('red.png') 0 0 no-repeat;
+}
+
+.voteyellow {
+  background: asset_url('yellow-2.png') 0 0 no-repeat;
+  width: 32px;
+  height: 32px;
+  display: block;
+  margin-left: 7px;
+  margin-top: 5px;
+}
+
+.voteyellow:hover {
+  background: asset_url('yellow.png') 0 0 no-repeat;
+}
+
+.votegreen {
+  background: asset_url('green-2.png') 0 0 no-repeat;
+  width: 32px;
+  height: 32px;
+  display: block;
+  margin-left: 7px;
+  margin-top: 5px;
+}
+
+.votegreen:hover {
+  background: asset_url('green.png') 0 0 no-repeat;
+}
+
+.points {
+  margin: 5px 0px 0px 0px;
+}
+
+.inpoints {
+  margin: 5px 0px 0px 0px;
+}
+
+.ranking {
+  margin: 0px 0px 5px 0px;
+}

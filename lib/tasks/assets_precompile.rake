@@ -20,20 +20,22 @@ task "assets:precompile" => :environment do
     STDOUT.puts '---- ' + file + ' ----'
     STDOUT.puts 'searching digest for ' + filename
     # Fetch the latest digest for this file from assets
-    latest_digest = Rails.application.assets.find_asset(filename).digest
+    if Rails.application.assets.find_asset(filename)
+      latest_digest = Rails.application.assets.find_asset(filename).digest
 
-    # Compare digest of this file to latest digest
-    # [1] is the enclosed capture in the fingerprint regex above
-    this_digest = file.match(fingerprint)[1]
-    if this_digest == latest_digest
-      # This file's digest matches latest digest, copy
-      STDOUT.puts 'Matching digest, copying ' + file
-      FileUtils.cp file, nondigest, verbose: true
-    else
-      # This file's digest doesn't match latest digest, ignore
-      STDOUT.puts 'Latest digest: ' + latest_digest
-      STDOUT.puts 'This digest:   ' + this_digest
-      STDOUT.puts 'Non-matching digest, not copying ' + file
+      # Compare digest of this file to latest digest
+      # [1] is the enclosed capture in the fingerprint regex above
+      this_digest = file.match(fingerprint)[1]
+      if this_digest == latest_digest
+        # This file's digest matches latest digest, copy
+        STDOUT.puts 'Matching digest, copying ' + file
+        FileUtils.cp file, nondigest, verbose: true
+      else
+        # This file's digest doesn't match latest digest, ignore
+        STDOUT.puts 'Latest digest: ' + latest_digest
+        STDOUT.puts 'This digest:   ' + this_digest
+        STDOUT.puts 'Non-matching digest, not copying ' + file
+      end
     end
 
     # Debug information
