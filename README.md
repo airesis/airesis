@@ -101,3 +101,13 @@ run Sidekiq
 
 
 That's it!
+
+
+Database
+--------
+
+Airesis has been developed and tested using PostgreSQL 9.
+
+It's necessary to have PostgreSQL installed with the hstore extension enabled.
+
+Is also necessary to have Redis in order to execute Sidekiq and all background jobs.

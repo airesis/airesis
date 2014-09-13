@@ -1,6 +1,5 @@
 class AnableHstoreForAlerts < ActiveRecord::Migration
   def up
-    enable_extension "hstore"
     add_column :user_alerts, :properties, :hstore
     add_column :notifications, :properties, :hstore
     Notification.all.each do |notification|
@@ -16,7 +15,6 @@ class AnableHstoreForAlerts < ActiveRecord::Migration
   end
 
   def down
-    disable_extension "hstore"
     remove_column :user_alerts, :properties
     remove_column :notifications, :properties
   end
