@@ -20,32 +20,37 @@
 <div class="card">
   <h2><%= t('pages.registration.title') %></h2>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), validate: true) do |f| %>
-      <%= render partial: 'fragments/error_messages', locals: {resource: resource} %>
+  <%= simple_form_for @user, url: user_registration_path, validate: true do |f| %>
+      <%= f.error_notification %>
 
-      <%= f.label :email %>
-      <%= f.email_field :email %>
+      <%= f.input :email %>
       <% if resource.email && params[:action] == 'new' %>
           <%= t('pages.registration.email_confirmed') %>
       <% end %>
 
+      <%= f.input :password_confirmation, label: t('pages.registration.choose_password'), id: "new_user_password_confirmation" %>
 
-      <%= f.label :password_confirmation, t('pages.registration.choose_password'), for: "new_user_password_confirmation" %>
-      <%= f.password_field :password_confirmation, id: "new_user_password_confirmation" %>
+      <%= f.input :password, label: t('pages.registration.confirm_password'), id: "new_user_password" %>
 
-      <%= f.label :password, t('pages.registration.confirm_password'), for: "new_user_password" %>
-      <%= f.password_field :password, id: "new_user_password" %>
+      <%= f.input :name %>
 
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-
-      <%= f.label :surname %>
-      <%= f.text_field :surname %>
+      <%= f.input :surname %>
 
 
       <%= f.label :accept_conditions do %>
+          <div class="conditions">
+            <%=render 'devise/registrations/eula' %>
+          </div>
           <%= f.check_box :accept_conditions %>
-          <%= raw t('pages.registration.accept_conditions') %>
+          <%= t('pages.registration.accept_conditions') %>
+      <% end %>
+
+      <%= f.label :accept_privacy do %>
+          <div class="conditions">
+            <%=render 'devise/registrations/privacy' %>
+          </div>
+          <%= f.check_box :accept_privacy %>
+          <%= t('pages.registration.accept_privacy') %>
       <% end %>
 
 

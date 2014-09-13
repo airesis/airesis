@@ -120,7 +120,6 @@ fr:
         facebookpageurl: Votre page sur Facebook
         accept_conditions: "Conditions d'utilisation"
         receive_newsletter: "Bulletin d'information par Courriel"
-        blog_image_url: "Adresse de l'image"
         blocked: Erreur
       group_area:
         name: Nom

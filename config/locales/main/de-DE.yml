@@ -299,7 +299,7 @@ de:
       email_confirmed: Wenn Du Dich mit dieser e-Mail-Adresse registrierst, wirst Du nicht aufgefordert, Deine e-Mail-Adresse zu bestätigen.
       choose_password: Passwort auswählen
       confirm_password: Passwort bestätigen
-      accept_conditions: 'Die <a href="#" onclick="return openModal();"> Nutzungsbedingungen</a> akzeptieren'
+      accept_conditions: 'Die Nutzungsbedingungen akzeptieren'
       register_button: Registrieren
       identity_provviders_title: Sofort mit Deinem Lieblingskonto anmelden
     proposals:
@@ -808,7 +808,6 @@ de:
         facebookpageurl: Deine Seite auf Facebook
         accept_conditions: Nutzungsbedingungen
         receive_newsletter: Newsletter per E-Mail
-        blog_image_url: Bild-Adresse
         blocked: Fehler
       group_area:
         name: Vorname

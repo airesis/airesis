@@ -148,6 +148,10 @@ $(function () {
         }
     });
 
+    $('[data-qtip]').qtip({style: {
+        classes: 'qtip-light qtip-shadow'
+    }});
+
 
     $(document).on('click', '[data-close-section-id]', function () {
         close_right_contributes($('.contributeButton[data-section_id=' + $(this).data('close-section-id') + ']'));

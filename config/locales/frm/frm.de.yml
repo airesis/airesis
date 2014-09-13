@@ -189,3 +189,7 @@ de:
   by: von
   started_by: "Gestartet von "
   are_you_sure: Sind sie sicher?
+  activerecord:
+    errors:
+      messages:
+        privacy: "It is required to accept the Privacy Terms"

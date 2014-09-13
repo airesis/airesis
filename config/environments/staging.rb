@@ -39,6 +39,7 @@ Airesis::Application.configure do
                             exception_recipients: ENV['ERROR_RECEIVER']
                         }
 
+
 end
 
 Airesis::Application.default_url_options = Airesis::Application.config.action_mailer.default_url_options

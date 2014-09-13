@@ -267,7 +267,7 @@ ro:
       email_confirmed: Dacă vă înregistraţi cu acea adresa de email nu vi se va mai cere să confirmați adresa de e-mail.
       choose_password: Alegeţi o parolă
       confirm_password: Confirmă parola
-      accept_conditions: 'Accept <a href="#" onclick="return openModal();"> termenii serviciului</a>'
+      accept_conditions: 'Accept termenii serviciului'
       register_button: Înscrie-te
       identity_provviders_title: Intră imediat în legătură cu contul dumneavoastră preferat
     proposals:
@@ -866,7 +866,6 @@ ro:
         facebookpageurl: Pagina ta pe Facebook
         accept_conditions: Termeni de utilizare
         receive_newsletter: Newsletter prin E-mail
-        blog_image_url: Adresa imaginii
         blocked: Eroare
       group_area:
         name: Nume

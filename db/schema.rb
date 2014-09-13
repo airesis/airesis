@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140613180018) do
+ActiveRecord::Schema.define(version: 20140814123057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -890,17 +890,6 @@ ActiveRecord::Schema.define(version: 20140613180018) do
     t.boolean  "noise",                                   default: false
   end
 
-  create_table "proposal_histories", force: true do |t|
-    t.integer  "proposal_id",               null: false
-    t.integer  "user_id",                   null: false
-    t.string   "content",     limit: 20000, null: false
-    t.string   "problem",     limit: 20000
-    t.integer  "valutations",               null: false
-    t.integer  "rank",                      null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "proposal_lives", force: true do |t|
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -1557,6 +1546,10 @@ ActiveRecord::Schema.define(version: 20140613180018) do
     t.integer  "sys_locale_id",                          default: 1,      null: false
     t.integer  "original_sys_locale_id",                 default: 1,      null: false
     t.string   "time_zone",                              default: "Rome"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], name: "uniqueemail", unique: true, using: :btree

@@ -241,7 +241,7 @@ zh:
       email_confirmed: "如果你用此 E-mail 註冊，我們不會要求你再次確認帳號。"
       choose_password: "選擇密碼"
       confirm_password: "再次確認密碼"
-      accept_conditions: "我已閱讀且同意 <a href=\"#\" onclick=\"return openModal();\">使用者條款</a>"
+      accept_conditions: "我已閱讀且同意使用者條款"
       register_button: "註冊"
       identity_provviders_title: "連結你常用的社群網站帳號直接登入！"
       username_or_email: "你的使用者名稱或 E-mail"
@@ -778,7 +778,6 @@ zh:
         facebookpageurl: '你在 Facebook 的個人頁面'
         accept_conditions: '使用者條款'
         email_alerts: '透過 E-mail 通知'
-        blog_image_url: '照片位置'
         blocked: "錯誤"
       group_area:
         name: "名字"

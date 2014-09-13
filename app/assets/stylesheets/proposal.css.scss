@@ -5,7 +5,6 @@
 
 @import "foundation/components/global";
 
-
 .loading_proposals.card {
   display: block;
   padding: 10px 0;
@@ -1177,7 +1176,6 @@ input.edit_label {
   top: 30px;
 }
 
-
 #change_nick {
   display: inline;
 }
@@ -1230,28 +1228,31 @@ input.edit_label {
   font-size: 0.85em;
 }
 
-
-
-#listContainer{
-  margin-top:15px;
+#listContainer {
+  margin-top: 15px;
 }
 
-.navigator ul, li {
-  list-style: none;
-  margin:0;
-  padding:0;
-  cursor: pointer;
+.navigator {
+  ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+  }
 }
+
 .navigator p {
-  margin:0;
-  display:block;
+  margin: 0;
+  display: block;
 }
+
 .navigator p:hover {
-  background-color:#121212;
+  background-color: #121212;
 }
+
 .navigator li {
-  line-height:140%;
-  text-indent:0px;
+  line-height: 140%;
+  text-indent: 0px;
   background-position: 1px 8px;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -1261,12 +1262,12 @@ input.edit_label {
 .navigator .collapsed {
   background-image: image_url('collapsed.png');
 }
+
 /* Expanded state for list element
 /* NOTE: This class must be located UNDER the collapsed one */
 .navigator .expanded {
   background-image: image_url('expanded.png');
 }
-
 
 ul {
   &.navigator {
@@ -1314,7 +1315,7 @@ ul {
     }
 
     li:hover {
-      background-color: rgba(0,0,0,0.07);
+      background-color: rgba(0, 0, 0, 0.07);
       .action {
         display: inline-block;
       }
@@ -1334,7 +1335,6 @@ ul {
       display: none;
       margin: 0px 2.5px;
     }
-
 
   }
 }

@@ -121,7 +121,6 @@ it-IT:
         facebookpageurl: "La tua pagina su Facebook"
         accept_conditions: "Condizioni d'uso"
         receive_newsletter: "Newsletter tramite email"
-        blog_image_url: "Indirizzo immagine"
         blocked: "Errore"
         user_type_id: "Tipologia di utente"
       group_area:

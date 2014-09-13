@@ -31,11 +31,8 @@ module BlogKitModelHelper
 
     style= force_size ? "style=\"width:#{size}px;height:#{size}px;\"" : ""
 
-    if !user.image_url.blank?
-      # Load image from model
-      ret = url ?
-          "<img src=\"#{Maktoub.home_domain}#{user.image_url}\" #{style} alt=\"\" itemprop=\"photo\" />" :
-          "<img src=\"#{user.image_url}\"  #{style} alt=\"\" itemprop=\"photo\"/>"
+    if user.avatar_file_name.present?
+      ret = "<img src=\"#{user.avatar.url}\" #{style} alt=\"\" itemprop=\"photo\" />"
     elsif user.has_provider(Authentication::FACEBOOK)
       if size <= 50
         fsize = 'small'
@@ -69,8 +66,6 @@ module BlogKitModelHelper
         ret = "<div class=\"user_certified_mini\"  style=\"width:#{size+6}px;height:#{size+6}px;\">#{ret}</div>"
       end
     end
-
-    return ret.html_safe if ret.respond_to?(:html_safe)
-    ret
+    ret.html_safe
   end
 end

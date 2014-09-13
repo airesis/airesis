@@ -1022,7 +1022,6 @@ crowdin:
         facebookpageurl: "{crwdns7496:0}{crwdne7496:0}"
         accept_conditions: "{crwdns7497:0}{crwdne7497:0}"
         receive_newsletter: "{crwdns7498:0}{crwdne7498:0}"
-        blog_image_url: "{crwdns7499:0}{crwdne7499:0}"
         blocked: "{crwdns7500:0}{crwdne7500:0}"
       group_area:
         name: "{crwdns7501:0}{crwdne7501:0}"

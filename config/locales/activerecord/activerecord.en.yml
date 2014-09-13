@@ -120,7 +120,6 @@ en:
         facebookpageurl: 'Your page on Facebook'
         accept_conditions: 'Terms of Use'
         receive_newsletter: 'Newsletter via Email'
-        blog_image_url: 'Image address'
         blocked: "Error"
       group_area:
         name: "Name"

@@ -284,7 +284,7 @@ es-ES:
       email_confirmed: Si usted se inscribe con este correo electrónico no es necesario confirmar la quenta.
       choose_password: Elige una contraseña
       confirm_password: Confirmar contraseña
-      accept_conditions: 'Acepto los <a href="#" onclick="return openModal();"> términos del servicio</a>'
+      accept_conditions: 'Acepto los términos del servicio'
       register_button: Regístrese
       identity_provviders_title: Entra inmediatamente con tu cuenta favorita
     proposals:
@@ -935,7 +935,6 @@ es-ES:
         facebookpageurl: Your page on Facebook
         accept_conditions: Terms of Use
         receive_newsletter: Newsletter via Email
-        blog_image_url: Image address
         blocked: Error
       group_area:
         name: Name

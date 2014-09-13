@@ -289,7 +289,7 @@ pt-BR:
       email_confirmed: Se você se registrar com esse endereço de email, você não será solicitado para confirmar o seu endereço de email.
       choose_password: Escolha uma senha
       confirm_password: Confirme a senha
-      accept_conditions: 'Aceito os <a href="#" onclick="return openModal();"> termos de serviço</a>'
+      accept_conditions: 'Aceito os termos de serviço'
       register_button: Registre-se
       identity_provviders_title: Entre imediatamente com sua conta favorida
     proposals:

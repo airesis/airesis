@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   include BlogKitModelHelper, TutorialAssigneesHelper
   #include Rails.application.routes.url_helpers
 
+  attr_accessor :image_url, :accept_conditions, :subdomain, :accept_privacy
+
   #validates_presence_of     :login, unless: :from_identity_provider?
   #validates_length_of       :login,    within: 3..40, unless: :from_identity_provider?
   #validates_uniqueness_of   :login, unless: :from_identity_provider?
@@ -26,10 +28,10 @@ class User < ActiveRecord::Base
   validates_format_of :email, with: AuthenticationModule.email_regex, message: AuthenticationModule.bad_email_message, allow_nil: true
   validates_uniqueness_of :email
 
-  validates_format_of :blog_image_url, with: AuthenticationModule.url_regex, allow_nil: true
   validates_confirmation_of :password
 
   validates_acceptance_of :accept_conditions, message: I18n.t('activerecord.errors.messages.TOS')
+  validates_acceptance_of :accept_privacy, message: I18n.t('activerecord.errors.messages.privacy')
 
   #relations
   has_many :proposal_presentations, class_name: 'ProposalPresentation'
@@ -48,7 +50,7 @@ class User < ActiveRecord::Base
 
   has_many :group_participations, class_name: 'GroupParticipation'
   has_many :groups, through: :group_participations, class_name: 'Group'
-  has_many :portavoce_groups, -> {joins(" INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id").where("(participation_roles.name = 'amministratore')")}, through: :group_participations, class_name: 'Group', source: 'group'
+  has_many :portavoce_groups, -> { joins(" INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id").where("(participation_roles.name = 'amministratore')") }, through: :group_participations, class_name: 'Group', source: 'group'
 
   has_many :area_participations, class_name: 'AreaParticipation'
   has_many :group_areas, through: :area_participations, class_name: 'GroupArea'
@@ -72,8 +74,8 @@ class User < ActiveRecord::Base
   #confini di interesse
   has_many :interest_borders, through: :user_borders, class_name: 'InterestBorder'
 
-  has_many :alerts, -> {order('alerts.created_at DESC')}, class_name: 'Alert'
-  has_many :unread_alerts, -> {where 'alerts.checked = false'}, class_name: 'Alert'
+  has_many :alerts, -> { order('alerts.created_at DESC') }, class_name: 'Alert'
+  has_many :unread_alerts, -> { where 'alerts.checked = false' }, class_name: 'Alert'
 
   has_many :blocked_notifications, through: :blocked_alerts, class_name: 'NotificationType', source: :notification_type
   has_many :blocked_email_notifications, through: :blocked_emails, class_name: 'NotificationType', source: :notification_type
@@ -92,7 +94,7 @@ class User < ActiveRecord::Base
 
   has_many :tutorial_assignees, class_name: 'TutorialAssignee'
   has_many :tutorial_progresses, class_name: 'TutorialProgress'
-  has_many :todo_tutorial_assignees, -> {where('tutorial_assignees.completed = false')}, class_name: 'TutorialAssignee'
+  has_many :todo_tutorial_assignees, -> { where('tutorial_assignees.completed = false') }, class_name: 'TutorialAssignee'
   #tutorial assegnati all'utente
   has_many :tutorials, through: :tutorial_assignees, class_name: 'Tutorial', source: :user
   has_many :todo_tutorials, through: :todo_tutorial_assignees, class_name: 'Tutorial', source: :user
@@ -113,12 +115,10 @@ class User < ActiveRecord::Base
   #forum
   has_many :viewed, class_name: 'Frm::View'
   has_many :viewed_topics, class_name: 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
-  has_many :unread_topics, -> {where 'frm_views.updated_at < frm_topics.last_post_at'}, class_name: 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
+  has_many :unread_topics, -> { where 'frm_views.updated_at < frm_topics.last_post_at' }, class_name: 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
   has_many :memberships, class_name: 'Frm::Membership', foreign_key: :member_id
   has_many :frm_groups, through: :memberships, class_name: 'Frm::Group', source: :group
 
-  #fake columns
-  attr_accessor :image_url, :accept_conditions, :subdomain
 
   before_create :init
 
@@ -135,16 +135,23 @@ class User < ActiveRecord::Base
                     path: "avatars/:id/:style/:basename.:extension"
 
   validates_attachment_size :avatar, less_than: 2.megabytes
-  validates_attachment_content_type :avatar, content_type: ['image/jpeg', 'image/png', 'image/gif']
+  validates_attachment_content_type :avatar, content_type: ['image/jpeg', 'image/png', 'image/gif', 'image/jpg']
 
 
+  scope :blocked, -> { where(blocked: true) }
+  scope :unblocked, -> { where(blocked: false) }
+  scope :confirmed, -> { where 'confirmed_at is not null' }
+  scope :unconfirmed, -> { where 'confirmed_at is null' }
+  scope :certified, -> { where(user_type_id: UserType::CERTIFIED) }
 
-  scope :blocked, -> {where(blocked: true)}
-  scope :unblocked, -> {where(blocked: false)}
-  scope :confirmed, -> {where 'confirmed_at is not null'}
-  scope :unconfirmed, -> {where 'confirmed_at is null'}
-  scope :certified, -> {where(user_type_id: UserType::CERTIFIED)}
-
+  def avatar_url=(url)
+    begin
+      file = URI.parse(url)
+      self.avatar = file
+    rescue
+      # ignored
+    end
+  end
 
   def check_uncertified
     if certified?
@@ -281,17 +288,9 @@ class User < ActiveRecord::Base
     Base64.decode64(id)
   end
 
-
   def image_url
-    if self.blog_image_url && !self.blog_image_url.blank?
-      self.blog_image_url
-    elsif self.image_id
-      return self.image.image.url
-    else
-      ""
-    end
+    avatar.url
   end
-
 
   def login=(value)
     write_attribute :login, (value.try(:downcase))
@@ -343,7 +342,6 @@ class User < ActiveRecord::Base
       false
     end
   end
-
 
 
   def has_ranked_proposal?(proposal_id)
@@ -470,7 +468,7 @@ class User < ActiveRecord::Base
   def self.autocomplete(term)
     where("lower(users.name) LIKE :term or lower(users.surname) LIKE :term", {term: "%#{term.downcase}%"}).
         limit(10).
-        select("users.name, users.surname, users.id, users.blog_image_url, users.image_id, users.email, users.user_type_id").
+        select("users.name, users.surname, users.id, users.image_id, users.email, users.user_type_id").
         order("users.surname desc, users.name desc")
   end
 
@@ -498,8 +496,6 @@ class User < ActiveRecord::Base
   def to_s
     fullname
   end
-
-
 
 
   #authentication method
@@ -565,7 +561,8 @@ class User < ActiveRecord::Base
     if user
       return user
     else #crea un nuovo account linkedin
-      user = User.new(name: data["firstName"], surname: data["lastName"], email: data["emailAddress"], password: Devise.friendly_token[0, 20], blog_image_url: data[:pictureUrl], linkedin_page_url: data[:publicProfileUrl])
+      user = User.new(name: data["firstName"], surname: data["lastName"], email: data["emailAddress"], password: Devise.friendly_token[0, 20], linkedin_page_url: data[:publicProfileUrl])
+      user.avatar_url = data[:pictureUrl]
       user.user_type_id = 3
       user.sign_in_count = 0
       user.build_authentication_provider(access_token)
@@ -589,7 +586,7 @@ class User < ActiveRecord::Base
     if user
       return user
     else #crea un nuovo account google
-      user = User.new(name: data["given_name"], surname: data["family_name"], sex: (data["gender"] ? data["gender"][0] : nil), email: data["email"], password: Devise.friendly_token[0, 20], google_page_url: data["link"], blog_image_url: data["picture"])
+      user = User.new(name: data["given_name"], surname: data["family_name"], sex: (data["gender"] ? data["gender"][0] : nil), email: data["email"], password: Devise.friendly_token[0, 20], google_page_url: data["link"])
       user.user_type_id = 3
       user.sign_in_count = 0
       user.build_authentication_provider(access_token)
@@ -615,7 +612,8 @@ class User < ActiveRecord::Base
       splitted = fullname.split(' ', 2)
       name = splitted ? splitted[0] : fullname
       surname = splitted ? splitted[1] : ''
-      user = User.new(name: name, surname: surname, password: Devise.friendly_token[0, 20], blog_image_url: data[:profile_image_url])
+      user = User.new(name: name, surname: surname, password: Devise.friendly_token[0, 20])
+      user.avatar_url = data[:profile_image_url]
       user.user_type_id = 3
       user.sign_in_count = 0
       user.build_authentication_provider(access_token)
@@ -641,7 +639,8 @@ class User < ActiveRecord::Base
       splitted = fullname.split(' ', 2)
       name = splitted ? splitted[0] : fullname
       surname = splitted ? splitted[1] : ''
-      user = User.new(name: name, surname: surname, password: Devise.friendly_token[0, 20], blog_image_url: (data[:photo][:photo_link] if data[:photo]))
+      user = User.new(name: name, surname: surname, password: Devise.friendly_token[0, 20])
+      user.avatar_url = data[:photo][:photo_link] if data[:photo]
       user.user_type_id = 3
       user.sign_in_count = 0
       user.build_authentication_provider(access_token)
@@ -671,7 +670,7 @@ class User < ActiveRecord::Base
       participation_role = group.default_role
       if data['verified']
         certification = user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
-        participation_role = ParticipationRole.where(['group_id = ? and lower(name) = ?',group.id, 'residente']).first || participation_role  #look for best role or fallback
+        participation_role = ParticipationRole.where(['group_id = ? and lower(name) = ?', group.id, 'residente']).first || participation_role #look for best role or fallback
         user.user_type_id = UserType::CERTIFIED
       else
         user.user_type_id = UserType::AUTHENTICATED

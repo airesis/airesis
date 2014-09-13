@@ -149,3 +149,5 @@ gem 'client_side_validations-simple_form', github: 'coorasse/client_side_validat
 gem 'figaro'
 
 gem 'faker'
+
+gem 'sshkit', '1.3.0'

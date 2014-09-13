@@ -117,7 +117,6 @@ crowdin:
         facebookpageurl: "{crwdns5979:0}{crwdne5979:0}"
         accept_conditions: "{crwdns5980:0}{crwdne5980:0}"
         receive_newsletter: "{crwdns5981:0}{crwdne5981:0}"
-        blog_image_url: "{crwdns5982:0}{crwdne5982:0}"
         blocked: "{crwdns5983:0}{crwdne5983:0}"
       group_area:
         name: "{crwdns5984:0}{crwdne5984:0}"

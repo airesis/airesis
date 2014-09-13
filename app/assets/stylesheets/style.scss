@@ -20,6 +20,11 @@
     font-size: 1.6rem;
     padding: 10px 5px;
   }
+
+  [class*="block-grid-"] > li & {
+    margin-bottom: inherit;
+  }
+
 }
 
 .card {
@@ -895,4 +900,12 @@ form.paypal-button {
 
 .fb_iframe_widget {
   vertical-align: inherit;
+}
+
+.conditions {
+  background-color: rgba(0, 0, 0, 0.1);
+  max-height: 150px;
+  overflow-y: auto;
+  font-size: 0.9rem;
+  padding: 5px;
 }

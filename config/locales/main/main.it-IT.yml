@@ -308,7 +308,7 @@ it-IT:
       email_confirmed: "Se ti registri con questo indirizzo email non dovrai confermare l'account."
       choose_password: "Scegli una password"
       confirm_password: "Conferma la password"
-      accept_conditions: "Accetto le <a href=\"#\" onclick=\"return openModal();\">condizioni d'uso</a>"
+      accept_conditions: "Accetto le condizioni d'uso"
       register_button: "Registrati"
       identity_provviders_title: "Entra subito tramite il tuo Identity Provider preferito"
     proposals:
@@ -1063,7 +1063,6 @@ it-IT:
         facebookpageurl: "La tua pagina su Facebook"
         accept_conditions: "Condizioni d'uso"
         receive_newsletter: "Newsletter tramite email"
-        blog_image_url: "Indirizzo immagine"
         blocked: "Errore"
       group_area:
         name: "Nome"

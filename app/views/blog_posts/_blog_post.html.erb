@@ -3,8 +3,8 @@
       <div class="hidden_link">
       </div>
       <div class="hidden_menu">
-          <%= link_to t('pages.blog_posts.edit_button'), edit_blog_blog_post_path(blog_post.blog, blog_post), class: 'menu_item' %>
-          <%= link_to( t('pages.blog_posts.delete_button'), blog_blog_post_path(blog_post.blog, blog_post), method: :delete, class: 'menu_item', data: {confirm: "Sei sicuro di voler cancellare il post '#{blog_post.title}'. Esso scomparirà sia dall bacheca del gruppo che dal tuo blog personale e non sarà più possibile recuperarlo."}) %>
+        <%= link_to t('pages.blog_posts.edit_button'), edit_blog_blog_post_path(blog_post.blog, blog_post), class: 'menu_item' %>
+        <%= link_to(t('pages.blog_posts.delete_button'), blog_blog_post_path(blog_post.blog, blog_post), method: :delete, class: 'menu_item', data: {confirm: "Sei sicuro di voler cancellare il post '#{blog_post.title}'. Esso scomparirà sia dall bacheca del gruppo che dal tuo blog personale e non sarà più possibile recuperarlo."}) %>
       </div>
   <% end %>
 
@@ -12,24 +12,22 @@
     <%= link_to(h(blog_post.title), [blog_post.blog, blog_post]) %>
     <% if blog_post.draft? %>
         [<%= t('pages.blog_posts.show.draft') %>]
-        <% elsif blog_post.reserved? %>
+    <% elsif blog_post.reserved? %>
         [<%= t('pages.blog_posts.show.reserved') %>]
     <% end %>
   </h3>
 
   <div class="blogPostBody">
-    <%=sanitize blog_post.body %>
-    <div class="clearboth"></div>
+    <%= sanitize blog_post.body %>
   </div>
 
   <div class="blogPostFooter">
-
-
     <div class="blogPostPostedAt">
-      <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to ((blog_post.user_image_tag 15) + blog_post.user.fullname), blog_post.user), date: (l blog_post.created_at)) %> |
+      <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to ((blog_post.user_image_tag 15) + blog_post.user.fullname), blog_post.user), date: (l blog_post.created_at)) %>
+      |
       <span class="blogComments">
 
-      <%=link_to t('pages.blog_posts.view.comments', count: blog_post.blog_comments_count),blog_blog_post_url(blog_post.blog,blog_post) %>
+      <%= link_to t('pages.blog_posts.view.comments', count: blog_post.blog_comments_count), blog_blog_post_url(blog_post.blog, blog_post) %>
       </span>
     </div>
     <% if ::Configuration::socialnetwork_active %>
@@ -41,11 +39,11 @@
              data-lang="en"
              data-text="Guarda questo post su #<%= ENV['APP_SHORT_NAME'] %>"
              data-url="<%= blog_blog_post_url(blog_post.blog, blog_post) %>">Tweet</a>
-         |
-        <div class="fb-like" data-href="<%= blog_blog_post_url(blog_post.blog, blog_post) %>" data-width="450" data-layout="button_count" data-show-faces="true" data-send="true"></div>
+          |
+          <div class="fb-like" data-href="<%= blog_blog_post_url(blog_post.blog, blog_post) %>" data-width="450" data-layout="button_count" data-show-faces="true" data-send="true"></div>
 
         </div>
-  <% end %>
+    <% end %>
 
     <% unless blog_post.tags.blank? %>
         <div class="blogPostTags">

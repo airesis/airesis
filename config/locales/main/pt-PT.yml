@@ -300,7 +300,7 @@ pt-PT:
       email_confirmed: Se se registar com esse endereço de email, não lhe será solicitado para confirmar o seu endereço de e-mail.
       choose_password: Escolha uma palavra-chave
       confirm_password: Confirmar palavra-passe
-      accept_conditions: 'Aceite <a href="#" onclick="return openModal();">os Termos de Serviço</a>'
+      accept_conditions: 'Aceite os Termos de Serviço'
       register_button: Registe-se
       identity_provviders_title: Entrar imediatamente com a sua conta favorita
     proposals:
@@ -1022,7 +1022,6 @@ pt-PT:
         facebookpageurl: A sua página no Facebook
         accept_conditions: Condições de Utilização
         receive_newsletter: Newsletter por E-mail
-        blog_image_url: Endereço da imagem
         blocked: Erro
       group_area:
         name: Nome

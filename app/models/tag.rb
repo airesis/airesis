@@ -7,7 +7,7 @@ class Tag < ActiveRecord::Base
 
   has_many :blog_posts, through: :blog_post_tags, class_name: 'BlogPost'
 
-  scope :most_used, -> {where('(blog_posts_count + blogs_count + proposals_count + groups_count) > 2').order('random()')}
+  scope :most_used, -> {where('(blog_posts_count + blogs_count + proposals_count + groups_count) > 10').order('random()')}
 
 
   scope :most_groups, -> {where('groups_count > 0').order('groups_count desc').limit(40)}

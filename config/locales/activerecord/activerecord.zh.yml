@@ -116,7 +116,6 @@ zh:
         facebookpageurl: '你在 Facebook 的個人頁面'
         accept_conditions: '使用者條款'
         email_alerts: '透過 E-mail 通知'
-        blog_image_url: '照片位置'
         blocked: "錯誤"
       group_area:
         name: "名字"

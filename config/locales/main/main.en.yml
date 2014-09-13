@@ -314,7 +314,7 @@ en:
       email_confirmed: "If you register with that email address you will not be asked to confirm your email address."
       choose_password: "Choose a password"
       confirm_password: "Confirm password"
-      accept_conditions: "Accept the <a href=\"#\" onclick=\"return openModal();\">Terms of Service</a>"
+      accept_conditions: "Accept the Terms of Service"
       register_button: "Register"
       identity_provviders_title: "Get in immediately with your favourite account"
     proposals:
@@ -1089,7 +1089,6 @@ en:
         facebookpageurl: 'Your page on Facebook'
         accept_conditions: 'Terms of Use'
         receive_newsletter: 'Newsletter via Email'
-        blog_image_url: 'Image address'
         blocked: "Error"
       group_area:
         name: "Name"

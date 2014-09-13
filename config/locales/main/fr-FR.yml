@@ -305,8 +305,7 @@ fr:
       email_confirmed: Si vous vous inscrivez avec ce courriel, il ne vous sera pas demandé de le confirmer.
       choose_password: Choisissez un mot de passe
       confirm_password: Confirmez le mot passe
-      accept_conditions: |-
-        Accepter les <a href="#" onclick="return openModal();"> Conditions d'utilisation</a>
+      accept_conditions: Accepter les Conditions d'utilisation
       register_button: Inscription
       identity_provviders_title: Entrez immédiatement avec votre compte préféré
     proposals:
@@ -1033,7 +1032,6 @@ fr:
         facebookpageurl: Votre page sur Facebook
         accept_conditions: "Conditions d'utilisation"
         receive_newsletter: "Bulletin d'information par Courriel"
-        blog_image_url: "Adresse de l'image"
         blocked: Erreur
       group_area:
         name: Nom

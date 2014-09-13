@@ -93,6 +93,7 @@ class Group < ActiveRecord::Base
                         medium: "300x300>",
                         small: "150x150>"
                     },
+                    storage: :filesystem,
                     url: "/assets/images/groups/:id/:style/:basename.:extension",
                     path: ":rails_root/public/assets/images/groups/:id/:style/:basename.:extension"
 

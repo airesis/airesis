@@ -304,7 +304,7 @@ es-CL:
       email_confirmed: Si usted se inscribe con este correo electrónico no es necesario confirmar la dirección de correo.
       choose_password: Elige una contraseña
       confirm_password: Confirmar contraseña
-      accept_conditions: 'Acepto los<a href="#" onclick="return openModal();">Terminos de Servicio</a>'
+      accept_conditions: 'Acepto los Terminos de Servicio'
       register_button: Regístrese
       identity_provviders_title: Entra inmediatamente con tu cuenta favorita
     proposals:
@@ -1034,7 +1034,6 @@ es-CL:
         facebookpageurl: Su página en Facebook
         accept_conditions: Términos de uso
         receive_newsletter: Boletín por correo electrónico
-        blog_image_url: Dirección de imagen
         blocked: Error
       group_area:
         name: Nombre

@@ -29,7 +29,6 @@
 .blogPostFooter {
   padding-top: 5px;
   border-top: 1px dotted #ccc;
-  margin-bottom: 40px;
 }
 
 .blogPostPostedAt {
@@ -90,13 +89,13 @@
 .blog_comment {
   margin-bottom: 0.4em;
   .comment_avatar {
-    float:left;
+    float: left;
   }
   .comment_desc {
     float: left;
     width: 142px;
     overflow: hidden;
-    margin-left:5px;
+    margin-left: 5px;
   }
 }
 
@@ -104,10 +103,10 @@
   padding: 10px 0px;
   border-bottom: 1px dotted #ccc;
   .comment_avatar {
-    float:left;
+    float: left;
   }
   .blog_post_desc {
-    float:left;
+    float: left;
     margin-left: 10px;
     max-width: 365px;
     .blog_post_title {
