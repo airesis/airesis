@@ -96,10 +96,7 @@ class QuorumsController < ApplicationController
     end
 
     respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
+      format.js { render 'layouts/success' }
     end
   end
 
@@ -134,7 +131,6 @@ class QuorumsController < ApplicationController
   end
 
   def choose_layout
-    @group ? "groups" : "open_space"
+    @group ? 'groups' : 'open_space'
   end
-
 end
