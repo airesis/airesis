@@ -17,7 +17,7 @@ module Frm
 
     def topic
       if params[:topic]
-        topic = forum.topics.find(params[:topic_id])
+        topic = forum.topics.friendly.find(params[:topic_id])
         topic.moderate!(params[:topic][:moderation_option])
         flash[:notice] = t("frm.topic.moderation.success")
       else
@@ -29,7 +29,7 @@ module Frm
     private
 
     def forum
-      @forum = @group.forums.find(params[:forum_id])
+      @forum = @group.forums.friendly.find(params[:forum_id])
     end
 
     helper_method :forum

@@ -1250,7 +1250,7 @@ a {
 }
 
 .breadcrumbs {
-  /*margin-bottom: 30px;*/
+  margin-bottom: 30px;
   a {
     color: #3B5998;
   }
@@ -2512,6 +2512,14 @@ input[type=file] {
 
 .cke.cke_chrome {
   margin: 0 0 $form-spacing 0;
+}
+
+.top-bar-section ul li > a.button {
+  background-color: transparent;
+  top: 5px;
+  &:hover {
+    background-color: #008cba;
+  }
 }
 
 //enable xlarge and xxlarge block grids

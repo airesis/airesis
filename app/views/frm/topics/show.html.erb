@@ -1,5 +1,6 @@
 <%@page_title = "#{@topic.subject} - #{@group.name}" %>
 <% @extend=true %>
+
 <div id='topic' class='<%= 'un' unless @topic.locked? %>locked'>
   <%= render partial: 'frm/topics/head', locals: {topic: @topic} %>
 
