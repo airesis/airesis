@@ -2,7 +2,7 @@
 %>
 
 <div id="comment<%= comment.id %>" class="proposalComment"<%= "style=\"display:none\" data-collapsed=\"true\"" if comment.collapsed %> data-id="<%= comment.id %>">
-  <div class="blogUserImage" title="<%= proposal_nickname.nickname if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user))%>">
+  <div class="blogUserImage" title="<%= proposal_nickname.nickname if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) %>">
     <% if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) %>
         <img src="http://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(proposal_nickname.nickname) %>?s=40&d=identicon&r=PG"/>
     <% else %>
@@ -13,26 +13,26 @@
     <%= render partial: 'proposal_comments/content', locals: {comment: comment, proposal_nickname: proposal_nickname} %>
   </div>
   <% countreplies = comment.replies.count %>
-  <% @lastreplies = comment.replies.where(["proposal_comments.created_at > ?",comment.updated_at || comment.created_at]).order('proposal_comments.created_at DESC').page(1).per(5).reverse! %>
+  <% @lastreplies = comment.replies.where(["proposal_comments.created_at > ?", comment.updated_at || comment.created_at]).order('proposal_comments.created_at DESC').page(1).per(5).reverse! %>
   <% if countreplies > @lastreplies.length %>
       <div id="<%= comment.id %>_show" class="show_all_comments">
-        <%= link_to t('pages.proposals.show.replies.show_all', count: countreplies), show_all_replies_proposal_proposal_comment_path(@proposal, comment, showed: @lastreplies.length), remote: true, data:{disable_with: t('loading')} %>
+        <%= link_to t('pages.proposals.show.replies.show_all', count: countreplies), show_all_replies_proposal_proposal_comment_path(@proposal, comment, showed: @lastreplies.length), remote: true, data: {disable_with: t('loading')} %>
       </div>
   <% end %>
   <div id="<%= comment.id %>_replies" style="display:none;">
   </div>
-  <%@lastreplies.each_with_index do |reply,i| %>
-    <%= render partial: 'proposals/reply', locals: {reply:reply, hide: false} %>
-    <%if (i < @lastreplies.length - 1) && (version = comment.versions.where(['created_at between ? and ?',@lastreplies[i].created_at, @lastreplies[i+1].created_at]).first) %>
-      <div class="comment_update_divider">
-        <%=raw 'updated on ' + time_in_words(version.created_at) %>
-      </div>
-      <%end%>
-  <%end%>
+  <% @lastreplies.each_with_index do |reply, i| %>
+      <%= render partial: 'proposals/reply', locals: {reply: reply, hide: false} %>
+      <% if (i < @lastreplies.length - 1) && (version = comment.versions.where(['created_at between ? and ?', @lastreplies[i].created_at, @lastreplies[i+1].created_at]).first) %>
+          <div class="comment_update_divider">
+            <%= raw 'updated on ' + time_in_words(version.created_at) %>
+          </div>
+      <% end %>
+  <% end %>
   <div id="<%= comment.id %>_new_replies">
   </div>
 
-  <% if can? :partecipate, @proposal %>
+  <% if can? :participate, @proposal %>
       <div class="reply_img">
         <%= current_user.user_image_tag(32) %>
       </div>

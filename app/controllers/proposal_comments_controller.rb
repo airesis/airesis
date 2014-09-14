@@ -2,11 +2,10 @@
 class ProposalCommentsController < ApplicationController
 
   before_filter :save_post_and_authenticate_user, only: [:create]
-  before_filter :check_author, only: [:edit, :update]
-  before_filter :already_ranked, only: [:rankup, :rankdown, :ranknil]
 
   load_and_authorize_resource :proposal
   load_and_authorize_resource through: :proposal, collection: [:list, :left_list, :edit_list]
+  before_filter :already_ranked, only: [:rankup, :rankdown, :ranknil]
 
   layout :choose_layout
 
@@ -108,8 +107,8 @@ class ProposalCommentsController < ApplicationController
 
 
   def create
-    @parent_id = params[:proposal_comment][:parent_proposal_comment_id]
-    @is_reply = @parent_id != nil
+    parent_id = params[:proposal_comment][:parent_proposal_comment_id]
+    @is_reply = parent_id != nil
     post_contribute
 
     respond_to do |format|
@@ -124,7 +123,7 @@ class ProposalCommentsController < ApplicationController
     respond_to do |format|
       puts e
       flash[:error] = @proposal_comment.errors.messages.values.join(" e ")
-      format.js { render 'proposal_comments/errors/create' }
+      format.js { render 'layouts/error' }
       format.json {
         render json: @proposal_comment.try(:errors) || {error: true}, status: :unprocessable_entity
       }
@@ -203,10 +202,7 @@ class ProposalCommentsController < ApplicationController
     #log_error(e)
     respond_to do |format|
       flash[:error] = t('error.proposals.contribute_report')
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
+      format.js { render 'layouts/error' }
     end
   end
 
@@ -249,15 +245,6 @@ class ProposalCommentsController < ApplicationController
     params.require(:proposal_comment).permit(:content, :parent_proposal_comment_id, :section_id)
   end
 
-  #questo metodo permette di verificare che l'utente collegato sia l'autore del commento
-  def check_author
-    @proposal_comment = ProposalComment.find(params[:id])
-    unless current_user.is_mine? @proposal_comment
-      flash[:notice] = t('error.proposals.modify_comments')
-      redirect_to :back
-    end
-  end
-
   def save_post_and_authenticate_user
     return if current_user
     session[:proposal_comment] = params[:proposal_comment]
@@ -267,7 +254,6 @@ class ProposalCommentsController < ApplicationController
 
 
   def rank(rank_type)
-    authorize! :rank, @proposal_comment
     @my_ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(current_user.id, @proposal_comment.id)
     if @my_ranking
       @ranking = @my_ranking
@@ -286,10 +272,7 @@ class ProposalCommentsController < ApplicationController
         format.html { redirect_to @proposal }
       else
         flash[:notice] = t(:error_on_proposal_comment_rank)
-        format.js { render :update do |page|
-          page.replace_html "flash_messages_comment_#{params[:id]}", partial: 'layouts/flash', locals: {flash: flash}
-        end
-        }
+        format.js { render 'layouts/error' }
         format.html { redirect_to @proposal }
       end
     end
@@ -302,10 +285,7 @@ class ProposalCommentsController < ApplicationController
 
     flash[:notice] = t('info.proposal.comment_already_ranked')
     respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages_comment_#{params[:id]}", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
+      format.js { render 'layouts/error' }
       format.html {
         redirect_to proposal_path(params[:proposal_id])
       }

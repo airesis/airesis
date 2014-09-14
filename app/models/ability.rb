@@ -23,7 +23,7 @@ class Ability
     can :read, PostPublishing, blog_post: r_blog_post_is_public
     can :new, BlogComment, blog_post: r_blog_post_is_public
     can [:read, :new], BlogComment, blog: r_blog_post_is_public
-    can [:read, :new, :report, :history], ProposalComment, proposal: {private: false}
+    can [:read, :new, :report, :history, :list, :left_list], ProposalComment, proposal: {private: false}
     can :index, Proposal
     can :show, Proposal, private: false
     can :show, Proposal, visible_outside: true
@@ -58,7 +58,7 @@ class Ability
 
       #but can't see proposals in presentation areas. it will be allowed in next condition
       cannot :participate, Proposal do |proposal|
-        proposal.private && !proposal.visible_outside && proposal.presentation_areas.count > 0
+        (proposal.presentation_areas.count > 0) && proposal.private && !proposal.visible_outside
       end
       #in areas
       can :participate, Proposal, presentation_areas: can_do_on_group_area(user, GroupAction::PROPOSAL_PARTICIPATION)
@@ -109,7 +109,7 @@ class Ability
             (proposal_comment.created_at < 5.minutes.ago)
       end
 
-      can :rank, ProposalComment do |comment|
+      can [:rankup, :rankdown, :ranknil], ProposalComment do |comment|
         can? :participate, comment.proposal
       end
 
