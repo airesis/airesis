@@ -93,8 +93,6 @@ gem 'sitemap_generator'
 
 gem 'geocoder'
 
-gem 'seed_dump'
-
 gem 'vote-schulze', github: 'coorasse/vote-schulze'
 
 gem 'rails_autolink'
@@ -106,7 +104,7 @@ gem 'el_finder'
 gem 'recaptcha', require: 'recaptcha/rails'
 
 gem 'bullet', group: :development
-#gem 'thin', group: :development
+gem 'thin', group: :development
 gem 'ruby-prof', group: :test
 gem 'test-unit', group: :test
 
