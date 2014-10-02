@@ -9,6 +9,7 @@ before_script:
  - "cp config/database.travis.yml config/database.yml"
  - "cp config/application.example.yml config/application.yml"
  - "cp config/paypal.example.yml config/paypal.yml"
+ - "cp config/secrets.ci.yml config/secrets.yml"
  - "psql -c 'create database travis_ci_test;' -U postgres"
  - "RAILS_ENV=test bundle exec rake db:setup --trace"
  - "RAILS_ENV=test bundle exec rake db:test:prepare --trace"
