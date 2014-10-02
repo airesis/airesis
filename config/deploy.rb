@@ -35,7 +35,7 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-set :linked_files, %w{config/application.yml  config/database.yml  config/paypal.yml  config/private_pub.yml  config/sidekiq.yml  config/sunspot.yml}
+set :linked_files, %w{config/application.yml config/database.yml config/paypal.yml config/private_pub.yml config/sidekiq.yml config/sunspot.yml .htaccess}
 
 set :sidekiq_config, "#{current_path}/config/sidekiq.yml"
 

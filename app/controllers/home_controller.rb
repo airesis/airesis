@@ -41,7 +41,7 @@ class HomeController < ApplicationController
 
   def donations
     @features = SysFeature.all
-    @colors = ['red','yellow','blue','violet','green']
+    @colors = ['red', 'yellow', 'blue', 'violet', 'green']
   end
 
   def press
@@ -96,9 +96,9 @@ class HomeController < ApplicationController
 
       format.js {
         feedback = JSON.parse(params[:data])
-        data = feedback[1][22..-1] if feedback[1]#get the feedback image data
+        data = feedback[1][22..-1] if feedback[1] #get the feedback image data
 
-        stack  = ""
+        stack = ""
         if current_user
           stack << "user id: #{current_user.id}\n"
           stack << "user email: #{current_user.email}\n"
@@ -109,7 +109,7 @@ class HomeController < ApplicationController
         feedback.email = current_user.email if current_user #save user email if is logged in
 
         if data
-          temp_file = Tempfile.new(['tmp','.png'], encoding: 'ascii-8bit')
+          temp_file = Tempfile.new(['tmp', '.png'], encoding: 'ascii-8bit')
           begin
             temp_file.write(Base64.decode64(data))
             feedback.image = temp_file
@@ -123,13 +123,13 @@ class HomeController < ApplicationController
         ResqueMailer.delay.feedback(feedback.id)
         render nothing: true
       }
-      format.html {render nothing: true}
+      format.html { render nothing: true }
     end
   end
 
   private
   def initialize_roadmap
-    @roadmap ||= Roadmap.new(ENV['BUGTRACKING_USERNAME'],ENV['BUGTRACKING_PASSWORD'])
+    @roadmap ||= Roadmap.new(ENV['BUGTRACKING_USERNAME'], ENV['BUGTRACKING_PASSWORD'])
   end
 
   private
@@ -147,9 +147,6 @@ class HomeController < ApplicationController
       'landing'
     end
   end
-
-
-
 
 
 end
