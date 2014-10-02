@@ -18,7 +18,7 @@ Airesis::Application.configure do
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
 
-  config.assets.precompile += %w(endless_page.js back_enabled.png landing.css landing/all.css landing/all.js homepage.js redmond/custom.css menu_left.css jquery.js jquery.qtip.js jquery.qtip.css foundation_and_overrides.css ice/index.js html2canvas.js i18n/*.js proposals/show.js)
+  config.assets.precompile += %w(endless_page.js back_enabled.png landing.css landing/main.js landing/all.css landing/all.js homepage.js redmond/custom.css menu_left.css jquery.js jquery.qtip.js jquery.qtip.css foundation_and_overrides.css ice/index.js html2canvas.js i18n/*.js proposals/show.js)
 
   # Generate digests for assets URLs
   config.assets.digest = true
