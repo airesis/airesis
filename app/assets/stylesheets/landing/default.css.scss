@@ -1,0 +1,481 @@
+
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    z-index: 99999;
+    height: 100%;
+}
+
+#status {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 64px;
+    height: 64px;
+    margin: -32px 0 0 -32px;
+    padding: 0;
+}
+
+
+blockquote {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    a {
+      color: white;
+      &:hover {
+        color: white;
+        text-decoration: underline;
+      }
+    }
+}
+
+
+blockquote, q {
+    quotes: "& #8220 & #8220";
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+body {
+    background: #fff;
+    font-family: 'opensans-regular', sans-serif;
+    font-weight: normal;
+    color: #838C95;
+    -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
+    -webkit-text-size-adjust: 100%;
+}
+
+/*	Blockquotes */
+blockquote {
+    margin: 30px 0px;
+    padding-left: 40px;
+    position: relative;
+}
+
+blockquote:before {
+    content: "\201C";
+    opacity: 0.45;
+    font-size: 80px;
+    line-height: 0px;
+    margin: 0;
+    font-family: arial, sans-serif;
+
+    position: absolute;
+    top: 30px;
+    left: 0;
+}
+
+blockquote p {
+    font-family: georgia, serif;
+    font-style: italic;
+    padding: 0;
+    font-size: 18px;
+    line-height: 30px;
+}
+
+blockquote cite {
+    display: block;
+    font-size: 12px;
+    font-style: normal;
+    line-height: 18px;
+}
+
+blockquote cite:before {
+    content: "\2014 \0020";
+}
+
+blockquote cite a,
+blockquote cite a:visited {
+    color: #8B9798;
+    border: none
+}
+
+hr {
+    border: solid #E8E8E8;
+    border-width: 1px 0 0;
+    clear: both;
+    margin: 11px 0 30px;
+    height: 0;
+}
+
+/*  4. List  --------------------------------------------------------- */
+
+ul, ol {
+    margin-bottom: 24px;
+    margin-top: 12px;
+}
+
+ul {
+    list-style: none outside;
+}
+
+ol {
+    list-style: decimal;
+}
+
+ol, ul.square, ul.circle, ul.disc {
+    margin-left: 30px;
+}
+
+ul.square {
+    list-style: square outside;
+}
+
+ul.circle {
+    list-style: circle outside;
+}
+
+ul.disc {
+    list-style: disc outside;
+}
+
+ul ul, ul ol,
+ol ol, ol ul {
+    margin: 6px 0 6px 30px;
+}
+
+ul ul li, ul ol li,
+ol ol li, ol ul li {
+    margin-bottom: 6px;
+}
+
+li {
+    line-height: 18px;
+    margin-bottom: 12px;
+}
+
+ul.large li {
+}
+
+li p {
+}
+
+/* ---------------------------------------------------------------------
+/*  Stats Tab Markup
+
+    <ul class="stats-tabs">
+		<li><a href="#">[value]<b>[name]</b></a></li>
+	 </ul>
+
+    Extend this object into your markup.
+/*
+/* --------------------------------------------------------------------- */
+.stats-tabs {
+    padding: 0;
+    margin: 24px 0;
+}
+
+.stats-tabs li {
+    display: inline-block;
+    margin: 0 10px 18px 0;
+    padding: 0 10px 0 0;
+    border-right: 1px solid #ccc;
+}
+
+.stats-tabs li:last-child {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.stats-tabs li a {
+    display: inline-block;
+    font-size: 22px;
+    font-family: 'opensans-bold', sans-serif;
+    border: none;
+    color: #313131;
+}
+
+.stats-tabs li a:hover {
+    color: #11ABB0;
+}
+
+.stats-tabs li a b {
+    display: block;
+    margin: 6px 0 0 0;
+    font-size: 13px;
+    font-family: 'opensans-regular', sans-serif;
+    color: #8B9798;
+}
+
+
+/* Lining Definition Style Markup */
+.lining dt,
+.lining dd {
+    display: inline;
+    margin: 0;
+}
+
+.lining dt + dt:before,
+.lining dd + dt:before {
+    content: "\A";
+    white-space: pre;
+}
+
+.lining dd + dd:before {
+    content: ", ";
+}
+
+.lining dd:before {
+    content: ": ";
+    margin-left: -0.2em;
+}
+
+/* Dictionary Definition Style Markup */
+.dictionary-style dt {
+    display: inline;
+    counter-reset: definitions;
+}
+
+.dictionary-style dt + dt:before {
+    content: ", ";
+    margin-left: -0.2em;
+}
+
+.dictionary-style dd {
+    display: block;
+    counter-increment: definitions;
+}
+
+.dictionary-style dd:before {
+    content: counter(definitions, decimal) ". ";
+}
+
+/* 5. Media   --------------------------------------------------------- */
+
+img,
+video,
+iframe,
+embed,
+object {
+    max-width: 100%;
+    height: auto;
+}
+
+img.pull-right {
+    margin: 12px 0px 0px 18px;
+}
+
+img.pull-left {
+    margin: 12px 18px 0px 0px;
+}
+
+/* 7. Forms  --------------------------------------------------------- */
+
+form {
+    margin-bottom: 24px;
+}
+
+fieldset {
+    margin-bottom: 24px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea,
+select {
+    display: block;
+    padding: 18px 15px;
+    margin: 0 0 24px 0;
+    border: 0;
+    outline: none;
+    vertical-align: middle;
+    min-width: 225px;
+    max-width: 100%;
+    font-size: 15px;
+    line-height: 24px;
+    color: #647373;
+    background: #D3D9D9;
+    border-radius: 3px;
+
+}
+
+/* select { padding: 0;
+   width: 220px;
+   } */
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+    color: #B3B7BC;
+    background-color: #383D41;
+}
+
+textarea {
+    min-height: 220px;
+}
+
+label,
+legend {
+    font: 16px/24px 'opensans-bold', sans-serif;
+    margin: 12px 0;
+    color: #3d4145;
+    display: block;
+}
+
+label span,
+legend span {
+    color: #8B9798;
+    font: 14px/24px 'opensans-regular', sans-serif;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    font-size: 15px;
+    color: #3d4145;
+}
+
+input[type="checkbox"] {
+    display: inline;
+}
+
+/* block grids
+--------------------------------------------------------------------- */
+.bgrid-sixths [class*="column"] {
+    width: 16.66667%;
+}
+
+.bgrid-quarters [class*="column"] {
+    width: 25%;
+}
+
+.bgrid-thirds [class*="column"] {
+    width: 33.33333%;
+}
+
+.bgrid-halves [class*="column"] {
+    width: 50%;
+}
+
+[class*="bgrid"] [class*="column"] + [class*="column"]:last-child {
+    float: left;
+}
+
+/* Left clearing for block grid columns - columns that changes width in
+different screen sizes. Allows columns with different heights to align
+properly.
+--------------------------------------------------------------------- */
+.first {
+    clear: left;
+}
+
+/* first column in default screen */
+.s-first {
+    clear: none;
+}
+
+/* first column in smaller screens */
+
+/* smaller screens
+--------------------------------------------------------------- */
+@media only screen and (max-width: 900px) {
+
+    /* block grids on small screens */
+    .s-bgrid-sixths [class*="column"] {
+        width: 16.66667%;
+    }
+
+    .s-bgrid-quarters [class*="column"] {
+        width: 25%;
+    }
+
+    .s-bgrid-thirds [class*="column"] {
+        width: 33.33333%;
+    }
+
+    .s-bgrid-halves [class*="column"] {
+        width: 50%;
+    }
+
+    /* block grids left clearing */
+    .first {
+        clear: none;
+    }
+
+    .s-first {
+        clear: left;
+    }
+
+}
+
+/* ------------------------------------------------------------------ */
+/* e. Others
+/* ------------------------------------------------------------------ */
+
+/*  1. Clearing
+    (http://nicolasgallagher.com/micro-clearfix-hack/
+--------------------------------------------------------------------- */
+
+.cf:before,
+.cf:after {
+    content: " ";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
+
+/*  2. Misc -------------------------------------------------------- */
+
+.remove-bottom {
+    margin-bottom: 0 !important;
+}
+
+.half-bottom {
+    margin-bottom: 12px !important;
+}
+
+.add-bottom {
+    margin-bottom: 24px !important;
+}
+
+.no-border {
+    border: none;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.pull-left {
+    float: left !important;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.align-center {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+}
+
+
+
+

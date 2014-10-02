@@ -33,9 +33,6 @@ class HomeController < ApplicationController
   def engage
   end
 
-  def whatis
-  end
-
   def intro
   end
 
@@ -138,7 +135,9 @@ class HomeController < ApplicationController
   private
 
   def choose_layout
-    if ['index'].include? action_name
+    if ['landing'].include? action_name
+      false
+    elsif ['index'].include? action_name
       current_user ? 'open_space' : false
     elsif ['show'].include? action_name
       'users'

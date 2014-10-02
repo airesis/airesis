@@ -281,10 +281,6 @@ it-IT:
             da un team italiano, per consentire a diverse forme di comunità di organizzarsi in modo produttivo secondo i
             principi della <a href="http://it.wikipedia.org/wiki/Democrazia_diretta">democrazia diretta</a> e partecipativa.
           </p>
-          <p>
-            A tal scopo, la piattaforma è stata pensata come un sistema multifunzionale, che integra tutti gli strumenti web
-            che possono servire allo sviluppo di una comunità, in particolare strumenti "social" e strumenti deliberativi.
-          </p>
       paragraph_2:
         title: "Crea il tuo gruppo"
         content_html: |
@@ -414,10 +410,10 @@ it-IT:
             Sostienici economicamente al fine di retribuire un programmatore senior e per il mantenimento del server che
             ospita la nostra applicazione:
           </p>
-          <ul class="disc">
-            <li>Attraverso un bonifico intestato a: 'Tecnologie Democratiche' IBAN: IT76L0316501600000011758905</li>
-            <li>Attraverso una donazione su Paypal:</li>
-          </ul>
+          <center>
+            <p>Attraverso un bonifico intestato a: 'Tecnologie Democratiche' IBAN: IT76L0316501600000011758905</p>
+            <p>Attraverso una donazione su Paypal:</p>
+          </center>
       paragraph4:
         content_html: |
           <p><a href="mailto:%{mail}">Contattaci</a> per maggiori informazioni.</p>

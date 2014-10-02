@@ -4,9 +4,12 @@
 # is considered to be the first unless any hosts have the primary
 # property set.  Don't declare `role :all`, it's a meta role.
 
-role :app, "#{ENV['CAP_STAGING_USER']}@#{ENV['CAP_STAGING_SERVER']}"
-role :web, "#{ENV['CAP_STAGING_USER']}@#{ENV['CAP_STAGING_SERVER']}"
-role :db,  "#{ENV['CAP_STAGING_USER']}@#{ENV['CAP_STAGING_SERVER']}"
+server_str = 'ssh.alwaysdata.com'
+user_str = 'airesistest'
+
+role :app, "#{user_str}@#{server_str}"
+role :web, "#{user_str}@#{server_str}"
+role :db,  "#{user_str}@#{server_str}"
 
 
 # Extended Server Syntax
@@ -15,7 +18,7 @@ role :db,  "#{ENV['CAP_STAGING_USER']}@#{ENV['CAP_STAGING_SERVER']}"
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server ENV['CAP_STAGING_SERVER'], user: ENV['CAP_STAGING_USER'], roles: %w{web app}
+server server_str, user: user_str, roles: %w{web app}
 
 set :branch, "staging"
 

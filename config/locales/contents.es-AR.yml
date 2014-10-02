@@ -77,7 +77,11 @@ es-AR:
       description: Una herramienta de democracia directa nacida para decidir y actuar colectivamente en ideas y propuestas generadas en cualquier lugar para cualquier tema.
       paragraph_1:
         title: La Red Social para la democracia electrónica
-        content_html: '<p>Airesis es una <a href="http://en.wikipedia.org/wiki/Free_software"> plataforma de software libre</a>, construido por un equipo de desarrolladores italianos y colaboradores, para permitir a las comunidades y grupos a organizarse de manera productiva según los principios de <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank"> la democracia directa</a> y la participación de.</p> <p>Para lograr este objetivo, la aplicación ha sido diseñada como un sistema multifuncional, que integra todas las herramientas que pueden ayudar al desarrollo de una comunidad, en particular "sociales" y deliberativas herramientas.</p>'
+        content_html: |
+          <p>Airesis es una <a href="http://en.wikipedia.org/wiki/Free_software"> plataforma de software libre</a>,
+          construido por un equipo de desarrolladores italianos y colaboradores, para permitir a las comunidades y grupos a organizarse de manera
+          productiva según los principios de <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank"> la democracia directa</a>
+          y la participación de.</p>
       paragraph_2:
         title: Construir su grupo
         content_html: |

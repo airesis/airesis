@@ -182,6 +182,8 @@ GEM
     figaro (0.7.0)
       bundler (~> 1.0)
       rails (>= 3, < 5)
+    font-awesome-rails (4.2.0.0)
+      railties (>= 3.2, < 5.0)
     foreigner (1.6.1)
       activerecord (>= 3.0.0)
     foundation-rails (5.1.1.0)
@@ -495,6 +497,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   figaro
+  font-awesome-rails
   foreigner
   foundation-rails (~> 5.1.1.0)
   friendly_id

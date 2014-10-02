@@ -1,273 +1,706 @@
-<%= cache "homepage_#{I18n.locale}" do %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-    <html>
-    <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <meta charset="utf-8">
-      <title><%= t('home.tags.title') %></title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="apple-mobile-web-app-capable" content="yes">
-      <meta name="description" content="<%= t('home.tags.description')%>">
-      <meta property="og:title" content="<%= t('home.tags.title') %>"/>
-      <meta property="og:type" content="website"/>
-      <meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{asset_path("logo120.png")}" %>"/>
-      <meta property="og:site_name" content="<%= ENV['APP_LONG_NAME'] %>"/>
-      <meta property="og:description" content="<% t('home.tags.description')%>"/>
-      <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>"/>
-      <meta name="author" content="Tecnologie Democratiche">
-      <link rel="shortcut icon" href="/favicon.ico"/>
+<!DOCTYPE html>
+<!--[if lt IE 8 ]>
+<html class="no-js ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="no-js ie ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]>
+<html class="no-js ie ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 8)|!(IE)]><!-->
+<html class="no-js" lang="en"> <!--<![endif]-->
+<head>
 
-      <%= javascript_include_tag 'jquery', 'jquery.qtip' %>
-      <%= javascript_include_tag "vendor/modernizr" %>
-      <%= javascript_include_tag "homepage" %>
+  <!--- Basic Page Needs
+  ================================================== -->
+  <meta charset="utf-8">
+  <title><%= t('home.tags.title') %></title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="description" content="<%= t('home.tags.description') %>">
+  <meta property="og:title" content="<%= t('home.tags.title') %>"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{asset_path("logo120.png")}" %>"/>
+  <meta property="og:site_name" content="<%= ENV['APP_LONG_NAME'] %>"/>
+  <meta property="og:description" content="
+    <% t('home.tags.description') %>"/>
+  <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>"/>
+  <meta name="author" content="Tecnologie Democratiche">
 
-      <%= stylesheet_link_tag 'landing.css' %>
-      <%= stylesheet_link_tag 'jquery.qtip' %>
-      <%= stylesheet_link_tag 'redmond/custom' %>
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-      <%= stylesheet_link_tag "foundation_and_overrides" %>
+  <%= stylesheet_link_tag 'landing/all' %>
 
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= javascript_include_tag 'jquery' %>
+  <%= javascript_include_tag "vendor/modernizr" %>
 
+  <%= javascript_include_tag "landing/all" %>
 
-      <link rel="shortcut icon" type="image/x-icon" href="">
-      <%if I18n.locale.to_s == "crowdin" %>
-          <script type="text/javascript">
-              var _jipt = [];
-              _jipt.push(['project', 'airesis']);
-          </script>
-          <script type="text/javascript" src="//cdn.crowdin.net/jipt/jipt.js">
-          </script>
-      <%end%>
-    </head>
-    <body>
+  <%= render 'layouts/favicons' %>
 
-    <script type="text/javascript">
-        window.___gcfg = {
-            lang: 'it'
-        };
-        (function () {
-            var po = document.createElement("script");
-            po.type = "text/javascript";
-            po.async = true;
-            po.src = "https://apis.google.com/js/plusone.js";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(po, s);
-        })();
+  <% if I18n.locale.to_s == "crowdin" %>
+      <script type="text/javascript">
+          var _jipt = [];
+          _jipt.push(['project', 'airesis']);
+      </script>
+      <script type="text/javascript" src="//cdn.crowdin.net/jipt/jipt.js">
+      </script>
+  <% end %>
+</head>
 
-        ( function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-                return;
-            }
+<body>
+
+<script type="text/javascript">
+    window.___gcfg = {
+        lang: 'it'
+    };
+    (function () {
+        var po = document.createElement("script");
+        po.type = "text/javascript";
+        po.async = true;
+        po.src = "https://apis.google.com/js/plusone.js";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(po, s);
+    })();
+
+    ( function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/<%="#{I18n.locale.to_s.gsub('-','_')}"%>/all.js#xfbml=1&appId=221145254619152";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    !function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (!d.getElementById(id)) {
             js = d.createElement(s);
             js.id = id;
-            js.src = "//connect.facebook.net/<%="#{I18n.locale.to_s.gsub('-','_')}"%>/all.js#xfbml=1&appId=221145254619152";
+            js.src = "//platform.twitter.com/widgets.js";
             fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
+        }
+    }(document, "script", "twitter-wjs");
 
-        !function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (!d.getElementById(id)) {
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "//platform.twitter.com/widgets.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            }
-        }(document, "script", "twitter-wjs");
+    //google analytics
+    <%if Rails.env == 'production'%>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-34897773-1']);
+    _gaq.push(['_trackPageview']);
+    _gaq.push(['_setDomainName', '<%= request.domain %>']);
 
-        //google analytics
-        <%if Rails.env == 'production'%>
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-34897773-1']);
-        _gaq.push(['_trackPageview']);
-        _gaq.push(['_setDomainName', '<%= request.domain %>']);
-
-        (function () {
-            var ga = document.createElement('script');
-            ga.type = 'text/javascript';
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-        })();
-        <%end%>
+    (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+    <%end%>
 
 
-    </script>
-    <div id="fb-root"></div>
+</script>
+<div id="fb-root"></div>
 
-    <div id="great_container">
 
-      <div class="row full-width top-bar"><!-- Menù navigatore-->
-        <div class="row centered">
+<div id="preloader">
+  <div id="status">
+    <%= image_tag 'landing/preloader.gif', height: 64, width: 64 %>
+  </div>
+</div>
 
-          <ul class="navbar" style="float: left; margin-left: 5px;">
-            <li><%= link_to t('pages.home.index.whatis'), edemocracy_path %></li>
-            <li class="vertical-divider"></li>
-            <li><%= link_to t('pages.home.index.partecipate'), partecipa_path %></li>
-            <li class="vertical-divider"></li>
-            <li><%= link_to t('pages.home.index.videos'), videoguide_path %></li>
-            <li class="vertical-divider"></li>
-            <li><%= link_to t('pages.home.index.whowe'), chisiamo_path %></li>
-            <li class="vertical-divider"></li>
-            <li><%= link_to t('pages.header.support_us'), sostienici_path %></li>
-          </ul>
-          <div style="padding-top: 2px; float:right; margin-right: 20px;">
-            <div style="padding-top: 8px; float:left;">
-              <g:plusone size="medium" href="<%= ENV['SITE'] %>"></g:plusone>
-            </div>
-            <div style="padding-top: 8px; float:left;">
-              <div class="fb-like" data-href="http://www.facebook.com/AiresisIt" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
-            </div>
+<!-- Header
+================================================== -->
+<header>
 
-          </div>
-        </div>
+  <div class="logo">
+    <a class="smoothscroll" href="#hero">
+      <%= image_tag 'logo_completo_white_mini.png' %>
+    </a>
+  </div>
+
+  <nav id="nav-wrap">
+
+    <a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show Menu</a>
+    <a class="mobile-btn" href="#" title="Hide navigation">Hide Menu</a>
+
+    <ul id="nav" class="nav">
+      <li><%=link_to 'What is', edemocracy_path %></li>
+      <li><a class="smoothscroll" href="#features">Features</a></li>
+      <li><%=link_to 'Donations', donations_path %></li>
+      <li><%=link_to 'Volunteers', chisiamo_path %></li>
+      <li><%=link_to 'Register', new_user_registration_path %></li>
+    </ul>
+    <!-- end #nav -->
+
+  </nav>
+  <!-- end #nav-wrap -->
+
+
+  <ul class="header-social">
+    <li><a href="https://www.facebook.com/airesisit"><i class="fa fa-facebook"></i></a></li>
+    <li><a href="https://twitter.com/democracyo"><i class="fa fa-twitter"></i></a></li>
+    <li><a href="https://plus.google.com/+AiresisIt"><i class="fa fa-google-plus"></i></a></li>
+  </ul>
+
+</header>
+<!-- Header End -->
+
+
+<!-- Homepage Hero
+================================================== -->
+<section id="hero">
+  <div class="row">
+    <div class="columns">
+      <div class="hero-text">
+        <%= image_tag 'logo_completo_medium.png', alt: "Airesis - Scegli di partecipare", title: t('home.tags.title') %>
+        <h1 class="responsive-headline"><%= t('home.intro.paragraph_1.title') %></h1>
+
+        <p><%= t('pages.home.index.field_1.content') %></p>
       </div>
-
-      <div class="row full-width medium-bar"><!-- Menù navigatore-->
-        <div class="row centered" style="margin-top: 10px">
-          <!-- Logo principale-->
-          <%= image_tag 'logo_main.png', style: 'float:left;', alt: "Airesis - Scegli di partecipare", title: t('home.tags.title') %>
-
-          <div style="float:right" class="show-for-medium-up">
-            <div style=" width:387px;font-family:Arial; text-align:center;">
-              <div style="margin:5px; line-height:26px;">
-                <%= link_to t('pages.home.index.cloud_1'), proposals_path, style: 'font-size:37px;text-decoration:none; color: #87A800; ' %>
-                <%= link_to t('pages.home.index.cloud_2'), groups_path, style: 'font-size:26px;text-decoration:none;  color: #FF7600; padding-top:5px;' %>
-                <br/>
-                <%= link_to t('pages.home.index.cloud_3'), 'http://it.wikipedia.org/wiki/edemocracy', target: '_blank', style: 'font-size:32px;text-decoration:none; color: #039FAF;' %>
-                <%= link_to t('pages.home.index.cloud_4'), 'http://www.decorourbano.org/', target: '_blank', style: 'font-size:25px;text-decoration:none; color: #FF7600;' %>
-                <%= link_to t('pages.home.index.cloud_5'), 'http://www.facebook.it', target: '_blank', style: 'font-size:28px;text-decoration:none;  color: #FF7600;padding-top:15px;' %>
-                <%= link_to t('pages.home.index.cloud_6'), 'http://it.wikipedia.org/wiki/Forum_(Internet)', target: '_blank', style: 'font-size:25px;text-decoration:none; color: #87A800;' %>
-                <%= link_to t('pages.home.index.cloud_7'), partecipa_path, style: 'font-size:40px;text-decoration:none; color: #DE2159;' %>
-                <%= link_to t('pages.home.index.cloud_8'), 'http://it.wikipedia.org/wiki/Votazione_elettronica', style: 'font-size:40px;text-decoration:none; color: #039FAF;' %>
-                <%= link_to t('pages.home.index.cloud_9'), 'http://www.doodle.com/', style: 'font-size:23px;text-decoration:none; color: #87A800;' %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row full-width sub-bar">
-        <!--Slogan-->
-        <div class="row centered" style="margin-top:15px;">
-
-          <div class="columns large-5">
+      <div>
+        <%= form_for resource, as: resource_name, url: user_session_path do |f| %>
             <div class="row">
-              <div class="columns large-5 small-5">
-                <div>
-                <%= link_to t('pages.home.index.try_it'), public_path, class: "homepageButton" %>
+              <div class="columns medium-6 push-2">
+
+                <%= f.text_field :login, placeholder: 'Email' %>
+                <%= f.password_field :password, placeholder: 'Password' %>
+              </div>
+              <div class="columns medium-4">
+                <%= f.submit t('pages.home.index.login'), class: "button" %>
+                <div style="margin-top: 3px; font-size: 12px ">
+                  <%= f.check_box :remember_me, checked: true %>
+                  <%= t('pages.home.index.keep_connected') %>
                 </div>
               </div>
-
-              <div class="columns large-7 small-7">
-                <%= link_to t('pages.home.index.register'), new_user_registration_path, class: "homepageButton", id: 'signup' %>
-              </div>
-
             </div>
+            <div class="row">
+              <div class="columns medium-6 push-2">
+                <%= t('pages.proposals.index.login_with') %>
+                <%= link_to image_tag('logos/facebook.png'), user_omniauth_authorize_path(:facebook), alt: t('pages.top_panel.facebook_login'), title: t('pages.top_panel.facebook_login') %>
+                <%= link_to image_tag('logos/google.png'), user_omniauth_authorize_path(:google_oauth2), alt: t('pages.top_panel.google_login'), title: t('pages.top_panel.google_login') %>
+                <%= link_to image_tag('logos/twitter.png'), user_omniauth_authorize_path(:twitter), alt: t('pages.top_panel.twitter_login'), title: t('pages.top_panel.twitter_login') %>
+                <%= link_to image_tag('logos/meetup.png', style: 'margin-top:5px'), user_omniauth_authorize_path(:meetup), alt: t('pages.top_panel.meetup_login'), title: t('pages.top_panel.meetup_login') %>
+                <%= link_to image_tag('logos/linkedin.png', style: 'margin-top:5px'), user_omniauth_authorize_path(:linkedin), alt: t('pages.top_panel.linkedin_login'), title: t('pages.top_panel.linkedin_login') %>
+              </div>
+            </div>
+        <% end %>
+      </div>
+      <div class="buttons">
+        <%= link_to t('pages.home.index.try_it'), public_path, class: "button trial alert" %>
+        <%= link_to t('pages.home.index.register'), new_user_registration_path, class: 'button' %>
+      </div>
+
+      <div class="hero-image">
+        <%= image_tag 'landing/hero-airesis.png' %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="whatis" class="green-background">
+  <div class="row content">
+    <span><i class="quote-left fa fa-quote-left"></i></span>
+
+    <div class="text-container">
+      <div class="columns">
+        <h1><%= t('home.whatis.paragraph_1.title') %>.</h1>
+      </div>
+      <div class="columns">
+        <blockquote>
+          <p><%= t('home.whatis.paragraph_1.content_html') %>
+          </p>
+        </blockquote>
+      </div>
+    </div>
+    <span><i class="quote-right fa fa-quote-right"></i></span>
+  </div>
+</section>
+
+<section id='features'>
+  <div class="row feature groups">
+    <div class="medium-7 columns right">
+      <h3><%= t('home.whatis.paragraph_2.title') %></h3>
+
+      <p><%= t('home.whatis.paragraph_2.content_html', groups: Group.count) %>
+      </p>
+    </div>
+    <div class="medium-5 columns feature-media left">
+      <%= image_tag 'presentation/group.png' %>
+    </div>
+  </div>
+
+  <div class="row feature permissions">
+    <div class="medium-7 columns left">
+      <h3><%= t('home.whatis.paragraph_3.title') %></h3>
+
+      <p> <%= t('home.whatis.paragraph_3.content_html') %>
+      </p>
+    </div>
+    <div class="medium-5 columns feature-media right">
+      <%= image_tag 'presentation/permissions.png' %>
+    </div>
+  </div>
+
+  <div class="row feature events">
+    <div class="medium-7 columns right">
+      <h3><%= t('home.whatis.paragraph_5.title') %></h3>
+
+      <p><%= t('home.whatis.paragraph_5.content_html') %>
+      </p>
+    </div>
+    <div class="medium-5 columns feature-media left">
+      <%= image_tag 'presentation/event.png' %>
+    </div>
+  </div>
+
+  <div class="row feature proposals">
+    <div class="medium-7 columns left">
+      <h3><%= t('home.whatis.paragraph_4.title') %></h3>
+
+      <p><%= t('home.whatis.paragraph_4.content_html', users: User.count, proposals: Proposal.count) %>
+      </p>
+    </div>
+    <div class="medium-5 columns feature-media right">
+      <%= image_tag 'presentation/proposal.png' %>
+    </div>
+  </div>
+
+  <div class="row feature documents">
+    <div class="medium-7 columns right">
+      <h3><%= t('home.whatis.paragraph_6.title') %></h3>
+
+      <p><%= t('home.whatis.paragraph_6.content_html') %>
+      </p>
+    </div>
+    <div class="medium-5 columns feature-media left">
+      <%= image_tag 'presentation/documents.png' %>
+    </div>
+  </div>
+
+  <div class="row feature forum">
+    <div class="medium-7 columns left">
+      <h3><%= t('home.whatis.paragraph_7.title') %></h3>
+
+      <p><%= t('home.whatis.paragraph_7.content_html', topics: Frm::Topic.count) %>
+      </p>
+    </div>
+    <div class="medium-5 columns feature-media right">
+      <%= image_tag 'presentation/forum.png' %>
+    </div>
+  </div>
+
+  <div class="row feature more">
+    <div class="medium-7 columns right">
+      <h3><%= t('home.whatis.paragraph_8.title') %></h3>
+
+      <p><%= t('home.whatis.paragraph_8.content_html', intro_page: (link_to t('home.whatis.paragraph_8.link'), eparticipation_path)) %>
+      </p>
+    </div>
+    <div class="medium-5 columns feature-media left">
+      <%= image_tag 'presentation/more.png' %>
+    </div>
+  </div>
+</section>
+<!-- Homepage Hero end -->
+
+
+<!-- Pricing Section
+================================================== -->
+<section id="pricing">
+
+  <div class="row section-head">
+
+    <h1><%= t('home.helpus.paragraph3.title') %></h1>
+
+    <p><%= t('home.helpus.paragraph3.content_html') %>
+    </p>
+
+  </div>
+
+  <div class="row">
+    <div class="pricing-tables bgrid-quarters s-bgrid-halves" data-equalizer>
+      <div class="columns" data-equalizer-watch>
+        <div class="price-block">
+          <h3 class="plan-title"><i class="fa fa-coffee"></i>Small</h3>
+
+          <p class="plan-price">5.00€<span>A simple donation to help the project</span></p>
+          <ul class="features">
+            <li>Buy a coffee for the developers</li>
+          </ul>
+          <footer class="plan-sign-up">
+            <script src="/assets/paypal-button.min.js?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
+                    data-button="donate"
+                    data-name="Airesis - Scegli di partecipare"
+                    data-number="1"
+                    data-size="small"
+                    data-currency="EUR"
+                    data-amount="5.00"
+                    data-quantity="1"
+                    data-lc="<%= I18n.locale %>"
+                    data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
+            </script>
+          </footer>
+        </div>
+      </div>
+      <div class="columns" data-equalizer-watch>
+        <div class="price-block">
+          <h3 class="plan-title"><i class="fa fa-thumbs-up"></i>Standard</h3>
+
+          <p class="plan-price">20.00€ <span>Become member of Tecnologie Democratiche</span></p>
+          <ul class="features">
+            <li>Membership</li>
+          </ul>
+          <footer class="plan-sign-up">
+            <script src="/assets/paypal-button.min.js?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
+                    data-button="donate"
+                    data-name="Airesis"
+                    data-number="1"
+                    data-size="small"
+                    data-currency="EUR"
+                    data-amount="20.00"
+                    data-quantity="1"
+                    data-lc="<%= I18n.locale %>"
+                    data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
+            </script>
+          </footer>
+        </div>
+      </div>
+      <div class="columns" data-equalizer-watch>
+        <div class="price-block">
+          <h3 class="plan-title"><i class="fa fa-star"></i>Premium</h3>
+
+          <p class="plan-price">50.00€ <span>Premium member of Tecnologie Democratiche</span></p>
+          <ul class="features">
+            <li>Become member and help the developers fix some bugs</li>
+          </ul>
+          <footer class="plan-sign-up">
+            <script src="/assets/paypal-button.min.js?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
+                    data-button="donate"
+                    data-name="Airesis"
+                    data-number="1"
+                    data-size="large"
+                    data-currency="EUR"
+                    data-amount="50.00"
+                    data-quantity="1"
+                    data-lc="<%= I18n.locale %>"
+                    data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
+            </script>
+          </footer>
+        </div>
+      </div>
+      <div class="columns" data-equalizer-watch>
+        <div class="price-block">
+          <h3 class="plan-title"><i class="fa fa-trophy"></i>Custom</h3>
+
+          <p class="plan-price">--.--€ <span>Any amount</span></p>
+          <ul class="features">
+            <li>Your help is greatly appreciated!</li>
+          </ul>
+          <footer class="plan-sign-up">
+            <script src="/assets/paypal-button.min.js?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
+                    data-button="donate"
+                    data-name="Airesis"
+                    data-number="1"
+                    data-size="small"
+                    data-currency="EUR"
+                    data-quantity="1"
+                    data-lc="<%= I18n.locale %>"
+                    data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
+            </script>
+          </footer>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+<!-- Pricing End -->
+
+<!-- Subscribe
+================================================== -->
+<section id="subscribe">
+  <div class="row">
+    <div class="columns medium-6">
+      <div class="fb-like-box" data-height="600" data-width="450" data-href="http://www.facebook.com/AiresisIt" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="true" data-show-border="false"></div>
+    </div>
+    <div class="columns medium-6">
+      <a class="twitter-timeline" href="https://twitter.com/hashtag/airesis" data-widget-id="511174030523518976">#airesis
+        Tweet</a>
+      <script>!function (d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+          if (!d.getElementById(id)) {
+              js = d.createElement(s);
+              js.id = id;
+              js.src = p + "://platform.twitter.com/widgets.js";
+              fjs.parentNode.insertBefore(js, fjs);
+          }
+      }(document, "script", "twitter-wjs");</script>
+    </div>
+  </div>
+
+</section>
+
+<!-- Screenshots
+================================================== -->
+<section id="screenshots">
+
+  <div class="row section-head">
+
+    <h1><%= t('home.whowe.intro.title') %></h1>
+
+    <p><%= t('home.whowe.intro.description_html', story: story_path) %>
+    </p>
+
+  </div>
+
+  <div class="row">
+
+    <div class="columns">
+
+      <div id="screenshots-wrapper" class="bgrid-thirds s-bgrid-thirds cf">
+
+        <div class="columns item">
+          <div class="item-wrap">
+            <%= link_to chisiamo_path(anchor: 'development') do %>
+                <%= image_tag "volunteers/rodi_alessandro.jpg" %>
+                <div class="link-icon">
+                  <div>Alessandro Rodi</div>
+                  <i class="fa fa-plus"></i>
+                </div>
+            <% end %>
+
           </div>
-          <div class="columns large-7">
-            <%= form_for resource, as: resource_name, url: user_session_path do |f| %>
-                <div class="row">
-                  <div class="columns large-4">
+        </div>
 
-                    <%= f.text_field :login, placeholder: 'Email' %>
-                    <%= f.password_field :password, placeholder: 'Password' %>
-                  </div>
-                  <div class="columns large-4 small-6">
-                    <%= f.submit t('pages.home.index.login'), class: "homepageButton" %>
-                    <div style="margin-top: 3px; font-size: 12px ">
-                      <%= f.check_box :remember_me, checked: true %>
-                      <%= t('pages.home.index.keep_connected') %>
-                    </div>
-                  </div>
-
-
-                  <div class="columns large-4 small-6">
-                    <%= t('pages.proposals.index.login_with') %>
-                    <div style="margin-top: 10px;">
-                      <%= link_to image_tag('logos/facebook.png'), user_omniauth_authorize_path(:facebook), alt: t('pages.top_panel.facebook_login'), title: t('pages.top_panel.facebook_login') %>
-                      <%= link_to image_tag('logos/google.png'), user_omniauth_authorize_path(:google_oauth2), alt: t('pages.top_panel.google_login'), title: t('pages.top_panel.google_login') %>
-                      <%= link_to image_tag('logos/twitter.png'), user_omniauth_authorize_path(:twitter), alt: t('pages.top_panel.twitter_login'), title: t('pages.top_panel.twitter_login') %>
-                      <br/>
-                      <%= link_to image_tag('logos/meetup.png', style: 'margin-top:5px'), user_omniauth_authorize_path(:meetup), alt: t('pages.top_panel.meetup_login'), title: t('pages.top_panel.meetup_login') %>
-                      <%= link_to image_tag('logos/linkedin.png', style: 'margin-top:5px'), user_omniauth_authorize_path(:linkedin), alt: t('pages.top_panel.linkedin_login'), title: t('pages.top_panel.linkedin_login') %>
-
-                    </div>
-                  </div>
-
+        <div class="columns item">
+          <div class="item-wrap">
+            <%= link_to chisiamo_path(anchor: 'development') do %>
+                <%= image_tag "volunteers/tilatti_marino.png" %>
+                <div class="link-icon">
+                  <div>Marino Tilatti</div>
+                  <i class="fa fa-plus"></i>
                 </div>
-
-                <div class="row littleText" style="font-weight: normal; font-size: 12px; ">
-                  <div style="float: left;margin-top: 4px;"><%= link_to t('pages.home.index.forgot_password'), new_password_path(resource_name) %></div>
-
-                </div>
-
-
             <% end %>
           </div>
         </div>
-      </div>
-      <!--Sottoblocchi informativi-->
-      <div class="row full-width last-bar">
-        <div class="row centered">
-          <div class="columns large-7">
-            <div class="row">
-              <div class="columns large-6">
 
-
-                <h5><%= raw t('pages.home.index.field_1.title') %></h5>
-
-                <p><%= t('pages.home.index.field_1.content') %></p>
-
-
-              </div>
-              <div class="columns large-6">
-                <h5><%= raw t('pages.home.index.field_3.title') %></h5>
-
-                <p><%= t('pages.home.index.field_3.content') %></p>
-
-
-              </div>
-            </div>
-            <div class="row">
-              <div class="columns large-6">
-
-
-                <h5><%= raw t('pages.home.index.field_2.title') %></h5>
-
-                <p><%= t('pages.home.index.field_2.content') %> </p>
-              </div>
-              <div class="columns large-6">
-
-
-                <h5><%= raw t('pages.home.index.field_4.title') %></h5>
-
-                <p><%= t('pages.home.index.field_4.content') %></p>
-              </div>
-            </div>
+        <div class="columns item">
+          <div class="item-wrap">
+            <%= link_to chisiamo_path(anchor: 'analysis') do %>
+                <%= image_tag "volunteers/giulietti_nicola.png" %>
+                <div class="link-icon">
+                  <div>Nicola Giulietti</div>
+                  <i class="fa fa-plus"></i>
+                </div>
+            <% end %>
           </div>
-          <div class="columns large-5">
-            <div style="height:10px;"></div>
-            <a href="https://twitter.com/democracyo" class="twitter-follow-button" data-show-count="false" data-size="large">
-              <%= t('pages.home.index.follw_on_twitter') %></a>
+        </div>
 
-            <div style="height:20px;"></div>
-            <div class="fb-like-box" data-href="http://www.facebook.com/AiresisIt" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="false"></div>
+        <div class="columns item">
+          <div class="item-wrap">
+            <%= link_to chisiamo_path(anchor: 'analysis') do %>
+                <%= image_tag "volunteers/baiotto_marco.png" %>
+                <div class="link-icon">
+                  <div>Marco Baiotto</div>
+                  <i class="fa fa-plus"></i>
+                </div>
+            <% end %>
 
           </div>
+        </div>
 
+
+        <div class="columns item">
+          <div class="item-wrap">
+            <%= link_to chisiamo_path(anchor: 'i18n') do %>
+                <%= image_tag "volunteers/tolja_jacopo.jpg" %>
+                <div class="link-icon">
+                  <div>Jacopo Tolja</div>
+                  <i class="fa fa-plus"></i>
+                </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="columns item">
+          <div class="item-wrap">
+            <%= link_to chisiamo_path(anchor: 'communication') do %>
+                <%= image_tag "volunteers/curini_simone.jpg" %>
+                <div class="link-icon">
+                  <div>Simone Curini</div>
+                  <i class="fa fa-plus"></i>
+                </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="columns item">
+          <div class="item-wrap">
+            <%= link_to chisiamo_path(anchor: 'test') do %>
+                <%= image_tag "volunteers/mion_carlo.jpg" %>
+                <div class="link-icon">
+                  <div>Carlo Mion</div>
+                  <i class="fa fa-plus"></i>
+                </div>
+            <% end %>
+
+          </div>
+        </div>
+
+        <div class="columns item">
+          <div class="item-wrap">
+            <%= link_to chisiamo_path(anchor: 'test') do %>
+                <%= image_tag "volunteers/zanellato_luca.jpg" %>
+                <div class="link-icon">
+                  <div>Luca Zanellato</div>
+                  <i class="fa fa-plus"></i>
+                </div>
+            <% end %>
+
+          </div>
+        </div>
+
+        <div class="columns item">
+          <div class="item-wrap">
+            <%= link_to chisiamo_path(anchor: 'graphic') do %>
+                <%= image_tag "volunteers/kabora_marcello.png" %>
+                <div class="link-icon">
+                  <div>Marcello Kabora</div>
+                  <i class="fa fa-plus"></i>
+                </div>
+            <% end %>
+          </div>
         </div>
 
       </div>
+      <!-- portfolio-wrapper end -->
 
-      <%= render partial: "layouts/footer" %>
+    </div>
+    <!-- twelve columns end -->
+
+  </div>
+  <!-- end row -->
+
+</section>
+<!-- Screenshots End -->
+
+
+<section id="testimonials" class="green-background">
+  <div class="row content">
+    <span><i class="quote-left fa fa-quote-left"></i></span>
+
+    <div class="text-container">
+      <div class="columns">
+        <h1><%= "Citations" %></h1>
+      </div>
+      <div class="columns flex-container">
+        <div class="flexslider">
+          <ul class="slides">
+            <li>
+              <blockquote>
+                <p>Quae optima sunt, esse communia.
+                </p>
+
+                <p>(Le idee migliori sono proprietà comune.)</p>
+                <cite>Lucio Anneo Seneca</cite>
+              </blockquote>
+            </li>
+            <li>
+              <blockquote>
+                <p>The tragedy of modern democracies is that they have not yet succeeded in effecting democracy.
+                </p>
+                <cite>Jacques Maritain</cite>
+              </blockquote>
+            </li>
+            <li>
+              <blockquote>
+                <p>Nothing is stronger than an idea whose time has come.
+                </p>
+                <cite>Victor Hugo</cite>
+              </blockquote>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <span><i class="quote-right fa fa-quote-right"></i></span>
+  </div>
+</section>
+
+
+<!-- Subscribe Section End-->
+
+
+<!-- Footer
+================================================== -->
+<footer>
+
+  <div class="row">
+
+    <div class="medium-6 columns info">
+
+      <div class="footer-logo">
+        <a href="#">
+          <%= image_tag 'logo_new.png' %>
+        </a>
+      </div>
+      <p><a href="https://github.com/coorasse/Airesis" target="_blank"><%= t('pages.footer.for_edemocracy_html') %></a>
+        v.<%= VERSION %></p>
+
+      <p>Airesis is supported and promoted by the No-Profit Association 'Tecnologie Democratiche'. Many thanks to all
+        the volunteers that help us to continue this important project.
+      </p>
 
     </div>
 
-    <script type="text/javascript">
-        $(function(){ $(document).foundation(); });
-    </script>
-    </body>
-    </html>
-<% end %>
+    <div class="medium-6 columns right-cols">
+
+      <div class="row">
+
+        <div class="columns medium-6">
+          <h3 class="social">socialize</h3>
+          <ul>
+            <li><a href="https://www.facebook.com/airesisit">Facebook</a></li>
+            <li><a href="https://twitter.com/democracyo">Twitter</a></li>
+            <li><a href="https://plus.google.com/+AiresisIt">Google+</a></li>
+          </ul>
+        </div>
+
+        <div class="columns medium-6">
+          <h3 class="contact">Contact Us</h3>
+          <ul>
+            <li><a href="mailto:info@airesis.it">info@airesis.it</a></li>
+            <li><a href="mailto:simone.curini@airesis.it">Simone Curini</a></li>
+            <li><a href="mailto:nicolagiulietti@hotmail.it">Nicola Giulietti</a></li>
+            <li><a href="mailto:marino.tilatti@airesis.it">Marino Tilatti</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <!-- Nested Row End -->
+
+    </div>
+
+
+    <div id="go-top">
+      <a class="smoothscroll" title="Back to Top" href="#hero"><i class="fa fa-chevron-up"></i></a>
+    </div>
+
+  </div>
+  <!-- Row End -->
+
+</footer>
+<!-- Footer End-->
+
+
+<!-- Java Script
+================================================== -->
+<%= javascript_include_tag 'landing/main' %>
+
+</body>
+
+</html>
