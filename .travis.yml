@@ -11,5 +11,4 @@ before_script:
  - "psql -c 'create database travis_ci_test;' -U postgres"
  - "RAILS_ENV=test bundle exec rake db:setup --trace"
  - "RAILS_ENV=test bundle exec rake db:test:prepare --trace"
-script: RAILS_ENV=test bundle exec rspec spec
-
+script: RAILS_ENV=test DISPLAY=localhost:1.0 xvfb-run bundle exec rake
