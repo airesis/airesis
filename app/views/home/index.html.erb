@@ -127,11 +127,11 @@
     <a class="mobile-btn" href="#" title="Hide navigation">Hide Menu</a>
 
     <ul id="nav" class="nav">
-      <li><%=link_to 'What is', edemocracy_path %></li>
+      <li><%= link_to 'What is', edemocracy_path %></li>
       <li><a class="smoothscroll" href="#features">Features</a></li>
-      <li><%=link_to 'Donations', donations_path %></li>
-      <li><%=link_to 'Volunteers', chisiamo_path %></li>
-      <li><%=link_to 'Register', new_user_registration_path %></li>
+      <li><%= link_to 'Donations', donations_path %></li>
+      <li><%= link_to 'Volunteers', chisiamo_path %></li>
+      <li><%= link_to 'Register', new_user_registration_path %></li>
     </ul>
     <!-- end #nav -->
 
@@ -160,7 +160,7 @@
 
         <p><%= t('pages.home.index.field_1.content') %></p>
       </div>
-      <div>
+      <div class="login-form">
         <%= form_for resource, as: resource_name, url: user_session_path do |f| %>
             <div class="row">
               <div class="columns medium-6 push-2">
@@ -177,13 +177,17 @@
               </div>
             </div>
             <div class="row">
-              <div class="columns medium-6 push-2">
-                <%= t('pages.proposals.index.login_with') %>
-                <%= link_to image_tag('logos/facebook.png'), user_omniauth_authorize_path(:facebook), alt: t('pages.top_panel.facebook_login'), title: t('pages.top_panel.facebook_login') %>
-                <%= link_to image_tag('logos/google.png'), user_omniauth_authorize_path(:google_oauth2), alt: t('pages.top_panel.google_login'), title: t('pages.top_panel.google_login') %>
-                <%= link_to image_tag('logos/twitter.png'), user_omniauth_authorize_path(:twitter), alt: t('pages.top_panel.twitter_login'), title: t('pages.top_panel.twitter_login') %>
-                <%= link_to image_tag('logos/meetup.png', style: 'margin-top:5px'), user_omniauth_authorize_path(:meetup), alt: t('pages.top_panel.meetup_login'), title: t('pages.top_panel.meetup_login') %>
-                <%= link_to image_tag('logos/linkedin.png', style: 'margin-top:5px'), user_omniauth_authorize_path(:linkedin), alt: t('pages.top_panel.linkedin_login'), title: t('pages.top_panel.linkedin_login') %>
+              <div class="columns medium-3 large-2 medium-offset-2">
+                <div class="login-with"><%= t('pages.proposals.index.login_with') %></div>
+                </div>
+              <div class="columns medium-7 large-8">
+                <div class="login-with-buttons">
+                  <%= link_to t('pages.top_panel.facebook_login'), user_omniauth_authorize_path(:facebook), alt: t('pages.top_panel.facebook_login'), title: t('pages.top_panel.facebook_login'), class: 'zocial icon facebook' %>
+                  <%= link_to t('pages.top_panel.google_login'), user_omniauth_authorize_path(:google_oauth2), alt: t('pages.top_panel.google_login'), title: t('pages.top_panel.google_login'), class: 'zocial icon google' %>
+                  <%= link_to t('pages.top_panel.twitter_login'), user_omniauth_authorize_path(:twitter), alt: t('pages.top_panel.twitter_login'), title: t('pages.top_panel.twitter_login'), class: 'zocial icon twitter' %>
+                  <%= link_to t('pages.top_panel.meetup_login'), user_omniauth_authorize_path(:meetup), alt: t('pages.top_panel.meetup_login'), title: t('pages.top_panel.meetup_login'), class: 'zocial icon meetup' %>
+                  <%= link_to t('pages.top_panel.linkedin_login'), user_omniauth_authorize_path(:linkedin), alt: t('pages.top_panel.linkedin_login'), title: t('pages.top_panel.linkedin_login'), class: 'zocial icon linkedin' %>
+                </div>
               </div>
             </div>
         <% end %>
@@ -331,7 +335,7 @@
             <li>Buy a coffee for the developers</li>
           </ul>
           <footer class="plan-sign-up">
-            <script src="<%=asset_path('paypal-button.min.js')%>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
+            <script src="<%= asset_path('paypal-button.min.js') %>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
                     data-button="donate"
                     data-name="Airesis - Scegli di partecipare"
                     data-number="1"
@@ -354,7 +358,7 @@
             <li>Membership</li>
           </ul>
           <footer class="plan-sign-up">
-            <script src="<%=asset_path('paypal-button.min.js')%>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
+            <script src="<%= asset_path('paypal-button.min.js') %>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
                     data-button="donate"
                     data-name="Airesis"
                     data-number="1"
@@ -377,7 +381,7 @@
             <li>Become member and help the developers fix some bugs</li>
           </ul>
           <footer class="plan-sign-up">
-            <script src="<%=asset_path('paypal-button.min.js')%>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
+            <script src="<%= asset_path('paypal-button.min.js') %>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
                     data-button="donate"
                     data-name="Airesis"
                     data-number="1"
@@ -400,7 +404,7 @@
             <li>Your help is greatly appreciated!</li>
           </ul>
           <footer class="plan-sign-up">
-            <script src="<%=asset_path('paypal-button.min.js')%>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
+            <script src="<%= asset_path('paypal-button.min.js') %>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
                     data-button="donate"
                     data-name="Airesis"
                     data-number="1"
@@ -570,6 +574,42 @@
                 <%= image_tag "volunteers/kabora_marcello.png" %>
                 <div class="link-icon">
                   <div>Marcello Kabora</div>
+                  <i class="fa fa-plus"></i>
+                </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="columns item">
+          <div class="item-wrap">
+            <%= link_to chisiamo_path(anchor: 'communication') do %>
+                <%= image_tag "volunteers/chiara_gianferrari.jpg" %>
+                <div class="link-icon">
+                  <div>Chiara Gianferrari</div>
+                  <i class="fa fa-plus"></i>
+                </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="columns item">
+          <div class="item-wrap">
+            <%= link_to chisiamo_path(anchor: 'communication') do %>
+                <%= image_tag "volunteers/matteo_martini.jpg" %>
+                <div class="link-icon">
+                  <div>Matteo Martini</div>
+                  <i class="fa fa-plus"></i>
+                </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="columns item">
+          <div class="item-wrap">
+            <%= link_to partecipa_path(anchor: 'partecipare') do %>
+                <%= image_tag "volunteers/you.png" %>
+                <div class="link-icon">
+                  <div><%=t('you')%></div>
                   <i class="fa fa-plus"></i>
                 </div>
             <% end %>

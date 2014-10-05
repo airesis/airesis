@@ -144,6 +144,21 @@ it-IT:
             Questo gruppo mi ha dato la possibilità di collaborare a quello che ritengo sarà una delle prossime frontiere
             della socialità.
           </p>
+      matteo_martini:
+        content_html: |
+          <p>
+            Ho 42 anni e sono ingegnere meccanico.
+            Vivo e lavoro tra Italia e Giappone e gia` da qualche anno mi interesso di progetti di E-democracy.
+            Ho scoperto Airesis e ritengo che il progetto abbia le potenzialita` di diventare il motore per un vero cambiamento
+            nella politica e nei rapporti tra le persone Sono ormai disilluso nella capacita` dei partiti tradizionali di andare
+            oltre ai desueti schemi di potere e credo che la democrazia diretta sia la nuova vera sfida per le nuove generazioni.
+            Mi occupo della promozione di Airesis identificando le opportunità che l'uso di questo software può sviluppare all'interno
+            di una struttura sociale sia essa azienda, ente, o amministrazione pubblica
+          </p>
+        title: "Divulgazione"
+      chiara_gianferrari:
+        title: "Divulgazione"
+        content_html: "Desc"
       thanks_1_html: |
         <a href="https://www.facebook.com/groups/incontrom5s/" target="_blank">Il Gruppo Incontro dei cittadini a 5 Stelle</a> che supporta il progetto e ha finanziato le spese per l'hosting per tutto il 2013  e 2014"
       thanks_2: "Chi ha lavorato duramente per divulgare il progetto aiutandoci a reperire le professionalità necessarie per portarlo avanti"

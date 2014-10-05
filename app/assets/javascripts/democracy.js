@@ -101,7 +101,6 @@ function disegnaBottoni() {
     $('.flagButton').gbutton({icons: {primary: "ui-icon-flag"}});
     $('.contactButton').gbutton({icons: {primary: "ui-icon-contact"}});
     $('.feedbackButton').gbutton({icons: {primary: "ui-icon-notice"}});
-    $('.videoButton').gbutton({icons: {primary: "ui-icon-video"}});
     $('.infoButton').gbutton({icons: {primary: "ui-icon-info"}});
     $('.bookmarkButton').gbutton({icons: {primary: "ui-icon-bookmark"}});
     $('.extlinkButton').gbutton({icons: {primary: "ui-icon-extlink"}});
