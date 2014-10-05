@@ -81,15 +81,6 @@
    #subscribe h1 { margin-bottom: 18px; }
    #mc_embed_signup input[type="submit"] { width: 46%; }
    #mc_embed_signup input[type="email"] { width: 46%; }
-
-   /* Footer
-   ------------------------------------------------------------------- */
-   footer .right-cols .columns { width: 50% !important; }
-   footer .right-cols .columns:last-child { 
-      clear: left; 
-      float: left;      
-   }
-
 }
 
 /* screenwidth less than 768px - mobile/smaller tablets
@@ -201,13 +192,6 @@
 
    /* Hero CTA Buttons */
    #hero .buttons { margin-bottom: 30px; }
-   #hero .buttons .button {
-      display: block;
-      width: 70%;
-      margin: 0 auto 18px auto;
-      font: 13px/24px 'montserrat-bold', sans-serif;
-      letter-spacing: 1.5px;
-   }
 
    /* Features Section
    --------------------------------------------------------------------- */   
@@ -275,26 +259,6 @@
       margin-bottom: 30px;
    }
    
-   /* footer
-   ------------------------------------------------------------------------ */
-   footer { text-align: center; }
-   footer .info { padding-right: 30px; }
-   footer .info p { margin-bottom: 18px; }
-   footer h3:before { text-align: center; }
-   footer .right-cols {       
-      width: 90% !important;
-      margin: 0 auto ;
-      margin-bottom: 42px; 
-      text-align: center;
-   }
-   footer .right-cols .columns {
-      float: left;       
-      padding: 0 30px;    
-   }
-   footer .right-cols .columns:last-child { 
-      clear: both; 
-      float: left;
-   }   
 
    /* Go To Top Button */
    #go-top { margin-left: -22px; }
@@ -333,9 +297,6 @@
    #testimonials .quote-right { font-size: 28px; }  
    #testimonials blockquote p { font-size: 20px; }
 
-   /* Footer
-   ------------------------------------------------------------------- */
-   footer .right-cols .columns { padding: 0 10px; }        
 
 }
 

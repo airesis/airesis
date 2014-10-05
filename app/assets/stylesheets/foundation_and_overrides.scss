@@ -1235,6 +1235,9 @@ $top-large: $topbar-height+$sectionbar-height-large;
   #menu-top a.show-for-small {
     display: inline !important;
   }
+  input#search_q {
+    width: 150px;
+  }
 }
 
 #main-copy.application {

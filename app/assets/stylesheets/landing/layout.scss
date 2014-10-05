@@ -7,10 +7,9 @@ body {
 }
 
 .section-head {
-  padding: 0 4%;
   text-align: center;
   h1 {
-    font: 20px/36px 'montserrat-bold', sans-serif;
+    font: 30px/36px 'montserrat-bold', sans-serif;
     color: #333;
     text-transform: uppercase;
     letter-spacing: 1.5px;
@@ -165,27 +164,22 @@ ul#nav li.current a {
 /* ------------------------------------------------------------------ */
 
 #hero {
-  padding-top: 66px;
+  padding-top: 54px;
   overflow: hidden;
-}
-
-#hero .row {
-  max-width: 1040px;
 }
 
 /* Hero Text */
 .hero-text {
   color: #676e73;
   text-align: center;
-  margin: 54px auto 24px auto;
-}
-
-.hero-text h1 {
-  font: 40px/1.2em 'montserrat-regular', sans-serif;
-  color: #fff;
-  padding: 0;
-  margin: 0;
-  text-shadow: 0px 1px 4px rgba(0, 0, 0, .2);
+  margin: 35px auto 20px auto;
+  h1 {
+    font: 40px/1.2em 'montserrat-regular', sans-serif;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+    text-shadow: 0px 1px 4px rgba(0, 0, 0, .2);
+  }
 }
 
 .hero-text h1 span,
@@ -196,7 +190,6 @@ ul#nav li.current a {
 .hero-text p {
   font: 16px/30px 'opensans-regular', sans-serif;
   padding: 0;
-  margin: 12px 8% 0;
   text-shadow: 0px 1px 2px rgba(0, 0, 0, .2);
 }
 
@@ -325,6 +318,7 @@ ul#nav li.current a {
   margin-bottom: 0;
   text-align: center;
   letter-spacing: .5px;
+  height: 135px;
 }
 
 .plan-price span {
@@ -591,7 +585,7 @@ ul.features li:nth-child(even) {
 }
 
 .green-background h1 {
-  font: 16px/24px 'montserrat-bold', sans-serif;
+  font: 30px/40px 'montserrat-bold', sans-serif;
   color: #6AECF0;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -600,7 +594,7 @@ ul.features li:nth-child(even) {
 
 /*	Blockquotes */
 .green-background blockquote {
-  margin: 0 0px 30px 0px;
+  margin: 0 0px 0px 0px;
   padding-left: 0;
   position: relative;
 }
@@ -833,6 +827,7 @@ footer {
   font-size: 13px;
   line-height: 24px;
   position: relative;
+  background: #33b5e5;
 }
 
 footer a, footer a:visited {
@@ -870,7 +865,6 @@ footer h3:before {
   font-size: 30px;
   line-height: 48px;
   text-align: left;
-  color: #738291;
   display: block;
 }
 

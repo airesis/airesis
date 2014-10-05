@@ -323,7 +323,7 @@ en-US:
         voting_title: "Voting ⋅ %{count}"
         accepted_title: "Voted ⋅ %{count}"
         revision_title: "Abandoned ⋅ %{count}"
-        login_with: "or login with:"
+        login_with: "login with:"
         group_areas_title: "Working areas"
         no_group_areas: "No area"
         all_areas: "All the areas"
@@ -755,7 +755,7 @@ en-US:
         follw_on_twitter: "Follow @democracyo on Twitter"
         field_1:
           title: "<em>Propose</em> solutions"
-          content: "A place to report problems, propose solutions, discuss alternatives, to summarize shared. A powerful tool to enhance collective intelligence."
+          content: "A place to report problems, propose solutions, discuss alternatives, to summarize shared. A powerful tool to enhance collective intelligence. Airesis is free to try and to register. Find your group and participate!"
         field_2:
           title: "<em>Get involved</em> into e-democracy"
           content: "Join Groups, choose who represents you and participate in events according to your interests. Together we are stronger."

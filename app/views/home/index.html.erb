@@ -158,43 +158,54 @@
         <%= image_tag 'logo_completo_medium.png', alt: "Airesis - Scegli di partecipare", title: t('home.tags.title') %>
         <h1 class="responsive-headline"><%= t('home.intro.paragraph_1.title') %></h1>
 
-        <p><%= t('pages.home.index.field_1.content') %></p>
-      </div>
-      <div class="login-form">
-        <%= form_for resource, as: resource_name, url: user_session_path do |f| %>
-            <div class="row">
-              <div class="columns medium-6 push-2">
 
-                <%= f.text_field :login, placeholder: 'Email' %>
-                <%= f.password_field :password, placeholder: 'Password' %>
-              </div>
-              <div class="columns medium-4">
-                <%= f.submit t('pages.home.index.login'), class: "button" %>
-                <div style="margin-top: 3px; font-size: 12px ">
-                  <%= f.check_box :remember_me, checked: true %>
-                  <%= t('pages.home.index.keep_connected') %>
+      </div>
+      <div class="row" data-equalizer>
+        <div class="columns large-6">
+          <div class="login-form panel buttons" data-equalizer-watch>
+            <%= form_for resource, as: resource_name, url: user_session_path do |f| %>
+                <div class="row">
+                  <div class="columns large-12">
+                    <div class="login-with-buttons">
+                      <%= link_to t('pages.top_panel.facebook_login'), user_omniauth_authorize_path(:facebook), alt: t('pages.top_panel.facebook_login'), title: t('pages.top_panel.facebook_login'), class: 'zocial icon facebook' %>
+                      <%= link_to t('pages.top_panel.google_login'), user_omniauth_authorize_path(:google_oauth2), alt: t('pages.top_panel.google_login'), title: t('pages.top_panel.google_login'), class: 'zocial icon google' %>
+                      <%= link_to t('pages.top_panel.twitter_login'), user_omniauth_authorize_path(:twitter), alt: t('pages.top_panel.twitter_login'), title: t('pages.top_panel.twitter_login'), class: 'zocial icon twitter' %>
+                      <%= link_to t('pages.top_panel.meetup_login'), user_omniauth_authorize_path(:meetup), alt: t('pages.top_panel.meetup_login'), title: t('pages.top_panel.meetup_login'), class: 'zocial icon meetup' %>
+                      <%= link_to t('pages.top_panel.linkedin_login'), user_omniauth_authorize_path(:linkedin), alt: t('pages.top_panel.linkedin_login'), title: t('pages.top_panel.linkedin_login'), class: 'zocial icon linkedin' %>
+                    </div>
+                  </div>
+                  <div class="columns large-12 medium-10 medium-push-1 large-push-0">
+                    <%= f.text_field :login, placeholder: 'Email' %>
+                    <%= f.password_field :password, placeholder: 'Password' %>
+                  </div>
+                  <div class="columns large-6 medium-5 medium-push-1 large-push-0  text-left">
+                    <div style="margin-top: 3px; font-size: 12px ">
+                      <%= f.check_box :remember_me, checked: true %>
+                      <%= t('pages.home.index.keep_connected') %>
+                    </div>
+                  </div>
+                  <div class="column large-6 medium-5 medium-pull-1 large-pull-0 text-right">
+                    <%= f.submit t('pages.home.index.login'), class: "button" %>
+                  </div>
                 </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="columns large-6">
+          <div class="panel buttons" data-equalizer-watch>
+            <div class="row">
+              <div class="columns large-12 medium-10 medium-push-1 large-push-0">
+                <p><%= t('pages.home.index.field_1.content') %></p>
               </div>
             </div>
             <div class="row">
-              <div class="columns medium-3 large-2 medium-offset-2">
-                <div class="login-with"><%= t('pages.proposals.index.login_with') %></div>
-                </div>
-              <div class="columns medium-7 large-8">
-                <div class="login-with-buttons">
-                  <%= link_to t('pages.top_panel.facebook_login'), user_omniauth_authorize_path(:facebook), alt: t('pages.top_panel.facebook_login'), title: t('pages.top_panel.facebook_login'), class: 'zocial icon facebook' %>
-                  <%= link_to t('pages.top_panel.google_login'), user_omniauth_authorize_path(:google_oauth2), alt: t('pages.top_panel.google_login'), title: t('pages.top_panel.google_login'), class: 'zocial icon google' %>
-                  <%= link_to t('pages.top_panel.twitter_login'), user_omniauth_authorize_path(:twitter), alt: t('pages.top_panel.twitter_login'), title: t('pages.top_panel.twitter_login'), class: 'zocial icon twitter' %>
-                  <%= link_to t('pages.top_panel.meetup_login'), user_omniauth_authorize_path(:meetup), alt: t('pages.top_panel.meetup_login'), title: t('pages.top_panel.meetup_login'), class: 'zocial icon meetup' %>
-                  <%= link_to t('pages.top_panel.linkedin_login'), user_omniauth_authorize_path(:linkedin), alt: t('pages.top_panel.linkedin_login'), title: t('pages.top_panel.linkedin_login'), class: 'zocial icon linkedin' %>
-                </div>
+              <div class="columns large-12 medium-10 medium-push-1 large-push-0">
+                <%= link_to t('pages.home.index.try_it'), public_path, class: "button trial alert" %>
+                <%= link_to t('pages.home.index.register'), new_user_registration_path, class: 'button' %>
               </div>
             </div>
-        <% end %>
-      </div>
-      <div class="buttons">
-        <%= link_to t('pages.home.index.try_it'), public_path, class: "button trial alert" %>
-        <%= link_to t('pages.home.index.register'), new_user_registration_path, class: 'button' %>
+          </div>
+        </div>
       </div>
 
       <div class="hero-image">
@@ -330,11 +341,12 @@
         <div class="price-block">
           <h3 class="plan-title"><i class="fa fa-coffee"></i>Small</h3>
 
-          <p class="plan-price">5.00€<span>A simple donation to help the project</span></p>
-          <ul class="features">
-            <li>Buy a coffee for the developers</li>
-          </ul>
-          <footer class="plan-sign-up">
+          <p class="plan-price">
+            5.00€
+            <span>Buy a coffee for the developers</span>
+          </p>
+
+          <div class="plan-sign-up">
             <script src="<%= asset_path('paypal-button.min.js') %>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
                     data-button="donate"
                     data-name="Airesis - Scegli di partecipare"
@@ -346,18 +358,19 @@
                     data-lc="<%= I18n.locale %>"
                     data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
             </script>
-          </footer>
+          </div>
         </div>
       </div>
       <div class="columns" data-equalizer-watch>
         <div class="price-block">
           <h3 class="plan-title"><i class="fa fa-thumbs-up"></i>Standard</h3>
 
-          <p class="plan-price">20.00€ <span>Become member of Tecnologie Democratiche</span></p>
-          <ul class="features">
-            <li>Membership</li>
-          </ul>
-          <footer class="plan-sign-up">
+          <p class="plan-price">
+            20.00€
+            <span>Become member of Tecnologie Democratiche</span>
+          </p>
+
+          <div class="plan-sign-up">
             <script src="<%= asset_path('paypal-button.min.js') %>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
                     data-button="donate"
                     data-name="Airesis"
@@ -369,41 +382,42 @@
                     data-lc="<%= I18n.locale %>"
                     data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
             </script>
-          </footer>
+          </div>
         </div>
       </div>
       <div class="columns" data-equalizer-watch>
         <div class="price-block">
-          <h3 class="plan-title"><i class="fa fa-star"></i>Premium</h3>
+          <h3 class="plan-title"><i class="fa fa-star"></i>Great</h3>
 
-          <p class="plan-price">50.00€ <span>Premium member of Tecnologie Democratiche</span></p>
-          <ul class="features">
-            <li>Become member and help the developers fix some bugs</li>
-          </ul>
-          <footer class="plan-sign-up">
+          <p class="plan-price">
+            50.00€
+            <span>Become member of TD and contribute to the development</span>
+          </p>
+
+          <div class="plan-sign-up">
             <script src="<%= asset_path('paypal-button.min.js') %>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
                     data-button="donate"
                     data-name="Airesis"
                     data-number="1"
-                    data-size="large"
+                    data-size="small"
                     data-currency="EUR"
                     data-amount="50.00"
                     data-quantity="1"
                     data-lc="<%= I18n.locale %>"
                     data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
             </script>
-          </footer>
+          </div>
         </div>
       </div>
       <div class="columns" data-equalizer-watch>
         <div class="price-block">
-          <h3 class="plan-title"><i class="fa fa-trophy"></i>Custom</h3>
+          <h3 class="plan-title"><i class="fa fa-trophy"></i>Up to you</h3>
 
-          <p class="plan-price">--.--€ <span>Any amount</span></p>
-          <ul class="features">
-            <li>Your help is greatly appreciated!</li>
-          </ul>
-          <footer class="plan-sign-up">
+          <p class="plan-price">--.--€
+            <span>Your help is greatly appreciated!</span>
+          </p>
+
+          <div class="plan-sign-up">
             <script src="<%= asset_path('paypal-button.min.js') %>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
                     data-button="donate"
                     data-name="Airesis"
@@ -414,7 +428,7 @@
                     data-lc="<%= I18n.locale %>"
                     data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
             </script>
-          </footer>
+          </div>
         </div>
       </div>
     </div>
@@ -427,6 +441,8 @@
 <!-- Subscribe
 ================================================== -->
 <section id="subscribe">
+  <h1><%= "FOLLOW US" %></h1>
+
   <div class="row">
     <div class="columns medium-6">
       <div class="fb-like-box" data-height="600" data-width="450" data-href="http://www.facebook.com/AiresisIt" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="true" data-show-border="false"></div>
@@ -448,6 +464,49 @@
 
 </section>
 
+
+<section id="testimonials" class="green-background">
+  <div class="row content">
+    <span><i class="quote-left fa fa-quote-left"></i></span>
+
+    <div class="text-container">
+      <div class="columns">
+        <h1><%= "Citations" %></h1>
+      </div>
+      <div class="columns flex-container">
+        <div class="flexslider">
+          <ul class="slides">
+            <li>
+              <blockquote>
+                <p>Quae optima sunt, esse communia.
+                </p>
+
+                <p>(Le idee migliori sono proprietà comune.)</p>
+                <cite>Lucio Anneo Seneca</cite>
+              </blockquote>
+            </li>
+            <li>
+              <blockquote>
+                <p>The tragedy of modern democracies is that they have not yet succeeded in effecting democracy.
+                </p>
+                <cite>Jacques Maritain</cite>
+              </blockquote>
+            </li>
+            <li>
+              <blockquote>
+                <p>Nothing is stronger than an idea whose time has come.
+                </p>
+                <cite>Victor Hugo</cite>
+              </blockquote>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <span><i class="quote-right fa fa-quote-right"></i></span>
+  </div>
+</section>
+
 <!-- Screenshots
 ================================================== -->
 <section id="screenshots">
@@ -465,7 +524,7 @@
 
     <div class="columns">
 
-      <div id="screenshots-wrapper" class="bgrid-thirds s-bgrid-thirds cf">
+      <div id="screenshots-wrapper" class="bgrid-quarters s-bgrid-quarters cf">
 
         <div class="columns item">
           <div class="item-wrap">
@@ -609,7 +668,7 @@
             <%= link_to partecipa_path(anchor: 'partecipare') do %>
                 <%= image_tag "volunteers/you.png" %>
                 <div class="link-icon">
-                  <div><%=t('you')%></div>
+                  <div><%= t('you') %></div>
                   <i class="fa fa-plus"></i>
                 </div>
             <% end %>
@@ -629,49 +688,6 @@
 <!-- Screenshots End -->
 
 
-<section id="testimonials" class="green-background">
-  <div class="row content">
-    <span><i class="quote-left fa fa-quote-left"></i></span>
-
-    <div class="text-container">
-      <div class="columns">
-        <h1><%= "Citations" %></h1>
-      </div>
-      <div class="columns flex-container">
-        <div class="flexslider">
-          <ul class="slides">
-            <li>
-              <blockquote>
-                <p>Quae optima sunt, esse communia.
-                </p>
-
-                <p>(Le idee migliori sono proprietà comune.)</p>
-                <cite>Lucio Anneo Seneca</cite>
-              </blockquote>
-            </li>
-            <li>
-              <blockquote>
-                <p>The tragedy of modern democracies is that they have not yet succeeded in effecting democracy.
-                </p>
-                <cite>Jacques Maritain</cite>
-              </blockquote>
-            </li>
-            <li>
-              <blockquote>
-                <p>Nothing is stronger than an idea whose time has come.
-                </p>
-                <cite>Victor Hugo</cite>
-              </blockquote>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <span><i class="quote-right fa fa-quote-right"></i></span>
-  </div>
-</section>
-
-
 <!-- Subscribe Section End-->
 
 
@@ -685,7 +701,7 @@
 
       <div class="footer-logo">
         <a href="#">
-          <%= image_tag 'logo_new.png' %>
+          <%= image_tag 'logo_completo_white_mini.png' %>
         </a>
       </div>
       <p><a href="https://github.com/coorasse/Airesis" target="_blank"><%= t('pages.footer.for_edemocracy_html') %></a>

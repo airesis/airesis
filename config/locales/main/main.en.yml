@@ -332,7 +332,7 @@ en:
         voting_title: "Voting ⋅ %{count}"
         accepted_title: "Voted ⋅ %{count}"
         revision_title: "Abandoned ⋅ %{count}"
-        login_with: "or login with:"
+        login_with: "login with:"
         group_areas_title: "Working areas"
         no_group_areas: "No area"
         all_areas: "All the areas"
