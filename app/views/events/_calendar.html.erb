@@ -2,7 +2,7 @@
         src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false">
 </script>
 
-<% if (@group ? (can? :create_event, @group) : is_admin?) %>
+<% if @group ? (can? :create_event, @group) : is_admin? %>
     <style type="text/css">
         .fc-widget-content {
             cursor: pointer;
@@ -108,6 +108,7 @@
                 closeOnBackgroundClick: false,
                 closeOnEsc: false
             });
+            return false;
         });
 
         //$('.calendar_container').height($(window).height());

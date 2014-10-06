@@ -56,13 +56,13 @@
 
         <div class="row">
           <div class="large-6 columns">
-            <%= f.input :starttime, as: :string, input_html: {value: (l @event.starttime, format: :textfield)} %>
+            <%= f.input :starttime, as: :string, input_html: {value: (l @event.starttime, format: :datepicker)} %>
           </div>
         </div>
 
         <div class="row">
           <div class="large-6 columns">
-            <%= f.input :endtime, as: :string, input_html: {value: (l @event.endtime, format: :textfield)} %>
+            <%= f.input :endtime, as: :string, input_html: {value: (l @event.endtime, format: :datepicker)} %>
           </div>
         </div>
 

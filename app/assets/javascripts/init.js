@@ -32,21 +32,6 @@ $(function () {
 
     mybox_animate();
 
-
-//    $(document.body).on('appear', '.card.appear', function (e, $affected) {
-    //       cards_delay = 0;
-    //      $(this).addClass('appeared');
-    /*$affected.each(function() {
-     var $this_ = $(this);
-     setTimeout(function() {$this_.addClass("appeared")},cards_delay);
-     cards_delay += 300;
-     });*/
-    //       cards_delay = 0;
-//    });
-
-//    $('.card.appear').appear({force_process: true});
-
-
     var searchcache = {};
     var search_f = $('#search_q');
     if (search_f.length > 0) {
@@ -108,7 +93,7 @@ $(function () {
             }
             desc_.append(text_);
             container_.append(desc_);
-            container_.append('<div class="clearboth"></div>')
+            container_.append('<div class="clearboth"></div>');
             link_.attr('href', item.url);
             link_.append(container_);
             el.append(link_);
