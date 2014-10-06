@@ -5,11 +5,18 @@
           <% if role.id == @group.participation_role_id %> (default)
           <% end %>
         </a>
+
         <div id="role_<%= role.id %>" class="content <%= 'active' if idx==0 %>">
 
-          <%= link_to t('buttons.delete'), group_participation_role_url(@group, role), method: :delete, class: 'btn deleteButton', style: 'float:right', data: {remote: true, confirm: t('pages.groups.edit_permissions.confirm_role_deletion'), disable_with: t('loading')} if can? :destroy, role %>
+          <%= link_to group_participation_role_url(@group, role), method: :delete, class: 'btn', style: 'float:right', data: {remote: true, confirm: t('pages.groups.edit_permissions.confirm_role_deletion'), disable_with: t('loading')} do %>
+              <i class="fa fa-trash-o"></i>
+              <%= t('buttons.delete') %>
+          <% end if can? :destroy, role %>
 
-          <%= link_to t('buttons.edit'), edit_group_participation_role_url(@group, role), class: 'btn editButton', style: 'float:right', data: {remote: true, disable_with: t('loading')} %>
+          <%= link_to edit_group_participation_role_url(@group, role), class: 'btn', style: 'float:right', data: {remote: true, disable_with: t('loading')} do %>
+              <i class="fa fa-pencil"></i>
+              <%= t('buttons.edit') %>
+          <% end %>
           <h4><%= role.description %></h4>
           <% GroupAction.order(:seq).each do |action| %>
               <input type="checkbox" data-action-abilitation data-participation_role_id=<%= role.id %>  data-action_id=<%= action.id %> <%= 'checked="true"' if role.group_actions.include? action %>/>
@@ -19,8 +26,3 @@
       </dd>
   <% end %>
 </dl>
-<script>
-    $(function () {
-        disegnaBottoni();
-    });
-</script>

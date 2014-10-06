@@ -24,7 +24,7 @@
   <% @lastreplies.each_with_index do |reply, i| %>
       <%= render partial: 'proposals/reply', locals: {reply: reply, hide: false} %>
       <% if (i < @lastreplies.length - 1) && (version = comment.versions.where(['created_at between ? and ?', @lastreplies[i].created_at, @lastreplies[i+1].created_at]).first) %>
-          <div class="comment_update_divider">
+          <div class="panel callout comment_update_divider">
             <%= raw 'updated on ' + time_in_words(version.created_at) %>
           </div>
       <% end %>

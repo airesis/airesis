@@ -8,11 +8,8 @@
 
     <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>
     <%= link_to t('buttons.go_back'), :back, class: 'btn', data: {back: ''} %>
-    <%= f.button :button, button_name, class: 'btn blue saveButton' %>
+    <%= f.button :button, class: 'btn blue' do %>
+        <i class="fa fa-save"></i>
+        <%= button_name %>
+    <% end %>
 <% end %>
-
-<script type="text/javascript">
-    $(function () {
-        disegnaBottoni();
-    });
-</script>

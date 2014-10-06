@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'requests_helper'
 
 describe "the blogs process", type: :feature, js: true do
-
   before :each do
     @user = create(:default_user)
     login_as @user, scope: :user
@@ -28,12 +27,8 @@ describe "the blogs process", type: :feature, js: true do
   end
 
   it "creates his blog correctly and can't create it anymore" do
-
-
     visit new_blog_path
     expect(page).to have_content(I18n.t('error.error_302.title'))
-
-
   end
 
   it "can manage his blog" do
@@ -43,14 +38,16 @@ describe "the blogs process", type: :feature, js: true do
     expect(page).to have_content(I18n.t('pages.blog_posts.drafts_button'))
     expect(page).to_not have_content(I18n.t('pages.blog_posts.published_button'))
     expect(page).to have_content(I18n.t('pages.blogs.show.edit_button'))
-
-    click_link I18n.t('pages.blog_posts.drafts_button')
+    within '#menu-left' do
+      click_link I18n.t('pages.blog_posts.drafts_button')
+    end
     expect(page).to have_content(I18n.t('pages.blog_posts.new_button'))
     expect(page).to_not have_content(I18n.t('pages.blog_posts.drafts_button'))
     expect(page).to have_content(I18n.t('pages.blog_posts.published_button'))
     expect(page).to have_content(I18n.t('pages.blogs.show.edit_button'))
-
-    click_link I18n.t('pages.blogs.show.edit_button')
+    within '#menu-left' do
+      click_link I18n.t('pages.blogs.show.edit_button')
+    end
 
     #fill form fields
     blog_name = Faker::Company.name
@@ -63,8 +60,8 @@ describe "the blogs process", type: :feature, js: true do
     expect(page).to have_content(I18n.t('info.blog.title_updated'))
     #the new blog name is certainly displayed somewhere
     expect(page).to have_content blog_name
-
-    click_link I18n.t('pages.blog_posts.new_button')
-
+    within '#menu-left' do
+      click_link I18n.t('pages.blog_posts.new_button')
+    end
   end
 end

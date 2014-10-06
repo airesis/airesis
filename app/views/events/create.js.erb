@@ -1,6 +1,5 @@
 <%if @event.proposal_id && !@event.proposal_id.empty?%>
   $('#wait_date_header_container').html('<%= j render(partial: 'proposals/wait_date_header', locals: {proposal: @proposal})%>');
-  disegnaBottoni();
 <%elsif params[:type] == 'election'%>
     window.location.reload();
 <%else%>

@@ -461,6 +461,7 @@ en:
         choose_later: "No thanks. I will choose it later"
         choose_now: "I want to choose it now"
         group_area: "Work area"
+        nickname_assigned: "We assigned you the nickname '%{nickname}'. If you don't like it, you can change it from the left menu within 10 minutes"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "Help"
@@ -1554,3 +1555,7 @@ en:
       draft_title: "Your post is visible only to you"
   confirm_delete: "Are you sure?"
   you: "You"
+  twitter:
+    share:
+      blog_post: "Look at this post on #%{app}! %{tags}"
+      event: "There is a new event on #%{app}"

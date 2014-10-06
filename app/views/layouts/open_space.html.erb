@@ -1,6 +1,6 @@
 <% content_for :menu do %>
     <div class="topimage hide-for-small">
-      <%= image_tag 'logo120.png', width: 40, alt: ENV['APP_LONG_NAME'] %>
+      <%= image_tag 'single_small.png', width: 40, alt: ENV['APP_LONG_NAME'] %>
     </div>
     <div class="topmenu <%= 'noleft' unless content_for? :left_panel %>">
       <span class="tit"><%= link_to ENV['APP_LONG_NAME'], root_path %></span>

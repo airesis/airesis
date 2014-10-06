@@ -23,10 +23,10 @@
             <b><%= raw t('pages.proposals.show.no_periods_contact_admin', email: (mail_to ENV['APP_EMAIL_ADDRESS'])) %></b>
         <% end %>
     <% end %>
-    <% if @group && (can? :create_date, @group) %>
-        <%= link_to t('pages.proposals.show.choose_new_votation_period_button'), new_group_event_url(@group, event_type_id: EventType::VOTAZIONE, proposal_id: @proposal.id), remote: true, class: 'btn newButton disable', style: 'float:right' %>
-
-    <% end %>
+    <%= link_to new_group_event_url(@group, event_type_id: EventType::VOTAZIONE, proposal_id: @proposal.id), remote: true, class: 'btn disable', style: 'float:right' do %>
+        <i class="fa fa-plus"></i>
+        <%= t('pages.proposals.show.choose_new_votation_period_button') %>
+    <% end if @group && (can? :create_date, @group) %>
 <% else %>
     <b><%= t('pages.proposals.show.no_periods_contact_group') %></b>
 <% end %>

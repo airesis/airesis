@@ -11,7 +11,10 @@
 
     <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>
     <%= link_to t('buttons.go_back'), :back, class: 'btn', data: {back: ''} %>
-    <%= f.submit t('buttons.send'), class: "btn blue inviteButton" %>
+    <%= f.button :button, class: "btn blue" do %>
+        <i class="fa fa-envelope-o"></i>
+        <%= t('buttons.send') %>
+    <% end %>
 <% end %>
 
 <script type="text/javascript">

@@ -2,7 +2,7 @@
  * This is a manifest file that'll automatically include all the stylesheets available in this directory
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
- *= require icons
+
  *= require proposal
  *= require users
  *= require token-input
@@ -35,7 +35,11 @@
  *= require select2
  *= require frm
  *= require jquery.textntags
- *= require foundation_and_overrides
+
  *= require foundation-datetimepicker
  *= require foundation-icons
 */
+
+@import 'foundation_and_overrides';
+@import 'icons';
+@import 'font-awesome';

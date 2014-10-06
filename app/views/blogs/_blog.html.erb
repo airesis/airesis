@@ -1,11 +1,11 @@
 <li>
   <div class="card cool left">
-    <div class="image">
-      <%= blog.user.user_image_tag(120, force_size: false) %>
+    <div class="image" style="background: url('<%=blog.user.user_image_url(120, force_size: false)%>'); background-size: cover;">
+      <%=  %>
     </div>
     <div class="info">
       <div class="name">
-        <%= link_to (blog.title.to_s != '' ? blog.title : 'Nessun titolo'), blog %>
+        <%= link_to (blog.title.to_s != '' ? blog.title : 'No title'), blog, title: blog.title %>
       </div>
     </div>
     <div class="bottom">
@@ -14,8 +14,8 @@
       </div>
       <div>
         <%= t('pages.blogs.index.blog_subtitle', posts: blog.blog_posts.count, comments: blog.comments.count) %>
-        <%= link_to 'Modifica', edit_blog_path(blog), class: 'buttonStyle littleText' if can? :edit, blog %>
-        <%= link_to 'Cancella', blog, data: {confirm: 'Sei sicuro di voler eliminare questo blog?'}, method: :delete, class: 'buttonStyle littleText' if can? :destroy, blog %>
+        <%= link_to t('buttons.edit'), edit_blog_path(blog), class: 'btn littleText' if can? :edit, blog %>
+        <%= link_to t('buttons.delete'), blog, data: {confirm: 'Sei sicuro di voler eliminare questo blog?'}, method: :delete, class: 'btn littleText' if can? :destroy, blog %>
       </div>
     </div>
   </div>

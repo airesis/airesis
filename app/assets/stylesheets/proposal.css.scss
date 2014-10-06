@@ -40,9 +40,10 @@
   position: relative;
 }
 
-.comment_update_divider {
+.panel.callout.comment_update_divider {
   margin-left: 97px;
-  background-color: #bbb;
+  margin-bottom: 0px;
+  border-top: 0px;
   padding: 0.3em;
   border-bottom: 1px solid #ccc;
   border-left: 1px solid #ccc;
@@ -893,9 +894,11 @@ input.edit_label {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.btn.contributeSectionButton {
+.btn.contribute-section-button {
   margin-top: 4px;
   padding: 0.5em 0.8em !important;
+  min-width: 30px;
+  min-height: 30px;
 }
 
 .vote_panel {
@@ -1015,7 +1018,8 @@ input.edit_label {
   }
 
   .model_name {
-    font-size: 2em;
+    font-size: 2rem;
+    line-height: 2rem;
     text-align: center;
     margin-top: 10px;
     .name {
@@ -1176,12 +1180,11 @@ input.edit_label {
   top: 30px;
 }
 
-#change_nick {
+.change_nick {
   display: inline;
-}
-
-#change_nick .countdown_row {
-  font-size: 12px;
+  .countdown_row {
+    font-size: 12px;
+  }
 }
 
 .remove_sol_button {

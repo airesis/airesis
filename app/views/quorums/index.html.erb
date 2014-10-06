@@ -3,7 +3,10 @@
 
 <% end %>
 
-<%= link_to t('pages.groups.edit_quorums.add_quorum'), new_group_best_quorum_url(@group), data: {remote: true, disable_with: t('loading')}, class: "btn blue newButton disable" %>
+<%= link_to new_group_best_quorum_url(@group), data: {remote: true, disable_with: t('loading')}, class: "btn blue disable" do %>
+    <i class="fa fa-plus"></i>
+    <%= t('pages.groups.edit_quorums.add_quorum') %>
+<% end %>
 <div id="quorum_panel_container" xmlns="http://www.w3.org/1999/html">
   <%= render partial: 'groups/quorums_panel' %>
 </div>
@@ -11,22 +14,26 @@
 <table>
   <thead>
   <tr>
-    <td colspan="2"><%= t('pages.groups.statistics.title', date: @group.statistic.updated_at)%></td>
-    </tr>
+    <td colspan="2"><%= t('pages.groups.statistics.title', date: @group.statistic.updated_at) %></td>
+  </tr>
   </thead>
   <tbody>
-    <tr>
-      <td><%='Debate participants'%></td>
-      <td><%=@group.statistic.valutations.round(0)%> (<%= (@group.statistic.valutations*100 / @group.count_proposals_participants).round(0) %>%)</td>
-    </tr>
-    <tr>
-      <td><%='Debate maturity'%></td>
-      <td><%= @group.statistic.good_score.round(0) %>%</td>
-    </tr>
-    <tr>
-    <td><%='Votation participants'%></td>
-    <td><%=@group.statistic.vote_valutations.round(0)%> (<%= (@group.statistic.vote_valutations*100 / @group.count_voter_participants).round(0) %>%)</td>
-    </tr>
+  <tr>
+    <td><%= 'Debate participants' %></td>
+    <td><%= @group.statistic.valutations.round(0) %>
+      (<%= (@group.statistic.valutations*100 / @group.count_proposals_participants).round(0) %>%)
+    </td>
+  </tr>
+  <tr>
+    <td><%= 'Debate maturity' %></td>
+    <td><%= @group.statistic.good_score.round(0) %>%</td>
+  </tr>
+  <tr>
+    <td><%= 'Votation participants' %></td>
+    <td><%= @group.statistic.vote_valutations.round(0) %>
+      (<%= (@group.statistic.vote_valutations*100 / @group.count_voter_participants).round(0) %>%)
+    </td>
+  </tr>
   </tbody>
 </table>
 

@@ -12,6 +12,7 @@ class Ability
     r_blog_post_is_public = {status: BlogPost::PUBLISHED}
 
     alias_action :vote_results, to: :read
+    alias_action :by_year_and_month, to: :read
 
     can [:index, :show, :read], [Blog, Group]
     can :view_data, Group, private: false
@@ -23,7 +24,7 @@ class Ability
     can :read, PostPublishing, blog_post: r_blog_post_is_public
     can :new, BlogComment, blog_post: r_blog_post_is_public
     can [:read, :new], BlogComment, blog: r_blog_post_is_public
-    can [:read, :new, :report, :history, :list, :left_list], ProposalComment, proposal: {private: false}
+    can [:read, :new, :report, :history, :list, :left_list, :show_all_replies], ProposalComment, proposal: {private: false}
     can :index, Proposal
     can :show, Proposal, private: false
     can :show, Proposal, visible_outside: true
@@ -92,7 +93,7 @@ class Ability
 
       can :unintegrate, ProposalComment, user: {id: user.id}, integrated: true
 
-      can [:index, :list, :edit_list, :left_list], ProposalComment
+      can [:index, :list, :edit_list, :left_list, :show_all_replies], ProposalComment
       can [:show, :history, :report], ProposalComment, user_id: user.id
       can [:show, :history, :report], ProposalComment, proposal: {groups: can_do_on_group(user, GroupAction::PROPOSAL_VIEW)}
       can :create, ProposalComment, proposal: {private: false}
@@ -155,7 +156,7 @@ class Ability
       end
 
       can :view_data, Group, private: false
-      can :view_data, Group, group_participations: {user: {id: user.id}}
+      can [:view_data, :permissions_list], Group, group_participations: {user: {id: user.id}}
 
       can [:read, :create, :update, :change_group_permission], ParticipationRole, group: is_admin_of_group(user)
       can :destroy, ParticipationRole do |participation_role|
@@ -276,7 +277,7 @@ class Ability
       can [:update, :destroy], Event, groups: can_do_on_group(user, GroupAction::CREATE_EVENT)
       cannot [:update, :destroy], Event, event_type_id: EventType::VOTAZIONE, proposals: ['proposals.id != null'], possible_proposals: ['proposals.id != null']
 
-      can :read, Alert, user_id: user.id
+      can [:read, :check], Alert, user_id: user.id
 
       can :update, ProposalNickname, ["user_id = #{user.id} and created_at > :limit", limit: 10.minutes.ago] do |proposal_nickname|
         proposal_nickname.user_id == user.id &&
@@ -294,7 +295,7 @@ class Ability
 
       #forum permissions
       can :read, Frm::Category, group: participate_in_group(user)
-      can :read, Frm::Topic, group: participate_in_group(user)
+      can :read, Frm::Topic, forum: {group: participate_in_group(user)}
       can :read, Frm::Forum, group: participate_in_group(user)
 
       can :manage, Frm::Category, group: is_admin_of_group(user)
@@ -303,7 +304,7 @@ class Ability
 
       can [:new, :create], Frm::Topic, forum: {group: participate_in_group(user)}
 
-      can :reply, Frm::Topic, group: participate_in_group(user)
+      can :reply, Frm::Topic, forum: {group: participate_in_group(user)}
 
       can :edit_post, Frm::Forum, group: participate_in_group(user)
 

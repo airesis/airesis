@@ -4,16 +4,16 @@
       <% range = @proposal.solutions.count %>
       <% range += 1 if range.even? %>
 
-      <% if @proposal.is_schulze? #schulze          %>
+      <% if @proposal.is_schulze? #schulze           %>
           <p><%= raw t('pages.proposals.vote_panel.schulze_title', max: range) %></p>
           <h5><%= @proposal.secret_vote ? t('pages.proposals.vote_panel.secret_vote') : t('pages.proposals.vote_panel.clear_vote') %></h5>
 
           <div id="solutions_table">
-            <% @proposal.solutions.each_with_index do |solution,i| %>
+            <% @proposal.solutions.each_with_index do |solution, i| %>
                 <div class="row solution_row panel" data-id="<%= solution.id %>">
                   <div class="columns large-3 small-8">
                     <a class="vote_solution_title" data-id="<%= solution.id %>" href="#" onclick="return scrollToSolution(this);">
-                      <%=raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}",num: i+1)%> <%= "#{solution.title}" %>
+                      <%= raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}", num: i+1) %> <%= "#{solution.title}" %>
                     </a>
                   </div>
                   <div class="columns large-8 small-9 hide-for-small outer_slider_row">
@@ -48,15 +48,18 @@
                   <%= f.label 'Token di sicurezza' %>
                   <%= f.text_field 'token', maxlength: 6 %>
               <% end %>
-              <%= f.button t('pages.proposals.show.vote_button'), onclick: "return elaboraVoto();", remote: true, data: {confirm: t('pages.votations.show.confirm_schulze', name: @proposal.title)}, id: 'submit', class: 'btn blue acceptButton' %>
+              <%= f.button onclick: "return elaboraVoto();", remote: true, data: {confirm: t('pages.votations.show.confirm_schulze', name: @proposal.title)}, id: 'submit', class: 'btn blue' do %>
+                  <i class="fa fa-check"></i>
+                  <%= t('pages.proposals.show.vote_button') %>
+              <% end %>
           <% end %>
 
           <script type="text/javascript">
 
-            function scrollToSolution(el) {
-                scrollToElement($('.solution_main[data-solution_id='+$(el).attr('data-id') + ']'));
-                return false;
-            }
+              function scrollToSolution(el) {
+                  scrollToElement($('.solution_main[data-solution_id=' + $(el).attr('data-id') + ']'));
+                  return false;
+              }
               $(function () {
                   $('.vote_solution_title').each(function () {
                       $(this).qtip({
@@ -115,7 +118,7 @@
 
 
           </script>
-      <% else #standard          %>
+      <% else #standard           %>
           <h4><%= t('pages.proposals.vote_panel.single_title') %></h4>
           <h4><%= @proposal.secret_vote ? t('pages.proposals.vote_panel.secret_vote') : t('pages.proposals.vote_panel.clear_vote') %></h4>
 

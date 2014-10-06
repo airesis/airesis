@@ -8,8 +8,8 @@ start_end_fdatetimepicker($('#event_starttime'), $("#event_endtime"));
 $('.legend').hide();
 
 $("#new_event").quickWizard({
-    prevButton: '<button id="form-wizard-prev" type="button" class="btn backButton"><%=j t('buttons.go_back')%></button>',
-    nextButton: '<button id="form-wizard-next" type="button" class="btn blue forwardButton"><%=j t('buttons.next')%></button>',
+    prevButton: '<button id="form-wizard-prev" type="button" class="btn"><i class="fa fa-arrow-left"></i><%=j t('buttons.go_back')%></button>',
+    nextButton: '<button id="form-wizard-next" type="button" class="btn blue"><i class="fa fa-arrow-right"></i><%=j t('buttons.next')%></button>',
     nextCallback: function () {
         setTimeout(function () {
             google.maps.event.trigger(map, 'resize');
@@ -27,8 +27,6 @@ window.ClientSideValidations.selectors = {
 };
 
 $('#new_event').enableClientSideValidations();
-
-disegnaBottoni();
 
 <%unless @event.is_votazione? %>
 if (!geocoder) {

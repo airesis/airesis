@@ -1,5 +1,11 @@
 <% if !@topic.subscriber?(current_user.id) %>
-    <%= link_to t("frm.topics.show.subscribe"), subscribe_group_forum_topic_url(@group, @forum, @topic), remote: true, class: "btn signalButton" %>
+    <%= link_to subscribe_group_forum_topic_url(@group, @forum, @topic), remote: true, class: "btn" do %>
+        <i class="fa fa-bell"></i>
+        <%= t("frm.topics.show.subscribe") %>
+    <% end %>
 <% else %>
-    <%= link_to t("frm.topics.show.unsubscribe"), unsubscribe_group_forum_topic_url(@group, @forum, @topic), remote: true, class: "btn signalButton" %>
+    <%= link_to unsubscribe_group_forum_topic_url(@group, @forum, @topic), remote: true, class: "btn" do %>
+        <i class="fa fa-bell-slash"></i>
+        <%= t("frm.topics.show.unsubscribe") %>
+    <% end %>
 <% end %>

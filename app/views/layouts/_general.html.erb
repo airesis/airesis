@@ -30,13 +30,11 @@
       </div>
     </aside>
 
-
     <div id="main">
-
-
       <div id="main-copy">
         <% if @noleft %>
-            <div class="row" style="padding-bottom:30px;">
+            <div id="centerpanelextended" class="centerpanelextended <%= 'noleft' unless content_for?(:left_panel) %> <%= 'nomargin' if @nomargin %>">
+            <div class="row">
               <div class="columns large-12">
                 <%= yield :left_panel %>
                 <div id="flash_messages">
@@ -45,6 +43,7 @@
                 <%= render partial: 'layouts/tutorials' %>
                 <%= yield :layout %>
               </div>
+            </div>
             </div>
         <% else %>
             <% if content_for?(:left_panel) %>
@@ -72,6 +71,8 @@
   </div>
 </div>
 <%= render partial: "layouts/footer" %>
+
+<%= render partial: "fragments/loading" %>
 
 </body>
 </html>

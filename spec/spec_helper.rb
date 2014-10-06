@@ -69,6 +69,7 @@ RSpec.configure do |config|
 
 
   Capybara.register_driver :selenium do |app|
+    Selenium::WebDriver::Firefox::Binary.path='/opt/homebrew-cask/Caskroom/firefox/latest/Firefox.app/Contents/MacOS/firefox-bin'
     Capybara::Selenium::Driver.new(app, :browser => :firefox)
   end
 

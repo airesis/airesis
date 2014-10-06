@@ -1,10 +1,13 @@
-<h1><%= t('pages.groups.edit_work_areas.manage.manage_roles_in_area', area: @group_area.name)  %></h1>
+<h1><%= t('pages.groups.edit_work_areas.manage.manage_roles_in_area', area: @group_area.name) %></h1>
 
 <div id="roles_panel_container">
   <%= render partial: 'group_areas/roles_panel' %>
 </div>
 <br/>
-<%= link_to t('pages.groups.edit_permissions.new_role'), new_group_group_area_area_role_url(@group, @group_area), remote: true, data: {disable_with: t('loading')}, class: 'btn blue newButton' %>
+<%= link_to new_group_group_area_area_role_url(@group, @group_area), remote: true, data: {disable_with: t('loading')}, class: 'btn blue' do %>
+    <i class="fa fa-plus"></i>
+    <%= t('pages.groups.edit_permissions.new_role') %>
+<% end %>
 
 <hr/>
 
@@ -13,13 +16,13 @@
 </div>
 
 <script type="text/javascript">
-    $(document).on('click','[data-area-action-abilitation]',function() {
+    $(document).on('click', '[data-area-action-abilitation]', function () {
         var role_id = $(this).data('area_role_id');
         var action_id = $(this).data('action_id');
         var block_ = !this.checked;
         $.ajax({
-            data: "action_id="+action_id+"&block="+block_+"&l=<%=I18n.locale%>",
-            url: "/groups/<%=@group.id%>/group_areas/<%=@group_area.id%>/area_roles/"+role_id+"/change",
+            data: "action_id=" + action_id + "&block=" + block_ + "&l=<%=I18n.locale%>",
+            url: "/groups/<%=@group.id%>/group_areas/<%=@group_area.id%>/area_roles/" + role_id + "/change",
             dataType: 'script',
             type: 'patch'
         });
@@ -29,7 +32,6 @@
 <script type="text/javascript">
     $(function () {
         generateTable();
-        disegnaBottoni();
     });
 
     function generateTable() {
@@ -85,8 +87,4 @@
 
         $('#roles_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");
     }
-
-
-
-    disegnaBottoni();
 </script>

@@ -1,7 +1,13 @@
 <% if @group %>
-    <%= link_to t('proposals.regenerate_button'), '#', class: "historyButton btn", data: {'reveal-id' => "regenerate_container"} if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
+    <%= link_to '#', class: "historyButton btn", data: {'reveal-id' => "regenerate_container"} do %>
+        <i class="fa fa-rotate-left"></i>
+        <%= t('proposals.regenerate_button') %>
+    <% end if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
 <% else %>
-    <%= link_to t('proposals.regenerate_button'), '#', class: "historyButton btn", data: {'reveal-id' => "regenerate_container"} %>
+    <%= link_to '#', class: "historyButton btn", data: {'reveal-id' => "regenerate_container"} do %>
+        <i class="fa fa-rotate-left"></i>
+        <%= t('proposals.regenerate_button') %>
+    <% end %>
 <% end %>
 
 <div id="regenerate_container" class="reveal-modal" data-reveal>
@@ -9,7 +15,7 @@
   <%= form_for @group ? [@group, @proposal] : @proposal, url: {action: :regenerate}, validate: true, remote: true do |f| %>
       <%= render partial: '/proposal_types/quorum_choice', locals: {f: f} %>
       <a href="#" class="btn" onclick="$('#regenerate_container').foundation('reveal','close');"><%= t('buttons.cancel') %></a>
-      <%= f.button t('pages.proposals.show.back_debate_button'), class: 'btn blue', data:{disable_with: t('loading')}, onclick: 'return check_quorum();' %>
+      <%= f.button t('pages.proposals.show.back_debate_button'), class: 'btn blue', data: {disable_with: t('loading')}, onclick: 'return check_quorum();' %>
   <% end %>
   <a class="close-reveal-modal">&#215;</a>
 </div>

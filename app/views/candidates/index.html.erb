@@ -79,6 +79,6 @@
 
 <% content_for :left_panel do %>
     <div class="mybox">
-	<%= link_to t('pages.candidates.index.send_candidate_button'), new_group_candidate_url(@group),remote: true, :class=>"btn personButton disable" if (@group.elections.candidates_phase.count != 0) && (can? :send_candidate, @group)%><br />
+	<%= link_to t('pages.candidates.index.send_candidate_button'), new_group_candidate_url(@group),remote: true, :class=>"btn disable" if (@group.elections.candidates_phase.count != 0) && (can? :send_candidate, @group)%><br />
     </div>
 <%end%>

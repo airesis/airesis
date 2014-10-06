@@ -3,7 +3,7 @@
     <div class='panel callout'><p><%= t('pages.groups.edit_quorums.edit_quorum_warning') %></p></div>
 <% end %>
 
-<%= simple_form_for !in_subdomain? ? [@group, @best_quorum] : @best_quorum, validate: true, remote: true do |e| %>
+<%= simple_form_for !in_subdomain? ? [@group, @best_quorum] : @best_quorum, validate: true, remote: request.xhr? do |e| %>
     <div class="row">
       <div class="columns small-12">
         <%= e.input :name %>
@@ -77,7 +77,10 @@
       <div class="columns large-12">
         <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>
         <%= link_to t('buttons.go_back'), :back, class: 'btn', data: {back: ''} %>
-        <%= e.button :button, button_name, class: 'btn blue saveButton' %>
+        <%= e.button :button, class: 'btn blue' do %>
+            <i class="fa fa-save"></i>
+            <%= button_name %>
+        <% end %>
       </div>
     </div>
 <% end %>
@@ -146,7 +149,6 @@
             }
         });
 
-        disegnaBottoni();
         $(".hours").spinner({
             incremental: true,
             max: 23,

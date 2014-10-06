@@ -40,7 +40,7 @@ class UsersController < ApplicationController
             participation_role = group.default_role
             if data['info']['verified']
               certification = auth.build_certification({name: auth.name, surname: auth.surname, tax_code: auth.email})
-              participation_role = ParticipationRole.where(['group_id = ? and lower(name) = ?',group.id, 'residente']).first || participation_role  #look for best role or fallback
+              participation_role = ParticipationRole.where(['group_id = ? and lower(name) = ?', group.id, 'residente']).first || participation_role #look for best role or fallback
               auth.user_type_id = UserType::CERTIFIED
             end
             auth.group_participations.build(group: group, participation_role_id: participation_role.id)
@@ -361,6 +361,10 @@ class UsersController < ApplicationController
     authorize! :send_message, @user
     ResqueMailer.delay.user_message(params[:message][:subject], params[:message][:body], current_user.id, @user.id)
     flash[:notice] = t('info.message_sent')
+    respond_to do |format|
+      format.js
+      format.html { redirect_to @user }
+    end
   end
 
   def autocomplete
@@ -401,7 +405,7 @@ class UsersController < ApplicationController
       found = InterestBorder.table_element(border)
 
       if found #if I found something so the ID is correct and I can proceed with geographic border creation
-        interest_b = InterestBorder.find_or_create_by({territory_type: InterestBorder::I_TYPE_MAP[ftype],territory_id: fid})
+        interest_b = InterestBorder.find_or_create_by({territory_type: InterestBorder::I_TYPE_MAP[ftype], territory_id: fid})
         i = current_user.user_borders.build({interest_border_id: interest_b.id})
         i.save
       end

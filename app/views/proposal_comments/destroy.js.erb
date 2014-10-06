@@ -5,7 +5,7 @@ $('#replys<%=@proposal_comment.id.to_s%>').hide(600);
 if (Airesis.id != <%=current_user.id%>) {
     <%if @proposal_comment.paragraph_id %>
     var data_section_id = "[data-section_id=<%=@proposal_comment.section_id%>]";
-    var contribute_button = $('.contributeButton'+data_section_id);
+    var contribute_button = $('.contribute-button'+data_section_id);
     var num_contributes = parseInt(contribute_button.attr('data-contributes_num'));
     contribute_button.attr('data-contributes_num',num_contributes-1);
 

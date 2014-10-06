@@ -155,6 +155,7 @@ Airesis::Application.routes.draw do
   resources :comunes
 
   get 'elfinder' => 'elfinder#elfinder'
+  post 'elfinder' => 'elfinder#elfinder'
 
   devise_for :users, controllers: {omniauth_callbacks: "users/omniauth_callbacks", sessions: "sessions", registrations: "registrations", passwords: "passwords", confirmations: 'confirmations'} do
     get '/users/sign_in', to: 'devise/sessions#new'

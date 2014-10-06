@@ -21,14 +21,12 @@ module Frm
     end
 
     def new
-      #authorize! :create_topic, @forum
-      #@topic = @forum.topics.build
+      authorize! :create_topic, @forum
       @topic.posts.build
     end
 
     def create
       authorize! :create_topic, @forum
-      @topic = @forum.topics.build(params[:frm_topic], as: :default)
       @topic.user = current_user
       if @topic.save
         create_successful
@@ -117,7 +115,7 @@ module Frm
     end
 
     def topic_params
-      params.require(:frm_topic).permit(:subject, :posts_attributes, :tags_list)
+      params.require(:frm_topic).permit(:subject, :tags_list, posts_attributes: [:text] )
     end
 
 

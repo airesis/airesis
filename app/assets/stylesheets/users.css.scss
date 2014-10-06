@@ -1,3 +1,21 @@
+
+.user-tag {
+  margin-bottom: 5px;
+  .user-avatar {
+    margin-right: 5px;
+    display: inline-block;
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  .user-name {
+    width: 130px;
+    display:inline-block;
+    line-height: 24px;
+  }
+}
+
 .Mo {
   cursor: pointer;
   float: left;

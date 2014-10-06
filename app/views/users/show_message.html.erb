@@ -1,0 +1,11 @@
+<div class="card">
+  <div class="image_container">
+    <%= @user.user_image_tag 120 %>
+    <% if @user == current_user %>
+        <div class="caption">
+          <a style="color:white"><%= t('pages.users.show.edit_image') %></a>
+        </div>
+    <% end %>
+  </div>
+</div>
+<%= render 'users/message'%>

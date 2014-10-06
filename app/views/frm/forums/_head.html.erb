@@ -10,7 +10,10 @@
   <div id='forum_topic_links' class='btn-group'>
     <% unless @topic.try(:new_record?) %>
         <% if can? :create_topic, @forum %>
-            <%= link_to t('frm.topic.links.new'), new_group_forum_topic_url(@group, forum), class: "btn blue disable newButton", data:{disable_with: t('loading')} %>
+            <%= link_to new_group_forum_topic_url(@group, forum), class: "btn blue disable", data: {disable_with: t('loading')} do %>
+                <i class="fa fa-plus"></i>
+                <%= t('frm.topic.links.new') %>
+            <% end %>
         <% end %>
     <% end %>
 
@@ -23,9 +26,15 @@
 
 <% content_for :left_panel do %>
     <% if @topic %>
-        <%= link_to t('frm.topic.links.back_to_topics'), group_forum_url(@group, forum), class: "btn historyButton" %>
+        <%= link_to group_forum_url(@group, forum), class: "btn" do %>
+            <i class="fa fa-rotate-left"></i>
+            <%= t('frm.topic.links.back_to_topics') %>
+        <% end %>
     <% end %>
     <% if can? :moderate, @forum %>
-        <%= link_to t('frm.forum.moderator_tools'), group_frm_forum_moderator_tools_url(@group, forum), class: "btn flagButton" %>
+        <%= link_to group_frm_forum_moderator_tools_url(@group, forum), class: "btn" do%>
+            <i class="fa fa-flag"></i>
+            <%=t('frm.forum.moderator_tools')%>
+            <%end%>
     <% end %>
 <% end %>

@@ -37,7 +37,7 @@ describe "create a proposal in his group", type: :feature, js: true do
 
     page.execute_script 'window.confirm = function () { return true }'
     page.execute_script 'safe_exit = true;'
-    within('.edit_proposal_panel') do
+    within '#menu-left' do
       click_link I18n.t('buttons.cancel')
     end
     #page.driver.browser.switch_to.alert.accept

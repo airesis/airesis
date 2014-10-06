@@ -1,10 +1,22 @@
 <% if can? :edit, @blog %>
     <div class=mybox>
       <div class="blogAdminLinks">
-        <%= link_to t('pages.blog_posts.new_button'), new_blog_blog_post_path(@blog), class: 'btn green newButton' %>
-        <%= link_to t('pages.blog_posts.drafts_button'), drafts_blog_blog_posts_path(@blog), class: 'btn draftsButton' unless action_name == 'drafts' %>
-        <%= link_to t('pages.blog_posts.published_button'), @blog, class: 'btn draftsButton' unless action_name == 'show' %>
-        <%= link_to t('pages.blogs.show.edit_button'), edit_blog_path(@blog), class: 'btn editButton' %>
+        <%= link_to new_blog_blog_post_path(@blog), class: 'btn green' do %>
+            <i class="fa fa-plus"></i>
+            <%= t('pages.blog_posts.new_button') %>
+        <% end %>
+        <%= link_to drafts_blog_blog_posts_path(@blog), class: 'btn' do %>
+            <i class="fa fa-file-text-o"></i>
+            <%= t('pages.blog_posts.drafts_button') %>
+        <% end unless action_name == 'drafts' %>
+        <%= link_to @blog, class: 'btn' do %>
+            <i class="fa fa-file-text-o"></i>
+            <%= t('pages.blog_posts.published_button') %>
+        <% end  unless action_name == 'show' %>
+        <%= link_to edit_blog_path(@blog), class: 'btn' do %>
+            <i class="fa fa-pencil"></i>
+            <%= t('pages.blogs.show.edit_button') %>
+        <% end %>
       </div>
     </div>
 <% end %>

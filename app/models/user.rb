@@ -144,6 +144,8 @@ class User < ActiveRecord::Base
   scope :unconfirmed, -> { where 'confirmed_at is null' }
   scope :certified, -> { where(user_type_id: UserType::CERTIFIED) }
 
+  scope :autocomplete, ->(term) { where("lower(users.name) LIKE :term or lower(users.surname) LIKE :term", {term: "%#{term.downcase}%"}).order("users.surname desc, users.name desc").limit(10) }
+
   def avatar_url=(url)
     begin
       file = URI.parse(url)
@@ -464,14 +466,6 @@ class User < ActiveRecord::Base
   def can_moderate_forem_forum?(forum)
     forum.moderator?(self)
   end
-
-  def self.autocomplete(term)
-    where("lower(users.name) LIKE :term or lower(users.surname) LIKE :term", {term: "%#{term.downcase}%"}).
-        limit(10).
-        select("users.name, users.surname, users.id, users.image_id, users.email, users.user_type_id").
-        order("users.surname desc, users.name desc")
-  end
-
 
   def forem_moderate_posts?
     false #todo

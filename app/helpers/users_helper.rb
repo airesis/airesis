@@ -62,32 +62,28 @@ module UsersHelper
   #if a proposal is passed as argument are checked few things,
   #if the proposal is_current? and the user has a nickname associated to it
   #then the user real name and image are hidden and replaced by the proposal nickname ones.  
-  def user_tag(user, proposal=nil, full_name=true, show_rank=false)
+  def user_tag(user, proposal=nil, full_name=true, show_rank=false, options={})
     raise "Invalid User" unless user
     if proposal && proposal.is_anonima?
       u_nick = user.proposal_nicknames.find_by_proposal_id(proposal.id)
     end
-    ret = "<div class=\"pcontainer\">
-          <div class=\"MoImg24\">"
-    if u_nick
-      ret += "<img src=\"http://www.gravatar.com/avatar/"
-      ret += Digest::MD5.hexdigest(u_nick.nickname)
-      ret += "?s=24&d=identicon&r=PG\"/>"
-    else
-      ret += user.user_image_tag(24)
+    ret = content_tag :div, class: 'user-tag' do
+      (content_tag :div, class: 'user-avatar' do
+        if u_nick
+          image_tag "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(u_nick.nickname)}?s=24&d=identicon&r=PG"
+        else
+          user.user_image_tag(24)
+        end
+      end) +
+      (content_tag :div, class: 'user-name' do
+        if u_nick
+          u_nick.nickname
+        else
+          link_to_user(user, options.merge(full_name: full_name)) +
+          (" (#{user.rank})" if show_rank)
+        end
+      end)
     end
-    ret +="</div>"
-    ret += "<div class=\"Mo\">"
-    if u_nick
-      ret += u_nick.nickname
-    else
-      ret += link_to_user(user, full_name: full_name)
-      ret += " (#{user.rank})" if show_rank
-    end
-    ret += "</div>
-          <div style=\"clear: both;\"></div>
-      </div>"
-    return ret.html_safe
   end
 
   def user_tag_mini(user, proposal=nil, full_name=true)

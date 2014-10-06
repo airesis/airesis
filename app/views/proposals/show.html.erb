@@ -269,12 +269,12 @@
         //0 - not fetched - closed
         //1 - fetched - open
         //2 - fetched - closed
-        $(".contributeButton").click(function (event, comment_id) { //when we click on show contributes button
+        $(".contribute-button").click(function (event, comment_id) { //when we click on show contributes button
             var this_ = $(this);
             var section_id = $(this).attr("data-section_id");
             var this_status = $(this).attr("data-status");
 
-            $(".contributeButton").each(function () {
+            $(".contribute-button").each(function () {
                 var his_status = $(this).attr("data-status");
                 var his_section_id = $(this).attr("data-section_id");
                 if (this_[0] != this) {     //for each right panel that is not the opened one
@@ -358,7 +358,7 @@
 
         //open the contribute if it's a link from an email
         <%if params[:section_id] %>
-        $('.contributeButton[data-section_id=<%=params[:section_id]%>]').trigger('click', [<%=params[:comment_id]%>]);
+        $('.contribute-button[data-section_id=<%=params[:section_id]%>]').trigger('click', [<%=params[:comment_id]%>]);
         <%end%>
 
         <%if params[:share] %>

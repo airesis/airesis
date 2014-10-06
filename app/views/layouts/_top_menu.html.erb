@@ -11,8 +11,8 @@
       <ul class="left">
         <% unless in_subdomain? %>
             <li class="has-form">
-              <a id="logo-but" href="#" class="button"  data-dropdown="hover1" data-options="is_hover:false">
-                <span class="icon-users small"></span>
+              <a id="logo-but" href="#" class="button" data-dropdown="hover1" data-options="is_hover:false">
+                <i class="fa fa-users medium"></i>
                 <span class="show-for-large-up"><%= t('pages.header.groups_title') %></span>
               </a>
             </li>
@@ -24,11 +24,6 @@
                     <div class="large-12 small-10 columns">
                       <%= f.text_field :q, placeholder: "Find Stuff" %>
                     </div>
-                    <!--<div class="large-2 small-2 columns">
-                  <%= link_to searches_path do %>
-                      <div class="icon-search medium"></div>
-                  <% end %>
-                </div>-->
                   </div>
               <% end %>
               <div id="search_box" class="card"></div>
@@ -38,22 +33,22 @@
 
       <ul class="right">
         <li class="hide-for-small"><%= link_to sostienici_path, class: 'cur love', title: t('pages.header.support_us') do %>
-              <div class="icon-heart medium"></div>
+              <i class="fa fa-heart medium"></i>
           <% end %></li>
         <li class="hide-for-small">
           <%= link_to "#", onclick: "return false;", data: {dropdown: "help_panel", options: "is_hover:false"} do %>
-              <div class="icon-question medium cur info" title="TUTORIAL"></div>
+              <i class="fa fa-question medium cur info" title="TUTORIAL"></i>
           <% end %>
         </li>
 
         <% if current_user %>
             <li>
               <%= link_to '#', class: 'button account show-for-large-up', data: {dropdown: "personal_menu_large", options: "is_hover:false"} do %>
-                  <%= current_user.user_image_tag 30, cert: false %>
+                  <%= current_user.user_image_tag 34, cert: false %>
                   <span><%= current_user.fullname %></span>
               <% end %>
               <%= link_to '#', class: 'account hide-for-large-up', data: {dropdown: "personal_menu_small", options: "is_hover:false"} do %>
-                  <%= current_user.user_image_tag 30, cert: false %>
+                  <%= current_user.user_image_tag 34, cert: false %>
               <% end %>
             </li>
             <li>
@@ -99,27 +94,27 @@
     <% end %>
   </li>
   <li>
-    <%= link_to 'http://bugtracking.airesis.it/projects/airesis/wiki/FAQ', title: t('pages.home.index.FAQ'), target: '_blank' do%>
+    <%= link_to 'http://bugtracking.airesis.it/projects/airesis/wiki/FAQ', title: t('pages.home.index.FAQ'), target: '_blank' do %>
         <span class="icon-notebook"></span>
-        <%=t('pages.home.index.FAQ')%>
+        <%= t('pages.home.index.FAQ') %>
     <% end %>
   </li>
   <li>
-    <%= link_to 'http://bugtracking.airesis.it/projects/airesis/wiki/Home_Page', title: t('pages.home.index.guide'), target: '_blank' do%>
+    <%= link_to 'http://bugtracking.airesis.it/projects/airesis/wiki/Home_Page', title: t('pages.home.index.guide'), target: '_blank' do %>
         <span class="icon-notebook"></span>
-        <%=t('pages.home.index.guide')%>
+        <%= t('pages.home.index.guide') %>
     <% end %>
   </li>
   <li>
-    <%= link_to edemocracy_path, title: t('pages.home.index.whatis') do%>
+    <%= link_to edemocracy_path, title: t('pages.home.index.whatis') do %>
         <span class="icon-info"></span>
-        <%=t('pages.home.index.whatis')%>
+        <%= t('pages.home.index.whatis') %>
     <% end %>
   </li>
   <li>
-    <%= link_to chisiamo_path, title: t('pages.home.index.whowe') do%>
+    <%= link_to chisiamo_path, title: t('pages.home.index.whowe') do %>
         <span class="icon-users2"></span>
-        <%=t('pages.home.index.whowe')%>
+        <%= t('pages.home.index.whowe') %>
     <% end %>
   </li>
 
@@ -130,38 +125,22 @@
 
 
       <% if user_signed_in? %>
-          <% @groups = current_user.groups %>
-          <% if @groups.empty? %>
+          <% if current_user.groups.empty? %>
               <%= t('pages.header.no_groups_yet') %>
           <% else %>
-              <% @groups.each do |group| %>
-
-                  <%= render 'groups/group_menu_item', group: group %>
-
-              <% end %>
+              <%= render partial: 'groups/group_menu_item', collection: current_user.groups, as: :group %>
           <% end %>
-      <% else %>
-          <div class="group-item">
-            <div style="float:left;">
-              <%= image_tag 'logo30.png', width: 60, alt: ENV['APP_LONG_NAME'] %>
-            </div>
-            <div class="p1"><%= link_to t('open_space'), proposals_url(subdomain: false) %></div>
-
-            <div class="p2">
-              <%= link_to t('pages.header.groups.proposals'), proposals_url(subdomain: false) %> -
-              <%= link_to t('pages.header.groups.events'), events_url(subdomain: false) %>
-            </div>
-            <div class="clearboth"></div>
-          </div>
       <% end %>
       <div class="group-item">
-        <%= link_to t('pages.header.open_group'), new_group_url(subdomain: false), class: 'btn blue' %>
-        <%= link_to t('pages.header.new_group'), groups_url(subdomain: false), class: 'btn blue' %>
+        <%= link_to new_group_url(subdomain: false), class: 'btn blue' do %>
+            <i class="fa fa-plus"></i>
+            <%= t('pages.header.open_group') %>
+        <% end %>
+        <%= link_to groups_url(subdomain: false), class: 'btn blue' do %>
+            <i class="fa fa-search"></i>
+            <%= t('pages.header.new_group') %>
+        <% end %>
       </div>
-    </div>
-
-    <div id="airesis_panel" class="f-dropdown medium" data-dropdown-content>
-      PANEL
     </div>
 <% end %>
 
@@ -186,7 +165,10 @@
                     <%= t('pages.header.menu.remember_me') %>
                 <% end %>
 
-                <%= f.button t('pages.header.menu.login_button'), class: "btn blue loginButton" %>
+                <%= f.button class: "btn blue" do %>
+                    <i class="fa fa-key"></i>
+                    <%= t('pages.header.menu.login_button') %>
+                <% end %>
 
             <% end %>
 

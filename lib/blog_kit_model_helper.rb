@@ -12,6 +12,51 @@ module BlogKitModelHelper
   end
 
 
+  def user_image_url(size=80,params={})
+    url= params[:url]
+    certification_logo= params[:cert].nil? ? true : params[:cert]
+    force_size= params[:force_size].nil? ? true : params[:force_size]
+
+    if self.respond_to?(:user)
+      user = self.user
+    else
+      user = self
+    end
+
+    if user.certified? && certification_logo && size < 60
+      size = size-6
+    end
+
+    if user.avatar_file_name.present?
+      ret = user.avatar.url
+    elsif user.has_provider(Authentication::FACEBOOK)
+      if size <= 50
+        fsize = 'small'
+      elsif size <= 100
+        fsize = 'normal'
+      else
+        fsize = 'large'
+      end
+      uid = user.authentications.find_by_provider(Authentication::FACEBOOK).uid
+      ret = "https://graph.facebook.com/#{uid}/picture?type=#{fsize}"
+    elsif user.has_provider(Authentication::GOOGLE)
+      uid = user.authentications.find_by_provider(Authentication::GOOGLE).uid
+      ret = "https://www.google.com/s2/photos/profile/#{uid}?sz=#{fsize}"
+    else
+      # Gravatar
+      require 'digest/md5'
+      if !user.email.blank?
+        email = user.email
+      else
+        return ''
+      end
+
+      hash = Digest::MD5.hexdigest(email.downcase)
+      ret = "http://www.gravatar.com/avatar/#{hash}?s=#{size}"
+    end
+    ret
+  end
+
   def user_image_tag(size, params={})
     size= size || 80
     url= params[:url]

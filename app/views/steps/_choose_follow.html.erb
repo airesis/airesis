@@ -9,7 +9,7 @@
 	<div style="clear: both;"></div>		
 	<%=form_for 'groupsi', url: {controller: 'groups', action: 'ask_for_multiple_follow'} do |f|%>
 	<%=f.hidden_field 'group_ids'%>	
-	<%=f.button t('buttons.chosen'), class: 'btn blue forwardButton', style: "float:right;" %>
+	<%=f.button t('buttons.chosen'), class: 'btn blue', style: "float:right;" %>
 		
 	<%end%>
 	<div style="clear: both;"></div>	

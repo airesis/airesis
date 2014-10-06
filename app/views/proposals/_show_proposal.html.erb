@@ -11,7 +11,7 @@
 </script>
 <% if current_user %>
     <% @unread = @proposal.contributes.listable.unread(current_user.id, @proposal.id) %>
-    <% if false && @unread.count > 0 #TODO%>
+    <% if false && @unread.count > 0 #TODO     %>
         <%= link_to '#', class: 'read_contributes' do %>
             <div class="icon-bell medium"></div>
         <% end %>
@@ -21,7 +21,7 @@
             $('.read_contributes').css('top', '90px').css('right', '20px');
             $('.read_contributes').click(function () {
                 var obj_ = unread.pop();
-                $('.contributeButton[data-section_id=' + obj_.section + ']').trigger('click', obj_.id);
+                $('.contribute-button[data-section_id=' + obj_.section + ']').trigger('click', obj_.id);
                 if (unread.length == 0) {
                     $(this).remove();
                 }
@@ -51,17 +51,32 @@
   <% end %>
   <% if can? :update, @proposal %>
       <% if @group %>
-          <%= link_to t('pages.proposals.show.edit_button'), edit_group_proposal_url(@group, @proposal), class: 'btn editButton' if can? :update, @proposal %>
-          <%= link_to t('pages.proposals.show.delete_button'), group_proposal_url(@group, @proposal), method: :delete, data: {confirm: t('pages.proposals.show.delete_proposal_confirmation')}, class: 'btn trashButton' if can? :destroy, @proposal %>
+          <%= link_to edit_group_proposal_url(@group, @proposal), class: 'btn' do %>
+              <i class="fa fa-pencil"></i>
+              <%= t('pages.proposals.show.edit_button') %>
+          <% end if can? :update, @proposal %>
+          <%= link_to group_proposal_url(@group, @proposal), method: :delete, data: {confirm: t('pages.proposals.show.delete_proposal_confirmation')}, class: 'btn' do %>
+              <i class="fa fa-trash-o"></i>
+              <%= t('pages.proposals.show.delete_button') %>
+          <% end if can? :destroy, @proposal %>
       <% else %>
-          <%= link_to t('pages.proposals.show.edit_button'), edit_proposal_path(@proposal), class: 'btn editButton' if can? :update, @proposal %>
-          <%= link_to t('pages.proposals.show.delete_button'), @proposal, method: :delete, data: {confirm: t('pages.proposals.show.delete_proposal_confirmation')}, class: 'btn trashButton' if can? :destroy, @proposal %>
+          <%= link_to edit_proposal_path(@proposal), class: 'btn' do %>
+              <i class="fa fa-pencil"></i>
+              <%= t('pages.proposals.show.edit_button') %>
+          <% end if can? :update, @proposal %>
+          <%= link_to @proposal, method: :delete, data: {confirm: t('pages.proposals.show.delete_proposal_confirmation')}, class: 'btn' do %>
+              <i class="fa fa-trash-o"></i>
+              <%= t('pages.proposals.show.delete_button') %>
+          <% end if can? :destroy, @proposal %>
       <% end %>
   <% end %>
 
   <% if @proposal.in_valutation? %>
-      <%= link_to t('pages.proposals.show.close_debate_button'), @group ? close_debate_group_proposal_url(@group, @proposal) : close_debate_proposal_url(@proposal), method: :post, data: {confirm: t('pages.proposals.show.close_debate_proposal_confirmation')}, class: 'btn closeButton' if can? :close_debate, @proposal %>
-  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox                      %>
+      <%= link_to @group ? close_debate_group_proposal_url(@group, @proposal) : close_debate_proposal_url(@proposal), method: :post, data: {confirm: t('pages.proposals.show.close_debate_proposal_confirmation')}, class: 'btn' do %>
+          <i class="fa fa-close"></i>
+          <%= t('pages.proposals.show.close_debate_button') %>
+      <% end  if can? :close_debate, @proposal %>
+  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox %>
       <div id="wait_date_header_container">
         <%= render partial: 'proposals/wait_date_header' %>
       </div>
@@ -83,7 +98,7 @@
 <div style="clear: both;"></div>
 
 <% unless @proposal.is_petition? %>
-    <% if @proposal.waiting? #waiting for the vote period      %>
+    <% if @proposal.waiting? #waiting for the vote period           %>
         <div class="status_description card">
           <b><%= t('pages.proposals.show.votation_message', from: l(@proposal.vote_period.starttime), to: l(@proposal.vote_period.endtime)) %></b>
         </div>
@@ -110,10 +125,14 @@
               <% contributes_num = section.proposal_comments.listable.count %>
               <% unread = current_user ? section.proposal_comments.listable.unread(current_user.id, @proposal.id).count : contributes_num %>
               <div class="suggest">
-                <a href="#" class="btn green contributeButton contributeSectionButton" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>"><%= t('pages.proposals.show.give_contribute') %> <%= "(#{unread}/#{contributes_num})" %></a>
+                <a href="#" class="btn green contribute-button contribute-section-button" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>">
+                  <i class="fa fa-pencil"></i>
+                  <%= t('pages.proposals.show.give_contribute') %>
+                  <%= "(#{unread}/#{contributes_num})" %>
+                </a>
 
                 <div class="suggest_l" style="display: none;">
-                  <%=image_tag 'suggest.png', class: 'tria'%>
+                  <%= image_tag 'suggest.png', class: 'tria' %>
                 </div>
               </div>
           <% end %>
@@ -147,8 +166,12 @@
                       <% contributes_num = section.proposal_comments.listable.count %>
                       <% unread = current_user ? section.proposal_comments.listable.unread(current_user.id, @proposal.id).count : contributes_num %>
                       <div class="suggest">
-                        <a href="#" class="btn green contributeButton contributeSectionButton" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>"><%= t('pages.proposals.show.give_contribute') %> <%= "(#{unread}/#{contributes_num})" %></a>
-                        <%=image_tag 'suggest.png', class: 'tria', style: 'display:none'%>
+                        <a href="#" class="btn green contribute-button contribute-section-button" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>">
+                          <i class="fa fa-pencil"></i>
+                          <%= t('pages.proposals.show.give_contribute') %>
+                          <%= "(#{unread}/#{contributes_num})" %>
+                        </a>
+                        <%= image_tag 'suggest.png', class: 'tria', style: 'display:none' %>
                       </div>
                   <% end %>
                 </div>

@@ -1,15 +1,21 @@
-<div class="text"><b><%= t('pages.steps.choose_image.title')%><br />
-</b>
-<%if @user.from_identity_provider?%>
-<%= t('pages.steps.choose_image.Identity_provider')%><br />
-<%= t('pages.steps.choose_image.Identity_provider2')%>
-<br />
-<%else%>
-<%= t('pages.steps.choose_image.gravatar')%>
-<br />
-<%end%>
-<%= t('pages.steps.choose_image.edit_image') %><b><%=t('pages.users.show.edit_image')%></b>.
-<div style="clear: both"></div>
-<%= link_to t('buttons.next'), complete_tutorial_step_path(@step.tutorial,@step), class: 'btn blue forwardButton', style: "float:right;" %>
-<div style="clear: both"></div>
+<div class="text">
+  <b><%= t('pages.steps.choose_image.title') %><br/>
+  </b>
+  <% if @user.from_identity_provider? %>
+      <%= t('pages.steps.choose_image.Identity_provider') %>
+      <br/>
+      <%= t('pages.steps.choose_image.Identity_provider2') %>
+      <br/>
+  <% else %>
+      <%= t('pages.steps.choose_image.gravatar') %>
+      <br/>
+  <% end %>
+  <%= t('pages.steps.choose_image.edit_image') %>
+  <b><%= t('pages.users.show.edit_image') %></b>.
+  <div style="clear: both"></div>
+  <%= link_to complete_tutorial_step_path(@step.tutorial, @step), class: 'btn blue', style: "float:right;" do %>
+      <i class="fa fa-arrow-right"></i>
+      <%= t('buttons.next') %>
+  <% end %>
+  <div style="clear: both"></div>
 </div> 

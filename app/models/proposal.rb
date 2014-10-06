@@ -537,10 +537,8 @@ class Proposal < ActiveRecord::Base
         self.presentation_areas << group_area
       end
 
-      topic = group.topics.find_by(proposal.topic_id) unless self.topic_id.to_s.empty?
-      if topic
-        self.topic_proposals.build(topic_id: topic.id, user_id: current_user_id)
-      end
+      topic = group.topics.find(topic_id) if topic_id.present?
+      topic_proposals.build(topic_id: topic.id, user_id: current_user_id) if topic
     end
 
     #we don't use quorum for petitions

@@ -23,7 +23,6 @@ $('#more_groups_container').html("<%=j (render partial: 'more_groups')%>");
     window.history.pushState(null,"",'<%=j raw request.url + '&_ajax=true'%>');
     everPushedSomething = 'pushed it real good';
 <%end%>
-disegnaBottoni();
 
 if (window.innerWidth <= 1000) {
     $('html, body').animate({

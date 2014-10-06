@@ -59,54 +59,6 @@ function sticky_relocate() {
     });
 }
 
-function gbutton() {
-
-}
-
-function disegnaBottoni() {
-    $('.buttonStyle').gbutton();
-    $('.editButton').gbutton({icons: {primary: "ui-icon-pencil"}});
-    $('.personButton').gbutton({icons: {primary: "ui-icon-person"}});
-    $('.homeButton').gbutton({icons: {primary: "ui-icon-home"}});
-    $('.calendarButton').gbutton({icons: {primary: "ui-icon-calendar"}});
-    $('.commentButton').gbutton({icons: {primary: "ui-icon-comment"}});
-    $('.ideaButton').gbutton({icons: {primary: "ui-icon-lightbulb"}});
-    $('.deleteButton').gbutton({icons: {primary: "ui-icon-circle-close"}});
-    $('.trashButton').gbutton({icons: {primary: "ui-icon-trash"}});
-    $('.newButton').gbutton({icons: {primary: "ui-icon-plusthick"}});
-    $('.settingsButton').gbutton({icons: {primary: "ui-icon-wrench"}});
-    $('.mapButton').gbutton({icons: {primary: "ui-icon-image"}});
-    $('.forwardButton').gbutton({icons: {primary: "ui-icon-arrowthick-1-e"}});
-    $('.historyButton').gbutton({icons: {primary: "ui-icon-arrowreturnthick-1-w"}});
-    $('.notesButton').gbutton({icons: {primary: "ui-icon-note"}});
-    $('.supportButton').gbutton({icons: {primary: "ui-icon-heart"}});
-    $('.searchButton').gbutton({icons: {primary: "ui-icon-search"}});
-    $('.acceptButton').gbutton({icons: {primary: "ui-icon-check"}});
-    $('.saveButton').gbutton({icons: {primary: "ui-icon-check"}});
-    $('.updateButton').gbutton({icons: {primary: "ui-icon-check"}});
-    $('.rejectButton').gbutton({icons: {primary: "ui-icon-close"}});
-    $('.scriptButton').gbutton({icons: {primary: "ui-icon-script"}});
-    $('.inviteButton').gbutton({icons: {primary: "ui-icon-mail-open"}});
-    $('.documentButton').gbutton({icons: {primary: "ui-icon-document"}});
-    $('.closeButton').gbutton({icons: {primary: "ui-icon-close"}});
-    $('.draftsButton').gbutton({icons: {primary: "ui-icon-script"}});
-    $('.contributeButton').gbutton({icons: {primary: "ui-icon-pencil"}});
-    $('.pdfButton').gbutton({icons: {primary: "ui-icon-print"}});
-    $('.printButton').gbutton({icons: {primary: "ui-icon-print"}});
-    $('.resultsButton').gbutton({icons: {primary: "ui-icon-check"}});
-    $('.signalButton').gbutton({icons: {primary: "ui-icon-signal-diag"}});
-    $('.hideButton').gbutton({icons: {primary: "ui-icon-power"}});
-    $('.lockButton').gbutton({icons: {primary: "ui-icon-locked"}});
-    $('.pinButton').gbutton({icons: {primary: "ui-icon-pin-s"}});
-    $('.flagButton').gbutton({icons: {primary: "ui-icon-flag"}});
-    $('.contactButton').gbutton({icons: {primary: "ui-icon-contact"}});
-    $('.feedbackButton').gbutton({icons: {primary: "ui-icon-notice"}});
-    $('.infoButton').gbutton({icons: {primary: "ui-icon-info"}});
-    $('.bookmarkButton').gbutton({icons: {primary: "ui-icon-bookmark"}});
-    $('.extlinkButton').gbutton({icons: {primary: "ui-icon-extlink"}});
-    $('.helpButton').gbutton({icons: {primary: "ui-icon-help"}});
-    $('.btn.loginButton').gbutton({icons: {primary: "ui-icon-key"}});
-}
 
 function disegnaProgressBar() {
     $('.timeline').each(function () {
@@ -448,9 +400,6 @@ function disegnaCountdown() {
     })
 }
 
-function deleteMe(el) {
-    $(el).remove();
-}
 
 function getURLParameter(name) {
     return decodeURIComponent(
@@ -624,7 +573,7 @@ function poll() {
                 }
 
                 if (!alert.checked) {
-                    alert_container.append($('<span class="ui-icon ui-icon-radio-off read" title="' + Airesis.i18n.alert_read + '" data-type_id="' + data.id + '" onclick="read_notifica(this);return false;"></span>'));
+                    alert_container.append($('<i class="fa fa-circle-o read" title="' + Airesis.i18n.alert_read + '" data-type_id="' + data.id + '" onclick="read_notifica(this);return false;"></i>'));
                 }
                 var notif_container = $('<div class="mess_desc"></div>');
                 notif_container.append($('<p class="p2">' + alert.text + '</p>'));
@@ -877,8 +826,6 @@ if (!jQuery.browser) {
 
 var rails = $.rails;
 rails.handleRemote = function (element) {
-    console.log('handle remote');
-
     var method, url, data,
         crossDomain = element.data('cross-domain') || null,
         dataType = element.data('type') || ($.ajaxSettings && $.ajaxSettings.dataType),
@@ -902,10 +849,12 @@ rails.handleRemote = function (element) {
             data = element.serialize();
             if (element.data('params')) data = data + "&" + element.data('params');
         } else {
-            if ($(window).width() <= 768) return true;
             method = element.data('method');
             url = element.attr('href');
             data = element.data('params') || null;
+            if (!method) {
+                if ($(window).width() <= 768) return true;
+            }
         }
 
         options = {
@@ -931,7 +880,6 @@ rails.handleRemote = function (element) {
         if (url) {
             options.url = url;
         }
-
         return rails.ajax(options);
     } else {
         return false;

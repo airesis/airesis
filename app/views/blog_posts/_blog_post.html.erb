@@ -18,7 +18,7 @@
   </h3>
 
   <div class="blogPostBody">
-    <%= sanitize blog_post.body %>
+    <%= sanitize truncate_html(blog_post.body, length: 800, omission: "...(#{link_to 'keep reading', [blog_post.blog, blog_post]})") %>
   </div>
 
   <div class="blogPostFooter">
@@ -37,7 +37,7 @@
           <a href="https://twitter.com/share"
              class="twitter-share-button"
              data-lang="en"
-             data-text="Guarda questo post su #<%= ENV['APP_SHORT_NAME'] %>"
+             data-text="<%= t('twitter.share.blog_post', app: ENV['APP_SHORT_NAME'], tags: blog_post.tags.for_twitter )%>"
              data-url="<%= blog_blog_post_url(blog_post.blog, blog_post) %>">Tweet</a>
           |
           <div class="fb-like" data-href="<%= blog_blog_post_url(blog_post.blog, blog_post) %>" data-width="450" data-layout="button_count" data-show-faces="true" data-send="true"></div>

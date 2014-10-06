@@ -18,7 +18,7 @@ class BlogPostsController < ApplicationController
 
   load_and_authorize_resource through: [:blog, :group], shallow: true, collection: [:drafts]
 
-  before_filter :load_blog_data, only: [:index, :show]
+  before_filter :load_blog_data, only: [:index, :show, :drafts]
 
   before_filter :check_page_alerts, only: :show
 
@@ -46,8 +46,11 @@ class BlogPostsController < ApplicationController
   end
 
   def show
-    @user = @blog_post.user
     @page_title = @blog_post.title
+    @page_title += " [#{t('pages.blog_posts.show.draft')}]" if @blog_post.draft?
+    @page_title += " [#{t('pages.blog_posts.show.reserved')}]" if @blog_post.reserved?
+    @blog_url = @group ? group_blog_post_url(@group, @blog_post) : blog_blog_post_url(@blog, @blog_post)
+    @user = @blog_post.user
     @blog_comment = @blog_post.blog_comments.new
     @blog_comments = @blog_post.blog_comments.includes(user: [:user_type, :image]).order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
     respond_to do |format|

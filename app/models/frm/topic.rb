@@ -153,6 +153,7 @@ module Frm
     end
 
     protected
+
     def set_first_post_user
       post = posts.first
       post.user = user

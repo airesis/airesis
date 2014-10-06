@@ -16,7 +16,9 @@ describe "the blog posts process", type: :feature, js: true do
   it "can insert a blog_post in his blog and edit it" do
     visit blog_path(@blog)
     expect(page).to have_content(I18n.t('pages.blog_posts.new_button'))
-    click_link I18n.t('pages.blog_posts.new_button')
+    within '#menu-left' do
+      click_link I18n.t('pages.blog_posts.new_button')
+    end
 
     blog_post_name = Faker::Company.name
     #fill form fields
@@ -32,7 +34,9 @@ describe "the blog posts process", type: :feature, js: true do
     within('#blogPostContainer') do
       click_link blog_post_name
     end
-    click_link I18n.t('pages.blog_posts.show.edit_button')
+    within '#menu-left' do
+      click_link I18n.t('pages.blog_posts.show.edit_button')
+    end
 
     #fill form fields
     blog_post_title = Faker::Company.name
@@ -44,8 +48,6 @@ describe "the blog posts process", type: :feature, js: true do
     expect(page).to have_content(I18n.t('info.blog_post_updated'))
     #the new blog name is certainly displayed somewhere
     expect(page).to have_content blog_post_title
-
-
   end
 
   it "can insert a blog_post in his group and edit it" do
@@ -54,8 +56,9 @@ describe "the blog posts process", type: :feature, js: true do
     visit group_path(@group)
 
     expect(page).to have_content @group.name
-
-    click_link I18n.t('pages.groups.show.post_button')
+    within '#menu-left' do
+      click_link I18n.t('pages.groups.show.post_button')
+    end
 
     blog_post_name = Faker::Company.name
     #fill form fields
@@ -74,8 +77,9 @@ describe "the blog posts process", type: :feature, js: true do
     within('#posts_container') do
       click_link blog_post_name
     end
-    click_link I18n.t('pages.blog_posts.show.edit_button')
-
+    within '#menu-left' do
+      click_link I18n.t('pages.blog_posts.show.edit_button')
+    end
     #fill form fields
     blog_post_title = Faker::Company.name
     within("#main-copy") do

@@ -29,10 +29,11 @@ class ApplicationController < ActionController::Base
     #se in sessione ho memorizzato un contributo, inseriscilo e mandami alla pagina della proposta
     if session[:proposal_comment] && session[:proposal_id]
       @proposal = Proposal.find(session[:proposal_id])
-      params[:proposal_comment] = session[:proposal_comment]
+      params[:proposal_comment] = session[:proposal_comment].permit(:content, :parent_proposal_comment_id, :section_id)
       session[:proposal_id] = nil
       session[:proposal_comment] = nil
-      post_contribute rescue nil
+      @proposal_comment = @proposal.proposal_comments.build(params[:proposal_comment])
+      post_contribute #rescue nil
       proposal_path(@proposal)
     elsif session[:blog_comment] && session[:blog_post_id] && session[:blog_id]
       blog = Blog.friendly.find(session[:blog_id])
@@ -82,7 +83,7 @@ class ApplicationController < ActionController::Base
     if params[:group_id].to_s != ''
       @group = Group.friendly.find(params[:group_id])
     elsif !['', 'www'].include? request.subdomain
-      @group = Group.find_by_subdomain(request.subdomain)
+      @group = Group.find_by(subdomain: request.subdomain)
     end
     @group
   end

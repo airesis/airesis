@@ -1,41 +1,45 @@
-<%@page_title = t('pages.users.left_panel.geographic_borders') %>
+<% @page_title = t('pages.users.left_panel.geographic_borders') %>
 <%= form_for 'token', url: set_interest_borders_users_path do |f| %>
-	<div id="border_fields">
-		<%= f.label t('pages.users.border_preferences.your_borders')%>
-		<%= f.text_field 'interest_borders', "data-pre" => current_user.interest_borders.to_json %>
-	</div>
-	<div id="loading_borders" style="margin:auto;text-align:center;display:none;">
-	<%= image_tag 'ajax-loader.gif'%><br />
-	<b><%= t('pages.users.border_preferences.updating') %></b>
-	</div>
- <%= f.button t('buttons.save'), id: "submit_borders", :class=> 'btn blue saveButton' %>
-<%end%>
+    <div id="border_fields">
+      <%= f.label t('pages.users.border_preferences.your_borders') %>
+      <%= f.text_field 'interest_borders', "data-pre" => current_user.interest_borders.to_json %>
+    </div>
+    <div id="loading_borders" style="margin:auto;text-align:center;display:none;">
+      <%= image_tag 'ajax-loader.gif' %>
+      <br/>
+      <b><%= t('pages.users.border_preferences.updating') %></b>
+    </div>
+    <%= f.button :button, id: "submit_borders", class: 'btn blue' do %>
+        <i class="fa fa-save"></i>
+        <%= t('buttons.save') %>
+    <% end %>
+<% end %>
 <script type="text/javascript">
-	$(function() {
-		input = $('#token_interest_borders')
-		input.tokenInput("/interest_borders.json", {
-			crossDomain: false,
-			prePopulate: $('#token_interest_borders').data("pre"),
-			hintText: "<%=t('interest_borders.hint')%>",
-			noResultsText: "<%=t('interest_borders.no_place_found')%>",
-			searchingText: "<%=t('interest_borders.searching')%>",
-			preventDuplicates: true
-		});
+    $(function () {
+        input = $('#token_interest_borders')
+        input.tokenInput("/interest_borders.json", {
+            crossDomain: false,
+            prePopulate: $('#token_interest_borders').data("pre"),
+            hintText: "<%=t('interest_borders.hint')%>",
+            noResultsText: "<%=t('interest_borders.no_place_found')%>",
+            searchingText: "<%=t('interest_borders.searching')%>",
+            preventDuplicates: true
+        });
 
-		$('#submit_borders').click(function() {
-			$(this).hide();
-			$('#border_fields').hide();	
-			$('#loading_borders').fadeIn();	
-			return true;
-		}).css('margin-top','10px');
-	});
+        $('#submit_borders').click(function () {
+            $(this).hide();
+            $('#border_fields').hide();
+            $('#loading_borders').fadeIn();
+            return true;
+        }).css('margin-top', '10px');
+    });
 
-</script>  		
-  
+</script>
 
-<%content_for :left_panel do %>
-	<%if current_user %>
-	<%= render partial: 'users/preferences_panel' %>
 
-	<%end%>
-<%end%>
+<% content_for :left_panel do %>
+    <% if current_user %>
+        <%= render partial: 'users/preferences_panel' %>
+
+    <% end %>
+<% end %>

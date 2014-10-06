@@ -1,11 +1,11 @@
 <%@replies.each_with_index do |reply,i| %>
     $('#<%=@proposal_comment.id%>_replies').append('<%=j render(partial: 'proposals/reply', locals: {reply: reply, hide: false})%>');
     <%if (i < @replies.length - 1) && (version = @proposal_comment.versions.where(['created_at between ? and ?',@replies[i].created_at, @replies[i+1].created_at]).first) %>
-        $('#<%=@proposal_comment.id%>_replies').append('<div class="comment_update_divider"><%=j raw 'updated on ' + time_in_words(version.created_at) %></div>');
+        $('#<%=@proposal_comment.id%>_replies').append('<div class="panel callout comment_update_divider"><%=j raw 'updated on ' + time_in_words(version.created_at) %></div>');
     <%end%>
 <%end%>
 <%if (version = (@proposal_comment.versions.where(['created_at > ?',@replies.last.created_at]).first)) %>
-$('#<%=@proposal_comment.id%>_replies').append('<div class="comment_update_divider"><%=j raw 'updated on ' + time_in_words(version.created_at) %></div>');
+$('#<%=@proposal_comment.id%>_replies').append('<div class="panel callout comment_update_divider"><%=j raw 'updated on ' + time_in_words(version.created_at) %></div>');
 <%end%>
 $("#<%=@proposal_comment.id%>_show").hide("slide", { direction: "up" }, 600);
 $('#<%=@proposal_comment.id%>_replies').show("slide", { direction: "up" }, 600);

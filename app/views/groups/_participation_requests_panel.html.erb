@@ -1,30 +1,33 @@
 <% requests = @group.participation_requests.pending %>
 <% if requests.count > 0 %>
     <div class="mybox">
-     <h4><%= t('pages.groups.show.waiting_participation_requests') %></h4>
+      <h4><%= t('pages.groups.show.waiting_participation_requests') %></h4>
 
       <% requests.limit(5).each do |request| %>
-          <div class="pcontainer">
-            <div class="MoImg24">
-              <%= request.user_image_tag(24) %>
-            </div>
-            <div class="Mo2" style="width:120px">
-              <%= link_to_user request.user, full_name: true %>
-            </div>
-            <% if (can? :accept_requests, @group) %>
+          <%= user_tag request.user, nil, true, false %>
+          <% if can? :accept_requests, @group %>
+              <div>
                 <% if @group.request_by_vote? %>
                     <%= link_to 'Accetta la richiesta e procedi con la votazione.', url_for(action: "participation_request_confirm", controller: "groups", id: @group.id, request_id: request.id) %>
                 <% elsif @group.request_by_portavoce? %>
-                    <%= link_to t('pages.groups.show.accept_request_button'), participation_request_confirm_group_url(@group, request_id: request.id), method: :put, remote: true, class: 'btn blue little acceptButton', style: "float:left", data: {disable_with: t('loading')} %>
-                    <%= link_to t('pages.groups.show.reject_request_button'), participation_request_decline_group_url(@group, request_id: request.id), method: :put, remote: true, data: {confirm: 'Sei sicuro di volere declinare questa richiesta?', disable_with: t('loading')}, class: 'btn little rejectButton', style: "float:left" %>
+                    <%= link_to participation_request_confirm_group_url(@group, request_id: request.id), method: :put, remote: true, class: 'btn blue little btn-participation', data: {disable_with: t('loading')} do %>
+                        <i class="fa fa-check"></i>
+                        <%= t('pages.groups.show.accept_request_button') %>
+                    <% end %>
+                    <%= link_to participation_request_decline_group_url(@group, request_id: request.id), method: :put, remote: true, data: {confirm: 'Sei sicuro di volere declinare questa richiesta?', disable_with: t('loading')}, class: 'btn little btn-participation' do %>
+                        <i class="fa fa-close"></i>
+                        <%= t('pages.groups.show.reject_request_button') %>
+                    <% end %>
                 <% end %>
-            <% end %>
-            <div style="clear:both"></div>
-          </div>
+              </div>
+          <% end %>
       <% end %>
 
       <% if requests.count > 5 %>
-          <%= link_to t('pages.groups.show.show_all_requests', count: requests.count), group_group_participations_url(@group, 'search_participant[status_id]' => 1), class: "btn personButton disable" %>
+          <%= link_to group_group_participations_url(@group, 'search_participant[status_id]' => 1), class: "btn disable" do %>
+              <i class="fa fa-user"></i>
+              <%= t('pages.groups.show.show_all_requests', count: requests.count) %>
+          <% end %>
       <% end %>
     </div>
 <% end %>

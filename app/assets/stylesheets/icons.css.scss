@@ -29,6 +29,10 @@
   &.small {
     font-size: 16px;
     line-height: 13px;
+
+    @media #{$small-only} {
+      font-size: 12px;
+    }
   }
 }
 

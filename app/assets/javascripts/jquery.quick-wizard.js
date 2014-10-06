@@ -3,8 +3,8 @@
     $.fn.quickWizard = function (options, callback) {
 
         var settings = {
-            'prevButton': '<button id="form-wizard-prev" type="button" class="btn backButton">Go back</button>',
-            'nextButton': '<button id="form-wizard-next" type="button" class="btn blue forwardButton">Next</button>',
+            'prevButton': '<button id="form-wizard-prev" type="button" class="btn"><i class="fa fa-arrow-left"></i>Go back</button>',
+            'nextButton': '<button id="form-wizard-next" type="button" class="btn blue"><i class="fa fa-arrow-right"></i>Next</button>',
             'activeClass': 'form-wizard-active',
             'element': 'div.step',
             'submit': '[type = "submit"]',
@@ -123,7 +123,7 @@
                         $('.form-wizard-container textarea:visible').last().focus()
                     }
                     else {
-                        prev.nextAll('.buttonStyle:visible').focus();
+                        prev.nextAll('.btn:visible').focus();
                     }
                 }
                 else if (keyCode == 13) {

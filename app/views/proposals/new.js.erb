@@ -1,5 +1,5 @@
 /**
- * Se lo step delle proposte simili era stato saltato, saltalo anche quando torni indietro
+ * If the step for similar proposals jumped, jump it also when going back
  */
 function skipIfNecessary(activeDiv) {
     if (activeDiv.attr('id') == 'suggestions' && skippedSuggestionStep) {
@@ -8,7 +8,7 @@ function skipIfNecessary(activeDiv) {
 }
 
 /**
- * Mostra proposte simili se ve ne sono
+ * Show similar proposals
  */
 function showSimilarProposal(activeDiv) {
     $('#new_proposal').enableClientSideValidations();
@@ -28,8 +28,7 @@ window.ClientSideValidations.selectors = {
     forms: 'form[data-validate]'
 };
 
-var create_proposal_ = $('#create_proposal');
-var container_ = $('#create_proposal_container');
+var container_ = $('.reveal-modal:visible');
 <%if params[:proposal_type_id] == ProposalType::PETITION %>
     container_.html('<%=j render "proposal_types/petition"%>');
 <%else %>
@@ -46,11 +45,10 @@ container_.foundation('reveal', 'open', {
 $('.legend').hide();
 
 $("#new_proposal").quickWizard({
-    prevButton: '<button id="form-wizard-prev" type="button" class="btn backButton"><%=j t('buttons.go_back')%></button>',
-    nextButton: '<button id="form-wizard-next" type="button" class="btn blue forwardButton"><%=j t('buttons.next')%></button>',
+    prevButton: '<button id="form-wizard-prev" type="button" class="btn"><i class="fa fa-arrow-left"></i><%=j t('buttons.go_back')%></button>',
+    nextButton: '<button id="form-wizard-next" type="button" class="btn blue"><i class="fa fa-arrow-right"></i><%=j t('buttons.next')%></button>',
     nextCallback: showSimilarProposal,
     prevCallback: skipIfNecessary
 });
 
 $('#new_proposal').enableClientSideValidations();
-disegnaBottoni();

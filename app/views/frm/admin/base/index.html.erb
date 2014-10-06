@@ -1,4 +1,4 @@
-<%@page_title = "#{@group.name} - #{t('frm.admin.area')}" %>
+<% @page_title = "#{@group.name} - #{t('frm.admin.area')}" %>
 <h1><%= t('frm.admin.area') %></h1>
 
 <br/>
@@ -9,7 +9,10 @@
 
 <hr/>
 <div id='admin_link'>
-  <%= link_to t('back_to_forums'), group_forums_url(@group), class: 'btn forwardButton' %>
+  <%= link_to group_forums_url(@group), class: 'btn' do %>
+      <%= t('back_to_forums') %>
+      <i class="fa fa-arrow-right"></i>
+  <% end %>
 </div>
 
 

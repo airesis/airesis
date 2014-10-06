@@ -65,7 +65,7 @@ describe 'create proposal comments', type: :feature, js: true, driver: :selenium
     i = 0
     max = 3
     comments = []
-    page.all(:css, '.contributeButton').each do |el|
+    page.all(:css, '.contribute-button').each do |el|
       el.click
       within('.suggestion_right') do
         icomment = Faker::Lorem.sentence
@@ -81,7 +81,7 @@ describe 'create proposal comments', type: :feature, js: true, driver: :selenium
     visit proposal_path(@public_proposal)
     expect(page).to have_content comment
     i = 0
-    page.all(:css, '.contributeButton').each do |el|
+    page.all(:css, '.contribute-button').each do |el|
       el.click
       expect(page).to have_content comments[i]
       i+=1
@@ -117,7 +117,7 @@ describe 'create proposal comments', type: :feature, js: true, driver: :selenium
     i = 0
     max = 3
     comments = []
-    page.all(:css, '.contributeButton').each do |el|
+    page.all(:css, '.contribute-button').each do |el|
       el.click
       within('.suggestion_right') do
         icomment = Faker::Lorem.sentence
@@ -133,7 +133,7 @@ describe 'create proposal comments', type: :feature, js: true, driver: :selenium
     visit group_proposal_path(@group,@proposal)
     expect(page).to have_content comment
     i = 0
-    page.all(:css, '.contributeButton').each do |el|
+    page.all(:css, '.contribute-button').each do |el|
       el.click
       expect(page).to have_content comments[i]
       i+=1
@@ -174,7 +174,7 @@ describe 'create proposal comments', type: :feature, js: true, driver: :selenium
     i = 0
     max = 3
     comments = []
-    page.all(:css, '.contributeButton').each do |el|
+    page.all(:css, '.contribute-button').each do |el|
       el.click
       within('.suggestion_right') do
         icomment = Faker::Lorem.sentence
@@ -190,12 +190,11 @@ describe 'create proposal comments', type: :feature, js: true, driver: :selenium
     visit group_proposal_path(@group,@proposal)
     expect(page).to have_content comment
     i = 0
-    page.all(:css, '.contributeButton').each do |el|
+    page.all(:css, '.contribute-button').each do |el|
       el.click
       expect(page).to have_content comments[i]
       i+=1
       break if i > max
     end
   end
-
 end

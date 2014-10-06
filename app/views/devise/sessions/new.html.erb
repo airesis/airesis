@@ -28,7 +28,10 @@
 
     <div class="row">
       <div class="columns large-5">
-        <%= f.button "Login", class: 'btn blue loginButton' %>
+        <%= f.button class: 'btn blue' do%>
+            <i class="fa fa-key"></i>
+            <%="Login"%>
+        <%end%>
       </div>
     </div>
 <% end %>

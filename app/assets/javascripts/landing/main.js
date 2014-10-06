@@ -186,17 +186,6 @@
                 $('#imagelightbox-overlay').remove();
             },
 
-            closeButtonOn = function (instance) {
-                $('<a href="#" id="imagelightbox-close" title="close"><i class="fa fa fa-times"></i></a>').appendTo('body').on('click touchend', function () {
-                    $(this).remove();
-                    instance.quitImageLightbox();
-                    return false;
-                });
-            },
-            closeButtonOff = function () {
-                $('#imagelightbox-close').remove();
-            },
-
             captionOn = function () {
                 var description = $('a[href="' + $('#imagelightbox').attr('src') + '"] img').attr('alt');
                 if (description.length > 0)

@@ -4,7 +4,7 @@ class ProposalCommentsController < ApplicationController
   before_filter :save_post_and_authenticate_user, only: [:create]
 
   load_and_authorize_resource :proposal
-  load_and_authorize_resource through: :proposal, collection: [:list, :left_list, :edit_list]
+  load_and_authorize_resource through: :proposal, collection: [:list, :left_list, :edit_list, :show_all_replies]
   before_filter :already_ranked, only: [:rankup, :rankdown, :ranknil]
 
   layout :choose_layout

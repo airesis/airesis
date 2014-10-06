@@ -221,13 +221,9 @@
 <% if @group && (can? :view_proposal, @group) %>
     <div class="mybox">
       <h4><%= t('pages.proposals.index.search_title') %></h4>
-
       <div class="mybox_button"></div>
       <div class="mycont">
         <%= render partial: 'search_form' %>
       </div>
     </div>
 <% end %>
-
-
-<!--<%#= render partial: 'users/most_active_users_panel' %>-->

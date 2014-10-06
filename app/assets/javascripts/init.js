@@ -9,9 +9,6 @@ $(function () {
 
     $viewport = $('html, body');
 
-
-    disegnaBottoni();
-
     disegnaProgressBar();
 
     if ($('.sticky-anchor').length > 0) {
@@ -154,7 +151,32 @@ $(function () {
 
 
     $(document).on('click', '[data-close-section-id]', function () {
-        close_right_contributes($('.contributeButton[data-section_id=' + $(this).data('close-section-id') + ']'));
+        close_right_contributes($('.contribute-button[data-section_id=' + $(this).data('close-section-id') + ']'));
+        return false;
+    });
+
+
+    $('.create_proposal').on('click', function () {
+        var link = $(this);
+        var create_proposal_ = $('<div class="dynamic_container reveal-modal large" data-reveal></div>');
+        create_proposal_.append($(this).next('.choose_model').clone().show());
+
+        $('.proposal_model_option', create_proposal_).click(function () {
+            var create_proposal_inner_ = $('.choose_model', create_proposal_);
+            var type_id = $(this).data('id');
+            create_proposal_inner_.hide(1000, function () {
+                create_proposal_inner_.remove();
+                create_proposal_.append($('#loading-fragment').clone());
+                $.ajax({
+                    url: link.attr('href'),
+                    data: 'proposal_type_id=' + type_id,
+                    dataType: 'script'
+                })
+            });
+        });
+
+        airesis_reveal(create_proposal_);
+
         return false;
     });
 

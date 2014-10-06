@@ -10,7 +10,12 @@
 </div>
 
 <% if ::Configuration::user_messages %>
-    <span><%= link_to t('pages.users.show.send_message_button'), show_message_user_path(@user), remote: true, class: 'btn inviteButton disable' if can? :send_message, @user %></span>
+    <span>
+      <%= link_to show_message_user_path(@user), remote: true, class: 'btn disable' do %>
+          <i class="fa fa-envelope-o"></i>
+          <%= t('pages.users.show.send_message_button') %>
+      <% end if can? :send_message, @user %>
+    </span>
 <% end %>
 
 <div class="card">

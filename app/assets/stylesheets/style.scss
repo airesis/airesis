@@ -9,7 +9,7 @@
 .card, .mybox {
   background: #fff;
   box-shadow: 1px 1px 0px 0px #ccc;
-  padding: 0.4em;
+  padding: 1rem;
   border: 1px solid #d8d8d8;
   margin-bottom: 0.8em;
   position: relative;
@@ -93,8 +93,9 @@ body div.token-input-dropdown {
   margin: 0 5px;
 }
 
-#menu-left h4 {
+.mybox h4 {
   margin: 0px 0px 0px 0px;
+  text-transform: uppercase;
 }
 
 .face-login-button {
@@ -293,14 +294,17 @@ table.dataTable td .blogUserImage {
   padding: 0.4em 0mm 0.25em 4mm;
 }
 
+//todo remove
 #menu-left .pcontainer .Mo {
   width: 130px;
 }
 
+//todo remove
 #menu-left .groupcontainer .group {
   width: 130px;
 }
 
+//todo remove
 .MoImg24 {
   margin-right: 5px;
   margin-top: 2px;
@@ -426,8 +430,15 @@ input[name='reason'] {
   border-width: 1px;
 }
 
-.menu_voice {
-  margin: 5px 0px;
+.menu-voice {
+  margin: 10px 0px;
+
+}
+
+a, button {
+  i {
+    margin-right: 5px;
+  }
 }
 
 table.stiled {
@@ -724,12 +735,12 @@ ul.dd-options {
   line-height: 19px;
 }
 
-#block_alerts {
+.block-alerts {
   text-align: center;
   margin-top: 10px;
 }
 
-#regenerate_nickname {
+.regenerate_nickname {
   text-align: center;
 }
 
@@ -888,12 +899,12 @@ form.paypal-button {
 }
 
 .button.account {
-  padding-left: 30px !important;
+  padding-left: 40px !important;
   img {
-    width: 30px;
-    height: 30px;
+    width: 34px;
+    height: 34px;
     position: absolute;
-    top: 0;
+    top: 2px;
     left: 0;
   }
 }
@@ -908,4 +919,9 @@ form.paypal-button {
   overflow-y: auto;
   font-size: 0.9rem;
   padding: 5px;
+}
+
+.fa.medium {
+  line-height: 34px;
+  font-size: 23px;
 }

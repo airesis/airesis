@@ -21,8 +21,6 @@ firstCheck = false;
   $('#loading_results').hide();
 <%end%>
 
-//$('.reply_textarea').elastic();
-disegnaBottoni();
 disegnaCountdown();
 
 <%if params[:comment_id] %>
@@ -30,19 +28,3 @@ var comment_ = $('#comment<%=params[:comment_id]%> .proposal_comment');
 scrollToElement(comment_);
 comment_.effect('highlight', {}, 3000);
 <%end%>
-
-/*$('.rankingpanelcontainer .votedup-mini').qtip({
-    position: {
-        at: 'center top',
-        my: 'bottom center',
-        viewport: $(window),
-        effect: false,
-        adjust: {
-            method: 'shift',
-            x: -1, y: -10
-        }
-    },
-    style: {
-        classes: 'qtip-dark'
-    }
-});*/

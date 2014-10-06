@@ -1,5 +1,9 @@
 <% if @group %>
-    <%= link_to t('proposals.create_button'), '#', id: 'nuova_proposta', class: "create_proposal btn blue disable newButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
+    <%= link_to new_proposal_path(group_id: (@group.id if @group), group_area_id: params[:group_area_id], category: params[:category], topic_id:@topic.try(:id), models: true), id: 'nuova_proposta', class: "create_proposal btn blue disable" do %>
+        <i class="fa fa-plus"></i>
+        <%= t('proposals.create_button') %>
+    <% end if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
+
     <div class="choose_model" style="display:none;">
       <h2 class="modal_title"><%= t('pages.proposals.index.choose_model') %></h2>
 
@@ -19,40 +23,9 @@
       </div>
       <a class="close-reveal-modal">&#215;</a>
     </div>
-
-    <script type="text/javascript">
-        $(function () {
-            $('.create_proposal').on('click', function () {
-                var create_proposal_ = $('#create_proposal_container');
-                create_proposal_.empty();
-                create_proposal_.append($(this).next('.choose_model').clone().show());
-
-                $('.proposal_model_option', create_proposal_).click(function () {
-                    var create_proposal_inner_ = $('.choose_model', create_proposal_);
-                    var type_id = $(this).data('id');
-                    create_proposal_inner_.hide(1000, function () {
-                        create_proposal_inner_.remove();
-                        create_proposal_.append('<%=j render "fragments/loading"%>');
-                        $.ajax({
-                            url: '<%=new_proposal_path(group_id: (@group.id if @group), group_area_id: params[:group_area_id], category: params[:category], topic_id: (@topic.id if @topic),  models: true)%>',
-                            data: 'proposal_type_id=' + type_id,
-                            dataType: 'script'
-                        })
-                    });
-
-
-                });
-
-                create_proposal_.foundation('reveal', 'open', {
-                    close_on_background_click: false,
-                    closeOnEsc: false
-                });
-
-                return false;
-            });
-        });
-
-    </script>
 <% else %>
-    <%= link_to t('proposals.create_button'), new_proposal_path(proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "btn blue disable newButton" %>
+    <%= link_to new_proposal_path(proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "btn blue disable" do %>
+        <i class="fa fa-plus"></i>
+        <%= t('proposals.create_button') %>
+    <% end %>
 <% end %>

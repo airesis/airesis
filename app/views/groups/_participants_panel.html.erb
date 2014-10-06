@@ -1,59 +1,54 @@
 <h4><%= @group.admin_title || t('pages.groups.default_admin_title') %></h4>
 
 <% @admins = @group.portavoce %>
-<%@admins.includes(:image, :user_type).limit(5).each do |user| %>
+<% @admins.includes(:image, :user_type).limit(5).each do |user| %>
     <%= user_tag(user, nil, true, false) %>
 <% end %>
 
 <% if @admins.size > 5 %>
-    <%= link_to t('pages.groups.show.show_all_admins', count: @admins.size), group_group_participations_url(@group, 'search_participant[role_id]' => ParticipationRole::ADMINISTRATOR), class: "btn personButton disable" %>
+    <%= link_to group_group_participations_url(@group, 'search_participant[role_id]' => ParticipationRole::ADMINISTRATOR), class: "btn disable" do %>
+        <i class="fa fa-user"></i>
+        <%= t('pages.groups.show.show_all_admins', count: @admins.size) %>
+    <% end %>
 <% end %>
 
+<h4><%= t('pages.groups.show.participants_list') %></h4>
 
-<br/>
-
-<% if @group.group_participations.size > 0 %>
-
-    <h4><%= t('pages.groups.show.participants_list') %></h4>
-
-    <% if (can? :accept_requests, @group) %>
-        <%= link_to t('pages.groups.show.invite_button'), new_group_invitation_path(group_id: @group.id), remote: true, class: "btn inviteButton disable" %>
-        <div id="new_invitation_container"></div>
+<% if can? :accept_requests, @group %>
+    <%= link_to new_group_invitation_path(group_id: @group.id), remote: true, class: "btn disable" do %>
+        <i class="fa fa-envelope-o"></i>
+        <%= t('pages.groups.show.invite_button') %>
     <% end %>
+    <div id="new_invitation_container"></div>
+<% end %>
 
-
-
-    <% if user_signed_in? %>
-        <% @participation_request = current_user.has_asked_for_participation?(@group.id) %>
-    <% end %>
-    <% if !@participation_request %>
-        <% if @group.disable_participation_requests %>
-            <%= eval "#{@group.subdomain}_participation_request" %>
-        <% else %>
-            <%= link_to t('pages.groups.show.ask_participate_button'), ask_for_participation_group_url(@group), class: "btn blue editButton" %>
+<% @participation_request = current_user.has_asked_for_participation?(@group.id) if user_signed_in?%>
+<% unless @participation_request %>
+    <% if @group.disable_participation_requests %>
+        <%= eval "#{@group.subdomain}_participation_request" %>
+    <% else %>
+        <%= link_to ask_for_participation_group_url(@group), class: "btn blue" do %>
+            <i class="fa fa-pencil"></i>
+            <%= t('pages.groups.show.ask_participate_button') %>
         <% end %>
     <% end %>
+<% end %>
+
+<% if @group.group_participations.size > 1 %>
 
     <% @group_participations = @group.group_participations.includes([{user: [:image, :user_type]}, :participation_role]) %>
 
     <% @group_participations.limit(5).each do |participant| %>
-        <% unless participant.as_admin? %>
-            <div class="pcontainer">
-              <div class="MoImg24">
-                <%= participant.user_image_tag(24) %>
-              </div>
-              <div class="Mo">
-                <%= link_to_user participant.user, full_name: true, title: participant.participation_role.name %>
-              </div>
-              <div style="clear:both;"></div>
-            </div>
-        <% end %>
+        <% next if participant.as_admin? %>
+        <%= user_tag participant.user, nil, true, false, title: participant.participation_role.name %>
     <% end %>
 
     <% if @group_participations.size > 5 %>
-        <%= link_to t('pages.groups.show.show_all_participants', count: @group.group_participations.count), group_group_participations_url(@group), class: "btn personButton disable" %>
+        <%= link_to group_group_participations_url(@group), class: "btn disable" do %>
+            <i class="fa fa-user"></i>
+            <%= t('pages.groups.show.show_all_participants', count: @group.group_participations.count) %>
+        <% end %>
     <% end %>
-
 <% else %>
     <p>
       <b><%= t('pages.groups.show.no_participants') %></b>

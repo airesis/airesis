@@ -9,8 +9,6 @@ $(event_edit).on('opened', function () {
     map.setCenter(center);
 });
 
-disegnaBottoni();
-
 window.ClientSideValidations.selectors = {
     inputs: ':input:not(button):not([type="submit"])[name]:enabled',
     validate_inputs: ':input:enabled:visible[data-validate], .select2-container:visible ~ :input:enabled[data-validate]',

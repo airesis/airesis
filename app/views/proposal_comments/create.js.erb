@@ -20,7 +20,7 @@
 <%else%>
     <%if @proposal_comment.paragraph_id %>
         var data_section_id = "[data-section_id=<%=@proposal_comment.section_id%>]";
-        var contribute_button = $('.contributeButton'+data_section_id);
+        var contribute_button = $('.contribute-button'+data_section_id);
         $('.suggestion_right'+data_section_id +' .blogComments').prepend('<%=j (render partial: 'proposals/comment', locals: {comment: @proposal_comment})%>');
         $('.suggestion_right'+data_section_id +' .blogNewComment').html('<%=j render 'proposal_comments/right_comment'%>');
         var num_contributes = parseInt(contribute_button.attr('data-contributes_num'));
@@ -31,21 +31,16 @@
         }
         contribute_button.effect('highlight', {}, 3000);
 
-
-
     <%else%>
         $("#proposalCommentsContainer").prepend('<%=j render partial: 'proposals/comment', locals: {comment: @proposal_comment}%>');
         $("#proposalNewComment").html('<%=j render 'proposal_comments/proposal_comment', {proposal_comment: @proposal.proposal_comments.new(section_id: @proposal_comment.section_id)}%>');
     <%end%>
-
-
 
     <%if params[:right] %>
         $('.suggestion_right'+data_section_id +' .blogNewComment').html('<%=j render 'proposal_comments/right_comment'%>');
     <%else %>
         $("#proposalNewComment").html('<%=j render 'proposal_comments/proposal_comment', {proposal_comment: @proposal.proposal_comments.new(section_id: @proposal_comment.section_id)}%>');
     <%end%>
-
 
     $('.proposalComment[data-collapsed=true]').show(600);
 
@@ -61,11 +56,11 @@
             toastr.info('<%=j "E' appena stato inserito un nuovo contributo"%>');
             <%if @proposal_comment.paragraph_id %>
                 var data_section_id = "[data-section_id=<%=@proposal_comment.section_id%>]";
-                var contribute_button = $('.contributeButton'+data_section_id);
+                var contribute_button = $('.contribute-button'+data_section_id);
                 var num_contributes = parseInt(contribute_button.attr('data-contributes_num'));
                 contribute_button.attr('data-contributes_num',num_contributes+1);
-                var new_contributes = parseInt($('.contributeButton'+data_section_id).attr('data-unread_contributes_num'));
-                $('.contributeButton'+data_section_id).attr('data-unread_contributes_num',new_contributes+1);
+                var new_contributes = parseInt($('.contribute-button'+data_section_id).attr('data-unread_contributes_num'));
+                $('.contribute-button'+data_section_id).attr('data-unread_contributes_num',new_contributes+1);
 
                 if (contribute_button.attr('data-status') != 1) {
                     $('.text', contribute_button).text('<%=j t('pages.proposals.show.give_contribute')%>').append(" (" + contribute_button.attr('data-unread_contributes_num') + "/" + contribute_button.attr('data-contributes_num') + ")");
@@ -86,11 +81,9 @@
 <%end%>
 
 <%if @generated_nickname %>
-    toastr.info("Ti è stato assegnato il nickname '<%=@my_nickname.nickname%>'. Puoi cambiarlo entro 10 minuti dal pannello a sinistra.")
-    $('#nickname_container').html('<%=j (render('proposals/nickname_panel'))%>');
+    toastr.info("<%=t('pages.proposals.show.nickname_assigned',nickname: @my_nickname.nickname)%>");
+    $('.nickname_container').html('<%=j render 'proposals/nickname_panel'%>');
 <%end%>
-
-disegnaBottoni();
 resetCounter();
 checkScroll();
 disegnaCountdown();

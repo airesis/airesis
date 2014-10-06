@@ -10,9 +10,8 @@ function resetCounter() {
 }
 
 function checkScroll() {
-    //console.log('cs');
     if (nearBottomOfPage() && checkActive) {
-      //  console.log('bottom',window.location);
+        console.log('bottom',window.location);
 
         checkActive = false;
         currentPage++;

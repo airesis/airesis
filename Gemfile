@@ -150,5 +150,6 @@ gem 'faker'
 
 gem 'sshkit', '1.3.0'
 
-
 gem 'font-awesome-rails'
+
+gem 'truncate_html'

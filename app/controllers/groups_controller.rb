@@ -8,7 +8,9 @@ class GroupsController < ApplicationController
 
   before_filter :load_group, except: [:index, :new, :create, :ask_for_multiple_follow]
 
-  load_and_authorize_resource
+  load_resource
+
+  authorize_resource except: [:participation_request_confirm, :participation_request_decline]
 
   before_filter :admin_required, only: [:autocomplete]
 
@@ -237,9 +239,26 @@ class GroupsController < ApplicationController
   # è previsto o accettandola altrimenti.
   def participation_request_confirm
     authorize! :accept_requests, @group
-    @request = @group.participation_requests.pending.find_by_id(params[:request_id])
-    if !@request
-      flash[:error] = t('error.group_participations.request_not_found')
+    @request = @group.participation_requests.pending.find(params[:request_id])
+
+    if @group.request_by_portavoce?
+      part = @group.group_participations.build(user: @request.user, acceptor: current_user, participation_role: @group.default_role)
+
+      @request.group_participation_request_status_id = 3
+    else
+      @request.group_participation_request_status_id = 2
+    end
+    saved = part.save && @request.save
+    if saved
+      flash[:notice] = @group.request_by_portavoce? ? t('info.group_participations.status_accepted') : t('info.group_participations.status_voting')
+      respond_to do |format|
+        format.js
+        format.html {
+          redirect_to group_url(@group)
+        }
+      end
+    else
+      flash[:error] = t('error.group_participations.error_saving')
       respond_to do |format|
         format.js { render :update do |page|
           page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
@@ -248,43 +267,6 @@ class GroupsController < ApplicationController
         format.html {
           redirect_to group_url(@group)
         }
-      end
-    else
-      if @group.request_by_portavoce?
-        part = GroupParticipation.new
-        part.user_id = @request.user_id
-        part.group_id = @group.id
-        part.acceptor_id = current_user.id
-        part.participation_role_id = @group.participation_role_id
-        part.save!
-        @request.group_participation_request_status_id = 3
-      else
-        @request.group_participation_request_status_id = 2
-      end
-      saved = @request.save
-      if !saved
-        flash[:error] = t('error.group_participations.error_saving')
-        respond_to do |format|
-          format.js { render :update do |page|
-            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-          end
-          }
-          format.html {
-            redirect_to group_url(@group)
-          }
-        end
-      else
-        if @group.request_by_portavoce?
-          flash[:notice] = t('info.group_participations.status_accepted')
-        else
-          flash[:notice] = t('info.group_participations.status_voting')
-        end
-        respond_to do |format|
-          format.js
-          format.html {
-            redirect_to group_url(@group)
-          }
-        end
       end
     end
   end
@@ -385,9 +367,9 @@ class GroupsController < ApplicationController
     default_secret_vote = (params[:active] == 'true')
     @group.default_secret_vote = default_secret_vote
     if @group.save
-      flash[:notice] =  default_secret_vote ?
-      t('info.quorums.secret_vote') :
-      t('info.quorums.non_secret_vote')
+      flash[:notice] = default_secret_vote ?
+          t('info.quorums.secret_vote') :
+          t('info.quorums.non_secret_vote')
       render 'layouts/success'
     else
       flash[:error] = t('error.quorums.advanced_proposals_settings')

@@ -9,7 +9,7 @@
 			<%end%>
 				<%= render partial: 'fragments/votes_and_rank', locals: {object: @proposal} %>
 			<% if @my_vote == 3 %>
-				<div class="voteddown"/>
+				<div class="voteddown"></div>
 			<% elsif @can_vote_again == 1%>
 				<%= render partial: 'proposals/ranking_and_spinner', locals: {action: "down"} %>
 			<%end%>		

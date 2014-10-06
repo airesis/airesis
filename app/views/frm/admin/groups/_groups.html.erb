@@ -15,15 +15,21 @@
 
             <td>
               <%= link_to group.name, group_frm_admin_frm_group_url(@group, group) %> <br/>
-              <%group.members.each do |member|%>
-                <%= member.user_image_tag 20 %>
-              <%end%>
+              <% group.members.each do |member| %>
+                  <%= member.user_image_tag 20 %>
+              <% end %>
             </td>
             <td>
-              <%= link_to t('edit', scope: 'frm.admin.groups'), group_frm_admin_frm_group_url(@group, group), class: 'btn editButton' %>
+              <%= link_to group_frm_admin_frm_group_url(@group, group), class: 'btn' do %>
+                  <i class="fa fa-pencil"></i>
+                  <%= t('edit', scope: 'frm.admin.groups') %>
+              <% end %>
             </td>
             <td>
-              <%= link_to t('delete', scope: 'frm.admin.groups'), group_frm_admin_frm_group_url(@group, group), method: :delete, data: {confirm: t('confirm_delete')}, class: 'btn trashButton' %>
+              <%= link_to group_frm_admin_frm_group_url(@group, group), method: :delete, data: {confirm: t('confirm_delete')}, class: 'btn' do %>
+                  <i class="fa fa-trash-o"></i>
+                  <%= t('delete', scope: 'frm.admin.groups') %>
+              <% end %>
             </td>
           </tr>
       <% end %>
