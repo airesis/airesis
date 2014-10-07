@@ -153,3 +153,5 @@ gem 'sshkit', '1.3.0'
 gem 'font-awesome-rails'
 
 gem 'truncate_html'
+
+gem 'sunspot-rails-http-basic-auth', github: 'jwachira/sunspot-rails-http-basic-auth'

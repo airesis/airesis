@@ -65,7 +65,6 @@
         <filter class="solr.StandardFilterFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
         <filter class="solr.PorterStemFilterFactory"/>
-        <!--filter class="solr.NGramFilterFactory" minGramSize="3" maxGramSize="30"/-->
       </analyzer>
     </fieldType>
     <!-- *** This fieldType is used by Sunspot! *** -->
