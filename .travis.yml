@@ -12,5 +12,4 @@ before_script:
  - "cp config/secrets.ci.yml config/secrets.yml"
  - "psql -c 'create database travis_ci_test;' -U postgres"
  - "RAILS_ENV=test bundle exec rake db:setup --trace"
- - "RAILS_ENV=test bundle exec rake db:test:prepare --trace"
 script: RAILS_ENV=test DISPLAY=:99.0 bundle exec rake
