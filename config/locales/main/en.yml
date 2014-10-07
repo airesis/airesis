@@ -800,6 +800,8 @@ en:
         show_events: "Show calendar"
         most_active_groups: "Most active groups"
         show_groups: "Show all groups"
+        last_proposals: "Last public proposals"
+        from_blogs: "Last posts from blogs"
       show:
         your_proposals: "Proposals you participate in"
         proposals:

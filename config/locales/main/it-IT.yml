@@ -784,6 +784,8 @@ it-IT:
         show_events: "Vai al calendario"
         most_active_groups: "Gruppi più attivi"
         show_groups: "Visualizza tutti i gruppi"
+        last_proposals: "Ultime proposte"
+        from_blogs: "Ultimi post dai blog"
       show:
         your_proposals: "Proposte a cui partecipi"
         proposals:

@@ -1,2 +1,5 @@
-<%@page_title = 'Condizioni d\'uso'%>
-<%=render partial: 'devise/registrations/eula' %>
+<% @noleft = true %>
+<% @page_title = "Condizioni d'uso" %>
+<div class="card">
+  <%= render partial: 'devise/registrations/eula' %>
+</div>

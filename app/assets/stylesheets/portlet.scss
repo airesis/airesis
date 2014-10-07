@@ -12,11 +12,11 @@
   height: 260px;
 }
 
-#homegroup .portlet_panel {
+.homegroup .portlet_panel {
   width:  100%;
 }
 
-#homecont, #homegroup {
+.homecont, .homegroup {
   position: relative;
   padding-right: 0;
   .portlet_panel {
@@ -49,12 +49,14 @@
 
       .title {
         font-size: 1.2rem;
-        font-weight: bold;
-        padding: 0px 5px;
-        min-height: 45px;
-        line-height: 40px;
         overflow: hidden;
         white-space: nowrap;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        .btn {
+          float: right;
+          margin-top: 0;
+        }
       }
     }
   }

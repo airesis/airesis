@@ -29,6 +29,7 @@ group :development do
   gem "better_errors"
   gem 'quiet_assets'
   gem 'capistrano-sidekiq'
+  gem 'i18n-tasks', '~> 0.7.7'
 end
 
 group :development, :test do

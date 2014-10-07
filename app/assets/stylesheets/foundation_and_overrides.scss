@@ -2050,26 +2050,26 @@ small.warning {
 }
 
 .alert.notify {
-  padding: 5px;
+  padding: 2px;
   background-color: rgba(255, 0, 0, 0.9);
-  border-radius: 3px;
+  border-radius: 2px;
   color: white;
   font-weight: bold;
-  font-size: 11px;
+  font-size: 10px;
   box-shadow: -1px 1px 1px #000;
   border: 0px;
   z-index: 998;
+  min-width: 18px;
+  &:hover {
+    text-decoration: none;
+  }
+  &.boxed {
+    position: absolute;
+    right: 15px;
+    top: 3px;
+  }
 }
 
-.alert.notify:hover {
-  text-decoration: none;
-}
-
-.alert.notify.boxed {
-  position: absolute;
-  right: 15px;
-  top: 3px;
-}
 
 #menu-right img:hover,
 #menu-right .box .logo:hover {

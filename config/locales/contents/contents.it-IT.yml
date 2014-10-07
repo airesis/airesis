@@ -615,7 +615,7 @@ it-IT:
              <b>Disattivazione</b>
             Quando un account è disattivato, rimane in sospeso. Gli altri utenti non visualizzano più la tua pagina, ma Airesis non elimina nessuna delle tue informazioni.<br/>
             Disattivare il tuo account equivale a chiedere ad Airesis di non eliminare nessuna informazione, in quanto potresti desiderare di riattivarlo in futuro.<br/>
-            Puoi disattivare il tuo account inviado una richiesta a <%=mail_to APP_EMAIL_ADDRESS, APP_EMAIL_ADDRESS, tabindex: -1 %>.
+            Puoi disattivare il tuo account inviado una richiesta a info@airesis.it.
             <b>Eliminazione</b>
             Quando un account viene eliminato, è cancellato in modo permanente da Airesis.<br/>
             Per l'eliminazione dell'account è solitamente necessario un mese, ma alcune informazioni potrebbero essere conservate in copie di backup e registri per un massimo di 90 giorni.<br/>
