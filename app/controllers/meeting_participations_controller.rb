@@ -25,4 +25,12 @@ class MeetingParticipationsController < ApplicationController
       end
     end
   end
+
+
+  protected
+
+
+  def meeting_participation_params
+    params.require(:meeting_participation).permit(:comment, :guests, :response)
+  end
 end

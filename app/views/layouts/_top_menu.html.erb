@@ -10,7 +10,7 @@
 
       <ul class="left">
         <% unless in_subdomain? %>
-            <li class="has-form">
+            <li>
               <a id="logo-but" href="#" class="button" data-dropdown="hover1" data-options="is_hover:false">
                 <i class="fa fa-users medium"></i>
                 <span class="show-for-large-up"><%= t('pages.header.groups_title') %></span>
@@ -47,15 +47,15 @@
                   <%= current_user.user_image_tag 34, cert: false %>
                   <span><%= current_user.fullname %></span>
               <% end %>
-              <%= link_to '#', class: 'account hide-for-large-up', data: {dropdown: "personal_menu_small", options: "is_hover:false"} do %>
-                  <%= current_user.user_image_tag 34, cert: false %>
+              <%= link_to '#', class: 'small account hide-for-large-up', data: {dropdown: "personal_menu_small", options: "is_hover:false"} do %>
+                  <span><%= current_user.user_image_tag 34, cert: false %></span>
               <% end %>
             </li>
             <li>
             </li>
             <li>
               <%= link_to "#", onclick: "return false;", id: "alerts_link", data: {dropdown: "alert_cont", options: "is_hover:false"} do %>
-                  <div class="icon-bell medium" title="ALERTS"></div>
+                  <i class="fa fa-bell medium" title="ALERTS"></i>
               <% end %>
             </li>
         <% else %>
@@ -83,37 +83,37 @@
   <li>
 
     <%= link_to '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;" do %>
-        <span class="icon-bell"></span>
+        <i class="fa fa-warning"></i>
         <%= t('pages.home.index.feedback') %>
     <% end %>
   </li>
   <li>
     <%= link_to videoguide_path, title: t('pages.home.index.videos') do %>
-        <span class="icon-film"></span>
+        <i class="fa fa-film"></i>
         <%= t('pages.home.index.videos') %>
     <% end %>
   </li>
   <li>
     <%= link_to 'http://bugtracking.airesis.it/projects/airesis/wiki/FAQ', title: t('pages.home.index.FAQ'), target: '_blank' do %>
-        <span class="icon-notebook"></span>
+        <i class="fa fa-book"></i>
         <%= t('pages.home.index.FAQ') %>
     <% end %>
   </li>
   <li>
     <%= link_to 'http://bugtracking.airesis.it/projects/airesis/wiki/Home_Page', title: t('pages.home.index.guide'), target: '_blank' do %>
-        <span class="icon-notebook"></span>
+        <i class="fa fa-book"></i>
         <%= t('pages.home.index.guide') %>
     <% end %>
   </li>
   <li>
     <%= link_to edemocracy_path, title: t('pages.home.index.whatis') do %>
-        <span class="icon-info"></span>
+        <i class="fa fa-info"></i>
         <%= t('pages.home.index.whatis') %>
     <% end %>
   </li>
   <li>
     <%= link_to chisiamo_path, title: t('pages.home.index.whowe') do %>
-        <span class="icon-users2"></span>
+        <i class="fa fa-users"></i>
         <%= t('pages.home.index.whowe') %>
     <% end %>
   </li>
@@ -122,8 +122,6 @@
 
 <% unless in_subdomain? %>
     <div id="hover1" class="f-dropdown medium" data-dropdown-content>
-
-
       <% if user_signed_in? %>
           <% if current_user.groups.empty? %>
               <%= t('pages.header.no_groups_yet') %>

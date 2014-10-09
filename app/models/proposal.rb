@@ -111,7 +111,7 @@ class Proposal < ActiveRecord::Base
   #tutte le proposte entrate in fase di revisione e feedback
   scope :revision, -> { where(proposal_state_id: ProposalState::ABANDONED) }
 
-  scope :public, -> { where(['private = ? or visible_outside = ?', true, true]) }
+  scope :public, -> { where(['private = ? or visible_outside = ?', false, true]) }
   scope :private, -> { where(private: true) } #proposte interne ai gruppi
 
   #condizione di appartenenza ad una categoria

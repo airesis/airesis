@@ -312,18 +312,10 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-
-      if @user.update_attributes(user_params)
+      if @user.update(user_params)
         flash[:notice] = t('info.user.info_updated')
-        if params[:user][:email] && @user.email != params[:user][:email]
-          flash[:notice] += t('info.user.confirm_email')
-        end
-        format.js do
-          render :update do |page|
-            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-            page.replace_html "user_profile_container", partial: "user_profile"
-          end
-        end
+        flash[:notice] += t('info.user.confirm_email') if params[:user][:email] && @user.email != params[:user][:email]
+        format.js
         format.html {
           if params[:back] == "home"
             redirect_to home_url

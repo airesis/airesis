@@ -16,9 +16,9 @@
   legend {
     background-color: transparent;
   }
-  .card_title {
+  .card-title {
     font-size: 1.6rem;
-    padding: 10px 5px;
+    padding-bottom: 10px;
   }
 
   [class*="block-grid-"] > li & {
@@ -899,13 +899,21 @@ form.paypal-button {
 }
 
 .button.account {
-  padding-left: 40px !important;
+  padding-left: 53.33px !important;
   img {
     width: 34px;
     height: 34px;
     position: absolute;
     top: 2px;
-    left: 0;
+    left: 13.33px;
+  }
+}
+
+.account.small {
+  line-height: 40px !important;
+  img {
+    display: inline-block;
+    margin-top: -5px;
   }
 }
 
@@ -923,6 +931,9 @@ form.paypal-button {
 }
 
 .fa.medium {
-  line-height: 34px;
-  font-size: 23px;
+  line-height: 40px;
+  font-size: 28px;
+  &.fa-question {
+    font-size: 35px;
+  }
 }

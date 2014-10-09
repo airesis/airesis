@@ -1245,6 +1245,10 @@ $top-large: $topbar-height+$sectionbar-height-large;
 
 }
 
+.top-bar-section li:not(.has-form) a:not(.button) {
+  line-height: inherit;
+}
+
 #main-copy.application {
   padding-top: 90px;
 }
@@ -1670,7 +1674,7 @@ a.zocial:hover {
   }
 }
 
-$logo-width: 92px;
+$logo-width: 100px;
 
 .logo-wrapper {
   @media #{$large-up} {
@@ -1680,7 +1684,7 @@ $logo-width: 92px;
       position: absolute;
       left: 50%;
       right: 50%;
-      top: 0px;
+      top: -2px;
       margin-left: -($logo-width/2);
     }
   }
@@ -1867,6 +1871,7 @@ $logo-width: 92px;
   span {
     @media #{$large-up} {
       display: inline !important;
+      vertical-align: text-bottom;
     }
   }
 }
@@ -2069,7 +2074,6 @@ small.warning {
     top: 3px;
   }
 }
-
 
 #menu-right img:hover,
 #menu-right .box .logo:hover {
@@ -2523,19 +2527,19 @@ input[type=file] {
   margin: 0 0 $form-spacing 0;
 }
 
-.top-bar-section ul li > a.button {
-  background-color: transparent;
-  top: 0px;
-  padding-top: 0px;
-  line-height: 40px;
-  padding-bottom: 0px;
+.top-bar-section ul li {
+  a.button {
+    background-color: transparent;
+    top: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    &:hover {
+      background-color: #008cba;
+    }
 
-  &:hover {
-    background-color: #008cba;
-  }
-
-  &.account {
-    line-height: 40px;
+    &.account {
+      line-height: 40px;
+    }
   }
 }
 
@@ -2815,10 +2819,10 @@ input[type=file] {
     &:before {
       content: "";
       display: block;
-      padding-top: 80%; 	/* initial ratio of 1:1*/
+      padding-top: 80%; /* initial ratio of 1:1*/
     }
     img {
-      position:  absolute;
+      position: absolute;
       top: 0;
       left: 0;
       bottom: 0;
