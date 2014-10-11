@@ -25,7 +25,7 @@ class GroupsController < ApplicationController
 
   def index
     unless request.xhr?
-      @tags = Tag.most_groups.shuffle
+      @tags = Tag.most_groups(10).shuffle
     end
 
     interest_border_key = params[:interest_border]

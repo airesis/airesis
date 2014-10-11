@@ -165,4 +165,12 @@ $(function () {
         return false;
     });
 
+
+    $.fn.tagcloud.defaults = {
+        size: {start: 12, end: 24, unit: 'pt'},
+        color: {start: '#fff', end: '#fff'}
+    };
+
+    $('[data-tag-cloud] a').tagcloud();
+
 });

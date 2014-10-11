@@ -1783,7 +1783,7 @@ $logo-width: 100px;
   -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0);
 }
 
-#menu-left {
+.menu-left {
   float: left;
   width: $left-menu-width;
   display: none;
@@ -1826,7 +1826,7 @@ $logo-width: 100px;
 }
 
 @media #{$medium-only} {
-  #menu-left {
+  .menu-left {
     &.contributes_shown {
       margin-left: -300px;
     }
@@ -1927,7 +1927,7 @@ small.warning {
   color: #fff;
 }
 
-.menu2 {
+.menu-left-inner {
   margin-bottom: 10px;
   margin-right: $topbar-link-padding;
   margin-left: $topbar-link-padding;
@@ -1953,7 +1953,7 @@ small.warning {
 
 @import "foundation/components/global";
 
-#pulldown #menu-left {
+#pulldown .menu-left {
   width: 0px;
   height: 0px;
   padding-top: 0px;
@@ -2254,7 +2254,7 @@ small.warning {
     $BUTTON
 \*------------------------------------*/
 
-#menu-left {
+.menu-left-inner {
   .btn {
     width: 100%;
     text-align: center;
@@ -2842,4 +2842,15 @@ input[type=file] {
   .bottom {
     padding: 0.4rem;
   }
+}
+
+
+
+//overrides
+.introjs-button {
+  @extend .btn;
+}
+
+.introjs-disabled {
+  @extend .disabled;
 }

@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="columns large-6 show-for-large-up">
-      <div id="tag_cloud" class="card">
+      <div data-tag-cloud class="card">
         <% @tags.each do |tag| %>
             <%= link_to tag.text, blogs_url(tag: tag.text), remote: true, rel: tag.blog_posts_count, class: 'round label' %>
         <% end %>
@@ -30,12 +30,6 @@
 </div>
 
 <script type="text/javascript">
-    $.fn.tagcloud.defaults = {
-        size: {start: 12, end: 24, unit: 'pt'},
-        color: {start: '#fff', end: '#fff'}
-    };
-
-    $('#tag_cloud a').tagcloud();
 
     function checkCharacters() {
         if (($('#search').val().length > 2) || ($('#interest_border').val() != '')) {
