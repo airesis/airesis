@@ -123,6 +123,11 @@ class Proposal < ActiveRecord::Base
   #condizione di visualizzazione in area di lavoro
   scope :in_group_area, lambda { |group_area_id| {include: [:area_proposals], conditions: ["((area_proposals.group_area_id = ? and proposals.private = 't'))", group_area_id]} if group_area_id }
 
+  #inconsistent proposals
+  scope :invalid_debate_phase, -> { in_valutation.joins(:quorum).where('current_timestamp > quorums.ends_at') }
+  scope :invalid_waiting_phase, -> { waiting.joins(:vote_period).where('current_timestamp > events.starttime') }
+  scope :invalid_vote_phase, -> { voting.joins(:vote_period).where('current_timestamp > events.endtime') }
+
 
   after_initialize :init
 
@@ -505,8 +510,20 @@ class Proposal < ActiveRecord::Base
         self.users.as_json(only: [:id], methods: [:fullname])
   end
 
-  private
 
+  #check if we have to close the debate and pass to votation phase
+  #accept a force parameter to close the debate in any case
+  def check_phase(force_end=false)
+    return unless in_valutation? #if the proposal already passed this phase skip this check
+    quorum.check_phase(force_end)
+  end
+
+
+  def close_vote_phase
+    quorum.close_vote_phase
+  end
+
+  private
 
   def before_update_populate
     self.update_user_id = self.current_user_id

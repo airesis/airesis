@@ -121,7 +121,7 @@ class Ability
 
       can :new, Group
       can :create, Group do |group|
-        !LIMIT_GROUPS || !user.portavoce_groups.maximum(:created_at) || (user.portavoce_groups.maximum(:created_at) > GROUPS_TIME_LIMIT.ago)
+        !LIMIT_GROUPS || !user.portavoce_groups.maximum(:created_at) || (user.portavoce_groups.maximum(:created_at) < GROUPS_TIME_LIMIT.ago)
       end
 
       can :read, Group
@@ -212,7 +212,7 @@ class Ability
       can [:read, :dates], [Quorum, BestQuorum, OldQuorum], group: participate_in_group(user)
       can [:read, :dates], [Quorum, BestQuorum, OldQuorum], public: true
 
-      can :manage, [Quorum, BestQuorum, OldQuorum], group: is_admin_of_group(user)
+      can :manage, [Quorum, BestQuorum, OldQuorum], group_quorum: {group: is_admin_of_group(user)}
       can :manage, GroupArea, group: is_admin_of_group(user).merge(enable_areas: true)
 
       can [:create, :destroy], AreaParticipation, group_area: {group: is_admin_of_group(user), area_participations: {user_id: :user_id}}

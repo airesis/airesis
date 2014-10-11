@@ -1,5 +1,5 @@
 class ProposalsWorker
-  include Sidekiq::Worker, ProposalsModule, NotificationHelper, Rails.application.routes.url_helpers
+  include Sidekiq::Worker, NotificationHelper, Rails.application.routes.url_helpers, GroupsHelper, ProposalsHelper
   sidekiq_options queue: :high_priority
 
   ENDTIME='endtime'
@@ -14,7 +14,7 @@ class ProposalsWorker
     case params['action']
       when ENDTIME
         #fa terminare la fase di valutazione di una proposta
-        check_phase(@proposal)
+        @proposal.check_phase
       when LEFT24
         #invia una notifica a tutti i partecipanti alla proposta
         # che non hanno dato la loro valutazione o possono cambiarla

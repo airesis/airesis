@@ -1,5 +1,6 @@
 class EventsWorker
-  include Sidekiq::Worker, GroupsHelper, NotificationHelper, Rails.application.routes.url_helpers, ProposalsModule
+  include Sidekiq::Worker, GroupsHelper, NotificationHelper, Rails.application.routes.url_helpers, ProposalsHelper
+
   sidekiq_options queue: :high_priority
 
   STARTVOTATION='startvotation'
@@ -47,8 +48,8 @@ class EventsWorker
     event = Event.find(event_id)
     proposals = event.proposals
     proposals.each do |proposal|
-        close_vote_phase(proposal)
-    end #end each
+        proposal.close_vote_phase
+    end
   end
 
 

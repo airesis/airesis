@@ -16,32 +16,29 @@ class BestQuorum < Quorum
 
   def populate_accessor
     super
-    self.vote_minutes_m = self.vote_minutes
-    if self.vote_minutes_m
-      if self.vote_minutes_m > 59
-        self.vote_hours_m = self.vote_minutes_m/60
-        self.vote_minutes_m = self.vote_minutes_m%60
-        if self.vote_hours_m > 23
-          self.vote_days_m = self.vote_hours_m/24
-          self.vote_hours_m = self.vote_hours_m%24
-        end
-      end
-    end
+    self.vote_minutes_m = vote_minutes
+    return unless vote_minutes_m
+    return unless vote_minutes_m > 59
+    self.vote_hours_m = vote_minutes_m/60
+    self.vote_minutes_m = vote_minutes_m%60
+    return unless vote_hours_m > 23
+    self.vote_days_m = vote_hours_m/24
+    self.vote_hours_m = vote_hours_m%24
   end
 
 
   #se i minuti non vengono definiti direttamente (come in caso di copia) allora calcolali dai dati di input
   def populate_vote
     unless self.vote_minutes
-      self.vote_minutes = self.vote_minutes_m.to_i + (self.vote_hours_m.to_i * 60) + (self.vote_days_m.to_i * 24 * 60)
-      self.vote_minutes = nil if (self.vote_minutes == 0)
+      self.vote_minutes = vote_minutes_m.to_i + (vote_hours_m.to_i * 60) + (vote_days_m.to_i * 24 * 60)
+      self.vote_minutes = nil if (vote_minutes == 0)
     end
-    self.bad_score = self.good_score
+    self.bad_score = good_score
   end
 
   def populate_vote!
-    self.vote_minutes = self.vote_minutes_m.to_i + (self.vote_hours_m.to_i * 60) + (self.vote_days_m.to_i * 24 * 60)
-    self.vote_minutes = nil if (self.vote_minutes == 0)
+    self.vote_minutes = vote_minutes_m.to_i + (vote_hours_m.to_i * 60) + (vote_days_m.to_i * 24 * 60)
+    self.vote_minutes = nil if (vote_minutes == 0)
   end
 
   def or?
@@ -66,13 +63,13 @@ class BestQuorum < Quorum
 
   #text to show in the stop cursor of rank bar
   def end_desc
-    I18n.l self.ends_at
+    I18n.l ends_at
   end
 
 
   #short description of time left to show in the rank bar and proposals list
   def time_left
-    amount = self.ends_at - Time.now #left in seconds
+    amount = ends_at - Time.now #left in seconds
     if amount > 0
       left = I18n.t('time.left.seconds', count: amount.to_i)
       if amount >= 60 #if more or equal than 60 seconds left give me minutes
@@ -89,17 +86,17 @@ class BestQuorum < Quorum
       end
       left.upcase
     else
-      "IN STALLO" #todo:i18n
+      "STALLED" #todo:i18n
     end
   end
 
   #show the total time of votation
   def vote_time
-    case self.t_vote_minutes
+    case t_vote_minutes
       when 'f'
         'free' #TODO:I18n
       when 's'
-        min = self.vote_minutes if self.vote_minutes
+        min = vote_minutes if vote_minutes
 
         if min && min > 0
           if min > 59
@@ -135,72 +132,59 @@ class BestQuorum < Quorum
   end
 
   def check_phase(force_end)
-    proposal = self.proposal
+    return unless force_end || (Time.now > ends_at) #skip if we have not passed the time yet
 
-    timepassed = Time.now > self.ends_at
-    vpassed = (!self.valutations || proposal.valutations >= self.valutations)
-    #if both parameters were defined
-
-    passed = timepassed || force_end #maybe we want to force the end of the proposal
-
-    if passed #if we have to move one
-      if proposal.rank >= self.good_score && vpassed #and we passed the debate quorum
-        if proposal.vote_defined #the user already choosed the votation period! that's great, we can just sit along the river waiting for it to begin
-          proposal.proposal_state_id = ProposalState::WAIT
-          #automatically create
-          if proposal.vote_event_id
-            @event = Event.find(proposal.vote_event_id)
-          else
-            event_p = {
-                event_type_id: EventType::VOTAZIONE,
-                title: "Votazione #{proposal.title}",
-                starttime: proposal.vote_starts_at,
-                endtime: proposal.vote_ends_at,
-                description: "Votazione #{proposal.title}"
-            }
-            if proposal.private?
-              @event = proposal.groups.first.events.create!(event_p)
-            else
-              @event = Event.create!(event_p)
-            end
-
-            #fai partire il timer per far scadere la proposta
-            EventsWorker.perform_at(@event.starttime, {action: EventsWorker::STARTVOTATION, event_id: @event.id})
-            EventsWorker.perform_at(@event.endtime, {action: EventsWorker::ENDVOTATION, event_id: @event.id})
-          end
-          proposal.vote_period = @event
+    vpassed = !valutations || (proposal.valutations >= valutations)
+    if (proposal.rank >= good_score) && vpassed #and we passed the debate quorum
+      if proposal.vote_defined #the user already chose the votation period! that's great, we can just sit along the river waiting for it to begin
+        proposal.proposal_state_id = ProposalState::WAIT
+        #automatically create
+        if proposal.vote_event_id
+          @event = Event.find(proposal.vote_event_id)
         else
-          proposal.proposal_state_id = ProposalState::WAIT_DATE #we passed the debate, we are now waiting for someone to choose the vote date
-          proposal.private? ?
-              notify_proposal_ready_for_vote(proposal, proposal.groups.first) :
-              notify_proposal_ready_for_vote(proposal)
-        end
+          event_p = {
+              event_type_id: EventType::VOTAZIONE,
+              title: "Votation #{proposal.title}",
+              starttime: proposal.vote_starts_at,
+              endtime: proposal.vote_ends_at,
+              description: "Votation #{proposal.title}"
+          }
+          if proposal.private?
+            @event = proposal.groups.first.events.create!(event_p)
+          else
+            @event = Event.create!(event_p)
+          end
 
-        #remove the timer if is still there
-        if self.minutes
-          #Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id}) TODO remove job
+          #fai partire il timer per far scadere la proposta
+          EventsWorker.perform_at(@event.starttime, {action: EventsWorker::STARTVOTATION, event_id: @event.id})
+          EventsWorker.perform_at(@event.endtime, {action: EventsWorker::ENDVOTATION, event_id: @event.id})
         end
+        proposal.vote_period = @event
       else
-        abandon(proposal)
-
+        proposal.proposal_state_id = ProposalState::WAIT_DATE #we passed the debate, we are now waiting for someone to choose the vote date
         proposal.private? ?
-            notify_proposal_abandoned(proposal, proposal.groups.first) :
-            notify_proposal_abandoned(proposal)
-
-        #remove the timer if is still there
-        if self.minutes
-          #Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id}) TODO remove job
-        end
+            notify_proposal_ready_for_vote(proposal, proposal.groups.first) :
+            notify_proposal_ready_for_vote(proposal)
       end
 
-      proposal.save
-      proposal.reload
+      #remove the timer if is still there
+      #Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id}) if minutes #TODO remove job
+    else
+      abandon(proposal)
+
+      proposal.private? ?
+          notify_proposal_abandoned(proposal, proposal.groups.first) :
+          notify_proposal_abandoned(proposal)
+
+      #remove the timer if is still there
+      #Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id}) if minutes #TODO remove job
     end
+
+    proposal.save
+    proposal.reload
   end
 
-
   def close_vote_phase
-    proposal = self.proposal
     if proposal.is_schulze?
       vote_data_schulze = proposal.schulze_votes
       Proposal.transaction do
@@ -217,19 +201,15 @@ class BestQuorum < Quorum
           c.save!
         end
         votes = proposal.schulze_votes.sum(:count)
-        if votes >= self.vote_valutations
-          proposal.proposal_state_id = ProposalState::ACCEPTED
-        else
-          proposal.proposal_state_id = ProposalState::REJECTED
-        end
-      end #fine transazione
+        proposal.proposal_state_id = (votes >= vote_valutations) ? ProposalState::ACCEPTED : ProposalState::REJECTED
+      end #end of transaction
     else
       vote_data = proposal.vote
       positive = vote_data.positive
       negative = vote_data.negative
       neutral = vote_data.neutral
       votes = positive + negative + neutral
-      if ((positive+negative) > 0) && ((positive.to_f / (positive+negative).to_f) > (self.vote_good_score.to_f / 100)) && (votes >= self.vote_valutations) #se ha avuto più voti positivi allora diventa ACCETTATA
+      if ((positive+negative) > 0) && ((positive.to_f / (positive+negative).to_f) > (vote_good_score.to_f / 100)) && (votes >= vote_valutations) #se ha avuto più voti positivi allora diventa ACCETTATA
         proposal.proposal_state_id = ProposalState::ACCEPTED
       else #se ne ha di più negativi allora diventa RESPINTA
         proposal.proposal_state_id = ProposalState::REJECTED

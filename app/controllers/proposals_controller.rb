@@ -1,6 +1,6 @@
 #encoding: utf-8
 class ProposalsController < ApplicationController
-  include NotificationHelper, ProposalsModule, GroupsHelper
+  include NotificationHelper, GroupsHelper, ProposalsHelper
 
   before_filter :load_group
   before_filter :load_group_area
@@ -129,6 +129,7 @@ class ProposalsController < ApplicationController
   end
 
   def show
+    @proposal.check_phase #todo checks only the state during the debate. this is a security check, so if the background job didn't run we can always fix it/ we should check also for waiting and vote inconsistent phase.
     if @proposal.private
       if @group #la proposta è interna ad un gruppo
         if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio
@@ -484,25 +485,8 @@ class ProposalsController < ApplicationController
   #exlipcitly close the debate of a proposal
   def close_debate
     authorize! :close_debate, @proposal
-
-    Proposal.transaction do
-      check_phase(@proposal, true)
-    end
+    @proposal.check_phase(true)
     redirect_to @proposal
-
-  rescue Exception => e
-    puts e
-    flash[:error] = "Errore durante la chiusura del dibattito"
-    respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
-      format.html {
-        flash[:notice] = I18n.t('info.proposal.proposal_deleted')
-        redirect_to(@proposal)
-      }
-    end
   end
 
   def facebook_share
@@ -568,23 +552,21 @@ class ProposalsController < ApplicationController
 
   #valuta una proposta
   def rank(rank_type)
-    if @my_ranking #se essite già una mia valutazione, aggiornala
+    if @my_ranking #updating my existing ranking
       @ranking = @my_ranking
-    else #altrimenti creane una nuova
+    else #otherwise create a new one
       @ranking = ProposalRanking.new
       @ranking.user_id = current_user.id
       @ranking.proposal_id = params[:id]
-      notify_user_valutate_proposal(@ranking, @group) #invia notifica per indicare la nuova valutazione
+      notify_user_valutate_proposal(@ranking, @group) #send a notification
     end
-    @ranking.ranking_type_id = rank_type #setta il tipo di valutazione
+    @ranking.ranking_type_id = rank_type #set type of ranking
 
     ProposalRanking.transaction do
       saved = @ranking.save!
       @proposal.reload
-      check_phase(@proposal)
-
+      @proposal.check_phase
       load_my_vote
-
     end #transaction
     flash[:notice] = I18n.t('info.proposal.rank_recorderd')
     respond_to do |format|
@@ -593,7 +575,6 @@ class ProposalsController < ApplicationController
       format.html
     end
   rescue Exception => e
-#    log_error(e)
     flash[:error] = I18n.t('error.proposals.proposal_rank')
     respond_to do |format|
       format.js { render :update do |page|

@@ -3,7 +3,7 @@
 require 'rake'
 
 class AdminController < ManagerController
-  include ProposalsModule
+  include GroupsHelper, NotificationHelper, ProposalsHelper
 
   before_filter :admin_required
 
@@ -33,16 +33,19 @@ class AdminController < ManagerController
 
   #change proposal states
   def change_proposals_state
+    #check all proposals in debate and tim expired and close the debate
+    Proposal.invalid_debate_phase.each do |proposal| #per ciascuna proposta il cui tempo di valutazione è terminato
+      proposal.check_phase
+    end
+
     #check all proposals waiting and put them in votation
-    voting = Proposal.waiting.joins(:vote_period).where('current_timestamp > events.starttime')
-    voting.each do |proposal| #per ciascuna proposta da chiudere
+    Proposal.invalid_waiting_phase.each do |proposal| #per ciascuna proposta da chiudere
       EventsWorker.new.start_votation(proposal.vote_period.id)
     end
 
     #check all proposals in votation that has to be closed but are still in votation and the period has passed
-    voting = Proposal.voting.joins(:vote_period).where('current_timestamp > events.endtime')
-    voting.each do |proposal| #per ciascuna proposta da chiudere
-      proposal.quorum.close_vote_phase
+    Proposal.invalid_vote_phase.each do |proposal| #per ciascuna proposta da chiudere
+      proposal.close_vote_phase
     end
 
     flash[:notice] = 'Stato proposte aggiornato'

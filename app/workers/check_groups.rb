@@ -1,5 +1,5 @@
 class CheckGroups
-  include Sidekiq::Worker, GroupsHelper, Rails.application.routes.url_helpers, ProposalsModule
+  include Sidekiq::Worker, GroupsHelper, Rails.application.routes.url_helpers, NotificationHelper, ProposalsHelper
   sidekiq_options queue: :low_priority
 
   def perform(*args)

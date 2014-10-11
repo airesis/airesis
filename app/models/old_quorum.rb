@@ -146,7 +146,6 @@ class OldQuorum < Quorum
 
 
   def close_vote_phase
-    proposal = self.proposal
     if proposal.is_schulze?
       vote_data_schulze = proposal.schulze_votes
       Proposal.transaction do
