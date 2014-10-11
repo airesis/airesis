@@ -1456,3 +1456,9 @@ it-IT:
     share:
       blog_post: "Guarda questo post su #%{app}! %{tags}"
       event: "C'è un nuovo evento su #%{app}"
+  home:
+    portlets:
+      last_proposals:
+        proceed_to_proposals: "Vai alle proposte"
+      from_blogs:
+        proceed_to_blogs: "Vai ai blog"

@@ -226,7 +226,7 @@ Devise.setup do |config|
                   {scope: 'email', client_options: {ssl: {verify: false, ca_path: '/etc/ssl/certs'}}}
 
   require "omniauth-google-oauth2"
-  config.omniauth :google_oauth2, ENV['GOOGLE_APP_ID'], ENV['GOOGLE_APP_SECRET'], {access_type: "offline", approval_prompt: ""}
+  config.omniauth :google_oauth2, ENV['GOOGLE_APP_ID'], ENV['GOOGLE_APP_SECRET'], {}
 
   require "omniauth-twitter"
   config.omniauth :twitter, ENV['TWITTER_APP_ID'], ENV['TWITTER_APP_SECRET']

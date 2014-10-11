@@ -25,7 +25,7 @@
   <div class="inner-wrap">
     <!-- Off Canvas Menu -->
     <aside class="left-off-canvas-menu">
-      <div class="menu2">
+      <div class="menu-left-inner">
         <%= yield :left_panel %>
       </div>
     </aside>
@@ -47,8 +47,8 @@
             </div>
         <% else %>
             <% if content_for?(:left_panel) %>
-                <div id="menu-left" class="show-for-medium-up">
-                  <div class="menu2">
+                <div id="menu-left" class="menu-left show-for-medium-up">
+                  <div class="menu-left-inner">
                     <%= yield :left_panel %>
                   </div>
                 </div>

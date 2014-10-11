@@ -1,6 +1,6 @@
 <div class="title">
   <%= t('pages.home.index.last_proposals') %>
-  <%=link_to 'Vai alle proposte', proposals_path, class: 'btn' %>
+  <%=link_to t('.proceed_to_proposals'), proposals_path, class: 'btn' %>
 </div>
 
 <% @proposals_p = Proposal.open_space_portlet(current_user) %>

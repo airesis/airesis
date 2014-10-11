@@ -1561,3 +1561,9 @@ en:
     share:
       blog_post: "Look at this post on #%{app}! %{tags}"
       event: "There is a new event on #%{app}"
+  home:
+    portlets:
+      last_proposals:
+        proceed_to_proposals: "Proceed to proposals"
+      from_blogs:
+        proceed_to_blogs: "Proceed to blogs"

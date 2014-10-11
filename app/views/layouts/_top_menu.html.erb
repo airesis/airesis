@@ -64,12 +64,12 @@
                   <%= eval "#{@group.subdomain}_login" if @group %>
                 </li>
             <% else %>
-                <li class="has-form">
-                  <a id="login_button" href="#" onclick="return false;" class="button show-for-medium-up"><%= t('pages.header.login') %></a>
-                  <%= link_to t('pages.header.login'), '/users/sign_in', class: "button show-for-small" %>
+                <li>
+                  <%= link_to t('pages.header.login'), '#', data: {reveal_id: "login-panel"}, class: "button fit-button show-for-medium-up" %>
+                  <%= link_to t('pages.header.login'), '/users/sign_in', class: "fit-button button show-for-small" %>
                 </li>
-                <li class="has-form">
-                  <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name), class: 'button' %>
+                <li>
+                  <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name), class: 'fit-button button' %>
                 </li>
             <% end %>
         <% end %>
@@ -142,69 +142,7 @@
     </div>
 <% end %>
 
-<% unless current_user %>
-    <div id="tolr" class="not_logged">
-      <div id="inlog">
-
-      </div>
-
-      <div id="login_panel" class="reveal-modal large" data-reveal>
-        <h2><%= t('pages.header.login') %></h2>
-
-        <div class="row">
-          <div class="columns large-6">
-            <%= form_for User.new, url: user_session_path, html: {class: 'box'} do |f| %>
-
-                <%= f.text_field :login, placeholder: t('pages.header.login_placeholder'), autocomplete: :off %>
-
-                <%= f.password_field :password, placeholder: 'Password' %>         <br/>
-                <%= f.label :remember_me do %>
-                    <%= f.check_box :remember_me %>
-                    <%= t('pages.header.menu.remember_me') %>
-                <% end %>
-
-                <%= f.button class: "btn blue" do %>
-                    <i class="fa fa-key"></i>
-                    <%= t('pages.header.menu.login_button') %>
-                <% end %>
-
-            <% end %>
-
-
-            <div class="box lost">
-              <p><%= link_to t('pages.header.menu.forgot_password_button'), new_password_path(resource_name) %></p>
-
-              <p><%= link_to t('pages.header.menu.resend_email_button'), new_confirmation_path(resource_name) %></p>
-            </div>
-          </div>
-          <div class="columns large-6">
-            <% if ::Configuration.socialnetwork_active && !in_subdomain? %>
-                <%= cache ["social_network_header", I18n.locale] do %>
-                    <div class="box more">
-                      <div class="more">
-                        <%= link_to t('pages.top_panel.facebook_login'), user_omniauth_authorize_path(:facebook), alt: t('pages.top_panel.facebook_login'), title: t('pages.top_panel.facebook_login'), class: 'zocial facebook' %>
-                      </div>
-                      <div class="more">
-                        <%= link_to t('pages.top_panel.google_login'), user_omniauth_authorize_path(:google_oauth2), alt: t('pages.top_panel.google_login'), title: t('pages.top_panel.google_login'), class: 'zocial google' %>
-                      </div>
-                      <div class="more">
-                        <%= link_to t('pages.top_panel.twitter_login'), user_omniauth_authorize_path(:twitter), alt: t('pages.top_panel.twitter_login'), title: t('pages.top_panel.twitter_login'), class: 'zocial twitter' %>
-                      </div>
-                      <div class="more">
-                        <%= link_to t('pages.top_panel.meetup_login'), user_omniauth_authorize_path(:meetup), alt: t('pages.top_panel.meetup_login'), title: t('pages.top_panel.meetup_login'), class: 'zocial meetup' %>
-                      </div>
-                      <div class="more">
-                        <%= link_to t('pages.top_panel.linkedin_login'), user_omniauth_authorize_path(:linkedin), alt: t('pages.top_panel.linkedin_login'), title: t('pages.top_panel.linkedin_login'), class: 'zocial linkedin' %>
-                      </div>
-                    </div>
-                <% end %>
-            <% end %>
-          </div>
-        </div>
-        <a class="close-reveal-modal">&#215;</a>
-      </div>
-    </div>
-<% end %>
+<%= render 'layouts/login_panel' unless signed_in?%>
 
 
 

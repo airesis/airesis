@@ -68,7 +68,7 @@
         <% end %>
 
         <% unless alreadyproviders.include? Authentication::GOOGLE %>
-            <%= link_to "<div class=\"zocial icon google vertical\"></div>".html_safe + t('pages.users.privacy_preferences.join_google'), user_omniauth_authorize_path(:google_oauth2) %>
+            <%= link_to "<div class=\"zocial icon googleplus vertical\"></div>".html_safe + t('pages.users.privacy_preferences.join_google'), user_omniauth_authorize_path(:google_oauth2) %>
             <br/>
         <% end %>
 
