@@ -2854,3 +2854,10 @@ input[type=file] {
 .introjs-disabled {
   @extend .disabled;
 }
+
+.introjs-helperNumberLayer {
+  padding: 0px;
+  font-size: 11px;
+  line-height: 17px;
+  border: 2px solid white;
+}

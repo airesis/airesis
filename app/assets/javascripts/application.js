@@ -36,7 +36,7 @@
 //= require countdown/index
 //= require jquery.tagcloud
 //= require jquery.switchbutton
-//= require introjs.min
+//= require intro.js
 //= require select2
 //= require ckeditor/init
 //= require underscore
