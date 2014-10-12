@@ -1,12 +1,9 @@
 #encoding: utf-8
 class UsersController < ApplicationController
-
-
   layout :choose_layout
 
   before_filter :authenticate_user!, except: [:index, :show, :confirm_credentials, :join_accounts]
-  # Protect these actions behind an admin login
-  # before_filter :admin_required, only: [:suspend, :unsuspend, :destroy, :purge]
+
   before_filter :load_user, only: [:show, :update, :update_image, :show_message, :send_message]
 
   def confirm_credentials

@@ -39,7 +39,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       @user = User.find_for_facebook_oauth(env["omniauth.auth"], current_user)
       if @user
         #se all'utente è già collegato un account facebook
-        if @user.has_provider(Authentication::FACEBOOK)
+        if @user.has_provider?(Authentication::FACEBOOK)
           flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Facebook"
           @user.remember_me = true
           sign_in_and_redirect @user, event: :authentication
@@ -80,7 +80,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       @user = User.find_for_google_oauth2(access_token, current_user)
       if @user
         #se all'utente è già collegato un account google
-        if @user.has_provider(Authentication::GOOGLE)
+        if @user.has_provider?(Authentication::GOOGLE)
           flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Google"
           @user.remember_me = true
           sign_in_and_redirect @user, event: :authentication
@@ -117,7 +117,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       @user = User.find_for_twitter(request.env["omniauth.auth"], current_user)
       if @user
         #se all'utente è già collegato un account twitter
-        if @user.has_provider(Authentication::TWITTER)
+        if @user.has_provider?(Authentication::TWITTER)
           flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Twitter"
           #cheidigli di inserire l'email se è il primo accesso
           if @user.sign_in_count == 0
@@ -158,7 +158,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       @user = User.find_for_meetup(request.env["omniauth.auth"], current_user)
       if @user
         #se all'utente è già collegato un account meetup
-        if @user.has_provider(Authentication::MEETUP)
+        if @user.has_provider?(Authentication::MEETUP)
           flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Meetup"
           #cheidigli di inserire l'email se è il primo accesso
           if @user.sign_in_count == 0
@@ -201,7 +201,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       @user = User.find_for_parma(access_token, current_user)
       if @user
         #se all'utente è già collegato un account parma
-        if @user.has_provider(Authentication::PARMA)
+        if @user.has_provider?(Authentication::PARMA)
           flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Parma"
           @user.remember_me = true
           sign_in @user, event: :authentication
@@ -243,7 +243,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       @user = User.find_for_linkedin_oauth(env["omniauth.auth"], current_user)
       if @user
         #se all'utente è già collegato un account linkedin
-        if @user.has_provider(Authentication::LINKEDIN)
+        if @user.has_provider?(Authentication::LINKEDIN)
           flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Linkedin"
           @user.remember_me = true
           sign_in_and_redirect @user, event: :authentication

@@ -1260,6 +1260,7 @@ en:
     no_word: 'NO'
     mark: "Mark"
     update_and_continue: "Save and continue"
+    detach: "Detach"
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>Firstly they are shown the new contributions or the ones you haven't evaluated, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent"
@@ -1567,3 +1568,16 @@ en:
         proceed_to_proposals: "Proceed to proposals"
       from_blogs:
         proceed_to_blogs: "Proceed to blogs"
+  confirm_detach: "Are you sure to remove this Identity Provider? You will not be able to use it in the future."
+  alert_detach: "You must provide a valid email address in order to remove this Identity Provider"
+  users:
+    confirm_credentials:
+      title: "Confirm your credentials"
+      instructions_html: |
+        There is already another user on Airesis with the same email address.<br />
+        Insert your password on Airesis to join the two accounts.<br />
+        If you do not remember the password, proceed to the 'Recover Password' page.
+  proposal_comments:
+    manage_noise:
+      title: "Manage useless contributes"
+      help: "Drag and drop on the right the contributes you consider useless for the discussion"

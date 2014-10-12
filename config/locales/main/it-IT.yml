@@ -1180,6 +1180,7 @@ it-IT:
     yes_word: 'SI'
     no_word: 'NO'
     mark: "Marca"
+    detach: "Scollega"
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di maturità.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     random_stack_2: "<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente."
@@ -1462,3 +1463,16 @@ it-IT:
         proceed_to_proposals: "Vai alle proposte"
       from_blogs:
         proceed_to_blogs: "Vai ai blog"
+  confirm_detach: "Sei sicuro di voler scollegare questo Identity Provider? Non potrai più accedere tramite esso."
+  alert_detach: "Per poter rimuovere l'Identity Provider devi prima fornire un indirizzo email valido e confermarlo dal menu 'Informazioni Generali'."
+  users:
+    confirm_credentials:
+      title: "Conferma le credenziali"
+      instructions_html: |
+        Hai eseguito correttamente la procedura di login tramite provider ma a è già presente un altro account con lo stesso indirizzo email.<br />
+        Inserisci le tue credenziali su Airesis per unire le informazioni dei due account.<br />
+        Se non possiedi la password di accesso, accedi con l'altro account e impostane una dalle preferenze.
+  proposal_comments:
+    manage_noise:
+      title: "Gestisci i contributi inutili alla discussione"
+      help: "Trascina a destra i contributi che vuoi eliminare dalla discussione"
