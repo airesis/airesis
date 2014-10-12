@@ -941,3 +941,7 @@ form.paypal-button {
     font-size: 35px;
   }
 }
+
+[data-collapsed] {
+  display: none;
+}

@@ -1,5 +1,5 @@
 <% if @group %>
-    <%= link_to new_proposal_path(group_id: (@group.id if @group), group_area_id: params[:group_area_id], category: params[:category], topic_id:@topic.try(:id), models: true), id: 'nuova_proposta', class: "create_proposal btn blue disable" do %>
+    <%= link_to new_proposal_path(group_id: (@group.id if @group), group_area_id: params[:group_area_id], category: params[:category], topic_id: @topic.try(:id), models: true), id: 'nuova_proposta', class: "create_proposal btn blue disable" do %>
         <i class="fa fa-plus"></i>
         <%= t('proposals.create_button') %>
     <% end if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
@@ -7,15 +7,17 @@
     <div class="choose_model" style="display:none;">
       <h2 class="modal_title"><%= t('pages.proposals.index.choose_model') %></h2>
 
-      <div style="max-width:1000px;margin:auto;">
+      <div class="row">
         <% ProposalType.active.for_groups.order(:seq).each do |proposal_type| %>
-            <div class="proposal_model_option" data-id="<%= proposal_type.name %>" style="background-color: <%= proposal_type.color %>">
-              <div class="model_name">
-                <div class="name">
-                  <%= proposal_type.description %>
-                </div>
-                <div class="icon">
-                  <%= image_tag("proposal_types/#{proposal_type.name.downcase}.png", align: 'middle', alt: proposal_type.description, title: proposal_type.description) %>
+            <div class="columns large-3 medium-6 small-12 ">
+              <div class="proposal_model_option" data-id="<%= proposal_type.name %>" style="background-color: <%= proposal_type.color %>">
+                <div class="model_name">
+                  <div class="name">
+                    <%= proposal_type.description %>
+                  </div>
+                  <div class="icon">
+                    <%= image_tag("proposal_types/#{proposal_type.name.downcase}.png", align: 'middle', alt: proposal_type.description, title: proposal_type.description) %>
+                  </div>
                 </div>
               </div>
             </div>
