@@ -175,7 +175,7 @@ class User < ActiveRecord::Base
 
 
   def email_required?
-    super && !(has_provider('twitter') || has_provider('linkedin'))
+    super && !(has_provider?(Authentication::TWITTER) || has_provider?(Authentication::LINKEDIN))
   end
 
 
@@ -493,25 +493,25 @@ class User < ActiveRecord::Base
 
 
   #authentication method
-  def has_provider(provider_name)
-    return self.authentications.where(provider: provider_name).count > 0
+  def has_provider?(provider_name)
+    authentications.find_by(provider: provider_name).present?
   end
 
   def from_identity_provider?
-    return self.authentications.count > 0
+    authentications.any?
   end
 
 
   def build_authentication_provider(access_token)
-    self.authentications.build(provider: access_token['provider'], uid: access_token['uid'], token: (access_token['credentials']['token'] rescue nil))
+    authentications.build(provider: access_token['provider'], uid: access_token['uid'], token: (access_token['credentials']['token'] rescue nil))
   end
 
   def facebook
-    @fb_user ||= Koala::Facebook::API.new(self.authentications.find_by_provider(Authentication::FACEBOOK).token) rescue nil
+    @fb_user ||= Koala::Facebook::API.new(authentications.find_by(provider: Authentication::FACEBOOK).token) rescue nil
   end
 
   def parma
-    @parma_user ||= Parma::API.new(self.authentications.find_by_provider(Authentication::PARMA).token) rescue nil
+    @parma_user ||= Parma::API.new(authentications.find_by(provider: Authentication::PARMA).token) rescue nil
   end
 
   #gestisce l'azione di login tramite facebook
@@ -524,21 +524,20 @@ class User < ActiveRecord::Base
     else
       user = User.find_by_email(data['email']) #altrimenti cercane uno con l'email uguale
     end
-    if user
-      return user
-    else #crea un nuovo account facebook
-      if data["verified"]
-        user = User.new(name: data["first_name"], surname: data["last_name"], sex: (data["gender"] ? data["gender"][0] : nil), email: data["email"], password: Devise.friendly_token[0, 20], facebook_page_url: data["link"])
-        user.user_type_id = 3
-        user.sign_in_count = 0
-        user.build_authentication_provider(access_token)
-        user.confirm!
-        user.save(validate: false)
-      else
-        return nil
-      end
-      return user
+    return user if user
+
+    #crea un nuovo account facebook
+    if data["verified"]
+      user = User.new(name: data["first_name"], surname: data["last_name"], sex: (data["gender"] ? data["gender"][0] : nil), email: data["email"], password: Devise.friendly_token[0, 20], facebook_page_url: data["link"])
+      user.user_type_id = 3
+      user.sign_in_count = 0
+      user.build_authentication_provider(access_token)
+      user.confirm!
+      user.save(validate: false)
+    else
+      return nil
     end
+    return user
   end
 
 
@@ -552,42 +551,41 @@ class User < ActiveRecord::Base
     else
       user = User.find_by_email(data['emailAddress']) #altrimenti cercane uno con l'email uguale
     end
-    if user
-      return user
-    else #crea un nuovo account linkedin
-      user = User.new(name: data["firstName"], surname: data["lastName"], email: data["emailAddress"], password: Devise.friendly_token[0, 20], linkedin_page_url: data[:publicProfileUrl])
-      user.avatar_url = data[:pictureUrl]
-      user.user_type_id = 3
-      user.sign_in_count = 0
-      user.build_authentication_provider(access_token)
-      user.confirm!
-      user.save(validate: false)
-      return user
-    end
+    return user if user
+
+    #crea un nuovo account linkedin
+    user = User.new(name: data["firstName"], surname: data["lastName"], email: data["emailAddress"], password: Devise.friendly_token[0, 20], linkedin_page_url: data[:publicProfileUrl])
+    user.avatar_url = data[:pictureUrl]
+    user.user_type_id = 3
+    user.sign_in_count = 0
+    user.build_authentication_provider(access_token)
+    user.confirm!
+    user.save(validate: false)
+    return user
   end
 
 
 #gestisce l'azione di login tramite google
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
     data = access_token['extra']['raw_info'] #dati di google
-    auth = Authentication.find_by_provider_and_uid(access_token['provider'], access_token['uid'])
+    auth = Authentication.find_by(provider: access_token['provider'], uid: access_token['uid'])
     if auth
       user = auth.user #se ho trovato l'id dell'utente prendi lui
     else
-      user = User.find_by_email(data['email']) #altrimenti cercane uno con l'email uguale
+      user = User.find_by(email: data['email']) #altrimenti cercane uno con l'email uguale
     end
 
-    if user
-      return user
-    else #crea un nuovo account google
-      user = User.new(name: data["given_name"], surname: data["family_name"], sex: (data["gender"] ? data["gender"][0] : nil), email: data["email"], password: Devise.friendly_token[0, 20], google_page_url: data["link"])
-      user.user_type_id = 3
-      user.sign_in_count = 0
-      user.build_authentication_provider(access_token)
-      user.confirm!
-      user.save(validate: false)
-      return user
-    end
+    return user if user
+
+    #create a new one
+    user = User.new(name: data["given_name"], surname: data["family_name"], sex: (data["gender"] ? data["gender"][0] : nil), email: data["email"], password: Devise.friendly_token[0, 20], google_page_url: data["profile"])
+    user.user_type_id = 3
+    user.sign_in_count = 0
+    user.build_authentication_provider(access_token)
+    user.confirm!
+    user.avatar = URI.parse(data['picture']) if data['picture']
+    user.save(validate: false)
+    user
   end
 
 
@@ -599,22 +597,21 @@ class User < ActiveRecord::Base
       user = auth.user #se ho trovato l'id dell'utente prendi lui
     end
 
-    if user
-      return user
-    else #crea un nuovo account twitter
-      fullname = data["name"]
-      splitted = fullname.split(' ', 2)
-      name = splitted ? splitted[0] : fullname
-      surname = splitted ? splitted[1] : ''
-      user = User.new(name: name, surname: surname, password: Devise.friendly_token[0, 20])
-      user.avatar_url = data[:profile_image_url]
-      user.user_type_id = 3
-      user.sign_in_count = 0
-      user.build_authentication_provider(access_token)
-      user.confirm!
-      user.save(validate: false)
-      return user
-    end
+    return user if user
+
+    #crea un nuovo account twitter
+    fullname = data["name"]
+    splitted = fullname.split(' ', 2)
+    name = splitted ? splitted[0] : fullname
+    surname = splitted ? splitted[1] : ''
+    user = User.new(name: name, surname: surname, password: Devise.friendly_token[0, 20])
+    user.avatar_url = data[:profile_image_url]
+    user.user_type_id = 3
+    user.sign_in_count = 0
+    user.build_authentication_provider(access_token)
+    user.confirm!
+    user.save(validate: false)
+    return user
   end
 
 
@@ -626,22 +623,21 @@ class User < ActiveRecord::Base
       user = auth.user #se ho trovato l'id dell'utente prendi lui
     end
 
-    if user
-      return user
-    else #crea un nuovo account twitter
-      fullname = data["name"]
-      splitted = fullname.split(' ', 2)
-      name = splitted ? splitted[0] : fullname
-      surname = splitted ? splitted[1] : ''
-      user = User.new(name: name, surname: surname, password: Devise.friendly_token[0, 20])
-      user.avatar_url = data[:photo][:photo_link] if data[:photo]
-      user.user_type_id = 3
-      user.sign_in_count = 0
-      user.build_authentication_provider(access_token)
-      user.confirm!
-      user.save(validate: false)
-      return user
-    end
+    return user if user
+
+    #crea un nuovo account twitter
+    fullname = data["name"]
+    splitted = fullname.split(' ', 2)
+    name = splitted ? splitted[0] : fullname
+    surname = splitted ? splitted[1] : ''
+    user = User.new(name: name, surname: surname, password: Devise.friendly_token[0, 20])
+    user.avatar_url = data[:photo][:photo_link] if data[:photo]
+    user.user_type_id = 3
+    user.sign_in_count = 0
+    user.build_authentication_provider(access_token)
+    user.confirm!
+    user.save(validate: false)
+    return user
   end
 
   #gestisce l'azione di login tramite parma
@@ -654,35 +650,32 @@ class User < ActiveRecord::Base
       user = User.find_by_email(data['email']) #altrimenti cercane uno con l'email uguale
     end
 
-    if user
-      return user
-    else #crea un nuovo account parma
+    return user if user
 
-      user = User.new(name: data['first_name'].capitalize, surname: data['last_name'].capitalize, password: Devise.friendly_token[0, 20], email: data['email'])
-      group = Group.find_by_subdomain('parma')
-      user.group_participation_requests.build(group: group, group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED)
-      participation_role = group.default_role
-      if data['verified']
-        certification = user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
-        participation_role = ParticipationRole.where(['group_id = ? and lower(name) = ?', group.id, 'residente']).first || participation_role #look for best role or fallback
-        user.user_type_id = UserType::CERTIFIED
-      else
-        user.user_type_id = UserType::AUTHENTICATED
-      end
-      user.group_participations.build(group: group, participation_role_id: participation_role.id)
+    #crea un nuovo account parma
 
-      user.sign_in_count = 0
-      user.build_authentication_provider(access_token)
-      user.confirm!
-      user.save!
-
-      #if data['verified']
-      #  UserSensitive.create!({name: user.name, surname: user.surname, tax_code: user.email, user_id: user.id})
-      #end
-
-      return user
+    user = User.new(name: data['first_name'].capitalize, surname: data['last_name'].capitalize, password: Devise.friendly_token[0, 20], email: data['email'])
+    group = Group.find_by_subdomain('parma')
+    user.group_participation_requests.build(group: group, group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED)
+    participation_role = group.default_role
+    if data['verified']
+      certification = user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
+      participation_role = ParticipationRole.where(['group_id = ? and lower(name) = ?', group.id, 'residente']).first || participation_role #look for best role or fallback
+      user.user_type_id = UserType::CERTIFIED
+    else
+      user.user_type_id = UserType::AUTHENTICATED
     end
+    user.group_participations.build(group: group, participation_role_id: participation_role.id)
+
+    user.sign_in_count = 0
+    user.build_authentication_provider(access_token)
+    user.confirm!
+    user.save!
+
+    #if data['verified']
+    #  UserSensitive.create!({name: user.name, surname: user.surname, tax_code: user.email, user_id: user.id})
+    #end
+
+    return user
   end
-
-
 end

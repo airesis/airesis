@@ -10,6 +10,8 @@ class Tag < ActiveRecord::Base
   scope :most_blogs, ->(limit=40) { where('blog_posts_count > 0').order('blog_posts_count desc').limit(limit) } #todo use blog_post for now
   scope :for_twitter, -> { pluck(:text).map { |t| "##{t}" }.join(', ') }
 
+  before_save :escape_text, on: :create
+
   def as_json(options={})
     {id: text, name: text}
   end
@@ -31,5 +33,11 @@ class Tag < ActiveRecord::Base
                 GROUP BY t2p2.tag_id LIMIT 11)
                 and tt3.text != ?", text, text])
     Tag.find_by_sql query
+  end
+
+  protected
+
+  def escape_text
+    self.text = text.strip.downcase.gsub('.', '').gsub("'", '').gsub('/','')
   end
 end

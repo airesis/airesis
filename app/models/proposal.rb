@@ -333,21 +333,9 @@ class Proposal < ActiveRecord::Base
           t = Tag.find_or_create_by(text: stripped)
           tids << t.id
         end
-        #if (!self.tags.include? t)
-        #  self.tags << t
-        #end
       end
       self.tag_ids = tids
     end
-
-    first_solution = self.solutions.first
-    first_section =
-        if first_solution && first_solution.sections.first
-          first_solution.sections.first
-        else
-          self.sections.first
-        end
-    self.content = first_section ? truncate_words(first_section.paragraphs.first.content.gsub(%r{</?[^>]+?>}, ''), 60) : ''
   end
 
   def to_param
@@ -360,7 +348,12 @@ class Proposal < ActiveRecord::Base
   end
 
   def short_content
-    truncate_words(self.content.gsub(%r{</?[^>]+?>}, ''), 35)
+    begin
+      section = sections.first || solutions.first.sections.first
+      truncate_words(section.paragraphs.first.content.gsub(%r{</?[^>]+?>}, ''), 40)
+    rescue
+      nil
+    end
   end
 
   def interest_borders_tkn

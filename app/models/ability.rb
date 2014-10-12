@@ -26,6 +26,7 @@ class Ability
     can [:read, :new], BlogComment, blog: r_blog_post_is_public
     can [:read, :new, :report, :history, :list, :left_list, :show_all_replies], ProposalComment, proposal: {private: false}
     can :index, Proposal
+    can :show, User
     can :show, Proposal, private: false
     can :show, Proposal, visible_outside: true
     can :ask_for_participation, Group
@@ -93,7 +94,8 @@ class Ability
 
       can :unintegrate, ProposalComment, user: {id: user.id}, integrated: true
 
-      can [:index, :list, :edit_list, :left_list, :show_all_replies], ProposalComment
+      #todo better check for manage_noise and mark noise permissions
+      can [:index, :list, :edit_list, :left_list, :show_all_replies, :manage_noise, :mark_noise], ProposalComment
       can [:show, :history, :report], ProposalComment, user_id: user.id
       can [:show, :history, :report], ProposalComment, proposal: {groups: can_do_on_group(user, GroupAction::PROPOSAL_VIEW)}
       can :create, ProposalComment, proposal: {private: false}
@@ -106,7 +108,7 @@ class Ability
       can :update, ProposalComment, user: {id: user.id}
 
       can :destroy, ProposalComment do |proposal_comment|
-        (proposal_comment.user_id = user.id) &&
+        (proposal_comment.user_id == user.id) &&
             (proposal_comment.created_at < 5.minutes.ago)
       end
 
@@ -344,7 +346,7 @@ class Ability
           can :participate, Proposal
           can :set_votation_date, Proposal
           can :destroy, Proposal
-          can :destroy, ProposalComment
+          can :manage, ProposalComment
           can :manage, Group
           can :manage, Blog
           can :manage, BlogPost
