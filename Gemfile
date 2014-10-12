@@ -156,3 +156,5 @@ gem 'font-awesome-rails'
 gem 'truncate_html'
 
 gem 'sunspot-rails-http-basic-auth', github: 'jwachira/sunspot-rails-http-basic-auth'
+
+gem 'activerecord-session_store'
