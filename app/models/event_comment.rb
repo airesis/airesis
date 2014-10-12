@@ -4,7 +4,7 @@ class EventComment < ActiveRecord::Base
   belongs_to :event
   belongs_to :comment, class_name: 'EventComment', foreign_key: :parent_event_comment_id
 
-  has_many :likes, class_name: 'EventCommentLike', foreign_key: :event_comment_id
+  has_many :likes, class_name: 'EventCommentLike', foreign_key: :event_comment_id, dependent: :destroy
   has_many :likers, class_name: 'User', through: :likes, source: :user
 
   validates_presence_of :body

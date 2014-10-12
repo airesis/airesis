@@ -1,10 +1,6 @@
 #encoding: utf-8
 class EventCommentsController < ApplicationController
 
-  before_filter :authenticate_user!
-
-  before_filter :check_author, only: [:destroy]
-
   load_and_authorize_resource :event
   load_and_authorize_resource through: :event
 
@@ -48,11 +44,9 @@ class EventCommentsController < ApplicationController
   end
 
 
-  private
-  def check_author
-    if current_user.id != @event_comment.user_id
-      flash[:error] = t('info.proposal.comment_not_your')
-      redirect_to :back
-    end
+  protected
+
+  def event_comment_params
+    params.require(:event_comment).permit(:parent_event_comment_id, :body)
   end
 end

@@ -1,2 +1,5 @@
 $("#eventCommentsContainer").html('<%=j render partial: "events/comments", layout: false%>');
 $("#eventNewComment").html('<%=j render partial: 'event_comments/new_event_comment', locals: {event_comment: @event.event_comments.new}%>');
+
+$('[data-collapsed]').show(600);
+disegnaCountdown();
