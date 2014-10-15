@@ -103,7 +103,7 @@ GEM
     capistrano-sidekiq (0.3.3)
       capistrano
       sidekiq
-    capybara (2.3.0)
+    capybara (2.4.4)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
@@ -112,8 +112,8 @@ GEM
     capybara-screenshot (0.3.19)
       capybara (>= 1.0, < 3)
       launchy
-    capybara-webkit (1.1.0)
-      capybara (~> 2.0, >= 2.0.2)
+    capybara-webkit (1.3.0)
+      capybara (>= 2.0.2, < 2.5.0)
       json
     celluloid (0.15.2)
       timers (~> 1.1.0)
@@ -271,7 +271,7 @@ GEM
       premailer
       rails (>= 3.1.1)
     mime-types (1.25.1)
-    mini_portile (0.5.3)
+    mini_portile (0.6.0)
     minitest (4.7.5)
     multi_json (1.10.1)
     multi_xml (0.5.5)
@@ -281,8 +281,8 @@ GEM
     net-ssh (2.9.1)
     nickname_generator (0.0.1)
     nio4r (1.0.0)
-    nokogiri (1.6.1)
-      mini_portile (~> 0.5.0)
+    nokogiri (1.6.3.1)
+      mini_portile (= 0.6.0)
     oauth (0.4.7)
     oauth2 (0.9.3)
       faraday (>= 0.8, < 0.10)

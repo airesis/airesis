@@ -1,6 +1,6 @@
 <% proposal_nickname = @proposal.proposal_nicknames.find_by(user_id: comment.user.id)%>
 
-<div id="comment<%= comment.id %>" class="proposalComment"<%= "style=\"display:none\" data-collapsed=\"true\"" if comment.collapsed %> data-id="<%= comment.id %>">
+<div id="comment<%= comment.id %>" class="proposalComment" <% if (comment.collapsed) %> data-collapsed <% end %> data-id="<%= comment.id %>">
   <div class="blogUserImage" title="<%= proposal_nickname.nickname if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) %>">
     <% if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) %>
         <img src="http://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(proposal_nickname.nickname) %>?s=40&d=identicon&r=PG"/>

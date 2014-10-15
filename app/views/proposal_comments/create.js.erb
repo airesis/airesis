@@ -42,7 +42,7 @@
         $("#proposalNewComment").html('<%=j render 'proposal_comments/proposal_comment', {proposal_comment: @proposal.proposal_comments.new(section_id: @proposal_comment.section_id)}%>');
     <%end%>
 
-    $('.proposalComment[data-collapsed=true]').show(600);
+    $('[data-collapsed]').show(600);
 
     initialize_hidden_menu();
     initTextAreaTag();
