@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe 'create proposal comments', type: :feature, js: true, driver: :selenium do
+describe 'create proposal comments', type: :feature, js: true do
   before :each do
 
   end
@@ -94,7 +94,7 @@ describe 'create proposal comments', type: :feature, js: true, driver: :selenium
     @ability = Ability.new(@user)
     @group = create(:default_group, current_user_id: @user.id)
     @proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: @group)])
-    
+
     login_as @user, scope: :user
 
     visit group_proposal_path(@group,@proposal)

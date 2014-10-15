@@ -1,8 +1,6 @@
 $('#blogPostCommentsContainer').prepend('<%=j render partial: 'blog_posts/comment', locals: {comment: @blog_comment} %>');
 $('#blogNewComment').html('<%=j render partial: 'blog_comments/new_blog_comment', locals: {blog_comment: @blog_post.blog_comments.new}%>');
-$('[data-collapsed=true]').show(600, function () {
-    $(this).data('collapsed', false);
-});
+$('[data-collapsed]').show(600);
 
 <% publish_to blog_blog_post_path(@blog_post.blog,@blog_post) do %>
 if (Airesis.id != <%=current_user.id%>) {

@@ -46,7 +46,7 @@
             <a href="https://twitter.com/share"
                class="twitter-share-button"
                data-lang="en"
-               data-text="<%= t('twitter.share.blog_post', app: ENV['APP_SHORT_NAME'], tags: blog_post.tags.for_twitter )%>"
+               data-text="<%= t('twitter.share.blog_post', app: ENV['APP_SHORT_NAME'], tags: @blog_post.tags.for_twitter )%>"
                data-url="<%= blog_blog_post_url(@blog_post.blog, @blog_post) %>">Tweet</a>
             |
             <div class="fb-like" data-href="<%= @blog_url %>" data-width="450" data-layout="button_count" data-show-faces="true" data-send="true"></div>
@@ -94,7 +94,7 @@
              class="twitter-share-button"
              data-lang="en"
              data-count="vertical"
-             data-text="<%= t('twitter.share.blog_post', app: ENV['APP_SHORT_NAME'], tags: blog_post.tags.for_twitter )%>">Tweet</a>
+             data-text="<%= t('twitter.share.blog_post', app: ENV['APP_SHORT_NAME'], tags: @blog_post.tags.for_twitter )%>">Tweet</a>
           <g:plusone size="tall"></g:plusone>
           <%= raw facebook_like %>   <br/>
         </div>

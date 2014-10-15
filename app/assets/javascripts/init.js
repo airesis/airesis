@@ -134,7 +134,6 @@ $(function () {
         classes: 'qtip-light qtip-shadow'
     }});
 
-
     $(document).on('click', '[data-close-section-id]', function () {
         close_right_contributes($('.contribute-button[data-section_id=' + $(this).data('close-section-id') + ']'));
         return false;

@@ -1,5 +1,5 @@
-<div data-collapsed="true" id="comment<%= comment.id %>" class="blogComment card"
-     <% if (comment.collapsed) %>style="display:none"
+<div id="comment<%= comment.id %>" class="blogComment card"
+     <% if (comment.collapsed) %>data-collapsed
      <% end %>>
   <div class="blog-comment-image">
     <%= comment.user_image_tag(20) %>
@@ -11,11 +11,11 @@
     end %>
   </div>
   <div class="blog-comment-footer">
-    <div title='<%=l comment.created_at %>'>
+    <div title='<%= l comment.created_at %>'>
       <%= time_in_words comment.created_at %>
       <% if can? :destroy, comment %>
           <div style="float:right">
-            <%= link_to t('pages.blog_posts.comment.delete_button'), [@blog,@blog_post,comment], method: :delete,  data: {remote: true, confirm: t('pages.proposals.show.delete_contribute_confirmation')}, class: "deleteCommentLink" %>
+            <%= link_to t('pages.blog_posts.comment.delete_button'), [@blog, @blog_post, comment], method: :delete, data: {remote: true, confirm: t('pages.proposals.show.delete_contribute_confirmation')}, class: "deleteCommentLink" %>
           </div>
       <% end %>
     </div>
