@@ -184,7 +184,6 @@ Airesis::Application.routes.draw do
     member do
       get :show_message
       post :send_message
-      post :update_image
     end
 
     resources :authentications

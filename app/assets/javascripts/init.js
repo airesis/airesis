@@ -134,6 +134,12 @@ $(function () {
         classes: 'qtip-light qtip-shadow'
     }});
 
+
+    $(document).on('click', '[data-reveal-close]', function () {
+        console.log('click');
+        $('.reveal-modal:visible').foundation('reveal', 'close');
+    });
+
     $(document).on('click', '[data-close-section-id]', function () {
         close_right_contributes($('.contribute-button[data-section_id=' + $(this).data('close-section-id') + ']'));
         return false;

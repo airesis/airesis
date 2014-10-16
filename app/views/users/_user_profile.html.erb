@@ -106,30 +106,22 @@
 
 <% if current_user == @user %>
     <div id="img_modal" class="reveal-modal medium" data-reveal>
-
-      <form action="/users/<%= @user.id %>/update_image" id="upload_form" method="post" enctype="multipart/form-data">
+        <%=simple_form_for @user do |f| %>
         <div class="row">
           <div class="columns large-6">
             <h2><%= t('pages.users.show.load_image') %></h2>
-
             <div class='panel callout'>
               <p>
                 <%= t('pages.users.show.max_file_size') %>
               </p>
             </div>
-
-            <input type="file" name="image" accept="image/jpeg,image/png"/>
+            <%=f.input :avatar, html_input: {accepted: 'image/jpeg,image/png'} %>
             <br/>
-            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/>
-            <input type="hidden" value="post" name="_method">
-
-
-            <input type="button" value="<%= t('buttons.cancel') %>" onclick="$('#img_modal').foundation('reveal','close');" class="btn"/>
-            <input type="submit" name="commit" value="<%= t('buttons.save') %>" class="btn blue"/>
-
+            <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>
+            <%=f.submit t('buttons.save'), class: 'btn blue' %>
           </div>
         </div>
-      </form>
+      <%end%>
       <a class="close-reveal-modal">&#215;</a>
     </div>
     <script type="text/javascript">

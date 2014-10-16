@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   before_filter :authenticate_user!, except: [:index, :show, :confirm_credentials, :join_accounts]
 
-  before_filter :load_user, only: [:show, :update, :update_image, :show_message, :send_message]
+  before_filter :load_user, only: [:show, :update, :show_message, :send_message]
 
   def confirm_credentials
     @user = User.new_with_session(nil, session)
@@ -265,46 +265,6 @@ class UsersController < ApplicationController
     update_borders(borders)
     flash[:notice] = t('info.user.update_border')
     redirect_to :back
-  end
-
-  def update_image
-    if params[:image]
-      @image = Image.new({image: params[:image]})
-      @image.save!
-      @user.image_id = @image.id
-      @user.save!
-    end
-    respond_to do |format|
-      format.js do
-        render :update do |page|
-          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-          page.replace_html "user_profile_container", partial: "user_profile"
-        end
-      end
-      format.html {
-        flash[:notice] = 'Image changed correctly'
-        if params[:back] == "home"
-          redirect_to home_url
-        else
-          redirect_to @user
-        end
-      }
-    end
-
-  rescue Exception => e
-    @image.errors.full_messages.each do |msg|
-      flash[:error] = msg
-    end
-    respond_to do |format|
-      format.js do
-        render :update do |page|
-          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-        end
-      end
-      format.html {
-        redirect_to @user
-      }
-    end
   end
 
   def update
