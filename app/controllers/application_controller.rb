@@ -134,16 +134,12 @@ class ApplicationController < ActionController::Base
 
 
   def log_error(exception)
-    notifier = Rails.application.config.middleware.detect { |x| x.klass == ExceptionNotifier }
-    if notifier
-      env = request.env
-      env['exception_notifier.options'] = notifier.args.first || {}
-      ExceptionNotifier.notify_exception(exception, env).deliver
-      env['exception_notifier.delivered'] = true
+    if ENV['DISABLE_ERROR_NOTIFICATION'].present?
+      Rails.logger.error exception.backtrace.join("\n")
+    else
+      ExceptionNotifier.notify_exception(exception, env: request.env)
       message = "\n#{exception.class} (#{exception.message}):\n"
       Rails.logger.error(message)
-    else
-      Rails.logger.error exception.backtrace.join("\n")
     end
   end
 

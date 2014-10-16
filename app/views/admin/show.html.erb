@@ -1,10 +1,5 @@
 <% @page_title = 'Pannello amministrazione' %>
 <% if is_admin? %>
-    <br/>
-    <br/>
-    <br/>
-
-
     <%= link_to 'Ricalcola ranking utenti', {controller: "admin", action: "calculate_ranking"}, class: 'btn' %>
     <%= link_to 'Ricalcola stato proposte', {action: "change_proposals_state", controller: "admin"}, class: 'btn', title: 'Verifica lo stato di tutte le proposte in votazione. Se il temrine è scaduto e non sono state elaborate, le elabora' %>
     <%= link_to 'Verifica validità Gruppi', {action: "validate_groups", controller: "admin"}, class: 'btn' %>
@@ -13,6 +8,7 @@
     <%= link_to 'Redis Test', {action: "test_redis", controller: "admin"}, class: 'btn' %>
     <%= link_to 'Scheduler Test', {action: "test_scheduler", controller: "admin"}, class: 'btn' %>
     <%= link_to 'Test Schulze', {action: "test_schulze", controller: "elections"}, class: 'btn' %>
+    <%= link_to 'Test exceptions', {action: "test_exceptions", controller: "admin"}, class: 'btn' %>
     <%= link_to 'Tutorials', '/tutorials', class: 'btn' %>
     <%= link_to 'Calcola affinità Utenti-Gruppi', {action: "calculate_user_group_affinity", controller: "admin"}, class: 'btn' %>
     <%= link_to 'Test gemma', {action: "test_gem", controller: "admin"}, class: 'btn' %>

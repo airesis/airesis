@@ -53,6 +53,9 @@ ERROR_SENDER: ""
 #can also be a list of addresses separated by comma
 ERROR_RECEIVER: ""
 
+#if you add this line exceptions will not be delivered
+DISABLE_ERROR_NOTIFICATION: ""
+
 #####################
 #redmine integration (optional)
 #####################

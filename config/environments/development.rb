@@ -4,7 +4,7 @@ Airesis::Application.configure do
 
   config.eager_load = false
 
-  config.consider_all_requests_local = true
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching = false
 
   # Print deprecation notices to the Rails logger
@@ -22,6 +22,15 @@ Airesis::Application.configure do
   config.assets.debug = true
 
   config.force_ssl = false
+
+  config.middleware.use ExceptionNotification::Rack,
+                        ignore_exceptions: ['ActiveRecord::RecordNotFound'],
+                        ignore_crawlers: %w{Googlebot bingbot},
+                        email: {
+                            email_prefix: "[Exception] ",
+                            sender_address: %{"Airesis Exception" <#{ENV['ERROR_SENDER']}>},
+                            exception_recipients: ENV['ERROR_RECEIVER']
+                        }
 
 end
 

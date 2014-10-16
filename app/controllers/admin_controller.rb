@@ -93,6 +93,11 @@ class AdminController < ManagerController
     redirect_to admin_panel_path
   end
 
+
+  def test_exceptions
+    raise Exception.new("Test this exception!")
+  end
+
   #esegue un job di prova tramite resque_scheduler
   def test_scheduler
     ProposalsWorker.perform_at(15.seconds.from_now, proposal_id: 1)
