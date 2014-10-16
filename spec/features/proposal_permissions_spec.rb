@@ -30,7 +30,7 @@ describe "check user permissions on proposals", type: :feature do
     visit proposal_path(@public_proposal)
     page_should_be_ok
     expect(page).to have_content @public_proposal.title
-    @ability.should be_able_to(:show, @public_proposal)
+    expect(@ability).to be_able_to(:show, @public_proposal)
   end
 
   it "can view private proposals in his group" do
