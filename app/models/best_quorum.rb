@@ -269,7 +269,7 @@ class BestQuorum < Quorum
     conditions = []
     ret = ''
     if assigned? #explain a quorum assigned to a proposal
-      if self.proposal.abandoned?
+      if proposal_life.present? || proposal.abandoned?
         ret = terminated_explanation_pop
       else
         ret = assigned_explanation_pop

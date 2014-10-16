@@ -10,6 +10,7 @@ class Quorum < ActiveRecord::Base
   has_one :group_quorum, class_name: 'GroupQuorum', dependent: :destroy
   has_one :group, through: :group_quorum, class_name: 'Group'
   has_one :proposal, class_name: 'Proposal'
+  has_one :proposal_life
 
   scope :public, -> {where(["public = ?", true])}
   scope :active, -> {where(["active = ?", true])}

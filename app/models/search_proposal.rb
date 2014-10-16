@@ -10,7 +10,6 @@ class SearchProposal < ActiveRecord::Base
 
   attr_accessor :order_id, :time_type, :order_dir, :page, :per_page, :text, :or, :proposal_id
 
-
   ORDER_RANDOM="1"
   ORDER_BY_DATE="2"
   ORDER_BY_RANK="3"
