@@ -12,3 +12,6 @@ before_script:
  - "cp config/secrets.ci.yml config/secrets.yml"
  - "RAILS_ENV=test bundle exec rake db:setup --trace"
 script: RAILS_ENV=test DISPLAY=:99.0 bundle exec rspec
+notifications:
+  recipients:
+    - coorasse@gmail.com
