@@ -30,7 +30,7 @@ describe BlogPostsController, :type => :controller do
 
     it "show public posts" do
       get :index
-      expect(assigns[:blog_posts].all).to match_array(@posts)
+      expect(assigns[:blog_posts].to_a).to match_array(@posts)
     end
 
     it "do not show reserved posts" do

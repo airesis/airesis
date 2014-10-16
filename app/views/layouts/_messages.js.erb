@@ -1,3 +1,7 @@
+<%if Rails.env.test? %>
+//dont dismiss messages on test
+toastr.options = {tapToDismiss: false, extendedTimeOut: 0, timeOut: 0};
+<%end%>
 <% flash.each do |key,value| %>
 <%if (key == :info) %>
 toastr.info('<%=raw j value%>');

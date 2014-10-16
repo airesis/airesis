@@ -5,7 +5,7 @@ module Frm  #todo use cancancan
       before_filter :find_group, only: [:show, :destroy]
 
       def index
-        @frm_groups = @group.moderator_groups.all
+        @frm_groups = @group.moderator_groups
       end
 
       def new
