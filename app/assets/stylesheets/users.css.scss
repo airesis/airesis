@@ -11,7 +11,7 @@
   }
   .user-name {
     width: 130px;
-    display:inline-block;
+    display: inline-block;
     line-height: 24px;
   }
 }
@@ -32,34 +32,24 @@
   top: 0px;
   position: absolute;
   display: none;
-  background: none repeat scroll 0 0 #4A4D4A;
-  color: white;
+  background: none repeat scroll 0 0 #fff;
   letter-spacing: -1px;
   opacity: 0.6;
   padding: 4px;
   margin: 5px;
   left: 1px;
-  .leftUserImage & {
-    background: none repeat scroll 0 0 #4A4D4A;
-    color: white;
-    display: none;
-    letter-spacing: -1px;
-    margin-left: 2px;
-    margin-top: 10px;
-    opacity: 0.6;
-    padding: 4px;
-    position: absolute;
-    top: 0;
-    font-size: 13px;
+  width: 110px;
+  text-align: center;
+  a {
+    color: #000;
   }
 }
 
-.caption a {
-  cursor: pointer;
-}
-
-.image_container:hover .caption {
-  display: block;
+.image-container {
+  position: relative;
+  &:hover .caption {
+    display: block;
+  }
 }
 
 .user_profile {

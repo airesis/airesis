@@ -1,9 +1,9 @@
 <div class="card">
-  <div class="image_container">
+  <div class="image-container">
     <%= @user.user_image_tag 120 %>
     <% if @user == current_user %>
         <div class="caption">
-          <a style="color:white"><%= t('pages.users.show.edit_image') %></a>
+          <a><%= t('pages.users.show.edit_image') %></a>
         </div>
     <% end %>
   </div>
@@ -116,7 +116,6 @@
               </p>
             </div>
             <%=f.input :avatar, html_input: {accepted: 'image/jpeg,image/png'} %>
-            <br/>
             <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>
             <%=f.submit t('buttons.save'), class: 'btn blue' %>
           </div>
@@ -145,7 +144,7 @@
                 $("#password_modal").foundation('reveal', 'open');
             });
 
-            $('.image_container div a').click(function () {
+            $('.image-container div a').click(function () {
                 $("#img_modal").foundation('reveal', 'open');
             });
 
