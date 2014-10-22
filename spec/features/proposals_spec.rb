@@ -44,4 +44,39 @@ describe "create a proposal in his group", type: :feature, js: true do
 
     expect(page).to have_content @proposal.title
   end
+
+  ProposalType.active.for_groups.order(:seq).each do |proposal_type|
+    it "creates a #{proposal_type.name} proposal in group through dialog window" do
+      visit group_proposals_path(@group)
+      within('.menu-left') do
+        click_link I18n.t('proposals.create_button')
+      end
+      find("div[data-id=#{proposal_type.name}]").click
+
+      proposal_name = Faker::Lorem.sentence
+      within(".reveal-modal") do
+        fill_in I18n.t('pages.proposals.new.title_synthetic'), with: proposal_name
+        click_button I18n.t('buttons.next')
+        fill_tokeninput '#proposal_tags_list', with: ['tag1', 'tag2', 'tag3']
+        click_button I18n.t('buttons.next')
+        fill_in_ckeditor 'proposal_sections_attributes_0_paragraphs_attributes_0_content', with: Faker::Lorem.paragraph
+        click_button I18n.t('buttons.next')
+        select2("15 giorni", xpath: "//div[@id='s2id_proposal_quorum_id']")
+        wait_for_ajax
+        click_button I18n.t('pages.proposals.new.create_button')
+      end
+      page_should_be_ok
+      wait_for_ajax rescue nil
+      proposal = Proposal.order(created_at: :desc).first
+      expect(page.current_path).to eq(edit_group_proposal_path(@group,proposal))
+      expect(page).to have_content proposal.title
+
+      page.execute_script 'window.confirm = function () { return true }'
+      page.execute_script 'safe_exit = true;'
+      within '#menu-left' do
+        click_link I18n.t('buttons.cancel')
+      end
+      expect(page).to have_content proposal.title
+    end
+  end
 end

@@ -106,7 +106,4 @@
 
 <%= render '/layouts/top_menu' %>
 
-<% if user_signed_in? %>
-    <%= subscribe_to "/notifications/#{current_user.id}" %>
-    <%= render 'layouts/personal_menu' %>
-<% end %>
+<%= subscribe_to "/notifications/#{current_user.id}" if user_signed_in?%>

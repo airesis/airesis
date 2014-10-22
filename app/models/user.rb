@@ -678,4 +678,10 @@ class User < ActiveRecord::Base
 
     return user
   end
+
+  protected
+
+  def reconfirmation_required?
+    self.class.reconfirmable && @reconfirmation_required
+  end
 end

@@ -40,5 +40,22 @@ en:
       authors: "The actual editors of the proposal"
       category: "The category of this proposal"
       history: "History of the proposal, in which you can view its modifications and evolution"
+    groups_edit:
+      welcome: "That is the administrator panel for groups. We will explain you the single sections..."
+      group_info: "Here you can change all the informations about the group and its picture. Please fill the keywords if you have not done it yet. They are important for your group to be found."
+      group_roles: "Here you can manage the roles available in the group. You can manage their permissions and the edit the existings one."
+      group_users: "Here you can manage the participants in your group. You can assign them roles and send emails."
+      group_proposals: "This is the page where you can change everything related to proposals: quorums and settings."
+      group_areas: "The Areas are available if you want to activate them. They will allow you to split your group in smaller groups"
+      group_forum: "And finally here you have all the settings for the Forum."
+    users_alarm_preferences:
+      intro: "In this page you can edit all the settings about alerts and notifications."
+      alerts: "You can choose which alerts to receive on Airesis..."
+      emails: "...by e-mail, or both."
+      no_emails: "Remember: if you disable an alert on Airesis, you will not receive it on Airesis either."
+    users_border_preferences:
+      intro: "If you have not done it yet, set your geographical interest borders. Airesis will soon use them to show you specific contents."
+    welcome:
+      intro: "Welcome on Airesis %{name}. These tutorials will guide you through the application and exaplain you how to use it and where to find the informations you need."
     next: "Next"
     back: "Back"

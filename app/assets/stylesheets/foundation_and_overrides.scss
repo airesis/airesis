@@ -1893,13 +1893,20 @@ html, body {
   }
 }
 
+.gray {
+  background-color: #e5e5e5;
+}
+
 .f-dropdown {
   box-shadow: $f-dropdown-box-shadow;
 
   &.gray {
-    background-color: #e5e5e5;
     &:before {
       border-color: transparent transparent #e5e5e5 transparent;
+    }
+
+    li:hover, li:focus {
+      background: #fff;
     }
   }
   li a {

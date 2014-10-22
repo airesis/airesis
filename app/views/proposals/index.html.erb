@@ -79,6 +79,7 @@
        else {
             var url_ = obj.find('a').attr('data-href');
             $.ajax({
+                dataType: 'html',
                 url: url_,
                 complete: function (data) {
                     var target = active_;

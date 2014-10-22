@@ -1,6 +1,6 @@
-<div id="personal_menu_large"  class="f-dropdown gray large" data-dropdown-content>
-  <div class="row">
-    <div class="columns large-6 show-for-large-up">
+<div id="personal_menu_large" class="f-dropdown large" data-dropdown-content>
+  <div class="row" data-equalizer>
+    <div class="columns large-6 gray show-for-large-up"  data-equalizer-watch>
       <% @groups = current_user.groups %>
       <% unless @groups.empty?%>
           <% @groups.each do |group| %>
@@ -8,7 +8,7 @@
           <% end %>
       <% end %>
     </div>
-    <div class="columns large-6 text-right">
+    <div class="columns large-6 text-right" data-equalizer-watch>
       <h2><%= link_to current_user.fullname, home_url %></h2>
 
       <div class="sep"></div>

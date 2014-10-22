@@ -1,4 +1,8 @@
 $(function () {
+
+    //remove attributes for introjs from aside hidden menu. so they can work correctly
+    $('aside [data-ijs]').removeAttr('data-ijs');
+
     ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible ~ :input:enabled[data-validate]';
 
 

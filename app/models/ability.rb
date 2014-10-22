@@ -109,7 +109,7 @@ class Ability
 
       can :destroy, ProposalComment do |proposal_comment|
         (proposal_comment.user_id == user.id) &&
-            (proposal_comment.created_at < 5.minutes.ago)
+            (proposal_comment.created_at > 5.minutes.ago)
       end
 
       can [:rankup, :rankdown, :ranknil], ProposalComment do |comment|

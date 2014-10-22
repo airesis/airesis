@@ -106,11 +106,11 @@ module Concerns
 
     def estimate_create
       seq = 1
-      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.technical_constrains'), title: I18n.t('pages.proposals.new.estimate.question.paragraph.technical_constrains'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.temporal_constrains'), title: I18n.t('pages.proposals.new.estimate.question.paragraph.temporal_constrains'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.other_constrains'), title: I18n.t('pages.proposals.new.estimate.question.paragraph.other_constrains'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.budget'), title: I18n.t('pages.proposals.new.estimate.question.paragraph.budget'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.recipient_budget'), title: I18n.t('pages.proposals.new.estimate.question.paragraph.recipient_budget'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.technical_constrains'), question: I18n.t('pages.proposals.new.estimate.question.paragraph.technical_constrains'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.temporal_constrains'), question: I18n.t('pages.proposals.new.estimate.question.paragraph.temporal_constrains'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.other_constrains'), question: I18n.t('pages.proposals.new.estimate.question.paragraph.other_constrains'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.budget'), question: I18n.t('pages.proposals.new.estimate.question.paragraph.budget'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.recipient_budget'), question: I18n.t('pages.proposals.new.estimate.question.paragraph.recipient_budget'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
 
       solution = estimate_solution
       solution.seq = 1
@@ -147,7 +147,7 @@ module Concerns
 
     def press_create
       seq = 1
-      self.sections.build(title: I18n.t('pages.proposals.new.press.paragraph.target'), title: I18n.t('pages.proposals.new.press.question.paragraph.target'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.press.paragraph.target'), question: I18n.t('pages.proposals.new.press.question.paragraph.target'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
 
       solution = press_solution
       solution.seq = 1

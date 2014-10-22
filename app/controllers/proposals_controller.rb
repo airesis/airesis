@@ -96,11 +96,10 @@ class ProposalsController < ApplicationController
     authorize! :index, Proposal
     query_index
     respond_to do |format|
-      if params[:replace]
-        format.js
-      else
-        format.html { render "tab_list", layout: false }
-      end
+      format.js
+      format.html {
+        render 'tab_list', layout: false
+      }
       format.json
     end
   end

@@ -1,28 +1,28 @@
-<div class="mybox" id="setting_menu">
+<div class="mybox" data-ijs="settings-menu">
   <h4><%= t('pages.groups.administration_panel.title') %></h4>
 
-  <div class="menu-voice" id="m_group_info">
+  <div class="menu-voice" data-ijs="m_group_info">
     <%= link_to edit_group_url(@group) do %>
         <i class="fa fa-gears"></i>
         <%= t('pages.groups.administration_panel.info') %>
     <% end %>
   </div>
 
-  <div class="menu-voice" id="m_group_roles">
+  <div class="menu-voice" data-ijs="m_group_roles">
     <%= link_to group_participation_roles_path(@group) do %>
         <i class="fa fa-trophy"></i>
         <%= t('pages.groups.administration_panel.permissions') %>
     <% end %>
   </div>
 
-  <div class="menu-voice" id="m_group_users">
+  <div class="menu-voice" data-ijs="m_group_users">
     <%= link_to group_group_participations_url(@group) do %>
         <i class="fa fa-users"></i>
         <%= t('pages.groups.administration_panel.users') %>
     <% end %>
   </div>
 
-  <div class="menu-voice" id="m_group_proposals">
+  <div class="menu-voice" data-ijs="m_group_proposals">
     <%= link_to group_quorums_url(@group) do %>
         <i class="fa fa-thumbs-up"></i>
         <%= t('pages.groups.administration_panel.proposals') %>
@@ -30,7 +30,7 @@
   </div>
 
   <% if ::Configuration::group_areas %>
-      <div class="menu-voice" id="m_group_areas">
+      <div class="menu-voice" data-ijs="m_group_areas">
         <%= link_to group_group_areas_url(@group) do %>
             <i class="fa fa-suitcase"></i>
             <%= t('pages.groups.administration_panel.areas') %>
@@ -38,7 +38,7 @@
       </div>
   <% end %>
 
-  <div class="menu-voice" id="m_group_forum">
+  <div class="menu-voice" data-ijs="m_group_forum">
     <%= link_to group_frm_admin_root_url(@group) do %>
         <i class="fa fa-comments"></i>
         <%= t('pages.groups.administration_panel.forum') %>

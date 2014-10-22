@@ -1,1 +1,5 @@
 <%= render partial: 'tab_list', locals: {proposals: @proposals} %>
+
+<% content_for :left_panel do %>
+    <%= render 'left_panel_index' %>
+<% end %>

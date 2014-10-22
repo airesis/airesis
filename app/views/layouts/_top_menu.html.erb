@@ -76,6 +76,8 @@
       </ul>
     </section>
   </nav>
+
+  <%= render 'layouts/personal_menu' if user_signed_in? %>
 </div>
 
 
@@ -117,14 +119,15 @@
         <%= t('pages.home.index.whowe') %>
     <% end %>
   </li>
-
 </ul>
 
 <% unless in_subdomain? %>
     <div id="hover1" class="f-dropdown medium" data-dropdown-content>
       <% if user_signed_in? %>
           <% if current_user.groups.empty? %>
-              <%= t('pages.header.no_groups_yet') %>
+              <div class="group-item">
+                <h4><%= t('pages.header.no_groups_yet') %></h4>
+              </div>
           <% else %>
               <%= render partial: 'groups/group_menu_item', collection: current_user.groups, as: :group %>
           <% end %>
@@ -142,7 +145,7 @@
     </div>
 <% end %>
 
-<%= render 'layouts/login_panel' unless signed_in?%>
+<%= render 'layouts/login_panel' unless signed_in? %>
 
 
 
