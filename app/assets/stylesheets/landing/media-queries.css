@@ -117,7 +117,7 @@
 
       position: relative;
       top: 0px;
-      right: 36px;
+      right: 14px;
    }
 	#nav-wrap > a:before {
 	   font-family: 'FontAwesome';
@@ -195,19 +195,7 @@
 
    /* Features Section
    --------------------------------------------------------------------- */   
-   #features .feature {
-      margin-top: 12px;
-      margin-bottom: 60px;
-   }
-   #features .right {
-      padding-left: 30px;
-      float: none;
-   }
-   #features .left {
-      padding-right: 30px;
-      float: none;
-   }
-   #features h3 { text-align: center; }  
+   #features h3 { text-align: center; }
 
 
    /* Pricing Section

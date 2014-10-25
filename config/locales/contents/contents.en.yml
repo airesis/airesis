@@ -331,10 +331,10 @@ en:
             Your donation will be entirely addressed to the development and hosting of the platform.
             Financially support us in order to pay an experienced senior programmer and for the maintenance of the server hosting our application:
           </p>
-          <ul class="disc">
-            <li>With a bank transfer addressed to: 'Tecnologie Democratiche' IBAN: IT76L0316501600000011758905</li>
-            <li>With a donation using Paypal:</li>
-          </ul>
+          <center>
+            <p>With a bank transfer addressed to: 'Tecnologie Democratiche' IBAN: IT76L0316501600000011758905</p>
+            <p>With a donation using Paypal:</p>
+          </center>
       paragraph4:
         content_html: |
           <p><a href="mailto:%{mail}">Contact us</a> for more information.</p>

@@ -58,9 +58,6 @@ es-AR:
         published: Estado
         published_true: Publicado
         published_false: Proyecto
-      participation_role:
-        name: Nombre
-        description: Descripción corta
       group_invitation:
         emails_list: Direcciones de correo electrónico
         testo: Mensaje de texto
@@ -91,20 +88,17 @@ es-AR:
         days_m: Días
         hours_m: horas
         minutes_m: Minutos
-        percentage: Quórum (partecipantes)
-        percentage_title: Número mínimo de partecipantes en la discusión como un porcentaje del número de partecipantes en el grupo
+        percentage: Quórum (participantes)
+        percentage_title: Número mínimo de participantes en la discusión como un porcentaje del número de participantes en el grupo
         good_score: Madurez
         good_score_title: Rating o valoracion para lograr llevar la propuesta a la fase de votación
         bad_score: No hay Quorum (porcentaje)
-        bad_score_title: Clasificación bajo la cual se rechazará la propuesta. Esto le permite continuar la discusión si se cumplen las condiciones de tiempo o de los partecipantes
+        bad_score_title: Clasificación bajo la cual se rechazará la propuesta. Esto le permite continuar la discusión si se cumplen las condiciones de tiempo o de los participantes
         condition: Condición
-        condition_title: 'Las condiciones de tiempo y  partecipantes deben superar ambos o sólo uno de ellos?'
+        condition_title: 'Las condiciones de tiempo y  participantes deben superar ambos o sólo uno de ellos?'
         vote_minutes: Duración de la votación
         vote_percentage: Quórum (votantes)
         vote_good_score: Aprobación
-      search_participant:
-        role_id: Rol
-        keywords: Nombre o apellido
       sys_movement:
         sys_movement_type_id: Tipo
         made_on: Hecho en

@@ -39,7 +39,7 @@ de:
         interest_border_id: Geographischer Ort von Interesse
         image_url: Bild-Adresse
         default_role_name: Was ist der Name für neue Benutzer?
-        default_role_name_placeholder: "ZB: Benutzer, Mitglieder, Aktivisten, Piraten"
+        default_role_name_placeholder: 'ZB: Benutzer, Mitglieder, Aktivisten, Piraten'
         name_placeholder: Wählen Sie einen Namen im Zusammenhang mit der Gruppenidentität und/oder -lage.
         title_bar_placeholder: Seitentitel der Gruppe.
         description_placeholder: Diese Meldung wird auf der ersten Seite der Gruppe sein
@@ -49,7 +49,7 @@ de:
         private: Private Gruppe
         rule_book: Regelbuch
         image: Bild laden
-        admin_title_placeholder: "Rollenname der Gruppenadministratoren (Standard: Administrator)"
+        admin_title_placeholder: 'Rollenname der Gruppenadministratoren (Standard: Administrator)'
       blog:
         title: Titel
       blog_post:
@@ -58,9 +58,6 @@ de:
         published: Status
         published_true: Veröffentlicht
         published_false: Entwurf
-      participation_role:
-        name: Name
-        description: Kurzbeschreibung
       group_invitation:
         emails_list: E-Mail-Adressen
         testo: Nachrichtentext
@@ -70,6 +67,9 @@ de:
         group_area_id: Arbeitsbereich
         proposal_category_id: Kategorie
         title: Titel
+        subtitle: Untertitel
+        problems: Probleme
+        objectives: Ziele
         content: Text
         interest_borders_tkn: Geographischer Ort von Interesse
         tags_list: Schlagwörter
@@ -87,17 +87,12 @@ de:
         days_m: Tage
         hours_m: Stunden
         minutes_m: Minuten
-        percentage: Teilnehmer (in Prozent)
         percentage_title: Mindestanzahl der Teilnehmer in der Diskussion als Prozentsatz der Anzahl der Teilnehmer in der Gruppe
-        good_score: Quorum (in Prozent)
         good_score_title: Bewertung die erzielt werden muss, um den Vorschlag in die Abstimmungsphase zu bringen
         bad_score: Schlechtes Quorum (in Prozent)
         bad_score_title: Bewertung unter der der Vorschlag abgelehnt wird. Erlaubt die Diskussion weiter zu führen, wenn die Zeit oder Teilnehmer-Bedingungen nicht erfüllt sind
         condition: Bedingung
         condition_title: Müssen beide Bedingungen (Zeit und Teilnehmer) bestehen oder nur eine der beiden?
-      search_participant:
-        role_id: Rolle
-        keywords: Vorname und Familienname
       sys_movement:
         sys_movement_type_id: Typ
         made_on: Gemacht auf
@@ -121,8 +116,8 @@ de:
     errors:
       template:
         header:
-          one: "ein Fehler war es nicht möglich diese %{Model} gespeichert werden"
-          other: "%{count} ein Fehler erlaubt nicht diese %{model} zu speichern"
+          one: 'ein Fehler war es nicht möglich diese %{Model} gespeichert werden'
+          other: '%{count} ein Fehler erlaubt nicht diese %{model} zu speichern'
         body: Es gibt Probleme mit den folgenden Feldern
       messages:
         inclusion: ist nicht in der Liste enthalten
@@ -137,18 +132,18 @@ de:
         wrong_length: "sollte%{count} Zeichen)' sein"
         taken: ist bereits vergeben
         not_a_number: ist keine Zahl
-        greater_than: "muss größer als %{count} sein"
-        greater_than_or_equal_to: "muss größer oder gleich %{count} sein"
-        equal_to: "muss gleich %{count} sein"
-        less_than: "muss kleiner als %{count} sein"
-        less_than_or_equal_to: "muss kleiner oder gleich %{count} sein"
+        greater_than: 'muss größer als %{count} sein'
+        greater_than_or_equal_to: 'muss größer oder gleich %{count} sein'
+        equal_to: 'muss gleich %{count} sein'
+        less_than: 'muss kleiner als %{count} sein'
+        less_than_or_equal_to: 'muss kleiner oder gleich %{count} sein'
         odd: muss gerade sein
         even: muss ungerade sein
-        record_invalid: "Validierung fehlgeschlagen %{errors}"
+        record_invalid: 'Validierung fehlgeschlagen %{errors}'
         not_found: nicht gefunden.
         TOS: Es ist notwendig die AGB zu akzeptieren
       full_messages:
-        format: "%{attribute} %{message}"
+        format: '%{attribute} %{message}'
       models:
         user:
           attributes:

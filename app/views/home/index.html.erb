@@ -200,8 +200,14 @@
             </div>
             <div class="row">
               <div class="columns large-12 medium-10 medium-push-1 large-push-0">
-                <%= link_to t('pages.home.index.register'), new_user_registration_path, class: "button trial alert" %>
-                <%= link_to t('pages.home.index.try_it'), public_path, class: 'button' %>
+                <div class="row">
+                  <div class="columns medium-6">
+                    <%= link_to t('pages.home.index.register'), new_user_registration_path, class: "button trial alert" %>
+                  </div>
+                  <div class="columns medium-6">
+                    <%= link_to t('pages.home.index.try_it'), public_path, class: 'button' %>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -236,91 +242,104 @@
 
 <section id='features'>
   <div class="row feature groups">
-    <div class="medium-7 columns right">
-      <h3><%= t('home.whatis.paragraph_2.title') %></h3>
-
-      <p><%= t('home.whatis.paragraph_2.content_html', groups: Group.count) %>
-      </p>
-    </div>
-    <div class="medium-5 columns feature-media left">
+    <div class="medium-5 columns feature-media">
       <%= image_tag 'presentation/group.png' %>
     </div>
+    <div class="medium-7 columns">
+      <div class="card">
+        <h3><%= t('home.whatis.paragraph_2.title') %></h3>
+
+        <p><%= t('home.whatis.paragraph_2.content_html', groups: Group.count) %></p>
+      </div>
+    </div>
+
   </div>
 
   <div class="row feature permissions">
-    <div class="medium-7 columns left">
-      <h3><%= t('home.whatis.paragraph_3.title') %></h3>
-
-      <p> <%= t('home.whatis.paragraph_3.content_html') %>
-      </p>
-    </div>
-    <div class="medium-5 columns feature-media right">
+    <div class="medium-5 columns feature-media medium-push-7">
       <%= image_tag 'presentation/permissions.png' %>
+    </div>
+    <div class="columns medium-7 medium-pull-5">
+      <div class="card">
+        <h3><%= t('home.whatis.paragraph_3.title') %></h3>
+
+        <p><%= t('home.whatis.paragraph_3.content_html') %></p>
+      </div>
     </div>
   </div>
 
   <div class="row feature events">
-    <div class="medium-7 columns right">
-      <h3><%= t('home.whatis.paragraph_5.title') %></h3>
-
-      <p><%= t('home.whatis.paragraph_5.content_html') %>
-      </p>
-    </div>
-    <div class="medium-5 columns feature-media left">
+    <div class="medium-5 columns feature-media">
       <%= image_tag 'presentation/event.png' %>
     </div>
+    <div class="columns medium-7">
+      <div class="card">
+        <h3><%= t('home.whatis.paragraph_5.title') %></h3>
+
+        <p><%= t('home.whatis.paragraph_5.content_html') %></p>
+      </div>
+    </div>
+
   </div>
 
   <div class="row feature proposals">
-    <div class="medium-7 columns left">
-      <h3><%= t('home.whatis.paragraph_4.title') %></h3>
-
-      <p><%= t('home.whatis.paragraph_4.content_html', users: User.count, proposals: Proposal.count) %>
-      </p>
-    </div>
-    <div class="medium-5 columns feature-media right">
+    <div class="medium-5 columns feature-media medium-push-7">
       <%= image_tag 'presentation/proposal.png' %>
     </div>
+    <div class="medium-7 columns medium-pull-5">
+      <div class="card">
+        <h3><%= t('home.whatis.paragraph_4.title') %></h3>
+
+        <p><%= t('home.whatis.paragraph_4.content_html', users: User.count, proposals: Proposal.count) %></p>
+      </div>
+    </div>
+
   </div>
 
   <div class="row feature documents">
-    <div class="medium-7 columns right">
-      <h3><%= t('home.whatis.paragraph_6.title') %></h3>
-
-      <p><%= t('home.whatis.paragraph_6.content_html') %>
-      </p>
-    </div>
-    <div class="medium-5 columns feature-media left">
+    <div class="medium-5 columns feature-media">
       <%= image_tag 'presentation/documents.png' %>
+    </div>
+    <div class="medium-7 columns">
+      <div class="card">
+        <h3><%= t('home.whatis.paragraph_6.title') %></h3>
+
+        <p><%= t('home.whatis.paragraph_6.content_html') %></p>
+      </div>
     </div>
   </div>
 
   <div class="row feature forum">
-    <div class="medium-7 columns left">
-      <h3><%= t('home.whatis.paragraph_7.title') %></h3>
-
-      <p><%= t('home.whatis.paragraph_7.content_html', topics: Frm::Topic.count) %>
-      </p>
-    </div>
-    <div class="medium-5 columns feature-media right">
+    <div class="medium-5 columns feature-media medium-push-7">
       <%= image_tag 'presentation/forum.png' %>
     </div>
+    <div class="medium-7 columns medium-pull-5">
+      <div class="card">
+        <h3><%= t('home.whatis.paragraph_7.title') %></h3>
+
+        <p><%= t('home.whatis.paragraph_7.content_html', topics: Frm::Topic.count) %>
+        </p>
+      </div>
+    </div>
+
   </div>
 
   <div class="row feature more">
-    <div class="medium-7 columns right">
-      <h3><%= t('home.whatis.paragraph_8.title') %></h3>
-
-      <p><%= t('home.whatis.paragraph_8.content_html', intro_page: (link_to t('home.whatis.paragraph_8.link'), eparticipation_path)) %>
-      </p>
-    </div>
-    <div class="medium-5 columns feature-media left">
+    <div class="medium-5 columns feature-media">
       <%= image_tag 'presentation/more.png' %>
     </div>
+    <div class="medium-7 columns">
+      <div class="card">
+        <h3><%= t('home.whatis.paragraph_8.title') %></h3>
+
+        <p><%= t('home.whatis.paragraph_8.content_html', intro_page: (link_to t('home.whatis.paragraph_8.link'), eparticipation_path)) %>
+        </p>
+      </div>
+    </div>
+
   </div>
 </section>
 <!-- Homepage Hero end -->
-
 
 <!-- Pricing Section
 ================================================== -->
@@ -336,8 +355,8 @@
   </div>
 
   <div class="row">
-    <div class="pricing-tables bgrid-quarters s-bgrid-halves" data-equalizer>
-      <div class="columns" data-equalizer-watch>
+    <ul class="pricing-tables small-block-grid-1 medium-block-grid-2 large-block-grid-4" data-equalizer>
+      <li data-equalizer-watch>
         <div class="price-block">
           <h3 class="plan-title"><i class="fa fa-coffee"></i>Small</h3>
 
@@ -360,8 +379,8 @@
             </script>
           </div>
         </div>
-      </div>
-      <div class="columns" data-equalizer-watch>
+      </li>
+      <li data-equalizer-watch>
         <div class="price-block">
           <h3 class="plan-title"><i class="fa fa-thumbs-up"></i>Standard</h3>
 
@@ -384,8 +403,8 @@
             </script>
           </div>
         </div>
-      </div>
-      <div class="columns" data-equalizer-watch>
+      </li>
+      <li data-equalizer-watch>
         <div class="price-block">
           <h3 class="plan-title"><i class="fa fa-star"></i>Great</h3>
 
@@ -408,8 +427,8 @@
             </script>
           </div>
         </div>
-      </div>
-      <div class="columns" data-equalizer-watch>
+      </li>
+      <li data-equalizer-watch>
         <div class="price-block">
           <h3 class="plan-title"><i class="fa fa-trophy"></i>Up to you</h3>
 
@@ -430,8 +449,8 @@
             </script>
           </div>
         </div>
-      </div>
-    </div>
+      </li>
+    </ul>
 
   </div>
 
@@ -524,9 +543,9 @@
 
     <div class="columns">
 
-      <div id="screenshots-wrapper" class="bgrid-quarters s-bgrid-quarters cf">
+      <ul id="screenshots-wrapper" class="small-block-grid-2 medium-block-grid-4">
 
-        <div class="columns item">
+        <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'development') do %>
                 <%= image_tag "volunteers/rodi_alessandro.jpg" %>
@@ -537,9 +556,9 @@
             <% end %>
 
           </div>
-        </div>
+        </li>
 
-        <div class="columns item">
+        <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'development') do %>
                 <%= image_tag "volunteers/tilatti_marino.png" %>
@@ -549,9 +568,9 @@
                 </div>
             <% end %>
           </div>
-        </div>
+        </li>
 
-        <div class="columns item">
+        <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'analysis') do %>
                 <%= image_tag "volunteers/giulietti_nicola.png" %>
@@ -561,9 +580,9 @@
                 </div>
             <% end %>
           </div>
-        </div>
+        </li>
 
-        <div class="columns item">
+        <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'analysis') do %>
                 <%= image_tag "volunteers/baiotto_marco.png" %>
@@ -574,10 +593,10 @@
             <% end %>
 
           </div>
-        </div>
+        </li>
 
 
-        <div class="columns item">
+        <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'i18n') do %>
                 <%= image_tag "volunteers/tolja_jacopo.jpg" %>
@@ -587,9 +606,9 @@
                 </div>
             <% end %>
           </div>
-        </div>
+        </li>
 
-        <div class="columns item">
+        <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'communication') do %>
                 <%= image_tag "volunteers/curini_simone.jpg" %>
@@ -599,9 +618,9 @@
                 </div>
             <% end %>
           </div>
-        </div>
+        </li>
 
-        <div class="columns item">
+        <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'test') do %>
                 <%= image_tag "volunteers/mion_carlo.jpg" %>
@@ -612,9 +631,9 @@
             <% end %>
 
           </div>
-        </div>
+        </li>
 
-        <div class="columns item">
+        <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'test') do %>
                 <%= image_tag "volunteers/zanellato_luca.jpg" %>
@@ -625,9 +644,9 @@
             <% end %>
 
           </div>
-        </div>
+        </li>
 
-        <div class="columns item">
+        <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'graphic') do %>
                 <%= image_tag "volunteers/kabora_marcello.png" %>
@@ -637,9 +656,9 @@
                 </div>
             <% end %>
           </div>
-        </div>
+        </li>
 
-        <div class="columns item">
+        <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'communication') do %>
                 <%= image_tag "volunteers/chiara_gianferrari.jpg" %>
@@ -649,9 +668,9 @@
                 </div>
             <% end %>
           </div>
-        </div>
+        </li>
 
-        <div class="columns item">
+        <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'communication') do %>
                 <%= image_tag "volunteers/matteo_martini.jpg" %>
@@ -661,9 +680,9 @@
                 </div>
             <% end %>
           </div>
-        </div>
+        </li>
 
-        <div class="columns item">
+        <li>
           <div class="item-wrap">
             <%= link_to partecipa_path(anchor: 'partecipare') do %>
                 <%= image_tag "volunteers/you.png" %>
@@ -673,9 +692,9 @@
                 </div>
             <% end %>
           </div>
-        </div>
+        </li>
 
-      </div>
+      </ul>
       <!-- portfolio-wrapper end -->
 
     </div>
