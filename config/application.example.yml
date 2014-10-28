@@ -98,3 +98,12 @@ CROWDIN_ACCOUNT_KEY: ""
 
 CAP_STAGING_USER: ""
 CAP_STAGING_SERVER: ""
+
+
+##############
+#sentry settings. leeave empty to not use it
+#############
+
+SENTRY_PUBLIC_KEY: ""
+SENTRY_PRIVATE_KEY: ""
+SENTRY_PORT: ""

@@ -134,13 +134,7 @@ class ApplicationController < ActionController::Base
 
 
   def log_error(exception)
-    if ENV['DISABLE_ERROR_NOTIFICATION'].present?
-      Rails.logger.error exception.backtrace.join("\n")
-    else
-      ExceptionNotifier.notify_exception(exception, env: request.env)
-      message = "\n#{exception.class} (#{exception.message}):\n"
-      Rails.logger.error(message)
-    end
+    Raven.capture_exception(exception)
   end
 
 

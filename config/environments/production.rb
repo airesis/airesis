@@ -46,16 +46,6 @@ Airesis::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-
-  config.middleware.use ExceptionNotification::Rack,
-                        ignore_exceptions: ['ActiveRecord::RecordNotFound'],
-                        ignore_crawlers: %w{Googlebot bingbot},
-                        email: {
-                            email_prefix: "[Exception] ",
-                            sender_address: %{"Airesis Exception" <#{ENV['ERROR_SENDER']}>},
-                            exception_recipients: ENV['ERROR_RECEIVER']
-                        }
-
   config.paperclip_defaults = {
       storage: :s3,
       bucket: ENV['AWS_BUCKET'],

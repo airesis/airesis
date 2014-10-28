@@ -39,6 +39,15 @@ GIT
     vote-schulze (0.2.0)
 
 GIT
+  remote: git://github.com/getsentry/raven-ruby.git
+  revision: 1e12d8d5c288e97fd2fd64d28c2ffb7cad439eb2
+  branch: master
+  specs:
+    sentry-raven (0.10.1)
+      faraday (>= 0.7.6)
+      uuidtools
+
+GIT
   remote: git://github.com/jwachira/sunspot-rails-http-basic-auth.git
   revision: d8b4069568be1863d04704af3fbba874167a9dee
   specs:
@@ -169,9 +178,6 @@ GEM
     email_reply_parser (0.5.5)
     erubis (2.7.0)
     eventmachine (1.0.3)
-    exception_notification (4.0.1)
-      actionmailer (>= 3.0.4)
-      activesupport (>= 3.0.4)
     execjs (2.0.2)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
@@ -484,6 +490,7 @@ GEM
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     uniform_notifier (1.6.1)
+    uuidtools (2.1.5)
     warden (1.2.3)
       rack (>= 1.0)
     websocket (1.0.7)
@@ -523,7 +530,6 @@ DEPENDENCIES
   devise_traceable!
   el_finder
   email_reply_parser
-  exception_notification
   factory_girl_rails
   faker
   figaro
@@ -568,6 +574,7 @@ DEPENDENCIES
   sdoc
   select2-rails
   selenium-webdriver
+  sentry-raven!
   sidekiq (~> 2.17.7)
   sidetiq
   simple_form

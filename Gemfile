@@ -76,7 +76,6 @@ gem 'koala', '~> 1.8.0rc1'
 
 gem 'xmpp4r_facebook'
 
-gem 'exception_notification'
 
 gem 'sinatra', '>= 1.3.0', require: nil
 
@@ -158,3 +157,5 @@ gem 'truncate_html'
 gem 'sunspot-rails-http-basic-auth', github: 'jwachira/sunspot-rails-http-basic-auth'
 
 gem 'activerecord-session_store'
+
+gem "sentry-raven", github: 'getsentry/raven-ruby', branch: 'master'

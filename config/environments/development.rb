@@ -23,15 +23,6 @@ Airesis::Application.configure do
 
   config.force_ssl = false
 
-  config.middleware.use ExceptionNotification::Rack,
-                        ignore_exceptions: ['ActiveRecord::RecordNotFound'],
-                        ignore_crawlers: %w{Googlebot bingbot},
-                        email: {
-                            email_prefix: "[Exception] ",
-                            sender_address: %{"Airesis Exception" <#{ENV['ERROR_SENDER']}>},
-                            exception_recipients: ENV['ERROR_RECEIVER']
-                        }
-
 end
 
 Airesis::Application.default_url_options = Airesis::Application.config.action_mailer.default_url_options

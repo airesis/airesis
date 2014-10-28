@@ -30,16 +30,6 @@ Airesis::Application.configure do
 
   config.logger = Logger.new(Rails.root.join("log", Rails.env + ".log"), 50, 100.megabytes)
 
-
-  config.middleware.use ExceptionNotification::Rack,
-                        ignore_exceptions: ['ActiveRecord::RecordNotFound'],
-                        ignore_crawlers: %w{Googlebot bingbot},
-                        email: {
-                            email_prefix: "[Exception] ",
-                            sender_address: %{"Airesis Exception" <#{ENV['ERROR_SENDER']}>},
-                            exception_recipients: ENV['ERROR_RECEIVER']
-                        }
-
   config.paperclip_defaults = {
       storage: :s3,
       bucket: ENV['AWS_BUCKET'],
