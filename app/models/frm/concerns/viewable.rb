@@ -19,7 +19,7 @@ module Frm
 
         view = views.find_or_create_by(user_id: user.id)
         view.increment!("count")
-        increment!(:views_count)
+        update_counters self.id, views_count: 1
 
         # update current_viewed_at if more than 15 minutes ago
         if view.current_viewed_at.nil?

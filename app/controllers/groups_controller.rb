@@ -425,7 +425,7 @@ class GroupsController < ApplicationController
   protected
 
   def load_group
-    @group = params[:id] ? Group.friendly.find(params[:id]) : Group.find_by_subdomain(request.subdomain)
+    @group = params[:id] ? Group.friendly.find(params[:id]) : Group.find_by!(subdomain: request.subdomain)
   end
 
   def group_params

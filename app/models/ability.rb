@@ -318,12 +318,9 @@ class Ability
       can :access, :ckeditor # needed to access Ckeditor filebrowser
 
       # Performed checks for actions:
-      can [:read, :create, :destroy], Ckeditor::Picture do |picture|
-        picture.assetable_id == user.id
-      end
-      can [:read, :create, :destroy], Ckeditor::AttachmentFile do |attachment|
-        picture.assetable_id == user.id
-      end
+      #todo ckeditor assets are public. make them reserved on a per-user basis
+      can [:read, :create, :destroy], Ckeditor::Picture
+      can [:read, :create, :destroy], Ckeditor::AttachmentFile
 
       if user.moderator?
         can :read, Proposal # can see all the proposals
@@ -395,6 +392,4 @@ class Ability
     .joins(:participation_role => :action_abilitations)
     .where(["group_participations.user_id = :user_id and (participation_roles.id = #{ParticipationRole::ADMINISTRATOR} or action_abilitations.group_action_id = :action_id)", user_id: user.id, action_id: action]).uniq.exists?
   end
-
-
 end
