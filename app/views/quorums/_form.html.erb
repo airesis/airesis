@@ -27,7 +27,7 @@
             <%= e.label :percentage %>
             <%= raw t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
                       participants_percentage: (e.text_field :percentage, class: "percentage participants", title: t('activerecord.attributes.quorum.percentage_title'), readonly: true),
-                      current_number: "<span id=\"participants_number\">1</span>", total_number: @group_participations_count, average: (@group.statistic.valutations*100 / @group.count_proposals_participants).round(2)) %>
+                      current_number: "<span id=\"participants_number\">1</span>", total_number: @group_participations_count, average: (@group.statistic.valutations*100 / @group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count).round(2)) %>
           </p>
 
           <p>
@@ -58,7 +58,7 @@
             <%= e.label :vote_percentage %>
             <%= raw t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
                       participants_percentage: (e.text_field :vote_percentage, class: "percentage vote_participants", title: t('activerecord.attributes.quorum.percentage_title'), readonly: true),
-                      current_number: "<span id=\"vote_participants_number\">1</span>", total_number: @vote_participants_count, average: (@group.statistic.vote_valutations*100 / @group.count_voter_participants).round(2)) %>
+                      current_number: "<span id=\"vote_participants_number\">1</span>", total_number: @vote_participants_count, average: (@group.statistic.vote_valutations*100 / @group.scoped_participants(GroupAction::PROPOSAL_VOTE).count).round(2)) %>
           </p>
 
           <p>

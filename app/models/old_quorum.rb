@@ -216,7 +216,7 @@ class OldQuorum < Quorum
     count = 1
     if self.percentage
       if self.group
-        count = (self.percentage.to_f * 0.01 * self.group.count_proposals_participants) #todo group areas
+        count = (self.percentage.to_f * 0.01 * self.group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count) #todo group areas
       else
         count = (self.percentage.to_f * 0.001 * User.count)
       end

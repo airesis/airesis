@@ -37,7 +37,6 @@ class Group < ActiveRecord::Base
   has_many :blog_posts, through: :post_publishings, source: :blog_post
   has_many :participation_requests, class_name: 'GroupParticipationRequest', dependent: :destroy
   has_many :participation_roles, -> { order 'participation_roles.id DESC' }, class_name: 'ParticipationRole', dependent: :destroy
-  #has_many :participation_roles, class_name: 'ParticipationRole'
   belongs_to :interest_border, class_name: 'InterestBorder', foreign_key: :interest_border_id
   belongs_to :default_role, class_name: 'ParticipationRole', foreign_key: :participation_role_id
   has_many :meeting_organizations, class_name: 'MeetingOrganization', foreign_key: 'group_id', dependent: :destroy
@@ -198,29 +197,13 @@ class Group < ActiveRecord::Base
     self.private
   end
 
-  #utenti che possono partecipare alle proposte
-  def count_proposals_participants
-    self.participants.count(
-        joins: "join participation_roles
-               on group_participations.participation_role_id = participation_roles.id
-               left join action_abilitations on participation_roles.id = action_abilitations.participation_role_id",
-        conditions: "(action_abilitations.group_action_id = #{GroupAction::PROPOSAL_PARTICIPATION} AND action_abilitations.group_id = #{self.id}) or (participation_roles.id = 2)")
-  end
-
-  #utenti che possono votare le proposte
-  def count_voter_participants
-    self.participants.count(
-        joins: "join participation_roles
-               on group_participations.participation_role_id = participation_roles.id
-               left join action_abilitations on participation_roles.id = action_abilitations.participation_role_id",
-        conditions: "(action_abilitations.group_action_id = #{GroupAction::PROPOSAL_VOTE} AND action_abilitations.group_id = #{self.id}) or (participation_roles.id = 2)")
-  end
-
   #utenti che possono eseguire un'azione
   def scoped_participants(action_id)
-    self.participants
-    .joins("join participation_roles on group_participations.participation_role_id = participation_roles.id join action_abilitations on participation_roles.id = action_abilitations.participation_role_id")
-    .where(["(action_abilitations.group_action_id = ? AND action_abilitations.group_id = ?) or (participation_roles.id = ?)", action_id, self.id, ParticipationRole::ADMINISTRATOR])
+    self.participants.
+    joins(" join participation_roles on group_participations.participation_role_id = participation_roles.id
+            join action_abilitations on participation_roles.id = action_abilitations.participation_role_id").
+    where(action_abilitations: {group_action_id:  action_id}).
+    uniq
   end
 
   def participant_tokens=(ids)

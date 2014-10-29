@@ -635,8 +635,8 @@ class ProposalsController < ApplicationController
   def can_valutate
     @my_ranking = ProposalRanking.find_by_user_id_and_proposal_id(current_user.id, params[:id])
     @my_vote = @my_ranking.ranking_type_id if @my_ranking
-    if ((@my_vote && @my_ranking.updated_at > @proposal.updated_at) ||
-        (@proposal.private && @group && !(can? :participate, @proposal)))
+    if (@my_vote && @my_ranking.updated_at > @proposal.updated_at) ||
+        (@proposal.private && @group && !(can? :participate, @proposal))
       flash[:error] = I18n.t('error.proposals.proposal_already_ranked')
       respond_to do |format|
         format.js { render :update do |page|
@@ -745,11 +745,11 @@ class ProposalsController < ApplicationController
 
     if @group #calcolo il numero in base ai partecipanti
       if @group_area #se la proposta è in un'area di lavoro farà riferimento solo agli utenti di quell'area
-        @copy.valutations = ((quorum.percentage.to_f * @group_area.count_proposals_participants.to_f) / 100).floor
-        @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group_area.count_voter_participants.to_f) / 100).floor #todo we must calculate it before votation
+        @copy.valutations = ((quorum.percentage.to_f * @group_area.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count.to_f) / 100).floor
+        @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group_area.scoped_participants(GroupAction::PROPOSAL_VOTE).count.to_f) / 100).floor #todo we must calculate it before votation
       else #se la proposta è di gruppo sarà basato sul numero di utenti con diritto di partecipare
-        @copy.valutations = ((quorum.percentage.to_f * @group.count_proposals_participants.to_f) / 100).floor
-        @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group.count_voter_participants.to_f) / 100).floor #todo we must calculate it before votation
+        @copy.valutations = ((quorum.percentage.to_f * @group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count.to_f) / 100).floor
+        @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group.scoped_participants(GroupAction::PROPOSAL_VOTE).count.to_f) / 100).floor #todo we must calculate it before votation
       end
     else #calcolo il numero in base agli utenti del portale (il 10%)
       @copy.valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor

@@ -5,8 +5,11 @@ class GroupAction < ActiveRecord::Base
 
   #creare eventi nel gruppo
   CREATE_EVENT = 2
+
   #sostenere le proposte a nome del gruppo
+  #@deprecated
   PROPOSAL = 3
+
   SUPPORT_PROPOSAL = 3
 
   #accettare le richieste di partecipazione al gruppo

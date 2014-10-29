@@ -21,7 +21,7 @@
   <tr>
     <td><%= 'Debate participants' %></td>
     <td><%= @group.statistic.valutations.round(0) %>
-      (<%= (@group.statistic.valutations*100 / @group.count_proposals_participants).round(0) %>%)
+      (<%= (@group.statistic.valutations*100 / @group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count).round(0) %>%)
     </td>
   </tr>
   <tr>
@@ -31,7 +31,7 @@
   <tr>
     <td><%= 'Votation participants' %></td>
     <td><%= @group.statistic.vote_valutations.round(0) %>
-      (<%= (@group.statistic.vote_valutations*100 / @group.count_voter_participants).round(0) %>%)
+      (<%= (@group.statistic.vote_valutations*100 / @group.scoped_participants(GroupAction::PROPOSAL_VOTE).count).round(0) %>%)
     </td>
   </tr>
   </tbody>

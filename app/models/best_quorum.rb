@@ -238,31 +238,27 @@ class BestQuorum < Quorum
   protected
 
   def min_participants_pop
+    return 1 unless percentage
+
     count = 1
-    if self.percentage
-      if self.group
-        count = (self.percentage.to_f * 0.01 * self.group.count_proposals_participants) #todo group areas
-      else
-        count = (self.percentage.to_f * 0.001 * User.count)
-      end
-      [count, 1].max.floor + 1 #we always add +1 in new quora
+    if group
+      count = (percentage.to_f * 0.01 * group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count) #todo group areas
     else
-      1
+      count = (percentage.to_f * 0.001 * User.count)
     end
+    [count, 1].max.floor + 1 #we always add +1 in new quora
   end
 
   def min_vote_participants_pop
+    return 1 unless vote_percentage
+
     count = 1
-    if self.vote_percentage
-      if self.group
-        count = (self.vote_percentage.to_f * 0.01 * self.group.count_voter_participants) #todo group areas
-      else
-        count = (self.vote_percentage.to_f * 0.001 * User.count)
-      end
-      [count, 1].max.floor + 1 #we always add +1 in new quora
+    if group
+      count = (vote_percentage.to_f * 0.01 * group.scoped_participants(GroupAction::PROPOSAL_VOTE).count) #todo group areas
     else
-      1
+      count = (vote_percentage.to_f * 0.001 * User.count)
     end
+    [count, 1].max.floor + 1 #we always add +1 in new quora
   end
 
   def explanation_pop

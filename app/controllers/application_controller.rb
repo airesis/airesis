@@ -134,7 +134,13 @@ class ApplicationController < ActionController::Base
 
 
   def log_error(exception)
-    Raven.capture_exception(exception)
+    puts ENV['SENTRY_PRIVATE_KEY']
+    if ENV['SENTRY_PRIVATE_KEY'] && !Rails.env.test?
+      Raven.capture_exception(exception)
+    else
+      Rails.logger.error exception.backtrace.join("\n")
+    end
+
   end
 
 

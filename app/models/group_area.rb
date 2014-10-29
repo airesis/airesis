@@ -42,30 +42,13 @@ class GroupArea < ActiveRecord::Base
     self.update_attribute(:area_role_id, nil) && super
   end
 
-
-  #utenti che possono partecipare alle proposte
-  def count_proposals_participants
-    self.participants.count(
-        joins: "join area_roles
-               on area_participations.area_role_id = area_roles.id
-               left join area_action_abilitations on area_roles.id = area_action_abilitations.area_role_id",
-        conditions: "(area_action_abilitations.group_action_id = #{GroupAction::PROPOSAL_PARTICIPATION} AND area_action_abilitations.group_area_id = #{self.id})")
-  end
-
-  #utenti che possono votare le proposte
-  def count_voter_participants
-    self.participants.count(
-        joins: "join area_roles
-               on area_participations.area_role_id = area_roles.id
-               left join area_action_abilitations on area_roles.id = area_action_abilitations.area_role_id",
-        conditions: "(area_action_abilitations.group_action_id = #{GroupAction::PROPOSAL_VOTE} AND area_action_abilitations.group_area_id = #{self.id})")
-  end
-
   #utenti che possono eseguire un'azione
   def scoped_participants(action_id)
-    self.participants
-    .joins("join area_roles on area_participations.area_role_id = area_roles.id left join area_action_abilitations on area_roles.id = area_action_abilitations.area_role_id")
-    .where("area_action_abilitations.group_action_id = ? AND area_action_abilitations.group_area_id = ?", action_id, self.id)
+    self.participants.
+        joins(" join area_roles on area_participations.area_role_id = area_roles.id
+            join area_action_abilitations on area_roles.id = area_action_abilitations.area_role_id").
+        where(area_action_abilitations: {group_action_id: action_id, group_area_id: id}).
+        uniq
   end
 
   def to_param

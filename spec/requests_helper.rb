@@ -40,9 +40,9 @@ def page_should_be_ok
   expect(page).to_not have_content(I18n.t('error.error_404.title'))
 end
 
-def create_participation(user,group)
+def create_participation(user,group,participation_role_id=nil)
   group.participation_requests.build(user: user,group_participation_request_status_id: 3)
-  group.group_participations.build(user: user,participation_role_id: group.participation_role_id)
+  group.group_participations.build(user: user,participation_role_id: (participation_role_id || group.participation_role_id))
   group.save
 end
 

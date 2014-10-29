@@ -367,30 +367,27 @@ class Proposal < ActiveRecord::Base
 
 #retrieve the number of users that can vote this proposal
   def eligible_voters_count
-    if self.private?
-      if self.presentation_areas.size > 0 #if we are in a working area
-        self.presentation_areas.first.count_voter_participants
-      else
-        self.groups.first.count_voter_participants
-      end
+    return User.confirmed.unblocked.count unless private?
+    if self.presentation_areas.size > 0 #if we are in a working area
+      presentation_areas.first.scoped_participants(GroupAction::PROPOSAL_VOTE).count  #todo more areas
     else
-      User.confirmed.unblocked.count #if it's public everyone can vote
+      groups.first.scoped_participants(GroupAction::PROPOSAL_VOTE).count  #todo more groups
     end
   end
 
 
 #count without fetching, for the list. this number may be different from participants because doesn't look if the participants are still in the group
   def participants_count
-    a = User.joins({proposal_rankings: [:proposal]}).where(["proposals.id = ?", self.id]).count
-    a += User.joins({proposal_comments: [:proposal]}).where(["proposals.id = ?", self.id]).count
+    a = User.joins(proposal_rankings: :proposal).where(proposals: {id: id}).count
+    a += User.joins(proposal_comments: :proposal).where(proposals: {id: id}).count
   end
 
 #retrieve all the participants to the proposals that are still part of the group
   def participants
     #all users who ranked the proposal
-    a = User.joins(proposal_rankings: [:proposal]).where(["proposals.id = ?", self.id]).load
+    a = User.joins(proposal_rankings: :proposal).where(proposals: {id: id}).load
     #all users who contributed to the proposal
-    b = User.joins(proposal_comments: [:proposal]).where(["proposals.id = ?", self.id]).load
+    b = User.joins(proposal_comments: :proposal).where(proposals: {id: id}).load
     c = (a | b)
     if self.private
       #all users that are part of the group of the proposal
@@ -411,8 +408,8 @@ class Proposal < ActiveRecord::Base
     res = []
     users.each do |user|
       #user ranking to the proposal
-      ranking = user.proposal_rankings.first(conditions: {proposal_id: self.id})
-      res << user if !ranking || (ranking && (ranking.updated_at < self.updated_at)) #if he ranked and can change it
+      ranking = user.proposal_rankings.where(proposal_id: id).first
+      res << user if !ranking || (ranking && (ranking.updated_at < updated_at)) #if he ranked and can change it
     end
     res
   end
@@ -659,11 +656,11 @@ class Proposal < ActiveRecord::Base
     #se il numero di valutazioni è definito
     if group #calcolo il numero in base ai partecipanti
       if group_area #se la proposta è in un'area di lavoro farà riferimento solo agli utenti di quell'area
-        copy.valutations = ((quorum.percentage.to_f * group_area.count_proposals_participants.to_f) / 100).floor
-        copy.vote_valutations = ((quorum.vote_percentage.to_f * group_area.count_voter_participants.to_f) / 100).floor #todo we must calculate it before votation
+        copy.valutations = ((quorum.percentage.to_f * group_area.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count.to_f) / 100).floor
+        copy.vote_valutations = ((quorum.vote_percentage.to_f * group_area.scoped_participants(GroupAction::PROPOSAL_VOTE).count.to_f) / 100).floor #todo we must calculate it before votation
       else #se la proposta è di gruppo sarà basato sul numero di utenti con diritto di partecipare
-        copy.valutations = ((quorum.percentage.to_f * group.count_proposals_participants.to_f) / 100).floor
-        copy.vote_valutations = ((quorum.vote_percentage.to_f * group.count_voter_participants.to_f) / 100).floor #todo we must calculate it before votation
+        copy.valutations = ((quorum.percentage.to_f * group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count.to_f) / 100).floor
+        copy.vote_valutations = ((quorum.vote_percentage.to_f * group.scoped_participants(GroupAction::PROPOSAL_VOTE).count.to_f) / 100).floor #todo we must calculate it before votation
       end
     else #calcolo il numero in base agli utenti del portale (il 10%)
       copy.valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor

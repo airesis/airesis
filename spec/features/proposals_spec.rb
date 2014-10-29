@@ -69,6 +69,7 @@ describe "create a proposal in his group", type: :feature, js: true do
       wait_for_ajax rescue nil
       proposal = Proposal.order(created_at: :desc).first
       expect(page.current_path).to eq(edit_group_proposal_path(@group,proposal))
+      visit edit_group_proposal_path(@group,proposal)
       expect(page).to have_content proposal.title
 
       page.execute_script 'window.confirm = function () { return true }'

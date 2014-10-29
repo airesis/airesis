@@ -20,8 +20,8 @@ class QuorumsController < ApplicationController
   def new
     @page_title= t('pages.groups.edit_quorums.new_quorum.title')
     @quorum.attributes = {percentage: 0, good_score: 20, vote_percentage: 0, vote_good_score: 50}
-    @group_participations_count = @group.count_proposals_participants
-    @vote_participants_count = @group.count_voter_participants
+    @group_participations_count = @group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count
+    @vote_participants_count = @group.scoped_participants(GroupAction::PROPOSAL_VOTE).count
     respond_to do |format|
       format.js
       format.html
@@ -45,8 +45,8 @@ class QuorumsController < ApplicationController
 
   def edit
     @page_title = t('pages.groups.edit_quorums.edit_quorum')
-    @group_participations_count = @group.count_proposals_participants
-    @vote_participants_count = @group.count_voter_participants
+    @group_participations_count = @group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count
+    @vote_participants_count = @group.scoped_participants(GroupAction::PROPOSAL_VOTE).count
   end
 
 
