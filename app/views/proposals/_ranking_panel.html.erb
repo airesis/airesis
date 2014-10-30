@@ -1,24 +1,24 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-		
-<%if current_user %>
-	<%if @my_vote%>
-			<% if @my_vote == 1 %>
-				<div class="votedup"></div>
-			 <%elsif @can_vote_again == 1%>
-			 	<%= render partial: 'proposals/ranking_and_spinner', locals: {action: "up"} %>
-			<%end%>
-				<%= render partial: 'fragments/votes_and_rank', locals: {object: @proposal} %>
-			<% if @my_vote == 3 %>
-				<div class="voteddown"></div>
-			<% elsif @can_vote_again == 1%>
-				<%= render partial: 'proposals/ranking_and_spinner', locals: {action: "down"} %>
-			<%end%>		
-	<%else%>
-		
-			<%= render partial: 'proposals/ranking_and_spinner', locals: {action: "up"} if @can_vote_again == 1%>
-			<%= render partial: 'fragments/votes_and_rank', locals: {object: @proposal} %>
-			<%= render partial: 'proposals/ranking_and_spinner', locals: {action: "down"} if @can_vote_again == 1%>
-	<%end %>
-<%else%>
-	<%= render partial: 'fragments/votes_and_rank', locals: {object: @proposal} %>
-<%end %>
+
+<% if current_user %>
+    <% if @my_vote %>
+        <% if @my_vote == ProposalRanking::POSITIVE %>
+            <div class="votedup"></div>
+        <% elsif @can_vote_again %>
+            <%= render partial: 'proposals/ranking_and_spinner', locals: {action: "up"} %>
+        <% end %>
+        <%= render partial: 'fragments/votes_and_rank', locals: {object: @proposal} %>
+        <% if @my_vote == ProposalRanking::NEGATIVE %>
+            <div class="voteddown"></div>
+        <% elsif @can_vote_again %>
+            <%= render partial: 'proposals/ranking_and_spinner', locals: {action: "down"} %>
+        <% end %>
+    <% else %>
+
+        <%= render partial: 'proposals/ranking_and_spinner', locals: {action: "up"} if @can_vote_again %>
+        <%= render partial: 'fragments/votes_and_rank', locals: {object: @proposal} %>
+        <%= render partial: 'proposals/ranking_and_spinner', locals: {action: "down"} if @can_vote_again %>
+    <% end %>
+<% else %>
+    <%= render partial: 'fragments/votes_and_rank', locals: {object: @proposal} %>
+<% end %>

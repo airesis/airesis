@@ -1,23 +1,23 @@
 require 'spec_helper'
 require 'requests_helper'
+require 'cancan/matchers'
 
 describe "create a proposal in his group", type: :feature, js: true do
+
+  let!(:user) { create(:user) }
+  let!(:group) { create(:group, current_user_id: user.id) }
+  let!(:proposal) { create(:group_proposal, quorum: group.quorums.active.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)]) }
+
   before :each do
-    @user = create(:default_user)
-    login_as @user, scope: :user
-    @group = create(:default_group, current_user_id: @user.id)
+    login_as user, scope: :user
   end
 
   after :each do
     logout(:user)
   end
 
-  it "creates the proposal in group" do
-    #visit group_proposals_path(@group)
-    #click_link I18n.t('proposals.create_button')
-    #find('div[data-id=SIMPLE]').click
-
-    visit new_group_proposal_path(@group)
+  it "creates the proposal in group", ci_ignore: true do
+    visit new_group_proposal_path(group)
 
     proposal_name = Faker::Lorem.sentence
     within("#main-copy") do
@@ -29,25 +29,144 @@ describe "create a proposal in his group", type: :feature, js: true do
       click_button I18n.t('pages.proposals.new.create_button')
     end
     page_should_be_ok
-
+    wait_for_ajax rescue nil
     @proposal = Proposal.order(:created_at).first
     #the proposal title is certainly displayed somewhere
     expect(page).to have_content @proposal.title
-    expect(page.current_path).to eq(edit_group_proposal_path(@group,@proposal))
+    expect(page.current_path).to eq(edit_group_proposal_path(group, @proposal))
 
     page.execute_script 'window.confirm = function () { return true }'
     page.execute_script 'safe_exit = true;'
     within '#menu-left' do
       click_link I18n.t('buttons.cancel')
     end
-    #page.driver.browser.switch_to.alert.accept
 
     expect(page).to have_content @proposal.title
+    within("#menu-left") do
+      expect(page).to have_content(I18n.t('proposals.show.ready_for_vote'))
+      expect(page).to have_content(I18n.t('proposals.show.keep_discuss'))
+    end
+
+  end
+
+
+  def simple_editing
+    visit edit_group_proposal_path(group, proposal)
+    wait_ajax rescue nil
+    new_content = Faker::Lorem.paragraph
+
+    fill_in_ckeditor 'proposal_sections_attributes_0_paragraphs_attributes_0_content_dirty', with: new_content
+
+    within('#menu-left') do
+      click_link I18n.t('buttons.update')
+    end
+    puts page.driver.console_messages
+    expect(page.current_path).to eq group_proposal_path(group, proposal)
+
+    expect(page).to have_content(new_content)
+  end
+
+  it "can edit a proposal", ci_ignore: true do
+    simple_editing
+  end
+
+  it "evaluation of a proposal by the author and other users" do
+
+    def vote_and_check
+      pressed = I18n.t('proposals.show.ready_for_vote')
+      other = I18n.t('proposals.show.keep_discuss')
+      within("#menu-left") do
+        expect(page).to have_content(pressed)
+        expect(page).to have_content(other)
+        click_link pressed
+      end
+
+      expect(page).to have_content(I18n.t('info.proposal.rank_recorderd'))
+
+      within("#menu-left") do
+        expect(find_link(pressed)[:href]).to eq '#'
+        expect(page).to_not have_link(other)
+      end
+    end
+
+    def second_vote_and_check
+      pressed = I18n.t('proposals.show.ready_for_vote')
+      other = I18n.t('proposals.show.keep_discuss')
+      within("#menu-left") do
+        expect(find_link(pressed)[:href]).to eq '#'
+        expect(page).to have_content(other)
+        click_link other #change ides
+      end
+
+      expect(page).to have_content(I18n.t('info.proposal.rank_recorderd'))
+
+      within("#menu-left") do
+        expect(find_link(other)[:href]).to eq '#'
+        expect(page).to_not have_link(pressed)
+      end
+    end
+
+    visit group_proposal_path(group, proposal)
+    expect(page.current_path).to eq group_proposal_path(group, proposal)
+
+    vote_and_check
+    logout(:user)
+    how_many = 3
+    other_users = []
+    how_many.times do |i|
+      user2 = create(:user)
+      other_users << user2
+      create_participation(user2, group)
+      login_as user2, scope: :user
+      visit group_proposal_path(group, proposal)
+
+      vote_and_check
+
+      proposal.reload
+      expect(proposal.valutations).to eq (i+1)+1
+      expect(Ability.new(user2)).to_not be_able_to(:rank_up, proposal)
+      logout(:user)
+    end
+
+    group.reload
+
+    expect(group.participants.count).to eq how_many+1
+
+    proposal.current_user_id = user.id
+
+    new_title = Faker::Lorem.sentence
+    proposal.update(title: new_title)
+
+    login_as user, scope: :user
+
+    expect(Ability.new(user)).to be_able_to(:rankup, proposal)
+    expect(Ability.new(user)).to be_able_to(:rankdown, proposal)
+
+    visit group_proposal_path(group, proposal)
+
+    second_vote_and_check
+
+    proposal.reload
+
+    expect(proposal.valutations).to eq(how_many+1)
+    expect(proposal.rank).to eq (how_many.to_f/(how_many+1).to_f)*100
+
+    logout :user
+    how_many.times do |i|
+      login_as other_users[i], scope: :user
+      visit group_proposal_path(group, proposal)
+      second_vote_and_check
+      proposal.reload
+      expect(proposal.valutations).to eq(how_many+1)
+      expect(proposal.rank).to eq ((how_many - (1+i)).to_f/(how_many+1).to_f)*100
+      expect(Ability.new(other_users[i])).to_not be_able_to(:rank_down, proposal)
+      logout :user
+    end
   end
 
   ProposalType.active.for_groups.order(:seq).each do |proposal_type|
     it "creates a #{proposal_type.name} proposal in group through dialog window" do
-      visit group_proposals_path(@group)
+      visit group_proposals_path(group)
       within('.menu-left') do
         click_link I18n.t('proposals.create_button')
       end
@@ -67,17 +186,19 @@ describe "create a proposal in his group", type: :feature, js: true do
       end
       page_should_be_ok
       wait_for_ajax rescue nil
-      proposal = Proposal.order(created_at: :desc).first
-      expect(page.current_path).to eq(edit_group_proposal_path(@group,proposal))
-      visit edit_group_proposal_path(@group,proposal)
-      expect(page).to have_content proposal.title
+      proposal2 = Proposal.order(created_at: :desc).first
+      expect(page.current_path).to eq(edit_group_proposal_path(group, proposal2))
+      visit edit_group_proposal_path(group, proposal2)
+      expect(page).to have_content proposal2.title
 
       page.execute_script 'window.confirm = function () { return true }'
       page.execute_script 'safe_exit = true;'
+      wait_for_ajax rescue nil
       within '#menu-left' do
         click_link I18n.t('buttons.cancel')
       end
-      expect(page).to have_content proposal.title
+      expect(page).to have_content proposal2.title
+
     end
   end
 end

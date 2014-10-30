@@ -1,17 +1,17 @@
 <% if can? :participate, @proposal %>
     <div class="handscontainer">
       <% if @my_vote %>
-          <% if @my_vote == 1 %>
+          <% if @my_vote == ProposalRanking::POSITIVE %>
               <%= render partial: '/proposals/valutations/votedup' %>
-          <% elsif @can_vote_again == 1 %>
+          <% elsif @can_vote_again %>
               <%= render partial: '/proposals/valutations/voteup' %>
           <% end %>
-          <% if @my_vote == 3 %>
+          <% if @my_vote == ProposalRanking::NEGATIVE %>
               <%= render partial: '/proposals/valutations/voteddown' %>
-          <% elsif @can_vote_again == 1 %>
+          <% elsif @can_vote_again %>
               <%= render partial: '/proposals/valutations/votedown' %>
           <% end %>
-      <% elsif @can_vote_again == 1 %>
+      <% elsif @can_vote_again %>
           <%= render partial: '/proposals/valutations/voteup' %>
           <%= render partial: '/proposals/valutations/votedown' %>
       <% end %>

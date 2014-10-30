@@ -1,6 +1,7 @@
 (function () {
 	var exports = this,
-		dom = {};
+		dom = {},
+		_browser = null;
 
 	dom.DOM_VK_DELETE = 8;
 	dom.DOM_VK_LEFT = 37;
@@ -24,8 +25,8 @@
 	dom.WORD_UNIT = 'word';
 	dom.BREAK_ELEMENT = 'br';
 	dom.CONTENT_STUB_ELEMENTS = ['img', 'hr', 'iframe', 'param', 'link', 'meta', 'input', 'frame', 'col', 'base', 'area'];
-	dom.BLOCK_ELEMENTS = ['p', 'div', 'pre', 'ul', 'ol', 'li', 'table', 'tbody', 'td', 'th', 'fieldset', 'form', 'blockquote', 'dl', 'dt', 'dd', 'dir', 'center', 'address', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
-	dom.TEXT_CONTAINER_ELEMENTS = ['p', 'div', 'pre', 'li', 'td', 'th', 'blockquote', 'dt', 'dd', 'center', 'address', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+	dom.BLOCK_ELEMENTS = ['body', 'p', 'div', 'pre', 'ul', 'ol', 'li', 'table', 'tbody', 'td', 'th', 'fieldset', 'form', 'blockquote', 'dl', 'dt', 'dd', 'dir', 'center', 'address', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+	dom.TEXT_CONTAINER_ELEMENTS = ['body','p', 'div', 'pre', 'span', 'b', 'strong', 'i', 'li', 'td', 'th', 'blockquote', 'dt', 'dd', 'center', 'address', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
 
 	dom.STUB_ELEMENTS = dom.CONTENT_STUB_ELEMENTS.slice();
 	dom.STUB_ELEMENTS.push(dom.BREAK_ELEMENT);
@@ -135,7 +136,7 @@
 			frag.appendChild(child);
 		}
 		return frag;
-	},
+  };
 
 	/**
 	 * Returns this `node` or the first parent tracking node that matches the given `selector`.
@@ -257,10 +258,10 @@
 		return doc;
 	};
 	dom.isBlockElement = function (element) {
-		return dom.BLOCK_ELEMENTS.lastIndexOf(element.nodeName.toLowerCase()) != -1;
+		return dom.BLOCK_ELEMENTS.indexOf(element.nodeName.toLowerCase()) != -1;
 	};
 	dom.isStubElement = function (element) {
-		return dom.STUB_ELEMENTS.lastIndexOf(element.nodeName.toLowerCase()) != -1;
+		return dom.STUB_ELEMENTS.indexOf(element.nodeName.toLowerCase()) != -1;
 	};
 	dom.removeBRFromChild = function (node) {
 		if (node && node.hasChildNodes()) {
@@ -490,6 +491,129 @@
 		}
 		return null;
 	};
+	
+	/* Begin dfl */
+	
+	function _findPrevIndex(node, origin) {
+		if (dom.TEXT_NODE == node.nodeType) {
+			return node.length;
+		}
+		
+	}
+	
+	function _findNextTextContainer(node, container){
+		while (node) {
+			if (dom.TEXT_NODE == node.nodeType) {
+				return node;
+			}
+			for (var child = node.firstChild; child; child = child.nextSibling) {
+				var ret = _findNextTextContainer(child, container);
+				if (ret) {
+					return ret;
+				}
+			}
+			if (dom.isTextContainer(node)) {
+				return node;
+			}
+			node = node.nextSibling;
+		}
+		return null;
+	}
+	
+	function _findPrevTextContainer(node, container){
+		while (node) {
+			if (dom.TEXT_NODE == node.nodeType) {
+				return node;
+			}
+			for (var child = node.lastChild; child; child = child.previousSibling) {
+				var ret = _findPrevTextContainer(child, container);
+				if (ret) {
+					return ret;
+				}
+			}
+			if (dom.isTextContainer(node)) {
+				return node;
+			}
+			node = node.previousSibling;
+		}
+		return null;
+	}
+	
+	dom.findPrevTextContainer = function(node, container) {
+		if (! node || node == container) {
+			return {
+				node: container,
+				offset: 0
+			};
+		}
+
+		if (node.parentNode && dom.isTextContainer(node.parentNode)) {
+			return {
+				node: node.parentNode,
+				offset: dom.getNodeIndex(node)
+			};
+		};
+		while (node.previousSibling) {
+			var ret = _findPrevTextContainer(node.previousSibling);
+			if (ret) {
+				return {
+					node: ret,
+					offset: dom.getNodeLength(ret)
+				};
+			};
+			node = node.previousSibling;
+		};
+		
+		return dom.findPrevTextContainer(node.parentNode && node.parentNode.previousSibling, container);
+	};
+	
+	dom.findNextTextContainer = function(node, container) {
+		if (! node || node == container) {
+			return {
+				node: container,
+				offset: dom.getNodeLength(container)
+			};
+		}
+		if (node.parentNode && dom.isTextContainer(node.parentNode)) {
+			return {
+				node: node.parentNode,
+				offset: dom.getNodeIndex(node) + 1
+			};
+		};
+		while (node.nextSibling) {
+			var ret = _findNextTextContainer(node.nextSibling);
+			if (ret) {
+				return {
+					node: ret,
+					offset: 0
+				};
+			};
+			node = node.previousSibling;
+		};
+		
+		return dom.findNextTextContainer(node.parentNode && node.parentNode.nextSibling, container);
+	};
+	
+	dom.getNodeLength = function(node) {
+		return node ? 
+				(dom.TEXT_NODE == node.nodeType ? 
+						node.length : ((node.childNodes && node.childNodes.length) || 0)) :
+				0;
+	};
+	
+	dom.isTextContainer = function(node) {
+		return (node && (dom.TEXT_NODE == node.nodeType) || dom.TEXT_CONTAINER_ELEMENTS.indexOf((node.nodeName || "").toLowerCase()) >= 0);
+	};
+	
+	dom.getNodeIndex = function(node) {
+		var i = 0;
+		while( (node = node.previousSibling) ) {
+			++i;
+		}
+		return i;
+	};
+	
+	/* end dfl */
 
 	dom.canContainTextElement = function (element) {
 		if (element && element.nodeName) {
@@ -755,53 +879,61 @@
 			return resCont;
 		}
 	};
-
+	
 	dom.browser = function () {
-
+		if (_browser) {
+			return jQuery.extend({}, _browser);
+		}
 		
-		function uaMatch( ua ) {
-			ua = ua.toLowerCase();
-
-			var match = /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
-				/(webkit)[ \/]([\w.]+)/.exec( ua ) ||
-				/(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
-				/(msie) ([\w.]+)/.exec( ua ) ||
-				ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
-				[];
-
-			return {
-				browser: match[ 1 ] || "",
-				version: match[ 2 ] || "0"
+		_browser = (function() {
+			function uaMatch( ua ) {
+				ua = ua.toLowerCase();
+	
+				var match = /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
+					/(webkit)[ \/]([\w.]+)/.exec( ua ) ||
+					/(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
+					/(msie) ([\w.]+)/.exec( ua ) ||
+					ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
+					[];
+	
+				return {
+					browser: match[ 1 ] || "",
+					version: match[ 2 ] || "0"
+				};
 			};
-		};
-
-		var matched = uaMatch( navigator.userAgent );
-		var browser = {};
-
-		if ( matched.browser ) {
-			browser[ matched.browser ] = true;
-			browser.version = matched.version;
-		}
-
-		// Chrome is Webkit, but Webkit is also Safari.
-		if ( browser.chrome ) {
-			browser.webkit = true;
-		} else if ( browser.webkit ) {
-			browser.safari = true;
-		}
+	
+			var ua = navigator.userAgent.toLowerCase(),
+				matched = uaMatch(ua),
+				browser = {
+					type: "unknown",
+					version : 0,
+					msie: false
+				};
+	
+			if ( matched.browser ) {
+				browser[ matched.browser ] = true;
+				browser.version = matched.version || 0;
+				browser.type = matched.browser;
+			}
+	
+			// Chrome is Webkit, but Webkit is also Safari.
+			if ( browser.chrome ) {
+				browser.webkit = true;
+			} else if ( browser.webkit ) {
+				browser.safari = true;
+			}
+			if (browser.webkit) {
+				browser.type = "webkit";
+			}
+			browser.firefox = (/firefox/.test(ua) == true);
+			if (! browser.msie) {
+				browser.msie = !! /trident/.test(ua); 
+			}
+			
+			return browser;
+		})();
 		
-		var result = {};
-		result.version = browser.version || 0;
-		if (browser.mozilla === true) {
-			result.type = 'mozilla';
-		} else if (browser.msie === true) {
-			result.type = 'msie';
-		} else if (browser.opera === true) {
-			result.type = 'opera';
-		} else if (browser.webkit === true) {
-			result.type = 'webkit';
-		}
-		return result;
+		return jQuery.extend({}, _browser);
 	};
 
 	dom.getBrowserType = function () {
@@ -840,12 +972,12 @@
 		if (node) {
 			while (node.parentNode) {
 				node = node.parentNode;
-				if (node === container) {
-					return null;
-				}
 
 				if (dom.isBlockElement(node) === true) {
 					return node;
+				}
+				if (node === container) {
+					return null;
 				}
 			}
 		}
@@ -1031,6 +1163,42 @@
 		}
 		return null;
 	};
+	
+	dom.normalizeNode = function(node) {
+		if (! node) {
+			return;
+		}
+		if ("function" == typeof node.normalize) {
+			return node.normalize();
+		}
+		return this._myNormalizeNode(node);
+	};
+
+	function _myNormalizeNode(node) {
+		if (! node) {
+			return;
+		}
+		var ELEMENT_NODE = 1;
+		var TEXT_NODE = 3;
+		var child = node.firstChild;
+		while (child) {
+			if (child.nodeType == ELEMENT_NODE) {
+				this._myNormalizeNode(child);
+			}
+			else if (child.nodeType == TEXT_NODE) { 
+				var next;
+				while ((next = child.nextSibling) && next.nodeType == TEXT_NODE) { 
+					var value = next.nodeValue;
+					if (value != null && value.length) {
+						child.nodeValue = child.nodeValue + value;
+					}
+					node.removeChild(next);
+				}
+			}
+			child = child.nextSibling;
+		}
+	};	
+
 
 	exports.dom = dom;
 

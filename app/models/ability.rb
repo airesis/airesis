@@ -53,6 +53,15 @@ class Ability
 
       can [:edit, :update, :geocode, :add_authors], Proposal, users: {id: user.id}, proposal_state_id: ProposalState::VALUTATION
 
+      can [:rankup, :rankdown], Proposal do |proposal|
+        ranking = proposal.rankings.find_by(user_id: user.id)
+        if ranking
+          ranking.updated_at <  proposal.updated_at
+        else
+          can? :participate, proposal
+        end
+      end
+
       #he can participate to public proposals
       can :participate, Proposal, private: false
       #in groups

@@ -19,9 +19,6 @@ class ProposalsController < ApplicationController
   #la proposta deve essere in stato 'IN VALUTAZIONE'
   before_filter :valutation_state_required, only: [:rankup, :rankdown, :available_author, :add_authors, :geocode]
 
-  #l'utente deve poter valutare la proposta
-  before_filter :can_valutate, only: [:rankup, :rankdown]
-
   before_filter :check_page_alerts, only: :show
 
   def index
@@ -167,15 +164,15 @@ class ProposalsController < ApplicationController
     @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
     @blocked_alerts = BlockedProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id) if current_user
     register_view(@proposal, current_user)
-
+    load_my_vote
     respond_to do |format|
       format.js {
         render nothing: true
       }
       format.html {
-        if @proposal.proposal_state_id == ProposalState::WAIT_DATE.to_s
+        if @proposal.waiting_date?
           flash.now[:info] = I18n.t('info.proposal.waiting_date')
-        elsif @proposal.proposal_state_id == ProposalState::VOTING.to_s
+        elsif @proposal.voting?
           flash.now[:info] = I18n.t('info.proposal.voting')
         end
       }
@@ -186,7 +183,7 @@ class ProposalsController < ApplicationController
                  show_as_html: params[:debug].present?
         else
           flash[:error] = "E' possibile esportare in pdf solo le proposte terminate"
-          redirect_to @proposal, format: 'html'
+          redirect_to @proposal, format: :html
         end
       }
     end
@@ -551,38 +548,25 @@ class ProposalsController < ApplicationController
 
   #valuta una proposta
   def rank(rank_type)
-    if @my_ranking #updating my existing ranking
-      @ranking = @my_ranking
-    else #otherwise create a new one
-      @ranking = ProposalRanking.new
-      @ranking.user_id = current_user.id
-      @ranking.proposal_id = params[:id]
-      notify_user_valutate_proposal(@ranking, @group) #send a notification
-    end
-    @ranking.ranking_type_id = rank_type #set type of ranking
-
     ProposalRanking.transaction do
-      saved = @ranking.save!
+      ranking = @proposal.rankings.find_or_create_by(user_id: current_user.id)
+      ranking.ranking_type_id = rank_type
+      ranking.save!
       @proposal.reload
-      @proposal.check_phase
       load_my_vote
-    end #transaction
+      notify_user_valutate_proposal(ranking, @group) #send a notification
+    end
+
     flash[:notice] = I18n.t('info.proposal.rank_recorderd')
     respond_to do |format|
-      format.js { render 'rank'
-      }
+      format.js { render 'rank' }
       format.html
     end
   rescue Exception => e
+    log_error(e)
     flash[:error] = I18n.t('error.proposals.proposal_rank')
     respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-        page.replace_html "rankleftpanel", partial: 'proposals/rank_left_panel'
-        page.replace_html "dates", partial: 'proposals/dates'
-
-      end
-      }
+      format.js { render 'proposals/errors/rank' }
       format.html
     end
   end
@@ -592,67 +576,30 @@ class ProposalsController < ApplicationController
     @group_area = @group.group_areas.find(params[:group_area_id]) if @group && params[:group_area_id]
   end
 
+  #fill @my_vote and @can_vote_again variables
   def load_my_vote
-    if @proposal.proposal_state_id != PROP_VALUT
-      @can_vote_again = 0
-    else
-      ranking = ProposalRanking.find_by_user_id_and_proposal_id(current_user.id, @proposal.id) if current_user
-      @my_vote = ranking.ranking_type_id if ranking
-      if @my_vote
-        if ranking.updated_at < @proposal.updated_at
-          flash.now[:info] = I18n.t('info.proposal.can_change_valutation') if ['show', 'update'].include? params[:action]
-          @can_vote_again = 1
-        else
-          @can_vote_again = 0
-        end
-      else
-        @can_vote_again = 1
+    return unless @proposal.in_valutation?
+    ranking = ProposalRanking.find_by(user_id: current_user.id, proposal_id: @proposal.id) if current_user
+    @my_vote = ranking.ranking_type_id if ranking
+
+    if @my_vote
+      if ranking.updated_at < @proposal.updated_at
+        flash.now[:info] = I18n.t('info.proposal.can_change_valutation') if ['show', 'update'].include? params[:action]
+        @can_vote_again = true
       end
+    else
+      @can_vote_again = true
     end
   end
 
   def valutation_state_required
-    if @proposal.proposal_state_id != PROP_VALUT
-      flash[:error] = I18n.t('error.proposals.proposal_not_valuating')
-      respond_to do |format|
-        format.js { render :update do |page|
-          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-          page.replace_html "rankingpanelcontainer", partial: 'proposals/ranking_panel', locals: {flash: flash}
-        end
-        }
-        format.html {
-          redirect_to :back
-        }
-      end
+    return if @proposal.in_valutation?
+    flash[:error] = I18n.t('error.proposals.proposal_not_valuating')
+    respond_to do |format|
+      format.js { render 'proposals/errors/rank', layout: false }
+      format.html { redirect_to :back }
     end
   end
-
-  #viene eseguita prima della registrazione della valutazione dell'utente.
-  #se un utente ha già valutato la proposta ed essa non è più stata modifica successivamente
-  #allora l'operazione viene annullata e viene mostrato un messagio di errore.
-  #la stessa cosa avviene se la proposta non è in fase di valutazione
-  #la stessa cosa avviene se l'utente non dispone dei permessi per partecipare ad una proposta privata del gruppo
-  def can_valutate
-    @my_ranking = ProposalRanking.find_by_user_id_and_proposal_id(current_user.id, params[:id])
-    @my_vote = @my_ranking.ranking_type_id if @my_ranking
-    if (@my_vote && @my_ranking.updated_at > @proposal.updated_at) ||
-        (@proposal.private && @group && !(can? :participate, @proposal))
-      flash[:error] = I18n.t('error.proposals.proposal_already_ranked')
-      respond_to do |format|
-        format.js { render :update do |page|
-          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-          page.replace_html "rankingpanelcontainer", partial: 'proposals/ranking_panel', locals: {flash: flash}
-        end
-        }
-        format.html {
-          redirect_to proposal_path(params[:id])
-        }
-      end
-    else
-      return true
-    end
-  end
-
 
   def populate_search
     @search = SearchProposal.new
@@ -796,8 +743,5 @@ class ProposalsController < ApplicationController
       end
     end
     quorum
-
   end
-
-
 end

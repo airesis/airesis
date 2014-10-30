@@ -364,8 +364,9 @@
             for (id in CKEDITOR.instances) {
                 var editor = CKEDITOR.instances[id];
                 var textarea_ = $('#' + id);
-                var lite = ckedstoogle_[id]['editor'];
-                var clean = lite._tracker.getCleanContent();
+                console.log('hei 1');
+                var clean = getCleanContent(id);
+                console.log('hei 2');
                 var name_ = textarea_.attr('name').replace('_dirty', '').replace(/\[/g, '\\[').replace(/\]/g, '\\]');
                 var target = $('[name=' + name_ + ']');
                 target.val(clean);

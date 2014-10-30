@@ -23,6 +23,8 @@ Airesis::Application.configure do
 
   config.force_ssl = false
 
+  config.action_mailer.perform_deliveries = true
+
 end
 
 Airesis::Application.default_url_options = Airesis::Application.config.action_mailer.default_url_options

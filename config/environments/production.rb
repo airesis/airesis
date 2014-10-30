@@ -30,6 +30,8 @@ Airesis::Application.configure do
 
   config.active_support.deprecation = :notify
 
+  config.action_mailer.perform_deliveries = true
+
   # Raise exception on mass assignment protection for Active Record models
   config.active_record.mass_assignment_sanitizer = :strict
 

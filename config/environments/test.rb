@@ -8,6 +8,7 @@ Airesis::Application.configure do
   config.action_dispatch.show_exceptions = false
   config.action_controller.allow_forgery_protection = false
   config.active_support.deprecation = :stderr
+  config.action_mailer.perform_deliveries = false
 end
 
 Airesis::Application.default_url_options = Airesis::Application.config.action_mailer.default_url_options

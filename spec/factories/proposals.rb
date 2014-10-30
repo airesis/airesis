@@ -4,7 +4,7 @@ FactoryGirl.define do
     title { Faker::Lorem.sentence }
     tags_list ['tag1', 'tag2', 'tag3'].join(',')
     association :quorum
-
+    votation { {later: 'true'} }
     factory :public_proposal do
     end
 

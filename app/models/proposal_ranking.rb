@@ -1,27 +1,25 @@
 #encoding: utf-8
 class ProposalRanking < ActiveRecord::Base
-  belongs_to :ranking_type, class_name: 'RankingType', foreign_key: :ranking_type_id
-  belongs_to :user, class_name: 'User', foreign_key: :user_id
-  belongs_to :proposal, class_name: 'Proposal', foreign_key: :proposal_id
+  belongs_to :ranking_type
+  belongs_to :user
+  belongs_to :proposal
 
-  scope :positives, -> {where(ranking_type_id:1)}
-  scope :negatives, -> {where(ranking_type_id: 3)}
-  
+  POSITIVE = 1
+  NEGATIVE = 3
+
+  scope :positives, -> { where(ranking_type_id: POSITIVE) }
+  scope :negatives, -> { where(ranking_type_id: NEGATIVE) }
+
   after_save :update_counter_cache
   after_destroy :update_counter_cache
 
   def update_counter_cache
-    nvalutations = ProposalRanking.count(conditions: ["proposal_id = ?",self.proposal.id])
-    num_pos = ProposalRanking.count(conditions: ["proposal_id = ? AND ranking_type_id = ?",self.proposal.id,1])
-    ranking = 0
+    rankings = proposal.rankings
+    nvalutations = rankings.count
+    num_pos = rankings.where(ranking_type_id: POSITIVE).count
     res = num_pos.to_f / nvalutations.to_f
-    ranking = res*100 if nvalutations > 0    
-    #TODO sostituire con update_columns quando sarà disponibile
-    self.proposal.update_column(:valutations,nvalutations)
-    self.proposal.update_column(:rank,ranking.round)
-    
-  rescue Exception => e
-    puts e
+    ranking = nvalutations > 0 ? res*100 : 0
+    proposal.update_columns(valutations: nvalutations, rank: ranking.round)
+    proposal.check_phase
   end
-
 end

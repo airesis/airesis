@@ -252,58 +252,58 @@ class Proposal < ActiveRecord::Base
 
 #return true if the proposal is currently in debate
   def in_valutation?
-    self.proposal_state_id == ProposalState::VALUTATION
+    proposal_state_id == ProposalState::VALUTATION
   end
 
   def waiting_date?
-    self.proposal_state_id == ProposalState::WAIT_DATE
+    proposal_state_id == ProposalState::WAIT_DATE
   end
 
   def waiting?
-    self.proposal_state_id == ProposalState::WAIT
+    proposal_state_id == ProposalState::WAIT
   end
 
   def voting?
-    self.proposal_state_id == ProposalState::VOTING
+    proposal_state_id == ProposalState::VOTING
   end
 
   def abandoned?
-    self.proposal_state_id == ProposalState::ABANDONED
+    proposal_state_id == ProposalState::ABANDONED
   end
 
   def voted?
-    [ProposalState::ACCEPTED, ProposalState::REJECTED].include? self.proposal_state_id
+    [ProposalState::ACCEPTED, ProposalState::REJECTED].include? proposal_state_id
   end
 
   def rejected?
-    self.proposal_state_id == ProposalState::REJECTED
+    proposal_state_id == ProposalState::REJECTED
   end
 
   def is_current?
-    [ProposalState::VALUTATION, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING].include? self.proposal_state_id
+    [ProposalState::VALUTATION, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING].include? proposal_state_id
   end
 
 #restituisce 'true' se la proposta è attualmente anonima, ovvero è stata definita come tale ed è in dibattito
   def is_anonima?
-    is_current? && self.anonima
+    is_current? && anonima
   end
 
 #return true if the proposal is in a group
   def in_group?
-    self.private?
+    private?
   end
 
   def in_group_area?
-    self.in_group? && !self.presentation_areas.first.nil?
+    in_group? && presentation_areas.any?
   end
 
   def is_petition?
-    self.proposal_type_id == 11
+    proposal_type_id == 11
   end
 
 
   def tags_list
-    @tags_list ||= self.tags.map(&:text).join(', ')
+    @tags_list ||= tags.map(&:text).join(', ')
   end
 
 
@@ -312,30 +312,25 @@ class Proposal < ActiveRecord::Base
   end
 
   def tags_list_json
-    @tags_list ||= self.tags.map(&:text).join(', ')
+    @tags_list ||= tags.map(&:text).join(', ')
   end
 
 
   def tags_with_links
-    self.tags.collect { |t| "<a href=\"/tag/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
+    tags.collect { |t| "<a href=\"/tag/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
   end
 
   def save_tags
-    if @tags_list
-      # Remove old tags
-      #self.proposal_tags.destroy_all
-
-      # Save new tags
-      tids = []
-      @tags_list.split(/,/).each do |tag|
-        stripped = tag.strip.downcase.gsub('.', '').gsub("'", "")
-        unless stripped.blank?
-          t = Tag.find_or_create_by(text: stripped)
-          tids << t.id
-        end
+    return unless @tags_list
+    tids = []
+    @tags_list.split(/,/).each do |tag|
+      stripped = tag.strip.downcase.gsub('.', '').gsub("'", "")
+      unless stripped.blank?
+        t = Tag.find_or_create_by(text: stripped)
+        tids << t.id
       end
-      self.tag_ids = tids
     end
+    self.tag_ids = tids
   end
 
   def to_param
@@ -344,7 +339,7 @@ class Proposal < ActiveRecord::Base
 
 #restituisce il primo autore della proposta
   def user
-    @first_user ||= self.proposal_presentations.first.user
+    @first_user ||= proposal_presentations.first.user
   end
 
   def short_content
