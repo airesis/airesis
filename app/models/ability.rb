@@ -145,7 +145,7 @@ class Ability
 
       can :remove_post, Group, is_admin_of_group(user)
 
-      can :view_documents, Group, can_do_on_group(user, GroupAction::DOCUMENTS_VIEW)
+      can [:view_documents,:reload_storage_size], Group, can_do_on_group(user, GroupAction::DOCUMENTS_VIEW)
       can :manage_documents, Group, can_do_on_group(user, GroupAction::DOCUMENTS_MANAGE)
 
       can :post_to, Group, can_do_on_group(user, GroupAction::STREAM_POST)

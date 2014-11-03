@@ -54,20 +54,19 @@
             resizable: false
         }).elfinder('instance');
 
-        elf
-                .bind('upload', function (event) {
-                    $.ajax({
-                        url: "<%=reload_storage_size_group_url(@group)%>",
-                        dataType: 'script',
-                        type: 'get'
-                    });
-                })
-                .bind('remove', function (event) {
-                    $.ajax({
-                        url: "<%=reload_storage_size_group_url(@group)%>",
-                        dataType: 'script',
-                        type: 'get'
-                    });
-                });
+        elf.bind('upload', function (event) {
+            $.ajax({
+                url: "<%=reload_storage_size_group_url(@group)%>",
+                dataType: 'script',
+                type: 'get'
+            });
+        })
+        .bind('remove', function (event) {
+            $.ajax({
+                url: "<%=reload_storage_size_group_url(@group)%>",
+                dataType: 'script',
+                type: 'get'
+            });
+        });
     });
 </script>
