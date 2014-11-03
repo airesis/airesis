@@ -11,7 +11,7 @@
 </script>
 <% if current_user %>
     <% @unread = @proposal.contributes.listable.unread(current_user.id, @proposal.id) %>
-    <% if false && @unread.count > 0 #TODO     %>
+    <% if false && @unread.count > 0 #TODO      %>
         <%= link_to '#', class: 'read_contributes' do %>
             <div class="icon-bell medium"></div>
         <% end %>
@@ -76,7 +76,7 @@
           <i class="fa fa-close"></i>
           <%= t('pages.proposals.show.close_debate_button') %>
       <% end  if can? :close_debate, @proposal %>
-  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox %>
+  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox  %>
       <div id="wait_date_header_container">
         <%= render partial: 'proposals/wait_date_header' %>
       </div>
@@ -98,7 +98,7 @@
 <div style="clear: both;"></div>
 
 <% unless @proposal.is_petition? %>
-    <% if @proposal.waiting? #waiting for the vote period           %>
+    <% if @proposal.waiting? #waiting for the vote period            %>
         <div class="status_description card">
           <b><%= t('pages.proposals.show.votation_message', from: l(@proposal.vote_period.starttime), to: l(@proposal.vote_period.endtime)) %></b>
         </div>
@@ -125,10 +125,10 @@
               <% contributes_num = section.proposal_comments.listable.count %>
               <% unread = current_user ? section.proposal_comments.listable.unread(current_user.id, @proposal.id).count : contributes_num %>
               <div class="suggest">
-                <a href="#" class="btn green contribute-button contribute-section-button" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>">
+                <a href="#" class="btn green contribute-button contribute-section-button" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>" title="<%= t('pages.proposals.show.give_contribute') %>">
                   <i class="fa fa-pencil"></i>
-                  <%= t('pages.proposals.show.give_contribute') %>
-                  <%= "(#{unread}/#{contributes_num})" %>
+                  <span class="contribute-button-text show-for-medium-up"><%= t('pages.proposals.show.give_contribute') %></span>
+                  <span class="contribute-button-num"><%= "(#{unread}/#{contributes_num})" %></span>
                 </a>
 
                 <div class="suggest_l" style="display: none;">
@@ -166,10 +166,10 @@
                       <% contributes_num = section.proposal_comments.listable.count %>
                       <% unread = current_user ? section.proposal_comments.listable.unread(current_user.id, @proposal.id).count : contributes_num %>
                       <div class="suggest">
-                        <a href="#" class="btn green contribute-button contribute-section-button" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>">
+                        <a href="#" class="btn green contribute-button contribute-section-button" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>" title="<%= t('pages.proposals.show.give_contribute') %>">
                           <i class="fa fa-pencil"></i>
-                          <%= t('pages.proposals.show.give_contribute') %>
-                          <%= "(#{unread}/#{contributes_num})" %>
+                          <span class="contribute-button-text show-for-medium-up"><%= t('pages.proposals.show.give_contribute') %></span>
+                          <span class="contribute-button-num"><%= "(#{unread}/#{contributes_num})" %></span>
                         </a>
                         <%= image_tag 'suggest.png', class: 'tria', style: 'display:none' %>
                       </div>

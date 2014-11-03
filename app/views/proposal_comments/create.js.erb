@@ -26,9 +26,7 @@
         var num_contributes = parseInt(contribute_button.attr('data-contributes_num'));
         contribute_button.attr('data-contributes_num',num_contributes+1);
 
-        if (contribute_button.attr('data-status') != 1) {
-            $('.text', contribute_button).text('<%=j t('pages.proposals.show.give_contribute')%>').append(" (" + contribute_button.attr('data-unread_contributes_num') + "/" + contribute_button.attr('data-contributes_num') + ")");
-        }
+        $('.contribute-button-num', contribute_button).text("(" + contribute_button.attr('data-unread_contributes_num') + "/" + contribute_button.attr('data-contributes_num') + ")");
         contribute_button.effect('highlight', {}, 3000);
 
     <%else%>
@@ -62,13 +60,9 @@
                 var new_contributes = parseInt($('.contribute-button'+data_section_id).attr('data-unread_contributes_num'));
                 $('.contribute-button'+data_section_id).attr('data-unread_contributes_num',new_contributes+1);
 
-                if (contribute_button.attr('data-status') != 1) {
-                    $('.text', contribute_button).text('<%=j t('pages.proposals.show.give_contribute')%>').append(" (" + contribute_button.attr('data-unread_contributes_num') + "/" + contribute_button.attr('data-contributes_num') + ")");
-                }
+                $('.contribute-button-num', contribute_button).text("(" + contribute_button.attr('data-unread_contributes_num') + "/" + contribute_button.attr('data-contributes_num') + ")");
                 $('.suggestion_right'+data_section_id +' .blogComments').prepend('<%=j (render partial: 'proposals/comment_others', locals: {comment: @proposal_comment})%>');
                 contribute_button.effect('highlight', {}, 3000);
-
-
             <%else%>
                 $("#proposalCommentsContainer").prepend('<%=j render partial: 'proposals/comment_others', locals: {comment: @proposal_comment} %>');
             <%end%>
