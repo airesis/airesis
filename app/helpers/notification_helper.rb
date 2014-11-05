@@ -95,39 +95,6 @@ module NotificationHelper
     end
   end
 
-  #invia le notifihe per dire che la proposta è in votazione
-  #deletes eventually alerts of type 'new proposal'
-  def notify_proposal_in_vote(proposal, group=nil, group_area=nil)
-    data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'in_vote'}
-    notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
-    notification_a.save
-
-    proposal.users.each do |user|
-      if !(defined? current_user) || (user != current_user)
-        send_notification_to_user(notification_a, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
-      end
-    end
-
-    notification_b = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
-    notification_b.save
-
-    users = group ?
-        group_area ?
-            group_area.scoped_participants(GroupAction::PROPOSAL_VOTE) :
-            group.scoped_participants(GroupAction::PROPOSAL_VOTE) :
-        proposal.participants
-
-    users.each do |user|
-      if !(defined? current_user) || (user != current_user)
-        unless proposal.users.include? user
-          another_delete('proposal_id', proposal.id, user.id, [NotificationType::NEW_PROPOSALS, NotificationType::NEW_PUBLIC_PROPOSALS,NotificationType::PHASE_ENDING])
-          send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
-        end
-      end
-    end
-
-
-  end
 
   #invia le notifihe per dire che la votazione è terminata
   def notify_proposal_voted(proposal, group=nil, group_area=nil)

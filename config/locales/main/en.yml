@@ -1581,3 +1581,6 @@ en:
     manage_noise:
       title: "Manage useless contributes"
       help: "Drag and drop on the right the contributes you consider useless for the discussion"
+  votations:
+    create:
+      confirm: "Vote registered correctly. Thank you!"

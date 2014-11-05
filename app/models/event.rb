@@ -1,6 +1,5 @@
 #encoding: utf-8
 class Event < ActiveRecord::Base
-
   attr_accessor :period, :frequency, :commit_button, :backgroundColor, :textColor, :proposal_id
 
   validates_presence_of :title, :description, :starttime, :endtime
@@ -28,7 +27,7 @@ class Event < ActiveRecord::Base
 
   scope :public, -> { where(private: false) }
   scope :private, -> { where(private: true) }
-  scope :vote_period, ->(starttime) { where(['event_type_id = ? AND starttime > ?', 2, starttime || Time.now]).order('starttime asc')}
+  scope :vote_period, ->(starttime) { where(['event_type_id = ? AND starttime > ?', 2, starttime || Time.now]).order('starttime asc') }
 
   scope :next, -> { where(['starttime > ?', Time.now]) }
 
@@ -207,16 +206,35 @@ class Event < ActiveRecord::Base
   end
 
 
-  def move(minutes_delta=0,days_delta=0,all_day=nil)
+  def move(minutes_delta=0, days_delta=0, all_day=nil)
     self.starttime = minutes_delta.minutes.from_now(days_delta.days.from_now(self.starttime))
     self.endtime = minutes_delta.minutes.from_now(days_delta.days.from_now(self.endtime))
     self.all_day = all_day if all_day
     self.save
   end
 
-  def resize(minutes_delta=0,days_delta=0)
+  def resize(minutes_delta=0, days_delta=0)
     self.endtime = minutes_delta.minutes.from_now(days_delta.days.from_now(self.endtime))
     self.save
   end
 
+  #put all attached proposals in votation
+  #invia le notifihe per dire che la proposta è in votazione
+  #deletes eventually alerts of type 'new proposal'
+  def start_votation
+    proposals.each do |proposal|
+      proposal.proposal_state_id = ProposalState::VOTING
+      proposal.save!
+      vote_data = proposal.vote
+      unless vote_data #se non ha i dati per la votazione creali
+        vote_data = ProposalVote.new(proposal_id: proposal.id, positive: 0, negative: 0, neutral: 0)
+        vote_data.save!
+      end
+
+      NotificationProposalVoteStarts.perform_async(proposal.id, proposal.groups.first.try(:id), proposal.presentation_areas.first.try(:id))
+
+      ProposalsWorker.perform_at(endtime - 24.hours, {action: ProposalsWorker::LEFT24VOTE, proposal_id: proposal.id}) if (duration/60) > 1440
+      ProposalsWorker.perform_at(endtime - 1.hour, {action: ProposalsWorker::LEFT1VOTE, proposal_id: proposal.id}) if (duration/60) > 60
+    end
+  end
 end

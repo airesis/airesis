@@ -40,14 +40,29 @@ def page_should_be_ok
   expect(page).to_not have_content(I18n.t('error.error_404.title'))
 end
 
-def create_participation(user,group,participation_role_id=nil)
-  group.participation_requests.build(user: user,group_participation_request_status_id: 3)
-  group.group_participations.build(user: user,participation_role_id: (participation_role_id || group.participation_role_id))
+def create_participation(user, group, participation_role_id=nil)
+  group.participation_requests.build(user: user, group_participation_request_status_id: 3)
+  group.group_participations.build(user: user, participation_role_id: (participation_role_id || group.participation_role_id))
   group.save
 end
 
-def create_area_participation(user,group_area)
-  group_area.area_participations.build(user: user,participation_role_id: group_area.area_role_id)
+def create_simple_vote(user, proposal, vote_type=VoteType::POSITIVE)
+  vote = UserVote.new(user: user, proposal: proposal)
+  vote.vote_type_id = vote_type unless proposal.secret_vote
+  vote.save
+
+  if vote_type == VoteType::POSITIVE
+    proposal.vote.positive += 1
+  elsif vote_type == VoteType::NEGATIVE
+    proposal.vote.negative += 1
+  elsif vote_type == VoteType::NEUTRAL
+    proposal.vote.neutral += 1
+  end
+  proposal.vote.save
+end
+
+def create_area_participation(user, group_area)
+  group_area.area_participations.build(user: user, participation_role_id: group_area.area_role_id)
   group_area.save
 end
 

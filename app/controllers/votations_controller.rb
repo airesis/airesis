@@ -6,12 +6,6 @@ class VotationsController < ApplicationController
 
   before_filter :authenticate_user!
 
-#  before_filter :load_proposals, only: [ :show]
-
-  
-#  def show
-#    @page_title = "Sezione votazioni"
-#  end
 
   def vote
     Proposal.transaction do
@@ -19,13 +13,11 @@ class VotationsController < ApplicationController
 
       authorize! :vote, @proposal
 
-
-
       #check if user has rotp enabled and check the code
       if current_user.rotp_enabled && ::Configuration.rotp
         unless check_token(current_user, params[:data][:token])
           flash[:error] = 'Token di sicurezza non valido'  #TODO:I18n
-          respond_to do |format|
+          respond_to do |format|  #todo
             format.js   { render :update do |page|
               page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
               page.replace_html "vote_panel_container", partial: "proposals/vote_panel", locals:  {proposals: @proposals}
@@ -46,26 +38,19 @@ class VotationsController < ApplicationController
         @proposal.vote.positive += 1
       elsif vote_type  == VoteType::NEGATIVE
         @proposal.vote.negative += 1
-      else vote_type  == VoteType::NEUTRAL
+      elsif vote_type  == VoteType::NEUTRAL
         @proposal.vote.neutral += 1
       end
       @proposal.vote.save!
-
-      load_proposals
       respond_to do |format|
-        flash[:notice] = 'Voto registrato'
-        format.js   { render :update do |page|
-            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-            page.replace_html "vote_panel_container", partial: "proposals/vote_panel", locals:  {proposals: @proposals}
-          end
-        }
+        flash[:notice] = t('votations.create.confirm')
+        format.js
         format.html { redirect_to votation_path }
       end
   end
   rescue ActiveRecord::ActiveRecordError => e
     if @proposal.errors[:user_votes]
       respond_to do |format|
-        load_proposals
         flash[:error] = 'Hai già votato per questa proposta'
         format.js   { render :update do |page|
             page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
@@ -79,7 +64,7 @@ class VotationsController < ApplicationController
 
   #un utente invia il voto in formato schulze
   def vote_schulze
-
+    puts params
     begin
       Proposal.transaction do
         @proposal = Proposal.find_by_id(params[:proposal_id])
@@ -141,23 +126,4 @@ class VotationsController < ApplicationController
       end
     end
   end
-
-
-
-  protected
-
-  #carica le proposte per le quali può votare l'utente connesso
-  def load_proposals
-    #la proposta deve essere in stato 'in votazione'
-    #l'utente non deve avere già votato per questa proposta
-    #la proposta deve essere pubblica
-    #se la proposta è privata deve avere i permessi per votare in quel gruppo
-
-    #estrai tutte le proposte in votazione che non ho ancora votato
-    @proposals_tmp = Proposal.includes(:category, :vote_period, {users: :image}).all(select: "p.*",:joins=>"p", include: [:groups, :quorum], conditions: "p.proposal_state_id = 4 and p.id not in (select proposal_id from user_votes where user_id = "+current_user.id.to_s+" and proposal_id = p.id)")
-    @proposals = []
-    @proposals_tmp.each do |proposal|
-        @proposals << proposal if can? :vote, proposal
-    end
-  end
-end  
+end

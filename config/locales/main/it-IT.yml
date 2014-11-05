@@ -1476,3 +1476,6 @@ it-IT:
     manage_noise:
       title: "Gestisci i contributi inutili alla discussione"
       help: "Trascina a destra i contributi che vuoi eliminare dalla discussione"
+  votations:
+    create:
+      confirm: "Voto registrato"
