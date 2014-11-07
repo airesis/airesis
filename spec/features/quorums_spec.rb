@@ -45,27 +45,14 @@ describe "check if quorums are working correctly", type: :feature, js: true do
     expect(proposal.voting?).to be_truthy
 
     expect(group.scoped_participants(GroupAction::PROPOSAL_VOTE).count).to be(50)
-
-    login_as user, scope: :user
-    visit group_proposal_path(group,proposal)
-    expect(Ability.new(user)).to be_able_to(:vote, proposal)
     expect(proposal.is_schulze?).to be_falsey
     expect(proposal.is_petition?).to be_falsey
-    expect(page).to have_content(I18n.t('pages.proposals.vote_panel.single_title'))
-    expect(page).to have_content(proposal.secret_vote ? I18n.t('pages.proposals.vote_panel.secret_vote') : I18n.t('pages.proposals.vote_panel.clear_vote'))
-    page.execute_script 'window.confirm = function () { return true }'
-    find('.votegreen').click
-    expect(page).to have_content(I18n.t('votations.create.confirm'))
-    proposal.reload
-    expect(proposal.vote.positive).to eq(1)
 
     group.participants.sample(10).each do |user|
       create_simple_vote(user, proposal, VoteType::POSITIVE)
     end
 
     proposal.reload
-    expect(proposal.vote.positive).to eq(11)
-
-
+    expect(proposal.vote.positive).to eq(10)
   end
 end

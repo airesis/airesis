@@ -532,7 +532,7 @@ en:
         report_description: "You can point out to the webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
       vote_panel:
         title: "Make your vote!"
-        schulze_title: "There are several solutions to this proposal.<br/> Order them according to your preferences <br/>from 1 (don't like) to %{max} (I really like)"
+        schulze_title: "There are several solutions to this proposal.<br> Order them according to your preferences <br>from 1 (don't like) to %{max} (I really like)"
         secret_vote: "Your vote is secret and you will not be able to recover or change it once expressed."
         clear_vote: "Your vote is recorded and will therefore be verifiable."
         single_title: "In this proposal there is only one solution. Make your point!"
@@ -1221,6 +1221,14 @@ en:
     edit:
       expand_all: "Expand all"
       collapse_all: "Collapse all"
+    schulze_vote_results:
+      results: "Results"
+      votes: "Votes"
+      solution: "Solution"
+      points: "Points"
+      random_ordered_votes: "Random ordered votes"
+      number_of_voters: "Number of voters"
+      vote: "Their vote"
   petitions:
     promote:
       promote1_html: |
@@ -1584,3 +1592,9 @@ en:
   votations:
     create:
       confirm: "Vote registered correctly. Thank you!"
+  errors:
+    messages:
+      invalid_token: "Security Token Invalid"
+      votation: "Sorry but something went wrong while casting your vote. Try again later."
+    votation:
+      already_voted: "You have already voted for this proposal"

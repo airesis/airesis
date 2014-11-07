@@ -27,7 +27,7 @@ class Event < ActiveRecord::Base
 
   scope :public, -> { where(private: false) }
   scope :private, -> { where(private: true) }
-  scope :vote_period, ->(starttime) { where(['event_type_id = ? AND starttime > ?', 2, starttime || Time.now]).order('starttime asc') }
+  scope :vote_period, ->(starttime=nil) { where(['event_type_id = ? AND starttime > ?', 2, starttime || Time.now]).order('starttime asc') }
 
   scope :next, -> { where(['starttime > ?', Time.now]) }
 

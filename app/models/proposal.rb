@@ -272,7 +272,11 @@ class Proposal < ActiveRecord::Base
   end
 
   def voted?
-    [ProposalState::ACCEPTED, ProposalState::REJECTED].include? proposal_state_id
+    accepted? || rejected?
+  end
+
+  def accepted?
+    proposal_state_id == ProposalState::ACCEPTED
   end
 
   def rejected?

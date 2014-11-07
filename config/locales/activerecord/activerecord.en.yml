@@ -128,8 +128,8 @@ en:
     errors:
       template:
         header:
-          one: 'an error did not allow this %{model} from being saved'
-          other: '%{count} errors did not allow this %{model} from being saved'
+          one: 'an error prevented this %{model} from being saved'
+          other: '%{count} errors prevented this %{model} from being saved'
         body: 'There were problems with the following fields'
       messages:
         inclusion: 'is not included in the list'

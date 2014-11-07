@@ -95,3 +95,11 @@ end
 def expect_forbidden_page
   expect(page).to have_content(I18n.t('error.error_302.title'))
 end
+
+
+def add_solution(proposal)
+  solution = proposal.build_solution
+  solution.seq = 2
+  proposal.solutions << solution
+  proposal.save
+end

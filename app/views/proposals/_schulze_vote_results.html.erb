@@ -1,16 +1,16 @@
 <div>
   <div id="vote_tabs">
     <ul>
-      <li><%= link_to 'Risultati', '#results' %></li>
-      <li><%= link_to 'Voti', '#votes' %></li>
+      <li><%= link_to t('.results'), '#results' %></li>
+      <li><%= link_to t('.votes'), '#votes' %></li>
     </ul>
     <div id="results">
       <b><%= t('pages.proposals.results.total', count: @proposal.schulze_votes.sum(:count)) %> </b>
 
       <table>
         <thead>
-        <th><%= 'Soluzione' %></th>
-        <th><%= 'Punteggio' %></th>
+        <th><%= t('.solution') %></th>
+        <th><%= t('.points') %></th>
         </thead>
         <tbody>
         <% solution_ids = @proposal.solutions.pluck(:id)%>
@@ -46,11 +46,11 @@
       <div class="clearboth"></div>
     </div>
     <div id="votes">
-      <b><%= 'Voti espressi in ordine casuale' %></b>
+      <b><%= t('.random_ordered_votes') %></b>
       <table id="cast_table">
         <thead>
-        <th><%= 'Numero di votanti' %></th>
-        <th><%= 'Voto espresso' %></th>
+        <th><%= t('.number_of_voters') %></th>
+        <th><%= t('.vote') %></th>
         </thead>
         <tbody>
         <% @proposal.schulze_votes.each do |vote| %>

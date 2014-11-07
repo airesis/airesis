@@ -32,7 +32,7 @@
                   <div class="columns large-1 small-4">
                     <select class="slideNumber">
                       <% range.times do |c| %>
-                          <option <%= 'selected="selected"' if c==range/2 %>><%= c+1 %></option>
+                          <option <%= 'selected="selected"' if c==range/2 %> value="<%=c+1%>"><%= c+1 %></option>
                       <% end %>
                     </select>
                   </div>

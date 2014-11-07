@@ -6,27 +6,13 @@ class VotationsController < ApplicationController
 
   before_filter :authenticate_user!
 
-
   def vote
     Proposal.transaction do
       @proposal = Proposal.find_by_id(params[:proposal_id])
 
       authorize! :vote, @proposal
 
-      #check if user has rotp enabled and check the code
-      if current_user.rotp_enabled && ::Configuration.rotp
-        unless check_token(current_user, params[:data][:token])
-          flash[:error] = 'Token di sicurezza non valido'  #TODO:I18n
-          respond_to do |format|  #todo
-            format.js   { render :update do |page|
-              page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-              page.replace_html "vote_panel_container", partial: "proposals/vote_panel", locals:  {proposals: @proposals}
-            end
-            }
-          end
-          return
-        end
-      end
+      return unless validate_security_token
 
       vote_type = params[:data][:vote_type].to_i
 
@@ -36,9 +22,9 @@ class VotationsController < ApplicationController
 
       if vote_type == VoteType::POSITIVE
         @proposal.vote.positive += 1
-      elsif vote_type  == VoteType::NEGATIVE
+      elsif vote_type == VoteType::NEGATIVE
         @proposal.vote.negative += 1
-      elsif vote_type  == VoteType::NEUTRAL
+      elsif vote_type == VoteType::NEUTRAL
         @proposal.vote.neutral += 1
       end
       @proposal.vote.save!
@@ -47,20 +33,17 @@ class VotationsController < ApplicationController
         format.js
         format.html { redirect_to votation_path }
       end
-  end
+    end
   rescue ActiveRecord::ActiveRecordError => e
     if @proposal.errors[:user_votes]
       respond_to do |format|
-        flash[:error] = 'Hai già votato per questa proposta'
-        format.js   { render :update do |page|
-            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-            page.replace_html "proposals_list", partial: "votations/list", locals:  {proposals: @proposals}
-          end
-        }
+        flash[:error] = t('errors.votation.already_voted')
+        format.js { render 'votations/errors/vote_error' }
         format.html { redirect_to votation_path }
       end
     end
   end
+
 
   #un utente invia il voto in formato schulze
   def vote_schulze
@@ -70,60 +53,49 @@ class VotationsController < ApplicationController
         @proposal = Proposal.find_by_id(params[:proposal_id])
         authorize! :vote, @proposal
 
-        #check if user has rotp enabled and check the code
-        if current_user.rotp_enabled && ::Configuration.rotp
-          unless check_token(current_user, params[:data][:token])
-            flash[:error] = 'Token di sicurezza non valido'
-            respond_to do |format|
-              format.js   { render :update do |page|
-                page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-                page.replace_html "vote_panel_container", partial: "proposals/vote_panel", locals:  {proposals: @proposals}
-              end
-              }
-            end
-            return
-          end
-        end
+        return unless validate_security_token
 
         votestring = params[:data][:votes]
-        solutions = votestring.split(/;|,/).map{|a| a.to_i}.sort #lista degli id delle soluzioni
+        solutions = votestring.split(/;|,/).map { |a| a.to_i }.sort #lista degli id delle soluzioni
         p_sol = @proposal.solutions.pluck(:id).sort
         raise Exception unless (p_sol <=> solutions) == 0 #se c'è discrepanza tra gli id delle soluzioni e quelli inviati dal client solleva un'eccezione
 
         #salva la votazione dell'utente
-        schulz = @proposal.schulze_votes.find_or_create_by_preferences(votestring)
+        schulz = @proposal.schulze_votes.find_or_create_by(preferences: votestring)
         schulz.count += 1
         schulz.save!
 
         #memorizza che l'utente ha effettuato la votazione
         vote = UserVote.new(user_id: current_user.id, proposal_id: @proposal.id)
-        unless @proposal.secret_vote
-          vote.vote_schulze = votestring
-        end
+        vote.vote_schulze = votestring unless @proposal.secret_vote
         vote.save!
       end
       respond_to do |format|
-        flash[:notice] = "Voto inviato correttamente!"
-        format.html { render action: "show" }
-        format.js {
-          render :update do |page|
-            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-            page.replace_html "vote_panel_container", partial: "proposals/vote_panel", locals:  {proposals: @proposals}
-          end
-        }
+        flash[:notice] = t('votations.create.confirm')
+        format.html { render action: :show }
+        format.js { render 'votations/vote_schulze' }
       end
 
     rescue Exception => e
       respond_to do |format|
         #magari ha provato a votare due volte!
-        flash[:error] = "Errore durante l'inserimento del tuo voto. Spiacenti."
+        flash[:error] = t('errors.messages.votation')
         format.html { redirect_to @proposal }
-        format.js {
-          render :update do |page|
-            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-          end
-        }
+        format.js { render 'votations/errors/vote_error' }
       end
     end
+  end
+
+
+  protected
+
+  def validate_security_token
+    return true unless (current_user.rotp_enabled && ::Configuration.rotp)
+    return true if check_token(current_user, params[:data][:token])
+    flash[:error] = t('errors.messages.invalid_token')
+    respond_to do |format|
+      format.js { render 'votations/errors/vote_error' }
+    end
+    false
   end
 end

@@ -6,8 +6,6 @@ module Concerns
       before_validation :create_sections, on: :create
     end
 
-
-
     def build_sections
       send "#{self.proposal_type.name.downcase}_new" #execute specific method to build sections
     end

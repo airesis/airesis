@@ -126,6 +126,7 @@ class ProposalsController < ApplicationController
 
   def show
     @proposal.check_phase #todo checks only the state during the debate. this is a security check, so if the background job didn't run we can always fix it/ we should check also for waiting and vote inconsistent phase.
+    @proposal.reload
     if @proposal.private
       if @group #la proposta è interna ad un gruppo
         if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio

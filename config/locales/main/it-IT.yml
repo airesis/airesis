@@ -1161,6 +1161,14 @@ it-IT:
       ready_for_vote: "Pronta per la votazione"
       keep_discuss: "Continua la discussione"
     regenerate_button: "Rimetti in dibattito"
+    schulze_vote_results:
+      results: "Risultati"
+      votes: "Voti"
+      solution: "Soluzione"
+      points: "Punteggio"
+      random_ordered_votes: "Voti in ordine casuale"
+      vote: "Voto espresso"
+      number_of_voters: "Numero di votanti"
   digit_tags: "Digita i tag che vuoi inserire"
   buttons:
     cancel: "Annulla"
@@ -1479,3 +1487,9 @@ it-IT:
   votations:
     create:
       confirm: "Voto registrato"
+  errors:
+    messages:
+      invalid_token: "Token di sicurezza non valido"
+      votation: "Errore durante l'inserimento del tuo voto. Spiacenti."
+    votation:
+      already_voted: "Hai già votato per questa proposta"

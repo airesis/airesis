@@ -132,9 +132,9 @@ class OldQuorum < Quorum
             notify_proposal_abandoned(proposal)
 
         #remove the timer if is still there
-        if self.minutes
-          Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id})
-        end
+        #if self.minutes #todo remove jobs
+        #  Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id})
+        #end
       else #if we are between bad and good score just do nothing...continue the debate
 
       end

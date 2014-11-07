@@ -83,20 +83,20 @@ class SearchProposal < ActiveRecord::Base
         end
       end
 
-      dir = (self.order_dir == 'a') ? :asc : :desc
-      if self.order_id == SearchProposal::ORDER_BY_RANK
+      dir = (order_dir == 'a') ? :asc : :desc
+      if order_id == SearchProposal::ORDER_BY_RANK
         order_by :rank, dir
         order_by :created_at, dir
-      elsif self.order_id == SearchProposal::ORDER_BY_VOTES
+      elsif order_id == SearchProposal::ORDER_BY_VOTES
         order_by :valutations, dir
         order_by :created_at, dir
-      elsif self.order_id == SearchProposal::ORDER_BY_END
+      elsif order_id == SearchProposal::ORDER_BY_END
         order_by :quorum_ends_at, dir
         order_by :valutations, dir
-      elsif self.order_id == SearchProposal::ORDER_BY_VOTATION_END
+      elsif order_id == SearchProposal::ORDER_BY_VOTATION_END
         order_by :votation_ends_at, dir
         order_by :votes, dir
-      elsif self.order_id == SearchProposal::ORDER_BY_VOTES_NUMBER
+      elsif order_id == SearchProposal::ORDER_BY_VOTES_NUMBER
         order_by :votes, dir
         order_by :votation_ends_at, dir
       else
