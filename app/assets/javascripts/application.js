@@ -5,6 +5,7 @@
 // the compiled file.
 //
 //= require jquery
+//= require jquery.plugin
 //= require jquery-ui
 //= require jquery.sliderAccess
 //= require timepicker

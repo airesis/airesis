@@ -213,9 +213,9 @@
 <% end %>
 
 <div class="suggestion_right editing">
-<span id="suggestion_title">
-<%= t('pages.proposals.edit.inserted_contributes') %>
-</span>
+    <div class="suggestion-title card">
+    <%= t('pages.proposals.edit.inserted_contributes') %>
+    </div>
 
   <div id="loading_contributes" style="margin:auto;text-align:center;">
     <%= image_tag 'ajax-loader.gif' %>
@@ -596,8 +596,8 @@
       <div class="mybox">
         <h4>
           <%= t('pages.proposals.edit.navigator') %>
-          <i class="fi-plus right" id="expandList" title="<%= t('.expand_all') %>"></i>
-          <i class="fi-minus right" style="margin-right: 5px;" id="collapseList" title="<%= t('.collapse_all') %>"></i>
+          <i class="fa fa-plus right" id="expandList" title="<%= t('.expand_all') %>"></i>
+          <i class="fa fa-minus right" style="margin-right: 5px;" id="collapseList" title="<%= t('.collapse_all') %>"></i>
         </h4>
 
 

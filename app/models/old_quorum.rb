@@ -71,14 +71,14 @@ class OldQuorum < Quorum
   def check_phase(force_end)
     proposal = self.proposal
     passed = false
-    timepassed = (!self.ends_at || Time.now > self.ends_at)
-    vpassed = (!self.valutations || proposal.valutations >= self.valutations)
+    timepassed = (!ends_at || Time.now > ends_at)
+    vpassed = (!valutations || proposal.valutations >= valutations)
     #if both parameters were defined
-    if self.ends_at && self.valutations
-      if self.or?
+    if ends_at && valutations
+      if or?
         passed = (timepassed || vpassed)
       else
-        self.and?
+        and?
         passed = (timepassed && vpassed)
       end
     else #we just need one of two (one will be certainly true)
@@ -136,9 +136,8 @@ class OldQuorum < Quorum
         #  Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id})
         #end
       else #if we are between bad and good score just do nothing...continue the debate
-
+        return
       end
-
       proposal.save
       proposal.reload
     end

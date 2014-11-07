@@ -8,7 +8,7 @@ function integrate_contribute(el, id) {
         comment_.fadeTo(400, 0.3);
         inside_.attr('data-height', inside_.outerHeight());
         inside_.css('overflow', 'hidden');
-        inside_.animate({height: '42px'}, 400);
+        inside_.animate({height: '52px'}, 400);
         comment_.find('[id^=reply]').each(function () {
             $(this).attr('data-height', $(this).outerHeight());
             $(this).css('overflow', 'hidden');

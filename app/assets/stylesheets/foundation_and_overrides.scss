@@ -1818,13 +1818,16 @@ $logo-width: 100px;
   -webkit-transition: opacity .25s ease-in-out;
 }
 
-.contributes_shown .centerfloat {
-  opacity: 0.6;
-  .editing & {
-    opacity: 1;
+.contributes_shown {
+  .centerfloat {
+    opacity: 0.6;
+  }
+  &.editing {
+    .centerfloat {
+      opacity: 1;
+    }
   }
 }
-
 @media #{$medium-only} {
   .menu-left {
     &.contributes_shown {

@@ -16,7 +16,7 @@
         var endDate = new Date(<%=@time.utc.to_i*1000%>);
         toastr.options = {tapToDismiss: false, extendedTimeOut: 0, timeOut: 0};
         toastr.info("<div class='countdown_header'><%=@msg%></div><div id='countdown'></div><div class='clearboth'></div>");
-        $('#countdown').countdown($.extend({until: endDate, onExpiry: refreshAll}, $.countdown.regional['it']));
+        $('#countdown').countdown($.extend({until: endDate, onExpiry: refreshAll}, $.countdown.regionalOptions['it']));
 
         function refreshAll() {
             window.location.reload();

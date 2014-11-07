@@ -12,7 +12,7 @@ firstCheck = false;
 <%else%>
     $('#loading_results').hide();
     <%if @proposal_comments.count == 0 %>
-        $('#suggestion_title').remove();
+        $('.suggestion-title').remove();
         $('.suggestion_right').remove();
     <%else%>
         hideLeftPanel();

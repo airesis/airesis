@@ -396,7 +396,7 @@ function select2town(element) {
 
 function disegnaCountdown() {
     $('div[data-countdown]').each(function () {
-        $(this).countdown($.extend({since: new Date($(this).data('time')), significant: 1, format: 'ms', layout: Airesis.i18n.countdown}, $.countdown.regional[Airesis.i18n.locale]));
+        $(this).countdown($.extend({since: new Date($(this).data('time')), significant: 1, format: 'ms', layout: Airesis.i18n.countdown}, $.countdown.regionalOptions[Airesis.i18n.locale]));
     })
 }
 

@@ -5,13 +5,13 @@ module ProposalsHelper
   def navigator_actions(args={})
     classes = "action #{args[:classes]}"
     (link_to '#', onclick: 'return false', class: "#{classes} move_up" do
-      '<i class="fi-arrow-up"></i>'.html_safe
+      '<i class="fa fa-arrow-up"></i>'.html_safe
     end) +
         (link_to '#', onclick: 'return false', class: "#{classes} move_down" do
-          '<i class="fi-arrow-down"></i>'.html_safe
+          '<i class="fa fa-arrow-down"></i>'.html_safe
         end) +
         (link_to '#', onclick: 'return false', class: "#{classes} remove" do
-          '<i class="fi-x"></i>'.html_safe
+          '<i class="fa fa-trash"></i>'.html_safe
         end)
   end
 

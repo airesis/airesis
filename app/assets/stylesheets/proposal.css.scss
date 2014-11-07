@@ -682,10 +682,9 @@ h3 {
 
 .baloon_header {
   margin: 0px 5px;
-  .integrate_button {
+  .integrate_button.panel.callout {
     float: right;
-    background-color: #eee;
-    padding: 8px;
+    margin-bottom: 0px;
     .integrate_label {
       margin-right: 3px;
     }
@@ -1256,7 +1255,7 @@ input.edit_label {
   line-height: 140%;
   text-indent: 0px;
   background-position: 1px 8px;
-  padding-left: 20px;
+  padding-left: 15px;
   background-repeat: no-repeat;
 }
 
@@ -1335,7 +1334,6 @@ ul {
     .action {
       float: right;
       display: none;
-      margin: 0px 2.5px;
     }
 
   }

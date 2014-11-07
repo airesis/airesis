@@ -140,3 +140,4 @@ en:
     from: "from"
     to: "to"
   countdown: "{m<}{mn} {ml} ago{m>} {s<}just now{s>}"
+  countdown2: "{y<}{yn} {yl}{y>} {o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>} {s<}few seconds{s>}"

@@ -140,3 +140,4 @@ it-IT:
     from: "dal"
     to: "al"
   countdown: "{m<}{mn} {ml} fa{m>} {s<}pochi secondi fa{s>}"
+  countdown2: "{y<}{yn} {yl}{y>} {o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>} {s<}pochi secondi{s>}"
