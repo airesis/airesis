@@ -3,7 +3,7 @@ container_.html("<%=j render(partial: @proposal.is_schulze? ? 'schulze_vote_resu
 $('body').append(container_);
 airesis_reveal(container_, false);
 
-$('#results-button').click(function (e) {
+$('.results-button').click(function (e) {
     $('#vote_results_container').foundation('reveal', 'show');
     e.preventDefault();
     return false;

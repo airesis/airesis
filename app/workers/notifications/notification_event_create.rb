@@ -1,5 +1,4 @@
 class NotificationEventCreate < NotificationSender
-  include Sidekiq::Worker, GroupsHelper, Rails.application.routes.url_helpers
 
   def perform(current_user_id,event_id)
     elaborate(current_user_id,event_id)

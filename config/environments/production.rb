@@ -57,3 +57,5 @@ Airesis::Application.configure do
       }
   }
 end
+
+Airesis::Application.default_url_options = Airesis::Application.config.action_mailer.default_url_options

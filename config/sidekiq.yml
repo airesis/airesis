@@ -8,6 +8,7 @@ production:
   :concurrency: 20
 :queues:
   - [high_priority,5]
-  - [sunspot,3]
+  - [sunspot,4]
+  - [notifications,3]
   - [default,2]
   - [low_priority, 1]

@@ -10,7 +10,7 @@
     <meta property="article:section" content="<%= @proposal.category.description %>">
     <meta name="description" content="<%= @proposal.short_content %>">
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false"></script>
-    <%=javascript_include_tag 'proposals/show'%>
+    <%= javascript_include_tag 'proposals/show' %>
 <% end %>
 
 <% if current_user %>
@@ -58,9 +58,9 @@
 
 
 <% if @proposal.voting? %>
-    <%unless @proposal.is_petition? %>
-    <h4><%= t('pages.proposals.show.no_contributes') %></h4>
-    <%end%>
+    <% unless @proposal.is_petition? %>
+        <h4><%= t('pages.proposals.show.no_contributes') %></h4>
+    <% end %>
 <% else %>
     <div id="order_bar">
       <%= render partial: 'proposal_comments/order_bar' %>
@@ -112,13 +112,13 @@
     var retval = false;
 
     function close_all_dropdown() {
-        $('.f-dropdown').foundation('dropdown','close',$('.f-dropdown'));
+        $('.f-dropdown').foundation('dropdown', 'close', $('.f-dropdown'));
     }
 
     function report_contribute(id) {
         $('#report_contribute_id').val(id);
         $('input[name=reason]').removeAttr('checked');
-        $('#report_contribute').foundation('reveal','open');
+        $('#report_contribute').foundation('reveal', 'open');
         close_all_dropdown();
     }
 
@@ -157,7 +157,7 @@
     }
 
 
-    function open_right_contributes(_this,comment_id) {
+    function open_right_contributes(_this, comment_id) {
         var section_id = _this.attr("data-section_id");
         _this.attr("data-status", 1);
         $('#suggest').show();
@@ -172,7 +172,7 @@
 
         if (comment_id) {
             console.log('opening and already fetched. id: ' + comment_id);
-            var comment_ = $('#comment'+comment_id+' .proposal_comment');
+            var comment_ = $('#comment' + comment_id + ' .proposal_comment');
             fetched.animate({
                 scrollTop: comment_.offset().top - 100
             }, 2000);
@@ -287,11 +287,11 @@
 
             }
             else if (this_status == 2) { //closed and fetched
-                    open_right_contributes($(this),comment_id);
+                open_right_contributes($(this), comment_id);
             }
             else {   //status == 1  //fetched and open
                 if (comment_id != null) {
-                    var comment_ = $('#comment'+comment_id+' .proposal_comment');
+                    var comment_ = $('#comment' + comment_id + ' .proposal_comment');
                     var section_id = $(this).attr("data-section_id");
                     $('.suggestion_right[data-section_id=' + section_id + ']').scrollTop(0);
                     $('.suggestion_right[data-section_id=' + section_id + ']').animate({
@@ -308,11 +308,15 @@
 
         //open the contribute if it's a link from an email
         <%if params[:section_id] %>
-        $('.contribute-button[data-section_id=<%=params[:section_id]%>]').trigger('click', [<%=params[:comment_id]%>]);
+            $('.contribute-button[data-section_id=<%=params[:section_id]%>]').trigger('click', [<%=params[:comment_id]%>]);
         <%end%>
 
         <%if params[:share] %>
             $('#promote_proposal').click();
+        <%end%>
+
+        <%if @proposal.voted? %>
+            $('.results-button')[0].click();
         <%end%>
 
     });

@@ -1,11 +1,10 @@
 class NotificationProposalUpdate < NotificationSender
-  include Sidekiq::Worker, GroupsHelper, Rails.application.routes.url_helpers
 
   def perform(current_user_id,proposal_id,group_id = nil)
     elaborate(current_user_id,proposal_id,group_id)
   end
 
-  #invia le notifiche quando un una proposta viene creata
+  #invia le notifiche quando un una proposta viene aggiornata
   def elaborate(current_user_id,proposal_id,group_id = nil)
     proposal = Proposal.find(proposal_id)
     current_user = User.find(current_user_id)

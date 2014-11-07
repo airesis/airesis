@@ -33,7 +33,7 @@
     <% if @proposal.voted? %>
         <% if params[:action] == 'show' %>
             <% if @proposal.vote %>
-                <%= link_to vote_results_proposal_url(@proposal), remote: true, class: 'btn disable', id: "results-button" do %>
+                <%= link_to vote_results_proposal_url(@proposal), remote: true, class: 'btn disable results-button' do %>
                     <%= t('pages.proposals.show.votation_results') %>
                 <% end %>
                 <br/><br/>
@@ -42,12 +42,6 @@
                 <i class="fa fa-file-pdf-o"></i>
                 <%= t('pages.proposals.show.export_pdf') %>
             <% end %>
-            <div id="vote_results_container" title="<%= t('pages.proposals.show.votation_results_title') %>"></div>
-            <script type="text/javascript">
-                $(function () {
-                    $('#results-button').click();
-                });
-            </script>
         <% else %>
             <%= link_to t('pages.proposal_histories.index.back_to_proposal'), @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal), class: 'btn blue' %>
         <% end %>

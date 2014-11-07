@@ -1,5 +1,4 @@
 class NotificationBlogPostCreate < NotificationSender
-  include Sidekiq::Worker, GroupsHelper, Rails.application.routes.url_helpers
 
   def perform(blog_post_id)
     elaborate(blog_post_id)

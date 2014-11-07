@@ -79,8 +79,8 @@ gem 'xmpp4r_facebook'
 
 gem 'sinatra', '>= 1.3.0', require: nil
 
-gem 'sidekiq', '~> 2.17.7' #added for issue https://github.com/tobiassvn/sidetiq/issues/79
-
+gem 'sidekiq'#, '~> 2.17.7' #added for issue https://github.com/tobiassvn/sidetiq/issues/79
+gem 'sidekiq-failures'
 gem 'sidetiq'
 
 gem 'sunspot-queue', github: 'coorasse/sunspot-queue'

@@ -1,5 +1,4 @@
 class NotificationProposalCreate < NotificationSender
-  include Sidekiq::Worker, GroupsHelper, Rails.application.routes.url_helpers
 
   def perform(current_user_id,proposal_id,group_id = nil,group_area_id=nil)
     elaborate(current_user_id,proposal_id,group_id,group_area_id)

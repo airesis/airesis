@@ -1,5 +1,4 @@
 class NotificationProposalCommentUpdate < NotificationSender
-  include Sidekiq::Worker, GroupsHelper, Rails.application.routes.url_helpers
 
   def perform(comment_id)
     elaborate(comment_id)

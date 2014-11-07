@@ -1,5 +1,8 @@
 #TODO duplicated code, all that code is duplicated from notification helper. please fix it asap
 class NotificationSender
+  include Sidekiq::Worker, GroupsHelper, Rails.application.routes.url_helpers
+
+  sidekiq_options queue: :notifications
 
   protected
 
@@ -15,7 +18,13 @@ class NotificationSender
     true
   end
 
-  #delete previous notifications
+
+  # delete previous notifications
+  # @param attribute [String] column to be checked
+  # @param attr_id [String] value for the column to be checked
+  # @return nil
+  # @param [Integer] user_id receiver of the alert
+  # @param [Integer] notification_type
   def another_delete(attribute, attr_id, user_id, notification_type)
     another = Alert.another(attribute, attr_id, user_id, notification_type)
     another.soft_delete_all

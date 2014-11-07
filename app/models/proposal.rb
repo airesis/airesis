@@ -375,10 +375,20 @@ class Proposal < ActiveRecord::Base
   end
 
 
-#count without fetching, for the list. this number may be different from participants because doesn't look if the participants are still in the group
+  #count without fetching, for the list. this number may be different from participants because doesn't look if the participants are still in the group
   def participants_count
-    a = User.joins(proposal_rankings: :proposal).where(proposals: {id: id}).count
-    a += User.joins(proposal_comments: :proposal).where(proposals: {id: id}).count
+    users = User.arel_table
+    proposal_comments = ProposalComment.arel_table
+    proposal_rankings = ProposalRanking.arel_table
+    query = users.
+        project(users[:id].count(true)).
+        join(proposal_comments, Arel::Nodes::OuterJoin).
+          on(users[:id].eq proposal_comments[:user_id]).
+        join(proposal_rankings, Arel::Nodes::OuterJoin).
+          on(users[:id].eq proposal_rankings[:user_id]).
+        where(proposal_rankings[:proposal_id].eq id).
+        where(proposal_comments[:proposal_id].eq id)
+    ActiveRecord::Base.connection.execute(query.to_sql)[0]['count']
   end
 
 #retrieve all the participants to the proposals that are still part of the group
@@ -560,34 +570,34 @@ class Proposal < ActiveRecord::Base
   end
 
   def send_notifications
-    return if self.is_petition?
+    return if is_petition?
 
     #if the time is fixed we schedule notifications 24h and 1h before the end of debate
-    if self.quorum.time_fixed?
-      ProposalsWorker.perform_at(self.quorum.ends_at - 24.hours, {action: ProposalsWorker::LEFT24, proposal_id: self.id}) if self.quorum.minutes > 1440
-      ProposalsWorker.perform_at(self.quorum.ends_at - 1.hour, {action: ProposalsWorker::LEFT1, proposal_id: self.id}) if self.quorum.minutes > 60
+    if quorum.time_fixed?
+      ProposalsWorker.perform_at(quorum.ends_at - 24.hours, {action: ProposalsWorker::LEFT24, proposal_id: id}) if quorum.minutes > 1440
+      ProposalsWorker.perform_at(quorum.ends_at - 1.hour, {action: ProposalsWorker::LEFT1, proposal_id: id}) if quorum.minutes > 60
     end
 
     #end of debate timer
-    ProposalsWorker.perform_at(self.quorum.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: self.id}) if self.quorum.minutes
+    ProposalsWorker.perform_at(quorum.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: id}) if quorum.minutes
 
     #alert users of the new proposal
-    NotificationProposalCreate.perform_async(current_user_id, self.id, self.groups.first.try(:id), self.presentation_areas.first.try(:id))
+    NotificationProposalCreate.perform_async(current_user_id, id, groups.first.try(:id), presentation_areas.first.try(:id))
   end
 
 
   def send_update_notifications
-    if self.quorum_id_changed?
-      ProposalsWorker.perform_at(self.quorum.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: self.id})
+    if quorum_id_changed?
+      ProposalsWorker.perform_at(quorum.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: id})
     else
-      NotificationProposalUpdate.perform_in(1, self.current_user_id, self.id, self.groups.first.try(:id))
+      NotificationProposalUpdate.perform_in(1, current_user_id, id, groups.first.try(:id))
     end
   end
 
   def save_history
     something = false
     seq = (self.proposal_revisions.maximum(:seq) || 0) + 1
-    revision = self.proposal_revisions.build(user_id: self.update_user_id, valutations: self.valutations_was, rank: self.rank_was, seq: seq)
+    revision = self.proposal_revisions.build(user_id: update_user_id, valutations: valutations_was, rank: rank_was, seq: seq)
     self.sections.each do |section|
       paragraph = section.paragraphs.first
       paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
