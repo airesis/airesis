@@ -17,7 +17,7 @@ module NotificationHelper
 
   #invia le notifiche quando un utente valuta la proposta
   #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
-  def notify_user_valutate_proposal(proposal_ranking, group)
+  def notify_user_evaluated_proposal(proposal_ranking, group)
     proposal = proposal_ranking.proposal
     data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't'}
     notification_a = Notification.new(notification_type_id: NotificationType::NEW_VALUTATION_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
@@ -25,7 +25,6 @@ module NotificationHelper
     proposal.users.each do |user|
       if user != proposal_ranking.user
         send_notification_to_user(notification_a, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
-
       end
     end
     notification_b = Notification.create(notification_type_id: NotificationType::NEW_VALUTATION, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)

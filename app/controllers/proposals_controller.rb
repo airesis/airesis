@@ -555,7 +555,7 @@ class ProposalsController < ApplicationController
       ranking.save!
       @proposal.reload
       load_my_vote
-      notify_user_valutate_proposal(ranking, @group) #send a notification
+      notify_user_evaluated_proposal(ranking, @group) #send a notification
     end
 
     flash[:notice] = I18n.t('info.proposal.rank_recorderd')

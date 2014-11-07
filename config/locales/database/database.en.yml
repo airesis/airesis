@@ -103,7 +103,7 @@ en:
       new_valutation:
         description: New evaluation for a proposal I participate in
         email_subject: "%{title} - New evaluation"
-        message: "You proposal <b>%{title}</b> has received a new evaluation"
+        message: "The proposal <b>%{title}</b> has received a new evaluation"
       available_author:
         description: User available to become an editor of a proposal
         email_subject: "%{title} - New editors available"
