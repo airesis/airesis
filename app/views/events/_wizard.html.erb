@@ -93,8 +93,6 @@
 
       <% unless @event.is_votazione? %>
           <div class="step">
-
-
             <%= f.simple_fields_for :meeting do |m| %>
                 <%= m.simple_fields_for :place do |p| %>
                     <div id="luogo">

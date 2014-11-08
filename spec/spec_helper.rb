@@ -20,7 +20,7 @@ RSpec.configure do |config|
 
   config.use_transactional_fixtures = false
 
-  excluded_tables = %w[continentes continente_translations statos stato_translations regiones regione_translations provincias provincia_translations event_types group_actions group_participation_request_statuses notification_categories notification_types proposal_categories proposal_states proposal_types ranking_types tutorials steps user_types participation_roles action_abilitations vote_types proposal_votation_types configurations sys_currencies sys_locales sys_movement_types]
+  excluded_tables = %w[comunes continentes continente_translations statos stato_translations regiones regione_translations provincias provincia_translations event_types group_actions group_participation_request_statuses notification_categories notification_types proposal_categories proposal_states proposal_types ranking_types tutorials steps user_types participation_roles action_abilitations vote_types proposal_votation_types configurations sys_currencies sys_locales sys_movement_types]
   config.before(:each) do
     I18n.locale = I18n.default_locale = :en
     if Capybara.current_driver == :rack_test

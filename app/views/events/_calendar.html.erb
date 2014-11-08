@@ -193,7 +193,7 @@
 
         <%if params[:new_event] == 'true' %>
         $.ajax({
-            url: '<%=new_event_url(:group_id=> @group.try(:id), type: params[:type]) %>'
+            url: '<%=new_event_url(:group_id=> @group.try(:id), event_type_id: params[:event_type_id]) %>'
         });
         <%end%>
     });

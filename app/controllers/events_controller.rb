@@ -189,7 +189,7 @@ class EventsController < ApplicationController
 
   def event_params
     params[:event].delete(:meeting_attributes) if params[:event][:event_type_id] == EventType::VOTAZIONE.to_s
-    params.require(:event).permit(:id, :title, :starttime, :endtime, :all_day, :description, :event_type_id, :private, :proposal_id, meeting_attributes: [:id, place_attributes: [:id, :comune_id, :address, :latitude_original, :longitude_original, :latitude_center, :longitude_center, :zoom]])
+    params.require(:event).permit(:id, :title, :starttime, :endtime, :frequency, :all_day, :description, :event_type_id, :private, :proposal_id, meeting_attributes: [:id, place_attributes: [:id, :comune_id, :address, :latitude_original, :longitude_original, :latitude_center, :longitude_center, :zoom]])
   end
 
   def choose_layout

@@ -2,7 +2,7 @@
 class Event < ActiveRecord::Base
   attr_accessor :period, :frequency, :commit_button, :backgroundColor, :textColor, :proposal_id
 
-  validates_presence_of :title, :description, :starttime, :endtime
+  validates_presence_of :title, :description, :starttime, :endtime, :event_type
   validate :validate_start_time_end_time
 
   belongs_to :event_series

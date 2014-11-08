@@ -5,13 +5,12 @@ class EventType < ActiveRecord::Base
   VOTAZIONE = 2
   RIUNIONE = 3
   ELEZIONI = 4
-  
-  has_many :events, class_name: 'Event'
 
+  has_many :events
 
-  scope :active, -> {where(id: [1,2])}
+  scope :active, -> { where(id: [INCONTRO, VOTAZIONE]) }
 
   def description
-    I18n.t("db.#{self.class.class_name.tableize}.#{self.name}.description")
+    I18n.t("db.#{self.class.class_name.tableize}.#{name}.description")
   end
 end

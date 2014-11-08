@@ -56,7 +56,7 @@ class Ability
       can [:rankup, :rankdown], Proposal do |proposal|
         ranking = proposal.rankings.find_by(user_id: user.id)
         if ranking
-          ranking.updated_at <  proposal.updated_at
+          ranking.updated_at < proposal.updated_at
         else
           can? :participate, proposal
         end
@@ -145,7 +145,7 @@ class Ability
 
       can :remove_post, Group, is_admin_of_group(user)
 
-      can [:view_documents,:reload_storage_size], Group, can_do_on_group(user, GroupAction::DOCUMENTS_VIEW)
+      can [:view_documents, :reload_storage_size], Group, can_do_on_group(user, GroupAction::DOCUMENTS_VIEW)
       can :manage_documents, Group, can_do_on_group(user, GroupAction::DOCUMENTS_MANAGE)
 
       can :post_to, Group, can_do_on_group(user, GroupAction::STREAM_POST)
@@ -285,8 +285,10 @@ class Ability
 
       can [:update, :destroy], Event, user_id: user.id #can update my event
       can [:update, :destroy], Event, groups: is_admin_of_group(user)
-      can [:update, :destroy], Event, groups: can_do_on_group(user, GroupAction::CREATE_EVENT)
-      cannot [:update, :destroy], Event, event_type_id: EventType::VOTAZIONE, proposals: ['proposals.id != null'], possible_proposals: ['proposals.id != null']
+      #can [:update, :destroy], Event, groups: can_do_on_group(user, GroupAction::CREATE_EVENT)
+      cannot [:update, :destroy], Event do |event|
+        event.proposals.any? || event.possible_proposals.any?
+      end
 
       can [:read, :check], Alert, user_id: user.id
 

@@ -3,7 +3,7 @@ FactoryGirl.define do
     proposal_category_id ProposalCategory::NO_CATEGORY
     title { Faker::Lorem.sentence }
     tags_list ['tag1', 'tag2', 'tag3'].join(',')
-    association :quorum
+    association :quorum, factory: :best_quorum
     votation { {later: 'true'} }
     factory :public_proposal do
     end
