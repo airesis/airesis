@@ -1335,6 +1335,7 @@ en:
       vote_period_incorrect: "Please choose another votation event"
       vote_period_soon: "The vote event must start at least %{time} minutes after the end of debate"
       vote_period_short: "The vote event must last at least 10 minutes"
+      same_title: "There is another proposal with the same title."
     registration:
       recaptcha: "Error in validating captcha. Please type it again"
       user_not_found: "User not found"

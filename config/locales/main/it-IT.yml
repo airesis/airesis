@@ -1255,6 +1255,7 @@ it-IT:
       vote_period_incorrect: "Scegli un altro periodo per la votazione"
       vote_period_soon: "La votazione deve iniziare almeno %{time} minuti dopo il termine del dibattito"
       vote_period_short: "La votazione deve durare almeno 10 minuti"
+      same_title: "Esiste già un altra proposta con lo stesso titolo"
     registration:
       recaptcha: "Errore nella validazione del captcha. Digitarlo nuovamente"
       user_not_found: "Utente non trovato"

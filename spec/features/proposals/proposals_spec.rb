@@ -30,7 +30,9 @@ describe "create a proposal in his group", type: :feature, js: true do
     end
     page_should_be_ok
     wait_for_ajax rescue nil
-    @proposal = Proposal.order(:created_at).first
+    @proposal = Proposal.last
+
+    expect(@proposal.vote_defined).to be_truthy
     #the proposal title is certainly displayed somewhere
     expect(page).to have_content @proposal.title
     expect(page.current_path).to eq(edit_group_proposal_path(group, @proposal))

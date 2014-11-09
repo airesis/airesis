@@ -78,7 +78,7 @@
       <% if @proposal.vote_defined %>
           <% if @proposal.vote_event_id %>
               <%= f.label :event_id %>
-              <%= link_to @event, 'Evento' %>
+              <%= link_to @event, 'Votation event' %>
           <% else %>
               <% @event = Event.new({
                                             starttime: @proposal.vote_starts_at,
@@ -87,11 +87,11 @@
               <div class="row">
                 <div class="columns medium-6">
                   <%= f.label :vote_starts_at %>
-                  <%= f.text_field :vote_starts_at, value: (l @proposal.vote_starts_at, format: :textfield) %>
+                  <%= f.text_field :vote_starts_at, value: (l @proposal.vote_starts_at, format: :textfield), disabled: true %>
                 </div>
                 <div class="columns medium-6">
                   <%= f.label :vote_ends_at %>
-                  <%= f.text_field :vote_ends_at, value: (l @proposal.vote_ends_at, format: :textfield) %>
+                  <%= f.text_field :vote_ends_at, value: (l @proposal.vote_ends_at, format: :textfield), disabled: true %>
                 </div>
               </div>
           <% end %>

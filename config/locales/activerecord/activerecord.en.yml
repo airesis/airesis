@@ -80,6 +80,8 @@ en:
         anonima: "Temporary anonymity"
         visible_outside: "Publicly visible"
         secret_vote: "Secret vote"
+        vote_starts_at: "Vote starts at"
+        vote_ends_at: "Vote ends at"
       proposal_comment:
          content: 'Content'
       quorum:

@@ -4,7 +4,8 @@ class Proposal < ActiveRecord::Base
 
   belongs_to :state, class_name: 'ProposalState', foreign_key: :proposal_state_id
   belongs_to :category, class_name: 'ProposalCategory', foreign_key: :proposal_category_id
-  belongs_to :vote_period, class_name: 'Event', foreign_key: :vote_period_id
+  belongs_to :vote_period, class_name: 'Event', foreign_key: :vote_period_id #attached when is decided
+  belongs_to :vote_event, class_name: 'Event', foreign_key: :vote_event_id  #attached when the proposal is created, only possible
   has_many :proposal_presentations, -> { order 'id DESC' }, class_name: 'ProposalPresentation', dependent: :destroy
 
   has_many :proposal_borders, class_name: 'ProposalBorder', dependent: :destroy
@@ -131,7 +132,7 @@ class Proposal < ActiveRecord::Base
 
   after_initialize :init
 
-  before_create :before_create_populate
+  before_validation :before_create_populate, on: :create
   after_commit :send_notifications, on: :create
   after_commit :send_update_notifications, on: :update
 
@@ -368,9 +369,9 @@ class Proposal < ActiveRecord::Base
   def eligible_voters_count
     return User.confirmed.unblocked.count unless private?
     if self.presentation_areas.size > 0 #if we are in a working area
-      presentation_areas.first.scoped_participants(GroupAction::PROPOSAL_VOTE).count  #todo more areas
+      presentation_areas.first.scoped_participants(GroupAction::PROPOSAL_VOTE).count #todo more areas
     else
-      groups.first.scoped_participants(GroupAction::PROPOSAL_VOTE).count  #todo more groups
+      groups.first.scoped_participants(GroupAction::PROPOSAL_VOTE).count #todo more groups
     end
   end
 
@@ -383,9 +384,9 @@ class Proposal < ActiveRecord::Base
     query = users.
         project(users[:id].count(true)).
         join(proposal_comments, Arel::Nodes::OuterJoin).
-          on(users[:id].eq proposal_comments[:user_id]).
+        on(users[:id].eq proposal_comments[:user_id]).
         join(proposal_rankings, Arel::Nodes::OuterJoin).
-          on(users[:id].eq proposal_rankings[:user_id]).
+        on(users[:id].eq proposal_rankings[:user_id]).
         where(proposal_rankings[:proposal_id].eq id).
         where(proposal_comments[:proposal_id].eq id)
     ActiveRecord::Base.connection.execute(query.to_sql)[0]['count'].to_i
@@ -532,7 +533,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def before_create_populate
-    group = self.group_proposals.first.try(:group)
+    group = group_proposals.first.try(:group)
 
     update_borders
 
@@ -547,9 +548,9 @@ class Proposal < ActiveRecord::Base
       end
       self.private = true
 
-      group_area = GroupArea.find(self.group_area_id) unless self.group_area_id.to_s.empty?
+      group_area = GroupArea.find(group_area_id) if group_area_id.present?
       if group_area #check user permissions for this group area
-        self.errors.add(:group_area_id, I18n.t('permissions_required')) unless self.users.first.scoped_areas(group, GroupAction::PROPOSAL_INSERT).include? group_area
+        self.errors.add(:group_area_id, I18n.t('permissions_required')) unless users.first.scoped_areas(group, GroupAction::PROPOSAL_INSERT).include? group_area
         self.presentation_areas << group_area
       end
 
@@ -685,31 +686,27 @@ class Proposal < ActiveRecord::Base
     self.quorum_id = copy.id
 
     #if is time fixed you can choose immediatly vote period
-    if copy.time_fixed?
-      #if the user choosed it
-      if self.votation && (self.votation[:later] != 'true')
-        #if he took a vote period already existing
-        if (self.votation[:choise] && (self.votation[:choise] == 'preset')) || (!self.votation[:choise] && (self.votation[:vote_period_id].to_s != ''))
-          self.vote_event_id = self.votation[:vote_period_id]
-
-          vote_event = Event.find(proposal.vote_event_id)
-          if vote_event.starttime < Time.now + copy.minutes.minutes + DEBATE_VOTE_DIFFERENCE #if the vote period start before the end of debate there is an error
-            self.errors.add(:vote_event_id, I18n.t('error.proposals.vote_period_incorrect'))
-          end
-        else #if he created a new period
-          start = ((self.votation[:start_edited].to_s != '') && self.votation[:start]) || (copy.ends_at + DEBATE_VOTE_DIFFERENCE) #look if he edited the starttime or not
-          raise Exception 'error' unless self.votation[:end].to_s != ''
-          self.vote_starts_at = start
-          self.vote_ends_at = self.votation[:end]
-          if (self.vote_starts_at - copy.ends_at) < DEBATE_VOTE_DIFFERENCE
-            self.errors.add(:vote_starts_at, I18n.t('error.proposals.vote_period_soon', time: DEBATE_VOTE_DIFFERENCE.to_i / 60))
-          end
-          if self.vote_ends_at < (self.vote_starts_at + 10.minutes)
-            self.errors.add(:vote_ends_at, I18n.t('error.proposals.vote_period_short'))
-          end
-        end
-        self.vote_defined = true
+    return unless copy.time_fixed?
+    #if the user choosed it
+    return unless votation && (votation[:later] != 'true')
+    #if he took a vote period already existing
+    if (votation[:choise] && (votation[:choise] == 'preset')) || (!votation[:choise] && votation[:vote_period_id].present?)
+      self.vote_event = Event.find(votation[:vote_period_id])
+      if vote_event.starttime < Time.now + copy.minutes.minutes + DEBATE_VOTE_DIFFERENCE #if the vote period start before the end of debate there is an error
+        errors.add(:base, I18n.t('error.proposals.vote_period_incorrect'))
+      end
+    else #if he created a new period
+      start = ((votation[:start_edited].present?) && votation[:start]) || (copy.ends_at + DEBATE_VOTE_DIFFERENCE) #look if he edited the starttime or not
+      raise Exception 'error' unless votation[:end].present?
+      self.vote_starts_at = start
+      self.vote_ends_at = votation[:end]
+      if (vote_starts_at - copy.ends_at) < DEBATE_VOTE_DIFFERENCE
+        errors.add(:base, I18n.t('error.proposals.vote_period_soon', time: DEBATE_VOTE_DIFFERENCE.to_i / 60))
+      end
+      if vote_ends_at < (vote_starts_at + 10.minutes)
+        errors.add(:base, I18n.t('error.proposals.vote_period_short'))
       end
     end
+    self.vote_defined = true
   end
 end

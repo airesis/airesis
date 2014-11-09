@@ -242,38 +242,35 @@ class ProposalsController < ApplicationController
   end
 
   def create
-    begin
-      max = current_user.proposals.maximum(:created_at) || Time.now - (PROPOSALS_TIME_LIMIT + 1.seconds)
-      raise Exception if LIMIT_PROPOSALS && ((Time.now - max) < PROPOSALS_TIME_LIMIT)
+    max = current_user.proposals.maximum(:created_at) || Time.now - (PROPOSALS_TIME_LIMIT + 1.seconds)
+    raise Exception if LIMIT_PROPOSALS && ((Time.now - max) < PROPOSALS_TIME_LIMIT)
 
-      #send(@proposal.proposal_type.name.downcase + '_create', @proposal) #execute specific method to build sections
-      @proposal.current_user_id = current_user.id
-      if @proposal.save
-        generate_nickname(current_user, @proposal)
-        respond_to do |format|
-          flash[:notice] = I18n.t('info.proposal.proposal_created')
-          format.js
-          format.html {
-            if request.env['HTTP_REFERER']["back=home"]
-              redirect_to home_url
-            else
-              redirect_to @group ? edit_group_proposal_url(@group, @proposal) : edit_proposal_path(@proposal)
-            end
-          }
-        end
+    @proposal.current_user_id = current_user.id
+    if @proposal.save
+      generate_nickname(current_user, @proposal)
+      respond_to do |format|
+        flash[:notice] = I18n.t('info.proposal.proposal_created')
+        format.js
+        format.html {
+          if request.env['HTTP_REFERER']["back=home"]
+            redirect_to home_url
+          else
+            redirect_to @group ? edit_group_proposal_url(@group, @proposal) : edit_proposal_path(@proposal)
+          end
+        }
+      end
+    else
+      if @proposal.errors[:title].present?
+        @other = Proposal.find_by(title: @proposal.title)
+        @err_msg = t('error.proposals.same_title')
+      elsif !@proposal.errors.empty?
+        @err_msg = @proposal.errors.full_messages.join(",")
       else
-        if !@proposal.errors[:title].empty?
-          @other = Proposal.find_by_title(params[:proposal][:title])
-          @err_msg = "Esiste già un altra proposta con lo stesso titolo"
-        elsif !@proposal.errors.empty?
-          @err_msg = @proposal.errors.full_messages.join(",")
-        else
-          @err_msg = I18n.t('error.proposals.creation')
-        end
-        respond_to do |format|
-          format.js { render 'error_create' }
-          format.html { render action: :new }
-        end
+        @err_msg = I18n.t('error.proposals.creation')
+      end
+      respond_to do |format|
+        format.js { render 'error_create' }
+        format.html { render action: :new }
       end
     end
   end
@@ -645,11 +642,12 @@ class ProposalsController < ApplicationController
     params.require(:proposal).permit(:proposal_category_id, :content, :title, :interest_borders_tkn, :tags_list,
                                      :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id, :group_area_id, :topic_id,
                                      :proposal_type_id, :proposal_votation_type_id,
-                                     :integrated_contributes_ids_list, :votation, :signatures, :petition_phase,
+                                     :integrated_contributes_ids_list, :signatures, :petition_phase,
+                                     votation: [:later, :start, :start_edited, :end],
                                      sections_attributes:
                                          [:id, :seq, :_destroy, :title, paragraphs_attributes:
                                              [:id, :seq, :content, :content_dirty]],
-                                     :solutions_attributes =>
+                                     solutions_attributes:
                                          [:id, :seq, :_destroy, :title, sections_attributes:
                                              [:id, :seq, :_destroy, :title, paragraphs_attributes:
                                                  [:id, :seq, :content, :content_dirty]]])
