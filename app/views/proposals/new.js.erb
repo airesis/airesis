@@ -28,18 +28,20 @@ window.ClientSideValidations.selectors = {
     forms: 'form[data-validate]'
 };
 
+<%if params[:models] %>
 var container_ = $('.reveal-modal:visible');
+<%else%>
+var container_ = $('<div class="reveal-modal large" data-reveal  data-options="close_on_esc: false;close_on_background_click: false;"></div>');
+$('body').append(container_);
+<%end%>
 <%if params[:proposal_type_id] == ProposalType::PETITION %>
-    container_.html('<%=j render "proposal_types/petition"%>');
+container_.html('<%=j render "proposal_types/petition"%>');
 <%else %>
-    container_.html('<%=j render "proposal_types/form"%>');
+container_.html('<%=j render "proposal_types/form"%>');
 <%end%>
 
 <%unless params[:models] %>
-container_.foundation('reveal', 'open', {
-    close_on_background_click: false,
-    closeOnEsc: false
-});
+airesis_reveal(container_);
 <%end%>
 
 $('.legend').hide();

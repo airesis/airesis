@@ -1,31 +1,31 @@
 [
     {
         element: '.homecont',
-        intro: "<%=t('tutorial.welcome.intro',name: current_user.name)%>",
+        intro: "<%=j raw t('tutorial.welcome.intro',name: current_user.name)%>",
         position: 'left'
 
     },
     {
         element: '.homecont',
-        intro: "<%=t('tutorial.users_alarm_preferences.desktop')%>",
+        intro: "<%=j raw t('tutorial.users_alarm_preferences.desktop')%>",
         position: 'left'
 
     },
     {
         element: portlets[0],
-        intro: "<%=t('tutorial.users_alarm_preferences.proposals_portlet')%>",
+        intro: "<%=j raw t('tutorial.users_alarm_preferences.proposals_portlet')%>",
         position: 'left'
 
     },
     {
         element: portlets[1],
-        intro: "<%=t('tutorial.users_alarm_preferences.vote_portlet')%>",
+        intro: "<%=j t('tutorial.users_alarm_preferences.vote_portlet')%>",
         position: 'left'
 
     },
     {
         element: portlets[2],
-        intro: "<%=t('tutorial.users_alarm_preferences.topics')%>",
+        intro: "<%=j t('tutorial.users_alarm_preferences.topics')%>",
         position: 'left'
 
     },

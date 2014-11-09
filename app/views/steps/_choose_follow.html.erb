@@ -1,28 +1,28 @@
 <div class="text">
-<b><%=t('pages.steps.interest_borders.title') %><br /></b>
-   <%=t('pages.steps.choose_follow.description_html')%>
+  <b><%= t('pages.steps.interest_borders.title') %><br/></b>
+  <%= t('pages.steps.choose_follow.description_html') %>
 </div>
+<ul id="groups_list" class="small-block-grid-1 large-block-grid-2 xlarge-block-grid-3 xxlarge-block-grid-4">
+  <%= render partial: "/groups/group_tag", collection: current_user.suggested_groups, as: :group %>
+</ul>
+<%= form_for 'groupsi', url: {controller: 'groups', action: 'ask_for_multiple_follow'} do |f| %>
+    <%= f.hidden_field 'group_ids' %>
+    <%= f.button t('buttons.chosen'), class: 'btn blue', style: "float:right;" %>
 
-    <%= render partial: "/groups/group_tag", collection: current_user.suggested_groups, as: :group %>
-	
+<% end %>
+<div style="clear: both;"></div>
 
-	<div style="clear: both;"></div>		
-	<%=form_for 'groupsi', url: {controller: 'groups', action: 'ask_for_multiple_follow'} do |f|%>
-	<%=f.hidden_field 'group_ids'%>	
-	<%=f.button t('buttons.chosen'), class: 'btn blue', style: "float:right;" %>
-		
-	<%end%>
-	<div style="clear: both;"></div>	
- 
-<br />
+<br/>
 
 <script type="text/javascript">
-	$(function() {
-		$('.groupListContainer').click(function() {
-			$(this).toggleClass('highlighted');
-			var text = $('.groupListContainer.highlighted').map(function() {return $(this).data('id')}).get().join(';');
-			$('#groupsi_group_ids').val(text);
+    $(function () {
+        $('.groupListContainer').click(function () {
+            $(this).toggleClass('highlighted');
+            var text = $('.groupListContainer.highlighted').map(function () {
+                return $(this).data('id')
+            }).get().join(';');
+            $('#groupsi_group_ids').val(text);
             return false;
-		})
-	});
+        })
+    });
 </script>

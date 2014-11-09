@@ -1,15 +1,10 @@
-<div class="text">
-  <%= t('pages.steps.first_proposal_html', proposal: (link_to t('open_space'), proposals_path, html_options = {target: "_blank"})) %>
-  <div style="margin:auto; text-align: center;">
-
-    <%= link_to new_proposal_path(back: 'home', proposal_type_id: ProposalType::STANDARD), remote: true, :class => "btn blue disable" do %>
-        <i class="fa fa-plus"></i>
-        <%= 'Insert a proposal' %>
-    <% end %>
-    <div id="create_proposal_container" style="display:none;">
-    </div>
-  </div>
-</div>
+<h2><%= t('pages.steps.first_proposal.title_html') %></h2>
+<p>
+  <%= t('pages.steps.first_proposal.description_html', proposal: (link_to t('open_space'), proposals_path, target: :_blank)) %>
+</p>
+<p>
+  <%= render 'proposals/new_proposal' %>
+</p>
 <%= link_to complete_tutorial_step_path(@step.tutorial, @step), class: 'btn blue', style: "float:right;" do %>
     <i class="fa fa-arrow-right"></i>
     <%= t('buttons.next') %>

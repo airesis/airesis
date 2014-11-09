@@ -30,6 +30,7 @@ class Ability
     can :show, Proposal, private: false
     can :show, Proposal, visible_outside: true
     can :ask_for_participation, Group
+    can :ask_for_multiple_follow, Group
     can :read, Announcement, ["starts_at <= :now and ends_at >= :now", now: Time.zone.now] do |a|
       true
     end

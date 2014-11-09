@@ -1,39 +1,40 @@
-<div class="text"><b><%= t('pages.steps.interest_borders.title')%><br /></b>
-	<%= t('pages.steps.interest_borders.description_html')%>
-</div>
-	
-	
-<%= form_for 'token', url: set_interest_borders_users_path do |f| %>
-<div id="border_fields">
-	<%= f.text_field 'interest_borders', "data-pre" => current_user.interest_borders.to_json %>
-</div>
-<div id="loading_borders" style="margin:auto;text-align:center;display:none;">
-	<%= image_tag 'ajax-loader.gif'%><br />
-	<b><%=t('pages.users.border_preferences.updating')%></b>
-</div>
+<h2><%= t('pages.steps.interest_borders.title') %></h2>
+<p>
+  <%= t('pages.steps.interest_borders.description_html') %>
+</p>
 
-<%= f.button t('buttons.next'), class: 'btn blue', style: "float:right;", id: "submit_borders" %>
-<%end%>
+<%= form_for 'token', url: set_interest_borders_users_path do |f| %>
+    <div id="border_fields">
+      <%= f.text_field 'interest_borders', "data-pre" => current_user.interest_borders.to_json %>
+    </div>
+    <div id="loading_borders" style="margin:auto;text-align:center;display:none;">
+      <%= image_tag 'ajax-loader.gif' %>
+      <br/>
+      <b><%= t('pages.users.border_preferences.updating') %></b>
+    </div>
+
+    <%= f.button t('buttons.next'), class: 'btn blue', style: "float:right;", id: "submit_borders" %>
+<% end %>
 <div style="clear: both;"></div>
 <script type="text/javascript">
-	$(function() {
-		input = $('#token_interest_borders')
-		input.tokenInput("/interest_borders.json", {
-			crossDomain: false,
-			prePopulate: $('#token_interest_borders').data("pre"),
-			hintText: "<%=t('interest_borders.hint')%>",
-			noResultsText: "<%=t('interest_borders.no_place_found')%>",
-			searchingText: "<%=t('interest_borders.searching')%>",
-			preventDuplicates: true,
-            tokenLimit:1
-		});
-		
-		$('#submit_borders').click(function() {
-			$(this).hide();
-			$('#border_fields').hide();	
-			$('#loading_borders').fadeIn();	
-			return true;				
-		});
-	});
+    $(function () {
+        input = $('#token_interest_borders')
+        input.tokenInput("/interest_borders.json", {
+            crossDomain: false,
+            prePopulate: $('#token_interest_borders').data("pre"),
+            hintText: "<%=t('interest_borders.hint')%>",
+            noResultsText: "<%=t('interest_borders.no_place_found')%>",
+            searchingText: "<%=t('interest_borders.searching')%>",
+            preventDuplicates: true,
+            tokenLimit: 1
+        });
+
+        $('#submit_borders').click(function () {
+            $(this).hide();
+            $('#border_fields').hide();
+            $('#loading_borders').fadeIn();
+            return true;
+        });
+    });
 
 </script>  		

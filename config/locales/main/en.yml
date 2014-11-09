@@ -887,12 +887,13 @@ en:
           Here you are the most active groups in the territories inside your interest borders.<br />
           Choose the ones you want to participate in, so you will be able to get in touch with them and participate in their events and proposals.<br />
           A click to select, a second one to deselect.<br />
-      first_proposal_html: |
-        <b>Your first contribution<br /></b>
-        It's time to give your opinion!<br />
-        Add a proposal, an idea or a feedback from the territory. <br />
-        Contriute to the discussion and let other users know you. <br/>
-        Your proposal will be added in the %{proposal} and may be supported by the groups on your territory!
+      first_proposal:
+        title_html: Your first contribution
+        description_html: |
+          It's time to give your opinion!<br />
+          Add a proposal, an idea or a feedback from the territory. <br />
+          Contriute to the discussion and let other users know you. <br/>
+          Your proposal will be added in the %{proposal} and may be supported by the groups on your territory!
     proposal_histories:
       index:
         title: "%{title} - Revision History"
