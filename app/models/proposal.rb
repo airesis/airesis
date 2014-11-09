@@ -388,7 +388,7 @@ class Proposal < ActiveRecord::Base
           on(users[:id].eq proposal_rankings[:user_id]).
         where(proposal_rankings[:proposal_id].eq id).
         where(proposal_comments[:proposal_id].eq id)
-    ActiveRecord::Base.connection.execute(query.to_sql)[0]['count']
+    ActiveRecord::Base.connection.execute(query.to_sql)[0]['count'].to_i
   end
 
 #retrieve all the participants to the proposals that are still part of the group
