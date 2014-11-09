@@ -41,7 +41,6 @@ describe "manage correctly meeting events", type: :feature, js: true do
     #find(:xpath, "//input[@id='event_meeting_attributes_place_attributes_latitude_center']").set Faker::Address.latitude
     #find(:xpath, "//input[@id='event_meeting_attributes_place_attributes_longitude_center']").set Faker::Address.longitude
 
-
     click_button I18n.t('pages.events.new.submit')
     wait_for_ajax
     expect(page.current_path).to eq(group_events_path(group))
@@ -50,6 +49,5 @@ describe "manage correctly meeting events", type: :feature, js: true do
     expect(page).to have_content(title)
     expect(page).to have_content(description)
     logout :user
-
   end
 end
