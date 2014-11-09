@@ -550,7 +550,7 @@ class Proposal < ActiveRecord::Base
 
       group_area = GroupArea.find(group_area_id) if group_area_id.present?
       if group_area #check user permissions for this group area
-        self.errors.add(:group_area_id, I18n.t('permissions_required')) unless users.first.scoped_areas(group, GroupAction::PROPOSAL_INSERT).include? group_area
+        errors.add(:group_area_id, I18n.t('permissions_required')) if users.first.cannot? :insert_proposal, group_area
         self.presentation_areas << group_area
       end
 

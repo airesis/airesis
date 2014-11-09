@@ -179,14 +179,17 @@ class Ability
         area_role.id != area_role.group_area.area_role_id
       end
 
+      can :view_proposal, GroupArea, group: is_admin_of_group(user)
       can :view_proposal, GroupArea, can_do_on_group_area(user, GroupAction::PROPOSAL_VIEW)
+
+      can :insert_proposal, GroupArea, group: is_admin_of_group(user)
       can :insert_proposal, GroupArea, can_do_on_group_area(user, GroupAction::PROPOSAL_INSERT)
 
       can :update, GroupArea do |area|
         area.group.portavoce.include? user
       end
       can :destroy, GroupArea do |area|
-        (area.group.portavoce.include? user) && (area.proposals.count == 0)
+        (area.group.portavoce.include? user) && area.proposals.empty?
       end
 
       can :read, Election do |election|

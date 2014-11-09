@@ -62,7 +62,7 @@ def create_simple_vote(user, proposal, vote_type=VoteType::POSITIVE)
 end
 
 def create_area_participation(user, group_area)
-  group_area.area_participations.build(user: user, participation_role_id: group_area.area_role_id)
+  group_area.area_participations.build(user: user, area_role_id: group_area.area_role_id)
   group_area.save
 end
 

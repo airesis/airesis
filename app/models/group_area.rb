@@ -25,7 +25,7 @@ class GroupArea < ActiveRecord::Base
   after_create :after_populate
 
   def pre_populate
-    role = self.area_roles.build({name: self.default_role_name, description: 'Ruolo predefinito dell\'area'})
+    role = area_roles.build({name: self.default_role_name, description: 'Ruolo predefinito dell\'area'})
     role.save!
     self.area_role_id = role.id
   end

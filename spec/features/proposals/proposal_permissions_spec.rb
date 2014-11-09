@@ -67,6 +67,7 @@ describe "check user permissions on proposals", type: :feature do
     group.enable_areas = true
     group.save
     area = create(:group_area, group: group)
+    expect(Ability.new(user)).to be_able_to(:insert_proposal, area)
     proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: visible_outside )
     return proposal
   end
