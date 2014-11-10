@@ -102,6 +102,11 @@ class Ability
             proposal.in_valutation?
       end
 
+      can [:facebook_share,:facebook_send_message], Proposal do |proposal|
+        user.has_provider?(Authentication::FACEBOOK) &&
+            user.facebook &&
+            ((user.facebook.get_connections('me', 'permissions')[0]['xmpp_login'].to_i == 1) rescue nil)
+      end
       can :unintegrate, ProposalComment, user: {id: user.id}, integrated: true
 
       #todo better check for manage_noise and mark noise permissions
