@@ -40,12 +40,10 @@ GIT
 
 GIT
   remote: git://github.com/getsentry/raven-ruby.git
-  revision: 1e12d8d5c288e97fd2fd64d28c2ffb7cad439eb2
-  branch: master
+  revision: ff3f5a7a9cbb036b13933c6ff3a61ee4b2300aaa
   specs:
-    sentry-raven (0.10.1)
+    sentry-raven (0.12.0)
       faraday (>= 0.7.6)
-      uuidtools
 
 GIT
   remote: git://github.com/jwachira/sunspot-rails-http-basic-auth.git
@@ -494,7 +492,6 @@ GEM
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     uniform_notifier (1.6.1)
-    uuidtools (2.1.5)
     warden (1.2.3)
       rack (>= 1.0)
     websocket (1.0.7)

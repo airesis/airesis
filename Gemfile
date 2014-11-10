@@ -158,4 +158,4 @@ gem 'sunspot-rails-http-basic-auth', github: 'jwachira/sunspot-rails-http-basic-
 
 gem 'activerecord-session_store'
 
-gem "sentry-raven", github: 'getsentry/raven-ruby', branch: 'master'
+gem "sentry-raven", github: 'getsentry/raven-ruby'
