@@ -51,7 +51,7 @@ class GroupsController < ApplicationController
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
       }
       format.html {
-        if request.url.split('?')[0] != group_url(@group)
+        if request.url.split('?')[0] != group_url(@group).split('?')[0]
           redirect_to group_url(@group), status: :moved_permanently
           return
         end
