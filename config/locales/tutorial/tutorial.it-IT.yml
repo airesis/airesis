@@ -59,7 +59,7 @@ it-IT:
       topics: "Qui visualizzerai lo stato di tutti i topic in cui hai partecipato e potrai vedere immediatamente se ci sono nuovi messaggi"
       explore: "Esplora Airesis e incomincia a partecipare! Vedrai la tua Home page popolarsi di nuovi contenuti ed informazioni"
     users_border_preferences:
-      intro: "Se non l'hai ancora fatto imposta i tuoi confini geografici di interesse. Presto saranno utili per mostrati contenuti personalizzati e di tuo interesse"
+      intro: "Se non l'hai ancora fatto imposta i tuoi confini geografici di interesse. Presto saranno utili per mostrarti contenuti personalizzati e di tuo interesse"
     welcome:
       intro: "Benvenuto su Airesis %{name}. Questa guida ti spiegherà come è strutturato il sito e dove trovare le informazioni che ti servono."
     next: "Avanti"
