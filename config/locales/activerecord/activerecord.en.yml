@@ -24,10 +24,11 @@ en:
         frequency: 'Repeat every'
         private: 'Private'
         candidates_end_time: 'Deadline date for candidates entry'
-        meeting:
-          place:
-            address: "Address"
-            comune_id: "City"
+      event/meeting/place:
+        address: "Address"
+        comune_id: "City"
+        latitude_original: Latitude
+        longitude_original: Longitude
       group:
         facebook_page_url: 'Facebook page address'
         name: 'Name'
