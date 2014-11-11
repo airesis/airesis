@@ -20,7 +20,7 @@ class NotificationProposalUpdate < NotificationSender
     proposal.participants.each do |user|
       if user != current_user
         #non inviare la notifica se l'utente ne ha già una uguale sulla stessa proposta che ancora non ha letto
-        another = Notification.joins(:notification_data, alerts: :user).where(notification_data: {name: 'proposal_id', value: proposal.id},notifications: {notification_type_id: 2}, users: {id: user.id}, alerts: {checked: false}).first
+        another = Notification.joins(:notification_data, alerts: :user).where(notification_data: {name: 'proposal_id', value: proposal.id.to_s},notifications: {notification_type_id: 2}, users: {id: user.id}, alerts: {checked: false}).first
         send_notification_to_user(notification_a, user) unless (another || BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id))
       end
     end

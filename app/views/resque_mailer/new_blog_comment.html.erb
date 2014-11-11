@@ -1,13 +1,13 @@
 <% @comment = BlogComment.find(@data[:blog_comment_id]) %>
 <% @user = @comment.user %>
 <% @blog_post = @comment.blog_post %>
-<% @alert_url = check_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang ) %>
-<%= t('mailer.new_blog_comment.title', {user: @user.fullname, post: @blog_post.title})%><br/>
-<%=raw t('mailer.new_blog_comment.view_post', {click_here: (link_to t('mailer.new_blog_comment.click_here'), @alert_url)})%><br/>
+<% @alert_url = check_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang) %>
+<%= t('mailer.new_blog_comment.title', {user: @user.fullname, post: @blog_post.title}) %><br/>
+<%= raw t('mailer.new_blog_comment.view_post', {click_here: (link_to t('mailer.new_blog_comment.click_here'), @alert_url)}) %><br/>
 
 <div id="comment<%= @comment.id %>" style="padding: 20px 0 0;clear: both;">
   <div style="float: left;margin: 0px 5px 5px 0px;">
-   <%= @user.user_image_tag(40,true) %>
+    <%= @user.user_image_tag(40, url: true) %>
   </div>
   <div style="border: 1px solid #CCCCCC;border-radius: 3px 3px 0px 0px;margin-left: 50px;color: #333333;">
     <div>
@@ -24,4 +24,4 @@
   </div>
 </div>
 
-<%=raw t('mailer.new_blog_comment.view_post', {click_here: (link_to t('mailer.new_blog_comment.click_here'), @alert_url)})%><br/>
+<%= raw t('mailer.new_blog_comment.view_post', {click_here: (link_to t('mailer.new_blog_comment.click_here'), @alert_url)}) %><br/>

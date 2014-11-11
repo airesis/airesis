@@ -84,6 +84,6 @@ class BlogComment < ActiveRecord::Base
   protected
 
   def send_notifications
-    NotificationBlogCommentCreate.perform_async(self.id)
+    NotificationBlogCommentCreate.perform_async(id)
   end
 end
