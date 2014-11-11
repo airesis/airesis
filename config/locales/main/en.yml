@@ -1188,37 +1188,6 @@ en:
       ready_for_vote: "Ready for vote"
       keep_discuss: "Continue the discussion"
     regenerate_button: "Put back in debate"
-    promote:
-      promote1_html: |
-        Come fare per aumentare la partecipazione? E' facile!<br/>
-        Su Airesis le proposte pubbliche con più partecipanti vengono visualizzate nella Home Page pubblica e questo ti permetterà di raccogliere ancora più contributi!<br/>
-        E' importante che all'inizio tu coinvolga altri utenti al di fuori di Airesis. Come?
-        <ol>
-          <li>Manda una mail a tutti i tuoi conoscenti che potrebbero essere interessati a partecipare alla costruzione della proposta</li>
-          <li>Se hai un sito o un blog scrivi un articolo per far conoscere la tua proposta</li>
-          <li>Contatta altri siti e blog che potrebbero essere interessati e proponi loro di condividere la tua proposta</li>
-          <li>Segnala la tua proposta sui gruppi e le pagine di Facebook o proponi agli amministratori di segnalarle</li>
-          <li>Il passaparola funziona sempre! Parla con i tuoi amici e colleghi e mettili a conoscenza della tua iniziativa</li>
-          <li>Se la proposta è interna al gruppo coinvolgi personalmente gli altri partecipanti</li>
-          <li>Contatta altri gruppi su Airesis e chiedi loro di sostenere la tua proposta. Più gruppi equivale a più partecipanti!</li>
-        </ol>
-        <p>Ricorda che la partecipazione è l'anima del successo: più utenti parteciperanno e migliori saranno le soluzioni individuate</p>
-      promote2_html: |
-        Vuoi rendere più visibile la tua proposta su Airesis? Promuovila acquistando un banner che sarà visualizzato nella HomePage di Airesis e nella pagina Proposte Pubbliche.<br/>
-        Airesis ha decine di migliaia di utenti ed il BANNER porterà molti visitatori!
-      promote3_1_html: |
-        Pubblica e condividi un banner su Siti Internet e Blog, eccoti un esempio:
-      promote3_2_html: |
-        Copia il codice HTML sottostante all'interno del tuo sito:
-      promote4_html: |
-        <p>Clicca su Consiglia qui sotto e condividi la tua proposta con tutti i tuoi amici su Facebook, invitandoli a partecipare.</p>
-      promote5_html: |
-        <p>Ricordati di cliccare Mi Piace per seguire la pagina di Airesis e tenerti sempre aggiornato su tutte le novità di Airesis.</p>
-      promote6_html: |
-        <p>Condividi la proposta su Twitter!</p>
-      promote7_html: |
-        Airesis offre a tutti gli utenti la creazione di gruppi e proposte in maniera gratuita.<br/>
-        Tecnologie Democratiche è la ONLUS senza scopo di lucro che finanzia il progetto. Fai una donazione o iscriviti!
     edit:
       expand_all: "Expand all"
       collapse_all: "Collapse all"
@@ -1230,25 +1199,6 @@ en:
       random_ordered_votes: "Random ordered votes"
       number_of_voters: "Number of voters"
       vote: "Their vote"
-  petitions:
-    promote:
-      promote1_html: |
-        Come fare per ricevere molte firme? E' facile!<br/>
-        Su Airesis le petizioni più firmate vengono visualizzate nella Home Page pubblica e questo ti permetterà di raccogliere ancora più firme!<br/>
-        E' importante che all'inizio tu raccolga le firme al di fuori di Airesis. Come?
-        <ol>
-          <li>Manda una mail a tutti i tuoi conoscenti che potrebbero essere interessati a firmare la petizione</li>
-          <li>Se hai un sito o un blog scrivi un articolo per far conoscere la petizione</li>
-          <li>Contatta altri siti e blog che potrebbero essere interessati e proponi loro di condividere la tua petizione</li>
-          <li>Segnala la tua petizione sui gruppi e le pagine di Facebook o proponi agli amministratori di segnalarle</li>
-          <li>Il passaparola funziona sempre! Parla con i tuoi amici e colleghi e mettili a conoscenza della tua iniziativa</li>
-          <li>Se hai un gruppo su Airesis, sostieni la petizione e falla conoscere a tutti i partecipanti del gruppo</li>
-          <li>Contatta altri gruppi su Airesis e chiedi loro di sostenere la tua petizione. Più gruppi equivale a più firme!</li>
-        </ol>
-        <p>Ricorda che più firme riuscirai a raccogliere nella fase iniziale e più firme otterrai dagli utenti di Airesis!</p>
-      promote2_html: |
-        Vuoi rendere più visibile la tua petizione su Airesis? Promuovila acquistando un banner che sarà visualizzato nella HomePage di Airesis e nella pagina Petizioni.<br/>
-        Airesis ha decine di migliaia di utenti ed il BANNER porterà molti visitatori!
   digit_tags: "Type the tags you want to add"
   buttons:
     cancel: "Cancel"
