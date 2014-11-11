@@ -495,8 +495,8 @@ en:
         wait: "You can create only one proposal every two minutes\nPlease wait %{minutes} minutes and %{seconds} seconds."
       tabs:
         last_inserted: "Last updated"
-        most_popular: "Most popular"
-        most_valutated: "Best maturity"
+        most_popular: "Higher rank"
+        most_valutated: "More evaluations"
         most_urgent: "Most urgent"
       list:
         last_update: "Updated<br/>%{time_ago}"

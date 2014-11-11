@@ -1,6 +1,6 @@
 #encoding: utf-8
 class ProposalRevision < ActiveRecord::Base
-  belongs_to :proposal, touch: true
+  belongs_to :proposal
   belongs_to :user
   has_many :revision_section_histories, dependent: :destroy
   has_many :section_histories, -> {order(:seq)}, through: :revision_section_histories, dependent: :destroy

@@ -24,14 +24,14 @@ class SearchProposal < ActiveRecord::Base
   def results
     @search = Proposal.search(include: [:category, :quorum, {users: [:image]}, :vote_period, :groups, :supporting_groups, :interest_borders]) do
 
-      fulltext self.text, minimum_match: self.or if self.text
+      fulltext text, minimum_match: self.or if text
       all_of do
-        if self.proposal_state_id
-          if self.proposal_state_id == ProposalState::TAB_VOTATION
+        if proposal_state_id
+          if proposal_state_id == ProposalState::TAB_VOTATION
             @states = [ProposalState::WAIT, ProposalState::WAIT_DATE, ProposalState::VOTING]
-          elsif self.proposal_state_id == ProposalState::TAB_VOTED
+          elsif proposal_state_id == ProposalState::TAB_VOTED
             @states = [ProposalState::ACCEPTED, ProposalState::REJECTED]
-          elsif self.proposal_state_id == ProposalState::TAB_REVISION
+          elsif proposal_state_id == ProposalState::TAB_REVISION
             @states = [ProposalState::ABANDONED]
           else
             @states = [ProposalState::VALUTATION]
@@ -39,41 +39,41 @@ class SearchProposal < ActiveRecord::Base
           with(:proposal_state_id, @states) #search for specific state if defined
         end
 
-        with(:proposal_category_id, self.proposal_category_id) if self.proposal_category_id
+        with(:proposal_category_id, proposal_category_id) if proposal_category_id
 
-        with(:proposal_type_id, self.proposal_type_id) if self.proposal_type_id
+        with(:proposal_type_id, proposal_type_id) if proposal_type_id
         without(:proposal_type_id, 11) #TODO removed petitions
 
-        if self.created_at_from
-          ends = self.created_at_to || Time.now
-          with(:created_at).between(self.created_at_from..ends)
+        if created_at_from
+          ends = created_at_to || Time.now
+          with(:created_at).between(created_at_from..ends)
         end
 
         #sicurezza - replicare nelle ricerche
-        if self.group_id #if we are searching in groups
+        if group_id #if we are searching in groups
           any_of do #the proposal should satisfy one of the following
             all_of do #should be public and supported by the group
               with(:private, false)
-              with(:supporting_group_ids, self.group_id)
+              with(:supporting_group_ids, group_id)
             end
             all_of do #or inside the group but visible outside
               with(:visible_outside, true)
-              with(:group_ids, self.group_id)
+              with(:group_ids, group_id)
             end
-            if self.user && (self.user.can? :view_proposal, Group.find(self.group_id)) #if the user is logged in and can view group private proposals
+            if user && (user.can? :view_proposal, Group.find(group_id)) #if the user is logged in and can view group private proposals
               all_of do #show also group private proposals
                 with(:private, true)
-                with(:group_ids, self.group_id)
+                with(:group_ids, group_id)
               end
             end
           end
-          areas = self.user ? self.user.scoped_areas(self.group, GroupAction::PROPOSAL_VIEW).pluck('group_areas.id') : [] #get all areas ids the user ca view
+          areas = user ? user.scoped_areas(group, GroupAction::PROPOSAL_VIEW).pluck('group_areas.id') : [] #get all areas ids the user ca view
           any_of do
             with(:presentation_area_ids, nil)
             with(:presentation_area_ids, areas) unless areas.empty?
           end #the proposals should not be in an area or the user must be authorized to view them
 
-          with(:presentation_area_ids, self.group_area_id) if self.group_area_id #only proposals in the group area if required
+          with(:presentation_area_ids, group_area_id) if group_area_id #only proposals in the group area if required
 
         else #open space proposals
           any_of do
@@ -103,12 +103,9 @@ class SearchProposal < ActiveRecord::Base
         order_by :updated_at, dir
         order_by :created_at, dir
       end
-
-      paginate page: self.page, per_page: self.per_page if self.page && self.per_page
+      paginate page: page, per_page: per_page if page && per_page
     end
-
     @proposals = @search.results
-
   end
 
 

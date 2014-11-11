@@ -458,7 +458,6 @@ class Proposal < ActiveRecord::Base
     Proposal.find_by_sql(sql_q)
   end
 
-
   searchable do
     text :title, boost: 5
     text :content, boost: 2
@@ -629,6 +628,7 @@ class Proposal < ActiveRecord::Base
       comment_ids = ProposalComment.where({id: integrated_contributes_ids, parent_proposal_comment_id: nil}).pluck(:id) #controllo di sicurezza
       ProposalComment.where(id: comment_ids).update_all({integrated: true})
       revision.contribute_ids = comment_ids
+      self.updated_at = Time.now
     else
       revision.destroy
     end
