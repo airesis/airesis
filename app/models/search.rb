@@ -8,7 +8,7 @@ class Search < ActiveRecord::Base
     groups_b = user.groups.pluck(:id) - groups_a #don't boost for both
 
     self.groups = Group.search do
-      fulltext self.q do
+      fulltext "#{q}*" do
         boost(20.0) { with(:id, groups_a)}
         boost(10.0) { with(:id, groups_b)}
       end
