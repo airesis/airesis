@@ -10,7 +10,7 @@ class ProposalsWorker
 
   def perform(*args)
     params = args[0]
-    @proposal = Proposal.find(params['proposal_id'])
+    @proposal = Proposal.lock.find(params['proposal_id'])
     case params['action']
       when ENDTIME
         #fa terminare la fase di valutazione di una proposta

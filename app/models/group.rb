@@ -36,6 +36,8 @@ class Group < ActiveRecord::Base
   has_many :followers, through: :group_follows, source: :user, class_name: 'User'
   has_many :blog_posts, through: :post_publishings, source: :blog_post
   has_many :participation_requests, class_name: 'GroupParticipationRequest', dependent: :destroy
+  has_many :requesting, through: :participation_requests, source: :user, class_name: 'User'
+
   has_many :participation_roles, -> { order 'participation_roles.id DESC' }, class_name: 'ParticipationRole', dependent: :destroy
   belongs_to :interest_border, class_name: 'InterestBorder', foreign_key: :interest_border_id
   belongs_to :default_role, class_name: 'ParticipationRole', foreign_key: :participation_role_id

@@ -26,6 +26,7 @@ class Ability
     can [:read, :new], BlogComment, blog: r_blog_post_is_public
     can [:read, :new, :report, :history, :list, :left_list, :show_all_replies], ProposalComment, proposal: {private: false}
     can :index, Proposal
+    can [:list,:left_list], ProposalComment
     can :show, User
     can :show, Proposal, private: false
     can :show, Proposal, visible_outside: true

@@ -175,7 +175,7 @@ class GroupsController < ApplicationController
         end
       end
     end
-    redirect_to group_url(@group)
+    redirect_to :back
   end
 
   #fa partire una richiesta per seguire il gruppo

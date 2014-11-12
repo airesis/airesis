@@ -149,6 +149,12 @@ $(function () {
         return false;
     });
 
+    $(document).on('click', '[data-login]', function() {
+        "use strict";
+        $('#login-panel').foundation('reveal', 'open');
+        return false;
+    });
+
 
     $('.create_proposal').on('click', function () {
         var link = $(this);

@@ -1,29 +1,33 @@
 <div class="blogComments" id="proposalComments">
-	<% @proposal_comments.each do |comment| %>
-		<%= render partial: 'proposals/comment', locals: {comment: comment} %>
-	<% end %>
+  <% if @proposal_comments.any? %>
+      <% @proposal_comments.each do |comment| %>
+          <%= render partial: 'proposals/comment', locals: {comment: comment} %>
+      <% end %>
+  <% else %>
+      <div class="no-contributes-yet"><%= 'No contributes yet' %></div>
+  <% end %>
 </div>
 
 <script type="text/javascript">
 
 
-    $(function() {
-		hide_vote_controls();
+    $(function () {
+        hide_vote_controls();
 
 
         $('.proposalComment[data-collapsed=true]').show(600);
 
         /*$('.deleteCommentLink').unbind('click');
-        $('.deleteCommentLink').bind('click',function(event) {
-            hiding(event,$(this).data('id'));
-        });*/
+         $('.deleteCommentLink').bind('click',function(event) {
+         hiding(event,$(this).data('id'));
+         });*/
 
         $('.deleteReplyLink').unbind('click');
-        $('.deleteReplyLink').bind('click',function(event) {
-            hideAndDeleteReply(event,$(this).data('id'));
+        $('.deleteReplyLink').bind('click', function (event) {
+            hideAndDeleteReply(event, $(this).data('id'));
         });
 
 
         initTextAreaTag();
-	});
+    });
 </script>
