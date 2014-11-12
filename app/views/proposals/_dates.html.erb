@@ -1,9 +1,9 @@
 <div style="padding-bottom: 10px;">
-  <%= t('pages.proposals.show.created_at_html', time: raw("<div class='date_creation'></div>"), date: (l @proposal.created_at)) %>
+  <%= t('pages.proposals.show.created_at_html', time: raw("<div class='date-creation'></div>"), date: (l @proposal.created_at)) %>
 </div>
 <% if @proposal.updated_at != @proposal.created_at %>
     <div class="mycont">
-      <%= t('pages.proposals.show.updated_at_html', time: raw("<div class='date_update'></div>"), date: (l @proposal.updated_at)) %>
+      <%= t('pages.proposals.show.updated_at_html', time: raw("<div class='date-update'></div>"), date: (l @proposal.updated_at)) %>
     </div>
 <% end %>
 <%unless @proposal.is_petition? %>
@@ -19,7 +19,7 @@
         </div><br/>
     <% elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione       %>
         <div class="mycont">
-          <%= t('pages.proposals.show.in_votation_until_html', date: raw("<div class='end_vote'></div>")) %>
+          <%= t('pages.proposals.show.in_votation_until_html', date: raw("<div class='end-vote'></div>")) %>
         </div>
     <% end %>
 <%end%>

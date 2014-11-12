@@ -320,7 +320,7 @@
         <%end%>
 
         var creationDate = new Date(<%=(@proposal.created_at).to_i * 1000%>);
-        $('.date_creation').each(function() {
+        $('.date-creation').each(function() {
             $(this).countdown($.extend({
                         since: creationDate,
                         significant: 1,
@@ -330,7 +330,7 @@
         });
 
         var updateDate = new Date(<%=(@proposal.updated_at).to_i * 1000%>);
-        $('.date_update').countdown($.extend({
+        $('.date-update').countdown($.extend({
                     since: updateDate,
                     significant: 1,
                     format: 'YODHMS',
@@ -339,7 +339,7 @@
 
         <%if @proposal.quorum.ends_at %>
             var endsDate = new Date(<%=(@proposal.quorum.ends_at).to_i * 1000%>);
-            $('#end_debate').countdown($.extend({
+            $('.end-debate').countdown($.extend({
                         until: endsDate,
                         significant: 3,
                         onExpiry: reload_proposal,
@@ -349,7 +349,7 @@
 
         <%if @proposal.proposal_state_id == ProposalState::VOTING%>
             var endsVote = new Date(<%=(@proposal.vote_period.endtime).to_i * 1000%>);
-            $('.end_vote').countdown($.extend({
+            $('.end-vote').countdown($.extend({
                         until: endsVote,
                         significant: 3,
                         description: '<%=l @proposal.vote_period.endtime%>'},
