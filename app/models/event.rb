@@ -9,8 +9,8 @@ class Event < ActiveRecord::Base
   belongs_to :event_type
   has_many :proposals, class_name: 'Proposal', foreign_key: 'vote_period_id'
   has_many :possible_proposals, class_name: 'Proposal', foreign_key: 'vote_event_id'
-  has_one :meeting, class_name: 'Meeting'
-  has_one :place, through: :meeting, class_name: 'Place', dependent: :destroy
+  has_one :meeting, class_name: 'Meeting', dependent: :destroy
+  has_one :place, through: :meeting, class_name: 'Place'
   has_many :meeting_organizations, class_name: 'MeetingOrganization', foreign_key: 'event_id', dependent: :destroy
 
   has_many :groups, through: :meeting_organizations, class_name: 'Group', source: :group
