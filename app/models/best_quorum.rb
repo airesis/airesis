@@ -170,14 +170,7 @@ class BestQuorum < Quorum
       #remove the timer if is still there
       #Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id}) if minutes #TODO remove job
     else
-      abandon(proposal)
-
-      proposal.private? ?
-          notify_proposal_abandoned(proposal, proposal.groups.first) :
-          notify_proposal_abandoned(proposal)
-
-      #remove the timer if is still there
-      #Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id}) if minutes #TODO remove job
+      proposal.abandon
     end
 
     proposal.save

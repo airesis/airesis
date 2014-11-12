@@ -125,16 +125,7 @@ class OldQuorum < Quorum
           #Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id}) #TODO remove jobs
         end
       elsif proposal.rank < self.bad_score #if we have not passed the debate quorum abandon it
-        abandon(proposal)
-
-        proposal.private? ?
-            notify_proposal_abandoned(proposal, proposal.groups.first) :
-            notify_proposal_abandoned(proposal)
-
-        #remove the timer if is still there
-        #if self.minutes #todo remove jobs
-        #  Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id})
-        #end
+        proposal.abandon
       else #if we are between bad and good score just do nothing...continue the debate
         return
       end
@@ -356,7 +347,6 @@ class OldQuorum < Quorum
     end
     ret
   end
-
 
 
 end

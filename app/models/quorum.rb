@@ -117,29 +117,4 @@ class Quorum < ActiveRecord::Base
   def min_vote_participants
     @min_vote_participants ||= min_vote_participants_pop
   end
-
-
-  protected
-
-  def abandon(proposal)
-    proposal.proposal_state_id = ProposalState::ABANDONED
-    life = proposal.proposal_lives.create(quorum_id: proposal.quorum_id, valutations: proposal.valutations, rank: proposal.rank, seq: ((proposal.proposal_lives.maximum(:seq) || 0) + 1))
-    #save old authors
-    proposal.users.each do |user|
-      life.users << user
-    end
-    life.save!
-    #delete old data
-    proposal.valutations = 0
-    proposal.rank = 0
-    #proposal.quorum_id = nil
-
-    #and authors
-    proposal.proposal_presentations.destroy_all
-    proposal.rankings.destroy_all
-    #proposal.save!
-  end
-
-
-
 end

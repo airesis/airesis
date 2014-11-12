@@ -522,10 +522,37 @@ class Proposal < ActiveRecord::Base
     quorum.close_vote_phase
   end
 
+
+  def abandon
+    logger.info "Abandoning proposal #{id}"
+    self.proposal_state_id = ProposalState::ABANDONED
+    life = proposal_lives.build(quorum_id: quorum_id, valutations: valutations, rank: rank, seq: ((proposal_lives.maximum(:seq) || 0) + 1))
+    #save old authors
+    users.each do |user|
+      life.users << user
+    end
+    #delete old data
+    self.valutations = 0
+    self.rank = 0
+
+    #and authors
+    proposal_presentations.destroy_all
+
+    #and rankings
+    rankings.destroy_all
+
+    notify_proposal_abandoned(self, groups.first)
+
+    #remove the timer if is still there
+    #if self.minutes #todo remove jobs
+    #  Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id})
+    #end
+  end
+
   private
 
   def before_update_populate
-    self.update_user_id = self.current_user_id
+    self.update_user_id = current_user_id
     save_history
     update_borders
     assign_quorum if self.quorum_id_changed?
@@ -589,7 +616,7 @@ class Proposal < ActiveRecord::Base
   def send_update_notifications
     if quorum_id_changed?
       ProposalsWorker.perform_at(quorum.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: id})
-    else
+    elsif current_user_id
       NotificationProposalUpdate.perform_in(1, current_user_id, id, groups.first.try(:id))
     end
   end

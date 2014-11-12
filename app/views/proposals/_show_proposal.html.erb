@@ -11,7 +11,7 @@
 </script>
 <% if current_user %>
     <% @unread = @proposal.contributes.listable.unread(current_user.id, @proposal.id) %>
-    <% if false && @unread.count > 0 #TODO         %>
+    <% if false && @unread.count > 0 #TODO          %>
         <%= link_to '#', class: 'read_contributes' do %>
             <div class="icon-bell medium"></div>
         <% end %>
@@ -76,7 +76,7 @@
           <i class="fa fa-close"></i>
           <%= t('pages.proposals.show.close_debate_button') %>
       <% end  if can? :close_debate, @proposal %>
-  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox     %>
+  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox      %>
       <div id="wait_date_header_container">
         <%= render partial: 'proposals/wait_date_header' %>
       </div>
@@ -99,38 +99,40 @@
 
 
 <% unless can? :participate, @proposal %>
-    <div data-alert class="alert-box info radius">
-      <% if signed_in? %>
-          <% if @group.participants.include? current_user %>
-              <%= t('pages.proposals.show.cant_participate.no_permissions') %>
-              <%= link_to show_message_user_path(@group.portavoce.first), remote: true do %>
-                  <%= t('pages.proposals.show.cant_participate.ask_permissions') %>
-              <% end if can? :send_message, @group.portavoce.first %>
-          <% else %>
-              <% if @group.requesting.include? current_user %>
-                  <%= t('pages.proposals.show.cant_participate.request_pending') %>
+    <% if @proposal.in_valutation? %>
+        <div data-alert class="alert-box info radius">
+          <% if signed_in? %>
+              <% if @group.participants.include? current_user %>
+                  <%= t('pages.proposals.show.cant_participate.no_permissions') %>
                   <%= link_to show_message_user_path(@group.portavoce.first), remote: true do %>
-                      <%= t('pages.proposals.show.cant_participate.send_message') %>
+                      <%= t('pages.proposals.show.cant_participate.ask_permissions') %>
                   <% end if can? :send_message, @group.portavoce.first %>
               <% else %>
-                  <%= t('pages.proposals.show.cant_participate.not_a_member') %>
-                  <%= link_to ask_for_participation_group_path(@group), class: "btn blue" do %>
-                      <i class="fa fa-pencil"></i>
-                      <%= t('pages.groups.show.ask_participate_button') %>
+                  <% if @group.requesting.include? current_user %>
+                      <%= t('pages.proposals.show.cant_participate.request_pending') %>
+                      <%= link_to show_message_user_path(@group.portavoce.first), remote: true do %>
+                          <%= t('pages.proposals.show.cant_participate.send_message') %>
+                      <% end if can? :send_message, @group.portavoce.first %>
+                  <% else %>
+                      <%= t('pages.proposals.show.cant_participate.not_a_member') %>
+                      <%= link_to ask_for_participation_group_path(@group), class: "btn blue" do %>
+                          <i class="fa fa-pencil"></i>
+                          <%= t('pages.groups.show.ask_participate_button') %>
+                      <% end %>
                   <% end %>
               <% end %>
+          <% else %>
+              <%= t('pages.proposals.show.cant_participate.not_logged_in') %>
+              <%= link_to t('pages.header.login').capitalize, '#', data: {login: ''} %>
+              .
           <% end %>
-      <% else %>
-          <%= t('pages.proposals.show.cant_participate.not_logged_in') %>
-          <%= link_to t('pages.header.login').capitalize, '#', data: {login: ''} %>
-          .
-      <% end %>
-      <a href="#" class="close">&times;</a>
-    </div>
+          <a href="#" class="close">&times;</a>
+        </div>
+    <% end %>
 <% end %>
 
 <% unless @proposal.is_petition? %>
-    <% if @proposal.waiting? #waiting for the vote period               %>
+    <% if @proposal.waiting? #waiting for the vote period                %>
         <div class="status_description card">
           <b><%= t('pages.proposals.show.votation_message', from: l(@proposal.vote_period.starttime), to: l(@proposal.vote_period.endtime)) %></b>
         </div>
