@@ -284,13 +284,8 @@ class ProposalsController < ApplicationController
 
       if @proposal.update(regenerate_proposal_params)
         quorum = assign_quorum(params[:proposal])
-        #fai partire il timer per far scadere la proposta
-        if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
-          ProposalsWorker.perform_at(@copy.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: @proposal.id})
-        end
 
         generate_nickname(current_user, @proposal)
-
 
         #if the time is fixed we schedule notifications 24h and 1h before the end of debate
         if @copy.time_fixed?
