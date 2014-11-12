@@ -45,7 +45,7 @@
 
               <%= render partial: 'fragments/how_schulze_works' %>
               <% if current_user.rotp_enabled && ::Configuration.rotp %>
-                  <%= f.label 'Token di sicurezza' %>
+                  <%= f.label t('pages.proposals.show.security_token') %>
                   <%= f.text_field 'token', maxlength: 6 %>
               <% end %>
               <%= f.button onclick: "return elaboraVoto();", remote: true, data: {confirm: t('pages.votations.show.confirm_schulze', name: @proposal.title)}, id: 'submit', class: 'btn blue' do %>
@@ -164,7 +164,6 @@
       </script>
     </div>
 <% elsif current_user && (vote = UserVote.find_by(proposal_id: @proposal.id, user_id: current_user.id)) && !@proposal.is_petition? %>
-
     <div class="vote_panel">
       <h4><%= t('pages.proposals.vote_panel.results_time', when: (l vote.created_at)) %></h4>
       <% if @proposal.secret_vote %>

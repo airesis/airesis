@@ -470,6 +470,7 @@ en:
           not_a_member: "You cannot participate to that proposal because you are not member of this group."
           not_logged_in: "You cannot participate to that proposal because you are not currently logged in. "
         read_contribute: "SHOW CONTRIBUTIONS"
+        security_token: "Security Token"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "Help"

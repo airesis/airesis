@@ -455,6 +455,7 @@ it-IT:
         choose_now: "Lo voglio scegliere ora"
         group_area: "Area di lavoro"
         nickname_assigned: "Ti è stato assegnato il nickname '%{nickname}'. Puoi cambiarlo entro 10 minuti dal pannello a sinistra."
+        security_token: "Token di sicurezza"
       new:
         quorum_prompt: "Seleziona una durata"
         quorum_help: "Help"
