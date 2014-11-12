@@ -128,32 +128,6 @@ module NotificationHelper
 
   end
 
-
-  #invia le notifiche quando la proposta è stata abbandonata
-  #le notifiche vengono inviate ai partecipanti
-  def notify_proposal_abandoned(proposal, group=nil)
-    subject = ''
-    subject += "[#{group.name}] " if group
-    subject +="#{proposal.title} non ha superato il dibattito"
-    data = {'proposal_id' => proposal.id.to_s, 'subject' => subject, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'abandoned'}
-
-    notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
-    notification_a.save
-    proposal.users.each do |user|
-      if !(defined? current_user) || (user != current_user)
-        send_notification_to_user(notification_a, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
-      end
-    end
-
-    notification_b = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
-    proposal.participants.each do |user|
-      unless proposal.users.include? user
-        another_delete('proposal_id', proposal.id, user.id, NotificationType::PHASE_ENDING)
-        send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
-      end
-    end
-  end
-
   #invia le notifiche quando la proposta è stata rigettata
   #le notifiche vengono inviate ai partecipanti
   def notify_proposal_rejected(proposal, group=nil)

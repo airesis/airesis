@@ -541,7 +541,7 @@ class Proposal < ActiveRecord::Base
     #and rankings
     rankings.destroy_all
 
-    notify_proposal_abandoned(self, groups.first)
+    NotificationProposalAbandoned.perform_async(id, groups.first.try(:id))
 
     #remove the timer if is still there
     #if self.minutes #todo remove jobs
