@@ -281,7 +281,7 @@ class ProposalsController < ApplicationController
     Proposal.transaction do
       @proposal.proposal_state_id = ProposalState::VALUTATION
       @proposal.users << current_user
-
+      @proposal.current_user_id = current_user.id
       if @proposal.update(regenerate_proposal_params)
         quorum = assign_quorum(params[:proposal])
 
