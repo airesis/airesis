@@ -1,5 +1,6 @@
 class NewsletterSender
   include Sidekiq::Worker
+  sidekiq_options retry: false
     
   def perform(params)
     receiver = params['mail']['receiver']

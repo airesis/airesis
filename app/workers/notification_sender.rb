@@ -2,7 +2,7 @@
 class NotificationSender
   include Sidekiq::Worker, GroupsHelper, Rails.application.routes.url_helpers
 
-  sidekiq_options queue: :notifications
+  sidekiq_options queue: :notifications, retry: 1
 
   protected
 
