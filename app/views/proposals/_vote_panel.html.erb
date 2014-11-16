@@ -4,7 +4,7 @@
       <% range = @proposal.solutions.count %>
       <% range += 1 if range.even? %>
 
-      <% if @proposal.is_schulze? #schulze           %>
+      <% if @proposal.is_schulze? %>
           <p><%= raw t('pages.proposals.vote_panel.schulze_title', max: range) %></p>
           <h5><%= @proposal.secret_vote ? t('pages.proposals.vote_panel.secret_vote') : t('pages.proposals.vote_panel.clear_vote') %></h5>
 
@@ -32,7 +32,7 @@
                   <div class="columns large-1 small-4">
                     <select class="slideNumber">
                       <% range.times do |c| %>
-                          <option <%= 'selected="selected"' if c==range/2 %> value="<%=c+1%>"><%= c+1 %></option>
+                          <option <%= 'selected="selected"' if c==range/2 %> value="<%= c+1 %>"><%= c+1 %></option>
                       <% end %>
                     </select>
                   </div>
@@ -118,7 +118,7 @@
 
 
           </script>
-      <% else #standard           %>
+      <% else #not schulze %>
           <h4><%= t('pages.proposals.vote_panel.single_title') %></h4>
           <h4><%= @proposal.secret_vote ? t('pages.proposals.vote_panel.secret_vote') : t('pages.proposals.vote_panel.clear_vote') %></h4>
 

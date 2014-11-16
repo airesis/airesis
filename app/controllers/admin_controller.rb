@@ -3,7 +3,7 @@
 require 'rake'
 
 class AdminController < ManagerController
-  include GroupsHelper, NotificationHelper, ProposalsHelper
+  include ProposalsHelper
 
   before_filter :admin_required
 

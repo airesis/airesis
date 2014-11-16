@@ -1,7 +1,5 @@
 #encoding: utf-8
 class EventsController < ApplicationController
-  include NotificationHelper, GroupsHelper
-
   layout :choose_layout
 
   before_filter :load_group, only: [:index, :new, :create]

@@ -49,7 +49,4 @@ class Notification < ActiveRecord::Base
       read_attribute :message
     end
   end
-
-
-
 end

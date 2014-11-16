@@ -1,6 +1,6 @@
 #encoding: utf-8
 class Quorum < ActiveRecord::Base
-  include ActionView::Helpers::TextHelper, NotificationHelper, Rails.application.routes.url_helpers, GroupsHelper
+  include ActionView::Helpers::TextHelper, Rails.application.routes.url_helpers, GroupsHelper
 
   STANDARD = 2
 

@@ -114,10 +114,7 @@ class OldQuorum < Quorum
           proposal.vote_period = @event
         else
           proposal.proposal_state_id = ProposalState::WAIT_DATE #we passed the debate, we are now waiting for someone to choose the vote date
-          proposal.private? ?
-              notify_proposal_ready_for_vote(proposal, proposal.groups.first) :
-              notify_proposal_ready_for_vote(proposal)
-
+          NotificationProposalReadyForVote.perform_async(proposal.id)
         end
 
         #remove the timer if is still there
@@ -166,16 +163,12 @@ class OldQuorum < Quorum
       end
     end
     proposal.save!
-    proposal.private ?
-        notify_proposal_voted(proposal, proposal.groups.first, proposal.presentation_areas.first) :
-        notify_proposal_voted(proposal)
+    NotificationProposalVoteClosed.perform_async(proposal.id)
   end
-
 
   def has_bad_score?
     self.bad_score && (self.bad_score != self.good_score)
   end
-
 
   def debate_progress
     percentages = []

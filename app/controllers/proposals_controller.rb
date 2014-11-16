@@ -1,6 +1,6 @@
 #encoding: utf-8
 class ProposalsController < ApplicationController
-  include NotificationHelper, GroupsHelper, ProposalsHelper
+  include ProposalsHelper
 
   before_filter :load_group
   before_filter :load_group_area
@@ -359,7 +359,7 @@ class ProposalsController < ApplicationController
       @proposal.vote_period_id = params[:proposal][:vote_period_id]
       @proposal.proposal_state_id = PROP_WAIT
       @proposal.save!
-      notify_proposal_waiting_for_date(@proposal, @group)
+      NotificationProposalWaitingForDate.perform_async(@proposal.id,current_user.id)
       flash[:notice] = I18n.t('info.proposal.date_selected')
       respond_to do |format|
         format.js do
@@ -457,7 +457,6 @@ class ProposalsController < ApplicationController
 
       #invia le notifiche
       users.each do |u|
-        notify_user_choosed_as_author(u, @proposal)
         generate_nickname(u, @proposal)
       end
     end
@@ -547,7 +546,6 @@ class ProposalsController < ApplicationController
       ranking.save!
       @proposal.reload
       load_my_vote
-      notify_user_evaluated_proposal(ranking, @group) #send a notification
     end
 
     flash[:notice] = I18n.t('info.proposal.rank_recorderd')

@@ -1,5 +1,5 @@
 class EventsWorker
-  include Sidekiq::Worker, GroupsHelper, NotificationHelper, Rails.application.routes.url_helpers, ProposalsHelper
+  include Sidekiq::Worker, GroupsHelper, Rails.application.routes.url_helpers, ProposalsHelper
 
   sidekiq_options queue: :high_priority
 

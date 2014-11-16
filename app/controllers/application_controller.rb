@@ -1,6 +1,6 @@
 #encoding: utf-8
 class ApplicationController < ActionController::Base
-  include ApplicationHelper, GroupsHelper, NotificationHelper, StepsHelper
+  include ApplicationHelper, GroupsHelper, StepsHelper
   helper :all
   protect_from_forgery
   after_filter :discard_flash_if_xhr

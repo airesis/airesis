@@ -37,7 +37,7 @@ class NotificationProposalCommentCreate < NotificationSender
           another_increase_or_do('proposal_id',proposal.id,user.id,NotificationType::NEW_CONTRIBUTES_MINE) do
             #for contributes we create a notification for each user and aggregate them if needed
             notification_a = Notification.create!(notification_type_id: NotificationType::NEW_CONTRIBUTES_MINE, url: url + "?#{query.to_query}",data: data)
-            send_notification_to_user(notification_a, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
+            send_notification_for_proposal(notification_a, user,proposal)
           end
         end
       end
@@ -48,7 +48,7 @@ class NotificationProposalCommentCreate < NotificationSender
           another_increase_or_do('proposal_id',proposal.id,user.id,NotificationType::NEW_CONTRIBUTES) do
             notification_b = Notification.create!(notification_type_id: NotificationType::NEW_CONTRIBUTES, url: url +"?#{query.to_query}", data: data)
             #for contributes we create a notification for each user and aggregate them if needed
-            send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
+            send_notification_for_proposal(notification_b, user,proposal)
           end
         end
       end
@@ -61,7 +61,7 @@ class NotificationProposalCommentCreate < NotificationSender
       comment.contribute.participants.each do |user|
         unless user == comment_user
           another_increase_or_do('parent_id',comment.contribute.id,user.id,NotificationType::NEW_COMMENTS) do
-            send_notification_to_user(notification_a, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
+            send_notification_for_proposal(notification_a, user,proposal)
           end
         end
       end

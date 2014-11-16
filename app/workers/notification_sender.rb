@@ -1,6 +1,6 @@
 #TODO duplicated code, all that code is duplicated from notification helper. please fix it asap
 class NotificationSender
-  include Sidekiq::Worker, GroupsHelper, Rails.application.routes.url_helpers
+  include Sidekiq::Worker, GroupsHelper, ProposalsHelper, Rails.application.routes.url_helpers
 
   sidekiq_options queue: :notifications, retry: 1
 
@@ -16,6 +16,13 @@ class NotificationSender
       res = PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil  #todo send specific alert to be included
     end
     true
+  end
+
+  #invia una notifica ad un utente a meno che non abbia bloccato le notifiche per quella proposta
+  #se l'utente ha bloccato il tipo di notifica allora non viene inviata
+  #se l'utente ha abilitato anche l'invio via mail allora viene inviata via mail
+  def send_notification_for_proposal(notification,user,proposal)
+    send_notification_to_user(notification, user) unless BlockedProposalAlert.find_by(user_id: user.id, proposal_id: proposal.id)
   end
 
 
@@ -39,5 +46,10 @@ class NotificationSender
     else
       block.call
     end
+  end
+
+
+  def url_for_proposal(proposal,group=nil)
+    group ? group_proposal_url(group, proposal) : proposal_url(proposal)
   end
 end

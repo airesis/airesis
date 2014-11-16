@@ -32,18 +32,16 @@ class Alert < ActiveRecord::Base
   end
 
   def check!
-    self.update_attributes({checked: true, checked_at: Time.now})
-    if proposal_id = self.data[:proposal_id]
-      ProposalAlert.find_by_proposal_id_and_user_id(proposal_id.to_i, self.user_id).decrement!(:count)
-    end
+    update(checked: true, checked_at: Time.now)
+    ProposalAlert.find_by(proposal_id: data[:proposal_id].to_i, user_id: user_id).decrement!(:count) if data[:proposal_id]
   end
 
 
   def self.check_all
-    self.update_all({checked: true, checked_at: Time.now})
+    self.update_all(checked: true, checked_at: Time.now)
     self.all.each do |alert|
-      if proposal_id = alert.data[:proposal_id]
-        alert = ProposalAlert.find_by(proposal_id: proposal_id.to_i, user_id: alert.user_id)
+      if alert.data[:proposal_id]
+        alert = ProposalAlert.find_by(proposal_id: alert.data[:proposal_id].to_i, user_id: alert.user_id)
         alert.decrement!(:count) if alert
       end
     end
@@ -52,12 +50,12 @@ class Alert < ActiveRecord::Base
   def message
     if data[:i18n]     #todo 'if' added for back support
       if data[:extension]
-        I18n.t("db.#{self.notification_type.class.class_name.tableize}.#{self.notification_type.name}.message.#{data[:extension]}", data)
+        I18n.t("db.#{notification_type.class.class_name.tableize}.#{notification_type.name}.message.#{data[:extension]}", data)
       else
-        I18n.t("db.#{self.notification_type.class.class_name.tableize}.#{self.notification_type.name}.message", data)
+        I18n.t("db.#{notification_type.class.class_name.tableize}.#{notification_type.name}.message", data)
       end
     else
-      self.notification.message
+      notification.message
     end
   end
 
@@ -77,17 +75,16 @@ class Alert < ActiveRecord::Base
     self.update_all({deleted: true, deleted_at: Time.now})
   end
 
-
   protected
 
   def increase_counter
-    @pa = ProposalAlert.find_or_create_by(proposal_id: self.notification.data[:proposal_id].to_i, user_id: self.user_id)
+    @pa = ProposalAlert.find_or_create_by(proposal_id: notification.data[:proposal_id].to_i, user_id: user_id)
     @pa.increment!(:count)
   end
 
   def send_email
-    if !self.user.blocked? && (!self.user.blocked_email_notifications.include? self.notification_type) && self.user.email
-      ResqueMailer.delay_for(2.minutes).notification(self.id)
+    if !user.blocked? && (!user.blocked_email_notifications.include? notification_type) && user.email.present?
+      ResqueMailer.delay_for(2.minutes).notification(id)
     end
   end
 end

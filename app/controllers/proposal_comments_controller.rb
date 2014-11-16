@@ -170,11 +170,9 @@ class ProposalCommentsController < ApplicationController
     ProposalComment.transaction do
       @proposal_comment.integrated_contribute.destroy
       @proposal_comment.update_attribute(:integrated, false)
-      notify_user_unintegrated_contribute(@proposal_comment)
+      NotificationProposalCommentUnintegrate.perform_async(@proposal_comment.id)
     end
-
     redirect_to @proposal
-
   end
 
   def rankup

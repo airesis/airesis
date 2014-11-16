@@ -1,7 +1,5 @@
 #encoding: utf-8
 class GroupParticipationsController < ApplicationController
-  include NotificationHelper
-
   layout 'groups'
 
   before_filter :load_group

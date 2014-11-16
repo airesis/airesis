@@ -1,5 +1,5 @@
 class ProposalsWorker
-  include Sidekiq::Worker, NotificationHelper, Rails.application.routes.url_helpers, GroupsHelper, ProposalsHelper
+  include Sidekiq::Worker, Rails.application.routes.url_helpers, GroupsHelper, ProposalsHelper
   sidekiq_options queue: :high_priority
 
   ENDTIME='endtime'
@@ -19,20 +19,21 @@ class ProposalsWorker
         #invia una notifica a tutti i partecipanti alla proposta
         # che non hanno dato la loro valutazione o possono cambiarla
         # 24 ore prima della chiusura del dibattito
-        notify_24_hours_left(@proposal)
+        NotificationProposalTimeLeft.perform_async(@proposal.id,'24_hours')
       when LEFT1
         #invia una notifica a tutti i partecipanti alla proposta
         # che non hanno dato la loro valutazione o possono cambiarla
         # 1 ora prima della chiusura del dibattito
-        notify_1_hour_left(@proposal)
+        NotificationProposalTimeLeft.perform_async(@proposal.id,'1_hour')
       when LEFT24VOTE
         #send a notification to all participants that can vote the proposal and haven't voted it yet
         # 24 ore prima della chiusura del dibattito
         notify_24_hours_left_to_vote(@proposal)
+        NotificationProposalTimeLeftVote.perform_async(@proposal.id,'24_hours_vote')
       when LEFT1VOTE
         #send a notification to all participants that can vote the proposal and haven't voted it yet
         # 1 ora prima della chiusura del dibattito
-        notify_1_hour_left_to_vote(@proposal)
+        NotificationProposalTimeLeftVote.perform_async(@proposal.id,'1_hour_vote')
       else
         puts "==Action not found!=="
     end

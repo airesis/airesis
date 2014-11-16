@@ -112,7 +112,9 @@ class Proposal < ActiveRecord::Base
   #tutte le proposte entrate in fase di revisione e feedback
   scope :revision, -> { where(proposal_state_id: ProposalState::ABANDONED) }
 
+  #all proposals visible to not logged users
   scope :public, -> { where(['private = ? or visible_outside = ?', false, true]) }
+
   scope :private, -> { where(private: true) } #proposte interne ai gruppi
 
   #condizione di appartenenza ad una categoria
@@ -306,6 +308,19 @@ class Proposal < ActiveRecord::Base
     proposal_type_id == 11
   end
 
+  #return the group to which belongs the proposal
+  #if is in the open space then nil is returned
+  #TODO if belongs to many groups returns the first. we actually have max 1 group
+  def group
+    groups.first
+  end
+
+  #return the group_area to which belongs the proposal
+  #if is in the open space then nil is returned
+  #TODO if belongs to many group_areas returns the first. we actually have max 1 group area
+  def group_area
+    presentation_areas.first
+  end
 
   def tags_list
     @tags_list ||= tags.map(&:text).join(', ')

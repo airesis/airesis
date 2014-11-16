@@ -1,6 +1,5 @@
 #encoding: utf-8
 class GroupsController < ApplicationController
-  include NotificationHelper, GroupsHelper
 
   layout :choose_layout
 
@@ -169,7 +168,6 @@ class GroupsController < ApplicationController
         saved = request.save
         if saved
           flash[:notice] = t('info.group_participations.request_sent')
-          notify_user_asked_for_participation(@group) #invia notifica ai portavoce
         else
           flash[:error] = t('error.group_participations.request_sent')
         end
@@ -223,7 +221,6 @@ class GroupsController < ApplicationController
             request.group_id = group.id
             request.group_participation_request_status_id = 1 #in attesa...
             request.save!
-            notify_user_asked_for_participation(group) #invia notifica ai portavoce
             number += 1
           end
         end

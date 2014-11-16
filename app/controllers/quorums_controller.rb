@@ -1,7 +1,5 @@
 #encoding: utf-8
 class QuorumsController < ApplicationController
-  include NotificationHelper
-
   layout :choose_layout
 
   #security controls
