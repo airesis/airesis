@@ -13,9 +13,13 @@ class GroupParticipationRequest < ActiveRecord::Base
 
   after_commit :send_notifications, on: :create
 
+  def pending?
+    group_participation_request_status_id == GroupParticipationRequestStatus::SENT
+  end
+
   protected
 
   def send_notifications
-    NotificationParticipationRequestCreate.perform_async(id)
+    NotificationParticipationRequestCreate.perform_async(id) if pending?
   end
 end

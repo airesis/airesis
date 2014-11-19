@@ -313,7 +313,7 @@ class ApplicationController < ActionController::Base
       @ranking.ranking_type_id = RankingType::POSITIVE
       @ranking.save!
 
-      generate_nickname(current_user, @proposal)
+      @generated_nickname = @proposal_comment.nickname_generated
 
       if @proposal_comment.is_contribute?
 
@@ -334,21 +334,6 @@ class ApplicationController < ActionController::Base
 
     end
   end
-
-  def generate_nickname(user, proposal)
-    nickname = ProposalNickname.find_by_user_id_and_proposal_id(user.id, proposal.id)
-    unless nickname
-      loop = true
-      while loop do
-        nickname = NicknameGeneratorHelper.give_me_a_nickname
-        loop = ProposalNickname.find_by_proposal_id_and_nickname(proposal.id, nickname)
-      end
-      ProposalNickname.create(user_id: user.id, proposal_id: proposal.id, nickname: nickname)
-
-      @generated_nickname = @proposal.is_anonima?
-    end
-  end
-
 
   def discard_flash_if_xhr
     flash.discard if request.xhr?

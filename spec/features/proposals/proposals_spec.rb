@@ -166,7 +166,7 @@ describe "create a proposal in his group", type: :feature, js: true do
     end
   end
 
-  ProposalType.active.for_groups.order(:seq).each do |proposal_type|
+  ProposalType.active.for_groups.order(:seq).each_with_index do |proposal_type, index|
     it "creates a #{proposal_type.name} proposal in group through dialog window" do
       visit group_proposals_path(group)
       within('.menu-left') do
@@ -187,20 +187,21 @@ describe "create a proposal in his group", type: :feature, js: true do
         click_button I18n.t('pages.proposals.new.create_button')
       end
       page_should_be_ok
-      wait_for_ajax rescue nil
+      wait_for_ajax
       proposal2 = Proposal.order(created_at: :desc).first
       expect(page.current_path).to eq(edit_group_proposal_path(group, proposal2))
-      visit edit_group_proposal_path(group, proposal2)
-      expect(page).to have_content proposal2.title
+      if index == 2
+        visit edit_group_proposal_path(group, proposal2)
+        expect(page).to have_content proposal2.title
 
-      page.execute_script 'window.confirm = function () { return true }'
-      page.execute_script 'safe_exit = true;'
-      wait_for_ajax rescue nil
-      within '#menu-left' do
-        click_link I18n.t('buttons.cancel')
+        page.execute_script 'window.confirm = function () { return true }'
+        page.execute_script 'safe_exit = true;'
+        wait_for_ajax
+        within '#menu-left' do
+          click_link I18n.t('buttons.cancel')
+        end
+        expect(page).to have_content proposal2.title
       end
-      expect(page).to have_content proposal2.title
-
     end
   end
 end

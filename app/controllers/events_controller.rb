@@ -33,7 +33,7 @@ class EventsController < ApplicationController
             event_obj[:group] = event.groups.first.name
             event_obj[:group_url] = group_url(event.groups.first)
           end
-          event_obj[:url] = @group ? group_event_url(@group,event) : event_url(event)
+          event_obj[:url] = @group ? group_event_url(@group, event) : event_url(event)
           events << event_obj
         end
         render text: events.to_json
@@ -92,7 +92,7 @@ class EventsController < ApplicationController
       @event.private = true
       respond_to do |format|
         format.js
-        format.html { redirect_to controller: 'events', action: 'index', group_id: params[:group_id], new_event: 'true', event_type_id: (params[:event_type_id] || EventType::INCONTRO)  }
+        format.html { redirect_to controller: 'events', action: 'index', group_id: params[:group_id], new_event: 'true', event_type_id: (params[:event_type_id] || EventType::INCONTRO) }
       end
     end
   end
@@ -110,16 +110,8 @@ class EventsController < ApplicationController
 
     Event.transaction do
       if (!event_params[:period]) || (event_params[:period] == "Non ripetere")
-        @event.user_id = current_user.id
+        @event.user = current_user
         @group ? @group.save! : @event.save!
-
-        #fai partire il timer per far scadere la proposta fuori dalla transazione
-        if @event.is_votazione?
-          EventsWorker.perform_at(@event.starttime, {action: EventsWorker::STARTVOTATION, event_id: @event.id})
-          EventsWorker.perform_at(@event.endtime, {action: EventsWorker::ENDVOTATION, event_id: @event.id})
-        end
-        NotificationEventCreate.perform_async(current_user.id, @event.id)
-
         if @event.proposal_id.to_s != ''
           @proposal = Proposal.find(@event.proposal_id)
           @proposal.vote_period_id = @event.id

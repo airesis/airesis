@@ -21,9 +21,7 @@ class NotificationProposalCommentUnintegrate < NotificationSender
     notification_a = Notification.new(notification_type_id: NotificationType::UNINTEGRATED_CONTRIBUTE, url: url_for_proposal(proposal, group), data: data)
     notification_a.save
     proposal.users.each do |user|
-      if user != current_user
-        send_notification_for_proposal(notification_a, user, proposal)
-      end
+      send_notification_for_proposal(notification_a, user, proposal) unless  user == comment_user
     end
   end
 end

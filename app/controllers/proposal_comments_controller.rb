@@ -112,7 +112,7 @@ class ProposalCommentsController < ApplicationController
     post_contribute
 
     respond_to do |format|
-      @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id)
+      @my_nickname = current_user.proposal_nicknames.find_by(proposal_id: @proposal.id)
       @proposal_comment.collapsed = true
       format.js
       format.json { head :ok }
@@ -167,11 +167,7 @@ class ProposalCommentsController < ApplicationController
   #allow a user to tell the proposal author that his contribute has not been integrated well
   def unintegrate
     authorize! :unintegrate, @proposal_comment
-    ProposalComment.transaction do
-      @proposal_comment.integrated_contribute.destroy
-      @proposal_comment.update_attribute(:integrated, false)
-      NotificationProposalCommentUnintegrate.perform_async(@proposal_comment.id)
-    end
+    @proposal_comment.unintegrate
     redirect_to @proposal
   end
 

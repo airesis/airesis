@@ -1,4 +1,5 @@
 class GroupParticipationRequestStatus < ActiveRecord::Base
+
   SENT=1
   VOTING=2
   ACCEPTED=3

@@ -22,7 +22,7 @@ class ProposalComment < ActiveRecord::Base
 
   validates_length_of :content, minimum: 10, maximum: CONTRIBUTE_MAX_LENGTH
 
-  attr_accessor :collapsed
+  attr_accessor :collapsed, :nickname_generated
 
   after_initialize :set_collapsed
 
@@ -52,6 +52,7 @@ class ProposalComment < ActiveRecord::Base
 
   before_create :set_paragraph_id
 
+  after_create :generate_nickname
   after_commit :send_email, on: :create
 
   def is_contribute?
@@ -103,7 +104,19 @@ class ProposalComment < ActiveRecord::Base
   end
 
   def send_email
-    NotificationProposalCommentCreate.perform_async(self.id)
+    NotificationProposalCommentCreate.perform_async(id)
+  end
+
+
+  def generate_nickname
+    proposal_nickname = ProposalNickname.generate(user, proposal)
+    self.nickname_generated = proposal_nickname.generated
+  end
+
+  #unintegrate the comment if it was integrated somewhere
+  def unintegrate
+    integrated_contribute.destroy
+    update(integrated: false)
   end
 
 end

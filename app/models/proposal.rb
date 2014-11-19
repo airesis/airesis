@@ -5,7 +5,7 @@ class Proposal < ActiveRecord::Base
   belongs_to :state, class_name: 'ProposalState', foreign_key: :proposal_state_id
   belongs_to :category, class_name: 'ProposalCategory', foreign_key: :proposal_category_id
   belongs_to :vote_period, class_name: 'Event', foreign_key: :vote_period_id #attached when is decided
-  belongs_to :vote_event, class_name: 'Event', foreign_key: :vote_event_id  #attached when the proposal is created, only possible
+  belongs_to :vote_event, class_name: 'Event', foreign_key: :vote_event_id #attached when the proposal is created, only possible
   has_many :proposal_presentations, -> { order 'id DESC' }, class_name: 'ProposalPresentation', dependent: :destroy
 
   has_many :proposal_borders, class_name: 'ProposalBorder', dependent: :destroy
@@ -131,10 +131,12 @@ class Proposal < ActiveRecord::Base
   scope :invalid_waiting_phase, -> { waiting.joins(:vote_period).where('current_timestamp > events.starttime') }
   scope :invalid_vote_phase, -> { voting.joins(:vote_period).where('current_timestamp > events.endtime') }
 
-
   after_initialize :init
 
   before_validation :before_create_populate, on: :create
+
+  after_create :generate_nickname
+
   after_commit :send_notifications, on: :create
   after_commit :send_update_notifications, on: :update
 
@@ -161,11 +163,11 @@ class Proposal < ActiveRecord::Base
       return []
     else
       return self.current
-      .select('distinct proposals.*, proposal_alerts.count as alerts_count, proposal_rankings.ranking_type_id as ranking')
-      .includes([:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category])
-      .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}").where(['proposals.id in (?) ', @list_c])
-      .joins("left outer join proposal_rankings on proposals.id = proposal_rankings.proposal_id and proposal_rankings.user_id = #{user.id}")
-      .order('proposals.updated_at desc')
+                 .select('distinct proposals.*, proposal_alerts.count as alerts_count, proposal_rankings.ranking_type_id as ranking')
+                 .includes([:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category])
+                 .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}").where(['proposals.id in (?) ', @list_c])
+                 .joins("left outer join proposal_rankings on proposals.id = proposal_rankings.proposal_id and proposal_rankings.user_id = #{user.id}")
+                 .order('proposals.updated_at desc')
     end
   end
 
@@ -173,24 +175,24 @@ class Proposal < ActiveRecord::Base
   def self.open_space_portlet(user=nil)
     user_id = user ? user.id : -1
     @list_a = Proposal.public
-    .select('distinct proposals.*, proposal_alerts.count as alerts_count, proposal_rankings.ranking_type_id as ranking')
-    .includes([:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category])
-    .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user_id}")
-    .joins("left outer join proposal_rankings on proposals.id = proposal_rankings.proposal_id and proposal_rankings.user_id = #{user_id}")
-    .joins("join proposal_types pt on (proposals.proposal_type_id = pt.id)")
-    .where("pt.name != '#{ProposalType::PETITION}'")
-    .order('updated_at DESC').limit(10)
+                  .select('distinct proposals.*, proposal_alerts.count as alerts_count, proposal_rankings.ranking_type_id as ranking')
+                  .includes([:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category])
+                  .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user_id}")
+                  .joins("left outer join proposal_rankings on proposals.id = proposal_rankings.proposal_id and proposal_rankings.user_id = #{user_id}")
+                  .joins("join proposal_types pt on (proposals.proposal_type_id = pt.id)")
+                  .where("pt.name != '#{ProposalType::PETITION}'")
+                  .order('updated_at DESC').limit(10)
   end
 
   #retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
   def self.open_space_petitions_portlet(user)
     @list_a = Proposal.public
-    .select('distinct proposals.*, proposal_alerts.count as alerts_count')
-    .includes([:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category])
-    .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}")
-    .joins("join proposal_types pt on (proposals.proposal_type_id = pt.id)")
-    .where("pt.name = '#{ProposalType::PETITION}'")
-    .order('updated_at DESC').limit(10)
+                  .select('distinct proposals.*, proposal_alerts.count as alerts_count')
+                  .includes([:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category])
+                  .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}")
+                  .joins("join proposal_types pt on (proposals.proposal_type_id = pt.id)")
+                  .where("pt.name = '#{ProposalType::PETITION}'")
+                  .order('updated_at DESC').limit(10)
   end
 
   def self.votation_portlet(user)
@@ -220,8 +222,8 @@ class Proposal < ActiveRecord::Base
     query = group.proposals.includes([:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category]).order('created_at desc').limit(10)
     if user
       query = query.select('distinct proposals.*, proposal_alerts.count as alerts_count, proposal_rankings.ranking_type_id as ranking')
-      .joins(" left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}")
-      .joins("left outer join proposal_rankings on proposals.id = proposal_rankings.proposal_id and proposal_rankings.user_id = #{user.id}")
+                  .joins(" left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}")
+                  .joins("left outer join proposal_rankings on proposals.id = proposal_rankings.proposal_id and proposal_rankings.user_id = #{user.id}")
     end
   end
 
@@ -231,7 +233,7 @@ class Proposal < ActiveRecord::Base
     alerts ? alerts.count : 0
   end
 
-#after_find :calculate_percentage
+  #after_find :calculate_percentage
 
   def integrated_contributes_ids_list=(value)
     self.integrated_contributes_ids = value.split(/,\s*/)
@@ -253,7 +255,7 @@ class Proposal < ActiveRecord::Base
     #Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: self.id}) #TODO remove jobs
   end
 
-#return true if the proposal is currently in debate
+  #return true if the proposal is currently in debate
   def in_valutation?
     proposal_state_id == ProposalState::VALUTATION
   end
@@ -290,12 +292,12 @@ class Proposal < ActiveRecord::Base
     [ProposalState::VALUTATION, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING].include? proposal_state_id
   end
 
-#restituisce 'true' se la proposta è attualmente anonima, ovvero è stata definita come tale ed è in dibattito
+  #restituisce 'true' se la proposta è attualmente anonima, ovvero è stata definita come tale ed è in dibattito
   def is_anonima?
     is_current? && anonima
   end
 
-#return true if the proposal is in a group
+  #return true if the proposal is in a group
   def in_group?
     private?
   end
@@ -357,7 +359,7 @@ class Proposal < ActiveRecord::Base
     "#{id}-#{title.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
   end
 
-#restituisce il primo autore della proposta
+  #restituisce il primo autore della proposta
   def user
     @first_user ||= proposal_presentations.first.user
   end
@@ -380,7 +382,7 @@ class Proposal < ActiveRecord::Base
   end
 
 
-#retrieve the number of users that can vote this proposal
+  #retrieve the number of users that can vote this proposal
   def eligible_voters_count
     return User.confirmed.unblocked.count unless private?
     if self.presentation_areas.size > 0 #if we are in a working area
@@ -407,14 +409,14 @@ class Proposal < ActiveRecord::Base
     ActiveRecord::Base.connection.execute(query.to_sql)[0]['count'].to_i
   end
 
-#retrieve all the participants to the proposals that are still part of the group
+  #retrieve all the participants to the proposals that are still part of the group
   def participants
     #all users who ranked the proposal
     a = User.joins(proposal_rankings: :proposal).where(proposals: {id: id}).load
     #all users who contributed to the proposal
     b = User.joins(proposal_comments: :proposal).where(proposals: {id: id}).load
     c = (a | b)
-    if self.private
+    if private
       #all users that are part of the group of the proposal
       d = self.supporting_groups.map { |group| group.participants }.flatten
       e = self.groups.map { |group| group.participants }.flatten
@@ -426,7 +428,7 @@ class Proposal < ActiveRecord::Base
   end
 
 
-#all users that will receive a notification that asks them to check or give their valutation to the proposal
+  #all users that will receive a notification that asks them to check or give their valutation to the proposal
   def notification_receivers
     #will receive the notification the users that partecipated to the proposal and can change their valutation or they haven't give it yet
     users = self.participants
@@ -440,7 +442,7 @@ class Proposal < ActiveRecord::Base
   end
 
 
-#all users that will receive a notification that asks them to vote the proposal
+  #all users that will receive a notification that asks them to vote the proposal
   def vote_notification_receivers
     #will receive the notification the users that partecipated to the proposal and can change their valutation or they haven't give it yet
     users = self.participants
@@ -452,7 +454,7 @@ class Proposal < ActiveRecord::Base
     end
   end
 
-#restituisce la lista delle 10 proposte più vicine a questa
+  #restituisce la lista delle 10 proposte più vicine a questa
   def closest(group_id=nil)
     sql_q = " SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.quorum_id, p.anonima, p.visible_outside, p.secret_vote, p.proposal_votation_type_id, p.content,
               p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
@@ -508,7 +510,7 @@ class Proposal < ActiveRecord::Base
     end
   end
 
-#restituisce la percentuale di avanzamento della proposta in base al quorum assegnato
+  #restituisce la percentuale di avanzamento della proposta in base al quorum assegnato
   def calculate_percentage
     return unless self.quorum
     @percentage = self.quorum.debate_progress
@@ -550,18 +552,35 @@ class Proposal < ActiveRecord::Base
     self.valutations = 0
     self.rank = 0
 
+    NotificationProposalAbandoned.perform_async(id, participants.map(&:id))
     #and authors
     proposal_presentations.destroy_all
 
     #and rankings
     rankings.destroy_all
 
-    NotificationProposalAbandoned.perform_async(id, groups.first.try(:id))
 
     #remove the timer if is still there
     #if self.minutes #todo remove jobs
     #  Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id})
     #end
+  end
+
+  #put the proposal back in debate from abandoned
+  def regenerate(params)
+    self.proposal_state_id = ProposalState::VALUTATION
+    user = User.find(current_user_id)
+    users << user
+    update(params)
+    assign_quorum
+
+    ProposalNickname.generate(user, self)
+
+    #if the time is fixed we schedule notifications 24h and 1h before the end of debate
+    if quorum.time_fixed?
+      ProposalsWorker.perform_at(quorum.ends_at - 24.hours, {action: ProposalsWorker::LEFT24, proposal_id: id}) if quorum.minutes > 1440
+      ProposalsWorker.perform_at(quorum.ends_at - 1.hour, {action: ProposalsWorker::LEFT1, proposal_id: id}) if quorum.minutes > 60
+    end
   end
 
   private
@@ -750,5 +769,9 @@ class Proposal < ActiveRecord::Base
       end
     end
     self.vote_defined = true
+  end
+
+  def generate_nickname
+    ProposalNickname.generate(User.find(current_user_id), self)
   end
 end

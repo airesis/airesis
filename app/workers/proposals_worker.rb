@@ -28,7 +28,6 @@ class ProposalsWorker
       when LEFT24VOTE
         #send a notification to all participants that can vote the proposal and haven't voted it yet
         # 24 ore prima della chiusura del dibattito
-        notify_24_hours_left_to_vote(@proposal)
         NotificationProposalTimeLeftVote.perform_async(@proposal.id,'24_hours_vote')
       when LEFT1VOTE
         #send a notification to all participants that can vote the proposal and haven't voted it yet

@@ -1,13 +1,13 @@
 class NotificationProposalAbandoned < NotificationSender
 
-  def perform(proposal_id, group_id = nil)
-    elaborate(proposal_id, group_id)
+  def perform(proposal_id, participant_ids = [])
+    elaborate(proposal_id, participant_ids)
   end
 
-  #invia le notifiche quando un una proposta viene aggiornata
-  def elaborate(proposal_id, group_id = nil)
+  #send alerts when a proposal is abandoned
+  def elaborate(proposal_id, participant_ids = [])
     proposal = Proposal.find(proposal_id)
-    group = Group.find(group_id) if group_id
+    group = proposal.group
     subject = ''
     subject += "[#{group.name}] " if group
     subject +="#{proposal.title} non ha superato il dibattito"
@@ -15,16 +15,27 @@ class NotificationProposalAbandoned < NotificationSender
 
     notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: url_for_proposal(proposal,group), data: data)
     notification_a.save
-    proposal.users.each do |user|
-      send_notification_for_proposal(notification_a, user, proposal) unless (defined? current_user) && (user == current_user)
+    puts proposal.proposal_lives.first.users.count
+    old_authors(proposal).each do |user|
+      puts "send email"
+      send_notification_for_proposal(notification_a, user, proposal)
     end
 
+    puts participant_ids.count
     notification_b = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS, url: url_for_proposal(proposal,group), data: data)
-    proposal.participants.each do |user|
-      unless proposal.users.include? user
+    old_participants(proposal,participant_ids).each do |user|
+        puts "send email participant"
         another_delete('proposal_id', proposal.id, user.id, NotificationType::PHASE_ENDING)
         send_notification_for_proposal(notification_b, user, proposal)
-      end
     end
+  end
+
+
+  def old_authors(proposal)
+    proposal.proposal_lives.first.users
+  end
+
+  def old_participants(proposal, participant_ids)
+    User.where(id: participant_ids).where.not(id: old_authors(proposal).pluck(:id))
   end
 end

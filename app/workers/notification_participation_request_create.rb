@@ -4,7 +4,7 @@ class NotificationParticipationRequestCreate < NotificationSender
     elaborate(group_participation_request_id)
   end
 
-  #invia una notifica agli utenti che possono accettare membri che l'utente corrente ha effettuato una richiesta di partecipazione al gruppo
+  #send an alert to all users which can accept new users in the group
   def elaborate(group_participation_request_id)
     group_participation_request = GroupParticipationRequest.find(group_participation_request_id)
     user = group_participation_request.user
@@ -13,9 +13,9 @@ class NotificationParticipationRequestCreate < NotificationSender
     data['subdomain'] = group.subdomain if group.certified?
     notification_a = Notification.new(notification_type_id: NotificationType::NEW_PARTICIPATION_REQUEST, url: group_url(group), data: data)
     notification_a.save
-    group.scoped_participants(GroupAction::REQUEST_ACCEPT).each do |user|
-      another_increase_or_do('group_id', group.id, user.id, NotificationType::NEW_PARTICIPATION_REQUEST) do
-        send_notification_to_user(notification_a, user)
+    group.scoped_participants(GroupAction::REQUEST_ACCEPT).each do |receiver|
+      another_increase_or_do('group_id', group.id, receiver.id, NotificationType::NEW_PARTICIPATION_REQUEST) do
+        send_notification_to_user(notification_a, receiver)
       end
     end
   end

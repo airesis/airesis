@@ -37,6 +37,8 @@ class Event < ActiveRecord::Base
 
   after_destroy :remove_scheduled_tasks
 
+  after_commit :send_notifications, on: :create
+
   REPEATS = ['Non ripetere',
              'Ogni giorno',
              'Ogni settimana',
@@ -235,6 +237,18 @@ class Event < ActiveRecord::Base
 
       ProposalsWorker.perform_at(endtime - 24.hours, {action: ProposalsWorker::LEFT24VOTE, proposal_id: proposal.id}) if (duration/60) > 1440
       ProposalsWorker.perform_at(endtime - 1.hour, {action: ProposalsWorker::LEFT1VOTE, proposal_id: proposal.id}) if (duration/60) > 60
+    end
+  end
+
+  protected
+
+  def send_notifications
+    NotificationEventCreate.perform_async(id)
+
+    #timers for start and endtime
+    if is_votazione?
+      EventsWorker.perform_at(starttime, {action: EventsWorker::STARTVOTATION, event_id: id})
+      EventsWorker.perform_at(endtime, {action: EventsWorker::ENDVOTATION, event_id: id})
     end
   end
 end

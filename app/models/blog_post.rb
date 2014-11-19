@@ -102,6 +102,6 @@ class BlogPost < ActiveRecord::Base
   protected
 
   def send_notifications
-    NotificationBlogPostCreate.perform_async(self.id) unless self.draft?
+    NotificationBlogPostCreate.perform_async(id) unless draft?
   end
 end
