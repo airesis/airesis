@@ -4,7 +4,7 @@ require "cancan/matchers"
 
 describe 'notifications for new events to participants in groups in which is published', type: :feature do
 
-  it "sends correctly an email to people interested in the event" do
+  it "sends correctly an email to group participants" do
     user = create(:user)
     group = create(:group, current_user_id: user.id)
     group_users = []

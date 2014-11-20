@@ -72,12 +72,14 @@
 <script>
     function mytabCallback(obj) {
         var active_ = $('#proposals-content .content.active');
+
         //var state_ = obj.find('a').attr('data-state');
         if (obj.data('ititialized')) {
             //do nothing...cached
         }
        else {
             var url_ = obj.find('a').attr('data-href');
+            console.log('url',url_);
             $.ajax({
                 dataType: 'html',
                 url: url_,
@@ -88,9 +90,7 @@
                 }
             });
         }
-
         window.location.hash = obj.find('a').attr('href').replace('#', '_');
-
     }
 
     function hashChange() {
@@ -102,7 +102,7 @@
     $(function () {
 
         $('#proposals-tabs').on('toggled', function (event, tab) {
-            mytabCallback(tab);
+            mytabCallback($('#proposals-tabs').find('.active'));
         });
 
         mytabCallback($('#proposals-tabs').find('.active'));
@@ -123,7 +123,7 @@
             stepHour: 1,
             altTimeField: "alt",
             time24h: true
-        }
+        };
 
 
         $('#time_start_w').datepicker($.extend({

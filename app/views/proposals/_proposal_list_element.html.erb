@@ -1,6 +1,6 @@
 <li id="proposal<%= proposal.id %>" class="proposal_list">
   <div class="proposal_cont card appear">
-    <div class="left_cont">
+    <div class="left_cont hide-for-small">
       <div class="inner_cont">
         <div class="model">
           <%= proposal.proposal_type.description.upcase %>
@@ -60,7 +60,7 @@
       <div class="clearboth"></div>
 
 
-      <div class="proposal_bottom">
+      <div class="proposal_bottom show-for-large-up">
         <% if proposal.in_valutation? %>
             <div class="timeDescription timeleft" style="float:left" title="<%= t('pages.proposals.list.condition_left').upcase %>">
               <%= image_tag 'plist/stopwatch.png' %>

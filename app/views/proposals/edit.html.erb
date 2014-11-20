@@ -135,7 +135,7 @@
 
     <hr/>
 
-    <% @proposal.solutions.includes({sections: :paragraphs}).order('sections.seq').each_with_index do |solution, i| %>
+    <% @proposal.solutions.includes({sections: :paragraphs}).order('sections.seq, sections.id').each_with_index do |solution, i| %>
         <%= f.fields_for :solutions, solution do |sol| %>
             <div class="solution_main card" data-solution_id="<%= i %>">
               <h3>

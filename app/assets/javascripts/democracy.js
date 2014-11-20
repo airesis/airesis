@@ -593,6 +593,7 @@ function poll() {
 
             $('.cont1')
                 .bind('mousewheel DOMMouseScroll', function (e) {
+                    console.log('scroll');
                     if (e.originalEvent) e = e.originalEvent;
                     var delta = e.wheelDelta || -e.detail;
                     this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
@@ -704,10 +705,16 @@ function fitRightMenu(fetched) {
     fetched.addClass('contributes_shown');
     fetched.css('display', '');
 
-    fetched.height($(window).height() - 110);
+    if (matchMedia(Foundation.media_queries['medium']).matches) {
+        console.log('set height');
+        fetched.height($(window).height() - 110);
+    }
 
     $(window).resize(function () {
-        fetched.height($(window).height() - 110);
+        if (matchMedia(Foundation.media_queries['medium']).matches) {
+            console.log('set height');
+            fetched.height($(window).height() - 110);
+        }
     });
 }
 

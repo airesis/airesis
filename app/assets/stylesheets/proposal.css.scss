@@ -29,8 +29,9 @@
 
 .close-right-section {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 10px;
+  right: 10px;
+  font-size: 2rem;
   cursor: pointer;
 }
 
@@ -85,12 +86,14 @@
 .proposal_comment {
   position: relative;
   border: 1px solid #CCCCCC;
-  -webkit-border-radius: 3px 3px 0px 0px;
-  -moz-border-radius: 3px 3px 0px 0px;
-  border-radius: 3px 3px 0px 0px;
-  margin-left: 50px;
+  -webkit-border-radius: 3px 3px 0 0;
+  -moz-border-radius: 3px 3px 0 0;
+  border-radius: 3px 3px 0 0;
   color: #333333;
   background-color: #fff;
+  @media #{$medium-up} {
+    margin-left: 50px;
+  }
 }
 
 .show_all_comments {
@@ -117,10 +120,17 @@
   -webkit-border-radius: 0px 0px 3px 3px;
   -moz-border-radius: 0px 0px 3px 3px;
   border-radius: 0px 0px 3px 3px;
-  margin-left: 97px;
+  margin-left: 32px;
+  @media #{$medium-up} {
+    margin-left: 97px;
+  }
   color: #333333;
   .reply_area {
-    margin-right: 140px;
+    margin-right: 100px;
+    @media #{$medium-up} {
+      margin-right: 140px;
+
+    }
     margin-left: 10px;
     margin-bottom: 24px;
     textarea {
@@ -131,7 +141,10 @@
   .reply_button {
     bottom: 5px;
     position: absolute;
-    right: 20px;
+    @media #{$medium-up} {
+      right: 20px;
+    }
+    right: 10px;
   }
   .reply_content {
     padding: 5px;
@@ -152,7 +165,9 @@
 }
 
 .reply_img {
-  margin: 5px 5px 0px 55px;
+  @media #{$medium-up} {
+    margin: 5px 5px 0px 55px;
+  }
   float: left;
 }
 
@@ -560,8 +575,10 @@
 }
 
 .blogUserImage {
-  float: left;
-  margin: 0px 5px 5px 0px;
+  @media #{$medium-up} {
+    float: left;
+    margin: 0px 5px 5px 0px;
+  }
 }
 
 ul.blogList {
@@ -735,6 +752,13 @@ h3 {
   position: absolute;
   left: -10px;
   top: 7px;
+  @media #{$small-only} {
+    &.contribute {
+      left: 5px;
+      top: -15px;
+      transform: rotate(90deg);
+    }
+  }
 }
 
 .ui-tabs.ui-widget-content,

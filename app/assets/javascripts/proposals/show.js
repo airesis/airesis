@@ -19,7 +19,7 @@ function contribute(section_id) {
 
     // Stop the animation if the user scrolls. Defaults on .stop() should be fine
     $viewport.bind("scroll mousedown DOMMouseScroll mousewheel keyup", function (e) {
-        if (e.which > 0 || e.type === "mousedown" || e.type === "mousewheel") {
+        if (matchMedia(Foundation.media_queries['medium']).matches && e.which > 0 || e.type === "mousedown" || e.type === "mousewheel") {
             $viewport.stop().unbind('scroll mousedown DOMMouseScroll mousewheel keyup'); // This identifies the scroll as a user action, stops the animation, then unbinds the event straight after (optional)
         }
     });

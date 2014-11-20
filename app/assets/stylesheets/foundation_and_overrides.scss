@@ -1737,10 +1737,17 @@ $logo-width: 100px;
     padding-left: $topbar-link-padding;
     padding-right: $topbar-link-padding;
   }
-  &.contributes_shown {
-    max-width: 50%;
+  @media #{$small-only} {
+    &.contributes_shown {
+      .centerfloat {
+        display: none;
+      }
+    }
   }
   @media #{$medium-up} {
+    &.contributes_shown {
+      max-width: 50%;
+    }
     &:not(.nomargin) {
 
     }
@@ -1751,20 +1758,22 @@ $logo-width: 100px;
 }
 
 .suggestion_right {
-  margin-top: 10px;
-  position: fixed;
-  top: $top-small;
-  right: 10px;
-  overflow: auto;
-  height: 100%;
-  border-left: 1px solid #ccc;
-  padding: 0.4rem;
-  &.contributes_shown {
-    left: 50%;
-    margin-left: 10px;
+  @media #{$small-only} {
+    width: 100%;
   }
   @media #{$medium-up} {
+    &.contributes_shown {
+      left: 50%;
+      margin-left: 10px;
+    }
     top: $top-large;
+    position: fixed;
+    top: $top-small;
+    right: 10px;
+    overflow: auto;
+    height: 100%;
+    border-left: 1px solid #ccc;
+    padding: 0.4rem;
   }
 }
 
@@ -2876,6 +2885,14 @@ ul.social-network {
     padding: 0 0 1rem;
     .zocial {
       margin: 8px 0;
+    }
+  }
+}
+
+@media #{$small-only} {
+  #proposals-tabs {
+    dd {
+      width: 50%;
     }
   }
 }
