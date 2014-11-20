@@ -588,7 +588,8 @@ class Proposal < ActiveRecord::Base
 
     update_borders
 
-    proposal_presentations.build(user: User.find(current_user_id))
+    current_user = User.find(current_user_id)
+    proposal_presentations.build(user: current_user)
 
     #per sicurezza reimposto questi parametri per far si che i cattivi hacker non cambino le impostazioni se non possono
     if group
@@ -601,7 +602,7 @@ class Proposal < ActiveRecord::Base
 
       group_area = GroupArea.find(group_area_id) if group_area_id.present?
       if group_area #check user permissions for this group area
-        errors.add(:group_area_id, I18n.t('permissions_required')) if users.first.cannot? :insert_proposal, group_area
+        errors.add(:group_area_id, I18n.t('permissions_required')) if current_user.cannot? :insert_proposal, group_area
         self.presentation_areas << group_area
       end
 

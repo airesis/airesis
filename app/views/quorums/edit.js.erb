@@ -3,6 +3,5 @@ $('body').append(container_);
 container_.html("<%= j (render(partial: 'quorums/form', locals: {button_name: t('buttons.update')}))%>");
 
 airesis_reveal(container_);
-console.log('enable on',container_.find('form'));
 container_.find('form').enableClientSideValidations();
 

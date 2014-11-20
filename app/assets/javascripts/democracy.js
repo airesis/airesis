@@ -227,7 +227,6 @@ function calculate_event_times() {
 }
 
 function addMinutes(date, minutes) {
-    console.log('add ' + minutes);
     return new Date(date.getTime() + minutes * 60000);
 }
 
@@ -529,8 +528,8 @@ function sign_all_as_read(id) {
         type: 'post',
         dataType: 'js',
         complete: function (data) {
-            reset_alerts_number()
-            $('.cont-mess .mess.new').each(function () {
+            reset_alerts_number();
+            $('.mess.new').each(function () {
                 $(this).removeClass('new');
                 var proposal_id = $(this).data('proposal-id');
                 if (proposal_id) {
@@ -714,7 +713,6 @@ function fitRightMenu(fetched) {
 
 //custom formatter for categories in select2 dropdown
 function formatCategory(state) {
-    console.log(state);
     if (!state.id) return state.text; // optgroup
     var imgsrc = $(state.element).data('imagesrc');
     return "<img src=\""+imgsrc+"\"/> " + state.text;

@@ -22,10 +22,6 @@
   </script>
 
   <div class="card">
-    <p class="blogPostPostedAt">
-      <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to_user @blog_post.user), date: (l @blog_post.updated_at)) %>
-    </p>
-
     <div class="blogPostBody" itemprop="description">
       <%= sanitize @blog_post.body %>
       <div class="clearboth"></div>

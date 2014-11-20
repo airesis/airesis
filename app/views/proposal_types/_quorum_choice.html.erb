@@ -73,11 +73,9 @@
                         var end_field = $("#proposal_votation_end");
 
                         choose_vote.find('.start_vot').html('<%=t('pages.quorums.index.debate_end')%>' + ' (' + dateToString(upperend_) + ')');
-                        console.log('votation start is on' + upperend_);
                         start_field.fdatetimepicker("setStartDate", upperend_);
                         start_field.fdatetimepicker("setDate", upperend_);
                         end_field.fdatetimepicker("setStartDate", min_votation_end_);
-                        console.log('votation end is on' + votation_end_);
                         end_field.fdatetimepicker("setDate", votation_end_);
                     }
                 });

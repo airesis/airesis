@@ -7,8 +7,10 @@ class AlertsController < ApplicationController
   load_and_authorize_resource except: [:check_all,:proposal], through: :current_user
 
   def index
+
     respond_to do |format|
       format.html {
+        @user = current_user
         @page_title = "All alerts"
         @new_alerts = @alerts.includes(:notification).where(checked: false)
         @old_alerts = @alerts.includes(:notification).where(checked: true)

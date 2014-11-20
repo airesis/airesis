@@ -67,8 +67,8 @@ it-IT:
         title: "IMPOSTAZIONI E PREFERENZE"
       alarm_preferences:
         receive_on_address: "Ricevi newsletter su %{email}"
-        alerts: "Ricevi notifica"
-        emails: "Ricevi email"
+        alerts: "Notifica"
+        emails: "Email"
       privacy_preferences:
         tooltips: "Mostra tooltip di aiuto"
         show_urls: "Mostra URL Facebook, Google+ e LinkedIn agli altri utenti"

@@ -129,7 +129,6 @@ function check_before_exit() {
 function getCleanContent(editor_id) {
     "use strict";
     var editor = CKEDITOR.instances[editor_id];
-    console.log(editor.plugins.lite);
     return editor.plugins.lite.findPlugin(editor)._tracker.getCleanContent();
 }
 

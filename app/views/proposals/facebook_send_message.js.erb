@@ -15,9 +15,6 @@ var left_offset = 10;
 var added = parseInt($('#sent_friends').attr('data-added'));
 var column = parseInt(added%in_row);
 var row = parseInt(added/in_row);
-console.log('added: ' + added);
-console.log('column: ' + column);
-console.log('row: ' + row);
 var offset = $('#sent_friends').offset();
 toMove.animate({
     top: offset.top + top_offset + row*col_space,

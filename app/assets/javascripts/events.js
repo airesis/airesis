@@ -106,7 +106,6 @@ var marker_cache = {}
  * Posiziona il marcatore in un indirizzo specifico
  */
 function putMarker(address) {
-    console.log('put marker on', address);
     if (marker_cache[address] == null) {
         $('.loading_place').show();
         geocoder.geocode({
@@ -134,7 +133,6 @@ function putMarker(address) {
 }
 
 function posizionaMappa(latlng, viewport) {
-    console.log('posiziono mappa');
     map.setCenter(latlng);
     marker.setPosition(latlng);
     map.fitBounds(viewport);
@@ -142,7 +140,6 @@ function posizionaMappa(latlng, viewport) {
 
 function listenMarkerPosition() {
     var location_ = marker.getPosition();
-    console.log('position',location_);
     $('#' + basename + "latitude_original").val(location_.lat());
     $('#' + basename + "longitude_original").val(location_.lng());
 }
@@ -150,13 +147,11 @@ function listenMarkerPosition() {
 
 function listenCenterChanged() {
     var location_ = map.getCenter();
-    console.log('center',location_);
     $('#' + basename + "latitude_center").val(location_.lat());
     $('#' + basename + "longitude_center").val(location_.lng());
 }
 
 function listenZoomChanged() {
-    console.log('zoom',map.getZoom());
     $('#' + basename + "zoom").val(map.getZoom());
 
 }

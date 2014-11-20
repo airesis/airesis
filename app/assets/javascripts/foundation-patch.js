@@ -500,9 +500,7 @@
         },
 
         init : function (scope, method, options) {
-            console.log('patched');
             Foundation.inherit(this, 'throttle');
-
             this.bindings(method, options);
         },
 
@@ -726,11 +724,6 @@
                         actualBoundary = window.outerWidth - actualMarginWidth;
                         p.leftRightFlag = true;
                     }
-                    console.log(t.offset().left);
-                    console.log(this.outerWidth());
-                    console.log(t.offset().left);
-                    console.log(actualMarginWidth);
-                    console.log("body width:",actualBodyWidth);
                     //miss right
                     if (t.offset().left + this.outerWidth() > t.offset().left + actualMarginWidth && t.offset().left - actualMarginWidth > this.outerWidth()) {
                         p.missRight = true;
@@ -777,7 +770,6 @@
                 var self = Foundation.libs.dropdown,
                     p = self.dirs._base.call(this, t);
 
-                console.log('calculta',p);
                 if (p.missRight == true) {
                     p.left = p.left - this.outerWidth() + t.outerWidth();
                 }

@@ -1,19 +1,21 @@
 <% @page_title = t('pages.users.left_panel.geographic_borders') %>
-<%= form_for 'token', url: set_interest_borders_users_path do |f| %>
-    <div id="border_fields">
-      <%= f.label t('pages.users.border_preferences.your_borders') %>
-      <%= f.text_field 'interest_borders', "data-pre" => current_user.interest_borders.to_json %>
-    </div>
-    <div id="loading_borders" style="margin:auto;text-align:center;display:none;">
-      <%= image_tag 'ajax-loader.gif' %>
-      <br/>
-      <b><%= t('pages.users.border_preferences.updating') %></b>
-    </div>
-    <%= f.button :button, id: "submit_borders", class: 'btn blue' do %>
-        <i class="fa fa-save"></i>
-        <%= t('buttons.save') %>
-    <% end %>
-<% end %>
+<div class="card">
+  <%= form_for 'token', url: set_interest_borders_users_path do |f| %>
+      <div id="border_fields">
+        <%= f.label t('pages.users.border_preferences.your_borders') %>
+        <%= f.text_field 'interest_borders', "data-pre" => current_user.interest_borders.to_json %>
+      </div>
+      <div id="loading_borders" style="margin:auto;text-align:center;display:none;">
+        <%= image_tag 'ajax-loader.gif' %>
+        <br/>
+        <b><%= t('pages.users.border_preferences.updating') %></b>
+      </div>
+      <%= f.button :button, id: "submit_borders", class: 'btn blue' do %>
+          <i class="fa fa-save"></i>
+          <%= t('buttons.save') %>
+      <% end %>
+  <% end %>
+</div>
 <script type="text/javascript">
     $(function () {
         input = $('#token_interest_borders')

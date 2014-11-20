@@ -1,80 +1,83 @@
 <% @page_title = 'User statistics' %>
+<div class="card">
+  <h1><%= @page_title %></h1>
 
-<h1><%= @page_title %></h1>
+  <p>
+    <b><%= 'Last login' %></b> <span class="info"><%= @user.last_sign_in_at %></span>
+  </p>
 
-<p>
-  <b><%= 'Last login' %></b> <span class="info"><%= @user.last_sign_in_at %></span>
-</p>
+  <p>
+    <b><%= 'Integrated contributes number' %></b>
+    <span class="info"><%= @integrated_count %></span>
+  </p>
 
-<p>
-  <b><%= 'Integrated contributes number' %></b>
-  <span class="info"><%= @integrated_count %></span>
-</p>
+  <p>
+    <b><%= 'SPAM Contributes number' %></b>
+    <span class="info"><%= @spam_count %></span>
+  </p>
 
-<p>
-  <b><%= 'SPAM Contributes number' %></b>
-  <span class="info"><%= @spam_count %></span>
-</p>
-
-<p>
-  <b><%= 'Noisy contributes number' %></b>
-  <span class="info"><%= @noisy_count %></span>
-</p>
+  <p>
+    <b><%= 'Noisy contributes number' %></b>
+    <span class="info"><%= @noisy_count %></span>
+  </p>
 
 
-<p>
-  <b><%= 'Total contributes number' %></b> <span class="info"><%= @contributes_count %></span>
-</p>
+  <p>
+    <b><%= 'Total contributes number' %></b> <span class="info"><%= @contributes_count %></span>
+  </p>
 
-<p>
-  <b><%= 'Total comments number' %></b> <span class="info"><%= @comments_count %></span>
-</p>
+  <p>
+    <b><%= 'Total comments number' %></b> <span class="info"><%= @comments_count %></span>
+  </p>
 
-<p>
-  <b><%= 'Number of proposals you have been editor' %></b> <span class="info"><%= @proposals_count %></span>
-</p>
+  <p>
+    <b><%= 'Number of proposals you have been editor' %></b> <span class="info"><%= @proposals_count %></span>
+  </p>
 
-<p>
-  <b><%= 'Number of proposals that have been voted' %></b>
-  <span class="info"><%= @voted_count = @user.proposals.voted.count %></span>
-</p>
+  <p>
+    <b><%= 'Number of proposals that have been voted' %></b>
+    <span class="info"><%= @voted_count = @user.proposals.voted.count %></span>
+  </p>
 
-<p>
-  <b><%= 'Medium rank of proposals that have been voted' %></b>
-  <span class="info"><%= @voted_rank = @user.proposals.accepted.average(:rank) %></span>
-</p>
+  <p>
+    <b><%= 'Medium rank of proposals that have been voted' %></b>
+    <span class="info"><%= @voted_rank = @user.proposals.accepted.average(:rank).round(2) %></span>
+  </p>
 
-<p>
-  <b><%= 'Number of proposals that have been accepted' %></b>
-  <span class="info"><%= @accepted_count = @user.proposals.accepted.count %></span>
-</p>
+  <p>
+    <b><%= 'Number of proposals that have been accepted' %></b>
+    <span class="info"><%= @accepted_count = @user.proposals.accepted.count %></span>
+  </p>
 
-<p>
-  <b><%= 'Number of proposals that have been abandoned' %></b>
-  <span class="info"><%= @abandoned_count = @user.proposals.abandoned.count %></span>
-</p>
+  <p>
+    <b><%= 'Number of proposals that have been abandoned' %></b>
+    <span class="info"><%= @abandoned_count = @user.proposals.abandoned.count %></span>
+  </p>
 
-<p>
-  <b><%= 'Inactivity time' %></b><span class="info"></span>
-</p>
+  <p>
+    <b><%= 'Inactivity time' %></b><span class="info"></span>
+  </p>
 
-<p>
-  <b><%= 'Good contributes writer' %></b>
+  <p>
+    <b><%= 'Good contributes writer' %></b>
   <span class="info">
     <div class="progress small-4">
-      <span class="meter" style="width: <%=((1+((@integrated_count.to_f/@contributes_count.to_f)**(0.5) - (@spam_count.to_f/@comments_count.to_f)**(1.to_f/3.to_f)))/2)*100 %>%"></span><%= ((1+((@integrated_count.to_f/@contributes_count.to_f)**(0.5) - (@spam_count.to_f/@comments_count.to_f)**(1.to_f/3.to_f)))/2)*100 %>%
+      <span class="meter" style="width: <%=((1+((@integrated_count.to_f/@contributes_count.to_f)**(0.5) - (@spam_count.to_f/@comments_count.to_f)**(1.to_f/3.to_f)))/2)*100 %>%"></span>
+      <%= ((1+((@integrated_count.to_f/@contributes_count.to_f)**(0.5) - (@spam_count.to_f/@comments_count.to_f)**(1.to_f/3.to_f)))/2)*100 %>%
     </div>
   </span>
-</p>
+  </p>
 
-<p>
-  <b><%= 'Good proposals writer' %></b>
+  <p>
+    <b><%= 'Good proposals writer' %></b>
   <span class="info">
     <div class="progress small-4">
-      <span class="meter" style="width: <%= ((1+(((0.8*@accepted_count)+(0.2*(@voted_count - @abandoned_count)))/(@voted_count+@abandoned_count)))/2)*100 %>%"></span><%= ((1+(((0.8*@accepted_count)+(0.2*(@voted_count - @abandoned_count)))/(@voted_count+@abandoned_count)))/2)*100 %>%
+      <span class="meter" style="width: <%= ((1+(((0.8*@accepted_count)+(0.2*(@voted_count - @abandoned_count)))/(@voted_count+@abandoned_count)))/2)*100 %>%"></span>
+      <%= ((1+(((0.8*@accepted_count)+(0.2*(@voted_count - @abandoned_count)))/(@voted_count+@abandoned_count)))/2)*100 %>%
     </div>
   </span>
-</p>
+  </p>
+</div>
 
 <% if @user == current_user && @user.user_votes.count > 0 %>
     <div class="card">
@@ -98,6 +101,21 @@
         </tbody>
       </table>
     </div>
+
+
+
+    <script type="text/javascript">
+        $('#votations_table').dataTable({
+            "bPaginate": false,
+            "bFilter": false,
+            "bSearchable": false,
+            "bInfo": false,
+            "aaSorting": [
+                [1, 'desc']
+            ],
+            "aoColumns": [null, {"iDataSort": 2}, {"bVisible": false}, null]
+        });
+    </script>
 <% end %>
 
 <% content_for :left_panel do %>

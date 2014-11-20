@@ -103,7 +103,6 @@
 
     $(function () {
         $(window).bind('popstate', function (event) {
-            console.log('popstate');
             var onloadPop = !everPushedSomething && location.href == initialUrl;
             everPushedSomething = true;
             if (onloadPop) {
@@ -118,7 +117,6 @@
         });
 
         $(document).on('change', '.user_role_changer', function (event) {
-            console.log('changed role');
             var select = $(this);
             var username = select.data('fullname');
             var group_participation_id = select.data("id");
@@ -196,7 +194,6 @@
             }, 200);
         });
         $(document).on('click', '[data-change-area-participation]', function (event) {
-            console.log('change area participation');
             var group_area_id = $(this).data('group_area_id');
             var user_id = $(this).data('user_id');
             var area_participation_id = $(this).data('area_participation_id');

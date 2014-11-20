@@ -156,7 +156,6 @@
                 <%end%>
             <% else %>
                 var selected_ = $(this).find('.hidden_menu a[data-type=w]');
-                console.log('text:' + selected_.text());
                 $(this).find('.hidden_link b').text(selected_.text());
             <%end%>
             selected_.addClass('checked');

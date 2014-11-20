@@ -1,4 +1,5 @@
-<h4><%= t('pages.alerts.index.new_not_read') %></h4>
+<div class="card">
+<h1><%= t('pages.alerts.index.new_not_read') %></h1>
 <ul>
   <b><%= t('pages.alerts.index.no_new') if @new_alerts.empty? %></b>
   <% @new_alerts.each do |alert| %>
@@ -10,8 +11,7 @@
   <% end unless @new_alerts.empty? %>
 </ul>
 
-<br/>
-<h4><%= t('pages.alerts.index.old_not_read') %></h4>
+<h1><%= t('pages.alerts.index.old_not_read') %></h1>
 <ul>
   <b><%= t('pages.alerts.index.no_old') if @old_alerts.empty? %></b>
   <% @old_alerts.each do |alert| %>
@@ -22,6 +22,14 @@
       </li>
   <% end unless @old_alerts.empty? %>
 </ul>
+</div>
+
+<% content_for :left_panel do %>
+    <% if current_user %>
+        <%= render partial: 'users/preferences_panel' %>
+    <% end %>
+<% end %>
+
 
 <script type="text/javascript">
     $.ajax({

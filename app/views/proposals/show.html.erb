@@ -171,7 +171,6 @@
         _this.next().show();
 
         if (comment_id) {
-            console.log('opening and already fetched. id: ' + comment_id);
             var comment_ = $('#comment' + comment_id + ' .proposal_comment');
             fetched.animate({
                 scrollTop: comment_.offset().top - 100
@@ -184,7 +183,6 @@
 
 
     function close_right_contributes(_this) {
-        console.log('closing contributes');
         var section_id = _this.attr("data-section_id");
         _this.attr("data-status", 2);
         $('.suggestion_right[data-section_id=' + section_id + ']').hide();

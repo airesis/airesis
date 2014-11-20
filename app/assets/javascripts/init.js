@@ -140,7 +140,6 @@ $(function () {
 
 
     $(document).on('click', '[data-reveal-close]', function () {
-        console.log('click');
         $('.reveal-modal:visible').foundation('reveal', 'close');
     });
 

@@ -238,7 +238,6 @@
         start_field.fdatetimepicker($.fn.fdatetimepicker.dates['<%=I18n.locale%>'])
                 .on('hide', function (event) {
                     var eventStartTime_ = event.date;
-                    console.log(eventStartTime_);
                     end_field.fdatetimepicker("setStartDate", eventStartTime_);
                     end_field.fdatetimepicker("setDate", addMinutes(eventStartTime_, 2880));
                 });
@@ -364,9 +363,7 @@
             for (id in CKEDITOR.instances) {
                 var editor = CKEDITOR.instances[id];
                 var textarea_ = $('#' + id);
-                console.log('hei 1');
                 var clean = getCleanContent(id);
-                console.log('hei 2');
                 var name_ = textarea_.attr('name').replace('_dirty', '').replace(/\[/g, '\\[').replace(/\]/g, '\\]');
                 var target = $('[name=' + name_ + ']');
                 target.val(clean);

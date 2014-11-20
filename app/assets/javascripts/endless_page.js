@@ -11,8 +11,6 @@ function resetCounter() {
 
 function checkScroll() {
     if (nearBottomOfPage() && checkActive) {
-        console.log('bottom',window.location);
-
         checkActive = false;
         currentPage++;
         $.ajax({
