@@ -35,6 +35,8 @@ describe "check if quorums are working correctly", type: :feature, js: true do
     page.execute_script 'window.confirm = function () { return true }'
     click_button I18n.t('pages.proposals.show.vote_button')
     expect(page).to have_content(I18n.t('votations.create.confirm'))
+    expect(page.html).to_not include(I18n.t('pages.proposals.vote_panel.schulze_title', max: 3))
+    expect(page).to have_content(I18n.t('pages.proposals.vote_panel.results_time', when: (I18n.l UserVote.last.created_at)))
     proposal.reload
   end
 

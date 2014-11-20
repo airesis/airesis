@@ -121,7 +121,6 @@ class ProposalCommentsController < ApplicationController
 
   rescue Exception => e
     respond_to do |format|
-      puts e
       flash[:error] = @proposal_comment.errors.messages.values.join(" e ")
       format.js { render 'layouts/error' }
       format.json {

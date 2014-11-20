@@ -210,7 +210,6 @@ class ApplicationController < ActionController::Base
 
   def age(birthdate)
     today = Date.today
-    puts 'today: ' + today.to_s
     # Difference in years, less one if you have not had a birthday this year.
     a = today.year - birthdate.year
     a = a - 1 if (

@@ -23,7 +23,6 @@ class AlertsController < ApplicationController
         end
 
         alerts = unread.map do |alert|
-          puts "user? #{ alert.nproperties['user_id']}"
           {id: alert.id,
            path: alert.checked ? alert.notification.url : check_alert_url(alert),
            created_at: (time_in_words alert.created_at),

@@ -47,7 +47,6 @@ class VotationsController < ApplicationController
 
   #un utente invia il voto in formato schulze
   def vote_schulze
-    puts params
     begin
       Proposal.transaction do
         @proposal = Proposal.find_by_id(params[:proposal_id])
@@ -61,14 +60,17 @@ class VotationsController < ApplicationController
         raise Exception unless (p_sol <=> solutions) == 0 #se c'è discrepanza tra gli id delle soluzioni e quelli inviati dal client solleva un'eccezione
 
         #salva la votazione dell'utente
-        schulz = @proposal.schulze_votes.find_or_create_by(preferences: votestring)
-        schulz.count += 1
-        schulz.save!
-
+        schulz = @proposal.schulze_votes.find_by(preferences: votestring)
+        if schulz
+          schulz.count += 1
+          schulz.save!
+        else
+          schulz = @proposal.schulze_votes.build(preferences: votestring, count: 1)
+        end
         #memorizza che l'utente ha effettuato la votazione
-        vote = UserVote.new(user_id: current_user.id, proposal_id: @proposal.id)
+        vote = @proposal.user_votes.build(user_id: current_user.id)
         vote.vote_schulze = votestring unless @proposal.secret_vote
-        vote.save!
+        @proposal.save!
       end
       respond_to do |format|
         flash[:notice] = t('votations.create.confirm')
