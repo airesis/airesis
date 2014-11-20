@@ -50,7 +50,6 @@ RSpec.configure do |config|
       end
       #ActiveRecord::Base.connection.execute('ALTER SEQUENCE participation_roles_id_seq RESTART WITH 3')
     end
-
   end
 
   config.after(:each) do

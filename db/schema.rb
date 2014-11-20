@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141107102010) do
+ActiveRecord::Schema.define(version: 20141119163327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "action_abilitations", force: true do |t|
     t.integer  "group_action_id"
@@ -918,6 +917,7 @@ ActiveRecord::Schema.define(version: 20141107102010) do
     t.integer  "user_id",     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "acceptor_id"
   end
 
   add_index "proposal_presentations", ["proposal_id"], name: "_idx_proposal_presentations_proposal_id", using: :btree

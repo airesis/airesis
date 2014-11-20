@@ -4,8 +4,7 @@ class NotificationProposalReadyForVote < NotificationSender
     elaborate(proposal_id)
   end
 
-  #invia le notifiche quando la proposta è pronta per essere messa in votazione
-  #le notifiche vengono inviate ai creatori  della proposta
+  #send alerts when the debate is closed and the authors must choose a date for the votation
   def elaborate(proposal_id)
     proposal = Proposal.find(proposal_id)
     group = proposal.group

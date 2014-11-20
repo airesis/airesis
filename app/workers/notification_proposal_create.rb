@@ -1,25 +1,23 @@
 class NotificationProposalCreate < NotificationSender
 
-  def perform(current_user_id, proposal_id, group_id = nil, group_area_id=nil)
-    elaborate(current_user_id, proposal_id, group_id, group_area_id)
+  def perform(proposal_id)
+    elaborate(proposal_id)
   end
 
   #invia le notifiche quando un una proposta viene creata
-  def elaborate(current_user_id, proposal_id, group_id = nil, group_area_id=nil)
+  def elaborate(proposal_id)
     proposal = Proposal.find(proposal_id)
-    current_user = User.find(current_user_id)
+    current_user = proposal.users.first
+    group = proposal.group
+    group_area = proposal.group_area
     data = {'proposal_id' => proposal.id.to_s, 'proposal' => proposal.title, 'i18n' => 't'}
     host = current_user.locale.host #TODO non è corretto. l'host dovrebbe essere quello di chi riceve la mail ma allora dobbiamo spostare l'url nell'alert. da fare nella 4.0
-    if group_id
-      #if it's a group proposal
-      group = Group.find(group_id)
+    if group #if it's a group proposal
       data['group_id'] = group.id.to_s
       data['group'] = group.name
       data['subdomain'] = group.subdomain if group.certified?
 
-      #le notifiche vengono inviate ai partecipanti al gruppo che possono visualizzare le proposte
-      if group_area_id
-        group_area = group.group_areas.find(group_area_id)
+      if group_area
         data['group_area_id'] = group_area.id.to_s
         data['group_area'] = group_area.name
         receivers = group_area.scoped_participants(GroupAction::PROPOSAL_VIEW)
@@ -37,7 +35,7 @@ class NotificationProposalCreate < NotificationSender
       #if it'a a public proposal
       notification_a = Notification.new(notification_type_id: NotificationType::NEW_PUBLIC_PROPOSALS, url: proposal_url(proposal, {subdomain: false, host: host}), data: data)
       notification_a.save
-      User.where("id not in (#{User.select("users.id").joins(:blocked_alerts).where("blocked_alerts.notification_type_id = 3").to_sql})").each do |user|
+      User.where("id not in (#{User.select("users.id").joins(:blocked_alerts).where("blocked_alerts.notification_type_id = ?", NotificationType::NEW_PUBLIC_PROPOSALS).to_sql})").each do |user|
         if user != current_user
           send_notification_to_user(notification_a, user)
         end

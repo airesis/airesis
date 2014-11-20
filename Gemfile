@@ -13,7 +13,7 @@ gem 'turnout'
 gem 'sass-rails', "~> 4.0.0"
 gem 'coffee-rails', "~> 4.0.0"
 gem 'uglifier', ">= 1.3.0"
-gem 'foundation-rails', '~> 5.1.1.0' #waiting for 5.4 to fix some important bugs (menu not diplayed correctly)
+gem 'foundation-rails', github: 'johnantoni/foundation-rails', branch: 'foundation-5.4.7' #not the official repossitory. waiting for update to 5.4.7
 
 gem 'pg'
 

@@ -10,9 +10,9 @@ class CalculateRankings
       #numero di commenti inseriti
       numcommenti = user.proposal_comments.count
       #numero di proposte inserite (tranne quelle bocciate)
-      numproposte = user.proposals.all(conditions: ["proposal_state_id in (?)",[1,2,3,4]]).count
+      numproposte = user.proposals.where("proposal_state_id in (?)",[1,2,3,4]).count
       #numero proposte accettate
-      numok = user.proposals.find_all_by_proposal_state_id(6).count
+      numok = user.proposals.where(proposal_state_id: 6).count
       msg  += "  commenti: " + numcommenti.to_s + "\n"
       msg  += "  proposte: " + numproposte.to_s + "\n"
       msg  += "  proposte accettate: " + numok.to_s + "\n"

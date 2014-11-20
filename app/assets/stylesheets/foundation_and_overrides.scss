@@ -1828,6 +1828,7 @@ $logo-width: 100px;
     }
   }
 }
+
 @media #{$medium-only} {
   .menu-left {
     &.contributes_shown {
@@ -2854,8 +2855,6 @@ input[type=file] {
   }
 }
 
-
-
 //overrides
 .introjs-button {
   @extend .btn;
@@ -2870,4 +2869,13 @@ input[type=file] {
   font-size: 11px;
   line-height: 17px;
   border: 2px solid white;
+}
+
+ul.social-network {
+  li {
+    padding: 0 0 1rem;
+    .zocial {
+      margin: 8px 0;
+    }
+  }
 }

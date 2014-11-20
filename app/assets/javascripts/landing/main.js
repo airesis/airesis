@@ -31,7 +31,8 @@
             id: "toggle-btn",
             html: "Menu",
             title: "Menu",
-            href: "#" }
+            href: "#"
+        }
     );
     var nav_wrap = $('nav#nav-wrap')
     var nav = $("ul#nav");
@@ -62,7 +63,7 @@
      ------------------------------------------------------ */
     setTimeout(function () {
 
-        $('h1.responsive-headline').fitText(1.2, { minFontSize: '25px', maxFontSize: '50px' });
+        $('h1.responsive-headline').fitText(1.2, {minFontSize: '25px', maxFontSize: '50px'});
 
     }, 100);
 
@@ -114,40 +115,51 @@
     /*----------------------------------------------------*/
     /* Waypoints Animations
      ------------------------------------------------------ */
+    if (window.innerWidth > 640) {
+        $('.js .groups').waypoint(function () {
+            $('.js .groups .feature-media').addClass('animated fadeInLeftBig').show();
+        }, {offset: 'bottom-in-view'});
 
-    $('.js .groups').waypoint(function () {
-        $('.js .groups .feature-media').addClass('animated fadeInLeftBig').show();
-    }, { offset: 'bottom-in-view' });
+        $('.js .permissions').waypoint(function () {
+            $('.js .permissions .feature-media').addClass('animated fadeInRightBig').show();
+        }, {offset: 'bottom-in-view'});
 
-    $('.js .permissions').waypoint(function () {
-        $('.js .permissions .feature-media').addClass('animated fadeInRightBig').show();
-    }, { offset: 'bottom-in-view' });
+        $('.js .events').waypoint(function () {
+            $('.js .events .feature-media').addClass('animated fadeInLeftBig').show();
+        }, {offset: 'bottom-in-view'});
 
-    $('.js .events').waypoint(function () {
-        $('.js .events .feature-media').addClass('animated fadeInLeftBig').show();
-    }, { offset: 'bottom-in-view' });
+        $('.js .proposals').waypoint(function () {
+            $('.js .proposals .feature-media').addClass('animated fadeInRightBig').show();
+        }, {offset: 'bottom-in-view'});
 
-    $('.js .proposals').waypoint(function () {
-        $('.js .proposals .feature-media').addClass('animated fadeInRightBig').show();
-    }, { offset: 'bottom-in-view' });
-
-    $('.js .documents').waypoint(function () {
-        $('.js .documents .feature-media').addClass('animated fadeInLeftBig').show();
-    }, { offset: 'bottom-in-view' });
+        $('.js .documents').waypoint(function () {
+            $('.js .documents .feature-media').addClass('animated fadeInLeftBig').show();
+        }, {offset: 'bottom-in-view'});
 
 
-    $('.js .forum').waypoint(function () {
-        $('.js .forum .feature-media').addClass('animated fadeInRightBig').show();
-    }, { offset: 'bottom-in-view' });
+        $('.js .forum').waypoint(function () {
+            $('.js .forum .feature-media').addClass('animated fadeInRightBig').show();
+        }, {offset: 'bottom-in-view'});
 
-    $('.js .more').waypoint(function () {
-        $('.js .more .feature-media').addClass('animated fadeInLeftBig').show();
-    }, { offset: 'bottom-in-view' });
+        $('.js .more').waypoint(function () {
+            $('.js .more .feature-media').addClass('animated fadeInLeftBig').show();
+        }, {offset: 'bottom-in-view'});
+    }
+    else {
+        $('.js .groups .feature-media').show();
 
-    $('.js #subscribe').waypoint(function () {
-        $('.js #subscribe input[type="email"]').addClass('animated fadeInLeftBig show');
-        $('.js #subscribe input[type="submit"]').addClass('animated fadeInRightBig show');
-    }, { offset: 'bottom-in-view' });
+        $('.js .permissions .feature-media').show();
+
+        $('.js .events .feature-media').show();
+
+        $('.js .proposals .feature-media').show();
+
+        $('.js .documents .feature-media').show();
+
+        $('.js .forum .feature-media').show();
+
+        $('.js .more .feature-media').show();
+    }
 
 
     /*----------------------------------------------------*/

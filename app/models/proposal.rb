@@ -98,7 +98,7 @@ class Proposal < ActiveRecord::Base
   scope :waiting, -> { where(proposal_state_id: ProposalState::WAIT) }
   scope :voting, -> { where(proposal_state_id: ProposalState::VOTING) }
 
-  scope :not_voted_by, lambda { |user_id| {conditions: ['proposal_state_id = ? and proposals.id not in (select proposal_id from user_votes where user_id = ?)', ProposalState::VOTING, user_id]} }
+  scope :not_voted_by, ->(user_id) { where('proposal_state_id = ? and proposals.id not in (select proposal_id from user_votes where user_id = ?)', ProposalState::VOTING, user_id) }
 
   #tutte le proposte accettate
   scope :accepted, -> { where(proposal_state_id: ProposalState::ACCEPTED) }
@@ -116,15 +116,6 @@ class Proposal < ActiveRecord::Base
   scope :public, -> { where(['private = ? or visible_outside = ?', false, true]) }
 
   scope :private, -> { where(private: true) } #proposte interne ai gruppi
-
-  #condizione di appartenenza ad una categoria
-  scope :in_category, lambda { |category_id| {conditions: ['proposal_category_id = ?', category_id]} if (category_id && !category_id.empty?) }
-
-  #condizione di visualizzazione in un gruppo
-  scope :in_group, lambda { |group_id| {include: [:proposal_supports, :group_proposals], conditions: ["((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))", group_id, group_id]} if group_id }
-
-  #condizione di visualizzazione in area di lavoro
-  scope :in_group_area, lambda { |group_area_id| {include: [:area_proposals], conditions: ["((area_proposals.group_area_id = ? and proposals.private = 't'))", group_area_id]} if group_area_id }
 
   #inconsistent proposals
   scope :invalid_debate_phase, -> { in_valutation.joins(:quorum).where('current_timestamp > quorums.ends_at') }
@@ -449,8 +440,8 @@ class Proposal < ActiveRecord::Base
     res = []
     users.each do |user|
       #user ranking to the proposal
-      ranking = user.proposal_rankings.first(conditions: {proposal_id: self.id})
-      res << user if !ranking || (ranking && (ranking.updated_at < self.updated_at)) #if he ranked and can change it
+      ranking = user.proposal_rankings.find_by(proposal_id: id)
+      res << user if !ranking || (ranking.updated_at < updated_at) #if he ranked and can change it
     end
   end
 
@@ -597,7 +588,7 @@ class Proposal < ActiveRecord::Base
 
     update_borders
 
-    self.users << User.find(current_user_id)
+    proposal_presentations.build(user: User.find(current_user_id))
 
     #per sicurezza reimposto questi parametri per far si che i cattivi hacker non cambino le impostazioni se non possono
     if group
@@ -643,7 +634,7 @@ class Proposal < ActiveRecord::Base
     ProposalsWorker.perform_at(quorum.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: id}) if quorum.minutes
 
     #alert users of the new proposal
-    NotificationProposalCreate.perform_async(current_user_id, id, groups.first.try(:id), presentation_areas.first.try(:id))
+    NotificationProposalCreate.perform_async(id)
   end
 
 

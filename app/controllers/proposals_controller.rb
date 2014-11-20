@@ -422,7 +422,9 @@ class ProposalsController < ApplicationController
     Proposal.transaction do
       users = @proposal.available_user_authors.where(['users.id in (?)', available_ids.map { |id| id.to_i }]).all rescue []
       @proposal.available_user_authors -= users
-      @proposal.users << users
+      users.each do |user|
+        @proposal.proposal_presentations.build(user: user, acceptor: current_user)
+      end
       @proposal.save!
     end
     flash[:notice] = "Nuovi redattori aggiunti correttamente!"

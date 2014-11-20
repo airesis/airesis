@@ -189,10 +189,10 @@ class User < ActiveRecord::Base
     Tutorial.all.each do |tutorial|
       assign_tutorial(self, tutorial)
     end
-    self.blocked_alerts.create(notification_type_id: 20)
-    self.blocked_alerts.create(notification_type_id: 21)
-    self.blocked_alerts.create(notification_type_id: 13)
-    self.blocked_alerts.create(notification_type_id: 3)
+    blocked_alerts.create(notification_type_id: NotificationType::NEW_VALUTATION_MINE)
+    blocked_alerts.create(notification_type_id: NotificationType::NEW_VALUTATION)
+    blocked_alerts.create(notification_type_id: NotificationType::NEW_PUBLIC_EVENTS)
+    blocked_alerts.create(notification_type_id: NotificationType::NEW_PUBLIC_PROPOSALS)
 
     GeocodeUser.perform_in(5, self.id)
   end
@@ -229,7 +229,7 @@ class User < ActiveRecord::Base
     ret = self.groups.joins(" INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id"+
                                 " LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id "+
                                 " and action_abilitations.group_id = group_participations.group_id")
-    .all(conditions: "(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
+    .where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
     excluded_groups ? ret - excluded_groups : ret
   end
 

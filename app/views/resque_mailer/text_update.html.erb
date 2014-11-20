@@ -6,7 +6,7 @@
 
 <% if @data[:revision_id] %>
     <% @revision = ProposalRevision.find(@data[:revision_id]) %>
-    <% @contributes = @revision.contributes.all(conditions: ['proposal_comments.user_id = ?', @alert.user.id]) %>
+    <% @contributes = @revision.contributes.where('proposal_comments.user_id = ?', @alert.user.id) %>
 
     <% if @contributes.count > 0 %>
         <p>

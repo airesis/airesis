@@ -19,7 +19,9 @@ class AlertsController < ApplicationController
         if numunread < 10
           unread += @alerts.where({checked: true, deleted: false}).includes(:notification_type, :notification_category).limit(10 - numunread)
         end
+
         alerts = unread.map do |alert|
+          puts "user? #{ alert.nproperties['user_id']}"
           {id: alert.id,
            path: alert.checked ? alert.notification.url : check_alert_url(alert),
            created_at: (time_in_words alert.created_at),
@@ -28,7 +30,7 @@ class AlertsController < ApplicationController
            proposal_id: alert.data[:proposal_id],
            category_name: alert.notification_category.short.downcase,
            category_title: alert.notification_category.description.upcase,
-           image: ActionController::Base.helpers.asset_path("notification_categories/#{alert.notification_category.short.downcase}.png")}
+           image: alert.nproperties['user_id'].present? ? User.find(alert.nproperties['user_id']).user_image_url : ActionController::Base.helpers.asset_path("notification_categories/#{alert.notification_category.short.downcase}.png")}
         end
         @map = {count: numunread, alerts: alerts}
         render json: @map

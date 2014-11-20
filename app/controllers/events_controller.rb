@@ -160,7 +160,7 @@ class EventsController < ApplicationController
     if params[:delete_all] == 'true'
       @event.event_series.destroy
     elsif params[:delete_all] == 'future'
-      @events = @event.event_series.events.all(conditions: ["starttime > '#{@event.starttime.to_formatted_s(:db)}' "])
+      @events = @event.event_series.events.where(["starttime > '#{@event.starttime.to_formatted_s(:db)}' "])
       @event.event_series.events.delete(@events)
     else
       @event.destroy

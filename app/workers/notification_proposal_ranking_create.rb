@@ -4,7 +4,7 @@ class NotificationProposalRankingCreate < NotificationSender
     elaborate(proposal_ranking_id)
   end
 
-  #invia le notifiche quando un un contributo viene creato
+  #send alerts when there is a new valuatation for the proposal #todo test
   def elaborate(proposal_ranking_id)
     proposal_ranking = ProposalRanking.find(proposal_ranking_id)
     proposal = proposal_ranking.proposal

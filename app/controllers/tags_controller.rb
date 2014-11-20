@@ -36,9 +36,7 @@ class TagsController < ApplicationController
   def index
     if params[:q]
       hint = params[:q] + "%"
-      @tags = Tag
-      .all(conditions: ["upper(text) like upper(?)", hint.strip], order: "(blogs_count + blog_posts_count + proposals_count) desc", limit: 10)
-      .collect { |t| {id: t.id.to_s, name: t.text} }
+      @tags = Tag.where(["upper(text) like upper(?)", hint.strip]).order("(blogs_count + blog_posts_count + proposals_count) desc").limit(10).collect { |t| {id: t.id.to_s, name: t.text} }
 
       respond_to do |format|
         format.json { render json: @tags }

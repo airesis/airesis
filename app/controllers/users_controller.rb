@@ -59,7 +59,7 @@ class UsersController < ApplicationController
 
   def index
     return redirect_to root_path if user_signed_in?
-    @users = User.all(conditions: "upper(name) like upper('%#{params[:q]}%')")
+    @users = User.where("upper(name) like upper(?))","%#{params[:q]}%")
 
     respond_to do |format|
       format.json { render json: @users.to_json(only: [:id, :name]) }

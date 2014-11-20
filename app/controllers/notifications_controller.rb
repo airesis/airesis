@@ -9,7 +9,7 @@ class NotificationsController < ApplicationController
       b = current_user.blocked_alerts.build(notification_type_id: params[:id])
       b.save!
     else
-      b = current_user.blocked_alerts.first(conditions: {notification_type_id: params[:id]})
+      b = current_user.blocked_alerts.find_by(notification_type_id: params[:id])
       b.destroy
     end
     flash[:notice] =t('info.setting_preferences')
@@ -27,7 +27,7 @@ class NotificationsController < ApplicationController
       b = current_user.blocked_emails.build(notification_type_id: params[:id])
       b.save!
     else
-      b = current_user.blocked_emails.first(conditions: {notification_type_id: params[:id]})
+      b = current_user.blocked_emails.find_by(notification_type_id: params[:id])
       b.destroy
     end
     flash[:notice] = t('info.setting_preferences')

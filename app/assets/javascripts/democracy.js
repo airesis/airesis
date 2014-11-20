@@ -558,6 +558,8 @@ function poll() {
             n_container.empty();
             var read_container = $('<div class="read_all">');
             read_container.append($('<a href="#" onclick="sign_all_as_read(' + data.id + ');return false;">' + Airesis.i18n.alerts_sign_has_read + '</a>'));
+            read_container.append(' · ')
+            read_container.append($('<a href="/users/alarm_preferences">' + Airesis.i18n.alarm_settings + '</a>'));
             var sub_container = $('<div class="cont1">');
             n_container.append(read_container).append(sub_container);
             for (var j = 0; j < data.alerts.length; j++) {
@@ -572,15 +574,18 @@ function poll() {
                     alert_container.attr('data-proposal-id', alert.proposal_id);
                 }
 
+                var row_container = $('<div class="row"></div>');
+                var column_image = $('<div class="columns small-2"></div>');
+                var column_message = $('<div class="columns small-10"></div>');
+                row_container.append(column_image).append(column_message)
+                column_message.append($('<p class="p2">' + alert.text + '</p>'));
+                column_message.append($('<div class="p1">' + alert.created_at + '</div>'));
+                column_image.append($('<img src="'+alert.image+'"/>'));
+                alert_container.append(row_container);
+                alert_container.append('<div class="clearboth"></div>');
                 if (!alert.checked) {
                     alert_container.append($('<i class="fa fa-circle-o read" title="' + Airesis.i18n.alert_read + '" data-type_id="' + data.id + '" onclick="read_notifica(this);return false;"></i>'));
                 }
-                var notif_container = $('<div class="mess_desc"></div>');
-                notif_container.append($('<p class="p2">' + alert.text + '</p>'));
-                notif_container.append($('<div class="p1">' + alert.created_at + '</div>'));
-                alert_container.append($('<img src="'+alert.image+'"/>'));
-                alert_container.append(notif_container);
-                alert_container.append('<div class="clearboth"></div>');
                 sub_container.append(li_alert_con);
             }
             if (data.alerts.length == 0) {

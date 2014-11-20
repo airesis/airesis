@@ -236,7 +236,7 @@ ul#nav li.current a {
 /* ------------------------------------------------------------------ */
 
 #features {
-  padding-top: 50px;
+
   overflow: hidden;
 }
 
@@ -774,48 +774,49 @@ ul.features li:nth-child(even) {
 /* ------------------------------------------------------------------ */
 
 footer {
-  padding-top: 84px;
+  padding-top: 50px;
   color: #3c4753;
   font-size: 13px;
   line-height: 24px;
   position: relative;
   background: #33b5e5;
+  p {
+    color: white;
+  }
+  .footer-logo a {
+    display: block;
+    margin-bottom: 12px;
+    margin-top: 12px;
+    margin-left: 3px;
+  }
+  h3 {
+    font: 13px/24px 'opensans-semibold', sans-serif;
+    margin-bottom: 0;
+    font-weight: normal;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
 }
 
 footer a, footer a:visited {
-  color: #0A6567;
+  color: white;
 }
 
 footer a:hover, footer a:focus {
   color: #fff;
 }
 
-footer .footer-logo a {
-  display: block;
-  margin-bottom: 12px;
-  margin-top: 12px;
-  margin-left: 3px;
-}
-
 footer .right-cols .columns p {
   margin-bottom: 6px;
 }
 
-footer h3 {
-  font: 13px/24px 'opensans-semibold', sans-serif;
-  margin-bottom: 0;
-  font-weight: normal;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
 footer h3:before {
   font-family: 'FontAwesome';
+  text-align: center;
   margin: 0 0 6px 3px;
   font-size: 30px;
   line-height: 48px;
-  text-align: left;
   display: block;
 }
 
@@ -834,16 +835,16 @@ footer h3.contact:before {
 footer ul {
   margin: 0;
   padding: 0;
-}
-
-footer ul li {
-  margin: 0;
-  line-height: 24px;
+  li {
+    margin: 0;
+    line-height: 24px;
+    list-style: none;
+  }
 }
 
 footer ul li a,
 footer ul li a:visited {
-  color: #3c4753;
+  color: white;
 }
 
 footer ul li a:hover,
@@ -1045,3 +1046,4 @@ footer ul li a:focus {
 .login-with {
   line-height: 3.5rem;
 }
+

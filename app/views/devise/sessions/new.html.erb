@@ -1,7 +1,8 @@
 <% @page_title=t('pages.login.title') %>
+
+<%= render 'devise/shared/social_links' %>
 <div class="card">
 <h2><%= t('pages.login.title') %></h2>
-
 <%= form_for resource, as: resource_name, url: user_session_path do |f| %>
     <div class="row">
       <div class="columns large-5">
@@ -35,6 +36,8 @@
       </div>
     </div>
 <% end %>
+  <%= render 'devise/shared/links' %>
 </div>
 
-<%= render partial: "devise/shared/links" %>
+
+

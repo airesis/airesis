@@ -54,6 +54,7 @@ class ProposalComment < ActiveRecord::Base
 
   after_create :generate_nickname
   after_commit :send_email, on: :create
+  after_commit :send_update_notifications, on: :update
 
   def is_contribute?
     self.parent_proposal_comment_id.nil?
@@ -107,6 +108,12 @@ class ProposalComment < ActiveRecord::Base
     NotificationProposalCommentCreate.perform_async(id)
   end
 
+
+  def send_update_notifications
+    if previous_changes.include?(:content) && previous_changes[:content].first != previous_changes[:content].last
+      NotificationProposalCommentUpdate.perform_async(id)
+    end
+  end
 
   def generate_nickname
     proposal_nickname = ProposalNickname.generate(user, proposal)

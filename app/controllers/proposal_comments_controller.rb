@@ -133,22 +133,13 @@ class ProposalCommentsController < ApplicationController
 
   def update
     respond_to do |format|
-      @proposal_comment.content = params[:proposal_comment][:content]
-      if @proposal_comment.content_changed?
-        if @proposal_comment.save
-          NotificationProposalCommentUpdate.perform_async(@proposal_comment.id)
-          flash[:notice] = t('info.proposal.updated_comment')
-          format.js
-          format.html { redirect_to(@proposal) }
-
-        else
-          format.html { render action: "edit" }
-        end
-      else
+      if @proposal_comment.update(proposal_comment_update_params)
+        flash[:notice] = t('info.proposal.updated_comment')
         format.js
         format.html { redirect_to(@proposal) }
+      else
+        format.html { render action: "edit" }
       end
-
     end
   end
 
@@ -235,6 +226,10 @@ class ProposalCommentsController < ApplicationController
 
   protected
 
+  def proposal_comment_update_params
+    params.require(:proposal_comment).permit(:content)
+  end
+
   def proposal_comment_params
     params.require(:proposal_comment).permit(:content, :parent_proposal_comment_id, :section_id)
   end
@@ -289,4 +284,5 @@ class ProposalCommentsController < ApplicationController
   def choose_layout
     @group ? "groups" : "open_space"
   end
+
 end

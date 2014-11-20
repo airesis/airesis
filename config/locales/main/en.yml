@@ -219,6 +219,7 @@ en:
         elections: "ELECTIONS"
         documents: "DOCUMENTS"
         forums: "FORUM"
+        alarm_settings: "Settings"
       documents:
         documents_archive: "Documents archive"
         storage_size: "Storage size occupied"
