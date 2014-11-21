@@ -11,7 +11,6 @@ class Ability
     r_category_is_public = {visible_outside: true}
     r_blog_post_is_public = {status: BlogPost::PUBLISHED}
 
-    alias_action :vote_results, to: :read
     alias_action :by_year_and_month, to: :read
 
     can [:index, :show, :read], [Blog, Group]

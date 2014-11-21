@@ -13,6 +13,7 @@ class ProposalsController < ApplicationController
   end
 
   load_and_authorize_resource through: [:group, :group_area], shallow: true, except: [:tab_list, :similar, :endless_index]
+  skip_authorize_resource only: :vote_results
 
   layout :choose_layout
 
@@ -435,6 +436,7 @@ class ProposalsController < ApplicationController
 
 
   def vote_results
+    authorize! :show, @proposal
   end
 
   #exlipcitly close the debate of a proposal
