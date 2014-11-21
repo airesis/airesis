@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require "cancan/matchers"
 
-describe 'notifications when a proposal comment is created', type: :feature do
+describe 'notifications when a proposal comment is created', type: :feature, js: true do
 
   it "sends correctly an email to authors and participants" do
     user1 = create(:user)
@@ -18,8 +18,8 @@ describe 'notifications when a proposal comment is created', type: :feature do
 
     create(:positive_ranking, proposal: proposal, user: participants[0])
     create(:negative_ranking, proposal: proposal, user: participants[1])
-    create(:proposal_comment, proposal: proposal, user: participants[2])
 
+    create(:proposal_comment, proposal: proposal, user: participants[2])
 
     expect(NotificationProposalCommentCreate.jobs.size).to eq 1
     NotificationProposalCommentCreate.drain
@@ -34,5 +34,10 @@ describe 'notifications when a proposal comment is created', type: :feature do
 
     expect(Alert.count).to eq 3
     expect(Alert.first(3).map { |a| a.user }).to match_array [user1,participants[0],participants[1]]
+
+
+    login_as participants[0], as: :user
+    visit root_path
+    expect_notifications
   end
 end
