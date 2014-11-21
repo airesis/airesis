@@ -240,6 +240,12 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def end_votation
+    proposals.each do |proposal|
+      proposal.close_vote_phase
+    end
+  end
+
   protected
 
   def send_notifications

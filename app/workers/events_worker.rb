@@ -28,10 +28,7 @@ class EventsWorker
   #terminate proposal votation
   def end_votation(event_id)
     event = Event.find(event_id)
-    proposals = event.proposals
-    proposals.each do |proposal|
-        proposal.close_vote_phase
-    end
+    event.end_votation
   end
 
 

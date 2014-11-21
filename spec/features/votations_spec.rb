@@ -79,6 +79,7 @@ describe "check if quorums are working correctly", type: :feature, js: true do
 
     expect(Ability.new(user)).to be_able_to(:vote, proposal)
     login_as user, scope: :user
+    puts "login as #{user.email}"
     vote
     expect(proposal.vote.positive).to eq(1)
 
@@ -87,12 +88,14 @@ describe "check if quorums are working correctly", type: :feature, js: true do
     users = group.participants.sample(4)
     expect(Ability.new(users[0])).to be_able_to(:vote, proposal)
     login_as users[0], scope: :user
+    puts "login as #{users[0].email}"
     vote
     expect(proposal.vote.positive).to eq(2)
 
     logout :user
 
     login_as users[1], scope: :user
+    puts "login as #{users[1].email}"
     vote('votered')
     expect(proposal.vote.positive).to eq(2)
     expect(proposal.vote.negative).to eq(1)
@@ -100,6 +103,7 @@ describe "check if quorums are working correctly", type: :feature, js: true do
     logout :user
 
     login_as users[2], scope: :user
+    expect(UserVote.find_by(user_id: users[2].id, proposal_id: proposal.id)).to be_nil
     vote('voteyellow')
     expect(proposal.vote.positive).to eq(2)
     expect(proposal.vote.negative).to eq(1)
@@ -280,5 +284,57 @@ describe "check if quorums are working correctly", type: :feature, js: true do
 
     expect(proposal.solutions[0].schulze_score).to be 0
     expect(proposal.solutions[1].schulze_score).to be 0
+  end
+
+
+  it "they can see vote results" do
+    #populate the group
+    9.times do
+      user2 = create(:user)
+      create_participation(user2, group)
+    end
+    #we now have 10 users in the group which can participate into a proposal
+
+    proposal #we create the proposal with the assigned quorum
+
+    group.participants.each do |user|
+      proposal.rankings.find_or_create_by(user_id: user.id) do |ranking|
+        ranking.ranking_type_id = RankingType::POSITIVE
+      end
+    end
+
+    proposal.reload
+
+    proposal.check_phase(true)
+    proposal.reload
+
+    proposal.vote_period.start_votation
+    proposal.reload
+    expect(proposal.voting?).to be_truthy
+
+    group.participants.each do |user|
+      vote = UserVote.new(user_id: user.id, proposal_id: proposal.id)
+      vote.vote_type_id = VoteType::POSITIVE
+      vote.save
+      proposal.vote.positive += 1
+      proposal.vote.save
+    end
+
+    proposal.vote_period.end_votation
+    proposal.reload
+    expect(proposal.voted?).to be_truthy
+    expect(proposal.accepted?).to be_truthy
+
+    user = group.participants.sample
+
+    login_as user, scope: :user
+    visit group_proposal_path(group,proposal)
+    within('#menu-left') do
+      click_link I18n.t('pages.proposals.show.votation_results')
+    end
+
+    expect(page).to have_content I18n.t('pages.proposals.results.total', count: 10)
+    expect(proposal.vote.number).to eq(10)
+    logout :user
   end
 end
