@@ -194,7 +194,7 @@ class User < ActiveRecord::Base
     blocked_alerts.create(notification_type_id: NotificationType::NEW_PUBLIC_EVENTS)
     blocked_alerts.create(notification_type_id: NotificationType::NEW_PUBLIC_PROPOSALS)
 
-    GeocodeUser.perform_in(5, self.id)
+    GeocodeUser.perform_in(5.seconds, self.id)
   end
 
   def init

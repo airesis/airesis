@@ -104,7 +104,7 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     @domain_locale = request.host.split('.').last
-    params[:l] = SysLocale.find_by_key(params[:l]) ? params[:l] : nil
+    params[:l] = SysLocale.find_by(key: params[:l]) ? params[:l] : nil
     @locale =
         if Rails.env.staging?
           params[:l] || I18n.default_locale

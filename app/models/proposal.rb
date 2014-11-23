@@ -543,7 +543,7 @@ class Proposal < ActiveRecord::Base
     self.valutations = 0
     self.rank = 0
 
-    NotificationProposalAbandoned.perform_async(id, participants.map(&:id))
+    NotificationProposalAbandoned.perform_in(1.minute,id, participants.map(&:id))
     #and authors
     proposal_presentations.destroy_all
 
@@ -551,6 +551,7 @@ class Proposal < ActiveRecord::Base
     rankings.destroy_all
 
 
+    save
     #remove the timer if is still there
     #if self.minutes #todo remove jobs
     #  Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id})

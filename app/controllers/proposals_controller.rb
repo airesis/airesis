@@ -517,14 +517,14 @@ class ProposalsController < ApplicationController
     flash[:notice] = I18n.t('info.proposal.rank_recorderd')
     respond_to do |format|
       format.js { render 'rank' }
-      format.html
+      format.html { redirect_to :back}
     end
   rescue Exception => e
     log_error(e)
     flash[:error] = I18n.t('error.proposals.proposal_rank')
     respond_to do |format|
       format.js { render 'proposals/errors/rank' }
-      format.html
+      format.html{ redirect_to :back}
     end
   end
 

@@ -19,8 +19,7 @@ class NotificationProposalVoteClosed < NotificationSender
       notification_b.save
       send_notification_to_voters(notification_b, proposal)
     else #rejected
-      subject +="#{proposal.title} è stata respinta"
-      data = {'proposal_id' => proposal.id.to_s, 'subject' => subject, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'rejected'}
+      data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'rejected'}
       if group
         data['group'] = group.name
         data['subdomain'] = group.subdomain if group.certified?

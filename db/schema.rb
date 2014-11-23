@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141119163327) do
+ActiveRecord::Schema.define(version: 20141123160558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "action_abilitations", force: true do |t|
     t.integer  "group_action_id"
@@ -818,6 +817,8 @@ ActiveRecord::Schema.define(version: 20141119163327) do
     t.integer "user_id",                 null: false
     t.integer "count",       default: 0, null: false
   end
+
+  add_index "proposal_alerts", ["proposal_id", "user_id"], name: "index_proposal_alerts_on_proposal_id_and_user_id", unique: true, using: :btree
 
   create_table "proposal_borders", force: true do |t|
     t.integer "proposal_id",        null: false

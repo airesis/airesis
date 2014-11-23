@@ -103,3 +103,8 @@ def add_solution(proposal)
   proposal.solutions << solution
   proposal.save
 end
+
+
+def expect_notifications(number=1)
+  expect(page.title).to have_content "(#{number})"
+end

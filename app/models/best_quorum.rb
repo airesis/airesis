@@ -164,14 +164,14 @@ class BestQuorum < Quorum
         proposal.proposal_state_id = ProposalState::WAIT_DATE #we passed the debate, we are now waiting for someone to choose the vote date
         NotificationProposalReadyForVote.perform_async(proposal.id)
       end
-
+      proposal.save
       #remove the timer if is still there
       #Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id}) if minutes #TODO remove job
     else
       proposal.abandon
     end
 
-    proposal.save
+
     proposal.reload
   end
 
