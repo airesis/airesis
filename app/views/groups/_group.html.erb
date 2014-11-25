@@ -3,7 +3,7 @@
     <% if @group.is_private? %>
         <div class="panel callout">
           <p>
-            <%= t('pages.groups.edit.private_warning_html', link: (link_to t('pages.groups.administration_panel.proposals'), edit_proposals_group_path(@group))) %>
+            <%= t('pages.groups.edit.private_warning_html', link: (link_to t('pages.groups.administration_panel.proposals'), group_quorums_url(@group))) %>
           </p>
         </div>
     <% end %>

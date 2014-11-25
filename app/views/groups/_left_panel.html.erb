@@ -1,6 +1,5 @@
 <% content_for :left_panel do %>
     <% if can? :view_data, @group %>
-
         <% if ::Configuration::socialnetwork_active %>
             <div class="mybox">
               <a href="https://twitter.com/share"
@@ -11,11 +10,8 @@
                  data-text="<%= "Look at this group on ##{ENV['APP_SHORT_NAME']}" %>">Tweet</a>
 
               <div class="g-plusone" data-size="tall"></div>
-
               <div class="fb-like" data-send="false" data-width="50" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false" data-likeable_type="<%= @group.class.class_name %>" data-likeable_id="<%= @group.id %>"></div>
-
               <h4><%= t('pages.groups.show.short_url').upcase %></h4>
-
               <div class="mycont">
                 <%= link_to group_url(@group).gsub('/groups', ''), group_url(@group).gsub('/groups', '') %>
               </div>
