@@ -69,7 +69,6 @@
   margin-top: 2px;
 }
 
-
 /*proposal models*/
 
 .event_model_option {
@@ -104,12 +103,20 @@
     margin-left: 5px;
     max-width: 165px;
     span {
-      color:darkslategray;
+      color: darkslategray;
     }
   }
 }
 
 .loading_place {
   margin-top: 24px;
-  display:none;
+  display: none;
+}
+
+.map-canvas {
+  width: 100%;
+  height: 300px;
+  img {
+    max-width: none;
+  }
 }
