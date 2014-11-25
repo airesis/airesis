@@ -1,5 +1,11 @@
 $('#results_container').html('<%=j render 'group_participations/group_participation_results'%>');
-reset();
+confirmation_message_1 = '<%=j raw t('pages.groups.edit_permissions.confirm_delete_1', count: @unscoped_group_participations.count)%>';
+confirmation_message_2 = '<%=j raw t('pages.groups.edit_permissions.confirm_delete_2', count: @unscoped_group_participations.count)%>';
+total_count = <%=@unscoped_group_participations.count %>;
+$('#message_receiver_ids').val('<%=@unscoped_group_participations.map { |p| p.user_id }.join(',')%>');
+$('#destroy_ids').val('<%=@unscoped_group_participations.map { |p| p.id }.join(',')%>');
+
+setTimeout(reset, 1000);
 <%if params[:back] %>
 <%else%>
     window.history.pushState(null,"",'<%=j raw group_group_participations_path(@group, params) + '&_ajax=true'%>');

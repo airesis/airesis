@@ -3,6 +3,8 @@ $('#results_container').html("<%=j render(partial: 'group_participation_results'
 <%else%>
 $('#results_container').append("<%=j render(partial: 'group_participation_results')%>");
 <%end%>
+
+
 <%if @group_participations.total_pages > @group_participations.current_page%>
 checkActive = true;
 checkScroll();

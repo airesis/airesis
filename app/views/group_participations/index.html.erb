@@ -49,7 +49,7 @@
                   <%= e.label t('pages.users.send_message.body_label') %>
                   <%= e.text_area 'body', rows: 10 %>
 
-                  <%= e.hidden_field 'receiver_ids', value: @group_participations.map { |p| p.user_id }.join(',') %>
+                  <%= e.hidden_field 'receiver_ids', value: @unscoped_group_participations.map { |p| p.user_id }.join(',') %>
 
 
                   <a href="#" class="btn" onclick="$('#email_panel').foundation('reveal','close');return false;"><%= t('buttons.cancel') %></a>
@@ -59,7 +59,7 @@
             </div>
             <%= form_for 'destroy', url: destroy_all_group_group_participations_path(@group), remote: true, method: :post, html: {style: 'display:inline;'} do |e| %>
 
-                <%= e.hidden_field 'ids', value: @group_participations.map { |p| p.id }.join(',') %>
+                <%= e.hidden_field 'ids', value: @unscoped_group_participations.map { |p| p.id }.join(',') %>
 
                 <%= link_to '#', class: 'btn', id: 'remove_all' do %>
                     <i class="fa fa-trash-o"></i>
@@ -73,9 +73,9 @@
 <% end %>
 
 <div class="row full-width">
-  <div id="results_container" class="row">
+  <ul id="results_container" class="small-block-grid-2 medium-block-grid-3 large-block-grid-4 xlarge-block-grid-5 xxlarge-block-grid-6">
     <%= render partial: 'group_participation_results' %>
-  </div>
+  </ul>
 </div>
 
 <% if @group_participations.size > GroupParticipation::PER_PAGE %>
@@ -100,6 +100,9 @@
 <script type="text/javascript">
     var everPushedSomething = false;
     var initialUrl = location.href;
+    var confirmation_message_1 = '<%=j raw t('pages.groups.edit_permissions.confirm_delete_1', count: @unscoped_group_participations.count)%>';
+    var confirmation_message_2 = '<%=j raw t('pages.groups.edit_permissions.confirm_delete_2', count: @unscoped_group_participations.count)%>';
+    var total_count = <%=@unscoped_group_participations.count %>;
 
     $(function () {
         $(window).bind('popstate', function (event) {
@@ -143,19 +146,16 @@
             }
         });
 
-        $('.invite-button').click(function () {
-            $('#message_receiver_ids').val($('#ids_results').val());
-        });
-
         $('#remove_all').click(function (e) {
-            if (confirm('<%=j t('pages.groups.edit_permissions.confirm_delete_1', count: @group_participations.count)%>')) {
-                <%if @group_participations.count >= 10 %>
-                if (confirm('<%=j t('pages.groups.edit_permissions.confirm_delete_2',count: @group_participations.count)%>')) {
+            if (confirm(confirmation_message_1)) {
+                if (total_count > 10) {
+                    if (confirmation_message_2) {
+                        $(this).closest("form").submit();
+                    }
+                }
+                else {
                     $(this).closest("form").submit();
                 }
-                <%else%>
-                $(this).closest("form").submit();
-                <%end%>
             }
             return false;
         });

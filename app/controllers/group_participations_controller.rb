@@ -12,7 +12,8 @@ class GroupParticipationsController < ApplicationController
   def index
     @page_title = t('pages.group_participations.index.title')
     @search_participant = @group.search_participants.build(search_participant_params)
-    @group_participations = @search_participant.results.page(params[:page]).per(GroupParticipation::PER_PAGE)
+    @unscoped_group_participations = @search_participant.results
+    @group_participations = @unscoped_group_participations.page(params[:page]).per(GroupParticipation::PER_PAGE)
 
     respond_to do |format|
       format.js
