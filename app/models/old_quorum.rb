@@ -68,7 +68,7 @@ class OldQuorum < Quorum
   end
 
 
-  def check_phase(force_end)
+  def check_phase(force_end=false)
     proposal = self.proposal
     passed = false
     timepassed = (!ends_at || Time.now > ends_at)

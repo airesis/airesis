@@ -527,6 +527,7 @@ class Proposal < ActiveRecord::Base
 
 
   def close_vote_phase
+    return unless voting?
     quorum.close_vote_phase
   end
 
