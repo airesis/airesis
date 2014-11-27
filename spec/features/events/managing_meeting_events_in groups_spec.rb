@@ -48,6 +48,23 @@ describe "manage correctly meeting events", type: :feature, js: true do
     visit group_event_path(group, Event.last)
     expect(page).to have_content(title)
     expect(page).to have_content(description)
+    expect(Event.last.user).to eq user2
     logout :user
   end
+
+  it "can delete events" do
+    event = create(:meeting_event, user: user2)
+    meeting_organization = create(:meeting_organization, event: event, group: group)
+    meeting = create(:meeting, event: event)
+
+    expect(Ability.new(user2)).to be_able_to(:destroy, event)
+
+    event.destroy
+
+    expect(Event.count).to eq 0
+    expect(Meeting.count).to eq 0
+    expect(MeetingOrganization.count).to eq 0
+    expect(Place.count).to eq 0
+  end
+
 end
