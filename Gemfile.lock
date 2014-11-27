@@ -153,7 +153,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
-    connection_pool (2.0.0)
+    connection_pool (2.1.0)
     cookiejar (0.3.2)
     crowdin-api (0.2.0)
       rest-client (>= 1.6.7)
@@ -420,8 +420,8 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0.4)
-    sidekiq (3.2.4)
-      celluloid (>= 0.15.2)
+    sidekiq (3.3.0)
+      celluloid (>= 0.16.0)
       connection_pool (>= 2.0.0)
       json
       redis (>= 3.0.6)

@@ -521,18 +521,16 @@ class Proposal < ActiveRecord::Base
   #check if we have to close the debate and pass to votation phase
   #accept a force parameter to close the debate in any case
   def check_phase(force_end=false)
-    return unless in_valutation? #if the proposal already passed this phase skip this check
-    quorum.check_phase(force_end)
+    quorum.check_phase(force_end) if in_valutation? #if the proposal already passed this phase skip this check
   end
 
 
   def close_vote_phase
-    return unless voting?
-    quorum.close_vote_phase
+    quorum.close_vote_phase if voting?
   end
 
-
   def abandon
+    return unless in_valutation?
     logger.info "Abandoning proposal #{id}"
     self.proposal_state_id = ProposalState::ABANDONED
     life = proposal_lives.build(quorum_id: quorum_id, valutations: valutations, rank: rank, seq: ((proposal_lives.maximum(:seq) || 0) + 1))
