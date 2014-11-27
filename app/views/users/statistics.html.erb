@@ -41,7 +41,7 @@
 
   <p>
     <b><%= 'Medium rank of proposals that have been voted' %></b>
-    <span class="info"><%= @voted_rank = @user.proposals.accepted.average(:rank).round(2) %></span>
+    <span class="info"><%= @voted_rank = @user.proposals.accepted.average(:rank).to_f.round(2) %></span>
   </p>
 
   <p>
