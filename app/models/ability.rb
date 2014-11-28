@@ -52,7 +52,7 @@ class Ability
       #can see proposals in group areas in which has permission
       can :show, Proposal, presentation_areas: can_do_on_group_area(user, GroupAction::PROPOSAL_VIEW)
 
-      can [:edit, :update, :geocode, :add_authors], Proposal, users: {id: user.id}, proposal_state_id: ProposalState::VALUTATION
+      can [:edit, :update, :geocode, :add_authors, :available_authors_list], Proposal, users: {id: user.id}, proposal_state_id: ProposalState::VALUTATION
 
       can [:rankup, :rankdown], Proposal do |proposal|
         ranking = proposal.rankings.find_by(user_id: user.id)
@@ -61,6 +61,11 @@ class Ability
         else
           can? :participate, proposal
         end
+      end
+
+      can :available_author, Proposal do |proposal|
+        (proposal.users.exclude? user) &&
+        (can? :participate, proposal)
       end
 
       #he can participate to public proposals

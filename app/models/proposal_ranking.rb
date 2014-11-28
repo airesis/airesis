@@ -11,9 +11,14 @@ class ProposalRanking < ActiveRecord::Base
   scope :negatives, -> { where(ranking_type_id: NEGATIVE) }
 
   after_save :update_counter_cache
+  after_save :check_proposal_state
   after_destroy :update_counter_cache
 
   after_commit :send_notification, on: :create
+
+
+
+  protected
 
   def update_counter_cache
     rankings = proposal.rankings
@@ -22,15 +27,17 @@ class ProposalRanking < ActiveRecord::Base
     res = num_pos.to_f / nvalutations.to_f
     ranking = nvalutations > 0 ? res*100 : 0
     proposal.update_columns(valutations: nvalutations, rank: ranking.round)
-    proposal.check_phase
   end
 
-
-  protected
 
   #invia le notifiche quando un utente valuta la proposta
   #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
   def send_notifications
     NotificationProposalRankingCreate.perform_in(1, id)
+  end
+
+
+  def check_proposal_state
+    proposal.check_phase
   end
 end

@@ -399,12 +399,7 @@ class ProposalsController < ApplicationController
   def available_author
     @proposal.available_user_authors << current_user
     @proposal.save!
-
-    #invia le notifiche
-    notify_user_available_authors(@proposal)
-
     flash[:notice] = I18n.t('info.proposal.offered_editor')
-
   end
 
   #restituisce la lista degli utenti disponibili a redigere la sintesi della proposta
@@ -427,11 +422,12 @@ class ProposalsController < ApplicationController
         @proposal.proposal_presentations.build(user: user, acceptor: current_user)
       end
       @proposal.save!
+      @proposal.reload
     end
-    flash[:notice] = "Nuovi redattori aggiunti correttamente!"
+    flash[:notice] = t('info.proposal.authors_added')
   rescue Exception => e
-    flash[:error] = "Errore durante l'aggiunta dei nuovi autori"
-    render 'proposals/errors/add_authors'
+    flash[:error] = t('errors.proposal.authors_added')
+    render 'layouts/error'
   end
 
 

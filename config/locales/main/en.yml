@@ -1209,6 +1209,8 @@ en:
       random_ordered_votes: "Random ordered votes"
       number_of_voters: "Number of voters"
       vote: "Their vote"
+    authors_list_panel:
+      dont_want_to_be_an_author: "I don't want to be an author anymore"
   digit_tags: "Type the tags you want to add"
   buttons:
     cancel: "Cancel"
@@ -1370,6 +1372,7 @@ en:
       back_in_debate: "The proposal is now in debate again. Now you are its editor"
       editors_added: "New editors successfully added!"
       offered_editor: "You offered yourself to write up this proposal!"
+      authors_added: "New authors correctly added"
     message_sent: "Message successfully sent"
     private_messages_active: "Other users can send you private messages"
     private_messages_inactive: "Other users cannot send you private messages"
@@ -1560,3 +1563,5 @@ en:
       votation: "Sorry but something went wrong while casting your vote. Try again later."
     votation:
       already_voted: "You have already voted for this proposal"
+    proposal:
+      authors_added: "Error while adding new authors"

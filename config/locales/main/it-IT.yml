@@ -1201,6 +1201,8 @@ it-IT:
       random_ordered_votes: "Voti in ordine casuale"
       vote: "Voto espresso"
       number_of_voters: "Numero di votanti"
+    authors_list_panel:
+      dont_want_to_be_an_author: "Non voglio più redigere la proposta"
   petitions:
     promote:
       promote1_html: |
@@ -1372,6 +1374,7 @@ it-IT:
       back_in_debate: "La proposta è stata rimessa in dibattito. Ora ne sei tu il redattore"
       editors_added: "Nuovi redattori aggiunti correttamente!"
       offered_editor: "Ti sei reso disponibile per redigere la sintesi della proposta!"
+      authors_added: "Nuovi redattori aggiunti correttamente"
     message_sent: "Messaggio inviato correttamente"
     private_messages_active: "Gli altri utenti potranno inviarti messaggi privati"
     private_messages_inactive: "Gli altri utenti non potranno inviarti messaggi privati"
@@ -1545,3 +1548,5 @@ it-IT:
       votation: "Errore durante l'inserimento del tuo voto. Spiacenti."
     votation:
       already_voted: "Hai già votato per questa proposta"
+    proposal:
+      authors_added: "Errore durante l'aggiunta dei nuovi autori"

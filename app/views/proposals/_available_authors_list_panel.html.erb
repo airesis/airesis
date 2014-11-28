@@ -4,7 +4,6 @@
       <p><%= t('pages.available_authors.index.explain_html')%></p>
     </div>
     <%= form_for 'authors', url: {controller: "proposals", action: "add_authors", group_id: params[:group_id]}, remote: true, method: :put do |f| %>
-
         <% @available_authors.each do |user| %>
             <div>
               <input type="checkbox" name="user_ids[]" value="<%= user.id %>"> <%= user.fullname %> <%= user.user_image_tag 24 %>
@@ -13,7 +12,7 @@
 
         <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>
         <%= link_to t('buttons.go_back'), :back, class: 'btn', data: {back: ''} %>
-        <%= f.submit t('buttons.save'), class: 'btn blue' %>
+        <%= f.submit t('buttons.save'), class: 'btn blue', data: {disable_with: t('loading')} %>
     <% end %>
 <% else %>
     <div class="panel alert">

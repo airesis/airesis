@@ -94,14 +94,14 @@
       <h4><%= t('pages.proposals.show.editors_title') %></h4>
 
       <div class="mycont">
-        <div id="authors_list">
+        <div class="authors_list">
           <%= render partial: 'proposals/authors_list_panel' %>
         </div>
         <% if signed_in? && @proposal.in_valutation? %>
-            <div id="available_author">
+            <div class="available-author">
               <%= render partial: 'proposals/available_author' %>
             </div>
-            <div id="available_authors_button">
+            <div class="available_authors_button">
               <%= render partial: 'available_authors_button' %>
             </div>
         <% end %>
