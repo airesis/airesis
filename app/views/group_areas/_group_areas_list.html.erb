@@ -1,36 +1,38 @@
-<% @group_areas.each do |area| %>
-    <div class="group_area" id="group<%= area.id %>">
-      <div>
+<ul class="small-block-grid-1 large-block-grid-3">
+  <% @group_areas.each do |area| %>
+      <li>
+        <div class="card group_area" id="group<%= area.id %>">
+          <div>
         <span class="remove_area_button">
           <%#=link_to 'Modifica', edit_group_group_area_path(@group,area), remote: true if can? :update, area%><br/>
-          <%=link_to t('buttons.delete'), [@group,area], method: :delete, remote: true, confirm: t('pages.groups.edit_work_areas.manage.confirm_deletion') if can? :destroy, area%>
+          <%= link_to t('buttons.delete'), [@group, area], method: :delete, remote: true, confirm: t('pages.groups.edit_work_areas.manage.confirm_deletion') if can? :destroy, area %>
 
         </span>
-        <div style="width:40px;height: 40px;"></div>
 
-        <div class="group_area_name">
-          <%=link_to area.name, edit_group_group_area_url(@group,area) %>
-          <div class="fade_out"></div>
+            <div class="group_area_name">
+              <%= link_to area.name, edit_group_group_area_url(@group, area) %>
+            </div>
+            <div style="clear:both;"></div>
+          </div>
+          <%= link_to t('pages.groups.edit_quorums.participants'), '#', class: 'btn areas_button', data: {g_id: area.id} %>
+          <div class="areas_list shadow-box">
+            <ul>
+              <% @group_participations.each do |participant| %>
+                  <li>
+                    <input type="checkbox"
+                           data-user_id="<%= participant.id %>"
+                           data-group_area_id="<%= area.id %>"
+                           data-change-area-participation
+                           <% if area.participants.include? participant %> checked='checked'
+                    <% end %> >
+                    <%= participant.fullname %>
+                  </li>
+              <% end %>
+
+            </ul>
+            <div style="clear:both;"></div>
+          </div>
         </div>
-        <div style="clear:both;"></div>
-      </div>
-      <%= link_to t('pages.groups.edit_quorums.participants'), '#', class: 'btn areas_button', data: {g_id: area.id} %>
-      <div class="areas_list shadow-box">
-        <ul>
-          <%@group_participations.each do |participant|%>
-              <li>
-                <input type="checkbox"
-                       data-user_id="<%=participant.id%>"
-                       data-group_area_id="<%=area.id%>"
-                       data-change-area-participation
-                       <%if area.participants.include? participant%> checked='checked'<%end%> >
-                <%= participant.fullname %>
-              </li>
-          <%end%>
-
-        </ul>
-        <div style="clear:both;"></div>
-      </div>
-    </div>
-<% end %>
-<div style="clear:both;"></div>
+      </li>
+  <% end %>
+</ul>

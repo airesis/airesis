@@ -185,9 +185,9 @@ class Ability
         participation_role.id != participation_role.group.participation_role_id
       end
 
-      can [:read, :create, :update], AreaRole, group_area: {group: is_admin_of_group(user)}
-      can :destroy, AreaRole do |area_role|
-        area_role.id != area_role.group_area.area_role_id
+      can [:read, :create, :update,:destroy,:change], AreaRole, group_area: {group: is_admin_of_group(user)}
+      cannot :destroy, AreaRole do |area_role|
+        area_role.id == area_role.group_area.area_role_id
       end
 
       can :view_proposal, GroupArea, group: is_admin_of_group(user)
@@ -240,7 +240,7 @@ class Ability
       can :manage, [Quorum, BestQuorum, OldQuorum], group_quorum: {group: is_admin_of_group(user)}
       can :manage, GroupArea, group: is_admin_of_group(user).merge(enable_areas: true)
 
-      can [:create, :destroy], AreaParticipation, group_area: {group: is_admin_of_group(user), area_participations: {user_id: :user_id}}
+      can [:create, :destroy], AreaParticipation, group_area: {group: is_admin_of_group(user)}
 
       #e sia l'amministratore o portavoce del gruppo
       #e che il ruolo appartenga al gruppo indicato o sia generico,

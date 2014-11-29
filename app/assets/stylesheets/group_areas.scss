@@ -1,33 +1,11 @@
 .group_area {
-  background-color: #F5F5F5;
-  border: 1px solid #CCCCCC;
-  float: left;
-  height: 125px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  padding: 3px;
   position: relative;
-  text-align: left;
-  width: 235px;
-  z-index: 0;
   word-wrap: break-word;
   .group_area_name {
     font-weight: bold;
     height: 35px;
     overflow: hidden;
     position: relative;
-    .fade_out {
-      position: absolute;
-      bottom: 0px;
-      height: 13px;
-      width: 100%;
-      background: -webkit-linear-gradient(rgba(245, 245, 245, 0) 20%, rgba(245, 245, 245, 1) 100%);
-      background-image: -moz-linear-gradient(rgba(245, 245, 245, 0) 20%, rgba(245, 245, 245, 1) 100%);
-      background-image: -o-linear-gradient(rgba(245, 245, 245, 0) 20%, rgba(245, 245, 245, 1) 100%);
-      background-image: linear-gradient(rgba(245, 245, 245, 0) 20%, rgba(245, 245, 245, 1) 100%);
-      background-image: -ms-linear-gradient(rgba(245, 245, 245, 0) 20%, rgba(245, 245, 245, 1) 100%);
-    }
-
   }
 }
 

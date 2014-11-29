@@ -1345,6 +1345,8 @@ en:
       description: "Sorry. You do not have permissions to access this resource."
     area_participation:
       create: "Error adding the user to the area"
+    area:
+      update: "Error updating the area"
   info:
     setting_preferences: "Settings changed successfully"
     blog_created: "Post successfully created"
@@ -1400,6 +1402,7 @@ en:
       group_created: "Group created correctly"
       search_participants: "Search completed. Search results updated"
       post_removed: "The post has been removed from the group Wall"
+      area_updated: "Area updated"
     participation_roles:
       role_updated: "Role successfully updated"
       permissions_updated: "Permissions updated"

@@ -27,42 +27,39 @@
 
 <script type="text/javascript">
     $(function () {
-        $('.areas_button')
-                .mouseover(function () {
-                    var _this = $(this);
-                    var _areas_list = _this.next('.areas_list');
-                    _areas_list.show().position({
-                        at: "left bottom",
-                        my: "left bottom",
-                        of: _this
-                    });
-                })
-                .mouseout(function () {
-                    var _this = $(this);
-                    var _areas_list = _this.next('.areas_list');
-                    setTimeout(function () {
-                        if (_areas_list.is(':hover') || _this.is(':hover')) {
+        $(document).on('mouseover', '.areas_button', function () {
+            var _this = $(this);
+            var _areas_list = _this.next('.areas_list');
+            _areas_list.show().position({
+                at: "left bottom",
+                my: "left bottom",
+                of: _this
+            });
+        });
+        $(document).on('mouseout', '.areas_button', function () {
+            var _this = $(this);
+            var _areas_list = _this.next('.areas_list');
+            setTimeout(function () {
+                if (_areas_list.is(':hover') || _this.is(':hover')) {
 
-                        }
-                        else {
-                            _areas_list.hide();
-                        }
-                    }, 200);
-                });
+                }
+                else {
+                    _areas_list.hide();
+                }
+            }, 200);
+        });
+        $(document).on('mouseout', '.areas_list', function () {
+            var _this = $(this);
+            var _areas_button = _this.prev('.areas_button');
+            setTimeout(function () {
+                if (_areas_button.is(':hover') || _this.is(':hover')) {
 
-        $('.areas_list')
-                .mouseout(function () {
-                    var _this = $(this);
-                    var _areas_button = _this.prev('.areas_button');
-                    setTimeout(function () {
-                        if (_areas_button.is(':hover') || _this.is(':hover')) {
-
-                        }
-                        else {
-                            _this.hide();
-                        }
-                    }, 200);
-                });
+                }
+                else {
+                    _this.hide();
+                }
+            }, 200);
+        });
 
 
         $(document).on('click', '[data-change-area-participation]', function (event) {

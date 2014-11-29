@@ -1,5 +1,16 @@
-<h1><%= t('pages.groups.edit_work_areas.manage.manage_roles_in_area', area: @group_area.name) %></h1>
+<div class="card">
+  <%= simple_form_for !in_subdomain? ? [@group, @group_area] : @group_area, validate: true, remote: request.xhr? do |e| %>
 
+      <%= e.input :name %>
+
+      <%= e.input :description, as: :text %>
+
+      <%= e.submit t('buttons.update'), class: 'btn blue', data: {disable_with: t('saving')} %>
+  <% end %>
+</div>
+
+
+<h1><%= t('pages.groups.edit_work_areas.manage.manage_roles_in_area', area: @group_area.name) %></h1>
 <div id="roles_panel_container">
   <%= render partial: 'group_areas/roles_panel' %>
 </div>
@@ -82,7 +93,7 @@
                     "sNext": "Pagina successiva"
                 }
             },
-            "aoColumns": [null, { "bSortable": false }]
+            "aoColumns": [null, {"bSortable": false}]
         });
 
         $('#roles_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");

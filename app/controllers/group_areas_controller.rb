@@ -44,13 +44,16 @@ class GroupAreasController < ApplicationController
     if @group_area.save
       @group_areas = @group.group_areas.includes(:participants)
       @group_participations = @group.participants
-      flash[:notice] = t('info.groups.work_area.area_created')
-      redirect_to [@group,@group_area]
+      respond_to do |format|
+        flash[:notice] = t('info.groups.work_area.area_created')
+        format.js
+        format.html { redirect_to [@group, @group_area] }
+      end
     else
       respond_to do |format|
         flash[:error] = t('error.groups.work_area.area_created')
-        format.html {render action: :new}
         format.js { render 'group_areas/errors/create' }
+        format.html { render action: :new }
       end
     end
   end
@@ -58,11 +61,11 @@ class GroupAreasController < ApplicationController
   def update
     if @group_area.update(group_area_params)
       respond_to do |format|
-          flash[:notice] = t('info.groups.group_updated')
-          format.html { redirect_to([@group,@group_area]) }
+        flash[:notice] = t('info.groups.area_updated')
+        format.html { redirect_to([@group, @group_area]) }
       end
     else
-      flash[:error] = t('error.groups.update')
+      flash[:error] = t('error.area.update')
       format.html { render action: :edit }
     end
   end
