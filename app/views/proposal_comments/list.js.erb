@@ -1,10 +1,10 @@
 <%if params[:reset]%>
 	contributes = [];
-	$('#order_bar').html("<%= escape_javascript(render(partial: 'order_bar'))%>");
-	$('#proposalCommentsContainer').html("<%= escape_javascript(render(partial: 'proposals/comments'))%>");
+	$('#order_bar').html("<%= j(render(partial: 'order_bar'))%>");
+	$('#proposalCommentsContainer').html("<%= j(render(partial: 'proposals/comments'))%>");
 	$('#loading_contributes').hide();
 <%else%>
-	$('#proposalCommentsContainer').append("<%= escape_javascript(render(partial: 'proposals/comments'))%>");
+	$('#proposalCommentsContainer').append("<%= j(render(partial: 'proposals/comments'))%>");
 <%end%>
 
 contributes.push(<%= @proposal_comments.map{|p| p.id}.join(',') %>);
@@ -24,7 +24,7 @@ firstCheck = false;
 disegnaCountdown();
 
 <%if params[:comment_id] %>
-var comment_ = $('#comment<%=params[:comment_id]%> .proposal_comment');
+var comment_ = $('[data-comment-id=<%=params[:comment_id]%>]');
 scrollToElement(comment_);
 comment_.effect('highlight', {}, 3000);
 <%end%>

@@ -7,22 +7,24 @@ class ResqueMailer < ActionMailer::Base
 
   #specific templates for notification types
   TEMPLATES = {
-                1 => 'new_contribute',
-                2 => 'text_update',
-                3 => 'new_proposal',
-                5 => 'new_contribute',
-                10 => 'new_proposal',
-                NotificationType::NEW_PUBLIC_EVENTS => 'notifications/new_event',
-                NotificationType::NEW_EVENTS => 'notifications/new_event',
-                NotificationType::AVAILABLE_AUTHOR => 'notifications/available_author',
-                NotificationType::UNINTEGRATED_CONTRIBUTE => 'unintegrated_contribute',
-                NotificationType::NEW_BLOG_COMMENT => 'new_blog_comment',
-                NotificationType::CONTRIBUTE_UPDATE => 'notifications/update_contribute'
-              }
-  
+      NotificationType::NEW_CONTRIBUTES => 'new_contribute',
+      NotificationType::NEW_CONTRIBUTES_MINE => 'new_contribute',
+      NotificationType::NEW_COMMENTS_MINE => 'new_contribute',
+      NotificationType::NEW_COMMENTS => 'new_contribute',
+      NotificationType::TEXT_UPDATE => 'text_update',
+      NotificationType::NEW_PUBLIC_PROPOSALS => 'new_proposal',
+      NotificationType::NEW_PROPOSALS => 'new_proposal',
+      NotificationType::NEW_PUBLIC_EVENTS => 'notifications/new_event',
+      NotificationType::NEW_EVENTS => 'notifications/new_event',
+      NotificationType::AVAILABLE_AUTHOR => 'notifications/available_author',
+      NotificationType::UNINTEGRATED_CONTRIBUTE => 'unintegrated_contribute',
+      NotificationType::NEW_BLOG_COMMENT => 'new_blog_comment',
+      NotificationType::CONTRIBUTE_UPDATE => 'notifications/update_contribute'
+  }
+
   def notification(alert_id)
     @alert = Alert.find(alert_id)
-    return if @alert.checked  #do not send emails for already checked alerts
+    return if @alert.checked #do not send emails for already checked alerts
     I18n.locale = @alert.user.locale.key || 'en'
     @data = @alert.notification.data
     to_id = @data[:to_id]
@@ -35,7 +37,7 @@ class ResqueMailer < ActionMailer::Base
       mail(to: @alert.user.email, from: "Airesis <noreply@airesis.it>", subject: subject, template_name: template_name)
     end
   end
-  
+
   def admin_message(msg)
     @msg = msg
     mail(to: 'coorasse+daily@gmail.com', subject: ENV['APP_SHORT_NAME'] + " - Messaggio di amministrazione")
@@ -61,20 +63,20 @@ class ResqueMailer < ActionMailer::Base
     mail(to: @group_invitation_email.email, subject: t('mailer.invite.subject', group_name: @group.name))
   end
 
-  def user_message(subject,body,from_id,to_id)
+  def user_message(subject, body, from_id, to_id)
     @body = body
     @from = User.find(from_id)
     @to = User.find(to_id)
     mail(to: @to.email, from: "Airesis <noreply@airesis.it>", reply_to: @from.email, subject: subject)
   end
 
-  def massive_email(from_id,to_ids,group_id,subject,body)
+  def massive_email(from_id, to_ids, group_id, subject, body)
     @body = body
     @from = User.find(from_id)
     @group = Group.find(group_id)
     @user = @from
-    @to = @group.participants.where('users.id in (?)',to_ids.split(','))
-    mail(bcc: @to.map{|u| u.email}, from: "Airesis <noreply@airesis.it>", reply_to: @from.email, to: "test@airesis.it", subject: subject)
+    @to = @group.participants.where('users.id in (?)', to_ids.split(','))
+    mail(bcc: @to.map { |u| u.email }, from: "Airesis <noreply@airesis.it>", reply_to: @from.email, to: "test@airesis.it", subject: subject)
   end
 
 
@@ -82,8 +84,8 @@ class ResqueMailer < ActionMailer::Base
     @user = User.find_by_id(params['user_id'])
     I18n.locale = @user.locale.key || 'en'
     mail_fields = {
-      subject: params['subject'],
-      to: @user.email
+        subject: params['subject'],
+        to: @user.email
     }
     @name = @user.fullname
 
@@ -95,8 +97,8 @@ class ResqueMailer < ActionMailer::Base
   def feedback(feedback_id)
     @feedback = SentFeedback.find(feedback_id)
     @feedback.email ?
-    mail(to: 'help@airesis.it', from: @feedback.email, subject: "#{l Time.now} - Nuova segnalazione ") : #todo extract this email address
-    mail(to: 'help@airesis.it', from: "Feedback <feedback@airesis.it>", subject: "#{l Time.now} - Nuova segnalazione")  #todo extract this email address
+        mail(to: 'help@airesis.it', from: @feedback.email, subject: "#{l Time.now} - Nuova segnalazione ") : #todo extract this email address
+        mail(to: 'help@airesis.it', from: "Feedback <feedback@airesis.it>", subject: "#{l Time.now} - Nuova segnalazione") #todo extract this email address
   end
 
   def blocked(user_id)
@@ -113,13 +115,12 @@ class ResqueMailer < ActionMailer::Base
   end
 
 
-
   def test_mail
     mail(to: "coorasse@gmail.com", subject: "Test Redis To Go")
   end
 
   def few_users_a(group_id)
-    @group  =Group.find(group_id)
+    @group =Group.find(group_id)
     @user = @group.portavoce.first
     mail(to: @user.email, subject: "#{@group.name} non ha ancora dei partecipanti") if @user.email
   end
@@ -127,6 +128,6 @@ class ResqueMailer < ActionMailer::Base
   protected
 
   def choose_layout
-    (['invite','admin_message','feedback','test'].include? action_name) ? 'maktoub/unregistered_mailer' : (['notification'].include? action_name) ? 'maktoub/notification_mailer' : 'maktoub/newsletter_mailer'
+    (['invite', 'admin_message', 'feedback', 'test'].include? action_name) ? 'maktoub/unregistered_mailer' : (['notification'].include? action_name) ? 'maktoub/notification_mailer' : 'maktoub/newsletter_mailer'
   end
 end

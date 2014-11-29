@@ -24,13 +24,12 @@ class NotificationProposalCommentCreate < NotificationSender
     else
       url = proposal_url(proposal,{host: host})
     end
-    if comment.paragraph
-      query['paragraph_id'] = data['paragraph_id'] = comment.paragraph_id
-      query['section_id'] = data['section_id'] = comment.paragraph.section_id
-
-    end
 
     if comment.is_contribute?
+      if comment.paragraph
+        query['section_id'] = data['section_id'] = comment.paragraph.section_id
+      end
+
       proposal.users.each do |user|   #send emails to editors
         if user != comment_user
           #check if there is another alert to this user about new contributes that he has not read yet
@@ -42,7 +41,6 @@ class NotificationProposalCommentCreate < NotificationSender
         end
       end
 
-
       proposal.participants.each do |user|
         if (user != comment_user) && (!proposal.users.include? user)
           another_increase_or_do('proposal_id',proposal.id,user.id,NotificationType::NEW_CONTRIBUTES) do
@@ -52,7 +50,12 @@ class NotificationProposalCommentCreate < NotificationSender
           end
         end
       end
-    else
+    else #reply
+
+      if comment.contribute.paragraph
+        query['section_id'] = data['section_id'] = comment.contribute.paragraph.section_id
+      end
+
       data[:parent_id] = comment.contribute.id
 
       notification_a = Notification.new(notification_type_id: NotificationType::NEW_COMMENTS, url: url +"?#{query.to_query}", data: data)

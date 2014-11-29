@@ -10,7 +10,7 @@ $('#loading_contributes').hide();
 
 
 <%if params[:comment_id] %>
-var comment_ = $('#comment<%=params[:comment_id]%> .proposal_comment');
+var comment_ = $('[data-comment-id=<%=params[:comment_id]%>]');
 
 $('.suggestion_right[data-section_id=<%=params[:section_id]%>]').animate({
     scrollTop: comment_.offset().top - 100

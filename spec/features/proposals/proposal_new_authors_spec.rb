@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe "the management of authors work quite good", type: :feature, js: true do
+describe "the management of authors works quite good", type: :feature, js: true do
 
   let!(:user) { create(:user) }
   let!(:group) { create(:group, current_user_id: user.id) }

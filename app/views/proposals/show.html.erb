@@ -87,6 +87,8 @@
 <script type="text/javascript">
     var currentView = <%=current_user ? 1 : 3 %>;
 
+    Airesis.show_comment_id = <%= params[:comment_id] || 'null'%>;
+    Airesis.show_section_id = <%= params[:section_id] || 'null'%>;
 
     function edit_contribute(id) {
         close_all_dropdown();
@@ -208,7 +210,7 @@
                 page: currentPage,
                 view: currentView,
                 contributes: contributes,
-                comment_id: <%=params[:comment_id] || 'null'%>  //show contribute if requested
+                comment_id: Airesis.show_comment_id //show contribute if requested
             },
             type: 'get',
             complete: function () {
@@ -313,9 +315,9 @@
         });
 
         //open the contribute if it's a link from an email
-        <%if params[:section_id] %>
-        $('.contribute-button[data-section_id=<%=params[:section_id]%>]').trigger('click', [<%=params[:comment_id]%>]);
-        <%end%>
+        if (Airesis.show_section_id) {
+            $('.contribute-button[data-section_id='+Airesis.show_section_id+']').trigger('click', [Airesis.show_comment_id]);
+        }
 
         <%if params[:share] %>
         $('#promote_proposal').click();
