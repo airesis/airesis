@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe "create a proposal in his group", type: :feature, js: true do
+describe "create a proposal in his group", type: :feature, js: true, ci_ignore: true  do
 
   let!(:user) { create(:user) }
   let!(:group) { create(:group, current_user_id: user.id) }
@@ -16,7 +16,7 @@ describe "create a proposal in his group", type: :feature, js: true do
     logout(:user)
   end
 
-  it "creates the proposal in group", ci_ignore: true do
+  it "creates the proposal in group" do
     visit new_group_proposal_path(group)
 
     proposal_name = Faker::Lorem.sentence
