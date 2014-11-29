@@ -212,25 +212,28 @@
     </p>
 <% end %>
 
-<div class="suggestion_right editing">
-    <div class="suggestion-title card">
-    <%= t('pages.proposals.edit.inserted_contributes') %>
+<%= content_for :absolute do %>
+    <div class="suggestion_right editing">
+
+      <div class="suggestion-title card">
+        <%= t('pages.proposals.edit.inserted_contributes') %>
+      </div>
+      <i class="fi-x close-right-section" data-close-edit-right-section></i>
+
+      <div id="loading_contributes" style="margin:auto;text-align:center;">
+        <%= image_tag 'ajax-loader.gif' %>
+        <br/>
+        <b><%= t('pages.proposals.show.loading_contributions') %></b>
+      </div>
+      <div id="proposalCommentsContainer">
+
+      </div>
+
+      <div id="loading_results" style="display:none;">
+        <span><%= t('pages.proposals.show.previos_contributes') %></span>
+      </div>
     </div>
-
-  <div id="loading_contributes" style="margin:auto;text-align:center;">
-    <%= image_tag 'ajax-loader.gif' %>
-    <br/>
-    <b><%= t('pages.proposals.show.loading_contributions') %></b>
-  </div>
-  <div id="proposalCommentsContainer">
-
-  </div>
-
-  <div id="loading_results" style="display:none;">
-    <span><%= t('pages.proposals.show.previos_contributes') %></span>
-  </div>
-</div>
-
+<% end %>
 <script type="text/javascript">
     $(function () {
         var start_field = $('#proposal_vote_starts_at');
@@ -281,8 +284,10 @@
 
     function fetchContributes() {
         currentPage++;
-        $.ajax({ url: '<%=edit_list_proposal_proposal_comments_url(@proposal) %>',
-            data: {page: currentPage,
+        $.ajax({
+            url: '<%=edit_list_proposal_proposal_comments_url(@proposal) %>',
+            data: {
+                page: currentPage,
                 view: currentView,
                 contributes: contributes,
                 all: true
@@ -298,13 +303,16 @@
         if (nearBottomOfPage() && checkActive) {
             checkActive = false;
             currentPage++;
-            $.ajax({ url: '<%=edit_list_proposal_proposal_comments_url(@proposal) %>',
-                data: {page: currentPage,
+            $.ajax({
+                url: '<%=edit_list_proposal_proposal_comments_url(@proposal) %>',
+                data: {
+                    page: currentPage,
                     view: currentView,
                     contributes: contributes,
                     all: true
                 },
-                type: 'get'});
+                type: 'get'
+            });
         } else {
             setTimeout("checkScroll()", 250);
         }
@@ -330,7 +338,11 @@
     }
 
     function addEditor(id) {
-        var editor_ = CKEDITOR.replace(id, {"toolbar": "proposal", "language": "<%=I18n.locale%>", "customConfig": 'config_lite.js'});
+        var editor_ = CKEDITOR.replace(id, {
+            "toolbar": "proposal",
+            "language": "<%=I18n.locale%>",
+            "customConfig": 'config_lite.js'
+        });
         ckedstoogle_[id] = {first: true};
         addEditorEvents(editor_);
     }

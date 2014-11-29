@@ -67,8 +67,6 @@
 
 <script type="text/javascript">
     $(function () {
-        generateTable();
-
         var dataa = [
             ['<%= t('pages.proposals.results.positive') %>', <%= @proposal.vote.positive %>],
             ['<%= t('pages.proposals.results.neutral') %>', <%= @proposal.vote.negative %>],
@@ -77,7 +75,7 @@
         $('#chart1').empty();
         var plot1 = jQuery.jqplot('chart1', [dataa],
                 {
-                    seriesColors: [ "#4bb2c5", "#EAA228", "#c5b47f"],
+                    seriesColors: ["#4bb2c5", "#EAA228", "#c5b47f"],
                     seriesDefaults: {
                         // Make this a pie chart.
                         renderer: jQuery.jqplot.PieRenderer,
@@ -87,29 +85,9 @@
                             showDataLabels: true
                         }
                     },
-                    legend: { show: false, location: 'e' }
+                    legend: {show: false, location: 'e'}
                 }
         );
 
     });
-
-    function generateTable() {
-        $('#votes_table').dataTable({
-            "oLanguage": {
-                "sLengthMenu": "Mostra _MENU_ utenti per pagina",
-                "sSearch": "Cerca:",
-                "sZeroRecords": "Nessun utente, spiacente..",
-                "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ utenti",
-                "sInfoEmpty": "Sto mostrando 0 utenti",
-                "sInfoFiltered": "(filtrati da un totale di _MAX_ utenti)",
-                "oPaginate": {
-                    "sPrevious": "Pagina precedente",
-                    "sNext": "Pagina successiva"
-                }
-            }
-            //"aoColumns": [null,{ "bSortable": false }]
-        });
-
-        $('#votes_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");
-    }
 </script>

@@ -148,6 +148,11 @@ $(function () {
         return false;
     });
 
+    $(document).on('click', '[data-close-edit-right-section]', function () {
+        hideContributes();
+        return false;
+    });
+
     $(document).on('click', '[data-login]', function() {
         "use strict";
         $('#login-panel').foundation('reveal', 'open');

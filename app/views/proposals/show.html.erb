@@ -44,7 +44,17 @@
 <!--
 <div id="svgintro" style="height:600px;width:600px;">
 </div>
+
+
 -->
+
+<div class="columns large-1 small-4">
+  <select class="slideNumber">
+    <% 5.times do |c| %>
+        <option value="<%= c+1 %>"><%= c+1 %></option>
+    <% end %>
+  </select>
+</div>
 
 <%= render partial: 'proposals/show_proposal' %>
 
@@ -324,7 +334,9 @@
         <%end%>
 
         <%if @proposal.voted? %>
-        $('.results-button')[0].click();
+        if (matchMedia(Foundation.media_queries['medium']).matches) {
+            $('.results-button')[0].click();
+        }
         <%end%>
 
         var creationDate = new Date(<%=(@proposal.created_at).to_i * 1000%>);

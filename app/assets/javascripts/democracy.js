@@ -914,8 +914,6 @@ function showOnField(field, text) {
 
 function showVoteResults() {
     "use strict";
-    $('#vote_tabs').tabs();
-
     $('#votes_table').dataTable({
         "oLanguage": {
             "sLengthMenu": "Mostra _MENU_ utenti per pagina",

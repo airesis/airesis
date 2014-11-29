@@ -2,6 +2,12 @@ var container_ = $('<div id="vote_results_container" class="reveal-modal" data-r
 container_.html("<%=j render(partial: @proposal.is_schulze? ? 'schulze_vote_results' : 'vote_results')%>");
 $('body').append(container_);
 airesis_reveal(container_, false);
+
+
+
+
+
+
 showVoteResults();
 
 $('.results-button').click(function (e) {
@@ -9,3 +15,6 @@ $('.results-button').click(function (e) {
     e.preventDefault();
     return false;
 });
+
+
+

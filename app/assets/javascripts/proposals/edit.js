@@ -109,7 +109,7 @@ function compressSolution(element, compress) {
 
 function compressSolutions(compress) {
     $('.solution_main').each(function () {
-        compressSolution($(this),compress);
+        compressSolution($(this), compress);
     });
     var compressButton = $('.compress');
     return false;
@@ -161,13 +161,15 @@ $(function () {
     fitRightMenu(suggestion_right_);
     suggestion_right_
         .bind('mousewheel DOMMouseScroll', function (e) {
-            if (e.originalEvent) e = e.originalEvent;
-            var delta = e.wheelDelta || -e.detail;
-            this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
-            e.preventDefault();
-            if (((this.scrollTop + parseInt(this.style.height, 10)) > (this.scrollHeight - 100)) && checkActive) {
-                checkActive = false;
-                fetchContributes();
+            if (matchMedia(Foundation.media_queries['medium']).matches) {
+                if (e.originalEvent) e = e.originalEvent;
+                var delta = e.wheelDelta || -e.detail;
+                this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+                e.preventDefault();
+                if (((this.scrollTop + parseInt(this.style.height, 10)) > (this.scrollHeight - 100)) && checkActive) {
+                    checkActive = false;
+                    fetchContributes();
+                }
             }
         });
 
@@ -199,7 +201,7 @@ $(function () {
             $(this).toggleClass('expanded');
             $(this).children('ul').toggle();
             var solution_ = $('.solution_main[data-solution_id=' + $(this).data('solution_id') + ']');
-            compressSolution(solution_,!solution_.attr('data-compressed'));
+            compressSolution(solution_, !solution_.attr('data-compressed'));
         }
         return false;
     });
@@ -285,7 +287,7 @@ $(function () {
 
             update_sequences($('.solutions_column[data-solution_id=' + solution_id + ']'));
         })  //remove a solution paragraph
-        .on('click', '.sol_sec_nav .remove',function () {
+        .on('click', '.sol_sec_nav .remove', function () {
             var list_element = $(this).parent();
             var solution_id = list_element.parent().parent().data('solution_id');
             var section_id = $(this).parent().data('section_id');
@@ -294,7 +296,7 @@ $(function () {
 
             update_sequences($('.solutions_column[data-solution_id=' + solution_id + ']'));
         }). //move up a solution
-        on('click', '.sol_nav .sol.move_up',function () {
+        on('click', '.sol_nav .sol.move_up', function () {
             var list_element = $(this).parent();
             var solution_id = list_element.data('solution_id');
             var to_move = $('.solution_main[data-solution_id=' + solution_id + ']');
@@ -308,7 +310,7 @@ $(function () {
 
             //todo update_sequences($('.solutions_column[data-solution_id='+solution_id+']'));
         }). //move down a solution
-        on('click', '.sol_nav .sol.move_down',function () {
+        on('click', '.sol_nav .sol.move_down', function () {
             var list_element = $(this).parent();
             var solution_id = list_element.data('solution_id');
             var to_move = $('.solution_main[data-solution_id=' + solution_id + ']');

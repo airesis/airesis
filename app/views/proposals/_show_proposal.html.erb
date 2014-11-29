@@ -11,7 +11,7 @@
 </script>
 <% if current_user %>
     <% @unread = @proposal.contributes.listable.unread(current_user.id, @proposal.id) %>
-    <% if false && @unread.count > 0 #TODO          %>
+    <% if false && @unread.count > 0 #TODO           %>
         <%= link_to '#', class: 'read_contributes' do %>
             <div class="icon-bell medium"></div>
         <% end %>
@@ -76,7 +76,7 @@
           <i class="fa fa-close"></i>
           <%= t('pages.proposals.show.close_debate_button') %>
       <% end  if can? :close_debate, @proposal %>
-  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox      %>
+  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox       %>
       <div id="wait_date_header_container">
         <%= render partial: 'proposals/wait_date_header' %>
       </div>
@@ -88,8 +88,14 @@
       <% end %>
   <% elsif @proposal.abandoned? %>
       <%= render partial: 'proposals/abandoned_header' %>
+  <% elsif @proposal.voted? %>
+      <div class="card hide-for-medium-up">
+        <h2 id="status"><%= @proposal.in_valutation? ? t('pages.proposals.show.during_debate') : @proposal.state.description %></h2>
+        <%= link_to vote_results_proposal_url(@proposal), remote: true, class: 'btn disable results-button' do %>
+            <%= t('pages.proposals.show.votation_results') %>
+        <% end %>
+      </div>
   <% end %>
-
 </div>
 
 <div id="create_event_dialog" class="reveal-modal medium" data-reveal>
@@ -132,7 +138,7 @@
 <% end %>
 
 <% unless @proposal.is_petition? %>
-    <% if @proposal.waiting? #waiting for the vote period                %>
+    <% if @proposal.waiting? #waiting for the vote period                 %>
         <div class="status_description card">
           <b><%= t('pages.proposals.show.votation_message', from: l(@proposal.vote_period.starttime), to: l(@proposal.vote_period.endtime)) %></b>
         </div>

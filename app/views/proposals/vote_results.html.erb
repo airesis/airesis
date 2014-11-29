@@ -1,6 +1,6 @@
 <% @page_title = t('pages.proposals.show.votation_results_title') %>
 <h1 class="proposalTitle" itemprop="name"><%= h @proposal.title %></h1>
-
+<%= link_to t('pages.proposal_histories.index.back_to_proposal'), @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal), class: 'btn blue' %>
 <h2><%= @page_title %></h2>
 <% if @proposal.voted? %>
     <%= render(partial: @proposal.is_schulze? ? 'schulze_vote_results' : 'vote_results') %>
