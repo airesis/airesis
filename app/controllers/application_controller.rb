@@ -142,7 +142,6 @@ class ApplicationController < ActionController::Base
       Rails.logger.error(message)
       Rails.logger.error exception.backtrace.join("\n")
     end
-
   end
 
 

@@ -112,7 +112,7 @@ class EventsController < ApplicationController
       if (!event_params[:period]) || (event_params[:period] == "Non ripetere")
         @event.user = current_user
         @group ? @group.save! : @event.save!
-        if @event.proposal_id.to_s != ''
+        if @event.proposal_id.present?
           @proposal = Proposal.find(@event.proposal_id)
           @proposal.vote_period_id = @event.id
         end

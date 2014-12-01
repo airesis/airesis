@@ -13,7 +13,6 @@ class EventCommentsController < ApplicationController
         @event_comments = @event.event_comments.order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
         @saved = @event_comments.find { |comment| comment.id == @event_comment.id }
         @saved.collapsed = true
-        notify_new_event_comment(@event_comment)
         flash[:notice] = t('info.event.comment_added')
         format.js
       else
