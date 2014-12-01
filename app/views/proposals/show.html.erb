@@ -47,15 +47,6 @@
 
 
 -->
-
-<div class="columns large-1 small-4">
-  <select class="slideNumber">
-    <% 5.times do |c| %>
-        <option value="<%= c+1 %>"><%= c+1 %></option>
-    <% end %>
-  </select>
-</div>
-
 <%= render partial: 'proposals/show_proposal' %>
 
 <% if ((can? :participate, @proposal) || (!current_user && !@proposal.private)) && (!@proposal.voting?) %>

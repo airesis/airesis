@@ -1,7 +1,7 @@
 Airesis - Choose to participate
 ===========================================
 [![Build Status](https://travis-ci.org/coorasse/Airesis.svg?branch=staging)](https://travis-ci.org/coorasse/Airesis)
-
+[![Dependency Status](https://gemnasium.com/coorasse/Airesis.svg)](https://gemnasium.com/coorasse/Airesis)
 
 The first web application for edemocracy fully OpenSource and Free
 
