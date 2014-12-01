@@ -16,8 +16,6 @@ class ProposalRanking < ActiveRecord::Base
 
   after_commit :send_notification, on: :create
 
-
-
   protected
 
   def update_counter_cache
@@ -33,7 +31,7 @@ class ProposalRanking < ActiveRecord::Base
   #invia le notifiche quando un utente valuta la proposta
   #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
   def send_notifications
-    NotificationProposalRankingCreate.perform_in(1, id)
+    NotificationProposalRankingCreate.perform_async(id)
   end
 
 

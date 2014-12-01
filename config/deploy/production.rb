@@ -4,9 +4,13 @@
 # is considered to be the first unless any hosts have the primary
 # property set.  Don't declare `role :all`, it's a meta role.
 
-role :app, %w{deploy@airesis.eu}
-role :web, %w{deploy@airesis.eu}
-role :db,  %w{deploy@airesis.eu}
+
+server_str = 'ssh.alwaysdata.com'
+user_str = 'coorasse'
+
+role :app, "#{user_str}@#{server_str}"
+role :web, "#{user_str}@#{server_str}"
+role :db,  "#{user_str}@#{server_str}"
 
 
 # Extended Server Syntax
@@ -15,7 +19,17 @@ role :db,  %w{deploy@airesis.eu}
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server 'ssh.alwaysdata.com', user: 'coorasse', roles: %w{web app}
+server server_str, user: user_str, roles: %w{web app}
+
+set :branch, "master"
+
+set :default_env, { rvm_bin_path: '~/.rvm/bin' }
+
+set :default_shell, "bash -l"
+
+set :bundle_flags, '--deployment'
+
+before 'deploy', 'rvm1:install:ruby'
 
 
 # Custom SSH Options
