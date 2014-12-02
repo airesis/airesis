@@ -4,9 +4,10 @@
 # is considered to be the first unless any hosts have the primary
 # property set.  Don't declare `role :all`, it's a meta role.
 
-
 server_str = 'ssh.alwaysdata.com'
 user_str = 'coorasse'
+
+set :application, 'airesis-production'
 
 role :app, "#{user_str}@#{server_str}"
 role :web, "#{user_str}@#{server_str}"
