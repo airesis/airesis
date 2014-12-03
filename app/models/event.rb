@@ -174,8 +174,8 @@ class Event < ActiveRecord::Base
 
   def to_ics
     event = Icalendar::Event.new
-    event.start = self.starttime.strftime("%Y%m%dT%H%M%S")
-    event.end = self.endtime.strftime("%Y%m%dT%H%M%S")
+    event.dtstart = self.starttime.strftime("%Y%m%dT%H%M%S")
+    event.dtend = self.endtime.strftime("%Y%m%dT%H%M%S")
     event.summary = self.title
     event.description = self.description
     event.location = 'Here !'
