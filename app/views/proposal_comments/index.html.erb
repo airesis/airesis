@@ -1,5 +1,9 @@
+<h1><%= "List of comments on #{@proposal.title}"%></h1>
+<%= link_to t('pages.proposal_histories.index.back_to_proposal'), @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal), class: 'btn blue' %>
 <div class="blogComments" id="proposalComments">
-	<% @proposal_comments.each do |comment| %>
-		<%= render partial: 'comment_list_element', locals: {comment: comment} %>
-	<% end %>
+  <%= render partial: 'proposals/comments' %>
 </div>
+
+<% content_for :left_panel do %>
+    <%= render 'proposals/left_panel' %>
+<% end %>

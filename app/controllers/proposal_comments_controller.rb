@@ -69,7 +69,7 @@ class ProposalCommentsController < ApplicationController
 
     respond_to do |format|
       format.js
-      format.html
+      format.html { @proposal_comments  = @proposal.contributes.listable}
     end
   end
 
