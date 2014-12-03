@@ -46,7 +46,7 @@ module Frm
 
       private
         def find_topic
-          @topic = Frm::Topic.find(params[:id])
+          @topic = Frm::Topic.friendly.find(params[:id])
         end
     end
   end

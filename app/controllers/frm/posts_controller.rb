@@ -17,7 +17,7 @@ module Frm
     end
 
     def create
-      @post = @topic.posts.build(params[:frm_post])
+      @post = @topic.posts.build(post_params)
       @post.user = current_user
 
       if @post.save
@@ -31,7 +31,7 @@ module Frm
     end
 
     def update
-      if @post.owner_or_moderator?(current_user) && @post.update_attributes(params[:frm_post])
+      if @post.owner_or_moderator?(current_user) && @post.update(post_params)
         update_successful
       else
         update_failed
@@ -72,7 +72,7 @@ module Frm
     end
 
     def destroy_successful
-      if @post.topic.posts.count == 0
+      if @post.topic.posts.empty?
         @post.topic.destroy
         flash[:notice] = t("frm.post.deleted_with_topic")
         redirect_to group_forum_url(@group,@topic.forum)
@@ -99,7 +99,7 @@ module Frm
     end
 
     def find_topic
-      @topic = Frm::Topic.find params[:topic_id]
+      @topic = Frm::Topic.friendly.find params[:topic_id]
     end
 
     def find_post_for_topic

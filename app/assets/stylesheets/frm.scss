@@ -80,7 +80,7 @@ $border-color: #e2e2e2;
 
   .topic {
     .icon {
-      width: 3%;
+      width: 22px;
     }
   }
 
@@ -219,8 +219,8 @@ blockquote {
 }
 
 .pin.icon {
-  width: 9px;
-  height: 15px;
+  width: 22px;
+  height: 20px;
   background: transparent asset_url('pin_icon.png') 0 0;
   display: inline-block;
 }
