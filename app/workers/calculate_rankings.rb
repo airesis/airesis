@@ -1,5 +1,8 @@
 class CalculateRankings
   include Sidekiq::Worker
+  include Sidetiq::Schedulable
+
+  recurrence { daily.hour_of_day(1) }
   sidekiq_options queue: :low_priority
 
   def perform(*args)
