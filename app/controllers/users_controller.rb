@@ -110,19 +110,13 @@ class UsersController < ApplicationController
         flash[:notice] = t('info.user.tooltips_disabled')
 
     respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
+      format.js { render partial: 'layouts/messages' }
     end
 
   rescue Exception => e
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
+      format.js { render 'layouts/error' }
     end
   end
 
@@ -134,19 +128,13 @@ class UsersController < ApplicationController
         flash[:notice] = t('info.user.url_hidden')
 
     respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
+      format.js { render partial: 'layouts/messages' }
     end
 
   rescue Exception => e
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
+      format.js { render partial: 'layouts/messages' }
     end
   end
 
@@ -160,19 +148,13 @@ class UsersController < ApplicationController
     end
 
     respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
+      format.js { render partial: 'layouts/messages' }
     end
 
   rescue Exception => e
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
+      format.js { render 'layouts/error' }
     end
   end
 
@@ -185,19 +167,13 @@ class UsersController < ApplicationController
 
 
     respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
+      format.js { render partial: 'layouts/messages' }
     end
 
   rescue Exception => e
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
+      format.js { render 'layouts/error' }
     end
   end
 
@@ -209,19 +185,13 @@ class UsersController < ApplicationController
 
 
     respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
+      format.js { render partial: 'layouts/messages' }
     end
 
   rescue Exception => e
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
+      format.js { render 'layouts/error' }
     end
   end
 
@@ -238,20 +208,13 @@ class UsersController < ApplicationController
     current_user.save!
 
     respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-        page.replace_html "rotp_container", partial: 'users/rotp_code'
-      end
-      }
+      format.js
     end
 
   rescue Exception => e
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
+      format.js { render 'layouts/error' }
     end
   end
 
@@ -284,11 +247,7 @@ class UsersController < ApplicationController
         @user.errors.full_messages.each do |msg|
           flash[:error] = msg
         end
-        format.js do
-          render :update do |page|
-            page.replace_html "error_updating", partial: 'layouts/flash', locals: {flash: flash}
-          end
-        end
+        format.js { render 'layouts/error' }
         format.html {
           if params[:back] == "home"
             redirect_to home_url

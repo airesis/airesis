@@ -69,7 +69,7 @@ class GroupParticipationsController < ApplicationController
             group_participation_request = GroupParticipationRequest.find_by_user_id_and_group_id(group_participation.user_id, group_participation.group_id)
             group_participation_request.destroy
             group_participation.destroy
-            Areaparticipation.joins(group_area: :group).where(['groups.id = ? AND area_participations.user_id = ?', group_participation.group_id, group_participation.user_id]).readonly(false).destroy_all
+            AreaParticipation.joins(group_area: :group).where(['groups.id = ? AND area_participations.user_id = ?', group_participation.group_id, group_participation.user_id]).readonly(false).destroy_all
           end
         end
       end

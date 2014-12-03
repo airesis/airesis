@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'requests_helper'
 
-describe ProposalsController, :type => :controller, search: :true do
+describe ProposalsController, type: :controller, search: :true do
 
   describe "GET index" do
     it "counts correctly debate proposals" do

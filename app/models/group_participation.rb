@@ -20,6 +20,6 @@ class GroupParticipation < ActiveRecord::Base
   def remove_user_data
     group_participation_request = GroupParticipationRequest.find_by(user_id: self.user_id, group_id: self.group_id)
     group_participation_request.destroy
-    Areaparticipation.joins(group_area: :group).where(['groups.id = ? AND area_participations.user_id = ?', self.group_id, self.user_id]).readonly(false).destroy_all
+    AreaParticipation.joins(group_area: :group).where(['groups.id = ? AND area_participations.user_id = ?', self.group_id, self.user_id]).readonly(false).destroy_all
   end
 end
