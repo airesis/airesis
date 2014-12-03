@@ -278,7 +278,7 @@ class Ability
       can :read, BlogPost, user_id: user.id
       can :read, PostPublishing, blog_post: {user_id: user.id}
 
-      can :update, BlogPost, user_id: user.id
+      can [:edit, :update, :destroy], BlogPost, user_id: user.id
       if user.blog
         can :create, BlogPost, blog: {user_id: user.id}
         can :create, BlogPost, publishings: {group: participate_in_group(user)}
