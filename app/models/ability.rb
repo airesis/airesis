@@ -13,7 +13,7 @@ class Ability
 
     alias_action :by_year_and_month, to: :read
 
-    can [:index, :show, :read], [Blog, Group]
+    can [:index, :show, :read], [Blog, Group, GroupArea]
     can :view_data, Group, private: false
     can :read, Frm::Category, r_category_is_public
     can :read, Frm::Forum, visible_outside: true, category: r_category_is_public
