@@ -7,13 +7,5 @@ FactoryGirl.define do
     default_role_name { Faker::Name.title }
     default_role_actions DEFAULT_GROUP_ACTIONS
     current_user_id nil
-
-    factory :default_group do
-
-    end
-
-    factory :second_group do
-
-    end
   end
 end

@@ -3,7 +3,7 @@ FactoryGirl.define do
     name { Faker::Company.name }
     description { Faker::Lorem.sentence }
     association :group
-    association :category
+    association :category, factory: :frm_category
     visible_outside true
   end
 end

@@ -25,7 +25,7 @@ describe "the management of authors works quite good", type: :feature, js: true 
     visit group_proposal_path(group,proposal)
 
     page.execute_script 'window.confirm = function () { return true }'
-    within('#menu-left') do
+    within_left_menu do
       click_link I18n.t('pages.proposals.show.offer_as_editor_button')
     end
     expect(page).to have_content I18n.t('info.proposal.offered_editor')
@@ -39,7 +39,7 @@ describe "the management of authors works quite good", type: :feature, js: true 
 
     visit group_proposal_path(group,proposal)
 
-    within('#menu-left') do
+    within_left_menu do
       click_link I18n.t('pages.proposals.show.available_editors_button', count: 1)
     end
     expect(page).to have_content I18n.t('pages.proposals.show.editors_list_title')

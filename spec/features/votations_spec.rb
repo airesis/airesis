@@ -329,7 +329,7 @@ describe "check if quorums are working correctly", type: :feature, js: true do
 
     login_as user, scope: :user
     visit group_proposal_path(group,proposal)
-    within('#menu-left') do
+    within_left_menu do
       click_link I18n.t('pages.proposals.show.votation_results')
     end
 

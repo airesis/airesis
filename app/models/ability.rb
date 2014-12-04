@@ -25,7 +25,7 @@ class Ability
     can [:read, :new], BlogComment, blog: r_blog_post_is_public
     can [:read, :new, :report, :history, :list, :left_list, :show_all_replies], ProposalComment, proposal: {private: false}
     can :index, Proposal
-    can [:list,:left_list, :index], ProposalComment
+    can [:list, :left_list, :index], ProposalComment
     can :show, User
     can :show, Proposal, private: false
     can :show, Proposal, visible_outside: true
@@ -65,7 +65,7 @@ class Ability
 
       can :available_author, Proposal do |proposal|
         (proposal.users.exclude? user) &&
-        (can? :participate, proposal)
+            (can? :participate, proposal)
       end
 
       #he can participate to public proposals
@@ -104,10 +104,10 @@ class Ability
       can :destroy, Proposal do |proposal|
         (proposal.users.include? user) &&
             !(((Time.now - proposal.created_at) > 10.minutes) && (proposal.valutations > 0 || proposal.contributes.count > 0)) &&
-            proposal.in_valutation?
+                proposal.in_valutation?
       end
 
-      can [:facebook_share,:facebook_send_message], Proposal do |proposal|
+      can [:facebook_share, :facebook_send_message], Proposal do |proposal|
         user.has_provider?(Authentication::FACEBOOK) &&
             user.facebook &&
             ((user.facebook.get_connections('me', 'permissions')[0]['xmpp_login'].to_i == 1) rescue nil)
@@ -185,7 +185,7 @@ class Ability
         participation_role.id != participation_role.group.participation_role_id
       end
 
-      can [:read, :create, :update,:destroy,:change], AreaRole, group_area: {group: is_admin_of_group(user)}
+      can [:read, :create, :update, :destroy, :change], AreaRole, group_area: {group: is_admin_of_group(user)}
       cannot :destroy, AreaRole do |area_role|
         area_role.id == area_role.group_area.area_role_id
       end
@@ -326,12 +326,14 @@ class Ability
       can :read, Frm::Forum, group: participate_in_group(user)
 
       can :manage, Frm::Category, group: is_admin_of_group(user)
+      can :manage, Frm::Topic, forum: {group: is_admin_of_group(user)}
 
       can :create_topic, Frm::Forum, group: participate_in_group(user)
 
       can [:new, :create], Frm::Topic, forum: {group: participate_in_group(user)}
+      can [:update, :destroy], Frm::Topic, user_id: user.id
 
-      can :reply, Frm::Topic, forum: {group: participate_in_group(user)}
+      can [:reply, :subscribe, :unsubscribe], Frm::Topic, forum: {group: participate_in_group(user)}
 
       can :edit_post, Frm::Forum, group: participate_in_group(user)
 
@@ -414,7 +416,7 @@ class Ability
 
   def can_do_on_group?(user, group, action)
     group.group_participations
-    .joins(:participation_role => :action_abilitations)
-    .where(["group_participations.user_id = :user_id and (participation_roles.id = #{ParticipationRole::ADMINISTRATOR} or action_abilitations.group_action_id = :action_id)", user_id: user.id, action_id: action]).uniq.exists?
+        .joins(:participation_role => :action_abilitations)
+        .where(["group_participations.user_id = :user_id and (participation_roles.id = #{ParticipationRole::ADMINISTRATOR} or action_abilitations.group_action_id = :action_id)", user_id: user.id, action_id: action]).uniq.exists?
   end
 end

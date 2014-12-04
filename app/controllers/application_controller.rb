@@ -92,7 +92,7 @@ class ApplicationController < ActionController::Base
   def load_blog_data
     if @blog
       @user = @blog.user
-      @blog_posts = @blog.blog_posts.published.includes(:user, :blog, :tags).page(params[:page]).per(COMMENTS_PER_PAGE)
+      @blog_posts = @blog.blog_posts.includes(:user, :blog, :tags).page(params[:page]).per(COMMENTS_PER_PAGE)
       @recent_comments = @blog.comments.includes(:blog_post, user: [:image, :user_type]).order('created_at DESC').limit(10)
       @recent_posts = @blog.blog_posts.published.limit(10)
       @archives = @blog.blog_posts.select("COUNT(*) AS posts, extract(month from created_at) AS MONTH , extract(year from created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from created_at) desc")

@@ -44,8 +44,6 @@ module Frm
     after_create :subscribe_poster
     after_create :skip_pending_review, unless: :moderated?
 
-
-
     class << self
       def visible(user=nil)
         if user

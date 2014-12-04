@@ -5,7 +5,7 @@ describe "the management of participation roles in a group", type: :feature, js:
   before :each do
     @user = create(:default_user)
     @ability = Ability.new(@user)
-    @group = create(:default_group, current_user_id: @user.id)
+    @group = create(:group, current_user_id: @user.id)
   end
 
   after :each do

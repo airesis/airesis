@@ -464,12 +464,12 @@ en:
         group_area: "Work area"
         nickname_assigned: "We assigned you the nickname '%{nickname}'. If you don't like it, you can change it from the left menu within 10 minutes"
         cant_participate:
-          no_permissions: "You cannot participate to that proposal because you are a member of the group but you do not have the permission to participate."
+          no_permissions: "You cannot participate to this proposal because you are a member of the group but you do not have the permission to participate."
           ask_permissions: "Ask your administrator the permissions, sending him a message."
-          request_pending: "You cannot participate to that proposal because you asked to be a member of this group, but your request has not been accepted yet."
+          request_pending: "You cannot participate to this proposal because you asked to be a member of this group, but your request has not been accepted yet."
           send_message: "Do you want to send a message to the administrator of the group?"
-          not_a_member: "You cannot participate to that proposal because you are not member of this group."
-          not_logged_in: "You cannot participate to that proposal because you are not currently logged in. "
+          not_a_member: "You cannot participate to this proposal because you are not member of this group."
+          not_logged_in: "You cannot participate to this proposal because you are not currently logged in. "
         read_contribute: "SHOW CONTRIBUTIONS"
         security_token: "Security Token"
       new:
@@ -1568,3 +1568,8 @@ en:
       already_voted: "You have already voted for this proposal"
     proposal:
       authors_added: "Error while adding new authors"
+  draft_tooltip: "This post is visible only by you"
+  reserved_tooltip: "This post is visible only by group participants"
+  placeholder:
+    find: "Find Stuff"
+  keep_reading: "keep reading"

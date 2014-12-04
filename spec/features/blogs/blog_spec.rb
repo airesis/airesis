@@ -38,14 +38,14 @@ describe "the blogs process", type: :feature, js: true do
     expect(page).to have_content(I18n.t('pages.blog_posts.drafts_button'))
     expect(page).to_not have_content(I18n.t('pages.blog_posts.published_button'))
     expect(page).to have_content(I18n.t('pages.blogs.show.edit_button'))
-    within '#menu-left' do
+    within_left_menu do
       click_link I18n.t('pages.blog_posts.drafts_button')
     end
     expect(page).to have_content(I18n.t('pages.blog_posts.new_button'))
     expect(page).to_not have_content(I18n.t('pages.blog_posts.drafts_button'))
     expect(page).to have_content(I18n.t('pages.blog_posts.published_button'))
     expect(page).to have_content(I18n.t('pages.blogs.show.edit_button'))
-    within '#menu-left' do
+    within_left_menu do
       click_link I18n.t('pages.blogs.show.edit_button')
     end
 
@@ -60,7 +60,7 @@ describe "the blogs process", type: :feature, js: true do
     expect(page).to have_content(I18n.t('info.blog.title_updated'))
     #the new blog name is certainly displayed somewhere
     expect(page).to have_content blog_name
-    within '#menu-left' do
+    within_left_menu do
       click_link I18n.t('pages.blog_posts.new_button')
     end
   end

@@ -7,7 +7,7 @@ describe "check user permissions on proposals", type: :feature do
   before :each do
     @user = create(:default_user)
     @ability = Ability.new(@user)
-    @group = create(:default_group, current_user_id: @user.id)
+    @group = create(:group, current_user_id: @user.id)
     login_as @user, scope: :user
   end
 
@@ -44,7 +44,7 @@ describe "check user permissions on proposals", type: :feature do
 
   it "can view public proposals in others group" do
     @second_user = create(:second_user)
-    @second_group = create(:second_group, current_user_id: @second_user.id)
+    @second_group = create(:group, current_user_id: @second_user.id)
     @proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: @second_user.id, group_proposals: [GroupProposal.new(group: @second_group)])
     visit group_proposal_path(@second_group, @proposal)
     expect(page.current_path).to eq(group_proposal_path(@second_group,@proposal))
@@ -53,7 +53,7 @@ describe "check user permissions on proposals", type: :feature do
 
   it "can't view private proposals in others group" do
     @second_user = create(:second_user)
-    @second_group = create(:second_group, current_user_id: @second_user.id)
+    @second_group = create(:group, current_user_id: @second_user.id)
     @proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: @second_user.id, group_proposals: [GroupProposal.new(group: @second_group)], visible_outside: false)
     visit group_proposal_path(@second_group, @proposal)
     expect(page).to have_content(I18n.t('error.error_302.title'))

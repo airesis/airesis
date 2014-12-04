@@ -144,9 +144,10 @@ class EventsController < ApplicationController
 
   def update
     if @event.update(event_params)
+      flash[:notice] = t('info.events.event_updated')
       respond_to do |format|
         format.js
-        format.html { redirect_to @event, notice: t('info.events.event_updated') }
+        format.html { redirect_to @group ? group_event_url(@group, @event) : event_url(@event) }
       end
     else
       respond_to do |format|

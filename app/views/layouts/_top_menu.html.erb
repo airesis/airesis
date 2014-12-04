@@ -22,7 +22,7 @@
               <%= simple_form_for Search.new, data: {remote: true} do |f| %>
                   <div class="row collapse">
                     <div class="large-12 small-10 columns">
-                      <%= f.text_field :q, placeholder: "Find Stuff" %>
+                      <%= f.text_field :q, placeholder: t('placeholder.find') %>
                     </div>
                   </div>
               <% end %>

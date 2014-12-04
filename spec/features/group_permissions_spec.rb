@@ -5,7 +5,7 @@ describe "check permissions are actually working inside groups", type: :feature 
   before :each do
     @user = create(:default_user)
     @ability = Ability.new(@user)
-    @group = create(:default_group, current_user_id: @user.id)
+    @group = create(:group, current_user_id: @user.id)
   end
 
   after :each do
@@ -24,7 +24,7 @@ describe "check permissions are actually working inside groups", type: :feature 
 
     #one of participants is also administrator of another group
     @user2 = create(:user)
-    @group2 = create(:default_group, current_user_id: @user2.id)
+    @group2 = create(:group, current_user_id: @user2.id)
     create_participation(@user2, @group)
     #people ing group2 can support proposals by default
     @group2.default_role.action_abilitations.create(group_action_id: GroupAction::SUPPORT_PROPOSAL, group_id: @group2.id)

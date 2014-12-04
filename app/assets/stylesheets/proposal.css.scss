@@ -1469,7 +1469,10 @@ ul.friends_list {
   z-index: 1;
 }
 
-.report_contribute {
+.hidden_link {
   height: 17px;
   width: 17px;
+  .blogPost & {
+    float: right;
+  }
 }

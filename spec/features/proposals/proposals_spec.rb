@@ -39,7 +39,7 @@ describe "create a proposal in his group", type: :feature, js: true, ci_ignore: 
 
     page.execute_script 'window.confirm = function () { return true }'
     page.execute_script 'safe_exit = true;'
-    within '#menu-left' do
+    within_left_menu do
       click_link I18n.t('buttons.cancel')
     end
 
@@ -59,7 +59,7 @@ describe "create a proposal in his group", type: :feature, js: true, ci_ignore: 
 
     fill_in_ckeditor 'proposal_sections_attributes_0_paragraphs_attributes_0_content_dirty', with: new_content
 
-    within('#menu-left') do
+    within_left_menu do
       click_link I18n.t('buttons.update')
     end
     puts page.driver.console_messages
@@ -197,7 +197,7 @@ describe "create a proposal in his group", type: :feature, js: true, ci_ignore: 
         page.execute_script 'window.confirm = function () { return true }'
         page.execute_script 'safe_exit = true;'
         wait_for_ajax
-        within '#menu-left' do
+        within_left_menu do
           click_link I18n.t('buttons.cancel')
         end
         expect(page).to have_content proposal2.title

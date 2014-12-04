@@ -8,7 +8,7 @@ describe BlogPostsController, :type => :controller do
   end
   describe "GET index" do
     before(:each) do
-      @group = create(:default_group, current_user_id: @user.id)
+      @group = create(:group, current_user_id: @user.id)
       @blog = create(:blog, user: @user)
       @posts = []
       5.times do

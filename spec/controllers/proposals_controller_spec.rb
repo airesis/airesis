@@ -144,21 +144,21 @@ describe ProposalsController, type: :controller, search: :true do
 
 
     it "can't retrieve private proposals not visible outside" do
-      group = create(:default_group, current_user_id: @user.id)
+      group = create(:group, current_user_id: @user.id)
       proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', quorum: BestQuorum.public.first, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
       get :tab_list, state: ProposalState::TAB_DEBATE
       expect(assigns(:proposals)).to eq([@proposal1])
     end
 
     it "can retrieve private proposals that are visible outside" do
-      group = create(:default_group, current_user_id: @user.id)
+      group = create(:group, current_user_id: @user.id)
       proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', quorum: BestQuorum.public.first, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: true)
       get :tab_list, state: ProposalState::TAB_DEBATE
       expect(assigns(:proposals)).to match_array([proposal3, @proposal1])
     end
 
     it "can't retrieve public proposals if specify a group, and can't see group's proposals if not signed in" do
-      group = create(:default_group, current_user_id: @user.id)
+      group = create(:group, current_user_id: @user.id)
       proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', quorum: BestQuorum.public.first, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
 
       get :tab_list, state: ProposalState::TAB_DEBATE, group_id: group.id
@@ -166,7 +166,7 @@ describe ProposalsController, type: :controller, search: :true do
     end
 
     it "can't retrieve public proposals if specify a group, and can see group's proposals if signed in and is group admin" do
-      group = create(:default_group, current_user_id: @user.id)
+      group = create(:group, current_user_id: @user.id)
       proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', quorum: BestQuorum.public.first, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
       @request.env["devise.mapping"] = Devise.mappings[:user]
       sign_in @user
@@ -248,7 +248,7 @@ describe ProposalsController, type: :controller, search: :true do
 
     it "can't retrieve private proposals not visible outside" do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', quorum: BestQuorum.public.first, current_user_id: @user.id)
-      group = create(:default_group, current_user_id: @user.id)
+      group = create(:group, current_user_id: @user.id)
       proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', quorum: BestQuorum.public.first, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
       get :similar, title: 'inferno', format: :js
       expect(assigns(:proposals)).to eq([proposal2])
@@ -256,7 +256,7 @@ describe ProposalsController, type: :controller, search: :true do
 
     it "can retrieve private proposals that are visible outside" do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', quorum: BestQuorum.public.first, current_user_id: @user.id)
-      group = create(:default_group, current_user_id: @user.id)
+      group = create(:group, current_user_id: @user.id)
       proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', quorum: BestQuorum.public.first, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: true)
       get :similar, title: 'inferno', format: :js
       expect(assigns(:proposals)).to match_array([proposal3, proposal2])
@@ -264,7 +264,7 @@ describe ProposalsController, type: :controller, search: :true do
 
     it "can't retrieve public proposals if specify a group, and can't see group's proposals if not signed in" do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', quorum: BestQuorum.public.first, current_user_id: @user.id)
-      group = create(:default_group, current_user_id: @user.id)
+      group = create(:group, current_user_id: @user.id)
       proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', quorum: BestQuorum.public.first, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
       #requires similar proposals inside a group but not logged in. no results cause proposals should be inside the group
       #but he has not enough permissions
@@ -274,7 +274,7 @@ describe ProposalsController, type: :controller, search: :true do
 
     it "can't retrieve public proposals if specify a group, and can see group's proposals if signed in and is group admin" do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', quorum: BestQuorum.public.first, current_user_id: @user.id)
-      group = create(:default_group, current_user_id: @user.id)
+      group = create(:group, current_user_id: @user.id)
       proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', quorum: BestQuorum.public.first, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
       @request.env["devise.mapping"] = Devise.mappings[:user]
       sign_in @user
@@ -286,7 +286,7 @@ describe ProposalsController, type: :controller, search: :true do
 
     it "can retrieve public proposals and can see group's proposals if signed in and is group admin" do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', quorum: BestQuorum.public.first, current_user_id: @user.id)
-      group = create(:default_group, current_user_id: @user.id)
+      group = create(:group, current_user_id: @user.id)
       proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', quorum: BestQuorum.public.first, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
 
       @request.env["devise.mapping"] = Devise.mappings[:user]
@@ -299,7 +299,7 @@ describe ProposalsController, type: :controller, search: :true do
 
     it "can retrieve public proposals and can see group's proposals if he has enough permissions" do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', quorum: BestQuorum.public.first, current_user_id: @user.id)
-      group = create(:default_group, current_user_id: @user.id)
+      group = create(:group, current_user_id: @user.id)
       proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', quorum: BestQuorum.public.first, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
 
       @user2 = create(:second_user)
@@ -314,7 +314,7 @@ describe ProposalsController, type: :controller, search: :true do
 
     it "can retrieve public proposals and can see group area's proposals if he has enough permissions" do
 
-      group = create(:default_group, current_user_id: @user.id)
+      group = create(:group, current_user_id: @user.id)
       proposal3 = create(:group_proposal, title: 'questa giornata è un INFERNO! riorganizziamolo!!!!', quorum: BestQuorum.public.first, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
 
       @user2 = create(:second_user)

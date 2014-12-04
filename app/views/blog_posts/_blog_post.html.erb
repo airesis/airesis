@@ -1,24 +1,20 @@
 <div class="blogPost card" id="blogPost<%= blog_post.id %>">
   <% if can? :update, blog_post %>
-      <div class="hidden_link">
+      <div class="hidden_link" data-dropdown="drop<%= blog_post.id %>">
       </div>
-      <div class="hidden_menu">
-        <%= link_to t('pages.blog_posts.edit_button'), edit_blog_blog_post_path(blog_post.blog, blog_post), class: 'menu_item' %>
-        <%= link_to(t('pages.blog_posts.delete_button'), blog_blog_post_path(blog_post.blog, blog_post), method: :delete, class: 'menu_item', data: {confirm: "Sei sicuro di voler cancellare il post '#{blog_post.title}'. Esso scomparirà sia dall bacheca del gruppo che dal tuo blog personale e non sarà più possibile recuperarlo."}) %>
-      </div>
+      <ul id="drop<%= blog_post.id %>" class="f-dropdown small" data-dropdown-content>
+        <li><%= link_to t('pages.blog_posts.edit_button'), edit_blog_blog_post_path(blog_post.blog, blog_post), class: 'menu_item' %></li>
+        <li><%= link_to t('pages.blog_posts.delete_button'), blog_blog_post_path(blog_post.blog, blog_post), method: :delete, class: 'menu_item', data: {confirm: "Sei sicuro di voler cancellare il post '#{blog_post.title}'. Esso scomparirà sia dall bacheca del gruppo che dal tuo blog personale e non sarà più possibile recuperarlo."} %></li>
+      </ul>
   <% end %>
 
   <h3 class="blogPostTitle">
+    <%= blog_post_label blog_post %>
     <%= link_to(h(blog_post.title), [blog_post.blog, blog_post]) %>
-    <% if blog_post.draft? %>
-        [<%= t('pages.blog_posts.show.draft') %>]
-    <% elsif blog_post.reserved? %>
-        [<%= t('pages.blog_posts.show.reserved') %>]
-    <% end %>
   </h3>
 
   <div class="blogPostBody">
-    <%= sanitize truncate_html(blog_post.body, length: 800, omission: "...(#{link_to 'keep reading', [blog_post.blog, blog_post]})") %>
+    <%= sanitize truncate_html(blog_post.body, length: 800, omission: "...(#{link_to t('keep_reading'), [blog_post.blog, blog_post]})") %>
   </div>
 
   <div class="blogPostFooter">
@@ -37,7 +33,7 @@
           <a href="https://twitter.com/share"
              class="twitter-share-button"
              data-lang="en"
-             data-text="<%= t('twitter.share.blog_post', app: ENV['APP_SHORT_NAME'], tags: blog_post.tags.for_twitter )%>"
+             data-text="<%= t('twitter.share.blog_post', app: ENV['APP_SHORT_NAME'], tags: blog_post.tags.for_twitter) %>"
              data-url="<%= blog_blog_post_url(blog_post.blog, blog_post) %>">Tweet</a>
           |
           <div class="fb-like" data-href="<%= blog_blog_post_url(blog_post.blog, blog_post) %>" data-width="450" data-layout="button_count" data-show-faces="true" data-send="true"></div>

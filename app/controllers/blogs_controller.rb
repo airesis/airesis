@@ -18,7 +18,7 @@ class BlogsController < ApplicationController
 
   def show
     @page_title = @blog.title
-    @blog_posts = @blog_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
+    @blog_posts = @blog_posts.published.page(params[:page]).per(COMMENTS_PER_PAGE)
     respond_to do |format|
       format.js
       format.html
@@ -29,7 +29,7 @@ class BlogsController < ApplicationController
 
   def by_year_and_month
     @page_title = t('pages.blog_posts.archives.title', year: params[:year], month: t('date.month_names')[params[:month].to_i])
-    @blog_posts = @blog_posts.where("extract(year from created_at) = ? AND extract(month from created_at) = ? ", params[:year], params[:month]).order("created_at DESC").page(params[:page]).per(COMMENTS_PER_PAGE)
+    @blog_posts = @blog_posts.published.where("extract(year from created_at) = ? AND extract(month from created_at) = ? ", params[:year], params[:month]).order("created_at DESC").page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
       format.js

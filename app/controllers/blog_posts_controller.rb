@@ -25,7 +25,7 @@ class BlogPostsController < ApplicationController
     if @blog || @group
       redirect_to (@blog || @group)
     else
-      @blog_posts = @blog_posts.order(published_at: :desc).page(params[:page]).per(COMMENTS_PER_PAGE)
+      @blog_posts = @blog_posts.published.order(published_at: :desc).page(params[:page]).per(COMMENTS_PER_PAGE)
       @page_title = t('pages.blog_posts.index.title')
       respond_to do |format|
         format.js
@@ -46,8 +46,6 @@ class BlogPostsController < ApplicationController
 
   def show
     @page_title = @blog_post.title
-    @page_title += " [#{t('pages.blog_posts.show.draft')}]" if @blog_post.draft?
-    @page_title += " [#{t('pages.blog_posts.show.reserved')}]" if @blog_post.reserved?
     @blog_url = @group ? group_blog_post_url(@group, @blog_post) : blog_blog_post_url(@blog, @blog_post)
     @user = @blog_post.user
     @blog_comment = @blog_post.blog_comments.new
@@ -94,10 +92,9 @@ class BlogPostsController < ApplicationController
   end
 
   def destroy
-    @blog_post = @blog.blog_posts.find(params[:id])
     @blog_post.destroy
     flash[:notice] = t('info.blog_post_deleted')
-    redirect_to @blog
+    redirect_to @group ? group_url(@group) : @blog
   end
 
   private
