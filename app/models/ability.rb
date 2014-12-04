@@ -75,7 +75,7 @@ class Ability
 
       #but can't see proposals in presentation areas. it will be allowed in next condition
       cannot :participate, Proposal do |proposal|
-        (proposal.presentation_areas.count > 0) && proposal.private && !proposal.visible_outside
+        proposal.presentation_areas.count > 0
       end
       #in areas
       can :participate, Proposal, presentation_areas: can_do_on_group_area(user, GroupAction::PROPOSAL_PARTICIPATION)
