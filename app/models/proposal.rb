@@ -549,7 +549,6 @@ class Proposal < ActiveRecord::Base
     #and rankings
     rankings.destroy_all
 
-
     save
     #remove the timer if is still there
     #if self.minutes #todo remove jobs
