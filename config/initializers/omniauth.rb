@@ -3,11 +3,11 @@
 #end
 
 unless Rails.env.development?
-  OmniAuth.config.full_host = -> {
+  OmniAuth.config.full_host = Proc.new do |env|
     uri = URI.parse(request.url)
     uri.path = ''
     uri.query = nil
     uri.port = (uri.scheme == 'https' ? 443 : 80)
     uri.to_s
-  }
+  end
 end
