@@ -2,7 +2,7 @@
 #  provider :facebook,  "242345195791486", "effb2e9b6fb07ce738452c8b3c1a0f57"
 #end
 
-if Rails.env.production?
+unless Rails.env.development?
   module OmniAuth
     module Strategy
       def full_host
