@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '2.1.0'
+ruby '2.1.5'
 
 gem 'rails', '4.0.2'
 
@@ -23,9 +23,9 @@ gem 'capistrano', '~> 3.2.0'
 gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-rails', '~> 1.1'
 gem 'rvm1-capistrano3', require: false
+gem 'sunspot_solr'
 
 group :development do
-  gem 'sunspot_solr'
   gem "better_errors"
   gem 'quiet_assets'
   gem 'capistrano-sidekiq'
@@ -159,3 +159,11 @@ gem 'sunspot-rails-http-basic-auth', github: 'jwachira/sunspot-rails-http-basic-
 gem 'activerecord-session_store'
 
 gem "sentry-raven", github: 'getsentry/raven-ruby', group: [:development, :staging, :production]
+
+gem 'rails_serve_static_assets', group: [:production]
+
+gem 'unicorn'
+
+group :development do
+  gem 'meta_request'
+end

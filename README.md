@@ -124,3 +124,35 @@ GEOSPATIAL_NAME is used to geocode users when they register. Is your username in
 It is used by https://github.com/panthomakos/timezone to obtain timezone based on latitude and longitude and you don't need it in development.
 
 MAPS_API_KEY is a browser key provided by google to access map services (https://console.developers.google.com)
+
+
+Docker
+------
+
+Change database settings:
+
+```
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: airesis_production
+  pool: 5
+  username: postgres
+  password: 
+  host: db
+  port: 5432
+```
+
+Change application.yml:
+
+```
+REDIS_URL: "redis://redis:6379/12"
+```
+
+Run the following commands from the root of the application:
+
+```
+fig -p airesis build
+fig -p airesis run web rake db:setup
+fig -p airesis up
+```
