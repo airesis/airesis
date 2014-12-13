@@ -6,7 +6,7 @@
 
 <p>
 <div style="float:left;margin: 0px 5px 5px 0px;">
-  <%=raw @post.user_image_tag(40, true) %>
+  <%=raw @post.user_image_tag(40, url: true) %>
 </div>
 <div style="float:left;">
   <%= sanitize @post.text %>

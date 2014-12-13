@@ -16,7 +16,7 @@
         <% @contributes.each do |contribute| %>
             <div id="comment<%= contribute.id %>" style="padding: 20px 0 0;clear: both;">
               <div style="float: left;margin: 0px 5px 5px 0px;">
-                <%= contribute.user_image_tag(40, true) %>
+                <%= contribute.user_image_tag(40, url: true) %>
               </div>
               <div style="border: 1px solid #CCCCCC;border-radius: 3px 3px 0px 0px;margin-left: 50px;color: #333333;">
                 <div>
