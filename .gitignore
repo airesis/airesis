@@ -9,6 +9,7 @@ pkg
 .document
 .rspec
 .rvmrc
+.DS_Store
 tmp
 log
 app/assets/images/users
