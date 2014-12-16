@@ -154,5 +154,6 @@ Run the following commands from the root of the application:
 ```
 fig -p airesis build
 fig -p airesis run web rake db:setup
+fig -p airesis run web rake assets:precompile
 fig -p airesis up
 ```
