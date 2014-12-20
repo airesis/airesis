@@ -29,3 +29,4 @@ solr/default
 solr/pids
 *.orig
 bin/alwaysdata
+config/secrets.yml
