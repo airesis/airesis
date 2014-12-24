@@ -37,7 +37,7 @@ module Frm
 
       private
 
-      def frm_forum_params
+      def forum_params
         params.require(:frm_forum).permit(:category_id, :title, :name, :description, :moderator_ids, :visible_outside, :tags_list)
       end
 

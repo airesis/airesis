@@ -1572,3 +1572,6 @@ it-IT:
   placeholder:
     find: Cerca...
   keep_reading: "continua a leggere"
+  frm:
+    forum:
+      title: "Nuovo forum"
