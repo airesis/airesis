@@ -327,6 +327,7 @@ class Ability
 
       can :manage, Frm::Category, group: is_admin_of_group(user)
       can :manage, Frm::Topic, forum: {group: is_admin_of_group(user)}
+      can :manage, Frm::Forum, group: is_admin_of_group(user)
 
       can :create_topic, Frm::Forum, group: participate_in_group(user)
 

@@ -7,7 +7,6 @@ class SearchProposal < ActiveRecord::Base
   belongs_to :tag
   belongs_to :interest_border
 
-
   attr_accessor :order_id, :time_type, :order_dir, :page, :per_page, :text, :or, :proposal_id
 
   ORDER_RANDOM="1"
@@ -19,7 +18,6 @@ class SearchProposal < ActiveRecord::Base
   ORDER_BY_VOTES_NUMBER="7" #orde by number of votes
   ORDER_ASC="a"
   ORDER_DESC="d"
-
 
   def results
     @search = Proposal.search(include: [:category, :quorum, {users: [:image]}, :vote_period, :groups, :supporting_groups, :interest_borders]) do
@@ -67,10 +65,11 @@ class SearchProposal < ActiveRecord::Base
               end
             end
           end
-          areas = user ? user.scoped_areas(group, GroupAction::PROPOSAL_VIEW).pluck('group_areas.id') : [] #get all areas ids the user ca view
+          areas = user ? user.scoped_areas(group_id, GroupAction::PROPOSAL_VIEW).pluck('group_areas.id') : [] #get all areas ids the user ca view
           any_of do
             with(:presentation_area_ids, nil)
             with(:presentation_area_ids, areas) unless areas.empty?
+            with(:visible_outside, true)
           end #the proposals should not be in an area or the user must be authorized to view them
 
           with(:presentation_area_ids, group_area_id) if group_area_id #only proposals in the group area if required
@@ -121,39 +120,39 @@ class SearchProposal < ActiveRecord::Base
     search.results
   end
 
-
   def secure_retrieve(sunspot)
     sunspot.instance_eval do
       #sicurezza - replicare nelle ricerche
-      if self.group_id #if we are searching in groups
+      if group_id #if we are searching in groups
         any_of do #the proposal should satisfy one of the following
           all_of do #should be public and supported by the group
             with(:private, false)
-            with(:supporting_group_ids, self.group_id)
+            with(:supporting_group_ids, group_id)
           end
           all_of do #or inside the group but visible outside
             with(:visible_outside, true)
-            with(:group_ids, self.group_id)
+            with(:group_ids, group_id)
           end
-          if self.user && (self.user.can? :view_proposal, Group.find(self.group_id)) #if the user is logged in and can view group private proposals
+          if user && (user.can? :view_proposal, Group.find(group_id)) #if the user is logged in and can view group private proposals
             all_of do #show also group private proposals
               with(:private, true)
-              with(:group_ids, self.group_id)
+              with(:group_ids, group_id)
             end
           end
         end
-        areas = self.user ? self.user.scoped_areas(self.group, GroupAction::PROPOSAL_VIEW).pluck('group_areas.id') : [] #get all areas ids the user ca view
+        areas = user ? user.scoped_areas(group_id, GroupAction::PROPOSAL_VIEW).pluck('group_areas.id') : [] #get all areas ids the user ca view
         any_of do
           with(:presentation_area_ids, nil)
           with(:presentation_area_ids, areas) unless areas.empty?
+          with(:visible_outside, true)
         end #the proposals should not be in an area or the user must be authorized to view them
 
-        with(:presentation_area_ids, self.group_area_id) if self.group_area_id #only proposals in the group area if required
+        with(:presentation_area_ids, group_area_id) if group_area_id #only proposals in the group area if required
       else #open space proposals
         any_of do
           with(:private, false)
           with(:visible_outside, true)
-          if self.user
+          if user
             all_of do #show also group private proposals
               with(:private, true)
               with(:group_ids, self.user.groups.pluck(:id))
@@ -163,7 +162,6 @@ class SearchProposal < ActiveRecord::Base
       end
     end
   end
-
 
   def order
     order_s = ""
@@ -179,5 +177,4 @@ class SearchProposal < ActiveRecord::Base
     end
     order_s
   end
-
 end
