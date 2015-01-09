@@ -1,0 +1,432 @@
+hu:
+  home:
+    intro:
+      title: 'E-demokrácia  mindenkinek'
+      description: Egy közvetlen demokráciát segítő eszköz született, amellyel közösen dönthetünk bárhonnan bármilyen témában jövő javaslatokról és ötletekről, és végrehajthatjuk azokat.
+      paragraph_1:
+        title: Az e-demokrácia közösségi hálózata
+        content_html: |
+          <p>Az Airesis egy <a href="http://en.wikipedia.org/wiki/Free_software">szabad szoftver platform</a>, amelyet olasz fejlesztők és segítők építettek azért, hogy lehetővé tegyék csoportoknak és közösségeknek hogy produktív módon megszervezzék saját magukat a <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank">közvetlen demokrácia</a> és  részvétel alapelvei mentén.</p>
+          
+          <p>Ezeknek a céloknak az elérése érdekében az alkalmazást olyan többfunkciós rendszerként terveztük meg, amely egybegyűjti mindazokat az eszközöket, különösen a közösségi és döntéshozatali eszközöket, amelyek segíthetik a közösség építését.</p>
+          
+          <p>A <strong>közösségi eszközök</strong>között, Airesis tartalmaz blogot, egy rendszert az események és találkozók hirdetésére, a hozzá tartozó időzítéssel.
+          A <strong>döntéshozatali eszközök</strong> között teret ad a javaslatok és kezdeményezések gyűjtésének és az azokról történő vitának, és egy szavazási rendszernek, amellyel választani lehet a jelentkezők közül. A platform lehetővé tesz csoportok alkotását megadható szabályokkal és jogosultságokkal. 
+          
+          Mivel azAiresis célja a részvétel elősegítése, nagy hangsúlyt helyeztünk a teljes platform intuitivitására.
+          
+          A fejlesztési filozófia a folytonos javításra koncentrál, ez egyfajta evolúciós folyamat amely a felhasználók visszajelzésére épül.
+          A fejlesztői csapat elérhető annak érdekében, hogy kielégítse az igényeit azoknak a közösségeknek amelyek használni akarják a szoftvert, a közvetlen demokrácia szellemében,</p>
+      paragraph_3:
+        title: Alapelvek és alapértékek
+        content_html: |
+          <p>Az Airesis egy nyílt forrású döntéshozatali eszköz az e-demokrácia számára, amely nagy hangsúlyt fektet a problémamegoldásra és arra terveztük, hogy kihasználja a <a heref="http://en.wikipedia.org/wiki/Collective_intelligence" target="_blank">kollektív intelligencia</a> hatalmas evolúciós erejét.</p>
+          <p>Az Airesis-t teljes egészében önkéntesek fejlesztik, non-profit módon, annak érdekében hogy gyorsabb, informált és részvételen alapuló döntéseket hozzunk.<br/>
+          A következő alapelvekre építünk:</p>
+          <ul>
+          <li><strong>Részvétel</strong> <br/>
+          A polgárok bevonása azt jelenti, hogy több energia és szempont válik elérhetővé.
+          Csak a közvetlen részvételen keresztül lehetséges a problémák megvisgálása, és annak megértése, hogy az emberek igazából mit akarnak. A részvétel a demokratikus döntéshozatal alapja.
+          </li>
+          
+          <li><strong>Átláthatóság és biztonság</strong><br/>
+          Átláthatóság nélkül a szabályokat könnyen meg lehet kerülni, és a demokrácia gyorsan leépülhet.
+          Az átláthatóság egyben nyíltságot is jelent, a befogadás képességét: ebből azokból az Airesis lehetővé teszi a nem regisztrált felhasználóknak az oldal tartalmának megtekintését.
+          A szoftver forráskódja szintén "átlátszó", hiszen teljes egészében nyílt forrású.</li>
+          
+          <li><strong>Konstruktív dialógus</strong><br/>
+          Senkinél sincs meg az összes jó válasz. A megfelelő eszközök használatával, a sok ember által javasolt ötletek áttekintése sokkal hatékonyabb, mint ezt egyedül megtenni.</li>
+          
+          <li><strong>Egyenlő esélyek</strong><br/>
+          Az egyenlőség azt jelenti, hogy a rendszer által felajánlott lehetőségek tekintetében mindenki ugyanazt kapja.
+          </li>
+          
+          <li><strong>Hajlékonyság</strong><br/>
+          Minden csoportnak megvannak a saját igényei, minden javaslat különbözik a többitől, minden felhasználónak saját igényei vannak.</li>
+      paragraph_4:
+        title: 'A célunk: közvetlen és részvételi demokrácia'
+        content_html: |
+          <p>Közösségi hálóba szervezve, az Airesis lehetővé teszi a felhasználóknak hogy más embereket bevonjanak az érdeklődésüknek megfelelően, és felhasználják mindenkinek a lehetőségeit annak érdekében, hogy konszenzusos módon érveljenek bármilyen javaslattal kapcsolatban.
+          A platform felépítése és alapértékei lehetővé teszik, hogy a közösségi célokat egy konstruktív vitán keresztül érjük el, és megtaláljuk a legjobb ötleteket, olyan ügyekben, amelyek érinthetik a területiséget, szociális előremenetelt vagy szakpolitikákat.</p>
+          <p>Az Airesis eszközöket biztosít:
+          <ul>
+          <li>Az egyén ötleteinek és tapasztalatainak megismertetésére</li>
+          <li>A kezdeményezések / javaslatok csoportosítására és a közösségnek való bemutatására</li>
+          <li>A különböző kezdeményezések megvitatására</li>
+          <li>A javaslatok megosztott szerkesztésére</li>
+          <li>A különböző kezdeményezések és javaslatok fölötti szavazás kezelésére</li>
+          <li>Események és találkozók hírének eljuttatására</li>
+          <li>A valamilyen posztra jelentkezők bemutatkozásának és az ehhez tartozó szavazásnak kezelésére</li>
+          <li>Speciális szabályok és jogosultságok által korlátozott al-csoportok kezelésére, ahol mindazonáltal a platform összes eszköze elérhető.</li>
+          </ul>
+          </p>
+      paragraph_5:
+        title: Jellemzők és tulajdonságok
+        content_html: |
+          <p>Az airesis fejlesztő csoportja minden funkciót és eszközt a platformot használó
+          <strong>csoportok igényeinek megfelelően</strong> fejleszt.
+          Ugyanaz a fejlesztő csoport jelen van az Airesis platformon, és <strong>konszenzussal</strong> dönt a jővőbeli implementációkon.</p>
+          <p>A struktúra lehetővé teszi a regisztrált felhasználó számára, hogy egy <strong>nyílt tér</strong> részese legyen,
+          hogy meglévő<strong>csoportokhoz</strong> csatlakozzon,m vagy újat hozzon létre.
+          Akár a csoporton belül, akár a nyílt téren lehetsége kezdeményezéseket és javaslatokat közzétenni., <strong>véleményezni azokat</strong>, szerkeszteni egy megosztott <strong>összefoglalót</strong> és utána <strong>szavazni rájuk</strong>. Ugyanezekben a körökben eseményeket hozhatsz létre <strong>találkozókról</strong> és <strong>szavazásokról</strong>.
+          </p>
+      paragraph_6:
+        title: Alapvető tulajdonságok
+        content_html: |
+          <ul>
+          <li><strong>Feliratkozás és belépés</strong> <br>
+          Minden egyes oldalról, vagy akár egy megjegyzés vagy hozzájárulás hozzáadása után. A belépéshez lehet használni a Facebookot, Google + -t , Meetup-ot, Twittert vagy a Linkedin-t.
+          </li>
+          <li><strong>Nyilvános vagy zárt terület csoportoknak</strong> (<a href="http://youtu.be/n_ZruAcNkVk" target="blank">további infó ebben a video tananyagban</a>) <br>
+          A feliratkozás lehetővé teszi hogy részt vegyél a nyílt térben, egy már meglévő csoporthoz csatlakozzál, vagy létrehozzál egy újat.
+          </li>
+          <li><strong>Javaslatok és kezdeményezések létrehozása</strong>
+          A csoportokban és a nyílt térben is létrehozhatsz javaslatokat/kezdeményezéseket, amelyekhez hozzá tudnak mások járulni, megjegyzéseket és véleményeket fűzhetnek hozzá, és így elérheti a legnagyobb lehetséges konszenzust.
+          </li>
+          <li><strong>Minimumlétszám és szavazás</strong> <br>
+          Minden javaslathoz tartozik egy minimumlétszám, és a szavazás a Schulze módszerrel (amely egy Condorcet módszer) történik.
+          </li>
+          <li><strong>Esemény/naptár kezelés</strong> <br>
+          Lehetséges találkozókról, szavazásokról, választásokról szóló eseményeket ütemezni akár csportokban, akár a nyílt térben.
+          </li>
+          <li><strong>Hírlevél</strong> a platform eseményeiről és híreiről</li>
+          <li><strong>Üzenetküldő szolgáltatás</strong> és <strong>e-mail értesítések</strong> (felhasználó által beállítható)
+          </li>
+          <li><strong>Dokumentumok feltöltése éskezelése</strong>, a javaslatokhoz mellékleteket is (jelenleg letiltva)
+          </li>
+          <li><strong>Közvéleménykutatások</strong> belső és külső is, a Schulze módszer használatával.</li>
+          <li><strong>Mobil Alkalmazás</strong></li>
+          </ul>
+      paragraph_7:
+        title: Indítvány és vita eszköz
+        content_html: |
+          <p>A szoftver magja a <strong>tanácskozási eszközre</strong> fókuszál, amely lehetővé teszi hogy egy javaslat elkészítésében részt vegyél, egy közös cél felállítása érdekében, hogy hozzátegyél az alternatív megoldások kereséséhez, és hogy ennek a munkának az eredményét eljuttasd a szavazásra annak érdekében hogy a javaslat a lehető legjobb konszenzust tudja elérni, és a legjobb, legtöbbek által kívánt megoldás kerekedjen ki belőle.</p>
+          <p>A folyamatnak 3 lépése van:</p>
+          <ul>
+          <li><strong>A szerző elkészíti a javaslatot</strong> egy tündér segítségével, amely után a rendszer publikálja a szöveget a <strong>"Vitaidőszakban"</strong> szekcióban.
+          Ez alatt az idő alatt a javaslat módosítható a szerkesztők által a többi felhasználó által hozzáfűzött javaslatok és vélemények alapján.</li>
+          <li>Amikor a <strong>vitázási minimumot</strong> sikerült elérni, a javaslat átmegy a <strong>"Szavazás"</strong>ba. Ezalatt a javaslat szövege nem változtatható, a szerkesztő választ egy <strong>szavazási eseményt</strong> (szavazási időszak)
+          a már tervezettek közül, vagy létrehoz egy újat a naptár segítségével.<br>
+          Minden szavazó (a csoport által felállított szabályok értelmében) <strong>szavazhat</strong> a megadott időszakban.</li>
+          <li><strong>A szavazás végén</strong> a rendszer kiszámítja az <strong>eredményt</strong> és a javaslatot a <strong>"Szavazott"</strong> szekcióba teszi.</li>
+          <li>Azonban ha a <strong>vitázási minimumot nem éri el</strong> a javaslat, akkor az <strong>"Elhagyott"</strong> szekcióba kerül, ahonnan <strong>vissza lehet rakni vitára</strong> hogy újra kezdje az életciklusát.</li>
+          </ul>
+          <p>Különösen fontos a <strong>vitafelület</strong> minden publikált javaslat számára, amely lehetővé teszi a javaslat módosítását a szerkesztők számára (mint egy <a href="http://en.wikipedia.org/wiki/Wiki" target="blank">wiki</a>)
+          a résztvevők konszenzusa alapján.
+          A vitafelületkét szinten tagolt, az első a hozájárulások gyűjtésére, a második a hozzájárulásokhoz fűzött észrevételek számára.
+          Az első szint egy mechanizmust tartalmaz arra, hogy a javaslat érettségét növeljük <strong>a leginkább elfogadott hozzájárulások beépítésével</strong>.</p>
+          <p>A <strong>vitázási minimum</strong>, szükséges a javaslat szavazási fázisba juttatásához, amely három különböző paraméterből áll:</p>
+          <ul>
+          <li><strong>Résztevők</strong>: azoknak az embereknek a száma, akik részt vettek a vitában;
+          </li>
+          <li><strong>Vita hossza</strong>: annak az időszaknak a hossza, amely alatt a javaslat vitaidőszakban van (a javaslat benyújtásától számítva);
+          </li>
+          <li><strong>Érettség</strong>: a résztvevők közül azoknak az aránya, akik szerint a javaslat megérett a szavazásra;
+          </li>
+          </ul>
+          <p>A javaslat "<strong>érettségének</strong>" meghatározása a közösség tagjainak egy formális aktusa
+          (amelyet  a vitaidőszak alatt tesznek meg), amellyel kifejezik a javaslat szövegének <strong>megfelelőségét</strong> arra, hogy <strong>szavazásra kerüljön</strong>.</p>
+          <p>A <strong>szavazási minimumnak különböző típusai vannak</strong>: A téma összetettségétől függően a paraméterek  (részvétel, idő és érettség) változnak.
+          A nyílt térben a szavazási mimimumokat a rendszeradminisztrátor határozza meg, míg <strong>a csoportokban publikált javaslatok szavazási minimuma szabadon változtatható a csoportadminisztrátorok által</strong>.
+          </p>
+          <p>A javaslatok <strong>rendezve</strong> vannak, <strong>sorba vannak állítva</strong> és <strong>kereshetőek</strong> különböző módokon:</p>
+          <ul>
+          <li>Az <strong>állapotuk</strong> alapján ("Vitaidőszakban," "Szavazás alatt", "Megszavazva", "Elhagyott")</li>
+          <li>Előre megadott <strong>kategóriák</strong> szerint ("Munka", "Egészség", "Oktatás", stb.)</li>
+          <li>A javaslat <strong>típusa</strong> alapján: alap, szabályozás, becslés, nyilatkozat, technikai döntés, stb ...</li>
+          <li> <strong>Tagek</strong> használatával, amelyeket a javaslatokhoz társíthatunkl.</li>
+          </ul>
+      paragraph_8:
+        title: Schulze szavazási módszer és Közvetlen Demokrácia
+        content_html: |
+          <p>Amikor a vitázásra szánt idő letelt, és megfelelő számú ember megegyezett a javaslat érettségét illetően ( ezek a feltételek változhatnak a javaslathoz beállított vitázási minimumtól függően), a javaslat átmegy <strong>szavazási fázisba</strong>.</p>
+          <p>Ezen a ponton ajavaslat <strong>befagy</strong> és a szerkesztő <strong>választ egy időkeretet</strong> amelyben a csoport szavaz a javaslatról.
+          A 'szavazás' esemény bekerül a csoportnaptárába és a csoport minden tagja <strong>értesítést kap</strong>.</p>
+          <p>A szavazás idején új értesítés kerül kiküldésre amely tartalmazza a szavazásra szánt javaslatot és az oldalt amelyen a szavazás történik. Ezen a ponton minden résztvevő a javaslat és a lehetséges megoldások elolvasása után <strong>sorrendbe állít</strong>hatja ezeket a megoldásokat a legjobban kedvelttől a legkevésbé kedveltig. Ezután a <a href="http://hu.wikipedia.org/wiki/Schulze-m%C3%B3dszer" target="blank">Schulze Módszer</a> segítségével meghatározható a csoport által preferált megoldás.</p>
+          <p>A szavazás után a javaslat <strong>"megszavazott"</strong> állapotba kerül, ahol lehetséges megtekinteni a szavazás eredményét bármikor.</p>
+      paragraph_9:
+        title: A megosztott javaslatok közzététele és a Részvételi Demokrácia
+        content_html: |
+          <p>Az Airesis azért jött létre, hogy elősegítse az ötletek és vélemények megosztását a közösségen belül. Ahhoz hogy ezt elérjük, a platform különböző eszközöket kínál:</p>
+          <ul>
+          <li>a <strong>javaslat alapértelmezésben publikus</strong>
+          </li>
+          <li>A javaslatok publikációja <strong>közösségi hálókon</strong>, az Airesis nyílt terében, vagy külső blogokon és fórumokon;
+          </li>
+          <li>a <strong>személyes blog</strong> ahol a közösség tagjai bemutatkozhatnak és az ötletek/vélemények megosztásán túl is  információkat és hirdetményeket mutathatnak be azoknak a csoportoknak, amelyeknek tagjai;
+          </li>
+          <li> <strong>találkozók</strong> szervezésének lehetősége a közösség tagjai számára;
+          </li>
+          <li> az <strong>érdekes események bejelölésének</strong> lehetősége egy megosztott naptárban;
+          </li>
+          <li>egy <strong>fórum</strong>minden javaslatnál, amelyiken hozzá lehet járulni az indítványhoz, amit a szerkesztők bele tudnak venni az indítvány szövegébe, az arra adott vélemények tükrében.;
+          </li>
+          <li>reputációs rendszer, amely jutalmazza a részvételt, konstruktivitást ésérthetőséget, bátorítva a problémamegoldást
+          </li>
+          <li>a lehetőséget hogy meghívjuk az ismerőseinket a társalgásba
+          </li>
+          <li>a lehetőséget, hogy kérjük a felvételünket egy javaslat szerkesztői közé;</li>
+          <li>a javaslatról való szavazást a jogosult tagok között.
+          </li>
+          </ul>
+      paragraph_10:
+        title: Időleges névtelenség, titkos szavazás és vizsgálható szavazás
+        content_html: |
+          <p>Az Airesis egyik különlegessége, hogy <strong>a csoportok eldönthetik, hogy a javaslatok vitája névtelen legyen vagy sem</strong>.</p>
+          
+          <p>Ha a névtelenség engedélyezve van, a szerzők és kommentátorok javaslatai álnév alatt futnak.
+          Ez a tulajdonság lehetővé teszi, hogy a javaslatokat, kritikákat és véleményeket csak a tartalmuk alapján, pártatlanul vizsgáljuk, a szerzők "neve", és az emberek közötti szeretet/gyűlölet ne befolyásolja a vitát.
+          </p>
+          
+          <p>Bármely esetben, a vita és szavazás után a résztvevőket a rendszer a saját nevük alatt fogja mutatni, és lehetőség lesz ellenőrizni azt, hogy mit ki mondott.</p>
+          
+          <p>Ez az opció a szavazási szakaszra is alkalmazható, tehát lehetőség van eldönteni, hogy az nyilvános vagy titkos szavazással történik. Fontos - különösen a titkos szavazás esetén - annak lehetősége, hogy a szavazó ellenőrizhesse a regisztrált szavazatát és a csalás hiányát. Ez lehetséges az Airesis által implementált ellenőrizhető szavazással.
+          </p>
+      paragraph_11:
+        title: Csoportok és felhasználói szerepkörök kezelése
+    whatis:
+      title: Az első e-demokratikus szociális háló a világon
+      description: A közvetlen demokrácia eszköze amely azért született, hogy bárhol, bármilyen témában született ötletekről és javaslatokról közösen döntsünk és azokat megvalósítsuk.
+      paragraph_1:
+        title: Az e-demokrácia közösségi hálózata
+        content_html: |
+          <p>Az Airesis egy <a href="http://en.wikipedia.org/wiki/Free_software">fszabad szoftver</a> platform, amelyet olasz fejlesztők építettek abból a célból, hogy közösségek és csoportok számára lehetővé tegyék, hogy saját magukat hatékonyan megszervezhessék, a  <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank">közvetlen demokrácia</a> és részvétel eszméi mentén.
+          </p>
+      paragraph_2:
+        title: Építsd fel a csoportodat
+        content_html: |
+          <p>
+          Ha egy szövetség, cég, iskola vagy párt vagy, Airesis mindenképpen megfelelő neked!<br/>
+          Csupán pár perc alatt hozd létre a csportodat és próbád ki az összes elérhető eszközt.<br/>
+          Egy csoport létrehozása ingyenes, gyors és egyszerű, és már most %{groups} aktív csoport van.<br/>
+          Kérjük olvasd el a szabályzatunkat, hogy megtudd, hogyan tudod jobban szervezni és hogy felfedezd, milyen egyszerű az Airesis segítségével megszervezni a csoportodat, és az e-demokrácia eszközeit biztosítani számára!
+          </p>
+      paragraph_3:
+        title: Szervezd meg a résztvevőket
+        content_html: |
+          <p>
+          A <strong> szerepkörök és jogosultságok </strong> kezelésének hathatós módja lehetővé teszi hogy a csoportodat az ízlésednek megfelelően formázd:
+          a felhasználóknak több vagy kevesebb engedélyt adhatsz, rendezheted a résztvevőket hierarchikusan, vagy adhatszmindenkinek ugyanolyan jogokat és szerepköröket. </br>
+          Ez az ami miatt az Airesis teljesen megfelelő akár egy <strong> Cég </strong>, akár egy <strong> Demokratikus Mozgalom </strong> vagy egy  <strong> Szövetség </strong> számára.
+          </p>
+      paragraph_4:
+        title: Javasolj és tanácskozz
+        content_html: |
+          <p>
+          Az Airesis szíve a javaslatokban rejlik: többféle mintát használhatsz, amelyekkel bevonhatod a csoportban lévő embereket, és meghallgathatod a véleményüket. <br/>
+          Vitázhattok különböző témákról, felépíthettek egy napirendet megosztott módon, vagy szavazhattok jelöltekről demokratikus úton.<br/>
+          Az Airesis javaslat eszköze ma a legfejlettebb és legteljesebb online elérhető tömegtanácskozási eszköz! <br/>
+          Ebben a pillanatban is %{users} felhasználó vitat %{proposals} javaslatot.
+          </p>
+      paragraph_5:
+        title: Szervezd meg az eseményeket, növeld a részvételt
+        content_html: |
+          <p>
+          Az események ütemezéséhez egy teljes rendszer lehetővé teszi, hogy jobban szervezd a csoportod aktivitásait. <br/>
+          A résztvevők értesítést kapnak a közeledő eseményekről és képesek szinkronizálni a naptárukat a csoport naptárával. <br/>
+          Minden résztvevő megadhatja, hogy részt vesz-e vagy sem, ami lehetővé teszi a szervezőknek hogy jobban kezeljék az eseményt.
+          </p>
+      paragraph_6:
+        title: Megosztott dokumentumok archívuma
+        content_html: |
+          <p>
+          A csoportod egy nagyon hasznos és teljes dokumentum archívumot kap, amelyet mappákba és almappákba lehet rendezni annak érdekében hogy a résztvevők elérhessenek minden rendelkezésreálló anyagot. <br/>
+          Az Airesisben példátlanul egyszerű a dokumentumok használata: csupán a fájlok böngészőbe húzásával feltölthetsz a szerverre a számítógépedről. <br/>
+          Csak néhány másodperc, és a feltöltés kész is! Kérdezd meg a csapatunkat, hogy hogyan tudod növelni a rendelkezésre álló tárterületet, és feltölthetsz akár 1GB-nyi dokumentumot.
+          </p>
+      paragraph_7:
+        title: A space to discuss
+        content_html: |
+          <p>
+          The best ideas come from the dialogue: that's why Airesis decided to provide a forum for
+          each group where users can exchange ideas, suggestions or simply chat freely. <br/>
+          The forum provided is both complete and modern, fully configurable and expandable by the group to be organized
+          according to their needs.
+          You can have public discussions, visible to everyone, and private discussions, reserved to the participants of the
+          group.
+          Organize the forums into sections and create groups of moderators! It's all in your hands! <br/>
+          At the moment there are already %{topics} active discussions in Airesis!
+          </p>
+      paragraph_8:
+        title: Much, much more
+        content_html: |
+          <p>
+          The features of Airesis are not only these! <br/>
+          Watch our %{intro_page} to discover the dozens of
+          tools and options available for your group. <br/>
+          Discover the myriad of features that will help you manage the group and will allow you to
+          organize it to best: if you have a need, certainly Airesis will allow you to satisfy it!
+          </p>
+        link: introduction page
+    press:
+      title: Sajtóközlemények
+    roadmap:
+      paragraph1:
+        title: 'Cél: a közvetlen demokrácia'
+        content_html: |
+          <p>Airesis was born from the fusion of two projects launched over two years ago as a result of the need to be able to use a
+          software platform that could integrate the main features of social networks, event management and mass decision making system.</p>
+          <p>In March, 2012, during the meeting "Cittadini a cinque stelle" (Five Stars Citizen) organized in Rimini, Alessandro Rodi
+          with its Airesis project came to know Nicola Giulietti and the Agora 2.0 project: on one side, a good software,
+          on the other an excellent analysis of the features that a portal for direct democracy should have had.</p>
+          <p>Following this meeting it was decided to collaborate in the development of a common open source application so that it could
+          implement the functions identified by the Agora 2.0 group in more than a year long work.</p>
+          <p>The mission was (and still is) ambitious, but we know that it is possible to be achieved with the right tools, step by step.</p>
+          <p>Thanks to our determination what initially looked like a dream of freedom, found the support of many people and the help of programmers,
+          analysts, mathematicians, graphic designers and responsible citizens.</p>
+          <p>Currently software releases are published on a monthly or bi-monthly basis to meet the demands and needs of users,
+          in order to apply a process of continuous improvement.</p>
+      paragraph2:
+        title: The evolution of Airesis
+        content_html: |
+          <p>The list below shows the changes of Airesis during its evolution.
+          You can also find highlighted the innovations planned for future versions.
+          Check this page often if you are interested to know which features are being developed and come back to visit us!</p>
+      title: Az Airesis fejlődése
+      description: Our road to realize a new software, an idea capable of evolving democracy that came to life in the web.
+    helpus:
+      title: Help us as you want, anyone can contribute
+      description: Contribute to realize a tool capable of evolving e-democracy
+      paragraph1:
+        title: Why are we asking you to support Airesis?
+        content_html: |
+          <p>
+          The volunteers working on this project spend a considerable amount of time in order to bring a useful software for our communities.
+          However, volunteering and hard work alone are not sufficient: money is needed to mantain a server installation publicly available, to keep the software updated and experiment with the new features and improvements we are developing. In addition to this, paid work is required for server maintenance and user help desk.
+          </p>
+      paragraph2:
+        title: Choose what to support
+        content_html: |
+          <p>Airesis allow you to donate for single features.
+          The development group has dozens of ideas to improve the software, however funds are required to implement them</p>
+          <p>Today you can donate to realize a specific feature, or to suggest new ideas you are willing to donate for.</p>
+          <p>Go to the <a href=%{link}>donations page</a> and see what we would like to realize with your help!</p>
+      paragraph3:
+        title: Hogyan adományozhatsz
+        content_html: |
+          <p> The Association for Social Promotion named
+          <a href="http://www.tecnologiedemocratiche.it/" target="_blank">Tecnologie Democratiche</a>
+          was created in order to support the development of Airesis and allow the project sustenance.
+          Your donation will be entirely addressed to the development and hosting of the platform.
+          Financially support us in order to pay an experienced senior programmer and for the maintenance of the server hosting our application:
+          </p>
+          <center>
+          <p>With a bank transfer addressed to: 'Tecnologie Democratiche' IBAN: IT76L0316501600000011758905</p>
+          <p>With a donation using Paypal:</p>
+          </center>
+      paragraph4:
+        content_html: '<p><a href="mailto:%{mail}">Contact us</a> for more information.</p>'
+      paragraph5:
+        title: Spread the word about this project
+    linkback:
+      paragraph1:
+        title: Help us spread the word about this e-democracy tool
+        content_html: |
+          <p>Our project needs to be known by all those who care about the future of our democracy.
+          Help us spread it in blogs and forums, on Facebook, on social networks and wherever there is a desire for democracy.</p>
+          <p>You can use our link or our banner on your site or in friends', associations' or
+          organizations' ones that share the goals of the project.
+          In order to display the banner or link on your website, copy the code found below and insert it
+          in the code page of your site, at the point where you want it to be displayed:</p>
+      paragraph2:
+        title: Banners
+      paragraph3:
+        title: Text link
+        content_html: '<p>If you choose to publish your banner it will be of great help to the project. Thank you.</p>'
+    tags:
+      title: 'Airesis - döntéstámogatás'
+      description: 'A decision making tool for direct democracy and e-government: participate in discussions, bring your ideas, suggest solutions and vote online'
+    engage:
+      title: Participate in the project for a new democracy
+      description: Contribute in this project with your experiences, help us build a new democracy, more transparent and shared
+      nav:
+        opensource: Open Source
+        participate: Participate
+        banner: Banner
+      paragraph1:
+        title: Airesis is open to everyone
+        description_html: |
+          <p>Airesis is a project based upon a free and open-source software. You can contribute to its development:</p>
+          <ul>
+          <li>Using the platform and doing bug-checking</li>
+          <li>Giving comments and suggestions about usability and platform UI</li>
+          <li>Programming the platform UI (REQUIRED: knowledge of HTML, CSS or Javascript)</li>
+          <li>Programming the platform server-side (REQUIRED: knowledge of Ruby and/or C++ language, or will to learn it with the help of other volunteers)</li>
+          <li>Supporting us with a <a href=%{donations_path}>donation</a> or searching founds</li>
+          <li><a href="#linkback">Spreading the word</a> about the project and managing its comunication</li>
+          </ul>
+          <p>To help us coordinate our activities we use these tools. You can start from here:</p>
+          <ul>
+          <li><a href="https://groups.google.com/forum/?fromgroups=#!forum/agora-20" target="_blank">Development group on Google Groups</a></li>
+          <li><a href="https://www.facebook.com/groups/airesis/" target="_blank">Development group on Faceook</a></li>
+          <li><a href="https://github.com/coorasse/Airesis" target="_blank">Source code</a></li>
+          </ul>
+      paragraph2:
+        title: How to contribute
+        description_html: |
+          <p>Anyone can help in the open-source project Airesis: you do not need to be a programmer, since there is a lot of activities to do anyway.
+          In the project <a href=%{chisiamo}>we are all unpaid volunteers</a>, sharing the will to help citizens organize transparently and participate in the making of a top notch democracy.</p>
+          <p>To report your availability please fill <a href="%{form}" target="_blank"><strong>this form</strong></a>, or contact <strong>Nicola Giulietti</strong>&nbsp;- %{email} - cell. %{cell} in case of doubts or you want more informations.</p>
+          <p>Here is a list of volunteers that we need:</p>
+      developer:
+        title: Developer
+        description_html: |
+          <p>
+          The developer is the person who actually writes the code of Airesis. <br/>
+          He follows the specifications and guidelines agreed upon by the team.
+          The developer will write new modules in Ruby when there will be new features to be added, or HTML pages, using also CSS and Javascript in case of UI functionalities.<br/>
+          New applicants fwill be helped and guided by the <a href="%{chisiamo}" target="_blank">head programmer</a> in their first steps to easily start their jobs.
+          </p>
+      analyst:
+        title: Analyst
+        description_html: |
+          <p>
+          He is the conjunction ring between users and the development team. <br/>
+          He collects feedbacks from groups and citizens and gives the development team all the required documentations to develop new functionalities or improve existing ones.<br/>
+          He elaborates algorithms, as well as pros and cons of each feature, and its possible impropriate uses.
+          </p>
+      first_lev_tester:
+        title: First-level tester
+        description_html: |
+          <p>
+          The first-level tester is a person available to test the system without necessarily have to provide any technical feedback about the code.
+          The first level tester is required to know about how to run the system and be able to use an internet browser or social networking system but it is not required to know any programming language.<br/>
+          Feedback from a first-level tester will then be about unexpected occurrences from the system and bugs.
+          </p>
+      sec_lev_tester:
+        title: Second-level tester
+        description_html: |
+          <p>
+          Good knowledge of programming is required to become a second-level tester. He is asked to perform more stringent and detailed tests than the first-level tester. A second-level tester works on complex issues and is able to push the whole system under stress, to discover hidden problems.
+          </p>
+      graphic:
+        title: Graphic designer
+        description_html: |
+          <p>
+          The graphic designer draws the user interfaces and gives their drafts to the development group.
+          He improves the usability and comprehensiveness of the texts in the software (eg: user guides...)
+          </p>
+      recruiter:
+        title: Recruitment
+        description_html: |
+          <p>
+          He is in charge of looking for new volunteers willing to help in this project, testers, as well as groups available to use the software
+          for their needs.
+          He engages groups of people that are not represented by the development group (women, people with low informatic skills, etc...) so that the software can be
+          attractive even and foremost to them, basing on their feedbacks.
+          </p>
+      communication:
+        title: Communication manager
+        description_html: |
+          <p>
+          He manages press contacts, promotes the software looking for new users, technical aspects such as linkback and SEO (Search Engine Optimization),
+          viral marketing (eg. creating interesting proposals), videos and informative documentation.
+          He updates social networks and media, represent the external referent-spokesman.
+          </p>
+      i18n:
+        title: Internazionalization
+        description_html: |
+          <p>
+          He is in charge of the software translation. He contacts and coordinates foreign translators.<br/>
+          (N.B.: it is not required to posses any programming skill)
+          </p>

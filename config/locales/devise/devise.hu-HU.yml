@@ -1,0 +1,80 @@
+hu:
+  errors:
+    messages:
+      expired: már lejárt, kérj egy újat
+      not_found: nem található
+      already_confirmed: Korábban megerősítve, próbáljon meg bejelentkezni
+      not_locked: nem volt zárolva
+      not_saved:
+        one: '1 hiba miatt a  %{resource} mentése nem sikerült:'
+        other: '%{count} hiba miatt a  %{resource} mentése nem sikerült:'
+  devise:
+    failure:
+      locked: A fiókok zárolva van
+      invalid: Érvénytelen e-mail cím vagy jelszó
+      invalid_token: Érvénytelen hitelesítési token
+      timeout: A munkamenet lejárt, kérem jelentkezz be ismét a folytatáshoz
+      inactive: Fiókod még nincs aktiválva
+      already_authenticated: Már regisztráltál
+      unauthenticated: Az oldal eléréséhez be kell jelentkezni. Kérem, jelentkezzen be.
+      unconfirmed: A felhasználói fiók még nem lett megerősítve
+      user:
+        invalid: Érvénytelen felhasználónév vagy jelszó
+    sessions:
+      signed_in: Sikeresen bejelentkeztél
+      signed_out: Sikeres kilépés
+      user:
+        signed_out: Sikeres kilépés. Viszlát
+        signed_in: Sikeres regisztrálás. Isten hozta!
+        signed_up: Regisztrációját sikeresen végrehajtotta. Isten hozta!
+    passwords:
+      send_instructions: Hamarosan fogsz kapni egy emailt arról, hogy hogyan tudod megváltoztatni a jelszavadat
+      updated: 'A jelszó sikeresen megváltoztatva. Ön bejelentkezett '
+      updated_not_active: Jelszava sikeresen megváltoztatva
+      send_paranoid_instructions: Ha e-mail címe szerepel adatbázisunkban, egy linket fog kapni a jelszava helyreállításához
+      user:
+        updated: Jelszó frissítése sikeresen megtörtént
+        send_instructions: Az utasításokat e-mail címére továbbítottuk
+    confirmations:
+      send_instructions: Pár percen belül e-mailen utasításokat fog kapni, hogyan kell accountját megerősíteni
+      send_paranoid_instructions: Ha e-mail címe szerepel adatbázisunkban, pár percen belül e-mailen utasításokat fog kapni, hogyan kell accountját megerősíteni
+      confirmed: Accountját sikeresen megerősítette. Ön most be van jelentkezve
+      user:
+        confirmed: Regisztrációja sikeresen befejeződött
+        send_instructions: Megjelölt e-mail címére utasításokat küldtünk
+    registrations:
+      signed_up: Isten hozta! Feliratkozása sikeres volt
+      signed_up_but_unconfirmed: E-mail címére üzenetet küldtünk egy megerősítő linkkel. Kérem nyissa meg a linket accountja aktiválásához
+      signed_up_but_inactive: Sikeresen feliratkozott. Bejelentkezése sikertelen volt, mert accountját nem aktiválta
+      signed_up_but_locked: Sikeresen feliratkozott. Bejelentkezése sikertelen volt, mert accountja blokkolva van.
+      updated: Accountja sikeresen frissítve
+      update_needs_confirmation: Accountja sikeresen frissítve, de e-mail címét ellenőriznünk kell. Kérem nézze meg üzeneteit és a megerősítő linkre klikkelve végezze el új e-mail címének megerősítését
+      destroyed: Viszlát! Accountja törlése sikeres volt. Reméljük, hamarosan újra látjuk
+      user:
+        inactive_signed_up: To complete your registration please click on the link in the email you received
+        signed_up_but_unconfirmed: Click on the link in the email sent to your address to complete the registration process
+    unlocks:
+      send_instructions: You will receive an email with instructions about on how to unlock your account in a few minutes
+      unlocked: Your account has been unlocked successfully. Please sign in to continue
+      send_paranoid_instructions: If your account exists, you will receive an email with instructions about how to unlock it in a few minutes
+    omniauth_callbacks:
+      success: Your registration has been completed. Welcome!
+      failure: 'Could not authorize you from %{kind} because "%{reason}"'
+    mailer:
+      confirmation_instructions:
+        subject: Confirmation instructions
+        welcome: 'Welcome on %{app_name} %{user}!'
+        follow_link: 'You can confirm your e-mail address by clicking the following link:'
+        confirm_account: Confirm account
+        follow_link_2: 'or by visiting the following url:'
+        access_by_email: 'Then you can log in %{app_name} with the provided e-mail and the chosen password'
+        contact_assistance: 'If you have any problem with the procedure contact an administrator: %{mail}'
+      reset_password_instructions:
+        subject: Reset password instructions
+        hi_user: 'Szia %{user}!'
+        follow_link: 'You can change your password by clicking on the following link:'
+        change_password: A jelszó megváltoztatása
+        ignore: "If you didn't ask the change your password, please ignore this e-mail."
+        password_will_not_change: Your password will not change until you click on the previous link.
+      unlock_instructions:
+        subject: Unlock Instructions
