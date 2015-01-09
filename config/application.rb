@@ -21,7 +21,7 @@ module Airesis
 
     config.autoload_paths << "#{Rails.root}/lib"
     config.time_zone = 'Rome'
-    config.i18n.default_locale = :en
+    config.i18n.default_locale = :hu
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{yml}')]
     config.i18n.fallbacks =[:en]
 

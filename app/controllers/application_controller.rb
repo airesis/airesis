@@ -116,8 +116,10 @@ class ApplicationController < ActionController::Base
     @locale = 'en' if ['en', 'eu'].include? @locale
     @locale = 'en-US' if ['us'].include? @locale
     @locale = 'zh' if ['cn'].include? @locale
-    @locale = 'it-IT' if ['it', 'org', 'net'].include? @locale
-    I18n.locale = @locale
+#    @locale = 'it-IT' if ['it', 'org', 'net'].include? @locale
+    @locale = 'it-IT' if ['it', 'net'].include? @locale
+	@locale = 'hu' if ['org'].include? @locale
+     I18n.locale = @locale
   end
 
   def user_time_zone(&block)
