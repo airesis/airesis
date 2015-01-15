@@ -96,6 +96,7 @@ en:
       moderator_tools: "Moderation tools"
       topic_tools: "Topic tools"
       admin_tools: "Administration tools"
+      title: "New forum"
     forums:
       index:
         title: Forum

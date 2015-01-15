@@ -220,7 +220,7 @@ class User < ActiveRecord::Base
     self.group_participations.joins(" INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id"+
                                         " LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id "+
                                         " and action_abilitations.group_id = group_participations.group_id")
-    .where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
+        .where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
   end
 
   #restituisce l'elenco dei gruppi dell'utente
@@ -229,29 +229,39 @@ class User < ActiveRecord::Base
     ret = self.groups.joins(" INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id"+
                                 " LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id "+
                                 " and action_abilitations.group_id = group_participations.group_id")
-    .where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
+              .where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
     excluded_groups ? ret - excluded_groups : ret
   end
 
   #return all group area participations of a particular group where the user can do a particular action or all group areas of the user in a group if abilitation_id is null
   def scoped_areas(group_id, abilitation_id=nil)
-    query = self.group_areas
-    if abilitation_id
-      query = query.joins({area_roles: :area_action_abilitations})
-      .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_participations.area_role_id = area_roles.id', group_id, abilitation_id])
-      .uniq
+    group = Group.find(group_id)
+    ret = nil
+    puts "hello"
+    puts "group_id: #{group_id}: #{group}"
+    if group.portavoce.include? self
+      puts "im admin"
+      ret = group.group_areas
+    elsif abilitation_id
+      puts "not admin"
+      ret = group_areas.joins(area_roles: :area_action_abilitations)
+          .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_participations.area_role_id = area_roles.id', group_id, abilitation_id])
+          .uniq
     else
-      query = query.joins(:area_roles)
-      .where(['group_areas.group_id = ?', group_id])
-      .uniq
+      puts "no permi"
+      ret = group_areas.joins(:area_roles)
+          .where(['group_areas.group_id = ?', group_id])
+          .uniq
     end
+    puts ret.pluck(&:id)
+    ret
   end
 
   def self.new_with_session(params, session)
     super.tap do |user|
       user.last_sign_in_ip = session[:remote_ip]
       user.subdomain = session[:subdomain] if (session[:subdomain] && !session[:subdomain].blank?)
-      user.original_sys_locale_id =user.sys_locale_id = SysLocale.find_by_key(I18n.locale).id
+      user.original_sys_locale_id =user.sys_locale_id = SysLocale.find_by(key: I18n.locale).id
 
       fdata = session["devise.google_data"] || session["devise.facebook_data"] || session["devise.linkedin_data"] || session['devise.parma_data']
       data = fdata["extra"]["raw_info"] || fdata["info"] if fdata #raw-info for google and facebook and linkedin, info for parma
@@ -268,7 +278,7 @@ class User < ActiveRecord::Base
         user.email = session[:user][:email]
         user.login = session[:user][:email]
         if invite = session[:invite] #if is by invitation
-          group_invitation = GroupInvitation.find_by_token(invite[:token])
+          group_invitation = GroupInvitation.find_by(token: invite[:token])
           if user.email == group_invitation.group_invitation_email.email
             user.skip_confirmation!
           end
@@ -541,7 +551,7 @@ class User < ActiveRecord::Base
   end
 
 
-#gestisce l'azione di login tramite linkedin
+  #gestisce l'azione di login tramite linkedin
   def self.find_for_linkedin_oauth(access_token, signed_in_resource=nil)
     data = access_token['extra']['raw_info'] ##dati di linkedin
     #se è presente un account linkedin per l'utente usa quello
@@ -565,7 +575,7 @@ class User < ActiveRecord::Base
   end
 
 
-#gestisce l'azione di login tramite google
+  #gestisce l'azione di login tramite google
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
     data = access_token['extra']['raw_info'] #dati di google
     auth = Authentication.find_by(provider: access_token['provider'], uid: access_token['uid'])
@@ -589,7 +599,7 @@ class User < ActiveRecord::Base
   end
 
 
-#gestisce l'azione di login tramite twitter
+  #gestisce l'azione di login tramite twitter
   def self.find_for_twitter(access_token, signed_in_resource=nil)
     data = access_token['extra']['raw_info'] #dati di twitter
     auth = Authentication.find_by_provider_and_uid(access_token['provider'], access_token['uid'])
