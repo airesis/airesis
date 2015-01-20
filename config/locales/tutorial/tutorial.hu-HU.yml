@@ -1,0 +1,61 @@
+hu:
+  tutorial:
+    proposals_index:
+      welcome_open_space: Légy üdvözölve az Aiersis nyílt platformján. A nyílt platform egy különleges csoport, ahol minden felhasználó résztvevő is. Itt megtalálhatod a javaslatok listáját amit az alkalmazás használói állítottak össze, és megadhatod saját javaslataidat is.
+      welcome_group: 'Ez egy lista a <b>%{group_name}</b> csoport indítványairól. Itt megtalálhatóak a csoport tagjai által benyújtott indítványok és ahol saját indítványok is benyújthatóak lehetőség szerint'
+      new_proposal: A jobb oldali menüben található gombbal hozható létre új indítvány...
+      filters: ...és különböző szűrők, hogy könnyebben megtaláld az általad keresett indítványokat
+      tabs: Az indítványok az Airesis-ben négy meghatározott utat járnak be. Lássuk, mik ezek!
+      tab_debate: Az új indítványok a vita fázisában kezdenek. Minden felhasználó vagy csoport tagjai részt vehetnek a vitában, hogy az adott indítvány megérjen a szavazásra.
+      tab_vote: Ha a megvitatási fázis sikeresen lezárult, az indítványok átkerülnek a szavazási lapra, ahol minden felhasználó szavazhat a vita fázisban kialakult megoldásra.
+      tab_voted: Sikeres szavazás után minden megszavazott indítvány átkerül a Megszavazott lapra, ahol áttekintést kaphatunk az indítvány teljes életciklusáról.
+      abandoned: Minden olyan indítvány, mely nem jutott túl sikeresen a vita fázisán átkerül a Visszadobott|Sikertelen lapra, ahol folytatható annak megvitatása.
+      proposal_list: Minden indítvány egy ehhez hasonló dobozban lesz megjelenítve, ahol a vita alatt megtekinthető annak státusza.
+      model: A javaslat létrehozására használt sablon
+      category_icon: A kiválasztott kategória
+      status: Az indítvány státusza. A vita folyamán a legutolsó módosítás dátuma.
+      maintitle: Az indítvány címe, ami a párbeszéd témája is egyben.
+      text_content: A problémák vagy megoldások első sorai.
+      timeline: Egy állapotjelző, mely mutatja a vita vagy szavazás állapotát.
+      timeleft: A vita lezárásához szükséges idő és/vagy értékelések.
+      rankDescription: Az indítvány fejlettségi szintje, mely megmutatja hogy készen áll-e a szavazásra a részvevők értékelése alapján.
+      participants: Ezen indítványban résztvevő emberek száma hozzájárulásaikkal és értékelésükkel.
+      contributes: Hozzájárulók száma.
+      end: Ez az indítványok strukturált listája. Megegyezik minden csoportban, melyben részt veszel és segít tájékozódnod a csoport párbeszédeiben.
+    proposals_show:
+      welcome: 'Üdvözöljük ezen indítvány vitájában az Airesis-en. Ez a leírás részletesen elmagyarázza a különböző részek tagjait:'
+      title: Ez az indítvány címe, ami a vita tárgya is egyben.
+      status_description: Itt jelennek meg a vita sikeres lezárásához szükséges feltételek.
+      main: 'Az indítvány ezekből a bekezdésekből áll:'
+      solution_main: Ez egy megoldás, még akkor is, ha több bekezdésből áll. Szerkesztők egy vagy több megoldást írnak a felvetődött problémák megoldására
+      contributeButton: Ezeket a gombokat használva láthatod más felhasználók közreműködését és teheted hozzá sajátodat. A közreműködések mindig hivatkoznak a bekezdésekre, melyekben hozzáférhetőek.
+      newComment: Ezt a mezőt használva lehet hozzáadni hozzájárulást mely nem tartozik egy konkrét bejegyzéshez sem.
+      menu_left: Ebben a baloldali menüben megtalálsz minden információt az indítványról.
+      evaluations: A résztvevők az értékeléseinek száma kifejezi, hogy az indítvány készen áll-e a szavazásra, vagy további vita szükséges.
+      ranking: Az indítvány feljettségi szintje százalékosan kifejezi azon részvevők arányát, akik szerint az indítvány készen áll a szavazásra.
+      status: Az indítvány állapota. Jelen esetben a megvitatás fázisában tart.
+      dates: Az indítvány benyújtásának és utolsó módosításának dátuma.
+      condition_left: A vita sikeres lezárásának feltételei.
+      socialnetwork: Gombok az indítvány közösségi médián való megosztásához és ismerősök meghívásához a párbeszédbe.
+      authors: Az indítvány aktuális szerzői.
+      category: Jelen indítvány kategóriája.
+      history: Az indítvány története, ahol láthatóak az elvégzett módosítások és fejlődési lépései.
+    groups_edit:
+      welcome: Ez a rendszergazdai panel csoportok számára. Bemutatjuk az egyes szakaszokat...
+      group_info: Itt módosíthatsz a csoporttal kapcsolatos minden információt és a csoport képét. Kérjük töltsd ki a kulcsszavakat, ha még nem tetted. Ezek fontosak a csoportodnak, hogy megtalálhassák mások is.
+      group_roles: Itt kezelheted a csoportban az elérhető szerepköröket. Beállíthatod és módosíthatod a jogosultságaikat.
+      group_users: Itt tudod kezelni csoportod résztvevőit. Hozzájuk tudsz rendelni szerepeket, és email-t tudsz küldeni nekik.
+      group_proposals: Ezen az oldalon tudsz megváltoztatni minden indítvánnyal kapcsolatos dolgot, például határozatképtelenség, egyéb beállítások.
+      group_areas: Területeket tudsz aktiválni, amik lehetővé teszik, hogy egy csoportod több kisebb csoportra oszd szét.
+      group_forum: Végül itt van az összes beállítás a Fórumhoz.
+    users_alarm_preferences:
+      intro: Ezen az oldalon tudod megváltoztatni a riasztási és értesítési beállításokat.
+      alerts: Kiválaszthatod, mely riasztások jelenjenek meg az Airesis felületén...
+      emails: ...vagy melyeket szeretnél email-ben megkapni, vagy akár mindkettőt egyszerre.
+      no_emails: 'Ne feledje: Ha letilt egy riasztást, akkor nem kapja meg sehol az Airesis-en.'
+    users_border_preferences:
+      intro: Ha még nem tetted, állítsd be a földrajzilag érdekes preferenciáid. Airesis hamarosan felhasználja ezt olyan tartalmak megjelenítésére, melyek érdekelhetnek.
+    welcome:
+      intro: 'Üdvözölünk az Airesis felületén %{name}. Ezek az oktatóanyagok végigvezetnek az alkalmazáson és elmagyazázzák, hogyan kell használni, és hol találhatók az információk, amikre szükséged lehet.'
+    next: Következő
+    back: Vissza

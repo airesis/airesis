@@ -1,0 +1,263 @@
+hu:
+  pages:
+    proposals:
+      edit:
+        add_solution:
+          standard: Egy további megoldás hozzáadása
+          poll: Újabb lehetőség hozzáadása
+          rule_book: Egy további megoldás hozzáadása
+          press: Egy további megoldás hozzáadása
+          event: Egy további megoldás hozzáadása
+          estimate: Egy további megoldás hozzáadása
+          agenda: Másik pont hozzáadása
+          candidates: További jelölt hozzáadása
+          simple: Másik megoldás hozzáadása
+        solution_title:
+          standard: Megoldás
+          poll: Lehetőség
+          rule_book: Megoldás
+          press: Megoldás
+          event: Megoldás
+          estimate: Megoldás
+          agenda: Pont
+          candidates: Jelölt
+          simple: Megoldás
+        insert_title:
+          standard: Cím hozzáadása
+          poll: Cím hozzáadása
+          rule_book: Cím hozzáadása
+          press: Cím hozzáadása
+          event: Cím hozzáadása
+          estimate: Cím hozzáadása
+          agenda: Cím hozzáadása
+          candidates: Vezetéknév és keresztnév megadása
+          simple: Cím hozzáadása
+        new_solution_title:
+          standard: '<span class="num">%{num}.</span> megoldás:'
+          poll: '<span class="num">%{num}.</span> opció:'
+          rule_book: '<span class="num">%{num}.</span> megoldás:'
+          press: '<span class="num">%{num}.</span> megoldás:'
+          event: '<span class="num">%{num}.</span> megoldás:'
+          estimate: '<span class="num">%{num}.</span> megoldás:'
+          agenda: '<span class="num">%{num}.</span> pont:'
+          candidates: '<span class="num">%{num}</span>. jelölt:'
+          simple: 'Megoldás <span class="num">%{num}</span>:'
+      new:
+        standard:
+          problems_title: Problémák
+          problems_question: Mi a megoldandó probléma és/vagy melyek a leküzdendő akadályok a cél elérése érdekében?
+          problems_title_label: Mi a megoldandó probléma és/vagy melyek a leküzdendő akadályok a cél elérése érdekében?
+          objectives_title: Célkitűzések
+          step_4_title: Elkezdheti gépelni az indítvány szövegét, vagy megírhatja később a kapott hozzájárulások alapján
+          solution:
+            description: A megoldás leírása
+            time: Alkalommal
+            subject: Felügyelő
+            resources: Szükséges források és lekérésük módja
+            aspects: Etikai, környezeti, társadalmi szempontok
+            documents: Dokumentáció
+            pros: Mellette
+            cons: Ellene
+            title: 1. megoldás
+          suggestion_html: |
+            <div><b>Példa:</b></div>
+            <div>Öntözésre használt ivóvíz mennyiségének csökkentése.</div>
+            <div>Nyilvános parkok és magánkertek ivóvízzel való öntözése pazarló és költséges. Továbbá a föld édesvízkészlete rohamosan csökken.</div>
+          paragraph:
+            similar: Hasonló tapasztalatok
+            stakeholders: Érdekelt felek
+            requirements: Megoldási követelmények
+          question:
+            paragraph:
+              similar: Vannak tapasztalatai, melyek inspirálják a cél elérésében? A lehetséges megoldások, vagy a már meglévő indítványok közül melyek érték el a legjobb eredményeket és a legrosszabbakat? Miért?
+              stakeholders: Kik részesülnek majd a célkitűzés megvalósítása és javasolt megoldások előnyeiből és hátrányaiból? Ezek a témák szerepeltek az indítvány megvitatása során? Milyen módon?
+              requirements: Mely jellemzőknek kell teljesülniük az ideális megoldáshoz? Hivatkozhatunk fontos műszaki szükségletekre, és betartandó irányelvekre.
+            solution:
+              description: Mutassa be a cél elérése érdekében javasolt gyakorlati megoldást.
+              time: Mikor lesz megvalósítva ez a megoldás? Azonosítsa a megvalósítás lehetséges szakaszait.
+              subject: Ki fogja megvalósítani a megoldást, vagy felügyelni a megoldás megvalósítását? Hogyan fogja felügyelni és ellenőrizni a megvalósítás végén a megoldás eredményét?
+              resources: Szükség van anyagiakra, önkéntesekre, eszközökre és készségekre a megoldás megvalósításához? Sorolja fel ezeket számszerűsítve. Hogyan lesznek ezek az erőforrások előteremtve?
+              aspects: Ez a megoldás megfelel a célcsoport vagy célközösség etikai előírásainak? Mi a társadalmi és környezeti hatása?
+              documents: Elérhető a megoldáshoz dokumentáció?
+              pros: Sorolja fel és foglalja össze ezen megoldás előnyeit és erősségeit. Jelölje meg, kiket érintenek az előnyök.
+              cons: Sorolja fel és foglalja össze ezen megoldás főbb problémáit és hátrányait. Jelölje meg, kiket érintenek a hátrányok.
+        rule_book:
+          problems_title: Problémák
+          problems_title_label: Mely problémák oldhatóak meg ezzel a szabályozási eszközzel? Mely kérdésköröket kell szabályozni? Miért?
+          problems_question: Mely problémák oldhatóak meg ezzel a szabályozási eszközzel? Mely kérdésköröket kell szabályozni? Miért?
+          suggestion_html: |
+            <div><b>Példa:</b></div>
+            <div>Szabálykönyv a St. Péter kastélyának fenntartásához</div>
+            <div>Silverham városának van egy konferencia terme, melyet manapság csak a Polgármesterek és partnerei használnak. Itt az ideje, hogy válasszon egy pártatlan eljárást, mely biztosítja minden állampolgárnak és közhasznú társaságnak a jogot, hogy lefoglalhassa a termet nyilvános rendezvényekhez.</div>
+          solution:
+            title: 1. megoldás
+            article: 'Cikk %{num}'
+            pros: Mellette
+            cons: Ellene
+          paragraph:
+            inspire: 'Szabályozás, melyet ez inspirál:'
+            requirements: Követelményeknek kell megfelelni
+            stakeholders: Érdekelt felek (érintett személyek)
+          question:
+            paragraph:
+              inspire: Vannak hasonló szabályozások, amelyekből ihletet merített? A hasonló szabályozási tapasztalatok közül melyek érték el a legjobb és a legrosszabb eredményeket? Miért?
+              requirements: Mik a legfőbb korlátok, amelyeket a szabályozásnak figyelembe kell vennie? Mik az értékek és a betartandó irányelvek? Mi lesz az ára a szabályozás alkalmazásának? Milyen utasítások fogják érvényre juttatni?
+              stakeholders: Ki a leginkább érintett a szabályozás alkalmazása által? Ki fogja elszenvedni a következményeket? Ezek a témák szerepeltek az indítvány vitája során? Hogyan?
+            solution:
+              article: Írja be az első cikk szövegét, amivel biztosítja, hogy egyedi értelmezésként jelenik meg. Félreértések elkerülése végett adja meg a kifejezések meghatározásait.
+              pros: Sorolja fel és foglalja össze ezen megoldás előnyeit és erősségeit. Jelölje meg, kiket érintenek az előnyök.
+              cons: Sorolja fel és foglalja össze ezen megoldás főbb problémáit és hátrányait. Jelölje meg, kiket érintenek a hátrányok.
+        press:
+          problems_title_label: Mi a továbbítani kívánt üzenetet? Milyen akadályai lehetnek a megfelelő megértésének és a folytonosságnak? Vannak olyan cikkek, vagy friss hírek, melyeket szeretne megismételni, vagy szeretne kiigazítani?
+          problems_title: Küldendő üzenet
+          problems_question: Mi a továbbítani kívánt üzenetet? Milyen akadályai lehetnek a megfelelő megértésének és a folytonosságnak? Vannak olyan cikkek, vagy friss hírek, melyeket szeretne megismételni, vagy szeretne kiigazítani?
+          suggestion_html: |
+            <div><b>Példa:</b></div>
+            <div>Airesis 3.5-ös verziójának meghirdetése.</div>
+            <div>Meghirdetjük az Airesis 3.5-ös verzióját, mely fontos funkciókat tartogat a közigazgatásnak. Szükséges elmagyarázni, mi az Airesis és felhívni a sajtó figyelmét erre, figyelembe véve a legújabb pletykákat, az Airesis Fehérházban való használatáról.</div>
+          solution:
+            title: 1. megoldás
+            maintitle: Cím
+            subtitle: Alcím
+            incipit: Kódex
+            body: Törzs
+            conclusion: Következtetések
+            deep: Betekintés
+          paragraph:
+            target: Címzettek/cél
+          question:
+            paragraph:
+              target: Ki a célközönsége, a cikknek / sajtóközleménynek? A továbbítandó üzenet mely szempontjai a legérdekesebbek?
+            solution:
+              maintitle: Hogyan lehetne összefoglalni pár szóban a cikk / sajtóközlemény üzenetét?
+              subtitle: Dióhéjban mutasson rá a cikk egy kulcskoncepciójára, vagy egyéb információra, ami a címben van.
+              incipit: Jelezze néhány szóban, ki, mit, mikor, hol és miért csinált. Emelje ki, miért nagyon fontos tény ez.
+              body: Írja le részletesebben, de összefoglalva a tényt. Írja körül rövid, lényegretörő mondatokkal.
+              conclusion: Vannak javaslatok, melyek az olvasónak szólnak? Mik a tények lehetséges következményei, vagy fejleményei?
+              deep: Adjon hozzá linkeket, névjegyeket és további információkat azok számára, akik többet szeretnének tudni a hírről.
+        estimate:
+          problems_title_label: Mely termékeket vagy szolgáltatásokat kívánja megvásárolni? Mely problémák megoldására?
+          problems_title: Problémák
+          problems_question: Mely termékeket vagy szolgáltatásokat kívánja megvásárolni? Mely problémák megoldására?
+          suggestion_html: |
+            <div><b>Példa:</b></div>
+            <div>Hőközpont cseréje az egyesület központjában.</div>
+            <div>A régi vízmelegítő hibája miatt a mi negyedünk télen nem túl praktikus. Tekintettel arra, hogy a nem lehetséges megjavítani, ki kell cserélnünk a régi hőközpontot egy új, alacsony energia fogyasztásúra.</div>
+          solution:
+            title: 1. megoldás
+            cost: Összeg
+            problems: Korlátok és problémák tiszteletben tartása
+            dumentation: Dokumentáció
+          paragraph:
+            technical_constrains: Műszaki korlátok
+            temporal_constrains: Átmeneti korlátok
+            other_constrains: Környezeti, etikai, szabályozási korlátok
+            budget: Maximális költségvetés
+            recipient_budget: Ajánlatkérés címzettjei
+          question:
+            paragraph:
+              technical_constrains: Quali requisiti tecnici dovranno assicurare i beni ed i servizi da acquistare?
+              temporal_constrains: Con quali tempistica dovranno essere forniti il preventivo nonchè i beni o servizi da acquistare?
+              other_constrains: Quali requisiti ambientali ed etici dovranno assicurare i beni o i servizi da acquistare? Dovranno rispettare particolari norme di legge?
+              budget: Quale è la massima cifra destinabile all’acquisto?
+              recipient_budget: Quali soggetti saranno invitati a fornire un preventivo? Quali sono i loro contatti?
+            solution:
+              cost: Qual è l’importo preventivato per la fornitura dei beni e dei servizi richiesti?
+              problems: Quali, tra i vincoli precedentemente individuati, non saranno rispettati? Il ricorso a questo preventivo comporta altre problematiche? (es. conflitto d’interesse, mancanza di assistenza...).
+              dumentation: Riportare, anche attraverso l’impiego di link ed allegati, ulteriore documentazione relativa a questo preventivo.
+        agenda:
+          problems_title: Összejövetel típusa
+          problems_question: Che tipo di incontro si desidera organizzare? Perchè lo si vuole organizzare?
+          suggestion_html: |
+            <div><b>Példa:</b></div>
+            <div>Válasszon a találkozónkhoz egy menetrendet.</div>
+            <div>Szokásos koordinációs értekezlet tapasztalatcseréhez az olasz biogazdálkodás helyi bizottsági tagjaival.</div>
+          solution:
+            title: Tétel
+            priorities: Tétel fontossága
+            links: Betekintési linkek
+            description: Leírás
+            estimated_time: Szükséges beszélgetési idő
+          paragraph:
+            date_time: Dátum és idő
+            place: Hely
+          question:
+            paragraph:
+              date_time: 'Quando avrà luogo l’incontro? Si è accertata la disponibilità degli invitati? Si è accertato che l’evento non si sovrapponga con altri? '
+              place: Dove si svolgerà l’evento? Se l’evento ha luogo on-line, indicare l’indirizzo web al quale collegarsi per partecipare.
+            solution:
+              description: "Indicare uno dei punti all'ordine del giorno."
+              links: Eventuali link a documenti o pagine web utili per la riunione o citati durante la stessa.
+              priorities: Indicare perchè si ritiene importante trattare questo punto e qual è la sua priorità.
+              estimated_time: Qual è il tempo previsto di discussione per questo punto?
+        event:
+          problems_title: Esemény hatálya
+          problems_title_label: Miért szeretne eseményt szervezni? Mik a céljai?
+          problems_question: Miért szeretne eseményt szervezni? Mik a céljai?
+          suggestion_html: |
+            <div><b>Példa:</b></div>
+            <div>Alacsony költségű rock koncert szervezése.</div>
+            <div>A városunkban van egy csomó fiatal zenekar, hogy nem mutatják meg, és nem fejlesztik a tehetségüket helyhiány miatt. Ezen kívül lesz néhány esemény a következő nyáron, melyet források hiánya miatt az Önkormányzatunk támogat.</div>
+          solution:
+            title: 1. megoldás
+            maintitle: Cím
+            description: A megoldás leírása
+            program: Dátum, időpont és terv
+            body: hely
+            place: Hely
+            organization: Rendezvényszervezés
+            resources: Szükséges források és lekérésük módja
+            pros: Mellette
+            cons: Ellene
+          paragraph:
+            similar_experiences: Hasonló tapasztalatok
+            stakeholders: Érdekelt felek (érintett személyek)
+            desired_characteristics: Kívánt jellemzők
+          question:
+            paragraph:
+              similar_experiences: Esistono esperienze a cui ispirarsi per organizzare l’evento? Tra le possibili iniziative già messe in atto, quali hanno raggiunto migliori risultati e quali peggiori? Perché?
+              stakeholders: Chi riceverà dei vantaggi e degli svantaggi dal raggiungimento dall’organizzazione dell’evento? Tali soggetti sono stati coinvolti nella discussione di questa proposta? In che modo?
+              desired_characteristics: Quali sono le caratteristiche che l’evento dovrebbe presentare? Possono essere indicati requisiti tecnici, principi etici, criteri organizzativi...
+            solution:
+              description: Descrivere la soluzione che si propone di adottare per l’organizzazione dell’evento
+              program: Quando si svolgerà l’evento? Quale sarà il programma? Si è accertato che l’evento non si sovrapponga con altri? Si è accertata la disponibilità degli invitati?
+              place: Dove si svolgerà l’evento? Tale luogo dispone dei servizi necessari per l’evento (es. accesso disabili, bagni, fornitura elettrica)? Se no, come si pensa di rimediare alla lacuna?
+              organization: Quali saranno le diverse fasi/aree organizzative? Chii sarà incaricato dell’organizzazione delle diverse fasi/aree?
+              resources: Sono necessari fondi, volontari, strumenti, competenze specifiche per realizzare questa soluzione? Elencarli e quantificarli. Come saranno reperite tali risorse?
+        candidates:
+          suggestion_html: |
+            <div><b>Example:</b></div>
+            <div>Elect the new referent for the communication group.</div>
+            <div>The communication group has just been established and it is necessary to elect a referent. All the people that have been members of the group for at least 5 months can be nominated.</div>
+          solution:
+            name: Jelölt vezetékneve és keresztneve
+            data: Személyes adatok
+            curriculum: Tanterv
+          paragraph:
+            election_type: 'A választás típusának leírása:'
+            role: Ruolo o carica da ricoprire
+            requirements: Requisiti del candidato
+          question:
+            paragraph:
+              role: 'Quale è il ruolo per il quale è necessario selezionare un candidato? Quali saranno le sue mansioni?  Quali compiti dovrà portare a termine?'
+              requirements: Quali sono le caratteristiche ideali del candidato? Quali sono i requisiti minimi inderogabili?
+            solution:
+              name: Indicare Nome e Cognome del candidato.
+              data: Indicare i dati anagrafici essenziali per consentire l’identificazione univoca del candidato.
+              curriculum: Qual’è in curriculum del candidato? Rispetta i requisiti precedentemente individuati? Il candidato pone limiti alla propria disponibilità a ricoprire la carica?
+        simple:
+          problems_title: Probléma
+          problems_title_label: Mi a megoldandó probléma és/vagy melyek a leküzdendő akadályok a cél elérése érdekében?
+          problems_question: Mi a megoldandó probléma és/vagy melyek a leküzdendő akadályok a cél elérése érdekében?
+          solution:
+            description: Leírás
+            title: 1. megoldás
+          question:
+            solution:
+              description: Descrivere la soluzione da adottare per raggiungere l’obiettivo, indicando tempistiche, risorse necessarie per l’attuazione, eventuali problemi irrisolti.
+        petition:
+          paragraph:
+            text: Petíció szövege
+          question:
+            paragraph:
+              text: A petíció szövege

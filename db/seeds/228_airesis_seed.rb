@@ -170,6 +170,7 @@ SysLocale.create(key: "crowdin", host: "www.airesis.eu", territory_type: "", ter
 SysLocale.create(key: "it-IT", host: "www.airesisdev.it:3000", territory_type: "Stato", territory_id: "1")
 SysLocale.create(key: "en", host: "www.airesisdev.eu:3000", territory_type: "Continente", territory_id: "1")
 SysLocale.create(key: "en-US", host: "www.airesisdev.us:3000", territory_type: "Continente", territory_id: "2")
+SysLocale.create(key: "hu", host: "edemokraciagep.org", territory_type: "Stato", territory_id: "210")
 SysMovementType.create(description: "Entrata")
 SysMovementType.create(description: "Uscita")
 
