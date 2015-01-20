@@ -23,11 +23,11 @@ hu:
       contributes: Hozzájárulók száma.
       end: Ez az indítványok strukturált listája. Megegyezik minden csoportban, melyben részt veszel és segít tájékozódnod a csoport párbeszédeiben.
     proposals_show:
-      welcome: Welcome in this proposal, in debate on Airesis. This tutorial will explain in details the different parts it is composed of
+      welcome: 'Üdvözöljük ezen indítvány vitájában az Airesis-en. Ez a leírás részletesen elmagyarázza a különböző részek tagjait:'
       title: Ez az indítvány címe, ami a vita tárgya is egyben.
       status_description: Itt jelennek meg a vita sikeres lezárásához szükséges feltételek.
-      main: These are the paragraphs the proposals is made of
-      solution_main: This is a solution. Even the solution is made of different paragraphs. Editors will write one or more solutions to resolve the problem found
+      main: 'Az indítvány ezekből a bekezdésekből áll:'
+      solution_main: Ez egy megoldás, még akkor is, ha több bekezdésből áll. Szerkesztők egy vagy több megoldást írnak a felvetődött problémák megoldására
       contributeButton: Ezeket a gombokat használva láthatod más felhasználók közreműködését és teheted hozzá sajátodat. A közreműködések mindig hivatkoznak a bekezdésekre, melyekben hozzáférhetőek.
       newComment: Ezt a mezőt használva lehet hozzáadni hozzájárulást mely nem tartozik egy konkrét bejegyzéshez sem.
       menu_left: Ebben a baloldali menüben megtalálsz minden információt az indítványról.
@@ -52,7 +52,7 @@ hu:
       intro: Ezen az oldalon tudod megváltoztatni a riasztási és értesítési beállításokat.
       alerts: Kiválaszthatod, mely riasztások jelenjenek meg az Airesis felületén...
       emails: ...vagy melyeket szeretnél email-ben megkapni, vagy akár mindkettőt egyszerre.
-      no_emails: 'Remember: if you disable an alert on Airesis, you will not receive it on Airesis either.'
+      no_emails: 'Ne feledje: Ha letilt egy riasztást, akkor nem kapja meg sehol az Airesis-en.'
     users_border_preferences:
       intro: Ha még nem tetted, állítsd be a földrajzilag érdekes preferenciáid. Airesis hamarosan felhasználja ezt olyan tartalmak megjelenítésére, melyek érdekelhetnek.
     welcome:

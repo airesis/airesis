@@ -33,48 +33,40 @@ hu:
         title: Elemző
         content_html: |
           <p>
-          Plays the role of chief information officer for two large manufacturing companies belonging to an international holding operating in the automotive sector. Always divided between computer science and the humanities, he is a journalist and literary critic. Curator of the site <a href="http://www.lordglenn.com" target="_blank">www.lordglenn.com</a> (as well as judge in the homonymous literary contest dedicated to animals), has published on several websites and magazines of various cultural and humanity (including <a href="http://www.literary.it" target="_blank">www.literary.it</a>) as well as in anthologies. Creator of “Iperrelazionismo sensibile”, a philosophical construct in the making, is the author of the essay "Wide Democracy, beyond politics," synthesis of 3 years of studies dedicated to create a certified software for e-democracy and online deliberation matters (remained at the prototype stage).
-          Accidentally landend in the Airesis project, he has been conquered by its main concept and philosophy.
-          He decided to donate the fruit of his research and his free time, participating in the development group.
-          His contribute focuses on analysis of functional logic and testing, but does not mind the ethical criticism and philosophical implications arising from the longer term evolutionary choices carried out ​​within the group.
+          Két nagy gyártó cégeket magába foglaló, autóipari szektorban működő, nemzetközi holding Informatikai vezetői szerepét tölti be. Mindig is a számítógép-tudomány és a humánum között mozgott, Ő egy újságíró és irodalomkritikus. Kurátora a <a href="http://www.lordglenn.com" target="_blank">www.lordglenn.com</a> weboldalnak (ahogy bíróként részt vesz az azonos nevű, az állatokért irodalmi versenyen), publikált több kultúrális és humán weboldalon és magazinban (beleértve <a href="http://www.literary.it" target="_blank">www.literary.it</a>), valamint antológiákban is. A "Iperrelazionismo sensibile" alkotója, mely egy filozófiai konstrukció a döntéshozatalban, a szerzője a "Wide Democracy, beyond politics" című esszének, 3 éves tanulmányt szentelt annak, hogy létrehozzon egy hitelesített szoftvert e-demokráciához és online tanácskozási ügyekhez (prototípus maradt).
+          Véletlenül került az Airesis projekthez, és már elfogadta a fő koncepcióját és filozófiáját.
+          Úgy döntött, hogy a kutatásai gyümölcsét, és a szabad idejét a projektnek adományozza, és részt vesz a fejlesztői csoportban.
+          A közreműködése a funkcionális logika és tesztelés elemzésére összpontosul, ugyan akkor nem foglalkozik a csoporton belüli, hosszú távú evolúciós döntések etikai kritikai és filozófiai vonatkozásaival.
           </p>
       graphic_area: Grafikus terület
       kabora_marcello:
         title: Grafikus
         content_html: |
           <p>
-          I am a capable and dynamic guy looking for a job where I could develop my skills accumulated in the last few years of work, in particular,
-          in the construction of websites, applications, logos, catalogs and flyers. I use many graphics softwares and programming languages, and I
-          always try to keep myself updated on new developments. I like to work in a team but also in a stand-alone way, if the case so requires,
-          I pay a lot of attention to detail and I know how to solve problems by means of specific research.
-          I can handle stress very well and have good communication skills. Over the past two years I have worked on several projects at a distance,
-          created a strong communication mood and always reaching targets agreed in terms of effectiveness and timing.
-          To see my curriculum vitae and my recent work I’d like to invite you to visit my website - <a href="http://www.marcellokabora.com" target="_blank"> www.marcellokabora.com</a>.
+          Egy jó képességű és dinamikus srác vagyok, olyan állást keresek, ahol tudnám kamatoztatni az elmúlt néhány évnyi munka során felhalmozott tudásomat, különösen a weboldalak, alkalmazások, logók, katalógusok és szórólapok szerkesztésénél. Sok grafikus szoftvert, és programozási nyelvet használok, és mindig próbáltam naprakész maradni az új fejlesztésekkel kapcsolatban. Szeretek csapatban dolgozni, és önállóan is, ha a helyzet úgy kívánja. Sok figyelmet fordítok a részletekre, és tudom, hogyan kell megoldani egyedi kutatási problémákat.
+          Jól kezelem a stresszt és jó kommunikációs képességekkel rendelkezem. Az elmúlt két évben két projekten dolgoztam távolról. kialakítottam egy jó kommunikációs légkört, és mindig elértem a kitűzött célokat jó hatékonysággal és időzítéssel.
+          Önéletrajzom, és a legutóbbi munkáim megtekintéséhez szeretném meghívni Önt a honlapomra - <a href="http://www.marcellokabora.com" target="_blank"> www.marcellokabora.com</a>.
           </p>
       i18n_area: Nemzetközi terület
       tolja_jacopo:
         title: Toborzásért felelős és a fordítók irányítója
         content_html: |
           <p>
-          I am 50 years old, are a disillusioned, but I found in Airesis a reason to get back into the game and hope to
-          develop a better society for me, but especially for my children and also for you that you get up to this point
-          and here you are reading this sentence.
-          I did everything during my life, travels, adventures, attempts of exploit and bring my experience as a citizen of
-          the world to ensure that Airesis is used by the most large number of people in each most remote corner of the world.
-          I give my help in coordinating the'<a href="https://crowdin.net/project/airesis" target="blank_">Airesis internationalization and localization process</a> and I'm interested in developing for the Airesis website the simplest and the most intuitive user interface existent on the web!
-          I have a big flaw, I am undemocratic and thus, here I'm fine, I'm the exception confirming the rule!
-          The members of this group have made me feel like that and more than in the family and I know I can count on them as I can count on true friends.
+          50 éves vagyok, kiábrándult, de találtam az Airesis-ben egy okot visszakerülni a játékba, és remélem, hogy egy jobb társadalomat biztosít majd számomra, de különösen a gyerekeim számára, na és természetesen az Ön számára is, aki itt olvassa ezt a mondatot.
+          Én sokmindent megéltem már életem során, utazások, kalandok, megpróbáltam kihasználni a lehetőségeket és átadni a tapasztalataim, mint a világ egy polgára, hogy biztosítsam a világ minden sarkán élő embereknek a lehetőséget, hogy használhassák az Airesis-t.
+          Segítem koordinálni az "<a href="https://crowdin.net/project/airesis"target="blank_"> Airesis többnyelvűsítési és honosítási folyamatát</a>, és érdekelnek az Airesis weboldal fejlesztései, hogy az minél egyszerűbb és intuitívabb felhasználói felület legyen az Interneten!
+          Van egy nagy hibám, antidemokratikus vagyok, de jól megvagyok itt, mint kivétel, ami megerősíti a szabályt!
+          A csoport tagjaival családias a hangulat, néha még több is, és tudom, hogy számíthatok rájuk, mint igaz barátokra.
           </p>
       communication_area: Kommunikációs terület
       curini_simone:
         title: A projekt terjesztése és kapcsolatfelvétel találkozón
         content_html: |
           <p>
-          I am %{age} years old and about %{volunteers} are engaged in the political and social movement called “Five stars movement” of Florence.
-          I studied economics and business (financial markets), then I realized who (or what) I should have to be in order to be able to honor my studies and I preferred familiar shores.
-          I'm an antiquarian and the time that this work has granted me, has been used to perfect the knowledge of some programming languages ​​such as php and java.
-          In Agora 2.0 - Airesis I was involved by Nicola in 2010 for the study of logic, for the creation of virtual spaces in which the comparison between the different programmers took place, and finally for his presentation and promotion.
-          I am currently studying Ruby despite a 8 month old daughter wonderfully challenging. The hope is to give life to a dream in which the policy is made ​​by the people for the people to always get the most shared, weighted and appreciated possible solution.
+          %{age} éves vagyok, és körülbelül %{volunteers} önkéntessel veszek részt az úgynevezett "Öt csillag mozgalom" politikai és társadalmi mozgalomban, Firenzében.
+          Közgazdasági és üzleti (péncügyi piacok) tanulmányokat folytattam, amikor rájöttem kinek (vagy minek) lennem ahhoz, hogy tisztelni tudjam a tanulmányaim, és inkább a megszokást pártoltam. Antikvárius vagyok, és a szabadidőt, melyet ez a munka biztosít nekem, arra használtam, hogy tökéletesítsem néhány programozási nyelvtudásom, mint például PHP és Java.
+          2010-ben részt vettem Nicola-val az Agora 2.0 - Airesis logika tanulmányában, virtuális terek létrehozásában, melyek helyt adtak különböző programozók összehasonlításában, és végül a prezentációjában és promóciójában.
+          Jelenleg Ruby nyelven tanulok programozni, ami a 8 éves kislányom mellett gyönyörű kihívást jelent. A reményem életet adni egy álomnak, melyben az emberek politizálnak emberekért, hogy a legtöbb lehetőséget adja a közös, súlyozott és értékelt megoldásoknak.
           </p>
       test_area: Teszt terület
       mion_carlo:

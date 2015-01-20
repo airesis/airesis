@@ -27,7 +27,7 @@ hu:
       show:
         groups_title: Csoportjaim
         group_column: csoport
-        role_column: Beosztás
+        role_column: Szerepkör
         get_out_of_group_button: Csoport elhagyása
         get_out_of_group_confermation: Biztos, hogy ezt szeretnéd tenni?
         secret_vote: titok
@@ -36,9 +36,9 @@ hu:
         votation_date_column: dátum
         vote_column: Szavazat
         profile_info: Profil adatok
-        profile_info_unconfirmed: (nem hivatalos felhasználó)
+        profile_info_unconfirmed: (meg nem erősített felhasználó)
         send_message_button: Privát üzenet küldése
-        name_label: Név
+        name_label: Keresztnév
         surname_label: Vezetéknév
         email_label: e-mail cím
         edit_image: Kép szerkesztés
@@ -48,16 +48,16 @@ hu:
         googleplus_url_label: Google+ URL
         linkedin_url: LinkedIn URL
         username_label: Felhasználó név
-        registered_from: Bejelentkezés helye
+        registered_from: Létrehozva
         load_image: Kép feltöltés
         max_file_size: 'Maximális méret: 2MB'
         what_can_i_do: Mit tehetek?
         what_i_cant_do: Mi nem tehetek?
-        certified_from: Megerősítés helye
+        certified_from: Megerősítés forrása
         group_level_permission_title: Csoport szintű jogosultságok
       send_message:
         subject_label: Tárgy
-        body_label: szervezet
+        body_label: Szöveg
         massive_email: Tömeges levélküldés
       left_panel:
         general_info: Általános információk
@@ -73,14 +73,14 @@ hu:
         tooltips: Mutasd a tooltippet
         show_urls: Mutasd a Facebook, Google+ és a LinkedIn URL-eket a felhasználóknak
         private_messages: Kaphatok privát üzeneteket más felhasználóktól
-        join_accounts: Csatol másik fiókot
-        join_accounts_description: 'Az Airesis-on megvan a lehetőséged, hogy csatlakoztasd hozzá a közösségi hálós profiljaidat. <br/> Kérlek válaszd ki a listából, hogy mely szolgáltatókat szeretnéd csatlakoztatni a fiókodhoz! Facebook, Google, Twitter, stb...'
+        join_accounts: Összekapcsolás másik fiókkal
+        join_accounts_description: 'Az Airesis-on megvan a lehetőséged, hogy hozzákösd az összes a közösségi hálós profilodat egyetlen felhasználóhoz. <br/> Kérlek válaszd ki a listából, hogy mely szolgáltatókat szeretnéd csatlakoztatni a fiókodhoz! Facebook, Google, Twitter, stb...'
         joined_all: Már csatlakoztál az összes általunk támogatott közösségi háló szolgáltatójának profiljával. Köszönjük!
         join_facebook: Csatlakozás a Facebook profiloddal
         join_google: Csatlakozás a Google profiloddal
-        join_twitter: Csatlakozás a Twitter profiloddal
-        join_linkedin: Csatlakozás a LinkedIn profiloddal
-        join_meetup: Csatlakozás a Meetup profiloddal
+        join_twitter: Összekötés a Twitter profiloddal
+        join_linkedin: Összekötés a LinkedIn profiloddal
+        join_meetup: Összekötés a Meetup profiloddal
         providers_list: Aktivált szolgáltatók listája
         options: Beállítások
         rotp: Biztonsági Token bekapcsolása
@@ -91,7 +91,7 @@ hu:
         time_zone: Időzóna
       border_preferences:
         updating: Kérlek várj, amíg érvényesítjük a beállításaidban az általad megadott területi beállítást
-        your_borders: Az általad érdekelt földrajzi területek
+        your_borders: Földrajzi behatárolás
       send_message_title: 'Üzenet küldés %{name} számára'
     groups:
       accept_requests:
@@ -724,7 +724,7 @@ hu:
       no_groups_yet: Ön még nem tagja egyik csoportnak sem.
       menu:
         my_page: Főoldalam
-        my_blog: AZ ÉN BLOGOM
+        my_blog: BLOGOM
         create_blog: Blog létrehozása
         preferences: Beállítások
         administration: ADMINISZTRÁCIÓ
@@ -734,8 +734,8 @@ hu:
         remember_me: Emlékezzen rám ezen a számítógépen
         login_button: Bejelentkezés
         registration_button: REGISZTRÁCIÓ
-        forgot_password_button: Elfelejtette a jelszavát?
-        resend_email_button: Még nem kapott visszaigazoló e-mailt?
+        forgot_password_button: Elfelejtetted a jelszavad?
+        resend_email_button: Nem kaptad meg visszaigazoló e-mailt?
         no_notifications: Nincs értesítés
         sign_has_read: Megjelölés olvasottként
         moderator: MODERÁTOR PANEL
@@ -955,7 +955,7 @@ hu:
     footer:
       for_edemocracy: e-demokráciához
       go_to_main_site: Vissza a főoldalra
-      for_edemocracy_html: '<a href="https://github.com/coorasse/Airesis" target="_blank">Nyílt forráskódú</a> projekt, az e-demokrácia támogatására'
+      for_edemocracy_html: '<a href="https://github.com/coorasse/Airesis" target="_blank">Nyílt forráskódú</a> projekt az e-demokrácia támogatására'
     moderator_panel:
       title: Moderátor panel
       block_user: Felhasználó letiltása
@@ -1103,7 +1103,7 @@ hu:
         amount: Mennyiség
         sys_currency_id: Pénznem
       user:
-        name: Név
+        name: Keresztnév vagy becenév
         email: E-mail cím
         surname: Vezetéknév
         login: Felhasználónév
@@ -1319,7 +1319,7 @@ hu:
       already_have: Sajnáljuk. Már van egy blogja
       comment_added: Hiba történt a megjegyzés hozzáadása közben
     users:
-      join_accounts: Hiba történt felhasználói fiókok összevonása közben. Ez a művelet jelenleg nem elérhető
+      join_accounts: Hiba történt felhasználói fiókok összekötése közben. Ez a művelet jelenleg nem elérhető
       join_accounts_password: Hibás jelszó
     group_participations:
       destroy: Nem léphet ki egy csoportból, amelyben Ön az egyetlen adminisztrátor
@@ -1425,7 +1425,7 @@ hu:
     user:
       click_to_change: Kattintson a módosítani kívánt információra
       info_updated: Információ sikeresen frissítve
-      account_joined: Felhasználói fiókok sikeresen összevonva!
+      account_joined: Felhasználói fiókok sikeresen összekötve!
       tooltips_enabled: Buboréksegédek engedélyezve
       tooltips_disabled: Buboréksegédek letiltva
       url_shown: URL-ek láthatóak
@@ -1560,7 +1560,7 @@ hu:
   alert_detach: Meg kell adnia egy érvényes e-mail címet a személyazonosság szolgáltató eltávolításához
   users:
     confirm_credentials:
-      title: Confirm your credentials
+      title: Erősítse meg a megbízását
       instructions_html: |
         Már van egy másik felhasználó az Airesis-en ugyanezzel az e-mail címmel. <br />
         Adja meg a jelszavát az Airesis-en, hogy összevonja a két fiókot. <br />

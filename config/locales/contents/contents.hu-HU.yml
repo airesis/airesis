@@ -235,198 +235,175 @@ hu:
           Csak néhány másodperc, és a feltöltés kész is! Kérdezd meg a csapatunkat, hogy hogyan tudod növelni a rendelkezésre álló tárterületet, és feltölthetsz akár 1GB-nyi dokumentumot.
           </p>
       paragraph_7:
-        title: A space to discuss
+        title: Egy hely beszélgetni
         content_html: |
           <p>
-          The best ideas come from the dialogue: that's why Airesis decided to provide a forum for
-          each group where users can exchange ideas, suggestions or simply chat freely. <br/>
-          The forum provided is both complete and modern, fully configurable and expandable by the group to be organized
-          according to their needs.
-          You can have public discussions, visible to everyone, and private discussions, reserved to the participants of the
-          group.
-          Organize the forums into sections and create groups of moderators! It's all in your hands! <br/>
-          At the moment there are already %{topics} active discussions in Airesis!
+          A legjobb ötletek a párbeszédből jönnek: ez az, amiért az Airesis úgy döntött, hogy biztosít egy fórumot minden csoport számára, ahol a felhasználók ötleteket, javaslatokat cserélhetnek, vagy egyszerűen chatelhetnek szabadon.<br/>
+          A fórum modern, teljes funkcionalitású, teljes mértékben testreszabható és bővíthető a szerveződő csoport igényei szerint.
+          Lehetnek nyilvános, mindenki számára látható párbeszédek, és lehetnek privát, csak a csoport résztvevői számára fenntartottak is.
+          Ossza szakaszokra a fórumokat, és hozzon létre moderátori csoportokat! Ez az egész az Ön kezében van! <br/>
+          Jelen pillanatban is már %{topics} aktiv párbeszéd folyik az Airesis rendszerén!
           </p>
       paragraph_8:
-        title: Much, much more
+        title: Sokkal, sokkal több
         content_html: |
           <p>
-          The features of Airesis are not only these! <br/>
-          Watch our %{intro_page} to discover the dozens of
-          tools and options available for your group. <br/>
-          Discover the myriad of features that will help you manage the group and will allow you to
-          organize it to best: if you have a need, certainly Airesis will allow you to satisfy it!
+          Az Airesis nem csak ezekből áll! <br/>
+          Nézze meg a %{intro_page} oldalt, hogy felfedezze a több tucat eszközt és a beállításokat a csoportja számára. <br/>
+          Fedezze fel a számtalan funkciót, mely segíti kezelni az Ön a csoportját, és lehetővé teszi, hogy kihozza belőle a legjobbat: ha bármire szüksége van, az Airesis bizonyára lehetővé fogja tenni Önnek!
           </p>
-        link: introduction page
+        link: Bemutatkozó oldal
     press:
       title: Sajtóközlemények
     roadmap:
       paragraph1:
         title: 'Cél: a közvetlen demokrácia'
         content_html: |
-          <p>Airesis was born from the fusion of two projects launched over two years ago as a result of the need to be able to use a
-          software platform that could integrate the main features of social networks, event management and mass decision making system.</p>
-          <p>In March, 2012, during the meeting "Cittadini a cinque stelle" (Five Stars Citizen) organized in Rimini, Alessandro Rodi
-          with its Airesis project came to know Nicola Giulietti and the Agora 2.0 project: on one side, a good software,
-          on the other an excellent analysis of the features that a portal for direct democracy should have had.</p>
-          <p>Following this meeting it was decided to collaborate in the development of a common open source application so that it could
-          implement the functions identified by the Agora 2.0 group in more than a year long work.</p>
-          <p>The mission was (and still is) ambitious, but we know that it is possible to be achieved with the right tools, step by step.</p>
-          <p>Thanks to our determination what initially looked like a dream of freedom, found the support of many people and the help of programmers,
-          analysts, mathematicians, graphic designers and responsible citizens.</p>
-          <p>Currently software releases are published on a monthly or bi-monthly basis to meet the demands and needs of users,
-          in order to apply a process of continuous improvement.</p>
+          <p>Az Airesis két, több mint két évvel ezelőtt indult projekt fúziójaként született, annak eredményeként, hogy lehetővé tegye szoftveres platform segítségével a közösségi hálózatok főbb funkcióinak, eseményszervezés és tömeges döntéshozatali rendszerek integrációját.</p>
+          <p>2012 márciusában, a Riminiben tartott "Cittadini a cinque stelle" (öt csillagos állampolgár) ülésen, Alessandro Rodi, aki az Airesis projektjével érkezett, megismerte Nicola Giuliettit és az Agora 2.0 projektjét: az egyik oldalon egy jó szoftver, a másikon egy kiváló jellemzőjű elemzés, amik a közvetlen demokrácia portálnak kellettek volna.</p>
+          <p>Az ülést követően úgy döntöttek, hogy együttműködnek egy közös, nyílt forráskódú alkalmazás fejlesztésén, hogy megvalósítsák a funkciókat, melyeket az Agora 2.0 csoport azonosított több mint egy év hosszú munkával.</p>
+          <p>A misszió ambiciózus volt, és ma is az, és tudjuk, hogy megvalósítható a megfelelő eszközökkel, lépésről-lépésre.</p>
+          <p>Az elhatározásunknak köszönhetően, ami kezdetben a szabadság álmának tűnt, rátalált sok ember támogatására és programozók, elemzők, matematikusok, grafikusok és felelős állampolgárok segítségére.</p>
+          <p>Jelenleg a szoftververziókat havi vagy kéthavi rendszerességgel tesszük közzé annak érdekében, hogy megfeleljen a felhasználói igényeknek, és a folytonos fejlődésnek.</p>
       paragraph2:
-        title: The evolution of Airesis
+        title: Airesis alakulása
         content_html: |
-          <p>The list below shows the changes of Airesis during its evolution.
-          You can also find highlighted the innovations planned for future versions.
-          Check this page often if you are interested to know which features are being developed and come back to visit us!</p>
+          <p>Az alábbi lista mutatja a Airesis változásait az életciklusa során.
+          Szintén láthatja kiemelve a jövőben tervezett újításokat.
+          Keresse fel ezt az oldalt gyakran, ha érdekli, mely funkciók állnak fejlesztés alatt!</p>
       title: Az Airesis fejlődése
-      description: Our road to realize a new software, an idea capable of evolving democracy that came to life in the web.
+      description: A mi utunk megvalósítani egy új szoftvert, egy elképzelést, mely képes megalapozni a demokrácia életre keltését a weben.
     helpus:
-      title: Help us as you want, anyone can contribute
-      description: Contribute to realize a tool capable of evolving e-democracy
+      title: Segíts nekünk, ahogy szeretnél, bárki hozzá tud járulni
+      description: Járuljon hozzá egy eszköz megvalósításához, amely képes az e-demokrácia megtremetésére
       paragraph1:
-        title: Why are we asking you to support Airesis?
-        content_html: |
-          <p>
-          The volunteers working on this project spend a considerable amount of time in order to bring a useful software for our communities.
-          However, volunteering and hard work alone are not sufficient: money is needed to mantain a server installation publicly available, to keep the software updated and experiment with the new features and improvements we are developing. In addition to this, paid work is required for server maintenance and user help desk.
-          </p>
+        title: Miért kérjük, hogy támogassa a Airesis-t?
+        content_html: '<p>Ezen a projekten az önkéntes dolgozók jelentős mennyiségű időt töltenek annak érdekében, hogy egy hasznos szoftvert adjanak a helyi közösségeknek. Azonban az önkéntesség és a kemény munka önmagában nem elegendő: pénzre van szükség, hogy nyilvánosan elérhető szervert telepítsünk, hogy a szoftvert naprakészen tartsuk és kipróbáljuk az új funkciókat és fejlesztéseket. Ezen túlmenően fizetett munkaerőre van szükség a kiszolgáló karbantartásához, és a felhasználó segélyszolgálathoz. </p>'
       paragraph2:
-        title: Choose what to support
+        title: Válasszon, mit támogatna
         content_html: |
-          <p>Airesis allow you to donate for single features.
-          The development group has dozens of ideas to improve the software, however funds are required to implement them</p>
-          <p>Today you can donate to realize a specific feature, or to suggest new ideas you are willing to donate for.</p>
-          <p>Go to the <a href=%{link}>donations page</a> and see what we would like to realize with your help!</p>
+          <p>Airesis lehetővé teszi, hogy funkciónként is adományozhasson.
+          A fejlesztési csoportnak több tucat ötlete van, hogy javítsa a szoftvert, azonban azok végrehajtásához tőke szükséges</p>
+          <p>Ma adományozhat egy adott funkció megvalósulásához, vagy javasolhat új ötleteket, amiért hajlandó adományozni.</p>
+          <p>Menjen a <a href=%{link}> adomány oldal</a>ra, és nézze meg, mit szeretnénk megvalósítani az Ön segítségével!</p>
       paragraph3:
         title: Hogyan adományozhatsz
-        content_html: |
-          <p> The Association for Social Promotion named
-          <a href="http://www.tecnologiedemocratiche.it/" target="_blank">Tecnologie Democratiche</a>
-          was created in order to support the development of Airesis and allow the project sustenance.
-          Your donation will be entirely addressed to the development and hosting of the platform.
-          Financially support us in order to pay an experienced senior programmer and for the maintenance of the server hosting our application:
+        content_html: |2
+          <p>A szociális támogatásért egyesület, melynek neve
+           <a href="http://www.tecnologiedemocratiche.it/" target="_blank"> Tecnologie Democratiche</a>
+          az Airesis fejlődésének támogatására jött létre, és lehetővé teszi a projekt fenntartását.
+          Az adományokat teljes egészében a platform fejlesztésére és az üzemeltetésére fordítjuk.
+          Anyagilag támogasson minket, hogy fizetni tudjunk egy tapasztalt, vezető programozót és az alkalmazást futtató szerver hosztingját:
           </p>
           <center>
-          <p>With a bank transfer addressed to: 'Tecnologie Democratiche' IBAN: IT76L0316501600000011758905</p>
-          <p>With a donation using Paypal:</p>
+          <p>banki átutalással, címzett: 'Tecnologie Democratiche"IBAN: IT76L0316501600000011758905</p>
+          <p>adománnyal, Paypal használatával:</p>
           </center>
       paragraph4:
-        content_html: '<p><a href="mailto:%{mail}">Contact us</a> for more information.</p>'
+        content_html: '<p>További információért <a href="mailto:%{mail}">lépjen kapcsolatba velünk.</a></p>'
       paragraph5:
-        title: Spread the word about this project
+        title: Hirdesse ezt a projektet
     linkback:
       paragraph1:
-        title: Help us spread the word about this e-democracy tool
+        title: Segítsen nekünk a hirdetni az e-demokrácia eszközünket
         content_html: |
-          <p>Our project needs to be known by all those who care about the future of our democracy.
-          Help us spread it in blogs and forums, on Facebook, on social networks and wherever there is a desire for democracy.</p>
-          <p>You can use our link or our banner on your site or in friends', associations' or
-          organizations' ones that share the goals of the project.
-          In order to display the banner or link on your website, copy the code found below and insert it
-          in the code page of your site, at the point where you want it to be displayed:</p>
+          <p>Projektünkről tudnia kell mindazoknak, akik szívükön viselik a jövőben a demokráciát.
+          Segítsen terjeszteni blogokon és fórumokon, Facebook-on, közösségi oldalakon, és ahol van igény a demokráciára.</p>
+          <p>Használhatja a linkünket vagy a bannerünket a saját weboldalán, vagy akár barátokén, társaságokén és szervezetekén is, melyek céljai közösek jelen projektével.
+          Hogy megjelenjen a banner vagy a link a honlapján, másolja ki az alábbi kódrészletet, és illessze be a webhelyén, azon a ponton, ahol szeretné megjeleníteni:</p>
       paragraph2:
-        title: Banners
+        title: Bannerek
       paragraph3:
-        title: Text link
-        content_html: '<p>If you choose to publish your banner it will be of great help to the project. Thank you.</p>'
+        title: Szöveges link
+        content_html: '<p>, Ha úgy dönt, hogy közzéteszi a bannerünket, az nagy segítség lesz a projekt számára. Köszönjük.</p>'
     tags:
       title: 'Airesis - döntéstámogatás'
-      description: 'A decision making tool for direct democracy and e-government: participate in discussions, bring your ideas, suggest solutions and vote online'
+      description: 'Egy döntéshozó eszköz közvetlen demokráciához és e-kormányzathoz: vegyen részt vitafórumokon, ossza meg elképzeléseit és szavazzon online'
     engage:
-      title: Participate in the project for a new democracy
-      description: Contribute in this project with your experiences, help us build a new democracy, more transparent and shared
+      title: Vegyenek részt a projektben egy új demokráciához
+      description: Járuljon hozzá ehhez a projekthez a tapasztalataival, segítsen nekünk egy új demokráciát építeni, mely átláthatóbb és közös
       nav:
-        opensource: Open Source
-        participate: Participate
+        opensource: Nyílt forráskódú
+        participate: Részvétel
         banner: Banner
       paragraph1:
-        title: Airesis is open to everyone
+        title: Airesis mindenki előtt nyitva áll
         description_html: |
-          <p>Airesis is a project based upon a free and open-source software. You can contribute to its development:</p>
+          <p>Airesis egy projekt, alapja egy ingyenes és nyílt forráskódú szoftver. Ön is hozzájárulhat a fejlesztéséhez:</p>
           <ul>
-          <li>Using the platform and doing bug-checking</li>
-          <li>Giving comments and suggestions about usability and platform UI</li>
-          <li>Programming the platform UI (REQUIRED: knowledge of HTML, CSS or Javascript)</li>
-          <li>Programming the platform server-side (REQUIRED: knowledge of Ruby and/or C++ language, or will to learn it with the help of other volunteers)</li>
-          <li>Supporting us with a <a href=%{donations_path}>donation</a> or searching founds</li>
-          <li><a href="#linkback">Spreading the word</a> about the project and managing its comunication</li>
+          <li>A platformot használva hibákat kereshet</li>
+          <li>Megoszthatja észrevételeit és javaslatait a használhatósággal és a platform UI-jával (felhasználói interfész) kapcsolatban</li>
+          <li>A platform UI-jának programozása (HTML, CSS vagy Javascript ismeret szükséges)</li>
+          <li>A platform szerver-oldali programozása (Ruby és/vagy C++ nyelv ismerete, vagy megtanulása szükséges más önkéntesek segítségével)</li>
+          <li>Támogathat minket <a href=%{donations_path}> adománnyal</a>, vagy tőke kereséssel</li>
+          <li><a href="#linkback">Hirdesse</a> a projektet és segítsen a kommunikálásában</li>
           </ul>
-          <p>To help us coordinate our activities we use these tools. You can start from here:</p>
+          <p>Tevékenységünk koordinálásához ezeket az eszközöket használjuk. Innen indulhat:</p>
           <ul>
-          <li><a href="https://groups.google.com/forum/?fromgroups=#!forum/agora-20" target="_blank">Development group on Google Groups</a></li>
-          <li><a href="https://www.facebook.com/groups/airesis/" target="_blank">Development group on Faceook</a></li>
-          <li><a href="https://github.com/coorasse/Airesis" target="_blank">Source code</a></li>
+          <li><a href="https://groups.google.com/forum/?fromgroups=#!forum/agora-20" target="_blank">Fejlesztési csoport a Google+-on</a></li>
+          <li><a href="https://www.facebook.com/groups/airesis/" target="_blank">Fejlesztési csoport a Facebookon</a></li>
+          <li><a href="https://github.com/coorasse/Airesis" target="_blank">Forráskód</a></li>
           </ul>
       paragraph2:
-        title: How to contribute
+        title: Hogyan vehetek részt
         description_html: |
-          <p>Anyone can help in the open-source project Airesis: you do not need to be a programmer, since there is a lot of activities to do anyway.
-          In the project <a href=%{chisiamo}>we are all unpaid volunteers</a>, sharing the will to help citizens organize transparently and participate in the making of a top notch democracy.</p>
-          <p>To report your availability please fill <a href="%{form}" target="_blank"><strong>this form</strong></a>, or contact <strong>Nicola Giulietti</strong>&nbsp;- %{email} - cell. %{cell} in case of doubts or you want more informations.</p>
-          <p>Here is a list of volunteers that we need:</p>
+          <p>Bárki tud segíteni a nyílt forráskódú Airesis projektben: nem kell, hogy programozó legyen, mivel van egy csomó egyéb tevékenység is.
+          A projektben <a href=%{chisiamo}>Mi mind non-profit önkéntesek vagyunk</a>, közösen akarunk segíteni a polgároknak átlátható módon szerveződni, és résztvenni egy remek demokrácia döntéshozatalában.</p>
+          <p>Elérhetőségének megadásához töltse ki <a href="%{form}" target="_blank"><strong>ezt az űrlapot</strong></a>, vagy lépjen kapcsolatba <strong>Nicola Giulietti</strong>vel - %{email} - mobil: %{cell} ha kétségei vannak, vagy további információkat szeretne.</p>
+          <p>Itt egy lista az önkéntesekről, akikre szükségünk van:</p>
       developer:
-        title: Developer
+        title: Fejlesztő
         description_html: |
-          <p>
-          The developer is the person who actually writes the code of Airesis. <br/>
-          He follows the specifications and guidelines agreed upon by the team.
-          The developer will write new modules in Ruby when there will be new features to be added, or HTML pages, using also CSS and Javascript in case of UI functionalities.<br/>
-          New applicants fwill be helped and guided by the <a href="%{chisiamo}" target="_blank">head programmer</a> in their first steps to easily start their jobs.
-          </p>
+          <p>A fejlesztő az a személy, aki ténylegesen írja az Airesis kódját.<br/>
+          Ő követi az előírásokat és az iránymutatásokat, melyekben megállapodott a csapat.
+          A fejlesztő Rudy nyelven írja az új modulokat, ha lesznek új funkciók, melyeket hozzá kell adni, vagy HTML oldalak, CSS és Javascript használatával felhasználói felületet érintő funkciók esetén.<br/>
+          Az új jelölteket segíti a <a href="%{chisiamo}" target="_blank">fő programozó</a> az első lépéseikben, hogy könnyedén elindulhassanak a munkájukban.</p>
       analyst:
-        title: Analyst
+        title: Elemző
         description_html: |
           <p>
-          He is the conjunction ring between users and the development team. <br/>
-          He collects feedbacks from groups and citizens and gives the development team all the required documentations to develop new functionalities or improve existing ones.<br/>
-          He elaborates algorithms, as well as pros and cons of each feature, and its possible impropriate uses.
+          Ő az összekötő kapocs a felhasználók és a fejlesztőcsapat között.<br/>
+          
+          Ő gyűjti be a visszajelzéseket a csoportoktól és a polgároktól, és továbbadja a fejlesztő csapatnak az összes szükséges dokumentációt az új funkciók, illetve a meglévők fejlesztéséhez.<br/>
+          
+          Ő kidolgozza a algoritmusokat, valamint minden funkció előnyeit és hátrányait, és az esetleges nem megfelelő felhasználást.
           </p>
       first_lev_tester:
-        title: First-level tester
+        title: Első szintű tesztelő
         description_html: |
           <p>
-          The first-level tester is a person available to test the system without necessarily have to provide any technical feedback about the code.
-          The first level tester is required to know about how to run the system and be able to use an internet browser or social networking system but it is not required to know any programming language.<br/>
-          Feedback from a first-level tester will then be about unexpected occurrences from the system and bugs.
+          Az első szintű tesztelő egy elérhető személy, aki teszteli a rendszert anélkül, hogy bármilyen technikai visszajelzést adna a kódról.
+          Az első szintű tesztelőnek tudnia kell, hogyan fut a rendszer, tudnia kell használni böngészőt vagy közösségi portált, de nem szükséges ismernie semmilyen programozási nyelvet. <br/>
+          Az első szintű tesztelőtől jövő visszajelzések váratlan rendszereseményekről és a hibákról érkeznek.
           </p>
       sec_lev_tester:
-        title: Second-level tester
+        title: Második szintű tesztelő
         description_html: |
-          <p>
-          Good knowledge of programming is required to become a second-level tester. He is asked to perform more stringent and detailed tests than the first-level tester. A second-level tester works on complex issues and is able to push the whole system under stress, to discover hidden problems.
+          <p>Jó programozási tudás szükséges, hogy második szintű tesztelővé váljunk. Még szigorúbb és részletesebb vizsgálatok elvégzése lesz a feladata, mint az első szintű tesztelőnek. A második szintű tesztelő bonyolult problémákon dolgozik, és képes az egész rendszert jól leterhelni a rejtett problémák felfedezéséhez.
           </p>
       graphic:
-        title: Graphic designer
+        title: Grafikus
         description_html: |
           <p>
-          The graphic designer draws the user interfaces and gives their drafts to the development group.
-          He improves the usability and comprehensiveness of the texts in the software (eg: user guides...)
+          A grafikus a felhasználói felületet szerkeszti, és azok vázlatait átadja a fejlesztői csoportnak.
+          Ő javítja a használhatóságot és a szoftver szövegeinek átfogóságát (pl.: felhasználói útmutatók...)
           </p>
       recruiter:
-        title: Recruitment
+        title: Toborzás
         description_html: |
           <p>
-          He is in charge of looking for new volunteers willing to help in this project, testers, as well as groups available to use the software
-          for their needs.
-          He engages groups of people that are not represented by the development group (women, people with low informatic skills, etc...) so that the software can be
-          attractive even and foremost to them, basing on their feedbacks.
+          Az Ő feladata új önkéntesek keresése, akik hajlandóak segíteni a projektben, a tesztelőknek, valamint az elérhető csoportoknak használni a szoftvert az igényeiknek megfelelően.
+          Bevon embercsoportokat, akik nem képviselik a fejlesztői csoportot (nőket, embereket alacsony informatikai készségekkel, stb...), hogy a szoftver, ami elsősorban nekik készül még vonzóbb legyen, a visszajelzéseikre alapozva.
           </p>
       communication:
-        title: Communication manager
+        title: Kommunikációs manager
         description_html: |
-          <p>
-          He manages press contacts, promotes the software looking for new users, technical aspects such as linkback and SEO (Search Engine Optimization),
-          viral marketing (eg. creating interesting proposals), videos and informative documentation.
-          He updates social networks and media, represent the external referent-spokesman.
-          </p>
+          <p>Ő kezeli a sajtókapcsolatokat, segíti a szoftvert új használók keresésében, műszaki szempontokban, mint pl. a linkback és a SEO (Search Engine Optimization), vírus marketing (pl. érdekes indítványok létrehozása), video- és informatív dokumentációval.
+          Ő frissíti a szociális hálózatokat és médiákat, képviseli a külső referens szóvivőt.</p>
       i18n:
-        title: Internazionalization
+        title: Többnyelvűsítés
         description_html: |
           <p>
-          He is in charge of the software translation. He contacts and coordinates foreign translators.<br/>
-          (N.B.: it is not required to posses any programming skill)
+          Ő felel a szoftver fordításért. Összeköti és irányítja a külföldi fordítókat. <br/>
+          (Megjegyzés: nem szükséges programozási készséggel rendelkeznie)
           </p>

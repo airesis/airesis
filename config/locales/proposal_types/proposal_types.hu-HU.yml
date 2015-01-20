@@ -51,7 +51,7 @@ hu:
           step_4_title: Elkezdheti gépelni az indítvány szövegét, vagy megírhatja később a kapott hozzájárulások alapján
           solution:
             description: A megoldás leírása
-            time: Times
+            time: Alkalommal
             subject: Felügyelő
             resources: Szükséges források és lekérésük módja
             aspects: Etikai, környezeti, társadalmi szempontok
@@ -69,91 +69,91 @@ hu:
             requirements: Megoldási követelmények
           question:
             paragraph:
-              similar: Are there experiences to inspire to achieve the goal? Among the possible solutions / initiatives already in place, which have achieved the best results and which the worst? Why?
-              stakeholders: Who will receive the benefits and drawbacks from the achievement of the objective and the proposed solutions? These subjects were involved in the discussion of this proposal? In what way?
-              requirements: What are the characteristics that should respect the ideal solution? May be referred to both technical requirements that values ​​and principles to be observed.
+              similar: Vannak tapasztalatai, melyek inspirálják a cél elérésében? A lehetséges megoldások, vagy a már meglévő indítványok közül melyek érték el a legjobb eredményeket és a legrosszabbakat? Miért?
+              stakeholders: Kik részesülnek majd a célkitűzés megvalósítása és javasolt megoldások előnyeiből és hátrányaiból? Ezek a témák szerepeltek az indítvány megvitatása során? Milyen módon?
+              requirements: Mely jellemzőknek kell teljesülniük az ideális megoldáshoz? Hivatkozhatunk fontos műszaki szükségletekre, és betartandó irányelvekre.
             solution:
-              description: Describe the solution that, in practice, it is proposed to take to achieve the goal.
-              time: When will this solution be implemented? Identify possible stages of implementation.
-              subject: Chwho will implement or arrange to implement the solution? How will be monitored and verified, in case of implementation, the outcomes of the solution?
-              resources: Are funds needed, volunteers, tools and skills to implement this solution? List them and quantify them. How these resources will be found?
-              aspects: This solution meets the ethical requirements of the group or community to which it is addressed? What is its social and environmental impact?
-              documents: Is documentation available for the solution?
-              pros: List and summarize the main advantages and strengths of this solution. Indicate who are the stakeholders of the advantages.
-              cons: List and summarize the main problems and disadvantages of this solution. Indicate who are the stakeholders of the disadvantages.
+              description: Mutassa be a cél elérése érdekében javasolt gyakorlati megoldást.
+              time: Mikor lesz megvalósítva ez a megoldás? Azonosítsa a megvalósítás lehetséges szakaszait.
+              subject: Ki fogja megvalósítani a megoldást, vagy felügyelni a megoldás megvalósítását? Hogyan fogja felügyelni és ellenőrizni a megvalósítás végén a megoldás eredményét?
+              resources: Szükség van anyagiakra, önkéntesekre, eszközökre és készségekre a megoldás megvalósításához? Sorolja fel ezeket számszerűsítve. Hogyan lesznek ezek az erőforrások előteremtve?
+              aspects: Ez a megoldás megfelel a célcsoport vagy célközösség etikai előírásainak? Mi a társadalmi és környezeti hatása?
+              documents: Elérhető a megoldáshoz dokumentáció?
+              pros: Sorolja fel és foglalja össze ezen megoldás előnyeit és erősségeit. Jelölje meg, kiket érintenek az előnyök.
+              cons: Sorolja fel és foglalja össze ezen megoldás főbb problémáit és hátrányait. Jelölje meg, kiket érintenek a hátrányok.
         rule_book:
           problems_title: Problémák
-          problems_title_label: What are the problems to be solved with the application of this regulation? What are the issues to be regulated? Why?
-          problems_question: What are the problems to be solved with the application of this regulation? What are the issues to be regulated? Why?
+          problems_title_label: Mely problémák oldhatóak meg ezzel a szabályozási eszközzel? Mely kérdésköröket kell szabályozni? Miért?
+          problems_question: Mely problémák oldhatóak meg ezzel a szabályozási eszközzel? Mely kérdésköröket kell szabályozni? Miért?
           suggestion_html: |
-            <div><b>Example:</b></div>
-            <div>Rule book to reserve the St. Peter's hall</div>
-            <div>The town of  Silverham has a conference room that nowadays is used only by the Mayor's "fellows". It is time to choose an impartial procedure to grant all citizens and public associations the right to book the room for public events.</div>
+            <div><b>Példa:</b></div>
+            <div>Szabálykönyv a St. Péter kastélyának fenntartásához</div>
+            <div>Silverham városának van egy konferencia terme, melyet manapság csak a Polgármesterek és partnerei használnak. Itt az ideje, hogy válasszon egy pártatlan eljárást, mely biztosítja minden állampolgárnak és közhasznú társaságnak a jogot, hogy lefoglalhassa a termet nyilvános rendezvényekhez.</div>
           solution:
             title: 1. megoldás
             article: 'Cikk %{num}'
             pros: Mellette
             cons: Ellene
           paragraph:
-            inspire: Regulation to inspire from
+            inspire: 'Szabályozás, melyet ez inspirál:'
             requirements: Követelményeknek kell megfelelni
             stakeholders: Érdekelt felek (érintett személyek)
           question:
             paragraph:
-              inspire: Are there regulations from which take inspiration similar  to that? Among the experiences of similar rules, which have achieved the best results and which the worst? Why?
-              requirements: What are the main constraints that the regulation should take into account? What are the values ​​and the principles to be observed? What will be the cost of application of the regulation? What subjects will be instructed to enforce it?
-              stakeholders: Who is most affected by the application of the regulation? Who will suffer the consequences? These subjects were involved in the discussion of this proposal? How?
+              inspire: Vannak hasonló szabályozások, amelyekből ihletet merített? A hasonló szabályozási tapasztalatok közül melyek érték el a legjobb és a legrosszabb eredményeket? Miért?
+              requirements: Mik a legfőbb korlátok, amelyeket a szabályozásnak figyelembe kell vennie? Mik az értékek és a betartandó irányelvek? Mi lesz az ára a szabályozás alkalmazásának? Milyen utasítások fogják érvényre juttatni?
+              stakeholders: Ki a leginkább érintett a szabályozás alkalmazása által? Ki fogja elszenvedni a következményeket? Ezek a témák szerepeltek az indítvány vitája során? Hogyan?
             solution:
-              article: Enter the text of the first article, ensuring that its interpretation appears unique. Insert a definition of terms or expressions are subject to misunderstanding.
-              pros: List and summarize the main advantages and strengths of this solution. Indicate who are the stakeholders of the advantages.
-              cons: List and summarize the main problems and disadvantages of this solution. Indicate who are the stakeholders of the disadvantages.
+              article: Írja be az első cikk szövegét, amivel biztosítja, hogy egyedi értelmezésként jelenik meg. Félreértések elkerülése végett adja meg a kifejezések meghatározásait.
+              pros: Sorolja fel és foglalja össze ezen megoldás előnyeit és erősségeit. Jelölje meg, kiket érintenek az előnyök.
+              cons: Sorolja fel és foglalja össze ezen megoldás főbb problémáit és hátrányait. Jelölje meg, kiket érintenek a hátrányok.
         press:
-          problems_title_label: What is the message you want to convey? What obstacles are expected to its proper understanding and streams? There are articles or recent news that you want to replicate or to which you want to provide an adjustment?
-          problems_title: Message to transmit
-          problems_question: What is the message you want to convey? What obstacles are expected to its proper understanding and streams? There are articles or recent news that you want to replicate or to which you want to provide an adjustment?
+          problems_title_label: Mi a továbbítani kívánt üzenetet? Milyen akadályai lehetnek a megfelelő megértésének és a folytonosságnak? Vannak olyan cikkek, vagy friss hírek, melyeket szeretne megismételni, vagy szeretne kiigazítani?
+          problems_title: Küldendő üzenet
+          problems_question: Mi a továbbítani kívánt üzenetet? Milyen akadályai lehetnek a megfelelő megértésének és a folytonosságnak? Vannak olyan cikkek, vagy friss hírek, melyeket szeretne megismételni, vagy szeretne kiigazítani?
           suggestion_html: |
-            <div><b>Example:</b></div>
-            <div>Advertise the release of the version 3.5 of Airesis.</div>
-            <div>We have to advertise the release of the version 3.5 of Airesis, that brings important features for the Public Administrations. It is necessary to explain what Airesis is and captivate the attention of the press, given the recent rumors about the usage of Airesis in the White House.</div>
+            <div><b>Példa:</b></div>
+            <div>Airesis 3.5-ös verziójának meghirdetése.</div>
+            <div>Meghirdetjük az Airesis 3.5-ös verzióját, mely fontos funkciókat tartogat a közigazgatásnak. Szükséges elmagyarázni, mi az Airesis és felhívni a sajtó figyelmét erre, figyelembe véve a legújabb pletykákat, az Airesis Fehérházban való használatáról.</div>
           solution:
             title: 1. megoldás
             maintitle: Cím
             subtitle: Alcím
-            incipit: Incipit
-            body: Body
+            incipit: Kódex
+            body: Törzs
             conclusion: Következtetések
-            deep: Insights
+            deep: Betekintés
           paragraph:
             target: Címzettek/cél
           question:
             paragraph:
-              target: Who is the target of the article / press release? What aspects of the message you want to convey is more interested in?
+              target: Ki a célközönsége, a cikknek / sajtóközleménynek? A továbbítandó üzenet mely szempontjai a legérdekesebbek?
             solution:
-              maintitle: How can you summarize in a few words the message of the article / press release?
-              subtitle: Indicate in a nutshell, a key concept of the article or additional information to that contained in the title.
-              incipit: Indicate in very few words who did what, when he did, where and why, highlighting why the fact is very relevant.
-              body: Describe in more detail, but synthetic, the fact. Write short and significant sentences.
-              conclusion: Are there proposals to make to the reader? What could be the possible developments of the fact or its implications?
-              deep: Insert links, contacts, or additional information for those who wish to deepen the news.
+              maintitle: Hogyan lehetne összefoglalni pár szóban a cikk / sajtóközlemény üzenetét?
+              subtitle: Dióhéjban mutasson rá a cikk egy kulcskoncepciójára, vagy egyéb információra, ami a címben van.
+              incipit: Jelezze néhány szóban, ki, mit, mikor, hol és miért csinált. Emelje ki, miért nagyon fontos tény ez.
+              body: Írja le részletesebben, de összefoglalva a tényt. Írja körül rövid, lényegretörő mondatokkal.
+              conclusion: Vannak javaslatok, melyek az olvasónak szólnak? Mik a tények lehetséges következményei, vagy fejleményei?
+              deep: Adjon hozzá linkeket, névjegyeket és további információkat azok számára, akik többet szeretnének tudni a hírről.
         estimate:
-          problems_title_label: What goods or services you wish to purchase? To solve which problems?
+          problems_title_label: Mely termékeket vagy szolgáltatásokat kívánja megvásárolni? Mely problémák megoldására?
           problems_title: Problémák
-          problems_question: What goods or services you wish to purchase? To solve which problems?
+          problems_question: Mely termékeket vagy szolgáltatásokat kívánja megvásárolni? Mely problémák megoldására?
           suggestion_html: |
-            <div><b>Example:</b></div>
-            <div>Replacement of the thermal plant in the headquarter of the Association.</div>
-            <div>Because of the failure of the old boiler, our quarter is impractical during winters. Given that it is not possible to fix it, we have to substitute the old thermal plant with a new one, with low energy consumption.</div>
+            <div><b>Példa:</b></div>
+            <div>Hőközpont cseréje az egyesület központjában.</div>
+            <div>A régi vízmelegítő hibája miatt a mi negyedünk télen nem túl praktikus. Tekintettel arra, hogy a nem lehetséges megjavítani, ki kell cserélnünk a régi hőközpontot egy új, alacsony energia fogyasztásúra.</div>
           solution:
             title: 1. megoldás
-            cost: Amount
-            problems: Respect of constraints and problems
+            cost: Összeg
+            problems: Korlátok és problémák tiszteletben tartása
             dumentation: Dokumentáció
           paragraph:
             technical_constrains: Műszaki korlátok
             temporal_constrains: Átmeneti korlátok
             other_constrains: Környezeti, etikai, szabályozási korlátok
-            budget: Maximum budget
-            recipient_budget: Recipients of the request for quotation
+            budget: Maximális költségvetés
+            recipient_budget: Ajánlatkérés címzettjei
           question:
             paragraph:
               technical_constrains: Quali requisiti tecnici dovranno assicurare i beni ed i servizi da acquistare?
@@ -166,18 +166,18 @@ hu:
               problems: Quali, tra i vincoli precedentemente individuati, non saranno rispettati? Il ricorso a questo preventivo comporta altre problematiche? (es. conflitto d’interesse, mancanza di assistenza...).
               dumentation: Riportare, anche attraverso l’impiego di link ed allegati, ulteriore documentazione relativa a questo preventivo.
         agenda:
-          problems_title: Type of meeting
+          problems_title: Összejövetel típusa
           problems_question: Che tipo di incontro si desidera organizzare? Perchè lo si vuole organizzare?
           suggestion_html: |
-            <div><b>Example:</b></div>
-            <div>Choose an agenda for our meeting.</div>
-            <div>Ordinary co-ordination meeting to exchange experiences with the referents of the local committees for the biological agriculture of Italy.</div>
+            <div><b>Példa:</b></div>
+            <div>Válasszon a találkozónkhoz egy menetrendet.</div>
+            <div>Szokásos koordinációs értekezlet tapasztalatcseréhez az olasz biogazdálkodás helyi bizottsági tagjaival.</div>
           solution:
-            title: Item
-            priorities: Item priority
-            links: Insights links
+            title: Tétel
+            priorities: Tétel fontossága
+            links: Betekintési linkek
             description: Leírás
-            estimated_time: Required discussion time
+            estimated_time: Szükséges beszélgetési idő
           paragraph:
             date_time: Dátum és idő
             place: Hely

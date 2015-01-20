@@ -110,7 +110,7 @@ hu:
       moderation:
         success: A kijelölt téma moderálva lett
         no_option_selected: Nem választottál ki moderálási opciót
-      received_reply: A topic you have subscribed to has received a reply
+      received_reply: Egyik témára, melyre feliratkozott, válasz érkezett
       reply: Válasz
       quote: Idézet
       delete: Tőrlés
@@ -120,43 +120,43 @@ hu:
       not_created: Ez a téma nem hozható létre
       deleted: A témád törölve lett
       cannot_delete: Nem törölhetsz nem saját témát
-      updated: This topic has been updated
-      not_updated: This topic could not be updated
-      subscribed: You have subscribed to this topic
-      unsubscribed: You have unsubscribed from this topic
-      none: There are no topics in this forum currently
+      updated: Ez a témakör frissült
+      not_updated: Ez a témakör nem frissíthető
+      subscribed: Feliratkozott erre a témára
+      unsubscribed: Már leiratkozott erről a témakörről
+      none: Jelenleg nincsenek témák ebben a fórumban
       links:
-        new: New topic
-        back_to_topics: Back to topics
-        edit: Edit topic
-      not_found: The topic you are looking for could not be found
+        new: Új témakör
+        back_to_topics: Vissza a témakörökhöz
+        edit: Téma szerkesztése
+      not_found: A keresett témakör nem található
       hidden:
-        "true": This topic is now hidden
-        "false": This topic is now visible
+        "true": Ez a témakör most rejtett
+        "false": Ez a témakör most látható
       locked:
-        "true": This topic is now locked
-        "false": This topic is now unlocked
+        "true": Ez a témakör most zárolt
+        "false": Ez a témakör most fel van oldva
       pinned:
-        "true": This topic is now pinned
-        "false": This topic is now unpinned
+        "true": Ez a témakör most rögzített
+        "false": Ez a témakör most rögzítetlen
     topics:
       show:
         reply: Válasz
         delete: Töröl
         subscribe: Feliratkozás
         unsubscribe: Leiratkozás
-        reply_to_topic: Reply to Topic
-        pending_review: This topic is currently pending review. Only the user who created it and moderators can view it.
+        reply_to_topic: Válasz a témára
+        pending_review: Ez a témakör felülvizsgálata folyamatban van. Csak az a felhasználó, aki létrehozta, és a moderátorok nézhetik meg.
         hide:
-          "true": Show this topic
-          "false": Hide this topic
+          "true": Témakör megjelenítése
+          "false": Témakör elrejtése
         lock:
-          "true": Unlock this topic
-          "false": Lock this topic
+          "true": Témakör feloldása
+          "false": Témakör zárolása
         pin:
-          "true": Unpin this topic
-          "false": Pin this topic
-        related_proposals: Related proposals
+          "true": Témakör rögzítésének feloldása
+          "false": Témakör rögzítése
+        related_proposals: Kapcsolódó indítványok
     post:
       buttons:
         reply: Válasz a hozzászólásra
@@ -178,8 +178,8 @@ hu:
         spam: Levélszemét
         success: A kijelölt hozzászólások moderálva lettek
       post:
-        pending_review: This post is currently pending review. Only the user who posted it and moderators can view it.
-        in_reply_to: in reply to
+        pending_review: Ez a témakör felülvizsgálata folyamatban van. Csak az a felhasználó, aki írta, és a moderátorok nézhetik meg.
+        in_reply_to: Válaszul
     moderation:
       index:
         title: '%{forum} moderációs eszközei'
@@ -187,9 +187,9 @@ hu:
     submit:
       frm_forum:
         create: Fórum létrehozása
-        update: Update Forum
+        update: Fórum frissítése
       topic:
-        create: Create Topic
+        create: Téma létrehozása
         update: Változtatások mentése
       frm_group:
         create: Csoport létrehozása
@@ -202,7 +202,7 @@ hu:
         title: Cím
         description: Leírás
         moderators: Moderátorok
-        visible_outside: Visible outside of the group
+        visible_outside: Látható a csoporton kívül
       topic:
         subject: Tárgy
         locked: Zárolt
@@ -216,19 +216,19 @@ hu:
         text: Szöveg
       frm_group:
         name: Név
-  time_ago_in_words: '%{time} ago'
-  ago: ' ago'
-  ago_by: ' ago by'
-  by: by
+  time_ago_in_words: '%{time} óta'
+  ago: ' óta'
+  ago_by: ' ezelőtt'
+  by: által
   started_by: 'Indította: '
   are_you_sure: Biztos, hogy ezt szeretnéd tenni?
-  lst_post: Last post
-  last_post: Last topic
+  lst_post: Utolsó hozzászólás
+  last_post: Utolsó téma
   back_to_forums: Vissza a fórumokhoz
   pages:
     forum_groups:
       index:
-        create_first: There are no groups of moderators yet. Create the first one!
+        create_first: Még nincs egy moderátor csoport sem. Hozzon létre egyet!
   info:
     members:
-      ok_message: User successfully added to the group
+      ok_message: Felhasználó sikeresen hozzáadva a csoporthoz

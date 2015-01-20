@@ -1,9 +1,9 @@
 hu:
   calendar:
     monthNames: "['Január','Február','Március','Április','Május','Június','Július','Augustus','Szeptember','Octóber','November','December']"
-    monthNamesShort: "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']"
-    dayNames: "['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']"
-    dayNamesShort: "['Sun','Mon','Tue','Wed','Thu','Fri','Sat']"
+    monthNamesShort: "['Jan','Febr','Márc','Ápr','Máj','Jún','Júl','Aug','Szept','Okt','Nov','Dec']"
+    dayNames: "['Vasárnap','Hétfő','Kedd','Szerda','Csütörtök','Péntek','Szombat']"
+    dayNamesShort: "['V','H','K','Sze','Cs','P','Szo']"
     today: ma
     month: hónap
     week: hét
@@ -24,25 +24,25 @@ hu:
       - Hétfő
       - Kedd
       - Szerda
-      - Thursday
-      - Friday
+      - Csütörtök
+      - Péntek
       - Szombat
     abbr_day_names:
       - Vas
       - Hét
       - Ke
-      - Wed
-      - Fri
+      - Szerda
+      - Péntek
       - Csü
-      - Sat
+      - Szombat
     month_names:
       - nil
-      - January
+      - január
       - február
       - március
       - április
       - május
-      - June
+      - június
       - Július
       - Augusztus
       - szeptember
@@ -50,46 +50,46 @@ hu:
       - november
       - December
     abbr_month_names:
-      - nil
+      - nulla
       - Jan
       - Febr
-      - Mar
-      - Apr
-      - May
-      - Jun
-      - Jul
-      - Aug
-      - Sep
+      - Március
+      - Április
+      - Május
+      - Június
+      - Július
+      - Augusztus
+      - Szeptember
       - okt.
-      - Nov
-      - Dec
+      - November
+      - December
   time:
     formats:
-      default: '%d %b %Y at %I:%M %p'
+      default: '%Y %b %d %H:%M'
       long: '%A %d %B %y: %I:% M %p'
-      long_date: '%A %d %B %Y'
-      long_date_time: '%A %d %B %Y at %I:%M %p'
-      from_long_date_time: 'From %A %d %B %Y at %I:%M %p'
-      until_long_date_time: 'To %A %d %B %Y at %I:%M %p'
+      long_date: '%Y %B %d (%A)'
+      long_date_time: '%d %B %Y %B %d (%A) %H:%M'
+      from_long_date_time: '%Y %B %d (%A) %H:%M -tól'
+      until_long_date_time: '%Y %B %d (%A) %H:%M -ig'
       short: '%Y %b %d.'
-      two_rows: '%d %b %Y <br/> %I:%M %p'
-      weekday: '%a at %I:%M %p'
+      two_rows: '%Y %b %d <br/> %H:%M'
+      weekday: '%a %H:%M'
       month: '%B'
-      dayandmonth: '%d/%m'
-      hour: '%I:%M %p'
-      yesterday_at: 'yesterday at %I:%M %p'
-      textfield: '%d/%m/%Y %I:%M %p'
+      dayandmonth: '%m/%d'
+      hour: '%H:%M'
+      yesterday_at: 'tegnap %H:%M -kor'
+      textfield: '%Y/%m/%d %H:%M'
       rich: '%Y-%m-%dT%H:%M'
       datepicker: '%Y-%m-%d %H:%M'
-    am: am
+    am: Délelött
     pm: Du.
     left:
       seconds:
-        one: 1 second
-        other: '%{count} seconds'
+        one: 1 másodperc
+        other: '%{count} másodperc'
       minutes:
-        one: 1 minute
-        other: '%{count} minutes'
+        one: 1 perc
+        other: '%{count} perc'
       hours:
         one: 1 óra
         other: '%{count} óra'
@@ -97,46 +97,46 @@ hu:
         one: 1 nap
         other: '%{count} nap'
       months:
-        one: 1 month
-        other: '%{count} months'
+        one: 1 hónap
+        other: '%{count} hónap'
   datetime:
-    added_on: 'on %{date}'
+    added_on: '%{date} napon'
     distance_in_words:
       about_x_hours:
-        one: about 1 hour ago
-        other: 'about %{count} hours ago'
+        one: körülbelül 1 órája
+        other: 'körülbelül %{count} órája'
       about_x_months:
         one: körülbelül 1 hónapja
-        other: 'about %{count} months ago'
+        other: 'körülbelül %{count} hónapja'
       about_x_years:
-        one: about 1 year ago
-        other: 'about %{count} years ago'
+        one: körülbelül 1 éve
+        other: 'körülbelül %{count} éve'
       almost_x_years:
-        one: almost 1 year ago
-        other: 'almost %{count} years ago'
-      half_a_minute: half a minute ago
+        one: majdnem 1 éve
+        other: 'majdnem %{count} éve'
+      half_a_minute: fél perce
       less_than_x_minutes:
-        one: less than 1 minute ago
-        other: 'less than %{count} minutes ago'
+        one: kevesebb, mint egy perce
+        other: 'kevesebb, mint %{count} perce'
       less_than_x_seconds:
-        one: less than 1 second ago
-        other: 'less than %{count} seconds ago'
+        one: kevesebb, mint 1 másodperce
+        other: 'kevesebb, mint %{count} másodperce'
       over_x_years:
-        one: more than 1 year ago
+        one: több, mint 1 éve
         other: 'több, mint %{count} éve'
       x_days:
-        one: 1 nappal ezelőtt
-        other: ! '%{count} days ago'
+        one: 1 napja
+        other: ! '%{count} napja'
       x_minutes:
-        one: 1 minute ago
-        other: ! '%{count} minutes ago'
+        one: 1 perce
+        other: ! '%{count} perce'
       x_months:
-        one: 1 month ago
-        other: ! '%{count} months ago'
+        one: 1 hónapja
+        other: ! '%{count} hónapja'
       x_seconds:
-        one: 1 second ago
-        other: ! '%{count} seconds ago'
+        one: 1 másodperce
+        other: ! '%{count} másodperce'
   label:
-    from: from
-    to: to
-  countdown: '{m<}{mn} {ml} ago{m>} {s<}just now{s>}'
+    from: 'ettől:'
+    to: 'eddig:'
+  countdown: '{m<}{mn} {ml} perce {m>} {s<}épp most{s>}'

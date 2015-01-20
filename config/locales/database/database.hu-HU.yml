@@ -53,7 +53,7 @@ hu:
       CREATE_EVENT:
         description: Meetup események létrehozása
       PROPOSAL:
-        description: Support proposals on behalf of the group
+        description: Támogassa az indítványokat a csoport nevében
       REQUEST_ACCEPT:
         description: Új tagok felvétele a csoportba
       SEND_CANDIDATES:
@@ -97,75 +97,75 @@ hu:
         email_subject: Van egy új hozzászólás
         message: '%{user} új üzenet írt a blogján: <b>%{blog}</b>'
       new_valutation_mine:
-        description: New evaluation for a proposal of mine
-        email_subject: '%{title} - New evaluation'
-        message: 'Your proposal <b>%{title}</b> has received a new evaluation'
+        description: Új értékelés az indítványomhoz
+        email_subject: '%{title} - Új értékelés'
+        message: '<b>%{title}</b> indítványa új értékelést kapott'
       new_valutation:
-        description: New evaluation for a proposal I participate in
-        email_subject: '%{title} - New evaluation'
-        message: 'The proposal <b>%{title}</b> has received a new evaluation'
+        description: Új értékelés egy indítványhoz, amiben részt veszek
+        email_subject: '%{title} - Új értékelés'
+        message: 'Az indítvány <b>%{title}</b> új értékelést kapott'
       available_author:
-        description: User available to become an editor of a proposal
-        email_subject: '%{title} - New editors available'
-        message: '%{user} is available to become editor of the proposal <b>%{title}</b>'
+        description: Felhasználó elérhető, hogy egy indítvány szerkesztőjévé váljon
+        email_subject: '%{title} - Új szerkesztők elérhetőek'
+        message: '%{user} elérhető, hogy a(z) <b>%{title}</b> indítvány szerkesztőjévé váljon'
       author_accepted:
-        description: Acceptance as editor of a proposal
-        email_subject: '%{title} - You are now editor of it!'
-        message: 'You are now editor of the proposal <b>%{title}</b>.<br/>Remember that as an editor, you should listen to to the contributions of other users and improve the text according to them<br/>'
+        description: Az indítvány szerkesztőjeként való elfogadása
+        email_subject: '%{title} - Ön most a szerkesztője!'
+        message: 'Ön most a(z) <b>%{title}</b> indítvány szerkesztője. <br/>Ne feledje, hogy mint szerkesztő, más felhasználók hozzájárulásait figyelembe kell vennie, ha azokkal javíthatja a szöveget.<br/>'
       new_authors:
         description: A javaslatok új szerkesztői
-        email_subject: '%{title} - New editors'
-        message: '<b>%{user}</b> is an editor of the proposal <b>%{title}</b>'
+        email_subject: '%{title} - Új szerkesztők'
+        message: '<b>%{user}</b> a(z) <b>%{title}</b> indítvány szerkesztője'
       unintegrated_contribute:
-        description: Contributions are put back in debate
-        email_subject: '%{proposal} - Contribution back in debate'
-        message: 'A contribution you integrated in the proposal <b>%{proposal}</b> has been put back in debate'
+        description: Hozzájárulásokat visszatesz a vitába
+        email_subject: '%{proposal} - hozzájárulás visszakerült a vitára'
+        message: 'Az Ön által hozzáadott hozzájárulás a(z) <b>%{proposal}</b> indítványban visszakerült vitára'
       new_contributes:
-        description: New contributions and comments in the proposals I participate in
-        email_subject: '%{title} - New contribute'
+        description: Új hozzájárulások és megjegyzések az indítványokban, amikben részt veszek
+        email_subject: '%{title} - Új hozzájárulás'
         message:
-          zero: '<b>%{name}</b> added a new contribution in the proposal <b>%{title}</b>'
-          one: '<b>%{name}</b> added a new contribution in the proposal <b>%{title}</b>'
-          other: 'There are <b>%{count}</b> new contributions in the proposal <b>%{title}</b>'
+          zero: '<b>%{name}</b> beadott egy új hozzájárulást a(z) <b>%{title}</b> indítványhoz'
+          one: '<b>%{name}</b> beadott egy új hozzájárulást a(z) <b>%{title}</b> indítványhoz'
+          other: '<b>%{count}</b> új hozzájárulás van a(z) <b>%{title}</b> indítványban'
       text_update:
-        description: Update of the text of a proposal I participate in
-        email_subject: '%{title} - The text has been modified'
-        message: 'The proposal <b>%{title}</b> has been updated'
+        description: Indítvány szövegének frissítése, amiben részt veszek
+        email_subject: '%{title} - A szöveget módosították'
+        message: 'A(z) <b>%{title}</b> indítványt frissítették'
       new_contributes_mine:
-        description: New contributions in my proposals
-        email_subject: '%{title} - New contribution'
+        description: Új hozzájárulások az indítványaimban
+        email_subject: '%{title} - Új hozzájárulás'
         message:
-          zero: '<b>%{name}</b> added a new contribution in your proposal <b>%{title}</b>'
-          one: '<b>%{name}</b> added a new contribution in your proposal <b>%{title}</b>'
-          other: 'There are <b>%{count}</b> new contributions in your proposal <b>%{title}</b>'
+          zero: '<b>%{name}</b> beadott egy új hozzájárulást a(z) <b>%{title}</b> indítványához'
+          one: '<b>%{name}</b> beadott egy új hozzájárulást a(z) <b>%{title}</b> indítványához'
+          other: '<b>%{count}</b> új hozzájárulás van a(z) <b>%{title}</b> indítványában'
       change_status:
-        description: Change in the status of a proposal I participate in
+        description: Az indítvány státusza módosult, amiben részt veszek
         email_subject:
-          wait: '%{title} - Choose the voting date'
-          waiting_date: '%{title} - The voting date has been chosen'
-          in_vote: '%{title} - COME AND VOTE!'
-          abandoned: "%{title} didn't get through the debate"
-          rejected: '%{title} has been rejected'
-          voted: '%{title} - Votation has terminated'
-          24_hours: 'The debate on %{title} ends tomorrow!'
-          1_hour: 'The debate on %{title} ends in an hour!'
-          24_hours_vote: 'The vote on %{title} ends tomorrow!'
-          1_hour_vote: 'The vote on %{title} ends in an hour!'
+          wait: '%{title} - Válassza ki a szavazás időpontját'
+          waiting_date: '%{title} - A szavazás dátuma ki lett választva'
+          in_vote: '%{title} - JÖJJÖN, ÉS SZAVAZZON!'
+          abandoned: '%{title} nem jutott túl a vitán'
+          rejected: '%{title} el lett utasítva'
+          voted: '%{title} - Szavazás leállítva'
+          24_hours: '%{title} vitája holnap véget ér!'
+          1_hour: '%{title} vitája egy órán belül véget ér!'
+          24_hours_vote: '%{title} szavazása holnap befejeződik!'
+          1_hour_vote: '%{title} szavazása egy órán belül véget ér!'
         message:
-          waiting_date: '%{name} has chosen the date of the vote for the proposal<b>%{title}</b>'
-          in_vote: 'The proposal <b>%{title}</b> is now being voted!'
-          abandoned: 'The proposal <b>%{title}</b> has not passed the debate and has been abandoned'
-          rejected: 'The proposal <b>%{title}</b> has been rejected by the participants'
-          voted: '%{title} - Vote ended'
-          24_hours: 'The debate on <b>%{title}</b> ends tomorrow!'
-          1_hour: 'The debate on <b>%{title}</b> ends in an hour!'
-          24_hours_vote: 'The vote on <b>%{title}</b> ends tomorrow!'
-          1_hour_vote: 'The vote on <b>%{title}</b> ends in an hour!'
+          waiting_date: '%{name} kiválasztotta a(z) <b>%{title}</b> indítvány szavazásának dátumát'
+          in_vote: 'A(z) <b>%{title}</b> indítvány most lett megszavazva!'
+          abandoned: 'A(z) <b>%{title}</b> indítvány nem jutott túl a vitán, és elvetették'
+          rejected: 'A(z) <b>%{title}</b> indítványt a résztvevők elutasították'
+          voted: '%{title} - A szavazás véget ért'
+          24_hours: '<b>%{title}</b> vitája holnap véget ér!'
+          1_hour: '<b>%{title}</b> vitája egy órán belül véget ér!'
+          24_hours_vote: '<b>%{title}</b> szavazása holnap véget ér!'
+          1_hour_vote: '<b>%{title}</b> szavazása egy órán belül véget ér!'
       change_status_mine:
-        description: Change in the status of my proposals
+        description: Az indítványaim státusza módosult
         email_subject:
-          wait: '%{title} - Choose the voting date'
-          waiting_date: '%{title} - The voting date has been chosen'
+          wait: '%{title} - Válassza ki a szavazás időpontját'
+          waiting_date: '%{title} - A szavazás dátuma ki lett választva'
           in_vote: '%{title} - GYERE, ÉS SZAVAZZ!'
           abandoned: '%{title} Nem jutott túl a vitán'
           rejected: '%{title} Elutasított'
@@ -175,66 +175,66 @@ hu:
           24_hours_vote: '%{title} szavazása holnap befejeződik!'
           1_hour_vote: '%{title} szavazása egy órán belül véget ér!'
         message:
-          wait: 'Your proposal <b>%{title}</b> has passed the discussion phase and is now waiting that you choose when to vote it'
-          waiting_date: '%{name} has chosen the voting date for the proposal <b>%{title}</b>'
-          in_vote: 'Your proposal <b>%{title}</b> is now being voted!'
-          abandoned: 'Your proposal <b>%{title}</b> has not passed the debate and has been abandoned, sorry'
-          rejected: 'Your proposal <b>%{title}</b> has been rejected by the participants, sorry'
-          voted: '<b>%{title}</b> - Vote has terminated'
-          24_hours: 'The debate on <b>%{title}</b> ends tomorrow!'
-          1_hour: 'The debate on <b>%{title}</b> ends in an hour!'
-          24_hours_vote: 'The vote on <b>%{title}</b> ends tomorrow!'
-          1_hour_vote: 'The vote on <b>%{title}</b> ends in an hour!'
+          wait: '<b>%{title}</b> indítványa átesett a vita fázisán, és most arra vár, hogy szavazási időpontott válasszon hozzá'
+          waiting_date: '%{name} kiválasztotta a(z) <b>%{title}</b> indítvány szavazásának dátumát'
+          in_vote: '<b>%{title}</b> indítványa most lett megszavazva!'
+          abandoned: '<b>%{title}</b> indítványa nem jutott túl a vitán, és el lett vetve, sajnáljuk'
+          rejected: '<b>%{title}</b> indítványát elutasították a résztvevők, sajnáljuk'
+          voted: '<b>%{title}</b> - Szavazás leállítva'
+          24_hours: '<b>%{title}</b> vitája holnap véget ér!'
+          1_hour: '<b>%{title}</b> vitája egy órán belül véget ér!'
+          24_hours_vote: '<b>%{title}</b> szavazása holnap véget ér!'
+          1_hour_vote: '<b>%{title}</b> szavazása egy órán belül véget ér!'
       proposal_phase_ending:
-        description: A proposal debate or votation is going to end soon
+        description: Az indítvány vitája vagy szavazása hamarosan véget ér
         email_subject:
-          24_hours: 'The debate on %{title} ends tomorrow!'
-          1_hour: 'The debate on %{title} ends in an hour!'
-          24_hours_vote: 'The vote on %{title} ends tomorrow!'
-          1_hour_vote: 'The vote on %{title} ends in an hour!'
+          24_hours: '%{title} vitája holnap ér véget!'
+          1_hour: '%{title} vitája egy órán belül véget ér!'
+          24_hours_vote: '%{title} szavazása holnap véget ér!'
+          1_hour_vote: '%{title} szavazása egy órán belül véget ér!'
         message:
-          24_hours: 'The debate on <b>%{title}</b> ends tomorrow!'
-          1_hour: 'The debate on <b>%{title}</b> ends in an hour!'
-          24_hours_vote: 'The vote on <b>%{title}</b> ends tomorrow!'
-          1_hour_vote: 'The vote on <b>%{title}</b> ends in an hour!'
+          24_hours: '<b>%{title}</b> vitája holnap véget ér!'
+          1_hour: '<b>%{title}</b> vitája egy órán belül véget ér!'
+          24_hours_vote: '<b>%{title}</b> szavazása holnap véget ér!'
+          1_hour_vote: '<b>%{title}</b> szavazása egy órán belül véget ér!'
       new_posts_group_follow:
-        description: New posts in the Walls of the groups I am following
+        description: Új megosztások a csoportok falain, amiket követek
         email_subject: Új bejegyzés
       new_posts_group:
-        description: New posts in the Walls of the groups I participate in
+        description: Új megosztások a csoportok falain, amikben részt veszek
         email_subject: Új bejegyzés
-        message: '<b>%{user}</b> has added a new post in the group <b>%{group}</b>'
+        message: '<b>%{user}</b> hozzáadott egy új megosztást a <b>%{group}</b> csoportban'
       new_public_proposals:
-        description: New proposals added in the Open Space
+        description: Új indítványt adtak hozzá a nyílt térben
         email_subject: '%{proposal}'
-        message: 'New proposal <b>%{proposal}</b> added in the Open Space'
+        message: '<b>%{proposal}</b> új indítványt adták hozzá a nyílt térben'
       new_proposals:
-        description: New proposals within the group
+        description: A csoporton belül új indítványok
         email_subject: '%{proposal}'
-        message: 'New proposal <b>%{proposal}</b> created in the group <b>%{group}</b>'
+        message: '<b>%{proposal}</b> új indítvány jött létre a <b>%{group}</b> csoportban'
       new_participation_request:
-        description: New participation request
-        email_subject: New participation request
-        message: '<b>%{user}</b> asked to participate in the group <b>%{group}</b>'
+        description: Új részvételi kérelem
+        email_subject: Új részvételi kérelem
+        message: '<b>%{user}</b>-t felkérték, hogy vegyen részt a <b>%{group}</b> csoportban'
       new_blog_comment:
         description: Új hozzászólás a blogomban
         email_subject: Új hozzászólás a blogodban
         message:
-          zero: '<b>%{user}</b> commented your post <b>%{title}</b>'
-          one: '<b>%{user}</b> commented your post <b>%{title}</b>'
-          other: 'There are <b>%{count}</b> new comments in your post <b>%{title}</b>'
+          zero: '<b>%{user}</b> hozzászólt a <b>%{title}</b> megosztásodhoz'
+          one: '<b>%{user}</b> hozzászólt a <b>%{title}</b> megosztásodhoz'
+          other: '<b>%{count}</b> új hozzászólás a <b>%{title}</b> megosztásodban'
       new_comments_mine:
-        description: New comments in my proposals
-        email_subject: New comment in my proposal
-        message: '<b>%{name}</b> added a comment in a discussion in your proposal <b>%{title}</b>'
+        description: Új hozzászólások az indítványaimban
+        email_subject: Új hozzászólás az indítványomban
+        message: '<b>%{name}</b> hozzáadott egy megjegyzést a vita során a(z) <b>%{title}</b> indítványában'
       new_comments:
-        description: New comments in the discussions I take part in
-        email_subject: '%{title} - New comment'
-        message: '<b>%{name}</b> added a comment in a discussion you are taking part in the proposal <b>%{title}</b>'
+        description: Új hozzászólások a vitákban, amikben részt veszek
+        email_subject: '%{title} - Új hozzászólás'
+        message: 'A(z) <b>%{title}</b> indítványban <b>%{name}</b> hozzászólt a vitához, amiben Ön részt vesz'
       contribute_update:
-        description: Update of the text of an already evaualted contribute
-        email_subject: '%{title} - A contribute you have previously evaluated has changed'
-        message: '<b>%{name}</b> changed a contribute in <b>%{title}</b> you have previously evaluated. Check if you want to change your opinion.'
+        description: Már értékelt hozzájárulás szövegének frissítése
+        email_subject: '%{title} - egy Ön által már korábban értékelt hozzájárulás megváltozott'
+        message: '<b>%{name}</b> megváltozott egy hozzájárulást a <b>%{title}</b> indítványban, amit Ön már korábban értékelt. Ellenőrizze, hogy szeretné-e megváltoztatni a véleményét.'
     proposal_categories:
       no_category:
         description: Kategorizálatlan
@@ -251,25 +251,25 @@ hu:
       security:
         description: Biztonság és a jog
       world:
-        description: World, Migration
+        description: Világ, Emigrálás
       minorities:
-        description: Minorities, Handicap
+        description: Kisebbségek, Fogyatékosság
       ethics:
         description: Etika, szolidaritás, spiritualitás
       sexuality:
-        description: Sexuality, Family, Children
+        description: Szexualitás, Család, Gyermekek
       culture:
         description: Művészet és kultúra
       entertainment:
         description: Szociális ügyek, sport, szórakozás
       organization:
-        description: Internal organization
+        description: Belső szervezet
       agricolture:
         description: Víz, élelmiszer, mezőgazdaság
       territory:
         description: Környezet, természet, állatok
       mobility:
-        description: Urbanism, Mobility, Construction
+        description: Városépítészet, Mobilitás, Építőipar
       energy:
         description: Energia, éghajlat
       industry:
@@ -278,8 +278,8 @@ hu:
         description: Demokrácia, intézmények
     vote_types:
       favorable:
-        description: Favorable
+        description: Kedvező
       neutral:
         description: Semleges
       dissenting:
-        description: Dissenting
+        description: Nemleges
