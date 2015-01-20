@@ -124,3 +124,9 @@ GEOSPATIAL_NAME is used to geocode users when they register. Is your username in
 It is used by https://github.com/panthomakos/timezone to obtain timezone based on latitude and longitude and you don't need it in development.
 
 MAPS_API_KEY is a browser key provided by google to access map services (https://console.developers.google.com)
+
+
+Internationalization
+--------------------
+
+http://wiki.airesis.eu/doku.php?id=en:internationalization
