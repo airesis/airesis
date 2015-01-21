@@ -261,18 +261,20 @@ class ApplicationController < ActionController::Base
 
   #response if you do not have permissions to do an action
   def permissions_denied(exception=nil)
-    log_error(exception)
     respond_to do |format|
       format.js do #se era una chiamata ajax, mostra il messaggio
         if current_user
+          log_error(exception)
           flash.now[:error] = exception.message
           render 'layouts/error', status: :forbidden
         else
+
           render 'layouts/authenticate'
         end
       end
       format.html do #ritorna indietro oppure all'HomePage
         if current_user
+          log_error(exception)
           flash[:error] = exception.message
           render 'errors/access_denied', status: :forbidden
         else
