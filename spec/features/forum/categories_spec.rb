@@ -36,4 +36,6 @@ describe 'categories', type: :feature do
     expect(page).to_not have_content(forum_2.title)
     expect(page).to_not match(forum_2.title)
   end
+
+
 end

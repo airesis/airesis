@@ -66,22 +66,21 @@ class GroupsController < ApplicationController
 
 
   def by_year_and_month
-    if current_user
-      @group_posts = @group.post_publishings.viewable_by(current_user).order('post_publishings.featured desc, published_at DESC').select('post_publishings.*, published_at').uniq
-    else
-      @group_posts = @group.blog_posts.published.includes([:blog, {user: :image}, :tags]).order('post_publishings.featured desc, published_at DESC')
-    end
-    @group_posts = @group_posts.where("extract(year from blog_posts.created_at) = ? AND extract(month from blog_posts.created_at) = ? ", params[:year], params[:month])
+    @group_posts = @group.post_publishings
+                       .viewable_by(current_user)
+                       .where("extract(year from blog_posts.created_at) = ? AND extract(month from blog_posts.created_at) = ? ", params[:year], params[:month])
+                       .order('post_publishings.featured desc, published_at DESC')
+                       .select('post_publishings.*, published_at')
+                       .uniq
+                       .page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
       format.js {
-        @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
         render 'show'
       }
       format.html {
         @page_title = t('pages.groups.archives.title', group: @group.name, year: params[:year], month: t('date.month_names')[params[:month].to_i])
         @group_participations = @group.participants
-        @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
         @archives = @group.blog_posts.select("COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH , extract(year from blog_posts.created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from blog_posts.created_at) desc")
         render 'show'
       }
