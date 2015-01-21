@@ -1,6 +1,12 @@
 class SysPaymentNotificationsController < ApplicationController
   protect_from_forgery except: :create
 
+  load_and_authorize_resource only: :index
+
+  def index
+    
+  end
+
   def create
     response = validate_IPN_notification(request.raw_post)
     case response

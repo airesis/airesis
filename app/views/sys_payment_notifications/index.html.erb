@@ -2,28 +2,24 @@
 
 <table>
   <tr>
-    <th>Params</th>
-    <th>Cart</th>
-    <th>Status</th>
     <th>Transaction</th>
-    <th></th>
+    <th>Status</th>
+    <th>Fee</th>
+    <th>Gross</th>
+    <th>Created at</th>
     <th></th>
     <th></th>
   </tr>
 
 <% @sys_payment_notifications.each do |sys_payment_notification| %>
   <tr>
-    <td><%= sys_payment_notification.params %></td>
-    <td><%= sys_payment_notification.cart_id %></td>
-    <td><%= sys_payment_notification.status %></td>
     <td><%= sys_payment_notification.transaction_id %></td>
-    <td><%= link_to 'Show', sys_payment_notification %></td>
-    <td><%= link_to 'Edit', edit_sys_payment_notification_path(sys_payment_notification) %></td>
-    <td><%= link_to 'Destroy', sys_payment_notification, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= sys_payment_notification.status %></td>
+    <td><%= sys_payment_notification.payment_fee %></td>
+    <td><%= sys_payment_notification.payment_gross %></td>
+    <td><%= sys_payment_notification.created_at %></td>
+    <td><%= sys_payment_notification.payable_id %></td>
+    <td><%= sys_payment_notification.payable_type %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Sys payment notification', new_sys_payment_notification_path %>

@@ -379,6 +379,7 @@ class Ability
           can [:read, :create, :update, :change_group_permission], ParticipationRole
           can :manage, Election
           can :manage, Event
+          can :index, SysPaymentNotification
           can :manage, Frm::Topic
           can :create_topic, Frm::Forum
           can :manage, Frm::Category
