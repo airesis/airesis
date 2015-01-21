@@ -1,0 +1,9 @@
+<% @replies.each_with_index do |reply, i| %>
+    <%= render(partial: 'proposals/reply', locals: {reply: reply, hide: false}) %>
+    <% if (i < @replies.length - 1) && (version = @proposal_comment.versions.where(['created_at between ? and ?', @replies[i].created_at, @replies[i+1].created_at]).first) %>
+        <div class="panel callout comment_update_divider"><%= 'updated on ' + time_in_words(version.created_at) %></div>
+    <% end %>
+<% end %>
+<% if (version = (@proposal_comment.versions.where(['created_at > ?', @replies.last.created_at]).first)) %>
+    <div class="panel callout comment_update_divider"><%= 'updated on ' + time_in_words(version.created_at) %></div>
+<% end %>

@@ -42,7 +42,7 @@
       <div style="position: relative">
         <div class="maintitle">
           <%= user_valutation_image(current_user, proposal) if current_user %>
-          <%= link_to proposal.title, proposal.private ? group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal, subdomain: false), style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil) %>
+          <%= link_to_proposal(proposal, style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil)) %>
 
         </div>
       </div>
