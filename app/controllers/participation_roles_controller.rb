@@ -40,6 +40,7 @@ class ParticipationRolesController < ApplicationController
   def update
     @participation_role.attributes = participation_role_params
     if @participation_role.save
+      @participation_roles = @group.participation_roles
       respond_to do |format|
         flash[:notice] = t('info.participation_roles.role_updated')
         format.js

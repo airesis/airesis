@@ -1,5 +1,6 @@
+<%group_actions = GroupAction.order(:seq) %>
 <dl id="roles_accordion" class="accordion" data-accordion>
-  <% @participation_roles.each_with_index do |role, idx| %>
+  <% @participation_roles.includes(:group_actions).each_with_index do |role, idx| %>
       <dd>
         <a href="#role_<%= role.id %>"><%= role.name %>
           <% if role.id == @group.participation_role_id %> (default)
@@ -18,7 +19,7 @@
               <%= t('buttons.edit') %>
           <% end %>
           <h4><%= role.description %></h4>
-          <% GroupAction.order(:seq).each do |action| %>
+          <% group_actions.each do |action| %>
               <input type="checkbox" data-action-abilitation data-participation_role_id=<%= role.id %>  data-action_id=<%= action.id %> <%= 'checked="true"' if role.group_actions.include? action %>/>
               <span><%= action.description %></span> <br/>
           <% end %>
