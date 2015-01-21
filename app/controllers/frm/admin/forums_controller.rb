@@ -23,7 +23,7 @@ module Frm
       end
 
       def update
-        if @forum.update_attributes(frm_forum_params)
+        if @forum.update_attributes(forum_params)
           update_successful
         else
           update_failed
