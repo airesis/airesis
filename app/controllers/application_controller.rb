@@ -90,13 +90,12 @@ class ApplicationController < ActionController::Base
 
 
   def load_blog_data
-    if @blog
-      @user = @blog.user
-      @blog_posts = @blog.blog_posts.includes(:user, :blog, :tags).page(params[:page]).per(COMMENTS_PER_PAGE)
-      @recent_comments = @blog.comments.includes(:blog_post, user: [:image, :user_type]).order('created_at DESC').limit(10)
-      @recent_posts = @blog.blog_posts.published.limit(10)
-      @archives = @blog.blog_posts.select("COUNT(*) AS posts, extract(month from created_at) AS MONTH , extract(year from created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from created_at) desc")
-    end
+    return unless @blog
+    @user = @blog.user
+    @blog_posts = @blog.blog_posts.includes(:user, :blog, :tags).page(params[:page]).per(COMMENTS_PER_PAGE)
+    @recent_comments = @blog.comments.includes(:blog_post, user: [:image, :user_type]).order('created_at DESC').limit(10)
+    @recent_posts = @blog.blog_posts.published.limit(10)
+    @archives = @blog.blog_posts.select("COUNT(*) AS posts, extract(month from created_at) AS MONTH , extract(year from created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from created_at) desc")
   end
 
   def extract_locale_from_tld
@@ -286,19 +285,21 @@ class ApplicationController < ActionController::Base
 
   #salva l'url
   def store_location
-    unless (request.xhr? ||
-        (!params[:controller]) ||
+    return if skip_store_location?
+    session[:proposal_id] = nil
+    session[:proposal_comment] = nil
+    session[:user_return_to] = request.url
+  end
+
+  def skip_store_location?
+    request.xhr? || !params[:controller] || !request.get? ||
         (params[:controller].starts_with? "devise/") ||
         (params[:controller] == "passwords") ||
         (params[:controller] == "sessions") ||
         (params[:controller] == "users/omniauth_callbacks") ||
         (params[:controller] == "alerts" && params[:action] == "index") ||
-        (params[:controller] == "users" && (params[:action] == "join_accounts" || params[:action] == "confirm_credentials")) ||
-        (params[:action] == 'feedback') || !request.get?)
-      session[:proposal_id] = nil
-      session[:proposal_comment] = nil
-      session[:user_return_to] = request.url
-    end
+        (params[:controller] == "users" && (["join_accounts", "confirm_credentials"].include? params[:action])) ||
+        (params[:action] == 'feedback')
   end
 
 
@@ -316,7 +317,7 @@ class ApplicationController < ActionController::Base
       @generated_nickname = @proposal_comment.nickname_generated
 
       if @proposal_comment.is_contribute?
-
+        #if it's lateral show a message, else show show another message
         if @proposal_comment.paragraph
           @section = @proposal_comment.paragraph.section
           if params[:right]
@@ -330,7 +331,6 @@ class ApplicationController < ActionController::Base
       else
         flash[:notice] = t('info.proposal.comment_added')
       end
-      #if it's lateral show a message, else show show another message
 
     end
   end
@@ -356,31 +356,30 @@ class ApplicationController < ActionController::Base
   #it's a generic method but with a per-page solution
   #call it in an after_filter
   def check_page_alerts
-    if current_user
-      case params[:controller]
-        when 'proposals'
-          case params[:action]
-            when 'show'
-              #mark as checked all user alerts about this proposal
-              @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'proposal_id') = ? and alerts.checked = ?", @proposal.id.to_s, false])
-              if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
-                flash[:info] = t('info.proposal.available_authors')
-              end
-              @unread.check_all
-              @not_count = ProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id)
-              @not_count.update_attribute(:count, 0) if @not_count #just to be sure. if everything is correct this would not be required but what if not?...just leave it here
-            else
-          end
-        when 'blog_posts'
-          case params[:action]
-            when 'show'
-              #mark as checked all user alerts about this proposal
-              @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'blog_post_id') = ? and alerts.checked = ?", @blog_post.id.to_s, false])
-              @unread.check_all
-            else
-          end
-        else
-      end
+    return unless current_user
+    case params[:controller]
+      when 'proposals'
+        case params[:action]
+          when 'show'
+            #mark as checked all user alerts about this proposal
+            @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'proposal_id') = ? and alerts.checked = ?", @proposal.id.to_s, false])
+            if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
+              flash[:info] = t('info.proposal.available_authors')
+            end
+            @unread.check_all
+            @not_count = ProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id)
+            @not_count.update_attribute(:count, 0) if @not_count #just to be sure. if everything is correct this would not be required but what if not?...just leave it here
+          else
+        end
+      when 'blog_posts'
+        case params[:action]
+          when 'show'
+            #mark as checked all user alerts about this proposal
+            @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'blog_post_id') = ? and alerts.checked = ?", @blog_post.id.to_s, false])
+            @unread.check_all
+          else
+        end
+      else
     end
   end
 

@@ -1,6 +1,6 @@
+#todo clean that controller
 class TutorialsController < ApplicationController
-  # GET /tutorials
-  # GET /tutorials.json
+
   before_filter :authenticate_user!
   before_filter :admin_required
     
@@ -13,8 +13,6 @@ class TutorialsController < ApplicationController
     end
   end
 
-  # GET /tutorials/1
-  # GET /tutorials/1.json
   def show
     @tutorial = Tutorial.find(params[:id])
 
@@ -24,8 +22,6 @@ class TutorialsController < ApplicationController
     end
   end
 
-  # GET /tutorials/new
-  # GET /tutorials/new.json
   def new
     @tutorial = Tutorial.new
 
@@ -35,13 +31,10 @@ class TutorialsController < ApplicationController
     end
   end
 
-  # GET /tutorials/1/edit
   def edit
     @tutorial = Tutorial.find(params[:id])
   end
 
-  # POST /tutorials
-  # POST /tutorials.json
   def create
     @tutorial = Tutorial.new(params[:tutorial])
 
@@ -56,8 +49,6 @@ class TutorialsController < ApplicationController
     end
   end
 
-  # PUT /tutorials/1
-  # PUT /tutorials/1.json
   def update
     @tutorial = Tutorial.find(params[:id])
 
@@ -72,8 +63,6 @@ class TutorialsController < ApplicationController
     end
   end
 
-  # DELETE /tutorials/1
-  # DELETE /tutorials/1.json
   def destroy
     @tutorial = Tutorial.find(params[:id])
     @tutorial.destroy
@@ -83,5 +72,4 @@ class TutorialsController < ApplicationController
       format.json { head :ok }
     end
   end  
-    
 end

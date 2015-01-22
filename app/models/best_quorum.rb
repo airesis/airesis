@@ -177,16 +177,16 @@ class BestQuorum < Quorum
     if proposal.is_schulze?
       vote_data_schulze = proposal.schulze_votes
       Proposal.transaction do
-        votesstring = ""; #stringa da passare alla libreria schulze_vote per calcolare il punteggio
+        votesstring = ""; #this is the string to pass to schulze library to calculate the score
         vote_data_schulze.each do |vote|
-          #in ogni riga inserisco la mappa del voto ed eventualmente il numero se più di un utente ha espresso la stessa preferenza
+          #each row is composed by the vote string and, if more then one, the number of votes of that kind
           vote.count > 1 ? votesstring += "#{vote.count}=#{vote.preferences}\n" : votesstring += "#{vote.preferences}\n"
         end
         num_solutions = proposal.solutions.count
         vs = SchulzeBasic.do votesstring, num_solutions
-        solutions_sorted = proposal.solutions.sort { |a, b| a.id <=> b.id } #ordino le soluzioni secondo l'id crescente (così come vengono restituiti dalla libreria)
+        solutions_sorted = proposal.solutions.sort { |a, b| a.id <=> b.id } #order the solutions by the id (as the plugin output the results)
         solutions_sorted.each_with_index do |c, i|
-          c.schulze_score = vs.ranks[i].to_i
+          c.schulze_score = vs.ranks[i].to_i  #save the result in the solution
           c.save!
         end
         votes = proposal.schulze_votes.sum(:count)
@@ -219,7 +219,6 @@ class BestQuorum < Quorum
     minimum = ((minimum - self.started_at)/60)
     percentagetime = minimum.to_f/self.minutes.to_f
     percentagetime *= 100
-    percentagetime
   end
 
   protected
