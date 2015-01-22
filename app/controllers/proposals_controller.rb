@@ -22,6 +22,7 @@ class ProposalsController < ApplicationController
 
   before_filter :check_page_alerts, only: :show
 
+
   def index
     populate_search
 
@@ -126,39 +127,36 @@ class ProposalsController < ApplicationController
   end
 
   def show
+    return redirect_to redirect_url(@proposal) if wrong_url?
+
     @proposal.check_phase #todo checks only the state during the debate. this is a security check, so if the background job didn't run we can always fix it/ we should check also for waiting and vote inconsistent phase.
     @proposal.reload
-    if @proposal.private
-      if @group #la proposta è interna ad un gruppo
-        if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio
-          if !current_user
-            flash[:info] = I18n.t('info.proposal.ask_participation')
-          elsif !(can? :participate, @proposal) && @proposal.in_valutation?
-            flash[:info] = I18n.t('error.proposals.participate')
-          end
-        else #se è bloccata alla visione di utenti esterni
-          if !current_user #se l'utente non è loggato richiedi l'autenticazione
-            authenticate_user!
-          elsif !(can? :show, @proposal) #se è loggato ma non ha i permessi caccialo fuori
-            respond_to do |format|
-              flash[:error] = I18n.t('error.proposals.view_proposal')
-              format.html {
-                redirect_to group_proposals_path(@group)
-              }
-              format.json {
-                render json: {error: flash[:error]}, status: 401
-                return
-              }
-            end
-          end
-          if !(can? :participate, @proposal) && @proposal.in_valutation?
-            flash[:info] = I18n.t('error.proposals.participate')
+    if @proposal.private #la proposta è interna ad un gruppo
+      if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio
+        if !current_user
+          flash[:info] = I18n.t('info.proposal.ask_participation')
+        elsif !(can? :participate, @proposal) && @proposal.in_valutation?
+          flash[:info] = I18n.t('error.proposals.participate')
+        end
+      else #se è bloccata alla visione di utenti esterni
+        if !current_user #se l'utente non è loggato richiedi l'autenticazione
+          authenticate_user!
+        elsif !(can? :show, @proposal) #se è loggato ma non ha i permessi caccialo fuori
+          respond_to do |format|
+            flash[:error] = I18n.t('error.proposals.view_proposal')
+            format.html {
+              redirect_to group_proposals_path(@group)
+            }
+            format.json {
+              render json: {error: flash[:error]}, status: 401
+              return
+            }
           end
         end
-      else
-        redirect_to redirect_url(@proposal) and return
+        if !(can? :participate, @proposal) && @proposal.in_valutation?
+          flash[:info] = I18n.t('error.proposals.participate')
+        end
       end
-
     end
 
     flash.now[:info] = I18n.t('info.proposal.public_visible') if @proposal.visible_outside
@@ -432,6 +430,7 @@ class ProposalsController < ApplicationController
 
 
   def vote_results
+    return redirect_to vote_results_group_proposal_path(@proposal.group,@proposal) if wrong_url?
     authorize! :show, @proposal
   end
 
@@ -478,6 +477,14 @@ class ProposalsController < ApplicationController
 
   protected
 
+
+  #the url is wrong if you try to access a private proposal without indicating the group
+  #we redirect you to the corret url
+  #todo when there will be more groups we cannot do that anymore
+  def wrong_url?
+    @proposal.private? && !@group
+  end
+
   def choose_layout
     @group ? "groups" : "open_space"
   end
@@ -513,14 +520,14 @@ class ProposalsController < ApplicationController
     flash[:notice] = I18n.t('info.proposal.rank_recorderd')
     respond_to do |format|
       format.js { render 'rank' }
-      format.html { redirect_to :back}
+      format.html { redirect_to :back }
     end
   rescue Exception => e
     log_error(e)
     flash[:error] = I18n.t('error.proposals.proposal_rank')
     respond_to do |format|
       format.js { render 'proposals/errors/rank' }
-      format.html{ redirect_to :back}
+      format.html { redirect_to :back }
     end
   end
 

@@ -474,6 +474,7 @@ Airesis::Application.routes.draw do
           post :close_debate
           patch :regenerate
           get :geocode
+          get :vote_results
         end
       end
 
