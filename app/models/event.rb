@@ -174,16 +174,14 @@ class Event < ActiveRecord::Base
 
   def to_ics
     event = Icalendar::Event.new
-    event.dtstart = self.starttime.strftime("%Y%m%dT%H%M%S")
-    event.dtend = self.endtime.strftime("%Y%m%dT%H%M%S")
-    event.summary = self.title
-    event.description = self.description
-    event.location = 'Here !'
-    event.klass = "PUBLIC"
-    event.created = self.created_at.strftime("%Y%m%dT%H%M%S")
-    event.last_modified = self.updated_at.strftime("%Y%m%dT%H%M%S")
-    event.uid = event.url = "#{Maktoub.home_domain}/events/#{self.id}"
-    event.add_comment("AF83 - Shake your digital, we do WowWare")
+    event.dtstart = starttime.strftime("%Y%m%dT%H%M%S")
+    event.dtend = endtime.strftime("%Y%m%dT%H%M%S")
+    event.summary = title
+    event.description = description
+    event.created = created_at.strftime("%Y%m%dT%H%M%S")
+    event.last_modified = updated_at.strftime("%Y%m%dT%H%M%S")
+    event.uid = "#{id}"
+    event.url = "#{Maktoub.home_domain}/events/#{id}"
     event
   end
 
