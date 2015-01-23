@@ -1,0 +1,254 @@
+ru:
+  pages:
+    proposals:
+      edit:
+        add_solution:
+          standard: Добавить другое решение
+          poll: Добавить другую опцию
+          rule_book: Добавить другое решение
+          press: Добавить другое решение
+          event: Добавить другое решение
+          estimate: Добавить другое решение
+          agenda: Добавить оценку
+          candidates: Добавить еще одного кандидата
+          simple: Добавить другое решение
+        solution_title:
+          standard: Решение
+          poll: Вариант
+          rule_book: Решение
+          press: Решение
+          event: Решение
+          estimate: Решение
+          agenda: Содержание
+          candidates: Кандидат
+          simple: Решение
+        insert_title:
+          standard: Вставить заголовок
+          poll: Вставить заголовок
+          rule_book: Вставить заголовок
+          press: Вставить заголовок
+          event: Вставить заголовок
+          estimate: Вставить заголовок
+          agenda: Вставить заголовок
+          candidates: Введите имя и фамилию
+          simple: Введите заголовок
+        new_solution_title:
+          standard: 'Решение <span class="num">%{num}</span>:'
+          poll: 'Решение <span class="num">%{num}</span>:'
+          rule_book: 'Решение <span class="num">%{num}</span>:'
+          press: 'Решение <span class="num">%{num}</span>:'
+          event: 'Решение <span class="num">%{num}</span>:'
+          estimate: 'Решение <span class="num">%{num}</span>:'
+          agenda: '<span class="num">%{num}</span> содержание:'
+          candidates: 'Кандидат <span class="num">%{num}</span>:'
+          simple: 'Решение <span class="num">%{num}</span>:'
+      new:
+        standard:
+          problems_title: Проблемы
+          problems_question: Какую проблему необходимо решить и/или какие препятствия необходимо преодолеть, чтобы достичь цели?
+          problems_title_label: Какую проблему необходимо решить и/или какие препятствия необходимо преодолеть, чтобы достичь цели?
+          objectives_title: Задачи
+          step_4_title: Вы можете ввести текст предложения сейчас, или написать его позднее на основе полученных данных
+          solution:
+            description: Описание решения
+            time: Сроки
+            subject: Руководитель
+            resources: Необходимые ресурсы и пути их получения
+            aspects: Этические, экологические, социальные аспекты
+            documents: Документация
+            pros: Плюсы
+            cons: Минусы
+            title: Решение 1
+          suggestion_html: '<div><b>Пример:</b></div> <div>Уменьшить использование питьевой воды для полива.</div> <div>Использование питьевой воды для полива общественных парков и частных садов - излишняя трата ценного ресурса и имеет свою стоимость. Кроме того, это приводит к понижению давления в водопроводе.</div>'
+          paragraph:
+            similar: Аналогичный опыт
+            stakeholders: Заинтересованные стороны
+            requirements: Требования
+          question:
+            paragraph:
+              similar: Are there experiences to inspire to achieve the goal? Among the possible solutions / initiatives already in place, which have achieved the best results and which the worst? Why?
+              stakeholders: Кто выиграет, а кто проиграет от достижения цели? Эти люди принимают участие в обсуждении этого предложения? Каким образом?
+              requirements: What are the characteristics that should respect the ideal solution? May be referred to both technical requirements that values ​​and principles to be observed.
+            solution:
+              description: Describe the solution that, in practice, it is proposed to take to achieve the goal.
+              time: When will this solution be implemented? Identify possible stages of implementation.
+              subject: Chwho will implement or arrange to implement the solution? How will be monitored and verified, in case of implementation, the outcomes of the solution?
+              resources: Are funds needed, volunteers, tools and skills to implement this solution? List them and quantify them. How these resources will be found?
+              aspects: This solution meets the ethical requirements of the group or community to which it is addressed? What is its social and environmental impact?
+              documents: Is documentation available for the solution?
+              pros: List and summarize the main advantages and strengths of this solution. Indicate who are the stakeholders of the advantages.
+              cons: List and summarize the main problems and disadvantages of this solution. Indicate who are the stakeholders of the disadvantages.
+        rule_book:
+          problems_title: Проблемы
+          problems_title_label: What are the problems to be solved with the application of this regulation? What are the issues to be regulated? Why?
+          problems_question: What are the problems to be solved with the application of this regulation? What are the issues to be regulated? Why?
+          suggestion_html: |
+            <div><b>Example:</b></div>
+            <div>Rule book to reserve the St. Peter's hall</div>
+            <div>The town of  Silverham has a conference room that nowadays is used only by the Mayor's "fellows". It is time to choose an impartial procedure to grant all citizens and public associations the right to book the room for public events.</div>
+          solution:
+            title: Решение 1
+            article: 'Статья %{num}'
+            pros: Плюсы
+            cons: Минусы
+          paragraph:
+            inspire: Regulation to inspire from
+            requirements: Требования
+            stakeholders: Заинтересованные стороны (участвующие люди)
+          question:
+            paragraph:
+              inspire: Are there regulations from which take inspiration similar  to that? Among the experiences of similar rules, which have achieved the best results and which the worst? Why?
+              requirements: What are the main constraints that the regulation should take into account? What are the values ​​and the principles to be observed? What will be the cost of application of the regulation? What subjects will be instructed to enforce it?
+              stakeholders: Who is most affected by the application of the regulation? Who will suffer the consequences? These subjects were involved in the discussion of this proposal? How?
+            solution:
+              article: Enter the text of the first article, ensuring that its interpretation appears unique. Insert a definition of terms or expressions are subject to misunderstanding.
+              pros: List and summarize the main advantages and strengths of this solution. Indicate who are the stakeholders of the advantages.
+              cons: List and summarize the main problems and disadvantages of this solution. Indicate who are the stakeholders of the disadvantages.
+        press:
+          problems_title_label: What is the message you want to convey? What obstacles are expected to its proper understanding and streams? There are articles or recent news that you want to replicate or to which you want to provide an adjustment?
+          problems_title: Message to transmit
+          problems_question: What is the message you want to convey? What obstacles are expected to its proper understanding and streams? There are articles or recent news that you want to replicate or to which you want to provide an adjustment?
+          suggestion_html: |
+            <div><b>Example:</b></div>
+            <div>Advertise the release of the version 3.5 of Airesis.</div>
+            <div>We have to advertise the release of the version 3.5 of Airesis, that brings important features for the Public Administrations. It is necessary to explain what Airesis is and captivate the attention of the press, given the recent rumors about the usage of Airesis in the White House.</div>
+          solution:
+            title: Решение 1
+            maintitle: Заголовок
+            subtitle: Подзаголовок
+            incipit: Титул
+            body: Основная часть
+            conclusion: Выводы
+            deep: Ценная информация
+          paragraph:
+            target: Реципиенты/Цель
+          question:
+            paragraph:
+              target: Who is the target of the article / press release? What aspects of the message you want to convey is more interested in?
+            solution:
+              maintitle: How can you summarize in a few words the message of the article / press release?
+              subtitle: Indicate in a nutshell, a key concept of the article or additional information to that contained in the title.
+              incipit: Indicate in very few words who did what, when he did, where and why, highlighting why the fact is very relevant.
+              body: Describe in more detail, but synthetic, the fact. Write short and significant sentences.
+              conclusion: Are there proposals to make to the reader? What could be the possible developments of the fact or its implications?
+              deep: Insert links, contacts, or additional information for those who wish to deepen the news.
+        estimate:
+          problems_title_label: What goods or services you wish to purchase? To solve which problems?
+          problems_title: Проблемы
+          problems_question: What goods or services you wish to purchase? To solve which problems?
+          suggestion_html: |
+            <div><b>Example:</b></div>
+            <div>Replacement of the thermal plant in the headquarter of the Association.</div>
+            <div>Because of the failure of the old boiler, our quarter is impractical during winters. Given that it is not possible to fix it, we have to substitute the old thermal plant with a new one, with low energy consumption.</div>
+          solution:
+            title: Решение 1
+            cost: Количество
+            problems: Соблюдение ограничений и проблемы
+            dumentation: Документация
+          paragraph:
+            technical_constrains: Технические ограничения
+            temporal_constrains: Временные ограничения
+            other_constrains: Экологические, этические, нормативные ограничения
+            budget: Максимальный бюджет
+            recipient_budget: Recipients of the request for quotation
+          question:
+            paragraph:
+              technical_constrains: Quali requisiti tecnici dovranno assicurare i beni ed i servizi da acquistare?
+              temporal_constrains: Con quali tempistica dovranno essere forniti il preventivo nonchè i beni o servizi da acquistare?
+              other_constrains: Quali requisiti ambientali ed etici dovranno assicurare i beni o i servizi da acquistare? Dovranno rispettare particolari norme di legge?
+              budget: Quale è la massima cifra destinabile all’acquisto?
+              recipient_budget: Quali soggetti saranno invitati a fornire un preventivo? Quali sono i loro contatti?
+            solution:
+              cost: Qual è l’importo preventivato per la fornitura dei beni e dei servizi richiesti?
+              problems: Quali, tra i vincoli precedentemente individuati, non saranno rispettati? Il ricorso a questo preventivo comporta altre problematiche? (es. conflitto d’interesse, mancanza di assistenza...).
+              dumentation: Riportare, anche attraverso l’impiego di link ed allegati, ulteriore documentazione relativa a questo preventivo.
+        agenda:
+          problems_title: Тип собрания
+          problems_question: Che tipo di incontro si desidera organizzare? Perchè lo si vuole organizzare?
+          suggestion_html: '<div><b>Пример:</b></div> <div>Выбрать повестку дня для встречи.</div> <div>Обычное координационное совещание для обмена опытом с местными комитетами по сельскому хозяйству.</div>'
+          solution:
+            title: Пункт
+            priorities: Приоритет
+            links: Ссылки
+            description: Описание
+            estimated_time: Сроки
+          paragraph:
+            date_time: Дата и время
+            place: Местоположение
+          question:
+            paragraph:
+              date_time: 'Quando avrà luogo l’incontro? Si è accertata la disponibilità degli invitati? Si è accertato che l’evento non si sovrapponga con altri? '
+              place: Dove si svolgerà l’evento? Se l’evento ha luogo on-line, indicare l’indirizzo web al quale collegarsi per partecipare.
+            solution:
+              description: "Indicare uno dei punti all'ordine del giorno."
+              links: Eventuali link a documenti o pagine web utili per la riunione o citati durante la stessa.
+              priorities: Indicare perchè si ritiene importante trattare questo punto e qual è la sua priorità.
+              estimated_time: Qual è il tempo previsto di discussione per questo punto?
+        event:
+          problems_title: Тема мероприятия
+          problems_title_label: Почему вы хотите организовать мероприятие? Каковы цели?
+          problems_question: Почему вы хотите организовать мероприятие? Каковы цели?
+          suggestion_html: '<div><b>Пример:</b></div> <div>Организовать лоу кост рок-концерт.</div> <div>В нашем городе есть много молодых групп, которые не могут показать свои таланты из-за недостатка места. Кроме того, наш муниципалитет предложил мало мероприятий следующим летом из-за отсутствия ресурсов.</div>'
+          solution:
+            title: Решение 1
+            maintitle: Название
+            description: Описание решения
+            program: Дата, время и план
+            body: место
+            place: Место
+            organization: Организация мероприятия
+            resources: Необходимые ресурсы и пути их получения
+            pros: Плюсы
+            cons: Минусы
+          paragraph:
+            similar_experiences: Аналогичный опыт
+            stakeholders: Заинтересованные стороны (участвующие люди)
+            desired_characteristics: Желаемые характеристики
+          question:
+            paragraph:
+              similar_experiences: Esistono esperienze a cui ispirarsi per organizzare l’evento? Tra le possibili iniziative già messe in atto, quali hanno raggiunto migliori risultati e quali peggiori? Perché?
+              stakeholders: Chi riceverà dei vantaggi e degli svantaggi dal raggiungimento dall’organizzazione dell’evento? Tali soggetti sono stati coinvolti nella discussione di questa proposta? In che modo?
+              desired_characteristics: Quali sono le caratteristiche che l’evento dovrebbe presentare? Possono essere indicati requisiti tecnici, principi etici, criteri organizzativi...
+            solution:
+              description: Descrivere la soluzione che si propone di adottare per l’organizzazione dell’evento
+              program: Quando si svolgerà l’evento? Quale sarà il programma? Si è accertato che l’evento non si sovrapponga con altri? Si è accertata la disponibilità degli invitati?
+              place: Dove si svolgerà l’evento? Tale luogo dispone dei servizi necessari per l’evento (es. accesso disabili, bagni, fornitura elettrica)? Se no, come si pensa di rimediare alla lacuna?
+              organization: Quali saranno le diverse fasi/aree organizzative? Chii sarà incaricato dell’organizzazione delle diverse fasi/aree?
+              resources: Sono necessari fondi, volontari, strumenti, competenze specifiche per realizzare questa soluzione? Elencarli e quantificarli. Come saranno reperite tali risorse?
+        candidates:
+          suggestion_html: |
+            <div><b>Example:</b></div>
+            <div>Elect the new referent for the communication group.</div>
+            <div>The communication group has just been established and it is necessary to elect a referent. All the people that have been members of the group for at least 5 months can be nominated.</div>
+          solution:
+            name: Имя и Фамилия кандидата
+            data: Личные данные
+            curriculum: План
+          paragraph:
+            election_type: 'Описание типа выборов:'
+            role: Ruolo o carica da ricoprire
+            requirements: Requisiti del candidato
+          question:
+            paragraph:
+              role: 'Quale è il ruolo per il quale è necessario selezionare un candidato? Quali saranno le sue mansioni?  Quali compiti dovrà portare a termine?'
+              requirements: Quali sono le caratteristiche ideali del candidato? Quali sono i requisiti minimi inderogabili?
+            solution:
+              name: Indicare Nome e Cognome del candidato.
+              data: Indicare i dati anagrafici essenziali per consentire l’identificazione univoca del candidato.
+              curriculum: Qual’è in curriculum del candidato? Rispetta i requisiti precedentemente individuati? Il candidato pone limiti alla propria disponibilità a ricoprire la carica?
+        simple:
+          problems_title: Проблема
+          problems_title_label: Какую проблему необходимо решить и/или какие препятствия необходимо преодолеть, чтобы достичь цели?
+          problems_question: Какую проблему необходимо решить и/или какие препятствия необходимо преодолеть, чтобы достичь цели?
+          solution:
+            description: Описание
+            title: Решение 1
+          question:
+            solution:
+              description: Descrivere la soluzione da adottare per raggiungere l’obiettivo, indicando tempistiche, risorse necessarie per l’attuazione, eventuali problemi irrisolti.
+        petition:
+          paragraph:
+            text: Текст петиции
+          question:
+            paragraph:
+              text: Текст петиции
