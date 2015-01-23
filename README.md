@@ -1,11 +1,10 @@
-Airesis - Choose to participate
+Airesis - The Social Netwrok for eDemocracy
 ===========================================
 [![Build Status](https://travis-ci.org/coorasse/Airesis.svg?branch=staging)](https://travis-ci.org/coorasse/Airesis)
 [![Dependency Status](https://gemnasium.com/coorasse/Airesis.svg)](https://gemnasium.com/coorasse/Airesis)
 [![Code Climate](https://codeclimate.com/repos/547c8dd16956804e660ee4a3/badges/40feae106fc5c88511e8/gpa.svg)](https://codeclimate.com/repos/547c8dd16956804e660ee4a3/feed)
 
-The first web application for edemocracy fully OpenSource and Free
-
+The first web application for eDemocracy OpenSource
 
 Summary
 --------
@@ -60,15 +59,15 @@ This software is released under AGPL .
 
 For the terms of the license can be found in the LICENSE file available within the project.
 
-Anyone install the application and development is required to comply with the terms of the license and to incorporate in the footer of your site the following statement:
+Anyone which installs the application and is required to comply with the terms of the license and to incorporate in the footer of the website the following statement:
 
-Powered by <a href="http://www.airesis.eu"> Airesis - Scegli di partecipare </ a>
+Powered by <a href="http://www.airesis.eu"> Airesis - The Social Network for eDemocracy </ a>
 
 
 Setup and Installation
 ----------------------
 
-The application installs itself as a RubyOnRails any application .
+The application installs itself as any other RubyOnRails application.
 
 Download the project
 
@@ -129,3 +128,12 @@ Internationalization
 --------------------
 
 http://wiki.airesis.eu/doku.php?id=en:internationalization
+
+What else should I know? What are we working on right now?
+------------------
+
+We are working hard trying to convert Airesis in a modular Engine.
+
+We want to take out everything which is related to our installation and make it more easy to install.
+
+We are working mainly on the proposals and the layout.
