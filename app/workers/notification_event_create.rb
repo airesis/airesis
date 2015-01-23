@@ -10,7 +10,13 @@ class NotificationEventCreate < NotificationSender
     user = event.user
     organizer = event.groups.first
     if organizer #if there is a group  #todo there are some problems with private and public events and their notifications (???)
-      data = {'event_id' => event.id.to_s, 'subject' => "[#{organizer.name}] Nuovo evento: #{event.title}", 'group' => organizer.name, 'group_id' => organizer.id, 'user_id' => user.id, 'event' => event.title, 'i18n' => 't'}
+      data = {'event_id' => event.id.to_s,
+              'subject' => "[#{organizer.name}] Nuovo evento: #{event.title}",
+              'group' => organizer.name,
+              'group_id' => organizer.id,
+              'user_id' => user.id,
+              'event' => event.title,
+              'i18n' => 't'}
       data['subdomain'] = organizer.subdomain if organizer.certified?
 
       notification_a = Notification.new(notification_type_id: NotificationType::NEW_EVENTS, url: event_url(event), data: data)
