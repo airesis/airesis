@@ -125,7 +125,6 @@ It is used by https://github.com/panthomakos/timezone to obtain timezone based o
 
 MAPS_API_KEY is a browser key provided by google to access map services (https://console.developers.google.com)
 
-
 Internationalization
 --------------------
 
