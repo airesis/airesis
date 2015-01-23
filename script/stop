@@ -1,0 +1,7 @@
+#!/bin/bash
+export RAILS_ENV=production
+rake sunspot:solr:stop
+sidekiqctl stop ./tmp/pids/sidekiq.pid
+/sbin/start-stop-daemon -K 9 -p tmp/pids/rackup.pid
+
+

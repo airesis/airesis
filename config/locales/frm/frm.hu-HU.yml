@@ -1,0 +1,234 @@
+hu:
+  frm:
+    general:
+      forum: Fórum
+      topics: Témakörök
+      topic: Témakör
+      posts: Hozzászólások
+      posts_count:
+        one: 1 hozzászólás
+        other: '%{count} hozzászólások'
+      flagged_for_spam: Spammernek lettél jelölve.
+      cannot_create_topic: Most nem tudsz témát létrehozni.
+      cannot_create_post: Most nem tudsz hozzászólni.
+    access_denied: Nincs jogosultságod ilyet csinálni.
+    admin:
+      area: Adminisztrátori terület
+      back_to_admin: 'Vissza ehhez: Admin'
+      back_to_forums: Vissza a fórumokhoz
+      back_to_groups: Vissza a csoportokhoz
+      forum:
+        moderator_groups: Moderátor csoportok
+        index: Fórumok kezelése
+        new: Új fórum létrehozása
+        new_link: Új fórum
+        deleted: A kiválasztott fórum törölve lett
+        created: A fórum létrejött.
+        not_created: A fórumot nem tudtuk létrehozni
+        updated: A fórum frissítve lett.
+        not_updated: Ezt a fórumot nem lehet frissíteni
+      forums:
+        edit: Szerkesztés
+        delete: Tőrlés
+        category: Kategória
+        delete_confirm: Biztosan törli ezt a fórumot?
+        index:
+          last_post: Utolsó hozzászólás
+          none: Nincs elem
+          moderators: Moderátorok
+          no_category: (Nincs kategória)
+        default_private: Privát fórum
+        default_public: Nyilvános fórum
+        default_private_description: A fórum résztvevői számára fenntartott fórum
+        default_public_description: A fórumto minden Airesis felhasználó látja. Azok a felhasználók is akik nem a csoport tagjai
+      group:
+        index: Csoportok kezelése
+        new: Új csoport
+        created: A csoport sikeresen létrehozva
+        not_created: Nem sikerült létrehozni a csoport
+        deleted: A kiválasztott csoport törölve lett
+        members: 'Tagok  a %{group}-ban'
+      groups:
+        show:
+          add_member: |
+            Új tag
+            
+          add_a_new_member: Új tag hozzáadása
+          current_members: Jelenlegi tagok
+        edit: Szerkesztés
+        delete: Tőrlés
+        name: Név
+      category:
+        index: Fórum kategóriák kezelése
+        new: Új fórum kategória létrehozása
+        edit: 'A %{title} kategória szerkesztése'
+        new_link: Új fórum kategória
+        deleted: A kijelölt fórum kategória törölve lett
+        created: A fórum kategória létre lett hozva
+        not_created: Nem sikerült létrehozni ezt a fórum kategóriát
+        updated: A fórum kategória frissítve lett
+        not_updated: Nem sikerült frissíteni ezt a fórum kategóriát
+      categories:
+        edit: Szerkesztés
+        delete: Tőrlés
+        category: Kategória
+        delete_confirm: Biztosan törlöd ezt a fórumon kategóriát?
+        default_private: Privát szekció
+        default_public: Publikus szekció
+    common:
+      pages: Oldalak
+    errors:
+      not_signed_in: Be kell jelentkezned, hogy ezt a funkciót elérd
+      access_denied: Hozzáférés megtagadva.
+    forum:
+      header: '%{title} megtekintése'
+      forums: Fórumok
+      new: Új fórum létrehozása
+      edit: 'A %{title} fórum szerkesztése'
+      topics_count:
+        one: 1 téma
+        other: '%{count} téma'
+      posts_count:
+        one: 1 hozzászólás
+        other: '%{count} hozzászólás'
+      moderator_tools: Moderációs eszközök
+      topic_tools: téma eszközök
+      admin_tools: Adminisztrátori eszközök
+    forums:
+      index:
+        title: Fórum
+        forum: Fórum
+        views: Megtekintések
+        last_post: 'Utolsó hozzászólás:'
+        none: Nincs elem
+    topic:
+      headings:
+        topic: Téma
+        latest: Legfrissebb
+        posts: Hozzászólások
+        views: Megtekintések
+      moderation:
+        success: A kijelölt téma moderálva lett
+        no_option_selected: Nem választottál ki moderálási opciót
+      received_reply: Egyik témára, melyre feliratkozott, válasz érkezett
+      reply: Válasz
+      quote: Idézet
+      delete: Tőrlés
+      created: A témát sikeresen létrehoztuk
+      new: új téma létrehozása
+      edit: Téma szerkesztése
+      not_created: Ez a téma nem hozható létre
+      deleted: A témád törölve lett
+      cannot_delete: Nem törölhetsz nem saját témát
+      updated: Ez a témakör frissült
+      not_updated: Ez a témakör nem frissíthető
+      subscribed: Feliratkozott erre a témára
+      unsubscribed: Már leiratkozott erről a témakörről
+      none: Jelenleg nincsenek témák ebben a fórumban
+      links:
+        new: Új témakör
+        back_to_topics: Vissza a témakörökhöz
+        edit: Téma szerkesztése
+      not_found: A keresett témakör nem található
+      hidden:
+        "true": Ez a témakör most rejtett
+        "false": Ez a témakör most látható
+      locked:
+        "true": Ez a témakör most zárolt
+        "false": Ez a témakör most fel van oldva
+      pinned:
+        "true": Ez a témakör most rögzített
+        "false": Ez a témakör most rögzítetlen
+    topics:
+      show:
+        reply: Válasz
+        delete: Töröl
+        subscribe: Feliratkozás
+        unsubscribe: Leiratkozás
+        reply_to_topic: Válasz a témára
+        pending_review: Ez a témakör felülvizsgálata folyamatban van. Csak az a felhasználó, aki létrehozta, és a moderátorok nézhetik meg.
+        hide:
+          "true": Témakör megjelenítése
+          "false": Témakör elrejtése
+        lock:
+          "true": Témakör feloldása
+          "false": Témakör zárolása
+        pin:
+          "true": Témakör rögzítésének feloldása
+          "false": Témakör rögzítése
+        related_proposals: Kapcsolódó indítványok
+    post:
+      buttons:
+        reply: Válasz a hozzászólásra
+        edit: Szerkesztés
+      created: A választ sikeresen elküldtük
+      new: Új válasz erre
+      edit: Szerkesztés
+      not_created: A válaszodat nem tudtuk elküldeni
+      not_created_topic_locked: Zárolt témába nem tudsz írni
+      edited: A hozzászólásod szerkesztve lett
+      not_edited: A hozzászólásod nem szerkeszthető
+      deleted: A hozzászólásod törölve lett
+      deleted_with_topic: A hozzászólás és a téma is törölve lett
+      cannot_delete: Nem törölhetsz nem saját hozzászólást
+    posts:
+      moderation:
+        moderate: Moderál
+        approve: Jóváhagy
+        spam: Levélszemét
+        success: A kijelölt hozzászólások moderálva lettek
+      post:
+        pending_review: Ez a témakör felülvizsgálata folyamatban van. Csak az a felhasználó, aki írta, és a moderátorok nézhetik meg.
+        in_reply_to: Válaszul
+    moderation:
+      index:
+        title: '%{forum} moderációs eszközei'
+  helpers:
+    submit:
+      frm_forum:
+        create: Fórum létrehozása
+        update: Fórum frissítése
+      topic:
+        create: Téma létrehozása
+        update: Változtatások mentése
+      frm_group:
+        create: Csoport létrehozása
+      frm_category:
+        create: Kategória létrehozása
+  simple_form:
+    labels:
+      frm_forum:
+        category: Kategória
+        title: Cím
+        description: Leírás
+        moderators: Moderátorok
+        visible_outside: Látható a csoporton kívül
+      topic:
+        subject: Tárgy
+        locked: Zárolt
+        pinned: Rögzítve
+        hidden: Rejtett
+        posts:
+          text: Szöveg
+      frm_category:
+        name: Név
+      post:
+        text: Szöveg
+      frm_group:
+        name: Név
+  time_ago_in_words: '%{time} óta'
+  ago: ' óta'
+  ago_by: ' ezelőtt'
+  by: által
+  started_by: 'Indította: '
+  are_you_sure: Biztos, hogy ezt szeretnéd tenni?
+  lst_post: Utolsó hozzászólás
+  last_post: Utolsó téma
+  back_to_forums: Vissza a fórumokhoz
+  pages:
+    forum_groups:
+      index:
+        create_first: Még nincs egy moderátor csoport sem. Hozzon létre egyet!
+  info:
+    members:
+      ok_message: Felhasználó sikeresen hozzáadva a csoporthoz
