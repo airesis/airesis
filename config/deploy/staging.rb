@@ -21,7 +21,7 @@ role :db,  "#{user_str}@#{server_str}"
 
 server server_str, user: user_str, roles: %w{web app}
 
-set :branch, "staging"
+set :branch, "develop"
 
 set :default_env, { rvm_bin_path: '~/.rvm/bin' }
 
