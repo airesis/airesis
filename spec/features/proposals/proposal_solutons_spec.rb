@@ -3,14 +3,6 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 describe 'create proposal solutions', type: :feature, js: true do
-  before :each do
-
-  end
-
-  after :each do
-
-  end
-
 
   it 'creates solutions in his public proposal' do
     @user = create(:default_user)

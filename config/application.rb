@@ -21,7 +21,7 @@ module Airesis
 
     config.autoload_paths << "#{Rails.root}/lib"
     config.time_zone = 'Rome'
-    config.i18n.default_locale = :hu
+    config.i18n.default_locale = :en
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{yml}')]
     config.i18n.fallbacks =[:en]
 
@@ -40,11 +40,7 @@ module Airesis
       GroupsHelper.init
     end
 
-    if  ENV['MAILER_METHOD'] == 'sendmail' then
-    	config.action_mailer.delivery_method = :sendmail
-    else 
-    	config.action_mailer.delivery_method = :smtp
-    end
+    config.action_mailer.delivery_method = :smtp
 
     config.action_mailer.raise_delivery_errors = true
     config.action_mailer.default_url_options = {host: ENV['MAILER_DEFAULT_HOST']}

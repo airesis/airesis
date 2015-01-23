@@ -3,7 +3,7 @@
 base_locale: en
 ## i18n-tasks detects locales automatically from the existing locale files
 ## uncomment to set locales explicitly
-locales: [hu, it-IT]
+locales: [en, it-IT]
 
 ## i18n-tasks report locale, default: en, available: en, ru
 internal_locale: en

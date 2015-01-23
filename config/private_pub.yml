@@ -1,1 +1,12 @@
-/etc/airesis/production/private_pub.yml
+development:
+  server: "http://localhost:9292/faye/faye"
+  secret_token: "secret"
+production:
+  server: "http://localhost:9292/faye/faye"
+  secret_token: "secret"
+test:
+  server: "http://localhost:9292/faye/faye"
+  secret_token: "secret"
+staging:
+  server: "http://localhost:9292/faye/faye"
+  secret_token: "secret"
