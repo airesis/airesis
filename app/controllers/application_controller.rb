@@ -137,7 +137,7 @@ class ApplicationController < ActionController::Base
     if ENV['SENTRY_PRIVATE_KEY'] && !Rails.env.test? && !Rails.env.development?
       Raven.capture_exception(exception, {
                                            extra: {
-                                               current_user_id: current_user.id
+                                               current_user_id: current_user.try(:id)
                                            }
                                        })
     else

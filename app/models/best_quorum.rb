@@ -147,7 +147,8 @@ class BestQuorum < Quorum
               title: "Votation #{proposal.title}",
               starttime: proposal.vote_starts_at,
               endtime: proposal.vote_ends_at,
-              description: "Votation #{proposal.title}"
+              description: "Votation #{proposal.title}",
+              user: proposal.users.first
           }
           if proposal.private?
             @event = proposal.groups.first.events.create!(event_p)
