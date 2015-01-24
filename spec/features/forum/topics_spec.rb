@@ -107,6 +107,23 @@ describe "topics", type: :feature, js: true do
         end
       end
     end
+
+    context "updating a topic" do
+      it "can update successfully" do
+        visit group_forum_topic_path(group, forum, other_topic)
+        within_left_menu do
+          click_link(I18n.t('frm.topic.links.edit'))
+        end
+        topic_name = Faker::Lorem.sentence
+
+        fill_in I18n.t('simple_form.labels.topic.subject'), with: topic_name
+
+        click_button I18n.t('helpers.submit.topic.update')
+
+        expect(page).to have_content(I18n.t("frm.topic.updated"))
+        expect(page).to have_content(topic_name)
+      end
+    end
   end
 
   #todo private forum should not be visible

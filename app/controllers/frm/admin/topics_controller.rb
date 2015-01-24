@@ -4,7 +4,7 @@ module Frm
       before_filter :find_topic
 
       def update
-        if @topic.update_attributes(params[:frm_topic], as: :admin)
+        if @topic.update(topic_params)
           flash[:notice] = t("frm.topic.updated")
           redirect_to group_forum_topic_url(@group,@topic.forum,@topic)
         else
