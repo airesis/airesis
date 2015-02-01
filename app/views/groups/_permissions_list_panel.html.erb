@@ -1,54 +1,61 @@
-<% if @group.enable_areas && current_user.scoped_areas(@group).count > 0 %>
-    <div id="tabs">
-      <ul>
-        <li><%= link_to t('pages.users.show.group_level_permission_title'), '#group_id' %></li>
-        <% current_user.scoped_areas(@group).each do |area| %>
-            <li><%= link_to area.name, "##{area.id}" %></li>
-        <% end %>
-      </ul>
-      <div id="group_id">
-        <strong><%= t('pages.users.show.what_can_i_do') %></strong>
-        <ul>
-          <li>
-            <%= @actions.order(:seq).map { |a| a.description }.join('</li><li>').html_safe %>
-          </li>
-        </ul>
-
-        <strong><%= t('pages.users.show.what_i_cant_do') %></strong>
-        <ul>
-          <li>
-            <%= GroupAction.where(['id not in (?)', @actions.select('group_actions.id').order(:seq)]).map { |a| a.description }.join('</li><li>').html_safe %>
-          </li>
-        </ul>
-      </div>
-      <% current_user.scoped_areas(@group).each do |area| %>
-          <div id="<%= area.id %>">
+<% if @group.portavoce.include? current_user %>
+    <strong><%= t('pages.users.show.admin_permissions')%></strong>
+    <ul>
+      <%= GroupAction.order(:seq).map { |a| "<li>#{a.description}</li>" }.join('').html_safe %>
+    </ul>
+<% else %>
+    <% if @group.enable_areas && current_user.scoped_areas(@group).count > 0 %>
+        <div id="tabs">
+          <ul>
+            <li><%= link_to t('pages.users.show.group_level_permission_title'), '#group_id' %></li>
+            <% current_user.scoped_areas(@group).each do |area| %>
+                <li><%= link_to area.name, "##{area.id}" %></li>
+            <% end %>
+          </ul>
+          <div id="group_id">
             <strong><%= t('pages.users.show.what_can_i_do') %></strong>
             <ul>
               <li>
-                <%= area.area_participations.find_by_user_id(current_user.id).area_role.area_actions.order(:seq).map { |a| a.description }.join('</li><li>').html_safe %>
+                <%= @actions.order(:seq).map { |a| a.description }.join('</li><li>').html_safe %>
               </li>
             </ul>
 
             <strong><%= t('pages.users.show.what_i_cant_do') %></strong>
             <ul>
               <li>
-                <%= GroupAction.where(['id in (?) and id not in (?)', DEFAULT_AREA_ACTIONS, area.area_participations.find_by_user_id(current_user.id).area_role.area_actions.select('group_actions.id')]).map { |a| a.description }.join('</li><li>').html_safe %>
+                <%= GroupAction.where.not(id: @actions.select('group_actions.id')).order(:seq).map { |a| a.description }.join('</li><li>').html_safe %>
               </li>
             </ul>
           </div>
-      <% end %>
-    </div>
-<% else %>
-    <strong><%= t('pages.users.show.what_can_i_do') %></strong>
-    <ul>
-      <%= @actions.order(:seq).map { |a| "<li>#{a.description}</li>" }.join('').html_safe %>
-    </ul>
+          <% current_user.scoped_areas(@group).each do |area| %>
+              <div id="<%= area.id %>">
+                <strong><%= t('pages.users.show.what_can_i_do') %></strong>
+                <ul>
+                  <li>
+                    <%= area.area_participations.find_by(user_id: current_user.id).area_role.area_actions.order(:seq).map { |a| a.description }.join('</li><li>').html_safe %>
+                  </li>
+                </ul>
 
-    <strong><%= t('pages.users.show.what_i_cant_do') %></strong>
-    <ul>
-      <%= GroupAction.excluding_ids(@actions.select('group_actions.id').order(:seq).all).map { |a| "<li>#{a.description}</li>" }.join('').html_safe %>
-    </ul>
+                <strong><%= t('pages.users.show.what_i_cant_do') %></strong>
+                <ul>
+                  <li>
+                    <%= GroupAction.where(['id in (?) and id not in (?)', DEFAULT_AREA_ACTIONS, area.area_participations.find_by(user_id: current_user.id).area_role.area_actions.select('group_actions.id')]).map { |a| a.description }.join('</li><li>').html_safe %>
+                  </li>
+                </ul>
+              </div>
+          <% end %>
+        </div>
+    <% else %>
+        <strong><%= t('pages.users.show.what_can_i_do') %></strong>
+        <ul>
+          <%= @actions.order(:seq).map { |a| "<li>#{a.description}</li>" }.join('').html_safe %>
+        </ul>
+
+        <strong><%= t('pages.users.show.what_i_cant_do') %></strong>
+        <ul>
+          <%= GroupAction.excluding_ids(@actions.select('group_actions.id').order(:seq).all).map { |a| "<li>#{a.description}</li>" }.join('').html_safe %>
+        </ul>
+    <% end %>
 <% end %>
 
 

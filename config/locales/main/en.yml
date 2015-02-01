@@ -55,6 +55,7 @@ en:
         what_i_cant_do: "What can't I do?"
         certified_from: "Certified from"
         group_level_permission_title: "Group level permissions"
+        admin_permissions: "You are administrator of this group and you have all permissions"
       send_message:
         subject_label: "Subject"
         body_label: "Body"

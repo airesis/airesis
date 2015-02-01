@@ -55,6 +55,7 @@ it-IT:
         what_i_cant_do: Cosa NON posso fare?
         certified_from: Certificato dal
         group_level_permission_title: Permessi a livello di gruppo
+        admin_permissions: "Sei amministratore di questo gruppo e disponi di tutti i permessi"
       send_message:
         subject_label: Oggetto
         body_label: Testo

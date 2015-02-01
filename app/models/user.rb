@@ -237,23 +237,17 @@ class User < ActiveRecord::Base
   def scoped_areas(group_id, abilitation_id=nil)
     group = Group.find(group_id)
     ret = nil
-    puts "hello"
-    puts "group_id: #{group_id}: #{group}"
     if group.portavoce.include? self
-      puts "im admin"
       ret = group.group_areas
     elsif abilitation_id
-      puts "not admin"
       ret = group_areas.joins(area_roles: :area_action_abilitations)
           .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_participations.area_role_id = area_roles.id', group_id, abilitation_id])
           .uniq
     else
-      puts "no permi"
       ret = group_areas.joins(:area_roles)
           .where(['group_areas.group_id = ?', group_id])
           .uniq
     end
-    puts ret.pluck(&:id)
     ret
   end
 

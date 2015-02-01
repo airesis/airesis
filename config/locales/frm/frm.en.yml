@@ -198,6 +198,7 @@ en:
         create: Create group
       frm_category:
         create: Create category
+        update: Update category
   simple_form:
     labels:
       frm_forum:
