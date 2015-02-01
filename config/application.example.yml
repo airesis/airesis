@@ -46,15 +46,18 @@ NEWSLETTER_PREFERENCES_URL: ""
 NEWSLETTER_HOME_URL: ""
 
 #####################
-#error reporting addresses
+# feedbacks (optional)
+# set these values to send and receive feedbacks from users
 #####################
+FEEDBACK_SENDER: "Feedback <feedback@example.com>"
+FEEDBACK_RECEIVER: "help@example.com"
 
-ERROR_SENDER: ""
-#can also be a list of addresses separated by comma
-ERROR_RECEIVER: ""
-
-#if you add this line exceptions will not be delivered
-DISABLE_ERROR_NOTIFICATION: ""
+#####################
+# email settings (required)
+# email addresses for all email services
+#####################
+DEFAULT_FROM: "App <info@example.com>"
+NOREPLY_EMAIL: "No Reply <noreply@example.com>"
 
 #####################
 #redmine integration (optional)

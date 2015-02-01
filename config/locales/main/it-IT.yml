@@ -1575,3 +1575,4 @@ it-IT:
   frm:
     forum:
       title: "Nuovo forum"
+  feedback_subject: "%{time} - Nuova segnalazione"

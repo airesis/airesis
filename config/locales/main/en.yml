@@ -1573,3 +1573,4 @@ en:
   placeholder:
     find: "Find Stuff"
   keep_reading: "keep reading"
+  feedback_subject: "%{time} - New feedback"

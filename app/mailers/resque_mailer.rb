@@ -1,7 +1,7 @@
 #encoding: utf-8
 class ResqueMailer < ActionMailer::Base
   helper ProposalsHelper, EmailHelper, GroupsHelper
-  default from: "Airesis <info@airesis.it>"
+  default from: ENV['DEFAULT_FROM']
 
   layout :choose_layout
 
@@ -32,26 +32,26 @@ class ResqueMailer < ActionMailer::Base
     subject = @alert.email_subject
     template_name = TEMPLATES[@alert.notification.notification_type_id] || 'notification'
     if to_id
-      mail(to: "discussion+#{to_id}@airesis.it", bcc: @alert.user.email, subject: subject, template_name: template_name)
+      mail(to: "discussion+#{to_id}@airesis.it", bcc: @alert.user.email, subject: subject, template_name: template_name)  #todo extract email
     else
-      mail(to: @alert.user.email, from: "Airesis <noreply@airesis.it>", subject: subject, template_name: template_name)
+      mail(to: @alert.user.email, from: ENV['NOREPLY_EMAIL'], subject: subject, template_name: template_name)
     end
   end
 
   def admin_message(msg)
     @msg = msg
-    mail(to: 'coorasse+daily@gmail.com', subject: ENV['APP_SHORT_NAME'] + " - Messaggio di amministrazione")
+    mail(to: ENV['ADMIN_EMAIL'], subject: ENV['APP_SHORT_NAME'] + " - Messaggio di amministrazione")
   end
 
   def report_message(report_id)
     @report = ProposalCommentReport.find(report_id)
 
-    mail(to: 'coorasse+report@gmail.com', subject: ENV['APP_SHORT_NAME'] + " - Segnalazione Contributo")
+    mail(to: ENV['ADMIN_EMAIL'], subject: ENV['APP_SHORT_NAME'] + " - Segnalazione Contributo")
   end
 
 
   def info_message(msg)
-    mail(to: 'coorasse+info@gmail.com', subject: ENV['APP_SHORT_NAME'] + " - Messaggio di informazione")
+    mail(to: ENV['ADMIN_EMAIL'], subject: ENV['APP_SHORT_NAME'] + " - Messaggio di informazione")
   end
 
   #invia un invito ad iscriversi al gruppo
@@ -67,7 +67,7 @@ class ResqueMailer < ActionMailer::Base
     @body = body
     @from = User.find(from_id)
     @to = User.find(to_id)
-    mail(to: @to.email, from: "Airesis <noreply@airesis.it>", reply_to: @from.email, subject: subject)
+    mail(to: @to.email, from: ENV['NOREPLY_EMAIL'], reply_to: @from.email, subject: subject)
   end
 
   def massive_email(from_id, to_ids, group_id, subject, body)
@@ -76,7 +76,7 @@ class ResqueMailer < ActionMailer::Base
     @group = Group.find(group_id)
     @user = @from
     @to = @group.participants.where('users.id in (?)', to_ids.split(','))
-    mail(bcc: @to.map { |u| u.email }, from: "Airesis <noreply@airesis.it>", reply_to: @from.email, to: "test@airesis.it", subject: subject)
+    mail(bcc: @to.map { |u| u.email }, from: ENV['NOREPLY_EMAIL'], reply_to: @from.email, to: "test@airesis.it", subject: subject)   #todo extract email
   end
 
 
@@ -96,14 +96,13 @@ class ResqueMailer < ActionMailer::Base
 
   def feedback(feedback_id)
     @feedback = SentFeedback.find(feedback_id)
-    @feedback.email ?
-        mail(to: 'help@airesis.it', from: @feedback.email, subject: "#{l Time.now} - Nuova segnalazione ") : #todo extract this email address
-        mail(to: 'help@airesis.it', from: "Feedback <feedback@airesis.it>", subject: "#{l Time.now} - Nuova segnalazione") #todo extract this email address
+    to_email = @feedback.email || ENV['FEEDBACK_SENDER']
+    mail(to: ENV['FEEDBACK_RECEIVER'], from: to_email, subject: t('feedback_subject', time: (l Time.now)))
   end
 
   def blocked(user_id)
     @user = User.find(user_id)
-    mail(to: @user.email, from: "Airesis <noreply@airesis.it>", subject: 'Cancellazione account')
+    mail(to: @user.email, from: ENV['NOREPLY_EMAIL'], subject: 'Cancellazione account')
   end
 
   def topic_reply(post_id, subscriber_id)
@@ -111,12 +110,12 @@ class ResqueMailer < ActionMailer::Base
     @post = Frm::Post.find(post_id)
     @group = @post.forum.group
     @user = User.find(subscriber_id)
-    mail(from: "Airesis Forum <replytest+#{@post.token}@airesis.it>", to: @user.email, subject: "[#{@group.name}] #{@post.topic.subject}")
+    mail(from: "Airesis Forum <replytest+#{@post.token}@airesis.it>", to: @user.email, subject: "[#{@group.name}] #{@post.topic.subject}")   #todo extract email
   end
 
 
   def test_mail
-    mail(to: "coorasse@gmail.com", subject: "Test Redis To Go")
+    mail(to: ENV['ADMIN_EMAIL'], subject: "Test Redis To Go")
   end
 
   def few_users_a(group_id)
