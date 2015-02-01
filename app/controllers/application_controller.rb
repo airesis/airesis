@@ -133,7 +133,6 @@ class ApplicationController < ActionController::Base
 
 
   def log_error(exception)
-    puts ENV['SENTRY_PRIVATE_KEY']
     if ENV['SENTRY_PRIVATE_KEY'] && !Rails.env.test? && !Rails.env.development?
       Raven.capture_exception(exception, {
                                            extra: {
@@ -179,8 +178,8 @@ class ApplicationController < ActionController::Base
     log_error(exception) if exception
     respond_to do |format|
       format.js {
-        flash.now[:error] = 'Sorry. Service unavailable. Try again in few minutes.'
-        render template: "/errors/solr_unavailable.js.erb", status: 500, layout: 'application'
+        flash.now[:error] = 'Page not available.'
+        render template: "/errors/solr_unavailable.js.erb", status: 404, layout: 'application'
       }
       format.html { render "errors/404", status: 404, layout: 'application' }
     end

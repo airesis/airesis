@@ -22,7 +22,6 @@ class ProposalsController < ApplicationController
 
   before_filter :check_page_alerts, only: :show
 
-
   def index
     populate_search
 
@@ -626,7 +625,7 @@ class ProposalsController < ApplicationController
   end
 
   def render_404(exception=nil)
-    #log_error(exception) if exception
+    log_error(exception) if exception
     respond_to do |format|
       @title = I18n.t('error.error_404.proposals.title')
       @message = I18n.t('error.error_404.proposals.description')
