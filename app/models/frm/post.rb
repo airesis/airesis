@@ -100,7 +100,7 @@ module Frm
     end
 
     def owner_or_moderator?(other_user)
-      user == other_user || other_user.can_moderate_forem_forum?(self.forum) || other_user.forem_admin?(self.group)
+      user == other_user || other_user.can_moderate_forem_forum?(forum) || other_user.forem_admin?(group)
     end
 
     protected

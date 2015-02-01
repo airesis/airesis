@@ -1,3 +1,4 @@
+#todo refactor and use cancan
 module Frm
   class PostsController < Frm::ApplicationController
     before_filter :authenticate_user!
@@ -99,7 +100,8 @@ module Frm
     end
 
     def find_topic
-      @topic = Frm::Topic.friendly.find params[:topic_id]
+      @forum = Frm::Forum.friendly.find(params[:forum_id])
+      @topic = @forum.topics.friendly.find(params[:topic_id])
     end
 
     def find_post_for_topic
@@ -122,7 +124,7 @@ module Frm
     end
 
     def find_reply_to_post
-      @reply_to_post = @topic.posts.find_by_id(params[:reply_to_id])
+      @reply_to_post = @topic.posts.find_by(id: params[:reply_to_id])
     end
   end
 end
