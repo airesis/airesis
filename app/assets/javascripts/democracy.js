@@ -1,5 +1,7 @@
-!window.console && (console = { log: function () {
-}});
+!window.console && (console = {
+    log: function () {
+    }
+});
 
 var $viewport;
 
@@ -377,7 +379,7 @@ function select2town(element) {
             } else {
                 $.ajax({
                     url: '/comunes',
-                    data: { q: query.term },
+                    data: {q: query.term},
                     dataType: 'json',
                     type: 'GET',
                     success: function (data) {
@@ -395,7 +397,12 @@ function select2town(element) {
 
 function disegnaCountdown() {
     $('div[data-countdown]').each(function () {
-        $(this).countdown($.extend({since: new Date($(this).data('time')), significant: 1, format: 'ms', layout: Airesis.i18n.countdown}, $.countdown.regionalOptions[Airesis.i18n.locale]));
+        $(this).countdown($.extend({
+            since: new Date($(this).data('time')),
+            significant: 1,
+            format: 'ms',
+            layout: Airesis.i18n.countdown
+        }, $.countdown.regionalOptions[Airesis.i18n.locale]));
     })
 }
 
@@ -529,8 +536,8 @@ function sign_all_as_read(id) {
         dataType: 'js',
         complete: function (data) {
             reset_alerts_number();
-            $('.mess.new').each(function () {
-                $(this).removeClass('new');
+            $('.card.mess').each(function () {
+                $(this).addClass('old');
                 var proposal_id = $(this).data('proposal-id');
                 if (proposal_id) {
                     $('.alert.notify[data-proposal-id=' + proposal_id + ']').each(function () {
@@ -579,7 +586,7 @@ function poll() {
                 row_container.append(column_image).append(column_message)
                 column_message.append($('<p class="p2">' + alert.text + '</p>'));
                 column_message.append($('<div class="p1">' + alert.created_at + '</div>'));
-                column_image.append($('<img src="'+alert.image+'"/>'));
+                column_image.append($('<img src="' + alert.image + '"/>'));
                 alert_container.append(row_container);
                 alert_container.append('<div class="clearboth"></div>');
                 if (!alert.checked) {
@@ -677,7 +684,7 @@ function addQueryParam(url, key, val) {
         for (i = 0; i < qs_parts.length; i++) {
             var qs_pair = qs_parts[i].split("=");
             if (qs_pair[0] == key) {
-                qs_parts[ i ] = key + '=' + encodeURIComponent(val);
+                qs_parts[i] = key + '=' + encodeURIComponent(val);
                 break;
             }
         }
@@ -722,7 +729,7 @@ function fitRightMenu(fetched) {
 function formatCategory(state) {
     if (!state.id) return state.text; // optgroup
     var imgsrc = $(state.element).data('imagesrc');
-    return "<img src=\""+imgsrc+"\"/> " + state.text;
+    return "<img src=\"" + imgsrc + "\"/> " + state.text;
 }
 
 //custom formatter for quora in select2 dropdown
@@ -761,7 +768,7 @@ function initTextAreaTag() {
 
 function airesis_close_reveal() {
     "use strict";
-    $('.reveal-modal:visible').foundation('reveal','close');
+    $('.reveal-modal:visible').foundation('reveal', 'close');
 }
 
 function airesis_reveal(element_, remove_on_close) {
@@ -811,8 +818,8 @@ jQuery.uaMatch = function (ua) {
         [];
 
     return {
-        browser: match[ 1 ] || "",
-        version: match[ 2 ] || "0"
+        browser: match[1] || "",
+        version: match[2] || "0"
     };
 };
 
@@ -822,7 +829,7 @@ if (!jQuery.browser) {
     browser = {};
 
     if (matched.browser) {
-        browser[ matched.browser ] = true;
+        browser[matched.browser] = true;
         browser.version = matched.version;
     }
 
