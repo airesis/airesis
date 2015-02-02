@@ -83,16 +83,16 @@ class Proposal < ActiveRecord::Base
   accepts_nested_attributes_for :solutions, allow_destroy: true
 
   #tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte
-  scope :current, -> { where(proposal_state_id: [ProposalState::VALUTATION, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING]) }
+  scope :current, -> { where(proposal_state_id: [ProposalState::VALUTATION, ProposalState::WAIT_DATE, ProposalState::WAIT, ProposalState::VOTING]) }
   #tutte le proposte in valutazione
   scope :in_valutation, -> { where(proposal_state_id: ProposalState::VALUTATION) }
   #tutte le proposte in attesa di votazione o attualmente in votazione
 
 
   #retrieve proposals in a state before votation, exclude petitions
-  scope :before_votation, -> { where(['proposal_state_id in (?) and proposal_type_id != ?', [ProposalState::VALUTATION, PROP_WAIT_DATE, PROP_WAIT], 11]) }
+  scope :before_votation, -> { where(['proposal_state_id in (?) and proposal_type_id != ?', [ProposalState::VALUTATION, ProposalState::WAIT_DATE, ProposalState::WAIT], 11]) }
 
-  scope :in_votation, -> { where(proposal_state_id: [ProposalState::WAIT_DATE, ProposalState::WAIT, PROP_VOTING]) }
+  scope :in_votation, -> { where(proposal_state_id: [ProposalState::WAIT_DATE, ProposalState::WAIT, ProposalState::VOTING]) }
 
   #waiting for the votation to start (already choosen)
   scope :waiting, -> { where(proposal_state_id: ProposalState::WAIT) }
@@ -280,7 +280,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def is_current?
-    [ProposalState::VALUTATION, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING].include? proposal_state_id
+    [ProposalState::VALUTATION, ProposalState::WAIT_DATE, ProposalState::WAIT, ProposalState::VOTING].include? proposal_state_id
   end
 
   #restituisce 'true' se la proposta è attualmente anonima, ovvero è stata definita come tale ed è in dibattito

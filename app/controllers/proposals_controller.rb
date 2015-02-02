@@ -312,7 +312,7 @@ class ProposalsController < ApplicationController
   end
 
   def set_votation_date
-    if @proposal.proposal_state_id != PROP_WAIT_DATE
+    if @proposal.proposal_state_id != ProposalState::WAIT_DATE
       flash[:error] = I18n.t('error.proposals.proposal_not_waiting_date')
       respond_to do |format|
         format.js { render :update do |page|

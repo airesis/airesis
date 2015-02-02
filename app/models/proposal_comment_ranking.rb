@@ -4,9 +4,9 @@ class ProposalCommentRanking < ActiveRecord::Base
   belongs_to :proposal_comment, class_name: 'ProposalComment', foreign_key: :proposal_comment_id
   
   
-  scope :positives, -> {where(ranking_type_id: POSITIVE_VALUTATION)}
-  scope :negatives, -> {where(ranking_type_id: NEGATIVE_VALUTATION)}
-  scope :neutrals, -> {where(ranking_type_id: NEUTRAL_VALUTATION)}
+  scope :positives, -> {where(ranking_type_id: RankingType::POSITIVE)}
+  scope :negatives, -> {where(ranking_type_id: RankingType::NEGATIVE)}
+  scope :neutrals, -> {where(ranking_type_id: RankingType::NEUTRAL)}
 
   after_save :update_counter_cache
   after_destroy :update_counter_cache
