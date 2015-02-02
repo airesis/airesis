@@ -1577,3 +1577,4 @@ it-IT:
     forum:
       title: "Nuovo forum"
   feedback_subject: "%{time} - Nuova segnalazione"
+  delete_event_confirm: "Sei sicuro di voler eliminare questo evento?"

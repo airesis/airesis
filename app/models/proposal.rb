@@ -703,6 +703,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def assign_quorum
+    group = self.group_proposals.first.try(:group)
     group_area = GroupArea.find(group_area_id) if group_area_id.present?
     copy = quorum.dup #make a copy of the assigned quorum and work on it
     starttime = Time.now

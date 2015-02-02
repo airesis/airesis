@@ -11,7 +11,6 @@ class ProposalPresentation < ActiveRecord::Base
 
 
   def skip_notifications?
-    puts "skip notifications? #{acceptor.nil?}"
     acceptor.nil?
   end
 

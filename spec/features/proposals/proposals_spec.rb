@@ -183,11 +183,11 @@ describe "create a proposal in his group", type: :feature, js: true, ci_ignore: 
         fill_in_ckeditor 'proposal_sections_attributes_0_paragraphs_attributes_0_content', with: Faker::Lorem.paragraph
         click_button I18n.t('buttons.next')
         select2("15 giorni", xpath: "//div[@id='s2id_proposal_quorum_id']")
-        wait_for_ajax
+        sleep 2
         click_button I18n.t('pages.proposals.new.create_button')
       end
       page_should_be_ok
-      wait_for_ajax
+      sleep 2
       proposal2 = Proposal.order(created_at: :desc).first
       expect(page.current_path).to eq(edit_group_proposal_path(group, proposal2))
       if index == 2

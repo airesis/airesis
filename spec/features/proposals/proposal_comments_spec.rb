@@ -100,8 +100,8 @@ describe 'create proposal comments', type: :feature, js: true do
     visit group_proposal_path(@group,@proposal)
     page_should_be_ok
     expect(page).to have_content @proposal.title
-    @ability.should be_able_to(:show, @proposal)
-    @ability.should be_able_to(:participate, @proposal)
+    expect(@ability).to be_able_to(:show, @proposal)
+    expect(@ability).to be_able_to(:participate, @proposal)
 
     comment = Faker::Lorem.sentence
     within('#proposalNewComment') do
@@ -119,10 +119,13 @@ describe 'create proposal comments', type: :feature, js: true do
     comments = []
     page.all(:css, '.contribute-button').each do |el|
       el.click
-      within('.suggestion_right') do
+      section_id = el['data-section_id']
+      sleep 1
+      within(".suggestion_right[data-section_id=\"#{section_id}\"]") do
+        puts "inside #{section_id}"
         icomment = Faker::Lorem.sentence
         comments << icomment
-        fill_in 'proposal_comment_content', with: icomment
+        find(:css,'.blogNewCommentField').set icomment
         click_button I18n.t('pages.proposals.show.send_contribute_button')
       end
       expect(page).to have_content comment

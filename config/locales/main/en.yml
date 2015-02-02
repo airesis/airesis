@@ -1575,3 +1575,4 @@ en:
     find: "Find Stuff"
   keep_reading: "keep reading"
   feedback_subject: "%{time} - New feedback"
+  delete_event_confirm: "Are you sure to delete this comment?"

@@ -116,7 +116,7 @@
                       <i class="fa fa-pencil"></i>
                       <%= t('buttons.edit') %>
                   <% end if can? :update, @event %>
-                  <%= link_to @event, method: :delete, class: 'btn red', confirm: 'Sei sicuro di voler eliminare questo evento?', data: {disable_with: t('loading')} do %>
+                  <%= link_to @event, method: :delete, class: 'btn red', data: {confirm: t('delete_event_confirm'), disable_with: t('loading')} do %>
                       <i class="fa fa-trash-o"></i>
                       <%= t('buttons.delete') %>
                   <% end if can? :destroy, @event %>
