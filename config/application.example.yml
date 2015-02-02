@@ -104,9 +104,21 @@ CAP_STAGING_SERVER: ""
 
 
 ##############
-#sentry settings. leeave empty to not use it
+#sentry settings. remove these keys to not use it (leaving them empty will throw an error)
 #############
 
 SENTRY_PUBLIC_KEY: ""
 SENTRY_PRIVATE_KEY: ""
 SENTRY_PORT: ""
+
+#############
+# environment constants (leave default values for default behaviour, change them to change platform behaviour)
+#############
+
+#percentage of active users on the platform. this number is used to calculate quorums in the open space only
+#the calculation is quorum.percentage * (users * ACTIVE_USER_PERCENTAGE)
+#if you have 100 registered users and a 50% quorum the number of valutations and votes is 50 (0.5 * (100 * 1)).
+#if you change this value to 30, then the number of valutations and votes will be 15 (0.5 * (100 * 0.3)).
+#if you change this value to 10, then the number of valutations and votes will be 5 (0.5 * (100 * 0.1)).
+#this is useful to provide accessible quorums in the open space. maybe one day will not be necessary
+ACTIVE_USERS_PERCENTAGE: "100"

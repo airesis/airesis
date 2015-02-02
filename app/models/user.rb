@@ -143,6 +143,7 @@ class User < ActiveRecord::Base
   scope :confirmed, -> { where 'confirmed_at is not null' }
   scope :unconfirmed, -> { where 'confirmed_at is null' }
   scope :certified, -> { where(user_type_id: UserType::CERTIFIED) }
+  scope :count_active, -> { count.to_f / ENV['ACTIVE_USERS_PERCENTAGE'].to_f }
 
   scope :autocomplete, ->(term) { where("lower(users.name) LIKE :term or lower(users.surname) LIKE :term", {term: "%#{term.downcase}%"}).order("users.surname desc, users.name desc").limit(10) }
 

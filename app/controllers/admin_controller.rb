@@ -93,7 +93,6 @@ class AdminController < ManagerController
     redirect_to admin_panel_path
   end
 
-
   def test_exceptions
     raise Exception.new("Test this exception!")
   end

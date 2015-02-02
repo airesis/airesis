@@ -542,7 +542,7 @@ class Proposal < ActiveRecord::Base
     self.valutations = 0
     self.rank = 0
 
-    NotificationProposalAbandoned.perform_in(1.minute,id, participants.map(&:id))
+    NotificationProposalAbandoned.perform_in(1.minute, id, participants.map(&:id))
     #and authors
     proposal_presentations.destroy_all
 
@@ -703,63 +703,69 @@ class Proposal < ActiveRecord::Base
   end
 
   def assign_quorum
-    group = self.group_proposals.first.try(:group)
-    group_area = GroupArea.find(self.group_area_id) unless self.group_area_id.to_s.empty?
-
-    quorum = self.quorum
-    copy = quorum.dup
+    group_area = GroupArea.find(group_area_id) if group_area_id.present?
+    copy = quorum.dup #make a copy of the assigned quorum and work on it
     starttime = Time.now
-
+    #the quorum has minutes defined. calculate started_at and ends_at using these minutes
     copy.started_at = starttime
     if quorum.minutes
-      endtime = starttime + self.quorum.minutes.minutes
+      endtime = starttime + quorum.minutes.minutes
       copy.ends_at = endtime
     end
-    #se il numero di valutazioni è definito
-    if group #calcolo il numero in base ai partecipanti
-      if group_area #se la proposta è in un'area di lavoro farà riferimento solo agli utenti di quell'area
-        copy.valutations = ((quorum.percentage.to_f * group_area.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count.to_f) / 100).floor
-        copy.vote_valutations = ((quorum.vote_percentage.to_f * group_area.scoped_participants(GroupAction::PROPOSAL_VOTE).count.to_f) / 100).floor #todo we must calculate it before votation
-      else #se la proposta è di gruppo sarà basato sul numero di utenti con diritto di partecipare
-        copy.valutations = ((quorum.percentage.to_f * group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count.to_f) / 100).floor
-        copy.vote_valutations = ((quorum.vote_percentage.to_f * group.scoped_participants(GroupAction::PROPOSAL_VOTE).count.to_f) / 100).floor #todo we must calculate it before votation
-      end
-    else #calcolo il numero in base agli utenti del portale (il 10%)
-      copy.valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor
-      copy.vote_valutations = ((quorum.vote_percentage.to_f * User.count.to_f) / 1000).floor
-    end
-    #deve essere almeno 1!
-    copy.valutations = [copy.valutations + 1, 1].max #we always add 1 for new quora
-    copy.vote_valutations = [copy.vote_valutations + 1, 1].max #we always add 1 for new quora
 
-    copy.public = false
+
+    #todo move quorum build in quorum model
+    base_valutations = 0
+    base_vote_valutations = 0
+    if group_area #we have to calculate the number of valutations based on group area participants
+      base_valutations = group_area.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count.to_f
+      base_vote_valutations = group_area.scoped_participants(GroupAction::PROPOSAL_VOTE).count.to_f
+    elsif group #we have to calculate the number of valutations based on group participants
+      base_valutations = group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count.to_f
+      base_vote_valutations = group.scoped_participants(GroupAction::PROPOSAL_VOTE).count.to_f
+    else #we calculate the number of valutations based on application users number
+      base_vote_valutations = base_valutations = User.count_active
+    end
+    copy.valutations = ((quorum.percentage.to_f * base_valutations) / 100).floor
+    copy.vote_valutations = ((quorum.vote_percentage.to_f * base_vote_valutations) / 100).floor #todo we must calculate it before votation because there can be new users in the meantime
+
+    #always add 1 and at least 1. todo max is useless
+    copy.valutations = [copy.valutations + 1, 1].max
+    copy.vote_valutations = [copy.vote_valutations + 1, 1].max
+
+    copy.public = false #assigned quorum are never public
     copy.assigned = true
     copy.save
-    self.quorum_id = copy.id
+    self.quorum_id = copy.id #replace the quorum with the copy
 
     #if is time fixed you can choose immediatly vote period
     return unless copy.time_fixed?
-    #if the user choosed it
-    return unless votation && (votation[:later] != 'true')
-    #if he took a vote period already existing
-    if (votation[:choise] && (votation[:choise] == 'preset')) || (!votation[:choise] && votation[:vote_period_id].present?)
-      self.vote_event = Event.find(votation[:vote_period_id])
-      if vote_event.starttime < Time.now + copy.minutes.minutes + DEBATE_VOTE_DIFFERENCE #if the vote period start before the end of debate there is an error
-        errors.add(:base, I18n.t('error.proposals.vote_period_incorrect'))
+    #if the user chose it
+    if votation && (votation[:later] != 'true')
+      #if he took a vote period already existing
+      if (votation[:choise] && (votation[:choise] == 'preset')) || (!votation[:choise] && votation[:vote_period_id].present?)
+        self.vote_event = Event.find(votation[:vote_period_id])
+        if vote_event.starttime < Time.now + copy.minutes.minutes + DEBATE_VOTE_DIFFERENCE #if the vote period start before the end of debate there is an error
+          errors.add(:base, I18n.t('error.proposals.vote_period_incorrect'))
+        end
+      else #if he created a new period
+        start = ((votation[:start_edited].present?) && votation[:start]) || (copy.ends_at + DEBATE_VOTE_DIFFERENCE) #look if he edited the starttime or not
+        raise Exception 'error' unless votation[:end].present?
+        self.vote_starts_at = start
+        self.vote_ends_at = votation[:end]
+        if (vote_starts_at - copy.ends_at) < DEBATE_VOTE_DIFFERENCE
+          errors.add(:base, I18n.t('error.proposals.vote_period_soon', time: DEBATE_VOTE_DIFFERENCE.to_i / 60))
+        end
+        if vote_ends_at < (vote_starts_at + 10.minutes)
+          errors.add(:base, I18n.t('error.proposals.vote_period_short'))
+        end
       end
-    else #if he created a new period
-      start = ((votation[:start_edited].present?) && votation[:start]) || (copy.ends_at + DEBATE_VOTE_DIFFERENCE) #look if he edited the starttime or not
-      raise Exception 'error' unless votation[:end].present?
-      self.vote_starts_at = start
-      self.vote_ends_at = votation[:end]
-      if (vote_starts_at - copy.ends_at) < DEBATE_VOTE_DIFFERENCE
-        errors.add(:base, I18n.t('error.proposals.vote_period_soon', time: DEBATE_VOTE_DIFFERENCE.to_i / 60))
-      end
-      if vote_ends_at < (vote_starts_at + 10.minutes)
-        errors.add(:base, I18n.t('error.proposals.vote_period_short'))
-      end
+      self.vote_defined = true
+    else
+      self.vote_defined = false
+      self.vote_starts_at = nil
+      self.vote_ends_at = nil
     end
-    self.vote_defined = true
   end
 
   def generate_nickname
