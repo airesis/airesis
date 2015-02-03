@@ -122,7 +122,6 @@ describe 'create proposal comments', type: :feature, js: true do
       section_id = el['data-section_id']
       sleep 1
       within(".suggestion_right[data-section_id=\"#{section_id}\"]") do
-        puts "inside #{section_id}"
         icomment = Faker::Lorem.sentence
         comments << icomment
         find(:css,'.blogNewCommentField').set icomment

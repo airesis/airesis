@@ -62,9 +62,7 @@ describe "create a proposal in his group", type: :feature, js: true, ci_ignore: 
     within_left_menu do
       click_link I18n.t('buttons.update')
     end
-    puts page.driver.console_messages
     expect(page.current_path).to eq group_proposal_path(group, proposal)
-
     expect(page).to have_content(new_content)
   end
 

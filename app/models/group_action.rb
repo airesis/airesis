@@ -1,24 +1,25 @@
 class GroupAction < ActiveRecord::Base
 #  translates :description
-  #inserire post nello stream del gruppo
+
+  #insert posts in groups stream
   STREAM_POST = 1
 
-  #creare eventi nel gruppo
+  #create meeting events in the group
   CREATE_EVENT = 2
 
-  #sostenere le proposte a nome del gruppo
+  #support proposals on behalf of the group
   #@deprecated
   PROPOSAL = 3
-
   SUPPORT_PROPOSAL = 3
 
-  #accettare le richieste di partecipazione al gruppo
+  #accept participation request
   REQUEST_ACCEPT = 4
 
-  #inviare candidati alle elezioni del gruppo
+  #semd candidates to elections
+  #@deprecated
   SEND_CANDIDATES = 5
 
-  #view proposals
+  #view group private proposals
   PROPOSAL_VIEW = 6
 
   #participate at debate phase of the proposals

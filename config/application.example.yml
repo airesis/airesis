@@ -113,6 +113,7 @@ SENTRY_PORT: ""
 
 #############
 # environment constants (leave default values for default behaviour, change them to change platform behaviour)
+# the values are the ones used on airesis official installation
 #############
 
 #percentage of active users on the platform. this number is used to calculate quorums in the open space only
@@ -121,4 +122,71 @@ SENTRY_PORT: ""
 #if you change this value to 30, then the number of valutations and votes will be 15 (0.5 * (100 * 0.3)).
 #if you change this value to 10, then the number of valutations and votes will be 5 (0.5 * (100 * 0.1)).
 #this is useful to provide accessible quorums in the open space. maybe one day will not be necessary
+#allow integers, required
 ACTIVE_USERS_PERCENTAGE: "100"
+
+#this is the maximum length for a contribute or a comment in proposals or blog
+#allow integers, required
+CONTRIBUTE_MAX_LENGTH: "2200"
+
+#minimum amount of marks for a contribute to be eligible for deletion
+CONTRIBUTE_MARKS: "3"
+
+#minimum amount of time between the end of debate and the beginning of vote. please do not set it below few minutes.
+#must be specified in minutes
+DEBATE_VOTE_DIFFERENCE: "10"
+
+#max number of comments per page
+COMMENTS_PER_PAGE: "5"
+#max number of proposals per page
+PROPOSALS_PER_PAGE: "10"
+
+#max number of topics per page
+TOPICS_PER_PAGE: "10"
+
+#contributes and comments are limited for each user?
+LIMIT_COMMENTS: "false"
+
+#if contributes and comments are limited this is the minimum amount of time between two subsequent comments from the same user
+#must be specified in seconds
+COMMENTS_TIME_LIMIT: "30"
+
+#proposals are limited for each user?
+LIMIT_PROPOSALS: "false"
+
+#if proposals are limited this is the minimum amount of time between two subsequent proposals from the same user
+#must be defined in seconds
+PROPOSALS_TIME_LIMIT: "60"
+
+#groups creation is limited?
+LIMIT_GROUPS: "true"
+
+#if groups creation is limited this is the minimum amount of time between two subsequent creations from the same user
+#must be specified in hours
+GROUPS_TIME_LIMIT: "24"
+
+#if you are using tokens for voting yoy may need to set a drift for token creation.
+#must be specified in seconds
+ROTP_DRIFT: "20"
+
+#default options when for groups when created.
+#the owner of the group can always change them after he created the group but the 90% of users will
+#use default values so it makes the difference
+
+#can users of a group change the settings of a proposal when it's created?
+#default is false: it means that the proposals settings will be selected by the group administrator
+#allow true,TRUE,false,FALSE, required
+DEFAULT_CHANGE_ADVANCED_OPTIONS: "false"
+
+#the discussion is anonimous?
+#default is true: it means that the proposal's discussion will be anonimous
+#allow true,TRUE,false,FALSE, required
+DEFAULT_ANONIMA: "true"
+
+#actions enabled by default for users when they join a group. Look at GroupAction model to see available values.
+#expert variable, don't touch it if you don't know what are you going to do
+DEFAULT_GROUP_ACTIONS: "1, 2, 6, 7, 8, 9, 11, 12"
+
+#actions enabled by default for users when they join a group area. Look at GroupAction model to see available values
+#expert variable, don't touch it if you don't know what are you going to do
+DEFAULT_AREA_ACTIONS: "6, 7, 8, 11, 12"

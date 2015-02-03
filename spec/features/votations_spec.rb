@@ -79,7 +79,6 @@ describe "check if quorums are working correctly", type: :feature, js: true do
 
     expect(Ability.new(user)).to be_able_to(:vote, proposal)
     login_as user, scope: :user
-    puts "login as #{user.email}"
     vote
     expect(proposal.vote.positive).to eq(1)
 
@@ -88,14 +87,12 @@ describe "check if quorums are working correctly", type: :feature, js: true do
     users = group.participants.sample(4)
     expect(Ability.new(users[0])).to be_able_to(:vote, proposal)
     login_as users[0], scope: :user
-    puts "login as #{users[0].email}"
     vote
     expect(proposal.vote.positive).to eq(2)
 
     logout :user
 
     login_as users[1], scope: :user
-    puts "login as #{users[1].email}"
     vote('votered')
     expect(proposal.vote.positive).to eq(2)
     expect(proposal.vote.negative).to eq(1)

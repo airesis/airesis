@@ -5,11 +5,9 @@ class NoNullRole < ActiveRecord::Migration
         role = group.participation_roles.first
 
          if role
-           puts role.id
            group.participation_role_id = role.id
            group.save!
          else
-           puts "group #{group.name} has no roles"
            group.destroy
          end
 
