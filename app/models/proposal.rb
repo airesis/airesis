@@ -418,7 +418,6 @@ class Proposal < ActiveRecord::Base
     c
   end
 
-
   #all users that will receive a notification that asks them to check or give their valutation to the proposal
   def notification_receivers
     #will receive the notification the users that partecipated to the proposal and can change their valutation or they haven't give it yet

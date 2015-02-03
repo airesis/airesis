@@ -54,7 +54,7 @@ describe "create a proposal in his group", type: :feature, js: true, ci_ignore: 
 
   def simple_editing
     visit edit_group_proposal_path(group, proposal)
-    wait_ajax rescue nil
+    sleep 2
     new_content = Faker::Lorem.paragraph
 
     fill_in_ckeditor 'proposal_sections_attributes_0_paragraphs_attributes_0_content_dirty', with: new_content
