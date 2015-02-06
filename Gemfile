@@ -17,7 +17,8 @@ gem 'foundation-rails', github: 'johnantoni/foundation-rails', branch: 'foundati
 
 gem 'pg'
 
-gem 'sunspot_rails'
+gem 'sunspot_rails', github: 'coorasse/sunspot', tag: 'v2.1.1-threadsafe'
+gem 'sunspot-queue'
 
 gem 'capistrano', '~> 3.2.0'
 gem 'capistrano-bundler', '~> 1.1.2'
@@ -83,7 +84,6 @@ gem 'sidekiq'#, '~> 2.17.7' #added for issue https://github.com/tobiassvn/sideti
 gem 'sidekiq-failures'
 gem 'sidetiq'
 
-gem 'sunspot-queue', github: 'coorasse/sunspot-queue'
 
 gem 'cancancan', '~> 1.9'
 
