@@ -455,13 +455,13 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh
       term-ansicolor
-    sunspot (2.1.0)
+    sunspot (2.1.1)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
-    sunspot_rails (2.1.0)
+    sunspot_rails (2.1.1)
       nokogiri
       rails (>= 3)
-      sunspot (= 2.1.0)
+      sunspot (= 2.1.1)
     sunspot_solr (2.1.0)
     sunspot_test (0.4.0)
       sunspot_rails (>= 1.2.1)
