@@ -32,7 +32,7 @@ RSpec.configure do |config|
     DatabaseCleaner.start
     if Capybara.current_driver == :rack_test
     else
-      #page.driver.allow_url
+      page.driver.block_unknown_urls
     end
 
     Proposal.remove_all_from_index!
@@ -77,7 +77,7 @@ RSpec.configure do |config|
     Capybara.javascript_driver = :webkit
     Capybara::Screenshot.autosave_on_failure = true
     Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
-      "#{example.description.gsub(' ', '-').gsub(/^.*\/spec\//, '').gsub("'",'')}"
+      "#{example.description.gsub(' ', '-').gsub(/^.*\/spec\//, '').gsub("'", '')}"
     end
     Capybara::Screenshot.append_timestamp = false
   end
