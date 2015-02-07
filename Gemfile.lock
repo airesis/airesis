@@ -192,7 +192,7 @@ GEM
       json
       thread
       thread_safe
-    el_finder (1.1.11)
+    el_finder (1.1.12)
       image_size (>= 1.0.0)
     em-http-request (1.1.2)
       addressable (>= 2.3.4)
