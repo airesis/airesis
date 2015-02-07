@@ -3,6 +3,8 @@
 #social networks and services keys
 #####################
 
+SECRET_KEY_BASE: ""
+
 FACEBOOK_APP_ID: ""
 GOOGLE_APP_ID: ""
 TWITTER_APP_ID: ""
@@ -190,3 +192,5 @@ DEFAULT_GROUP_ACTIONS: "1, 2, 6, 7, 8, 9, 11, 12"
 #actions enabled by default for users when they join a group area. Look at GroupAction model to see available values
 #expert variable, don't touch it if you don't know what are you going to do
 DEFAULT_AREA_ACTIONS: "6, 7, 8, 11, 12"
+
+

@@ -12,8 +12,10 @@ end
 def fill_in_ckeditor(locator, opts)
   content = opts.fetch(:with).to_json
   page.execute_script <<-SCRIPT
-    CKEDITOR.instances['#{locator}'].setData(#{content});
-    $('textarea##{locator}').text(#{content});
+    var ckeditor = CKEDITOR.instances.#{locator}
+    ckeditor.setData(#{content});
+    ckeditor.focus();
+    ckeditor.updateElement();
   SCRIPT
 end
 
@@ -67,7 +69,7 @@ def create_area_participation(user, group_area)
 end
 
 def create_public_proposal(user_id)
-  create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: user_id)
+  create(:public_proposal, quorum: BestQuorum.visible.first, current_user_id: user_id)
 end
 
 def activate_areas(group)

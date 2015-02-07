@@ -24,6 +24,7 @@ module Airesis
     config.i18n.default_locale = :en
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{yml}')]
     config.i18n.fallbacks =[:en]
+    config.i18n.enforce_available_locales = false
 
     config.to_prepare do
       Devise::Mailer.layout "maktoub/unregistered_mailer" # email.haml or email.erb
@@ -60,10 +61,8 @@ module Airesis
         s3_credentials: {
             access_key_id: ENV['AWS_ACCESS_KEY_ID'],
             secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
-        },
-        s3_host_name: 's3-eu-west-1.amazonaws.com'
+        }#,
+        #s3_host_name: 's3-eu-west-1.amazonaws.com'
     }
   end
 end
-
-I18n.enforce_available_locales = false

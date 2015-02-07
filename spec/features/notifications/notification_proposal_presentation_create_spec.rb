@@ -6,7 +6,7 @@ describe 'notifications for new authors for a proposal', type: :feature do
 
   it "sends correctly an email to all participants to the proposal" do
     user1 = create(:user)
-    proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: user1.id)
+    proposal = create(:public_proposal, quorum: BestQuorum.visible.first, current_user_id: user1.id)
     participants = []
     5.times do
       user = create(:user)

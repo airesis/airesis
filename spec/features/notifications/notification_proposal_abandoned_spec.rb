@@ -7,7 +7,7 @@ describe 'notifications when a proposal is abandoned', type: :feature do
   it "sends correctly an email to authors and participants" do
     user1 = create(:user)
     group = create(:group, current_user_id: user1.id)
-    proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: user1.id, group_proposals: [GroupProposal.new(group: group)])
+    proposal = create(:group_proposal, quorum: BestQuorum.visible.first, current_user_id: user1.id, group_proposals: [GroupProposal.new(group: group)])
 
     user2 = create(:user)
     create_participation(user2, group)
@@ -53,7 +53,7 @@ describe 'notifications when a proposal is abandoned', type: :feature do
     receiver_emails = participants.map(&:email)
     expect(emails).to match_array receiver_emails
 
-    expect(Alert.count).to eq 8
+    expect(Alert.unscoped.count).to eq 8
     expect(Alert.first(3).map { |a| a.user }).to match_array authors
     expect(Alert.first.notification_type.id).to eq NotificationType::CHANGE_STATUS_MINE
 

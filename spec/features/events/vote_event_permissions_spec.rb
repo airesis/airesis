@@ -58,7 +58,7 @@ describe "check permissions on vote events", type: :feature do
     expect(Ability.new(user3)).to_not be_able_to(:update, event2)
     expect(Ability.new(user3)).to_not be_able_to(:destroy, event2)
 
-    proposal = create(:proposal, quorum: BestQuorum.public.first, current_user_id: user.id)
+    proposal = create(:proposal, quorum: BestQuorum.visible.first, current_user_id: user.id)
     proposal.vote_period = event
     proposal.save
     event.reload

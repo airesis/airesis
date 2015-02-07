@@ -17,7 +17,7 @@ class AlertsController < ApplicationController
       }
       format.json {
         unread = @alerts.where({checked: false, deleted: false}).includes(:notification_type, :notification_category)
-        numunread = unread.count
+        numunread = unread.length
         if numunread < 10
           unread += @alerts.where({checked: true, deleted: false}).includes(:notification_type, :notification_category).limit(10 - numunread)
         end

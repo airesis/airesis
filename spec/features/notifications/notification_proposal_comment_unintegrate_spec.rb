@@ -7,7 +7,7 @@ describe 'notifications when a proposal comment is unintegrated', type: :feature
   it "sends correctly an email to authors to inform them the contribute has been unintegrated" do
     user1 = create(:user)
     group = create(:group, current_user_id: user1.id)
-    proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: user1.id, group_proposals: [GroupProposal.new(group: group)])
+    proposal = create(:group_proposal, quorum: BestQuorum.visible.first, current_user_id: user1.id, group_proposals: [GroupProposal.new(group: group)])
 
     participants = []
     2.times do
@@ -48,7 +48,7 @@ describe 'notifications when a proposal comment is unintegrated', type: :feature
     # expect(first_deliveries.map { |m| m.bcc[0] }).to match_array receiver_emails
     #
     #expect(Alert.last.notification_type.id).to eq NotificationType::
-    # expect(Alert.count).to eq 3
+    # expect(Alert.unscoped.count).to eq 3
     # expect(Alert.first(3).map { |a| a.user }).to match_array [user1,participants[0],participants[1]]
   end
 end

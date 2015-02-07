@@ -158,7 +158,6 @@ class ApplicationController < ActionController::Base
         render template: "/errors/500.html.erb", status: 500, layout: 'application'
       }
     end
-
   end
 
   def solr_unavailable(exception)

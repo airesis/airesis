@@ -157,7 +157,7 @@ class Group < ActiveRecord::Base
 
     group_participations.build({user_id: current_user_id, participation_role_id: 2}) #portavoce
 
-    BestQuorum.public.each do |quorum|
+    BestQuorum.visible.each do |quorum|
       copy = quorum.dup
       copy.public = false
       copy.save!

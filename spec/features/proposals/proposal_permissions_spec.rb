@@ -11,7 +11,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
     group.save
     area = create(:group_area, group: group)
     expect(Ability.new(user)).to be_able_to(:insert_proposal, area)
-    proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: visible_outside)
+    proposal = create(:group_proposal, quorum: BestQuorum.visible.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: visible_outside)
     return proposal
   end
 
@@ -29,7 +29,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
       group.enable_areas = true
       group.save
       area = create(:group_area, group: group)
-      proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: true)
+      proposal = create(:group_proposal, quorum: BestQuorum.visible.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: true)
       participant = create(:user)
       create_participation(participant, group)
       expect(Ability.new(user)).to be_able_to(:show, proposal)
@@ -42,7 +42,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
       it "is displayed in the open space list and in the group list" do
         user = create(:user)
         group = create(:group, current_user_id: user.id)
-        proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)])
+        proposal = create(:group_proposal, quorum: BestQuorum.visible.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)])
         visit proposals_path
         expect(page).to have_content proposal.title
 
@@ -54,7 +54,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         area = create(:group_area, group: group)
-        proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: true)
+        proposal = create(:group_proposal, quorum: BestQuorum.visible.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: true)
 
         visit proposals_path
         expect(page).to have_content proposal.title
@@ -71,7 +71,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         group = create(:group, current_user_id: user.id)
         area = create(:group_area, group: group)
         area2 = create(:group_area, group: group)
-        proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: true)
+        proposal = create(:group_proposal, quorum: BestQuorum.visible.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: true)
 
         visit group_proposals_path(group, group_area_id: area2.id)
         expect(page).to_not have_content proposal.title
@@ -81,7 +81,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         area = create(:group_area, group: group)
-        proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: create(:group, current_user_id: create(:user).id))], visible_outside: true)
+        proposal = create(:group_proposal, quorum: BestQuorum.visible.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: create(:group, current_user_id: create(:user).id))], visible_outside: true)
 
         visit group_proposals_path(group)
         expect(page).to_not have_content proposal.title
@@ -93,13 +93,13 @@ describe "check user permissions on proposals", type: :feature, js: true, search
 
     context "a public proposal" do
       it "is displayed in the open space list" do
-        public_proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: create(:user).id)
+        public_proposal = create(:public_proposal, quorum: BestQuorum.visible.first, current_user_id: create(:user).id)
         visit proposals_path
         expect(page).to have_content public_proposal.title
       end
 
       it "is not displayed in a group list" do
-        proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: create(:user).id)
+        proposal = create(:public_proposal, quorum: BestQuorum.visible.first, current_user_id: create(:user).id)
         user = create(:user)
         group = create(:group, current_user_id: user.id)
 
@@ -108,7 +108,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
       end
 
       it "is not displayed in a group area list" do
-        proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: create(:user).id)
+        proposal = create(:public_proposal, quorum: BestQuorum.visible.first, current_user_id: create(:user).id)
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         area = create(:group_area, group: group)
@@ -122,7 +122,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
       it "is not displayed in the open space list" do
         user = create(:user)
         group = create(:group, current_user_id: user.id)
-        proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
+        proposal = create(:group_proposal, quorum: BestQuorum.visible.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
         visit proposals_path
         expect(page).to_not have_content proposal.title
 
@@ -137,7 +137,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
       it "is displayed in the group list only if you are logged in" do
         user = create(:user)
         group = create(:group, current_user_id: user.id)
-        proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
+        proposal = create(:group_proposal, quorum: BestQuorum.visible.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
         visit group_proposals_path(group)
         expect(page).to_not have_content proposal.title
 
@@ -153,7 +153,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         area = create(:group_area, group: group)
-        proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
+        proposal = create(:group_proposal, quorum: BestQuorum.visible.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
 
         visit group_proposals_path(group, group_area_id: area.id)
         expect(page).to_not have_content proposal.title
@@ -172,7 +172,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         area = create(:group_area, group: group)
-        proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: false)
+        proposal = create(:group_proposal, quorum: BestQuorum.visible.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: false)
 
         visit proposals_path
         expect(page).to_not have_content proposal.title
@@ -184,7 +184,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         area = create(:group_area, group: group)
-        proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: false)
+        proposal = create(:group_proposal, quorum: BestQuorum.visible.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: false)
 
         visit group_proposals_path(group)
         expect(page).to_not have_content proposal.title
@@ -204,7 +204,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         create_participation(participant, group)
         area = create(:group_area, group: group)
         create_area_participation(participant, area)
-        proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: participant.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: false)
+        proposal = create(:group_proposal, quorum: BestQuorum.visible.first, current_user_id: participant.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: false)
 
         visit group_proposals_path(group)
         expect(page).to_not have_content proposal.title
@@ -221,7 +221,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         area = create(:group_area, group: group)
-        proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: false)
+        proposal = create(:group_proposal, quorum: BestQuorum.visible.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: false)
 
         visit group_proposals_path(group, group_area_id: area.id)
         expect(page).to_not have_content proposal.title
@@ -255,7 +255,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
     end
 
     it "can view his public proposals" do
-      @public_proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: @user.id)
+      @public_proposal = create(:public_proposal, quorum: BestQuorum.visible.first, current_user_id: @user.id)
 
       visit proposal_path(@public_proposal)
       page_should_be_ok
@@ -264,7 +264,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
     end
 
     it "can view other users public proposals" do
-      @public_proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: create(:user).id)
+      @public_proposal = create(:public_proposal, quorum: BestQuorum.visible.first, current_user_id: create(:user).id)
 
       visit proposal_path(@public_proposal)
       page_should_be_ok
@@ -273,7 +273,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
     end
 
     it "can view private proposals in his group" do
-      @proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: @group)])
+      @proposal = create(:group_proposal, quorum: BestQuorum.visible.first, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: @group)])
       visit group_proposal_path(@group, @proposal)
       page_should_be_ok
       expect(page).to have_content @group.name
@@ -284,7 +284,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
     it "can view public proposals in others group" do
       @second_user = create(:second_user)
       @second_group = create(:group, current_user_id: @second_user.id)
-      @proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: @second_user.id, group_proposals: [GroupProposal.new(group: @second_group)])
+      @proposal = create(:group_proposal, quorum: BestQuorum.visible.first, current_user_id: @second_user.id, group_proposals: [GroupProposal.new(group: @second_group)])
       visit group_proposal_path(@second_group, @proposal)
       expect(page.current_path).to eq(group_proposal_path(@second_group, @proposal))
       expect(@ability).to be_able_to(:show, @proposal)
@@ -293,7 +293,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
     it "can't view private proposals in others group" do
       @second_user = create(:second_user)
       @second_group = create(:group, current_user_id: @second_user.id)
-      @proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: @second_user.id, group_proposals: [GroupProposal.new(group: @second_group)], visible_outside: false)
+      @proposal = create(:group_proposal, quorum: BestQuorum.visible.first, current_user_id: @second_user.id, group_proposals: [GroupProposal.new(group: @second_group)], visible_outside: false)
       visit group_proposal_path(@second_group, @proposal)
       expect(page).to have_content(I18n.t('error.error_302.title'))
       expect(@ability).not_to be_able_to(:show, @proposal)

@@ -86,6 +86,6 @@ describe 'notifications for new participation requests in the group are sent to 
     expect(emails).to match_array receiver_emails
     expect(Alert.last(3).map { |a| a.user }).to match_array group_users
     expect(Alert.last.notification_type.id).to eq NotificationType::NEW_PARTICIPATION_REQUEST
-    expect(Alert.count).to be 3
+    expect(Alert.unscoped.count).to be 3
   end
 end

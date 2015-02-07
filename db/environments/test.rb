@@ -1,3 +1,4 @@
+puts "loading test seeds"
 a1 = Continente.create(description: "Europe")
 a1.translations.where(locale: "en").first_or_create.update_attributes(description: "Europe")
 a1.translations.where(locale: "it-IT").first_or_create.update_attributes(description: "Europa")

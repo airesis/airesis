@@ -14,9 +14,8 @@ end
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
-ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
-
 RSpec.configure do |config|
+
 
   config.use_transactional_fixtures = false
 
@@ -29,25 +28,22 @@ RSpec.configure do |config|
 
   config.before(:each) do
     I18n.locale = I18n.default_locale = :en
+    DatabaseCleaner.strategy = :deletion, {:except => excluded_tables}
+    DatabaseCleaner.start
     if Capybara.current_driver == :rack_test
-      DatabaseCleaner.strategy = :deletion, {:except => excluded_tables}
-      DatabaseCleaner.start
     else
-      DatabaseCleaner.strategy = :deletion, {:except => excluded_tables}
-      DatabaseCleaner.start
+      #page.driver.allow_url
     end
 
     Proposal.remove_all_from_index!
     if BestQuorum.count == 0
-      BestQuorum.create(name: "1 giorno", percentage: nil, minutes_m: 0, hours_m: 0, days_m: 1, good_score: 50, bad_score: 50, vote_percentage: 0, vote_minutes: nil, vote_good_score: 50, t_percentage: "s", t_minutes: "s", t_good_score: "s", t_vote_percentage: "s", t_vote_minutes: "f", t_vote_good_score: "s", public: true, seq: 1)
-      BestQuorum.create(name: "3 giorni", percentage: nil, minutes_m: 0, hours_m: 0, days_m: 3, good_score: 50, bad_score: 50, vote_percentage: 0, vote_minutes: nil, vote_good_score: 50, t_percentage: "s", t_minutes: "s", t_good_score: "s", t_vote_percentage: "s", t_vote_minutes: "f", t_vote_good_score: "s", public: true, seq: 2)
-      BestQuorum.create(name: "7 giorni", percentage: nil, minutes_m: 0, hours_m: 0, days_m: 7, good_score: 50, bad_score: 50, vote_percentage: 0, vote_minutes: nil, vote_good_score: 50, t_percentage: "s", t_minutes: "s", t_good_score: "s", t_vote_percentage: "s", t_vote_minutes: "f", t_vote_good_score: "s", public: true, seq: 3)
-      BestQuorum.create(name: "15 giorni", percentage: nil, minutes_m: 0, hours_m: 0, days_m: 15, good_score: 50, bad_score: 50, vote_percentage: 0, vote_minutes: nil, vote_good_score: 50, t_percentage: "s", t_minutes: "s", t_good_score: "s", t_vote_percentage: "s", t_vote_minutes: "f", t_vote_good_score: "s", public: true, seq: 4)
-      BestQuorum.create(name: "30 giorni", percentage: nil, minutes_m: 0, hours_m: 0, days_m: 30, good_score: 50, bad_score: 50, vote_percentage: 0, vote_minutes: nil, vote_good_score: 50, t_percentage: "s", t_minutes: "s", t_good_score: "s", t_vote_percentage: "s", t_vote_minutes: "f", t_vote_good_score: "s", public: true, seq: 5)
+      BestQuorum.create([{name: "1 giorno", percentage: nil, minutes_m: 0, hours_m: 0, days_m: 1, good_score: 50, bad_score: 50, vote_percentage: 0, vote_minutes: nil, vote_good_score: 50, t_percentage: "s", t_minutes: "s", t_good_score: "s", t_vote_percentage: "s", t_vote_minutes: "f", t_vote_good_score: "s", public: true, seq: 1},
+                         {name: "3 giorni", percentage: nil, minutes_m: 0, hours_m: 0, days_m: 3, good_score: 50, bad_score: 50, vote_percentage: 0, vote_minutes: nil, vote_good_score: 50, t_percentage: "s", t_minutes: "s", t_good_score: "s", t_vote_percentage: "s", t_vote_minutes: "f", t_vote_good_score: "s", public: true, seq: 2},
+                         {name: "7 giorni", percentage: nil, minutes_m: 0, hours_m: 0, days_m: 7, good_score: 50, bad_score: 50, vote_percentage: 0, vote_minutes: nil, vote_good_score: 50, t_percentage: "s", t_minutes: "s", t_good_score: "s", t_vote_percentage: "s", t_vote_minutes: "f", t_vote_good_score: "s", public: true, seq: 3},
+                         {name: "15 giorni", percentage: nil, minutes_m: 0, hours_m: 0, days_m: 15, good_score: 50, bad_score: 50, vote_percentage: 0, vote_minutes: nil, vote_good_score: 50, t_percentage: "s", t_minutes: "s", t_good_score: "s", t_vote_percentage: "s", t_vote_minutes: "f", t_vote_good_score: "s", public: true, seq: 4},
+                         {name: "30 giorni", percentage: nil, minutes_m: 0, hours_m: 0, days_m: 30, good_score: 50, bad_score: 50, vote_percentage: 0, vote_minutes: nil, vote_good_score: 50, t_percentage: "s", t_minutes: "s", t_good_score: "s", t_vote_percentage: "s", t_vote_minutes: "f", t_vote_good_score: "s", public: true, seq: 5}])
       admin = ParticipationRole.find(2)
-      GroupAction.all.each do |group_action|
-        ActionAbilitation.create(group_action: group_action, participation_role: admin)
-      end
+      ActionAbilitation.create(GroupAction.all.map { |group_action| {group_action: group_action, participation_role: admin} })
       #ActiveRecord::Base.connection.execute('ALTER SEQUENCE participation_roles_id_seq RESTART WITH 3')
     end
   end
@@ -81,7 +77,7 @@ RSpec.configure do |config|
     Capybara.javascript_driver = :webkit
     Capybara::Screenshot.autosave_on_failure = true
     Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
-      "screenshot_#{example.description.gsub(' ', '-').gsub(/^.*\/spec\//, '')}"
+      "#{example.description.gsub(' ', '-').gsub(/^.*\/spec\//, '').gsub("'",'')}"
     end
     Capybara::Screenshot.append_timestamp = false
   end

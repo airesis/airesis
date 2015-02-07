@@ -19,7 +19,6 @@
 //= require jquery.progressbar
 //= require jquery.dataTables.min
 //= require jquery.dataTables.columnFilter
-//= require rails.validations
 //= require jquery.quick-wizard
 //= require jquery.elastic
 //= require jquery.gbutton
@@ -52,5 +51,7 @@
 //= require init
 //= require rails.validations
 //= require rails.validations.simple_form
+//= require rails.validations.simple_form.foundation
+
 ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible :input:enabled[data-validate]';
 $(function(){ $(document).foundation(); });

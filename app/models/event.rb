@@ -25,8 +25,8 @@ class Event < ActiveRecord::Base
 
   accepts_nested_attributes_for :meeting
 
-  scope :public, -> { where(private: false) }
-  scope :private, -> { where(private: true) }
+  scope :visible, -> { where(private: false) }
+  scope :not_visible, -> { where(private: true) }
   scope :vote_period, ->(starttime=nil) { where(['event_type_id = ? AND starttime > ?', 2, starttime || Time.now]).order('starttime asc') }
 
   scope :next, -> { where(['starttime > ?', Time.now]) }

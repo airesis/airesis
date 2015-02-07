@@ -103,7 +103,7 @@ class QuorumsController < ApplicationController
       @group = Group.find(params[:group_id])
       @quorums = @group.quorums.active
     else
-      @quorums = Quorum.public.active.all
+      @quorums = Quorum.visible.active.all
     end
     respond_to do |format|
       format.js
@@ -115,9 +115,9 @@ class QuorumsController < ApplicationController
   def dates
     starttime = Time.now + @quorum.minutes.minutes + DEBATE_VOTE_DIFFERENCE
     if @group
-      @dates = @group.events.private.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] } #TODO:I18n
+      @dates = @group.events.not_visible.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] } #TODO:I18n
     else
-      @dates = Event.public.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id] } #TODO:I18n
+      @dates = Event.visible.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id] } #TODO:I18n
     end
   end
 

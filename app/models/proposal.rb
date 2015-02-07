@@ -113,9 +113,9 @@ class Proposal < ActiveRecord::Base
   scope :revision, -> { where(proposal_state_id: ProposalState::ABANDONED) }
 
   #all proposals visible to not logged users
-  scope :public, -> { where(['private = ? or visible_outside = ?', false, true]) }
+  scope :visible, -> { where(['private = ? or visible_outside = ?', false, true]) }
 
-  scope :private, -> { where(private: true) } #proposte interne ai gruppi
+  scope :internal, -> { where(private: true) } #proposte interne ai gruppi
 
   #inconsistent proposals
   scope :invalid_debate_phase, -> { in_valutation.joins(:quorum).where('current_timestamp > quorums.ends_at') }
@@ -165,7 +165,7 @@ class Proposal < ActiveRecord::Base
   #retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
   def self.open_space_portlet(user=nil)
     user_id = user ? user.id : -1
-    @list_a = Proposal.public
+    @list_a = Proposal.visible
                   .select('distinct proposals.*, proposal_alerts.count as alerts_count, proposal_rankings.ranking_type_id as ranking')
                   .includes([:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category])
                   .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user_id}")
@@ -177,7 +177,7 @@ class Proposal < ActiveRecord::Base
 
   #retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
   def self.open_space_petitions_portlet(user)
-    @list_a = Proposal.public
+    @list_a = Proposal.visible
                   .select('distinct proposals.*, proposal_alerts.count as alerts_count')
                   .includes([:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category])
                   .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}")
@@ -204,7 +204,7 @@ class Proposal < ActiveRecord::Base
                           and uv.id is null
                           and (aa.group_action_id = #{GroupAction::PROPOSAL_VOTE} or pr.id = #{ParticipationRole::ADMINISTRATOR})
                           order by e.endtime asc")
-    ActiveRecord::Associations::Preloader.new(proposals, [:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category]).run
+    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category])
     proposals
   end
 

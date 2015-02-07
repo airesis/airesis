@@ -37,7 +37,7 @@ describe 'notifications for new blog comments to the blog author', type: :featur
     last_delivery = ActionMailer::Base.deliveries.last
     expect(last_delivery.to[0]).to eq user.email
     expect(Alert.last.user).to eq user
-    expect(Alert.count).to eq 1
+    expect(Alert.unscoped.count).to eq 1
     expect(Alert.last.notification_type.id).to eq NotificationType::NEW_BLOG_COMMENT
   end
 end
