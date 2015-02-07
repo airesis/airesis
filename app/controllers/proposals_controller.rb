@@ -407,13 +407,11 @@ class ProposalsController < ApplicationController
     end
   end
 
-  #aggiunge alcuni degli utenti che si sono resi disponibili a redigere la sintesi
-  #agli autori della proposta
+  #add available authors as authors to the proposal
   def add_authors
     available_ids = params['user_ids']
-
     Proposal.transaction do
-      users = @proposal.available_user_authors.where(['users.id in (?)', available_ids.map { |id| id.to_i }]).all rescue []
+      users = @proposal.available_user_authors.where(users: {id: available_ids.map(&:to_i)})
       @proposal.available_user_authors -= users
       users.each do |user|
         @proposal.proposal_presentations.build(user: user, acceptor: current_user)
