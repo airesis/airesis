@@ -3,7 +3,7 @@
 #social networks and services keys
 #####################
 
-SECRET_KEY_BASE: ""
+SECRET_KEY_BASE: "08b7a7ae2d0446f1c434af0a57585d67c015a75ebff30118c720f1d59f04bfcf273a53a86dd44045e629fec9b2f556019c10485caa4e660d68b796b715de4a12"
 
 FACEBOOK_APP_ID: ""
 GOOGLE_APP_ID: ""
