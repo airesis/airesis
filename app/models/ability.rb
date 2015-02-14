@@ -148,7 +148,7 @@ class Ability
 
       can :read, Group
       can [:update, :enable_areas, :change_advanced_options, :change_default_anonima, :change_default_visible_outside, :change_default_secret_vote], Group, is_admin_of_group(user)
-      can :create, SearchParticipant, group: is_admin_of_group(user)
+      can :create, SearchParticipant, group: participate_in_group(user)
 
       can :destroy, Group do |group|
         (group.portavoce.include? user) && (group.participants.count < 2)
