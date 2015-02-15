@@ -93,7 +93,7 @@ class Ability
       can :set_votation_date, Proposal, proposal_state_id: ProposalState::WAIT_DATE, users: {id: user.id}
 
       can :set_votation_date, Proposal do |proposal| #return true if the user can put the proposal in votation
-        (proposal.updated_at < (Time.now - 5.days)) &&
+        (proposal.updated_at < (Time.now - OTHERS_CHOOSE_VOTE_DATE_DAYS.days)) &&
             proposal.private? &&
             can_do_on_group?(user, proposal.groups.first, GroupAction::PROPOSAL_DATE)
       end

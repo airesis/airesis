@@ -35,8 +35,7 @@
   <%= image_tag("proposal_types/#{@proposal.proposal_type.name.downcase}_ico.png", align: 'middle', alt: @proposal.proposal_type.description, title: @proposal.proposal_type.description, style: "width:40px;padding-right:2px;") %>
   <span itemprop="name"><%= h @proposal.title %></span>
 </h1>
-
-<div style="text-align: right;float:right;">
+<div>
   <% if @proposal.contributes.count>1 %>
       <% @removable_count = @proposal.contributes.unintegrated.removable.count %>
       <% @removed_count = @proposal.contributes.noise.count %>

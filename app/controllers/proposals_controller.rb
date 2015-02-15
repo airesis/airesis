@@ -169,9 +169,7 @@ class ProposalsController < ApplicationController
         render nothing: true
       }
       format.html {
-        if @proposal.waiting_date?
-          flash.now[:info] = I18n.t('info.proposal.waiting_date')
-        elsif @proposal.voting?
+        if @proposal.voting?
           flash.now[:info] = I18n.t('info.proposal.voting')
         end
       }
@@ -427,7 +425,7 @@ class ProposalsController < ApplicationController
 
 
   def vote_results
-    return redirect_to vote_results_group_proposal_path(@proposal.group,@proposal) if wrong_url?
+    return redirect_to vote_results_group_proposal_path(@proposal.group, @proposal) if wrong_url?
     authorize! :show, @proposal
   end
 

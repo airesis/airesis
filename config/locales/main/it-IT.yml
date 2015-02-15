@@ -473,6 +473,7 @@ it-IT:
           not_logged_in: "Non può partecipare a questa proposta perché non hai effettuato l'accesso. "
         read_contribute: VISUALIZZA CONTRIBUTI
         security_token: Token di sicurezza
+        you_can_choose_vote_dates: "La proposta è in attesa di data da oltre %{count} giorni, quindi ora puoi scegliere la data anche tu."
       new:
         quorum_prompt: Seleziona una durata
         quorum_help: Assistenza
