@@ -1357,6 +1357,7 @@ en:
       voting: "The proposal is in the voting phase"
       ask_participation: "Ask to become a member of the group to evaluate and contribute to this proposal"
       public_visible: "This proposal is publicly visible"
+      public_visible_short: "Publicly visible"
       available_authors: "There are new editors available for the proposal"
       updated_comment: "Your comment has been successfully updated"
       comment_deleted: "The comment has been successfully deleted"

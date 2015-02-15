@@ -1,3 +1,13 @@
+<span class="label info width-80">
+  <h3 id="status"><%= @proposal.in_valutation? ? t('pages.proposals.show.during_debate') : @proposal.state.description %></h3><!--TODO:I18n-->
+</span>
+<% if @proposal.is_anonima? %>
+    <span class="label info width-80"><i class="fa fa-user-secret nickname-panel"></i> <%= t('pages.proposals.show.anonimity_active') %></span>
+<% end %>
+<% if @proposal.visible_outside? %>
+    <span class="label info width-80"><i class="fa fa-eye"></i> <%= t('info.proposal.public_visible_short') %></span>
+<% end %>
+
 <div style="padding-bottom: 10px;">
   <%= t('pages.proposals.show.created_at_html', time: raw("<div class='date-creation'></div>"), date: (l @proposal.created_at)) %>
 </div>
@@ -6,20 +16,20 @@
       <%= t('pages.proposals.show.updated_at_html', time: raw("<div class='date-update'></div>"), date: (l @proposal.updated_at)) %>
     </div>
 <% end %>
-<%unless @proposal.is_petition? %>
+<% unless @proposal.is_petition? %>
     <% if @proposal.in_valutation? %>
         <div class="mycont" id="condition_left">
-          <%=dates_panel(@proposal.quorum) %>
+          <%= dates_panel(@proposal.quorum) %>
         </div>
     <% end %>
 
-    <% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata       %>
+    <% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata        %>
         <div class="mycont">
           <%= t('pages.proposals.show.in_votation_html', start: (l @proposal.vote_period.starttime), end: (l @proposal.vote_period.endtime)) %>
         </div><br/>
-    <% elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione       %>
+    <% elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione        %>
         <div class="mycont">
           <%= t('pages.proposals.show.in_votation_until_html', date: raw("<div class='end-vote'></div>")) %>
         </div>
     <% end %>
-<%end%>
+<% end %>
