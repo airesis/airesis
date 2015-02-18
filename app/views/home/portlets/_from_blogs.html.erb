@@ -3,7 +3,7 @@
   <%= link_to t('.proceed_to_blogs'), blogs_path, class: 'btn' %>
 </div>
 <div class="scrollable">
-  <% BlogPost.includes(:blog,user: [:user_type,:image]).accessible_by(current_user).order(created_at: :desc).limit(10).each do |blog_post| %>
+  <% @blog_posts.each do |blog_post| %>
       <div class="blog_post_list">
         <div class="comment_avatar">
           <%= blog_post.user_image_tag 40 %>

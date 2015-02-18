@@ -3,7 +3,8 @@
     <%= render partial: 'events/calendar_icon', locals: {time: event.starttime} %>
   </div>
   <div style="float:left">
-    <%= event.title %>
+    <p><%= link_to event.title, event %></p>
+    <p></p>
   </div>
 
   <div class="clearboth"></div>
