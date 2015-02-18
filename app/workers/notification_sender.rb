@@ -6,6 +6,13 @@ class NotificationSender
 
   protected
 
+  #send notifications to the authors of a proposal
+  def send_notification_to_authors(notification, proposal)
+    proposal.users.each do |user|
+      send_notification_for_proposal(notification, user, proposal)
+    end
+  end
+
   #invia una notifica ad un utente.
   #se l'utente ha bloccato il tipo di notifica allora non viene inviata
   #se l'utente ha abilitato anche l'invio via mail allora viene inviata via mail

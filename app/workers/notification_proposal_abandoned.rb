@@ -8,7 +8,7 @@ class NotificationProposalAbandoned < NotificationSender
   def elaborate(proposal_id, participant_ids = [])
     proposal = Proposal.find(proposal_id)
     group = proposal.group
-    data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'abandoned'}
+    data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'extension' => 'abandoned'}
 
     notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: url_for_proposal(proposal,group), data: data)
     notification_a.save

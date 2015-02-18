@@ -9,7 +9,7 @@ class NotificationParticipationRequestCreate < NotificationSender
     group_participation_request = GroupParticipationRequest.find(group_participation_request_id)
     user = group_participation_request.user
     group = group_participation_request.group
-    data = {'group_id' => group.id.to_s, 'user' => user.fullname, 'user_id' => user.id, 'group' => group.name, 'i18n' => 't'}
+    data = {'group_id' => group.id.to_s, 'user' => user.fullname, 'user_id' => user.id, 'group' => group.name}
     data['subdomain'] = group.subdomain if group.certified?
     notification_a = Notification.new(notification_type_id: NotificationType::NEW_PARTICIPATION_REQUEST, url: group_url(group), data: data)
     notification_a.save

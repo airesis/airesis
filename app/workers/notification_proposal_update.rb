@@ -10,7 +10,7 @@ class NotificationProposalUpdate < NotificationSender
     current_user = User.find(current_user_id) if current_user_id
     group = Group.find(group_id) if group_id
     host = current_user.locale.host
-    data = {'proposal_id' => proposal.id.to_s, 'revision_id' => (proposal.last_revision.try(:id)), 'title' => proposal.title, 'i18n' => 't'}
+    data = {'proposal_id' => proposal.id.to_s, 'revision_id' => (proposal.last_revision.try(:id)), 'title' => proposal.title}
     if group
       data['group'] = group.name
       data['subdomain'] = group.subdomain if group.certified?

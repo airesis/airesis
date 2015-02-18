@@ -14,7 +14,7 @@ class NotificationProposalCommentCreate < NotificationSender
     host = comment_user.locale.host
     url = nil
 
-    data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}", 'username' => name, 'name' => name, 'title' => proposal.title, 'i18n' => 't', 'count' => 1}
+    data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}", 'username' => name, 'name' => name, 'title' => proposal.title, 'count' => 1}
     query = {'comment_id' => comment.id.to_s}
     if proposal.private?
       group = proposal.groups.first

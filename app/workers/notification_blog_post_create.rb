@@ -25,7 +25,7 @@ class NotificationBlogPostCreate < NotificationSender
     end
 
     blog_post.groups.each do |group|
-      data = {'blog_post_id' => blog_post.id.to_s, 'group_id' => group.id, 'user' => post_user.fullname, 'group' => group.name, 'i18n' => 't'}
+      data = {'blog_post_id' => blog_post.id.to_s, 'group_id' => group.id, 'user' => post_user.fullname, 'group' => group.name}
       data['subdomain'] = group.subdomain if group.certified?
 
       #notify group participants, if they are also blog followers, do not notify them twice

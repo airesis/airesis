@@ -16,7 +16,7 @@ class NotificationBlogCommentCreate < NotificationSender
       another.increase_count!
       PrivatePub.publish_to("/notifications/#{post_user.id}", pull: 'hello') rescue nil #todo send specific alert to be included
     else
-      data = {'blog_post_id' => blog_post.id.to_s, 'blog_comment_id' => blog_comment.id.to_s, 'subject' => "[#{blog_post.title}] Nuovo commento di #{comment_user.fullname}", 'user' => comment_user.fullname, 'user_id' => comment_user.id, 'title' => blog_post.title, 'i18n' => 't', 'count' => 1}
+      data = {'blog_post_id' => blog_post.id.to_s, 'blog_comment_id' => blog_comment.id.to_s, 'subject' => "[#{blog_post.title}] Nuovo commento di #{comment_user.fullname}", 'user' => comment_user.fullname, 'user_id' => comment_user.id, 'title' => blog_post.title, 'count' => 1}
       notification_a = Notification.create!(notification_type_id: NotificationType::NEW_BLOG_COMMENT, url: blog_blog_post_url(blog_post.blog, blog_post), data: data)
       send_notification_to_user(notification_a, post_user)
     end

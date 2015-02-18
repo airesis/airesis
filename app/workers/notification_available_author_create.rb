@@ -8,7 +8,7 @@ class NotificationAvailableAuthorCreate < NotificationSender
     available_author = AvailableAuthor.find(available_author_id)
     proposal = available_author.proposal
     user = available_author.user
-    data = {'proposal_id' => proposal.id.to_s, 'user' => user.fullname, 'user_id' => user.id, 'title' => proposal.title, 'i18n' => 't'}
+    data = {'proposal_id' => proposal.id.to_s, 'user' => user.fullname, 'user_id' => user.id, 'title' => proposal.title}
     notification_a = Notification.new(notification_type_id: NotificationType::AVAILABLE_AUTHOR, url: url_for_proposal(proposal, proposal.group), data: data)
     notification_a.save
     proposal.users.each do |user|

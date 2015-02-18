@@ -6,7 +6,7 @@ class NotificationProposalTimeLeft < NotificationSender
 
   def elaborate(proposal_id,type)
     proposal = Proposal.find(proposal_id)
-    data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => type}
+    data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'extension' => type}
     group = proposal.group
     if group
       data['group'] = group.name

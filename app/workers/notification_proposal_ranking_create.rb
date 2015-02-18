@@ -10,7 +10,7 @@ class NotificationProposalRankingCreate < NotificationSender
     proposal = proposal_ranking.proposal
     group = proposal.groups.first if proposal.in_group?
 
-    data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't'}
+    data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title}
     notification_a = Notification.new(notification_type_id: NotificationType::NEW_VALUTATION_MINE, url: url_for_proposal(proposal,group), data: data)
     notification_a.save
     proposal.users.each do |user|

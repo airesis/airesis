@@ -13,7 +13,7 @@ class NotificationProposalCommentUnintegrate < NotificationSender
     nickname = ProposalNickname.find_by(user_id: comment_user.id, proposal_id: proposal.id)
     name = proposal.is_anonima? ? nickname.nickname : comment_user.fullname #send nickname if proposal is anonymous
 
-    data = {'proposal_id' => proposal.id.to_s, 'comment_id' => proposal_comment.id.to_s, 'username' => name, 'proposal' => proposal.title, 'i18n' => 't'}
+    data = {'proposal_id' => proposal.id.to_s, 'comment_id' => proposal_comment.id.to_s, 'username' => name, 'proposal' => proposal.title}
     if group
       data['group'] = group.name
       data['subdomain'] = group.subdomain if group.certified?

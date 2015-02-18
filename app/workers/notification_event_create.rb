@@ -15,8 +15,7 @@ class NotificationEventCreate < NotificationSender
               'group' => organizer.name,
               'group_id' => organizer.id,
               'user_id' => user.id,
-              'event' => event.title,
-              'i18n' => 't'}
+              'event' => event.title}
       data['subdomain'] = organizer.subdomain if organizer.certified?
 
       notification_a = Notification.new(notification_type_id: NotificationType::NEW_EVENTS, url: event_url(event), data: data)
@@ -26,7 +25,7 @@ class NotificationEventCreate < NotificationSender
         send_notification_to_user(notification_a, receiver) unless receiver == user #send an alert to everybody except the one which created the event
       end
     else
-      data = {'event_id' => event.id.to_s, 'subject' => "Nuovo evento pubblico: #{event.title}", 'event' => event.title, 'user_id' => user.id, 'i18n' => 't'}
+      data = {'event_id' => event.id.to_s, 'subject' => "Nuovo evento pubblico: #{event.title}", 'event' => event.title, 'user_id' => user.id}
       notification_a = Notification.new(notification_type_id: NotificationType::NEW_PUBLIC_EVENTS, url: event_url(event), data: data)
       notification_a.save
 

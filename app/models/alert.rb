@@ -2,11 +2,11 @@ class Alert < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: :user_id
   belongs_to :notification, class_name: 'Notification', foreign_key: :notification_id
 
-  default_scope -> {select('alerts.*, notifications.properties || alerts.properties as nproperties').joins(:notification)}
+  default_scope -> { select('alerts.*, notifications.properties || alerts.properties as nproperties').joins(:notification) }
 
-  scope :another, ->(attribute,attr_id,user_id,notification_type) {joins([:notification, :user]).where(["(notifications.properties -> ?) = ? and notifications.notification_type_id in (?) and users.id = ?", attribute,attr_id.to_s, notification_type, user_id]).readonly(false)}
+  scope :another, ->(attribute, attr_id, user_id, notification_type) { joins([:notification, :user]).where(["(notifications.properties -> ?) = ? and notifications.notification_type_id in (?) and users.id = ?", attribute, attr_id.to_s, notification_type, user_id]).readonly(false) }
 
-  scope :another_unread, ->(attribute,attr_id,user_id,notification_type) { another(attribute,attr_id,user_id,notification_type).where('alerts.checked = false')}
+  scope :another_unread, ->(attribute, attr_id, user_id, notification_type) { another(attribute, attr_id, user_id, notification_type).where('alerts.checked = false') }
 
   #store_accessor :properties, :ncount
 
@@ -48,20 +48,13 @@ class Alert < ActiveRecord::Base
   end
 
   def message
-    if data[:i18n]     #todo 'if' added for back support
-      if data[:extension]
-        I18n.t("db.#{notification_type.class.class_name.tableize}.#{notification_type.name}.message.#{data[:extension]}", data)
-      else
-        I18n.t("db.#{notification_type.class.class_name.tableize}.#{notification_type.name}.message", data)
-      end
-    else
-      notification.message
-    end
+    extension = ".#{data[:extension]}" if data[:extension]
+    I18n.t("db.#{notification_type.class.class_name.tableize}.#{notification_type.name}.message#{extension}", data)
   end
 
 
   def increase_count!
-    self.properties_will_change!  #TODO bugfix on Rails 4. to remove when patched
+    self.properties_will_change! #TODO bugfix on Rails 4. to remove when patched
     count = self.properties['count'] ? self.properties['count'].to_i : 1
     self.properties['count'] = count+1
     self.save!
