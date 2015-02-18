@@ -146,6 +146,7 @@ class User < ActiveRecord::Base
   scope :count_active, -> { count.to_f * (ENV['ACTIVE_USERS_PERCENTAGE'].to_f / 100.0) }
 
   scope :autocomplete, ->(term) { where("lower(users.name) LIKE :term or lower(users.surname) LIKE :term", {term: "%#{term.downcase}%"}).order("users.surname desc, users.name desc").limit(10) }
+  scope :non_blocking_notification, ->(notification_type) { User.where.not(id: User.select("users.id").joins(:blocked_alerts).where(blocked_alerts: {notification_type_id: notification_type})) }
 
   def avatar_url=(url)
     begin
@@ -242,12 +243,12 @@ class User < ActiveRecord::Base
       ret = group.group_areas
     elsif abilitation_id
       ret = group_areas.joins(area_roles: :area_action_abilitations)
-          .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_participations.area_role_id = area_roles.id', group_id, abilitation_id])
-          .uniq
+                .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_participations.area_role_id = area_roles.id', group_id, abilitation_id])
+                .uniq
     else
       ret = group_areas.joins(:area_roles)
-          .where(['group_areas.group_id = ?', group_id])
-          .uniq
+                .where(['group_areas.group_id = ?', group_id])
+                .uniq
     end
     ret
   end

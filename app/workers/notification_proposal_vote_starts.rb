@@ -10,14 +10,12 @@ class NotificationProposalVoteStarts < NotificationSender
     group = Group.find(group_id) if group_id
     group_area = GroupArea.find(group_area_id) if group_area_id
 
-    data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'extension' => 'in_vote'}
-    notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: url_for_proposal(proposal, group), data: data)
-    notification_a.save
+    data = {:proposal_id => proposal.id.to_s, :title => proposal.title, :extension => 'in_vote'}
+    notification_a = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: url_for_proposal(proposal, group), data: data)
 
     send_notification_to_authors(notification_a, proposal)
 
-    notification_b = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS, url: url_for_proposal(proposal, group), data: data)
-    notification_b.save
+    notification_b = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS, url: url_for_proposal(proposal, group), data: data)
 
     users = group ?
         group_area ?

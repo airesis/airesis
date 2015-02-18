@@ -16,8 +16,7 @@ class NotificationProposalRejected < NotificationSender
       data['group'] = group.name
       data['subdomain'] = group.subdomain if group.certified?
     end
-    notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: url_for_proposal(proposal, group), data: data)
-    notification_a.save
+    notification_a = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: url_for_proposal(proposal, group), data: data)
     send_notification_to_authors(notification_a, proposal)
 
     notification_b = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
