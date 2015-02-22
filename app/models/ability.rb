@@ -203,16 +203,7 @@ class Ability
         (area.group.portavoce.include? user) && area.proposals.empty?
       end
 
-      can :read, Election do |election|
-        group = election.groups.first
-        group.participants.include? user #posso visualizzare un'elezione solo se appartengo al gruppo
-      end
-      can :vote, Election do |election|
-        group = election.groups.first
-        group.participants.include? user #posso visualizzare un'elezione solo se appartengo al gruppo
-      end
-
-      #should be you, and proposal must have more users
+      # should be you, and proposal must have more users
       can :destroy, ProposalPresentation do |presentation|
         presentation.user == user &&
             presentation.proposal.users.count > 1
