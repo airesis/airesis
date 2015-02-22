@@ -29,9 +29,9 @@ describe "can list proposals and filter them", type: :feature, js: true, search:
     login_as user, scope: :user
     visit group_proposals_path(group)
     proposals.each { |proposal| expect(page).to have_content proposal.title }
-    search_and_check('caccapupu',titles)
-    search_and_check('how',titles)
-    search_and_check('hello',titles)
-    search_and_check('super',titles)
+    search_and_check('caccapupu', titles)
+    search_and_check('how', titles)
+    search_and_check('hello', titles)
+    search_and_check('super', titles)
   end
 end
