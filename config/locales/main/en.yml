@@ -1211,6 +1211,7 @@ en:
     mark: "Mark"
     update_and_continue: "Save and continue"
     detach: "Detach"
+    login: "Login"
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>Firstly they are shown the new contributions or the ones you haven't evaluated, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent"
@@ -1437,6 +1438,8 @@ en:
     group_invitations:
       create: "Invites sent correctly"
       accept: "Invite accepted! You are now a member of this group."
+      reject: "Invitation rejected."
+      anymore: "Invitation rejected. You will not receive other invites."
   interest_borders:
     hint: "Type a few characters to search for a place"
     no_place_found: "No place found"

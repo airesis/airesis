@@ -1457,6 +1457,8 @@ it-IT:
     group_invitations:
       create: "Inviti inviati correttamente!"
       accept: "Invito accettato! Ora fai parte di questo gruppo."
+      reject: "Invito rifiutato."
+      anymore: "Invito rifiutato. Non riceverai più inviti."
   interest_borders:
     hint: Digita alcuni caratteri per cercare un luogo
     no_place_found: Nessun luogo trovato

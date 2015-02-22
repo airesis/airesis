@@ -111,7 +111,6 @@ Airesis::Application.routes.draw do
   resources :proposal_categories
 
 
-
   resources :announcements do
     member do
       post :hide
@@ -143,13 +142,6 @@ Airesis::Application.routes.draw do
     end
   end
 
-  resources :group_invitations do
-    collection do
-      get :accept
-      get :reject
-      get :anymore
-    end
-  end
 
   resources :interest_borders
   resources :comunes
@@ -221,6 +213,19 @@ Airesis::Application.routes.draw do
   put '/votation/vote_schulze', to: 'votations#vote_schulze'
   resources :votations
 
+  concern :group_invitations do
+    resources :group_invitations do
+      resources :group_invitation_emails, param: :token do
+        member do
+          get :accept
+          get :reject
+          get :anymore
+        end
+      end
+    end
+  end
+
+
   concern :eventable do
     resources :events do
       resources :meeting_participations, only: [:create]
@@ -252,6 +257,7 @@ Airesis::Application.routes.draw do
   end
 
   concerns :eventable
+
 
   #specific routes for subdomains
   constraints Subdomain do
@@ -296,6 +302,7 @@ Airesis::Application.routes.draw do
     end
 
     concerns :participation_roles
+    concerns :group_invitations
 
     resources :search_participants
 
@@ -444,6 +451,8 @@ Airesis::Application.routes.draw do
       get 'users/autocomplete', to: "users#autocomplete", as: "user_autocomplete"
 
       concerns :eventable
+
+      concerns :group_invitations
 
       resources :elections
 

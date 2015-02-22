@@ -59,14 +59,16 @@ class Group < ActiveRecord::Base
 
   has_many :voters, -> { include(:participation_roles).where(["participation_roles.id = ?", 2]) }, through: :group_participations, source: :user, class_name: 'User'
 
-  has_many :invitation_emails, class_name: 'GroupInvitationEmail', dependent: :destroy
-
   has_many :group_areas, dependent: :destroy
 
   has_many :search_participants
 
   has_many :group_tags, dependent: :destroy
   has_many :tags, through: :group_tags, class_name: 'Tag'
+
+  # invitations
+  has_many :group_invitations
+  has_many :group_invitation_emails, through: :group_invitations
 
   #forum
   has_many :forums, class_name: 'Frm::Forum', foreign_key: 'group_id', dependent: :destroy

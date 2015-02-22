@@ -271,8 +271,8 @@ class User < ActiveRecord::Base
         user.email = session[:user][:email]
         user.login = session[:user][:email]
         if invite = session[:invite] #if is by invitation
-          group_invitation = GroupInvitation.find_by(token: invite[:token])
-          if user.email == group_invitation.group_invitation_email.email
+          group_invitation_email = GroupInvitationEmail.find_by(token: invite[:token])
+          if user.email == group_invitation_email.email
             user.skip_confirmation!
           end
         end

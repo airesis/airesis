@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222143548) do
+ActiveRecord::Schema.define(version: 20150222154934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -518,26 +518,23 @@ ActiveRecord::Schema.define(version: 20150222143548) do
   end
 
   create_table "group_invitation_emails", force: true do |t|
-    t.string   "email",      limit: 200,               null: false
-    t.integer  "group_id",                             null: false
-    t.string   "accepted",   limit: 1,   default: "W", null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.string   "email",               limit: 200,                 null: false
+    t.string   "accepted",            limit: 1,   default: "W",   null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "token",               limit: 32
+    t.boolean  "consumed",                        default: false
+    t.integer  "user_id"
+    t.integer  "group_invitation_id"
   end
-
-  add_index "group_invitation_emails", ["email", "group_id"], name: "index_group_invitation_emails_on_email_and_group_id", unique: true, using: :btree
 
   create_table "group_invitations", force: true do |t|
-    t.string   "token",                     limit: 32,                   null: false
-    t.datetime "created_at",                                             null: false
-    t.integer  "inviter_id",                                             null: false
-    t.integer  "invited_id"
-    t.boolean  "consumed",                               default: false, null: false
-    t.integer  "group_invitation_email_id",                              null: false
-    t.string   "testo",                     limit: 4000
+    t.datetime "created_at",                              null: false
+    t.integer  "inviter_id",                              null: false
+    t.boolean  "consumed",                default: false, null: false
+    t.string   "testo",      limit: 4000
+    t.integer  "group_id"
   end
-
-  add_index "group_invitations", ["group_invitation_email_id"], name: "index_group_invitations_on_group_invitation_email_id", unique: true, using: :btree
 
   create_table "group_participation_request_statuses", force: true do |t|
     t.string "description", limit: 200, null: false
@@ -1584,9 +1581,6 @@ ActiveRecord::Schema.define(version: 20150222143548) do
   add_foreign_key "group_areas", "area_roles", name: "group_areas_area_role_id_fk"
   add_foreign_key "group_areas", "groups", name: "group_areas_group_id_fk"
 
-  add_foreign_key "group_invitation_emails", "groups", name: "group_invitation_emails_group_id_fk"
-
-  add_foreign_key "group_invitations", "users", name: "group_invitations_invited_id_fk", column: "invited_id"
   add_foreign_key "group_invitations", "users", name: "group_invitations_inviter_id_fk", column: "inviter_id"
 
   add_foreign_key "group_participation_requests", "group_participation_request_statuses", name: "parent_fk"

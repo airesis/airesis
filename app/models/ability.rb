@@ -31,6 +31,8 @@ class Ability
     can :show, Proposal, visible_outside: true
     can :ask_for_participation, Group
     can :ask_for_multiple_follow, Group
+    can :read, GroupInvitation
+    can [:accept, :reject, :anymore, :show], GroupInvitationEmail
     can :read, Announcement, ["starts_at <= :now and ends_at >= :now", now: Time.zone.now] do |a|
       true
     end
@@ -254,6 +256,7 @@ class Ability
             ((group_participation.group.portavoce.include? user) && (group_participation.user != user))
       end
 
+      can [:new, :create], GroupInvitation, group: can_do_on_group(user, GroupAction::REQUEST_ACCEPT)
 
       can :destroy, Authentication do |authentication|
         user == authentication.user && user.email #can destroy an identity provider only if the set a valid email address
