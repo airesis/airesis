@@ -82,7 +82,6 @@ class EventsController < ApplicationController
 
     @event = Event.new(starttime: @starttime, endtime: @endtime, period: "Non ripetere", event_type_id: params[:event_type_id])
     @meeting = @event.build_meeting
-    @election = @event.build_election
     @place = @meeting.build_place
 
     if params[:proposal_id]
