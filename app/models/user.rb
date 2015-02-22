@@ -105,9 +105,6 @@ class User < ActiveRecord::Base
 
   has_many :events
 
-  #candidature
-  has_many :candidates, class_name: 'Candidate'
-
   has_many :proposal_nicknames, class_name: 'ProposalNickname'
 
   has_one :certification, class_name: 'UserSensitive', foreign_key: :user_id

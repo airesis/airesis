@@ -368,7 +368,6 @@ class Ability
           can :manage, BlogPost
           can :manage, Quorum
           can [:read, :create, :update, :change_group_permission], ParticipationRole
-          can :manage, Election
           can :manage, Event
           can :index, SysPaymentNotification
           can :manage, Frm::Topic

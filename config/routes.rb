@@ -260,9 +260,6 @@ Airesis::Application.routes.draw do
     get '/edit', to: 'groups#edit'
     put '/update', to: 'groups#update'
 
-    resources :elections
-    resources :candidates
-
     resources :quorums do
       member do
         post :change_status
@@ -518,14 +515,6 @@ Airesis::Application.routes.draw do
         get :download
       end
       member do
-      end
-    end
-
-    resources :elections do
-      member do
-        get :vote_page
-        post :vote
-        get :calculate_results
       end
     end
 

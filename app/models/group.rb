@@ -51,14 +51,6 @@ class Group < ActiveRecord::Base
 
   has_many :action_abilitations, class_name: 'ActionAbilitation'
 
-  has_many :group_elections, class_name: 'GroupElection'
-  #elezioni a cui partecipa
-  has_many :elections, through: :group_elections, class_name: 'Election'
-
-  has_many :supporters, class_name: 'Supporter'
-  #candidati che sostiene alle elezioni
-  has_many :candidates, through: :supporters, class_name: 'Candidate'
-
   has_many :group_proposals, class_name: 'GroupProposal', dependent: :destroy
   has_many :proposals, through: :group_proposals, class_name: 'Proposal', source: :proposal
 
