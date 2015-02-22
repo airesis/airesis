@@ -15,7 +15,7 @@ module Concerns
     end
 
     def tags_data
-      self.tags.map{|t| {id: t.text, name: t.text}}.to_json
+      self.tags.map { |t| {id: t.text, name: t.text} }.to_json
     end
 
     def tags_list=(tags_list)

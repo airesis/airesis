@@ -217,7 +217,6 @@ it-IT:
         short_url: Indirizzo breve
       header:
         settings: IMPOSTAZIONI
-        elections: ELEZIONI
         documents: DOCUMENTI
         forums: FORUM
         alarm_settings: Impostazioni
@@ -1455,6 +1454,9 @@ it-IT:
     area_participation:
       create: "Utente aggiunto all'area"
       destroy: "Utente rimosso dall'area"
+    group_invitations:
+      create: "Inviti inviati correttamente!"
+      accept: "Invito accettato! Ora fai parte di questo gruppo."
   interest_borders:
     hint: Digita alcuni caratteri per cercare un luogo
     no_place_found: Nessun luogo trovato

@@ -1,14 +1,26 @@
+# a single notification sent to a user
 class Alert < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: :user_id
   belongs_to :notification, class_name: 'Notification', foreign_key: :notification_id
 
-  default_scope -> { select('alerts.*, notifications.properties || alerts.properties as nproperties').joins(:notification) }
+  default_scope -> {
+    select('alerts.*, notifications.properties || alerts.properties as nproperties').
+        joins(:notification)
+  }
 
-  scope :another, ->(attribute, attr_id, user_id, notification_type) { joins([:notification, :user]).where(["(notifications.properties -> ?) = ? and notifications.notification_type_id in (?) and users.id = ?", attribute, attr_id.to_s, notification_type, user_id]).readonly(false) }
+  scope :another, ->(attribute, attr_id, user_id, notification_type) {
+    joins([:notification, :user]).
+        where('(notifications.properties -> ?) = ? and notifications.notification_type_id in (?) and users.id = ?',
+              attribute,
+              attr_id.to_s,
+              notification_type,
+              user_id).
+        readonly(false)
+  }
 
-  scope :another_unread, ->(attribute, attr_id, user_id, notification_type) { another(attribute, attr_id, user_id, notification_type).where('alerts.checked = false') }
-
-  #store_accessor :properties, :ncount
+  scope :another_unread, ->(attribute, attr_id, user_id, notification_type) {
+    another(attribute, attr_id, user_id, notification_type).where(alerts: {checked: false})
+  }
 
   has_one :notification_type, through: :notification
   has_one :notification_category, through: :notification_type
@@ -18,17 +30,17 @@ class Alert < ActiveRecord::Base
   after_commit :send_email, on: :create
 
   def data
-    ret = self.nproperties.symbolize_keys
+    ret = nproperties.symbolize_keys
     ret[:count] = ret[:count].to_i
     ret
   end
 
   def data=(data)
-    self.properties=data
+    self.properties = data
   end
 
   def email_subject
-    self.notification.email_subject
+    notification.email_subject
   end
 
   def check!
@@ -36,10 +48,9 @@ class Alert < ActiveRecord::Base
     ProposalAlert.find_by(proposal_id: data[:proposal_id].to_i, user_id: user_id).decrement!(:count) if data[:proposal_id]
   end
 
-
   def self.check_all
-    self.update_all(checked: true, checked_at: Time.now)
-    self.all.each do |alert|
+    update_all(checked: true, checked_at: Time.now)
+    all.each do |alert|
       if alert.data[:proposal_id]
         alert = ProposalAlert.find_by(proposal_id: alert.data[:proposal_id].to_i, user_id: alert.user_id)
         alert.decrement!(:count) if alert
@@ -52,20 +63,19 @@ class Alert < ActiveRecord::Base
     I18n.t("db.#{notification_type.class.class_name.tableize}.#{notification_type.name}.message#{extension}", data)
   end
 
-
   def increase_count!
-    self.properties_will_change! #TODO bugfix on Rails 4. to remove when patched
-    count = self.properties['count'] ? self.properties['count'].to_i : 1
-    self.properties['count'] = count+1
-    self.save!
+    self.properties_will_change! # TODO: bugfix on Rails 4. to remove when patched
+    count = properties['count'] ? properties['count'].to_i : 1
+    properties['count'] = count + 1
+    save!
   end
 
   def soft_delete
-    self.update_attributes!({deleted: true, deleted_at: Time.now})
+    update_attributes!(deleted: true, deleted_at: Time.now)
   end
 
   def self.soft_delete_all
-    self.update_all({deleted: true, deleted_at: Time.now})
+    update_all(deleted: true, deleted_at: Time.now)
   end
 
   protected
@@ -76,8 +86,9 @@ class Alert < ActiveRecord::Base
   end
 
   def send_email
-    if !user.blocked? && (!user.blocked_email_notifications.include? notification_type) && user.email.present?
-      ResqueMailer.delay_for(2.minutes).notification(id)
-    end
+    return if user.blocked?
+    return if user.blocked_email_notifications.include? notification_type
+    return unless user.email.present?
+    ResqueMailer.delay_for(2.minutes).notification(id)
   end
 end

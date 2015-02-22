@@ -11,7 +11,7 @@ class ParticipationRole < ActiveRecord::Base
   belongs_to :group, class_name: 'Group', foreign_key: :group_id
 
   #prendi il portavoce, member è deprecato
-  scope :common, -> {where(id: 2)}
+  scope :common, -> { where(id: 2) }
 
   validates_uniqueness_of :name, scope: :group_id
 

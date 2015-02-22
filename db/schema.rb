@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150123190330) do
+ActiveRecord::Schema.define(version: 20150222143548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -189,16 +189,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
 
   add_index "blogs", ["slug"], name: "index_blogs_on_slug", using: :btree
 
-  create_table "candidates", force: true do |t|
-    t.integer  "user_id",     null: false
-    t.integer  "election_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "score"
-  end
-
-  add_index "candidates", ["user_id", "election_id"], name: "index_candidates_on_user_id_and_election_id", unique: true, using: :btree
-
   create_table "circoscriziones", force: true do |t|
     t.integer "comune_id"
     t.string  "description",   limit: 100
@@ -280,27 +270,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
 
   create_table "continentes", force: true do |t|
     t.string "description", null: false
-  end
-
-  create_table "election_votes", force: true do |t|
-    t.integer  "user_id",     null: false
-    t.integer  "election_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "election_votes", ["user_id", "election_id"], name: "index_election_votes_on_user_id_and_election_id", unique: true, using: :btree
-
-  create_table "elections", force: true do |t|
-    t.string   "name",                                null: false
-    t.string   "description",                         null: false
-    t.integer  "event_id",                            null: false
-    t.datetime "groups_end_time",                     null: false
-    t.datetime "candidates_end_time",                 null: false
-    t.string   "status",              default: "1",   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "score_calculated",    default: false
   end
 
   create_table "event_comment_likes", force: true do |t|
@@ -542,15 +511,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
   end
-
-  create_table "group_elections", force: true do |t|
-    t.integer  "group_id",    null: false
-    t.integer  "election_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "group_elections", ["group_id", "election_id"], name: "index_group_elections_on_group_id_and_election_id", unique: true, using: :btree
 
   create_table "group_follows", force: true do |t|
     t.integer "user_id",  null: false
@@ -1155,16 +1115,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   add_index "revision_section_histories", ["proposal_revision_id"], name: "index_revision_section_histories_on_proposal_revision_id", using: :btree
   add_index "revision_section_histories", ["section_history_id"], name: "index_revision_section_histories_on_section_history_id", using: :btree
 
-  create_table "schulze_votes", force: true do |t|
-    t.integer  "election_id",             null: false
-    t.string   "preferences",             null: false
-    t.integer  "count",       default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "schulze_votes", ["election_id", "preferences"], name: "index_schulze_votes_on_election_id_and_preferences", unique: true, using: :btree
-
   create_table "search_participants", force: true do |t|
     t.integer  "role_id"
     t.integer  "status_id"
@@ -1228,15 +1178,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
 
   add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
-
-  create_table "simple_votes", force: true do |t|
-    t.integer  "candidate_id",             null: false
-    t.integer  "count",        default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "simple_votes", ["candidate_id"], name: "index_simple_votes_on_candidate_id", unique: true, using: :btree
 
   create_table "solution_histories", force: true do |t|
     t.integer "proposal_revision_id", null: false
@@ -1315,15 +1256,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
     t.datetime "updated_at"
     t.string   "format",      default: "html"
   end
-
-  create_table "supporters", force: true do |t|
-    t.integer  "candidate_id", null: false
-    t.integer  "group_id",     null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "supporters", ["candidate_id", "group_id"], name: "index_supporters_on_candidate_id_and_group_id", unique: true, using: :btree
 
   create_table "sys_currencies", force: true do |t|
     t.string   "description", limit: 10, null: false
@@ -1584,24 +1516,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
     t.string "short"
   end
 
-  add_foreign_key "action_abilitations", "group_actions", name: "action_abilitations_group_action_id_fk"
-  add_foreign_key "action_abilitations", "groups", name: "action_abilitations_group_id_fk"
-  add_foreign_key "action_abilitations", "participation_roles", name: "action_abilitations_partecipation_role_id_fk"
-
-  add_foreign_key "alerts", "notifications", name: "user_alerts_notification_id_fk"
-  add_foreign_key "alerts", "users", name: "user_alerts_user_id_fk"
-
-  add_foreign_key "area_action_abilitations", "area_roles", name: "area_action_abilitations_area_role_id_fk"
-  add_foreign_key "area_action_abilitations", "group_actions", name: "area_action_abilitations_group_action_id_fk"
-  add_foreign_key "area_action_abilitations", "group_areas", name: "area_action_abilitations_group_area_id_fk"
-
-  add_foreign_key "area_participations", "area_roles", name: "area_partecipations_area_role_id_fk"
-  add_foreign_key "area_participations", "group_areas", name: "area_partecipations_group_area_id_fk"
-  add_foreign_key "area_participations", "users", name: "area_partecipations_user_id_fk"
-
-  add_foreign_key "area_proposals", "group_areas", name: "area_proposals_group_area_id_fk"
-  add_foreign_key "area_proposals", "proposals", name: "area_proposals_proposal_id_fk"
-
   add_foreign_key "area_roles", "group_areas", name: "area_roles_group_area_id_fk"
 
   add_foreign_key "authentications", "users", name: "authentications_user_id_fk"
@@ -1633,9 +1547,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
 
   add_foreign_key "blogs", "users", name: "blogs_user_id_fk"
 
-  add_foreign_key "candidates", "elections", name: "candidates_election_id_fk"
-  add_foreign_key "candidates", "users", name: "candidates_user_id_fk"
-
   add_foreign_key "circoscriziones", "continentes", name: "circoscriziones_continente_id_fk"
   add_foreign_key "circoscriziones", "provincias", name: "circoscriziones_provincia_id_fk"
   add_foreign_key "circoscriziones", "regiones", name: "circoscriziones_regione_id_fk"
@@ -1644,11 +1555,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   add_foreign_key "comunes", "continentes", name: "comunes_continente_id_fk"
   add_foreign_key "comunes", "regiones", name: "comunes_regione_id_fk"
   add_foreign_key "comunes", "statos", name: "comunes_stato_id_fk"
-
-  add_foreign_key "election_votes", "elections", name: "election_votes_election_id_fk"
-  add_foreign_key "election_votes", "users", name: "election_votes_user_id_fk"
-
-  add_foreign_key "elections", "events", name: "elections_event_id_fk"
 
   add_foreign_key "event_comment_likes", "event_comments", name: "event_comment_likes_event_comment_id_fk"
   add_foreign_key "event_comment_likes", "users", name: "event_comment_likes_user_id_fk"
@@ -1677,9 +1583,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
 
   add_foreign_key "group_areas", "area_roles", name: "group_areas_area_role_id_fk"
   add_foreign_key "group_areas", "groups", name: "group_areas_group_id_fk"
-
-  add_foreign_key "group_elections", "elections", name: "group_elections_election_id_fk"
-  add_foreign_key "group_elections", "groups", name: "group_elections_group_id_fk"
 
   add_foreign_key "group_invitation_emails", "groups", name: "group_invitation_emails_group_id_fk"
 
@@ -1796,10 +1699,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   add_foreign_key "revision_section_histories", "proposal_revisions", name: "revision_section_histories_proposal_revision_id_fk"
   add_foreign_key "revision_section_histories", "section_histories", name: "revision_section_histories_section_history_id_fk"
 
-  add_foreign_key "schulze_votes", "elections", name: "schulze_votes_election_id_fk"
-
-  add_foreign_key "simple_votes", "candidates", name: "simple_votes_candidate_id_fk"
-
   add_foreign_key "solution_histories", "proposal_revisions", name: "solution_histories_proposal_revision_id_fk"
 
   add_foreign_key "solution_section_histories", "section_histories", name: "solution_section_histories_section_history_id_fk"
@@ -1811,9 +1710,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   add_foreign_key "solutions", "proposals", name: "solutions_proposal_id_fk"
 
   add_foreign_key "statos", "continentes", name: "statos_continente_id_fk"
-
-  add_foreign_key "supporters", "candidates", name: "supporters_candidate_id_fk"
-  add_foreign_key "supporters", "groups", name: "supporters_group_id_fk"
 
   add_foreign_key "sys_movements", "sys_currencies", name: "sys_movements_sys_currency_id_fk"
   add_foreign_key "sys_movements", "sys_movement_types", name: "sys_movements_sys_movement_type_id_fk"

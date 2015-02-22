@@ -10,7 +10,6 @@ class GroupInvitationsController < ApplicationController
   #controlla l'invito
   before_filter :check_invite, only: [:accept,:reject,:anymore]
 
-
   def new
     @group_invitation = GroupInvitation.new(group_id: params[:group_id])
 
@@ -40,10 +39,8 @@ class GroupInvitationsController < ApplicationController
     end
 
     respond_to do |format|
-        flash[:notice] = "Inviti inviati correttamente!"
+        flash[:notice] = t('info.group_invitations.create')
         format.js
-        #format.html { redirect_to @group_invitation, notice: 'Group invitation was successfully created.' }
-        #format.json { render json: @group_invitation, status: :created, location: @group_invitation }
     end
   end
 
@@ -65,7 +62,7 @@ class GroupInvitationsController < ApplicationController
 
     end
 
-    flash[:notice] = "Invito accettato! Ora fai parte di questo gruppo!"
+    flash[:notice] = t('info.group_invitations.accept')
     redirect_to @group
   end
 

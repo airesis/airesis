@@ -1,7 +1,7 @@
 class AreaRole < ActiveRecord::Base
 
   has_many :area_participations, class_name: 'AreaParticipation'
-  has_many :users,through: :area_participations, class_name: 'User'
+  has_many :users, through: :area_participations, class_name: 'User'
   has_many :area_action_abilitations, class_name: 'AreaActionAbilitation', dependent: :destroy
   has_many :area_actions, class_name: 'GroupAction', through: :area_action_abilitations, source: :group_action
 
@@ -9,7 +9,7 @@ class AreaRole < ActiveRecord::Base
 
 
   validates_uniqueness_of :name, scope: :group_area_id
-  
+
   validates_presence_of :name, :description
 
   #prima di cancellare un ruolo assegna il ruolo di default a tutti coloro che avevano questo

@@ -242,15 +242,15 @@ class Group < ActiveRecord::Base
   end
 
   def request_by_vote?
-    self.accept_requests == REQ_BY_VOTE
+    accept_requests == REQ_BY_VOTE
   end
 
   def request_by_portavoce?
-    self.accept_requests == REQ_BY_PORTAVOCE
+    accept_requests == REQ_BY_PORTAVOCE
   end
 
   def request_by_both?
-    self.accept_requests == REQ_BY_BOTH
+    accept_requests == REQ_BY_BOTH
   end
 
   def self.look(params)
@@ -263,7 +263,7 @@ class Group < ActiveRecord::Base
     limite = params[:limit] || 30
 
     if tag
-      Group.joins(:tags).where(['tags.text = ?', tag]).order('group_participations_count desc, created_at desc').page(page).per(limite)
+      Group.joins(:tags).where(tags: {text: tag}).order('group_participations_count desc, created_at desc').page(page).per(limite)
     else
       Group.search(include: [:next_events, interest_border: [:territory]]) do
         fulltext search, minimum_match: params[:minimum] if search
@@ -312,22 +312,22 @@ class Group < ActiveRecord::Base
     integer :group_participations_count
     time :created_at
     integer :continente_id do
-      self.interest_border.continente.try(:id)
+      interest_border.continente.try(:id)
     end
     integer :stato_id do
-      self.interest_border.stato.try(:id)
+      interest_border.stato.try(:id)
     end
     integer :regione_id do
-      self.interest_border.regione.try(:id)
+      interest_border.regione.try(:id)
     end
     integer :provincia_id do
-      self.interest_border.provincia.try(:id)
+      interest_border.provincia.try(:id)
     end
     integer :comune_id do
-      self.interest_border.comune.try(:id)
+      interest_border.comune.try(:id)
     end
     integer :circoscrizione_id do
-      self.interest_border.circoscrizione.try(:id)
+      interest_border.circoscrizione.try(:id)
     end
   end
 

@@ -72,8 +72,6 @@ if (map_canvas) {
 }
 
 
-<%if @event.is_elezione? %>
-showPlace('4');
-<%elsif @event.is_votazione? %>
+<%if @event.is_votazione? %>
 showPlace('2');
 <%end%>

@@ -1,4 +1,4 @@
-#encoding: utf-8
+# define permissions for users
 class Ability
   include CanCan::Ability
 

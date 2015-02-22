@@ -1,13 +1,14 @@
 <%= t('mailer.invite.hi_user') %><br/>
-<%=raw t('mailer.invite.invitation', {user: @group_invitation.inviter.fullname, group: (link_to @group.name, group_url(@group)), app_name: (link_to ENV['APP_LONG_NAME'], Maktoub.home_domain)}) %><br />
-<%if @group_invitation.testo %>
-<%= t('mailer.invite.message_intro') %><br/>
+<%= raw t('mailer.invite.invitation', {user: @group_invitation.inviter.fullname, group: (link_to @group.name, group_url(@group)), app_name: (link_to ENV['APP_LONG_NAME'], Maktoub.home_domain)}) %>
+<br/>
+<% if @group_invitation.testo %>
+    <%= t('mailer.invite.message_intro') %><br/>
     <p style="font-style: italic;">
-      <%=h @group_invitation.testo%>
+      <%= h @group_invitation.testo %>
     </p>
-<%end%>
+<% end %>
 
-<%= t('mailer.invite.accept_or_reject') %> <br />
+<%= t('mailer.invite.accept_or_reject') %> <br/>
 <%= t('mailer.invite.no_more', {app_name: ENV['APP_SHORT_NAME']}) %> <br/>
 
 <%= link_to t('mailer.invite.accept'), accept_group_invitations_url(group_id: @group.id, token: @group_invitation.token, email: @group_invitation_email.email), style: 'text-decoration: none;
@@ -38,7 +39,7 @@
         -o-transition: border-color .20s;
         transition: border-color .20s;
         cursor: pointer;
-        position: relative;' %> <br />
-<br />
-<%= t('mailer.invite.greetings') %><br />
-<%= link_to t('mailer.invite.no_more_button'), anymore_group_invitations_url(group_id: @group.id, token: @group_invitation.token, email: @group_invitation_email.email), :style=> "font-size: 10px;" %>
+        position: relative;' %> <br/>
+<br/>
+<%= t('mailer.invite.greetings') %><br/>
+<%= link_to t('mailer.invite.no_more_button'), anymore_group_invitations_url(group_id: @group.id, token: @group_invitation.token, email: @group_invitation_email.email), :style => "font-size: 10px;" %>

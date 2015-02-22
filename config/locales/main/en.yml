@@ -217,7 +217,6 @@ en:
         short_url: "Short url"
       header:
         settings: "SETTINGS"
-        elections: "ELECTIONS"
         documents: "DOCUMENTS"
         forums: "FORUM"
         alarm_settings: "Settings"
@@ -319,6 +318,7 @@ en:
       accept_conditions: "Accept the Terms of Service"
       register_button: "Register"
       identity_provviders_title: "Get in immediately with your favourite account"
+      accept_privacy: "Accept Privacy Terms"
     proposals:
       index:
         title: 'List of proposals'
@@ -843,22 +843,6 @@ en:
       confirm_button: "Confirm"
     calendar:
       create_event_button: "Create new event"
-    candidates:
-      new:
-        title: "%{name} : New candidature"
-        description: "Choose one of the group participants and send him as candidate for one of the available elections."
-        send_button: "Send the candidature"
-      index:
-        description: "On this page you can track the candidatures made ​​by the group in the elections. <br /> Before you can make a nomination, the group must "
-        create_election: "hold an election"
-        user_column: "User"
-        election_column: "Election"
-        state_column: "State"
-        candidates_phase: "user candidatures"
-        voting_phase: "voting phase"
-        terminated_phase: "terminated"
-        send_candidate_button: "Candidate a user"
-        create_election_button: "Create a new election"
     sessions:
       new:
         login_label: "Username or Email"
@@ -998,12 +982,6 @@ en:
       blog_comment:
          body: 'Comment'
          created_at: "AntiSpam"
-      candidate:
-         user: 'Candidate'
-         election: 'Election'
-      election:
-        groups_end_time: 'Deadline date for group entry'
-        candidates_end_time: 'Deadline date for candidates entry'
       event:
         title: 'Event title'
         description: 'Description'
@@ -1014,7 +992,6 @@ en:
         period: 'Repeat'
         frequency: 'Repeat every'
         private: 'Private'
-        candidates_end_time: 'Deadline date for candidates entry'
         meeting:
           place:
             address: "Address"
@@ -1457,6 +1434,9 @@ en:
     area_participation:
       create: "User added to the area"
       destroy: "User removed from the area"
+    group_invitations:
+      create: "Invites sent correctly"
+      accept: "Invite accepted! You are now a member of this group."
   interest_borders:
     hint: "Type a few characters to search for a place"
     no_place_found: "No place found"
