@@ -1,4 +1,4 @@
-#encoding: utf-8
+# define permissions for users
 class Ability
   include CanCan::Ability
 
@@ -31,6 +31,8 @@ class Ability
     can :show, Proposal, visible_outside: true
     can :ask_for_participation, Group
     can :ask_for_multiple_follow, Group
+    can :read, GroupInvitation
+    can [:accept, :reject, :anymore, :show], GroupInvitationEmail
     can :read, Announcement, ["starts_at <= :now and ends_at >= :now", now: Time.zone.now] do |a|
       true
     end
@@ -93,7 +95,7 @@ class Ability
       can :set_votation_date, Proposal, proposal_state_id: ProposalState::WAIT_DATE, users: {id: user.id}
 
       can :set_votation_date, Proposal do |proposal| #return true if the user can put the proposal in votation
-        (proposal.updated_at < (Time.now - 5.days)) &&
+        (proposal.updated_at < (Time.now - OTHERS_CHOOSE_VOTE_DATE_DAYS.days)) &&
             proposal.private? &&
             can_do_on_group?(user, proposal.groups.first, GroupAction::PROPOSAL_DATE)
       end
@@ -148,7 +150,7 @@ class Ability
 
       can :read, Group
       can [:update, :enable_areas, :change_advanced_options, :change_default_anonima, :change_default_visible_outside, :change_default_secret_vote], Group, is_admin_of_group(user)
-      can :create, SearchParticipant, group: is_admin_of_group(user)
+      can :create, SearchParticipant, group: participate_in_group(user)
 
       can :destroy, Group do |group|
         (group.portavoce.include? user) && (group.participants.count < 2)
@@ -203,16 +205,7 @@ class Ability
         (area.group.portavoce.include? user) && area.proposals.empty?
       end
 
-      can :read, Election do |election|
-        group = election.groups.first
-        group.participants.include? user #posso visualizzare un'elezione solo se appartengo al gruppo
-      end
-      can :vote, Election do |election|
-        group = election.groups.first
-        group.participants.include? user #posso visualizzare un'elezione solo se appartengo al gruppo
-      end
-
-      #should be you, and proposal must have more users
+      # should be you, and proposal must have more users
       can :destroy, ProposalPresentation do |presentation|
         presentation.user == user &&
             presentation.proposal.users.count > 1
@@ -263,6 +256,7 @@ class Ability
             ((group_participation.group.portavoce.include? user) && (group_participation.user != user))
       end
 
+      can [:new, :create], GroupInvitation, group: can_do_on_group(user, GroupAction::REQUEST_ACCEPT)
 
       can :destroy, Authentication do |authentication|
         user == authentication.user && user.email #can destroy an identity provider only if the set a valid email address
@@ -377,7 +371,6 @@ class Ability
           can :manage, BlogPost
           can :manage, Quorum
           can [:read, :create, :update, :change_group_permission], ParticipationRole
-          can :manage, Election
           can :manage, Event
           can :index, SysPaymentNotification
           can :manage, Frm::Topic

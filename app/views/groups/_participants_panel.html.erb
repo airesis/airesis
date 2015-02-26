@@ -15,7 +15,7 @@
 <h4><%= t('pages.groups.show.participants_list') %></h4>
 
 <% if can? :accept_requests, @group %>
-    <%= link_to new_group_invitation_path(group_id: @group.id), remote: true, class: "btn disable" do %>
+    <%= link_to new_group_group_invitation_path(@group), remote: true, class: "btn disable" do %>
         <i class="fa fa-envelope-o"></i>
         <%= t('pages.groups.show.invite_button') %>
     <% end %>

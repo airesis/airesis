@@ -9,8 +9,8 @@ class Search < ActiveRecord::Base
 
     self.groups = Group.search do
       fulltext "#{q}*" do
-        boost(20.0) { with(:id, groups_a)}
-        boost(10.0) { with(:id, groups_b)}
+        boost(20.0) { with(:id, groups_a) }
+        boost(10.0) { with(:id, groups_b) }
       end
 
       order_by :score, :desc

@@ -9,10 +9,11 @@ gem 'therubyracer', platforms: :ruby
 gem 'maktoub' #newsletter
 
 gem 'sass-rails'
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 gem 'coffee-rails'
-gem 'foundation-rails', github: 'johnantoni/foundation-rails', branch: 'foundation-5.4.7' #not the official repossitory. waiting for update to 5.4.7
 
+# not the official repossitory. waiting for update to 5.4.7
+gem 'foundation-rails', github: 'johnantoni/foundation-rails', branch: 'foundation-5.4.7'
 
 gem 'pg'
 
@@ -31,6 +32,7 @@ group :development do
   gem 'capistrano-sidekiq'
   gem 'capistrano-passenger'
   gem 'i18n-tasks', '~> 0.7.7'
+  gem 'rubocop'
 end
 
 group :development, :test do
@@ -44,7 +46,6 @@ group :development, :test do
   gem 'spring'
   gem 'sunspot_test'
 end
-
 
 gem 'crowdin-api', group: [:development, :staging]
 gem 'rubyzip', group: [:development, :staging]
@@ -77,13 +78,11 @@ gem 'koala', '~> 1.8.0rc1'
 
 gem 'xmpp4r_facebook'
 
-
 gem 'sinatra', '>= 1.3.0', require: nil
 
-gem 'sidekiq'#, '~> 2.17.7' #added for issue https://github.com/tobiassvn/sidetiq/issues/79
+gem 'sidekiq'
 gem 'sidekiq-failures'
 gem 'sidetiq'
-
 
 gem 'cancancan'
 

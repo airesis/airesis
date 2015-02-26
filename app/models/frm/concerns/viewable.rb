@@ -18,7 +18,7 @@ module Frm
         return unless user
 
         view = views.find_or_create_by(user_id: user.id)
-        view.increment!("count")
+        view.increment!('count')
         self.class.update_counters id, views_count: 1
 
         # update current_viewed_at if more than 15 minutes ago
@@ -28,7 +28,7 @@ module Frm
 
         # Update the current_viewed_at if it is BEFORE 15 minutes ago.
         if view.current_viewed_at < 15.minutes.ago
-          view.past_viewed_at    = view.current_viewed_at
+          view.past_viewed_at = view.current_viewed_at
           view.current_viewed_at = Time.now
           view.save
         end

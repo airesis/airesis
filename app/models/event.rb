@@ -15,8 +15,6 @@ class Event < ActiveRecord::Base
 
   has_many :groups, through: :meeting_organizations, class_name: 'Group', source: :group
 
-  has_one :election, class_name: 'Election', dependent: :destroy
-
   has_many :event_comments, class_name: 'EventComment', foreign_key: :event_id, dependent: :destroy
 
   belongs_to :user
@@ -49,16 +47,6 @@ class Event < ActiveRecord::Base
   def validate_start_time_end_time
     if starttime && endtime
       errors.add(:starttime, "La data di inizio deve essere antecedente la data di fine") if endtime <= starttime
-    end
-
-    if event_type_id == EventType::ELEZIONI
-      #if election.groups_end_time && election.candidates_end_time
-      if election.candidates_end_time
-        if  election.candidates_end_time <= starttime ||
-            election.candidates_end_time >= endtime
-          errors.add(:candidates_end_time, "deve essere compreso tra la data inizio e la data fine dell'evento")
-        end
-      end
     end
   end
 
@@ -114,20 +102,12 @@ class Event < ActiveRecord::Base
     Time.now < self.starttime
   end
 
-  def is_elezione?
-    self.event_type_id == EventType::ELEZIONI
-  end
-
   def is_votazione?
     self.event_type_id == EventType::VOTAZIONE
   end
 
   def is_incontro?
     self.event_type_id == EventType::INCONTRO
-  end
-
-  def is_riunione?
-    self.event_type_id == EventType::RIUNIONE
   end
 
   def backgroundColor

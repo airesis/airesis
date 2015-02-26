@@ -1,3 +1,4 @@
+<div data-alert class="alert-box info radius">
 <% if can? :set_votation_date, @proposal %>
     <% if @group %>
         <% collection = @group.events.not_visible.vote_period.all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] } %>
@@ -30,7 +31,7 @@
 <% else %>
     <b><%= t('pages.proposals.show.no_periods_contact_group') %></b>
 <% end %>
-
+</div>
 
 <script type="text/javascript">
     $(function () {

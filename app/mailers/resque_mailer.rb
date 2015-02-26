@@ -54,12 +54,13 @@ class ResqueMailer < ActionMailer::Base
     mail(to: ENV['ADMIN_EMAIL'], subject: ENV['APP_SHORT_NAME'] + " - Messaggio di informazione")
   end
 
-  #invia un invito ad iscriversi al gruppo
-  def invite(group_invitation_id)
-    @group_invitation = GroupInvitation.find(group_invitation_id)
+  # send an invite to subscribe in the group
+  def invite(group_invitation_email_id)
+    @group_invitation_email = GroupInvitationEmail.find(group_invitation_email_id)
+    @group_invitation = @group_invitation_email.group_invitation
     I18n.locale = @group_invitation.inviter.locale.key
-    @group_invitation_email = @group_invitation.group_invitation_email
-    @group = @group_invitation_email.group
+    @group = @group_invitation.group
+    @inviter = @group_invitation.inviter
     mail(to: @group_invitation_email.email, subject: t('mailer.invite.subject', group_name: @group.name))
   end
 

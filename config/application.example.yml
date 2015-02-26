@@ -193,4 +193,6 @@ DEFAULT_GROUP_ACTIONS: "1, 2, 6, 7, 8, 9, 11, 12"
 #expert variable, don't touch it if you don't know what are you going to do
 DEFAULT_AREA_ACTIONS: "6, 7, 8, 11, 12"
 
+#after this number of days, if the author has not chose a voting date, the users which have the right to choose a vote day, can do it
+OTHERS_CHOOSE_VOTE_DATE_DAYS: "5"
 

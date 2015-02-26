@@ -187,7 +187,7 @@ class BestQuorum < Quorum
         vs = SchulzeBasic.do votesstring, num_solutions
         solutions_sorted = proposal.solutions.sort { |a, b| a.id <=> b.id } #order the solutions by the id (as the plugin output the results)
         solutions_sorted.each_with_index do |c, i|
-          c.schulze_score = vs.ranks[i].to_i  #save the result in the solution
+          c.schulze_score = vs.ranks[i].to_i #save the result in the solution
           c.save!
         end
         votes = proposal.schulze_votes.sum(:count)

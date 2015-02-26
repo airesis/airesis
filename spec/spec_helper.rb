@@ -1,5 +1,5 @@
-ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path("../../config/environment", __FILE__)
+ENV['RAILS_ENV'] ||= 'test'
+require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'database_cleaner'
 require 'sidekiq/testing'
@@ -12,9 +12,7 @@ end
 
 #Sidekiq::Testing.inline!
 
-Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
-
-RSpec.configure do |config|
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 
   config.use_transactional_fixtures = false
@@ -46,13 +44,14 @@ RSpec.configure do |config|
       ActionAbilitation.create(GroupAction.all.map { |group_action| {group_action: group_action, participation_role: admin} })
       #ActiveRecord::Base.connection.execute('ALTER SEQUENCE participation_roles_id_seq RESTART WITH 3')
     end
+    Configuration.find_by(name: 'recaptcha').update_column(:value, 0)
   end
 
   config.after(:each) do
     DatabaseCleaner.clean
   end
 
-  config.order = "random"
+  config.order = 'random'
 
   config.include FactoryGirl::Syntax::Methods
 

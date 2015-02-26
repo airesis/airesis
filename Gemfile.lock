@@ -104,6 +104,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.7)
     arel (5.0.1.20140414130214)
+    ast (2.0.0)
+    astrolabe (1.3.0)
+      parser (>= 2.2.0.pre.3, < 3.0)
     aws-sdk (2.0.22)
       aws-sdk-resources (= 2.0.22)
     aws-sdk-core (2.0.22)
@@ -354,8 +357,11 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    parser (2.2.0.3)
+      ast (>= 1.1, < 3.0)
     pg (0.18.1)
     power_assert (0.2.2)
+    powerpack (0.1.0)
     pr_geohash (1.0.0)
     premailer (1.8.3)
       css_parser (>= 1.3.6)
@@ -386,6 +392,7 @@ GEM
       activesupport (= 4.1.8)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
+    rainbow (2.0.0)
     rake (10.4.2)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
@@ -422,7 +429,14 @@ GEM
       rspec-mocks (~> 3.2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.1)
+    rubocop (0.29.1)
+      astrolabe (~> 1.3)
+      parser (>= 2.2.0.1, < 3.0)
+      powerpack (~> 0.1)
+      rainbow (>= 1.99.1, < 3.0)
+      ruby-progressbar (~> 1.4)
     ruby-prof (0.15.3)
+    ruby-progressbar (1.7.1)
     rubyzip (1.1.7)
     rvm1-capistrano3 (1.3.2.2)
       capistrano (~> 3.0)
@@ -594,6 +608,7 @@ DEPENDENCIES
   redcarpet
   rotp
   rspec-rails
+  rubocop
   ruby-prof
   rubyzip
   rvm1-capistrano3
@@ -622,7 +637,7 @@ DEPENDENCIES
   timezone!
   truncate_html
   turbolinks
-  uglifier (>= 1.3.0)
+  uglifier
   vote-schulze!
   wicked_pdf
   workflow

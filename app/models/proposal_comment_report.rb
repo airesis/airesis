@@ -1,3 +1,4 @@
+# the report of a user about a comment
 class ProposalCommentReport < ActiveRecord::Base
   belongs_to :user
   belongs_to :proposal_comment_report_type
@@ -10,19 +11,19 @@ class ProposalCommentReport < ActiveRecord::Base
   after_destroy :decrease_counter_cache
 
   def increase_counter_cache
-    self.proposal_comment_report_type.severity == ProposalCommentReportType::LOW ?
-        self.proposal_comment.increment!(:soft_reports_count) :
-        self.proposal_comment.increment!(:grave_reports_count)
-
-    if self.proposal_comment_report_type.severity > ProposalCommentReportType::LOW
-      ResqueMailer.delay.report_message(self.id) #report spam messages
+    if proposal_comment_report_type.severity == ProposalCommentReportType::LOW
+      proposal_comment.increment!(:soft_reports_count)
+    else
+      proposal_comment.increment!(:grave_reports_count)
+      ResqueMailer.delay.report_message(id)
     end
   end
 
   def decrease_counter_cache
-    self.proposal_comment_report_type.severity == ProposalCommentReportType::LOW ?
-        self.proposal_comment.decrement!(:soft_reports_count) :
-        self.proposal_comment.decrement!(:grave_reports_count)
+    if proposal_comment_report_type.severity == ProposalCommentReportType::LOW
+      proposal_comment.decrement!(:soft_reports_count)
+    else
+      proposal_comment.decrement!(:grave_reports_count)
+    end
   end
-
 end

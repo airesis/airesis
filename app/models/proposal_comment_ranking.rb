@@ -2,17 +2,17 @@ class ProposalCommentRanking < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: :user_id
   belongs_to :ranking_type, class_name: 'RankingType', foreign_key: :ranking_type_id
   belongs_to :proposal_comment, class_name: 'ProposalComment', foreign_key: :proposal_comment_id
-  
-  
-  scope :positives, -> {where(ranking_type_id: RankingType::POSITIVE)}
-  scope :negatives, -> {where(ranking_type_id: RankingType::NEGATIVE)}
-  scope :neutrals, -> {where(ranking_type_id: RankingType::NEUTRAL)}
+
+
+  scope :positives, -> { where(ranking_type_id: RankingType::POSITIVE) }
+  scope :negatives, -> { where(ranking_type_id: RankingType::NEGATIVE) }
+  scope :neutrals, -> { where(ranking_type_id: RankingType::NEUTRAL) }
 
   after_save :update_counter_cache
   after_destroy :update_counter_cache
 
   def update_counter_cache
-    rankings = ProposalCommentRanking.where(["proposal_comment_id = ?",self.proposal_comment.id])
+    rankings = ProposalCommentRanking.where(["proposal_comment_id = ?", self.proposal_comment.id])
     nvalutations = rankings.count
     num_pos = rankings.positives.count
     num_neg = rankings.negatives.count
@@ -24,5 +24,5 @@ class ProposalCommentRanking < ActiveRecord::Base
   rescue Exception => e
     log_error(e)
   end
-  
+
 end

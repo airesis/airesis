@@ -44,11 +44,10 @@ module Frm
       name
     end
 
-
     protected
 
     def visibility
-      self.errors.add(:visible_outside, "Un forum non può essere visibile all''esterno se la sezione in cui è contenuto non è visibile") if (self.visible_outside && !self.category.visible_outside)
+      self.errors.add(:visible_outside, "Un forum non può essere visibile all'esterno se la sezione in cui è contenuto non è visibile") if visible_outside && !category.visible_outside
     end
   end
 end

@@ -217,7 +217,6 @@ en:
         short_url: "Short url"
       header:
         settings: "SETTINGS"
-        elections: "ELECTIONS"
         documents: "DOCUMENTS"
         forums: "FORUM"
         alarm_settings: "Settings"
@@ -319,6 +318,7 @@ en:
       accept_conditions: "Accept the Terms of Service"
       register_button: "Register"
       identity_provviders_title: "Get in immediately with your favourite account"
+      accept_privacy: "Accept Privacy Terms"
     proposals:
       index:
         title: 'List of proposals'
@@ -473,6 +473,7 @@ en:
           not_logged_in: "You cannot participate to this proposal because you are not currently logged in. "
         read_contribute: "SHOW CONTRIBUTIONS"
         security_token: "Security Token"
+        you_can_choose_vote_dates: "This proposal is waiting since %{count} days for a voting date, so you are now allowed to choose one."
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "Help"
@@ -842,22 +843,6 @@ en:
       confirm_button: "Confirm"
     calendar:
       create_event_button: "Create new event"
-    candidates:
-      new:
-        title: "%{name} : New candidature"
-        description: "Choose one of the group participants and send him as candidate for one of the available elections."
-        send_button: "Send the candidature"
-      index:
-        description: "On this page you can track the candidatures made ​​by the group in the elections. <br /> Before you can make a nomination, the group must "
-        create_election: "hold an election"
-        user_column: "User"
-        election_column: "Election"
-        state_column: "State"
-        candidates_phase: "user candidatures"
-        voting_phase: "voting phase"
-        terminated_phase: "terminated"
-        send_candidate_button: "Candidate a user"
-        create_election_button: "Create a new election"
     sessions:
       new:
         login_label: "Username or Email"
@@ -997,12 +982,6 @@ en:
       blog_comment:
          body: 'Comment'
          created_at: "AntiSpam"
-      candidate:
-         user: 'Candidate'
-         election: 'Election'
-      election:
-        groups_end_time: 'Deadline date for group entry'
-        candidates_end_time: 'Deadline date for candidates entry'
       event:
         title: 'Event title'
         description: 'Description'
@@ -1013,7 +992,6 @@ en:
         period: 'Repeat'
         frequency: 'Repeat every'
         private: 'Private'
-        candidates_end_time: 'Deadline date for candidates entry'
         meeting:
           place:
             address: "Address"
@@ -1233,6 +1211,7 @@ en:
     mark: "Mark"
     update_and_continue: "Save and continue"
     detach: "Detach"
+    login: "Login"
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>Firstly they are shown the new contributions or the ones you haven't evaluated, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent"
@@ -1357,6 +1336,7 @@ en:
       voting: "The proposal is in the voting phase"
       ask_participation: "Ask to become a member of the group to evaluate and contribute to this proposal"
       public_visible: "This proposal is publicly visible"
+      public_visible_short: "Publicly visible"
       available_authors: "There are new editors available for the proposal"
       updated_comment: "Your comment has been successfully updated"
       comment_deleted: "The comment has been successfully deleted"
@@ -1455,6 +1435,11 @@ en:
     area_participation:
       create: "User added to the area"
       destroy: "User removed from the area"
+    group_invitations:
+      create: "Invites sent correctly"
+      accept: "Invite accepted! You are now a member of this group."
+      reject: "Invitation rejected."
+      anymore: "Invitation rejected. You will not receive other invites."
   interest_borders:
     hint: "Type a few characters to search for a place"
     no_place_found: "No place found"

@@ -1,20 +1,20 @@
+# assign a tag to a blog post.
 class BlogPostTag < ActiveRecord::Base
 
-	belongs_to :blog_post
-	belongs_to :tag
+  belongs_to :blog_post
+  belongs_to :tag
 
-  after_create  :increment_counter_cache
+  after_create :increment_counter_cache
   after_destroy :decrement_counter_cache
 
-  private
+  protected
+
   def decrement_counter_cache
-    tag.blog_posts_count = tag.blog_posts_count - 1
-    tag.save
+    increment_counter_cache(-1)
   end
 
-  def increment_counter_cache
-    tag.blog_posts_count = tag.blog_posts_count + 1
+  def increment_counter_cache(n = 1)
+    tag.blog_posts_count +=  n
     tag.save
   end
-
 end

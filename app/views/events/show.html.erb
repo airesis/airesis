@@ -11,152 +11,152 @@
 
 <div class="row full-width">
   <div class="row">
-    <% if !@event.is_elezione? %>
-        <script type="text/javascript"
-                src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false">
-        </script>
 
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false">
+    </script>
+
+    <div class="columns large-6">
+      <div class="card">
+        <div class="card-title">
+          <% if @event.private %>
+              <div class="label round">private</div>
+          <% else %>
+              <div class="label round">public</div>
+          <% end %>
+          <%= @event.title %>
+        </div>
+
+        <div class="event_content" itemprop="description">
+          <%= simple_format(@event.description) %>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <%= @event.is_past? ? t('pages.events.show.when_past') : t('pages.events.show.when') %>
+        </div>
+        <div class="event_content">
+          <%= render partial: 'events/calendar_icon', locals: {time: @event.starttime} %>
+          <div style="float:left;margin-top: 10px;">
+            <meta itemprop="startDate" content="<%= l @event.starttime, format: :rich %>">
+            <b>
+              <%= l @event.starttime, format: :from_long_date_time %>
+            </b>
+
+            <div style="margin-top:5px;"></div>
+            <b>
+              <%= I18n.localize(@event.endtime, format: :until_long_date_time) %>
+            </b>
+          </div>
+          <div class="clearboth"></div>
+        </div>
+      </div>
+    </div>
+    <% if @event.place %>
         <div class="columns large-6">
           <div class="card">
             <div class="card-title">
-              <% if @event.private %>
-                  <div class="label round">private</div>
-              <% else %>
-                  <div class="label round">public</div>
-              <% end %>
-              <%= @event.title %>
+              <%= @event.is_past? ? t('pages.events.show.where_past') : t('pages.events.show.where') %>
             </div>
-
-            <div class="event_content" itemprop="description">
-              <%= simple_format(@event.description) %>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-title">
-              <%= @event.is_past? ? t('pages.events.show.when_past') : t('pages.events.show.when') %>
-            </div>
-            <div class="event_content">
-              <%= render partial: 'events/calendar_icon', locals: {time: @event.starttime} %>
-              <div style="float:left;margin-top: 10px;">
-                <meta itemprop="startDate" content="<%= l @event.starttime, format: :rich %>">
-                <b>
-                  <%= l @event.starttime, format: :from_long_date_time %>
-                </b>
-
-                <div style="margin-top:5px;"></div>
-                <b>
-                  <%= I18n.localize(@event.endtime, format: :until_long_date_time) %>
-                </b>
+            <div class="event_content" itemprop="location" itemscope itemtype="http://schema.org/Place">
+              <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                <h4>
+                  <span itemprop="addressLocality"><%= "#{@event.place.comune.description}" if @event.place.comune %></span>,
+                  <span itemprop="streetAddress"><%= @event.place.address %></span></h4>
               </div>
-              <div class="clearboth"></div>
+
+              <div>
+                <div id="map_canvas" style="width: 100%; height: 320px;"></div>
+              </div>
+            </div>
+
+
+            <div id="map_modal" title="<%= t('pages.events.show.event_place') %>" style="width:400px;height:400px;display:none">
+
             </div>
           </div>
         </div>
-        <% if @event.place %>
-            <div class="columns large-6">
-              <div class="card">
-                <div class="card-title">
-                  <%= @event.is_past? ? t('pages.events.show.where_past') : t('pages.events.show.where') %>
-                </div>
-                <div class="event_content" itemprop="location" itemscope itemtype="http://schema.org/Place">
-                  <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-                    <h4>
-                      <span itemprop="addressLocality"><%= "#{@event.place.comune.description}" if @event.place.comune %></span>,
-                      <span itemprop="streetAddress"><%= @event.place.address %></span></h4>
-                  </div>
-
-                  <div>
-                    <div id="map_canvas" style="width: 100%; height: 320px;"></div>
-                  </div>
-                </div>
 
 
-                <div id="map_modal" title="<%= t('pages.events.show.event_place') %>" style="width:400px;height:400px;display:none">
+        <script type="text/javascript">
+            var latlng = new google.maps.LatLng(<%=@event.place.latitude_original%>, <%=@event.place.longitude_original%>);
 
-                </div>
-              </div>
+            if (!geocoder) {
+                geocoder = new google.maps.Geocoder();
+            }
+
+            var center = latlng;
+            var zoom = <%=@event.place.zoom%>;
+
+            var myOptions = {
+                zoom: zoom,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                panControl: false,
+                streetViewControl: false,
+                mapTypeControl: true,
+                draggable: true
+            };
+
+            map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+
+            marker = new google.maps.Marker({
+                map: map,
+                position: latlng,
+                draggable: false
+            });
+        </script>
+    <% end %>
+
+    <% content_for :left_panel do %>
+        <% if can? :update, @event %>
+            <div class="mybox">
+              <%= link_to edit_event_path(@event), remote: true, class: 'btn', data: {disable_with: t('loading')} do %>
+                  <i class="fa fa-pencil"></i>
+                  <%= t('buttons.edit') %>
+              <% end if can? :update, @event %>
+              <%= link_to @event, method: :delete, class: 'btn red', data: {confirm: t('delete_event_confirm'), disable_with: t('loading')} do %>
+                  <i class="fa fa-trash-o"></i>
+                  <%= t('buttons.delete') %>
+              <% end if can? :destroy, @event %>
             </div>
-
-
-            <script type="text/javascript">
-                var latlng = new google.maps.LatLng(<%=@event.place.latitude_original%>, <%=@event.place.longitude_original%>);
-
-                if (!geocoder) {
-                    geocoder = new google.maps.Geocoder();
-                }
-
-                var center = latlng;
-                var zoom = <%=@event.place.zoom%>;
-
-                var myOptions = {
-                    zoom: zoom,
-                    center: latlng,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP,
-                    panControl: false,
-                    streetViewControl: false,
-                    mapTypeControl: true,
-                    draggable: true
-                };
-
-                map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
-
-                marker = new google.maps.Marker({
-                    map: map,
-                    position: latlng,
-                    draggable: false
-                });
-            </script>
         <% end %>
 
-        <% content_for :left_panel do %>
-            <% if can? :update, @event %>
-                <div class="mybox">
-                  <%= link_to edit_event_path(@event), remote: true, class: 'btn', data: {disable_with: t('loading')} do %>
-                      <i class="fa fa-pencil"></i>
-                      <%= t('buttons.edit') %>
-                  <% end if can? :update, @event %>
-                  <%= link_to @event, method: :delete, class: 'btn red', data: {confirm: t('delete_event_confirm'), disable_with: t('loading')} do %>
-                      <i class="fa fa-trash-o"></i>
-                      <%= t('buttons.delete') %>
-                  <% end if can? :destroy, @event %>
-                </div>
-            <% end %>
+        <% if ::Configuration::socialnetwork_active %>
+            <div class="mybox">
+              <a href="https://twitter.com/share"
+                 class="twitter-share-button"
+                 data-lang="en"
+                 data-count="vertical"
+                 data-text="<%= t('twitter.share.event', app: ENV['APP_SHORT_NAME']) %>">Tweet</a>
+              <g:plusone size="tall"></g:plusone>
+              <div class="fb-like" data-send="false" data-layout="box_count" data-width="100" data-show-faces="false" data-likeable_type="<%= @event.class.class_name %>" data-likeable_id="<%= @event.id %>"></div>
+            </div>
+        <% end %>
 
-            <% if ::Configuration::socialnetwork_active %>
-                <div class="mybox">
-                  <a href="https://twitter.com/share"
-                     class="twitter-share-button"
-                     data-lang="en"
-                     data-count="vertical"
-                     data-text="<%= t('twitter.share.event', app: ENV['APP_SHORT_NAME']) %>">Tweet</a>
-                  <g:plusone size="tall"></g:plusone>
-                  <div class="fb-like" data-send="false" data-layout="box_count" data-width="100" data-show-faces="false" data-likeable_type="<%= @event.class.class_name %>" data-likeable_id="<%= @event.id %>"></div>
-                </div>
-            <% end %>
-
-            <!--
+        <!--
         <% @event.groups.each do |group| %>
 				<div class="leftBlogImage">
 			    	<%= group.group_image_tag 120 %>
 			    </div>
 
         <% end %>-->
+        <% if @event.meeting %>
+            <div class="mybox participation_panel_container">
+              <%= render partial: 'participation_panel' %>
+            </div>
+
+
             <% if @event.meeting %>
-                <div class="mybox participation_panel_container">
-                  <%= render partial: 'participation_panel' %>
+                <div class="participants_container">
+                  <%= render partial: 'meeting_responses' %>
                 </div>
-
-
-                <% if @event.meeting %>
-                    <div class="participants_container">
-                      <%= render partial: 'meeting_responses' %>
-                    </div>
-                <% end %>
             <% end %>
         <% end %>
-
     <% end %>
+
+
 
     <% if @event.is_votazione? %>
         <div class="columns large-6">
@@ -182,13 +182,11 @@
             </div>
           </div>
         </div>
-    <% elsif @event.is_elezione? %>
-        <%= render 'elections/election', {election: @event.election} %>
     <% end %>
   </div>
 </div>
 
-<% if @event.is_incontro? || @event.is_riunione? %>
+<% if @event.is_incontro? %>
     <div class="row full-width">
       <div class="columns large-6">
         <%= render partial: 'event_comments/new_event_comment', locals: {event_comment: @event_comment} %>

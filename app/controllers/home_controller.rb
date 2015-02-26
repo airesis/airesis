@@ -19,6 +19,8 @@ class HomeController < ApplicationController
   def index
     @page_title = 'Home'
     if current_user
+      @blog_posts = BlogPost.includes(:blog,user: [:user_type,:image]).order('blog_posts.created_at desc').limit(10).accessible_by(Ability.new(current_user))
+      @events = Event.visible.next.order('starttime asc').limit(10).accessible_by(Ability.new(current_user))
       render 'open_space'
     end
   end
