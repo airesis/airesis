@@ -31,8 +31,8 @@ describe 'notifications when a proposal comment is updated', type: :feature do
 
     expect(NotificationProposalCommentUpdate.jobs.size).to eq 1
     NotificationProposalCommentUpdate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 3
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 3
+    ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
     deliveries = ActionMailer::Base.deliveries.last(3)
 
     emails = deliveries.map { |m| m.to[0] }

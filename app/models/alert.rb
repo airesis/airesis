@@ -86,6 +86,6 @@ class Alert < ActiveRecord::Base
     return if user.blocked?
     return if user.blocked_email_notifications.include? notification_type
     return unless user.email.present?
-    ResqueMailer.delay_for(2.minutes).notification(id)
+    ResqueMailer.notification(id).deliver_later(wait: 2.minutes)
   end
 end

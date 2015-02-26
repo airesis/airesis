@@ -20,8 +20,8 @@ describe 'notifications for new events to participants in groups in which is pub
 
     expect(NotificationEventCreate.jobs.size).to eq 1
     NotificationEventCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 10
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 10
+    ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
     last_deliveries = ActionMailer::Base.deliveries.last(10)
 
     emails = last_deliveries.map { |m| m.to[0] }

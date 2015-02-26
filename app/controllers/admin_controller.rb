@@ -73,7 +73,7 @@ class AdminController < ManagerController
 
   #invia una mail di prova tramite resque e redis
   def test_redis
-    ResqueMailer.delay.test_mail
+    ResqueMailer.test_mail.deliver_later
     flash[:notice] = 'Test avviato'
     redirect_to admin_panel_path
   end
@@ -81,12 +81,12 @@ class AdminController < ManagerController
   #invia una notifica di prova tramite resque e redis
   def test_notification
     if params[:alert_id].to_s != ''
-      ResqueMailer.delay.notification(params[:alert_id])
+      ResqueMailer.notification(params[:alert_id]).deliver_later
     else
       NotificationType.all.each do |type|
         notification = type.notifications.order('created_at desc').first
         alert = notification.alerts.first if notification
-        ResqueMailer.delay.notification(alert.id) if alert
+        ResqueMailer.notification(alert.id).deliver_later if alert
       end
     end
     flash[:notice] = 'Test avviato'

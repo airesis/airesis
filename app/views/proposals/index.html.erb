@@ -22,16 +22,16 @@
 
 <dl class="tabs" data-tab id="proposals-tabs">
   <dd class="active">
-    <a href="#debate" data-href="<%= tab_list_proposals_path(params.merge({scroll: true, state: ProposalState::TAB_DEBATE, group_id: (@group.id if @group), group_area_id: (@group_area.id if @group_area)})) %>"><%= t('pages.proposals.index.debate_title', count: @in_valutation_count) %></a>
+    <a href="#debate" data-href="<%= tab_list_proposals_path(add_params(scroll: true, state: ProposalState::TAB_DEBATE, group_id: (@group.id if @group), group_area_id: (@group_area.id if @group_area))) %>"><%= t('pages.proposals.index.debate_title', count: @in_valutation_count) %></a>
   </dd>
   <dd>
-    <a href="#votation" data-href="<%= tab_list_proposals_path(params.merge({scroll: true, state: ProposalState::TAB_VOTATION, group_id: (@group.id if @group), group_area_id: (@group_area.id if @group_area)})) %>"><%= t('pages.proposals.index.voting_title', count: @in_votation_count) %></a>
+    <a href="#votation" data-href="<%= tab_list_proposals_path(add_params(scroll: true, state: ProposalState::TAB_VOTATION, group_id: (@group.id if @group), group_area_id: (@group_area.id if @group_area))) %>"><%= t('pages.proposals.index.voting_title', count: @in_votation_count) %></a>
   </dd>
   <dd>
-    <a href="#accepted" data-href="<%= tab_list_proposals_path(params.merge({scroll: true, state: ProposalState::TAB_VOTED, group_id: (@group.id if @group), group_area_id: (@group_area.id if @group_area)})) %>"><%= t('pages.proposals.index.accepted_title', count: @accepted_count) %></a>
+    <a href="#accepted" data-href="<%= tab_list_proposals_path(add_params({scroll: true, state: ProposalState::TAB_VOTED, group_id: (@group.id if @group), group_area_id: (@group_area.id if @group_area)})) %>"><%= t('pages.proposals.index.accepted_title', count: @accepted_count) %></a>
   </dd>
   <dd>
-    <a href="#revision" data-href="<%= tab_list_proposals_path(params.merge({scroll: true, state: ProposalState::TAB_REVISION, group_id: (@group.id if @group), group_area_id: (@group_area.id if @group_area)})) %>"><%= t('pages.proposals.index.revision_title', count: @revision_count) %></a>
+    <a href="#revision" data-href="<%= tab_list_proposals_path(add_params({scroll: true, state: ProposalState::TAB_REVISION, group_id: (@group.id if @group), group_area_id: (@group_area.id if @group_area)})) %>"><%= t('pages.proposals.index.revision_title', count: @revision_count) %></a>
   </dd>
 </dl>
 <div class="tabs-content" id="proposals-content">

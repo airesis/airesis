@@ -22,7 +22,7 @@ describe "can list proposals and filter them", type: :feature, js: true, search:
               'everyboday knows it', 'proposal good',
               'proposal bad', 'hello super', 'caccapupu', 'super super super', 'diamond knows']
     titles.each do |title|
-      create(:group_proposal, title: title, quorum: BestQuorum.public.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)])
+      create(:group_proposal, title: title, quorum: BestQuorum.visible.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)])
     end
     proposals = Proposal.all
     expect(Proposal.count).to eq 10

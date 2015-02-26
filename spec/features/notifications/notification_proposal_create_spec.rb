@@ -17,8 +17,8 @@ describe 'notifications when a new proposal is created', type: :feature do
 
     expect(NotificationProposalCreate.jobs.size).to eq 1
     NotificationProposalCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 5
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 5
+    ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
     deliveries = ActionMailer::Base.deliveries.last 5
 
     receivers = [participants[0],participants[2],participants[3],participants[4],user1]
@@ -42,8 +42,8 @@ describe 'notifications when a new proposal is created', type: :feature do
 
     expect(NotificationProposalCreate.jobs.size).to eq 1
     NotificationProposalCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 0
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 0
+    ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
     expect(Alert.unscoped.count).to eq 0
   end
 
@@ -58,8 +58,8 @@ describe 'notifications when a new proposal is created', type: :feature do
 
     expect(NotificationProposalCreate.jobs.size).to eq 1
     NotificationProposalCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 2
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 2
+    ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
     expect(Alert.unscoped.count).to eq 2
   end
 end

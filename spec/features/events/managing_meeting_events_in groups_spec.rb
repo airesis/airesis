@@ -55,7 +55,7 @@ describe "manage correctly meeting events", type: :feature, js: true do
 
     expect(NotificationEventCreate.jobs.size).to eq 1
     NotificationEventCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 2 #user and user3
+    expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 2 #user and user3
 
     logout :user
   end

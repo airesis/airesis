@@ -13,8 +13,8 @@ describe 'notifications for new participation requests in the group are sent to 
 
     expect(NotificationParticipationRequestCreate.jobs.size).to eq 1
     NotificationParticipationRequestCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 1
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 1
+    ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
     last_delivery = ActionMailer::Base.deliveries.last
 
     expect(last_delivery.to[0]).to eq user.email
@@ -40,8 +40,8 @@ describe 'notifications for new participation requests in the group are sent to 
 
     expect(NotificationParticipationRequestCreate.jobs.size).to eq 1
     NotificationParticipationRequestCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 4
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 4
+    ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
     last_deliveries = ActionMailer::Base.deliveries.last 4
 
     emails = last_deliveries.map { |m| m.to[0] }
@@ -70,13 +70,13 @@ describe 'notifications for new participation requests in the group are sent to 
     create(:group_participation_request, user: requester1, group: group)
 
     NotificationParticipationRequestCreate.drain
-    Sidekiq::Extensions::DelayedMailer.drain
+    ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
 
     requester2 = create(:user)
     create(:group_participation_request, user: requester2, group: group)
 
     NotificationParticipationRequestCreate.drain
-    Sidekiq::Extensions::DelayedMailer.drain
+    ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
     expect(ActionMailer::Base.deliveries.size).to be 3
 
     last_deliveries = ActionMailer::Base.deliveries.last 3

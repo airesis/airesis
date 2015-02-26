@@ -269,7 +269,7 @@ class UsersController < ApplicationController
   #invia un messaggio all'utente
   def send_message
     authorize! :send_message, @user
-    ResqueMailer.delay.user_message(params[:message][:subject], params[:message][:body], current_user.id, @user.id)
+    ResqueMailer.user_message(params[:message][:subject], params[:message][:body], current_user.id, @user.id).deliver_later
     flash[:notice] = t('info.message_sent')
     respond_to do |format|
       format.js

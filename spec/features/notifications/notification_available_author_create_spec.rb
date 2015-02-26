@@ -12,8 +12,8 @@ describe 'notifications for new authors available', type: :feature do
     available_author = create(:available_author, proposal: proposal, user: user2)
     expect(NotificationAvailableAuthorCreate.jobs.size).to eq 1
     NotificationAvailableAuthorCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 1
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 1
+    ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
     last_delivery = ActionMailer::Base.deliveries.last
     expect(last_delivery.to[0]).to eq user.email
     expect(Alert.last.user).to eq user
@@ -33,8 +33,8 @@ describe 'notifications for new authors available', type: :feature do
     available_author = create(:available_author, proposal: proposal, user: user4)
     expect(NotificationAvailableAuthorCreate.jobs.size).to eq 1
     NotificationAvailableAuthorCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq authors.size
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq authors.size
+    ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
     last_deliveries = ActionMailer::Base.deliveries.last(authors.size)
     emails = last_deliveries.map { |m| m.to[0] }
     receiver_emails = authors.map(&:email)

@@ -12,3 +12,4 @@ production:
   - [notifications,3]
   - [default,2]
   - [low_priority, 1]
+  - [mailers, 1]

@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 ruby '2.2.0'
 
-gem 'rails', '4.1.8'
+gem 'rails', '~> 4.2'
 
 gem 'therubyracer', platforms: :ruby
 
@@ -107,7 +107,7 @@ gem 'thin', group: :development
 gem 'ruby-prof', group: :test
 gem 'test-unit', group: :test
 
-gem 'globalize', '~> 4.0.0'
+gem 'globalize'
 
 gem 'sanitize'
 

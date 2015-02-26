@@ -38,8 +38,8 @@ describe 'notifications when a proposal is abandoned', type: :feature do
 
     expect(NotificationProposalAbandoned.jobs.size).to eq 1
     NotificationProposalAbandoned.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 8
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 8
+    ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
     first_deliveries = ActionMailer::Base.deliveries.first(3)
 
     authors = [user1,user2,user3]

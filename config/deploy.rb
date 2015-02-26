@@ -37,7 +37,7 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 
 set :rvm1_ruby_version, File.read('.ruby-version').strip
 
-set :linked_files, %w{config/application.yml config/database.yml config/paypal.yml config/private_pub.yml config/sidekiq.yml config/sunspot.yml .htaccess}
+set :linked_files, %w{config/application.yml config/database.yml config/paypal.yml config/private_pub.yml config/sunspot.yml .htaccess}
 
 set :sidekiq_config, "#{current_path}/config/sidekiq.yml"
 

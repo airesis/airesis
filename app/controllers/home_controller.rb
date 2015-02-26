@@ -122,7 +122,7 @@ class HomeController < ApplicationController
         end
         feedback.save!
 
-        ResqueMailer.delay.feedback(feedback.id)
+        ResqueMailer.feedback(feedback.id).deliver_later
         render nothing: true
       }
       format.html { render nothing: true }

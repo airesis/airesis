@@ -38,8 +38,8 @@ describe 'notifications when a proposal comment is unintegrated', type: :feature
 
     expect(NotificationProposalCommentUnintegrate.jobs.size).to eq 1
     NotificationProposalCommentUnintegrate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 1
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 1
+    ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
     last_delivery = ActionMailer::Base.deliveries.last
     #
     email = last_delivery.to[0]

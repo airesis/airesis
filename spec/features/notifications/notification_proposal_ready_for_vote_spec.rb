@@ -20,8 +20,8 @@ describe 'notifications when the debate is finished and the proposal is waiting 
 
     expect(NotificationProposalReadyForVote.jobs.size).to eq 1
     NotificationProposalReadyForVote.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 3
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 3
+    ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
     deliveries = ActionMailer::Base.deliveries.last 3
 
     receivers = [participants[0], participants[1], user1]

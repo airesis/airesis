@@ -27,8 +27,8 @@ describe 'notifications for new authors for a proposal', type: :feature do
 
     expect(NotificationProposalPresentationCreate.jobs.size).to eq 1
     NotificationProposalPresentationCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 6
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 6
+    ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
     delivery_to_user2 = ActionMailer::Base.deliveries.first
     last_deliveries = ActionMailer::Base.deliveries.last(5)
 

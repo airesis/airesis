@@ -23,8 +23,8 @@ describe 'notifications when a proposal comment is created', type: :feature, js:
 
     expect(NotificationProposalCommentCreate.jobs.size).to eq 1
     NotificationProposalCommentCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 3
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 3
+    ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
     first_deliveries = ActionMailer::Base.deliveries.first(3)
 
     emails = first_deliveries.map { |m| m.to[0] }

@@ -14,8 +14,8 @@ describe 'notifications for new blog comments to the blog author', type: :featur
     comment = create(:blog_comment, user: user2, blog_post: blog_post)
     expect(NotificationBlogCommentCreate.jobs.size).to eq 1
     NotificationBlogCommentCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 1
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 1
+    ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
     last_delivery = ActionMailer::Base.deliveries.last
     expect(last_delivery.to[0]).to eq user.email
     expect(Alert.last.user).to eq user
@@ -32,8 +32,8 @@ describe 'notifications for new blog comments to the blog author', type: :featur
     comment3 = create(:blog_comment, user: user3, blog_post: blog_post)
     expect(NotificationBlogCommentCreate.jobs.size).to eq 2
     NotificationBlogCommentCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 1
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 1
+    ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
     last_delivery = ActionMailer::Base.deliveries.last
     expect(last_delivery.to[0]).to eq user.email
     expect(Alert.last.user).to eq user

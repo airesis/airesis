@@ -19,7 +19,7 @@ class NewsletterSender
     puts @users
     @users.each do |user|
       puts '---' + user.fullname
-      ResqueMailer.delay.publish(subject: params['mail']['subject'], user_id: user.id, newsletter: params['mail']['name'] )
+      ResqueMailer.publish(subject: params['mail']['subject'], user_id: user.id, newsletter: params['mail']['name'] ).deliver_later
     end
   end
 end
