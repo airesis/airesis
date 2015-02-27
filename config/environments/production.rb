@@ -30,6 +30,8 @@ Airesis::Application.configure do
   config.force_ssl = false
 
   config.logger = Logger.new(Rails.root.join("log", Rails.env + ".log"), 50, 100.megabytes)
+
+  config.active_record.raise_in_transactional_callbacks = true
 end
 
 Airesis::Application.default_url_options = Airesis::Application.config.action_mailer.default_url_options

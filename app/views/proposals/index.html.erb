@@ -100,17 +100,17 @@
     }
 
     $(function () {
+        if ($('#proposals-tabs').length > 0) {
+            $('#proposals-tabs').on('toggled', function (event, tab) {
+                mytabCallback($('#proposals-tabs').find('.active'));
+            });
 
-        $('#proposals-tabs').on('toggled', function (event, tab) {
             mytabCallback($('#proposals-tabs').find('.active'));
-        });
 
-        mytabCallback($('#proposals-tabs').find('.active'));
-
-        $(window).on('hashchange', function () {
-            hashChange();
-        });
-
+            $(window).on('hashchange', function () {
+                hashChange();
+            });
+        }
         var datePickerOptions = {
             changeMonth: false,
             changeYear: false,

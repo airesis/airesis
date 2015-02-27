@@ -7,6 +7,9 @@
 //= require jquery
 //= require jquery.plugin
 //= require jquery-ui
+
+//= require nprogress
+//= require nprogress-turbolinks
 //= require jquery.sliderAccess
 //= require timepicker
 //= require jquery_ujs
@@ -52,6 +55,10 @@
 //= require rails.validations
 //= require rails.validations.simple_form
 //= require rails.validations.simple_form.foundation
+//= require turbolinks
+//= require jquery.turbolinks
 
 ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible :input:enabled[data-validate]';
 $(function(){ $(document).foundation(); });
+
+NProgress.configure({ parent: '#main-copy' });

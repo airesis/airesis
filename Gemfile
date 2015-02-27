@@ -67,6 +67,8 @@ gem 'aws-sdk'
 gem 'jquery-rails'
 
 gem 'turbolinks'
+gem 'jquery-turbolinks'
+gem 'nprogress-rails'
 
 gem 'jbuilder', '~> 2.0'
 

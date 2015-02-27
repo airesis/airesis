@@ -183,14 +183,6 @@ module GroupsHelper
   end
 
 
-  def group_events_url(group, options={})
-    if group_in_subdomain? group
-      events_url
-    else
-      options[:subdomain] = false
-      super
-    end
-  end
 
   def group_documents_url(group, options={})
     (group_in_subdomain? group) ?
@@ -218,12 +210,6 @@ module GroupsHelper
         super
   end
 
-
-  def new_group_event_url(group, options={})
-    (group_in_subdomain? group) ?
-        new_event_url(options) :
-        super
-  end
 
   def new_group_group_area_url(group, options={})
     (group_in_subdomain? group) ?
@@ -316,7 +302,7 @@ module GroupsHelper
   #that may cause problems but I hope not and sometime WE WILL REWRITE ALSO others
   #Airesis::Application.reload_routes!
   def self.init
-    names = Airesis::Application.routes.routes.map { |r| r.name }.select { |n| n =~ /(group_frm_|group_forum|participation_role).*/ }
+    names = Airesis::Application.routes.routes.map { |r| r.name }.select { |n| n =~ /(group_frm_|group_forum|participation_role|group_event).*/ }
     names.each do |name|
       define_method("#{name}_url") do |group, *args|
         (group_in_subdomain? group) ?

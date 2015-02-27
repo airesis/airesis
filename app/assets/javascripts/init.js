@@ -1,5 +1,14 @@
 $(function () {
 
+    $(document).on('page:fetch', function () {
+        $('#main-copy').fadeOut('slow');
+    });
+
+    $(document).on('page:load', function () {
+        $('#main-copy').fadeIn('slow');
+    });
+
+
     //remove attributes for introjs from aside hidden menu. so they can work correctly
     $('aside [data-ijs]').removeAttr('data-ijs');
 
@@ -197,8 +206,8 @@ $(function () {
 
 
     function checkCharacters(field) {
-        console.log('check',field);
-        console.log('check',field.val());
+        console.log('check', field);
+        console.log('check', field.val());
         var button = $(this).nextAll('.search-by-text');
         if (field.val().length > 1) {
             button.removeAttr('disabled');
