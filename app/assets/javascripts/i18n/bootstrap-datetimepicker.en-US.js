@@ -1,5 +1,5 @@
 ;(function($){
-	$.fn.fdatetimepicker.dates['en'] = {
+	$.fn.fdatetimepicker.dates['en-US'] = {
         days:        ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         daysShort:   ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         daysMin:     ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
@@ -13,5 +13,5 @@
         formatDate: "dd/mm/yyyy"
 	};
 
-    $.fn.fdatetimepicker.defaults = $.fn.fdatetimepicker.dates['en'];
+    $.fn.fdatetimepicker.defaults = $.fn.fdatetimepicker.dates['en-US'];
 }(jQuery));

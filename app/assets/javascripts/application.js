@@ -9,7 +9,6 @@
 //= require jquery.plugin
 //= require jquery-ui
 //= require jquery.sliderAccess
-//= require timepicker
 //= require jquery_ujs
 //= require jquery.tokeninput
 //= require democracy

@@ -4,7 +4,7 @@
  * Tiago Melo <tiago.blackcode@gmail.com>
  */
 ;(function($){
-	$.fn.datetimepicker.dates['pt'] = {
+	$.fn.fdatetimepicker.dates['pt-PT'] = {
 		days: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"],
 		daysShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"],
 		daysMin: ["Do", "Se", "Te", "Qu", "Qu", "Se", "Sa", "Do"],
@@ -12,6 +12,9 @@
 		monthsShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
 		suffix: [],
 		meridiem: ["am","pm"],
-		today: "Hoje"
+		today: "Hoje",
+        format: "dd/mm/yyyy hh:ii",
+        formatDate: "dd/mm/yyyy"
 	};
+    $.fn.fdatetimepicker.defaults = $.fn.fdatetimepicker.dates['pt-PT'];
 }(jQuery));

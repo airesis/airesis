@@ -201,6 +201,9 @@ $(function () {
     });
 
     $('input[data-datetimepicker]').fdatetimepicker();
+    $('input[data-datepicker]').fdatetimepicker({
+        format: $.fn.fdatetimepicker.defaults.dateFormat
+    });
 
 
     $(document).on('click', '[data-reveal-close]', function () {

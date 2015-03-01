@@ -3,7 +3,7 @@
  * Cauan Cabral <cauan@radig.com.br>
  */
 ;(function($){
-	$.fn.datetimepicker.dates['pt-BR'] = {
+	$.fn.fdatetimepicker.dates['pt-BR'] = {
         format: 'dd/mm/yyyy',
 		days: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"],
 		daysShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"],
@@ -12,6 +12,9 @@
 		monthsShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
 		today: "Hoje",
 		suffix: [],
-		meridiem: []
+		meridiem: [],
+        format: "dd/mm/yyyy hh:ii",
+        formatDate: "dd/mm/yyyy"
 	};
+    $.fn.fdatetimepicker.defaults = $.fn.fdatetimepicker.dates['pt-BR'];
 }(jQuery));

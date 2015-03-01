@@ -80,7 +80,8 @@ en:
      yesterday_at: "yesterday at %I:%M %p"
      textfield: "%d/%m/%Y %I:%M %p"
      rich: "%Y-%m-%dT%H:%M"
-     datepicker: "%Y-%m-%d %H:%M"
+     datepicker: "%Y-%m-%d"
+     datetimepicker: "%Y-%m-%d %H:%M"
     am: "am"
     pm: "pm"
     left:
