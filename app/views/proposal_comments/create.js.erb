@@ -5,7 +5,6 @@
     var textarea_ = $('#<%=@proposal_comment.contribute.id%>_reply_text_area');
 
     textarea_.textntags('reset');
-    console.log(textarea_);
     textarea_.val('');
     $('.deleteReplyLink').unbind('click');
     $('.deleteReplyLink').bind('click', function (event) {

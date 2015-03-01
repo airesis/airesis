@@ -170,7 +170,7 @@
         <%= link_to t('pages.proposals.left_panel.date_range'), '#', class: 'menu_item', data: {type: 'f'}, onclick: "$('#choose_dates').foundation('reveal','open');return false;" %>
 
       </div>
-
+      <div id="choose_dates"  class="reveal-modal small" data-reveal>
         <h2><%= t('pages.proposals.left_panel.choose_creation_date') %></h2>
         <%= form_for 'time', {url: @group ? group_proposals_url(@group) : proposals_url, method: :get} do |f| %>
             <%if params[:type] %>
@@ -211,7 +211,9 @@
               <%= f.button t('buttons.search'), class: 'btn blue', data:{disable_with: t('loading')} %>
             </p>
         <% end %>
-
+      </div>
+      <a class="close-reveal-modal">&#215;</a>
+    </div>
 
   </div>
 </div>

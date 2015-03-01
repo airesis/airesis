@@ -709,13 +709,11 @@ function fitRightMenu(fetched) {
     fetched.css('display', '');
 
     if (matchMedia(Foundation.media_queries['medium']).matches) {
-        console.log('set height');
         fetched.height($(window).height() - 110);
     }
 
     $(window).resize(function () {
         if (matchMedia(Foundation.media_queries['medium']).matches) {
-            console.log('set height');
             fetched.height($(window).height() - 110);
         }
     });

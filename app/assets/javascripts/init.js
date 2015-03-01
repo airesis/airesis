@@ -253,8 +253,6 @@ $(function () {
 
 
     function checkCharacters(field) {
-        console.log('check', field);
-        console.log('check', field.val());
         var button = $(this).nextAll('.search-by-text');
         if (field.val().length > 1) {
             button.removeAttr('disabled');
@@ -269,7 +267,6 @@ $(function () {
 
     //proposals index, search by text field
     $('.search-by-text').on('click', function () {
-        console.log('check and go');
         var field = $(this).prevAll('.field-by-text');
         var condition = $(this).prevAll('.condition-for-text:checked');
         if (checkCharacters(field)) {
@@ -280,7 +277,6 @@ $(function () {
             else {
                 loc_ = addQueryParam(loc_, 'or', '');
             }
-            console.log(loc_);
             window.location = loc_;
         }
         return false;

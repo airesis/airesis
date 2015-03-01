@@ -10,9 +10,7 @@
 ProposalsShow.contributes.push(<%= @proposal_comments.map{|p| p.id}.join(',') %>);
 
 ProposalsShow.firstCheck = false;
-console.log('list loaded');
 <%if @total_pages > @current_page%>
-    console.log('another page');
   $('#loading_results').show();
   if (!ProposalsShow.firstCheck) {
     ProposalsShow.checkScroll();
@@ -20,7 +18,6 @@ console.log('list loaded');
   }
   ProposalsShow.checkActive = true;
 <%else%>
-console.log('no more contributes');
   $('#loading_results').hide();
 <%end%>
 

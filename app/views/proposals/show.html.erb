@@ -63,11 +63,12 @@
         loadingContributes: '<%=j t('pages.proposals.show.loading_contributions') %>',
         errorLoadingParagraph: '<%=j t('pages.proposals.show.error_loading_paragraph')%>'
     };
-    if (Airesis.signed_in) {
-        Airesis.can_participate = <%=can? :participate, @proposal%>;
-        Airesis.image_tag = $('<%=j current_user.user_image_tag 32%>');
-        Airesis.resource_viewable = true;
-    }
+
+    Airesis.can_participate = <%=can? :participate, @proposal%>;
+    <%if signed_in? %>
+    Airesis.image_tag = $('<%=j current_user.user_image_tag 32%>');
+    Airesis.resource_viewable = true;
+    <%end%>
 
     ProposalsShow.voting = <%= @proposal.voting?%>;
     ProposalsShow.voted = <%= @proposal.voted?%>;

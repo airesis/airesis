@@ -133,7 +133,6 @@ window.ProposalsShow =
     $('#report_contribute').foundation('reveal', 'open')
     close_all_dropdown()
   checkScroll: ->
-    console.log 'checking the scrolling'
     unless @voting
       if nearBottomOfPage() && @checkActive
         @checkActive = false;

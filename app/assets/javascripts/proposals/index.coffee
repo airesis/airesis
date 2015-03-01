@@ -2,8 +2,8 @@ window.ProposalsIndex =
   init: ->
     $("[data-href=#{@hash_tab_value()}]").addClass('active')
     $('#proposals-tabs').on 'toggled', (event, tab)->
-      ProposalsIndex.mytabCallback
-    ProposalsIndex.mytabCallback
+      ProposalsIndex.mytabCallback()
+    ProposalsIndex.mytabCallback()
     $(window).on 'hashchange', ->
       ProposalsIndex.hashChange()
     datePickerOptions =
@@ -50,9 +50,6 @@ window.ProposalsIndex =
     $('#nuova_proposta, #nuovo_sondaggio').bind "ajax:error", (event, data, status, xhr)->
       if data.status == 401
         window.location = "/users/sign_in?l=#{Airesis.i18n.locale}"
-    url = document.URL;
-    hashValue = url.substring(url.indexOf('#')).replace('#', '');
-    $('#tabs').tabs("option", "active", hashValue)
   active_tab: ->
     $('#proposals-tabs').find('.active')
   hash_tab_value: ->
