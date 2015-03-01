@@ -27,6 +27,8 @@ gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-rails', '~> 1.1'
 gem 'rvm1-capistrano3', require: false
 
+gem 'uri-js-rails'
+
 group :development do
   gem 'sunspot_solr'
   gem 'better_errors'

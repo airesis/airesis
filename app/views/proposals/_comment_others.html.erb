@@ -20,7 +20,7 @@
         <div class="right report_contribute hidden_link">
         </div>
         <div class="report_menu hidden_menu">
-          <div class="menu_item" onclick="report_contribute(<%=comment.id%>);">
+          <div class="menu_item" data-report-contribute="<%=comment.id%>">
             <%= t('buttons.report')%>
           </div>
         </div>
@@ -67,11 +67,3 @@
         <% end %>
       </div>
 </div>
-
-<script>
-  if (Airesis.can_participate) {
-      $('#comment<%= comment.id %> .reply_img').append(Airesis.image_tag).show();
-      $('#comment<%= comment.id %> .proposal_comment_reply').show();
-      $('#rankingpanelcontainer<%= comment.id %>').show();
-  }
-</script>

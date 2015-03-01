@@ -46,8 +46,7 @@
 
     $('[data-collapsed]').show(600);
 
-    initialize_hidden_menu();
-    initTextAreaTag();
+    ProposalsShow.init_text_areas();
     $('#delete<%=@proposal_comment.id%>').unbind('click');
     $('#delete<%=@proposal_comment.id%>').bind('click',function(event) {
         hiding(event,$(this).data('id'));
@@ -66,13 +65,17 @@
 
                 $('.contribute-button-num', contribute_button).text("(" + contribute_button.attr('data-unread_contributes_num') + "/" + contribute_button.attr('data-contributes_num') + ")");
                 $('.suggestion_right'+data_section_id +' .blogComments').prepend('<%=j (render partial: 'proposals/comment_others', locals: {comment: @proposal_comment})%>');
+                if (Airesis.can_participate) {
+                    $('#comment<%= @proposal_comment.id %> .reply_img').append(Airesis.image_tag).show();
+                    $('#comment<%= @proposal_comment.id %> .proposal_comment_reply').show();
+                    $('#rankingpanelcontainer<%= @proposal_comment.id %>').show();
+                }
                 $('.suggestion_right'+data_section_id +' .blogComments').find('.no-contributes-yet').remove();
                 contribute_button.effect('highlight', {}, 3000);
             <%else%>
                 $("#proposalCommentsContainer").prepend('<%=j render partial: 'proposals/comment_others', locals: {comment: @proposal_comment} %>');
                 $("#proposalCommentsContainer").find('.no-contributes-yet').remove();
             <%end%>
-            hide_vote_controls();
             initTextAreaTag();
         }
     <% end rescue nil%>

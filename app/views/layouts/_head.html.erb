@@ -1,4 +1,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="description" content="<%= (@page_descr) %>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Tecnologie Democratiche, Rodi Alessandro"/>
 
 <%= stylesheet_link_tag 'application' %>
 <%= javascript_include_tag 'application' %>
@@ -9,67 +12,39 @@
 <%= javascript_include_tag "i18n/jquery.countdown.#{I18n.locale}" %>
 <%= javascript_include_tag "vendor/modernizr" %>
 <%= csrf_meta_tag %>
-<%= yield :head %>
 
-
-<meta name="description" content="<%= (@page_descr) %>">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<meta name="author" content="Tecnologie Democratiche, Rodi Alessandro"/>
 <%= render 'layouts/favicons' %>
 
 <script type="text/javascript">
-    $(function () {
-        var feedback_options =
-                Feedback({
-                    h2cPath: '/assets/html2canvas.js',
-                    url: '/send_feedback',
-                    label: '<%=j t('pages.feedback.send_feedback')%>',
-                    header: '<%=j t('pages.feedback.send_feedback')%>',
-                    nextLabel: '<%=j t('pages.feedback.add_details')%>',
-                    reviewLabel: '<%=j t('pages.feedback.view_preview')%>',
-                    sendLabel: '<%=j t('buttons.send')%>',
-                    closeLabel: '<%=j t('buttons.close')%>',
-                    messageSuccess: '<%=j t('pages.feedback.send_succes')%>',
-                    messageError: '<%=j raw t('pages.feedback.send_error')%>',
-                    appendTo: $('footer .feedback_space')[0],
-                    btnClass: "feedbackBtn",
-                    pages: [
-                        new window.Feedback.Form([
-                            {
-                                type: "textarea",
-                                name: "message",
-                                label: "<%=I18n.t('pages.feedback.describe_problem')%>",
-                                required: true
-                            },
-                            /*{
-                             type: "input",
-                             name: "Email",
-                             label: "Inserisci un'indirizzo email sul quale ricevere risposta",
-                             required: false
-                             }*/
-                        ]
-                        ),
-                        new window.Feedback.Screenshot({
-                            h2cPath: '/assets/html2canvas.js',
-                            blackoutButtonMessage: "<%=j t('pages.feedback.blackout')%>",
-                            highlightButtonMessage: "<%=j t('pages.feedback.highlight')%>",
-                            highlightOrBlackout: "<%=j t('pages.feedback.highlight_or_blackout')%>"}),
-                        new window.Feedback.Review()
-                    ]
-                });
-    });
-    var Airesis = {};
     Airesis.id = <%=current_user ? current_user.id : -1 %>;
-    Airesis.i18n = {};
-    Airesis.i18n.alerts_sign_has_read = '<%=j raw t('pages.header.menu.sign_has_read')%>';
-    Airesis.i18n.alert_read = '<%=j raw t('pages.header.read')%>';
-    Airesis.i18n.alarm_settings = '<%=j raw t('pages.groups.header.alarm_settings')%>';
-    Airesis.i18n.no_alerts = '<%=j raw t('pages.header.no_alerts')%>';
-    Airesis.i18n.countdown = '<%=j raw t('countdown')%>';
-    Airesis.i18n.countdow2 = '<%=j raw t('countdown2')%>';
-    Airesis.i18n.type_for_town = '<%=j raw t('pages.events.new.type_for_town')%>';
-    Airesis.i18n.locale = '<%=I18n.locale%>';
+    Airesis.signed_in = <%= signed_in? %>;
+    Airesis.environment = '<%= Rails.env %>';
+    Airesis.new_user_session_path = '<%=j new_user_session_path %>';
+    Airesis.loadingImageTag = '<%=j image_tag 'ajax-loader.gif' %>';
+    Airesis.i18n = {
+        alerts_sign_has_read: '<%=j raw t('pages.header.menu.sign_has_read')%>',
+        alert_read: '<%=j raw t('pages.header.read')%>',
+        alarm_settings: '<%=j raw t('pages.groups.header.alarm_settings')%>',
+        no_alerts: '<%=j raw t('pages.header.no_alerts')%>',
+        countdown: '<%=j raw t('countdown')%>',
+        countdown2: '<%=j raw t('countdown2')%>',
+        type_for_town: '<%=j raw t('pages.events.new.type_for_town')%>',
+        locale: '<%=I18n.locale%>',
+        feedback: {
+            label: '<%=j t('pages.feedback.send_feedback')%>',
+            header: '<%=j t('pages.feedback.send_feedback')%>',
+            nextLabel: '<%=j t('pages.feedback.add_details')%>',
+            reviewLabel: '<%=j t('pages.feedback.view_preview')%>',
+            sendLabel: '<%=j t('buttons.send')%>',
+            closeLabel: '<%=j t('buttons.close')%>',
+            messageSuccess: '<%=j t('pages.feedback.send_succes')%>',
+            messageError: '<%=j raw t('pages.feedback.send_error')%>',
+            describeProblem: "<%=I18n.t('pages.feedback.describe_problem')%>",
+            blackoutButtonMessage: "<%=j t('pages.feedback.blackout')%>",
+            highlightButtonMessage: "<%=j t('pages.feedback.highlight')%>",
+            highlightOrBlackout: "<%=j t('pages.feedback.highlight_or_blackout')%>"
+        }
+    };
 </script>
 
 <% if I18n.locale.to_s == "crowdin" %>
@@ -82,5 +57,9 @@
 <% end %>
 
 <script src="https://apis.google.com/js/platform.js" async defer>
-    {lang: '<%=I18n.locale%>'}
+    {
+        lang: '<%=I18n.locale%>'
+    }
 </script>
+
+<%= yield :head %>

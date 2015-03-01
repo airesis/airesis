@@ -59,4 +59,8 @@ module ApplicationHelper
     image_tag(url, alt: 'Google Authenticator QRCode')
   end
 
+  def body_page_name
+    [controller_name.camelcase, action_name.camelcase].join
+  end
+
 end

@@ -514,6 +514,7 @@ GEM
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     uniform_notifier (1.6.1)
+    uri-js-rails (1.14.1)
     warden (1.2.3)
       rack (>= 1.0)
     websocket (1.0.7)
@@ -621,6 +622,7 @@ DEPENDENCIES
   turbolinks
   turnout
   uglifier (>= 1.3.0)
+  uri-js-rails
   vote-schulze!
   wicked_pdf
   workflow

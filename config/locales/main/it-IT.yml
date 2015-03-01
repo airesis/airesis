@@ -1211,6 +1211,8 @@ it-IT:
       vote: Voto espresso
     authors_list_panel:
       dont_want_to_be_an_author: Non voglio più redigere la proposta
+    show_proposal:
+      vote_here: "Questa proposta è in votazione. Leggi le soluzioni proposte e %{link}."
   digit_tags: Digita i tag che vuoi inserire
   buttons:
     cancel: Annulla
@@ -1232,6 +1234,7 @@ it-IT:
     mark: Marca
     update_and_continue: Salva e continua
     detach: Scollega
+    vote_here: "vota qui"
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di maturità.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     random_stack_2: '<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente.'

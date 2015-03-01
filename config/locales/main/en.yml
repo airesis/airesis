@@ -1190,6 +1190,8 @@ en:
       vote: "Their vote"
     authors_list_panel:
       dont_want_to_be_an_author: "I don't want to be an author anymore"
+    show_proposal:
+      vote_here: "This proposal is in votation. Read the solution/s and %{link}."
   digit_tags: "Type the tags you want to add"
   buttons:
     cancel: "Cancel"
@@ -1212,6 +1214,7 @@ en:
     update_and_continue: "Save and continue"
     detach: "Detach"
     login: "Login"
+    vote_here: "vote here"
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>Firstly they are shown the new contributions or the ones you haven't evaluated, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent"

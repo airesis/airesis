@@ -24,4 +24,9 @@ class ProposalNickname < ActiveRecord::Base
     proposal_nickname.generated = proposal.anonima?
     proposal_nickname
   end
+
+
+  def to_json
+    {name: nickname, id: id, avatar: avatar(16), type: 'nickname'}
+  end
 end

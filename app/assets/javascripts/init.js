@@ -1,4 +1,63 @@
 $(function () {
+    Facebook.load();
+    if (Airesis.env === 'production') {
+        GoogleAnalytics.load();
+    }
+    if (Airesis.env === 'test') {
+        $.fx.off = true;
+    }
+
+    //polling alerts
+    if (Airesis.signed_in) {
+        PrivatePub.subscribe("/notifications/" + Airesis.id, function (data, channel) {
+            if (Airesis.resource_viewable) {    //if I am in a page with a viewable object, sign it has view and then poll for alerts
+                $.ajax({
+                    url: window.location,
+                    complete: poll_if_not_recent
+                });
+            }
+            else {  //otherwise, just poll for alerts
+                poll_if_not_recent();
+            }
+        });
+        poll();
+    }
+
+    //feedback configuration
+    var feedback_options =
+        Feedback({
+            h2cPath: '/assets/html2canvas.js',
+            url: '/send_feedback',
+            label: Airesis.i18n.feedback.label,
+            header: Airesis.i18n.feedback.header,
+            nextLabel: Airesis.i18n.feedback.nextLabel,
+            reviewLabel: Airesis.i18n.feedback.reviewLabel,
+            sendLabel: Airesis.i18n.feedback.sendLabel,
+            closeLabel: Airesis.i18n.feedback.closeLabel,
+            messageSuccess: Airesis.i18n.feedback.messageSuccess,
+            messageError: Airesis.i18n.feedback.messageError,
+            appendTo: $('footer .feedback_space')[0],
+            btnClass: "feedbackBtn",
+            pages: [
+                new window.Feedback.Form([
+                        {
+                            type: "textarea",
+                            name: "message",
+                            label: Airesis.i18n.feedback.describeProblem,
+                            required: true
+                        }
+                    ]
+                ),
+                new window.Feedback.Screenshot({
+                    h2cPath: '/assets/html2canvas.js',
+                    blackoutButtonMessage: Airesis.i18n.feedback.blackoutButtonMessage,
+                    highlightButtonMessage: Airesis.i18n.feedback.highlightButtonMessage,
+                    highlightOrBlackout: Airesis.i18n.feedback.highlightOrBlackout
+                }),
+                new window.Feedback.Review()
+            ]
+        });
+
 
     //remove attributes for introjs from aside hidden menu. so they can work correctly
     $('aside [data-ijs]').removeAttr('data-ijs');
@@ -141,20 +200,14 @@ $(function () {
         }
     });
 
+    $('input[data-datetimepicker]').fdatetimepicker();
+
 
     $(document).on('click', '[data-reveal-close]', function () {
         $('.reveal-modal:visible').foundation('reveal', 'close');
     });
 
-    $(document).on('click', '[data-close-section-id]', function () {
-        close_right_contributes($('.contribute-button[data-section_id=' + $(this).data('close-section-id') + ']'));
-        return false;
-    });
 
-    $(document).on('click', '[data-close-edit-right-section]', function () {
-        hideContributes();
-        return false;
-    });
 
     $(document).on('click', '[data-login]', function () {
         "use strict";
@@ -197,8 +250,8 @@ $(function () {
 
 
     function checkCharacters(field) {
-        console.log('check',field);
-        console.log('check',field.val());
+        console.log('check', field);
+        console.log('check', field.val());
         var button = $(this).nextAll('.search-by-text');
         if (field.val().length > 1) {
             button.removeAttr('disabled');
@@ -229,5 +282,10 @@ $(function () {
         }
         return false;
     });
+
+    //executes page specific js
+    var page = $("body").data("page");
+    if ("object" === typeof window[page])
+        window[page].init();
 
 });

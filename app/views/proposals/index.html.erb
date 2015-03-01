@@ -21,16 +21,16 @@
 <div style="clear:both"></div>
 
 <dl class="tabs" data-tab id="proposals-tabs">
-  <dd class="active">
+  <dd data-href="debate">
     <a href="#debate" data-href="<%= tab_list_proposals_path(params.merge({scroll: true, state: ProposalState::TAB_DEBATE, group_id: (@group.id if @group), group_area_id: (@group_area.id if @group_area)})) %>"><%= t('pages.proposals.index.debate_title', count: @in_valutation_count) %></a>
   </dd>
-  <dd>
+  <dd data-href="votation">
     <a href="#votation" data-href="<%= tab_list_proposals_path(params.merge({scroll: true, state: ProposalState::TAB_VOTATION, group_id: (@group.id if @group), group_area_id: (@group_area.id if @group_area)})) %>"><%= t('pages.proposals.index.voting_title', count: @in_votation_count) %></a>
   </dd>
-  <dd>
+  <dd data-href="accepted">
     <a href="#accepted" data-href="<%= tab_list_proposals_path(params.merge({scroll: true, state: ProposalState::TAB_VOTED, group_id: (@group.id if @group), group_area_id: (@group_area.id if @group_area)})) %>"><%= t('pages.proposals.index.accepted_title', count: @accepted_count) %></a>
   </dd>
-  <dd>
+  <dd data-href="revision">
     <a href="#revision" data-href="<%= tab_list_proposals_path(params.merge({scroll: true, state: ProposalState::TAB_REVISION, group_id: (@group.id if @group), group_area_id: (@group_area.id if @group_area)})) %>"><%= t('pages.proposals.index.revision_title', count: @revision_count) %></a>
   </dd>
 </dl>
@@ -70,139 +70,5 @@
 <% end %>
 
 <script>
-    function mytabCallback(obj) {
-        var active_ = $('#proposals-content .content.active');
-
-        //var state_ = obj.find('a').attr('data-state');
-        if (obj.data('ititialized')) {
-            //do nothing...cached
-        }
-       else {
-            var url_ = obj.find('a').attr('data-href');
-            console.log('url',url_);
-            $.ajax({
-                dataType: 'html',
-                url: url_,
-                complete: function (data) {
-                    var target = active_;
-                    target.html(data.responseText);
-                    obj.data('ititialized', true);
-                }
-            });
-        }
-        window.location.hash = obj.find('a').attr('href').replace('#', '_');
-    }
-
-    function hashChange() {
-    //    if (window.location.hash) {
-    //        $('dd a[href=' + window.location.hash.replace('_', '') + ']').click();
-    //    }
-    }
-
-    $(function () {
-
-        $('#proposals-tabs').on('toggled', function (event, tab) {
-            mytabCallback($('#proposals-tabs').find('.active'));
-        });
-
-        mytabCallback($('#proposals-tabs').find('.active'));
-
-        $(window).on('hashchange', function () {
-            hashChange();
-        });
-
-        var datePickerOptions = {
-            changeMonth: false,
-            changeYear: false,
-            yearRange: "c:c+10",
-            maxDate: 0,
-            duration: "",
-            showTime: true,
-            constrainInput: true,
-            stepMinute: 5,
-            stepHour: 1,
-            altTimeField: "alt",
-            time24h: true
-        };
-
-
-        $('#time_start_w').datepicker($.extend({
-                    altField: "#time_start",
-                    altFormat: "@"},
-                datePickerOptions, {
-                    onClose: function () {
-                        $('#time_end_w').focus();
-
-                    }
-                }));
-
-        $('#time_end_w').datepicker($.extend({
-            altField: "#time_end",
-            altFormat: "@"}, datePickerOptions, {
-            onClose: function () {
-                $(this).form().find('button[name=button]').focus();
-
-            }
-        }));
-
-
-        $('.creation_date').each(function() {
-            <%if params[:time] && params[:time][:type]%>
-                var selected_ = $(this).find('.hidden_menu a[data-type=<%=params[:time][:type]%>]');
-                <%if params[:time][:type] == 'f'%>
-                    $(this).find('.hidden_link b').text("<%=params[:time][:start_w]%>" + " - <%=params[:time][:end_w]%>");
-                <%else%>
-                $(this).find('.hidden_link b').text(selected_.text());
-                <%end%>
-            <% else %>
-                var selected_ = $(this).find('.hidden_menu a[data-type=w]');
-                $(this).find('.hidden_link b').text(selected_.text());
-            <%end%>
-            selected_.addClass('checked');
-        });
-
-
-        $('.hidden_menu')
-                .click(function (event) {
-                    //event.stopPropagation();
-                });
-
-        $('html').click(function () {
-            $('.hidden_menu').hide();
-            $('.hidden_link.visible').removeClass('visible');
-        });
-
-        $('.hidden_link')
-                .click(function (event) {
-                    $(this).addClass('visible');
-                    $(this).next().show().position({
-                        my: "right top",
-                        at: "right bottom",
-                        of: $(this)
-                    });
-                    event.stopPropagation();
-                });
-    });
-
-
-    $('#nuova_proposta, #nuovo_sondaggio').bind("ajax:error", function (event, data, status, xhr) {
-        if (data.status == 401) {
-            window.location = "/users/sign_in?l=<%=I18n.locale%>"
-        }
-    });
-
-
-    $(function () {
-        // grab the url
-        var url = document.URL;
-        // grab the value of the hash
-        var hashValue = url.substring(url.indexOf('#')).replace('#', '');
-
-        // check to make sure it is a number
-        if (!isNaN(hashValue)) {
-            // set the active tab
-            $('#tabs').tabs("option", "active", hashValue);
-        }
-    });
-
+    ProposalsIndex.timeFilter = '<%=j params[:time].to_json%>';
 </script>

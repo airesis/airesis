@@ -600,11 +600,7 @@ function poll() {
 
             $('.cont1')
                 .bind('mousewheel DOMMouseScroll', function (e) {
-                    console.log('scroll');
-                    if (e.originalEvent) e = e.originalEvent;
-                    var delta = e.wheelDelta || -e.detail;
-                    this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
-                    e.preventDefault();
+                    Airesis.scrollLock(this,e);
                 });
             disegnaCountdown();
 
@@ -752,7 +748,7 @@ function initTextAreaTag() {
         $(this).textntags({
             triggers: {'@': {uniqueTags: false}},
             onDataRequest: function (mode, query, triggerChar, callback) {
-                var data = nicknames;
+                var data = ProposalsShow.nicknames;
 
                 query = query.toLowerCase();
                 var found = _.filter(data, function (item) {
@@ -957,4 +953,8 @@ function showVoteResults() {
     });
 
     $('#cast_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");
+}
+
+function close_all_dropdown() {
+    $('.f-dropdown').foundation('dropdown', 'close', $('.f-dropdown'));
 }
