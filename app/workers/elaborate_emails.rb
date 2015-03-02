@@ -2,7 +2,7 @@ class ElaborateEmails
   include Sidekiq::Worker
   include Sidetiq::Schedulable
 
-  recurrence { hourly }
+  recurrence { hourly } # todo: put back to minutely
   sidekiq_options queue: :low_priority
 
 
