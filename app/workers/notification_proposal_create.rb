@@ -35,7 +35,7 @@ class NotificationProposalCreate < NotificationSender
       #if it'a a public proposal
       notification_a = Notification.new(notification_type_id: NotificationType::NEW_PUBLIC_PROPOSALS, url: proposal_url(proposal, {subdomain: false, host: host}), data: data)
       notification_a.save
-      User.where("id not in (#{User.select("users.id").joins(:blocked_alerts).where("blocked_alerts.notification_type_id = ?", NotificationType::NEW_PUBLIC_PROPOSALS).to_sql})").each do |user|
+      User.where("id not in (#{User.select("users.id").joins(:blocked_alerts).where("blocked_alerts.notification_type_id = ?", NotificationType::NEW_PUBLIC_PROPOSALS).to_sql})").find_each do |user|
         if user != current_user
           send_notification_to_user(notification_a, user)
         end
