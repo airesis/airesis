@@ -10,8 +10,6 @@ module Frm
     authorize_resource :forum, through: :group
     load_and_authorize_resource through: :forum
 
-    before_filter :block_spammers, only: [:new, :create]
-
     def show
       if find_topic
         flash[:warn] = t('info.topic.hidden') if @topic.hidden
@@ -138,14 +136,6 @@ module Frm
 
     def register_view(topic, user)
       topic.register_view_by(user)
-    end
-
-    def block_spammers
-      if current_user.forem_spammer?
-        flash[:alert] = t('frm.general.flagged_for_spam') + ' ' +
-            t('frm.general.cannot_create_topic')
-        redirect_to :back
-      end
     end
 
     def forum_topics(forum, user)

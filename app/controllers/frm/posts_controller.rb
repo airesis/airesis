@@ -1,24 +1,29 @@
 #todo refactor and use cancan
 module Frm
   class PostsController < Frm::ApplicationController
-    before_filter :authenticate_user!
-    before_filter :find_topic
+
+    authorize_resource :group
+    load_and_authorize_resource :forum, class: 'Frm::Forum', through: :group
+    load_and_authorize_resource :topic, class: 'Frm::Topic', through: :forum
+    load_and_authorize_resource through: :topic
+
     before_filter :reject_locked_topic!, only: [:create]
-    before_filter :block_spammers, only: [:new, :create]
     before_filter :authorize_reply_for_topic!, only: [:new, :create]
     before_filter :authorize_edit_post_for_forum!, only: [:edit, :update]
-    before_filter :find_post_for_topic, only: [:edit, :update, :destroy]
-    before_filter :ensure_post_ownership!, only: [:destroy]
 
     def new
-      @post = @topic.posts.build
       find_reply_to_post
-
-      @post.text = view_context.forem_quote(@reply_to_post.text) if params[:quote]
+      if params[:quote]
+        if @reply_to_post
+          @post.text = view_context.forem_quote(@reply_to_post.text)
+        else
+          flash[:notice] = t("frm.post.cannot_quote_deleted_post")
+          redirect_to [@group, @forum, @topic]
+        end
+      end
     end
 
     def create
-      @post = @topic.posts.build(post_params)
       @post.user = current_user
 
       if @post.save
@@ -67,7 +72,7 @@ module Frm
     end
 
     def create_failed
-      params[:reply_to_id] = params[:post][:reply_to_id]
+      params[:reply_to_id] = params[:frm_post][:reply_to_id]
       flash.now.alert = t("frm.post.not_created")
       render action: "new"
     end
@@ -76,15 +81,15 @@ module Frm
       if @post.topic.posts.empty?
         @post.topic.destroy
         flash[:notice] = t("frm.post.deleted_with_topic")
-        redirect_to group_forum_url(@group,@topic.forum)
+        redirect_to group_forum_path(@group, @topic.forum)
       else
         flash[:notice] = t("frm.post.deleted")
-        redirect_to group_forum_topic_url(@group,@topic.forum,@topic)
+        redirect_to group_forum_topic_path(@group, @topic.forum, @topic)
       end
     end
 
     def update_successful
-      redirect_to group_forum_topic_url(@group,@topic.forum, @topic), notice: t('edited', scope: 'frm.post')
+      redirect_to group_forum_topic_url(@group, @topic.forum, @topic), notice: t('edited', scope: 'frm.post')
     end
 
     def update_failed
@@ -92,34 +97,10 @@ module Frm
       render action: "edit"
     end
 
-    def ensure_post_ownership!
-      unless @post.owner_or_moderator? current_user
-        flash[:alert] = t("frm.post.cannot_delete")
-        redirect_to group_forum_topic_url(@group,@topic.forum, @topic) and return
-      end
-    end
-
-    def find_topic
-      @forum = Frm::Forum.friendly.find(params[:forum_id])
-      @topic = @forum.topics.friendly.find(params[:topic_id])
-    end
-
-    def find_post_for_topic
-      @post = @topic.posts.find params[:id]
-    end
-
-    def block_spammers
-      if current_user.forem_spammer?
-        flash[:alert] = t('frm.general.flagged_for_spam') + ' ' +
-                        t('frm.general.cannot_create_post')
-        redirect_to :back
-      end
-    end
-
     def reject_locked_topic!
       if @topic.locked?
         flash.alert = t("frm.post.not_created_topic_locked")
-        redirect_to group_forum_topic_url(@group,@topic.forum, @topic) and return
+        redirect_to group_forum_topic_url(@group, @topic.forum, @topic) and return
       end
     end
 
