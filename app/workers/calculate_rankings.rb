@@ -1,14 +1,15 @@
 class CalculateRankings
-  include Sidekiq::Worker
-  include Sidetiq::Schedulable
+  # todo: re-enable
+  #include Sidekiq::Worker
+  #include Sidetiq::Schedulable
 
-  recurrence { daily.hour_of_day(1) }
-  sidekiq_options queue: :low_priority
+  #recurrence { daily.hour_of_day(1) }
+  #sidekiq_options queue: :low_priority
 
   def perform(*args)
     msg = "Ricalcolo ranking\n"
     @users = User.all
-    @users.each do |user|
+    @users.find_each do |user|
       msg += " " + user.fullname + "\n"
       #numero di commenti inseriti
       numcommenti = user.proposal_comments.count

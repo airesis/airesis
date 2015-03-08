@@ -50,7 +50,6 @@ module AdminHelper
     msg  += "  proposte: " + numproposte.to_s + "\n"
     msg  += "  proposte accettate: " + numok.to_s + "\n"
     user.rank = numcommenti + 2*(numproposte) + 10*(numok)
-    puts "user: "+user.email + " commenti:"+numcommenti.to_s + " proposte:" + numproposte.to_s + " ok:" + numok.to_s + " rank: " + user.rank.to_s
     msg  += "  user rank: " + user.rank.to_s + "\n----\n"
     user.save(validate: false)
     end

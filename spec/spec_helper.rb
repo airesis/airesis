@@ -25,17 +25,9 @@ RSpec.configure do |config|
   config.before(:each) do
     ActionMailer::Base.deliveries.clear
     Sidekiq::Worker.clear_all
-  end
-
-  config.before(:each) do
     I18n.locale = I18n.default_locale = :en
-    if Capybara.current_driver == :rack_test
-      DatabaseCleaner.strategy = :deletion, {:except => excluded_tables}
-      DatabaseCleaner.start
-    else
-      DatabaseCleaner.strategy = :deletion, {:except => excluded_tables}
-      DatabaseCleaner.start
-    end
+    DatabaseCleaner.strategy = :deletion, {:except => excluded_tables}
+    DatabaseCleaner.start
 
     Proposal.remove_all_from_index!
     if BestQuorum.count == 0

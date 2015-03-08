@@ -316,12 +316,14 @@ class Ability
 
       #forum permissions
       can :read, Frm::Category, group: participate_in_group(user)
-      can :read, Frm::Topic, forum: {group: participate_in_group(user)}
       can :read, Frm::Forum, group: participate_in_group(user)
+      can :read, Frm::Topic, forum: {group: participate_in_group(user)}
+
+
 
       can :manage, Frm::Category, group: is_admin_of_group(user)
-      can :manage, Frm::Topic, forum: {group: is_admin_of_group(user)}
       can :manage, Frm::Forum, group: is_admin_of_group(user)
+      can :manage, Frm::Topic, forum: {group: is_admin_of_group(user)}
 
       can :create_topic, Frm::Forum, group: participate_in_group(user)
 
@@ -334,6 +336,12 @@ class Ability
 
       can :moderate, Frm::Forum do |forum|
         user.can_moderate_forem_forum?(forum) || user.forem_admin?(forum.group)
+      end
+
+      can :create, Frm::Post, group: participate_in_group(user)
+      can :update, Frm::Post, user_id: user.id
+      can :destroy, Frm::Post do |post|
+          post.owner_or_moderator? user
       end
 
       # Always performed
