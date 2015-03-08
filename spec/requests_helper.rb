@@ -113,8 +113,20 @@ def expect_message(message)
   expect(page).to have_content(message)
 end
 
-def within_left_menu(&block)
+def within_left_menu
   within('#menu-left') do
-    yield block
+    yield
+  end
+end
+
+def within_first_post
+  within('#posts #post_1') do
+    yield
+  end
+end
+
+def within_second_post
+  within('#posts #post_2') do
+    yield
   end
 end
