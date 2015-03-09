@@ -340,6 +340,7 @@ class Ability
 
       can :create, Frm::Post, group: participate_in_group(user)
       can :update, Frm::Post, user_id: user.id
+      can :update, Frm::Post, group: is_admin_of_group(user)
       can :destroy, Frm::Post do |post|
           post.owner_or_moderator? user
       end
