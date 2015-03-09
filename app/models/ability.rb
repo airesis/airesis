@@ -389,10 +389,11 @@ class Ability
           can :manage, Election
           can :manage, Event
           can :index, SysPaymentNotification
-          can :manage, Frm::Topic
           can :create_topic, Frm::Forum
           can :manage, Frm::Category
           can :manage, Frm::Forum
+          can :manage, Frm::Topic
+          can :manage, Frm::Post
           can :manage, GroupArea
           can :index, GroupParticipation
           can :manage, ParticipationRole
