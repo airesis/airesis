@@ -246,11 +246,12 @@ class Proposal < ActiveRecord::Base
     #Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: self.id}) #TODO remove jobs
   end
 
-  #return true if the proposal is currently in debate
+  # return true if the proposal is currently in debate
   def in_valutation?
     proposal_state_id == ProposalState::VALUTATION
   end
 
+  # the proposal is waiting for someone to decide the vote date
   def waiting_date?
     proposal_state_id == ProposalState::WAIT_DATE
   end
@@ -555,7 +556,7 @@ class Proposal < ActiveRecord::Base
     #end
   end
 
-  #put the proposal back in debate from abandoned
+  # put the proposal back in debate from abandoned
   def regenerate(params)
     self.proposal_state_id = ProposalState::VALUTATION
     user = User.find(current_user_id)
@@ -570,6 +571,16 @@ class Proposal < ActiveRecord::Base
       ProposalsWorker.perform_at(quorum.ends_at - 24.hours, {action: ProposalsWorker::LEFT24, proposal_id: id}) if quorum.minutes > 1440
       ProposalsWorker.perform_at(quorum.ends_at - 1.hour, {action: ProposalsWorker::LEFT1, proposal_id: id}) if quorum.minutes > 60
     end
+  end
+
+
+  def set_votation_date(vote_period_id)
+    vote_period = Event.find(vote_period_id)
+    raise Exception unless vote_period.starttime > (5.seconds.from_now) # security check
+    self.vote_period_id = vote_period_id
+    self.proposal_state_id = ProposalState::WAIT
+    save!
+
   end
 
   private
@@ -638,10 +649,15 @@ class Proposal < ActiveRecord::Base
 
 
   def send_update_notifications
-    if quorum_id_changed?
+    if quorum_id_changed? # regenerated
       ProposalsWorker.perform_at(quorum.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: id})
-    elsif current_user_id
-      NotificationProposalUpdate.perform_in(1, current_user_id, id, groups.first.try(:id))
+    elsif current_user_id # updated or set votation date
+      if waiting?  # someone chose votation date
+        NotificationProposalWaitingForDate.perform_async(id, current_user.id)
+      else  # standard update
+        NotificationProposalUpdate.perform_in(1, current_user_id, id, groups.first.try(:id))
+      end
+
     end
   end
 
