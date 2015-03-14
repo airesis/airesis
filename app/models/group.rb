@@ -51,14 +51,6 @@ class Group < ActiveRecord::Base
 
   has_many :action_abilitations, class_name: 'ActionAbilitation'
 
-  has_many :group_elections, class_name: 'GroupElection'
-  #elezioni a cui partecipa
-  has_many :elections, through: :group_elections, class_name: 'Election'
-
-  has_many :supporters, class_name: 'Supporter'
-  #candidati che sostiene alle elezioni
-  has_many :candidates, through: :supporters, class_name: 'Candidate'
-
   has_many :group_proposals, class_name: 'GroupProposal', dependent: :destroy
   has_many :proposals, through: :group_proposals, class_name: 'Proposal', source: :proposal
 
@@ -67,14 +59,16 @@ class Group < ActiveRecord::Base
 
   has_many :voters, -> { include(:participation_roles).where(["participation_roles.id = ?", 2]) }, through: :group_participations, source: :user, class_name: 'User'
 
-  has_many :invitation_emails, class_name: 'GroupInvitationEmail', dependent: :destroy
-
   has_many :group_areas, dependent: :destroy
 
   has_many :search_participants
 
   has_many :group_tags, dependent: :destroy
   has_many :tags, through: :group_tags, class_name: 'Tag'
+
+  # invitations
+  has_many :group_invitations
+  has_many :group_invitation_emails, through: :group_invitations
 
   #forum
   has_many :forums, class_name: 'Frm::Forum', foreign_key: 'group_id', dependent: :destroy
@@ -242,15 +236,15 @@ class Group < ActiveRecord::Base
   end
 
   def request_by_vote?
-    self.accept_requests == REQ_BY_VOTE
+    accept_requests == REQ_BY_VOTE
   end
 
   def request_by_portavoce?
-    self.accept_requests == REQ_BY_PORTAVOCE
+    accept_requests == REQ_BY_PORTAVOCE
   end
 
   def request_by_both?
-    self.accept_requests == REQ_BY_BOTH
+    accept_requests == REQ_BY_BOTH
   end
 
   def self.look(params)
@@ -263,7 +257,7 @@ class Group < ActiveRecord::Base
     limite = params[:limit] || 30
 
     if tag
-      Group.joins(:tags).where(['tags.text = ?', tag]).order('group_participations_count desc, created_at desc').page(page).per(limite)
+      Group.joins(:tags).where(tags: {text: tag}).order('group_participations_count desc, created_at desc').page(page).per(limite)
     else
       Group.search(include: [:next_events, interest_border: [:territory]]) do
         fulltext search, minimum_match: params[:minimum] if search
@@ -312,22 +306,22 @@ class Group < ActiveRecord::Base
     integer :group_participations_count
     time :created_at
     integer :continente_id do
-      self.interest_border.continente.try(:id)
+      interest_border.continente.try(:id)
     end
     integer :stato_id do
-      self.interest_border.stato.try(:id)
+      interest_border.stato.try(:id)
     end
     integer :regione_id do
-      self.interest_border.regione.try(:id)
+      interest_border.regione.try(:id)
     end
     integer :provincia_id do
-      self.interest_border.provincia.try(:id)
+      interest_border.provincia.try(:id)
     end
     integer :comune_id do
-      self.interest_border.comune.try(:id)
+      interest_border.comune.try(:id)
     end
     integer :circoscrizione_id do
-      self.interest_border.circoscrizione.try(:id)
+      interest_border.circoscrizione.try(:id)
     end
   end
 

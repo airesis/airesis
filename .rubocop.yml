@@ -1,0 +1,12 @@
+Style/Encoding:
+  Enabled: false
+Metrics/LineLength:
+  Max: 120
+Style/MultilineOperationIndentation:
+  EnforcedStyle: indented
+Style/EndOfLine:
+  Enabled: false
+Style/SpaceInsideBlockBraces:
+  EnforcedStyle: space
+Style/DotPosition:
+  EnforcedStyle: trailing

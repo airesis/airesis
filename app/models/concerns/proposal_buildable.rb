@@ -60,7 +60,7 @@ module Concerns
       self.solutions << solution
     end
 
-#create a solution for a standard proposal
+    #create a solution for a standard proposal
     def standard_solution
       seq = 0
       solution = Solution.new

@@ -3,13 +3,13 @@ class ProposalComment < ActiveRecord::Base
   include LogicalDeleteHelper
   include ActionView::Helpers::TextHelper
 
-  has_paper_trail class_name: 'ProposalCommentVersion', only: [:content], on: [:update,:destroy]
+  has_paper_trail class_name: 'ProposalCommentVersion', only: [:content], on: [:update, :destroy]
 
 
   belongs_to :user, class_name: 'User', foreign_key: :user_id
   belongs_to :contribute, class_name: 'ProposalComment', foreign_key: :parent_proposal_comment_id
   has_many :replies, class_name: 'ProposalComment', foreign_key: :parent_proposal_comment_id, dependent: :destroy
-  has_many :repliers, -> {uniq true}, class_name: 'User', through: :replies, source: :user
+  has_many :repliers, -> { uniq true }, class_name: 'User', through: :replies, source: :user
   belongs_to :proposal, class_name: 'Proposal', foreign_key: :proposal_id, counter_cache: true
   has_many :rankings, class_name: 'ProposalCommentRanking', dependent: :destroy
   has_many :rankers, through: :rankings, class_name: 'User', source: :user
@@ -28,25 +28,25 @@ class ProposalComment < ActiveRecord::Base
 
   validate :check_last_comment
 
-  scope :contributes, -> {where(['parent_proposal_comment_id is null'])}
-  scope :comments, -> {where(['parent_proposal_comment_id is not null'])}
+  scope :contributes, -> { where(['parent_proposal_comment_id is null']) }
+  scope :comments, -> { where(['parent_proposal_comment_id is not null']) }
 
-  scope :unintegrated, -> {where(integrated: false)}
-  scope :integrated, -> {where(integrated: true)}
+  scope :unintegrated, -> { where(integrated: false) }
+  scope :integrated, -> { where(integrated: true) }
 
-  scope :noise, -> {where(noise: true)}
+  scope :noise, -> { where(noise: true) }
 
-  scope :listable, -> {where({integrated: false, noise: false})}
+  scope :listable, -> { where({integrated: false, noise: false}) }
 
-  scope :unread, lambda { |user_id, proposal_id| where(["proposal_comments.id not in (select p2.id from proposal_comments p2 join proposal_comment_rankings pr on p2.id = pr.proposal_comment_id where pr.user_id = ? and p2.proposal_id = ?) ", user_id, proposal_id])}
+  scope :unread, lambda { |user_id, proposal_id| where(["proposal_comments.id not in (select p2.id from proposal_comments p2 join proposal_comment_rankings pr on p2.id = pr.proposal_comment_id where pr.user_id = ? and p2.proposal_id = ?) ", user_id, proposal_id]) }
 
-  scope :removable, -> {where(['soft_reports_count >= ? and noise = false', CONTRIBUTE_MARKS])}
+  scope :removable, -> { where(['soft_reports_count >= ? and noise = false', CONTRIBUTE_MARKS]) }
 
   #a contribute marked more than three times as spam
-  scope :spam, -> {where(['grave_reports_count >= ?', CONTRIBUTE_MARKS])}
+  scope :spam, -> { where(['grave_reports_count >= ?', CONTRIBUTE_MARKS]) }
 
   #a contribute marked more than three times as noisy
-  scope :noisy, -> {where(['soft_reports_count >= ?', CONTRIBUTE_MARKS])}
+  scope :noisy, -> { where(['soft_reports_count >= ?', CONTRIBUTE_MARKS]) }
 
   attr_accessor :section_id
 

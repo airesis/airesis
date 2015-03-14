@@ -1,4 +1,4 @@
-#encoding: utf-8
+# manage user sensitive informations
 class UserSensitivesController < ApplicationController
 
   layout 'open_space'
@@ -13,7 +13,6 @@ class UserSensitivesController < ApplicationController
 
     end
   end
-
 
   def show
     @user_sensitive = UserSensitive.find(params[:id])

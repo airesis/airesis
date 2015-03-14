@@ -1,31 +1,29 @@
 class GroupAction < ActiveRecord::Base
-#  translates :description
-
-  #insert posts in groups stream
+  # insert posts in groups stream
   STREAM_POST = 1
 
-  #create meeting events in the group
+  # create meeting events in the group
   CREATE_EVENT = 2
 
-  #support proposals on behalf of the group
+  # support proposals on behalf of the group
   #@deprecated
   PROPOSAL = 3
   SUPPORT_PROPOSAL = 3
 
-  #accept participation request
+  # accept participation request
   REQUEST_ACCEPT = 4
 
-  #semd candidates to elections
+  # semd candidates to elections
   #@deprecated
   SEND_CANDIDATES = 5
 
-  #view group private proposals
+  # view group private proposals
   PROPOSAL_VIEW = 6
 
-  #participate at debate phase of the proposals
+  # participate at debate phase of the proposals
   PROPOSAL_PARTICIPATION = 7
 
-  #insert new proposals
+  # insert new proposals
   PROPOSAL_INSERT = 8
 
   DOCUMENTS_VIEW=9
@@ -37,15 +35,16 @@ class GroupAction < ActiveRecord::Base
 
   #choose date for proposals
   PROPOSAL_DATE =12
-  
-  
+
+
   has_many :action_abilitations, class_name: 'ActionAbilitation', dependent: :destroy
   has_many :area_action_abilitations, class_name: 'AreaActionAbilitation', dependent: :destroy
 
 
-  scope :for_group_areas, -> {where(id: DEFAULT_AREA_ACTIONS)}
-  scope :excluding_ids, ->(ids) { where('id NOT IN (?)', ids) if ids.any? }
+  scope :for_group_areas, -> { where(id: DEFAULT_AREA_ACTIONS) }
+  scope :excluding_ids, ->(ids) { where.not(id: ids) if ids.any? }
+
   def description
-    I18n.t("db.#{self.class.class_name.tableize}.#{self.name}.description")
+    I18n.t("db.#{self.class.class_name.tableize}.#{name}.description")
   end
 end

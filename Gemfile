@@ -10,14 +10,17 @@ gem 'maktoub'
 
 gem 'turnout'
 
-gem 'sass-rails', "~> 4.0.0"
-gem 'coffee-rails', "~> 4.0.0"
-gem 'uglifier', ">= 1.3.0"
-gem 'foundation-rails', github: 'johnantoni/foundation-rails', branch: 'foundation-5.4.7' #not the official repossitory. waiting for update to 5.4.7
+gem 'sass-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'uglifier', '>= 1.3.0'
+
+# not the official repossitory. waiting for update to 5.4.7
+gem 'foundation-rails', github: 'johnantoni/foundation-rails', branch: 'foundation-5.4.7'
 
 gem 'pg'
 
-gem 'sunspot_rails'
+gem 'sunspot_rails', github: 'coorasse/sunspot', tag: 'v2.1.1-threadsafe'
+gem 'sunspot-queue'
 
 gem 'capistrano', '~> 3.2.0'
 gem 'capistrano-bundler', '~> 1.1.2'
@@ -26,11 +29,12 @@ gem 'rvm1-capistrano3', require: false
 
 group :development do
   gem 'sunspot_solr'
-  gem "better_errors"
+  gem 'better_errors'
   gem 'quiet_assets'
   gem 'capistrano-sidekiq'
   gem 'capistrano-passenger'
   gem 'i18n-tasks', '~> 0.7.7'
+  gem 'rubocop'
 end
 
 group :development, :test do
@@ -41,10 +45,9 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'capybara-webkit'
   gem 'capybara-screenshot'
-  gem "spring"
-  gem "sunspot_test"
+  gem 'spring'
+  gem 'sunspot_test'
 end
-
 
 gem 'crowdin-api', group: [:development, :staging]
 gem 'rubyzip', group: [:development, :staging]
@@ -77,14 +80,11 @@ gem 'koala', '~> 1.8.0rc1'
 
 gem 'xmpp4r_facebook'
 
-
 gem 'sinatra', '>= 1.3.0', require: nil
 
-gem 'sidekiq'#, '~> 2.17.7' #added for issue https://github.com/tobiassvn/sidetiq/issues/79
+gem 'sidekiq'
 gem 'sidekiq-failures'
 gem 'sidetiq'
-
-gem 'sunspot-queue', github: 'coorasse/sunspot-queue'
 
 gem 'cancancan', '~> 1.9'
 
@@ -159,4 +159,4 @@ gem 'sunspot-rails-http-basic-auth', github: 'jwachira/sunspot-rails-http-basic-
 
 gem 'activerecord-session_store'
 
-gem "sentry-raven", github: 'getsentry/raven-ruby', group: [:development, :staging, :production]
+gem 'sentry-raven', github: 'getsentry/raven-ruby', group: [:development, :staging, :production]

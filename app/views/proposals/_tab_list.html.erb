@@ -26,15 +26,18 @@
                 var view = <%=params[:view] || 'null'%>;
                 var state = <%=params[:state] || 'null'%>;
                 var group = <%=params[:group_id] || 'null'%>;
-                var nurl = '/proposals/endless_index?scroll=true'
+                var order = '<%=params[:order] || 'null'%>';
+                var nurl = '/proposals/endless_index?scroll=true';
                 if (cat != null && cat != 'null')
-                    nurl += '&category=' + cat
+                    nurl += '&category=' + cat;
                 if (view != null && view != 'null')
-                    nurl += '&view=' + view
+                    nurl += '&view=' + view;
                 if (state != null && state != 'null')
-                    nurl += '&state=' + state
+                    nurl += '&state=' + state;
                 if (group != null && group != 'null')
-                    nurl += '&group_id=' + group
+                    nurl += '&group_id=' + group;
+                if (order != null && order != 'null')
+                    nurl += '&order=' + order;
                 $.ajax({ url: nurl + '&page=' + currentPage, type: 'get'});
             });
         })

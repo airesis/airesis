@@ -25,7 +25,7 @@ class NotificationType < ActiveRecord::Base
   CONTRIBUTE_UPDATE = 29
   PHASE_ENDING = 30
 
-  CHAIN = [NEW_PROPOSALS,NEW_PUBLIC_PROPOSALS,]
+  CHAIN = [NEW_PROPOSALS, NEW_PUBLIC_PROPOSALS,]
 
 
   belongs_to :notification_category, class_name: 'NotificationCategory', foreign_key: :notification_category_id

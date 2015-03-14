@@ -217,7 +217,6 @@ it-IT:
         short_url: Indirizzo breve
       header:
         settings: IMPOSTAZIONI
-        elections: ELEZIONI
         documents: DOCUMENTI
         forums: FORUM
         alarm_settings: Impostazioni
@@ -473,6 +472,7 @@ it-IT:
           not_logged_in: "Non può partecipare a questa proposta perché non hai effettuato l'accesso. "
         read_contribute: VISUALIZZA CONTRIBUTI
         security_token: Token di sicurezza
+        you_can_choose_vote_dates: "La proposta è in attesa di data da oltre %{count} giorni, quindi ora puoi scegliere la data anche tu."
       new:
         quorum_prompt: Seleziona una durata
         quorum_help: Assistenza
@@ -1454,6 +1454,11 @@ it-IT:
     area_participation:
       create: "Utente aggiunto all'area"
       destroy: "Utente rimosso dall'area"
+    group_invitations:
+      create: "Inviti inviati correttamente!"
+      accept: "Invito accettato! Ora fai parte di questo gruppo."
+      reject: "Invito rifiutato."
+      anymore: "Invito rifiutato. Non riceverai più inviti."
   interest_borders:
     hint: Digita alcuni caratteri per cercare un luogo
     no_place_found: Nessun luogo trovato

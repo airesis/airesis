@@ -3,15 +3,6 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 describe 'create proposal comments', type: :feature, js: true do
-  before :each do
-
-  end
-
-  after :each do
-
-  end
-
-
   it 'creates comments if not logged in' do
     @luser = create(:user)
     @user = create(:default_user)
@@ -159,8 +150,8 @@ describe 'create proposal comments', type: :feature, js: true do
     visit group_proposal_path(@group,@proposal)
     page_should_be_ok
     expect(page).to have_content @proposal.title
-    @ability.should be_able_to(:show, @proposal)
-    @ability.should be_able_to(:participate, @proposal)
+    expect(@ability).to be_able_to(:show, @proposal)
+    expect(@ability).to be_able_to(:participate, @proposal)
 
     comment = Faker::Lorem.sentence
     within('#proposalNewComment') do

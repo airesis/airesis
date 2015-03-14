@@ -1,4 +1,4 @@
-class  StatNumProposal < ActiveRecord::Base
+class StatNumProposal < ActiveRecord::Base
 
   def self.extract
     self.connection.select_all "select  year || '-' || month   as date, sum(value)

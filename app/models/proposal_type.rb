@@ -12,11 +12,11 @@ class ProposalType < ActiveRecord::Base
   CANDIDATE = 'CANDIDATE'
   PETITION = 'PETITION'
 
-  scope :active, -> {where(active: true)}
+  scope :active, -> { where(active: true) }
 
-  scope :for_groups, -> {where(groups_available: true)}
+  scope :for_groups, -> { where(groups_available: true) }
 
-  scope :for_open_space, -> {where(open_space_available: true)}
+  scope :for_open_space, -> { where(open_space_available: true) }
 
   def description
     I18n.t("db.#{self.class.class_name.tableize}.#{self.name}.description")

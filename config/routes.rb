@@ -111,7 +111,6 @@ Airesis::Application.routes.draw do
   resources :proposal_categories
 
 
-
   resources :announcements do
     member do
       post :hide
@@ -143,13 +142,6 @@ Airesis::Application.routes.draw do
     end
   end
 
-  resources :group_invitations do
-    collection do
-      get :accept
-      get :reject
-      get :anymore
-    end
-  end
 
   resources :interest_borders
   resources :comunes
@@ -221,6 +213,19 @@ Airesis::Application.routes.draw do
   put '/votation/vote_schulze', to: 'votations#vote_schulze'
   resources :votations
 
+  concern :group_invitations do
+    resources :group_invitations do
+      resources :group_invitation_emails, param: :token do
+        member do
+          get :accept
+          get :reject
+          get :anymore
+        end
+      end
+    end
+  end
+
+
   concern :eventable do
     resources :events do
       resources :meeting_participations, only: [:create]
@@ -253,15 +258,13 @@ Airesis::Application.routes.draw do
 
   concerns :eventable
 
+
   #specific routes for subdomains
   constraints Subdomain do
     get '', to: 'groups#show'
 
     get '/edit', to: 'groups#edit'
     put '/update', to: 'groups#update'
-
-    resources :elections
-    resources :candidates
 
     resources :quorums do
       member do
@@ -299,6 +302,7 @@ Airesis::Application.routes.draw do
     end
 
     concerns :participation_roles
+    concerns :group_invitations
 
     resources :search_participants
 
@@ -448,6 +452,8 @@ Airesis::Application.routes.draw do
 
       concerns :eventable
 
+      concerns :group_invitations
+
       resources :elections
 
       resources :candidates
@@ -473,6 +479,7 @@ Airesis::Application.routes.draw do
         member do
           post :close_debate
           patch :regenerate
+          patch :set_votation_date
           get :geocode
           get :vote_results
         end
@@ -518,14 +525,6 @@ Airesis::Application.routes.draw do
         get :download
       end
       member do
-      end
-    end
-
-    resources :elections do
-      member do
-        get :vote_page
-        post :vote
-        get :calculate_results
       end
     end
 

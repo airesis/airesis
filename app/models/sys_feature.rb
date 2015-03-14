@@ -10,7 +10,7 @@ class SysFeature < ActiveRecord::Base
                     url: "/assets/images/sys_features/:id/:style/:basename.:extension",
                     path: ":rails_root/public/assets/images/sys_features/:id/:style/:basename.:extension"
 
-  def paypal_url(return_url,notify_url)
+  def paypal_url(return_url, notify_url)
     "<script src=\"/assets/paypal-button.min.js?merchant=#{PAYPAL['paypal_merchant']}\"
     data-button=\"donate\"
     data-name=\"#{self.title}\"

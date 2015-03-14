@@ -195,8 +195,26 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         expect(page).to have_content proposal.title
 
         logout user
+      end
 
-        #todo test for participants in the area
+      it "is displayed in the group list if you are logged in as group admin and have the permission to see it" do
+        user = create(:user)
+        participant = create(:user)
+        group = create(:group, current_user_id: user.id)
+        create_participation(participant, group)
+        area = create(:group_area, group: group)
+        create_area_participation(participant, area)
+        proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: participant.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: false)
+
+        visit group_proposals_path(group)
+        expect(page).to_not have_content proposal.title
+
+        login_as user, scope: :user
+
+        visit group_proposals_path(group)
+        expect(page).to have_content proposal.title
+
+        logout user
       end
 
       it "is displayed in the group area list only if you are logged in and have the permission to see it" do

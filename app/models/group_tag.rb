@@ -1,10 +1,10 @@
 class GroupTag < ActiveRecord::Base
 
-	belongs_to :group
-	belongs_to :tag
+  belongs_to :group
+  belongs_to :tag
 
 
-  after_create  :increment_counter_cache
+  after_create :increment_counter_cache
   after_destroy :decrement_counter_cache
 
   private

@@ -1,4 +1,4 @@
-#encoding: utf-8
+# controller for users
 class UsersController < ApplicationController
   layout :choose_layout
 
@@ -11,16 +11,17 @@ class UsersController < ApplicationController
     @orig = User.find_by_email(@user.email)
   end
 
-  #unisce due account
+  # joins two different account when logging in
   def join_accounts
-    data = session["devise.google_data"] || session["devise.facebook_data"] || session["devise.linkedin_data"] || session['devise.parma_data'] #prendi i dati di facebook dalla sessione
-    email = ""
-    if data["provider"] == Authentication::LINKEDIN
-      email = data["extra"]["raw_info"]["emailAddress"]
-    elsif data["provider"] == Authentication::PARMA
-      email = data["info"]["email"]
+    # take IP data from session
+    data = session['devise.google_data'] || session['devise.facebook_data'] || session['devise.linkedin_data'] || session['devise.parma_data']
+    email = ''
+    if data['provider'] == Authentication::LINKEDIN
+      email = data['extra']['raw_info']['emailAddress']
+    elsif data['provider'] == Authentication::PARMA
+      email = data['info']['email']
     else
-      email = data["extra"]["raw_info"]["email"]
+      email = data['extra']['raw_info']['email']
     end
     if params[:user][:email] && (email != params[:user][:email]) #se per caso viene passato un indirizzo email differente
       flash[:error] = 'Dai va là!'
@@ -31,12 +32,13 @@ class UsersController < ApplicationController
         #aggiungi il provider
         User.transaction do
           auth.authentications.build(provider: data['provider'], uid: data['uid'], token: (data['credentials']['token'] rescue nil))
-          if data["provider"] == Authentication::PARMA
+          #specif code to authorize users from Parma. must be extracted
+          if data['provider'] == Authentication::PARMA
             group = Group.find_by_subdomain('parma')
             auth.group_participation_requests.build(group: group, group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED)
             participation_role = group.default_role
             if data['info']['verified']
-              certification = auth.build_certification({name: auth.name, surname: auth.surname, tax_code: auth.email})
+              auth.build_certification(name: auth.name, surname: auth.surname, tax_code: auth.email)
               participation_role = ParticipationRole.where(['group_id = ? and lower(name) = ?', group.id, 'residente']).first || participation_role #look for best role or fallback
               auth.user_type_id = UserType::CERTIFIED
             end
@@ -59,7 +61,7 @@ class UsersController < ApplicationController
 
   def index
     return redirect_to root_path if user_signed_in?
-    @users = User.where("upper(name) like upper(?)","%#{params[:q]}%")
+    @users = User.where('upper(name) like upper(?)', "%#{params[:q]}%")
 
     respond_to do |format|
       format.json { render json: @users.to_json(only: [:id, :name]) }
@@ -237,7 +239,7 @@ class UsersController < ApplicationController
         flash[:notice] += t('info.user.confirm_email') if params[:user][:email] && @user.email != params[:user][:email]
         format.js
         format.html {
-          if params[:back] == "home"
+          if params[:back] == 'home'
             redirect_to home_url
           else
             redirect_to @user
@@ -249,10 +251,10 @@ class UsersController < ApplicationController
         end
         format.js { render 'layouts/error' }
         format.html {
-          if params[:back] == "home"
+          if params[:back] == 'home'
             redirect_to home_url
           else
-            render action: "show"
+            render action: 'show'
           end
         }
       end

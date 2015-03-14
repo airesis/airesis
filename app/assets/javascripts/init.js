@@ -9,7 +9,8 @@ $(function () {
     $.fn.qtip.defaults = $.extend(true, {}, $.fn.qtip.defaults, {
         style: {
             classes: 'qtip-light qtip-shadow'
-        }});
+        }
+    });
 
     $viewport = $('html, body');
 
@@ -44,11 +45,11 @@ $(function () {
             source: function (request, response) {
                 var term = request.term;
                 if (term in searchcache) {
-                    response(searchcache[ term ]);
+                    response(searchcache[term]);
                     return;
                 }
                 $.getJSON("/searches", request, function (data, status, xhr) {
-                    searchcache[ term ] = data;
+                    searchcache[term] = data;
                     response(data);
                 });
 
@@ -134,9 +135,11 @@ $(function () {
         }
     });
 
-    $('[data-qtip]').qtip({style: {
-        classes: 'qtip-light qtip-shadow'
-    }});
+    $('[data-qtip]').qtip({
+        style: {
+            classes: 'qtip-light qtip-shadow'
+        }
+    });
 
 
     $(document).on('click', '[data-reveal-close]', function () {
@@ -153,7 +156,7 @@ $(function () {
         return false;
     });
 
-    $(document).on('click', '[data-login]', function() {
+    $(document).on('click', '[data-login]', function () {
         "use strict";
         $('#login-panel').foundation('reveal', 'open');
         return false;
@@ -191,5 +194,40 @@ $(function () {
     };
 
     $('[data-tag-cloud] a').tagcloud();
+
+
+    function checkCharacters(field) {
+        console.log('check',field);
+        console.log('check',field.val());
+        var button = $(this).nextAll('.search-by-text');
+        if (field.val().length > 1) {
+            button.removeAttr('disabled');
+            console.log('search ok');
+            return true
+        }
+        else {
+            button.attr('disabled', 'disabled');
+            return false
+        }
+    }
+
+    //proposals index, search by text field
+    $('.search-by-text').on('click', function () {
+        console.log('check and go');
+        var field = $(this).prevAll('.field-by-text');
+        var condition = $(this).prevAll('.condition-for-text:checked');
+        if (checkCharacters(field)) {
+            var loc_ = addQueryParam(location.href, 'search', field.val());
+            if (condition.length > 0) {
+                loc_ = addQueryParam(loc_, 'or', condition.val());
+            }
+            else {
+                loc_ = addQueryParam(loc_, 'or', '');
+            }
+            console.log(loc_);
+            window.location = loc_;
+        }
+        return false;
+    });
 
 });

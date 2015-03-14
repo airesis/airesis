@@ -1,4 +1,3 @@
-#encoding: utf-8
 class ProposalRanking < ActiveRecord::Base
   belongs_to :ranking_type
   belongs_to :user

@@ -22,7 +22,7 @@
     $(function () {
         var feedback_options =
                 Feedback({
-                    h2cPath: '/assets/html2canvas.js',
+                    h2cPath: '<%= asset_path 'html2canvas'%>',
                     url: '/send_feedback',
                     label: '<%=j t('pages.feedback.send_feedback')%>',
                     header: '<%=j t('pages.feedback.send_feedback')%>',
