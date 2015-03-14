@@ -124,16 +124,15 @@ describe 'posts', type: :feature, js: true do
         expect(page).to have_content(text)
       end
 
-      it "should not allow you to edit a post you don't own" do
-        # second_post = topic.posts[1]
+      it "if you are group admin you should be allowed to edit a post you don't own" do
         visit edit_group_forum_topic_post_path(group, forum, topic, @second_post)
-        expect(page).to have_content(I18n.t('error.error_302.title'))
+        expect(page).to_not have_content(I18n.t('error.error_302.title'))
       end
 
       it 'should display edit link on posts you own' do
         visit group_forum_topic_path(group, forum, topic)
         within_first_post do
-          page.should have_content('Edit')
+          expect(page).to have_content('Edit')
         end
       end
     end
