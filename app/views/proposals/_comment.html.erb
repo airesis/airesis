@@ -5,7 +5,7 @@
      <% end %> data-id="<%= comment.id %>">
   <div class="blogUserImage" title="<%= proposal_nickname.nickname if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) %>">
     <% if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) %>
-        <img src="http://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(proposal_nickname.nickname) %>?s=40&d=identicon&r=PG"/>
+        <img src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(proposal_nickname.nickname) %>?s=40&d=identicon&r=PG"/>
     <% else %>
         <%= comment.user_image_tag(40) %>
     <% end %>
