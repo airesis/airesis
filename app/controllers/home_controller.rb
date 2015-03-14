@@ -19,13 +19,13 @@ class HomeController < ApplicationController
   def index
     @page_title = 'Home'
     if current_user
-      @blog_posts = BlogPost.includes(:blog,user: [:user_type,:image]).order('blog_posts.created_at desc').limit(10).accessible_by(Ability.new(current_user))
-      @events = Event.next.order('starttime asc').limit(10).accessible_by(Ability.new(current_user))
+      load_open_space_resources
       render 'open_space'
     end
   end
 
   def public
+    load_open_space_resources
     render 'open_space'
   end
 
@@ -129,12 +129,17 @@ class HomeController < ApplicationController
     end
   end
 
-  private
+  protected
+
+  def load_open_space_resources
+    @blog_posts = BlogPost.includes(:blog,user: [:user_type,:image]).order('blog_posts.created_at desc').limit(10).accessible_by(Ability.new(current_user))
+    @events = Event.next.order('starttime asc').limit(10).accessible_by(Ability.new(current_user))
+  end
+
   def initialize_roadmap
     @roadmap ||= Roadmap.new(ENV['BUGTRACKING_USERNAME'], ENV['BUGTRACKING_PASSWORD'])
   end
 
-  private
 
   def choose_layout
     if ['landing'].include? action_name
