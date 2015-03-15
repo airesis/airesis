@@ -105,7 +105,7 @@ gem 'el_finder'
 gem 'recaptcha', require: 'recaptcha/rails'
 
 gem 'bullet', group: :development
-gem 'thin', group: :development
+gem 'thin'
 gem 'ruby-prof', group: :test
 gem 'test-unit', group: :test
 
