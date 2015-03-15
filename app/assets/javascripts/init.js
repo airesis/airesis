@@ -49,7 +49,7 @@ $(function () {
                     ]
                 ),
                 new window.Feedback.Screenshot({
-                    h2cPath: '/assets/html2canvas.js',
+                    h2cPath: Airesis.i18n.feedback.h2cPath,
                     blackoutButtonMessage: Airesis.i18n.feedback.blackoutButtonMessage,
                     highlightButtonMessage: Airesis.i18n.feedback.highlightButtonMessage,
                     highlightOrBlackout: Airesis.i18n.feedback.highlightOrBlackout
