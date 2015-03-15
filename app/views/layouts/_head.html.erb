@@ -19,6 +19,10 @@
     Airesis.environment = '<%= Rails.env %>';
     Airesis.new_user_session_path = '<%=j new_user_session_path %>';
     Airesis.loadingImageTag = '<%=j image_tag 'ajax-loader.gif' %>';
+    Airesis.assets = {
+        group_participants: '<%=j asset_path 'group_participants.png'%>',
+        group_proposals: '<%=j asset_path 'group_proposals.png'%>'
+    };
     Airesis.i18n = {
         alerts_sign_has_read: '<%=j raw t('pages.header.menu.sign_has_read')%>',
         alert_read: '<%=j raw t('pages.header.read')%>',

@@ -148,8 +148,8 @@ $(function () {
                 text_.append('<a href="' + item.user_url + '">' + item.username + '</a>');
             }
             else if (item.type == 'Group') {
-                text_.append('<div class="groupDescription"><img src="/assets/group_participants.png"><span class="count">' + item.participants_num + '</span></div>');
-                text_.append('<div class="groupDescription"><img src="/assets/group_proposals.png"><span class="count">' + item.proposals_num + '</span></div>');
+                text_.append('<div class="groupDescription"><img src="'+Airesis.assets.group_participants+'"><span class="count">' + item.participants_num + '</span></div>');
+                text_.append('<div class="groupDescription"><img src="'+Airesis.assets.group_proposals+'"><span class="count">' + item.proposals_num + '</span></div>');
                 image_.append('<img src="' + item.image + '"/>');
             }
             else {
