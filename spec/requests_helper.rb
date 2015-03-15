@@ -118,3 +118,15 @@ def within_left_menu
     yield
   end
 end
+
+def within_first_post
+  within('#posts #post_1') do
+    yield
+  end
+end
+
+def within_second_post
+  within('#posts #post_2') do
+    yield
+  end
+end

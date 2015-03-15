@@ -27,7 +27,7 @@ Airesis::Application.configure do
 
   config.assets.version = '1.0'
 
-  config.force_ssl = false
+  config.force_ssl = true
 
   config.logger = Logger.new(Rails.root.join("log", Rails.env + ".log"), 50, 100.megabytes)
 end

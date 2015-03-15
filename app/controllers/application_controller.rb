@@ -134,10 +134,14 @@ class ApplicationController < ActionController::Base
 
   def log_error(exception)
     if ENV['SENTRY_PRIVATE_KEY'] && !Rails.env.test? && !Rails.env.development?
+      extra = {}
+      extra[:current_user_id] = current_user.id if current_user
+      if exception.instance_of? CanCan::AccessDenied
+        extra[:action] = exception.action.to_s
+        extra[:subject] = exception.subject.class.class_name.to_s
+      end
       Raven.capture_exception(exception, {
-                                           extra: {
-                                               current_user_id: current_user.try(:id)
-                                           }
+                                           extra: extra
                                        })
     else
       message = "\n#{exception.class} (#{exception.message}):\n"

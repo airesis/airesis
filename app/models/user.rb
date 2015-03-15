@@ -480,12 +480,6 @@ class User < ActiveRecord::Base
     true
   end
 
-  def forem_spammer?
-    #forem_state == 'spam'
-    false
-  end
-
-
   def forem_admin?(group)
     self.can? :update, group
   end

@@ -1,9 +1,9 @@
-<tr>
+<tr id='post_<%= post_counter + 1 %>'>
 
   <td class="user_post" rowspan="2">
     <a name='post-<%= post.id %>'></a>
 
-    <div id='post_<%= post_counter + 1 %>' class='post <%= cycle('odd', 'even') -%> span10'>
+    <div class='post <%= cycle('odd', 'even') -%> span10'>
       <% if post.pending_review? %>
           <div class='moderation alert'>
             <%= t(".pending_review") %>
@@ -20,9 +20,9 @@
       <% end %>
     </div>
     <div class='user span2'>
-      <div class='icon'><%= post.user.user_image_tag 100 %></div>
+      <div class='icon'><%= post.user.user_image_tag 100 if post.user %></div>
       <div class='username'>
-        <%= link_to post.user.fullname, post.user %>
+        <%= link_to(post.user.fullname, post.user) if post.user %>
       </div>
     </div>
   </td>
@@ -61,7 +61,7 @@
 <tr>
   <td class="post_content">
     <div class="post-body">
-      <%=sanitize post.text %>
+      <%= sanitize post.text %>
     </div>
 
   </td>

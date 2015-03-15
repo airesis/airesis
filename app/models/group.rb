@@ -206,7 +206,6 @@ class Group < ActiveRecord::Base
     self.participant_ids = ids.split(",")
   end
 
-
   def image_url
     if self.image.exists?
       self.image.url
@@ -216,7 +215,6 @@ class Group < ActiveRecord::Base
       ActionController::Base.helpers.asset_path("gruppo-anonimo.png")
     end
   end
-
 
   def interest_border_tkn
     self.interest_border.territory_type + "-" + self.interest_border.territory_id.to_s if self.interest_border

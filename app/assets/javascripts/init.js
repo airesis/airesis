@@ -26,7 +26,7 @@ $(function () {
     //feedback configuration
     var feedback_options =
         Feedback({
-            h2cPath: '/assets/html2canvas.js',
+            h2cPath: Airesis.i18n.feedback.h2cPath,
             url: '/send_feedback',
             label: Airesis.i18n.feedback.label,
             header: Airesis.i18n.feedback.header,
