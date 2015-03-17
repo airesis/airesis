@@ -4,12 +4,8 @@
 
     var textarea_ = $('#<%=@proposal_comment.contribute.id%>_reply_text_area');
 
-    textarea_.textntags('reset');
+    textarea_.prev().html('<div></div>');   //clear the textntags plugin
     textarea_.val('');
-    $('.deleteReplyLink').unbind('click');
-    $('.deleteReplyLink').bind('click', function (event) {
-        hideAndDeleteReply(event, $(this).data('id'));
-    });
     $('.reply_textarea').attr('placeholder', '<%=t('pages.proposals.show.reply_placeholder')%>');
 
 

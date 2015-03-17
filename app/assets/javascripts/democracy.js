@@ -956,3 +956,8 @@ function showVoteResults() {
 function close_all_dropdown() {
     $('.f-dropdown').foundation('dropdown', 'close', $('.f-dropdown'));
 }
+
+function execute_page_js(page) {
+    if ("object" === typeof window[page])
+        window[page].init();
+}

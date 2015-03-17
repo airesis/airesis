@@ -148,8 +148,8 @@ $(function () {
                 text_.append('<a href="' + item.user_url + '">' + item.username + '</a>');
             }
             else if (item.type == 'Group') {
-                text_.append('<div class="groupDescription"><img src="'+Airesis.assets.group_participants+'"><span class="count">' + item.participants_num + '</span></div>');
-                text_.append('<div class="groupDescription"><img src="'+Airesis.assets.group_proposals+'"><span class="count">' + item.proposals_num + '</span></div>');
+                text_.append('<div class="groupDescription"><img src="' + Airesis.assets.group_participants + '"><span class="count">' + item.participants_num + '</span></div>');
+                text_.append('<div class="groupDescription"><img src="' + Airesis.assets.group_proposals + '"><span class="count">' + item.proposals_num + '</span></div>');
                 image_.append('<img src="' + item.image + '"/>');
             }
             else {
@@ -209,7 +209,6 @@ $(function () {
     $(document).on('click', '[data-reveal-close]', function () {
         $('.reveal-modal:visible').foundation('reveal', 'close');
     });
-
 
 
     $(document).on('click', '[data-login]', function () {
@@ -282,9 +281,30 @@ $(function () {
         return false;
     });
 
+    //initialize textntags when needed
+    $(document).on('focus', '[data-textntags]', function () {
+        if ($(this).data('textntags') != 1) {
+            $(this).textntags({
+                triggers: {'@': {uniqueTags: false}},
+                onDataRequest: function (mode, query, triggerChar, callback) {
+                    var data = ProposalsShow.nicknames;
+
+                    query = query.toLowerCase();
+                    var found = _.filter(data, function (item) {
+                        return item.name.toLowerCase().indexOf(query) > -1;
+                    });
+
+                    callback.call(this, found);
+                }
+            });
+            $(this).data('textntags', 1);
+            $(this).focus();
+        }
+    });
+
+
     //executes page specific js
     var page = $("body").data("page");
-    if ("object" === typeof window[page])
-        window[page].init();
+    execute_page_js(page);
 
 });

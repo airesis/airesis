@@ -55,6 +55,7 @@
 //= require user_sensitives/new
 //= require proposals/index
 //= require proposals/show
+//= require quorums/dates
 //= require users/alarm_preferences
 //= require facebook
 //= require google_analytics
