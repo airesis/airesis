@@ -7,7 +7,7 @@
       <li class="bullet-item">Buy a coffee for the developer</li>
       <li class="cta-button">
         <a class="button show-for-small" href="#">
-          <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
+          <script src="<%= "#{asset_path('paypal-button.min')}?merchant=#{PAYPAL['paypal_merchant']}"%>"
                   data-button="donate"
                   data-name="Airesis - Scegli di partecipare"
                   data-number="1"
@@ -19,7 +19,7 @@
                   data-env="<%="#{Rails.env == 'production' ? 'www' : 'sandbox'}"%>">
           </script>
         </a><a class="button show-for-medium-up" href="#">
-        <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
+        <script src="<%= "#{asset_path('paypal-button.min')}?merchant=#{PAYPAL['paypal_merchant']}"%>"
                 data-button="donate"
                 data-name="Airesis - Scegli di partecipare"
                 data-number="1"
@@ -43,7 +43,7 @@
       <li class="bullet-item">Membership</li>
       <li class="cta-button">
         <a class="button show-for-small" href="#">
-          <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
+          <script src="<%= "#{asset_path('paypal-button.min')}?merchant=#{PAYPAL['paypal_merchant']}"%>"
                   data-button="donate"
                   data-name="Airesis"
                   data-number="1"
@@ -56,7 +56,7 @@
           </script>
         </a>
         <a class="button show-for-medium-up" href="#">
-          <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
+          <script src="<%= "#{asset_path('paypal-button.min')}?merchant=#{PAYPAL['paypal_merchant']}"%>"
                   data-button="donate"
                   data-name="Airesis"
                   data-number="1"
