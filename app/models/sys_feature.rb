@@ -6,9 +6,7 @@ class SysFeature < ActiveRecord::Base
                     styles: {
                         medium: "300x300>"
                     },
-                    storage: :filesystem,
-                    url: "/assets/images/sys_features/:id/:style/:basename.:extension",
-                    path: ":rails_root/public/assets/images/sys_features/:id/:style/:basename.:extension"
+                    path: "sys_features/:id/:style/:basename.:extension"
 
   validates_attachment_content_type :image, content_type: ['image/jpeg', 'image/png', 'image/gif']
 
