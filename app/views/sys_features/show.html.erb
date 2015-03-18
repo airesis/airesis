@@ -23,6 +23,6 @@
   <b>Image:</b>
   <%= image_tag @sys_feature.image.url(:medium) %>
 </p>
-<%= @sys_feature.paypal_url(sys_feature_url(@sys_feature),sys_payment_notifications_url) %>|
+<%= sys_feature_paypal_url(@sys_feature) %>|
 <%= link_to 'Edit', edit_sys_feature_path(@sys_feature) %> |
 <%= link_to 'Back', sys_features_path %>

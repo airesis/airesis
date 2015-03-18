@@ -31,7 +31,7 @@
         <div class="columns large-9">
           <h2>
             <div class="sys_title"><%= feature.title %></div>
-            <span><%= feature.paypal_url(donations_url,sys_payment_notifications_url) %></span>
+            <span><%= sys_feature_paypal_url(feature) %></span>
           </h2>
           <h3><%= "Required: #{feature.amount_required}€" %></h3>
           <h3><%= "Received: #{feature.amount_received_calc}€" %></h3>
