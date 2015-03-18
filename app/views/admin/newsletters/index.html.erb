@@ -1,0 +1,22 @@
+<% @newsletters.each do |newsletter| %>
+    <div class="card">
+      <div class="row">
+        <div class="columns">
+          <%= newsletter.subject %>
+          <%= sanitize truncate_html(newsletter.body, length: 100, omission: '...') %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="columns">
+          <%= form_for 'mail', url: publish_admin_newsletter_path(newsletter) do |f| %>
+              <%= f.select 'receiver', {admin: 'admin', tutti: 'all', 'account non confermato' => 'not_confirmed', portavoce: 'portavoce', test: 'test'} %>
+              <%= f.submit 'Invia', class: 'btn' %>
+          <% end %>
+        </div>
+      </div>
+      <%= link_to t('buttons.edit'), edit_admin_newsletter_path(newsletter), class: 'btn' %>
+      <%= link_to t('buttons.show'), admin_newsletter_path(newsletter), class: 'btn' %>
+    </div>
+<% end %>
+
+<%= link_to t('buttons.new_newsletter'), new_admin_newsletter_path, class: 'btn blue' %>

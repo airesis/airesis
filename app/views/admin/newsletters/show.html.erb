@@ -1,0 +1,9 @@
+<div class="card">
+  <%= @newsletter.subject %>
+</div>
+<div class="card">
+  <%= @newsletter.body.html_safe %>
+</div>
+<%=link_to t('buttons.edit'), edit_admin_newsletter_path, class: 'btn blue' %>
+
+

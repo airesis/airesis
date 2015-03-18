@@ -528,9 +528,9 @@ Airesis::Application.routes.draw do
       end
     end
 
-    match ':controller/:action/:id', via: :all
+    #match ':controller/:action/:id', via: :all
 
-    match ':controller/:action/:id.:format', via: :all
+    #match ':controller/:action/:id.:format', via: :all
 
 
     admin_required = lambda do |request|
@@ -542,16 +542,24 @@ Airesis::Application.routes.draw do
     end
 
     constraints moderator_required do
-      match ':controller/:action/', via: :all
+      #match ':controller/:action/', via: :all
       get 'moderator_panel', to: 'moderator#show', as: 'moderator/panel'
     end
 
 
     constraints admin_required do
+      namespace :admin do
+        resources :newsletters do
+          member do
+            get :preview
+            post :publish
+          end
+        end
+      end
       mount Sidekiq::Web => "/sidekiq"
       mount Maktoub::Engine => "/maktoub/"
-      match ':controller/:action/', via: :all
-      resources :admin
+      #match ':controller/:action/', via: :all
+      #resources :admin
       get 'admin_panel', to: 'admin#show', as: 'admin/panel'
     end
 

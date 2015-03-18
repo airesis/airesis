@@ -82,16 +82,12 @@ class ResqueMailer < ActionMailer::Base
 
 
   def publish(params)
-    @user = User.find_by_id(params['user_id'])
+    @user = User.find(params['user_id'])
+    @newsletter = Newsletter.find(params['newsletter_id'])
     I18n.locale = @user.locale.key || 'en'
-    mail_fields = {
-        subject: params['subject'],
-        to: @user.email
-    }
-    @name = @user.fullname
 
-    mail(mail_fields) do |format|
-      format.html { render("maktoub/newsletters/#{params['newsletter']}") }
+    mail(subject: params['subject'], to: @user.email) do |format|
+      format.html { render inline: @newsletter.body, layout: 'newsletters/default' }
     end
   end
 
@@ -128,6 +124,6 @@ class ResqueMailer < ActionMailer::Base
   protected
 
   def choose_layout
-    (['invite', 'admin_message', 'feedback', 'test'].include? action_name) ? 'maktoub/unregistered_mailer' : (['notification'].include? action_name) ? 'maktoub/notification_mailer' : 'maktoub/newsletter_mailer'
+    (['invite', 'admin_message', 'feedback', 'test'].include? action_name) ? 'maktoub/unregistered_mailer' : (['notification'].include? action_name) ? 'maktoub/notification_mailer' : 'newsletters/default'
   end
 end
