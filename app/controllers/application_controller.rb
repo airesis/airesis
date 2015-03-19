@@ -1,4 +1,3 @@
-#encoding: utf-8
 class ApplicationController < ActionController::Base
   include ApplicationHelper, GroupsHelper, StepsHelper
   helper :all
@@ -18,7 +17,6 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
   helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :age, :is_group_admin?, :in_subdomain?
-
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :name, :surname, :accept_conditions, :sys_locale_id, :password) }
