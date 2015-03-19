@@ -350,8 +350,8 @@ class Ability
 
       # Performed checks for actions:
       #todo ckeditor assets are public. make them reserved on a per-user basis
-      can [:read, :create, :destroy], Ckeditor::Picture
-      can [:read, :create, :destroy], Ckeditor::AttachmentFile
+      can [:read, :create, :destroy], Ckeditor::Picture, assetable_id: user.id
+      can [:read, :create, :destroy], Ckeditor::AttachmentFile, assetable_id: user.id
 
       if user.moderator?
         can :read, Proposal # can see all the proposals
