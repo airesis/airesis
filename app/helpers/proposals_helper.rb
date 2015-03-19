@@ -1,7 +1,4 @@
-#encoding: utf-8
 module ProposalsHelper
-
-
   def navigator_actions(args={})
     classes = "action #{args[:classes]}"
     (link_to '#', onclick: 'return false', class: "#{classes} move_up" do
