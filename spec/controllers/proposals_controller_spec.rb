@@ -5,7 +5,7 @@ describe ProposalsController, type: :controller, search: :true do
 
   describe "GET index" do
     it "counts correctly debate proposals" do
-      user = create(:default_user)
+      user = create(:user)
       proposal = create_public_proposal(user.id)
       get :index
       expect(assigns(:in_valutation_count)).to be(1)
@@ -15,7 +15,7 @@ describe ProposalsController, type: :controller, search: :true do
     end
 
     it "counts correctly votation proposals" do
-      user = create(:default_user)
+      user = create(:user)
       proposal1 = create_public_proposal(user.id)
       proposal2 = create_public_proposal(user.id)
       proposal3 = create_public_proposal(user.id)
@@ -34,7 +34,7 @@ describe ProposalsController, type: :controller, search: :true do
     end
 
     it "counts correctly voted proposals" do
-      user = create(:default_user)
+      user = create(:user)
       proposal1 = create_public_proposal(user.id)
       proposal2 = create_public_proposal(user.id)
       proposal3 = create_public_proposal(user.id)
@@ -60,7 +60,7 @@ describe ProposalsController, type: :controller, search: :true do
     end
 
     it "counts correctly abandoned proposals" do
-      user = create(:default_user)
+      user = create(:user)
       proposal1 = create_public_proposal(user.id)
 
       proposal4 = create_public_proposal(user.id)
@@ -91,7 +91,7 @@ describe ProposalsController, type: :controller, search: :true do
 
   describe "GET tab_list" do
     before(:each) do
-      @user = create(:default_user)
+      @user = create(:user)
       @proposal1 = create(:public_proposal, title: 'bella giornata', quorum: BestQuorum.public.first, current_user_id: @user.id)
     end
 
@@ -179,7 +179,7 @@ describe ProposalsController, type: :controller, search: :true do
 
   describe "GET similar" do
     before(:each) do
-      @user = create(:default_user)
+      @user = create(:user)
       @proposal1 = create(:public_proposal, title: 'bella giornata', quorum: BestQuorum.public.first, current_user_id: @user.id)
     end
 
@@ -302,7 +302,7 @@ describe ProposalsController, type: :controller, search: :true do
       group = create(:group, current_user_id: @user.id)
       proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', quorum: BestQuorum.public.first, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
 
-      @user2 = create(:second_user)
+      @user2 = create(:user)
       create_participation(@user2,group)
       @request.env["devise.mapping"] = Devise.mappings[:user]
       sign_in @user2
@@ -317,7 +317,7 @@ describe ProposalsController, type: :controller, search: :true do
       group = create(:group, current_user_id: @user.id)
       proposal3 = create(:group_proposal, title: 'questa giornata è un INFERNO! riorganizziamolo!!!!', quorum: BestQuorum.public.first, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
 
-      @user2 = create(:second_user)
+      @user2 = create(:user)
       create_participation(@user2,group)
       activate_areas(group)
 

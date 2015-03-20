@@ -3,7 +3,7 @@ require 'requests_helper'
 
 describe BlogPostsController, :type => :controller do
   before(:each) do
-    @user = create(:default_user)
+    @user = create(:user)
 
   end
   describe "GET index" do

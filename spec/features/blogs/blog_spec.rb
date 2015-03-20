@@ -3,7 +3,7 @@ require 'requests_helper'
 
 describe "the blogs process", type: :feature, js: true do
   before :each do
-    @user = create(:default_user)
+    @user = create(:user)
     login_as @user, scope: :user
 
     visit new_blog_path

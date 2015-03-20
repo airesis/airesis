@@ -6,4 +6,6 @@
 </div>
 <%=link_to t('buttons.edit'), edit_admin_newsletter_path, class: 'btn blue' %>
 
-
+<div class="card">
+  <%= render 'publish_form', newsletter: @newsletter %>
+</div>

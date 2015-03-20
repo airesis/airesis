@@ -17,13 +17,13 @@
     <td><%= sys_feature.description %></td>
     <td><%= sys_feature.amount_required %></td>
     <td><%= sys_feature.amount_received_calc %></td>
-    <td><%= link_to 'Show', sys_feature %></td>
-    <td><%= link_to 'Edit', edit_sys_feature_path(sys_feature) %></td>
-    <td><%= link_to 'Destroy', sys_feature, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Show', [:admin,sys_feature] %></td>
+    <td><%= link_to 'Edit', edit_admin_sys_feature_path(sys_feature) %></td>
+    <td><%= link_to 'Destroy', [:admin,sys_feature], confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Sys feature', new_sys_feature_path %>
+<%= link_to 'New Sys feature', new_admin_sys_feature_path %>

@@ -1212,6 +1212,9 @@ en:
     update_and_continue: "Save and continue"
     detach: "Detach"
     login: "Login"
+    show: "Show"
+    preview: "Preview"
+    new_newsletter: "Create newsletter"
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>Firstly they are shown the new contributions or the ones you haven't evaluated, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent"

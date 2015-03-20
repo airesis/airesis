@@ -23,7 +23,8 @@ class Admin::NewslettersController < Admin::ApplicationController
   end
 
   def publish
-    NewsletterSender.perform_at(30.seconds.from_now, params)
+    @newsletter.receiver = newsletter_params[:receiver]
+    @newsletter.publish
     flash[:notice] = "Newsletter pubblicata correttamente"
     redirect_to :back
   end
@@ -31,6 +32,6 @@ class Admin::NewslettersController < Admin::ApplicationController
   protected
 
   def newsletter_params
-    params.require(:newsletter).permit(:subject, :body)
+    params.require(:newsletter).permit(:subject, :body, :receiver)
   end
 end

@@ -8,14 +8,12 @@
       </div>
       <div class="row">
         <div class="columns">
-          <%= form_for 'mail', url: publish_admin_newsletter_path(newsletter) do |f| %>
-              <%= f.select 'receiver', {admin: 'admin', tutti: 'all', 'account non confermato' => 'not_confirmed', portavoce: 'portavoce', test: 'test'} %>
-              <%= f.submit 'Invia', class: 'btn' %>
-          <% end %>
+          <%= render 'publish_form', newsletter: newsletter %>
         </div>
       </div>
       <%= link_to t('buttons.edit'), edit_admin_newsletter_path(newsletter), class: 'btn' %>
       <%= link_to t('buttons.show'), admin_newsletter_path(newsletter), class: 'btn' %>
+      <%= link_to t('buttons.preview'), preview_admin_newsletter_path(newsletter), class: 'btn' %>
     </div>
 <% end %>
 

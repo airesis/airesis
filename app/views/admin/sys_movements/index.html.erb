@@ -1,4 +1,4 @@
-<%@page_title = 'Lista movimenti' %>
+<% @page_title = 'Lista movimenti' %>
 <h1>Lista movimenti</h1>
 
 <table id="list">
@@ -23,9 +23,9 @@
         <td><%= sys_movement.amount %> <%= sys_movement.currency.description %></td>
         <td><%= l sys_movement.created_at %></td>
 
-        <td><%= link_to 'Show', sys_movement %></td>
-        <td><%= link_to 'Edit', edit_sys_movement_path(sys_movement) %></td>
-        <td><%= link_to 'Destroy', sys_movement, confirm: 'Are you sure?', method: :delete %></td>
+        <td><%= link_to 'Show', [:admin, sys_movement] %></td>
+        <td><%= link_to 'Edit', edit_admin_sys_movement_path(sys_movement) %></td>
+        <td><%= link_to 'Destroy', [:admin, sys_movement], confirm: 'Are you sure?', method: :delete %></td>
       </tr>
       </tbody>
   <% end %>
@@ -33,7 +33,7 @@
 
 <br/>
 
-<%= link_to 'Nuovo movimento', new_sys_movement_path, class: 'btn blue' %>
+<%= link_to 'Nuovo movimento', new_admin_sys_movement_path, class: 'btn blue' %>
 
 <script type="text/javascript">
     $('#list').dataTable();

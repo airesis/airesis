@@ -3,7 +3,7 @@ require 'requests_helper'
 
 describe "the creation of a group process", type: :feature, js: true do
   before :each do
-    @user = create(:default_user)
+    @user = create(:user)
     login_as @user, scope: :user
   end
 

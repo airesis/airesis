@@ -6,7 +6,7 @@ Airesis::Application.routes.draw do
 
   resources :sys_payment_notifications
 
-  resources :sys_features
+
 
   mount Ckeditor::Engine => '/ckeditor'
 
@@ -111,13 +111,13 @@ Airesis::Application.routes.draw do
   resources :proposal_categories
 
 
-  resources :announcements do
+  resources :announcements, only: [] do
     member do
       post :hide
     end
   end
 
-  resources :sys_movements
+
 
   resources :tutorial_progresses
 
@@ -149,7 +149,7 @@ Airesis::Application.routes.draw do
   get 'elfinder' => 'elfinder#elfinder'
   post 'elfinder' => 'elfinder#elfinder'
 
-  devise_for :users, controllers: {omniauth_callbacks: "users/omniauth_callbacks", sessions: "sessions", registrations: "registrations", passwords: "passwords", confirmations: 'confirmations'} do
+  devise_for :users, controllers: {omniauth_callbacks: 'users/omniauth_callbacks', sessions: 'sessions', registrations: 'registrations', passwords: 'passwords', confirmations: 'confirmations'} do
     get '/users/sign_in', to: 'devise/sessions#new'
     get '/users/sign_out', to: 'devise/sessions#destroy'
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
@@ -323,14 +323,14 @@ Airesis::Application.routes.draw do
     end
 
     namespace :frm do
-      get 'forums/:forum_id/moderation', to: "moderation#index", as: :forum_moderator_tools
+      get 'forums/:forum_id/moderation', to: 'moderation#index', as: :forum_moderator_tools
       # For mass moderation of posts
-      put 'forums/:forum_id/moderate/posts', to: "moderation#posts", as: :forum_moderate_posts
+      put 'forums/:forum_id/moderate/posts', to: 'moderation#posts', as: :forum_moderate_posts
       # Moderation of a single topic
-      put 'forums/:forum_id/topics/:topic_id/moderate', to: "moderation#topic", as: :moderate_forum_topic
+      put 'forums/:forum_id/topics/:topic_id/moderate', to: 'moderation#topic', as: :moderate_forum_topic
       resources :categories, only: [:index, :show]
       namespace :admin do
-        root to: "base#index"
+        root to: 'base#index'
         resources :groups, as: 'frm_groups' do
           resources :members do
             collection do
@@ -360,17 +360,12 @@ Airesis::Application.routes.draw do
 
   end
 
-  #routes available only on main site
+  # routes available only on main site
   constraints NoSubdomain do
 
     root to: 'home#index'
 
-    resources :certifications, only: [:index, :create, :destroy]
-    resources :user_sensitives do
-      member do
-        get :document
-      end
-    end
+
 
     resources :proposal_categories do
       get :index, scope: :collection
@@ -417,14 +412,14 @@ Airesis::Application.routes.draw do
       end
 
       namespace :frm do
-        get 'forums/:forum_id/moderation', to: "moderation#index", as: :forum_moderator_tools
+        get 'forums/:forum_id/moderation', to: 'moderation#index', as: :forum_moderator_tools
         # For mass moderation of posts
-        put 'forums/:forum_id/moderate/posts', to: "moderation#posts", as: :forum_moderate_posts
+        put 'forums/:forum_id/moderate/posts', to: 'moderation#posts', as: :forum_moderate_posts
         # Moderation of a single topic
-        put 'forums/:forum_id/topics/:topic_id/moderate', to: "moderation#topic", as: :moderate_forum_topic
+        put 'forums/:forum_id/topics/:topic_id/moderate', to: 'moderation#topic', as: :moderate_forum_topic
         resources :categories, only: [:index, :show]
         namespace :admin do
-          root to: "base#index"
+          root to: 'base#index'
           resources :groups, as: 'frm_groups' do
             resources :members do
               collection do
@@ -448,7 +443,7 @@ Airesis::Application.routes.draw do
         end
       end
 
-      get 'users/autocomplete', to: "users#autocomplete", as: "user_autocomplete"
+      get 'users/autocomplete', to: 'users#autocomplete', as: 'user_autocomplete'
 
       concerns :eventable
 
@@ -542,7 +537,6 @@ Airesis::Application.routes.draw do
     end
 
     constraints moderator_required do
-      #match ':controller/:action/', via: :all
       get 'moderator_panel', to: 'moderator#show', as: 'moderator/panel'
     end
 
@@ -552,17 +546,51 @@ Airesis::Application.routes.draw do
         resources :newsletters do
           member do
             get :preview
-            post :publish
+            patch :publish
           end
         end
+        mount Sidekiq::Web => '/sidekiq'
+        get '/', to: 'panel#show', as: 'panel'
+        resource :panel do
+          get :calculate_rankings
+          get :change_proposals_state
+          get :write_sitemap
+          get :delete_old_notifications
+          get :test_redis
+          get :test_scheduler
+          get :test_exceptions
+          get :calculate_user_group_affinity
+        end
+        resource :crowdin, only: [] do
+          get :upload_sources
+          get :update_sources
+          get :upload_translations
+          get :download_translations
+          get :extract_delete_zip
+        end
+        resources :tutorials
+        resources :users, only: [] do
+          member do
+            get :block
+            get :unblock
+          end
+          collection do
+            get :autocomplete
+          end
+        end
+        resources :certifications, only: [:index, :create, :destroy]
+        resources :user_sensitives do
+          member do
+            get :document
+          end
+        end
+        resources :sys_features
+        resources :sys_movements
+        resources :announcements
+        resources :sys_movements
       end
-      mount Sidekiq::Web => "/sidekiq"
-      mount Maktoub::Engine => "/maktoub/"
-      #match ':controller/:action/', via: :all
-      #resources :admin
-      get 'admin_panel', to: 'admin#show', as: 'admin/panel'
+      mount Maktoub::Engine => '/maktoub/'
     end
-
 
     resources :tokens, only: [:create, :destroy]
 

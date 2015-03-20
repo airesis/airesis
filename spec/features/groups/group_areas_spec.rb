@@ -3,7 +3,7 @@ require 'requests_helper'
 
 describe "the management of group areas", type: :feature, js: true do
   before :each do
-    @user = create(:default_user)
+    @user = create(:user)
     @ability = Ability.new(@user)
     @group = create(:group, current_user_id: @user.id)
     login_as @user, scope: :user

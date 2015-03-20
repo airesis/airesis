@@ -1,4 +1,4 @@
-<%= form_for(@sys_movement) do |f| %>
+<%= simple_form_for [:admin, @sys_movement] do |f| %>
     <% if @sys_movement.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@sys_movement.errors.count, "error") %> prohibited this sys_movement from being saved:</h2>
@@ -11,19 +11,11 @@
         </div>
     <% end %>
 
-    <div class="field">
-      <%= f.label :sys_movement_type_id %>
-      <br/>
-      <%= f.collection_select :sys_movement_type_id, SysMovementType.all, :id, :description %>
-    </div>
-
-    <div class="field">
-      <%= f.label :made_on %>
-      <br/>
-      <%= f.datetime_select :made_on %>
-    </div>
+    <%= f.input :sys_movement_type_id, as: :select, collection: SysMovementType.all.map { |s| [s.description, s.id] }, include_blank: false %>
+    <%= f.input :made_on, as: :string, input_html: {type: :date} %>
 
     <div class="field" style="float:left">
+
       <%= f.label :amount %>
       <br/>
       <%= f.text_field :amount, maxlength: 10 %>
@@ -33,16 +25,13 @@
       <br/>
       <%= f.collection_select :sys_currency_id, SysCurrency.all, :id, :description %>
     </div>
+
     <div class="clearboth"></div>
-    <div class="field">
-      <%= f.label :description %>
-      <br/>
-      <%= f.text_area :description %>
-    </div>
-    <br/>
+
+    <%= f.input :description, as: :text %>
 
     <div class="actions">
-      <%= link_to 'Annulla', sys_movements_path, class: 'btn' %>
-      <%= f.button 'Salva', class: 'btn blue' %>
+      <%= link_to 'Annulla', admin_sys_movements_path, class: 'btn' %>
+      <%= f.button :button, 'Salva', class: 'btn blue' %>
     </div>
 <% end %>
