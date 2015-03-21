@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="viewport" content="width=device-width"/>
+  <%=stylesheet_link_tag 'newsletters'%>
+</head>
+<body>
+<table class="body">
+  <tr>
+    <td class="center" align="center" valign="top">
+      <center>
+
+        <table class="row header">
+          <tr>
+            <td class="center" align="center">
+              <center>
+
+                <table class="container">
+                  <tr>
+                    <td class="wrapper last">
+
+                      <table class="twelve columns">
+                        <tr>
+                          <td class="six sub-columns">
+                            <%=image_tag 'logo_completo_white_mini.png' %>
+                          </td>
+                          <td class="six sub-columns last" style="text-align:right; vertical-align:middle;">
+                            <span class="template-label">
+                              <%=Maktoub.app_name%>
+                            </span>
+                          </td>
+                          <td class="expander"></td>
+                        </tr>
+                      </table>
+
+                    </td>
+                  </tr>
+                </table>
+
+              </center>
+            </td>
+          </tr>
+        </table>
+
+        <table class="container">
+          <tr>
+            <td>
+
+              <%=yield%>
+
+
+              <table class="row footer">
+                <tr>
+                  <td class="wrapper">
+
+                    <table class="six columns">
+                      <tr>
+                        <td class="left-text-pad">
+
+                          <h5><%= 'Connect With Us:'%></h5>
+
+                          <table class="tiny-button facebook">
+                            <tr>
+                              <td>
+                                <%= link_to 'Facebook', Maktoub.facebook_url, target: '_blank' %>
+                              </td>
+                            </tr>
+                          </table>
+
+                          <br>
+
+                          <table class="tiny-button twitter">
+                            <tr>
+                              <td>
+                                <%= link_to 'Twitter', Maktoub.twitter_url, target: '_blank' %>
+                              </td>
+                            </tr>
+                          </table>
+
+                          <br>
+
+                          <table class="tiny-button google-plus">
+                            <tr>
+                              <td>
+                                <%= link_to 'Google +', Maktoub.google_plus_url, target: '_blank' %>
+                              </td>
+                            </tr>
+                          </table>
+
+                        </td>
+                        <td class="expander"></td>
+                      </tr>
+                    </table>
+
+                  </td>
+                  <td class="wrapper last">
+
+                    <table class="six columns">
+                      <tr>
+                        <td class="last right-text-pad">
+                          <h5><%= 'Contact Info:'%></h5>
+                          <%= 'Email:'%> <%=mail_to 'info@airesis.it'%>
+                        </td>
+                        <td class="expander"></td>
+                      </tr>
+                    </table>
+
+                  </td>
+                </tr>
+              </table>
+
+
+              <table class="row">
+                <tr>
+                  <td class="wrapper last">
+
+                    <table class="twelve columns">
+                      <tr>
+                        <td align="center">
+                          <center>
+                            <p style="text-align:center;">
+                              <%= link_to t('mailer.default.terms'), terms_url(host: @user.original_locale.host, l: @user.original_locale.lang), target: '_blank' %> |
+                              <%= link_to t('mailer.default.privacy'), privacy_url(host: @user.original_locale.host, l: @user.original_locale.lang), target: '_blank' %> |
+                              <%= link_to t('mailer.default.edit_preferences'), alarm_preferences_users_url(host: @user.original_locale.host, l: @user.original_locale.lang), target: '_blank' %>
+                          </center>
+                        </td>
+                        <td class="expander"></td>
+                      </tr>
+                    </table>
+
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

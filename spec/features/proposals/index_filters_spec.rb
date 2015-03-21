@@ -15,7 +15,7 @@ describe "can list proposals and filter them", type: :feature, js: true, search:
   end
 
   it "can search by text" do
-    user = create(:default_user)
+    user = create(:user)
     group = create(:group, current_user_id: user.id)
     ability = Ability.new(@user)
     titles = ['hello everybody', 'how are you', 'im a super proposal',

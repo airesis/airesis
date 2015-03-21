@@ -32,7 +32,7 @@ class ResqueMailer < ActionMailer::Base
     subject = @alert.email_subject
     template_name = TEMPLATES[@alert.notification.notification_type_id] || 'notification'
     if to_id
-      mail(to: "discussion+#{to_id}@airesis.it", bcc: @alert.user.email, subject: subject, template_name: template_name)  #todo extract email
+      mail(to: "discussion+#{to_id}@airesis.it", bcc: @alert.user.email, subject: subject, template_name: template_name) #todo extract email
     else
       mail(to: @alert.user.email, from: ENV['NOREPLY_EMAIL'], subject: subject, template_name: template_name)
     end
@@ -77,21 +77,22 @@ class ResqueMailer < ActionMailer::Base
     @group = Group.find(group_id)
     @user = @from
     @to = @group.participants.where('users.id in (?)', to_ids.split(','))
-    mail(bcc: @to.map { |u| u.email }, from: ENV['NOREPLY_EMAIL'], reply_to: @from.email, to: "test@airesis.it", subject: subject)   #todo extract email
+    mail(bcc: @to.map { |u| u.email }, from: ENV['NOREPLY_EMAIL'], reply_to: @from.email, to: "test@airesis.it", subject: subject) #todo extract email
   end
 
+  def url_options
+    options = {}
+    options.merge!(host: @user.locale.host, l: @user.locale.lang) if @user
+    options
+  end
 
-  def publish(params)
-    @user = User.find_by_id(params['user_id'])
+  def publish(newsletter_id, user_id)
+    @user = User.find(user_id)
+    @newsletter = Newsletter.find(newsletter_id)
     I18n.locale = @user.locale.key || 'en'
-    mail_fields = {
-        subject: params['subject'],
-        to: @user.email
-    }
-    @name = @user.fullname
 
-    mail(mail_fields) do |format|
-      format.html { render("maktoub/newsletters/#{params['newsletter']}") }
+    mail(subject: @newsletter.subject, to: @user.email) do |format|
+      format.html { render inline: @newsletter.body, layout: 'newsletters/default' }
     end
   end
 
@@ -111,7 +112,7 @@ class ResqueMailer < ActionMailer::Base
     @post = Frm::Post.find(post_id)
     @group = @post.forum.group
     @user = User.find(subscriber_id)
-    mail(from: "Airesis Forum <replytest+#{@post.token}@airesis.it>", to: @user.email, subject: "[#{@group.name}] #{@post.topic.subject}")   #todo extract email
+    mail(from: "Airesis Forum <replytest+#{@post.token}@airesis.it>", to: @user.email, subject: "[#{@group.name}] #{@post.topic.subject}") #todo extract email
   end
 
 
@@ -128,6 +129,6 @@ class ResqueMailer < ActionMailer::Base
   protected
 
   def choose_layout
-    (['invite', 'admin_message', 'feedback', 'test'].include? action_name) ? 'maktoub/unregistered_mailer' : (['notification'].include? action_name) ? 'maktoub/notification_mailer' : 'maktoub/newsletter_mailer'
+    (['invite', 'admin_message', 'feedback', 'test'].include? action_name) ? 'maktoub/unregistered_mailer' : (['notification'].include? action_name) ? 'maktoub/notification_mailer' : 'newsletters/default'
   end
 end

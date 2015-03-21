@@ -1,0 +1,40 @@
+<% @page_title = 'Lista movimenti' %>
+<h1>Lista movimenti</h1>
+
+<table id="list">
+  <thead>
+  <th>Tipo</th>
+  <th>Descrizione</th>
+  <th>Effettuato il</th>
+  <th>User</th>
+  <th>Ammontare</th>
+  <th>Inserito il</th>
+  <th></th>
+  <th></th>
+  <th></th>
+  </thead>
+  <tbody>
+  <% @sys_movements.each do |sys_movement| %>
+      <tr>
+        <td><%= sys_movement.type.description %></td>
+        <td><%= sys_movement.description %></td>
+        <td><%= l sys_movement.made_on %></td>
+        <td><%= sys_movement.user.fullname %></td>
+        <td><%= sys_movement.amount %> <%= sys_movement.currency.description %></td>
+        <td><%= l sys_movement.created_at %></td>
+
+        <td><%= link_to 'Show', [:admin, sys_movement] %></td>
+        <td><%= link_to 'Edit', edit_admin_sys_movement_path(sys_movement) %></td>
+        <td><%= link_to 'Destroy', [:admin, sys_movement], confirm: 'Are you sure?', method: :delete %></td>
+      </tr>
+      </tbody>
+  <% end %>
+  </table>
+
+<br/>
+
+<%= link_to 'Nuovo movimento', new_admin_sys_movement_path, class: 'btn blue' %>
+
+<script type="text/javascript">
+    $('#list').dataTable();
+</script>

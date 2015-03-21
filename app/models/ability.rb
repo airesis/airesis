@@ -388,6 +388,7 @@ class Ability
           can :manage, Frm::Topic
           can :manage, Frm::Post
           can :manage, GroupArea
+          can :manage, Newsletter
           can :index, GroupParticipation
           can :manage, ParticipationRole
           cannot :destroy, ParticipationRole do |participation_role|

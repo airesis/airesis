@@ -3,7 +3,7 @@ require 'requests_helper'
 
 describe "the user can invite other participants in the group", type: :feature, js: true do
 
-  let!(:user) { create(:default_user) }
+  let!(:user) { create(:user) }
   let!(:group) { create(:group, current_user_id: user.id) }
   let!(:ability) { Ability.new(user) }
 
