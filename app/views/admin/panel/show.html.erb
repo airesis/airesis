@@ -32,7 +32,7 @@
 
     <div class="card">
       <h3>Lock users</h3>
-      <%= form_tag "/admin/block/" do %>
+      <%= form_tag block_admin_users_path do %>
           <%= label_tag 'Blocca utente' %>
           <%= text_field_tag 'user_id' %>
           <%= submit_tag 'Vai!', class: 'btn' %>

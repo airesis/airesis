@@ -1,8 +1,8 @@
 module Admin
   class UsersController < Admin::ApplicationController
     def block
-      @user = User.find_by_id(params[:user_id])
-      @user = User.find_by_email(params[:user_id]) unless @user
+      @user = User.find_by(id: params[:user_id])
+      @user = User.find_by(email: params[:user_id]) unless @user
       if @user && !@user.blocked
         @user.blocked = true
         @user.blocked_name = @user.name
@@ -17,8 +17,8 @@ module Admin
     end
 
     def unblock
-      @user = User.find_by_id(params[:user_id])
-      @user = User.find_by_email(params[:user_id]) unless @user
+      @user = User.find_by(id: params[:user_id])
+      @user = User.find_by(email: params[:user_id]) unless @user
       if @user && @user.blocked
         @user.blocked = false
         @user.name = @user.blocked_name

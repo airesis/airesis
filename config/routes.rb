@@ -4,9 +4,11 @@ Airesis::Application.routes.draw do
 
   resources :searches
 
-  resources :sys_payment_notifications
+  resources :sys_payment_notifications, only: [:create]
 
+  resources :user_likes
 
+  resources :proposal_nicknames, only: [:update]
 
   mount Ckeditor::Engine => '/ckeditor'
 
@@ -32,12 +34,8 @@ Airesis::Application.routes.draw do
   get 'school' => 'home#school'
   get 'municipality' => 'home#municipality'
 
-  resources :user_likes
-
-  resources :proposal_nicknames
 
   #common routes both for main app and subdomains
-
 
   resources :quorums do
     collection do
@@ -108,16 +106,11 @@ Airesis::Application.routes.draw do
     end
   end
 
-  resources :proposal_categories
-
+  resources :proposal_categories, only: [:index]
 
   resources :announcements, only: [] do
-    member do
-      post :hide
-    end
+    post :hide, on: :member
   end
-
-
 
   resources :tutorial_progresses
 
@@ -141,7 +134,6 @@ Airesis::Application.routes.draw do
       post :check_all
     end
   end
-
 
   resources :interest_borders
   resources :comunes
@@ -200,7 +192,7 @@ Airesis::Application.routes.draw do
 
   resources :blogs do
     concerns :blog_posts
-    get '/:year/:month' => 'blogs#by_year_and_month', :as => :posts_by_year_and_month, on: :member
+    get '/:year/:month' => 'blogs#by_year_and_month', as: :posts_by_year_and_month, on: :member
   end
 
 
@@ -224,7 +216,6 @@ Airesis::Application.routes.draw do
       end
     end
   end
-
 
   concern :eventable do
     resources :events do
@@ -258,8 +249,7 @@ Airesis::Application.routes.draw do
 
   concerns :eventable
 
-
-  #specific routes for subdomains
+  # specific routes for subdomains
   constraints Subdomain do
     get '', to: 'groups#show'
 
@@ -364,7 +354,6 @@ Airesis::Application.routes.draw do
   constraints NoSubdomain do
 
     root to: 'home#index'
-
 
 
     resources :proposal_categories do
@@ -523,11 +512,6 @@ Airesis::Application.routes.draw do
       end
     end
 
-    #match ':controller/:action/:id', via: :all
-
-    #match ':controller/:action/:id.:format', via: :all
-
-
     admin_required = lambda do |request|
       request.env['warden'].authenticate? and request.env['warden'].user.admin?
     end
@@ -539,7 +523,6 @@ Airesis::Application.routes.draw do
     constraints moderator_required do
       get 'moderator_panel', to: 'moderator#show', as: 'moderator/panel'
     end
-
 
     constraints admin_required do
       namespace :admin do
@@ -570,12 +553,10 @@ Airesis::Application.routes.draw do
         end
         resources :tutorials
         resources :users, only: [] do
-          member do
-            get :block
-            get :unblock
-          end
+          get :unblock, on: :member
           collection do
             get :autocomplete
+            post :block
           end
         end
         resources :certifications, only: [:index, :create, :destroy]
@@ -587,7 +568,7 @@ Airesis::Application.routes.draw do
         resources :sys_features
         resources :sys_movements
         resources :announcements
-        resources :sys_movements
+        resources :sys_payment_notifications, only: [:index]
       end
       mount Maktoub::Engine => '/maktoub/'
     end

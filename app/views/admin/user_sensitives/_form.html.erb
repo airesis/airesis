@@ -1,20 +1,21 @@
-<%= simple_form_for(@user_sensitive) do |f| %>
-    <%= f.error_notification %>
+<div class="card">
+  <%= simple_form_for [:admin, @user_sensitive] do |f| %>
+      <%= f.error_notification %>
 
-    <div class="inputs">
-      <%= f.input :user_id %>
-      <%= f.input :name %>
-      <%= f.input :surname %>
-      <%= f.input :birth_date, as: :string %>
-      <%= f.input :tax_code %>
-      <%= f.file_field :document %>
-    </div>
+      <div class="inputs">
+        <%= f.input :user_id %>
+        <%= f.input :name %>
+        <%= f.input :surname %>
+        <%= f.input :birth_date, as: :string %>
+        <%= f.input :tax_code %>
+        <%= f.file_field :document %>
+      </div>
 
-    <div class="actions">
-      <%= f.button :submit, class: 'btn blue' %>
-    </div>
-<% end %>
-
+      <div class="actions">
+        <%= f.button :submit, class: 'btn blue' %>
+      </div>
+  <% end %>
+</div>
 
 <script>
     function format(state) {
@@ -26,12 +27,12 @@
     $("#user_sensitive_user_id").select2({
         containerCssClass: "user_auto",
         ajax: {
-            url: "<%= url_for(controller: 'admin', action: 'user_autocomplete') %>",
+            url: "<%= url_for autocomplete_admin_users_path %>",
             data: function (term, page) {
-                return { "term": term }
+                return {"term": term}
             },
             results: function (data, page) {
-                return { results: data };
+                return {results: data};
             }
         },
         formatResult: format,
