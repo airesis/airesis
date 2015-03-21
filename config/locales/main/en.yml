@@ -1330,6 +1330,9 @@ en:
       create: "Error adding the user to the area"
     area:
       update: "Error updating the area"
+    group_invitations:
+      code_expired: "The Invitation Code has expired"
+      already_participant: "You are already a participant of this group"
   info:
     setting_preferences: "Settings changed successfully"
     blog_created: "Post successfully created"
