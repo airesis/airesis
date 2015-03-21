@@ -1347,6 +1347,9 @@ it-IT:
       create: "Errore durante l'aggiunta dell'utente all'area"
     area:
       update: "Errore durante l'aggiornamento dell'area"
+    group_invitations:
+      code_expired: "Codice invito scaduto"
+      already_participant: "Fai giàparte di questo gruppo"
   info:
     setting_preferences: Impostazioni cambiate correttamente
     blog_created: Il tuo post è stato creato correttamente
