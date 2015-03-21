@@ -1,0 +1,4 @@
+<%= form_for newsletter, url: publish_admin_newsletter_path(newsletter) do |f| %>
+    <%= f.select :receiver, {admin: 'admin', tutti: 'all', 'account non confermato' => 'not_confirmed', test: 'test'} %>
+    <%= f.submit t('buttons.send'), class: 'btn' %>
+<% end %>

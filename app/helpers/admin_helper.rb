@@ -1,7 +1,6 @@
-#encoding: utf-8
 module AdminHelper
 
-  #cancella le vecchie notifiche
+  # cancella le vecchie notifiche
   def self.delete_old_notifications
     msg = "Cancella vecchie notifiche\n"
     count = 0
@@ -20,21 +19,8 @@ module AdminHelper
     ResqueMailer.delay.admin_message(msg)
     return count
   end
-  
-  #valida tutti i gruppi presenti a sistema ed invia all'amministratore un elenco di quelli non validi da modificare
-  def self.validate_groups  
-    msg = "Verifica gruppi\n"
-    groups = Group.all
-    groups.each do |group|
-      if !group.valid?
-        msg += group.id.to_s + ": " + group.name + "\n"
-        msg += "   " + group.errors.full_messages.join(";") + "\n"
-      end
-    end
-    ResqueMailer.delay.admin_message(msg)
-  end
-  
-  #calcola il ranking degli utenti
+
+  # calcola il ranking degli utenti
   def self.calculate_ranking  
     msg = "Ricalcolo ranking\n"
     @users = User.all

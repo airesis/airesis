@@ -3,7 +3,7 @@ require 'requests_helper'
 
 describe "check permissions are actually working inside groups", type: :feature do
   before :each do
-    @user = create(:default_user)
+    @user = create(:user)
     @ability = Ability.new(@user)
     @group = create(:group, current_user_id: @user.id)
   end
@@ -17,7 +17,7 @@ describe "check permissions are actually working inside groups", type: :feature 
 
     group1_users = []
     10.times do
-      user = create(:second_user)
+      user = create(:user)
       create_participation(user, @group)
       group1_users << user
     end

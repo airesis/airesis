@@ -34,6 +34,9 @@ EMAIL_PASSWORD: ""
 
 MAILER_DEFAULT_HOST: "www.airesis.eu"
 
+# set your email address to override email receiver in development and test
+OVERRIDE_MAIL_RECIPIENT: ""
+
 #####################
 #newsletter parameters
 #####################

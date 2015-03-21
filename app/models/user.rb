@@ -1,4 +1,3 @@
-#encoding: utf-8
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
@@ -115,7 +114,6 @@ class User < ActiveRecord::Base
   has_many :unread_topics, -> { where 'frm_views.updated_at < frm_topics.last_post_at' }, class_name: 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
   has_many :memberships, class_name: 'Frm::Membership', foreign_key: :member_id
   has_many :frm_groups, through: :memberships, class_name: 'Frm::Group', source: :group
-
 
   before_create :init
 
@@ -348,25 +346,15 @@ class User < ActiveRecord::Base
     end
   end
 
-
   def has_ranked_proposal?(proposal_id)
-    ranking = ProposalRanking.find_by_user_id_and_proposal_id(current_user.id, proposal_id)
-    if ranking
-      return true
-    else
-      return false
-    end
+    ProposalRanking.where(user_id: id, proposal_id: proposal_id).exists?
   end
 
-  #restituisce il voto che l'utente ha dato ad un determinato commento
-  #se l'ha dato. nil altrimenti
+  # restituisce il voto che l'utente ha dato ad un determinato commento
+  # se l'ha dato. nil altrimenti
   def comment_rank(comment)
-    ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(self.id, comment.id)
-    if ranking
-      return ranking.ranking_type_id
-    else
-      return nil
-    end
+    ranking = ProposalCommentRanking.find_by(user_id: id, proposal_comment_id: comment.id)
+    ranking.try(:ranking_type_id)
   end
 
   #restituisce true se l'utente ha valutato un contributo
@@ -381,33 +369,30 @@ class User < ActiveRecord::Base
     ranking.updated_at < last_suggest.created_at #si, se vi sono commenti dopo la mia valutazione
   end
 
-
   def certified?
-    self.user_type.short_name == 'certified'
+    user_type.short_name == 'certified'
   end
 
   def admin?
-    self.user_type.short_name == 'admin'
+    user_type.short_name == 'admin'
   end
 
   def moderator?
-    self.user_type.short_name == 'mod' || admin?
+    user_type.short_name == 'mod' || admin?
   end
 
   #restituisce la richiesta di partecipazione 
   def has_asked_for_participation?(group_id)
-    self.group_participation_requests.find_by(group_id: group_id)
+    group_participation_requests.find_by(group_id: group_id)
   end
 
   def fullname
-    return "#{self.name} #{self.surname}"
+    "#{name} #{surname}"
   end
-
 
   def to_param
-    "#{id}-#{self.fullname.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
+    "#{id}-#{fullname.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
   end
-
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
@@ -423,13 +408,6 @@ class User < ActiveRecord::Base
   def ability
     @ability ||= Ability.new(self)
   end
-
-
-  #forum methods
-  has_many :forem_posts, class_name: 'Frm::Post', foreign_key: 'user_id'
-  has_many :forem_topics, class_name: 'Frm::Topic', foreign_key: 'user_id'
-  has_many :forem_memberships, class_name: 'Frm::Membership', foreign_key: 'member_id'
-  has_many :forem_groups, through: :forem_memberships, class_name: 'Frm::Group', source: :group
 
 
   def can_read_forem_category?(category)

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Tipo movimento:</b>
+  <%= @sys_movement.type.description %>
+</p>
+
+<p>
+  <b>Effettuato il:</b>
+  <%=l @sys_movement.made_on %>
+</p>
+
+<p>
+  <b>Da parte di:</b>
+  <%=user_tag @sys_movement.user, nil, true,false %>
+</p>
+
+<p>
+  <b>Ammontare:</b>
+  <%= @sys_movement.amount %> <%= @sys_movement.currency.description %>
+</p>
+
+<p>
+  <b>Descrizione:</b>
+  <%= @sys_movement.description %> <%= @sys_movement.description %>
+</p>
+
+<%= link_to 'Torna alla lista', admin_sys_movements_path, class: 'btn' %>
+<%= link_to 'Modifica', edit_admin_sys_movement_path(@sys_movement), class: 'btn blue' %>

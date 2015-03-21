@@ -17,7 +17,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
 
 
   context "participants of the group" do
-    let(:user) { create(:default_user) }
+    let(:user) { create(:user) }
     let(:group) { create(:group, current_user_id: user.id) }
 
     before :each do
@@ -244,7 +244,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
   context "owner of the group permissions" do
 
     before :each do
-      @user = create(:default_user)
+      @user = create(:user)
       @ability = Ability.new(@user)
       @group = create(:group, current_user_id: @user.id)
       login_as @user, scope: :user
@@ -282,7 +282,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
     end
 
     it "can view public proposals in others group" do
-      @second_user = create(:second_user)
+      @second_user = create(:user)
       @second_group = create(:group, current_user_id: @second_user.id)
       @proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: @second_user.id, group_proposals: [GroupProposal.new(group: @second_group)])
       visit group_proposal_path(@second_group, @proposal)
@@ -291,7 +291,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
     end
 
     it "can't view private proposals in others group" do
-      @second_user = create(:second_user)
+      @second_user = create(:user)
       @second_group = create(:group, current_user_id: @second_user.id)
       @proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: @second_user.id, group_proposals: [GroupProposal.new(group: @second_group)], visible_outside: false)
       visit group_proposal_path(@second_group, @proposal)
