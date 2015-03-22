@@ -1191,6 +1191,9 @@ en:
       vote: "Their vote"
     authors_list_panel:
       dont_want_to_be_an_author: "I don't want to be an author anymore"
+    left_panel:
+      promote_proposal: "Promote proposal"
+      share_with_friends: "Share with friends"
   digit_tags: "Type the tags you want to add"
   buttons:
     cancel: "Cancel"

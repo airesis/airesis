@@ -68,10 +68,10 @@
                   </script>
               <% end %>
           <% else %>
-              <%= link_to 'Share with friends', user_omniauth_authorize_path(:facebook, scope: 'xmpp_login', origin: current_url, share: true), data: {disable_with: t('loading')}, class: 'zocial facebook' %>
+              <%= link_to t('.share_with_friends'), user_omniauth_authorize_path(:facebook, scope: 'xmpp_login', origin: current_url, share: true), data: {disable_with: t('loading')}, class: 'zocial facebook' %>
           <% end %>
       <% end %>
-      <%= link_to 'Promote the proposal', promote_proposal_url(@proposal, group_id: @group.try(:id)), remote: true, data: {disable_with: t('loading')}, class: 'btn blue', id: 'promote_proposal' %>
+      <%= link_to t('.promote_proposal'), promote_proposal_url(@proposal, group_id: @group.try(:id)), remote: true, data: {disable_with: t('loading')}, class: 'btn blue', id: 'promote_proposal' %>
     </div>
 <% end %>
 

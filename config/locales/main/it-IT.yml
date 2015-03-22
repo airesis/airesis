@@ -1191,6 +1191,9 @@ it-IT:
       vote: Voto espresso
     authors_list_panel:
       dont_want_to_be_an_author: Non voglio più redigere la proposta
+    left_panel:
+      promote_proposal: "Promuovi proposta"
+      share_with_friends: "Condividi con gli amici"
   digit_tags: Digita i tag che vuoi inserire
   buttons:
     cancel: Annulla
