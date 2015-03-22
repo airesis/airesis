@@ -46,9 +46,7 @@ class GroupsController < ApplicationController
     @group_posts = @group.post_publishings.accessible_by(current_ability).order('post_publishings.featured desc, blog_posts.published_at DESC')
 
     respond_to do |format|
-      format.js {
-        @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
-      }
+
       format.html {
         if request.url.split('?')[0] != group_url(@group).split('?')[0]
           redirect_to group_url(@group), status: :moved_permanently
@@ -58,6 +56,9 @@ class GroupsController < ApplicationController
         @group_participations = @group.participants
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
         @archives = @group.blog_posts.select(" COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ").group(" MONTH, YEAR ").order(" YEAR desc, extract(month from blog_posts.created_at) desc ")
+      }
+      format.js {
+        @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
       }
       format.atom
       format.json
@@ -75,13 +76,14 @@ class GroupsController < ApplicationController
                        .page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
-      format.js {
-        render 'show'
-      }
+
       format.html {
         @page_title = t('pages.groups.archives.title', group: @group.name, year: params[:year], month: t('date.month_names')[params[:month].to_i])
         @group_participations = @group.participants
         @archives = @group.blog_posts.select(" COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ").group(" MONTH, YEAR ").order(" YEAR desc, extract(month from blog_posts.created_at) desc ")
+        render 'show'
+      }
+      format.js {
         render 'show'
       }
       format.json { render 'show' }

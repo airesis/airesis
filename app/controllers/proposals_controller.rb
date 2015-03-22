@@ -165,13 +165,13 @@ class ProposalsController < ApplicationController
     register_view(@proposal, current_user)
     load_my_vote
     respond_to do |format|
-      format.js {
-        render nothing: true
-      }
       format.html {
         if @proposal.voting?
           flash.now[:info] = I18n.t('info.proposal.voting')
         end
+      }
+      format.js {
+        render nothing: true
       }
       format.json
       format.pdf {

@@ -51,8 +51,8 @@ class BlogPostsController < ApplicationController
     @blog_comment = @blog_post.blog_comments.new
     @blog_comments = @blog_post.blog_comments.includes(user: [:user_type, :image]).order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
     respond_to do |format|
-      format.js
       format.html
+      format.js
     end
   end
 

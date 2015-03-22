@@ -36,6 +36,7 @@ class Ability
     can :read, Announcement, ["starts_at <= :now and ends_at >= :now", now: Time.zone.now] do |a|
       true
     end
+    can :hide, Announcement
 
     if user
       can :create, Proposal do |proposal|
