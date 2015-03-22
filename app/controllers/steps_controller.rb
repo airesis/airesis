@@ -80,8 +80,8 @@ class StepsController < ApplicationController
     assignee.update_attribute(:status, TutorialProgress::DONE)
     logger.info "User #{current_user.login} has completed fragment #{@step.fragment}"
     respond_to do |format|
-      format.js { render nothing: true }
       format.html { redirect_to :back }
+      format.js { render nothing: true }
     end
 
   end

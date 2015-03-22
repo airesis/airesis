@@ -40,8 +40,8 @@ class InterestBordersController < ApplicationController
 
 
     respond_to do |format|
+      format.html
       format.json { render json: results }
-      format.html # index.html.erb
     end
   end
 end  

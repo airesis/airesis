@@ -37,8 +37,8 @@ class GroupsController < ApplicationController
 
     @groups = Group.look(params)
     respond_to do |format|
-      format.js
       format.html
+      format.js
     end
   end
 
@@ -46,7 +46,6 @@ class GroupsController < ApplicationController
     @group_posts = @group.post_publishings.accessible_by(current_ability).order('post_publishings.featured desc, blog_posts.published_at DESC')
 
     respond_to do |format|
-
       format.html {
         if request.url.split('?')[0] != group_url(@group).split('?')[0]
           redirect_to group_url(@group), status: :moved_permanently
@@ -76,7 +75,6 @@ class GroupsController < ApplicationController
                        .page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
-
       format.html {
         @page_title = t('pages.groups.archives.title', group: @group.name, year: params[:year], month: t('date.month_names')[params[:month].to_i])
         @group_participations = @group.participants
@@ -113,8 +111,8 @@ class GroupsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.js { render 'layouts/active_record_error', locals: {object: @group} }
         format.html { render :new }
+        format.js { render 'layouts/active_record_error', locals: {object: @group} }
       end
     end
   end
@@ -250,20 +248,18 @@ class GroupsController < ApplicationController
     if saved
       flash[:notice] = @group.request_by_portavoce? ? t('info.group_participations.status_accepted') : t('info.group_participations.status_voting')
       respond_to do |format|
+        format.html { redirect_to group_url(@group) }
         format.js
-        format.html {
-          redirect_to group_url(@group)
-        }
       end
     else
       flash[:error] = t('error.group_participations.error_saving')
       respond_to do |format|
+        format.html {
+          redirect_to group_url(@group)
+        }
         format.js { render :update do |page|
           page.replace_html " flash_messages ", partial: 'layouts/flash', locals: {flash: flash}
         end
-        }
-        format.html {
-          redirect_to group_url(@group)
         }
       end
     end
@@ -275,12 +271,12 @@ class GroupsController < ApplicationController
     if !@request
       flash[:error] = t('error.group_participations.request_not_found')
       respond_to do |format|
+        format.html {
+          redirect_to group_url(@group)
+        }
         format.js { render :update do |page|
           page.replace_html " flash_messages ", partial: 'layouts/flash', locals: {flash: flash}
         end
-        }
-        format.html {
-          redirect_to group_url(@group)
         }
       end
     else
@@ -293,12 +289,12 @@ class GroupsController < ApplicationController
       if !saved
         flash[:error] = t('error.group_participations.error_saving')
         respond_to do |format|
+          format.html {
+            redirect_to group_url(@group)
+          }
           format.js { render :update do |page|
             page.replace_html " flash_messages ", partial: 'layouts/flash', locals: {flash: flash}
           end
-          }
-          format.html {
-            redirect_to group_url(@group)
           }
         end
       else
@@ -308,10 +304,10 @@ class GroupsController < ApplicationController
           flash[:notice] = t('info.group_participations.status_voting')
         end
         respond_to do |format|
-          format.js
           format.html {
             redirect_to group_url(@group)
           }
+          format.js
         end
       end
     end

@@ -64,8 +64,8 @@ class UsersController < ApplicationController
     @users = User.where('upper(name) like upper(?)', "%#{params[:q]}%")
 
     respond_to do |format|
+      format.html
       format.json { render json: @users.to_json(only: [:id, :name]) }
-      format.html # index.html.erb
     end
   end
 
@@ -249,7 +249,6 @@ class UsersController < ApplicationController
         @user.errors.full_messages.each do |msg|
           flash[:error] = msg
         end
-        format.js { render 'layouts/error' }
         format.html {
           if params[:back] == 'home'
             redirect_to home_url
@@ -257,6 +256,7 @@ class UsersController < ApplicationController
             render action: 'show'
           end
         }
+        format.js { render 'layouts/error' }
       end
     end
   end
@@ -272,8 +272,8 @@ class UsersController < ApplicationController
     ResqueMailer.delay.user_message(params[:message][:subject], params[:message][:body], current_user.id, @user.id)
     flash[:notice] = t('info.message_sent')
     respond_to do |format|
-      format.js
       format.html { redirect_to @user }
+      format.js
     end
   end
 

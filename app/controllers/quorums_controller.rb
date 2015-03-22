@@ -21,8 +21,8 @@ class QuorumsController < ApplicationController
     @group_participations_count = @group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count
     @vote_participants_count = @group.scoped_participants(GroupAction::PROPOSAL_VOTE).count
     respond_to do |format|
-      format.js
       format.html
+      format.js
     end
   end
 
@@ -106,8 +106,8 @@ class QuorumsController < ApplicationController
       @quorums = Quorum.public.active.all
     end
     respond_to do |format|
-      format.js
       format.html
+      format.js
     end
   end
 

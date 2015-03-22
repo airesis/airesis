@@ -1,4 +1,3 @@
-#encoding: utf-8
 class GroupParticipationsController < ApplicationController
   layout 'groups'
 
@@ -16,9 +15,9 @@ class GroupParticipationsController < ApplicationController
     @group_participations = @unscoped_group_participations.page(params[:page]).per(GroupParticipation::PER_PAGE)
 
     respond_to do |format|
+      format.html
       format.js
       format.json
-      format.html
       format.csv { send_data build_csv }
     end
   end

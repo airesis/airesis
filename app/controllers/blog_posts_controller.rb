@@ -28,8 +28,8 @@ class BlogPostsController < ApplicationController
       @blog_posts = @blog_posts.published.order(published_at: :desc).page(params[:page]).per(COMMENTS_PER_PAGE)
       @page_title = t('pages.blog_posts.index.title')
       respond_to do |format|
-        format.js
         format.html
+        format.js
       end
     end
   end

@@ -47,8 +47,8 @@ class EventsController < ApplicationController
     @event_comment = @event.event_comments.new
     @event_comments = @event.event_comments.includes(:user).order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
     respond_to do |format|
-      format.js
       format.html
+      format.js
       format.ics do
         calendar = Icalendar::Calendar.new
         calendar.add_event(@event.to_ics)
@@ -90,8 +90,8 @@ class EventsController < ApplicationController
     if @group
       @event.private = true
       respond_to do |format|
-        format.js
         format.html { redirect_to controller: 'events', action: 'index', group_id: params[:group_id], new_event: 'true', event_type_id: (params[:event_type_id] || EventType::INCONTRO) }
+        format.js
       end
     end
   end
@@ -145,13 +145,13 @@ class EventsController < ApplicationController
     if @event.update(event_params)
       flash[:notice] = t('info.events.event_updated')
       respond_to do |format|
-        format.js
         format.html { redirect_to @group ? group_event_url(@group, @event) : event_url(@event) }
+        format.js
       end
     else
       respond_to do |format|
-        format.js { render 'layouts/active_record_error', locals: {object: @event || @event_series} }
         format.html { render :edit }
+        format.js { render 'layouts/active_record_error', locals: {object: @event || @event_series} }
       end
     end
   end

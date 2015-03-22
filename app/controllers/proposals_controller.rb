@@ -94,10 +94,11 @@ class ProposalsController < ApplicationController
     authorize! :index, Proposal
     query_index
     respond_to do |format|
-      format.js
+
       format.html {
         render 'tab_list', layout: false
       }
+      format.js
       format.json
     end
   end
@@ -113,8 +114,8 @@ class ProposalsController < ApplicationController
   def banner
     @proposal = Proposal.find(params[:id])
     respond_to do |format|
-      format.js
       format.html { render 'banner', layout: false }
+      format.js
     end
   end
 
@@ -264,8 +265,8 @@ class ProposalsController < ApplicationController
         @err_msg = I18n.t('error.proposals.creation')
       end
       respond_to do |format|
-        format.js { render 'error_create' }
         format.html { render action: :new }
+        format.js { render 'error_create' }
       end
     end
   end
@@ -275,13 +276,12 @@ class ProposalsController < ApplicationController
     authorize! :regenerate, @proposal
     @proposal.current_user_id = current_user.id
     @proposal.regenerate(regenerate_proposal_params)
-
     flash[:notice] = I18n.t('info.proposal.back_in_debate')
     respond_to do |format|
-      format.js
       format.html {
         redirect_to redirect_url(@proposal)
       }
+      format.js
     end
   end
 
@@ -362,8 +362,8 @@ class ProposalsController < ApplicationController
     @proposals = search.similar
 
     respond_to do |format|
-      format.js
       format.html
+      format.js
     end
   end
 
@@ -498,8 +498,8 @@ class ProposalsController < ApplicationController
     log_error(e)
     flash[:error] = I18n.t('error.proposals.proposal_rank')
     respond_to do |format|
-      format.js { render 'proposals/errors/rank' }
       format.html { redirect_to :back }
+      format.js { render 'proposals/errors/rank' }
     end
   end
 
@@ -528,8 +528,8 @@ class ProposalsController < ApplicationController
     return if @proposal.in_valutation?
     flash[:error] = I18n.t('error.proposals.proposal_not_valuating')
     respond_to do |format|
-      format.js { render 'proposals/errors/rank', layout: false }
       format.html { redirect_to :back }
+      format.js { render 'proposals/errors/rank', layout: false }
     end
   end
 
