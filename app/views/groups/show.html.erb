@@ -2,6 +2,9 @@
 <% javascript 'endless_page' %>
 
 <%= content_for :head do %>
+    <meta property="og:url" content="<%= current_url %>"/>
+    <meta property="og:site_name" content="<%= ENV['APP_LONG_NAME'] %>"/>
+    <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>"/>
     <meta property="og:title" content="<%= @group.name %>"/>
     <meta property="og:type" content="airesis:group"/>
     <meta property="og:image" content="<%= if @group && !@group.image_url.blank?
