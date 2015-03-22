@@ -1,4 +1,5 @@
 <%= content_for :head do %>
+    <meta property="og:url" content="<%= current_url %>"/>
     <meta property="og:title" content="<%= @proposal.title %>"/>
     <meta property="og:type" content="article"/>
     <meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{asset_path("logo120.png")}" %>"/>
