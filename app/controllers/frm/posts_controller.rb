@@ -2,7 +2,6 @@
 module Frm
   class PostsController < Frm::ApplicationController
 
-    authorize_resource :group
     load_and_authorize_resource :forum, class: 'Frm::Forum', through: :group
     load_and_authorize_resource :topic, class: 'Frm::Topic', through: :forum
     load_and_authorize_resource through: :topic

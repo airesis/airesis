@@ -77,7 +77,7 @@ class Group < ActiveRecord::Base
   has_many :last_topics, through: :forums, class_name: 'Frm::Topic', source: :topics
 
   has_many :categories, class_name: 'Frm::Category', foreign_key: 'group_id', dependent: :destroy
-  has_many :moderator_groups, class_name: 'Frm::Group', foreign_key: 'group_id', dependent: :destroy
+  has_many :mods, class_name: 'Frm::Mod', foreign_key: 'group_id', dependent: :destroy
 
   has_one :statistic, class_name: 'GroupStatistic'
 

@@ -34,12 +34,12 @@ de:
         index:
           last_post: Letzter Eintrag
           none: Kein
-      group:
+      mod:
         index: Gruppenenverwaltung
         created: Gruppe erfolgreich erstellt.
         not_created: Gruppe konnte nicht erstellt werden.
         deleted: Ausgewählte Gruppe wurde gelöscht.
-      groups:
+      mods:
         show:
           add_member: Hinzufügen
       category:

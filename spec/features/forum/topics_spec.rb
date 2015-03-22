@@ -124,6 +124,22 @@ describe 'topics', type: :feature, js: true do
         expect(page).to have_content(topic_name)
       end
     end
+
+    context 'as group admin' do
+      it 'can pin/unpin a topic' do
+        visit group_forum_topic_path(group, forum, topic)
+        within_left_menu do
+          click_link I18n.t("frm.topics.show.pin.false")
+        end
+        page_should_be_ok
+        expect(page).to have_content(I18n.t('frm.topic.pinned.true'))
+        within_left_menu do
+          click_link I18n.t("frm.topics.show.pin.true")
+        end
+        page_should_be_ok
+        expect(page).to have_content(I18n.t('frm.topic.pinned.false'))
+      end
+    end
   end
 
   #todo private forum should not be visible
