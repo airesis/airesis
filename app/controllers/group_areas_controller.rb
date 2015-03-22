@@ -46,14 +46,14 @@ class GroupAreasController < ApplicationController
       @group_participations = @group.participants
       respond_to do |format|
         flash[:notice] = t('info.groups.work_area.area_created')
-        format.js
         format.html { redirect_to [@group, @group_area] }
+        format.js
       end
     else
       respond_to do |format|
         flash[:error] = t('error.groups.work_area.area_created')
-        format.js { render 'group_areas/errors/create' }
         format.html { render action: :new }
+        format.js { render 'group_areas/errors/create' }
       end
     end
   end

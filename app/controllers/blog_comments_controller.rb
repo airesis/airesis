@@ -19,12 +19,12 @@ class BlogCommentsController < ApplicationController
       if save_blog_comment(@blog_comment)
         flash[:notice] = t('info.blog.comment_added')
         @blog_comment.collapsed = true
-        format.js
         format.html
+        format.js
       else
         flash[:error] = t('error.blog.comment_added')
+        format.html
         format.js { render 'blog_comments/errors/create'}
-        format.html 
       end
     end
   end
@@ -33,8 +33,8 @@ class BlogCommentsController < ApplicationController
     @blog_comment.destroy  
     flash[:notice] = 'The comment has been deleted'  
     respond_to do |format|
-      format.js
       format.html { redirect_to blog_blog_post_url(@blog,@blog_post) }
+      format.js
     end
   end
   
