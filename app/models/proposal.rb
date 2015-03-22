@@ -77,7 +77,7 @@ class Proposal < ActiveRecord::Base
 
   validates_with AtLeastOneValidator, associations: [:solutions], unless: :is_petition?
 
-  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list, :last_revision, :topic_id, :votation, :petition_phase, :change_advanced_options, :current_user_id
+  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list, :last_revision, :topic_id, :votation, :petition_phase, :change_advanced_options, :current_user_id, :interest_borders_tkn
 
   accepts_nested_attributes_for :sections, allow_destroy: true
   accepts_nested_attributes_for :solutions, allow_destroy: true
@@ -364,15 +364,6 @@ class Proposal < ActiveRecord::Base
       nil
     end
   end
-
-  def interest_borders_tkn
-
-  end
-
-  def interest_borders_tkn=(list)
-
-  end
-
 
   #retrieve the number of users that can vote this proposal
   def eligible_voters_count
@@ -702,17 +693,14 @@ class Proposal < ActiveRecord::Base
   end
 
   def update_borders
-    return if self.interest_borders_tkn.to_s.empty?
-    self.proposal_borders.each do |border|
-      border.destroy
-    end
-    self.interest_borders_tkn.split(',').each do |border| #l'identificativo è nella forma 'X-id'
+    proposal_borders.destroy_all
+    interest_borders_tkn.to_s.split(',').each do |border| # l'identificativo è nella forma 'X-id'
       ftype = border[0, 1] #tipologia (primo carattere)
       fid = border[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
       found = InterestBorder.table_element(border)
       if found #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
         interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype], territory_id: fid)
-        i = self.proposal_borders.build({interest_border_id: interest_b.id})
+        i = proposal_borders.build(interest_border_id: interest_b.id)
       end
     end
   end
