@@ -7,7 +7,7 @@ module PaypalHelper
                     number: args[:number] || 1,
                     size: args[:size] || 'small',
                     currency: args[:currency] || 'EUR',
-                    amount: args[:amount],
+                    amount: args[:amount] || '',
                     quantity: args[:quantity] || 1,
                     lc: I18n.locale,
                     env: Rails.env.production? ? '' : 'sandbox'
