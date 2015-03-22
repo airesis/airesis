@@ -4,9 +4,9 @@
     <table id='groups' class='index table table-striped' cellspacing='0'>
       <thead>
       <tr>
-        <th><%= t('name', scope: 'frm.admin.groups') %></th>
-        <th><%= t('edit', scope: 'frm.admin.groups') %></th>
-        <th><%= t('delete', scope: 'frm.admin.groups') %></th>
+        <th><%= t('name', scope: 'frm.admin.mods') %></th>
+        <th><%= t('edit', scope: 'frm.admin.mods') %></th>
+        <th><%= t('delete', scope: 'frm.admin.mods') %></th>
       </tr>
       </thead>
       <tbody>
@@ -22,13 +22,13 @@
             <td>
               <%= link_to group_frm_admin_mod_url(@group, group), class: 'btn' do %>
                   <i class="fa fa-pencil"></i>
-                  <%= t('edit', scope: 'frm.admin.groups') %>
+                  <%= t('edit', scope: 'frm.admin.mods') %>
               <% end %>
             </td>
             <td>
               <%= link_to group_frm_admin_mod_url(@group, group), method: :delete, data: {confirm: t('confirm_delete')}, class: 'btn' do %>
                   <i class="fa fa-trash-o"></i>
-                  <%= t('delete', scope: 'frm.admin.groups') %>
+                  <%= t('delete', scope: 'frm.admin.mods') %>
               <% end %>
             </td>
           </tr>

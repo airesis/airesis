@@ -1,13 +1,13 @@
 <ul class="breadcrumbs">
   <li><%= link_to t('pages.groups.administration_panel.forum'), group_frm_admin_root_url(@group) %></li>
-  <li class="current"><%= t('frm.admin.group.index') %></li>
+  <li class="current"><%= t('frm.admin.mod.index') %></li>
 </ul>
 
 <div id="groups_table">
   <%= render 'groups' %>
 </div>
 
-<%= link_to t('frm.admin.group.new'), new_group_frm_admin_mod_url(@group), class: 'btn blue', remote: true, data: {disable_with: t('loading')} %>
+<%= link_to t('frm.admin.mod.new'), new_group_frm_admin_mod_url(@group), class: 'btn blue', remote: true, data: {disable_with: t('loading')} %>
 
 <%= content_for :left_panel do %>
     <%= render 'groups/administration_panel' %>
