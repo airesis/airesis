@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta name="viewport" content="width=device-width"/>
-  <%=stylesheet_link_tag 'newsletters'%>
+  <%= stylesheet_link_tag 'newsletters' %>
 </head>
 <body>
 <table class="body">
@@ -15,29 +15,25 @@
           <tr>
             <td class="center" align="center">
               <center>
-
                 <table class="container">
                   <tr>
                     <td class="wrapper last">
-
                       <table class="twelve columns">
                         <tr>
                           <td class="six sub-columns">
-                            <%=image_tag 'logo_completo_white_mini.png' %>
+                            <img src="https://www.airesis.eu/favicons/logo_email.png" alt="Airesis"/>
                           </td>
                           <td class="six sub-columns last" style="text-align:right; vertical-align:middle;">
                             <span class="template-label">
-                              <%=Maktoub.app_name%>
+                              <%= Maktoub.app_name %>
                             </span>
                           </td>
                           <td class="expander"></td>
                         </tr>
                       </table>
-
                     </td>
                   </tr>
                 </table>
-
               </center>
             </td>
           </tr>
@@ -46,10 +42,7 @@
         <table class="container">
           <tr>
             <td>
-
-              <%=yield%>
-
-
+              <%= yield %>
               <table class="row footer">
                 <tr>
                   <td class="wrapper">
@@ -57,9 +50,7 @@
                     <table class="six columns">
                       <tr>
                         <td class="left-text-pad">
-
-                          <h5><%= 'Connect With Us:'%></h5>
-
+                          <h5><%= 'Connect With Us:' %></h5>
                           <table class="tiny-button facebook">
                             <tr>
                               <td>
@@ -67,9 +58,7 @@
                               </td>
                             </tr>
                           </table>
-
                           <br>
-
                           <table class="tiny-button twitter">
                             <tr>
                               <td>
@@ -77,9 +66,7 @@
                               </td>
                             </tr>
                           </table>
-
                           <br>
-
                           <table class="tiny-button google-plus">
                             <tr>
                               <td>
@@ -87,30 +74,24 @@
                               </td>
                             </tr>
                           </table>
-
                         </td>
                         <td class="expander"></td>
                       </tr>
                     </table>
-
                   </td>
                   <td class="wrapper last">
-
                     <table class="six columns">
                       <tr>
                         <td class="last right-text-pad">
-                          <h5><%= 'Contact Info:'%></h5>
-                          <%= 'Email:'%> <%=mail_to 'info@airesis.it'%>
+                          <h5><%= 'Contact Info:' %></h5>
+                          <%= 'Email:' %> <%= mail_to 'info@airesis.it' %>
                         </td>
                         <td class="expander"></td>
                       </tr>
                     </table>
-
                   </td>
                 </tr>
               </table>
-
-
               <table class="row">
                 <tr>
                   <td class="wrapper last">
@@ -120,8 +101,10 @@
                         <td align="center">
                           <center>
                             <p style="text-align:center;">
-                              <%= link_to t('mailer.default.terms'), terms_url(host: @user.original_locale.host, l: @user.original_locale.lang), target: '_blank' %> |
-                              <%= link_to t('mailer.default.privacy'), privacy_url(host: @user.original_locale.host, l: @user.original_locale.lang), target: '_blank' %> |
+                              <%= link_to t('mailer.default.terms'), terms_url(host: @user.original_locale.host, l: @user.original_locale.lang), target: '_blank' %>
+                              |
+                              <%= link_to t('mailer.default.privacy'), privacy_url(host: @user.original_locale.host, l: @user.original_locale.lang), target: '_blank' %>
+                              |
                               <%= link_to t('mailer.default.edit_preferences'), alarm_preferences_users_url(host: @user.original_locale.host, l: @user.original_locale.lang), target: '_blank' %>
                           </center>
                         </td>
