@@ -43,14 +43,14 @@ en:
         default_public: "Public Forum"
         default_private_description: "Forum reserved to group participants"
         default_public_description: "Forum visible to all Airesis users. Also users that are not in the group"
-      group:
+      mod:
         index: Manage Groups
         new: New Group
         created: The group was successfully created
         not_created: Group could not be created
         deleted: The selected group has been deleted
         members: "Members in %{group}"
-      groups:
+      mods:
         show:
           add_member: Add
           add_a_new_member: "Add a new member"
@@ -195,7 +195,7 @@ en:
       topic:
         create: Create Topic
         update: Update Topic
-      frm_group:
+      frm_mod:
         create: Create group
       frm_category:
         create: Create category
@@ -219,7 +219,7 @@ en:
         name: Name
       post:
         text: Text
-      frm_group:
+      frm_mod:
         name: Name
 
   # General stuff

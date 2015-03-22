@@ -321,7 +321,7 @@ Airesis::Application.routes.draw do
       resources :categories, only: [:index, :show]
       namespace :admin do
         root to: 'base#index'
-        resources :groups, as: 'frm_groups' do
+        resources :mods do
           resources :members do
             collection do
               post :add
@@ -410,7 +410,7 @@ Airesis::Application.routes.draw do
         resources :categories, only: [:index, :show]
         namespace :admin do
           root to: 'base#index'
-          resources :groups, as: 'frm_groups' do
+          resources :mods do
             resources :members do
               collection do
                 post :add
@@ -536,7 +536,7 @@ Airesis::Application.routes.draw do
         end
         mount Sidekiq::Web => '/sidekiq'
         get '/', to: 'panel#show', as: 'panel'
-        resource :panel do
+        resource :panel, controller: 'panel' do
           get :calculate_rankings
           get :change_proposals_state
           get :write_sitemap
@@ -545,6 +545,7 @@ Airesis::Application.routes.draw do
           get :test_scheduler
           get :test_exceptions
           get :calculate_user_group_affinity
+          post :become
         end
         resource :crowdin, only: [] do
           get :upload_sources

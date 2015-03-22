@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150317162605) do
+ActiveRecord::Schema.define(version: 20150322120023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -380,13 +380,6 @@ ActiveRecord::Schema.define(version: 20150317162605) do
   add_index "frm_forums", ["group_id", "slug"], name: "index_frm_forums_on_group_id_and_slug", unique: true, using: :btree
   add_index "frm_forums", ["slug"], name: "index_frm_forums_on_slug", using: :btree
 
-  create_table "frm_groups", force: true do |t|
-    t.string  "name"
-    t.integer "group_id"
-  end
-
-  add_index "frm_groups", ["name"], name: "index_frm_groups_on_name", using: :btree
-
   create_table "frm_memberships", force: true do |t|
     t.integer "group_id"
     t.integer "member_id"
@@ -400,6 +393,13 @@ ActiveRecord::Schema.define(version: 20150317162605) do
   end
 
   add_index "frm_moderator_groups", ["forum_id"], name: "index_frm_moderator_groups_on_forum_id", using: :btree
+
+  create_table "frm_mods", force: true do |t|
+    t.string  "name"
+    t.integer "group_id"
+  end
+
+  add_index "frm_mods", ["name"], name: "index_frm_mods_on_name", using: :btree
 
   create_table "frm_posts", force: true do |t|
     t.integer  "topic_id"
@@ -1518,24 +1518,6 @@ ActiveRecord::Schema.define(version: 20150317162605) do
     t.string "short"
   end
 
-  add_foreign_key "action_abilitations", "group_actions", name: "action_abilitations_group_action_id_fk"
-  add_foreign_key "action_abilitations", "groups", name: "action_abilitations_group_id_fk"
-  add_foreign_key "action_abilitations", "participation_roles", name: "action_abilitations_partecipation_role_id_fk"
-
-  add_foreign_key "alerts", "notifications", name: "user_alerts_notification_id_fk"
-  add_foreign_key "alerts", "users", name: "user_alerts_user_id_fk"
-
-  add_foreign_key "area_action_abilitations", "area_roles", name: "area_action_abilitations_area_role_id_fk"
-  add_foreign_key "area_action_abilitations", "group_actions", name: "area_action_abilitations_group_action_id_fk"
-  add_foreign_key "area_action_abilitations", "group_areas", name: "area_action_abilitations_group_area_id_fk"
-
-  add_foreign_key "area_participations", "area_roles", name: "area_partecipations_area_role_id_fk"
-  add_foreign_key "area_participations", "group_areas", name: "area_partecipations_group_area_id_fk"
-  add_foreign_key "area_participations", "users", name: "area_partecipations_user_id_fk"
-
-  add_foreign_key "area_proposals", "group_areas", name: "area_proposals_group_area_id_fk"
-  add_foreign_key "area_proposals", "proposals", name: "area_proposals_proposal_id_fk"
-
   add_foreign_key "area_roles", "group_areas", name: "area_roles_group_area_id_fk"
 
   add_foreign_key "authentications", "users", name: "authentications_user_id_fk"
@@ -1596,7 +1578,7 @@ ActiveRecord::Schema.define(version: 20150317162605) do
 
   add_foreign_key "frm_forums", "groups", name: "frm_forums_group_id_fk"
 
-  add_foreign_key "frm_groups", "groups", name: "frm_groups_group_id_fk"
+  add_foreign_key "frm_mods", "groups", name: "frm_groups_group_id_fk"
 
   add_foreign_key "frm_topic_tags", "frm_topics", name: "frm_topic_tags_frm_topic_id_fk"
   add_foreign_key "frm_topic_tags", "tags", name: "frm_topic_tags_tag_id_fk"

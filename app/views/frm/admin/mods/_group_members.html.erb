@@ -1,8 +1,8 @@
-<% if @frm_group.members.any? %>
+<% if @frm_mod.members.any? %>
     <label><%= t('.current_members') %></label>
     <div class="row">
       <ul id='members'>
-        <% @frm_group.members.each do |member| %>
+        <% @frm_mod.members.each do |member| %>
             <%=user_tag member %>
         <% end %>
       </ul>
