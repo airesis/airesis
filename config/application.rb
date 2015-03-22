@@ -62,7 +62,7 @@ module Airesis
             access_key_id: ENV['AWS_ACCESS_KEY_ID'],
             secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
         },
-        s3_host_name: 's3-eu-west-1.amazonaws.com'
+        s3_host_name: ENV['AWS_HOST']
     }
   end
 end

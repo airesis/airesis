@@ -88,7 +88,7 @@ REDIS_URL: "redis://127.0.0.1:6379/12"
 AWS_BUCKET: ""
 AWS_ACCESS_KEY_ID: ""
 AWS_SECRET_ACCESS_KEY: ""
-AWS_HOSTNAME: ""
+AWS_HOST: "s3-eu-west-1.amazonaws.com"
 
 #####################
 #crowdin integration (optional)
