@@ -75,19 +75,19 @@
           <h4><%= t('frm.forum.admin_tools') %></h4>
 
           <div class='btn-group'>
-            <%= link_to edit_group_frm_admin_topic_url(@group, @topic), class: "btn" do %>
+            <%= link_to edit_group_frm_admin_forum_topic_url(@group, @forum, @topic), class: "btn" do %>
                 <i class="fa fa-pencil"></i>
                 <%= t('frm.topic.links.edit') %>
             <% end %>
-            <%= link_to toggle_hide_group_frm_admin_topic_url(@group, @topic), method: :put, class: "btn", data: {disable_with: t('loading')} do %>
+            <%= link_to toggle_hide_group_frm_admin_forum_topic_url(@group, @forum, @topic), method: :put, class: "btn", data: {disable_with: t('loading')} do %>
                 <i class="fa fa-eye-slash"></i>
                 <%= t("frm.topics.show.hide.#{@topic.hidden}") %>
             <% end %>
-            <%= link_to toggle_lock_group_frm_admin_topic_url(@group, @topic), method: :put, class: "btn", data: {disable_with: t('loading')} do %>
+            <%= link_to toggle_lock_group_frm_admin_forum_topic_url(@group, @forum, @topic), method: :put, class: "btn", data: {disable_with: t('loading')} do %>
                 <i class="fa fa-lock"></i>
                 <%= t("frm.topics.show.lock.#{@topic.locked}") %>
             <% end %>
-            <%= link_to toggle_pin_group_frm_admin_topic_url(@group, @topic), method: :put, class: "btn", data: {disable_with: t('loading')} do %>
+            <%= link_to toggle_pin_group_frm_admin_forum_topic_url(@group, @forum, @topic), method: :put, class: "btn", data: {disable_with: t('loading')} do %>
                 <i class="fa fa-thumb-tack"></i>
                 <%= t("frm.topics.show.pin.#{@topic.pinned}") %>
             <% end %>

@@ -331,16 +331,17 @@ Airesis::Application.routes.draw do
 
         resources :forums do
           resources :moderators
+          resources :topics do
+            member do
+              put :toggle_hide
+              put :toggle_lock
+              put :toggle_pin
+            end
+          end
         end
 
         resources :categories
-        resources :topics do
-          member do
-            put :toggle_hide
-            put :toggle_lock
-            put :toggle_pin
-          end
-        end
+
       end
     end
 
@@ -419,16 +420,17 @@ Airesis::Application.routes.draw do
 
           resources :forums do
             resources :moderators
+            resources :topics do
+              member do
+                put :toggle_hide
+                put :toggle_lock
+                put :toggle_pin
+              end
+            end
           end
 
           resources :categories
-          resources :topics do
-            member do
-              put :toggle_hide
-              put :toggle_lock
-              put :toggle_pin
-            end
-          end
+
         end
       end
 

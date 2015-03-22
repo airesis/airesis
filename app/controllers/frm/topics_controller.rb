@@ -2,12 +2,7 @@ module Frm
   class TopicsController < Frm::ApplicationController
     helper 'frm/posts'
 
-    before_filter :load_group
-
-    authorize_resource :group
-
-    before_filter :load_forum
-    authorize_resource :forum, through: :group
+    load_and_authorize_resource :forum, class: 'Frm::Forum', through: :group
     load_and_authorize_resource through: :forum
 
     def show

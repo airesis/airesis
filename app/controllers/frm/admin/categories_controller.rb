@@ -2,7 +2,6 @@ module Frm
   module Admin
     class CategoriesController < BaseController
 
-      load_and_authorize_resource :group
       load_and_authorize_resource class: 'Frm::Category', through: :group
 
       def index

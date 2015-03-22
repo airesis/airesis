@@ -2,7 +2,6 @@ module Frm
   class CategoriesController < Frm::ApplicationController
     helper 'frm/forums'
 
-    authorize_resource :group
     load_and_authorize_resource class: 'Frm::Category', through: :group
 
     def show
