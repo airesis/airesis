@@ -522,7 +522,7 @@ function read_notifica(el) {
     }
 
     $.ajax({
-        dataType: 'js',
+        dataType: 'script',
         type: 'get',
         url: url_
     });
@@ -533,7 +533,7 @@ function sign_all_as_read(id) {
         data: 'id=' + id,
         url: '/alerts/check_all/',
         type: 'post',
-        dataType: 'js',
+        dataType: 'script',
         complete: function (data) {
             reset_alerts_number();
             $('.card.mess').each(function () {

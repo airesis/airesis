@@ -155,7 +155,8 @@
                     view: currentView,
                     contributes: contributes
                 },
-                type: 'get'
+                type: 'get',
+                dataType: 'script'
             });
         } else {
             setTimeout("checkScroll()", 250);
@@ -215,6 +216,7 @@
                 comment_id: Airesis.show_comment_id //show contribute if requested
             },
             type: 'get',
+            dataType: 'script',
             complete: function () {
                 $("#loading_contributes").hide();
             }
