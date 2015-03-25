@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150322120023) do
+ActiveRecord::Schema.define(version: 20150325225705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -616,7 +616,7 @@ ActiveRecord::Schema.define(version: 20150322120023) do
     t.string   "facebook_page_url"
     t.integer  "image_id"
     t.string   "title_bar"
-    t.string   "image_url"
+    t.string   "old_image_url"
     t.integer  "participation_role_id",                        default: 1,        null: false
     t.datetime "created_at"
     t.datetime "updated_at"

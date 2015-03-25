@@ -426,7 +426,7 @@ class GroupsController < ApplicationController
     params[:group][:default_role_actions].reject!(&:empty?) if params[:group][:default_role_actions]
     params.require(:group).permit(:participant_tokens, :name, :description,
                                   :accept_requests, :facebook_page_url, :group_participations,
-                                  :interest_border_tkn, :title_bar, :image_url, :default_role_name,
+                                  :interest_border_tkn, :title_bar, :default_role_name,
                                   :image, :admin_title, :private, :rule_book, :tags_list,
                                   :change_advanced_options, :default_anonima, :default_visible_outside, :default_secret_vote,
                                   default_role_actions: [])

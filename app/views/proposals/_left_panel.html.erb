@@ -45,8 +45,8 @@
 
 <% if ::Configuration.socialnetwork_active %>
     <div class="mybox socialnetwork">
-      <% @pinurl = if (@group && !@group.image_url.blank?) %>
-          <% @group.image_url %>
+      <% @pinurl = if (@group && !@group.image.url.blank?) %>
+          <% @group.image.url %>
       <% else %>
           <% "#{request.protocol}#{request.host_with_port}#{asset_path("logo120.png")}" %>
       <% end %>
