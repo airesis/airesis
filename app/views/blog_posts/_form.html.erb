@@ -30,7 +30,7 @@
           <%groups = @blog_post.publishings.map(&:group)%>
           <p>
             <%= f.label :group_ids %>
-            <%= f.select :group_ids, Group.accessible_by(current_ability, :post_to).map { |group| [group.name, group.id, {'data-image' => group.image_url, selected: (groups.include? group)}] }, {}, multiple: '', style: 'width: 80%;' %>
+            <%= f.select :group_ids, Group.accessible_by(current_ability, :post_to).map { |group| [group.name, group.id, {'data-image' => group.image.url, selected: (groups.include? group)}] }, {}, multiple: '', style: 'width: 80%;' %>
           </p>
       <% end %>
 
