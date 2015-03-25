@@ -88,7 +88,7 @@ class Group < ActiveRecord::Base
                         small: "150x150>"
                     },
                     path: "groups/:id/:style/:basename.:extension",
-                    default_url: ActionController::Base.helpers.asset_path('gruppo-anonimo.png')
+                    default_url: '/img/gruppo-anonimo.png'
 
   validates_attachment_size :image, less_than: 2.megabytes
   validates_attachment_content_type :image, content_type: ['image/jpeg', 'image/png', 'image/gif']
