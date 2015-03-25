@@ -88,9 +88,7 @@ class Group < ActiveRecord::Base
                         medium: "300x300>",
                         small: "150x150>"
                     },
-                    storage: :filesystem,
-                    url: "/assets/images/groups/:id/:style/:basename.:extension",
-                    path: ":rails_root/public/assets/images/groups/:id/:style/:basename.:extension"
+                    path: "groups/:id/:style/:basename.:extension"
 
   validates_attachment_size :image, less_than: 2.megabytes
   validates_attachment_content_type :image, content_type: ['image/jpeg', 'image/png', 'image/gif']
