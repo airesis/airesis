@@ -4,8 +4,8 @@
 <%= content_for :head do %>
     <meta property="og:title" content="<%= @group.name %>"/>
     <meta property="og:type" content="airesis:group"/>
-    <meta property="og:image" content="<%= if @group && !@group.image_url.blank?
-                                             @group.image_url
+    <meta property="og:image" content="<%= if @group && !@group.image.url.blank?
+                                             @group.image.url
                                            else
                                              "#{request.protocol}#{request.host_with_port}#{asset_path("gruppo-anonimo.png")}"
                                            end %>"/>

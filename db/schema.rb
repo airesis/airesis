@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150317162605) do
+ActiveRecord::Schema.define(version: 20150325225705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "action_abilitations", force: true do |t|
     t.integer  "group_action_id"
@@ -380,13 +379,6 @@ ActiveRecord::Schema.define(version: 20150317162605) do
   add_index "frm_forums", ["group_id", "slug"], name: "index_frm_forums_on_group_id_and_slug", unique: true, using: :btree
   add_index "frm_forums", ["slug"], name: "index_frm_forums_on_slug", using: :btree
 
-  create_table "frm_groups", force: true do |t|
-    t.string  "name"
-    t.integer "group_id"
-  end
-
-  add_index "frm_groups", ["name"], name: "index_frm_groups_on_name", using: :btree
-
   create_table "frm_memberships", force: true do |t|
     t.integer "group_id"
     t.integer "member_id"
@@ -400,6 +392,13 @@ ActiveRecord::Schema.define(version: 20150317162605) do
   end
 
   add_index "frm_moderator_groups", ["forum_id"], name: "index_frm_moderator_groups_on_forum_id", using: :btree
+
+  create_table "frm_mods", force: true do |t|
+    t.string  "name"
+    t.integer "group_id"
+  end
+
+  add_index "frm_mods", ["name"], name: "index_frm_mods_on_name", using: :btree
 
   create_table "frm_posts", force: true do |t|
     t.integer  "topic_id"
@@ -616,7 +615,7 @@ ActiveRecord::Schema.define(version: 20150317162605) do
     t.string   "facebook_page_url"
     t.integer  "image_id"
     t.string   "title_bar"
-    t.string   "image_url"
+    t.string   "old_image_url"
     t.integer  "participation_role_id",                        default: 1,        null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1596,7 +1595,7 @@ ActiveRecord::Schema.define(version: 20150317162605) do
 
   add_foreign_key "frm_forums", "groups", name: "frm_forums_group_id_fk"
 
-  add_foreign_key "frm_groups", "groups", name: "frm_groups_group_id_fk"
+  add_foreign_key "frm_mods", "groups", name: "frm_groups_group_id_fk"
 
   add_foreign_key "frm_topic_tags", "frm_topics", name: "frm_topic_tags_frm_topic_id_fk"
   add_foreign_key "frm_topic_tags", "tags", name: "frm_topic_tags_tag_id_fk"

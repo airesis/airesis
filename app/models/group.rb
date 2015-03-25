@@ -17,7 +17,6 @@ class Group < ActiveRecord::Base
   validates_uniqueness_of :name
 
   validates_presence_of :description
-  validates_length_of :image_url, within: 1..255, allow_blank: true
   validates_length_of :facebook_page_url, within: 10..255, allow_blank: true
   validates_length_of :title_bar, within: 1..255, allow_blank: true
   validates_presence_of :interest_border_id
@@ -88,7 +87,8 @@ class Group < ActiveRecord::Base
                         medium: "300x300>",
                         small: "150x150>"
                     },
-                    path: "groups/:id/:style/:basename.:extension"
+                    path: "groups/:id/:style/:basename.:extension",
+                    default_url: ActionController::Base.helpers.asset_path('gruppo-anonimo.png')
 
   validates_attachment_size :image, less_than: 2.megabytes
   validates_attachment_content_type :image, content_type: ['image/jpeg', 'image/png', 'image/gif']
@@ -186,12 +186,12 @@ class Group < ActiveRecord::Base
     self.update_attribute(:participation_role_id, 2) && super
   end
 
-  #return true if the group is private and do not show anything to non-participants
+  # return true if the group is private and do not show anything to non-participants
   def is_private?
     self.private
   end
 
-  #utenti che possono eseguire un'azione
+  # utenti che possono eseguire un'azione
   def scoped_participants(action_id)
     self.participants.
         joins(" join participation_roles on group_participations.participation_role_id = participation_roles.id
@@ -202,16 +202,6 @@ class Group < ActiveRecord::Base
 
   def participant_tokens=(ids)
     self.participant_ids = ids.split(",")
-  end
-
-  def image_url
-    if self.image.exists?
-      self.image.url
-    elsif read_attribute(:image_url) != nil
-      read_attribute(:image_url)
-    else
-      ActionController::Base.helpers.asset_path("gruppo-anonimo.png")
-    end
   end
 
   def interest_border_tkn
@@ -292,7 +282,6 @@ class Group < ActiveRecord::Base
   def self.most_active
     Group.order(group_participations_count: :desc).limit(5)
   end
-
 
   searchable do
     text :name, boost: 5
