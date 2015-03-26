@@ -10,10 +10,10 @@
     <meta property="og:url" content="<%= current_url %>"/>
     <meta property="og:title" content="<%= @blog_post.title %>"/>
     <meta property="og:type" content="article"/>
-    <meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{asset_path("logo120.png")}" %>"/>
+    <meta property="og:image" content="<%= asset_url('logo120.png') %>"/>
     <meta property="og:site_name" content="<%= ENV['APP_LONG_NAME'] %>"/>
     <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>"/>
-    <meta property="article:published_time" content="<%= @blog_post.created_at.strftime("%Y/%m/%d") %>">
+    <meta property="article:published_time" content="<%= @blog_post.created_at.strftime('%Y/%m/%d') %>">
     <meta property="article:tag" content="<%= @blog_post.tags_list %>">
 <% end %>
 

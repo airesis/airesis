@@ -7,7 +7,7 @@
     <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>"/>
     <meta property="og:title" content="<%= @group.name %>"/>
     <meta property="og:type" content="airesis:group"/>
-    <meta property="og:image" content="<%= @group.image.url%>"/>
+    <meta property="og:image" content="<%= @group.image.exists? ? @group.image.url : asset_url('gruppo-anonimo.png')%>"/>
     <meta property="og:description" content="<%= CGI::escapeHTML(strip_tags @group.description) %>"/>
     <meta name="description" content="<%= CGI::escapeHTML(strip_tags @group.description) %>">
     <%= auto_discovery_link_tag(:atom, group_url(@group, format: 'atom')) %>
