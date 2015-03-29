@@ -1,3 +1,5 @@
-class ManagerController < ApplicationController
-  include ManagerActions
+module Admin
+  class ManagerController < ApplicationController
+    include ManagerActions
+  end
 end

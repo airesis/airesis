@@ -58,17 +58,19 @@ class ResqueMailer < ActionMailer::Base
   def invite(group_invitation_email_id)
     @group_invitation_email = GroupInvitationEmail.find(group_invitation_email_id)
     @group_invitation = @group_invitation_email.group_invitation
-    I18n.locale = @group_invitation.inviter.locale.key
     @group = @group_invitation.group
     @inviter = @group_invitation.inviter
+
+    I18n.locale = @group_invitation.inviter.locale.key
     mail(to: @group_invitation_email.email, subject: t('mailer.invite.subject', group_name: @group.name))
   end
 
   def user_message(subject, body, from_id, to_id)
     @body = body
     @from = User.find(from_id)
-    @to = User.find(to_id)
-    mail(to: @to.email, from: ENV['NOREPLY_EMAIL'], reply_to: @from.email, subject: subject)
+    @user = User.find(to_id)
+    I18n.locale = @user.locale.key || 'en'
+    mail(to: @user.email, from: ENV['NOREPLY_EMAIL'], reply_to: @from.email, subject: subject)
   end
 
   def massive_email(from_id, to_ids, group_id, subject, body)

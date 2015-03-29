@@ -1,3 +1,5 @@
-module ManagerActions
+module Admin
+  module ManagerActions
 
+  end
 end
