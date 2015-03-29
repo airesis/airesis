@@ -54,7 +54,7 @@ class GroupsController < ApplicationController
         @page_title = @group.name
         @group_participations = @group.participants
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
-        @archives = @group.blog_posts.select(" COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ").group(" MONTH, YEAR ").order(" YEAR desc, extract(month from blog_posts.created_at) desc ")
+        @archives = @group.blog_posts.select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').group(' MONTH, YEAR ').order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
       }
       format.js {
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
@@ -68,7 +68,7 @@ class GroupsController < ApplicationController
   def by_year_and_month
     @group_posts = @group.post_publishings
                        .viewable_by(current_user)
-                       .where(" extract(year from blog_posts.created_at) = ? AND extract(month from blog_posts.created_at) = ? ", params[:year], params[:month])
+                       .where(' extract(year from blog_posts.created_at) = ? AND extract(month from blog_posts.created_at) = ? ', params[:year], params[:month])
                        .order('post_publishings.featured desc, published_at DESC')
                        .select('post_publishings.*, published_at')
                        .uniq
@@ -78,7 +78,7 @@ class GroupsController < ApplicationController
       format.html {
         @page_title = t('pages.groups.archives.title', group: @group.name, year: params[:year], month: t('date.month_names')[params[:month].to_i])
         @group_participations = @group.participants
-        @archives = @group.blog_posts.select(" COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ").group(" MONTH, YEAR ").order(" YEAR desc, extract(month from blog_posts.created_at) desc ")
+        @archives = @group.blog_posts.select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').group(' MONTH, YEAR ').order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
         render 'show'
       }
       format.js {
@@ -97,7 +97,7 @@ class GroupsController < ApplicationController
 
   def edit
     authorize! :update, @group
-    @page_title = t(" pages.groups.edit.title ")
+    @page_title = t('pages.groups.edit.title')
   end
 
 
@@ -123,7 +123,7 @@ class GroupsController < ApplicationController
       redirect_to edit_group_url @group
     else
       flash[:error] = t('error.groups.update')
-      render action: " edit "
+      render action: ' edit '
     end
   end
 
@@ -258,7 +258,7 @@ class GroupsController < ApplicationController
           redirect_to group_url(@group)
         }
         format.js { render :update do |page|
-          page.replace_html " flash_messages ", partial: 'layouts/flash', locals: {flash: flash}
+          page.replace_html ' flash_messages ', partial: 'layouts/flash', locals: {flash: flash}
         end
         }
       end
@@ -275,7 +275,7 @@ class GroupsController < ApplicationController
           redirect_to group_url(@group)
         }
         format.js { render :update do |page|
-          page.replace_html " flash_messages ", partial: 'layouts/flash', locals: {flash: flash}
+          page.replace_html ' flash_messages ', partial: 'layouts/flash', locals: {flash: flash}
         end
         }
       end
@@ -293,7 +293,7 @@ class GroupsController < ApplicationController
             redirect_to group_url(@group)
           }
           format.js { render :update do |page|
-            page.replace_html " flash_messages ", partial: 'layouts/flash', locals: {flash: flash}
+            page.replace_html ' flash_messages ', partial: 'layouts/flash', locals: {flash: flash}
           end
           }
         end
@@ -391,7 +391,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       flash[:error] = t('error.groups.post_removed')
       format.js { render :update do |page|
-        page.replace_html " flash_messages ", partial: 'layouts/flash', locals: {flash: flash}
+        page.replace_html ' flash_messages ', partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -437,7 +437,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       @title = I18n.t('error.error_404.groups.title')
       @message = I18n.t('error.error_404.groups.description')
-      format.html { render " errors/404 ", status: 404, layout: true }
+      format.html { render ' errors/404 ', status: 404, layout: true }
     end
     true
   end
