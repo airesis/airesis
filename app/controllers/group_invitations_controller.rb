@@ -24,6 +24,6 @@ class GroupInvitationsController < ApplicationController
   protected
 
   def group_invitation_params
-    params.require(:group_invitation).permit(:emails_list)
+    params.require(:group_invitation).permit(:emails_list, :testo)
   end
 end

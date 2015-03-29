@@ -26,7 +26,7 @@ module Airesis
     config.i18n.fallbacks =[:en]
 
     config.to_prepare do
-      Devise::Mailer.layout "maktoub/unregistered_mailer" # email.haml or email.erb
+      Devise::Mailer.layout "newsletters/default"
     end
 
     config.action_view.sanitized_allowed_tags = %w(u iframe table tr td th)
