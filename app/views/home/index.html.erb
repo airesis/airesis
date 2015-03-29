@@ -19,8 +19,7 @@
   <meta property="og:type" content="website"/>
   <meta property="og:image" content="<%= asset_url('logo120.png') %>"/>
   <meta property="og:site_name" content="<%= ENV['APP_LONG_NAME'] %>"/>
-  <meta property="og:description" content="
-    <% t('home.tags.description') %>"/>
+  <meta property="og:description" content="<%= t('home.tags.description') %>"/>
   <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>"/>
   <meta name="author" content="Tecnologie Democratiche">
 
@@ -48,59 +47,60 @@
 </head>
 
 <body>
+<%= javascript_include_tag 'landing/main' %>
 
 <script type="text/javascript">
-    window.___gcfg = {
-        lang: 'it'
-    };
-    (function () {
-        var po = document.createElement("script");
-        po.type = "text/javascript";
-        po.async = true;
-        po.src = "https://apis.google.com/js/plusone.js";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(po, s);
-    })();
+    $(function () {
+        window.___gcfg = {
+            lang: 'it'
+        };
+        (function () {
+            var po = document.createElement("script");
+            po.type = "text/javascript";
+            po.async = true;
+            po.src = "https://apis.google.com/js/plusone.js";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(po, s);
+        })();
 
-    ( function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {
-            return;
-        }
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/<%="#{I18n.locale.to_s.gsub('-','_')}"%>/all.js#xfbml=1&appId=221145254619152";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-    !function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (!d.getElementById(id)) {
+        ( function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
             js = d.createElement(s);
             js.id = id;
-            js.src = "//platform.twitter.com/widgets.js";
+            js.src = "//connect.facebook.net/<%="#{I18n.locale.to_s.gsub('-','_')}"%>/all.js#xfbml=1&appId=221145254619152";
             fjs.parentNode.insertBefore(js, fjs);
-        }
-    }(document, "script", "twitter-wjs");
+        }(document, 'script', 'facebook-jssdk'));
 
-    //google analytics
-    <%if Rails.env == 'production'%>
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-34897773-1']);
-    _gaq.push(['_trackPageview']);
-    _gaq.push(['_setDomainName', '<%= request.domain %>']);
+        !function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (!d.getElementById(id)) {
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+        }(document, "script", "twitter-wjs");
 
-    (function () {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
-    <%end%>
+        //google analytics
+        <%if Rails.env == 'production'%>
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-34897773-1']);
+        _gaq.push(['_trackPageview']);
+        _gaq.push(['_setDomainName', '<%= request.domain %>']);
 
-
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+        <%end%>
+    });
 </script>
 <div id="fb-root"></div>
 
@@ -469,20 +469,9 @@
     <div class="columns medium-6">
       <a class="twitter-timeline" href="https://twitter.com/hashtag/airesis" data-widget-id="511174030523518976">#airesis
         Tweet</a>
-      <script>!function (d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
-          if (!d.getElementById(id)) {
-              js = d.createElement(s);
-              js.id = id;
-              js.src = p + "://platform.twitter.com/widgets.js";
-              fjs.parentNode.insertBefore(js, fjs);
-          }
-      }(document, "script", "twitter-wjs");</script>
     </div>
   </div>
-
 </section>
-
 
 <section id="testimonials" class="green-background">
   <div class="row content">
@@ -695,23 +684,10 @@
         </li>
 
       </ul>
-      <!-- portfolio-wrapper end -->
-
     </div>
-    <!-- twelve columns end -->
-
   </div>
-  <!-- end row -->
-
 </section>
-<!-- Screenshots End -->
 
-
-<!-- Subscribe Section End-->
-
-
-<!-- Footer
-================================================== -->
 <footer>
 
   <div class="row">
@@ -754,28 +730,12 @@
             <li><a href="mailto:marino.tilatti@airesis.it">Marino Tilatti</a></li>
           </ul>
         </div>
-
       </div>
-      <!-- Nested Row End -->
-
     </div>
-
-
     <div id="go-top">
       <a class="smoothscroll" title="Back to Top" href="#hero"><i class="fa fa-chevron-up"></i></a>
     </div>
-
   </div>
-  <!-- Row End -->
-
 </footer>
-<!-- Footer End-->
-
-
-<!-- Java Script
-================================================== -->
-<%= javascript_include_tag 'landing/main' %>
-
 </body>
-
 </html>
