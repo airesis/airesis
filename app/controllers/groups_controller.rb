@@ -43,7 +43,7 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group_posts = @group.post_publishings.accessible_by(current_ability).order('post_publishings.featured desc, blog_posts.published_at DESC')
+    @group_posts = @group.post_publishings.accessible_by(current_ability).order('post_publishings.featured desc, blog_posts.published_at DESC, blog_posts.created_at DESC')
 
     respond_to do |format|
       format.html {
@@ -399,22 +399,15 @@ class GroupsController < ApplicationController
 
   def feature_post
     raise Exception unless (can? :remove_post, @group)
-    @publishing = @group.post_publishings.find_by({blog_post_id: params[:post_id]})
-    @publishing.update_attributes({featured: !@publishing.featured})
-    flash[:notice] = t('info.groups.post_featured')
-
-  rescue Exception => e
-    respond_to do |format|
-      flash[:error] = t('error.groups.post_featured')
-      format.js { render 'layouts/error' }
-    end
+    publishing = @group.post_publishings.find_by(blog_post_id: params[:post_id])
+    publishing.update(featured: !publishing.featured)
+    flash[:notice] = t("info.groups.post_featured.#{publishing.featured}")
   end
 
-  #retrieve the list of permission for the current user in the group
+  # retrieve the list of permission for the current user in the group
   def permissions_list
     @actions = @group.group_participations.find_by_user_id(current_user.id).participation_role.group_actions
   end
-
 
   protected
 

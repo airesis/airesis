@@ -5,7 +5,7 @@
       </div>
       <ul id="drop<%= blog_post.id %>" class="f-dropdown small" data-dropdown-content>
         <% if can? :remove_post, @group %>
-            <li><%= link_to t('pages.groups.show.featured_post'), feature_post_group_path(@group, post_id: blog_post.id), method: :put, remote: true, class: 'menu_item' %></li>
+            <li><%= link_to t("pages.groups.show.featured_post.#{post_publishing.featured}"), feature_post_group_path(@group, post_id: blog_post.id), method: :put, remote: true, class: 'menu_item' %></li>
         <% end %>
         <li><%= link_to t('pages.groups.show.remove_post'), remove_post_group_path(@group, post_id: blog_post.id), method: :put, remote: true, class: 'menu_item', data: {confirm: "Sei sicuro di voler rimuovere il post '#{blog_post.title}' dalla bacheca del gruppo?"} %></li>
         <% if can? :update, blog_post %>

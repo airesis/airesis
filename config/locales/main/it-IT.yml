@@ -1029,6 +1029,8 @@ it-IT:
         published_true: Pubblicato
         published_false: In bozza
         published_reserved: riservato
+        group_ids: Pubblicato nei seguenti gruppi
+        published_at: Data pubblicazione
       participation_role:
         name: Nome
         description: Breve descrizione
