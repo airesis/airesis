@@ -1,4 +1,5 @@
 <% @extend=true %>
+<% @page_descr = CGI::escapeHTML(strip_tags @group.description)%>
 <% javascript 'endless_page' %>
 
 <%= content_for :head do %>
@@ -8,8 +9,7 @@
     <meta property="og:title" content="<%= @group.name %>"/>
     <meta property="og:type" content="airesis:group"/>
     <meta property="og:image" content="<%= @group.image.exists? ? @group.image.url : asset_url('gruppo-anonimo.png')%>"/>
-    <meta property="og:description" content="<%= CGI::escapeHTML(strip_tags @group.description) %>"/>
-    <meta name="description" content="<%= CGI::escapeHTML(strip_tags @group.description) %>">
+    <meta property="og:description" content="<%= @page_descr %>"/>
     <%= auto_discovery_link_tag(:atom, group_url(@group, format: 'atom')) %>
 <% end %>
 
