@@ -376,7 +376,8 @@ class Proposal < ActiveRecord::Base
   end
 
 
-  #count without fetching, for the list. this number may be different from participants because doesn't look if the participants are still in the group
+  # count without fetching, for the list.
+  # this number may be different from participants because doesn't look if the participants are still in the group
   def participants_count
     users = User.arel_table
     proposal_comments = ProposalComment.arel_table
