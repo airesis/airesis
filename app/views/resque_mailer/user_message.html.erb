@@ -1,6 +1,38 @@
-<%= t('mailer.user_message.hi_user', {user: @to.fullname}) %><br/>
-<%= t('mailer.user_message.user_sent_message', {user: @from.fullname}) %><br />
-<p style="font-style: italic;">
-<%= @body %>
-</p>
-<%= t('mailer.user_message.reply_to_user', {user: @from.name}) %>
+<table class="row">
+  <tbody>
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tbody>
+        <tr>
+          <td>
+            <h1><%= t('mailer.user_message.hi_user', {user: @user.fullname}) %></h1>
+
+            <p class="lead"><%=raw t('mailer.user_message.user_sent_message', {user: link_to(@from.fullname, url_for(@from)).html_safe}) %></p>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<table class="row callout">
+  <tbody>
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tbody>
+        <tr>
+          <td class="panel">
+            <p><%= @body %></p>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<p><%= t('mailer.user_message.reply_to_user', {user: @from.name}) %></p>
