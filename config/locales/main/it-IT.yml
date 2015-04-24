@@ -1221,6 +1221,7 @@ it-IT:
     show: Mostra
     preview: Anteprima
     new_newletter: Nuova newsletter
+    unlock: "Sblocca"
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di maturità.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     random_stack_2: '<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente.'

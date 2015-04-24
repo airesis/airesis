@@ -18,16 +18,16 @@
           <%= submit_tag 'Send' %>
       <% end %>
     </div>
-    <%if ENV['CROWDIN_API'] %>
+    <% if ENV['CROWDIN_API'] %>
         <div class="card">
-            <h3>Crowdin</h3>
-            <%= link_to 'Upload sources', upload_sources_admin_crowdin_path, class: 'btn'%>
-            <%= link_to 'Upload italian translations', upload_translations_admin_crowdin_path, class: 'btn'%>
-            <%= link_to 'Update sources', update_sources_admin_crowdin_path, class: 'btn'%>
-            <%= link_to 'Download translations', download_translations_admin_crowdin_path, class: 'btn'%>
-            <%= link_to 'Unzip and delete zip files', extract_delete_zip_admin_crowdin_path, class: 'btn'%>
+          <h3>Crowdin</h3>
+          <%= link_to 'Upload sources', upload_sources_admin_crowdin_path, class: 'btn' %>
+          <%= link_to 'Upload italian translations', upload_translations_admin_crowdin_path, class: 'btn' %>
+          <%= link_to 'Update sources', update_sources_admin_crowdin_path, class: 'btn' %>
+          <%= link_to 'Download translations', download_translations_admin_crowdin_path, class: 'btn' %>
+          <%= link_to 'Unzip and delete zip files', extract_delete_zip_admin_crowdin_path, class: 'btn' %>
         </div>
-    <%end%>
+    <% end %>
 
 
     <div class="card">
@@ -38,15 +38,19 @@
           <%= submit_tag 'Vai!', class: 'btn' %>
       <% end %>
     </div>
-    <div  class="card">
-    <h3>Elenco utenti bloccati</h3>
-    <ul>
-      <% User.blocked.each do |user| %>
-          <li>
-            <%=user.id%>: <%=link_to user.fullname, user%> (<%=user.login || 'no username'%>) (<%="#{user.blocked_name} #{user.blocked_surname}) (#{user.email}"%>)" %>
-            <%= link_to 'Sblocca', unblock_admin_user_path(user) %></li>
-      <% end %>
-    </ul>
+    <div class="card">
+      <h3><%= 'Elenco utenti bloccati' %></h3>
+      <ul>
+        <% User.blocked.each do |user| %>
+            <li>
+              <%= link_to "#{user.id}: #{user.blocked_name} #{user.blocked_surname} (#{user.email})", user %>
+              <%= link_to unblock_admin_user_path(user) do%>
+                  <i class="fa fa-unlock"></i>
+                  <%=t('buttons.unlock')%>
+            <%end%>
+                  </li>
+        <% end %>
+      </ul>
     </div>
 
 <% end %>
