@@ -199,7 +199,7 @@ it-IT:
         reject_request_button: Declina
         ask_participate_button: Richiedi di partecipare al gruppo
         remove_post: Rimuovi post dalla bacheca del gruppo
-        destroy_button: Elimina
+        destroy_button: Elimina gruppo
         confirm_destroy: STAI ELIMINANDO IL GRUPPO!!! Sei assolutamente di sicuro di quello che stai facendo?
         list_permissions:
           title: "Elenco dei tuoi permessi all'interno di questo gruppo"
@@ -1589,3 +1589,6 @@ it-IT:
   keep_reading: "continua a leggere"
   feedback_subject: "%{time} - Nuova segnalazione"
   delete_event_confirm: "Sei sicuro di voler eliminare questo evento?"
+  groups:
+    group:
+      delete_group_warning_html: "Puoi cancellare questo gruppo.<br>Tutti i dati ad esso associati verranno eliminati e non saranno più ripristinabili.<br>Fai attenzione!"

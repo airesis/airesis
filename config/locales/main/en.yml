@@ -1595,3 +1595,6 @@ en:
   keep_reading: "keep reading"
   feedback_subject: "%{time} - New feedback"
   delete_event_confirm: "Are you sure to delete this comment?"
+  groups:
+    group:
+      delete_group_warning_html: "You are allowed to delete this group. Deleting the group you will destroy all forums, proposals and documents associated with it.<br/>The data cannot be restored.<br/>Be careful!"
