@@ -16,7 +16,7 @@
           <tr>
             <td>
               <%= yield %>
-              <%= render 'layouts/newsletters/footer' %>
+              <%= render 'layouts/newsletters/footer' if @user %>
             </td>
           </tr>
         </table>
