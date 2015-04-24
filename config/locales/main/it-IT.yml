@@ -1449,7 +1449,10 @@ it-IT:
       create: "Utente aggiunto all'area"
       destroy: "Utente rimosso dall'area"
     group_invitations:
-      create: "Inviti inviati correttamente!"
+      create:
+        zero: "Nessuna email inviata"
+        one: "Invito inviato correttamente a %{email_addresses}"
+        other: "%{count} inviti inviati correttamente a %{email_addresses}"
       accept: "Invito accettato! Ora fai parte di questo gruppo."
       reject: "Invito rifiutato."
       anymore: "Invito rifiutato. Non riceverai più inviti."

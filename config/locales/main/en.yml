@@ -1455,7 +1455,10 @@ en:
       create: "User added to the area"
       destroy: "User removed from the area"
     group_invitations:
-      create: "Invites sent correctly"
+      create:
+        zero: "No email sent"
+        one: "Invite sent correctly to %{email_addresses}"
+        other: "%{count} invites sent correctly to %{email_addresses}"
       accept: "Invite accepted! You are now a member of this group."
       reject: "Invitation rejected."
       anymore: "Invitation rejected. You will not receive other invites."

@@ -16,7 +16,9 @@ class GroupInvitationsController < ApplicationController
     @group_invitation.save
 
     respond_to do |format|
-      flash[:notice] = t('info.group_invitations.create')
+      flash[:notice] = t('info.group_invitations.create',
+                         count: @group_invitation.group_invitation_emails.count,
+                         email_addresses: @group_invitation.group_invitation_emails.pluck(:email).join(', '))
       format.js
     end
   end
