@@ -39,7 +39,7 @@ describe "the user can invite other participants in the group", type: :feature, 
         fill_in I18n.t('activerecord.attributes.group_invitation.testo'), with: Faker::Lorem.paragraph
         click_button I18n.t('buttons.send')
       end
-      expect(page).to have_content I18n.t('info.group_invitations.create')
+      expect(page).to have_content I18n.t('info.group_invitations.create',count: 3, email_addresses: emails.join(', '))
       expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 3
       Sidekiq::Extensions::DelayedMailer.drain
       first_deliveries = ActionMailer::Base.deliveries.first(3)
