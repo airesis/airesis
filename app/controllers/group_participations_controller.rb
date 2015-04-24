@@ -26,7 +26,7 @@ class GroupParticipationsController < ApplicationController
     authorize! :index, GroupParticipation
     CSV.generate do |csv|
       csv << [t('pages.groups.participations.surname'), t('pages.groups.participations.name'), t('pages.groups.participations.role'), t('pages.groups.participations.member_since')]
-      @group_participations.each do |group_participation|
+      @unscoped_group_participations.each do |group_participation|
         csv << [group_participation.user.surname, group_participation.user.name, group_participation.participation_role.name, group_participation.created_at ? (l group_participation.created_at) : ' ']
       end
     end

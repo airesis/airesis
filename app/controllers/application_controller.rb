@@ -136,7 +136,7 @@ class ApplicationController < ActionController::Base
       extra[:current_user_id] = current_user.id if current_user
       if exception.instance_of? CanCan::AccessDenied
         extra[:action] = exception.action.to_s
-        extra[:subject] = exception.subject.class.class_name.to_s
+        extra[:subject] = exception.subject.class.class_name.to_s rescue nil
       end
       Raven.capture_exception(exception, {
                                            extra: extra
