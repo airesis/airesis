@@ -18,12 +18,12 @@ class BlogCommentsController < ApplicationController
       if save_blog_comment(@blog_comment)
         flash[:notice] = t('info.blog.comment_added')
         @blog_comment.collapsed = true
-        format.js
         format.html
+        format.js
       else
         flash[:error] = t('error.blog.comment_added')
-        format.js { render 'blog_comments/errors/create' }
         format.html
+        format.js { render 'blog_comments/errors/create'}
       end
     end
   end
@@ -32,8 +32,8 @@ class BlogCommentsController < ApplicationController
     @blog_comment.destroy
     flash[:notice] = t('info.blog_comment.destroyed')
     respond_to do |format|
-      format.js
       format.html { redirect_to blog_blog_post_url(@blog, @blog_post) }
+      format.js
     end
   end
 
@@ -77,5 +77,4 @@ class BlogCommentsController < ApplicationController
     session[:blog_id] = params[:blog_id]
     flash[:info] = t('info.proposal.login_to_contribute')
   end
-
 end

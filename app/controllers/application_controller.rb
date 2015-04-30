@@ -1,4 +1,3 @@
-#encoding: utf-8
 class ApplicationController < ActionController::Base
   include ApplicationHelper, GroupsHelper, StepsHelper
   helper :all
@@ -18,7 +17,6 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
   helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :age, :is_group_admin?, :in_subdomain?
-
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :name, :surname, :accept_conditions, :sys_locale_id, :password) }
@@ -138,7 +136,7 @@ class ApplicationController < ActionController::Base
       extra[:current_user_id] = current_user.id if current_user
       if exception.instance_of? CanCan::AccessDenied
         extra[:action] = exception.action.to_s
-        extra[:subject] = exception.subject.class.class_name.to_s
+        extra[:subject] = exception.subject.class.class_name.to_s rescue nil
       end
       Raven.capture_exception(exception, {
                                            extra: extra

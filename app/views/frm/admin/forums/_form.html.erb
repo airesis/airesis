@@ -8,7 +8,7 @@
 
 <%= f.input :visible_outside %>
 <h3><%= t('frm.admin.forum.moderator_groups') %></h3>
-<%= f.association :moderators, collection: @group.moderator_groups, as: :check_boxes %>
+<%= f.association :mods, collection: @group.mods, as: :check_boxes %>
 <%= f.submit class: "btn blue" %>
 
 

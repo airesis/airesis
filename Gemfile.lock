@@ -353,6 +353,9 @@ GEM
     premailer (1.8.2)
       css_parser (>= 1.3.5)
       htmlentities (>= 4.0.0)
+    premailer-rails (1.8.0)
+      actionmailer (>= 3, < 5)
+      premailer (~> 1.7, >= 1.7.9)
     private_pub (1.0.3)
       faye
     quiet_assets (1.0.2)
@@ -583,6 +586,7 @@ DEPENDENCIES
   paper_trail (~> 3.0.0)
   paperclip
   pg
+  premailer-rails
   private_pub
   quiet_assets
   rails (= 4.0.2)

@@ -11,7 +11,7 @@ class SearchesController < ApplicationController
     if @search.groups.count > 0
       results << {value: t('controllers.searches.index.groups_divider'), type: 'Divider'}
       @search.groups.each do |group|
-        results << {value: group.name, type: 'Group', url: group_url(group), proposals_url: group_proposals_url(group), events_url: group_events_url(group), participants_num: group.group_participations_count, proposals_num: group.proposals.count, image: group.image_url}
+        results << {value: group.name, type: 'Group', url: group_url(group), proposals_url: group_proposals_url(group), events_url: group_events_url(group), participants_num: group.group_participations_count, proposals_num: group.proposals.count, image: group.image.url}
       end
     end
     if @search.proposals.count > 0
@@ -19,7 +19,7 @@ class SearchesController < ApplicationController
       @search.proposals.each do |proposal|
         url = proposal.private? ?
             group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal)
-        results << {value: proposal.title, type: 'Proposal', url: url, image: ActionController::Base.helpers.asset_path("gruppo-anonimo.png")}
+        results << {value: proposal.title, type: 'Proposal', url: url, image: "/img/gruppo-anonimo.png"}
       end
     end
     if @search.blogs.count > 0

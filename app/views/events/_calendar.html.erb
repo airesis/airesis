@@ -183,7 +183,8 @@
                 <%if (@group ? (can? :create_event, @group) : is_admin?) %>
                 $.ajax({
                     data: 'starttime=' + date.getTime(),
-                    url: '<%=new_event_url(:group_id=> @group.try(:id), event_type_id: EventType::INCONTRO) %>'
+                    url: '<%=new_event_url(:group_id=> @group.try(:id), event_type_id: EventType::INCONTRO) %>',
+                    dataType: 'script'
                 });
                 <%end%>
             }
@@ -192,7 +193,8 @@
 
         <%if params[:new_event] == 'true' %>
         $.ajax({
-            url: '<%=new_event_url(:group_id=> @group.try(:id), event_type_id: params[:event_type_id]) %>'
+            url: '<%=new_event_url(:group_id=> @group.try(:id), event_type_id: params[:event_type_id]) %>',
+            dataType: 'script'
         });
         <%end%>
     });

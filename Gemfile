@@ -26,6 +26,7 @@ gem 'capistrano', '~> 3.2.0'
 gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-rails', '~> 1.1'
 gem 'rvm1-capistrano3', require: false
+gem 'premailer-rails'
 
 gem 'uri-js-rails'
 
@@ -161,4 +162,4 @@ gem 'sunspot-rails-http-basic-auth', github: 'jwachira/sunspot-rails-http-basic-
 
 gem 'activerecord-session_store'
 
-gem 'sentry-raven', github: 'getsentry/raven-ruby', group: [:development, :staging, :production]
+gem 'sentry-raven', github: 'getsentry/raven-ruby', group: [:staging, :production]

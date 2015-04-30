@@ -43,14 +43,14 @@ it-IT:
         default_public: "Forum pubblico"
         default_private_description: "Forum riservato a coloro che appartengono al gruppo"
         default_public_description: "Forum visualizzabile da tutti i partecipanti di Airesis. Anche a coloro che non appartengono al gruppo"
-      group:
+      mod:
         index: Gestisci Gruppi di Moderatori
         new: Crea un nuovo Gruppo di moderatori
         created: Il gruppo di moderatori è stato creato
         not_created: Non è stato possibile creare il gruppo di moderatori
         deleted: Il gruppo di moderatori selezionato è stato eliminato
         members: "Membri del gruppo %{group}"
-      groups:
+      mods:
         show:
           add_member: Aggiungi
           add_a_new_member: "Aggiungi un nuovo membro"
@@ -193,7 +193,7 @@ it-IT:
       topic:
         create: Crea Topic
         update: Aggiorna Topic
-      frm_group:
+      frm_mod:
         create: Crea gruppo
       frm_category:
         create: Crea sezione
@@ -216,7 +216,7 @@ it-IT:
         name: Nome
       post:
         text: Testo
-      frm_group:
+      frm_mod:
         name: Nome
 
   # General stuff

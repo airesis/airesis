@@ -34,6 +34,9 @@ EMAIL_PASSWORD: ""
 
 MAILER_DEFAULT_HOST: "www.airesis.eu"
 
+# set your email address to override email receiver in development and test
+OVERRIDE_MAIL_RECIPIENT: ""
+
 #####################
 #newsletter parameters
 #####################
@@ -82,10 +85,14 @@ DEVISE_SECRET_KEY: ""
 
 REDIS_URL: "redis://127.0.0.1:6379/12"
 
+# remove this variable if you are not using amazon s3
+AWS_HOST: "s3-eu-west-1.amazonaws.com"
 AWS_BUCKET: ""
 AWS_ACCESS_KEY_ID: ""
 AWS_SECRET_ACCESS_KEY: ""
-AWS_HOSTNAME: ""
+
+# remove this variable if you are not using cloudfront. set it to cloudfront alias if you want to you it
+AWS_ALIAS: "static.yourwebsite.com"
 
 #####################
 #crowdin integration (optional)

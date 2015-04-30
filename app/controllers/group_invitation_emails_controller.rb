@@ -39,16 +39,12 @@ class GroupInvitationEmailsController < ApplicationController
 
   def check_invite
     if @group_invitation_email.consumed
-      flash[:error] = 'Codice invito scaduto'
-      respond_to do |format|
-        format.html { render 'error' }
-      end
+      flash[:error] = t('error.group_invitations.code_expired')
+      redirect_to @group
       false
     elsif @group.participants.include? current_user
-      flash[:error] = 'Questo utente fa già parte del gruppo'
-      respond_to do |format|
-        format.html { render 'error' }
-      end
+      flash[:error] = t('error.group_invitations.already_participant')
+      redirect_to @group
       false
     end
   end

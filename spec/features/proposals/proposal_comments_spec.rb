@@ -5,7 +5,7 @@ require 'cancan/matchers'
 describe 'create proposal comments', type: :feature, js: true do
   it 'creates comments if not logged in' do
     @luser = create(:user)
-    @user = create(:default_user)
+    @user = create(:user)
     @ability = Ability.new(@user)
     @public_proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: @user.id)
 
@@ -30,7 +30,7 @@ describe 'create proposal comments', type: :feature, js: true do
 
 
   it 'creates comments in his public proposal' do
-    @user = create(:default_user)
+    @user = create(:user)
     @ability = Ability.new(@user)
     @public_proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: @user.id)
 
@@ -81,7 +81,7 @@ describe 'create proposal comments', type: :feature, js: true do
   end
 
   it 'create comments in proposals inside his group' do
-    @user = create(:default_user)
+    @user = create(:user)
     @ability = Ability.new(@user)
     @group = create(:group, current_user_id: @user.id)
     @proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: @group)])
@@ -135,9 +135,9 @@ describe 'create proposal comments', type: :feature, js: true do
   end
 
   it 'create comments in proposals inside a group where has permissions to participate' do
-    @user = create(:default_user)
+    @user = create(:user)
 
-    @user2 = create(:second_user)
+    @user2 = create(:user)
     @group = create(:group, current_user_id: @user2.id)
     @proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: @user2.id, group_proposals: [GroupProposal.new(group: @group)])
 

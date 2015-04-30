@@ -11,10 +11,10 @@ class MeetingParticipationsController < ApplicationController
     if @meeting_participation.save
       flash[:notice] = "La tua risposta è stata inviata."
       respond_to do |format|
-        format.js
         format.html {
           redirect_to event_path(params[:event_id])
         }
+        format.js
       end
     else
       flash[:error] = t('error.event_answer')

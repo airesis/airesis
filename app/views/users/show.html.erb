@@ -39,7 +39,11 @@
                     <span class="show-for-medium-up"><%= participation.group.name %></span>
                 <% end %>
               </td>
-              <td><span id="participation_<%= participation.id %>"><%= participation.participation_role.name %></span>
+              <td>
+                <span>
+                <%= participation.participation_role.name %>
+                <i class="fa fa-info-circle" id="participation_<%= participation.id %>"></i>
+                    </span>
               </td>
               <td class="show-for-medium-up"><%= participation.created_at if participation.created_at %></td>
               <td><%= participation.created_at.to_i if participation.created_at %></td>
@@ -50,7 +54,12 @@
       </table>
       <script>
           <%@group_participations.each do |participation| %>
-            $('#participation_<%=participation.id%>').qtip({content: "<strong><%=t('pages.users.show.what_can_i_do')%></strong><ul><li><%=raw participation.participation_role.group_actions.order(:seq).map{|a| a.description}.join('</li><li>')%></li></ul><br/>"});
+          $('#participation_<%=participation.id%>').qtip({
+              content: "<strong><%=t('pages.users.show.what_can_i_do')%></strong><ul><li><%=raw participation.participation_role.group_actions.order(:seq).map{|a| a.description}.join('</li><li>')%></li></ul><br/>",
+              position: {
+                  viewport: $('#main-copy')
+              }
+          });
           <%end%>
       </script>
     </div>

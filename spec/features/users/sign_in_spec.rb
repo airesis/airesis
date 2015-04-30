@@ -3,7 +3,7 @@ require 'requests_helper'
 
 describe "the authenticated user process", type: :feature, js: true do
   before :each do
-    @user = create(:default_user)
+    @user = create(:user)
     login @user, 'topolino'
     #login_as @user, scope: :user
   end
@@ -27,7 +27,7 @@ describe "the authenticated user process", type: :feature, js: true do
     logout(:user)
 
     visit '/'
-    @user = create(:second_user)
+    @user = create(:user)
     login @user, 'topolino'
     visit '/home'
     expect(page).to have_content(/#{I18n.t('pages.home.show.your_proposals')}/i)

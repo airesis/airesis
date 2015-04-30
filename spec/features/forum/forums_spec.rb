@@ -5,7 +5,7 @@ require "cancan/matchers"
 describe 'the management of the forum', type: :feature, js: true do
 
   before :each do
-    @user = create(:default_user)
+    @user = create(:user)
     @ability = Ability.new(@user)
     @group = create(:group, current_user_id: @user.id)
   end
@@ -26,7 +26,7 @@ describe 'the management of the forum', type: :feature, js: true do
   end
 
   it "can't view private fora of other groups if does not participate" do
-    @user2 = create(:second_user)
+    @user2 = create(:user)
     login_as @user2, scope: :user
 
     visit group_forums_path(@group)
@@ -48,7 +48,7 @@ describe 'the management of the forum', type: :feature, js: true do
   end
 
   it "can view all fora in group in which participate" do
-    @user2 = create(:second_user)
+    @user2 = create(:user)
     create_participation(@user2,@group)
     login_as @user2, scope: :user
 
@@ -62,7 +62,7 @@ describe 'the management of the forum', type: :feature, js: true do
   #user2 participate in group2
   it "can create a new topic only in his group or in a group in which participate" do
     @group2 = create(:group, current_user_id: @user.id)
-    @user2 = create(:second_user)
+    @user2 = create(:user)
     create_participation(@user2,@group2)
     @ability = Ability.new(@user2)
 
@@ -106,7 +106,7 @@ describe 'the management of the forum', type: :feature, js: true do
   #user2 participate in group2
   it "can create in group in which participate " do
     @group2 = create(:group, current_user_id: @user.id)
-    @user2 = create(:second_user)
+    @user2 = create(:user)
     create_participation(@user2,@group2)
     @ability = Ability.new(@user2)
 

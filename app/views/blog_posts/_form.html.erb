@@ -4,33 +4,32 @@
       <%= f.error_notification %>
 
 
-        <%= f.input :title, style: 'width:80%' %>
+      <%= f.input :title, style: 'width:80%' %>
 
-        <%= f.label :body %>
-        <%= f.cktext_area :body, ckeditor: {toolbar: 'blog', language: I18n.locale} %>
+      <%= f.label :body %>
+      <%= f.cktext_area :body, ckeditor: {toolbar: 'blog', language: I18n.locale} %>
 
+      <%= f.input :tags_list, label: t('pages.groups.new.tags.title') %>
 
-        <%= f.input :tags_list, label: t('pages.groups.new.tags.title') %>
-
-        <%= f.label :status %>
-        <%= f.label :status_p, title: t('.published_title') do %>
-            <%= f.radio_button :status, 'P', checked: "checked" %>
-            <%= t('activerecord.attributes.blog_post.published_true') %>
-        <% end %>
-        <%= f.label :status_r, title: t('.reserved_title') do %>
-            <%= f.radio_button :status, 'R' %>
-            <%= t('activerecord.attributes.blog_post.published_reserved') %>
-        <% end %>
-        <%= f.label :status_d, title: t('.draft_title') do %>
-            <%= f.radio_button :status, 'D'%>
-            <%= t('activerecord.attributes.blog_post.published_false') %>
-        <% end %>
+      <%= f.label :status %>
+      <%= f.label :status_p, title: t('.published_title') do %>
+          <%= f.radio_button :status, 'P', checked: "checked" %>
+          <%= t('activerecord.attributes.blog_post.published_true') %>
+      <% end %>
+      <%= f.label :status_r, title: t('.reserved_title') do %>
+          <%= f.radio_button :status, 'R' %>
+          <%= t('activerecord.attributes.blog_post.published_reserved') %>
+      <% end %>
+      <%= f.label :status_d, title: t('.draft_title') do %>
+          <%= f.radio_button :status, 'D' %>
+          <%= t('activerecord.attributes.blog_post.published_false') %>
+      <% end %>
 
       <% if Group.accessible_by(current_ability, :post_to).size > 0 %>
-          <%groups = @blog_post.publishings.map(&:group)%>
+          <% groups = @blog_post.publishings.map(&:group) %>
           <p>
             <%= f.label :group_ids %>
-            <%= f.select :group_ids, Group.accessible_by(current_ability, :post_to).map { |group| [group.name, group.id, {'data-image' => group.image_url, selected: (groups.include? group)}] }, {}, multiple: '', style: 'width: 80%;' %>
+            <%= f.select :group_ids, Group.accessible_by(current_ability, :post_to).map { |group| [group.name, group.id, {'data-image' => group.image.url, selected: (groups.include? group)}] }, {}, multiple: '', style: 'width: 80%;' %>
           </p>
       <% end %>
 
@@ -93,7 +92,6 @@
                 at: 'top left'
             }
         });
-
     });
 </script>  		
 	

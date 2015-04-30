@@ -1,8 +1,9 @@
-var container_ = $('<%= j (render(partial: 'history'))%>');
+var container_ = $('<div id="proposal_comment_history" class="reveal-modal small" data-reveal>');
+container_.append($('<%= j (render(partial: 'history'))%>'));
 $('body').append(container_);
 
 container_.foundation().foundation('reveal', 'open');
-container_.css('max-height', $('html').height() - 110 + 'px').css('overflow-y','auto');
+container_.css('max-height', $('html').height() - 110 + 'px').css('overflow-y', 'auto');
 $(document).on('opened', '[data-reveal]', function () {
     $('html').css('overflow', 'hidden');
 });

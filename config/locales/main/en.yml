@@ -215,6 +215,9 @@ en:
           <p>Groups can sustain proposals, create new ones, create surveys and organize members using roles and permissions.</p>
           <p>It is possible to change the rules of this group using through its <b>Settings</b>.</p>
         short_url: "Short url"
+        featured_post:
+          'true': Unpin
+          'false': Pin on top
       header:
         settings: "SETTINGS"
         documents: "DOCUMENTS"
@@ -505,7 +508,9 @@ en:
         solution: "Agenda Item"
         step_base_info: "Initial information"
         advanced_options: "Advanced options"
-        wait: "You can create only one proposal every two minutes\nPlease wait %{minutes} minutes and %{seconds} seconds."
+        wait: |
+          You can create only one proposal every two minutes
+          Please wait %{minutes} minutes and %{seconds} seconds.
       tabs:
         last_inserted: "Last updated"
         most_popular: "Higher rank"
@@ -972,7 +977,7 @@ en:
         title: "Participants List"
   pl:
     comments:
-      zero: "no comment"
+      zero: "no comments"
       one: "one comment"
       other: "%{count} comments"
   activerecord:
@@ -1028,6 +1033,8 @@ en:
         published_true: 'Published'
         published_false: 'Draft'
         published_reserved: "Reserved"
+        group_ids: Published in the following groups
+        published_at: Published at
       participation_role:
          name: 'Name'
          description: 'Short description'
@@ -1093,7 +1100,6 @@ en:
         header:
           one: 'an error did not allow this %{model} from being saved'
           other: '%{count} errors did not allow this %{model} from being saved'
-          # The variable :count is also available
         body: 'There were problems with the following fields'
       messages:
         inclusion: 'is not included in the list'
@@ -1191,6 +1197,9 @@ en:
       vote: "Their vote"
     authors_list_panel:
       dont_want_to_be_an_author: "I don't want to be an author anymore"
+    left_panel:
+      promote_proposal: "Promote proposal"
+      share_with_friends: "Share with friends"
     show_proposal:
       vote_here: "This proposal is in votation. Read the solution/s and %{link}."
   digit_tags: "Type the tags you want to add"
@@ -1215,6 +1224,10 @@ en:
     update_and_continue: "Save and continue"
     detach: "Detach"
     login: "Login"
+    show: "Show"
+    preview: "Preview"
+    new_newsletter: "Create newsletter"
+    unlock: "Unlock"
     vote_here: "vote here"
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>Firstly they are shown the new contributions or the ones you haven't evaluated, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
@@ -1331,6 +1344,9 @@ en:
       create: "Error adding the user to the area"
     area:
       update: "Error updating the area"
+    group_invitations:
+      code_expired: "The Invitation Code has expired"
+      already_participant: "You are already a participant of this group"
   info:
     setting_preferences: "Settings changed successfully"
     blog_created: "Post successfully created"
@@ -1388,6 +1404,9 @@ en:
       search_participants: "Search completed. Search results updated"
       post_removed: "The post has been removed from the group Wall"
       area_updated: "Area updated"
+      post_featured:
+        'true': Post pinned on top
+        'false': Post unpinned
     participation_roles:
       role_updated: "Role successfully updated"
       permissions_updated: "Permissions updated"
@@ -1440,7 +1459,10 @@ en:
       create: "User added to the area"
       destroy: "User removed from the area"
     group_invitations:
-      create: "Invites sent correctly"
+      create:
+        zero: "No email sent"
+        one: "Invite sent correctly to %{email_addresses}"
+        other: "%{count} invites sent correctly to %{email_addresses}"
       accept: "Invite accepted! You are now a member of this group."
       reject: "Invitation rejected."
       anymore: "Invitation rejected. You will not receive other invites."
@@ -1545,6 +1567,21 @@ en:
         There is already another user on Airesis with the same email address.<br />
         Insert your password on Airesis to join the two accounts.<br />
         If you do not remember the password, proceed to the 'Recover Password' page.
+    statistics:
+      title: "User statistics"
+      last_login: "Last login"
+      integrated_count: "Integrated contributes number"
+      spam_count: "SPAM Contributes number"
+      noisy_count: "Noisy contributes number"
+      total_count: "Total contributes number"
+      total_comments_count: "Total comments number"
+      proposals_editor: "Number of proposals you have been editor"
+      proposals_voted: "Number of proposals that have been voted"
+      average_rank_voted_proposals: "Average rank of proposals that have been voted"
+      proposals_accepted_count: "Number of proposals that have been accepted"
+      proposals_abandonend_count: "Number of proposals that have been abandoned"
+      good_writer: "Good contributes writer"
+      good_proposals_writer: "Good proposals writer"
   proposal_comments:
     manage_noise:
       title: "Manage useless contributes"
@@ -1567,3 +1604,6 @@ en:
   keep_reading: "keep reading"
   feedback_subject: "%{time} - New feedback"
   delete_event_confirm: "Are you sure to delete this comment?"
+  groups:
+    group:
+      delete_group_warning_html: "You are allowed to delete this group. Deleting the group you will destroy all forums, proposals and documents associated with it.<br/>The data cannot be restored.<br/>Be careful!"

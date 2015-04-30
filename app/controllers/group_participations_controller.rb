@@ -1,4 +1,3 @@
-#encoding: utf-8
 class GroupParticipationsController < ApplicationController
   layout 'groups'
 
@@ -16,9 +15,9 @@ class GroupParticipationsController < ApplicationController
     @group_participations = @unscoped_group_participations.page(params[:page]).per(GroupParticipation::PER_PAGE)
 
     respond_to do |format|
+      format.html
       format.js
       format.json
-      format.html
       format.csv { send_data build_csv }
     end
   end
@@ -27,7 +26,7 @@ class GroupParticipationsController < ApplicationController
     authorize! :index, GroupParticipation
     CSV.generate do |csv|
       csv << [t('pages.groups.participations.surname'), t('pages.groups.participations.name'), t('pages.groups.participations.role'), t('pages.groups.participations.member_since')]
-      @group_participations.each do |group_participation|
+      @unscoped_group_participations.each do |group_participation|
         csv << [group_participation.user.surname, group_participation.user.name, group_participation.participation_role.name, group_participation.created_at ? (l group_participation.created_at) : ' ']
       end
     end

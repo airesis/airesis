@@ -293,6 +293,7 @@
                 all: true
             },
             type: 'get',
+            dataType: 'script',
             complete: function () {
                 $("#loading_contributes").hide();
             }
@@ -311,7 +312,8 @@
                     contributes: contributes,
                     all: true
                 },
-                type: 'get'
+                type: 'get',
+                dataType: 'script'
             });
         } else {
             setTimeout("checkScroll()", 250);

@@ -199,7 +199,7 @@ it-IT:
         reject_request_button: Declina
         ask_participate_button: Richiedi di partecipare al gruppo
         remove_post: Rimuovi post dalla bacheca del gruppo
-        destroy_button: Elimina
+        destroy_button: Elimina gruppo
         confirm_destroy: STAI ELIMINANDO IL GRUPPO!!! Sei assolutamente di sicuro di quello che stai facendo?
         list_permissions:
           title: "Elenco dei tuoi permessi all'interno di questo gruppo"
@@ -318,6 +318,7 @@ it-IT:
       accept_conditions: "Accetto le condizioni d'uso"
       register_button: Registrati
       identity_provviders_title: Entra subito tramite il tuo Identity Provider preferito
+      accept_privacy: "Accetta Condizione sulla Privacy"
     proposals:
       index:
         title: Elenco proposte
@@ -519,6 +520,7 @@ it-IT:
         votation_finished: 'Terminata<br/>%{time_ago}'
         no_votation: Non vi è stata alcuna votazione
         votation_finished_approved: 'Approvata<br/> %{date}'
+        no_votation: Non c'è stata alcuna votazione
         interest_borders: Confini di interesse
         authors: Redattori
         support_group: Gruppi in sostegno
@@ -843,22 +845,6 @@ it-IT:
       confirm_button: Conferma
     calendar:
       create_event_button: Crea un evento
-    candidates:
-      new:
-        title: '%{name} : Nuova candidatura'
-        description: Scegli uno dei partecipanti al gruppo ed invialo come candidato ad una delle elezioni disponibili.
-        send_button: Invia la candidatura
-      index:
-        description: 'In questa pagina puoi monitorare le candidature effettuate dal gruppo nelle elezioni.<br /> 	Prima di poter effettuare una candidatura il gruppo deve'
-        create_election: "indire un'elezione"
-        user_column: Utente
-        election_column: Elezione
-        state_column: Stato
-        candidates_phase: candidature utenti
-        voting_phase: in votazione
-        terminated_phase: terminato
-        send_candidate_button: Invia un candidato alle elezioni
-        create_election_button: Crea una nuova elezione
     sessions:
       new:
         login_label: Username o Email
@@ -987,6 +973,7 @@ it-IT:
         title: Elenco partecipanti
   pl:
     comments:
+      zero: nessun commento
       one: un commento
       other: '%{count} commenti'
   activerecord:
@@ -997,12 +984,6 @@ it-IT:
       blog_comment:
         body: Commento
         created_at: AntiSpam
-      candidate:
-        user: Candidato
-        election: Elezione
-      election:
-        groups_end_time: Data termine iscrizione gruppi
-        candidates_end_time: Data termine iscrizione candidati e inizio votazione
       event:
         title: "Titolo dell'evento"
         description: Descrizione
@@ -1013,7 +994,6 @@ it-IT:
         period: Ripeti
         frequency: Ripeti ogni
         private: Privato
-        candidates_end_time: Termine iscrizione candidati
         meeting:
           place:
             address: Indirizzo
@@ -1049,6 +1029,8 @@ it-IT:
         published_true: Pubblicato
         published_false: In bozza
         published_reserved: riservato
+        group_ids: Pubblicato nei seguenti gruppi
+        published_at: Data pubblicazione
       participation_role:
         name: Nome
         description: Breve descrizione
@@ -1211,6 +1193,9 @@ it-IT:
       vote: Voto espresso
     authors_list_panel:
       dont_want_to_be_an_author: Non voglio più redigere la proposta
+    left_panel:
+      promote_proposal: "Promuovi proposta"
+      share_with_friends: "Condividi con gli amici"
     show_proposal:
       vote_here: "Questa proposta è in votazione. Leggi le soluzioni proposte e %{link}."
   digit_tags: Digita i tag che vuoi inserire
@@ -1234,6 +1219,11 @@ it-IT:
     mark: Marca
     update_and_continue: Salva e continua
     detach: Scollega
+    login: Login
+    show: Mostra
+    preview: Anteprima
+    new_newletter: Nuova newsletter
+    unlock: "Sblocca"
     vote_here: "vota qui"
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di maturità.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
@@ -1350,6 +1340,9 @@ it-IT:
       create: "Errore durante l'aggiunta dell'utente all'area"
     area:
       update: "Errore durante l'aggiornamento dell'area"
+    group_invitations:
+      code_expired: "Codice invito scaduto"
+      already_participant: "Fai giàparte di questo gruppo"
   info:
     setting_preferences: Impostazioni cambiate correttamente
     blog_created: Il tuo post è stato creato correttamente
@@ -1359,6 +1352,7 @@ it-IT:
       voting: Questa proposta è in fase di votazione
       ask_participation: Richiedi di partecipare al gruppo per valutare e contribuire a questa proposta
       public_visible: Questa proposta è visibile pubblicamente
+      public_visible_short: Visibile pubblicamente
       available_authors: Ci sono nuovi redattori disponibili per la proposta
       updated_comment: Il tuo commento è stato aggiornato con successo
       comment_deleted: Il commento è stato cancellato correttamente
@@ -1458,7 +1452,10 @@ it-IT:
       create: "Utente aggiunto all'area"
       destroy: "Utente rimosso dall'area"
     group_invitations:
-      create: "Inviti inviati correttamente!"
+      create:
+        zero: "Nessuna email inviata"
+        one: "Invito inviato correttamente a %{email_addresses}"
+        other: "%{count} inviti inviati correttamente a %{email_addresses}"
       accept: "Invito accettato! Ora fai parte di questo gruppo."
       reject: "Invito rifiutato."
       anymore: "Invito rifiutato. Non riceverai più inviti."
@@ -1561,6 +1558,21 @@ it-IT:
         Hai eseguito correttamente la procedura di login tramite provider ma a è già presente un altro account con lo stesso indirizzo email.<br />
         Inserisci le tue credenziali su Airesis per unire le informazioni dei due account.<br />
         Se non possiedi la password di accesso, accedi con l'altro account e impostane una dalle preferenze.
+    statistics:
+      title: "Statistiche utente"
+      last_login: "Ultimo accesso"
+      integrated_count: "Numero dei tuoi contributi integrati nelle proposte"
+      spam_count: "Numero dei tuoi contributi marcati come SPAM"
+      noisy_count: "Numero dei tuoi contributi marcati come \"rumore\""
+      total_count: "Numero totale dei tuoi contributi"
+      total_comments_count: "Numero totale dei tuoi commenti"
+      proposals_editor: "Numero di proposte di cui sei stato redattore"
+      proposals_voted: "Numero di tue proposte che sono state votate"
+      average_rank_voted_proposals: "Valutazione media delle tue proposte che sono state votate"
+      proposals_accepted_count: "Numero delle tue proposte che sono state accettate"
+      proposals_abandonend_count: "Numero delle tue proposte che sono state abbandonate"
+      good_writer: "Punteggio \"Buon scrittore di Contributi\""
+      good_proposals_writer: "Punteggio \"Buon redattore\""
   proposal_comments:
     manage_noise:
       title: Gestisci i contributi inutili alla discussione
@@ -1581,8 +1593,8 @@ it-IT:
   placeholder:
     find: Cerca...
   keep_reading: "continua a leggere"
-  frm:
-    forum:
-      title: "Nuovo forum"
   feedback_subject: "%{time} - Nuova segnalazione"
   delete_event_confirm: "Sei sicuro di voler eliminare questo evento?"
+  groups:
+    group:
+      delete_group_warning_html: "Puoi cancellare questo gruppo.<br>Tutti i dati ad esso associati verranno eliminati e non saranno più ripristinabili.<br>Fai attenzione!"

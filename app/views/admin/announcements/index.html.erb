@@ -1,0 +1,27 @@
+<h1>Listing announcements</h1>
+
+<table>
+  <tr>
+    <th>Message</th>
+    <th>Starts at</th>
+    <th>Ends at</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @announcements.each do |announcement| %>
+  <tr>
+    <td><%=simple_format announcement.message %></td>
+    <td><%= announcement.starts_at %></td>
+    <td><%= announcement.ends_at %></td>
+    <td><%= link_to 'Show', [:admin,announcement] if can? :read, announcement%></td>
+    <td><%= link_to 'Edit', edit_admin_announcement_path(announcement) if can? :update, announcement %></td>
+    <td><%= link_to 'Destroy', [:admin,announcement], confirm: 'Are you sure?', method: :delete if can? :update, announcement%></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Announcement', new_admin_announcement_path if can? :create, Announcement%>

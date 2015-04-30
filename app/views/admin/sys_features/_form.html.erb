@@ -1,0 +1,15 @@
+<%= simple_form_for [:admin, @sys_feature] do |f| %>
+    <%= f.error_notification %>
+
+    <div class="inputs">
+      <%= f.input :title %>
+      <%= f.input :description, as: :text %>
+      <%= f.input :amount_required %>
+      <%= f.input :amount_received %>
+      <%= f.file_field :image %>
+    </div>
+
+    <div class="actions">
+      <%= f.button :submit, class: 'btn blue' %>
+    </div>
+<% end %>

@@ -2,7 +2,6 @@ module Frm
   module Admin
     class ForumsController < BaseController
 
-      load_and_authorize_resource :group
       load_and_authorize_resource class: 'Frm::Forum', through: :group
 
       def index
@@ -38,7 +37,7 @@ module Frm
       private
 
       def forum_params
-        params.require(:frm_forum).permit(:category_id, :title, :name, :description, :moderator_ids, :visible_outside, :tags_list)
+        params.require(:frm_forum).permit(:category_id, :title, :name, :description, :visible_outside, :tags_list, mod_ids: [])
       end
 
 

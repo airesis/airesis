@@ -1,4 +1,4 @@
-<%= simple_form_for @topic, url: group_frm_admin_topic_url(@group,@topic) do |f| %>
+<%= simple_form_for @topic, url: group_frm_admin_forum_topic_url(@group, @forum, @topic) do |f| %>
   <%= f.input :subject, label:t('simple_form.labels.topic.subject')%>
   <%= f.association :forum, collection: @group.forums.order(:name), label: t('frm.general.forum') %>
   <%= f.label :locked, label: t('simple_form.labels.topic.locked') %>

@@ -4,12 +4,7 @@
     <%= content_for :head do %>
         <meta property="og:title" content="<%= @group.name %>"/>
         <meta property="og:type" content="airesis:group"/>
-        <meta property="og:image" content="<%= if !@group.image_url.blank?
-                                                 @group.image_url
-                                               else
-                                                 "#{request.protocol}#{request.host_with_port}#{asset_path("gruppo-anonimo.png")}"
-                                               end %>
-                                          "/>
+        <meta property="og:image" content="<%= @group.image.exists? ? @group.image.url : asset_url('gruppo-anonimo.png') %>"/>
         <meta property="og:description" content="<%= CGI::escapeHTML(@group.description) %>"/>
     <% end %>
 <% end %>

@@ -1,15 +1,17 @@
 <% @page_title = @proposal.title %>
 
 <%= content_for :head do %>
+    <meta property="og:url" content="<%= current_url %>"/>
     <meta property="og:title" content="<%= @proposal.title %>"/>
     <meta property="og:type" content="article"/>
-    <meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{asset_path("logo120.png")}" %>"/>
+    <meta property="og:image" content="<%= asset_url('logo120.png') %>"/>
     <meta property="og:site_name" content="<%= ENV['APP_LONG_NAME'] %>"/>
     <meta property="og:description" content="<%= @proposal.short_content %>"/>
     <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>"/>
     <meta property="article:published_time" content="<%= @proposal.created_at.strftime("%Y/%m/%d") %>">
     <meta property="article:author" content="<%= (@proposal.users.first || @proposal.proposal_lives.first.users.first).fullname %>">
     <meta property="article:section" content="<%= @proposal.category.description %>">
+    <meta property="article:tag" content="<%= @proposal.tags_list %>">
     <meta name="description" content="<%= @proposal.short_content %>">
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false"></script>
 <% end %>
