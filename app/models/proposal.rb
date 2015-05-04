@@ -202,7 +202,7 @@ class Proposal < ActiveRecord::Base
                           where  p.proposal_state_id = #{ProposalState::VOTING}
                           and pt.name != '#{ProposalType::PETITION}'
                           and uv.id is null
-                          and (aa.group_action_id = #{GroupAction::PROPOSAL_VOTE} or pr.id = #{ParticipationRole::ADMINISTRATOR})
+                          and (aa.group_action_id = #{GroupAction::PROPOSAL_VOTE} or pr.id = #{ParticipationRole.admin.id})
                           order by e.endtime asc")
     ActiveRecord::Associations::Preloader.new(proposals, [:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category]).run
     proposals

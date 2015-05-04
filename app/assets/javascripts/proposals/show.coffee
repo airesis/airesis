@@ -51,6 +51,7 @@ window.ProposalsShow =
       @currentPage++;
       $.ajax
         url: @contributesUrl,
+        dataType: 'script',
         data: {
           page: @currentPage,
           view: @currentView,

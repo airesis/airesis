@@ -50,7 +50,7 @@
         <div class="bottom">
           <% if defined? participant.participation_role %>
               <% if can? :update, @group %>
-                  <%= select_tag "user_role", options_from_collection_for_select([OpenStruct.new({id: ParticipationRole::ADMINISTRATOR, name: @group.admin_title || t('pages.groups.default_admin_title')})] + @group.participation_roles, :id, :name, participant.participation_role.id), data: {id: participant.id, fullname: participant.user.fullname}, class: "user_role_changer" %>
+                  <%= select_tag "user_role", options_from_collection_for_select([OpenStruct.new({id: ParticipationRole.admin.id, name: @group.admin_title || t('pages.groups.default_admin_title')})] + @group.participation_roles, :id, :name, participant.participation_role.id), data: {id: participant.id, fullname: participant.user.fullname}, class: "user_role_changer" %>
                   <% if @group.group_areas.size > 0 %>
                       <%= link_to t('pages.groups.administration_panel.areas'), '#', class: 'btn areas_button', data: {m_id: participant.id} %>
                       <div class="areas_list shadow-box">

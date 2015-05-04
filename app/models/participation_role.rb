@@ -1,7 +1,7 @@
 class ParticipationRole < ActiveRecord::Base
 
-  ADMINISTRATOR=2
-  MEMBER=1
+  ADMINISTRATOR='amministratore'
+  #MEMBER=1
 
   has_many :group_participations, class_name: 'GroupParticipation'
   has_many :users, through: :group_participations, class_name: 'User'
@@ -11,7 +11,7 @@ class ParticipationRole < ActiveRecord::Base
   belongs_to :group, class_name: 'Group', foreign_key: :group_id
 
   #prendi il portavoce, member è deprecato
-  scope :common, -> { where(id: 2) }
+  scope :common, -> { where(id: ParticipationRole.admin.id) }
 
   validates_uniqueness_of :name, scope: :group_id
 
@@ -23,5 +23,9 @@ class ParticipationRole < ActiveRecord::Base
   #quando cancello un ruolo assegnato ad alcuni utenti, a tali utenti dagli il ruolo di default del gruppo
   def change_participation_roles
     self.group_participations.update_all(participation_role_id: self.group.participation_role_id) if (self.group)
+  end
+
+  def self.admin
+    ParticipationRole.find_by(name: ADMINISTRATOR)
   end
 end

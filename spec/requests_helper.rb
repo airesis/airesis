@@ -67,7 +67,7 @@ def create_area_participation(user, group_area)
 end
 
 def create_public_proposal(user_id)
-  create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: user_id)
+  create(:public_proposal, current_user_id: user_id)
 end
 
 def activate_areas(group)

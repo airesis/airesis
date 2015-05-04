@@ -1,12 +1,12 @@
 require 'spec_helper'
 require 'requests_helper'
-require "cancan/matchers"
+require 'cancan/matchers'
 
-describe 'notifications when the debate is finished and the proposal is waiting for a date', type: :feature do
+describe Proposal, type: :model, emails: true do
 
-  it "sends correctly an email to all authors" do
+  it 'sends correctly an email to all authors' do
     user1 = create(:user)
-    proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: user1.id)
+    proposal = create(:public_proposal, current_user_id: user1.id)
     participants = []
     2.times do
       user = create(:user)

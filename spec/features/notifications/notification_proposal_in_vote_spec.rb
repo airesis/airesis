@@ -6,7 +6,7 @@ describe 'notifications when the vote for the proposal starts', type: :feature d
 
   it "sends correctly an email to all authors and participants" do
     user1 = create(:user)
-    proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: user1.id, votation: {choise: 'new', start: 10.days.from_now, end: 14.days.from_now})
+    proposal = create(:public_proposal, current_user_id: user1.id, votation: {choise: 'new', start: 10.days.from_now, end: 14.days.from_now})
     participants = []
     2.times do
       user = create(:user)

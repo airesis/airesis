@@ -17,7 +17,7 @@
                 <div class="row">
                   <div class="large-8 columns">
                     <%= f.label :role_id %>
-                    <%= f.select :role_id, options_from_collection_for_select([OpenStruct.new({id: ParticipationRole::ADMINISTRATOR, name: @group.admin_title || t('pages.groups.default_admin_title')})] + @group.participation_roles, :id, :name, (params[:search_participant][:role_id] if params[:search_participant])), include_blank: t('pages.groups.participations.anything') %>
+                    <%= f.select :role_id, options_from_collection_for_select([OpenStruct.new({id: ParticipationRole.admin.id, name: @group.admin_title || t('pages.groups.default_admin_title')})] + @group.participation_roles, :id, :name, (params[:search_participant][:role_id] if params[:search_participant])), include_blank: t('pages.groups.participations.anything') %>
                   </div>
                 </div>
                 <div class="row">

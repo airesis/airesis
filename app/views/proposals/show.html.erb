@@ -16,8 +16,6 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false"></script>
 <% end %>
 
-
-
 <%= render partial: 'proposals/show_proposal' %>
 
 <% if ((can? :participate, @proposal) || (!current_user && !@proposal.private)) && (!@proposal.voting?) %>

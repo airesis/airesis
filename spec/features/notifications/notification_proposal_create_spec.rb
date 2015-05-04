@@ -13,7 +13,7 @@ describe 'notifications when a new proposal is created', type: :feature do
       participants << user
       create_participation(user, group)
     end
-    proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: participants[1].id, group_proposals: [GroupProposal.new(group: group)])
+    proposal = create(:group_proposal, current_user_id: participants[1].id, group_proposals: [GroupProposal.new(group: group)])
 
     expect(NotificationProposalCreate.jobs.size).to eq 1
     NotificationProposalCreate.drain
@@ -38,7 +38,7 @@ describe 'notifications when a new proposal is created', type: :feature do
     5.times do
       user = create(:user)
     end
-    proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: user1.id)
+    proposal = create(:public_proposal, current_user_id: user1.id)
 
     expect(NotificationProposalCreate.jobs.size).to eq 1
     NotificationProposalCreate.drain
@@ -54,7 +54,7 @@ describe 'notifications when a new proposal is created', type: :feature do
       user = create(:user)
       user.blocked_alerts.find_by(notification_type_id: NotificationType::NEW_PUBLIC_PROPOSALS).destroy
     end
-    proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: user1.id)
+    proposal = create(:public_proposal, current_user_id: user1.id)
 
     expect(NotificationProposalCreate.jobs.size).to eq 1
     NotificationProposalCreate.drain

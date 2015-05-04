@@ -7,7 +7,7 @@ describe 'notifications when a proposal comment is unintegrated', type: :feature
   it "sends correctly an email to authors to inform them the contribute has been unintegrated" do
     user1 = create(:user)
     group = create(:group, current_user_id: user1.id)
-    proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: user1.id, group_proposals: [GroupProposal.new(group: group)])
+    proposal = create(:group_proposal, current_user_id: user1.id, group_proposals: [GroupProposal.new(group: group)])
 
     participants = []
     2.times do

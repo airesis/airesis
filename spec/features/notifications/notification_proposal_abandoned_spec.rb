@@ -1,13 +1,14 @@
 require 'spec_helper'
 require 'requests_helper'
-require "cancan/matchers"
+require 'cancan/matchers'
 
-describe 'notifications when a proposal is abandoned', type: :feature do
+describe 'notifications when a proposal is abandoned', type: :feature, emails: true do
 
-  it "sends correctly an email to authors and participants" do
-    user1 = create(:user)
-    group = create(:group, current_user_id: user1.id)
-    proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: user1.id, group_proposals: [GroupProposal.new(group: group)])
+  it 'sends correctly an email to authors and participants' do
+    user = create(:user)
+    group = create(:group, current_user_id: user.id)
+    @create = create(:group_proposal, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)])
+    proposal = @create
 
     user2 = create(:user)
     create_participation(user2, group)
@@ -29,7 +30,7 @@ describe 'notifications when a proposal is abandoned', type: :feature do
     create(:proposal_comment, proposal: proposal, user: user3)
     create(:negative_ranking, proposal: proposal, user: participants[3])
     create(:negative_ranking, proposal: proposal, user: participants[4])
-    create(:negative_ranking, proposal: proposal, user: user1)
+    create(:negative_ranking, proposal: proposal, user: user)
     proposal.save!
 
     proposal.check_phase(true)  #force the abandon of the proposal
@@ -42,7 +43,7 @@ describe 'notifications when a proposal is abandoned', type: :feature do
     Sidekiq::Extensions::DelayedMailer.drain
     first_deliveries = ActionMailer::Base.deliveries.first(3)
 
-    authors = [user1,user2,user3]
+    authors = [user,user2,user3]
 
     emails = first_deliveries.map { |m| m.to[0] }
     receiver_emails = authors.map(&:email)

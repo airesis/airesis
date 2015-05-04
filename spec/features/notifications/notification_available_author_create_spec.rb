@@ -7,7 +7,7 @@ describe 'notifications for new authors available', type: :feature do
 
   it "sends correctly an email to authors of the proposal" do
     user = create(:user)
-    proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: user.id)
+    proposal = create(:public_proposal, current_user_id: user.id)
     user2 = create(:user)
     available_author = create(:available_author, proposal: proposal, user: user2)
     expect(NotificationAvailableAuthorCreate.jobs.size).to eq 1
@@ -25,7 +25,7 @@ describe 'notifications for new authors available', type: :feature do
     user2 = create(:user)
     user3 = create(:user)
     authors= [user, user2, user3]
-    proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: user.id)
+    proposal = create(:public_proposal, current_user_id: user.id)
     proposal.users << user2
     proposal.users << user3
     proposal.save
