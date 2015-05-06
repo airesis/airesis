@@ -302,9 +302,7 @@ $(function () {
         }
     });
 
-
     //executes page specific js
     var page = $("body").data("page");
     execute_page_js(page);
-
 });
