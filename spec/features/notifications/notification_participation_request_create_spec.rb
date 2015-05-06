@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require "cancan/matchers"
 
-describe 'notifications for new participation requests in the group are sent to whoever can accept them', type: :feature do
+describe 'notifications for new participation requests in the group are sent to whoever can accept them', type: :feature, emails: true do
 
   it "sends correctly the admin" do
     user = create(:user)

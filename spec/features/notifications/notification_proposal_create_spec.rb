@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require "cancan/matchers"
 
-describe 'notifications when a new proposal is created', type: :feature do
+describe 'notifications when a new proposal is created', type: :feature, emails: true do
 
   it "sends correctly an email to all people which can view proposals in the group" do
     user1 = create(:user)

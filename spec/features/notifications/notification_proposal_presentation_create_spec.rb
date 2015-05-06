@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require "cancan/matchers"
 
-describe 'notifications for new authors for a proposal', type: :feature do
+describe 'notifications for new authors for a proposal', type: :feature, emails: true do
 
   it "sends correctly an email to all participants to the proposal" do
     user1 = create(:user)
