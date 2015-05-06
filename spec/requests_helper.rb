@@ -12,9 +12,15 @@ end
 def fill_in_ckeditor(locator, opts)
   content = opts.fetch(:with).to_json
   page.execute_script <<-SCRIPT
-    CKEDITOR.instances['#{locator}'].setData(#{content});
+    var ckeditor = CKEDITOR.instances['#{locator}'];
+    ckeditor.setData(#{content});
+    ckeditor.focus();
+    ckeditor.updateElement();
     $('textarea##{locator}').text(#{content});
+    console.log('wrote text in ckeditor');
+    console.log($('textarea##{locator}').text());
   SCRIPT
+  page.driver.console_messages.to_s  # TODO: workaround to execute the script
 end
 
 def toastr_clear

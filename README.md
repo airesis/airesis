@@ -1,14 +1,14 @@
-Airesis - The Social Netwrok for eDemocracy
+Airesis - The Social Network for eDemocracy
 ===========================================
 [![Build Status](https://travis-ci.org/coorasse/Airesis.svg?branch=staging)](https://travis-ci.org/coorasse/Airesis)
 [![Dependency Status](https://gemnasium.com/coorasse/Airesis.svg)](https://gemnasium.com/coorasse/Airesis)
 [![Code Climate](https://codeclimate.com/repos/547c8dd16956804e660ee4a3/badges/40feae106fc5c88511e8/gpa.svg)](https://codeclimate.com/repos/547c8dd16956804e660ee4a3/feed)
 
-The first web application for eDemocracy OpenSource
+The first open source web application for eDemocracy
 
 Summary
 --------
-This innovative tool for participatory democracy put at the center, as the main actor, the citizen and finally allows them to be active in the decisions of their territory .
+This innovative tool for participatory democracy puts the citizens at the center, as the main actors, and finally allows them to be active in the decisions of their territory.
 
 Users can view their own territory and listen to the voices and messages that come directly from other citizens or groups present.
 
@@ -132,7 +132,7 @@ http://wiki.airesis.eu/doku.php?id=en:internationalization
 What else should I know? What are we working on right now?
 ------------------
 
-We are working hard trying to convert Airesis in a modular Engine.
+We are working hard trying to convert Airesis in a modular engine.
 
 We want to take out everything which is related to our installation and make it more easy to install.
 

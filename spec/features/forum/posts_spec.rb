@@ -119,6 +119,7 @@ describe 'posts', type: :feature, js: true do
         end
         text = Faker::Lorem.paragraph
         fill_in_ckeditor 'frm_post_text', with: text
+
         click_button 'Edit'
         expect(page).to have_content('Your post has been edited')
         expect(page).to have_content(text)

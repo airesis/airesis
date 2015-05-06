@@ -8,6 +8,7 @@
     <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>"/>
     <meta property="og:title" content="<%= @group.name %>"/>
     <meta property="og:type" content="airesis:group"/>
+    <meta name="description" content="<%= @page_descr %>">
     <meta property="og:image" content="<%= @group.image.exists? ? @group.image.url : asset_url('gruppo-anonimo.png')%>"/>
     <meta property="og:description" content="<%= @page_descr %>"/>
     <%= auto_discovery_link_tag(:atom, group_url(@group, format: 'atom')) %>
@@ -22,7 +23,7 @@
               <h2><%= t('pages.groups.archives.page_title', year: params[:year], month: t('date.month_names')[params[:month].to_i]) %></h2>
           <% else %>
               <div class="card"><%= raw (@group.description) %></div>
-          <% end %>
+          <% end %
           <div id="posts_container">
             <% if @group_posts.size == 0 %>
                 <div class="blogPost">
