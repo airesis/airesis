@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require "cancan/matchers"
 
-describe 'notifications for new authors available', type: :feature do
+describe 'notifications for new authors available', type: :feature, emails: true do
 
 
   it "sends correctly an email to authors of the proposal" do

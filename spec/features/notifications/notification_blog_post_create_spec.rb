@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require "cancan/matchers"
 
-describe 'notifications for new blog posts to participants in groups in which is published', type: :feature do
+describe 'notifications for new blog posts to participants in groups in which is published', type: :feature, emails: true do
 
   it "sends correctly an email to group participants" do
     user = create(:user)
