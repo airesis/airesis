@@ -23,7 +23,7 @@
               <h2><%= t('pages.groups.archives.page_title', year: params[:year], month: t('date.month_names')[params[:month].to_i]) %></h2>
           <% else %>
               <div class="card"><%= raw (@group.description) %></div>
-          <% end %
+          <% end %>
           <div id="posts_container">
             <% if @group_posts.size == 0 %>
                 <div class="blogPost">
