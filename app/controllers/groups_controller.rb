@@ -43,7 +43,9 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group_posts = @group.post_publishings.accessible_by(current_ability).order('post_publishings.featured desc, blog_posts.published_at DESC, blog_posts.created_at DESC')
+    @group_posts = @group.post_publishings.
+      accessible_by(current_ability).
+      order('post_publishings.featured desc, blog_posts.published_at DESC, blog_posts.created_at DESC')
 
     respond_to do |format|
       format.html {
@@ -80,6 +82,7 @@ class GroupsController < ApplicationController
         @page_title = t('pages.groups.archives.title', group: @group.name, year: params[:year], month: t('date.month_names')[params[:month].to_i])
         @group_participations = @group.participants
         @archives = @group.blog_posts.select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').group(' MONTH, YEAR ').order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
+        @last_topics = @group.topics.accessible_by(Ability.new(current_user)).includes(:views, :forum).order('frm_topics.created_at desc').limit(10)
         render 'show'
       }
       format.js {
