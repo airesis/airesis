@@ -103,18 +103,18 @@ class ApplicationController < ActionController::Base
     @domain_locale = request.host.split('.').last
     params[:l] = SysLocale.find_by(key: params[:l]) ? params[:l] : nil
     @locale =
-        if Rails.env.staging?
-          params[:l] || I18n.default_locale
-        elsif Rails.env.test?
-          params[:l] || I18n.default_locale
-        else
-          params[:l] || @domain_locale || I18n.default_locale
-        end
+      if Rails.env.staging?
+        params[:l] || I18n.default_locale
+      elsif Rails.env.test?
+        params[:l] || I18n.default_locale
+      else
+        params[:l] || @domain_locale || I18n.default_locale
+      end
     @locale = 'en' if ['en', 'eu'].include? @locale
     @locale = 'en-US' if ['us'].include? @locale
     @locale = 'zh' if ['cn'].include? @locale
     @locale = 'it-IT' if ['it', 'org', 'net'].include? @locale
-     I18n.locale = @locale
+    I18n.locale = @locale
   end
 
   def user_time_zone(&block)
@@ -139,7 +139,7 @@ class ApplicationController < ActionController::Base
         extra[:subject] = exception.subject.class.class_name.to_s rescue nil
       end
       Raven.capture_exception(exception, {
-                                           extra: extra
+                                         extra: extra
                                        })
     else
       message = "\n#{exception.class} (#{exception.message}):\n"
@@ -217,7 +217,7 @@ class ApplicationController < ActionController::Base
     a = today.year - birthdate.year
     a = a - 1 if (
     birthdate.month > today.month or
-        (birthdate.month >= today.month and birthdate.day > today.day)
+      (birthdate.month >= today.month and birthdate.day > today.day)
     )
     a
   end
@@ -263,8 +263,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  #response if you do not have permissions to do an action
-  def permissions_denied(exception=nil)
+  # response if you do not have permissions to do an action
+  def permissions_denied(exception = nil)
     respond_to do |format|
       format.js do #se era una chiamata ajax, mostra il messaggio
         if current_user
@@ -272,7 +272,6 @@ class ApplicationController < ActionController::Base
           flash.now[:error] = exception.message
           render 'layouts/error', status: :forbidden
         else
-
           render 'layouts/authenticate'
         end
       end
@@ -284,6 +283,10 @@ class ApplicationController < ActionController::Base
         else
           redirect_to new_user_session_path
         end
+      end
+      format.all do
+        log_error(exception)
+        render text: 'Permission denied', status: :forbidden
       end
     end
   end
@@ -298,13 +301,13 @@ class ApplicationController < ActionController::Base
 
   def skip_store_location?
     request.xhr? || !params[:controller] || !request.get? ||
-        (params[:controller].starts_with? "devise/") ||
-        (params[:controller] == "passwords") ||
-        (params[:controller] == "sessions") ||
-        (params[:controller] == "users/omniauth_callbacks") ||
-        (params[:controller] == "alerts" && params[:action] == "index") ||
-        (params[:controller] == "users" && (["join_accounts", "confirm_credentials"].include? params[:action])) ||
-        (params[:action] == 'feedback')
+      (params[:controller].starts_with? "devise/") ||
+      (params[:controller] == "passwords") ||
+      (params[:controller] == "sessions") ||
+      (params[:controller] == "users/omniauth_callbacks") ||
+      (params[:controller] == "alerts" && params[:action] == "index") ||
+      (params[:controller] == "users" && (["join_accounts", "confirm_credentials"].include? params[:action])) ||
+      (params[:action] == 'feedback')
   end
 
 
