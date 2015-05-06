@@ -11,8 +11,8 @@ class BlogsController < ApplicationController
     @page_title = t('pages.blogs.show.title')
     @blogs = Blog.look(params)
     respond_to do |format|
-      format.js
       format.html
+      format.js
     end
   end
 
@@ -20,8 +20,8 @@ class BlogsController < ApplicationController
     @page_title = @blog.title
     @blog_posts = @blog_posts.published.page(params[:page]).per(COMMENTS_PER_PAGE)
     respond_to do |format|
-      format.js
       format.html
+      format.js
       format.atom
       format.json
     end
@@ -32,8 +32,8 @@ class BlogsController < ApplicationController
     @blog_posts = @blog_posts.published.where("extract(year from created_at) = ? AND extract(month from created_at) = ? ", params[:year], params[:month]).order("created_at DESC").page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
-      format.js
       format.html
+      format.js
     end
   end
 

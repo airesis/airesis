@@ -21,14 +21,14 @@ class ParticipationRolesController < ApplicationController
     if @participation_role.save
       respond_to do |format|
         flash[:notice] = t('info.participation_roles.role_created')
-        format.js
         format.html { redirect_to group_participation_roles_path(@group) }
+        format.js
       end
     else
       respond_to do |format|
         flash[:error] = t('error.participation_roles.role_created')
-        format.js { render 'participation_roles/errors/create' }
         format.html { render 'new' }
+        format.js { render 'participation_roles/errors/create' }
       end
     end
   end
@@ -43,8 +43,8 @@ class ParticipationRolesController < ApplicationController
       @participation_roles = @group.participation_roles
       respond_to do |format|
         flash[:notice] = t('info.participation_roles.role_updated')
-        format.js
         format.html { redirect_to group_participation_roles_path(@group) }
+        format.js
       end
     else
       respond_to do |format|

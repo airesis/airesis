@@ -3,7 +3,7 @@ class ResqueMailer < ActionMailer::Base
   helper ProposalsHelper, EmailHelper, GroupsHelper
   default from: ENV['DEFAULT_FROM']
 
-  layout :choose_layout
+  layout 'newsletters/default'
 
   #specific templates for notification types
   TEMPLATES = {
@@ -24,17 +24,18 @@ class ResqueMailer < ActionMailer::Base
 
   def notification(alert_id)
     @alert = Alert.find(alert_id)
-    return if @alert.checked #do not send emails for already checked alerts
-    I18n.locale = @alert.user.locale.key || 'en'
+    @user = @alert.user
+    return if @alert.checked # do not send emails for already checked alerts
+    I18n.locale = @user.locale.key || 'en'
     @data = @alert.notification.data
     to_id = @data[:to_id]
     subject_id = @data[:subject]
     subject = @alert.email_subject
     template_name = TEMPLATES[@alert.notification.notification_type_id] || 'notification'
     if to_id
-      mail(to: "discussion+#{to_id}@airesis.it", bcc: @alert.user.email, subject: subject, template_name: template_name) #todo extract email
+      mail(to: "discussion+#{to_id}@airesis.it", bcc: @user.email, subject: subject, template_name: template_name) #todo extract email
     else
-      mail(to: @alert.user.email, from: ENV['NOREPLY_EMAIL'], subject: subject, template_name: template_name)
+      mail(to: @user.email, from: ENV['NOREPLY_EMAIL'], subject: subject, template_name: template_name)
     end
   end
 
@@ -58,17 +59,20 @@ class ResqueMailer < ActionMailer::Base
   def invite(group_invitation_email_id)
     @group_invitation_email = GroupInvitationEmail.find(group_invitation_email_id)
     @group_invitation = @group_invitation_email.group_invitation
-    I18n.locale = @group_invitation.inviter.locale.key
     @group = @group_invitation.group
-    @inviter = @group_invitation.inviter
+    @user = @group_invitation.inviter # sender
+    @unregistered = true
+
+    I18n.locale = @user.locale.key
     mail(to: @group_invitation_email.email, subject: t('mailer.invite.subject', group_name: @group.name))
   end
 
   def user_message(subject, body, from_id, to_id)
     @body = body
     @from = User.find(from_id)
-    @to = User.find(to_id)
-    mail(to: @to.email, from: ENV['NOREPLY_EMAIL'], reply_to: @from.email, subject: subject)
+    @user = User.find(to_id)
+    I18n.locale = @user.locale.key || 'en'
+    mail(to: @user.email, from: ENV['NOREPLY_EMAIL'], reply_to: @from.email, subject: subject)
   end
 
   def massive_email(from_id, to_ids, group_id, subject, body)
@@ -124,11 +128,5 @@ class ResqueMailer < ActionMailer::Base
     @group =Group.find(group_id)
     @user = @group.portavoce.first
     mail(to: @user.email, subject: "#{@group.name} non ha ancora dei partecipanti") if @user.email
-  end
-
-  protected
-
-  def choose_layout
-    (['invite', 'admin_message', 'feedback', 'test'].include? action_name) ? 'maktoub/unregistered_mailer' : (['notification'].include? action_name) ? 'maktoub/notification_mailer' : 'newsletters/default'
   end
 end

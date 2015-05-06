@@ -37,18 +37,15 @@ class GroupsController < ApplicationController
 
     @groups = Group.look(params)
     respond_to do |format|
-      format.js
       format.html
+      format.js
     end
   end
 
   def show
-    @group_posts = @group.post_publishings.accessible_by(current_ability).order('post_publishings.featured desc, blog_posts.published_at DESC')
+    @group_posts = @group.post_publishings.accessible_by(current_ability).order('post_publishings.featured desc, blog_posts.published_at DESC, blog_posts.created_at DESC')
 
     respond_to do |format|
-      format.js {
-        @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
-      }
       format.html {
         if request.url.split('?')[0] != group_url(@group).split('?')[0]
           redirect_to group_url(@group), status: :moved_permanently
@@ -57,7 +54,11 @@ class GroupsController < ApplicationController
         @page_title = @group.name
         @group_participations = @group.participants
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
-        @archives = @group.blog_posts.select(" COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ").group(" MONTH, YEAR ").order(" YEAR desc, extract(month from blog_posts.created_at) desc ")
+        @archives = @group.blog_posts.select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').group(' MONTH, YEAR ').order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
+        @last_topics = @group.topics.accessible_by(Ability.new(current_user)).includes(:views, :forum).order('frm_topics.created_at desc').limit(10)
+      }
+      format.js {
+        @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
       }
       format.atom
       format.json
@@ -68,20 +69,20 @@ class GroupsController < ApplicationController
   def by_year_and_month
     @group_posts = @group.post_publishings
                        .viewable_by(current_user)
-                       .where(" extract(year from blog_posts.created_at) = ? AND extract(month from blog_posts.created_at) = ? ", params[:year], params[:month])
+                       .where(' extract(year from blog_posts.created_at) = ? AND extract(month from blog_posts.created_at) = ? ', params[:year], params[:month])
                        .order('post_publishings.featured desc, published_at DESC')
                        .select('post_publishings.*, published_at')
                        .uniq
                        .page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
-      format.js {
-        render 'show'
-      }
       format.html {
         @page_title = t('pages.groups.archives.title', group: @group.name, year: params[:year], month: t('date.month_names')[params[:month].to_i])
         @group_participations = @group.participants
-        @archives = @group.blog_posts.select(" COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ").group(" MONTH, YEAR ").order(" YEAR desc, extract(month from blog_posts.created_at) desc ")
+        @archives = @group.blog_posts.select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').group(' MONTH, YEAR ').order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
+        render 'show'
+      }
+      format.js {
         render 'show'
       }
       format.json { render 'show' }
@@ -97,7 +98,7 @@ class GroupsController < ApplicationController
 
   def edit
     authorize! :update, @group
-    @page_title = t(" pages.groups.edit.title ")
+    @page_title = t('pages.groups.edit.title')
   end
 
 
@@ -111,8 +112,8 @@ class GroupsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.js { render 'layouts/active_record_error', locals: {object: @group} }
         format.html { render :new }
+        format.js { render 'layouts/active_record_error', locals: {object: @group} }
       end
     end
   end
@@ -123,7 +124,7 @@ class GroupsController < ApplicationController
       redirect_to edit_group_url @group
     else
       flash[:error] = t('error.groups.update')
-      render action: " edit "
+      render action: ' edit '
     end
   end
 
@@ -248,20 +249,18 @@ class GroupsController < ApplicationController
     if saved
       flash[:notice] = @group.request_by_portavoce? ? t('info.group_participations.status_accepted') : t('info.group_participations.status_voting')
       respond_to do |format|
+        format.html { redirect_to group_url(@group) }
         format.js
-        format.html {
-          redirect_to group_url(@group)
-        }
       end
     else
       flash[:error] = t('error.group_participations.error_saving')
       respond_to do |format|
-        format.js { render :update do |page|
-          page.replace_html " flash_messages ", partial: 'layouts/flash', locals: {flash: flash}
-        end
-        }
         format.html {
           redirect_to group_url(@group)
+        }
+        format.js { render :update do |page|
+          page.replace_html ' flash_messages ', partial: 'layouts/flash', locals: {flash: flash}
+        end
         }
       end
     end
@@ -273,12 +272,12 @@ class GroupsController < ApplicationController
     if !@request
       flash[:error] = t('error.group_participations.request_not_found')
       respond_to do |format|
-        format.js { render :update do |page|
-          page.replace_html " flash_messages ", partial: 'layouts/flash', locals: {flash: flash}
-        end
-        }
         format.html {
           redirect_to group_url(@group)
+        }
+        format.js { render :update do |page|
+          page.replace_html ' flash_messages ', partial: 'layouts/flash', locals: {flash: flash}
+        end
         }
       end
     else
@@ -291,12 +290,12 @@ class GroupsController < ApplicationController
       if !saved
         flash[:error] = t('error.group_participations.error_saving')
         respond_to do |format|
-          format.js { render :update do |page|
-            page.replace_html " flash_messages ", partial: 'layouts/flash', locals: {flash: flash}
-          end
-          }
           format.html {
             redirect_to group_url(@group)
+          }
+          format.js { render :update do |page|
+            page.replace_html ' flash_messages ', partial: 'layouts/flash', locals: {flash: flash}
+          end
           }
         end
       else
@@ -306,10 +305,10 @@ class GroupsController < ApplicationController
           flash[:notice] = t('info.group_participations.status_voting')
         end
         respond_to do |format|
-          format.js
           format.html {
             redirect_to group_url(@group)
           }
+          format.js
         end
       end
     end
@@ -393,7 +392,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       flash[:error] = t('error.groups.post_removed')
       format.js { render :update do |page|
-        page.replace_html " flash_messages ", partial: 'layouts/flash', locals: {flash: flash}
+        page.replace_html ' flash_messages ', partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -401,22 +400,15 @@ class GroupsController < ApplicationController
 
   def feature_post
     raise Exception unless (can? :remove_post, @group)
-    @publishing = @group.post_publishings.find_by({blog_post_id: params[:post_id]})
-    @publishing.update_attributes({featured: !@publishing.featured})
-    flash[:notice] = t('info.groups.post_featured')
-
-  rescue Exception => e
-    respond_to do |format|
-      flash[:error] = t('error.groups.post_featured')
-      format.js { render 'layouts/error' }
-    end
+    publishing = @group.post_publishings.find_by(blog_post_id: params[:post_id])
+    publishing.update(featured: !publishing.featured)
+    flash[:notice] = t("info.groups.post_featured.#{publishing.featured}")
   end
 
-  #retrieve the list of permission for the current user in the group
+  # retrieve the list of permission for the current user in the group
   def permissions_list
     @actions = @group.group_participations.find_by_user_id(current_user.id).participation_role.group_actions
   end
-
 
   protected
 
@@ -439,7 +431,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       @title = I18n.t('error.error_404.groups.title')
       @message = I18n.t('error.error_404.groups.description')
-      format.html { render " errors/404 ", status: 404, layout: true }
+      format.html { render 'errors/404', status: 404, layout: true }
     end
     true
   end

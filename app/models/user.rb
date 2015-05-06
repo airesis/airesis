@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
   has_many :viewed_topics, class_name: 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
   has_many :unread_topics, -> { where 'frm_views.updated_at < frm_topics.last_post_at' }, class_name: 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
   has_many :memberships, class_name: 'Frm::Membership', foreign_key: :member_id
-  has_many :frm_groups, through: :memberships, class_name: 'Frm::Group', source: :group
+  has_many :frm_mods, through: :memberships, class_name: 'Frm::Mod', source: :mod
 
   before_create :init
 

@@ -1,6 +1,9 @@
-#encoding: utf-8
 class BlogPost < ActiveRecord::Base
   include BlogKitModelHelper
+
+  PUBLISHED = 'P'
+  RESERVED = 'R'
+  DRAFT = 'D'
 
   has_paper_trail class_name: 'BlogPostVersion'
 
@@ -17,18 +20,18 @@ class BlogPost < ActiveRecord::Base
   validates_presence_of :title
   validates_presence_of :body
 
-  scope :published, -> { where(status: ['P', 'R']).order('published_at DESC') }
-  scope :drafts, -> { where(status: 'D').order('published_at DESC') }
-  scope :viewable_by, ->(user) { where("blog_posts.status = 'P' or (blog_posts.status = 'R' and group_participations.user_id = ?)", user.id).joins(groups: [:group_participations]) }
+  scope :published, -> { where(status: [PUBLISHED, RESERVED]).order('published_at DESC') }
+  scope :drafts, -> { where(status: DRAFT).order('published_at DESC') }
 
-  before_save :check_published, if: :not_resaving?
-  before_save :save_tags, if: :not_resaving?
+  scope :viewable_by, ->(user) {
+    where("blog_posts.status = ? or (blog_posts.status = ? and group_participations.user_id = ?)",
+          PUBLISHED, RESERVED, user.id).
+        joins(groups: [:group_participations]) }
+
+  before_save :check_published
+  before_save :save_tags
 
   after_commit :send_notifications, on: :create
-
-  PUBLISHED = 'P'
-  DRAFT = 'D'
-  RESERVED = 'R'
 
   def published?
     self.status == PUBLISHED
@@ -60,30 +63,30 @@ class BlogPost < ActiveRecord::Base
   end
 
   def save_tags
-    if @tags_list
-      # Remove old tags
-      #self.blog_post_tags.destroy_all
+    return unless @tags_list
 
-      # Save new tags
-      tids = []
-      @tags_list.split(/,/).each do |tag|
-        stripped = tag.strip.downcase.gsub('.', '')
-        t = Tag.find_or_create_by(text: stripped)
-        tids << t.id
-      end
-      self.tag_ids = tids
+    # Remove old tags
+    #self.blog_post_tags.destroy_all
+
+    # Save new tags
+    tids = []
+    @tags_list.split(/,/).each do |tag|
+      stripped = tag.strip.downcase.gsub('.', '')
+      t = Tag.find_or_create_by(text: stripped)
+      tids << t.id
     end
-  end
-
-  def not_resaving?
-    !@resaving
+    self.tag_ids = tids
   end
 
   def check_published
-    if self.status_change && ([['D', 'P'], ['D', 'R'], ['P', 'R']].include? self.status_change)
-      # Moved to published state, update published_on
-      self.published_at = Time.now
+    return if published_at.present?
+    if new_record?
+      return if draft?
+    else
+      return unless status_change.present?
+      return unless [[DRAFT, PUBLISHED], [DRAFT, RESERVED], [PUBLISHED, RESERVED]].include? status_change
     end
+    self.published_at = Time.now
   end
 
   def show_user?

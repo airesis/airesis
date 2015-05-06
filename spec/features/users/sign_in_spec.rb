@@ -18,7 +18,6 @@ describe "the authenticated user process", type: :feature, js: true do
     expect(page).to have_content(/#{I18n.t('pages.home.show.proposals_now_voting')}/i)
   end
 
-
   it "signs in one user, logout, sign in another" do
     visit '/home'
     expect(page).to have_content(/#{I18n.t('pages.home.show.your_proposals')}/i)

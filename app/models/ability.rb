@@ -36,6 +36,7 @@ class Ability
     can :read, Announcement, ["starts_at <= :now and ends_at >= :now", now: Time.zone.now] do |a|
       true
     end
+    can :hide, Announcement
 
     if user
       can :create, Proposal do |proposal|
@@ -180,7 +181,7 @@ class Ability
       end
 
       can :view_data, Group, private: false
-      can [:view_data, :permissions_list], Group, group_participations: {user: {id: user.id}}
+      can [:view_data, :permissions_list], Group, group_participations: {user_id: user.id}
 
       can [:read, :create, :update, :change_group_permission], ParticipationRole, group: is_admin_of_group(user)
       can :destroy, ParticipationRole do |participation_role|
@@ -314,16 +315,16 @@ class Ability
       can :create, MeetingParticipation, meeting: {event: {groups: participate_in_group(user)}}
       cannot :create, MeetingParticipation, meeting: {event: ['endtime < :limit', limit: Time.now]}
 
-      #forum permissions
+      # forum permissions
       can :read, Frm::Category, group: participate_in_group(user)
       can :read, Frm::Forum, group: participate_in_group(user)
       can :read, Frm::Topic, forum: {group: participate_in_group(user)}
 
-
-
       can :manage, Frm::Category, group: is_admin_of_group(user)
       can :manage, Frm::Forum, group: is_admin_of_group(user)
       can :manage, Frm::Topic, forum: {group: is_admin_of_group(user)}
+
+      can :manage, Frm::Mod, group: is_admin_of_group(user)
 
       can :create_topic, Frm::Forum, group: participate_in_group(user)
 
@@ -342,7 +343,7 @@ class Ability
       can :update, Frm::Post, user_id: user.id
       can :update, Frm::Post, group: is_admin_of_group(user)
       can :destroy, Frm::Post do |post|
-          post.owner_or_moderator? user
+        post.owner_or_moderator? user
       end
 
       # Always performed

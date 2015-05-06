@@ -95,7 +95,7 @@
                     create_event_inner_.remove();
                     create_event_.append('<%=j render "fragments/loading"%>');
                     $.ajax({
-                        url: '<%=new_event_path(group_id: (@group.id if @group), models: true)%>',
+                        url: '<%=j raw new_event_path(group_id: (@group.id if @group), models: true)%>',
                         data: 'event_type_id=' + type_id,
                         dataType: 'script'
                     })
@@ -184,16 +184,17 @@
                 <%if (@group ? (can? :create_event, @group) : is_admin?) %>
                 $.ajax({
                     data: 'starttime=' + date.getTime(),
-                    url: '<%=new_event_url(:group_id=> @group.try(:id), event_type_id: EventType::INCONTRO) %>'
+                    url: '<%=j raw new_event_url(group_id: @group.try(:id), event_type_id: EventType::INCONTRO) %>',
+                    dataType: 'script'
                 });
                 <%end%>
             }
-
         });
 
         <%if params[:new_event] == 'true' %>
         $.ajax({
-            url: '<%=new_event_url(:group_id=> @group.try(:id), event_type_id: params[:event_type_id]) %>'
+            url: '<%=j raw new_event_url(group_id: @group.try(:id), event_type_id: params[:event_type_id]) %>',
+            dataType: 'script'
         });
         <%end%>
     });

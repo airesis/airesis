@@ -1,5 +1,5 @@
 <h2><%= @page_title %></h2>
-<%= simple_form_for @frm_group, url: group_frm_admin_frm_groups_url(@group), remote: remote do |f| %>
+<%= simple_form_for @frm_mod, url: group_frm_admin_mods_url(@group), remote: remote do |f| %>
     <%= f.input :name %>
 
     <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>

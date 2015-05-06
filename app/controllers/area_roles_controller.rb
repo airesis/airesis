@@ -1,4 +1,3 @@
-#encoding: utf-8
 class AreaRolesController < ApplicationController
   layout :choose_layout
 
@@ -20,12 +19,12 @@ class AreaRolesController < ApplicationController
     respond_to do |format|
       if @area_role.save
         flash[:notice] = t('info.participation_roles.role_created')
-        format.js
         format.html { redirect_to [@group, @group_area] }
+        format.js
       else
         flash[:error] = t('error.participation_roles.role_created')
-        format.js { render 'layouts/active_record_error', locals: {object: @area_role} }
         format.html { render action: :new }
+        format.js { render 'layouts/active_record_error', locals: {object: @area_role} }
       end
     end
   end

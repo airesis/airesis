@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20150325225705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "action_abilitations", force: true do |t|
     t.integer  "group_action_id"
@@ -1516,24 +1517,6 @@ ActiveRecord::Schema.define(version: 20150325225705) do
   create_table "vote_types", force: true do |t|
     t.string "short"
   end
-
-  add_foreign_key "action_abilitations", "group_actions", name: "action_abilitations_group_action_id_fk"
-  add_foreign_key "action_abilitations", "groups", name: "action_abilitations_group_id_fk"
-  add_foreign_key "action_abilitations", "participation_roles", name: "action_abilitations_partecipation_role_id_fk"
-
-  add_foreign_key "alerts", "notifications", name: "user_alerts_notification_id_fk"
-  add_foreign_key "alerts", "users", name: "user_alerts_user_id_fk"
-
-  add_foreign_key "area_action_abilitations", "area_roles", name: "area_action_abilitations_area_role_id_fk"
-  add_foreign_key "area_action_abilitations", "group_actions", name: "area_action_abilitations_group_action_id_fk"
-  add_foreign_key "area_action_abilitations", "group_areas", name: "area_action_abilitations_group_area_id_fk"
-
-  add_foreign_key "area_participations", "area_roles", name: "area_partecipations_area_role_id_fk"
-  add_foreign_key "area_participations", "group_areas", name: "area_partecipations_group_area_id_fk"
-  add_foreign_key "area_participations", "users", name: "area_partecipations_user_id_fk"
-
-  add_foreign_key "area_proposals", "group_areas", name: "area_proposals_group_area_id_fk"
-  add_foreign_key "area_proposals", "proposals", name: "area_proposals_proposal_id_fk"
 
   add_foreign_key "area_roles", "group_areas", name: "area_roles_group_area_id_fk"
 
