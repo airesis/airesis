@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require "cancan/matchers"
 
-describe 'notifications when a proposal comment is updated', type: :feature do
+describe 'notifications when a proposal comment is updated', type: :feature, emails: true do
 
   it "sends correctly an email all people which ranked the comment" do
     user1 = create(:user)

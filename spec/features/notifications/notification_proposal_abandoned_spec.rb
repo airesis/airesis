@@ -18,9 +18,9 @@ describe 'notifications when a proposal is abandoned', type: :feature, emails: t
     proposal.users << user3
     participants = []
     5.times do
-      user = create(:user)
-      participants << user
-      create_participation(user, group)
+      userb = create(:user)
+      participants << userb
+      create_participation(userb, group)
     end
 
     create(:proposal_comment, proposal: proposal, user: participants[0])
