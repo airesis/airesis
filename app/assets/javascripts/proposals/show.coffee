@@ -223,6 +223,7 @@ window.ProposalsShow =
             view: if Airesis.signed_in then 1 else 3
           ,
           type: 'get',
+          dataType: 'script',
           complete: ->
             $(".loading", fetched).hide()
           ,

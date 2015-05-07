@@ -2,9 +2,8 @@ require 'spec_helper'
 require 'requests_helper'
 require "cancan/matchers"
 
-describe 'notifications when a new proposal is created', type: :feature, emails: true do
-
-  it "sends correctly an email to all people which can view proposals in the group" do
+describe Proposal, type: :model, emails: true do
+  it " when a new proposal is created sends correctly an email to all people which can view proposals in the group" do
     user1 = create(:user)
     group = create(:group, current_user_id: user1.id)
     participants = []
@@ -32,7 +31,7 @@ describe 'notifications when a new proposal is created', type: :feature, emails:
     expect(Alert.last(5).map{|a| a.notification_type.id}).to match_array Array.new(5,NotificationType::NEW_PROPOSALS)
   end
 
-  it "users do not receive notifications for public proposals by default" do
+  it " when a new proposal is created users do not receive notifications for public proposals by default" do
     user1 = create(:user)
     participants = []
     5.times do
@@ -47,7 +46,7 @@ describe 'notifications when a new proposal is created', type: :feature, emails:
     expect(Alert.count).to eq 0
   end
 
-  it "users can receive notifications for public proposals" do
+  it " when a new proposal is created users can receive notifications for public proposals" do
     user1 = create(:user)
     participants = []
     2.times do

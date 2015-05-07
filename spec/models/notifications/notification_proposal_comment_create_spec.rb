@@ -1,10 +1,10 @@
 require 'spec_helper'
 require 'requests_helper'
-require "cancan/matchers"
+require 'cancan/matchers'
 
-describe 'notifications when a proposal comment is created', type: :feature, js: true do
+describe ProposalComment, type: :model, emails: true do
 
-  it "sends correctly an email to authors and participants" do
+  it 'when a proposal comment is created sends correctly an email to authors and participants' do
     user1 = create(:user)
     group = create(:group, current_user_id: user1.id)
     proposal = create(:group_proposal, current_user_id: user1.id, group_proposals: [GroupProposal.new(group: group)])
@@ -34,10 +34,5 @@ describe 'notifications when a proposal comment is created', type: :feature, js:
 
     expect(Alert.count).to eq 3
     expect(Alert.first(3).map { |a| a.user }).to match_array [user1,participants[0],participants[1]]
-
-
-    login_as participants[0], as: :user
-    visit root_path
-    expect_notifications
   end
 end

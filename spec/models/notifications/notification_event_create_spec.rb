@@ -1,10 +1,10 @@
 require 'spec_helper'
 require 'requests_helper'
-require "cancan/matchers"
+require 'cancan/matchers'
 
-describe 'notifications for new events to participants in groups in which is published', type: :feature, emails: true do
+describe Event, type: :model, emails: true do
 
-  it "sends correctly an email to group participants" do
+  it 'sends correctly an email to group participants when is created' do
     user = create(:user)
     group = create(:group, current_user_id: user.id)
     group_users = []

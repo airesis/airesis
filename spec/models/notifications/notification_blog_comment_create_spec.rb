@@ -8,7 +8,7 @@ describe BlogComment, type: :model, emails: true do
   let!(:blog) {create(:blog, user: user)}
   let!(:blog_post) {create(:blog_post, blog: blog, user: user)}
 
-  it 'sends correctly an email to author of the blog' do
+  it 'for new blog comments sends correctly an email to author of the blog' do
     create(:blog_comment, blog_post: blog_post)
 
     expect(NotificationBlogCommentCreate.jobs.size).to eq 1

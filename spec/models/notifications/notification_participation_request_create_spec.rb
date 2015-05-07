@@ -1,10 +1,10 @@
 require 'spec_helper'
 require 'requests_helper'
-require "cancan/matchers"
+require 'cancan/matchers'
 
-describe 'notifications for new participation requests in the group are sent to whoever can accept them', type: :feature, emails: true do
+describe GroupParticipationRequest, type: :model, emails: true do
 
-  it "sends correctly the admin" do
+  it 'when a request arrives, sends correctly the admin' do
     user = create(:user)
     group = create(:group, current_user_id: user.id)
 
@@ -22,7 +22,7 @@ describe 'notifications for new participation requests in the group are sent to 
     expect(Alert.last.notification_type.id).to eq NotificationType::NEW_PARTICIPATION_REQUEST
   end
 
-  it "sends correctly the email to whoever has the permission to accept his request" do
+  it 'sends correctly the email to whoever has the permission to accept his request' do
     user = create(:user)
     group = create(:group, current_user_id: user.id)
 
@@ -53,7 +53,7 @@ describe 'notifications for new participation requests in the group are sent to 
   end
 
 
-  it "joins multiple requests" do
+  it 'joins multiple requests' do
     user = create(:user)
     group = create(:group, current_user_id: user.id)
 

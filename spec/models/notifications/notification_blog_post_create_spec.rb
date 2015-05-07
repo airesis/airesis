@@ -1,10 +1,10 @@
 require 'spec_helper'
 require 'requests_helper'
-require "cancan/matchers"
+require 'cancan/matchers'
 
-describe 'notifications for new blog posts to participants in groups in which is published', type: :feature, emails: true do
+describe PostPublishing, type: :model, emails: true do
 
-  it "sends correctly an email to group participants" do
+  it 'sends correctly an email to group participants when a post is published in a group' do
     user = create(:user)
     blog = create(:blog)
     group = create(:group, current_user_id: user.id)

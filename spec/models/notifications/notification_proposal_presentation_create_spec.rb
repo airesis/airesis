@@ -2,9 +2,9 @@ require 'spec_helper'
 require 'requests_helper'
 require "cancan/matchers"
 
-describe 'notifications for new authors for a proposal', type: :feature, emails: true do
+describe ProposalPresentation, type: :model, emails: true do
 
-  it "sends correctly an email to all participants to the proposal" do
+  it "when new authors for a proposal are available sends correctly an email to all participants to the proposal" do
     user1 = create(:user)
     proposal = create(:public_proposal, current_user_id: user1.id)
     participants = []

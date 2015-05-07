@@ -2,9 +2,9 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe 'notifications when a proposal is abandoned', type: :feature, emails: true do
+describe Proposal, type: :model, emails: true do
 
-  it 'sends correctly an email to authors and participants' do
+  it 'when is abandoned sends correctly an email to authors and participants' do
     user = create(:user)
     group = create(:group, current_user_id: user.id)
     @create = create(:group_proposal, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)])

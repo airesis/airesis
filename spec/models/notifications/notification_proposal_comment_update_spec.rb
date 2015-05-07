@@ -2,9 +2,9 @@ require 'spec_helper'
 require 'requests_helper'
 require "cancan/matchers"
 
-describe 'notifications when a proposal comment is updated', type: :feature, emails: true do
+describe ProposalComment, type: :model, emails: true do
 
-  it "sends correctly an email all people which ranked the comment" do
+  it "when a proposal comment is updated sends correctly an email all people which ranked the comment" do
     user1 = create(:user)
     group = create(:group, current_user_id: user1.id)
     proposal = create(:group_proposal, current_user_id: user1.id, group_proposals: [GroupProposal.new(group: group)])

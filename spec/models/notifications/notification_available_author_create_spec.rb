@@ -1,26 +1,10 @@
 require 'spec_helper'
 require 'requests_helper'
-require "cancan/matchers"
+require 'cancan/matchers'
 
-describe 'notifications for new authors available', type: :feature, emails: true do
+describe AvailableAuthor, type: :model, emails: true do
 
-
-  it "sends correctly an email to authors of the proposal" do
-    user = create(:user)
-    proposal = create(:public_proposal, current_user_id: user.id)
-    user2 = create(:user)
-    available_author = create(:available_author, proposal: proposal, user: user2)
-    expect(NotificationAvailableAuthorCreate.jobs.size).to eq 1
-    NotificationAvailableAuthorCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 1
-    Sidekiq::Extensions::DelayedMailer.drain
-    last_delivery = ActionMailer::Base.deliveries.last
-    expect(last_delivery.to[0]).to eq user.email
-    expect(Alert.last.user).to eq user
-    expect(Alert.last.notification_type.id).to eq NotificationType::AVAILABLE_AUTHOR
-  end
-
-  it "sends an email to all authors of the proposal" do
+  it 'when new authors available sends an email to all authors of the proposal' do
     user = create(:user)
     user2 = create(:user)
     user3 = create(:user)
