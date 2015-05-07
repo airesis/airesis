@@ -5,7 +5,17 @@ class ResqueMailer < ActionMailer::Base
 
   layout 'newsletters/default'
 
-  #specific templates for notification types
+  def url_options
+    options = {}
+    options.merge!(host: @user.locale.host, l: @user.locale.lang) if @user
+    options
+  end
+
+  # don't send emails to user without an email address
+  def mail(headers = {}, &block)
+    super if headers[:to].present?
+  end
+  # specific templates for notification types
   TEMPLATES = {
       NotificationType::NEW_CONTRIBUTES => 'new_contribute',
       NotificationType::NEW_CONTRIBUTES_MINE => 'new_contribute',
@@ -84,11 +94,7 @@ class ResqueMailer < ActionMailer::Base
     mail(bcc: @to.map { |u| u.email }, from: ENV['NOREPLY_EMAIL'], reply_to: @from.email, to: "test@airesis.it", subject: subject) #todo extract email
   end
 
-  def url_options
-    options = {}
-    options.merge!(host: @user.locale.host, l: @user.locale.lang) if @user
-    options
-  end
+
 
   def publish(newsletter_id, user_id)
     @user = User.find(user_id)
