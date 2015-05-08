@@ -255,7 +255,6 @@ $(function () {
         var button = $(this).nextAll('.search-by-text');
         if (field.val().length > 1) {
             button.removeAttr('disabled');
-            console.log('search ok');
             return true
         }
         else {

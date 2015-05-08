@@ -1,6 +1,5 @@
 window.QuorumsDates =
   init: ->
-    console.log $('[data-start-votation]')
     $('[data-start-votation]').on 'dblclick', ->
       QuorumsDates.changeStart()
 

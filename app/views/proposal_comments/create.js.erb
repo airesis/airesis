@@ -23,22 +23,18 @@
         $('.suggestion_right'+data_section_id +' .blogNewComment').html('<%=j render 'proposal_comments/right_comment'%>');
         var num_contributes = parseInt(contribute_button.attr('data-contributes_num'));
         contribute_button.attr('data-contributes_num',num_contributes+1);
-
         $('.contribute-button-num', contribute_button).text("(" + contribute_button.attr('data-unread_contributes_num') + "/" + contribute_button.attr('data-contributes_num') + ")");
         contribute_button.effect('highlight', {}, 3000);
-
     <%else%>
         $("#proposalCommentsContainer").prepend('<%=j render partial: 'proposals/comment', locals: {comment: @proposal_comment}%>');
         $("#proposalCommentsContainer").find('.no-contributes-yet').remove();
         $("#proposalNewComment").html('<%=j render 'proposal_comments/proposal_comment', {proposal_comment: @proposal.proposal_comments.new(section_id: @proposal_comment.section_id)}%>');
     <%end%>
-
     <%if params[:right] %>
         $('.suggestion_right'+data_section_id +' .blogNewComment').html('<%=j render 'proposal_comments/right_comment'%>');
     <%else %>
         $("#proposalNewComment").html('<%=j render 'proposal_comments/proposal_comment', {proposal_comment: @proposal.proposal_comments.new(section_id: @proposal_comment.section_id)}%>');
     <%end%>
-
     $('[data-collapsed]').show(600);
 
     ProposalsShow.init_text_areas();

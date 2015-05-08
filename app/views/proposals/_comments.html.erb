@@ -2,6 +2,8 @@
   <% if @proposal_comments.any? %>
       <%= render partial: 'proposals/comment', collection: @proposal_comments, as: :comment %>
   <% else %>
-      <div class="no-contributes-yet"><%= t('pages.proposals.show.no_contributes_yet') %></div>
+      <div class="no-contributes-yet panel callout">
+        <p><%= t('pages.proposals.show.no_contributes_yet') %></p>
+      </div>
   <% end %>
 </div>

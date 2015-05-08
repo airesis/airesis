@@ -29,7 +29,7 @@ window.ProposalsShow =
       ProposalsShow.report_contribute($(this).data('report-contribute'))
       return false
     $(document).on 'click', '[data-close-section-id]', ->
-      @close_right_contributes($('.contribute-button[data-section_id=' + $(this).data('close-section-id') + ']'))
+      ProposalsShow.close_right_contributes($('.contribute-button[data-section_id=' + $(this).data('close-section-id') + ']'))
       return false
     $(document).on 'click', '[data-close-edit-right-section]', ->
       hideContributes()
@@ -140,6 +140,7 @@ window.ProposalsShow =
         @currentPage++;
         $.ajax
           url: @contributesUrl,
+          dataType: 'script',
           data: {
             page: @currentPage,
             view: @currentView,

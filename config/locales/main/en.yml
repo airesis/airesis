@@ -477,7 +477,7 @@ en:
         read_contribute: "SHOW CONTRIBUTIONS"
         security_token: "Security Token"
         you_can_choose_vote_dates: "This proposal is waiting since %{count} days for a voting date, so you are now allowed to choose one."
-        no_contributes_yet: "No contributes yet"
+        no_contributes_yet: "No contributes here yet"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "Help"
