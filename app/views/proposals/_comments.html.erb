@@ -1,33 +1,9 @@
 <div class="blogComments" id="proposalComments">
   <% if @proposal_comments.any? %>
-      <% @proposal_comments.each do |comment| %>
-          <%= render partial: 'proposals/comment', locals: {comment: comment} %>
-      <% end %>
+      <%= render partial: 'proposals/comment', collection: @proposal_comments, as: :comment %>
   <% else %>
-      <div class="no-contributes-yet"><%= 'No contributes yet' %></div>
+      <div class="no-contributes-yet panel callout">
+        <p><%= t('pages.proposals.show.no_contributes_yet') %></p>
+      </div>
   <% end %>
 </div>
-
-<script type="text/javascript">
-
-
-    $(function () {
-        hide_vote_controls();
-
-
-        $('.proposalComment[data-collapsed=true]').show(600);
-
-        /*$('.deleteCommentLink').unbind('click');
-         $('.deleteCommentLink').bind('click',function(event) {
-         hiding(event,$(this).data('id'));
-         });*/
-
-        $('.deleteReplyLink').unbind('click');
-        $('.deleteReplyLink').bind('click', function (event) {
-            hideAndDeleteReply(event, $(this).data('id'));
-        });
-
-
-        initTextAreaTag();
-    });
-</script>

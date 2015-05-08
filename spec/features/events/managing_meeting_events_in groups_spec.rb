@@ -26,13 +26,12 @@ describe "manage correctly meeting events", type: :feature, js: true do
     fill_in I18n.t('activerecord.attributes.event.description'), with: description
     check I18n.t('activerecord.attributes.event.private')
     click_button I18n.t('buttons.next')
-    fill_in I18n.t('activerecord.attributes.event.starttime'), with: (I18n.l Time.now, format: :datepicker)
+    fill_in I18n.t('activerecord.attributes.event.starttime'), with: (I18n.l Time.now, format: :datetimepicker)
     page.execute_script("$('#event_starttime').fdatetimepicker('hide');")
-    fill_in I18n.t('activerecord.attributes.event.endtime'), with: (I18n.l Time.now + 1.day, format: :datepicker)
+    fill_in I18n.t('activerecord.attributes.event.endtime'), with: (I18n.l Time.now + 1.day, format: :datetimepicker)
     page.execute_script("$('#event_endtime').fdatetimepicker('hide');")
     click_button I18n.t('buttons.next')
-    #fill_in I18n.t('activerecord.attributes.event.meeting.place.comune_id'), with:
-    #use the id for the generated div
+    expect(page).to have_selector('#s2id_event_meeting_attributes_place_attributes_comune_id')
     select2("Bologna", xpath: "//div[@id='s2id_event_meeting_attributes_place_attributes_comune_id']")
     fill_in I18n.t('activerecord.attributes.event.meeting.place.address'), with: 'Via Rizzoli 2'
     #page.execute_script("codeAddress('luogo');") google does not work during tests

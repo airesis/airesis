@@ -22,15 +22,8 @@ module ProposalsHelper
     ret.html_safe
   end
 
-  #return a parsed paragraph
-  #deprecated use parsed_section
-  def parsed_paragraph(content)
-    sanitize(content).gsub(/<.{1,3}>/, '').blank? ?
-        "<p><span class=\"fake_content\">#{t('pages.proposals.show.generic_fake_content')}</span></p>".html_safe :
-        sanitize(content)
-  end
 
-  #return a parsed section
+  # return a parsed section
   def parsed_section(section)
     sanitize(section.paragraphs.first.content).gsub(/<.{1,3}>/, '').blank? ?
         "<p><span class=\"fake_content\">#{ section.question || t('pages.proposals.show.generic_fake_content')}</span></p>".html_safe :
@@ -45,7 +38,6 @@ module ProposalsHelper
           "<span class='cite nickname'>#{nick.nickname}</span>" :
           "<span class='cite nickname'>#{link_to nick.user.fullname, nick.user}</span>"
     end
-    scanned
     auto_link(scanned.gsub(/\n/, '<br/>'), html: {target: '_blank'}, sanitize: false) do |text|
       truncate(text, length: 15)
     end.html_safe
@@ -66,5 +58,14 @@ module ProposalsHelper
                 group_proposal_url(group, proposal) :
                 proposal_url(proposal, subdomain: false)),
             options
+  end
+
+  # return an array of nicknames for the proposal, in json format
+  def json_nicknames(proposal)
+    if proposal.is_anonima?
+      proposal.proposal_nicknames.collect(&:to_json).to_json.gsub('"', '\'')
+    else
+      '[]'
+    end.html_safe
   end
 end

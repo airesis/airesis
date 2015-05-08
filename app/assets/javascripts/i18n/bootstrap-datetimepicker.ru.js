@@ -1,5 +1,5 @@
 ;(function($){
-    $.fn.datetimepicker.dates['ru'] = {
+    $.fn.fdatetimepicker.dates['ru'] = {
         days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"],
         daysShort: ["Вск", "Пнд", "Втр", "Срд", "Чтв", "Птн", "Суб", "Вск"],
         daysMin: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
@@ -7,7 +7,9 @@
         monthsShort: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
         today: "Сегодня",
         suffix: [],
-        autoclose: true
+        autoclose: true,
+        format: "dd/mm/yyyy hh:ii",
+        formatDate: "dd/mm/yyyy"
     };
 
     $.fn.fdatetimepicker.defaults = $.fn.fdatetimepicker.dates['ru'];

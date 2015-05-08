@@ -65,8 +65,6 @@ class ProposalCommentsController < ApplicationController
       @total_pages = @proposal_comments.total_pages
       @current_page = @proposal_comments.current_page
     end
-
-
     respond_to do |format|
       format.html { @proposal_comments  = @proposal.contributes.listable}
       format.js

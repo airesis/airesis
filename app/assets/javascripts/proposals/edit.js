@@ -29,7 +29,6 @@ function integrate_contribute(el, id) {
                 });
             });
         })
-
     }
     $('#proposal_integrated_contributes_ids_list').val(integrated_contributes);
 }
@@ -162,14 +161,7 @@ $(function () {
     suggestion_right_
         .bind('mousewheel DOMMouseScroll', function (e) {
             if (matchMedia(Foundation.media_queries['medium']).matches) {
-                if (e.originalEvent) e = e.originalEvent;
-                var delta = e.wheelDelta || -e.detail;
-                this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
-                e.preventDefault();
-                if (((this.scrollTop + parseInt(this.style.height, 10)) > (this.scrollHeight - 100)) && checkActive) {
-                    checkActive = false;
-                    fetchContributes();
-                }
+                Airesis.scrolllock(suggestion_right_,e);
             }
         });
 

@@ -1,5 +1,5 @@
 <%if params[:reset]%>
-	contributes = [];
+	ProposalsShow.contributes = [];
 	$('#order_bar').html("<%= j(render(partial: 'order_bar'))%>");
 	$('#proposalCommentsContainer').html("<%= j(render(partial: 'proposals/comments'))%>");
 	$('#loading_contributes').hide();
@@ -7,16 +7,16 @@
 	$('#proposalCommentsContainer').append("<%= j(render(partial: 'proposals/comments'))%>");
 <%end%>
 
-contributes.push(<%= @proposal_comments.map{|p| p.id}.join(',') %>);
+ProposalsShow.contributes.push(<%= @proposal_comments.map{|p| p.id}.join(',') %>);
 
-firstCheck = false;
+ProposalsShow.firstCheck = false;
 <%if @total_pages > @current_page%>
   $('#loading_results').show();
-  if (!firstCheck) {
-    checkScroll();
-    firstCheck = true;
+  if (!ProposalsShow.firstCheck) {
+    ProposalsShow.checkScroll();
+    ProposalsShow.firstCheck = true;
   }
-  checkActive = true;
+  ProposalsShow.checkActive = true;
 <%else%>
   $('#loading_results').hide();
 <%end%>

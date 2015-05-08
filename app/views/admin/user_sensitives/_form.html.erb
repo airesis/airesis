@@ -1,55 +1,16 @@
 <div class="card">
-  <%= simple_form_for [:admin, @user_sensitive] do |f| %>
+  <%= simple_form_for [:admin, @user_sensitive], validate: true do |f| %>
       <%= f.error_notification %>
-
       <div class="inputs">
-        <%= f.input :user_id %>
+        <%= f.input :user_id, input_html: { data: {fetch_url: url_for(controller: 'admin', action: 'user_autocomplete')}} %>
         <%= f.input :name %>
         <%= f.input :surname %>
-        <%= f.input :birth_date, as: :string %>
+        <%= f.input :birth_date, as: :birthdate %>
         <%= f.input :tax_code %>
-        <%= f.file_field :document %>
+        <%= f.input :document %>
       </div>
-
-      <div class="actions">
-        <%= f.button :submit, class: 'btn blue' %>
-      </div>
+    <div class="actions">
+      <%= f.button :submit, class: 'btn blue' %>
+    </div>
   <% end %>
-</div>
-
-<script>
-    function format(state) {
-        if (!state.id) return state.text; // optgroup
-        return state.image_path + state.identifier;
-    }
-
-
-    $("#user_sensitive_user_id").select2({
-        containerCssClass: "user_auto",
-        ajax: {
-            url: "<%= url_for autocomplete_admin_users_path %>",
-            data: function (term, page) {
-                return {"term": term}
-            },
-            results: function (data, page) {
-                return {results: data};
-            }
-        },
-        formatResult: format,
-        formatSelection: format
-    }).on("change", function (e) {
-        var el = e.added;
-        $('#user_sensitive_name').val(el.name);
-        $('#user_sensitive_surname').val(el.surname);
-    });
-
-    $("#user_sensitive_birth_date").datepicker({
-        changeMonth: true,
-        changeYear: true,
-        defaultDate: "-18y",
-        yearRange: "-100:+0",
-        minDate: "-100y",
-        maxDate: "+0d"
-    });
-
-</script>
+</div>	

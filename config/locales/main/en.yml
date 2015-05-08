@@ -477,6 +477,7 @@ en:
         read_contribute: "SHOW CONTRIBUTIONS"
         security_token: "Security Token"
         you_can_choose_vote_dates: "This proposal is waiting since %{count} days for a voting date, so you are now allowed to choose one."
+        no_contributes_yet: "No contributes here yet"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "Help"
@@ -775,7 +776,7 @@ en:
         debate_end: "end of debate"
     home:
       index:
-        whatis: "WHAT IS AIRESIS"
+        whatis: "WHAT IS"
         partecipate: "GET INVOLVED"
         videos: "VIDEO GUIDES"
         whowe: "ABOUT US"
@@ -819,6 +820,9 @@ en:
         show_groups: "Show all groups"
         last_proposals: "Last public proposals"
         from_blogs: "Last posts from blogs"
+        features: "Features"
+        donations: "Donations"
+        volunteers: "Volunteers"
       show:
         your_proposals: "Proposals you participate in"
         proposals:
@@ -1199,6 +1203,8 @@ en:
     left_panel:
       promote_proposal: "Promote proposal"
       share_with_friends: "Share with friends"
+    show_proposal:
+      vote_here: "This proposal is in votation. Read the solution/s and %{link}."
   digit_tags: "Type the tags you want to add"
   buttons:
     cancel: "Cancel"
@@ -1225,6 +1231,7 @@ en:
     preview: "Preview"
     new_newsletter: "Create newsletter"
     unlock: "Unlock"
+    vote_here: "vote here"
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>Firstly they are shown the new contributions or the ones you haven't evaluated, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent"
@@ -1462,6 +1469,8 @@ en:
       accept: "Invite accepted! You are now a member of this group."
       reject: "Invitation rejected."
       anymore: "Invitation rejected. You will not receive other invites."
+    blog_comment:
+      destroyed: "The comment has been deleted"
   interest_borders:
     hint: "Type a few characters to search for a place"
     no_place_found: "No place found"
