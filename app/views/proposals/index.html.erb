@@ -64,6 +64,8 @@
     <%= render 'left_panel_index' %>
 <% end %>
 
-<script>
-    ProposalsIndex.timeFilter = '<%=j params[:time].to_json%>';
-</script>
+<% if params[:time] %>
+    <script>
+        ProposalsIndex.timeFilter = <%=raw params[:time].to_json %>;
+    </script>
+<% end %>

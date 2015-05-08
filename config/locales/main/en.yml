@@ -776,7 +776,7 @@ en:
         debate_end: "end of debate"
     home:
       index:
-        whatis: "WHAT IS AIRESIS"
+        whatis: "WHAT IS"
         partecipate: "GET INVOLVED"
         videos: "VIDEO GUIDES"
         whowe: "ABOUT US"
@@ -820,6 +820,9 @@ en:
         show_groups: "Show all groups"
         last_proposals: "Last public proposals"
         from_blogs: "Last posts from blogs"
+        features: "Features"
+        donations: "Donations"
+        volunteers: "Volunteers"
       show:
         your_proposals: "Proposals you participate in"
         proposals:

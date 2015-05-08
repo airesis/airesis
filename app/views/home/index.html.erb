@@ -117,17 +117,13 @@
     <a class="mobile-btn" href="#" title="Hide navigation">Hide Menu</a>
 
     <ul id="nav" class="nav">
-      <li><%= link_to 'What is', edemocracy_path %></li>
-      <li><a class="smoothscroll" href="#features">Features</a></li>
-      <li><%= link_to 'Donations', sostienici_path %></li>
-      <li><%= link_to 'Volunteers', chisiamo_path %></li>
-      <li><%= link_to 'Register', new_user_registration_path %></li>
+      <li><%= link_to t('pages.home.index.whatis'), edemocracy_path %></li>
+      <li><%=link_to t('pages.home.index.features'), '#features', class: 'smoothscroll'%></li>
+      <li><%= link_to t('pages.home.index.donations'), sostienici_path %></li>
+      <li><%= link_to t('pages.home.index.volunteers'), chisiamo_path %></li>
+      <li><%= link_to t('pages.home.index.register'), new_user_registration_path %></li>
     </ul>
-    <!-- end #nav -->
-
   </nav>
-  <!-- end #nav-wrap -->
-
 
   <ul class="header-social">
     <li><a href="https://www.facebook.com/airesisit"><i class="fa fa-facebook"></i></a></li>
@@ -136,8 +132,6 @@
   </ul>
 
 </header>
-<!-- Header End -->
-
 
 <!-- Homepage Hero
 ================================================== -->
