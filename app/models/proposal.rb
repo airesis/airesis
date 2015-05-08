@@ -585,6 +585,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def before_create_populate
+    return unless quorum
     group = group_proposals.first.try(:group)
 
     update_borders
