@@ -29,7 +29,6 @@ function integrate_contribute(el, id) {
                 });
             });
         })
-
     }
     $('#proposal_integrated_contributes_ids_list').val(integrated_contributes);
 }
