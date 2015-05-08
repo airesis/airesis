@@ -16,7 +16,8 @@ function checkScroll() {
         $.ajax({
             url: window.location,
             data: {page: currentPage},
-            type: 'get'
+            type: 'get',
+            dataType: 'script'
         });
     } else {
         timer = setTimeout(checkScroll, 250);
