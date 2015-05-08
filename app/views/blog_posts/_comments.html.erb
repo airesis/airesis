@@ -1,30 +1,3 @@
 <div class="blogComments" id="blogPostComments">
-	<% @blog_comments.each do |comment| %>
-		<%= render partial: 'blog_posts/comment', locals: {comment: comment} %>
-	<% end %>
+  <%= render partial: 'blog_posts/comment', collection: @blog_comments, as: :comment %>
 </div>
-
-<script type="text/javascript">
-	var retval = false;
-	var clicked;
-	function hiding(event,id) {
-		if (!retval) {
-			clicked = $('#delete'+id);
-			if (confirm('<%=t('pages.blog_posts.comment.confirm_delete')%>')) {
-				$('#comment'+id).hide(600,function() {
-					retval = true;
-					clicked.click();
-				});
-				event.stopPropagation();
-				return false;
-			}
-			event.stopPropagation();
-			return false;
-		}
-		else {
-			retval = false;
-			return true;
-		}
-		
-	}
-</script>

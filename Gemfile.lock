@@ -110,6 +110,8 @@ GEM
     better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     builder (3.1.4)
     bullet (4.9.0)
       activesupport
@@ -172,6 +174,7 @@ GEM
       addressable
     daemons (1.1.9)
     database_cleaner (1.3.0)
+    debug_inspector (0.0.2)
     devise (3.2.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -517,6 +520,7 @@ GEM
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     uniform_notifier (1.6.1)
+    uri-js-rails (1.14.1)
     warden (1.2.3)
       rack (>= 1.0)
     websocket (1.0.7)
@@ -537,6 +541,7 @@ DEPENDENCIES
   activerecord-session_store
   aws-sdk
   better_errors
+  binding_of_caller
   bullet
   cancancan (~> 1.9)
   capistrano (~> 3.2.0)
@@ -625,6 +630,7 @@ DEPENDENCIES
   turbolinks
   turnout
   uglifier (>= 1.3.0)
+  uri-js-rails
   vote-schulze!
   wicked_pdf
   workflow

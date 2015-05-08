@@ -14,6 +14,7 @@
 		meridiem: [],
 		weekStart: 1,
 		format: "dd/mm/yyyy hh:ii",
+		dateFormat: "dd/mm/yyyy",
         autoclose: true
 	};
 

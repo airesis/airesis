@@ -1,5 +1,5 @@
-<div id="comment<%= comment.id %>" class="blogComment card"
-     <% if (comment.collapsed) %>data-collapsed
+<div id="comment<%= comment.id %>" class="blogComment card" data-comment-id="<%= comment.id %>"
+     <% if comment.collapsed %>data-collapsed
      <% end %>>
   <div class="blog-comment-image">
     <%= comment.user_image_tag(20) %>

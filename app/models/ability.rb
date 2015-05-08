@@ -251,7 +251,7 @@ class Ability
       end
 
       can :destroy, GroupParticipation do |group_participation|
-        ((group_participation.participation_role_id != ParticipationRole::ADMINISTRATOR ||
+        ((group_participation.participation_role_id != ParticipationRole.admin.id ||
             group_participation.group.portavoce.count > 1) &&
             user == group_participation.user) ||
             ((group_participation.group.portavoce.include? user) && (group_participation.user != user))
@@ -418,12 +418,12 @@ class Ability
   end
 
   def is_admin_of_group(user)
-    {group_participations: {user_id: user.id, participation_role_id: ParticipationRole::ADMINISTRATOR}}
+    {group_participations: {user_id: user.id, participation_role_id: ParticipationRole.admin.id}}
   end
 
   def can_do_on_group?(user, group, action)
     group.group_participations
         .joins(:participation_role => :action_abilitations)
-        .where(["group_participations.user_id = :user_id and (participation_roles.id = #{ParticipationRole::ADMINISTRATOR} or action_abilitations.group_action_id = :action_id)", user_id: user.id, action_id: action]).uniq.exists?
+        .where(["group_participations.user_id = :user_id and (participation_roles.id = #{ParticipationRole.admin.id} or action_abilitations.group_action_id = :action_id)", user_id: user.id, action_id: action]).uniq.exists?
   end
 end

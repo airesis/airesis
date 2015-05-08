@@ -1,4 +1,63 @@
 $(function () {
+    Facebook.load();
+    if (Airesis.env === 'production') {
+        GoogleAnalytics.load();
+    }
+    if (Airesis.env === 'test') {
+        $.fx.off = true;
+    }
+
+    //polling alerts
+    if (Airesis.signed_in) {
+        PrivatePub.subscribe("/notifications/" + Airesis.id, function (data, channel) {
+            if (Airesis.resource_viewable) {    //if I am in a page with a viewable object, sign it has view and then poll for alerts
+                $.ajax({
+                    url: window.location,
+                    complete: poll_if_not_recent
+                });
+            }
+            else {  //otherwise, just poll for alerts
+                poll_if_not_recent();
+            }
+        });
+        poll();
+    }
+
+    //feedback configuration
+    var feedback_options =
+        Feedback({
+            h2cPath: Airesis.i18n.feedback.h2cPath,
+            url: '/send_feedback',
+            label: Airesis.i18n.feedback.label,
+            header: Airesis.i18n.feedback.header,
+            nextLabel: Airesis.i18n.feedback.nextLabel,
+            reviewLabel: Airesis.i18n.feedback.reviewLabel,
+            sendLabel: Airesis.i18n.feedback.sendLabel,
+            closeLabel: Airesis.i18n.feedback.closeLabel,
+            messageSuccess: Airesis.i18n.feedback.messageSuccess,
+            messageError: Airesis.i18n.feedback.messageError,
+            appendTo: $('footer .feedback_space')[0],
+            btnClass: "feedbackBtn",
+            pages: [
+                new window.Feedback.Form([
+                        {
+                            type: "textarea",
+                            name: "message",
+                            label: Airesis.i18n.feedback.describeProblem,
+                            required: true
+                        }
+                    ]
+                ),
+                new window.Feedback.Screenshot({
+                    h2cPath: Airesis.i18n.feedback.h2cPath,
+                    blackoutButtonMessage: Airesis.i18n.feedback.blackoutButtonMessage,
+                    highlightButtonMessage: Airesis.i18n.feedback.highlightButtonMessage,
+                    highlightOrBlackout: Airesis.i18n.feedback.highlightOrBlackout
+                }),
+                new window.Feedback.Review()
+            ]
+        });
+
 
     //remove attributes for introjs from aside hidden menu. so they can work correctly
     $('aside [data-ijs]').removeAttr('data-ijs');
@@ -89,8 +148,8 @@ $(function () {
                 text_.append('<a href="' + item.user_url + '">' + item.username + '</a>');
             }
             else if (item.type == 'Group') {
-                text_.append('<div class="groupDescription"><img src="/assets/group_participants.png"><span class="count">' + item.participants_num + '</span></div>');
-                text_.append('<div class="groupDescription"><img src="/assets/group_proposals.png"><span class="count">' + item.proposals_num + '</span></div>');
+                text_.append('<div class="groupDescription"><img src="' + Airesis.assets.group_participants + '"><span class="count">' + item.participants_num + '</span></div>');
+                text_.append('<div class="groupDescription"><img src="' + Airesis.assets.group_proposals + '"><span class="count">' + item.proposals_num + '</span></div>');
                 image_.append('<img src="' + item.image + '"/>');
             }
             else {
@@ -141,20 +200,16 @@ $(function () {
         }
     });
 
+    $('input[data-datetimepicker]').fdatetimepicker();
+    $('input[data-datepicker]').fdatetimepicker({
+        format: $.fn.fdatetimepicker.defaults.dateFormat
+    });
+
 
     $(document).on('click', '[data-reveal-close]', function () {
         $('.reveal-modal:visible').foundation('reveal', 'close');
     });
 
-    $(document).on('click', '[data-close-section-id]', function () {
-        close_right_contributes($('.contribute-button[data-section_id=' + $(this).data('close-section-id') + ']'));
-        return false;
-    });
-
-    $(document).on('click', '[data-close-edit-right-section]', function () {
-        hideContributes();
-        return false;
-    });
 
     $(document).on('click', '[data-login]', function () {
         "use strict";
@@ -197,12 +252,9 @@ $(function () {
 
 
     function checkCharacters(field) {
-        console.log('check',field);
-        console.log('check',field.val());
         var button = $(this).nextAll('.search-by-text');
         if (field.val().length > 1) {
             button.removeAttr('disabled');
-            console.log('search ok');
             return true
         }
         else {
@@ -213,7 +265,6 @@ $(function () {
 
     //proposals index, search by text field
     $('.search-by-text').on('click', function () {
-        console.log('check and go');
         var field = $(this).prevAll('.field-by-text');
         var condition = $(this).prevAll('.condition-for-text:checked');
         if (checkCharacters(field)) {
@@ -224,10 +275,33 @@ $(function () {
             else {
                 loc_ = addQueryParam(loc_, 'or', '');
             }
-            console.log(loc_);
             window.location = loc_;
         }
         return false;
     });
 
+    //initialize textntags when needed
+    $(document).on('focus', '[data-textntags]', function () {
+        if ($(this).data('textntags') != 1) {
+            $(this).textntags({
+                triggers: {'@': {uniqueTags: false}},
+                onDataRequest: function (mode, query, triggerChar, callback) {
+                    var data = ProposalsShow.nicknames;
+
+                    query = query.toLowerCase();
+                    var found = _.filter(data, function (item) {
+                        return item.name.toLowerCase().indexOf(query) > -1;
+                    });
+
+                    callback.call(this, found);
+                }
+            });
+            $(this).data('textntags', 1);
+            $(this).focus();
+        }
+    });
+
+    //executes page specific js
+    var page = $("body").data("page");
+    execute_page_js(page);
 });

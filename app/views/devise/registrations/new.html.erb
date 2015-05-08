@@ -38,7 +38,7 @@
 
       <%= f.label :accept_conditions do %>
           <div class="conditions">
-            <%=render 'devise/registrations/eula' %>
+            <%= render 'devise/registrations/eula' %>
           </div>
           <%= f.check_box :accept_conditions %>
           <%= t('pages.registration.accept_conditions') %>
@@ -46,7 +46,7 @@
 
       <%= f.label :accept_privacy do %>
           <div class="conditions">
-            <%=render 'devise/registrations/privacy' %>
+            <%= render 'devise/registrations/privacy' %>
           </div>
           <%= f.check_box :accept_privacy %>
           <%= t('pages.registration.accept_privacy') %>
@@ -63,32 +63,14 @@
   <% end %>
 </div>
 
-
-
 <div id="eula_modal" class="reveal-modal medium" data-reveal>
   <p>
     <%= render partial: 'devise/registrations/eula' %>
   </p>
 </div>
 
-
 <div id="privacy_modal" class="reveal-modal medium" data-reveal>
   <p>
     <%= render partial: 'devise/registrations/privacy' %>
   </p>
 </div>
-
-<script type="text/javascript">
-
-    //window.ClientSideValidations.remote_validators_prefix= null;
-
-    function openPrivacyModal() {
-        $("#privacy_modal").foundation('reveal', 'open');
-        return false;
-    }
-
-    function openModal() {
-        $("#eula_modal").foundation('reveal', 'open');
-        return false;
-    }
-</script>

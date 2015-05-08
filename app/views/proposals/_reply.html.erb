@@ -19,7 +19,9 @@
         <%= raw t('pages.proposals.show.comment_inserted_by', when: time_in_words(reply.created_at), who: who) %>
 
         <% if (can? :destroy, reply) && !hide %>
-            <%= link_to t('pages.proposals.show.replies.delete'), [@proposal, reply], method: :delete, data: {remote: true, confirm: t('pages.proposals.show.delete_suggestion_confirmation')}, class: "deleteReplyLink" %>
+            <%= link_to t('pages.proposals.show.replies.delete'), [@proposal, reply], method: :delete,
+                        data: {remote: true, confirm: t('pages.proposals.show.delete_suggestion_confirmation')},
+                        class: 'delete-reply-link' %>
         <% end %>
       </div>
     </div>

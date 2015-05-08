@@ -30,7 +30,7 @@ class Group < ActiveRecord::Base
 
   has_many :group_participations, class_name: 'GroupParticipation', dependent: :destroy
   has_many :participants, through: :group_participations, source: :user, class_name: 'User'
-  has_many :portavoce, -> { where(["group_participations.participation_role_id = ?", ParticipationRole::ADMINISTRATOR]) }, through: :group_participations, source: :user, class_name: 'User'
+  has_many :portavoce, -> { where(["group_participations.participation_role_id = ?", ParticipationRole.admin.id]) }, through: :group_participations, source: :user, class_name: 'User'
 
   has_many :followers, through: :group_follows, source: :user, class_name: 'User'
   has_many :blog_posts, through: :post_publishings, source: :blog_post
@@ -56,7 +56,7 @@ class Group < ActiveRecord::Base
   has_many :group_quorums, class_name: 'GroupQuorum', dependent: :destroy
   has_many :quorums, -> { order 'seq nulls last, quorums.id' }, through: :group_quorums, class_name: 'BestQuorum', source: :quorum
 
-  has_many :voters, -> { include(:participation_roles).where(["participation_roles.id = ?", 2]) }, through: :group_participations, source: :user, class_name: 'User'
+  has_many :voters, -> { include(:participation_roles).where(["participation_roles.id = ?", ParticipationRole.admin.id]) }, through: :group_participations, source: :user, class_name: 'User'
 
   has_many :group_areas, dependent: :destroy
 
@@ -147,7 +147,7 @@ class Group < ActiveRecord::Base
     #creator is also administrator
     participation_requests.build({user_id: current_user_id, group_participation_request_status_id: 3})
 
-    group_participations.build({user_id: current_user_id, participation_role_id: 2}) #portavoce
+    group_participations.build({user_id: current_user_id, participation_role: ParticipationRole.admin}) #portavoce
 
     BestQuorum.public.each do |quorum|
       copy = quorum.dup
@@ -183,7 +183,7 @@ class Group < ActiveRecord::Base
   end
 
   def destroy
-    self.update_attribute(:participation_role_id, 2) && super
+    self.update_attribute(:participation_role_id, ParticipationRole.admin.id) && super
   end
 
   # return true if the group is private and do not show anything to non-participants

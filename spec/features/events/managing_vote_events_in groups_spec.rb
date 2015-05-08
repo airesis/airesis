@@ -27,9 +27,9 @@ describe "manage correctly vote events", type: :feature, js: true do
 
     click_button I18n.t('buttons.next')
 
-    fill_in I18n.t('activerecord.attributes.event.starttime'), with: (I18n.l Time.now, format: :datepicker)
+    fill_in I18n.t('activerecord.attributes.event.starttime'), with: (I18n.l Time.now, format: :datetimepicker)
     page.execute_script("$('#event_starttime').fdatetimepicker('hide');")
-    fill_in I18n.t('activerecord.attributes.event.endtime'), with: (I18n.l Time.now + 1.day, format: :datepicker)
+    fill_in I18n.t('activerecord.attributes.event.endtime'), with: (I18n.l Time.now + 1.day, format: :datetimepicker)
     page.execute_script("$('#event_endtime').fdatetimepicker('hide');")
 
     click_button I18n.t('pages.events.new.submit')
