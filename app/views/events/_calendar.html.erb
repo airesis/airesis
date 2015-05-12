@@ -16,7 +16,6 @@
     </style>
 <% end %>
 
-
 <div class="calendar_container card">
   <div id='calendar'>
   </div>
@@ -28,7 +27,6 @@
 
 <div class="choose_event_type" style="display:none;">
   <h2 class="modal_title"><%= t('pages.events.index.choose_type') %></h2>
-
   <div style="max-width:540px;margin:auto;">
     <% EventType.active.each do |event_type| %>
         <div class="event_model_option" data-id="<%= event_type.id %>" style="background-color: <%= event_type.color %>">
@@ -45,7 +43,6 @@
 </div>
 
 <%= content_for :left_panel do %>
-
     <% if @group %>
         <div class="mybox">
           <% if can? :create_any_event, @group %>
@@ -120,11 +117,18 @@
             disableDragging: true,
             disableResizing: true,
             <%end%>
-
             header: {
                 left: 'today prev,next',
                 center: 'title',
-                right: 'agendaList,month,agendaWeek,agendaDay'
+                right: 'list,month,agendaWeek,agendaDay'
+            },
+            views: {
+                list: {
+                    type: 'ListView',
+                    duration: { days: 10 },
+                    buttonText: 'Liste',
+                    titleFormat: 'D MMMM YYYY'
+                }
             },
             defaultView: 'month',
             slotMinutes: 15,
@@ -134,8 +138,6 @@
             dayNames: <%=raw t('calendar.dayNames')%>,
             dayNamesShort: <%=raw t('calendar.dayNamesShort')%>,
             buttonText: {
-                prev: "<span class='fc-text-arrow'>&lsaquo;</span>",
-                next: "<span class='fc-text-arrow'>&rsaquo;</span>",
                 prevYear: "<span class='fc-text-arrow'>&laquo;</span>",
                 nextYear: "<span class='fc-text-arrow'>&raquo;</span>",
                 today: '<%=t('calendar.today')%>',
@@ -154,19 +156,14 @@
                 week: 'ddd M/d',
                 day: 'dddd M/d'
             },
-            titleFormat: {                                          //TODO:I18n
-                month: 'MMMM yyyy',
-                week: "MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}",
-                day: 'dddd, MMM d, yyyy'
-            },
             axisFormat: 'H:mm',
             dragOpacity: "0.5",
-            eventDrop: function (event, dayDelta, minuteDelta, allDay, revertFunc) {
-                moveEvent(event, dayDelta, minuteDelta, allDay);
+            eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {
+                moveEvent(event, delta, revertFunc, jsEvent, ui, view);
             },
 
-            eventResize: function (event, dayDelta, minuteDelta, revertFunc) {
-                resizeEvent(event, dayDelta, minuteDelta);
+            eventResize: function(event, delta, revertFunc, jsEvent, ui, view) {
+                resizeEvent(event, delta, revertFunc, jsEvent, ui, view);
             },
 
             eventClick: function (event, jsEvent, view) {
@@ -178,10 +175,10 @@
                     element.css('cursor', 'pointer');
                 }
             },
-            dayClick: function (date, allDay, jsEvent, view) {
+            dayClick: function (date, jsEvent, view) {
                 <%if (@group ? (can? :create_event, @group) : is_admin?) %>
                 $.ajax({
-                    data: 'starttime=' + date.getTime(),
+                    data: 'starttime=' + date.valueOf(),
                     url: '<%=j raw new_event_url(group_id: @group.try(:id), event_type_id: EventType::INCONTRO) %>',
                     dataType: 'script'
                 });

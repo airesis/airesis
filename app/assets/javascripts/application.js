@@ -12,6 +12,7 @@
 //= require jquery_ujs
 //= require jquery.tokeninput
 //= require democracy
+//= require moment.min
 //= require fullcalendar
 //= require gcal
 //= require events
