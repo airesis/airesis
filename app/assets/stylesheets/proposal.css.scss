@@ -289,6 +289,9 @@
     top: -3px;
     left: 0px;
     right: 10px;
+    &.voteright {
+      right: 70px;
+    }
   }
 
   .proposalDescription {

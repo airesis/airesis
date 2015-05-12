@@ -17,12 +17,12 @@ class ParticipationRole < ActiveRecord::Base
 
   validates_presence_of :name, :description
 
-  #prima di cancellare un ruolo assegna il ruolo di default a tutti coloro che avevano questo
+  # prima di cancellare un ruolo assegna il ruolo di default a tutti coloro che avevano questo
   before_destroy :change_participation_roles
 
-  #quando cancello un ruolo assegnato ad alcuni utenti, a tali utenti dagli il ruolo di default del gruppo
+  # quando cancello un ruolo assegnato ad alcuni utenti, a tali utenti dagli il ruolo di default del gruppo
   def change_participation_roles
-    self.group_participations.update_all(participation_role_id: self.group.participation_role_id) if (self.group)
+    group_participations.update_all(participation_role_id: group.participation_role_id) if group.present?
   end
 
   def self.admin

@@ -72,7 +72,7 @@
 
   <% elsif @proposal.voting? %>
       <% unless @proposal.is_petition? %>
-          <b><%= t('.vote_here', link: (link_to t('buttons.vote_here'), '#', data: {scroll_to: :vote_panel}))%></b>
+          <b><%=raw t('.vote_here', link: (link_to t('buttons.vote_here'), '#', data: {scroll_to: :vote_panel}))%></b>
       <% end %>
   <% elsif @proposal.abandoned? %>
       <%= render partial: 'proposals/abandoned_header' %>

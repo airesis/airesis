@@ -220,7 +220,7 @@ class Proposal < ActiveRecord::Base
 
 
   def count_notifications(user_id)
-    alerts = self.proposal_alerts.where(user_id: user_id).first
+    alerts = proposal_alerts.where(user_id: user_id).first
     alerts ? alerts.count : 0
   end
 

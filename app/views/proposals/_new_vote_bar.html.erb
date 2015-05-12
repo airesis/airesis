@@ -10,8 +10,6 @@
     <% unless proposal.voted? %>
         <div class="cur now" title="<%= l Time.now %>"></div>
     <% end %>
-
-
     <div class="good" data-percentage="<%= (proposal.user_votes.count.to_f/proposal.eligible_voters_count.to_f)*100 %>">
 
     </div>
