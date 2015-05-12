@@ -1340,7 +1340,7 @@ ul {
 
     .sec_title_c {
       overflow: hidden;
-      width: 155px;
+      width: calc(100% - 30px);
       white-space: nowrap;
       margin-left: -20px;
       padding-left: 20px;

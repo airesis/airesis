@@ -6,12 +6,13 @@
 var $viewport;
 
 function switchText(button) {
-    var other_ = button.data('other');
-    var text_ = button.text();
-    button.data('other', text_);
-    button.text(other_);
+    button.each(function () {
+        var other_ = $(this).data('other');
+        var text_ = $(this).text();
+        $(this).data('other', text_);
+        $(this).text(other_);
+    });
 }
-
 
 function scrollToElement(element) {
     $viewport.animate({
@@ -600,7 +601,7 @@ function poll() {
 
             $('.cont1')
                 .bind('mousewheel DOMMouseScroll', function (e) {
-                    Airesis.scrollLock(this,e);
+                    Airesis.scrollLock(this, e);
                 });
             disegnaCountdown();
 

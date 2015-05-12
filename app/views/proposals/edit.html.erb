@@ -2,9 +2,7 @@
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false&libraries=drawing">
     </script>
-    <%= javascript_include_tag 'proposals/edit' %>
 <% end %>
-
 
 <% @page_title = t('pages.proposals.edit.title', title: @proposal.title) %>
 <h1><%= @page_title %></h1>
@@ -24,12 +22,8 @@
                 <%= t('pages.proposals.edit.no_participants') %>
             <% end %>
           </p>
-
-
           <%= f.label :title %>
           <%= f.text_field :title %>
-
-
 
           <%= f.label :interest_borders_tkn %>
           <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json %>
@@ -377,7 +371,7 @@
             for (id in CKEDITOR.instances) {
                 var editor = CKEDITOR.instances[id];
                 var textarea_ = $('#' + id);
-                var clean = getCleanContent(id);
+                var clean = ProposalsEdit.getCleanContent(id);
                 var name_ = textarea_.attr('name').replace('_dirty', '').replace(/\[/g, '\\[').replace(/\]/g, '\\]');
                 var target = $('[name=' + name_ + ']');
                 target.val(clean);
@@ -389,7 +383,7 @@
         }
 
         $('.update2').attr('disabled', 'disabled');
-        safe_exit = true;
+        ProposalsEdit.safe_exit = true;
         return true;
     }
 
@@ -599,9 +593,9 @@
 <% content_for :left_panel do %>
     <div class="edit_proposal_panel">
       <div class="mybox">
-        <%= link_to t('buttons.update'), '#', onclick: "return updateProposal();", class: 'update2 btn blue' %>
-        <%= link_to t('buttons.update_and_continue'), '#', onclick: "return updateAndContinueProposal();", class: 'update3 btn blue' %>
-        <%= link_to t('pages.proposals.edit.hide_contributes'), '#', onclick: 'return hideContributes();', data: {other: t('pages.proposals.edit.show_contributes')}, class: 'contributes btn' %>
+        <%= link_to t('buttons.update'), '#', data: {update_and_exit_proposal: ''}, class: 'update2 btn blue' %>
+        <%= link_to t('buttons.update_and_continue'), '#', data: {update_proposal: ''}, class: 'update3 btn blue' %>
+        <%= link_to t('pages.proposals.edit.hide_contributes'), '#', data: {other: t('pages.proposals.edit.show_contributes'), close_edit_right_section: ''}, class: 'contributes btn' %>
         <%= link_to t('buttons.cancel'), @proposal.private ? group_proposal_url(@proposal.groups.first, @proposal) : proposal_url(@proposal, subdomain: false), class: 'btn' %>
       </div>
       <div class="mybox">

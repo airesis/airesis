@@ -18,7 +18,8 @@
       <div class="baloon_header">
 
         <div class="integrate_button panel callout">
-          <span class="integrate_label"><%= t('pages.proposals.edit.integrated') %></span><input type="checkbox" onclick="integrate_contribute(this,<%=comment.id%>);">
+          <span class="integrate_label"><%= t('pages.proposals.edit.integrated') %></span>
+          <input type="checkbox" data-integrate-contribute="<%=comment.id%>">
         </div>
       </div>
       <div class="baloon-content">

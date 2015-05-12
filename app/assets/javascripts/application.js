@@ -56,6 +56,7 @@
 //= require user_sensitives/new
 //= require proposals/index
 //= require proposals/show
+//= require proposals/edit
 //= require quorums/dates
 //= require users/alarm_preferences
 //= require facebook
