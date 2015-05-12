@@ -26,6 +26,6 @@ class ParticipationRole < ActiveRecord::Base
   end
 
   def self.admin
-    ParticipationRole.find_by(name: ADMINISTRATOR, group_id: nil)
+    @@admin ||= ParticipationRole.find_by(name: ADMINISTRATOR, group_id: nil)
   end
 end
