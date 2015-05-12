@@ -3,12 +3,12 @@ class ParticipationRole < ActiveRecord::Base
   ADMINISTRATOR='amministratore'
   #MEMBER=1
 
-  has_many :group_participations, class_name: 'GroupParticipation'
+  has_many :group_participations
   has_many :users, through: :group_participations, class_name: 'User'
-  has_many :action_abilitations, class_name: 'ActionAbilitation', dependent: :destroy
+  has_many :action_abilitations, dependent: :destroy
   has_many :group_actions, class_name: 'GroupAction', through: :action_abilitations
   belongs_to :participation_roles, class_name: 'ParticipationRole', foreign_key: :parent_participation_role_id
-  belongs_to :group, class_name: 'Group', foreign_key: :group_id
+  belongs_to :group
 
   #prendi il portavoce, member è deprecato
   scope :common, -> { where(id: ParticipationRole.admin.id) }
@@ -26,6 +26,6 @@ class ParticipationRole < ActiveRecord::Base
   end
 
   def self.admin
-    ParticipationRole.find_by(name: ADMINISTRATOR)
+    ParticipationRole.find_by(name: ADMINISTRATOR, group_id: nil)
   end
 end

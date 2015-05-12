@@ -122,12 +122,10 @@
                 center: 'title',
                 right: 'list,month,agendaWeek,agendaDay'
             },
+            eventLimit: true, // for all non-agenda views
             views: {
-                list: {
-                    type: 'ListView',
-                    duration: { days: 10 },
-                    buttonText: 'Liste',
-                    titleFormat: 'D MMMM YYYY'
+                month: {
+                    eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
                 }
             },
             defaultView: 'month',
@@ -146,11 +144,6 @@
                 day: '<%=t('calendar.day')%>'
             },
             events: '<%=@group ? group_events_url(@group) : events_url%>',
-            timeFormat: {
-                month: '<%=t('calendar.timeFormat')%>',
-                week: '',
-                agenda: ''
-            },
             columnFormat: {
                 month: 'ddd',
                 week: 'ddd M/d',
