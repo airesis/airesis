@@ -2901,3 +2901,9 @@ ul.social-network {
 h1 .label {
   font-size: $h1-font-size;
 }
+
+.calendar_container .fc-button {
+  @extend .btn;
+  border-radius: 0;
+  height: auto;
+}

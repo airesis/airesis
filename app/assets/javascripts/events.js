@@ -1,17 +1,21 @@
-
-
-function moveEvent(event, dayDelta, minuteDelta, allDay) {
+function moveEvent(event, delta, revertFunc, jsEvent, ui, view) {
     jQuery.ajax({
-        data: 'title=' + event.title + '&day_delta=' + dayDelta + '&minute_delta=' + minuteDelta + '&all_day=' + allDay,
+        data: {
+            day_delta: delta.days(),
+            minute_delta: delta.minutes()
+        },
         dataType: 'script',
         type: 'post',
         url: "/events/" + event.id + "/move"
     });
 }
 
-function resizeEvent(event, dayDelta, minuteDelta) {
+function resizeEvent(event, delta, revertFunc, jsEvent, ui, view) {
     jQuery.ajax({
-        data: 'title=' + event.title + '&day_delta=' + dayDelta + '&minute_delta=' + minuteDelta,
+        data: {
+            day_delta: delta.days(),
+            minute_delta: delta.minutes()
+        },
         dataType: 'script',
         type: 'post',
         url: "/events/" + event.id + "/resize"

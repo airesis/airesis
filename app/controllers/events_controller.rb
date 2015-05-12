@@ -21,7 +21,7 @@ class EventsController < ApplicationController
         render text: calendar.to_ical
       end
       format.json do
-        @events = @events.time_scoped(Time.at(params['start'].to_i), Time.at(params['end'].to_i))
+        @events = @events.time_scoped(Time.parse(params['start']), Time.parse(params['end']))
         events = []
         @events.each do |event|
           event_obj = event.to_fc
@@ -130,11 +130,12 @@ class EventsController < ApplicationController
 
   def move
     @event.move(params[:minute_delta].to_i, params[:day_delta].to_i, params[:all_day])
+    render nothing: true
   end
-
 
   def resize
     @event.resize(params[:minute_delta].to_i, params[:day_delta].to_i)
+    render nothing: true
   end
 
   def edit
