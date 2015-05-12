@@ -47,7 +47,7 @@ module ProposalsHelper
     if @group || !proposal.group
       proposal_category_image_tag(proposal)
     else
-      image_tag(proposal.group.image)
+      image_tag(proposal.group.image, title: proposal.group.name, data: {qtip: ''})
     end
   end
 

@@ -15,9 +15,9 @@
     </div>
     <div class="right_cont">
       <div style="position: relative">
-        <div class="maintitle">
+        <div class="maintitle <%= 'voteright' if can? :vote, proposal %>">
           <%= user_valutation_image(current_user, proposal) if current_user %>
-          <%= link_to_proposal(proposal, style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil)) %>
+          <%= link_to_proposal(proposal, style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: proposal.title) %>
 
         </div>
       </div>
