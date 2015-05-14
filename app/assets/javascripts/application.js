@@ -53,17 +53,9 @@
 //= require init
 //= require rails.validations
 //= require rails.validations.simple_form
-//= require user_sensitives/new
-//= require proposals/index
-//= require proposals/show
-//= require proposals/edit
-//= require quorums/dates
-//= require users/alarm_preferences
 //= require facebook
 //= require google_analytics
 //= require twitter
 //= require URI
 //= require jquery.URI
-
-ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible :input:enabled[data-validate]';
-$(function(){ $(document).foundation(); });
+//= require_tree ./per_page

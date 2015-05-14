@@ -16,7 +16,7 @@ function switchText(button) {
 
 function scrollToElement(element) {
     $viewport.animate({
-        scrollTop: element.offset().top - 160
+        scrollTop: element.offset().top - 80
     }, 2000);
 
     // Stop the animation if the user scrolls. Defaults on .stop() should be fine

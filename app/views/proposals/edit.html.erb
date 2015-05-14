@@ -131,7 +131,7 @@
 
     <% @proposal.solutions.includes({sections: :paragraphs}).order('sections.seq, sections.id').each_with_index do |solution, i| %>
         <%= f.fields_for :solutions, solution do |sol| %>
-            <div class="solution_main card" data-solution_id="<%= i %>">
+            <div class="solution_main card" data-solution_id="<%= i %>" data-compressed="false">
               <h3>
                 <div class="tit1 sol">
                   <div class="tit2">
@@ -229,46 +229,27 @@
     </div>
 <% end %>
 <script type="text/javascript">
+    ProposalsShow.voteStartsAt = '<%=l DEBATE_VOTE_DIFFERENCE.since(@proposal.quorum.ends_at), format: :textfield%>';
+    ProposalsShow.voteEndsAt = '<%=l (DEBATE_VOTE_DIFFERENCE + 2.days).since(@proposal.quorum.ends_at), format: :textfield%>';
+    ProposalsShow.tags = <%=raw @proposal.tags.map{|t| {id: t.text, name: t.text}}.to_json.to_s%>;
     $(function () {
-        var start_field = $('#proposal_vote_starts_at');
-        var end_field = $('#proposal_vote_ends_at');
-        start_field.fdatetimepicker($.fn.fdatetimepicker.dates['<%=I18n.locale%>'])
-                .on('hide', function (event) {
-                    var eventStartTime_ = event.date;
-                    end_field.fdatetimepicker("setStartDate", eventStartTime_);
-                    end_field.fdatetimepicker("setDate", addMinutes(eventStartTime_, 2880));
-                });
-        end_field.fdatetimepicker($.fn.fdatetimepicker.dates['<%=I18n.locale%>']);
-        start_field.fdatetimepicker("setStartDate", '<%=l (@proposal.quorum.ends_at + DEBATE_VOTE_DIFFERENCE), format: :textfield%>');
-        end_field.fdatetimepicker("setStartDate", '<%=l (@proposal.quorum.ends_at + DEBATE_VOTE_DIFFERENCE + 2.days), format: :textfield%>');
-
-        var input = $('#proposal_interest_borders_tkn');
-        input.tokenInput("/interest_borders.json", {
-            crossDomain: false,
-            prePopulate: input.data("pre"),
-            hintText: "<%=t('interest_borders.hint')%>",
-            noResultsText: "<%=t('interest_borders.no_place_found')%>",
-            searchingText: "<%=t('interest_borders.searching')%>",
-            preventDuplicates: true
-        });
 
 
         input = $('#proposal_tags_list');
         if (input != null) {
-            input.tokenInput("<%=tags_path(format: :json)%>", {
+            input.tokenInput("/tags.json", {
                 theme: "facebook",
                 crossDomain: false,
-                prePopulate: <%=raw @proposal.tags.map{|t| {id: t.text, name: t.text}}.to_json.to_s%>,
+                prePopulate: ProposalsShow.tags,
                 allowFreeTagging: true,
                 minChars: 3,
-                hintText: "<%=t('digit_tags')%>",
-                searchingText: "<%=t('digit_tags')%>",
+                hintText: Airesis.i18n.tags.hintText,
+                searchingText: Airesis.i18n.tags.searchingText,
                 preventDuplicates: true,
                 allowTabOut: true,
                 tokenValue: "name"
             })
         }
-
     });
 
     var currentPage = 0;
@@ -504,7 +485,7 @@
         //navigator update
         $('.navigator li[data-solution_id=new]').attr('data-solution_id', numSolution);
         var nav_ = $('.navigator li[data-solution_id=' + numSolution + ']');
-        nav_.find('span.sol_title').html(""); //TODO title in navigator
+        nav_.find('span.sol_title').html("&nbsp;"); //TODO title in navigator
         nav_.find('.sub_navigator li').each(function () {
             var sec_id = parseInt($(this).attr('data-section_id'));
             paragraph_.find('.section_container[data-section_id=' + sec_id + ']').attr('data-section_id', (numSolution + 1) * 100 + sec_id);
@@ -598,41 +579,6 @@
         <%= link_to t('pages.proposals.edit.hide_contributes'), '#', data: {other: t('pages.proposals.edit.show_contributes'), close_edit_right_section: ''}, class: 'contributes btn' %>
         <%= link_to t('buttons.cancel'), @proposal.private ? group_proposal_url(@proposal.groups.first, @proposal) : proposal_url(@proposal, subdomain: false), class: 'btn' %>
       </div>
-      <div class="mybox">
-        <h4>
-          <%= t('pages.proposals.edit.navigator') %>
-          <i class="fa fa-plus right" id="expandList" title="<%= t('.expand_all') %>"></i>
-          <i class="fa fa-minus right" style="margin-right: 5px;" id="collapseList" title="<%= t('.collapse_all') %>"></i>
-        </h4>
-
-
-        <div class="mycont">
-          <ul class="navigator">
-            <% @proposal.sections.each_with_index do |section, i| %>
-                <li class="sec_nav" data-section_id="<%= i %>">
-                  <span class="sec_title_c"><%= link_to section.title, '#', onclick: "return scrollToSection(this);", class: 'sec_title' %></span>
-                  <%= navigator_actions %>
-                </li>
-            <% end %>
-          </ul>
-          <ul class="navigator">
-            <% @proposal.solutions.each_with_index do |solution, i| %>
-                <li data-solution_id="<%= i %>" class="sol_nav">
-
-                  <span class="sol_title"><%= solution.title %></span>
-                  <%= navigator_actions classes: 'sol' %>
-                  <ul class="sub_navigator">
-                    <% solution.sections.each_with_index do |section, j| %>
-                        <li class="sol_sec_nav" data-section_id="<%= (i+1)*100+j %>">
-                          <div class="sec_title_c"><%= link_to section.title, '#', onclick: "return scrollToSection(this);", class: 'sec_title' %></div>
-                          <%= navigator_actions %>
-                        </li>
-                    <% end %>
-                  </ul>
-                </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
+      <%= render 'navigator' %>
     </div>
 <% end %>
