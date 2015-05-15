@@ -36,8 +36,10 @@ class Airesis.SolutionContainer
         seq_ = parseInt(seqel_.val())
         $(this).find('.title_placeholder .num').html seq_ - 1
       ProposalsEdit.fakeSolutionsCount--
-    return
-    ProposalsEdit.updateSolutionSequences()
+      return true
+      ProposalsEdit.updateSolutionSequences()
+    else
+      return false
   setSeq: (val)->
     @seqField.val(val)
     console.log @titleField.val() + " has sequence #{val}"

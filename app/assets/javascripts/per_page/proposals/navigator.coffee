@@ -45,7 +45,7 @@ class Airesis.ProposalNavigator
     ).on('click', '.sol.move_down', =>
       @.moveDownSolution(`$(this)`)
     ).on 'click', '.sol.remove', =>
-      @.removeSolution(`$(this)`)
+      @.removeSolution(`$(this)`.parent().data('solution_id'))
   # navigator methods
   collapsed_solution_navigators: ->
     @solution_navigators.filter('.collapsed')
@@ -90,11 +90,10 @@ class Airesis.ProposalNavigator
     @moveDownNavigatorElement(list_element)
     to_move = @getSolutionActionSubject(list_element)
     to_move.moveDown()
-  removeSolution: (solution)->
-    list_element = solution.parent()
-    to_remove = @getSolutionActionSubject(list_element)
-    if to_remove.remove()
-      list_element.remove()
+  removeSolution: (solutionId)->
+    toRemove = new Airesis.SolutionContainer(solutionId)
+    if toRemove.remove()
+      @solution_navigators.filter("[data-solution_id=#{solutionId}]").remove()
   addSectionNavigator: (i, title)->
     section_navigator = $(Mustache.to_html($('#section_navigator_template').html(),
       i: i

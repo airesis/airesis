@@ -72,9 +72,8 @@ window.ProposalsEdit =
 
     $(document).on 'click', '[data-remove-solution]', =>
       solutionId = `$(this)`.data('solution_id')
-      new Airesis.SolutionContainer(solutionId).remove()
-      @navigator.find('.sol_nav[data-solution_id=' + solutionId + ']').remove()
-
+      @navigator.removeSolution(solutionId)
+      return false
     #editors
     console.log 'containers', $(Airesis.SectionContainer.selector)
     $(Airesis.SectionContainer.selector).each ->
