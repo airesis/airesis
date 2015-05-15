@@ -1,3 +1,5 @@
+Mustache.template_path = './app/views/'
+
 module MustacheTemplateHandler
   def self.call(template)
     if template.locals.include? 'mustache'

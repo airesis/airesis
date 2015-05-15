@@ -91,6 +91,23 @@ module ProposalsHelper
                 persisted: true}}}
   end
 
+  def solution_for_mustache(solution, i)
+    title_interpolation = "pages.proposals.edit.new_solution_title.#{solution.proposal.proposal_type.name.downcase}"
+    placeholder_interpolation = "pages.proposals.edit.insert_title.#{solution.proposal.proposal_type.name.downcase}"
+    {mustache: {
+      solution: {id: i,
+                 seq: solution.seq,
+                 persisted: true,
+                 title_placeholder: t(placeholder_interpolation),
+                 solution_title: t(title_interpolation, num: i+1),
+                 title: solution.title,
+                 removeSolution: t('pages.proposals.edit.remove_solution'),
+                 addParagraph: t('pages.proposals.edit.add_paragraph_to_solution'),
+                 sections: solution.sections.map.with_index do |section, i|
+                   section_for_mustache(section, i)[:mustache]
+                 end}}}
+  end
+
   def solution_section_for_mustache(section, i, j)
     {mustache: {
       section: {id: j,
