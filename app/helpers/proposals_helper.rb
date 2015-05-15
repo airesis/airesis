@@ -79,6 +79,32 @@ module ProposalsHelper
     end
   end
 
+  def section_for_mustache(section, i)
+    {mustache: {
+      section: {id: i,
+                seq: section.seq,
+                removeSection: t('pages.proposals.edit.remove_section'),
+                title: section.title,
+                paragraphId: section.paragraph.id,
+                content: section.paragraph.content,
+                contentDirty: section.paragraph.content_dirty,
+                persisted: true}}}
+  end
+
+  def solution_section_for_mustache(section, i, j)
+    {mustache: {
+      section: {id: j,
+                data_id: (i + 1) * 100 + j,
+                seq: section.seq,
+                removeSection: t('pages.proposals.edit.remove_section'),
+                title: section.title,
+                paragraphId: section.paragraph.id,
+                content: section.paragraph.content,
+                contentDirty: section.paragraph.content_dirty,
+                persisted: true},
+      solution: {id: i}}}
+  end
+
   def proposal_tag(proposal, options={})
     ret = "<div class='proposal_tag'>"
     ret += link_to_proposal(proposal)

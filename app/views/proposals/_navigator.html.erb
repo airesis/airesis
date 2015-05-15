@@ -7,10 +7,7 @@
   <div class="mycont">
     <ul class="navigator">
       <% @proposal.sections.each_with_index do |section, i| %>
-          <li class="sec_nav" data-section_id="<%= i %>">
-            <span class="sec_title_c"><%= link_to section.title, '#', data: {scroll_to_section: ''}, class: 'sec_title' %></span>
-            <%= navigator_actions %>
-          </li>
+          <%= render 'section_navigator', mustache: {i: i, title: section.title} %>
       <% end %>
     </ul>
     <ul class="navigator">
@@ -20,10 +17,7 @@
             <%= navigator_actions classes: 'sol' %>
             <ul class="sub_navigator">
               <% solution.sections.each_with_index do |section, j| %>
-                  <li class="sol_sec_nav" data-section_id="<%= (i+1)*100+j %>">
-                    <div class="sec_title_c"><%= link_to section.title, '#', data: {scroll_to_section: ''}, class: 'sec_title' %></div>
-                    <%= navigator_actions %>
-                  </li>
+                  <%= render 'section_navigator', mustache: {i: (i + 1) * 100 + j, title: section.title, classes: 'sol'} %>
               <% end %>
             </ul>
           </li>

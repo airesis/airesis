@@ -3,7 +3,7 @@ class Airesis.ProposalNavigator
     @navigators = $('.navigator')
     @solution_navigators = @navigators.find('.sol_nav')
     @section_navigators = @navigators.find('.sec_nav')
-    @solution_section_navigators = @navigators.find('.sol_sec_nav')
+    @solution_section_navigators = @navigators.find('.sec_nav.sol')
     @move_up_selector = '.move_up'
     @move_down_selector = '.move_down'
     @remove_selector = '.remove'
@@ -23,13 +23,14 @@ class Airesis.ProposalNavigator
     $('[data-navigator-collapse]').click =>
       @toggleSolutionNavigators(false)
 
-    @section_navigators.on('click', @move_up_selector, =>
+    @navigators.on 'click', ".sec_nav #{@move_up_selector}", =>
       @.moveUpSection(`$(this)`)
-    ).on('click', @move_down_selector, =>
+
+    @navigators.on 'click', ".sec_nav #{@move_down_selector}", =>
       @.moveDownSection(`$(this)`)
-    ).on('click', @remove_selector, =>
+
+    @navigators.on 'click', ".sec_nav #{@remove_selector}",  =>
       @.removeSection(`$(this)`)
-    )
 
     @solution_section_navigators.on('click', @move_up_selector, =>
       @.moveUpSection(`$(this)`)
@@ -76,9 +77,9 @@ class Airesis.ProposalNavigator
     to_move.moveDown()
   removeSection: (section)->
     list_element = section.parent()
-    list_element.remove()
     to_remove = @getSectionActionSubject(list_element)
-    to_remove.remove()
+    if to_remove.remove()
+      list_element.remove()
   moveUpSolution: (solution)->
     list_element = solution.parent()
     @moveUpNavigatorElement(list_element)
@@ -91,6 +92,19 @@ class Airesis.ProposalNavigator
     to_move.moveDown()
   removeSolution: (solution)->
     list_element = solution.parent()
-    list_element.remove()
     to_remove = @getSolutionActionSubject(list_element)
-    to_remove.remove()
+    if to_remove.remove()
+      list_element.remove()
+  addSectionNavigator: (i, title)->
+    section_navigator = $(Mustache.to_html($('#section_navigator_template').html(),
+      i: i
+      title: title))
+    nav_ = $('.navigator .sec_nav:not(.sol)').last()
+    nav_.after section_navigator
+  addSolutionSectionNavigator: (solutionId, i, title)->
+    solution_section_navigator = $(Mustache.to_html($('#section_navigator_template').html(),
+      classes: 'sol',
+      i: i
+      title: title))
+    nav_ = $('.navigator li[data-solution_id=' + solutionId + ']');
+    nav_.find('.sub_navigator').append(solution_section_navigator);

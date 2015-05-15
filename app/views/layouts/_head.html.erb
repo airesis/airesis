@@ -15,6 +15,7 @@
 
 <script type="text/javascript">
     Airesis.id = <%=current_user ? current_user.id : -1 %>;
+    Airesis.fullName = '<%=j current_user ? current_user.fullname : ''%>';
     Airesis.signed_in = <%= signed_in? %>;
     Airesis.environment = '<%= Rails.env %>';
     Airesis.new_user_session_path = '<%=j new_user_session_path %>';
@@ -55,6 +56,15 @@
         tags: {
             hintText: '<%=j t('digit_tags')%>',
             searchingText: '<%=j t('digit_tags')%>'
+        },
+        proposals: {
+            edit: {
+                updateConfirm: '<%=j t('pages.proposals.edit.update_confirm')%>',
+                paragraph: '<%=j t('pages.proposals.edit.paragraph')%>',
+                removeSection: '<%=j t('pages.proposals.edit.remove_section') %>',
+                removeSectionConfirm: '<%=j t('pages.proposals.edit.confirm_paragraph_deletion')%>',
+                removeSolutionConfirm: '<%=j t('pages.proposals.edit.confirm_solution_deletion')%>'
+            }
         }
     };
 </script>

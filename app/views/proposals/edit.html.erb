@@ -99,81 +99,43 @@
 
     <div class="clearboth"></div>
 
-
     <div class="sections_column">
       <% @proposal.sections.includes(:paragraphs).each_with_index do |section, i| %>
           <%= f.fields_for :sections, section do |s| %>
-              <%= s.hidden_field :seq %>
-              <%= s.check_box '_destroy', style: 'display:none' %>
-              <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
-                  <div class="section_container" data-section_id="<%= i %>">
-                     <span class="remove_button">
-                      <a href="#" onclick="removeSection(this,<%=i%>,true);return false;"><%= t('pages.proposals.edit.remove_section') %></a>
-                    </span>
-
-                    <div class="clearboth"></div>
-                    <%= s.text_field :title, class: "edit_label" %>
-
-                    <%= p.cktext_area :content_dirty, rows: 5, style: "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
-                    <%= p.hidden_field :content %>
-                    <%= p.hidden_field :seq %>
-                  </div>
-              <% end %>
+              <%= render 'section', section_for_mustache(section, i) %>
           <% end %>
       <% end %>
     </div>
 
     <div class="new_section">
-      <a href="#" class="btn full-width" onclick="addSection(this);return false;"><%= t('pages.proposals.edit.add_paragraph') %></a>
+      <a href="#" class="btn full-width" data-add-section><%= t('pages.proposals.edit.add_paragraph') %></a>
     </div>
-
     <hr/>
-
     <% @proposal.solutions.includes({sections: :paragraphs}).order('sections.seq, sections.id').each_with_index do |solution, i| %>
         <%= f.fields_for :solutions, solution do |sol| %>
-            <div class="solution_main card" data-solution_id="<%= i %>" data-compressed="false">
+            <div class="solution_main card" data-solution_id="<%= i %>" data-compressed="false" data-persisted="true">
               <h3>
                 <div class="tit1 sol">
                   <div class="tit2">
                     <span class="title_placeholder"><%= raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}", num: i+1) %></span> <%= sol.text_field :title, placeholder: t("pages.proposals.edit.insert_title.#{@proposal.proposal_type.name.downcase}") %>
                   </div>
                   <span class="remove_sol_button">
-                    <a href="#" onclick="removeSolution(this,true);return false;" data-solution_id="<%= i %>"><%= t('pages.proposals.edit.remove_solution') %></a>
+                    <a href="#" data-remove-solution data-solution_id="<%= i %>"><%= t('pages.proposals.edit.remove_solution') %></a>
                   </span>
                 </div>
               </h3>
               <div class="sol_content">
                 <div class="solutions_column" data-solution_id="<%= i %>">
-
-
                   <%= sol.hidden_field :seq %>
-                  <%= sol.check_box '_destroy', style: 'display:none' %>
+                  <%= sol.check_box '_destroy', style: 'display:none', data: {solution_destroy: ''} %>
                   <% solution.sections.each_with_index do |section, j| %>
                       <%= sol.fields_for :sections, section do |s| %>
-                          <%= s.hidden_field :title %>
-                          <%= s.hidden_field :question %>
-                          <%= s.hidden_field :seq %>
-                          <%= s.check_box '_destroy', style: 'display:none' %>
-                          <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
-                              <div class="section_container" data-section_id="<%= (i+1)*100+j %>">
-
-                             <span class="remove_button">
-                              <a href="#" onclick="removeSolutionSection(this,true);return false;" data-section_id="<%= j %>" data-solution_id="<%= i %>"><%= t('pages.proposals.edit.remove_section') %></a>
-                            </span>
-
-                                <div class="clearboth"></div>
-                                <%= s.text_field :title, class: "edit_label" %>
-                                <%= p.cktext_area :content_dirty, rows: 5, style: "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
-                                <%= p.hidden_field :content %>
-
-                                <%= p.hidden_field :seq %>
-                              </div>
-                          <% end %>
+                          <%= render 'solution_section', solution_section_for_mustache(section, i, j) %>
                       <% end %>
                   <% end %>
                 </div>
                 <div class="new_section">
-                  <a href="#" class="btn full-width" onclick="addSolutionSection(this);return false;" data-solution_id="<%= i %>"><%= t('pages.proposals.edit.add_paragraph_to_solution') %></a>
+                  <a href="#" class="btn full-width" data-add-solution-section data-solution_id="<%= i %>"><%= t('pages.proposals.edit.add_paragraph_to_solution') %></a>
                 </div>
               </div>
             </div>
@@ -200,8 +162,8 @@
     <p>
       <%= f.hidden_field :integrated_contributes_ids_list %>
 
-      <%= f.submit t('buttons.update'), class: 'btn blue', onclick: 'return fillCleanFields();', data: {disable_with: t('updating'), type: "save"} %>
-      <%= f.submit t('buttons.update_and_continue'), class: 'btn blue', onclick: 'return fillCleanFields();', data: {disable_with: t('updating'), type: "continue"} %>
+      <%= f.submit t('buttons.update'), class: 'btn blue', data: {disable_with: t('updating'), type: 'save', clean_fields: true} %>
+      <%= f.submit t('buttons.update_and_continue'), class: 'btn blue', data: {disable_with: t('updating'), type: 'continue', clean_fields: true} %>
 
     </p>
 <% end %>
@@ -228,226 +190,33 @@
       </div>
     </div>
 <% end %>
+
+<script type="text/html" id="section_template">
+  <%= render "section" %>
+</script>
+
+<script type="text/html" id="solution_section_template">
+  <%= render "solution_section" %>
+</script>
+
+<script type="text/html" id="section_navigator_template">
+  <%= render "section_navigator" %>
+</script>
+
 <script type="text/javascript">
-    ProposalsShow.voteStartsAt = '<%=l DEBATE_VOTE_DIFFERENCE.since(@proposal.quorum.ends_at), format: :textfield%>';
-    ProposalsShow.voteEndsAt = '<%=l (DEBATE_VOTE_DIFFERENCE + 2.days).since(@proposal.quorum.ends_at), format: :textfield%>';
-    ProposalsShow.tags = <%=raw @proposal.tags.map{|t| {id: t.text, name: t.text}}.to_json.to_s%>;
-    $(function () {
-
-
-        input = $('#proposal_tags_list');
-        if (input != null) {
-            input.tokenInput("/tags.json", {
-                theme: "facebook",
-                crossDomain: false,
-                prePopulate: ProposalsShow.tags,
-                allowFreeTagging: true,
-                minChars: 3,
-                hintText: Airesis.i18n.tags.hintText,
-                searchingText: Airesis.i18n.tags.searchingText,
-                preventDuplicates: true,
-                allowTabOut: true,
-                tokenValue: "name"
-            })
-        }
-    });
-
-    var currentPage = 0;
-    var currentView = 3;
-    var contributes = [];
-    var checkActive = false;
-
-    function fetchContributes() {
-        currentPage++;
-        $.ajax({
-            url: '<%=edit_list_proposal_proposal_comments_url(@proposal) %>',
-            data: {
-                page: currentPage,
-                view: currentView,
-                contributes: contributes,
-                all: true
-            },
-            type: 'get',
-            dataType: 'script',
-            complete: function () {
-                $("#loading_contributes").hide();
-            }
-        });
-    }
-
-    function checkScroll() {
-        if (nearBottomOfPage() && checkActive) {
-            checkActive = false;
-            currentPage++;
-            $.ajax({
-                url: '<%=edit_list_proposal_proposal_comments_url(@proposal) %>',
-                data: {
-                    page: currentPage,
-                    view: currentView,
-                    contributes: contributes,
-                    all: true
-                },
-                type: 'get',
-                dataType: 'script'
-            });
-        } else {
-            setTimeout("checkScroll()", 250);
-        }
-    }
-
-
-    var ckedstoogle_ = {};
-
-
-    function addEditorEvents(editor_) {
-        editor_.on('lite:init', function (event) {
-            ckedstoogle_[event.editor.name]['first'] = false;
-            var lite = event.data.lite;
-            ckedstoogle_[event.editor.name]['editor'] = lite;
-            lite.toggleShow(ckedstoogle_[event.editor.name]['state']);
-            lite.setUserInfo({id: <%=current_user.id%>, name: '<%=j current_user.fullname%>'});
-        });
-        editor_.on('lite:showHide', function (event) {
-            if (!ckedstoogle_[event.editor.name]['first']) {
-                ckedstoogle_[event.editor.name]['state'] = event.data.show;
-            }
-        });
-    }
-
-    function addEditor(id) {
-        var editor_ = CKEDITOR.replace(id, {
-            "toolbar": "proposal",
-            "language": "<%=I18n.locale%>",
-            "customConfig": 'config_lite.js'
-        });
-        ckedstoogle_[id] = {first: true};
-        addEditorEvents(editor_);
-    }
-
-    function readableName(name) {
-        return $('#' + name).parent().find('.edit_label').val();
-    }
-
-
-    $(function () {
-        for (name in CKEDITOR.instances) {
-            ckedstoogle_[name] = {first: true};
-            var editor = CKEDITOR.instances[name];
-            addEditorEvents(editor);
-        }
-    });
-
-    //fills all clean fields with correct data
-    function fillCleanFields() {
-        var integrated_ = $('#proposal_integrated_contributes_ids_list').val();
-        <%if @proposal.contributes.count > 0%>
-        if (integrated_ == "") {
-            if (!confirm('<%=t('pages.proposals.edit.update_confirm')%>')) {
-                return false;
-            }
-        }
-        <%end%>
-        try {
-            var id;
-            for (id in CKEDITOR.instances) {
-                var editor = CKEDITOR.instances[id];
-                var textarea_ = $('#' + id);
-                var clean = ProposalsEdit.getCleanContent(id);
-                var name_ = textarea_.attr('name').replace('_dirty', '').replace(/\[/g, '\\[').replace(/\]/g, '\\]');
-                var target = $('[name=' + name_ + ']');
-                target.val(clean);
-            }
-        } catch (err) {
-            console.error(err);
-            console.error('error in parsing ' + name);
-            return false;
-        }
-
-        $('.update2').attr('disabled', 'disabled');
-        ProposalsEdit.safe_exit = true;
-        return true;
-    }
-
-    var numSolution = <%=@proposal.solutions.count%>;       //this is used for ids
-    var fakeNumSolution = <%=@proposal.solutions.count%>;   //this is used to show user the number and for sequences
-    var numSections = <%=@proposal.sections.count%>;
-
-
-    function addSection(el) {
-        var sectionname = 'proposal[sections_attributes][' + numSections + ']';
-        var sectionid = sectionname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
-        var paragraphname = sectionname + '[paragraphs_attributes][0]';
-        var paragraph_ = $('<div class="section_container" style="display:none;" data-section_id="' + numSections + '"></div>');
-        var paragraphid = paragraphname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
-        paragraph_.append('<span class="remove_button"><a href="#" onclick="removeSection(this,' + numSections + ',false);return false;"><%=j t('pages.proposals.edit.remove_section') %></a></span>');
-        paragraph_.append('<div class="clearboth"></div>');
-        paragraph_.append('<input type="text" class="edit_label" value="<%=j t('pages.proposals.edit.paragraph')%> ' + (numSections + 1) + '" name=\'' + sectionname + '[title]\'></input>');
-        var textarea_ = $('<textarea cols=\'40\' rows=\'5\' style=\'width:98%; height: 280px;\' id=\'' + paragraphid + '_content_dirty\' name=\'' + paragraphname + '[content_dirty]\' ></textarea>');
-        textarea_.val('<p></p>');
-        paragraph_.append(textarea_);
-        paragraph_.append('<input type=\'hidden\' name=\'' + paragraphname + '[content]\'></input>');
-        var seq_ = $('<input type=\'hidden\' name=\'' + sectionname + '][seq]\' id=\'' + sectionid + '_seq\'></input>');
-        seq_.val(numSections);
-        paragraph_.append(seq_);
-        paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + paragraphname + '[seq]\'></input>');
-        $('.sections_column').append(paragraph_);
-        paragraph_.fadeIn();
-
-        addEditor(textarea_.attr('id'));
-
-
-        //navigator update
-        var nav_ = $('.navigator .sec_nav').last();
-        var sec_nav = $('<li data-section_id="' + numSections + '"class="sec_nav"><span class="sec_title_c"><a href="#" onclick="return scrollToSection(this);" class="sec_title"><%=j t('pages.proposals.edit.paragraph')%> ' + (numSections + 1) + '</a></span><%=j navigator_actions%></li>');
-        nav_.after(sec_nav);
-
-        numSections += 1;
-    }
-
-    <%unless @proposal.is_petition? %>
-
+    ProposalsEdit.voteStartsAt = '<%=l DEBATE_VOTE_DIFFERENCE.since(@proposal.quorum.ends_at), format: :textfield%>';
+    ProposalsEdit.voteEndsAt = '<%=l (DEBATE_VOTE_DIFFERENCE + 2.days).since(@proposal.quorum.ends_at), format: :textfield%>';
+    ProposalsEdit.tags = <%=raw @proposal.tags.map{|t| {id: t.text, name: t.text}}.to_json.to_s%>;
+    ProposalsEdit.contributesUrl = '<%=edit_list_proposal_proposal_comments_url(@proposal)%>';
+    ProposalsEdit.contributesCount = <%=@proposal.contributes.listable.count%>;
+    ProposalsEdit.solutionsCount = <%=@proposal.solutions.count%>;
+    ProposalsEdit.fakeSolutionsCount = ProposalsEdit.solutionsCount;
+    ProposalsEdit.sectionsCount = <%=@proposal.sections.count%>;
+    ProposalsEdit.numSolutionSections = {};
     //register the number of current sections for each solution
-    var numSolutionSections = {};
-
     <%@proposal.solutions.each_with_index do |sol,i|%>
-    numSolutionSections[<%=i%>] = <%=sol.sections.count%>;
+    ProposalsEdit.numSolutionSections[<%=i%>] = <%=sol.sections.count%>;
     <%end%>
-
-
-    function addSolutionSection(el) {
-        var solutionid = $(el).attr('data-solution_id');
-        var sectionname = 'proposal[solutions_attributes][' + solutionid + '][sections_attributes][' + numSolutionSections[solutionid] + ']';
-        var sectionid = sectionname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
-        var paragraphname = sectionname + '[paragraphs_attributes][0]';
-        var section_num = ((parseInt(solutionid) + 1) * 100) + numSolutionSections[solutionid];
-        var paragraph_ = $('<div class="section_container" style="display:none;" data-section_id="' + section_num + '"></div>');
-        var paragraphid = paragraphname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
-        paragraph_.append('<span class="remove_button"><a href="#" onclick="removeSolutionSection(this,false);return false;"><%=j t('pages.proposals.edit.remove_section') %></a></span>');
-        paragraph_.append('<div class="clearboth"></div>');
-        paragraph_.append('<input type="text" class="edit_label" value="<%=j t('pages.proposals.edit.paragraph')%> ' + (numSolutionSections[solutionid] + 1) + '" name=\'' + sectionname + '[title]\'></input>');
-        var textarea_ = $('<textarea cols=\'40\' rows=\'5\' style=\'width:98%; height: 280px;\' id=\'' + paragraphid + '_content_dirty\' name=\'' + paragraphname + '[content_dirty]\' ></textarea>');
-        textarea_.val('<p></p>');
-        paragraph_.append(textarea_);
-        paragraph_.append('<input type=\'hidden\' name=\'' + paragraphname + '[content]\'></input>');
-        var seq_ = $('<input type=\'hidden\' name=\'' + sectionname + '][seq]\' id=\'' + sectionid + '_seq\'></input>');
-        seq_.val(numSolutionSections[solutionid]);
-        paragraph_.append(seq_);
-        paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + paragraphname + '[seq]\'></input>');
-        $('.solutions_column[data-solution_id=' + solutionid + ']').append(paragraph_);
-        $('.solution_main[data-solution_id=' + solutionid + ']').css('height', '');
-        paragraph_.fadeIn();
-
-        addEditor(textarea_.attr('id'));
-
-        //navigator update
-        var nav_ = $('.navigator li[data-solution_id=' + solutionid + ']');
-
-        var sec_nav = $('<li data-section_id="' + section_num + '"><a href="#" onclick="return scrollToSection(this);" class="sec_title"><%=j t('pages.proposals.edit.paragraph')%> ' + (numSolutionSections[solutionid] + 1) + '</a></li>');
-        nav_.find('.sub_navigator').append(sec_nav);
-
-        numSolutionSections[solutionid] += 1;
-    }
-
 
     function addSolution(el) {
         var paragraph_ = $("<%=j render "proposal_types/solution"%>");
@@ -458,117 +227,40 @@
             console.error('errors occured adding a new solution');
         }
         paragraph_.fadeIn();
-        numSolution++;
-        fakeNumSolution++;
-        paragraph_.find(".title_placeholder .num").html(fakeNumSolution);
-        paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[seq\]']").val(fakeNumSolution);
-        paragraph_.find(".add_section").attr('data-solution_id', numSolution);
-        paragraph_.find(".solutions_column").attr('data-solution_id', numSolution);
-        paragraph_.attr('data-solution_id', numSolution);
+        ProposalsEdit.solutionsCount++;
+        ProposalsEdit.fakeSolutionsCount++;
+        paragraph_.find(".title_placeholder .num").html(ProposalsEdit.fakeSolutionsCount);
+        paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[seq\]']").val(ProposalsEdit.fakeSolutionsCount);
+        paragraph_.find(".add_section").attr('data-solution_id', ProposalsEdit.solutionsCount);
+        paragraph_.find(".solutions_column").attr('data-solution_id', ProposalsEdit.solutionsCount);
+        paragraph_.attr('data-solution_id', ProposalsEdit.solutionsCount);
         paragraph_.find("textarea[name^='proposals\[solutions_attributes\]\[0\]']").each(function () {
             var id_ = $(this).attr('id');
-            $(this).attr('id', id_.replace('proposals_solutions_attributes_0', 'proposals_solutions_attributes_' + numSolution));
+            $(this).attr('id', id_.replace('proposals_solutions_attributes_0', 'proposals_solutions_attributes_' + ProposalsEdit.solutionsCount));
         });
         paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]']").each(function () {
             var name_ = $(this).attr('name');
-            $(this).attr('name', name_.replace('proposals[solutions_attributes][0]', 'proposal[solutions_attributes][' + numSolution + ']'));
+            $(this).attr('name', name_.replace('proposals[solutions_attributes][0]', 'proposal[solutions_attributes][' + ProposalsEdit.solutionsCount + ']'));
         });
 
         paragraph_.find('textarea.tinymce').each(function () {
-            addEditor($(this).attr('id'));
+            ProposalsEdit.addEditor($(this).attr('id'));
         });
 
-        paragraph_.find('.remove_section').attr('data-solution_id', numSolution);
+        paragraph_.find('.remove_section').attr('data-solution_id', ProposalsEdit.solutionsCount);
 
-        numSolutionSections[numSolution] = paragraph_.find('.section_container').length + 1;
+        ProposalsEdit.numSolutionSections[ProposalsEdit.solutionsCount] = paragraph_.find('.section_container').length + 1;
 
         //navigator update
-        $('.navigator li[data-solution_id=new]').attr('data-solution_id', numSolution);
-        var nav_ = $('.navigator li[data-solution_id=' + numSolution + ']');
+        $('.navigator li[data-solution_id=new]').attr('data-solution_id', ProposalsEdit.solutionsCount);
+        var nav_ = $('.navigator li[data-solution_id=' + ProposalsEdit.solutionsCount + ']');
         nav_.find('span.sol_title').html("&nbsp;"); //TODO title in navigator
         nav_.find('.sub_navigator li').each(function () {
             var sec_id = parseInt($(this).attr('data-section_id'));
-            paragraph_.find('.section_container[data-section_id=' + sec_id + ']').attr('data-section_id', (numSolution + 1) * 100 + sec_id);
-            $(this).attr('data-section_id', (numSolution + 1) * 100 + sec_id);
+            paragraph_.find('.section_container[data-section_id=' + sec_id + ']').attr('data-section_id', (ProposalsEdit.solutionsCount + 1) * 100 + sec_id);
+            $(this).attr('data-section_id', (ProposalsEdit.solutionsCount + 1) * 100 + sec_id);
         });
     }
-
-    //todo attached to old hidden button, attach to navigator
-    function removeSolutionSection(el, hide) {
-        if (confirm('<%=j t('pages.proposals.edit.confirm_paragraph_deletion')%>')) {
-            var section_ = $(el).parent().parent();
-            var solution_id = section_.parent().attr('data-solution_id');
-            var section_id = $(el).attr('data-section_id');
-            if (hide) {
-                $('input[name="proposal\[solutions_attributes\]\[' + solution_id + '\]\[sections_attributes\]\[' + section_id + '\]\[_destroy\]"]').val(1);
-                section_.fadeOut();
-            }
-            else {
-                section_.fadeOut(function () {
-                    section_.remove();
-                });
-            }
-
-            //navigator update
-            var nav_section_id = section_.attr('data-section_id');
-            var nav_ = $('li[data-solution_id=' + solution_id + '] .sub_navigator');
-            nav_.find('li[data-section_id=' + nav_section_id + ']').remove();
-        }
-    }
-
-    //todo attached to old hidden button, attach to navigator
-    function removeSolution(el, hide) {
-        if (confirm('<%=j t('pages.proposals.edit.confirm_solution_deletion')%>')) {
-            var section_ = $(el).closest('.solution_main');
-            var solution_id = $(el).attr('data-solution_id');
-            if (hide) {
-                $('input[name="proposal\[solutions_attributes\]\[' + solution_id + '\]\[_destroy\]"]').val(1);
-                section_.fadeOut();
-            }
-            else {
-                section_.fadeOut(function () {
-                    section_.remove();
-                });
-            }
-            section_.nextUntil(null, '.solution_main').each(function () {
-                var sol_id = $(this).attr('data-solution_id');
-                var id = $(this).find('textarea').attr('id');
-                var seqel_ = $("[name^='proposal\[solutions_attributes\]\[" + sol_id + "\]\[seq\]']");
-                var seq_ = parseInt(seqel_.val());
-                $(this).find(".title_placeholder .num").html(seq_ - 1);
-            });
-            fakeNumSolution--;
-
-            //navigator update
-            var nav_ = $('.navigator');
-            nav_.find('.sol_nav[data-solution_id=' + solution_id + ']').remove();
-        }
-    }
-
-    <%end%>
-    //todo attached to old hidden button, attach to navigator
-    function removeSection(el, id, hide) {
-        if (confirm('<%=j t('pages.proposals.edit.confirm_paragraph_deletion')%>')) {
-            var section_ = $(el).parent().parent();
-            if (hide) {
-                $('input[name="proposal\[sections_attributes\]\[' + id + '\]\[_destroy\]"]').val(1);
-                section_.fadeOut();
-            }
-            else {
-                section_.fadeOut(function () {
-                    section_.remove();
-                });
-            }
-
-            //navigator update
-            var nav_ = $('.navigator');
-            nav_.find('.sec_nav[data-section_id=' + id + ']').remove();
-        }
-    }
-
-
-    var ckeConfigs = {};
-
 </script>
 
 <% content_for :left_panel do %>

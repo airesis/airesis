@@ -6,8 +6,11 @@ class Airesis.SolutionContainer
       @id = @element.data('solution_id')
     else
       @element = $(Airesis.SolutionContainer.selector).filter("[data-solution_id='#{@id}']")
+    @destroyField = @element.find("[data-solution-destroy]")
     @seqField = @element.find("[name='proposal[solutions_attributes][#{@id}][seq]']")
     @titleField = @element.find("[name$='proposal[solutions_attributes][#{@id}][title]']")
+  persisted: ->
+    @element.data('persisted')
   moveUp: ->
     console.log 'move solution up'
     to_exchange = @element.prevAll(Airesis.SolutionContainer.selector).first()
@@ -19,7 +22,21 @@ class Airesis.SolutionContainer
     @element.before to_exchange
     ProposalsEdit.updateSolutionSequences()
   remove: ->
-    @element.find('.remove_button a').click()
+    if confirm Airesis.i18n.proposals.edit.removeSolutionConfirm
+      if @persisted
+        @destroyField.val(1)
+        @element.fadeOut()
+      else
+        @element.fadeOut ->
+          @element.remove()
+      @element.nextUntil(null, Airesis.SolutionContainer.selector).each ->
+        sol_id = $(this).attr('data-solution_id')
+        id = $(this).find('textarea').attr('id')
+        seqel_ = $('[name^=\'proposal[solutions_attributes][' + sol_id + '][seq]\']')
+        seq_ = parseInt(seqel_.val())
+        $(this).find('.title_placeholder .num').html seq_ - 1
+      ProposalsEdit.fakeSolutionsCount--
+    return
     ProposalsEdit.updateSolutionSequences()
   setSeq: (val)->
     @seqField.val(val)

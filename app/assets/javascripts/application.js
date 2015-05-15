@@ -59,3 +59,5 @@
 //= require URI
 //= require jquery.URI
 //= require_tree ./per_page
+//= require mustache
+

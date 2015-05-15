@@ -1,6 +1,11 @@
 window.ProposalsEdit =
   integrated_contributes: []
   safe_exit: false
+  currentPage: 0
+  currentView: 3
+  contributes: []
+  checkActive: false
+  ckedstoogle_: {}
   init: ->
     integrate_contributes = []
     safe_exit = false
@@ -30,8 +35,8 @@ window.ProposalsEdit =
       end_field.fdatetimepicker 'setDate', addMinutes(eventStartTime_, 2880)
       return
     end_field.fdatetimepicker $.fn.fdatetimepicker.dates[Airesis.i18n.locale]
-    start_field.fdatetimepicker 'setStartDate', ProposalsShow.voteStartsAt
-    end_field.fdatetimepicker 'setStartDate', ProposalsShow.voteEndsAt
+    start_field.fdatetimepicker 'setStartDate', ProposalsEdit.voteStartsAt
+    end_field.fdatetimepicker 'setStartDate', ProposalsEdit.voteEndsAt
     input = $('#proposal_interest_borders_tkn')
     input.tokenInput '/interest_borders.json',
       crossDomain: false
@@ -41,12 +46,60 @@ window.ProposalsEdit =
       searchingText: Airesis.i18n.interestBorders.searchingText
       preventDuplicates: true
 
+    input = $('#proposal_tags_list')
+    if input
+      input.tokenInput '/tags.json',
+        theme: 'facebook'
+        crossDomain: false
+        prePopulate: ProposalsEdit.tags
+        allowFreeTagging: true
+        minChars: 3
+        hintText: Airesis.i18n.tags.hintText
+        searchingText: Airesis.i18n.tags.searchingText
+        preventDuplicates: true
+        allowTabOut: true
+        tokenValue: 'name'
+
+    $('[data-add-section]').on 'click', =>
+      @addSection()
+      return false
+
+    $('[data-add-solution-section]').on 'click', =>
+      solutionId = `$(this)`.data('solution_id')
+      @addSolutionSection(solutionId)
+
+      return false
+
+    $(document).on 'click', '[data-remove-solution]', =>
+      solutionId = `$(this)`.data('solution_id')
+      new Airesis.SolutionContainer(solutionId).remove()
+      @navigator.find('.sol_nav[data-solution_id=' + solutionId + ']').remove()
+
+    #editors
+    console.log 'containers', $(Airesis.SectionContainer.selector)
+    $(Airesis.SectionContainer.selector).each ->
+      container = new Airesis.SectionContainer(@)
+      container.initCkEditor()
+
+
+    for name of CKEDITOR.instances
+      ProposalsEdit.ckedstoogle_[name] =
+        first: true
+      editor = CKEDITOR.instances[name]
+      ProposalsEdit.addEditorEvents editor
+
+    $('[data-clean-fields=true]').on 'click', =>
+      @fillCleanFields()
+
     suggestion_right_ = $('.suggestion_right')
     fitRightMenu(suggestion_right_)
     suggestion_right_.bind 'mousewheel DOMMouseScroll', (e)->
       if (matchMedia(Foundation.media_queries['medium']).matches)
-        Airesis.scrollLock(suggestion_right_,e)
-    fetchContributes()
+        Airesis.scrollLock(suggestion_right_, e)
+
+    #contributes
+    @fetchContributes()
+
     $(document).on 'click', '[data-integrate-contribute]', ->
       ProposalsEdit.integrate_contribute(this)
     $(document).on 'click', '[data-close-edit-right-section]', =>
@@ -59,8 +112,55 @@ window.ProposalsEdit =
       ProposalsEdit.updateAndContinueProposal()
 
     #navigator
-    navigator = new Airesis.ProposalNavigator
-
+    @navigator = new Airesis.ProposalNavigator
+  addEditorEvents: (editor_) ->
+    editor_.on 'lite:init', (event) ->
+      ProposalsEdit.ckedstoogle_[event.editor.name]['first'] = false
+      lite = event.data.lite
+      ProposalsEdit.ckedstoogle_[event.editor.name]['editor'] = lite
+      lite.toggleShow ProposalsEdit.ckedstoogle_[event.editor.name]['state']
+      lite.setUserInfo
+        id: Airesis.id
+        name: Airesis.fullName
+      return
+    editor_.on 'lite:showHide', (event) ->
+      if !ProposalsEdit.ckedstoogle_[event.editor.name]['first']
+        ProposalsEdit.ckedstoogle_[event.editor.name]['state'] = event.data.show
+      return
+    return
+  addEditor: (id) ->
+    CKEDITOR.remove(CKEDITOR.instances[id])
+    editor_ = CKEDITOR.replace(id,
+      'toolbar': 'proposal'
+      'language': Airesis.i18n.locale
+      'customConfig': 'config_lite.js')
+    ProposalsEdit.ckedstoogle_[id] =
+      first: true
+    ProposalsEdit.addEditorEvents editor_
+    return
+  fillCleanFields: ->
+    integrated_ = $('#proposal_integrated_contributes_ids_list').val()
+    if ProposalsEdit.contributesCount > 0
+      if integrated_ == ''
+        if !confirm(Airesis.i18n.proposals.edit.updateConfirm)
+          return false
+    try
+      id = undefined
+      for id of CKEDITOR.instances
+        `id = id`
+        editor = CKEDITOR.instances[id]
+        textarea_ = $('#' + id)
+        clean = ProposalsEdit.getCleanContent(id)
+        name_ = textarea_.attr('name').replace('_dirty', '').replace(/\[/g, '\\[').replace(/\]/g, '\\]')
+        target = $('[name=' + name_ + ']')
+        target.val clean
+    catch err
+      console.error err
+      console.error 'error in parsing ' + name
+      return false
+    $('.update2').attr 'disabled', 'disabled'
+    ProposalsEdit.safe_exit = true
+    true
   integrate_contribute: (el) ->
     id = $(el).data('integrate-contribute')
     comment_ = $('#comment' + id)
@@ -70,25 +170,39 @@ window.ProposalsEdit =
       comment_.fadeTo 400, 0.3
       inside_.attr 'data-height', inside_.outerHeight()
       inside_.css 'overflow', 'hidden'
-      inside_.animate { height: '52px' }, 400
+      inside_.animate {height: '52px'}, 400
       comment_.find('[id^=reply]').each ->
         $(this).attr 'data-height', $(this).outerHeight()
         $(this).css 'overflow', 'hidden'
-        $(this).animate { height: '0px' }, 400
+        $(this).animate {height: '0px'}, 400
         return
     else
       ProposalsEdit.integrated_contributes.splice ProposalsEdit.integrated_contributes.indexOf(id), 1
       comment_.fadeTo 400, 1
-      inside_.animate { height: inside_.attr('data-height') }, 400, 'swing', ->
+      inside_.animate {height: inside_.attr('data-height')}, 400, 'swing', ->
         inside_.css 'overflow', 'auto', ->
         return
       comment_.find('[id^=reply]').each ->
-        $(this).animate { height: $(this).attr('data-height') }, 400, 'swing', ->
+        $(this).animate {height: $(this).attr('data-height')}, 400, 'swing', ->
           $(this).css 'overflow', 'auto', ->
           return
         return
     $('#proposal_integrated_contributes_ids_list').val ProposalsEdit.integrated_contributes
     return
+  fetchContributes: ->
+    ProposalsEdit.currentPage++
+    $.ajax
+      url: ProposalsEdit.contributesUrl
+      data:
+        disable_limit: true
+        page: ProposalsEdit.currentPage
+        view: ProposalsEdit.currentView
+        contributes: ProposalsEdit.contributes
+        all: true
+      type: 'get'
+      dataType: 'script'
+      complete: ->
+        $('#loading_contributes').hide()
   hideContributes: ->
     right_ = $('.suggestion_right')
     if right_.hasClass('contributes_shown')
@@ -129,7 +243,7 @@ window.ProposalsEdit =
   updateSequences: ->
     $('.sections_column, .solutions_column').each ->
       i = 0
-      $(this).find(Airesis.SectionContainer.section_container_selector).each (el) ->
+      $(this).find(Airesis.SectionContainer.selector).each (el) ->
         section = new Airesis.SectionContainer($(this))
         section.setSeq(i++)
   updateSolutionSequences: ->
@@ -137,6 +251,47 @@ window.ProposalsEdit =
     $('.solution_main').each ->
       solution = new Airesis.SolutionContainer($(@))
       solution.setSeq(i++)
+  addSection: ->
+    title = Airesis.i18n.proposals.edit.paragraph + ' ' + (ProposalsEdit.sectionsCount + 1)
+    sectionId = ProposalsEdit.sectionsCount
+    section = $(Mustache.to_html($('#section_template').html(), section:
+      id: sectionId
+      seq: sectionId + 1
+      removeSection: Airesis.i18n.proposals.edit.removeSection
+      title: title
+      paragraphId: ''
+      content: ''
+      contentDirty: ''
+      persisted: false))
+    $('.sections_column').append section
+    section.fadeIn()
+    new (Airesis.SectionContainer)(section).initCkEditor()
+    @navigator.addSectionNavigator(sectionId, title)
+    ProposalsEdit.sectionsCount += 1
+    return
+  addSolutionSection: (solutionId)->
+    sectionId = ProposalsEdit.numSolutionSections[solutionId]
+    title = Airesis.i18n.proposals.edit.paragraph + ' ' + (sectionId + 1)
+    dataId = ((parseInt(solutionId) + 1) * 100) + sectionId
+    solutionSection = $(Mustache.to_html($('#solution_section_template').html(),
+      section:
+        id: sectionId
+        data_id: dataId
+        seq: sectionId + 1
+        removeSection: Airesis.i18n.proposals.edit.removeSection
+        title: title
+        paragraphId: ''
+        content: ''
+        contentDirty: ''
+        persisted: false
+      solution:
+        id: solutionId))
+    $(".solutions_column[data-solution_id=#{solutionId}]").append(solutionSection)
+    $(".solution_main[data-solution_id=#{solutionId}]").css('height', '')
+    solutionSection.fadeIn()
+    new (Airesis.SectionContainer)(solutionSection).initCkEditor()
+    @navigator.addSolutionSectionNavigator(solutionId, dataId, title)
+    ProposalsEdit.numSolutionSections[solutionId] += 1;
   geocode_panel: ->
     return
 

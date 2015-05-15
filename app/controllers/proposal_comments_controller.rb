@@ -61,7 +61,8 @@ class ProposalCommentsController < ApplicationController
       else
         order << "proposal_comments.updated_at desc"
       end
-      @proposal_comments = @proposal.contributes.listable.where(conditions).order(order).page(params[:page]).per(COMMENTS_PER_PAGE)
+      per_page = params[:disable_limit] ? 9999999 : COMMENTS_PER_PAGE
+      @proposal_comments = @proposal.contributes.listable.where(conditions).order(order).page(params[:page]).per(per_page)
       @total_pages = @proposal_comments.total_pages
       @current_page = @proposal_comments.current_page
     end
