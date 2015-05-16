@@ -64,10 +64,13 @@ window.ProposalsEdit =
       @addSection()
       return false
 
-    $('[data-add-solution-section]').on 'click', =>
+    $(document).on 'click', '[data-add-solution-section]', =>
       solutionId = `$(this)`.data('solution_id')
       @addSolutionSection(solutionId)
+      return false
 
+    $('[data-add-solution]').on 'click', =>
+      @addSolution()
       return false
 
     $(document).on 'click', '[data-remove-solution]', =>
@@ -239,6 +242,8 @@ window.ProposalsEdit =
   getCleanContent: (editor_id) ->
     editor = CKEDITOR.instances[editor_id]
     editor.plugins.lite.findPlugin(editor)._tracker.getCleanContent()
+  calculateDataId: (i, j)->
+    ((i + 1) * 100) + j
   updateSequences: ->
     $('.sections_column, .solutions_column').each ->
       i = 0
@@ -271,7 +276,7 @@ window.ProposalsEdit =
   addSolutionSection: (solutionId)->
     sectionId = ProposalsEdit.numSolutionSections[solutionId]
     title = Airesis.i18n.proposals.edit.paragraph + ' ' + (sectionId + 1)
-    dataId = ((parseInt(solutionId) + 1) * 100) + sectionId
+    dataId = ProposalsEdit.calculateDataId(parseInt(solutionId), sectionId)
     solutionSection = $(Mustache.to_html($('#solution_section_template').html(),
       section:
         id: sectionId
@@ -288,9 +293,38 @@ window.ProposalsEdit =
     $(".solutions_column[data-solution_id=#{solutionId}]").append(solutionSection)
     $(".solution_main[data-solution_id=#{solutionId}]").css('height', '')
     solutionSection.fadeIn()
-    new (Airesis.SectionContainer)(solutionSection).initCkEditor()
+    new Airesis.SectionContainer(solutionSection).initCkEditor()
     @navigator.addSolutionSectionNavigator(solutionId, dataId, title)
-    ProposalsEdit.numSolutionSections[solutionId] += 1;
+    ProposalsEdit.numSolutionSections[solutionId] += 1
+  addSolution: ->
+    jQuery.each ProposalsEdit.mustacheSections, (idx, section) ->
+      section['solution']['id'] = ProposalsEdit.solutionsCount
+      section['section']['data_id'] = ProposalsEdit.calculateDataId(ProposalsEdit.solutionsCount,
+        section['section']['id'])
+    options = solution:
+      id: ProposalsEdit.solutionsCount
+      seq: ProposalsEdit.fakeSolutionsCount
+      persisted: true
+      title_placeholder: Airesis.i18n.proposals.edit.titlePlaceholder
+      solution_title: Airesis.i18n.proposals.edit.solutionTitle
+      title: ''
+      removeSolution: Airesis.i18n.proposals.edit.removeSolution
+      addParagraph: Airesis.i18n.proposals.edit.addParagraph
+      sections: ProposalsEdit.mustacheSections
+    solution = $(Mustache.to_html($('#solution_template').html(),
+      options,
+      'proposals/_solution_section': $('#solution_section_template').html()))
+    solution.find('.title_placeholder .num').html ProposalsEdit.fakeSolutionsCount + 1
+    $("[data-hook='new-solution']").before solution
+    solution.fadeIn()
+
+    solution.find(Airesis.SectionContainer.selector).each (idx, section)->
+      new Airesis.SectionContainer(section).initCkEditor()
+    @navigator.addSolutionNavigator(ProposalsEdit.solutionsCount)
+
+    ProposalsEdit.solutionsCount++
+    ProposalsEdit.fakeSolutionsCount++
+    ProposalsEdit.numSolutionSections[ProposalsEdit.solutionsCount] = solution.find('.section_container').length + 1
   geocode_panel: ->
     return
 

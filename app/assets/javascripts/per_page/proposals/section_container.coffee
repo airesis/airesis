@@ -10,6 +10,7 @@ class Airesis.SectionContainer
     @id = @element.data('section_id')
     @seqField = @element.find("[data-section-seq]")
     @titleField = @element.find("[name$='[title]']")
+    @title = @titleField.val()
     @destroyField = @element.find("[data-section-destroy]")
     @editor = @element.find("textarea[name$='[content_dirty]']")
   persisted: ->

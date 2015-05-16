@@ -11,7 +11,6 @@ class Airesis.ProposalNavigator
     $(document).on 'click', '[data-scroll-to-section]', ->
       ProposalsEdit.scrollToSection(@)
 
-    @solution_navigators.addClass 'collapsed expanded'
     @solution_navigators.on 'click', (event) ->
       if this is event.target
         $(this).toggleClass 'expanded'
@@ -105,5 +104,16 @@ class Airesis.ProposalNavigator
       classes: 'sol',
       i: i
       title: title))
-    nav_ = $('.navigator li[data-solution_id=' + solutionId + ']');
-    nav_.find('.sub_navigator').append(solution_section_navigator);
+    console.log(solution_section_navigator)
+    nav_ = $('.navigator li[data-solution_id=' + solutionId + ']')
+    nav_.find('.sub_navigator').append(solution_section_navigator)
+  addSolutionNavigator: (solutionId)->
+    sections = []
+    solution = new Airesis.SolutionContainer(solutionId)
+    for section in solution.sections
+      sectionContainer = new Airesis.SectionContainer(section)
+      sections.push({id: sectionContainer.id, title: sectionContainer.title, classes: 'sol'})
+    solution_navigator = $(Mustache.to_html($('#solution_navigator_template').html(),
+      {classes: 'sol', i: solutionId, title: '&nbsp;', sections: sections},
+      {'proposals/_section_navigator': $('#section_navigator_template').html()}))
+    $('.navigator.navsolutions').append(solution_navigator)

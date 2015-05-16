@@ -74,10 +74,7 @@
               <%= f.label :event_id %>
               <%= link_to @event, 'Votation event' %>
           <% else %>
-              <% @event = Event.new({
-                                            starttime: @proposal.vote_starts_at,
-                                            endtime: @proposal.vote_ends_at,
-                                    }) %>
+              <% @event = Event.new(starttime: @proposal.vote_starts_at, endtime: @proposal.vote_ends_at) %>
               <div class="row">
                 <div class="columns medium-6">
                   <%= f.label :vote_starts_at %>
@@ -119,8 +116,10 @@
 
     <% unless @proposal.is_petition? %>
 
+        <div data-hook="new-solution"></div>
+
         <div class="new_section">
-          <a href="#" class="btn full-width" onclick="addSolution(this);return false;"><%= t("pages.proposals.edit.add_solution.#{@proposal.proposal_type.name.downcase}") %></a>
+          <a href="#" class="btn full-width" data-add-solution><%= t("pages.proposals.edit.add_solution.#{@proposal.proposal_type.name.downcase}") %></a>
           <br/>
           <a style="font-size: 0.8em" href="#" data-reveal-id="you_know"><%= t('pages.proposals.edit.you_know_what_you_do') %></a>
         </div>
@@ -174,8 +173,16 @@
   <%= render "solution_section" %>
 </script>
 
+<script type="text/html" id="solution_template">
+  <%= render "solution" %>
+</script>
+
 <script type="text/html" id="section_navigator_template">
   <%= render "section_navigator" %>
+</script>
+
+<script type="text/html" id="solution_navigator_template">
+  <%= render "solution_navigator" %>
 </script>
 
 <script type="text/javascript">
@@ -192,50 +199,9 @@
     <%@proposal.solutions.each_with_index do |sol,i|%>
     ProposalsEdit.numSolutionSections[<%=i%>] = <%=sol.sections.count%>;
     <%end%>
-
-    function addSolution(el) {
-        var paragraph_ = $("<%=j render "proposal_types/solution"%>");
-        try {
-            $(el).parent().before(paragraph_);
-        } catch (e) {
-            console.error(e);
-            console.error('errors occured adding a new solution');
-        }
-        paragraph_.fadeIn();
-        ProposalsEdit.solutionsCount++;
-        ProposalsEdit.fakeSolutionsCount++;
-        paragraph_.find(".title_placeholder .num").html(ProposalsEdit.fakeSolutionsCount);
-        paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[seq\]']").val(ProposalsEdit.fakeSolutionsCount);
-        paragraph_.find(".add_section").attr('data-solution_id', ProposalsEdit.solutionsCount);
-        paragraph_.find(".solutions_column").attr('data-solution_id', ProposalsEdit.solutionsCount);
-        paragraph_.attr('data-solution_id', ProposalsEdit.solutionsCount);
-        paragraph_.find("textarea[name^='proposals\[solutions_attributes\]\[0\]']").each(function () {
-            var id_ = $(this).attr('id');
-            $(this).attr('id', id_.replace('proposals_solutions_attributes_0', 'proposals_solutions_attributes_' + ProposalsEdit.solutionsCount));
-        });
-        paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]']").each(function () {
-            var name_ = $(this).attr('name');
-            $(this).attr('name', name_.replace('proposals[solutions_attributes][0]', 'proposal[solutions_attributes][' + ProposalsEdit.solutionsCount + ']'));
-        });
-
-        paragraph_.find('textarea.tinymce').each(function () {
-            ProposalsEdit.addEditor($(this).attr('id'));
-        });
-
-        paragraph_.find('.remove_section').attr('data-solution_id', ProposalsEdit.solutionsCount);
-
-        ProposalsEdit.numSolutionSections[ProposalsEdit.solutionsCount] = paragraph_.find('.section_container').length + 1;
-
-        //navigator update
-        $('.navigator li[data-solution_id=new]').attr('data-solution_id', ProposalsEdit.solutionsCount);
-        var nav_ = $('.navigator li[data-solution_id=' + ProposalsEdit.solutionsCount + ']');
-        nav_.find('span.sol_title').html("&nbsp;"); //TODO title in navigator
-        nav_.find('.sub_navigator li').each(function () {
-            var sec_id = parseInt($(this).attr('data-section_id'));
-            paragraph_.find('.section_container[data-section_id=' + sec_id + ']').attr('data-section_id', (ProposalsEdit.solutionsCount + 1) * 100 + sec_id);
-            $(this).attr('data-section_id', (ProposalsEdit.solutionsCount + 1) * 100 + sec_id);
-        });
-    }
+    Airesis.i18n.proposals.edit.titlePlaceholder = '<%= raw t("pages.proposals.edit.insert_title.#{@proposal.proposal_type.name.downcase}")%>';
+    Airesis.i18n.proposals.edit.solutionTitle = '<%= raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}", num: 0)%>';
+    ProposalsEdit.mustacheSections = <%=raw @proposal.build_solution.sections.map.with_index{|section, j| solution_section_for_mustache(section, 0 , j)[:mustache]}.to_json %>;
 </script>
 
 <% content_for :left_panel do %>

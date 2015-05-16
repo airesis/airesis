@@ -9,6 +9,7 @@ class Airesis.SolutionContainer
     @destroyField = @element.find("[data-solution-destroy]")
     @seqField = @element.find("[name='proposal[solutions_attributes][#{@id}][seq]']")
     @titleField = @element.find("[name$='proposal[solutions_attributes][#{@id}][title]']")
+    @sections = @element.find(Airesis.SectionContainer.selector)
   persisted: ->
     @element.data('persisted')
   moveUp: ->

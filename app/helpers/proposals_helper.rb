@@ -103,8 +103,8 @@ module ProposalsHelper
                  title: solution.title,
                  removeSolution: t('pages.proposals.edit.remove_solution'),
                  addParagraph: t('pages.proposals.edit.add_paragraph_to_solution'),
-                 sections: solution.sections.map.with_index do |section, i|
-                   section_for_mustache(section, i)[:mustache]
+                 sections: solution.sections.map.with_index do |section, j|
+                   solution_section_for_mustache(section, i, j)[:mustache]
                  end}}}
   end
 
