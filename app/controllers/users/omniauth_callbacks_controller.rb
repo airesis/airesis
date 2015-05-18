@@ -1,5 +1,6 @@
 #encoding: utf-8
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+
   def facebook
     #se sono già autenticato allora sto facendo una join dei due account
     access_token = request.env['omniauth.auth']
@@ -220,7 +221,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
-def tecnologiedemocratiche
+  def tecnologiedemocratiche
 
     #se sono già autenticato allora sto facendo una join dei due account
     oauth_data = request.env['omniauth.auth']
@@ -241,7 +242,7 @@ def tecnologiedemocratiche
       @user.remember_me = true
       sign_in_and_redirect @user, event: :authentication
     end
-end
+  end
 
   def linkedin
     #se sono già autenticato allora sto facendo una join dei due account

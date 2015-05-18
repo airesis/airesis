@@ -654,12 +654,12 @@ class User < ActiveRecord::Base
     return user
   end
 
-  def self.find_or_create_for_tecnologiedemcoratiche(oauth_data)
+  def self.find_or_create_for_tecnologiedemocratiche(oauth_data)
 
-    raw_info = oauth_data.raw_info
+    raw_info = oauth_data['raw_info']
 
     #se ho trovato l'id dell'utente prendi lui, altrimenti cercane uno con l'email uguale
-    auth = Authentication.find_by_provider_and_uid(oauth_data.provider, oauth_data.uid.to_s)
+    auth = Authentication.find_by_provider_and_uid(oauth_data['provider'], oauth_data['uid'].to_s)
     user = auth ? auth.user : User.find_by_email(raw_info['email'])
 
     return user if user
@@ -673,17 +673,124 @@ class User < ActiveRecord::Base
     user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
     user.user_type_id = UserType::CERTIFIED
     user.sign_in_count = 0
-    user.build_authentication_provider(access_token)
+    user.build_authentication_provider(oauth_data)
 
     user.confirm!
     user.save!
-
   end
 
+  def self.find_or_create_for_oauth_provider(oauth_data)
+
+    provider = oauth_data['provider']
+    uid = oauth_data['uid'].to_s
+
+    #se ho trovato l'id dell'utente prendi lui, altrimenti cercane uno con l'email uguale
+    auth = Authentication.find_by_provider_and_uid(provider, uid)
+    user = auth ? auth.user : User.find_by_email( oauth_user_info(oauth_data)[:email] )
+
+    return user ? user : create_account_for_oauth(oauth_data)
+  end
 
   protected
 
   def reconfirmation_required?
     self.class.reconfirmable && @reconfirmation_required
   end
+
+  def create_account_for_oauth(oauth_data)
+
+    provider = oauth_data['provider']
+    raw_info = oauth_raw_info oauth_data
+    user_info = oauth_user_info oauth_data
+
+    # !!! TODO: verificare che gli indirizzi email ricevuti dagli altri provider siano verificati !!!
+    if provider == Authentication::FACEBOOK
+      return nil unless raw_info['verified']
+    end
+
+    user = User.new( name: user_info[:name],
+                     surname: user_info[:surname],
+                     password: Devise.friendly_token[0, 20],
+                     sex: user_info[:sex],
+                     email: user_info[:email] )
+
+    user.avatar_url = oauth_avatar_url oauth_data
+
+    user.google_page_url = data['profile'] if provider == Authentication::GOOGLE
+    user.linkedin_page_url = data['publicProfileUrl'] if provider == Authentication::LINKEDIN
+    user.facebook_page_url = data['link'] if provider == Authentication::FACEBOOK
+
+    if provider == Authentication::TECNOLOGIEDEMOCRATICHE || ( provider == Authentication::PARMA && raw_info['verified'] )
+      user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
+      user.user_type_id = UserType::CERTIFIED
+    else
+      user.user_type_id = UserType::AUTHENTICATED
+    end
+
+    add_to_parma_group( user, raw_info['verified'] ) if provider == Authentication::PARMA
+
+    user.build_authentication_provider(oauth_data)
+    user.sign_in_count = 0
+
+    user.confirm!
+    user.save!
+  end
+
+  def add_to_parma_group(user, verified)
+    parma_group = Group.find_by_subdomain('parma')
+    user.group_participation_requests.build( group: parma_group,
+                                             group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED )
+    participation_role = group.default_role
+    if verified
+      #look for best role or fallback
+      residente = ParticipationRole.where(['group_id = ? and lower(name) = ?', group.id, 'residente']).first
+      participation_role = residente || participation_role
+    end
+    user.group_participations.build(group: group, participation_role_id: participation_role.id)
+  end
+
+  def oauth_avatar_url(oauth_data)
+    raw_info = oauth_raw_info oauth_data
+
+    raw_info['picture'] || # Google
+    raw_info['pictureUrl'] || # Linkedin
+    raw_info['profile_image_url'] || # Twitter
+    raw_info['photo']['photo_link'] || # Meetup
+    oauth_data['info']['image'] # Facebook
+  end
+
+  def oauth_raw_info(oauth_data)
+    oauth_data['raw_info'] || # TD
+    oauth_data['extra']['raw_info'] || # Meetup, Twitter, Google, Linkedin, FB
+    oauth_data['info'] # Parma
+  end
+
+  def oauth_user_info(oauth_data)
+
+    provider = oauth_data['provider']
+    raw_info = oauth_raw_info oauth_data
+
+    Hash.new.tap do |user_info|
+      user_info[:email] = raw_info['email'] || # TD, Parma, Google, FB
+                          raw_info['emailAddress'] # Linkedin
+
+      if [ Authentication::TWITTER, Authentication::MEETUP ].include? provider
+        fullname = raw_info['name']
+        splitted = fullname.split(' ', 2)
+        user_info[:name] = splitted ? splitted[0] : fullname
+        user_info[:surname] = splitted ? splitted[1] : ''
+      else
+        user_info[:name] = raw_info['first_name'] || # TD, Parma, Facebook
+                           raw_info['given_name'] || # Google
+                           raw_info['firstName'] || # Linkedin
+
+        user_info[:surname] = raw_info['last_name'] || # TD, Parma, Facebook
+                              raw_info['family_name'] || # Google
+                              raw_info['familyName'] # Linkedin
+      end
+
+      user_info[:sex] = raw_info['gender'] ? raw_info['gender'][0] : nil
+    end
+  end
+
 end
