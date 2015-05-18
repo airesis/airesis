@@ -65,6 +65,7 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-meetup'
 gem 'omniauth-linkedin'
+gem 'omniauth-tecnologiedemocratiche'
 
 gem 'paperclip'
 

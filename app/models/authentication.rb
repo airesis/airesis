@@ -7,5 +7,6 @@ class Authentication < ActiveRecord::Base
   LINKEDIN="linkedin"
   OPENID="openid"
   PARMA="parma"
+  TECNOLOGIEDEMOCRATICHE="tecnologiedemocratiche"
   belongs_to :user, class_name: 'User', foreign_key: :user_id
 end

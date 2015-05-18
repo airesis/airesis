@@ -239,4 +239,10 @@ Devise.setup do |config|
 
   require "omniauth-parma"
   config.omniauth :parma, ENV['PARMA_APP_ID'], ENV['PARMA_APP_SECRET'], {scope: 'email basic'}
+
+  require "omniauth/strategies/tecnologiedemocratiche"
+  config.omniauth :tecnologiedemocratiche,
+                  ENV['TECNOLOGIEDEMOCRATICHE_APP_ID'],
+                  ENV['TECNOLOGIEDEMOCRATICHE_APP_SECRET'],
+                  client_options: {site: ENV['TECNOLOGIEDEMOCRATICHE_APP_URL']}
 end

@@ -654,6 +654,33 @@ class User < ActiveRecord::Base
     return user
   end
 
+  def self.find_or_create_for_tecnologiedemcoratiche(oauth_data)
+
+    raw_info = oauth_data.raw_info
+
+    #se ho trovato l'id dell'utente prendi lui, altrimenti cercane uno con l'email uguale
+    auth = Authentication.find_by_provider_and_uid(oauth_data.provider, oauth_data.uid.to_s)
+    user = auth ? auth.user : User.find_by_email(raw_info['email'])
+
+    return user if user
+
+    #crea un nuovo account TD
+    user = User.new( name: raw_info['first_name'],
+                    surname: raw_info['last_name'],
+                    password: Devise.friendly_token[0, 20],
+                    email: raw_info['email'] )
+
+    user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
+    user.user_type_id = UserType::CERTIFIED
+    user.sign_in_count = 0
+    user.build_authentication_provider(access_token)
+
+    user.confirm!
+    user.save!
+
+  end
+
+
   protected
 
   def reconfirmation_required?

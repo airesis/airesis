@@ -220,6 +220,28 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
+def tecnologiedemocratiche
+
+    #se sono già autenticato allora sto facendo una join dei due account
+    oauth_data = request.env['omniauth.auth']
+    if current_user
+      raw_info = oauth_data.raw_info
+      auth = Authentication.find_by_provider_and_uid(oauth_data.provider, oauth_data.uid.to_s)
+      if auth #se c'è già un altro account annulla l'operazione!
+        flash[:error] = "Esiste già un altro account associato a questo account TecnologieDemocratiche. Attendi la funzione di 'Unione account' per procedere"
+      else
+        current_user.build_authentication_provider(oauth_data)
+        current_user.save(validate: false)
+        flash[:notice] = 'Unione account avvenuta correttamente. Complimenti, ora puoi fare login anche attraverso l\'account TecnologieDemocratiche.'
+      end
+      redirect_to privacy_preferences_users_url
+    else
+      @user = User.find_or_create_for_tecnologiedemocratiche(oauth_data)
+      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "TecnologieDemocratiche"
+      @user.remember_me = true
+      sign_in_and_redirect @user, event: :authentication
+    end
+end
 
   def linkedin
     #se sono già autenticato allora sto facendo una join dei due account
