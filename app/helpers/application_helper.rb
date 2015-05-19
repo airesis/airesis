@@ -40,7 +40,7 @@ module ApplicationHelper
         else
           ret = I18n.l(from_time, format: :weekday) # this week
         end
-      else
+      else       
         ret = I18n.l(from_time, format: :short) # another week
       end
     elsif diff > 1.hours
@@ -55,6 +55,10 @@ module ApplicationHelper
     data = "otpauth://totp/#{user.email}?secret=#{user.rotp_secret}"
     url = "https://chart.googleapis.​com/chart?chs=200x200&chld=M|0&cht=qr&chl=#{data}"
     image_tag(url, alt: 'Google Authenticator QRCode')
+  end
+
+  def flag_for(title, key)
+    link_to (image_tag "flags/#{key}.png", alt: title, class: 'flag-icon'), current_url(l: key), title: title
   end
 
   def body_page_name
