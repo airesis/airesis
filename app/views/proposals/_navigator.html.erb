@@ -1,0 +1,25 @@
+<div class="mybox">
+  <h4>
+    <%= t('pages.proposals.edit.navigator') %>
+    <i class="fa fa-plus right" data-navigator-expand title="<%= t('proposals.edit.expand_all') %>"></i>
+    <i class="fa fa-minus right" data-navigator-collapse style="margin-right: 5px;" title="<%= t('proposals.edit.collapse_all') %>"></i>
+  </h4>
+
+  <div class="mycont">
+    <ul class="navigator navsections">
+      <% @proposal.sections.each_with_index do |section, i| %>
+          <%= render 'section_navigator', mustache: {i: i, title: section.title} %>
+      <% end %>
+    </ul>
+    <ul class="navigator navsolutions">
+      <% @proposal.solutions.each_with_index do |solution, i| %>
+          <%= render 'solution_navigator',
+                     mustache: {i: i,
+                                title: (solution.title.present? ? solution.title : '&nbsp;'),
+                                sections: solution.sections.map.with_index do |section, j|
+                                  {i: (i + 1) * 100 + j, title: section.title, classes: 'sol'}
+                                end} %>
+      <% end %>
+    </ul>
+  </div>
+</div>

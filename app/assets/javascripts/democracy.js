@@ -6,16 +6,17 @@
 var $viewport;
 
 function switchText(button) {
-    var other_ = button.data('other');
-    var text_ = button.text();
-    button.data('other', text_);
-    button.text(other_);
+    button.each(function () {
+        var other_ = $(this).data('other');
+        var text_ = $(this).text();
+        $(this).data('other', text_);
+        $(this).text(other_);
+    });
 }
-
 
 function scrollToElement(element) {
     $viewport.animate({
-        scrollTop: element.offset().top - 160
+        scrollTop: element.offset().top - 80
     }, 2000);
 
     // Stop the animation if the user scrolls. Defaults on .stop() should be fine
@@ -600,7 +601,7 @@ function poll() {
 
             $('.cont1')
                 .bind('mousewheel DOMMouseScroll', function (e) {
-                    Airesis.scrollLock(this,e);
+                    Airesis.scrollLock(this, e);
                 });
             disegnaCountdown();
 

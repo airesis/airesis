@@ -79,6 +79,50 @@ module ProposalsHelper
     end
   end
 
+  def section_for_mustache(section, i)
+    {mustache: {
+      section: {id: i,
+                seq: section.seq,
+                removeSection: t('pages.proposals.edit.remove_section'),
+                title: section.title,
+                paragraphId: section.paragraph.id,
+                content: section.paragraph.content,
+                contentDirty: section.paragraph.content_dirty,
+                persisted: true}}}
+  end
+
+  def solution_for_mustache(solution, i)
+    title_interpolation = "pages.proposals.edit.new_solution_title.#{solution.proposal.proposal_type.name.downcase}"
+    placeholder_interpolation = "pages.proposals.edit.insert_title.#{solution.proposal.proposal_type.name.downcase}"
+    {mustache: {
+      solution: {id: i,
+                 seq: solution.seq,
+                 persisted: true,
+                 title_placeholder: t(placeholder_interpolation),
+                 solution_title: t(title_interpolation, num: i+1),
+                 title: solution.title,
+                 removeSolution: t('pages.proposals.edit.remove_solution'),
+                 addParagraph: t('pages.proposals.edit.add_paragraph_to_solution'),
+                 sections: solution.sections.map.with_index do |section, j|
+                   solution_section_for_mustache(section, i, j)[:mustache]
+                 end}}}
+  end
+
+  def solution_section_for_mustache(section, i, j)
+    {mustache: {
+      section: {idx: j,
+                id: section.id,
+                data_id: (i + 1) * 100 + j,
+                seq: section.seq,
+                removeSection: t('pages.proposals.edit.remove_section'),
+                title: section.title,
+                paragraphId: section.paragraph.id,
+                content: section.paragraph.content,
+                contentDirty: section.paragraph.content_dirty,
+                persisted: true},
+      solution: {id: i}}}
+  end
+
   def proposal_tag(proposal, options={})
     ret = "<div class='proposal_tag'>"
     ret += link_to_proposal(proposal)

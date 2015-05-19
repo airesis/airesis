@@ -1,4 +1,8 @@
 $(function () {
+
+    ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible :input:enabled[data-validate]';
+    $(document).foundation();
+
     Facebook.load();
     if (Airesis.env === 'production') {
         GoogleAnalytics.load();

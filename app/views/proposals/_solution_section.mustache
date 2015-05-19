@@ -1,0 +1,31 @@
+<div class="section_container" data-section_id="{{section.data_id}}" data-persisted="{{section.persisted}}">
+
+    <input name="proposal[solutions_attributes][{{solution.id}}][sections_attributes][{{section.idx}}][seq]"
+           type="hidden" value="{{section.seq}}" data-section-seq>
+    <input name="proposal[solutions_attributes][{{solution.id}}][sections_attributes][{{section.idx}}][_destroy]"
+           type="hidden" value="0" data-section-destroy>
+    <input name="proposal[solutions_attributes][{{solution.id}}][sections_attributes][{{section.idx}}][_destroy]"
+           style="display:none" type="checkbox" value="1">
+    <input name="proposal[solutions_attributes][{{solution.id}}][sections_attributes][{{section.idx}}][id]"
+           type="hidden" value="{{section.id}}">
+
+    <div class="clearboth"></div>
+    <input class="edit_label"
+           name="proposal[solutions_attributes][{{solution.id}}][sections_attributes][{{section.idx}}][title]"
+           type="text" value="{{section.title}}" data-validate="true">
+    <textarea
+            id="proposal_solutions_attributes_{{solution.id}}_sections_attributes_{{section.idx}}_paragraphs_attributes_0_content_dirty"
+            name="proposal[solutions_attributes][{{solution.id}}][sections_attributes][{{section.idx}}][paragraphs_attributes][0][content_dirty]"
+            rows="5"
+            style="width: 98%; height: 280px; visibility: hidden;"
+            data-validate="true">{{section.contentDirty}}</textarea>
+
+    <input name="proposal[solutions_attributes][{{solution.id}}][sections_attributes][{{section.idx}}][paragraphs_attributes][0][id]"
+           type="hidden" value="{{section.paragraphId}}">
+
+    <input name="proposal[solutions_attributes][{{solution.id}}][sections_attributes][{{section.idx}}][paragraphs_attributes][0][content]"
+           type="hidden" value="{{section.content}}">
+
+    <input name="proposal[solutions_attributes][{{solution.id}}][sections_attributes][{{section.idx}}][paragraphs_attributes][0][seq]"
+           type="hidden" value="0">
+</div>
