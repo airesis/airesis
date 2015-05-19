@@ -1,58 +1,58 @@
 <div class="title">
-<%= t('pages.home.show.your_territory')%>
+  <%= t('pages.home.show.your_territory') %>
 </div>
 <div id="territory_map" style="width:97%;height:340px;margin:5px auto;">
 </div>
 
 <script type="text/javascript"
-  src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['MAPS_API_KEY']%>&sensor=false">
+        src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false">
 </script>
 <script type="text/javascript">
-$(function() {
-	
-	<%
-		@ib = current_user.interest_borders.first
-		if !@ib
-			@place_string = "Italia"
-		elsif @ib.territory_type == 'Comune'
-			@place_string = @ib.territory.description + ", " + @ib.territory.provincia.description + ", Italia"
-		elsif @ib.territory_type == 'Provincia'
-			@place_string = @ib.territory.description + ", Italia"
-		elsif @ib.territory_type == 'Regione'
-			@place_string = @ib.territory.description + ", Italia"
-		end
-	%>
-	
-	var interestBorderPlace = "<%=@place_string%>";
-	if (!geocoder) {
-		geocoder = new google.maps.Geocoder();
-	}
-			
-	var myOptions = {
-      center: new google.maps.LatLng(-34.397, 150.644),
-      zoom: 8,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-		
-	map = new google.maps.Map(document.getElementById('territory_map'),myOptions);	
-	//google.maps.event.trigger(map, 'resize');
-			/*marker = new google.maps.Marker({
-				map : map,
-				position: latlng,
-				draggable : false
-			});*/
-			
-	geocoder.geocode( { 'address': interestBorderPlace}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        map.fitBounds(results[0].geometry.bounds);
-        /*var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-        });*/
-      } else {
-        console.error("Geocode was not successful for the following reason: " + status);
-      }
-    });			
-});
+    $(function () {
+
+        <%
+            @ib = current_user.interest_borders.first
+            if !@ib
+                @place_string = "Italia"
+            elsif @ib.territory_type == 'Comune'
+                @place_string = @ib.territory.description + ", " + @ib.territory.provincia.description + ", Italia"
+            elsif @ib.territory_type == 'Provincia'
+                @place_string = @ib.territory.description + ", Italia"
+            elsif @ib.territory_type == 'Regione'
+                @place_string = @ib.territory.description + ", Italia"
+            end
+        %>
+
+        var interestBorderPlace = "<%=@place_string%>";
+        if (!geocoder) {
+            geocoder = new google.maps.Geocoder();
+        }
+
+        var myOptions = {
+            center: new google.maps.LatLng(-34.397, 150.644),
+            zoom: 8,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        map = new google.maps.Map(document.getElementById('territory_map'), myOptions);
+        //google.maps.event.trigger(map, 'resize');
+        /*marker = new google.maps.Marker({
+         map : map,
+         position: latlng,
+         draggable : false
+         });*/
+
+        geocoder.geocode({'address': interestBorderPlace}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                map.fitBounds(results[0].geometry.bounds);
+                /*var marker = new google.maps.Marker({
+                 map: map,
+                 position: results[0].geometry.location
+                 });*/
+            } else {
+                console.error("Geocode was not successful for the following reason: " + status);
+            }
+        });
+    });
 </script>
