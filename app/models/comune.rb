@@ -1,6 +1,6 @@
 class Comune < ActiveRecord::Base
   has_many :places, class_name: 'Place'
-  has_many :circoscriziones, class_name: 'Circoscrizione'
+  has_many :circoscriziones, class_name: 'Circoscrizione', dependent: :destroy
 
   belongs_to :provincia
   belongs_to :regione

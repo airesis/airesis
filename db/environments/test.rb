@@ -10,4 +10,4 @@ Comune.create(description: "Bologna", provincia_id: 57, regione_id: r14.id, stat
 Comune.create(description: "Marzabotto", provincia_id: 57, regione_id: r14.id, stato_id: 1, continente_id: 1 , population: 6262)
 Comune.create(description: "Medicina", provincia_id: 57, regione_id: r14.id, stato_id: 1, continente_id: 1 , population: 13570)
 
-load File.join(Rails.root, 'db', 'seeds', "228_airesis_seed.rb")
+load File.join(Rails.root, 'db', 'seeds', "999_airesis_seed.rb")

@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150325225705) do
+ActiveRecord::Schema.define(version: 20150519162252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "action_abilitations", force: true do |t|
     t.integer  "group_action_id"
@@ -196,6 +195,7 @@ ActiveRecord::Schema.define(version: 20150325225705) do
     t.integer "regione_id"
     t.integer "stato_id"
     t.integer "continente_id"
+    t.integer "geoname_id"
   end
 
   add_index "circoscriziones", ["continente_id"], name: "index_circoscriziones_on_continente_id", using: :btree
@@ -246,6 +246,7 @@ ActiveRecord::Schema.define(version: 20150325225705) do
     t.string  "cap",           limit: 5
     t.integer "stato_id"
     t.integer "continente_id"
+    t.integer "geoname_id"
   end
 
   add_index "comunes", ["continente_id"], name: "index_comunes_on_continente_id", using: :btree
@@ -269,7 +270,8 @@ ActiveRecord::Schema.define(version: 20150325225705) do
   add_index "continente_translations", ["locale"], name: "index_continente_translations_on_locale", using: :btree
 
   create_table "continentes", force: true do |t|
-    t.string "description", null: false
+    t.string  "description", null: false
+    t.integer "geoname_id"
   end
 
   create_table "event_comment_likes", force: true do |t|
@@ -1025,6 +1027,7 @@ ActiveRecord::Schema.define(version: 20150325225705) do
     t.integer "stato_id"
     t.integer "population"
     t.integer "continente_id"
+    t.integer "geoname_id"
   end
 
   add_index "provincias", ["continente_id"], name: "index_provincias_on_continente_id", using: :btree
@@ -1094,6 +1097,7 @@ ActiveRecord::Schema.define(version: 20150325225705) do
     t.string  "description",   limit: 100
     t.integer "stato_id",                  null: false
     t.integer "continente_id"
+    t.integer "geoname_id"
   end
 
   add_index "regiones", ["continente_id"], name: "index_regiones_on_continente_id", using: :btree
@@ -1245,6 +1249,7 @@ ActiveRecord::Schema.define(version: 20150325225705) do
     t.integer "continente_id",           null: false
     t.string  "sigla",                   null: false
     t.string  "sigla_ext",     limit: 3
+    t.integer "geoname_id"
   end
 
   create_table "steps", force: true do |t|
@@ -1517,6 +1522,24 @@ ActiveRecord::Schema.define(version: 20150325225705) do
   create_table "vote_types", force: true do |t|
     t.string "short"
   end
+
+  add_foreign_key "action_abilitations", "group_actions", name: "action_abilitations_group_action_id_fk"
+  add_foreign_key "action_abilitations", "groups", name: "action_abilitations_group_id_fk"
+  add_foreign_key "action_abilitations", "participation_roles", name: "action_abilitations_partecipation_role_id_fk"
+
+  add_foreign_key "alerts", "notifications", name: "user_alerts_notification_id_fk"
+  add_foreign_key "alerts", "users", name: "user_alerts_user_id_fk"
+
+  add_foreign_key "area_action_abilitations", "area_roles", name: "area_action_abilitations_area_role_id_fk"
+  add_foreign_key "area_action_abilitations", "group_actions", name: "area_action_abilitations_group_action_id_fk"
+  add_foreign_key "area_action_abilitations", "group_areas", name: "area_action_abilitations_group_area_id_fk"
+
+  add_foreign_key "area_participations", "area_roles", name: "area_partecipations_area_role_id_fk"
+  add_foreign_key "area_participations", "group_areas", name: "area_partecipations_group_area_id_fk"
+  add_foreign_key "area_participations", "users", name: "area_partecipations_user_id_fk"
+
+  add_foreign_key "area_proposals", "group_areas", name: "area_proposals_group_area_id_fk"
+  add_foreign_key "area_proposals", "proposals", name: "area_proposals_proposal_id_fk"
 
   add_foreign_key "area_roles", "group_areas", name: "area_roles_group_area_id_fk"
 
