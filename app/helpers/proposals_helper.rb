@@ -110,7 +110,8 @@ module ProposalsHelper
 
   def solution_section_for_mustache(section, i, j)
     {mustache: {
-      section: {id: j,
+      section: {idx: j,
+                id: section.id,
                 data_id: (i + 1) * 100 + j,
                 seq: section.seq,
                 removeSection: t('pages.proposals.edit.remove_section'),

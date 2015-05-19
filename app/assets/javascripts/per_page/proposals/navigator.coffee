@@ -22,29 +22,30 @@ class Airesis.ProposalNavigator
     $('[data-navigator-collapse]').click =>
       @toggleSolutionNavigators(false)
 
-    @navigators.on 'click', ".sec_nav #{@move_up_selector}", =>
+    # sections navigator
+    @navigators.on 'click', ".sec_nav:not(.sol) #{@move_up_selector}", =>
       @.moveUpSection(`$(this)`)
-
-    @navigators.on 'click', ".sec_nav #{@move_down_selector}", =>
+    @navigators.on 'click', ".sec_nav:not(.sol) #{@move_down_selector}", =>
       @.moveDownSection(`$(this)`)
-
-    @navigators.on 'click', ".sec_nav #{@remove_selector}",  =>
+    @navigators.on 'click', ".sec_nav:not(.sol) #{@remove_selector}",  =>
       @.removeSection(`$(this)`)
 
-    @solution_section_navigators.on('click', @move_up_selector, =>
+    # solution sections navigator
+    @navigators.on 'click', ".sec_nav.sol #{@move_up_selector}", =>
       @.moveUpSection(`$(this)`)
-    ).on('click', @move_down_selector, =>
+    @navigators.on 'click', ".sec_nav.sol #{@move_down_selector}", =>
       @.moveDownSection(`$(this)`)
-    ).on('click', @remove_selector, =>
+    @navigators.on 'click', ".sec_nav.sol #{@remove_selector}", =>
       @.removeSection(`$(this)`)
-    )
 
-    @solution_navigators.on('click', '.sol.move_up', =>
+    # solutions navigator
+    @navigators.on 'click', ".sol_nav .sol.move_up", =>
       @.moveUpSolution(`$(this)`)
-    ).on('click', '.sol.move_down', =>
+    @navigators.on 'click', ".sol_nav .sol.move_down", =>
       @.moveDownSolution(`$(this)`)
-    ).on 'click', '.sol.remove', =>
+    @navigators.on 'click', ".sol_nav .sol.remove", =>
       @.removeSolution(`$(this)`.parent().data('solution_id'))
+
   # navigator methods
   collapsed_solution_navigators: ->
     @solution_navigators.filter('.collapsed')
@@ -104,7 +105,6 @@ class Airesis.ProposalNavigator
       classes: 'sol',
       i: i
       title: title))
-    console.log(solution_section_navigator)
     nav_ = $('.navigator li[data-solution_id=' + solutionId + ']')
     nav_.find('.sub_navigator').append(solution_section_navigator)
   addSolutionNavigator: (solutionId)->

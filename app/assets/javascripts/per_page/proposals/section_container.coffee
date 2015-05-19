@@ -70,4 +70,4 @@ class Airesis.SectionContainer
       return false
   setSeq: (val)->
     @seqField.val(val)
-    console.log @titleField.val() + " has sequence #{@seqField.val()}"
+    #console.log @titleField.val() + " has sequence #{@seqField.val()}"

@@ -78,7 +78,6 @@ window.ProposalsEdit =
       @navigator.removeSolution(solutionId)
       return false
     #editors
-    console.log 'containers', $(Airesis.SectionContainer.selector)
     $(Airesis.SectionContainer.selector).each ->
       container = new Airesis.SectionContainer(@)
       container.initCkEditor()
@@ -279,7 +278,7 @@ window.ProposalsEdit =
     dataId = ProposalsEdit.calculateDataId(parseInt(solutionId), sectionId)
     solutionSection = $(Mustache.to_html($('#solution_section_template').html(),
       section:
-        id: sectionId
+        idx: sectionId
         data_id: dataId
         seq: sectionId + 1
         removeSection: Airesis.i18n.proposals.edit.removeSection
@@ -299,8 +298,7 @@ window.ProposalsEdit =
   addSolution: ->
     jQuery.each ProposalsEdit.mustacheSections, (idx, section) ->
       section['solution']['id'] = ProposalsEdit.solutionsCount
-      section['section']['data_id'] = ProposalsEdit.calculateDataId(ProposalsEdit.solutionsCount,
-        section['section']['id'])
+      section['section']['data_id'] = ProposalsEdit.calculateDataId(ProposalsEdit.solutionsCount, section['section']['idx'])
     options = solution:
       id: ProposalsEdit.solutionsCount
       seq: ProposalsEdit.fakeSolutionsCount
@@ -322,9 +320,9 @@ window.ProposalsEdit =
       new Airesis.SectionContainer(section).initCkEditor()
     @navigator.addSolutionNavigator(ProposalsEdit.solutionsCount)
 
+    ProposalsEdit.numSolutionSections[ProposalsEdit.solutionsCount] = solution.find('.section_container').length
     ProposalsEdit.solutionsCount++
     ProposalsEdit.fakeSolutionsCount++
-    ProposalsEdit.numSolutionSections[ProposalsEdit.solutionsCount] = solution.find('.section_container').length + 1
   geocode_panel: ->
     return
 
