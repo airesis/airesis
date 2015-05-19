@@ -8,10 +8,10 @@ module Geonames
 
     def initialize
       # correctly set these parameters
-      @continent_name = 'Oceania'
-      @country_name = 'Australia'
-      @country_code = '2077456' #2635167
-      @lang = 'en'
+      @continent_name = 'Europe'
+      @country_name = 'Portugal'
+      @country_code = '2264397' #2635167
+      @lang = 'pt-PT'
 
       @username = 'coorasse'
 
