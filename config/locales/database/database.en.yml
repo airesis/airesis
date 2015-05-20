@@ -121,7 +121,7 @@ en:
         email_subject: "%{proposal} - Contribution back in debate"
         message: "A contribution you integrated in the proposal <b>%{proposal}</b> has been put back in debate"
       new_contributes:
-        description: "New contributions and comments in the proposals I participate in"
+        description: "New contributions in the proposals I participate in"
         email_subject: "%{title} - New contribute"
         message:
           zero: "<b>%{name}</b> added a new contribution in the proposal <b>%{title}</b>"

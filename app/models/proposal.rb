@@ -572,7 +572,6 @@ class Proposal < ActiveRecord::Base
     self.vote_period_id = vote_period_id
     self.proposal_state_id = ProposalState::WAIT
     save!
-
   end
 
   private
@@ -718,7 +717,6 @@ class Proposal < ActiveRecord::Base
       endtime = starttime + quorum.minutes.minutes
       copy.ends_at = endtime
     end
-
 
     #todo move quorum build in quorum model
     base_valutations = 0

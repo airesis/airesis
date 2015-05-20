@@ -119,7 +119,7 @@ de:
         email_subject: "%{proposal} - Beitrag wieder in der Debatte"
         message: "Einen Beitrag den Sie in den Vorschlag <b>%{proposal}</b> integriert haben, wurde wieder in die Debatte aufgenommen"
       new_contributes:
-        description: Neue Beiträge und Kommentare zu den Vorschlägen an denen ich beteiligt bin
+        description: Neue Beiträge zu den Vorschlägen an denen ich beteiligt bin
         email_subject: "%{title} - Neue Beiträge"
         message: "<b>%{name}</b> hat einen neuen Beitrag zu dem Vorschlag <b>%{title}</b>"
       text_update:
