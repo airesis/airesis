@@ -356,17 +356,7 @@
           </p>
 
           <div class="plan-sign-up">
-            <script src="<%= asset_path('paypal-button.min.js') %>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
-                    data-button="donate"
-                    data-name="Airesis - Scegli di partecipare"
-                    data-number="1"
-                    data-size="small"
-                    data-currency="EUR"
-                    data-amount="5.00"
-                    data-quantity="1"
-                    data-lc="<%= I18n.locale %>"
-                    data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
-            </script>
+            <%= paypal_button(size: 'small', amount: '5.00') %>
           </div>
         </div>
       </li>
@@ -380,17 +370,7 @@
           </p>
 
           <div class="plan-sign-up">
-            <script src="<%= asset_path('paypal-button.min.js') %>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
-                    data-button="donate"
-                    data-name="Airesis"
-                    data-number="1"
-                    data-size="small"
-                    data-currency="EUR"
-                    data-amount="20.00"
-                    data-quantity="1"
-                    data-lc="<%= I18n.locale %>"
-                    data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
-            </script>
+            <%= paypal_button(size: 'small', amount: '20.00') %>
           </div>
         </div>
       </li>
@@ -404,17 +384,7 @@
           </p>
 
           <div class="plan-sign-up">
-            <script src="<%= asset_path('paypal-button.min.js') %>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
-                    data-button="donate"
-                    data-name="Airesis"
-                    data-number="1"
-                    data-size="small"
-                    data-currency="EUR"
-                    data-amount="50.00"
-                    data-quantity="1"
-                    data-lc="<%= I18n.locale %>"
-                    data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
-            </script>
+            <%= paypal_button(size: 'small', amount: '50.00') %>
           </div>
         </div>
       </li>
@@ -427,16 +397,7 @@
           </p>
 
           <div class="plan-sign-up">
-            <script src="<%= asset_path('paypal-button.min.js') %>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
-                    data-button="donate"
-                    data-name="Airesis"
-                    data-number="1"
-                    data-size="small"
-                    data-currency="EUR"
-                    data-quantity="1"
-                    data-lc="<%= I18n.locale %>"
-                    data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
-            </script>
+            <%= paypal_button(size: 'small') %>
           </div>
         </div>
       </li>
