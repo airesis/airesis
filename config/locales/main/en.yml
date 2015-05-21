@@ -56,6 +56,7 @@ en:
         certified_from: "Certified from"
         group_level_permission_title: "Group level permissions"
         admin_permissions: "You are administrator of this group and you have all permissions"
+        certified_cannot_edit_info: "You're a certified user: you can't edit your Name, Surname and Email"
       send_message:
         subject_label: "Subject"
         body_label: "Body"

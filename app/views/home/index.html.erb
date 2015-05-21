@@ -150,12 +150,13 @@
             <%= form_for resource, as: resource_name, url: user_session_path do |f| %>
                 <div class="row">
                   <div class="columns large-12 medium-10 medium-push-1 large-push-0">
-                    <ul class="social-network small-block-grid-5">
+                    <ul class="social-network small-block-grid-6">
                       <li><%= link_to t('pages.top_panel.facebook_login'), user_omniauth_authorize_path(:facebook), alt: t('pages.top_panel.facebook_login'), title: t('pages.top_panel.facebook_login'), class: 'zocial icon facebook' %></li>
                       <li><%= link_to t('pages.top_panel.google_login'), user_omniauth_authorize_path(:google_oauth2), alt: t('pages.top_panel.google_login'), title: t('pages.top_panel.google_login'), class: 'zocial icon googleplus' %></li>
                       <li><%= link_to t('pages.top_panel.twitter_login'), user_omniauth_authorize_path(:twitter), alt: t('pages.top_panel.twitter_login'), title: t('pages.top_panel.twitter_login'), class: 'zocial icon twitter' %></li>
                       <li><%= link_to t('pages.top_panel.meetup_login'), user_omniauth_authorize_path(:meetup), alt: t('pages.top_panel.meetup_login'), title: t('pages.top_panel.meetup_login'), class: 'zocial icon meetup' %></li>
                       <li><%= link_to t('pages.top_panel.linkedin_login'), user_omniauth_authorize_path(:linkedin), alt: t('pages.top_panel.linkedin_login'), title: t('pages.top_panel.linkedin_login'), class: 'zocial icon linkedin' %></li>
+                      <li><%= link_to "Tecnologie Democratiche", user_omniauth_authorize_path(:tecnologiedemocratiche), alt: "Tecnologie Democratiche", title: "Tecnologie Democratiche", class: 'zocial icon tecnologiedemocratiche' %></li>
                     </ul>
                   </div>
                   <div class="columns large-12 medium-10 medium-push-1 large-push-0">

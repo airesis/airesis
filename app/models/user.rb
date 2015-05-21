@@ -143,6 +143,8 @@ class User < ActiveRecord::Base
   scope :autocomplete, ->(term) { where("lower(users.name) LIKE :term or lower(users.surname) LIKE :term", {term: "%#{term.downcase}%"}).order("users.surname desc, users.name desc").limit(10) }
   scope :non_blocking_notification, ->(notification_type) { User.where.not(id: User.select("users.id").joins(:blocked_alerts).where(blocked_alerts: {notification_type_id: notification_type})) }
 
+  validate :cannot_change_info_if_certified, on: :update
+
   def avatar_url=(url)
     begin
       file = URI.parse(url)
@@ -252,7 +254,7 @@ class User < ActiveRecord::Base
     super.tap do |user|
       user.last_sign_in_ip = session[:remote_ip]
       user.subdomain = session[:subdomain] if (session[:subdomain] && !session[:subdomain].blank?)
-      user.original_sys_locale_id =user.sys_locale_id = SysLocale.find_by(key: I18n.locale).id
+      user.original_sys_locale_id =user.sys_locale_id = SysLocale.find_by(key: 'en').id
 
       fdata = session["devise.google_data"] || session["devise.facebook_data"] || session["devise.linkedin_data"] || session['devise.parma_data']
       data = fdata["extra"]["raw_info"] || fdata["info"] if fdata #raw-info for google and facebook and linkedin, info for parma
@@ -679,16 +681,32 @@ class User < ActiveRecord::Base
     user.save!
   end
 
+  # return the user and a flag indicating if it's the first time the oauth account
+  # is associated to the Airesis account or if it's a simple login
   def self.find_or_create_for_oauth_provider(oauth_data)
 
-    provider = oauth_data['provider']
+    provider = oauth_data['provider'].to_s
     uid = oauth_data['uid'].to_s
+    user_info = Authentication.oauth_user_info oauth_data
 
     #se ho trovato l'id dell'utente prendi lui, altrimenti cercane uno con l'email uguale
     auth = Authentication.find_by_provider_and_uid(provider, uid)
-    user = auth ? auth.user : User.find_by_email( oauth_user_info(oauth_data)[:email] )
-
-    return user ? user : create_account_for_oauth(oauth_data)
+    if auth
+      return auth.user, false
+    else
+      user = User.find_by_email( Authentication.oauth_user_info(oauth_data)[:email] )
+      if user
+        user.build_authentication_provider(oauth_data)
+        if provider == Authentication::TECNOLOGIEDEMOCRATICHE || ( provider == Authentication::PARMA && raw_info['verified'] )
+            user.update(email: user_info[:email], name: user_info[:name], surname: user_info[:surname])
+            user.build_certification({name: user_info[:name], surname: user_info[:surname], tax_code: user_info[:email]})
+            user.update( user_type_id: UserType::CERTIFIED )
+        end
+      else
+        user = create_account_for_oauth(oauth_data)
+      end
+      return user, true
+    end
   end
 
   protected
@@ -697,16 +715,13 @@ class User < ActiveRecord::Base
     self.class.reconfirmable && @reconfirmation_required
   end
 
-  def create_account_for_oauth(oauth_data)
+  def self.create_account_for_oauth(oauth_data)
 
-    provider = oauth_data['provider']
-    raw_info = oauth_raw_info oauth_data
-    user_info = oauth_user_info oauth_data
+    provider = oauth_data['provider'].to_s
+    raw_info = Authentication.oauth_raw_info oauth_data
+    user_info = Authentication.oauth_user_info oauth_data
 
-    # !!! TODO: verificare che gli indirizzi email ricevuti dagli altri provider siano verificati !!!
-    if provider == Authentication::FACEBOOK
-      return nil unless raw_info['verified']
-    end
+    return nil if [ user_info[:name], user_info[:surname], user_info[:email] ].any? &:blank?
 
     user = User.new( name: user_info[:name],
                      surname: user_info[:surname],
@@ -714,29 +729,31 @@ class User < ActiveRecord::Base
                      sex: user_info[:sex],
                      email: user_info[:email] )
 
-    user.avatar_url = oauth_avatar_url oauth_data
+    user.tap do |user|
+      user.avatar_url = Authentication.oauth_avatar_url oauth_data
 
-    user.google_page_url = data['profile'] if provider == Authentication::GOOGLE
-    user.linkedin_page_url = data['publicProfileUrl'] if provider == Authentication::LINKEDIN
-    user.facebook_page_url = data['link'] if provider == Authentication::FACEBOOK
+      user.google_page_url = raw_info['profile'] if provider == Authentication::GOOGLE
+      user.linkedin_page_url = raw_info['publicProfileUrl'] if provider == Authentication::LINKEDIN
+      user.facebook_page_url = raw_info['link'] if provider == Authentication::FACEBOOK
 
-    if provider == Authentication::TECNOLOGIEDEMOCRATICHE || ( provider == Authentication::PARMA && raw_info['verified'] )
-      user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
-      user.user_type_id = UserType::CERTIFIED
-    else
-      user.user_type_id = UserType::AUTHENTICATED
+      user.confirm!
+      user.save!
+
+      if provider == Authentication::TECNOLOGIEDEMOCRATICHE || ( provider == Authentication::PARMA && raw_info['verified'] )
+        user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
+        user.update( user_type_id: UserType::CERTIFIED )
+      else
+        user.update( user_type_id: UserType::AUTHENTICATED )
+      end
+
+      User.add_to_parma_group( user, raw_info['verified'] ) if provider == Authentication::PARMA
+
+      user.build_authentication_provider(oauth_data)
+      user.sign_in_count = 0
     end
-
-    add_to_parma_group( user, raw_info['verified'] ) if provider == Authentication::PARMA
-
-    user.build_authentication_provider(oauth_data)
-    user.sign_in_count = 0
-
-    user.confirm!
-    user.save!
   end
 
-  def add_to_parma_group(user, verified)
+  def self.add_to_parma_group(user, verified)
     parma_group = Group.find_by_subdomain('parma')
     user.group_participation_requests.build( group: parma_group,
                                              group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED )
@@ -749,47 +766,11 @@ class User < ActiveRecord::Base
     user.group_participations.build(group: group, participation_role_id: participation_role.id)
   end
 
-  def oauth_avatar_url(oauth_data)
-    raw_info = oauth_raw_info oauth_data
-
-    raw_info['picture'] || # Google
-    raw_info['pictureUrl'] || # Linkedin
-    raw_info['profile_image_url'] || # Twitter
-    raw_info['photo']['photo_link'] || # Meetup
-    oauth_data['info']['image'] # Facebook
-  end
-
-  def oauth_raw_info(oauth_data)
-    oauth_data['raw_info'] || # TD
-    oauth_data['extra']['raw_info'] || # Meetup, Twitter, Google, Linkedin, FB
-    oauth_data['info'] # Parma
-  end
-
-  def oauth_user_info(oauth_data)
-
-    provider = oauth_data['provider']
-    raw_info = oauth_raw_info oauth_data
-
-    Hash.new.tap do |user_info|
-      user_info[:email] = raw_info['email'] || # TD, Parma, Google, FB
-                          raw_info['emailAddress'] # Linkedin
-
-      if [ Authentication::TWITTER, Authentication::MEETUP ].include? provider
-        fullname = raw_info['name']
-        splitted = fullname.split(' ', 2)
-        user_info[:name] = splitted ? splitted[0] : fullname
-        user_info[:surname] = splitted ? splitted[1] : ''
-      else
-        user_info[:name] = raw_info['first_name'] || # TD, Parma, Facebook
-                           raw_info['given_name'] || # Google
-                           raw_info['firstName'] || # Linkedin
-
-        user_info[:surname] = raw_info['last_name'] || # TD, Parma, Facebook
-                              raw_info['family_name'] || # Google
-                              raw_info['familyName'] # Linkedin
+  def cannot_change_info_if_certified
+    if user_type_id == UserType::CERTIFIED
+      [:name, :surname, :email].each do |field|
+        errors.add(field, I18n.t('activerecord.errors.messages.certified_cannot_edit')) if send("#{field}_changed?")
       end
-
-      user_info[:sex] = raw_info['gender'] ? raw_info['gender'][0] : nil
     end
   end
 

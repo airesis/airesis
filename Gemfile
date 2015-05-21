@@ -65,7 +65,7 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-meetup'
 gem 'omniauth-linkedin'
-gem 'omniauth-tecnologiedemocratiche'
+gem 'omniauth-tecnologiedemocratiche', git: 'https://github.com/TecnologieDemocratiche/omniauth-tecnologiedemocratiche.git'
 
 gem 'paperclip'
 
