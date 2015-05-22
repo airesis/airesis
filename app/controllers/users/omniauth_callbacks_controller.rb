@@ -23,7 +23,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 #        if provider == Authentication::FACEBOOK
 #          #se devo aggiornare il token...fallo
 #          new_token = oauth_data['credentials']['token']
-#          auth.update_attribute(:token, new_token) if auth.token != new_token
+#          auth.update(token: new_token) if auth.token != new_token
 #
 #          redirect_to request.env['omniauth.origin'] + '?share=true' if request.env['omniauth.params']['share']
 #        end
@@ -34,9 +34,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         current_user.build_authentication_provider(oauth_data)
 
         if provider == Authentication::TECNOLOGIEDEMOCRATICHE || ( provider == Authentication::PARMA && raw_info['verified'] )
-          current_user.update(email: user_info[:email], name: user_info[:name], surname: user_info[:surname])
+          current_user.skip_reconfirmation!
+          current_user.update!(email: user_info[:email], name: user_info[:name], surname: user_info[:surname])
           current_user.build_certification({name: user_info[:name], surname: user_info[:surname], tax_code: user_info[:email]})
-          current_user.update( user_type_id: UserType::CERTIFIED )
+          current_user.update!( user_type_id: UserType::CERTIFIED )
         else
           current_user.email = user_info[:email] unless current_user.email
 
@@ -53,7 +54,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
       @user, first_association = User.find_or_create_for_oauth_provider(oauth_data)
       if @user
-        flash[:notice] = first_association ? I18n.t("devise.omniauth_callbacks.success", kind: "Facebook") : "Login effettuato con successo"
+        flash[:notice] = first_association ? I18n.t('devise.omniauth_callbacks.success', kind: provider.capitalize) : I18n.t('devise.sessions.user.signed_in')
         @user.remember_me = true
         sign_in_and_redirect @user, event: :authentication
       else

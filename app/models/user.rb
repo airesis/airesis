@@ -698,9 +698,10 @@ class User < ActiveRecord::Base
       if user
         user.build_authentication_provider(oauth_data)
         if provider == Authentication::TECNOLOGIEDEMOCRATICHE || ( provider == Authentication::PARMA && raw_info['verified'] )
-            user.update(email: user_info[:email], name: user_info[:name], surname: user_info[:surname])
+            user.skip_reconfirmation!
+            user.update!(email: user_info[:email], name: user_info[:name], surname: user_info[:surname])
             user.build_certification({name: user_info[:name], surname: user_info[:surname], tax_code: user_info[:email]})
-            user.update( user_type_id: UserType::CERTIFIED )
+            user.update!( user_type_id: UserType::CERTIFIED )
         end
       else
         user = create_account_for_oauth(oauth_data)
@@ -741,9 +742,9 @@ class User < ActiveRecord::Base
 
       if provider == Authentication::TECNOLOGIEDEMOCRATICHE || ( provider == Authentication::PARMA && raw_info['verified'] )
         user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
-        user.update( user_type_id: UserType::CERTIFIED )
+        user.update!( user_type_id: UserType::CERTIFIED )
       else
-        user.update( user_type_id: UserType::AUTHENTICATED )
+        user.update!( user_type_id: UserType::AUTHENTICATED )
       end
 
       User.add_to_parma_group( user, raw_info['verified'] ) if provider == Authentication::PARMA
