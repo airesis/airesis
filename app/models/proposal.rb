@@ -157,7 +157,8 @@ class Proposal < ActiveRecord::Base
       project('count(*)').
       where(alerts[:trackable_id].eq(proposals[:id]).
               and(alerts[:trackable_type].eq('Proposal')).
-              and(alerts[:user_id].eq(user_id)))
+              and(alerts[:user_id].eq(user_id)).
+              and(alerts[:checked].eq(false)))
   end
 
   def self.ranking_subquery(user_id)

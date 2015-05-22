@@ -13,6 +13,10 @@ class EmailJob < ActiveRecord::Base
     status == 2
   end
 
+  def scheduled?
+    status == 0
+  end
+
   def completed!
     update(status: 2)
   end

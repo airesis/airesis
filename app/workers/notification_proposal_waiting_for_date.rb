@@ -1,26 +1,22 @@
 class NotificationProposalWaitingForDate < NotificationSender
 
   def perform(proposal_id, user_id)
-    elaborate(proposal_id, user_id)
-  end
-
-  #invia le notifiche quando viene scelta una data di votazione per la proposta
-  #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
-  def elaborate(proposal_id, user_id)
-    proposal = Proposal.find(proposal_id)
-    group = proposal.group
+    @proposal = Proposal.find(proposal_id)
+    @trackable = @proposal
+    group = @proposal.group
     current_user = User.find(user_id)
-    nickname = ProposalNickname.find_by(user_id: current_user.id, proposal_id: proposal.id) #there can be no nickname if who choose the votation
-    name = (proposal.is_anonima? && nickname) ? nickname.nickname : current_user.fullname
-    data = {proposal_id: proposal.id.to_s, name: name, title: proposal.title, extension: 'waiting_date'}
+    nickname = ProposalNickname.find_by(user_id: current_user.id, proposal_id: @proposal.id)
+    name = (@proposal.is_anonima? && nickname) ? nickname.nickname : current_user.fullname
+    data = {proposal_id: @proposal.id, name: name, title: @proposal.title, extension: 'waiting_date'}
     if group
       data['group'] = group.name
       data['subdomain'] = group.subdomain if group.certified?
     end
-    notification_a = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS, url: url_for_proposal(proposal, group), data: data)
-    proposal.participants.each do |user|
+    notification_a = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS,
+                                         url: url_for_proposal(@proposal, group), data: data)
+    @proposal.participants.each do |user|
       if user != current_user
-        send_notification_for_proposal(notification_a, user, proposal)
+        send_notification_for_proposal(notification_a, user)
       end
     end
   end

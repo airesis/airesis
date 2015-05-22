@@ -29,7 +29,7 @@ NotificationType.create(name: 'unintegrated_contribute', notification_category_i
 NotificationType.create(name: 'new_comments_mine', notification_category_id: nc6.id, email_delay: 2, alert_delay: 1) { |c| c.id = 27 }.save
 nc7 = NotificationCategory.create(seq: 2, short: "PROP")
 NotificationType.create(name: 'new_contributes', notification_category_id: nc7.id, email_delay: 2, alert_delay: 1) { |c| c.id = 1 }.save
-NotificationType.create(name: 'text_update', notification_category_id: nc7.id, email_delay: 2, alert_delay: 1) { |c| c.id = 2 }.save
+NotificationType.create(name: 'text_update', notification_category_id: nc7.id, email_delay: 2, alert_delay: 1, cumulable: true) { |c| c.id = 2 }.save
 NotificationType.create(name: 'change_status', notification_category_id: nc7.id, email_delay: 2, alert_delay: 1) { |c| c.id = 4 }.save
 NotificationType.create(name: 'new_valutation', notification_category_id: nc7.id, email_delay: 2, alert_delay: 1) { |c| c.id = 21 }.save
 NotificationType.create(name: 'new_authors', notification_category_id: nc7.id, email_delay: 2, alert_delay: 1) { |c| c.id = 24 }.save

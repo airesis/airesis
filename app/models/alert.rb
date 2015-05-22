@@ -27,10 +27,10 @@ class Alert < ActiveRecord::Base
 
   has_one :notification_type, through: :notification
   has_one :notification_category, through: :notification_type
+  has_one :email_job
 
   before_create :set_counter
   before_create :continue?
-  after_create :increase_proposal_counter
 
   after_commit :send_email, on: :create
   after_commit :private_pub, on: :create
@@ -62,6 +62,16 @@ class Alert < ActiveRecord::Base
     update_all(checked: true, checked_at: Time.now)
   end
 
+  def accumulate(by = 1)
+    increase_count! # increase the count in the alert
+    if email_job.scheduled? # an email is in queue?
+      email_job.accumulate # requeue it on new daly
+    else # alert is sent, email is sent, but alert is not read yet, just send a new email for the previous (accumulated) alert
+      send_email(true)
+    end
+    private_pub
+  end
+
   def message
     extension = ".#{data[:extension]}" if data[:extension]
     I18n.t("db.#{notification_type.class.class_name.tableize}.#{notification_type.name}.message#{extension}", data)
@@ -85,16 +95,11 @@ class Alert < ActiveRecord::Base
   protected
 
   def continue?
-    !alert_job.canceled? && !acked?
+    (!alert_job.present? || !alert_job.canceled?) && !acked?
   end
 
   def set_counter
-    properties['count'] = alert_job.accumulated_count
-  end
-
-  def increase_proposal_counter
-    @pa = ProposalAlert.find_or_create_by(proposal_id: notification.data[:proposal_id].to_i, user_id: user_id)
-    @pa.increment!(:count)
+    properties['count'] = alert_job ? alert_job.accumulated_count : 1
   end
 
   def send_email(add_alert_delay = false)
@@ -109,7 +114,9 @@ class Alert < ActiveRecord::Base
   end
 
   def private_pub
-    PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil
+    PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello')
+  rescue
+    Rails.logger.error "Error while pushing to PrivatePub"
   end
 
   def complete_alert_job
@@ -117,6 +124,6 @@ class Alert < ActiveRecord::Base
   end
 
   def acked?
-    trackable.acked_by?(user)
+    trackable.present? && trackable.acked_by?(user)
   end
 end

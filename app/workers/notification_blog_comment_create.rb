@@ -6,6 +6,7 @@ class NotificationBlogCommentCreate < NotificationSender
     blog_post = blog_comment.blog_post
     post_user = blog_post.user
     comment_user = blog_comment.user
+    @trackable = blog_post.blog
     return if comment_user == post_user #don't send a notification to myself
     another = Alert.another('blog_post_id', blog_post.id, post_user.id, NotificationType::NEW_BLOG_COMMENT).first
     if another

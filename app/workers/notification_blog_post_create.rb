@@ -1,13 +1,14 @@
 class NotificationBlogPostCreate < NotificationSender
 
-  #new blog post inserted
-  #we send alerts to the blog followers (TODO)
-  #we send alerts to the participants in the group in which is published
+  # new blog post inserted
+  # we send alerts to the blog followers (TODO)
+  # we send alerts to the participants in the group in which is published
   def perform(blog_post_id)
     blog_post = BlogPost.find(blog_post_id)
     post_user = blog_post.user
     user_followers = post_user.followers
     sent_users = []
+    @trackable = blog_post
     data = {:blog_post_id => blog_post.id.to_s}
     notification_a = Notification.create(notification_type_id: 15, url: blog_blog_post_url(blog_post.blog, blog_post), data: data)
     #TODO followers are not yet supported

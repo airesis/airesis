@@ -2,6 +2,7 @@ class NotificationEventCreate < NotificationSender
   #new events
   def perform(event_id)
     event = Event.find(event_id)
+    @trackable = event
     user = event.user
     organizer = event.groups.first
     if organizer #if there is a group  #todo there are some problems with private and public events and their notifications (???)

@@ -29,12 +29,18 @@ class AlertJob < ActiveRecord::Base
 
   def accumulate(by = 1)
     increment!(:accumulated_count, by)
-    Sidekiq::ScheduledSet.new.find_job(jid).reschedule(notification_type.alert_delay.minutes.from_now)
+    sidekiq_job = Sidekiq::ScheduledSet.new.find_job(jid)
+    if sidekiq_job
+      sidekiq_job.reschedule(notification_type.alert_delay.minutes.from_now)
+    else
+      Rails.logger.error('sidekiq process not found when trying to accumulate on an existing alert process')
+    end
   end
 
   def self.delay_for(notification)
     notification.notification_type.alert_delay.minutes
   end
+
   def self.factory(notification, user, trackable)
     jid = AlertsWorker.perform_in(delay_for(notification),
                                   user_id: user.id,
