@@ -4,7 +4,17 @@ class NotificationSender
 
   sidekiq_options queue: :notifications, retry: 1
 
+  def cancelled?
+    Sidekiq.redis {|c| c.exists("cancelled-#{jid}") }
+  end
+
+  def self.cancel!(jid)
+    Sidekiq.redis {|c| c.setex("cancelled-#{jid}", 86400, 1) }
+  end
+
   protected
+
+
 
   #send notifications to the authors of a proposal
   def send_notification_to_authors(notification, proposal)
@@ -25,9 +35,9 @@ class NotificationSender
     true
   end
 
-  #invia una notifica ad un utente a meno che non abbia bloccato le notifiche per quella proposta
-  #se l'utente ha bloccato il tipo di notifica allora non viene inviata
-  #se l'utente ha abilitato anche l'invio via mail allora viene inviata via mail
+  # invia una notifica ad un utente a meno che non abbia bloccato le notifiche per quella proposta
+  # se l'utente ha bloccato il tipo di notifica allora non viene inviata
+  # se l'utente ha abilitato anche l'invio via mail allora viene inviata via mail
   def send_notification_for_proposal(notification,user,proposal)
     send_notification_to_user(notification, user) unless BlockedProposalAlert.find_by(user_id: user.id, proposal_id: proposal.id)
   end

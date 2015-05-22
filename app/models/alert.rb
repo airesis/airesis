@@ -2,20 +2,23 @@
 class Alert < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: :user_id
   belongs_to :notification, class_name: 'Notification', foreign_key: :notification_id
+  belongs_to :trackable, polymorphic: true
+
+  attr_accessor :jid
 
   default_scope -> {
     select('alerts.*, notifications.properties || alerts.properties as nproperties').
-        joins(:notification)
+      joins(:notification)
   }
 
   scope :another, ->(attribute, attr_id, user_id, notification_type) {
     joins([:notification, :user]).
-        where('(notifications.properties -> ?) = ? and notifications.notification_type_id in (?) and users.id = ?',
-              attribute,
-              attr_id.to_s,
-              notification_type,
-              user_id).
-        readonly(false)
+      where('(notifications.properties -> ?) = ? and notifications.notification_type_id in (?) and users.id = ?',
+            attribute,
+            attr_id.to_s,
+            notification_type,
+            user_id).
+      readonly(false)
   }
 
   scope :another_unread, ->(attribute, attr_id, user_id, notification_type) {
@@ -25,9 +28,17 @@ class Alert < ActiveRecord::Base
   has_one :notification_type, through: :notification
   has_one :notification_category, through: :notification_type
 
-  after_create :increase_counter
+  before_create :set_counter
+  before_create :continue?
+  after_create :increase_proposal_counter
 
   after_commit :send_email, on: :create
+  after_commit :private_pub, on: :create
+  after_commit :complete_alert_job, on: :create
+
+  def alert_job
+    @alert_job ||= AlertJob.find_by(jid: jid)
+  end
 
   def data
     ret = nproperties.symbolize_keys
@@ -45,17 +56,10 @@ class Alert < ActiveRecord::Base
 
   def check!
     update(checked: true, checked_at: Time.now)
-    ProposalAlert.find_by(proposal_id: data[:proposal_id].to_i, user_id: user_id).decrement!(:count) if data[:proposal_id]
   end
 
   def self.check_all
     update_all(checked: true, checked_at: Time.now)
-    all.each do |alert|
-      if alert.data[:proposal_id]
-        alert = ProposalAlert.find_by(proposal_id: alert.data[:proposal_id].to_i, user_id: alert.user_id)
-        alert.decrement!(:count) if alert
-      end
-    end
   end
 
   def message
@@ -80,15 +84,39 @@ class Alert < ActiveRecord::Base
 
   protected
 
-  def increase_counter
+  def continue?
+    !alert_job.canceled? && !acked?
+  end
+
+  def set_counter
+    properties['count'] = alert_job.accumulated_count
+  end
+
+  def increase_proposal_counter
     @pa = ProposalAlert.find_or_create_by(proposal_id: notification.data[:proposal_id].to_i, user_id: user_id)
     @pa.increment!(:count)
   end
 
-  def send_email
+  def send_email(add_alert_delay = false)
+    return if checked?
     return if user.blocked?
     return if user.blocked_email_notifications.include? notification_type
     return unless user.email.present?
-    ResqueMailer.delay_for(2.minutes).notification(id)
+    delay = notification.notification_type.email_delay
+    delay += notification.notification_type.alert_delay if add_alert_delay
+    jid = EmailsWorker.perform_in(delay.minutes, id)
+    EmailJob.create(alert: self, jid: jid)
+  end
+
+  def private_pub
+    PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil
+  end
+
+  def complete_alert_job
+    alert_job.complete(self)
+  end
+
+  def acked?
+    trackable.acked_by?(user)
   end
 end

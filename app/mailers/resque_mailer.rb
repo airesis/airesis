@@ -1,4 +1,3 @@
-#encoding: utf-8
 class ResqueMailer < ActionMailer::Base
   helper ProposalsHelper, EmailHelper, GroupsHelper
   default from: ENV['DEFAULT_FROM']
