@@ -80,7 +80,7 @@ class NotificationProposalUpdate < NotificationSender
       data[:subdomain] = @group.subdomain if @group.certified?
     end
     notification_a = Notification.new(notification_type_id: @notification_type_id,
-                                      url: url_for_proposal(@proposal, @group),
+                                      url: url_for_proposal,
                                       data: data)
     notification_a.save
     notification_a

@@ -8,13 +8,13 @@ class NotificationProposalAbandoned < NotificationSender
     data = {proposal_id: @proposal.id.to_s, title: @proposal.title, extension: 'abandoned'}
 
     notification_a = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS_MINE,
-                                         url: url_for_proposal(@proposal, group), data: data)
+                                         url: url_for_proposal, data: data)
     old_authors.each do |user|
       send_notification_for_proposal(notification_a, user)
     end
 
     notification_b = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS,
-                                         url: url_for_proposal(proposal, group), data: data)
+                                         url: url_for_proposal, data: data)
     old_participants(participant_ids).each do |user|
       another_delete('proposal_id', proposal.id, user.id, NotificationType::PHASE_ENDING)
       send_notification_for_proposal(notification_b, user)

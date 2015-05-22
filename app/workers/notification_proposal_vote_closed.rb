@@ -12,10 +12,10 @@ class NotificationProposalVoteClosed < NotificationSender
       data[:subdomain] = group.subdomain if group.certified?
     end
     notification_a = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS_MINE,
-                                         url: url_for_proposal(@proposal, group), data: data)
+                                         url: url_for_proposal, data: data)
     send_notification_to_authors(notification_a)
     notification_b = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS,
-                                         url: url_for_proposal(@proposal, group), data: data)
+                                         url: url_for_proposal, data: data)
     if @proposal.accepted?
       send_notification_to_voters(notification_b)
     else #rejected

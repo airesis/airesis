@@ -8,12 +8,12 @@ class NotificationProposalVoteStarts < NotificationSender
 
     data = {proposal_id: @proposal.id, title: @proposal.title, extension: 'in_vote'}
     notification_a = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS_MINE,
-                                         url: url_for_proposal(@proposal, group), data: data)
+                                         url: url_for_proposal, data: data)
 
     send_notification_to_authors(notification_a)
 
     notification_b = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS,
-                                         url: url_for_proposal(@proposal, group), data: data)
+                                         url: url_for_proposal, data: data)
 
     users = group ?
       group_area ?

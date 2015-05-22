@@ -107,7 +107,7 @@ class NotificationSender
     end
   end
 
-  def url_for_proposal(proposal,group=nil)
-    group ? group_proposal_url(group, proposal) : proposal_url(proposal)
+  def url_for_proposal
+    @proposal.group ? group_proposal_url(@proposal.group, @proposal) : proposal_url(@proposal)
   end
 end
