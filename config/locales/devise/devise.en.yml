@@ -60,6 +60,8 @@ en:
     omniauth_callbacks:
       success: 'Your registration has been completed. Welcome!'
       failure: 'Could not authorize you from %{kind} because "%{reason}"'
+      join_success: "Unione account avvenuta corretamente. Complimenti, ora puoi fare login anche attraverso %{provider}."
+      join_failure: "Esiste già un altro account associato a questo account %{provider}. Attendi la funzione di 'Unione account' per procedere"
     mailer:
       confirmation_instructions:
         subject: 'Confirmation instructions'

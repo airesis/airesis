@@ -18,6 +18,7 @@ en:
       openid_login: "Login with OpenID"
       find_groups: 'Search Groups'
       parma_login: "Login with Parma"
+      tecnologiedemocratiche_login: "Login with Tecnologie Democratiche"
     user:
       notifications: 'Alarms and Notifications'
       privacy: "Account and privacy"

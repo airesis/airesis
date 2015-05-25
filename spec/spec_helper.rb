@@ -57,3 +57,5 @@ RSpec.configure do |config|
     Capybara::Screenshot.append_timestamp = false
   end
 end
+
+OmniAuth.config.test_mode = true

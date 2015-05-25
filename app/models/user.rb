@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
   belongs_to :places, class_name: 'Place', foreign_key: :residenza_id
   belongs_to :places, class_name: 'Place', foreign_key: :nascita_id
   belongs_to :image, class_name: 'Image', foreign_key: :image_id
-  has_many :authentications, class_name: 'Authentication'
+  has_many :authentications, class_name: 'Authentication', dependent: :destroy
 
   has_many :user_borders, class_name: 'UserBorder'
 
@@ -692,22 +692,30 @@ class User < ActiveRecord::Base
     #se ho trovato l'id dell'utente prendi lui, altrimenti cercane uno con l'email uguale
     auth = Authentication.find_by_provider_and_uid(provider, uid)
     if auth
-      return auth.user, false
+      return auth.user, false, false
     else
       user = User.find_by_email( Authentication.oauth_user_info(oauth_data)[:email] )
       if user
         user.build_authentication_provider(oauth_data)
         if provider == Authentication::TECNOLOGIEDEMOCRATICHE || ( provider == Authentication::PARMA && raw_info['verified'] )
-            user.skip_reconfirmation!
-            user.update!(email: user_info[:email], name: user_info[:name], surname: user_info[:surname])
-            user.build_certification({name: user_info[:name], surname: user_info[:surname], tax_code: user_info[:email]})
-            user.update!( user_type_id: UserType::CERTIFIED )
+            user.certify_with_info(user_info)
         end
+        return user, true, true
       else
         user = create_account_for_oauth(oauth_data)
+        return user, true, false
       end
-      return user, true
     end
+  end
+
+  def certify_with_info(user_info)
+
+    raise "Not enough info for certification" if [ user_info[:name], user_info[:surname], user_info[:email] ].any? &:blank?
+
+    skip_reconfirmation!
+    update!(email: user_info[:email], name: user_info[:name], surname: user_info[:surname])
+    build_certification({name: user_info[:name], surname: user_info[:surname], tax_code: user_info[:email]})
+    update!( user_type_id: UserType::CERTIFIED )
   end
 
   protected

@@ -1,71 +1,6 @@
 #encoding: utf-8
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
-  def go_oauth
-
-    oauth_data = request.env['omniauth.auth']
-    provider = oauth_data['provider'].to_s
-    uid = oauth_data['uid'].to_s
-    raw_info = Authentication.oauth_raw_info oauth_data
-    user_info = Authentication.oauth_user_info oauth_data
-
-    # !!! TODO: verificare che gli indirizzi email ricevuti dagli altri provider siano verificati !!!
-    if provider == Authentication::FACEBOOK
-      flash[:error] = "Account #{provider.capitalize} non verificato."
-      redirect_to privacy_preferences_users_url
-    end
-
-    #se sono già autenticato allora sto facendo una join dei due account
-    if current_user
-      auth = Authentication.find_by_provider_and_uid(provider, uid)
-      if auth #se c'è già un altro account
-
-#        if provider == Authentication::FACEBOOK
-#          #se devo aggiornare il token...fallo
-#          new_token = oauth_data['credentials']['token']
-#          auth.update(token: new_token) if auth.token != new_token
-#
-#          redirect_to request.env['omniauth.origin'] + '?share=true' if request.env['omniauth.params']['share']
-#        end
-
-        #annulla l'operazione!
-        flash[:error] = "Esiste già un altro account associato a questo account #{provider.capitalize}. Attendi la funzione di 'Unione account' per procedere"
-      else
-        current_user.build_authentication_provider(oauth_data)
-
-        if provider == Authentication::TECNOLOGIEDEMOCRATICHE || ( provider == Authentication::PARMA && raw_info['verified'] )
-          current_user.skip_reconfirmation!
-          current_user.update!(email: user_info[:email], name: user_info[:name], surname: user_info[:surname])
-          current_user.build_certification({name: user_info[:name], surname: user_info[:surname], tax_code: user_info[:email]})
-          current_user.update!( user_type_id: UserType::CERTIFIED )
-        else
-          current_user.email = user_info[:email] unless current_user.email
-
-          current_user.google_page_url = raw_info['profile'] if provider == Authentication::GOOGLE
-          current_user.linkedin_page_url = raw_info['publicProfileUrl'] if provider == Authentication::LINKEDIN
-          current_user.facebook_page_url = raw_info['link'] if provider == Authentication::FACEBOOK
-        end
-
-        current_user.save(validate: false)
-        flash[:notice] = "Unione account avvenuta corretamente. Complimenti, ora puoi fare login anche attraverso #{provider.capitalize}."
-      end
-      redirect_to privacy_preferences_users_url
-    else
-
-      @user, first_association = User.find_or_create_for_oauth_provider(oauth_data)
-      if @user
-        flash[:notice] = first_association ? I18n.t('devise.omniauth_callbacks.success', kind: provider.capitalize) : I18n.t('devise.sessions.user.signed_in')
-        @user.remember_me = true
-        sign_in_and_redirect @user, event: :authentication
-      else
-        flash[:error] = "Account #{provider.capitalize} con dati mancanti (nome, cognome, email)."
-        redirect_to new_user_registration_path
-      end
-    end
-  end
-
-
-
   def facebook
     #se sono già autenticato allora sto facendo una join dei due account
     access_token = request.env['omniauth.auth']
@@ -333,4 +268,72 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def passthru
     render_404
   end
+
+  protected
+
+  def go_oauth
+
+    oauth_data = request.env['omniauth.auth']
+    provider = oauth_data['provider'].to_s
+    uid = oauth_data['uid'].to_s
+    raw_info = Authentication.oauth_raw_info oauth_data
+    user_info = Authentication.oauth_user_info oauth_data
+
+    # !!! TODO: verificare che gli indirizzi email ricevuti dagli altri provider siano verificati !!!
+    if provider == Authentication::FACEBOOK
+      flash[:error] = "Account #{provider.capitalize} non verificato."
+      redirect_to privacy_preferences_users_url
+    end
+
+    #se sono già autenticato allora sto facendo una join dei due account
+    if current_user
+      auth = Authentication.find_by_provider_and_uid(provider, uid)
+      if auth #se c'è già un altro account
+
+        if provider == Authentication::FACEBOOK
+          #se devo aggiornare il token...fallo
+          new_token = oauth_data['credentials']['token']
+          auth.update(token: new_token) if auth.token != new_token
+
+          redirect_to request.env['omniauth.origin'] + '?share=true' if request.env['omniauth.params']['share']
+        end
+
+        #annulla l'operazione!
+        flash[:error] = I18n.t('devise.omniauth_callbacks.join_failure', provider: provider.capitalize)
+      else
+        current_user.build_authentication_provider(oauth_data)
+
+        if provider == Authentication::TECNOLOGIEDEMOCRATICHE ||
+          ( provider == Authentication::PARMA && raw_info['verified'] )
+          current_user.certify_with_info(user_info)
+        else
+          current_user.email = user_info[:email] unless current_user.email
+
+          current_user.google_page_url = raw_info['profile'] if provider == Authentication::GOOGLE
+          current_user.linkedin_page_url = raw_info['publicProfileUrl'] if provider == Authentication::LINKEDIN
+          current_user.facebook_page_url = raw_info['link'] if provider == Authentication::FACEBOOK
+        end
+
+        current_user.save(validate: false)
+        flash[:notice] = I18n.t('devise.omniauth_callbacks.join_success', provider: provider.capitalize)
+      end
+      redirect_to privacy_preferences_users_url
+    else
+
+      @user, first_association, join = User.find_or_create_for_oauth_provider(oauth_data)
+      if @user
+        if join
+          flash[:notice] = I18n.t('devise.omniauth_callbacks.join_success', provider: provider.capitalize)
+        else
+          flash[:notice] = first_association ? I18n.t('devise.omniauth_callbacks.success', kind: provider.capitalize) : I18n.t('devise.sessions.user.signed_in')
+        end
+        @user.remember_me = true
+        sign_in_and_redirect @user, event: :authentication
+      else
+        flash[:error] = "Account #{provider.capitalize} con dati mancanti (nome, cognome, email)."
+        redirect_to new_user_registration_path
+      end
+    end
+  end
+
 end
