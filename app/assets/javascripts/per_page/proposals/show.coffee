@@ -78,6 +78,7 @@ window.ProposalsShow =
     @init_text_areas()
     @init_contributes_button()
     @init_countdowns()
+    @initVotePeriodSelect()
   init_text_areas: ->
     $('[data-contribute-area]').each ->
       if $(this).attr('data-initialized') != 1
@@ -286,3 +287,10 @@ window.ProposalsShow =
         description: ProposalsShow.times.descriptions.vote_ends_at
       ,
         $.countdown.regionalOptions[Airesis.i18n.locale]
+  initVotePeriodSelect: ->
+    $('#proposal_vote_period_id').select2
+      minimumResultsForSearch: -1,
+      formatResult: formatPeriod,
+      formatSelection: formatPeriod,
+      escapeMarkup: (m)->
+        m
