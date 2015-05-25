@@ -168,9 +168,17 @@ SysLocale.create(key: "ro-RO", host: "www.airesis.eu", territory_type: "Stato", 
 SysLocale.create(key: "es-CL", host: "www.airesis.us", territory_type: "Stato", territory_id: "90", lang: "es-CL")
 SysLocale.create(key: "crowdin", host: "www.airesis.eu", territory_type: "", territory_id: "", lang: "crowdin")
 SysLocale.create(key: "it-IT", host: "www.airesisdev.it", territory_type: "Stato", territory_id: "1")
-SysLocale.create(key: "en", host: "www.airesisdev.eu", territory_type: "Continente", territory_id: "1")
-SysLocale.create(key: "en-US", host: "www.airesisdev.us", territory_type: "Continente", territory_id: "2")
+SysLocale.create(key: "en", host: "www.airesis.eu", territory_type: "Continente", territory_id: "1")
+SysLocale.create(key: "en-US", host: "www.airesis.us", territory_type: "Continente", territory_id: "2")
 SysLocale.create(key: "hu", host: "www.airesis.eu", territory_type: "Stato", territory_id: "210", lang: "hu")
+
+SysLocale.create(key: 'el', host: 'www.airesis.eu', lang: 'el', territory: Stato.find_by(description: 'Greece'))
+SysLocale.create(key: 'en-GB', host: 'www.airesis.eu', lang: 'en-GB', territory: Stato.find_by(description: 'United Kingdom'))
+SysLocale.create(key: 'en-ZA', host: 'www.airesis.eu', lang: 'en-ZA', territory: Stato.find_by(description: 'South Africa'))
+SysLocale.create(key: 'en-NZ', host: 'www.airesis.eu', lang: 'en-NZ', territory: Stato.find_by(description: 'New Zealand'))
+SysLocale.create(key: 'en-AU', host: 'www.airesis.eu', lang: 'en-AU', territory: Stato.find_by(description: 'Australia'))
+
+
 SysMovementType.create(description: "Entrata")
 SysMovementType.create(description: "Uscita")
 
