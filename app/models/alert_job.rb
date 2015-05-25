@@ -15,6 +15,10 @@ class AlertJob < ActiveRecord::Base
     update(status: 3)
   end
 
+  def scheduled?
+    status == 0
+  end
+
   def canceled?
     status == 3
   end

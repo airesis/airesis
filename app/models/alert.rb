@@ -51,7 +51,13 @@ class Alert < ActiveRecord::Base
   end
 
   def email_subject
-    notification.email_subject
+    group = data[:group]
+    subject = group ? "[#{group}] " : ''
+    subject += I18n.t(notification.email_subject_interpolation, data)
+  end
+
+  def message
+    I18n.t(notification.message_interpolation, data)
   end
 
   def check!
@@ -72,13 +78,8 @@ class Alert < ActiveRecord::Base
     private_pub
   end
 
-  def message
-    extension = ".#{data[:extension]}" if data[:extension]
-    I18n.t("db.#{notification_type.class.class_name.tableize}.#{notification_type.name}.message#{extension}", data)
-  end
-
   def increase_count!
-    self.properties_will_change! # TODO: bugfix on Rails 4. to remove when patched
+    properties_will_change! # TODO: bugfix on Rails 4. to remove when patched
     count = properties['count'] ? properties['count'].to_i : 1
     properties['count'] = count + 1
     save!
@@ -99,6 +100,7 @@ class Alert < ActiveRecord::Base
   end
 
   def set_counter
+    properties_will_change!
     properties['count'] = alert_job ? alert_job.accumulated_count : 1
   end
 
@@ -124,6 +126,6 @@ class Alert < ActiveRecord::Base
   end
 
   def acked?
-    trackable.present? && trackable.acked_by?(user)
+    trackable.present? && (trackable.respond_to? :acked_by?) && trackable.acked_by?(user)
   end
 end

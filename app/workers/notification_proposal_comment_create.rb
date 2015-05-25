@@ -31,24 +31,15 @@ class NotificationProposalCommentCreate < NotificationSender
       end
 
       @proposal.users.each do |user| #send emails to editors
-        if user != comment_user
-          #check if there is another alert to this user about new contributes that he has not read yet
-          another_increase_or_do('proposal_id', @proposal.id, user.id, NotificationType::NEW_CONTRIBUTES_MINE) do
-            #for contributes we create a notification for each user and aggregate them if needed
-            notification_a = Notification.create!(notification_type_id: NotificationType::NEW_CONTRIBUTES_MINE, url: url + "?#{query.to_query}", data: data)
-            send_notification_for_proposal(notification_a, user)
-          end
-        end
+        next if user == comment_user
+        notification_a = Notification.create!(notification_type_id: NotificationType::NEW_CONTRIBUTES_MINE, url: url + "?#{query.to_query}", data: data)
+        send_notification_for_proposal(notification_a, user)
       end
 
       @proposal.participants.each do |user|
-        if (user != comment_user) && (!@proposal.users.include? user)
-          another_increase_or_do('proposal_id', @proposal.id, user.id, NotificationType::NEW_CONTRIBUTES) do
-            notification_b = Notification.create!(notification_type_id: NotificationType::NEW_CONTRIBUTES, url: url +"?#{query.to_query}", data: data)
-            #for contributes we create a notification for each user and aggregate them if needed
-            send_notification_for_proposal(notification_b, user)
-          end
-        end
+        next if (user == comment_user) || (!@proposal.users.include? user)
+        notification_b = Notification.create!(notification_type_id: NotificationType::NEW_CONTRIBUTES, url: url +"?#{query.to_query}", data: data)
+        send_notification_for_proposal(notification_b, user)
       end
     else #reply
 
@@ -62,11 +53,8 @@ class NotificationProposalCommentCreate < NotificationSender
                                            url: url +"?#{query.to_query}", data: data)
 
       comment.contribute.participants.each do |user|
-        unless user == comment_user
-          another_increase_or_do('parent_id', comment.contribute.id, user.id, NotificationType::NEW_COMMENTS) do
-            send_notification_for_proposal(notification_a, user)
-          end
-        end
+        next if user == comment_user
+        send_notification_for_proposal(notification_a, user)
       end
     end
   end

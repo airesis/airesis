@@ -30,11 +30,7 @@ class NotificationType < ActiveRecord::Base
   has_many :blockers, through: :blocked_alerts, class_name: 'User', source: :user
 
   def description
-    I18n.t("db.#{self.class.class_name.tableize}.#{self.name}.description")
-  end
-
-  def email_subject
-    I18n.t("db.#{self.class.class_name.tableize}.#{self.name}.email_subject")
+    I18n.t("db.#{self.class.class_name.tableize}.#{name}.description")
   end
 
   # TODO

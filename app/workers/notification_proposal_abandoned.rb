@@ -5,7 +5,7 @@ class NotificationProposalAbandoned < NotificationSender
     @proposal = Proposal.find(proposal_id)
     @trackable = @proposal
     group = @proposal.group
-    data = {proposal_id: @proposal.id.to_s, title: @proposal.title, extension: 'abandoned'}
+    data = {proposal_id: @proposal.id, title: @proposal.title, extension: 'abandoned'}
 
     notification_a = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS_MINE,
                                          url: url_for_proposal, data: data)
@@ -16,7 +16,6 @@ class NotificationProposalAbandoned < NotificationSender
     notification_b = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS,
                                          url: url_for_proposal, data: data)
     old_participants(participant_ids).each do |user|
-      another_delete('proposal_id', proposal.id, user.id, NotificationType::PHASE_ENDING)
       send_notification_for_proposal(notification_b, user)
     end
   end

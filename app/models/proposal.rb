@@ -1,4 +1,3 @@
-#encoding: utf-8
 class Proposal < ActiveRecord::Base
   include BlogKitModelHelper, Frm::Concerns::Viewable, Concerns::ProposalBuildable
 
