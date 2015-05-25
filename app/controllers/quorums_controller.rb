@@ -97,7 +97,6 @@ class QuorumsController < ApplicationController
     end
   end
 
-
   def help
     if params[:group_id]
       @group = Group.find(params[:group_id])

@@ -114,6 +114,7 @@ class GroupsController < ApplicationController
         format.html { redirect_to group_url(@group) }
       end
     else
+      puts @group.errors.full_messages
       respond_to do |format|
         format.html { render :new }
         format.js { render 'layouts/active_record_error', locals: {object: @group} }
