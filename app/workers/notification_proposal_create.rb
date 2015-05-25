@@ -22,17 +22,15 @@ class NotificationProposalCreate < NotificationSender
       end
       notification_a = Notification.create(notification_type_id: NotificationType::NEW_PROPOSALS, url: group_proposal_url(group, @proposal, host: host), data: data)
       receivers.each do |user|
-        if user != current_user
-          send_notification_to_user(notification_a, user)
-        end
+        next if user == current_user
+        send_notification_to_user(notification_a, user)
       end
     else
       #if it'a a public proposal
       notification_a = Notification.create(notification_type_id: NotificationType::NEW_PUBLIC_PROPOSALS, url: proposal_url(@proposal, {subdomain: false, host: host}), data: data)
       User.non_blocking_notification(NotificationType::NEW_PUBLIC_PROPOSALS).find_each do |user|
-        if user != current_user
-          send_notification_to_user(notification_a, user)
-        end
+        next if user == current_user
+        send_notification_to_user(notification_a, user)
       end
     end
   end

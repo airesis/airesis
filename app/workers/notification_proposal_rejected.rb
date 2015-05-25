@@ -19,7 +19,6 @@ class NotificationProposalRejected < NotificationSender
                                          url: group ? group_proposal_url(group, @proposal) : proposal_url(@proposal), data: data)
     @proposal.participants.each do |user|
       unless @proposal.users.include? user
-        another_delete('proposal_id', @proposal.id, user.id, NotificationType::PHASE_ENDING)
         send_notification_for_proposal(notification_b, user)
       end
     end

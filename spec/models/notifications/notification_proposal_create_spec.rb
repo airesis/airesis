@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require "cancan/matchers"
 
-describe Proposal, type: :model, emails: true do
+describe NotificationProposalCreate, type: :model, emails: true do
   it " when a new proposal is created sends correctly an email to all people which can view proposals in the group" do
     user1 = create(:user)
     group = create(:group, current_user_id: user1.id)
@@ -14,10 +14,11 @@ describe Proposal, type: :model, emails: true do
     end
     proposal = create(:group_proposal, current_user_id: participants[1].id, group_proposals: [GroupProposal.new(group: group)])
 
-    expect(NotificationProposalCreate.jobs.size).to eq 1
-    NotificationProposalCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 5
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(described_class.jobs.size).to eq 1
+    described_class.drain
+    AlertsWorker.drain
+    EmailsWorker.drain
+
     deliveries = ActionMailer::Base.deliveries.last 5
 
     receivers = [participants[0],participants[2],participants[3],participants[4],user1]
@@ -39,10 +40,11 @@ describe Proposal, type: :model, emails: true do
     end
     proposal = create(:public_proposal, current_user_id: user1.id)
 
-    expect(NotificationProposalCreate.jobs.size).to eq 1
-    NotificationProposalCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 0
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(described_class.jobs.size).to eq 1
+    described_class.drain
+    AlertsWorker.drain
+    EmailsWorker.drain
+
     expect(Alert.count).to eq 0
   end
 
@@ -55,10 +57,11 @@ describe Proposal, type: :model, emails: true do
     end
     proposal = create(:public_proposal, current_user_id: user1.id)
 
-    expect(NotificationProposalCreate.jobs.size).to eq 1
-    NotificationProposalCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 2
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(described_class.jobs.size).to eq 1
+    described_class.drain
+    AlertsWorker.drain
+    EmailsWorker.drain
+
     expect(Alert.count).to eq 2
   end
 end

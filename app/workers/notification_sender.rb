@@ -8,7 +8,7 @@ class NotificationSender
 
   #send notifications to the authors of a proposal
   def send_notification_to_authors(notification)
-    proposal.users.each do |user|
+    @proposal.users.each do |user|
       send_notification_for_proposal(notification, user)
     end
   end

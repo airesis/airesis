@@ -23,8 +23,6 @@ class NotificationProposalVoteStarts < NotificationSender
 
     users.each do |user|
       unless @proposal.users.include? user
-        another_delete('proposal_id', @proposal.id, user.id,
-                       [NotificationType::NEW_PROPOSALS, NotificationType::NEW_PUBLIC_PROPOSALS, NotificationType::PHASE_ENDING])
         send_notification_for_proposal(notification_b, user)
       end
     end

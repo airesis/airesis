@@ -28,7 +28,6 @@ class NotificationProposalVoteClosed < NotificationSender
   def send_notification_no_authors(users, notification)
     users.each do |user|
       unless @proposal.users.include? user
-        another_delete('proposal_id', @proposal.id, user.id, NotificationType::PHASE_ENDING)
         send_notification_for_proposal(notification, user)
       end
     end

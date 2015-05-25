@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require "cancan/matchers"
 
-describe ProposalPresentation, type: :model, emails: true do
+describe NotificationProposalPresentationCreate, type: :model, emails: true do
 
   it "when new authors for a proposal are available sends correctly an email to all participants to the proposal" do
     user1 = create(:user)
@@ -25,10 +25,10 @@ describe ProposalPresentation, type: :model, emails: true do
     proposal.proposal_presentations.build(user: user2, acceptor: user1)
     proposal.save!
 
-    expect(NotificationProposalPresentationCreate.jobs.size).to eq 1
-    NotificationProposalPresentationCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 6
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(described_class.jobs.size).to eq 1
+    described_class.drain
+    AlertsWorker.drain
+    EmailsWorker.drain
     delivery_to_user2 = ActionMailer::Base.deliveries.first
     last_deliveries = ActionMailer::Base.deliveries.last(5)
 

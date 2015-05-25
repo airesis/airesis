@@ -12,7 +12,6 @@ class NotificationProposalTimeLeft < NotificationSender
     notification_a = Notification.create(notification_type_id: NotificationType::PHASE_ENDING,
                                          url: url_for_proposal, data: data)
     receivers.each do |user|
-      another_delete('proposal_id', @proposal.id, user.id, NotificationType::PHASE_ENDING)
       send_notification_for_proposal(notification_a, user)
     end
   end
