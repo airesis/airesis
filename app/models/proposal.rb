@@ -173,23 +173,21 @@ class Proposal < ActiveRecord::Base
   #retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
   def self.open_space_portlet(user=nil)
     user_id = user ? user.id : -1
-    @list_a = Proposal.public
-    proposals = Proposal.arel_tablvisible petition_id = ProposalType.find_by(name: ProposalType::PETITION).id
+    proposals = Proposal.arel_table
+    petition_id = ProposalType.find_by(name: ProposalType::PETITION).id
     alerts_count = alerts_count_subquery(user_id)
     ranking = ranking_subquery(user_id)
-    Proposal.public.
-      select('dins("join proposal_types pt on (proposals.proposal_type_id = pt.id)")
-                  .where("pt.name != '#{ProposalType::PETITION}'")
-                  .order('updated_at DESC').limit(10)
-                  .where("pt.name != '#{ProposalType::PETITION}'")
-                  .order('updated_at DESC').limit(10)
+    Proposal.visible.
+      select('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
+      where(proposals[:proposal_type_id].not_eq(petition_id)).
+      order(updated_at: :desc).limit(10)
   end
 
   #retrieve the list of proposals for the user with a count of the number of the notifications for each proposal
   def self.home_portlet(user)
     proposals = Proposal.arel_table
     petition_id = ProposalType.find_by(name: ProposalType::PETITION).id
- visiblets_count = alerts_count_subquery(user.id)
+    alerts_count = alerts_count_subquery(user.id)
     ranking = ranking_subquery(user.id)
 
     list_a = user.proposals.before_votation.pluck('proposals.id')
@@ -201,17 +199,21 @@ class Proposal < ActiveRecord::Base
       select('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
       where(proposals[:proposal_type_id].not_eq(petition_id)).
       where(proposals[:id].in(list_c)).
-      order(updated_at: :d     .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}")
-                  .joins("join proposavisibles pt on (proposals.proposal_type_id = pt.id)")
-                  .where("pt.name = '#{ProposalType::PETITION}'")
-                  .order('updated_at DESC').limit(10)
-  sal.visible
-                  .select('distinct proposals.*, proposal_alerts.count as alerts_count')
-                  .includes([:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category])
-                  .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}")
-                  .joins("join proposal_types pt on (proposals.proposal_type_id = pt.id)")
-                  .where("pt.name = '#{ProposalType::PETITION}'")
-                  .order('updated_at DESC').limit(10)
+      order(updated_at: :desc).to_a
+    ActiveRecord::Associations::Preloader.new(proposals, [:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category]).run
+    proposals
+  end
+
+  #retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
+  def self.open_space_petitions_portlet(user)
+    proposals = Proposal.arel_table
+    petition_id = ProposalType.find_by(name: ProposalType::PETITION).id
+    alerts_count = alerts_count_subquery(user.id)
+
+    Proposal.public.
+      select('distinct proposals.*', alerts_count.as('alerts_count')).
+      where(proposals[:proposal_type_id].eq(petition_id)).
+      order(updated_at: :desc).limit(10)
   end
 
   def self.votation_portlet(user)
@@ -244,7 +246,7 @@ class Proposal < ActiveRecord::Base
               or(participation_roles[:id].eq(ParticipationRole.admin.id))).
       order('end_time asc').to_sql
     proposals = Proposal.find_by_sql(proposals_sql)
-    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category])
+    ActiveRecord::Associations::Preloader.new(proposals, [:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category]).run
     proposals
   end
 
