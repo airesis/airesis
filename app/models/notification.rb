@@ -35,5 +35,4 @@ class Notification < ActiveRecord::Base
     extension = ".#{data[:extension]}" if data[:extension]
     "db.notification_types.#{notification_type.name}.email_subject#{extension}"
   end
-
 end

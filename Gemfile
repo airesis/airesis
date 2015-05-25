@@ -54,7 +54,6 @@ group :development, :test do
   gem 'capybara-screenshot'
   gem 'spring'
   gem 'sunspot_test'
-
 end
 
 gem 'crowdin-api', group: [:development, :staging]

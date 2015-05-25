@@ -41,7 +41,7 @@ class Alert < ActiveRecord::Base
   end
 
   def data
-    ret = nproperties.symbolize_keys
+    ret = nproperties.with_indifferent_access
     ret[:count] = ret[:count].to_i
     ret
   end

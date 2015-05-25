@@ -75,7 +75,7 @@ class Proposal < ActiveRecord::Base
 
   validates_with AtLeastOneValidator, associations: [:solutions], unless: :is_petition?
 
-  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list, :last_revision, :topic_id, :votation, :petition_phase, :change_advanced_options, :current_user_id, :interest_borders_tkn
+  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list, :topic_id, :votation, :petition_phase, :change_advanced_options, :current_user_id, :interest_borders_tkn
 
   accepts_nested_attributes_for :sections, allow_destroy: true
   accepts_nested_attributes_for :solutions, allow_destroy: true
@@ -265,7 +265,7 @@ class Proposal < ActiveRecord::Base
 
 
   def count_notifications(user_id)
-    alerts = Alert.where(trackable: self, checked: false, user_id: user.id).count
+    alerts = Alert.where(trackable: self, checked: false, user_id: user_id).count
   end
 
   #after_find :calculate_percentage

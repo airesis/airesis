@@ -1,19 +1,24 @@
 <% @proposal = Proposal.find(@data[:proposal_id]) %>
-<% @alert_url = check_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang ) %>
+<% @alert_url = check_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang) %>
 <p>
-  <%=raw t('mailer.text_update.view_proposal', proposal: (link_to @proposal.title, @alert_url)) %> <br/>
+  <%= raw t('mailer.text_update.view_proposal', proposal: (link_to @proposal.title, @alert_url)) %> <br/>
 </p>
 
-<% if @data[:revision_id] %>
-    <% @revision = ProposalRevision.find(@data[:revision_id]) %>
-    <% @contributes = @revision.contributes.where('proposal_comments.user_id = ?', @alert.user.id) %>
+<% revisions = @proposal.proposal_revisions.where(ProposalRevision.arel_table[:id].gteq(ProposalRevision.find(@data[:revision_id]).id)) %>
+<% Rails.logger.info "we have #{revisions.count} revisions" %>
+<% revisions.each do |revision| %>
 
-    <% if @contributes.count > 0 %>
+    <%= render(partial: 'proposal_revisions/proposal_history', locals: {proposal_revision: revision}) %>
+
+
+    <% contributes = revision.contributes.where(proposal_comments: {user_id: @alert.user.id}) %>
+
+    <% if contributes.any? %>
         <p>
-          <%= t('mailer.text_update.integrated_contributes')%>
+          <%= t('mailer.text_update.integrated_contributes') %>
         </p>
 
-        <% @contributes.each do |contribute| %>
+        <% contributes.each do |contribute| %>
             <div id="comment<%= contribute.id %>" style="padding: 20px 0 0;clear: both;">
               <div style="float: left;margin: 0px 5px 5px 0px;">
                 <%= contribute.user_image_tag(40, url: true) %>
@@ -21,7 +26,7 @@
               <div style="border: 1px solid #CCCCCC;border-radius: 3px 3px 0px 0px;margin-left: 50px;color: #333333;">
                 <div>
                   <div style="word-wrap: break-word;margin: 5px;">
-                    <%= parsed_content(contribute,@proposal.is_anonima?) %>
+                    <%= parsed_content(contribute, @proposal.is_anonima?) %>
                   </div>
                   <div style="font-size: 0.9em;margin-top: 5px;margin-left: 5px;margin-bottom: 2px;color: #999999;float: left;">
                     <% who = contribute.user.fullname %>
@@ -34,7 +39,7 @@
             </div>
         <% end %>
         <p>
-          <%=raw t('mailer.text_update.view_proposal_2', click_here: (link_to t('mailer.text_update.connect',name: ENV['APP_SHORT_NAME']), @alert_url)) %>
+          <%= raw t('mailer.text_update.view_proposal_2', click_here: (link_to t('mailer.text_update.connect', name: ENV['APP_SHORT_NAME']), @alert_url)) %>
         </p>
     <% end %>
 <% end %>
