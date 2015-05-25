@@ -404,10 +404,6 @@ GEM
     rotp (1.6.1)
     rsolr (1.0.10)
       builder (>= 2.1.2)
-    rspec (3.0.0)
-      rspec-core (~> 3.0.0)
-      rspec-expectations (~> 3.0.0)
-      rspec-mocks (~> 3.0.0)
     rspec-core (3.0.4)
       rspec-support (~> 3.0.0)
     rspec-expectations (3.0.4)
@@ -423,9 +419,6 @@ GEM
       rspec-expectations (~> 3.0.0)
       rspec-mocks (~> 3.0.0)
       rspec-support (~> 3.0.0)
-    rspec-sidekiq (2.0.0)
-      rspec (~> 3.0, >= 3.0.0)
-      sidekiq (>= 2.4.0)
     rspec-support (3.0.4)
     rubocop (0.29.1)
       astrolabe (~> 1.3)
@@ -611,7 +604,6 @@ DEPENDENCIES
   redcarpet
   rotp
   rspec-rails (~> 3.0.0)
-  rspec-sidekiq
   rubocop
   ruby-prof
   rubyzip

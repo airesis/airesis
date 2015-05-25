@@ -57,10 +57,6 @@ group :development, :test do
 
 end
 
-group :test do
-  gem 'rspec-sidekiq'
-end
-
 gem 'crowdin-api', group: [:development, :staging]
 gem 'rubyzip', group: [:development, :staging]
 
