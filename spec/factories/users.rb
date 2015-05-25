@@ -12,14 +12,8 @@ FactoryGirl.define do
     user_type_id UserType::AUTHENTICATED
     email { Faker::Internet.email }
 
-    after(:create) do |user|
-
-    end
-
-    factory :default_user do
-    end
-
-    factory :second_user do
+    factory :admin do
+      user_type_id UserType::ADMINISTRATOR
     end
   end
 end

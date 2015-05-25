@@ -3,64 +3,59 @@
     <dd class="active"><a href="#panel1" title="Europe">Europe</a></dd>
     <dd><a href="#panel2" title="America">America</a></dd>
     <dd><a href="#panel3" title="Asia">Asia</a></dd>
-    <dd><a href="#panel4" title="Translate Airesis">Translate Airesis</a></dd>
+    <dd><a href="#panel4" title="Asia">Africa</a></dd>
+    <dd><a href="#panel5" title="Oceania">Oceania</a></dd>
+    <dd><a href="#panel6" title="Translate">Translate</a></dd>
   </dl>
   <dl class="accordion show-for-medium-up" data-accordion>
     <div class="tabs-content">
       <div class="content active" id="panel1">
-        <div class="row panel">
-          <div class="small-6 large-4 columns">
-            <h1><%= link_to (image_tag 'flags/en.png', alt: "Europe"), current_url(l: 'en'), title: "Europe" %></h1>
-
-            <h1><%= link_to (image_tag 'flags/fr.png', alt: "France"), current_url(l: 'fr'), title: "France" %></h1>
-
-            <h1><%= link_to (image_tag 'flags/hu.png', alt: "Hungary"), current_url(l: 'hu'), title: "Hungary" %></h1>
-
-            <h1><%= link_to (image_tag 'flags/it-IT.png', alt: "Italy"), current_url(l: 'it-IT'), title: "Italy" %></h1>
-          </div>
-          <div class="small-6 large-4 columns">
-            <h1><%= link_to (image_tag 'flags/de.png', alt: "Deutschland"), current_url(l: 'de'), title: "Deutschland" %></h1>
-
-            <h1><%= link_to (image_tag 'flags/ro-RO.png', alt: "România"), current_url(l: 'ro-RO'), title: "România" %></h1>
-          </div>
-          <div class="small-6 large-4 columns">
-            <h1><%= link_to (image_tag 'flags/es-ES.png', alt: 'España'), current_url(l: 'pt-PT'), title: "España" %></h1>
-
-            <h1><%= link_to (image_tag 'flags/pt-PT.png', alt: "Portugal"), current_url(l: 'pt-PT'), title: "Portugal" %></h1>
-          </div>
-        </div>
+        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+          <li><h1><%= flag_for('Europe', 'en') %></h1></li>
+          <li><h1><%= flag_for('France', 'fr') %></h1></li>
+          <li><h1><%= flag_for('Hungary', 'hu') %></h1></li>
+          <li><h1><%= flag_for('Italy', 'it-IT') %></h1></li>
+          <li><h1><%= flag_for('Deutschland', 'de') %></h1></li>
+          <li><h1><%= flag_for('România', 'ro-RO') %></h1></li>
+          <li><h1><%= flag_for('España', 'es-ES') %></h1></li>
+          <li><h1><%= flag_for('Portugal', 'pt-PT') %></h1></li>
+          <li><h1><%= flag_for('Greece', 'el') %></h1></li>
+          <li><h1><%= flag_for('United Kingdom', 'en-GB') %></h1></li>
+        </ul>
       </div>
       <div class="content" id="panel2">
-        <div class="row panel">
-          <div class="small-6 large-4 columns">
-            <h1><%= link_to (image_tag 'flags/en-US.png', alt: "USA"), current_url(l: 'en-US'), title: "USA" %></h1>
-          </div>
-          <div class="small-6 large-4 columns">
-            <h1><%= link_to (image_tag 'flags/pt-BR.png', alt: "Brasil"), current_url(l: "pt-BR"), title: "Brasil" %></h1>
-
-            <h1><%= link_to (image_tag 'flags/es-EC.png', alt: "Ecuador"), current_url(l: "es-EC"), title: "Ecuador" %></h1>
-          </div>
-          <div class="small-6 large-4 columns">
-            <h1><%= link_to (image_tag 'flags/es-CL.png', alt: "Chile"), current_url(l: "es-CL"), title: "Chile" %></h1>
-          </div>
-        </div>
+        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+          <li><h1><%= flag_for('USA','en-US') %></h1></li>
+          <li><h1><%= flag_for('Brasil','pt-BR') %></h1></li>
+          <li><h1><%= flag_for('Ecuador','es-EC') %></h1></li>
+          <li><h1><%= flag_for('Chile','es-CL') %></h1></li>
+        </ul>
       </div>
       <div class="content" id="panel3">
-        <div class="row panel">
-          <div class="small-6 large-4 columns">
-            <h1><%= link_to (image_tag 'flags/ru.png', alt: "Russia"), current_url(l: "ru"), title: "Russia" %></h1>
-            <h1><%= link_to (image_tag 'flags/zh.png', alt: "中国"), current_url(l: "zh"), title: "中国" %></h1>
-          </div>
-        </div>
+        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+          <li><h1><%= flag_for('Russia','ru') %></h1></li>
+          <li><h1><%= flag_for('中国','zh') %></h1></li>
+        </ul>
       </div>
       <div class="content" id="panel4">
-        <div class="row panel">
-          <div class="large-centered large-12 column text-center">
+        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+          <li><h1><%= flag_for('South Africa','en-ZA') %></h1></li>
+        </ul>
+      </div>
+      <div class="content" id="panel5">
+        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+          <li><h1><%= flag_for('Australia','en-AU') %></h1></li>
+          <li><h1><%= flag_for('New Zealand','en-NZ') %></h1></li>
+        </ul>
+      </div>
+      <div class="content" id="panel6">
+        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+          <li>
             <h1><%= locale.to_s=="crowdin" ?
                             (link_to (image_tag 'flags/crowdin.png'), current_url(l: nil), title: "Exit Translation Mode") :
                             (link_to (image_tag 'flags/crowdin.png'), current_url(l: :"crowdin"), title: "Activate Translation Mode") %></h1>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
     </div>
   </dl>

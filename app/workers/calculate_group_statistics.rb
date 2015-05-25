@@ -13,7 +13,7 @@ class CalculateGroupStatistics
       statistic.good_score = proposals.average('rank') || 0
       vote_participants = 0
       count = 0
-      proposals = group.proposals.voted.each do |proposal| #take all group proposals voted (accepted or rejected)
+      proposals = group.proposals.voted.find_each do |proposal| #take all group proposals voted (accepted or rejected)
         vote_participants += proposal.is_schulze? ? proposal.schulze_votes.sum(:count) : proposal.vote.number
         count += 1
       end

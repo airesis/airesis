@@ -1,11 +1,13 @@
-<% if @blocked_alerts %>
-    <%= link_to unlock_proposal_blocked_proposal_alerts_path(@proposal), method: :post, remote: true, class: 'btn', data: {disable_with: t('loading')} do %>
-        <i class="fa fa-bell"></i>
-        <%= t('pages.proposals.show.enable_alerts') %>
-    <% end %>
-<% else %>
-    <%= link_to block_proposal_blocked_proposal_alerts_path(@proposal), method: :post, remote: true, class: 'btn', data: {disable_with: t('loading')} do %>
-        <i class="fa fa-bell-slash"></i>
-        <%= t('pages.proposals.show.disable_alerts') %>
+<% if current_user %>
+    <% if @blocked_alerts %>
+        <%= link_to unlock_proposal_blocked_proposal_alerts_path(@proposal), method: :post, remote: true, class: 'btn', data: {disable_with: t('loading')} do %>
+            <i class="fa fa-bell"></i>
+            <%= t('pages.proposals.show.enable_alerts') %>
+        <% end %>
+    <% else %>
+        <%= link_to block_proposal_blocked_proposal_alerts_path(@proposal), method: :post, remote: true, class: 'btn', data: {disable_with: t('loading')} do %>
+            <i class="fa fa-bell-slash"></i>
+            <%= t('pages.proposals.show.disable_alerts') %>
+        <% end %>
     <% end %>
 <% end %>

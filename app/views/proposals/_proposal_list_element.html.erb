@@ -1,55 +1,30 @@
 <li id="proposal<%= proposal.id %>" class="proposal_list">
   <div class="proposal_cont card appear">
-
     <div class="left_cont hide-for-small">
       <div class="inner_cont">
         <div class="model">
           <%= proposal.proposal_type.description.upcase %>
         </div>
         <div class="category_icon">
-          <%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", alt: proposal.category.description, title: proposal.category.description) %>
+          <%= proposal_group_image_tag(proposal) %>
         </div>
         <div class="status">
-          <% title = t('pages.proposals.list.last_update', time_ago: time_in_words(proposal.updated_at)) %>
-          <% if proposal.in_valutation? %>
-              <% date = (l proposal.updated_at, format: :two_rows) %>
-              <% title = t('pages.proposals.list.last_update', time_ago: time_in_words(proposal.updated_at)) %>
-          <% elsif proposal.waiting_date? %>
-              <% date = (l proposal.updated_at, format: :two_rows) %>
-              <% title = t('pages.proposals.list.waiting_date') %>
-          <% elsif proposal.waiting? %>
-              <% title = t('pages.proposals.list.voting_from_to', from: (l proposal.vote_period.starttime), to: (l proposal.vote_period.endtime)) %>
-          <% elsif proposal.voting? %>
-              <% title = t('pages.proposals.list.voting_until', date: (l proposal.vote_period.endtime, format: :two_rows)) %>
-          <% elsif proposal.voted? %>
-              <% if proposal.is_schulze? %>
-                  <% title = t('pages.proposals.list.votation_finished', time_ago: time_in_words(proposal.vote_period.endtime)) %>
-              <% else %>
-                  <% if proposal.rejected? %>
-                      <% title = t('pages.proposals.list.votation_finished_rejected', time_ago: time_ago_in_words(proposal.vote_period.endtime), date: (l proposal.vote_period.endtime, format: :two_rows)) %>
-                  <% else %>
-                      <% title = t('pages.proposals.list.votation_finished_approved', date: (l proposal.vote_period.endtime, format: :two_rows)) %>
-                  <% end %>
-              <% end %>
-          <% elsif proposal.abandoned? %>
-              <% title = t('pages.proposals.list.last_update', time_ago: time_in_words(proposal.updated_at)) %>
-          <% end %>
-          <%= raw title %>
+          <%= raw proposal_status(proposal) %>
         </div>
       </div>
     </div>
     <div class="right_cont">
       <div style="position: relative">
-        <div class="maintitle">
+        <div class="maintitle <%= 'voteright' if can? :vote, proposal %>">
           <%= user_valutation_image(current_user, proposal) if current_user %>
-          <%= link_to_proposal(proposal, style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil)) %>
+          <%= link_to_proposal(proposal, style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: proposal.title) %>
 
         </div>
       </div>
 
       <div class="text_content">
         <p>
-        <%= raw proposal.short_content %>
+          <%= raw proposal.short_content %>
         </p>
       </div>
       <% if proposal.voting? || proposal.voted? %>

@@ -3,7 +3,7 @@ require 'requests_helper'
 
 describe "the management of forum", type: :feature, js: true do
   before :each do
-    @user = create(:default_user)
+    @user = create(:user)
     @ability = Ability.new(@user)
     @group = create(:group, current_user_id: @user.id)
     login_as @user, scope: :user
@@ -34,10 +34,10 @@ describe "the management of forum", type: :feature, js: true do
   it "can manage moderators" do
     visit group_frm_admin_root_path(@group)
     page_should_be_ok
-    click_link I18n.t('frm.admin.group.index')
+    click_link I18n.t('frm.admin.mod.index')
     expect(page).to have_content(I18n.t('pages.forum_groups.index.create_first'))
 
-    click_link I18n.t('frm.admin.group.new')
+    click_link I18n.t('frm.admin.mod.new')
     new_name = Faker::Lorem.sentence
     fill_in I18n.t('simple_form.labels.frm_category.name'), with: new_name
     click_button I18n.t('buttons.create')

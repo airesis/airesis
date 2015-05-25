@@ -1,4 +1,3 @@
-#encoding: utf-8
 a2 = Continente.create(description: "America")
   a2.translations.where(locale: "it-IT").first_or_create.update_attributes(description: "America")
   a2.translations.where(locale: "en").first_or_create.update_attributes(description: "America")
@@ -63,74 +62,74 @@ a2 = Continente.create(description: "America")
   s90.translations.where(locale: "en").first_or_create.update_attributes(description: "Chile")
   s90.translations.where(locale: "es-CL").first_or_create.update_attributes(description: "Chile")
   r38 = Regione.create(description: "Arica and Parinacota", stato_id: s90.id, continente_id: a2.id)
-   Provincia.create(description: "Arica", regione_id: r38.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 175}.save
-   Provincia.create(description: "Parinacota", regione_id: r38.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 176}.save
+   Provincia.create(description: "Arica", regione_id: r38.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Parinacota", regione_id: r38.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
   r39 = Regione.create(description: "Tarapacá", stato_id: s90.id, continente_id: a2.id)
-   Provincia.create(description: "Iquique", regione_id: r39.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 177}.save
-   Provincia.create(description: "Tamarugal", regione_id: r39.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 178}.save
+   Provincia.create(description: "Iquique", regione_id: r39.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Tamarugal", regione_id: r39.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
   r40 = Regione.create(description: "Antofagasta", stato_id: s90.id, continente_id: a2.id)
-   Provincia.create(description: "Antofagasta", regione_id: r40.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 179}.save
-   Provincia.create(description: "El Loa", regione_id: r40.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 180}.save
-   Provincia.create(description: "Tocopilla", regione_id: r40.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 181}.save
+   Provincia.create(description: "Antofagasta", regione_id: r40.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "El Loa", regione_id: r40.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Tocopilla", regione_id: r40.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
   r41 = Regione.create(description: "Atacama", stato_id: s90.id, continente_id: a2.id)
-   Provincia.create(description: "Chañaral", regione_id: r41.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 182}.save
-   Provincia.create(description: "Copiapó", regione_id: r41.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 183}.save
-   Provincia.create(description: "Huasco", regione_id: r41.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 184}.save
+   Provincia.create(description: "Chañaral", regione_id: r41.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Copiapó", regione_id: r41.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Huasco", regione_id: r41.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
   r42 = Regione.create(description: "Coquimbo", stato_id: s90.id, continente_id: a2.id)
-   Provincia.create(description: "Choapa", regione_id: r42.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 185}.save
-   Provincia.create(description: "Elqui", regione_id: r42.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 186}.save
-   Provincia.create(description: "Limarí", regione_id: r42.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 187}.save
+   Provincia.create(description: "Choapa", regione_id: r42.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Elqui", regione_id: r42.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Limarí", regione_id: r42.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
   r43 = Regione.create(description: "Valparaíso", stato_id: s90.id, continente_id: a2.id)
-   Provincia.create(description: "Isla de Pascua", regione_id: r43.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 188}.save
-   Provincia.create(description: "Los Andes", regione_id: r43.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 189}.save
-   Provincia.create(description: "Marga Marga", regione_id: r43.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 190}.save
-   Provincia.create(description: "Petorca", regione_id: r43.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 191}.save
-   Provincia.create(description: "Quillota", regione_id: r43.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 192}.save
-   Provincia.create(description: "San Antonio", regione_id: r43.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 193}.save
-   Provincia.create(description: "San Felipe", regione_id: r43.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 194}.save
-   Provincia.create(description: "Valparaíso", regione_id: r43.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 195}.save
+   Provincia.create(description: "Isla de Pascua", regione_id: r43.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Los Andes", regione_id: r43.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Marga Marga", regione_id: r43.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Petorca", regione_id: r43.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Quillota", regione_id: r43.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "San Antonio", regione_id: r43.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "San Felipe", regione_id: r43.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Valparaíso", regione_id: r43.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
   r44 = Regione.create(description: "Metropolitana", stato_id: s90.id, continente_id: a2.id)
-   Provincia.create(description: "Chacabuco", regione_id: r44.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 196}.save
-   Provincia.create(description: "Cordillera", regione_id: r44.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 197}.save
-   Provincia.create(description: "Maipo", regione_id: r44.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 198}.save
-   Provincia.create(description: "Melipilla", regione_id: r44.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 199}.save
-   Provincia.create(description: "Santiago", regione_id: r44.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 200}.save
-   Provincia.create(description: "Talagante", regione_id: r44.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 201}.save
+   Provincia.create(description: "Chacabuco", regione_id: r44.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Cordillera", regione_id: r44.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Maipo", regione_id: r44.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Melipilla", regione_id: r44.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Santiago", regione_id: r44.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Talagante", regione_id: r44.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
   r45 = Regione.create(description: "O 'Higgins", stato_id: s90.id, continente_id: a2.id)
-   Provincia.create(description: "Cachapoal", regione_id: r45.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 202}.save
-   Provincia.create(description: "Cardenal Caro", regione_id: r45.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 203}.save
-   Provincia.create(description: "Colchagua", regione_id: r45.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 204}.save
+   Provincia.create(description: "Cachapoal", regione_id: r45.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Cardenal Caro", regione_id: r45.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Colchagua", regione_id: r45.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
   r46 = Regione.create(description: "Maule", stato_id: s90.id, continente_id: a2.id)
-   Provincia.create(description: "Cauquenes", regione_id: r46.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 205}.save
-   Provincia.create(description: "Curicó", regione_id: r46.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 206}.save
-   Provincia.create(description: "Linares", regione_id: r46.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 207}.save
-   Provincia.create(description: "Talca", regione_id: r46.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 208}.save
+   Provincia.create(description: "Cauquenes", regione_id: r46.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Curicó", regione_id: r46.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Linares", regione_id: r46.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Talca", regione_id: r46.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
   r47 = Regione.create(description: "Biobío", stato_id: s90.id, continente_id: a2.id)
-   Provincia.create(description: "Arauco", regione_id: r47.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 209}.save
-   Provincia.create(description: "Biobío", regione_id: r47.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 210}.save
-   Provincia.create(description: "Concepción", regione_id: r47.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 211}.save
-   Provincia.create(description: "Ñuble", regione_id: r47.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 212}.save
+   Provincia.create(description: "Arauco", regione_id: r47.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Biobío", regione_id: r47.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Concepción", regione_id: r47.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Ñuble", regione_id: r47.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
   r48 = Regione.create(description: "Araucanía", stato_id: s90.id, continente_id: a2.id)
-   Provincia.create(description: "Cautín", regione_id: r48.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 213}.save
-   Provincia.create(description: "Malleco", regione_id: r48.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 214}.save
+   Provincia.create(description: "Cautín", regione_id: r48.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Malleco", regione_id: r48.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
   r49 = Regione.create(description: "Los Ríos", stato_id: s90.id, continente_id: a2.id)
-   Provincia.create(description: "Ranco", regione_id: r49.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 215}.save
-   Provincia.create(description: "Valdivia", regione_id: r49.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 216}.save
+   Provincia.create(description: "Ranco", regione_id: r49.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Valdivia", regione_id: r49.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
   r50 = Regione.create(description: "Los Lagos", stato_id: s90.id, continente_id: a2.id)
-   Provincia.create(description: "Chiloé", regione_id: r50.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 217}.save
-   Provincia.create(description: "Llanquihue", regione_id: r50.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 218}.save
-   Provincia.create(description: "Osorno", regione_id: r50.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 219}.save
-   Provincia.create(description: "Palena", regione_id: r50.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 220}.save
+   Provincia.create(description: "Chiloé", regione_id: r50.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Llanquihue", regione_id: r50.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Osorno", regione_id: r50.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Palena", regione_id: r50.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
   r51 = Regione.create(description: "Aisén", stato_id: s90.id, continente_id: a2.id)
-   Provincia.create(description: "Aisén", regione_id: r51.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 221}.save
-   Provincia.create(description: "Capitán Prat", regione_id: r51.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 222}.save
-   Provincia.create(description: "Coihaique", regione_id: r51.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 223}.save
-   Provincia.create(description: "General Carrera", regione_id: r51.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 224}.save
+   Provincia.create(description: "Aisén", regione_id: r51.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Capitán Prat", regione_id: r51.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Coihaique", regione_id: r51.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "General Carrera", regione_id: r51.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
   r52 = Regione.create(description: "Magallanes and Antártica Chilena", stato_id: s90.id, continente_id: a2.id)
-   Provincia.create(description: "Antártica Chilena", regione_id: r52.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 225}.save
-   Provincia.create(description: "Magallanes", regione_id: r52.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 226}.save
-   Provincia.create(description: "Tierra del Fuego", regione_id: r52.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 227}.save
-   Provincia.create(description: "Última Esperanza", regione_id: r52.id, stato_id: s90.id, continente_id: a2.id, sigla: ""){ |c| c.id = 228}.save
+   Provincia.create(description: "Antártica Chilena", regione_id: r52.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Magallanes", regione_id: r52.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Tierra del Fuego", regione_id: r52.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
+   Provincia.create(description: "Última Esperanza", regione_id: r52.id, stato_id: s90.id, continente_id: a2.id, sigla: "")
  s94 = Stato.create( description: "Colombia", continente_id: a2.id, sigla: "CO", sigla_ext: "COL")
   s94.translations.where(locale: "en").first_or_create.update_attributes(description: "Colombia")
  s99 = Stato.create( description: "Costa Rica", continente_id: a2.id, sigla: "CR", sigla_ext: "CRI")
@@ -686,198 +685,198 @@ a1 = Continente.create(description: "Europe")
   s1.translations.where(locale: "es-ES").first_or_create.update_attributes(description: "Italia")
   s1.translations.where(locale: "pt-PT").first_or_create.update_attributes(description: "Itália")
   r20 = Regione.create(description: "Umbria", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Perugia", regione_id: r20.id, stato_id: s1.id, continente_id: a1.id, sigla: "PG"){ |c| c.id = 88}.save
-   Provincia.create(description: "Terni", regione_id: r20.id, stato_id: s1.id, continente_id: a1.id, sigla: "TR"){ |c| c.id = 89}.save
+   Provincia.create(description: "Perugia", regione_id: r20.id, stato_id: s1.id, continente_id: a1.id, sigla: "PG")
+   Provincia.create(description: "Terni", regione_id: r20.id, stato_id: s1.id, continente_id: a1.id, sigla: "TR")
   r19 = Regione.create(description: "Lombardia", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Bergamo", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "BG"){ |c| c.id = 90}.save
-   Provincia.create(description: "Brescia", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "BS"){ |c| c.id = 91}.save
-   Provincia.create(description: "Como", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "CO"){ |c| c.id = 92}.save
-   Provincia.create(description: "Cremona", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "CR"){ |c| c.id = 93}.save
-   Provincia.create(description: "Lecco", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "LC"){ |c| c.id = 94}.save
-   Provincia.create(description: "Lodi", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "LO"){ |c| c.id = 95}.save
-   Provincia.create(description: "Mantova", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "MN"){ |c| c.id = 96}.save
-   Provincia.create(description: "Milano", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "MI"){ |c| c.id = 97}.save
-   Provincia.create(description: "Pavia", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "PV"){ |c| c.id = 98}.save
-   Provincia.create(description: "Sondrio", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "SO"){ |c| c.id = 99}.save
-   Provincia.create(description: "Varese", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "VA"){ |c| c.id = 100}.save
+   Provincia.create(description: "Bergamo", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "BG")
+   Provincia.create(description: "Brescia", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "BS")
+   Provincia.create(description: "Como", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "CO")
+   Provincia.create(description: "Cremona", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "CR")
+   Provincia.create(description: "Lecco", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "LC")
+   Provincia.create(description: "Lodi", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "LO")
+   Provincia.create(description: "Mantova", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "MN")
+   Provincia.create(description: "Milano", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "MI")
+   Provincia.create(description: "Pavia", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "PV")
+   Provincia.create(description: "Sondrio", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "SO")
+   Provincia.create(description: "Varese", regione_id: r19.id, stato_id: s1.id, continente_id: a1.id, sigla: "VA")
   r18 = Regione.create(description: "Liguria", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Genova", regione_id: r18.id, stato_id: s1.id, continente_id: a1.id, sigla: "GE"){ |c| c.id = 82}.save
-   Provincia.create(description: "Imperia", regione_id: r18.id, stato_id: s1.id, continente_id: a1.id, sigla: "IM"){ |c| c.id = 83}.save
-   Provincia.create(description: "Savona", regione_id: r18.id, stato_id: s1.id, continente_id: a1.id, sigla: "SV"){ |c| c.id = 84}.save
-   Provincia.create(description: "La Spezia", regione_id: r18.id, stato_id: s1.id, continente_id: a1.id, sigla: "SP"){ |c| c.id = 85}.save
+   Provincia.create(description: "Genova", regione_id: r18.id, stato_id: s1.id, continente_id: a1.id, sigla: "GE")
+   Provincia.create(description: "Imperia", regione_id: r18.id, stato_id: s1.id, continente_id: a1.id, sigla: "IM")
+   Provincia.create(description: "Savona", regione_id: r18.id, stato_id: s1.id, continente_id: a1.id, sigla: "SV")
+   Provincia.create(description: "La Spezia", regione_id: r18.id, stato_id: s1.id, continente_id: a1.id, sigla: "SP")
   r17 = Regione.create(description: "Veneto", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Belluno", regione_id: r17.id, stato_id: s1.id, continente_id: a1.id, sigla: "BL"){ |c| c.id = 66}.save
-   Provincia.create(description: "Padova", regione_id: r17.id, stato_id: s1.id, continente_id: a1.id, sigla: "PD"){ |c| c.id = 67}.save
-   Provincia.create(description: "Rovigo", regione_id: r17.id, stato_id: s1.id, continente_id: a1.id, sigla: "RO"){ |c| c.id = 68}.save
-   Provincia.create(description: "Treviso", regione_id: r17.id, stato_id: s1.id, continente_id: a1.id, sigla: "TV"){ |c| c.id = 69}.save
-   Provincia.create(description: "Venezia", regione_id: r17.id, stato_id: s1.id, continente_id: a1.id, sigla: "VE"){ |c| c.id = 70}.save
-   Provincia.create(description: "Verona", regione_id: r17.id, stato_id: s1.id, continente_id: a1.id, sigla: "VR"){ |c| c.id = 71}.save
-   Provincia.create(description: "Vicenza", regione_id: r17.id, stato_id: s1.id, continente_id: a1.id, sigla: "VI"){ |c| c.id = 72}.save
+   Provincia.create(description: "Belluno", regione_id: r17.id, stato_id: s1.id, continente_id: a1.id, sigla: "BL")
+   Provincia.create(description: "Padova", regione_id: r17.id, stato_id: s1.id, continente_id: a1.id, sigla: "PD")
+   Provincia.create(description: "Rovigo", regione_id: r17.id, stato_id: s1.id, continente_id: a1.id, sigla: "RO")
+   Provincia.create(description: "Treviso", regione_id: r17.id, stato_id: s1.id, continente_id: a1.id, sigla: "TV")
+   Provincia.create(description: "Venezia", regione_id: r17.id, stato_id: s1.id, continente_id: a1.id, sigla: "VE")
+   Provincia.create(description: "Verona", regione_id: r17.id, stato_id: s1.id, continente_id: a1.id, sigla: "VR")
+   Provincia.create(description: "Vicenza", regione_id: r17.id, stato_id: s1.id, continente_id: a1.id, sigla: "VI")
   r16 = Regione.create(description: "Valle d'Aosta", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Aosta", regione_id: r16.id, stato_id: s1.id, continente_id: a1.id, sigla: "AO"){ |c| c.id = 77}.save
+   Provincia.create(description: "Aosta", regione_id: r16.id, stato_id: s1.id, continente_id: a1.id, sigla: "AO")
   r15 = Regione.create(description: "Friuli Venezia Giulia", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Gorizia", regione_id: r15.id, stato_id: s1.id, continente_id: a1.id, sigla: "GO"){ |c| c.id = 73}.save
-   Provincia.create(description: "Pordenone", regione_id: r15.id, stato_id: s1.id, continente_id: a1.id, sigla: "PN"){ |c| c.id = 74}.save
-   Provincia.create(description: "Udine", regione_id: r15.id, stato_id: s1.id, continente_id: a1.id, sigla: "UD"){ |c| c.id = 75}.save
-   Provincia.create(description: "Trieste", regione_id: r15.id, stato_id: s1.id, continente_id: a1.id, sigla: "TS"){ |c| c.id = 76}.save
+   Provincia.create(description: "Gorizia", regione_id: r15.id, stato_id: s1.id, continente_id: a1.id, sigla: "GO")
+   Provincia.create(description: "Pordenone", regione_id: r15.id, stato_id: s1.id, continente_id: a1.id, sigla: "PN")
+   Provincia.create(description: "Udine", regione_id: r15.id, stato_id: s1.id, continente_id: a1.id, sigla: "UD")
+   Provincia.create(description: "Trieste", regione_id: r15.id, stato_id: s1.id, continente_id: a1.id, sigla: "TS")
   r14 = Regione.create(description: "Emilia Romagna", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Bologna", regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: "BO"){ |c| c.id = 57}.save
-   Provincia.create(description: "Ferrara", regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: "FE"){ |c| c.id = 58}.save
-   Provincia.create(description: "Forlì Cesena", regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: "FC"){ |c| c.id = 59}.save
-   Provincia.create(description: "Modena", regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: "MO"){ |c| c.id = 60}.save
-   Provincia.create(description: "Parma", regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: "PR"){ |c| c.id = 61}.save
-   Provincia.create(description: "Piacenza", regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: "PC"){ |c| c.id = 62}.save
-   Provincia.create(description: "Ravenna", regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: "RA"){ |c| c.id = 63}.save
-   Provincia.create(description: "Reggio Emilia", regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: "RE"){ |c| c.id = 64}.save
-   Provincia.create(description: "Rimini", regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: "RN"){ |c| c.id = 65}.save
+   Provincia.create(description: "Bologna", regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: "BO")
+   Provincia.create(description: "Ferrara", regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: "FE")
+   Provincia.create(description: "Forlì Cesena", regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: "FC")
+   Provincia.create(description: "Modena", regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: "MO")
+   Provincia.create(description: "Parma", regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: "PR")
+   Provincia.create(description: "Piacenza", regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: "PC")
+   Provincia.create(description: "Ravenna", regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: "RA")
+   Provincia.create(description: "Reggio Emilia", regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: "RE")
+   Provincia.create(description: "Rimini", regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: "RN")
   r13 = Regione.create(description: "Piemonte", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Alessandria", regione_id: r13.id, stato_id: s1.id, continente_id: a1.id, sigla: "AL"){ |c| c.id = 5}.save
-   Provincia.create(description: "Asti", regione_id: r13.id, stato_id: s1.id, continente_id: a1.id, sigla: "AT"){ |c| c.id = 6}.save
-   Provincia.create(description: "Biella", regione_id: r13.id, stato_id: s1.id, continente_id: a1.id, sigla: "BI"){ |c| c.id = 7}.save
-   Provincia.create(description: "Cuneo", regione_id: r13.id, stato_id: s1.id, continente_id: a1.id, sigla: "CN"){ |c| c.id = 8}.save
-   Provincia.create(description: "Novara", regione_id: r13.id, stato_id: s1.id, continente_id: a1.id, sigla: "NO"){ |c| c.id = 9}.save
-   Provincia.create(description: "Vercelli", regione_id: r13.id, stato_id: s1.id, continente_id: a1.id, sigla: "VC"){ |c| c.id = 10}.save
-   Provincia.create(description: "Torino", regione_id: r13.id, stato_id: s1.id, continente_id: a1.id, sigla: "TO"){ |c| c.id = 11}.save
-   Provincia.create(description: "Verbania", regione_id: r13.id, stato_id: s1.id, continente_id: a1.id, sigla: "VB"){ |c| c.id = 104}.save
+   Provincia.create(description: "Alessandria", regione_id: r13.id, stato_id: s1.id, continente_id: a1.id, sigla: "AL")
+   Provincia.create(description: "Asti", regione_id: r13.id, stato_id: s1.id, continente_id: a1.id, sigla: "AT")
+   Provincia.create(description: "Biella", regione_id: r13.id, stato_id: s1.id, continente_id: a1.id, sigla: "BI")
+   Provincia.create(description: "Cuneo", regione_id: r13.id, stato_id: s1.id, continente_id: a1.id, sigla: "CN")
+   Provincia.create(description: "Novara", regione_id: r13.id, stato_id: s1.id, continente_id: a1.id, sigla: "NO")
+   Provincia.create(description: "Vercelli", regione_id: r13.id, stato_id: s1.id, continente_id: a1.id, sigla: "VC")
+   Provincia.create(description: "Torino", regione_id: r13.id, stato_id: s1.id, continente_id: a1.id, sigla: "TO")
+   Provincia.create(description: "Verbania", regione_id: r13.id, stato_id: s1.id, continente_id: a1.id, sigla: "VB")
   r12 = Regione.create(description: "Toscana", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Arezzo", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "AR"){ |c| c.id = 48}.save
-   Provincia.create(description: "Firenze", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "FI"){ |c| c.id = 49}.save
-   Provincia.create(description: "Grosseto", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "GR"){ |c| c.id = 50}.save
-   Provincia.create(description: "Livorno", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "LI"){ |c| c.id = 51}.save
-   Provincia.create(description: "Lucca", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "LU"){ |c| c.id = 52}.save
-   Provincia.create(description: "Massa Carrara", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "MS"){ |c| c.id = 53}.save
-   Provincia.create(description: "Pisa", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "PI"){ |c| c.id = 54}.save
-   Provincia.create(description: "Pistoia", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "PT"){ |c| c.id = 55}.save
-   Provincia.create(description: "Siena", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "SI"){ |c| c.id = 56}.save
-   Provincia.create(description: "Prato", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "PO"){ |c| c.id = 103}.save
+   Provincia.create(description: "Arezzo", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "AR")
+   Provincia.create(description: "Firenze", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "FI")
+   Provincia.create(description: "Grosseto", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "GR")
+   Provincia.create(description: "Livorno", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "LI")
+   Provincia.create(description: "Lucca", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "LU")
+   Provincia.create(description: "Massa Carrara", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "MS")
+   Provincia.create(description: "Pisa", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "PI")
+   Provincia.create(description: "Pistoia", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "PT")
+   Provincia.create(description: "Siena", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "SI")
+   Provincia.create(description: "Prato", regione_id: r12.id, stato_id: s1.id, continente_id: a1.id, sigla: "PO")
   r11 = Regione.create(description: "Sicilia", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Agrigento", regione_id: r11.id, stato_id: s1.id, continente_id: a1.id, sigla: "AG"){ |c| c.id = 12}.save
-   Provincia.create(description: "Caltanissetta", regione_id: r11.id, stato_id: s1.id, continente_id: a1.id, sigla: "CL"){ |c| c.id = 13}.save
-   Provincia.create(description: "Catania", regione_id: r11.id, stato_id: s1.id, continente_id: a1.id, sigla: "CT"){ |c| c.id = 14}.save
-   Provincia.create(description: "Enna", regione_id: r11.id, stato_id: s1.id, continente_id: a1.id, sigla: "EN"){ |c| c.id = 15}.save
-   Provincia.create(description: "Messina", regione_id: r11.id, stato_id: s1.id, continente_id: a1.id, sigla: "ME"){ |c| c.id = 16}.save
-   Provincia.create(description: "Palermo", regione_id: r11.id, stato_id: s1.id, continente_id: a1.id, sigla: "PA"){ |c| c.id = 17}.save
-   Provincia.create(description: "Ragusa", regione_id: r11.id, stato_id: s1.id, continente_id: a1.id, sigla: "RG"){ |c| c.id = 18}.save
-   Provincia.create(description: "Siracusa", regione_id: r11.id, stato_id: s1.id, continente_id: a1.id, sigla: "SR"){ |c| c.id = 19}.save
-   Provincia.create(description: "Trapani", regione_id: r11.id, stato_id: s1.id, continente_id: a1.id, sigla: "TP"){ |c| c.id = 20}.save
+   Provincia.create(description: "Agrigento", regione_id: r11.id, stato_id: s1.id, continente_id: a1.id, sigla: "AG")
+   Provincia.create(description: "Caltanissetta", regione_id: r11.id, stato_id: s1.id, continente_id: a1.id, sigla: "CL")
+   Provincia.create(description: "Catania", regione_id: r11.id, stato_id: s1.id, continente_id: a1.id, sigla: "CT")
+   Provincia.create(description: "Enna", regione_id: r11.id, stato_id: s1.id, continente_id: a1.id, sigla: "EN")
+   Provincia.create(description: "Messina", regione_id: r11.id, stato_id: s1.id, continente_id: a1.id, sigla: "ME")
+   Provincia.create(description: "Palermo", regione_id: r11.id, stato_id: s1.id, continente_id: a1.id, sigla: "PA")
+   Provincia.create(description: "Ragusa", regione_id: r11.id, stato_id: s1.id, continente_id: a1.id, sigla: "RG")
+   Provincia.create(description: "Siracusa", regione_id: r11.id, stato_id: s1.id, continente_id: a1.id, sigla: "SR")
+   Provincia.create(description: "Trapani", regione_id: r11.id, stato_id: s1.id, continente_id: a1.id, sigla: "TP")
   r10 = Regione.create(description: "Sardegna", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Cagliari", regione_id: r10.id, stato_id: s1.id, continente_id: a1.id, sigla: "CA"){ |c| c.id = 78}.save
-   Provincia.create(description: "Nuoro", regione_id: r10.id, stato_id: s1.id, continente_id: a1.id, sigla: "NU"){ |c| c.id = 79}.save
-   Provincia.create(description: "Oristano", regione_id: r10.id, stato_id: s1.id, continente_id: a1.id, sigla: "OR"){ |c| c.id = 80}.save
-   Provincia.create(description: "Sassari", regione_id: r10.id, stato_id: s1.id, continente_id: a1.id, sigla: "SS"){ |c| c.id = 81}.save
-   Provincia.create(description: "Carbonia Iglesias", regione_id: r10.id, stato_id: s1.id, continente_id: a1.id, sigla: "CI"){ |c| c.id = 105}.save
-   Provincia.create(description: "Medio Campidano", regione_id: r10.id, stato_id: s1.id, continente_id: a1.id, sigla: "VS"){ |c| c.id = 106}.save
-   Provincia.create(description: "Ogliastra", regione_id: r10.id, stato_id: s1.id, continente_id: a1.id, sigla: "OG"){ |c| c.id = 107}.save
-   Provincia.create(description: "Olbia Tempio", regione_id: r10.id, stato_id: s1.id, continente_id: a1.id, sigla: "OT"){ |c| c.id = 108}.save
+   Provincia.create(description: "Cagliari", regione_id: r10.id, stato_id: s1.id, continente_id: a1.id, sigla: "CA")
+   Provincia.create(description: "Nuoro", regione_id: r10.id, stato_id: s1.id, continente_id: a1.id, sigla: "NU")
+   Provincia.create(description: "Oristano", regione_id: r10.id, stato_id: s1.id, continente_id: a1.id, sigla: "OR")
+   Provincia.create(description: "Sassari", regione_id: r10.id, stato_id: s1.id, continente_id: a1.id, sigla: "SS")
+   Provincia.create(description: "Carbonia Iglesias", regione_id: r10.id, stato_id: s1.id, continente_id: a1.id, sigla: "CI")
+   Provincia.create(description: "Medio Campidano", regione_id: r10.id, stato_id: s1.id, continente_id: a1.id, sigla: "VS")
+   Provincia.create(description: "Ogliastra", regione_id: r10.id, stato_id: s1.id, continente_id: a1.id, sigla: "OG")
+   Provincia.create(description: "Olbia Tempio", regione_id: r10.id, stato_id: s1.id, continente_id: a1.id, sigla: "OT")
   r9 = Regione.create(description: "Lazio", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Frosinone", regione_id: r9.id, stato_id: s1.id, continente_id: a1.id, sigla: "FR"){ |c| c.id = 39}.save
-   Provincia.create(description: "Latina", regione_id: r9.id, stato_id: s1.id, continente_id: a1.id, sigla: "LT"){ |c| c.id = 40}.save
-   Provincia.create(description: "Rieti", regione_id: r9.id, stato_id: s1.id, continente_id: a1.id, sigla: "RI"){ |c| c.id = 41}.save
-   Provincia.create(description: "Roma", regione_id: r9.id, stato_id: s1.id, continente_id: a1.id, sigla: "RM"){ |c| c.id = 42}.save
-   Provincia.create(description: "Viterbo", regione_id: r9.id, stato_id: s1.id, continente_id: a1.id, sigla: "VT"){ |c| c.id = 43}.save
+   Provincia.create(description: "Frosinone", regione_id: r9.id, stato_id: s1.id, continente_id: a1.id, sigla: "FR")
+   Provincia.create(description: "Latina", regione_id: r9.id, stato_id: s1.id, continente_id: a1.id, sigla: "LT")
+   Provincia.create(description: "Rieti", regione_id: r9.id, stato_id: s1.id, continente_id: a1.id, sigla: "RI")
+   Provincia.create(description: "Roma", regione_id: r9.id, stato_id: s1.id, continente_id: a1.id, sigla: "RM")
+   Provincia.create(description: "Viterbo", regione_id: r9.id, stato_id: s1.id, continente_id: a1.id, sigla: "VT")
   r8 = Regione.create(description: "Campania", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Avellino", regione_id: r8.id, stato_id: s1.id, continente_id: a1.id, sigla: "AV"){ |c| c.id = 34}.save
-   Provincia.create(description: "Benevento", regione_id: r8.id, stato_id: s1.id, continente_id: a1.id, sigla: "BN"){ |c| c.id = 35}.save
-   Provincia.create(description: "Caserta", regione_id: r8.id, stato_id: s1.id, continente_id: a1.id, sigla: "CE"){ |c| c.id = 36}.save
-   Provincia.create(description: "Napoli", regione_id: r8.id, stato_id: s1.id, continente_id: a1.id, sigla: "NA"){ |c| c.id = 37}.save
-   Provincia.create(description: "Salerno", regione_id: r8.id, stato_id: s1.id, continente_id: a1.id, sigla: "SA"){ |c| c.id = 38}.save
+   Provincia.create(description: "Avellino", regione_id: r8.id, stato_id: s1.id, continente_id: a1.id, sigla: "AV")
+   Provincia.create(description: "Benevento", regione_id: r8.id, stato_id: s1.id, continente_id: a1.id, sigla: "BN")
+   Provincia.create(description: "Caserta", regione_id: r8.id, stato_id: s1.id, continente_id: a1.id, sigla: "CE")
+   Provincia.create(description: "Napoli", regione_id: r8.id, stato_id: s1.id, continente_id: a1.id, sigla: "NA")
+   Provincia.create(description: "Salerno", regione_id: r8.id, stato_id: s1.id, continente_id: a1.id, sigla: "SA")
   r7 = Regione.create(description: "Calabria", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Catanzaro", regione_id: r7.id, stato_id: s1.id, continente_id: a1.id, sigla: "CZ"){ |c| c.id = 21}.save
-   Provincia.create(description: "Cosenza", regione_id: r7.id, stato_id: s1.id, continente_id: a1.id, sigla: "CS"){ |c| c.id = 22}.save
-   Provincia.create(description: "Crotone", regione_id: r7.id, stato_id: s1.id, continente_id: a1.id, sigla: "KR"){ |c| c.id = 23}.save
-   Provincia.create(description: "Reggio Calabria", regione_id: r7.id, stato_id: s1.id, continente_id: a1.id, sigla: "RC"){ |c| c.id = 24}.save
-   Provincia.create(description: "Vibo Valentia", regione_id: r7.id, stato_id: s1.id, continente_id: a1.id, sigla: "VV"){ |c| c.id = 25}.save
+   Provincia.create(description: "Catanzaro", regione_id: r7.id, stato_id: s1.id, continente_id: a1.id, sigla: "CZ")
+   Provincia.create(description: "Cosenza", regione_id: r7.id, stato_id: s1.id, continente_id: a1.id, sigla: "CS")
+   Provincia.create(description: "Crotone", regione_id: r7.id, stato_id: s1.id, continente_id: a1.id, sigla: "KR")
+   Provincia.create(description: "Reggio Calabria", regione_id: r7.id, stato_id: s1.id, continente_id: a1.id, sigla: "RC")
+   Provincia.create(description: "Vibo Valentia", regione_id: r7.id, stato_id: s1.id, continente_id: a1.id, sigla: "VV")
   r6 = Regione.create(description: "Puglia", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Bari", regione_id: r6.id, stato_id: s1.id, continente_id: a1.id, sigla: "BA"){ |c| c.id = 29}.save
-   Provincia.create(description: "Brindisi", regione_id: r6.id, stato_id: s1.id, continente_id: a1.id, sigla: "BR"){ |c| c.id = 30}.save
-   Provincia.create(description: "Foggia", regione_id: r6.id, stato_id: s1.id, continente_id: a1.id, sigla: "FG"){ |c| c.id = 31}.save
-   Provincia.create(description: "Lecce", regione_id: r6.id, stato_id: s1.id, continente_id: a1.id, sigla: "LE"){ |c| c.id = 32}.save
-   Provincia.create(description: "Taranto", regione_id: r6.id, stato_id: s1.id, continente_id: a1.id, sigla: "TA"){ |c| c.id = 33}.save
+   Provincia.create(description: "Bari", regione_id: r6.id, stato_id: s1.id, continente_id: a1.id, sigla: "BA")
+   Provincia.create(description: "Brindisi", regione_id: r6.id, stato_id: s1.id, continente_id: a1.id, sigla: "BR")
+   Provincia.create(description: "Foggia", regione_id: r6.id, stato_id: s1.id, continente_id: a1.id, sigla: "FG")
+   Provincia.create(description: "Lecce", regione_id: r6.id, stato_id: s1.id, continente_id: a1.id, sigla: "LE")
+   Provincia.create(description: "Taranto", regione_id: r6.id, stato_id: s1.id, continente_id: a1.id, sigla: "TA")
   r5 = Regione.create(description: "Trentino Alto Adige", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Trento", regione_id: r5.id, stato_id: s1.id, continente_id: a1.id, sigla: "TN"){ |c| c.id = 101}.save
-   Provincia.create(description: "Bolzano", regione_id: r5.id, stato_id: s1.id, continente_id: a1.id, sigla: "BZ"){ |c| c.id = 102}.save
+   Provincia.create(description: "Trento", regione_id: r5.id, stato_id: s1.id, continente_id: a1.id, sigla: "TN")
+   Provincia.create(description: "Bolzano", regione_id: r5.id, stato_id: s1.id, continente_id: a1.id, sigla: "BZ")
   r4 = Regione.create(description: "Molise", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Isernia", regione_id: r4.id, stato_id: s1.id, continente_id: a1.id, sigla: "IS"){ |c| c.id = 86}.save
-   Provincia.create(description: "Campobasso", regione_id: r4.id, stato_id: s1.id, continente_id: a1.id, sigla: "CB"){ |c| c.id = 87}.save
+   Provincia.create(description: "Isernia", regione_id: r4.id, stato_id: s1.id, continente_id: a1.id, sigla: "IS")
+   Provincia.create(description: "Campobasso", regione_id: r4.id, stato_id: s1.id, continente_id: a1.id, sigla: "CB")
   r3 = Regione.create(description: "Basilicata", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Matera", regione_id: r3.id, stato_id: s1.id, continente_id: a1.id, sigla: "MT"){ |c| c.id = 27}.save
-   Provincia.create(description: "Potenza", regione_id: r3.id, stato_id: s1.id, continente_id: a1.id, sigla: "PZ"){ |c| c.id = 28}.save
+   Provincia.create(description: "Matera", regione_id: r3.id, stato_id: s1.id, continente_id: a1.id, sigla: "MT")
+   Provincia.create(description: "Potenza", regione_id: r3.id, stato_id: s1.id, continente_id: a1.id, sigla: "PZ")
   r2 = Regione.create(description: "Abruzzo", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Chieti", regione_id: r2.id, stato_id: s1.id, continente_id: a1.id, sigla: "CH"){ |c| c.id = 44}.save
-   Provincia.create(description: "L'Aquila", regione_id: r2.id, stato_id: s1.id, continente_id: a1.id, sigla: "AQ"){ |c| c.id = 45}.save
-   Provincia.create(description: "Pescara", regione_id: r2.id, stato_id: s1.id, continente_id: a1.id, sigla: "PE"){ |c| c.id = 46}.save
-   Provincia.create(description: "Teramo", regione_id: r2.id, stato_id: s1.id, continente_id: a1.id, sigla: "TE"){ |c| c.id = 47}.save
+   Provincia.create(description: "Chieti", regione_id: r2.id, stato_id: s1.id, continente_id: a1.id, sigla: "CH")
+   Provincia.create(description: "L'Aquila", regione_id: r2.id, stato_id: s1.id, continente_id: a1.id, sigla: "AQ")
+   Provincia.create(description: "Pescara", regione_id: r2.id, stato_id: s1.id, continente_id: a1.id, sigla: "PE")
+   Provincia.create(description: "Teramo", regione_id: r2.id, stato_id: s1.id, continente_id: a1.id, sigla: "TE")
   r1 = Regione.create(description: "Marche", stato_id: s1.id, continente_id: a1.id)
-   Provincia.create(description: "Ancona", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "AN"){ |c| c.id = 1}.save
-   Provincia.create(description: "Macerata", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "MC"){ |c| c.id = 2}.save
-   Provincia.create(description: "Pesaro Urbino", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "PU"){ |c| c.id = 3}.save
-   Provincia.create(description: "Ascoli Piceno", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "AP"){ |c| c.id = 4}.save
-   Provincia.create(description: "Carchi", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "CAR"){ |c| c.id = 109}.save
-   Provincia.create(description: "Esmeraldas", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "ESM"){ |c| c.id = 110}.save
-   Provincia.create(description: "Imbabura", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "IMB"){ |c| c.id = 111}.save
-   Provincia.create(description: "Sucumbíos", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "SUC"){ |c| c.id = 112}.save
-   Provincia.create(description: "Napo", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "NAP"){ |c| c.id = 113}.save
-   Provincia.create(description: "Orellana", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "ORE"){ |c| c.id = 114}.save
-   Provincia.create(description: "Pichincha", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "PIC"){ |c| c.id = 115}.save
-   Provincia.create(description: "Chimborazo", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "CHI"){ |c| c.id = 116}.save
-   Provincia.create(description: "Cotopaxi", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "COT"){ |c| c.id = 117}.save
-   Provincia.create(description: "Pastaza", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "PAS"){ |c| c.id = 118}.save
-   Provincia.create(description: "Tungurahua", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "TUN"){ |c| c.id = 119}.save
-   Provincia.create(description: "Azuay", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "AZU"){ |c| c.id = 120}.save
-   Provincia.create(description: "Cañar", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "CAN"){ |c| c.id = 121}.save
-   Provincia.create(description: "Morona Santiago", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "MSA"){ |c| c.id = 122}.save
-   Provincia.create(description: "El Oro", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "EOR"){ |c| c.id = 123}.save
-   Provincia.create(description: "Loja", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "LOJ"){ |c| c.id = 124}.save
-   Provincia.create(description: "Zamora Chinchipe", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "ZCH"){ |c| c.id = 125}.save
-   Provincia.create(description: "Bolívar", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "BOL"){ |c| c.id = 126}.save
-   Provincia.create(description: "Guayas", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "GUA"){ |c| c.id = 127}.save
-   Provincia.create(description: "Los Ríos", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "LRI"){ |c| c.id = 128}.save
-   Provincia.create(description: "Santa Elena", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "SEL"){ |c| c.id = 129}.save
-   Provincia.create(description: "Manabí", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "MAN"){ |c| c.id = 130}.save
-   Provincia.create(description: "Santo Domingo de los Tsáchilas", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "SDT"){ |c| c.id = 131}.save
-   Provincia.create(description: "Galápagos", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "GAL"){ |c| c.id = 132}.save
-   Provincia.create(description: "Alba", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 133}.save
-   Provincia.create(description: "Arad", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 134}.save
-   Provincia.create(description: "Argeș", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 135}.save
-   Provincia.create(description: "Bacău", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 136}.save
-   Provincia.create(description: "Bihor", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 137}.save
-   Provincia.create(description: "Bistrița-Năsăud", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 138}.save
-   Provincia.create(description: "Botoșani", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 139}.save
-   Provincia.create(description: "Brașov", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 140}.save
-   Provincia.create(description: "Brăila", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 141}.save
-   Provincia.create(description: "Buzău", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 142}.save
-   Provincia.create(description: "Caraș-Severin", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 143}.save
-   Provincia.create(description: "Călărași", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 144}.save
-   Provincia.create(description: "Cluj", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 145}.save
-   Provincia.create(description: "Constanța", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 146}.save
-   Provincia.create(description: "Covasna", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 147}.save
-   Provincia.create(description: "Dâmbovița", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 148}.save
-   Provincia.create(description: "Dolj", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 149}.save
-   Provincia.create(description: "Galați", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 150}.save
-   Provincia.create(description: "Giurgiu", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 151}.save
-   Provincia.create(description: "Gorj", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 152}.save
-   Provincia.create(description: "Harghita", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 153}.save
-   Provincia.create(description: "Hunedoara", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 154}.save
-   Provincia.create(description: "Ialomița", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 155}.save
-   Provincia.create(description: "Iași", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 156}.save
-   Provincia.create(description: "Ilfov", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 157}.save
-   Provincia.create(description: "Maramureș", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 158}.save
-   Provincia.create(description: "Mehedinți", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 159}.save
-   Provincia.create(description: "Mureș", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 160}.save
-   Provincia.create(description: "Neamț", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 161}.save
-   Provincia.create(description: "Olt", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 162}.save
-   Provincia.create(description: "Prahova", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 163}.save
-   Provincia.create(description: "Satu Mare", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 164}.save
-   Provincia.create(description: "Sălaj", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 165}.save
-   Provincia.create(description: "Sibiu", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 166}.save
-   Provincia.create(description: "Suceava", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 167}.save
-   Provincia.create(description: "Teleorman", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 168}.save
-   Provincia.create(description: "Timiș", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 169}.save
-   Provincia.create(description: "Tulcea", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 170}.save
-   Provincia.create(description: "Vaslui", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 171}.save
-   Provincia.create(description: "Vâlcea", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 172}.save
-   Provincia.create(description: "Vrancea", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 173}.save
-   Provincia.create(description: "Mun. Bucuresti", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: ""){ |c| c.id = 174}.save
+   Provincia.create(description: "Ancona", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "AN")
+   Provincia.create(description: "Macerata", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "MC")
+   Provincia.create(description: "Pesaro Urbino", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "PU")
+   Provincia.create(description: "Ascoli Piceno", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "AP")
+   Provincia.create(description: "Carchi", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "CAR")
+   Provincia.create(description: "Esmeraldas", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "ESM")
+   Provincia.create(description: "Imbabura", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "IMB")
+   Provincia.create(description: "Sucumbíos", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "SUC")
+   Provincia.create(description: "Napo", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "NAP")
+   Provincia.create(description: "Orellana", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "ORE")
+   Provincia.create(description: "Pichincha", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "PIC")
+   Provincia.create(description: "Chimborazo", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "CHI")
+   Provincia.create(description: "Cotopaxi", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "COT")
+   Provincia.create(description: "Pastaza", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "PAS")
+   Provincia.create(description: "Tungurahua", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "TUN")
+   Provincia.create(description: "Azuay", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "AZU")
+   Provincia.create(description: "Cañar", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "CAN")
+   Provincia.create(description: "Morona Santiago", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "MSA")
+   Provincia.create(description: "El Oro", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "EOR")
+   Provincia.create(description: "Loja", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "LOJ")
+   Provincia.create(description: "Zamora Chinchipe", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "ZCH")
+   Provincia.create(description: "Bolívar", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "BOL")
+   Provincia.create(description: "Guayas", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "GUA")
+   Provincia.create(description: "Los Ríos", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "LRI")
+   Provincia.create(description: "Santa Elena", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "SEL")
+   Provincia.create(description: "Manabí", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "MAN")
+   Provincia.create(description: "Santo Domingo de los Tsáchilas", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "SDT")
+   Provincia.create(description: "Galápagos", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "GAL")
+   Provincia.create(description: "Alba", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Arad", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Argeș", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Bacău", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Bihor", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Bistrița-Năsăud", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Botoșani", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Brașov", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Brăila", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Buzău", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Caraș-Severin", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Călărași", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Cluj", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Constanța", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Covasna", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Dâmbovița", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Dolj", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Galați", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Giurgiu", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Gorj", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Harghita", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Hunedoara", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Ialomița", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Iași", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Ilfov", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Maramureș", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Mehedinți", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Mureș", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Neamț", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Olt", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Prahova", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Satu Mare", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Sălaj", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Sibiu", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Suceava", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Teleorman", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Timiș", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Tulcea", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Vaslui", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Vâlcea", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Vrancea", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
+   Provincia.create(description: "Mun. Bucuresti", regione_id: r1.id, stato_id: s1.id, continente_id: a1.id, sigla: "")
  s27 = Stato.create( description: "Jersey", continente_id: a1.id, sigla: "JE", sigla_ext: "JEY")
   s27.translations.where(locale: "it-IT").first_or_create.update_attributes(description: "Jersey")
   s27.translations.where(locale: "en").first_or_create.update_attributes(description: "Jersey")

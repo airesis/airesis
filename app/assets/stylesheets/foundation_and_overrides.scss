@@ -2220,9 +2220,6 @@ small.warning {
     font-size: 1.5em;
     line-height: 1.5em;
   }
-  img {
-    max-width: 100%;
-  }
   h1 {
     text-align: center;
   }
@@ -2900,4 +2897,10 @@ ul.social-network {
 
 h1 .label {
   font-size: $h1-font-size;
+}
+
+.calendar_container .fc-button {
+  @extend .btn;
+  border-radius: 0;
+  height: auto;
 }

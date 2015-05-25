@@ -1,5 +1,5 @@
 class SysMovement < ActiveRecord::Base
-
+  validates_presence_of :sys_movement_type_id
 
   belongs_to :currency, class_name: 'SysCurrency', foreign_key: :sys_currency_id
   belongs_to :user

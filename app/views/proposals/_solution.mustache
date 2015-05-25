@@ -1,0 +1,39 @@
+<div class="solution_main card" data-solution_id="{{solution.id}}" data-compressed="false"
+     data-persisted="{{solution.persisted}}">
+    <h3>
+        <div class="tit1 sol">
+            <div class="tit2">
+                <span class="title_placeholder">
+                    {{{solution.solution_title}}}
+                </span>
+                <input id="proposal_solutions_attributes_{{solution.id}}_title"
+                       name="proposal[solutions_attributes][{{solution.id}}][title]"
+                       placeholder="{{solution.title_placeholder}}" type="text"
+                       value="{{solution.title}}" data-validate="true">
+            </div>
+          <span class="remove_sol_button">
+            <a href="#" data-remove-solution data-solution_id="{{solution.id}}">{{solution.removeSolution}}</a>
+          </span>
+        </div>
+    </h3>
+    <div class="sol_content">
+        <div class="solutions_column" data-solution_id="{{solution.id}}">
+            <input id="proposal_solutions_attributes_{{solution.id}}_seq"
+                   name="proposal[solutions_attributes][{{solution.id}}][seq]"
+                   type="hidden" value="{{solution.seq}}">
+            <input name="proposal[solutions_attributes][{{solution.id}}][_destroy]" type="hidden" value="0"
+                   data-solution-destroy>
+            <input id="proposal_solutions_attributes_{{solution.id}}__destroy"
+                   name="proposal[solutions_attributes][{{solution.id}}][_destroy]"
+                   style="display:none" type="checkbox" value="1">
+            {{#solution.sections}}
+                {{> proposals/_solution_section}}
+            {{/solution.sections}}
+        </div>
+        <div class="new_section">
+            <a href="#" class="btn full-width" data-add-solution-section data-solution_id="{{solution.id}}">
+                {{solution.addParagraph}}
+            </a>
+        </div>
+    </div>
+</div>

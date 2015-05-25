@@ -61,11 +61,19 @@
         <%= link_to t('pages.groups.edit.change_permissions'), group_participation_roles_path(@group) %>
         <div>
           <%= f.submit button_name, class: 'btn blue', data: {disable_with: t('updating')} %>
-          <%= link_to @group, method: :delete, data: {confirm: t('pages.groups.show.confirm_destroy')}, class: 'btn red right' do %>
-              <i class="fa fa-trash-o"></i>
-              <%= t('pages.groups.show.destroy_button') %>
-          <% end if can? :destroy, @group %>
+
         </div>
+        <br>
+        <br>
+        <% if can? :destroy, @group %>
+            <div data-alert class="alert-box warning">
+              <%= t('.delete_group_warning_html')  %>
+              <%= link_to @group, method: :delete, data: {confirm: t('pages.groups.show.confirm_destroy')}, class: 'btn red' do %>
+                  <i class="fa fa-trash-o"></i>
+                  <%= t('pages.groups.show.destroy_button') %>
+              <% end %>
+            </div>
+        <% end %>
     <% end %>
 <% end %>
 

@@ -1,0 +1,19 @@
+<div class="card">
+<p>
+  <b>Message:</b>
+  <%=simple_format @announcement.message %>
+</p>
+
+<p>
+  <b>Starts at:</b>
+  <%= @announcement.starts_at %>
+</p>
+
+<p>
+  <b>Ends at:</b>
+  <%= @announcement.ends_at %>
+</p>
+</div>
+
+<%= link_to 'Edit', edit_admin_announcement_path(@announcement) if can? :update, @announcement%> |
+<%= link_to 'Back', admin_announcements_path, class: 'btn' %>

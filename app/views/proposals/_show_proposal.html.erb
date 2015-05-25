@@ -1,17 +1,6 @@
-<script>
-    var pageURL = "<%= proposal_path(@proposal) %>";	//need this for ajaxify pagination
-
-    $(function () {
-        $('img.cke_iframe').each(function () {
-            var realelement = $(this).data('cke-realelement');
-            $(this).after($(unescape(realelement)));
-            $(this).remove();
-        });
-    });
-</script>
 <% if current_user %>
     <% @unread = @proposal.contributes.listable.unread(current_user.id, @proposal.id) %>
-    <% if false && @unread.count > 0 #TODO           %>
+    <% if false && @unread.count > 0 #TODO            %>
         <%= link_to '#', class: 'read_contributes' do %>
             <div class="icon-bell medium"></div>
         <% end %>
@@ -75,7 +64,7 @@
           <i class="fa fa-close"></i>
           <%= t('pages.proposals.show.close_debate_button') %>
       <% end  if can? :close_debate, @proposal %>
-  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox       %>
+  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox        %>
       <div id="wait_date_header_container">
         <%= render partial: 'proposals/wait_date_header' %>
       </div>
@@ -83,7 +72,7 @@
 
   <% elsif @proposal.voting? %>
       <% unless @proposal.is_petition? %>
-          <b><%= raw 'Questa proposta è in votazione. Leggi le soluzioni proposte e <a href="#" onclick="scroll_to_vote_panel();return false;">vota qui</a>.' %></b> <!--TODO:I18n -->
+          <b><%=raw t('.vote_here', link: (link_to t('buttons.vote_here'), '#', data: {scroll_to: :vote_panel}))%></b>
       <% end %>
   <% elsif @proposal.abandoned? %>
       <%= render partial: 'proposals/abandoned_header' %>
@@ -138,7 +127,7 @@
 <% end %>
 
 <% unless @proposal.is_petition? %>
-    <% if @proposal.waiting? #waiting for the vote period                 %>
+    <% if @proposal.waiting? #waiting for the vote period                  %>
         <div class="status_description card">
           <b><%= t('pages.proposals.show.votation_message', from: l(@proposal.vote_period.starttime), to: l(@proposal.vote_period.endtime)) %></b>
         </div>

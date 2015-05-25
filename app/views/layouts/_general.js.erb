@@ -1,6 +1,9 @@
 (function () {
     <%=render partial: 'layouts/messages', locals: {flash: flash}%>
     <%= yield :layout %>
+
+    execute_page_js('<%=body_page_name%>')
+
 })();
 
 <%= yield :no_closure %>

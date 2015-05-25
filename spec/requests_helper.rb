@@ -12,11 +12,15 @@ end
 def fill_in_ckeditor(locator, opts)
   content = opts.fetch(:with).to_json
   page.execute_script <<-SCRIPT
-    var ckeditor = CKEDITOR.instances.#{locator}
+    var ckeditor = CKEDITOR.instances['#{locator}'];
     ckeditor.setData(#{content});
     ckeditor.focus();
     ckeditor.updateElement();
+    $('textarea##{locator}').text(#{content});
+    console.log('wrote text in ckeditor');
+    console.log($('textarea##{locator}').text());
   SCRIPT
+  page.driver.console_messages.to_s  # TODO: workaround to execute the script
 end
 
 def toastr_clear
@@ -69,7 +73,7 @@ def create_area_participation(user, group_area)
 end
 
 def create_public_proposal(user_id)
-  create(:public_proposal, quorum: BestQuorum.visible.first, current_user_id: user_id)
+  create(:public_proposal, current_user_id: user_id)
 end
 
 def activate_areas(group)
@@ -117,6 +121,18 @@ end
 
 def within_left_menu
   within('#menu-left') do
+    yield
+  end
+end
+
+def within_first_post
+  within('#posts #post_1') do
+    yield
+  end
+end
+
+def within_second_post
+  within('#posts #post_2') do
     yield
   end
 end

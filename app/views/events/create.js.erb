@@ -1,8 +1,7 @@
-<%if @event.proposal_id && !@event.proposal_id.empty?%>
-  $('#wait_date_header_container').html('<%= j render(partial: 'proposals/wait_date_header', locals: {proposal: @proposal})%>');
-<%elsif params[:type] == 'election'%>
-    window.location.reload();
+<%if @event.proposal_id.present?%>
+<%Rails.logger.info "=====EVENT ! CREATED!===="%>
+$('#wait_date_header_container').html('<%= j render(partial: 'proposals/wait_date_header', locals: {proposal: @proposal})%>');
 <%else%>
-$('#calendar').fullCalendar( 'refetchEvents' );
+$('#calendar').fullCalendar('refetchEvents');
 <%end%>
 $('#create_event_dialog').foundation('reveal', 'close');

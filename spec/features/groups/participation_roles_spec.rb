@@ -3,7 +3,7 @@ require 'requests_helper'
 
 describe "the management of participation roles in a group", type: :feature, js: true do
   before :each do
-    @user = create(:default_user)
+    @user = create(:user)
     @ability = Ability.new(@user)
     @group = create(:group, current_user_id: @user.id)
   end
@@ -20,7 +20,7 @@ describe "the management of participation roles in a group", type: :feature, js:
   end
 
   it "can't manage other groups participation roles" do
-    @user2 = create(:second_user)
+    @user2 = create(:user)
     login_as @user2, scope: :user
     visit group_participation_roles_path(@group)
     expect(page).to have_content(I18n.t('error.error_302.title'))
@@ -29,7 +29,7 @@ describe "the management of participation roles in a group", type: :feature, js:
   end
 
   it "can't manage participation roles in a group in which participates" do
-    @user2 = create(:second_user)
+    @user2 = create(:user)
     create_participation(@user2,@group)
     login_as @user2, scope: :user
 

@@ -190,8 +190,9 @@ GEM
       rest-client (>= 1.7.0)
     css_parser (1.3.6)
       addressable
-    daemons (1.1.9)
+    daemons (1.2.2)
     database_cleaner (1.3.0)
+    debug_inspector (0.0.2)
     devise (3.4.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -322,9 +323,12 @@ GEM
     mime-types (2.4.3)
     mini_portile (0.6.2)
     minitest (5.5.1)
-    multi_json (1.10.1)
+    multi_json (1.11.0)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    mustache (1.0.1)
+    mustache-js-rails (2.0.0)
+      railties (>= 3.1, <= 5.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
@@ -381,6 +385,9 @@ GEM
     power_assert (0.2.2)
     powerpack (0.1.0)
     pr_geohash (1.0.0)
+    premailer-rails (1.8.0)
+      actionmailer (>= 3, < 5)
+      premailer (~> 1.7, >= 1.7.9)
     premailer (1.8.3)
       css_parser (>= 1.3.6)
       htmlentities (>= 4.0.0, <= 4.3.1)
@@ -439,6 +446,10 @@ GEM
     rotp (2.1.0)
     rsolr (1.0.10)
       builder (>= 2.1.2)
+    rspec (3.0.0)
+      rspec-core (~> 3.0.0)
+      rspec-expectations (~> 3.0.0)
+      rspec-mocks (~> 3.0.0)
     rspec-core (3.2.1)
       rspec-support (~> 3.2.0)
     rspec-expectations (3.2.0)
@@ -446,6 +457,33 @@ GEM
       rspec-support (~> 3.2.0)
     rspec-mocks (3.2.1)
       diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.0.0)
+    rspec-mocks (3.0.4)
+      rspec-support (~> 3.0.0)
+    rspec-rails (3.0.2)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.0.0)
+      rspec-expectations (~> 3.0.0)
+      rspec-mocks (~> 3.0.0)
+      rspec-support (~> 3.0.0)
+    rspec-support (3.0.4)
+      rspec-support (~> 3.0.0)
+    rspec-mocks (3.0.4)
+      rspec-support (~> 3.0.0)
+    rspec-rails (3.0.2)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.0.0)
+      rspec-expectations (~> 3.0.0)
+      rspec-mocks (~> 3.0.0)
+      rspec-support (~> 3.0.0)
+    rspec-sidekiq (2.0.0)
+      rspec (~> 3.0, >= 3.0.0)
+      sidekiq (>= 2.4.0)
+    rspec-support (3.0.4)
       rspec-support (~> 3.2.0)
     rspec-rails (3.2.1)
       actionpack (>= 3.0, < 4.3)
@@ -543,7 +581,7 @@ GEM
       rack (~> 1.0)
     thor (0.19.1)
     thread (0.1.5)
-    thread_safe (0.3.4)
+    thread_safe (0.3.5)
     tilt (1.4.1)
     timers (4.0.1)
       hitimes
@@ -551,11 +589,24 @@ GEM
     truncate_html (0.9.3)
     turbolinks (2.5.3)
       coffee-rails
+    turnout (0.3.0)
+      nokogiri (~> 1.3)
+      rack
+    tzinfo (0.3.43)
+    uglifier (2.5.0)
+    turnout (0.3.0)
+      nokogiri (~> 1.3)
+      rack
+    tzinfo (0.3.44)
+    uglifier (2.5.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    uniform_notifier (1.6.1)
+    uniform_notifier (1.6.1)
+    uri-js-rails (1.14.1)
     uniform_notifier (1.7.0)
     warden (1.2.3)
       rack (>= 1.0)
@@ -579,6 +630,7 @@ DEPENDENCIES
   activerecord-session_store
   aws-sdk
   better_errors
+  binding_of_caller
   bullet
   cancancan
   capistrano (~> 3.2.0)
@@ -619,6 +671,8 @@ DEPENDENCIES
   koala (~> 1.8.0rc1)
   mailman
   maktoub
+  mustache
+  mustache-js-rails
   nickname_generator
   nprogress-rails
   omniauth-facebook
@@ -629,6 +683,7 @@ DEPENDENCIES
   paper_trail (~> 3.0.0)
   paperclip
   pg
+  premailer-rails
   private_pub
   quiet_assets
   rails (~> 4.2)
@@ -636,6 +691,9 @@ DEPENDENCIES
   recaptcha
   redcarpet
   rotp
+  rspec-rails (~> 3.0.0)
+  rspec-rails (~> 3.0.0)
+  rspec-sidekiq
   rspec-rails
   rubocop
   ruby-prof
@@ -666,6 +724,11 @@ DEPENDENCIES
   timezone!
   truncate_html
   turbolinks
+  turnout
+  uglifier (>= 1.3.0)
+  turnout
+  uglifier (>= 1.3.0)
+  uri-js-rails
   uglifier
   vote-schulze!
   wicked_pdf

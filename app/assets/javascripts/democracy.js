@@ -6,16 +6,17 @@
 var $viewport;
 
 function switchText(button) {
-    var other_ = button.data('other');
-    var text_ = button.text();
-    button.data('other', text_);
-    button.text(other_);
+    button.each(function () {
+        var other_ = $(this).data('other');
+        var text_ = $(this).text();
+        $(this).data('other', text_);
+        $(this).text(other_);
+    });
 }
-
 
 function scrollToElement(element) {
     $viewport.animate({
-        scrollTop: element.offset().top - 160
+        scrollTop: element.offset().top - 80
     }, 2000);
 
     // Stop the animation if the user scrolls. Defaults on .stop() should be fine
@@ -522,7 +523,7 @@ function read_notifica(el) {
     }
 
     $.ajax({
-        dataType: 'js',
+        dataType: 'script',
         type: 'get',
         url: url_
     });
@@ -533,7 +534,7 @@ function sign_all_as_read(id) {
         data: 'id=' + id,
         url: '/alerts/check_all/',
         type: 'post',
-        dataType: 'js',
+        dataType: 'script',
         complete: function (data) {
             reset_alerts_number();
             $('.card.mess').each(function () {
@@ -600,11 +601,7 @@ function poll() {
 
             $('.cont1')
                 .bind('mousewheel DOMMouseScroll', function (e) {
-                    console.log('scroll');
-                    if (e.originalEvent) e = e.originalEvent;
-                    var delta = e.wheelDelta || -e.detail;
-                    this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
-                    e.preventDefault();
+                    Airesis.scrollLock(this, e);
                 });
             disegnaCountdown();
 
@@ -713,13 +710,11 @@ function fitRightMenu(fetched) {
     fetched.css('display', '');
 
     if (matchMedia(Foundation.media_queries['medium']).matches) {
-        console.log('set height');
         fetched.height($(window).height() - 110);
     }
 
     $(window).resize(function () {
         if (matchMedia(Foundation.media_queries['medium']).matches) {
-            console.log('set height');
             fetched.height($(window).height() - 110);
         }
     });
@@ -752,7 +747,7 @@ function initTextAreaTag() {
         $(this).textntags({
             triggers: {'@': {uniqueTags: false}},
             onDataRequest: function (mode, query, triggerChar, callback) {
-                var data = nicknames;
+                var data = ProposalsShow.nicknames;
 
                 query = query.toLowerCase();
                 var found = _.filter(data, function (item) {
@@ -957,4 +952,13 @@ function showVoteResults() {
     });
 
     $('#cast_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");
+}
+
+function close_all_dropdown() {
+    $('.f-dropdown').foundation('dropdown', 'close', $('.f-dropdown'));
+}
+
+function execute_page_js(page) {
+    if ("object" === typeof window[page])
+        window[page].init();
 }

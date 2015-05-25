@@ -17,7 +17,7 @@
                 $(this).textntags({
                     triggers: {'@': {uniqueTags: false}},
                     onDataRequest: function (mode, query, triggerChar, callback) {
-                        var data = nicknames;
+                        var data = ProposalsShow.nicknames;
 
                         query = query.toLowerCase();
                         var found = _.filter(data, function (item) {

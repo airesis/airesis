@@ -70,7 +70,7 @@ module UsersHelper
     ret = content_tag :div, class: 'user-tag' do
       (content_tag :div, class: 'user-avatar' do
         if u_nick
-          image_tag "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(u_nick.nickname)}?s=24&d=identicon&r=PG"
+          image_tag "https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(u_nick.nickname)}?s=24&d=identicon&r=PG"
         else
           user.user_image_tag(24)
         end
@@ -103,7 +103,7 @@ module UsersHelper
     end
     ret += "\">"
     if u_nick
-      ret += "<img src=\"http://www.gravatar.com/avatar/"
+      ret += "<img src=\"https://www.gravatar.com/avatar/"
       ret += Digest::MD5.hexdigest(u_nick.nickname)
       ret += "?s=24&d=identicon&r=PG\"/>"
     else

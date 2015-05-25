@@ -38,7 +38,7 @@ describe "create a proposal in his group", type: :feature, js: true, ci_ignore: 
     expect(page.current_path).to eq(edit_group_proposal_path(group, @proposal))
 
     page.execute_script 'window.confirm = function () { return true }'
-    page.execute_script 'safe_exit = true;'
+    page.execute_script 'ProposalsEdit.safe_exit = true;'
     within_left_menu do
       click_link I18n.t('buttons.cancel')
     end
@@ -192,7 +192,7 @@ describe "create a proposal in his group", type: :feature, js: true, ci_ignore: 
         expect(page).to have_content proposal2.title
 
         page.execute_script 'window.confirm = function () { return true }'
-        page.execute_script 'safe_exit = true;'
+        page.execute_script 'ProposalsEdit.safe_exit = true;'
         wait_for_ajax
         within_left_menu do
           click_link I18n.t('buttons.cancel')

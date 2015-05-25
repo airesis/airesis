@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222154934) do
+ActiveRecord::Schema.define(version: 20150525072351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,19 @@ ActiveRecord::Schema.define(version: 20150222154934) do
     t.datetime "updated_at"
   end
 
+  create_table "alert_jobs", force: true do |t|
+    t.integer  "trackable_id",                     null: false
+    t.string   "trackable_type",                   null: false
+    t.integer  "notification_type_id",             null: false
+    t.integer  "user_id",                          null: false
+    t.integer  "alert_id"
+    t.string   "jid",                              null: false
+    t.integer  "accumulated_count",    default: 1, null: false
+    t.integer  "status",               default: 0, null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
   create_table "alerts", force: true do |t|
     t.integer  "notification_id",                 null: false
     t.integer  "user_id"
@@ -35,6 +48,8 @@ ActiveRecord::Schema.define(version: 20150222154934) do
     t.hstore   "properties",      default: {},    null: false
     t.boolean  "deleted",         default: false, null: false
     t.datetime "deleted_at"
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
   end
 
   add_index "alerts", ["checked"], name: "index_alerts_on_checked", using: :btree
@@ -196,6 +211,7 @@ ActiveRecord::Schema.define(version: 20150222154934) do
     t.integer "regione_id"
     t.integer "stato_id"
     t.integer "continente_id"
+    t.integer "geoname_id"
   end
 
   add_index "circoscriziones", ["continente_id"], name: "index_circoscriziones_on_continente_id", using: :btree
@@ -246,6 +262,7 @@ ActiveRecord::Schema.define(version: 20150222154934) do
     t.string  "cap",           limit: 5
     t.integer "stato_id"
     t.integer "continente_id"
+    t.integer "geoname_id"
   end
 
   add_index "comunes", ["continente_id"], name: "index_comunes_on_continente_id", using: :btree
@@ -269,7 +286,16 @@ ActiveRecord::Schema.define(version: 20150222154934) do
   add_index "continente_translations", ["locale"], name: "index_continente_translations_on_locale", using: :btree
 
   create_table "continentes", force: true do |t|
-    t.string "description", null: false
+    t.string  "description", null: false
+    t.integer "geoname_id"
+  end
+
+  create_table "email_jobs", force: true do |t|
+    t.integer  "alert_id",               null: false
+    t.string   "jid",                    null: false
+    t.integer  "status",     default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "event_comment_likes", force: true do |t|
@@ -380,13 +406,6 @@ ActiveRecord::Schema.define(version: 20150222154934) do
   add_index "frm_forums", ["group_id", "slug"], name: "index_frm_forums_on_group_id_and_slug", unique: true, using: :btree
   add_index "frm_forums", ["slug"], name: "index_frm_forums_on_slug", using: :btree
 
-  create_table "frm_groups", force: true do |t|
-    t.string  "name"
-    t.integer "group_id"
-  end
-
-  add_index "frm_groups", ["name"], name: "index_frm_groups_on_name", using: :btree
-
   create_table "frm_memberships", force: true do |t|
     t.integer "group_id"
     t.integer "member_id"
@@ -400,6 +419,13 @@ ActiveRecord::Schema.define(version: 20150222154934) do
   end
 
   add_index "frm_moderator_groups", ["forum_id"], name: "index_frm_moderator_groups_on_forum_id", using: :btree
+
+  create_table "frm_mods", force: true do |t|
+    t.string  "name"
+    t.integer "group_id"
+  end
+
+  add_index "frm_mods", ["name"], name: "index_frm_mods_on_name", using: :btree
 
   create_table "frm_posts", force: true do |t|
     t.integer  "topic_id"
@@ -616,7 +642,7 @@ ActiveRecord::Schema.define(version: 20150222154934) do
     t.string   "facebook_page_url"
     t.integer  "image_id"
     t.string   "title_bar"
-    t.string   "image_url"
+    t.string   "old_image_url"
     t.integer  "participation_role_id",                        default: 1,        null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -688,6 +714,11 @@ ActiveRecord::Schema.define(version: 20150222154934) do
     t.integer "event_id"
   end
 
+  create_table "newsletters", force: true do |t|
+    t.string "subject"
+    t.text   "body"
+  end
+
   create_table "notification_categories", force: true do |t|
     t.integer "seq"
     t.string  "short", limit: 8
@@ -702,8 +733,11 @@ ActiveRecord::Schema.define(version: 20150222154934) do
   add_index "notification_data", ["notification_id", "name"], name: "index_notification_data_on_notification_id_and_name", unique: true, using: :btree
 
   create_table "notification_types", force: true do |t|
-    t.integer "notification_category_id", null: false
+    t.integer "notification_category_id",                 null: false
     t.string  "name"
+    t.integer "email_delay",                              null: false
+    t.integer "alert_delay",                              null: false
+    t.boolean "cumulable",                default: false, null: false
   end
 
   create_table "notifications", force: true do |t|
@@ -769,14 +803,6 @@ ActiveRecord::Schema.define(version: 20150222154934) do
     t.integer "group_id"
     t.boolean "featured",     default: false, null: false
   end
-
-  create_table "proposal_alerts", force: true do |t|
-    t.integer "proposal_id",             null: false
-    t.integer "user_id",                 null: false
-    t.integer "count",       default: 0, null: false
-  end
-
-  add_index "proposal_alerts", ["proposal_id", "user_id"], name: "index_proposal_alerts_on_proposal_id_and_user_id", unique: true, using: :btree
 
   create_table "proposal_borders", force: true do |t|
     t.integer "proposal_id",        null: false
@@ -848,6 +874,15 @@ ActiveRecord::Schema.define(version: 20150222154934) do
     t.integer  "grave_reports_count",                     default: 0,     null: false
     t.integer  "soft_reports_count",                      default: 0,     null: false
     t.boolean  "noise",                                   default: false
+  end
+
+  create_table "proposal_jobs", force: true do |t|
+    t.integer  "proposal_id",                 null: false
+    t.string   "klass",                       null: false
+    t.string   "jid",                         null: false
+    t.boolean  "canceled",    default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "proposal_lives", force: true do |t|
@@ -964,13 +999,6 @@ ActiveRecord::Schema.define(version: 20150222154934) do
     t.datetime "updated_at"
   end
 
-  create_table "proposal_watches", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "proposal_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "proposals", force: true do |t|
     t.integer  "proposal_state_id"
     t.integer  "proposal_category_id",                    default: 5,     null: false
@@ -1020,6 +1048,7 @@ ActiveRecord::Schema.define(version: 20150222154934) do
     t.integer "stato_id"
     t.integer "population"
     t.integer "continente_id"
+    t.integer "geoname_id"
   end
 
   add_index "provincias", ["continente_id"], name: "index_provincias_on_continente_id", using: :btree
@@ -1089,6 +1118,7 @@ ActiveRecord::Schema.define(version: 20150222154934) do
     t.string  "description",   limit: 100
     t.integer "stato_id",                  null: false
     t.integer "continente_id"
+    t.integer "geoname_id"
   end
 
   add_index "regiones", ["continente_id"], name: "index_regiones_on_continente_id", using: :btree
@@ -1240,6 +1270,7 @@ ActiveRecord::Schema.define(version: 20150222154934) do
     t.integer "continente_id",           null: false
     t.string  "sigla",                   null: false
     t.string  "sigla_ext",     limit: 3
+    t.integer "geoname_id"
   end
 
   create_table "steps", force: true do |t|
@@ -1573,7 +1604,7 @@ ActiveRecord::Schema.define(version: 20150222154934) do
 
   add_foreign_key "frm_forums", "groups", name: "frm_forums_group_id_fk"
 
-  add_foreign_key "frm_groups", "groups", name: "frm_groups_group_id_fk"
+  add_foreign_key "frm_mods", "groups", name: "frm_groups_group_id_fk"
 
   add_foreign_key "frm_topic_tags", "frm_topics", name: "frm_topic_tags_frm_topic_id_fk"
   add_foreign_key "frm_topic_tags", "tags", name: "frm_topic_tags_tag_id_fk"

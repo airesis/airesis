@@ -36,6 +36,7 @@ class Ability
     can :read, Announcement, ["starts_at <= :now and ends_at >= :now", now: Time.zone.now] do |a|
       true
     end
+    can :hide, Announcement
 
     if user
       can :create, Proposal do |proposal|
@@ -180,7 +181,7 @@ class Ability
       end
 
       can :view_data, Group, private: false
-      can [:view_data, :permissions_list], Group, group_participations: {user: {id: user.id}}
+      can [:view_data, :permissions_list], Group, group_participations: {user_id: user.id}
 
       can [:read, :create, :update, :change_group_permission], ParticipationRole, group: is_admin_of_group(user)
       can :destroy, ParticipationRole do |participation_role|
@@ -250,7 +251,7 @@ class Ability
       end
 
       can :destroy, GroupParticipation do |group_participation|
-        ((group_participation.participation_role_id != ParticipationRole::ADMINISTRATOR ||
+        ((group_participation.participation_role_id != ParticipationRole.admin.id ||
             group_participation.group.portavoce.count > 1) &&
             user == group_participation.user) ||
             ((group_participation.group.portavoce.include? user) && (group_participation.user != user))
@@ -314,14 +315,16 @@ class Ability
       can :create, MeetingParticipation, meeting: {event: {groups: participate_in_group(user)}}
       cannot :create, MeetingParticipation, meeting: {event: ['endtime < :limit', limit: Time.now]}
 
-      #forum permissions
+      # forum permissions
       can :read, Frm::Category, group: participate_in_group(user)
-      can :read, Frm::Topic, forum: {group: participate_in_group(user)}
       can :read, Frm::Forum, group: participate_in_group(user)
+      can :read, Frm::Topic, forum: {group: participate_in_group(user)}
 
       can :manage, Frm::Category, group: is_admin_of_group(user)
-      can :manage, Frm::Topic, forum: {group: is_admin_of_group(user)}
       can :manage, Frm::Forum, group: is_admin_of_group(user)
+      can :manage, Frm::Topic, forum: {group: is_admin_of_group(user)}
+
+      can :manage, Frm::Mod, group: is_admin_of_group(user)
 
       can :create_topic, Frm::Forum, group: participate_in_group(user)
 
@@ -336,13 +339,20 @@ class Ability
         user.can_moderate_forem_forum?(forum) || user.forem_admin?(forum.group)
       end
 
+      can :create, Frm::Post, group: participate_in_group(user)
+      can :update, Frm::Post, user_id: user.id
+      can :update, Frm::Post, group: is_admin_of_group(user)
+      can :destroy, Frm::Post do |post|
+        post.owner_or_moderator? user
+      end
+
       # Always performed
       can :access, :ckeditor # needed to access Ckeditor filebrowser
 
       # Performed checks for actions:
       #todo ckeditor assets are public. make them reserved on a per-user basis
-      can [:read, :create, :destroy], Ckeditor::Picture
-      can [:read, :create, :destroy], Ckeditor::AttachmentFile
+      can [:read, :create, :destroy], Ckeditor::Picture, assetable_id: user.id
+      can [:read, :create, :destroy], Ckeditor::AttachmentFile, assetable_id: user.id
 
       if user.moderator?
         can :read, Proposal # can see all the proposals
@@ -373,11 +383,13 @@ class Ability
           can [:read, :create, :update, :change_group_permission], ParticipationRole
           can :manage, Event
           can :index, SysPaymentNotification
-          can :manage, Frm::Topic
           can :create_topic, Frm::Forum
           can :manage, Frm::Category
           can :manage, Frm::Forum
+          can :manage, Frm::Topic
+          can :manage, Frm::Post
           can :manage, GroupArea
+          can :manage, Newsletter
           can :index, GroupParticipation
           can :manage, ParticipationRole
           cannot :destroy, ParticipationRole do |participation_role|
@@ -406,12 +418,12 @@ class Ability
   end
 
   def is_admin_of_group(user)
-    {group_participations: {user_id: user.id, participation_role_id: ParticipationRole::ADMINISTRATOR}}
+    {group_participations: {user_id: user.id, participation_role_id: ParticipationRole.admin.id}}
   end
 
   def can_do_on_group?(user, group, action)
     group.group_participations
         .joins(:participation_role => :action_abilitations)
-        .where(["group_participations.user_id = :user_id and (participation_roles.id = #{ParticipationRole::ADMINISTRATOR} or action_abilitations.group_action_id = :action_id)", user_id: user.id, action_id: action]).uniq.exists?
+        .where(["group_participations.user_id = :user_id and (participation_roles.id = #{ParticipationRole.admin.id} or action_abilitations.group_action_id = :action_id)", user_id: user.id, action_id: action]).uniq.exists?
   end
 end

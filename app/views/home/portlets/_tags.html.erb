@@ -1,6 +1,6 @@
-<div class="title">
-  <%= t('pages.home.index.most_used_tags') %>
-  <%= link_to t('pages.home.index.show_tags'), tags_path, class: 'btn' %>
+<div class="title clearfix">
+  <span class="left"><%= t('pages.home.index.most_used_tags') %></span>
+  <%= link_to t('pages.home.index.show_tags'), tags_path, class: 'btn right' %>
 </div>
 <div class="scrollable">
   <% Tag.most_used.limit(100).each do |tag| %>

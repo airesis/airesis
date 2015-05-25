@@ -61,15 +61,14 @@ class ProposalCommentsController < ApplicationController
       else
         order << "proposal_comments.updated_at desc"
       end
-      @proposal_comments = @proposal.contributes.listable.where(conditions).order(order).page(params[:page]).per(COMMENTS_PER_PAGE)
+      per_page = params[:disable_limit] ? 9999999 : COMMENTS_PER_PAGE
+      @proposal_comments = @proposal.contributes.listable.where(conditions).order(order).page(params[:page]).per(per_page)
       @total_pages = @proposal_comments.total_pages
       @current_page = @proposal_comments.current_page
     end
-
-
     respond_to do |format|
-      format.js
       format.html { @proposal_comments  = @proposal.contributes.listable}
+      format.js
     end
   end
 
@@ -114,9 +113,9 @@ class ProposalCommentsController < ApplicationController
     respond_to do |format|
       @my_nickname = current_user.proposal_nicknames.find_by(proposal_id: @proposal.id)
       @proposal_comment.collapsed = true
+      format.html { redirect_to @proposal }
       format.js
       format.json { head :ok }
-      format.html { redirect_to @proposal }
     end
 
   rescue Exception => e
@@ -134,8 +133,8 @@ class ProposalCommentsController < ApplicationController
     respond_to do |format|
       if @proposal_comment.update(proposal_comment_update_params)
         flash[:notice] = t('info.proposal.updated_comment')
-        format.js
         format.html { redirect_to(@proposal) }
+        format.js
       else
         format.html { render action: "edit" }
       end
@@ -149,8 +148,8 @@ class ProposalCommentsController < ApplicationController
 
     respond_to do |format|
       flash[:notice] = t('info.proposal.comment_deleted')
-      format.js
       format.html { redirect_to @proposal }
+      format.js
     end
   end
 
@@ -216,8 +215,8 @@ class ProposalCommentsController < ApplicationController
     to_inactive.update_all(noise: true)
 
     respond_to do |format|
-      format.js { render nothing: true }
       format.html { redirect_to @proposal }
+      format.js { render nothing: true }
     end
 
   end
@@ -256,12 +255,12 @@ class ProposalCommentsController < ApplicationController
       if @ranking.save
         @proposal_comment.reload
         flash[:notice] = t('info.proposal.rank_recorderd')
-        format.js { render 'rank' }
         format.html { redirect_to @proposal }
+        format.js { render 'rank' }
       else
         flash[:notice] = t(:error_on_proposal_comment_rank)
-        format.js { render 'layouts/error' }
         format.html { redirect_to @proposal }
+        format.js { render 'layouts/error' }
       end
     end
   end

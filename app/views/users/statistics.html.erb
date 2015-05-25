@@ -1,79 +1,76 @@
-<% @page_title = 'User statistics' %>
+<% @page_title = t('.title') %>
 <div class="card">
   <h1><%= @page_title %></h1>
 
   <p>
-    <b><%= 'Last login' %></b> <span class="info"><%= @user.last_sign_in_at %></span>
+    <b><%= t('.last_login') %></b> <span class="info"><%= @user.last_sign_in_at %></span>
   </p>
 
   <p>
-    <b><%= 'Integrated contributes number' %></b>
+    <b><%= t('.integrated_count') %></b>
     <span class="info"><%= @integrated_count %></span>
   </p>
 
   <p>
-    <b><%= 'SPAM Contributes number' %></b>
+    <b><%= t('.spam_count') %></b>
     <span class="info"><%= @spam_count %></span>
   </p>
 
   <p>
-    <b><%= 'Noisy contributes number' %></b>
+    <b><%= t('.noisy_count') %></b>
     <span class="info"><%= @noisy_count %></span>
   </p>
 
-
   <p>
-    <b><%= 'Total contributes number' %></b> <span class="info"><%= @contributes_count %></span>
+    <b><%= t('.total_count') %></b> <span class="info"><%= @contributes_count %></span>
   </p>
 
   <p>
-    <b><%= 'Total comments number' %></b> <span class="info"><%= @comments_count %></span>
+    <b><%= t('.total_comments_count') %></b> <span class="info"><%= @comments_count %></span>
   </p>
 
   <p>
-    <b><%= 'Number of proposals you have been editor' %></b> <span class="info"><%= @proposals_count %></span>
+    <b><%= t('.proposals_editor') %></b> <span class="info"><%= @proposals_count %></span>
   </p>
 
   <p>
-    <b><%= 'Number of proposals that have been voted' %></b>
+    <b><%= t('.proposals_voted') %></b>
     <span class="info"><%= @voted_count = @user.proposals.voted.count %></span>
   </p>
 
   <p>
-    <b><%= 'Medium rank of proposals that have been voted' %></b>
+    <b><%= t('.average_rank_voted_proposals') %></b>
     <span class="info"><%= @voted_rank = @user.proposals.accepted.average(:rank).to_f.round(2) %></span>
   </p>
 
   <p>
-    <b><%= 'Number of proposals that have been accepted' %></b>
+    <b><%= t('.proposals_accepted_count') %></b>
     <span class="info"><%= @accepted_count = @user.proposals.accepted.count %></span>
   </p>
 
   <p>
-    <b><%= 'Number of proposals that have been abandoned' %></b>
+    <b><%= t('.proposals_abandonend_count') %></b>
     <span class="info"><%= @abandoned_count = @user.proposals.abandoned.count %></span>
   </p>
 
   <p>
-    <b><%= 'Inactivity time' %></b><span class="info"></span>
-  </p>
-
-  <p>
-    <b><%= 'Good contributes writer' %></b>
+    <b><%= t('.good_writer') %></b>
   <span class="info">
     <div class="progress small-4">
       <span class="meter" style="width: <%=((1+((@integrated_count.to_f/@contributes_count.to_f)**(0.5) - (@spam_count.to_f/@comments_count.to_f)**(1.to_f/3.to_f)))/2)*100 %>%"></span>
-      <%= ((1+((@integrated_count.to_f/@contributes_count.to_f)**(0.5) - (@spam_count.to_f/@comments_count.to_f)**(1.to_f/3.to_f)))/2)*100 %>%
+      <%= ((1+((@integrated_count.to_f/@contributes_count.to_f)**(0.5) - (@spam_count.to_f/@comments_count.to_f)**(1.to_f/3.to_f)))/2)*100 %>
+      %
     </div>
   </span>
   </p>
 
   <p>
-    <b><%= 'Good proposals writer' %></b>
+    <b><%= t('.good_proposals_writer') %></b>
   <span class="info">
     <div class="progress small-4">
       <span class="meter" style="width: <%= ((1+(((0.8*@accepted_count)+(0.2*(@voted_count - @abandoned_count)))/(@voted_count+@abandoned_count)))/2)*100 %>%"></span>
-      <%= ((1+(((0.8*@accepted_count)+(0.2*(@voted_count - @abandoned_count)))/(@voted_count+@abandoned_count)))/2)*100 %>%
+      <%= ((1+(((0.8*@accepted_count)+(0.2*(@voted_count - @abandoned_count)))/(@voted_count+@abandoned_count)))/2)*100 %>
+      %
     </div>
   </span>
   </p>

@@ -46,8 +46,8 @@ class AlertsController < ApplicationController
       @alert.check!
 
       respond_to do |format|
-        format.js { render nothing: true }
         format.html { redirect_to @alert.notification.url }
+        format.js { render nothing: true }
       end
 
 

@@ -1,11 +1,4 @@
-#encoding: utf-8
-#Copyright 2012 Rodi Alessandro
-#This file is part of Airesis.
-#Airesis is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as 
-#published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-#Airesis is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
-#or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-#You should have received a copy of the GNU General Public License along with Foobar. If not, see http://www.gnu.org/licenses/.
+ses/.
 
 class HomeController < ApplicationController
 
@@ -17,15 +10,14 @@ class HomeController < ApplicationController
   before_filter :initialize_roadmap, only: [:bugtracking]
 
   def index
-    @page_title = 'Home'
-    if current_user
-      @blog_posts = BlogPost.includes(:blog,user: [:user_type,:image]).order('blog_posts.created_at desc').limit(10).accessible_by(Ability.new(current_user))
-      @events = Event.visible.next.order('starttime asc').limit(10).accessible_by(Ability.new(current_user))
+    @page_title = 'Home'ity.new(current_user))
+      lobility.new(current_user))
       render 'open_space'
     end
   end
 
   def public
+    load_open_space_resources
     render 'open_space'
   end
 
@@ -129,12 +121,17 @@ class HomeController < ApplicationController
     end
   end
 
-  private
+  protected
+
+  def load_open_space_resources
+    @blog_posts = BlogPost.includes(:bvisible.log,user: [:user_type,:image]).order('blog_posts.created_at desc').limit(10).accessible_by(Ability.new(current_user))
+    @events = Event.next.order('starttime asc').limit(10).accessible_by(Ability.new(current_user))
+  end
+
   def initialize_roadmap
     @roadmap ||= Roadmap.new(ENV['BUGTRACKING_USERNAME'], ENV['BUGTRACKING_PASSWORD'])
   end
 
-  private
 
   def choose_layout
     if ['landing'].include? action_name

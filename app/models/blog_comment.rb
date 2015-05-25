@@ -15,6 +15,8 @@ class BlogComment < ActiveRecord::Base
   after_commit :send_notifications, only: :create
 
 
+
+
   def after_initialize
     @collapsed = false
   end

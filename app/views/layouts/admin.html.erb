@@ -1,0 +1,21 @@
+<% @page_title = 'Admin Area' %>
+
+<% content_for :menu do %>
+
+<% end %>
+
+<%content_for :left_panel do %>
+    <div class="mybox">
+      <%= link_to 'Pannello amministratore', admin_panel_url, class: 'btn blue' %>
+      <%= link_to 'Gestisci gruppi certificati', admin_certifications_url, class: 'btn blue' %>
+      <%= link_to 'Newsletter', admin_newsletters_path, class: 'btn blue' %>
+      <%= link_to 'Announcements', admin_announcements_path, class: 'btn blue' %>
+      <%= link_to 'Movements', admin_sys_movements_path, class: 'btn blue' %>
+      <%= link_to 'Pannello Sidekiq', admin_sidekiq_web_path, class: 'btn blue' %>
+      <%= link_to 'Funziononi', admin_sys_features_path, class: 'btn blue' %>
+      <%= link_to 'Certifica utenti', admin_user_sensitives_path, class: 'btn blue' %>
+    </div>
+<%end%>
+
+<%= render 'layouts/general' %>
+

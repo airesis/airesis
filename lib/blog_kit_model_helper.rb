@@ -1,8 +1,5 @@
-#encoding: utf-8
-
 require 'rubygems'
 require 'sanitize'
-
 
 module BlogKitModelHelper
 
@@ -52,7 +49,7 @@ module BlogKitModelHelper
       end
 
       hash = Digest::MD5.hexdigest(email.downcase)
-      ret = "http://www.gravatar.com/avatar/#{hash}?s=#{size}"
+      ret = "https://www.gravatar.com/avatar/#{hash}?s=#{size}"
     end
     ret
   end
@@ -102,7 +99,7 @@ module BlogKitModelHelper
       end
 
       hash = Digest::MD5.hexdigest(email.downcase)
-      ret = "<img  src=\"http://www.gravatar.com/avatar/#{hash}?s=#{size}\"  itemprop=\"photo\" />"
+      ret = "<img  src=\"https://www.gravatar.com/avatar/#{hash}?s=#{size}\"  itemprop=\"photo\" />"
     end
 
     if user.certified? && certification_logo

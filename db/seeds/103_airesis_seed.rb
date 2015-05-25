@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Antrona Schieranco", provincia_id: 104, regione_id: 13, stato_id: 1, continente_id: 1 , population: 544)
 Comune.create(description: "Arola", provincia_id: 104, regione_id: 13, stato_id: 1, continente_id: 1 , population: 279)
 Comune.create(description: "Aurano", provincia_id: 104, regione_id: 13, stato_id: 1, continente_id: 1 , population: 118)

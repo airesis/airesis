@@ -29,16 +29,16 @@ class VotationsController < ApplicationController
       @proposal.save!
       flash[:notice] = t('votations.create.confirm')
       respond_to do |format|
-        format.js
         format.html { redirect_to votation_path }
+        format.js
       end
     end
   rescue ActiveRecord::ActiveRecordError => e
     if @proposal.errors[:user_votes]
       flash[:error] = t('errors.votation.already_voted')
       respond_to do |format|
-        format.js { render 'votations/errors/vote_error' }
         format.html { redirect_to votation_path }
+        format.js { render 'votations/errors/vote_error' }
       end
     end
   end

@@ -1,7 +1,7 @@
-#encoding: utf-8
+
 module AdminHelper
 
-  #cancella le vecchie notifiche
+  # cancella le vecchie notifiche
   def self.delete_old_notifications
     msg = "Cancella vecchie notifiche\n"
     count = 0
@@ -18,8 +18,8 @@ module AdminHelper
     msg +="Cancello " + read.count.to_s + " notifiche già lette più vecchie di 1 mese"
     count  += read.count     
     ResqueMailer.admin_message(msg).deliver_later
-    return count
-  end
+    r
+  # calcola il ranking degli utenti
   
   #valida tutti i gruppi presenti a sistema ed invia all'amministratore un elenco di quelli non validi da modificare
   def self.validate_groups  
@@ -50,7 +50,6 @@ module AdminHelper
     msg  += "  proposte: " + numproposte.to_s + "\n"
     msg  += "  proposte accettate: " + numok.to_s + "\n"
     user.rank = numcommenti + 2*(numproposte) + 10*(numok)
-    puts "user: "+user.email + " commenti:"+numcommenti.to_s + " proposte:" + numproposte.to_s + " ok:" + numok.to_s + " rank: " + user.rank.to_s
     msg  += "  user rank: " + user.rank.to_s + "\n----\n"
     user.save(validate: false)
     end

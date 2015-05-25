@@ -32,7 +32,7 @@
                   <div class="row left">
                     <div id="start_preset" class="columns large-5" style="display: block;">
                       <%= v.label 'start', "#{t('label.from')} " %>
-                      <div class="start_vot" ondblclick="changeStart();"></div>
+                      <div class="start_vot" data-start-votation></div>
                     </div>
                     <div id="start_choose" class="columns large-5" style="display:none">
                       <%= v.label 'start', "#{t('label.from')} " %>
@@ -47,10 +47,10 @@
                       <%= v.hidden_field 'start_edited' %>
                     </div>
                     <div class="columns large-5 left">
-                      <%= v.label 'end' do%>
-                          <%= "#{t('label.to')} "%>
+                      <%= v.label 'end' do %>
+                          <%= "#{t('label.to')} " %>
                           <%= v.text_field 'end' %>
-                      <%end%>
+                      <% end %>
                     </div>
                   </div>
                 </div>
@@ -65,80 +65,3 @@
 <%= link_to t('pages.proposals.show.choose_later'), '#', class: 'btn later', id: 'later', data: {other: t('pages.proposals.show.choose_now')} %>
 <div class="clearboth"></div>
 
-<script type="text/javascript">
-
-
-    function changeStart() {
-        $('#start_preset').hide();
-        $('#start_choose').show();
-        $('#proposal_votation_start_edited').val('true');
-    }
-
-
-    $(function () {
-        $('[name="proposal[votation][choise]"]').change(function () {
-            if ($(this).val() == 'preset') {
-                $('.choise_b .inner').css('opacity', 0.6);
-                $('.choise_a .inner').css('opacity', 1);
-            }
-            else {
-                $('.choise_b .inner').css('opacity', 1);
-                $('.choise_a .inner').css('opacity', 0.6);
-            }
-        });
-
-
-        $('.radiolabel').click(function () {
-            $('#' + $(this).attr('for')).click();
-        });
-
-
-        $('#proposal_votation_vote_period_id').select2({
-            minimumResultsForSearch: -1,
-            formatResult: formatPeriod,
-            formatSelection: formatPeriod,
-            escapeMarkup: function (m) {
-                return m;
-            }
-        });
-
-
-        $('#proposal_votation_vote_period_id').on("select2-focus", function (e) {
-            $('#proposal_votation_choise_preset').click();
-        });
-
-        $('#proposal_votation_end').fdatetimepicker();
-
-        $('#proposal_votation_start').fdatetimepicker()
-                .on('hide', function (event) {
-                   var eventStartTime_ = event.date;
-                  $('#proposal_votation_end').fdatetimepicker("setStartDate", eventStartTime_);
-                  $('#proposal_votation_end').fdatetimepicker("setDate", addMinutes(eventStartTime_,2880));
-                  showOnField($('#proposal_votation_end'),'Changed!');
-                 $('#proposal_votation_choise_new').click();
-                });
-
-        $('#choose_votation .cancel_action').click(function () {
-            $('#start_preset').show();
-            $('#start_choose').hide();
-            $('#proposal_votation_start_edited').val(null);
-        });
-
-
-        $('#later').click(function () {
-            var later_ = $('#proposal_votation_later');
-            if (later_.val() == 'true') {
-                $('#choose_votation .inner').show();
-                later_.val('false');
-            }
-            else {
-                $('#choose_votation .inner').hide();
-                later_.val('true')
-            }
-            switchText($(this));
-            return false;
-        });
-
-    })
-    ;
-</script>

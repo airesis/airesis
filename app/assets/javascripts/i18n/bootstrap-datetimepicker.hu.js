@@ -3,7 +3,7 @@
  * darevish <http://github.com/darevish>
  */
 ;(function($){
-	$.fn.datetimepicker.dates['hu'] = {
+	$.fn.fdatetimepicker.dates['hu'] = {
 		days: ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat", "Vasárnap"],
 		daysShort: ["Vas", "Hét", "Ked", "Sze", "Csü", "Pén", "Szo", "Vas"],
 		daysMin: ["V", "H", "K", "Sze", "Cs", "P", "Szo", "V"],
@@ -12,6 +12,9 @@
 		today: "Ma",
 		suffix: [],
 		meridiem: [],
-		weekStart: 1
+		weekStart: 1,
+        format: "dd/mm/yyyy hh:ii",
+        formatDate: "dd/mm/yyyy"
 	};
+    $.fn.fdatetimepicker.defaults = $.fn.fdatetimepicker.dates['hu'];
 }(jQuery));

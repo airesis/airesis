@@ -106,8 +106,12 @@ en:
         message: "The proposal <b>%{title}</b> has received a new evaluation"
       available_author:
         description: User available to become an editor of a proposal
-        email_subject: "%{title} - New editors available"
-        message: "%{user} is available to become editor of the proposal <b>%{title}</b>"
+        email_subject:
+          one: "%{title} - A new editor is available"
+          other: "%{title} - %{count} new editors are available"
+        message:
+          one: "%{user} is available to become editor of the proposal <b>%{title}</b>"
+          other: "%{count} users are available to become editor of the proposal <b>%{title}</b>"
       author_accepted:
         description: Acceptance as editor of a proposal
         email_subject: "%{title} - You are now editor of it!"
@@ -121,19 +125,26 @@ en:
         email_subject: "%{proposal} - Contribution back in debate"
         message: "A contribution you integrated in the proposal <b>%{proposal}</b> has been put back in debate"
       new_contributes:
-        description: "New contributions and comments in the proposals I participate in"
-        email_subject: "%{title} - New contribute"
+        description: "New contributions in the proposals I participate in"
+        email_subject:
+          one: "%{title} - A new contribute has been inserted"
+          other: "%{title} - There are %{count} new contributes"
         message:
-          zero: "<b>%{name}</b> added a new contribution in the proposal <b>%{title}</b>"
           one: "<b>%{name}</b> added a new contribution in the proposal <b>%{title}</b>"
           other: "There are <b>%{count}</b> new contributions in the proposal <b>%{title}</b>"
       text_update:
         description: "Update of the text of a proposal I participate in"
-        email_subject: "%{title} - The text has been modified"
-        message: "The proposal <b>%{title}</b> has been updated"
+        email_subject:
+          one: "%{title} has been updated"
+          other: "%{title} has been updated %{count} times"
+        message:
+          one: "The proposal <b>%{title}</b> has been updated"
+          other: "The proposal <b>%{title}</b> has been updated %{count} times"
       new_contributes_mine:
         description: "New contributions in my proposals"
-        email_subject: "%{title} - New contribution"
+        email_subject:
+          one: "%{title} - A new contribution has been inserted"
+          other: "%{title} - There are %{count} new contributes"
         message:
           zero: "<b>%{name}</b> added a new contribution in your proposal <b>%{title}</b>"
           one: "<b>%{name}</b> added a new contribution in your proposal <b>%{title}</b>"
@@ -214,13 +225,18 @@ en:
         message: "New proposal <b>%{proposal}</b> created in the group <b>%{group}</b>"
       new_participation_request:
         description: New participation request
-        email_subject: New participation request
-        message: "<b>%{user}</b> asked to participate in the group <b>%{group}</b>"
+        email_subject:
+          one: "A new participation request is present"
+          other: "There are %{count} new participation requests"
+        message:
+          one: "<b>%{user}</b> asked to participate in the group <b>%{group}</b>"
+          other: "<b>%{count} users</b> asked to participate in the group <b>%{group}</b>"
       new_blog_comment:
         description: New comment in my blog
-        email_subject: New comment in your blog
+        email_subject:
+          one: "A new comment in your blog post"
+          other: "%{count} new comments in your blog post"
         message:
-          zero: "<b>%{user}</b> commented your post <b>%{title}</b>"
           one: "<b>%{user}</b> commented your post <b>%{title}</b>"
           other: "There are <b>%{count}</b> new comments in your post <b>%{title}</b>"
       new_comments_mine:

@@ -1,12 +1,6 @@
 class SysPaymentNotificationsController < ApplicationController
   protect_from_forgery except: :create
 
-  load_and_authorize_resource only: :index
-
-  def index
-    
-  end
-
   def create
     response = validate_IPN_notification(request.raw_post)
     case response
@@ -21,6 +15,7 @@ class SysPaymentNotificationsController < ApplicationController
   end
 
   protected
+
   def validate_IPN_notification(raw)
     uri = URI.parse("#{PAYPAL['paypal_url']}?cmd=_notify-validate")
     http = Net::HTTP.new(uri.host, uri.port)

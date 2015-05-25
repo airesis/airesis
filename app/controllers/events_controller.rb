@@ -1,4 +1,3 @@
-#encoding: utf-8
 class EventsController < ApplicationController
   layout :choose_layout
 
@@ -22,7 +21,7 @@ class EventsController < ApplicationController
         render text: calendar.to_ical
       end
       format.json do
-        @events = @events.time_scoped(Time.at(params['start'].to_i), Time.at(params['end'].to_i))
+        @events = @events.time_scoped(Time.parse(params['start']), Time.parse(params['end']))
         events = []
         @events.each do |event|
           event_obj = event.to_fc
@@ -47,8 +46,8 @@ class EventsController < ApplicationController
     @event_comment = @event.event_comments.new
     @event_comments = @event.event_comments.includes(:user).order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
     respond_to do |format|
-      format.js
       format.html
+      format.js
       format.ics do
         calendar = Icalendar::Calendar.new
         calendar.add_event(@event.to_ics)
@@ -90,8 +89,8 @@ class EventsController < ApplicationController
     if @group
       @event.private = true
       respond_to do |format|
-        format.js
         format.html { redirect_to controller: 'events', action: 'index', group_id: params[:group_id], new_event: 'true', event_type_id: (params[:event_type_id] || EventType::INCONTRO) }
+        format.js
       end
     end
   end
@@ -131,11 +130,12 @@ class EventsController < ApplicationController
 
   def move
     @event.move(params[:minute_delta].to_i, params[:day_delta].to_i, params[:all_day])
+    render nothing: true
   end
-
 
   def resize
     @event.resize(params[:minute_delta].to_i, params[:day_delta].to_i)
+    render nothing: true
   end
 
   def edit
@@ -145,13 +145,13 @@ class EventsController < ApplicationController
     if @event.update(event_params)
       flash[:notice] = t('info.events.event_updated')
       respond_to do |format|
-        format.js
         format.html { redirect_to @group ? group_event_url(@group, @event) : event_url(@event) }
+        format.js
       end
     else
       respond_to do |format|
-        format.js { render 'layouts/active_record_error', locals: {object: @event || @event_series} }
         format.html { render :edit }
+        format.js { render 'layouts/active_record_error', locals: {object: @event || @event_series} }
       end
     end
   end

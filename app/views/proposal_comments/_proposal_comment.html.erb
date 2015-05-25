@@ -1,5 +1,4 @@
 <%= form_for [@proposal, proposal_comment], remote: true do |f| %>
-
     <p>
       <%= f.label :content do %>
           <%= t('pages.proposals.show.add_contribute') %>
@@ -7,44 +6,10 @@
             <i class="fa fa-info-circle"></i>
         </span>
       <% end %>
-      <%= f.text_area :content, class: 'blogNewCommentField', rows: 10, cols: 70 %>
+      <%= f.text_area :content, rows: 10, cols: 70, data: {contribute_area: ''} %>
     </p>
     <p>
       <%= f.submit t('pages.proposals.show.send_contribute_button'), class: 'btn green', data:{disable_with: t('sending')}, style: "width: 100px;height:35px;" %>
     </p>
 <% end %>
 
-<script type="text/javascript">
-    $(function () {
-        $('.blogNewCommentField').each(function () {
-            if ($(this).attr('data-initialized') != 1) {
-                $(this).textntags({
-                    triggers: {'@': {uniqueTags: false}},
-                    onDataRequest: function (mode, query, triggerChar, callback) {
-                        var data = nicknames;
-
-                        query = query.toLowerCase();
-                        var found = _.filter(data, function (item) {
-                            return item.name.toLowerCase().indexOf(query) > -1;
-                        });
-
-                        callback.call(this, found);
-                    }
-                });
-
-                $(this).charCount({
-                    allowed: <%=CONTRIBUTE_MAX_LENGTH%>,
-                    warning: 100,
-                    counterText: '<%=t('pages.proposals.show.characters_left')%> '
-                });
-                $(this).attr('data-initialized', 1);
-            }
-        });
-    });
-
-    $(document).ajaxError(function (e, XHR, options) {
-        if (XHR.status == 401) {
-            window.location.replace("<%= new_user_session_path %>");
-        }
-    });
-</script>

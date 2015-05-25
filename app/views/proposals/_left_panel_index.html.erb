@@ -194,13 +194,13 @@
 
             <p>
               <%= f.label :start_w, t('label.from').capitalize %>
-              <%= f.text_field :start_w, value: (params[:time][:start_w] if params[:time]), class: 'datePicker', autocomplete: 'off' %>
+              <%= f.text_field :start_w, value: (params[:time][:start_w] if params[:time]), class: 'datePicker', autocomplete: 'off', data: {start_view: 4, min_view: 2} %>
               <%= f.hidden_field :start, value: (params[:time][:start] if params[:time]) %>
             </p>
 
             <p>
               <%= f.label :end_w, t('label.to').capitalize %>
-              <%= f.text_field :end_w, value: (params[:time][:end_w] if params[:time]), class: 'datePicker', autocomplete: 'off' %>
+              <%= f.text_field :end_w, value: (params[:time][:end_w] if params[:time]), class: 'datePicker', autocomplete: 'off', data: {start_view: 4, min_view: 2}  %>
               <%= f.hidden_field :end, value: (params[:time][:end] if params[:time]) %>
             </p>
 

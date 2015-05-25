@@ -4,9 +4,11 @@ Airesis::Application.routes.draw do
 
   resources :searches
 
-  resources :sys_payment_notifications
+  resources :sys_payment_notifications, only: [:create]
 
-  resources :sys_features
+  resources :user_likes
+
+  resources :proposal_nicknames, only: [:update]
 
   mount Ckeditor::Engine => '/ckeditor'
 
@@ -32,12 +34,8 @@ Airesis::Application.routes.draw do
   get 'school' => 'home#school'
   get 'municipality' => 'home#municipality'
 
-  resources :user_likes
-
-  resources :proposal_nicknames
 
   #common routes both for main app and subdomains
-
 
   resources :quorums do
     collection do
@@ -108,16 +106,11 @@ Airesis::Application.routes.draw do
     end
   end
 
-  resources :proposal_categories
+  resources :proposal_categories, only: [:index]
 
-
-  resources :announcements do
-    member do
-      post :hide
-    end
+  resources :announcements, only: [] do
+    post :hide, on: :member
   end
-
-  resources :sys_movements
 
   resources :tutorial_progresses
 
@@ -142,14 +135,13 @@ Airesis::Application.routes.draw do
     end
   end
 
-
   resources :interest_borders
   resources :comunes
 
   get 'elfinder' => 'elfinder#elfinder'
   post 'elfinder' => 'elfinder#elfinder'
 
-  devise_for :users, controllers: {omniauth_callbacks: "users/omniauth_callbacks", sessions: "sessions", registrations: "registrations", passwords: "passwords", confirmations: 'confirmations'} do
+  devise_for :users, controllers: {omniauth_callbacks: 'users/omniauth_callbacks', sessions: 'sessions', registrations: 'registrations', passwords: 'passwords', confirmations: 'confirmations'} do
     get '/users/sign_in', to: 'devise/sessions#new'
     get '/users/sign_out', to: 'devise/sessions#destroy'
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
@@ -200,7 +192,7 @@ Airesis::Application.routes.draw do
 
   resources :blogs do
     concerns :blog_posts
-    get '/:year/:month' => 'blogs#by_year_and_month', :as => :posts_by_year_and_month, on: :member
+    get '/:year/:month' => 'blogs#by_year_and_month', as: :posts_by_year_and_month, on: :member
   end
 
 
@@ -224,7 +216,6 @@ Airesis::Application.routes.draw do
       end
     end
   end
-
 
   concern :eventable do
     resources :events do
@@ -258,8 +249,7 @@ Airesis::Application.routes.draw do
 
   concerns :eventable
 
-
-  #specific routes for subdomains
+  # specific routes for subdomains
   constraints Subdomain do
     get '', to: 'groups#show'
 
@@ -323,15 +313,15 @@ Airesis::Application.routes.draw do
     end
 
     namespace :frm do
-      get 'forums/:forum_id/moderation', to: "moderation#index", as: :forum_moderator_tools
+      get 'forums/:forum_id/moderation', to: 'moderation#index', as: :forum_moderator_tools
       # For mass moderation of posts
-      put 'forums/:forum_id/moderate/posts', to: "moderation#posts", as: :forum_moderate_posts
+      put 'forums/:forum_id/moderate/posts', to: 'moderation#posts', as: :forum_moderate_posts
       # Moderation of a single topic
-      put 'forums/:forum_id/topics/:topic_id/moderate', to: "moderation#topic", as: :moderate_forum_topic
+      put 'forums/:forum_id/topics/:topic_id/moderate', to: 'moderation#topic', as: :moderate_forum_topic
       resources :categories, only: [:index, :show]
       namespace :admin do
-        root to: "base#index"
-        resources :groups, as: 'frm_groups' do
+        root to: 'base#index'
+        resources :mods do
           resources :members do
             collection do
               post :add
@@ -341,16 +331,17 @@ Airesis::Application.routes.draw do
 
         resources :forums do
           resources :moderators
+          resources :topics do
+            member do
+              put :toggle_hide
+              put :toggle_lock
+              put :toggle_pin
+            end
+          end
         end
 
         resources :categories
-        resources :topics do
-          member do
-            put :toggle_hide
-            put :toggle_lock
-            put :toggle_pin
-          end
-        end
+
       end
     end
 
@@ -360,17 +351,11 @@ Airesis::Application.routes.draw do
 
   end
 
-  #routes available only on main site
+  # routes available only on main site
   constraints NoSubdomain do
 
     root to: 'home#index'
 
-    resources :certifications, only: [:index, :create, :destroy]
-    resources :user_sensitives do
-      member do
-        get :document
-      end
-    end
 
     resources :proposal_categories do
       get :index, scope: :collection
@@ -417,15 +402,15 @@ Airesis::Application.routes.draw do
       end
 
       namespace :frm do
-        get 'forums/:forum_id/moderation', to: "moderation#index", as: :forum_moderator_tools
+        get 'forums/:forum_id/moderation', to: 'moderation#index', as: :forum_moderator_tools
         # For mass moderation of posts
-        put 'forums/:forum_id/moderate/posts', to: "moderation#posts", as: :forum_moderate_posts
+        put 'forums/:forum_id/moderate/posts', to: 'moderation#posts', as: :forum_moderate_posts
         # Moderation of a single topic
-        put 'forums/:forum_id/topics/:topic_id/moderate', to: "moderation#topic", as: :moderate_forum_topic
+        put 'forums/:forum_id/topics/:topic_id/moderate', to: 'moderation#topic', as: :moderate_forum_topic
         resources :categories, only: [:index, :show]
         namespace :admin do
-          root to: "base#index"
-          resources :groups, as: 'frm_groups' do
+          root to: 'base#index'
+          resources :mods do
             resources :members do
               collection do
                 post :add
@@ -435,20 +420,21 @@ Airesis::Application.routes.draw do
 
           resources :forums do
             resources :moderators
+            resources :topics do
+              member do
+                put :toggle_hide
+                put :toggle_lock
+                put :toggle_pin
+              end
+            end
           end
 
           resources :categories
-          resources :topics do
-            member do
-              put :toggle_hide
-              put :toggle_lock
-              put :toggle_pin
-            end
-          end
+
         end
       end
 
-      get 'users/autocomplete', to: "users#autocomplete", as: "user_autocomplete"
+      get 'users/autocomplete', to: 'users#autocomplete', as: 'user_autocomplete'
 
       concerns :eventable
 
@@ -479,6 +465,7 @@ Airesis::Application.routes.draw do
         member do
           post :close_debate
           patch :regenerate
+          patch :set_votation_date
           get :geocode
           get :vote_results
         end
@@ -527,11 +514,6 @@ Airesis::Application.routes.draw do
       end
     end
 
-    match ':controller/:action/:id', via: :all
-
-    match ':controller/:action/:id.:format', via: :all
-
-
     admin_required = lambda do |request|
       request.env['warden'].authenticate? and request.env['warden'].user.admin?
     end
@@ -541,19 +523,58 @@ Airesis::Application.routes.draw do
     end
 
     constraints moderator_required do
-      match ':controller/:action/', via: :all
       get 'moderator_panel', to: 'moderator#show', as: 'moderator/panel'
     end
 
-
     constraints admin_required do
-      mount Sidekiq::Web => "/sidekiq"
-      mount Maktoub::Engine => "/maktoub/"
-      match ':controller/:action/', via: :all
-      resources :admin
-      get 'admin_panel', to: 'admin#show', as: 'admin/panel'
+      namespace :admin do
+        resources :newsletters do
+          member do
+            get :preview
+            patch :publish
+          end
+        end
+        mount Sidekiq::Web => '/sidekiq'
+        get '/', to: 'panel#show', as: 'panel'
+        resource :panel, controller: 'panel' do
+          get :calculate_rankings
+          get :change_proposals_state
+          get :write_sitemap
+          get :delete_old_notifications
+          get :test_redis
+          get :test_scheduler
+          get :test_exceptions
+          get :calculate_user_group_affinity
+          post :become
+        end
+        resource :crowdin, only: [] do
+          get :upload_sources
+          get :update_sources
+          get :upload_translations
+          get :download_translations
+          get :extract_delete_zip
+        end
+        resources :tutorials
+        resources :users, only: [] do
+          get :unblock, on: :member
+          collection do
+            get :autocomplete
+            post :block
+          end
+        end
+        resources :certifications, only: [:index, :create, :destroy]
+        resources :user_sensitives do
+          member do
+            get :document
+          end
+        end
+        resources :sys_features
+        resources :sys_movements
+        resources :announcements
+        resources :sys_payment_notifications, only: [:index]
+      end
+      mount Maktoub::Engine => '/maktoub/'
     end
-
 
     resources :tokens, only: [:create, :destroy]
 
