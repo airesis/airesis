@@ -43,7 +43,6 @@ class BlogPostsController < ApplicationController
   end
 
   def show
-    register_view
     @page_title = @blog_post.title
     @blog_url = @group ? group_blog_post_url(@group, @blog_post) : blog_blog_post_url(@blog, @blog_post)
     @user = @blog_post.user
@@ -107,10 +106,6 @@ class BlogPostsController < ApplicationController
   end
 
   protected
-
-  def register_view
-    @blog_post.register_view_by(current_user)
-  end
 
   def blog_post_params
     ret = params.require(:blog_post).permit(:title, :body, :status, :tags_list, group_ids: [])

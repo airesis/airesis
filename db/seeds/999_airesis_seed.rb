@@ -85,7 +85,7 @@ ProposalType.create(active: "true", name: "ESTIMATE", color: "#C7E4C8") { |c| c.
 ProposalType.create(active: "true", name: "AGENDA", color: "#EDD4B6") { |c| c.id = 7 }.save
 ProposalType.create(active: "true", name: "CANDIDATES", color: "#F0B5AD") { |c| c.id = 8 }.save
 #ProposalType.create(active: "false", name: "POLL", color: "#F0EEA4") { |c| c.id = 2 }.save
-#ProposalType.create(active: "true", name: "PETITION", color: "#F0EEA4") { |c| c.id = 11 }.save
+ProposalType.create(active: "false", name: "PETITION", color: "#F0EEA4") { |c| c.id = 11 }.save
 RankingType.create(description: "I agree") { |c| c.id = 1 }.save
 RankingType.create(description: "I don't know / I do not understand") { |c| c.id = 2 }.save
 RankingType.create(description: "I ​​disagree") { |c| c.id = 3 }.save
