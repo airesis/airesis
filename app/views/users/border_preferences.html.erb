@@ -3,45 +3,20 @@
   <%= form_for 'token', url: set_interest_borders_users_path do |f| %>
       <div id="border_fields">
         <%= f.label t('pages.users.border_preferences.your_borders') %>
-        <%= f.text_field 'interest_borders', "data-pre" => current_user.interest_borders.to_json %>
+        <%= f.text_field 'interest_borders', 'data-pre' => current_user.interest_borders.to_json %>
       </div>
       <div id="loading_borders" style="margin:auto;text-align:center;display:none;">
         <%= image_tag 'ajax-loader.gif' %>
         <br/>
         <b><%= t('pages.users.border_preferences.updating') %></b>
       </div>
-      <%= f.button :button, id: "submit_borders", class: 'btn blue' do %>
+      <%= f.button :button, id: 'submit_borders', class: 'btn blue', data: {disable_with: t('loading')} do %>
           <i class="fa fa-save"></i>
           <%= t('buttons.save') %>
       <% end %>
   <% end %>
 </div>
-<script type="text/javascript">
-    $(function () {
-        input = $('#token_interest_borders')
-        input.tokenInput("/interest_borders.json", {
-            crossDomain: false,
-            prePopulate: $('#token_interest_borders').data("pre"),
-            hintText: "<%=t('interest_borders.hint')%>",
-            noResultsText: "<%=t('interest_borders.no_place_found')%>",
-            searchingText: "<%=t('interest_borders.searching')%>",
-            preventDuplicates: true
-        });
-
-        $('#submit_borders').click(function () {
-            $(this).hide();
-            $('#border_fields').hide();
-            $('#loading_borders').fadeIn();
-            return true;
-        }).css('margin-top', '10px');
-    });
-
-</script>
-
 
 <% content_for :left_panel do %>
-    <% if current_user %>
-        <%= render partial: 'users/preferences_panel' %>
-
-    <% end %>
+    <%= render 'users/preferences_panel' %>
 <% end %>
