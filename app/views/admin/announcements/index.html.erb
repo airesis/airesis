@@ -24,4 +24,4 @@
 
 <br />
 
-<%= link_to 'New Announcement', new_admin_announcement_path if can? :create, Announcement%>
+<%= link_to 'New Announcement', new_admin_announcement_path, class: 'btn blue' if can? :create, Announcement%>

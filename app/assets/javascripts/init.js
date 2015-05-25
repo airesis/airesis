@@ -204,7 +204,10 @@ $(function () {
         }
     });
 
-    $('input[data-datetimepicker]').fdatetimepicker();
+    $(document).on('focus', '[data-datetimepicker]', function() {
+        $(this).fdatetimepicker();
+    });
+
     $('input[data-datepicker]').fdatetimepicker({
         format: $.fn.fdatetimepicker.defaults.dateFormat
     });
