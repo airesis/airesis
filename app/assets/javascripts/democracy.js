@@ -914,46 +914,6 @@ function showOnField(field, text) {
     }, 10000)
 }
 
-function showVoteResults() {
-    "use strict";
-    $('#votes_table').dataTable({
-        "oLanguage": {
-            "sLengthMenu": "Mostra _MENU_ utenti per pagina",
-            "sSearch": "Cerca:",
-            "sZeroRecords": "Nessun utente, spiacente..",
-            "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ utenti",
-            "sInfoEmpty": "Sto mostrando 0 utenti",
-            "sInfoFiltered": "(filtrati da un totale di _MAX_ utenti)",
-            "oPaginate": {
-                "sPrevious": "Pagina precedente",
-                "sNext": "Pagina successiva"
-            }
-        }
-        //"aoColumns": [null,{ "bSortable": false }]
-    });
-
-    $('#votes_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");
-
-    $('#cast_table').dataTable({
-        "oLanguage": {
-            "sLengthMenu": "Mostra _MENU_ voti per pagina",
-            "sSearch": "Cerca:",
-            "sZeroRecords": "Nessun voto, spiacente..",
-            "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ voti",
-            "sInfoEmpty": "Sto mostrando 0 voti",
-            "sInfoFiltered": "(filtrati da un totale di _MAX_ voti)",
-            "oPaginate": {
-                "sPrevious": "Pagina precedente",
-                "sNext": "Pagina successiva"
-            }
-        },
-        "bFilter": false
-        //"aoColumns": [null,{ "bSortable": false }]
-    });
-
-    $('#cast_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");
-}
-
 function close_all_dropdown() {
     $('.f-dropdown').foundation('dropdown', 'close', $('.f-dropdown'));
 }

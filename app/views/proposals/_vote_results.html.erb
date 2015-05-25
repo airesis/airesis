@@ -39,7 +39,12 @@
   </table>
 </div>
 
-<div style="height: 200px; width: 200px; float:left;" id="chart1">
+<div style="height: 200px; width: 200px; float:left;"
+     data-plot
+     id="vote-results-chart"
+     data-positive="<%= @proposal.vote.positive %>"
+     data-negative="<%= @proposal.vote.negative %>"
+     data-neutral="<%= @proposal.vote.neutral %>">
 </div>
 <div style="clear: both;"></div>
 
@@ -66,28 +71,7 @@
 </table>
 
 <script type="text/javascript">
-    $(function () {
-        var dataa = [
-            ['<%= t('pages.proposals.results.positive') %>', <%= @proposal.vote.positive %>],
-            ['<%= t('pages.proposals.results.neutral') %>', <%= @proposal.vote.negative %>],
-            ['<%= t('pages.proposals.results.negative') %>', <%= @proposal.vote.neutral %>]
-        ];
-        $('#chart1').empty();
-        var plot1 = jQuery.jqplot('chart1', [dataa],
-                {
-                    seriesColors: ["#4bb2c5", "#EAA228", "#c5b47f"],
-                    seriesDefaults: {
-                        // Make this a pie chart.
-                        renderer: jQuery.jqplot.PieRenderer,
-                        rendererOptions: {
-                            // Put data labels on the pie slices.
-                            // By default, labels show the percentage of the slice.
-                            showDataLabels: true
-                        }
-                    },
-                    legend: {show: false, location: 'e'}
-                }
-        );
-
-    });
+    ProposalsVoteResults.positive = '<%=j t('pages.proposals.results.positive') %>';
+    ProposalsVoteResults.neutral = '<%=j t('pages.proposals.results.neutral') %>';
+    ProposalsVoteResults.negative = '<%=j t('pages.proposals.results.negative') %>';
 </script>
