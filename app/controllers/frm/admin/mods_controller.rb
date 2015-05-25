@@ -6,11 +6,16 @@ module Frm
       authorize_resource class: 'Frm::Mod'
 
       def index
+        @page_title = t('frm.admin.group.index')
         @frm_mods = @group.mods
       end
 
+      def show
+        @page_title = t('frm.admin.group.show.title')
+      end
+
       def new
-        @page_title = t("frm.admin.group.new")
+        @page_title = t('frm.admin.group.new')
         @frm_mod = @group.mods.build
       end
 
@@ -18,7 +23,7 @@ module Frm
         @frm_mods = @group.mods
         @frm_mod = @frm_mods.build(mod_params)
         if @frm_mod.save
-          flash[:notice] = t("frm.admin.group.created")
+          flash[:notice] = t('frm.admin.group.created')
           respond_to do |format|
             format.html {
               redirect_to group_frm_admin_frm_mod_url(@group, @frm_mod)
@@ -26,14 +31,14 @@ module Frm
             format.js
           end
         else
-          flash[:alert] = t("frm.admin.group.not_created")
+          flash[:alert] = t('frm.admin.group.not_created')
           render :new
         end
       end
 
       def destroy
         @frm_mod.destroy
-        flash[:notice] = t("frm.admin.group.deleted")
+        flash[:notice] = t('frm.admin.group.deleted')
         redirect_to group_frm_admin_mods_url(@group)
       end
 

@@ -2862,6 +2862,10 @@ input[type=file] {
 }
 
 //overrides
+.proposal-alert-box {
+  @extend .alert-box;
+}
+
 .introjs-button {
   @extend .btn;
 }
