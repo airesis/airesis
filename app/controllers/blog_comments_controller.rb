@@ -10,7 +10,7 @@ class BlogCommentsController < ApplicationController
   load_and_authorize_resource through: :blog_post
 
   def index
-
+    register_view(current_user)
   end
 
   def create
@@ -23,7 +23,7 @@ class BlogCommentsController < ApplicationController
       else
         flash[:error] = t('error.blog.comment_added')
         format.html
-        format.js { render 'blog_comments/errors/create'}
+        format.js { render 'blog_comments/errors/create' }
       end
     end
   end
@@ -63,11 +63,10 @@ class BlogCommentsController < ApplicationController
 
   def check_author
     if (current_user.id != @blog_comment.user_id and
-        current_user.id != @blog_post.user_id)
+      current_user.id != @blog_post.user_id)
       flash[:notice] = t('info.proposal.comment_not_your')
       redirect_to :back
     end
-
   end
 
   def save_comment

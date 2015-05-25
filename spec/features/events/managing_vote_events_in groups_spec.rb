@@ -42,9 +42,6 @@ describe "manage correctly vote events", type: :feature, js: true do
     expect(Event.last.user).to eq user2
 
     expect(NotificationEventCreate.jobs.size).to eq 1
-    NotificationEventCreate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 2 #user and user3
-
     logout :user
   end
 

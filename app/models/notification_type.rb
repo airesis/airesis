@@ -1,7 +1,6 @@
 class NotificationType < ActiveRecord::Base
   #translates :description, :email_subject
 
-
   NEW_CONTRIBUTES = 1
   TEXT_UPDATE = 2
   NEW_PUBLIC_PROPOSALS=3
@@ -25,19 +24,17 @@ class NotificationType < ActiveRecord::Base
   CONTRIBUTE_UPDATE = 29
   PHASE_ENDING = 30
 
-  CHAIN = [NEW_PROPOSALS, NEW_PUBLIC_PROPOSALS,]
-
-
   belongs_to :notification_category, class_name: 'NotificationCategory', foreign_key: :notification_category_id
   has_many :blocked_alerts, class_name: 'BlockedAlert'
   has_many :notifications, class_name: 'Notification'
   has_many :blockers, through: :blocked_alerts, class_name: 'User', source: :user
 
   def description
-    I18n.t("db.#{self.class.class_name.tableize}.#{self.name}.description")
+    I18n.t("db.#{self.class.class_name.tableize}.#{name}.description")
   end
 
-  def email_subject
-    I18n.t("db.#{self.class.class_name.tableize}.#{self.name}.email_subject")
+  # TODO
+  def destroyable
+    []
   end
 end

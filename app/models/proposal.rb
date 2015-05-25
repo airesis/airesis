@@ -1,4 +1,3 @@
-#encoding: utf-8
 class Proposal < ActiveRecord::Base
   include BlogKitModelHelper, Frm::Concerns::Viewable, Concerns::ProposalBuildable
 
@@ -65,7 +64,6 @@ class Proposal < ActiveRecord::Base
   has_many :topic_proposals, class_name: 'Frm::TopicProposal', foreign_key: 'proposal_id'
   has_many :topics, class_name: 'Frm::Topic', through: :topic_proposals
 
-  has_many :proposal_alerts, class_name: 'ProposalAlert', dependent: :destroy
   has_many :blocked_proposal_alerts, class_name: 'BlockedProposalAlert', dependent: :destroy
 
   #validation
@@ -136,6 +134,11 @@ class Proposal < ActiveRecord::Base
 
   after_destroy :remove_scheduled_tasks
 
+  def acked_by?(user)
+    last_view = view_for(user)
+    last_view.present? && (last_view.current_viewed_at > updated_at)
+  end
+
   def init
     self.quorum_id ||= Quorum::STANDARD
     self.anonima = (self.is_petition? ? false : DEFAULT_ANONIMA) if self.anonima.nil?
@@ -145,83 +148,124 @@ class Proposal < ActiveRecord::Base
     self.proposal_votation_type_id ||= ProposalVotationType::STANDARD
   end
 
-  #retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
-  def self.home_portlet(user)
-    @list_a = user.proposals.before_votation.pluck('proposals.id')
-    @list_b = user.partecipating_proposals.before_votation.pluck('proposals.id')
-    @list_c = @list_a | @list_b
-    if @list_c.empty?
-      return []
-    else
-      return self.current
-                 .select('distinct proposals.*, proposal_alerts.count as alerts_count, proposal_rankings.ranking_type_id as ranking')
-                 .includes([:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category])
-                 .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}").where(['proposals.id in (?) ', @list_c])
-                 .joins("left outer join proposal_rankings on proposals.id = proposal_rankings.proposal_id and proposal_rankings.user_id = #{user.id}")
-                 .order('proposals.updated_at desc')
-    end
+
+  def self.alerts_count_subquery(user_id)
+    alerts = Alert.arel_table
+    proposals = Proposal.arel_table
+    alerts_count = alerts.
+      project('count(*)').
+      where(alerts[:trackable_id].eq(proposals[:id]).
+              and(alerts[:trackable_type].eq('Proposal')).
+              and(alerts[:user_id].eq(user_id)).
+              and(alerts[:checked].eq(false)))
+  end
+
+  def self.ranking_subquery(user_id)
+    proposals = Proposal.arel_table
+    proposal_rankings = ProposalRanking.arel_table
+    ranking = proposal_rankings.
+      project(proposal_rankings[:ranking_type_id]).
+      where(proposal_rankings[:proposal_id].eq(proposals[:id]).
+              and(proposal_rankings[:user_id].eq(user_id)))
   end
 
   #retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
   def self.open_space_portlet(user=nil)
     user_id = user ? user.id : -1
-    @list_a = Proposal.public
-                  .select('distinct proposals.*, proposal_alerts.count as alerts_count, proposal_rankings.ranking_type_id as ranking')
-                  .includes([:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category])
-                  .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user_id}")
-                  .joins("left outer join proposal_rankings on proposals.id = proposal_rankings.proposal_id and proposal_rankings.user_id = #{user_id}")
-                  .joins("join proposal_types pt on (proposals.proposal_type_id = pt.id)")
-                  .where("pt.name != '#{ProposalType::PETITION}'")
-                  .order('updated_at DESC').limit(10)
+    proposals = Proposal.arel_table
+    petition_id = ProposalType.find_by(name: ProposalType::PETITION).id
+    alerts_count = alerts_count_subquery(user_id)
+    ranking = ranking_subquery(user_id)
+    Proposal.public.
+      select('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
+      where(proposals[:proposal_type_id].not_eq(petition_id)).
+      order(updated_at: :desc).limit(10)
+  end
+
+  #retrieve the list of proposals for the user with a count of the number of the notifications for each proposal
+  def self.home_portlet(user)
+    proposals = Proposal.arel_table
+    petition_id = ProposalType.find_by(name: ProposalType::PETITION).id
+    alerts_count = alerts_count_subquery(user.id)
+    ranking = ranking_subquery(user.id)
+
+    list_a = user.proposals.before_votation.pluck('proposals.id')
+    list_b = user.partecipating_proposals.before_votation.pluck('proposals.id')
+    list_c = list_a | list_b
+    return [] if list_c.empty?
+
+    proposals = Proposal.current.
+      select('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
+      where(proposals[:proposal_type_id].not_eq(petition_id)).
+      where(proposals[:id].in(list_c)).
+      order(updated_at: :desc).to_a
+    ActiveRecord::Associations::Preloader.new(proposals, [:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category]).run
+    proposals
   end
 
   #retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
   def self.open_space_petitions_portlet(user)
-    @list_a = Proposal.public
-                  .select('distinct proposals.*, proposal_alerts.count as alerts_count')
-                  .includes([:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category])
-                  .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}")
-                  .joins("join proposal_types pt on (proposals.proposal_type_id = pt.id)")
-                  .where("pt.name = '#{ProposalType::PETITION}'")
-                  .order('updated_at DESC').limit(10)
+    proposals = Proposal.arel_table
+    petition_id = ProposalType.find_by(name: ProposalType::PETITION).id
+    alerts_count = alerts_count_subquery(user.id)
+
+    Proposal.public.
+      select('distinct proposals.*', alerts_count.as('alerts_count')).
+      where(proposals[:proposal_type_id].eq(petition_id)).
+      order(updated_at: :desc).limit(10)
   end
 
   def self.votation_portlet(user)
-    proposals = Proposal.find_by_sql("select distinct p.*, pa.count as alerts_count, pk.ranking_type_id as ranking, e.endtime as end_time
-                          from proposals p
-                          join group_proposals gp on p.id = gp.proposal_id
-                          join groups g on g.id = gp.group_id
-                          join group_participations gi on (g.id = gi.group_id and gi.user_id = #{user.id})
-                          join participation_roles pr on (gi.participation_role_id = pr.id)
-                          join proposal_types pt on (p.proposal_type_id = pt.id)
-                          join events e on e.id = p.vote_period_id
-                          left join action_abilitations aa on (aa.participation_role_id = pr.id)
-                          left join user_votes uv on (uv.proposal_id = p.id and uv.user_id = #{user.id})
-                          left join proposal_alerts pa on p.id = pa.proposal_id and pa.user_id = #{user.id}
-                          left join proposal_rankings pk on p.id = pk.proposal_id and pk.user_id = #{user.id}
-                          where  p.proposal_state_id = #{ProposalState::VOTING}
-                          and pt.name != '#{ProposalType::PETITION}'
-                          and uv.id is null
-                          and (aa.group_action_id = #{GroupAction::PROPOSAL_VOTE} or pr.id = #{ParticipationRole.admin.id})
-                          order by e.endtime asc")
+    user_id = user.id
+    proposals = Proposal.arel_table
+    group_proposals = GroupProposal.arel_table
+    group_participations = GroupParticipation.arel_table
+    groups = Group.arel_table
+    events = Event.arel_table
+    action_abilitations = ActionAbilitation.arel_table
+    participation_roles = ParticipationRole.arel_table
+    user_votes = UserVote.arel_table
+    petition_id = ProposalType.find_by(name: ProposalType::PETITION).id
+    alerts_count = alerts_count_subquery(user_id)
+    ranking = ranking_subquery(user_id)
+
+    proposals_sql = Proposal.voting.uniq.
+      project(alerts_count.as('alerts_count'), ranking.as('ranking'), events[:endtime].as('end_time')).
+      join(group_proposals).on(group_proposals[:proposal_id].eq(proposals[:id])).
+      join(groups).on(groups[:id].eq(group_proposals[:group_id])).
+      join(group_participations).on(groups[:id].eq(group_participations[:group_id]).
+                                      and(group_participations[:user_id].eq(user.id))).
+      join(participation_roles).on(group_participations[:participation_role_id].eq(participation_roles[:id])).
+      join(events).on(events[:id].eq(proposals[:vote_period_id])).
+      join(action_abilitations, Arel::OuterJoin).on(action_abilitations[:participation_role_id].eq(participation_roles[:id])).
+      join(user_votes, Arel::OuterJoin).on(user_votes[:proposal_id].eq(proposals[:id]).and(user_votes[:user_id].eq(user.id))).
+      where(proposals[:proposal_type_id].not_eq(petition_id)).
+      where(user_votes[:id].eq(nil)).
+      where(action_abilitations[:group_action_id].eq(GroupAction::PROPOSAL_VOTE).
+              or(participation_roles[:id].eq(ParticipationRole.admin.id))).
+      order('end_time asc').to_sql
+    proposals = Proposal.find_by_sql(proposals_sql)
     ActiveRecord::Associations::Preloader.new(proposals, [:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category]).run
     proposals
   end
 
   #retrieve the list of proposals for the group with a count of the number of the notifications for each proposal
   def self.group_portlet(group, user)
-    query = group.proposals.includes([:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category]).order('created_at desc').limit(10)
-    if user
-      query = query.select('distinct proposals.*, proposal_alerts.count as alerts_count, proposal_rankings.ranking_type_id as ranking')
-                  .joins(" left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}")
-                  .joins("left outer join proposal_rankings on proposals.id = proposal_rankings.proposal_id and proposal_rankings.user_id = #{user.id}")
-    end
+    user_id = user.id
+    proposals = Proposal.arel_table
+    group_proposals = GroupProposal.arel_table
+    alerts_count = alerts_count_subquery(user_id)
+    ranking = ranking_subquery(user_id)
+    Proposal.find_by_sql(proposals.
+      project('distinct proposals.*',alerts_count.as('alerts_count'), ranking.as('ranking')).
+      join(group_proposals).on(proposals[:id].eq(group_proposals[:proposal_id])).
+      where(group_proposals[:group_id].eq(group.id)).
+      order(proposals[:created_at].desc).take(10).to_sql)
   end
 
 
   def count_notifications(user_id)
-    alerts = proposal_alerts.where(user_id: user_id).first
-    alerts ? alerts.count : 0
+    alerts = Alert.where(trackable: self, checked: false, user_id: user.id).count
   end
 
   #after_find :calculate_percentage
@@ -383,13 +427,13 @@ class Proposal < ActiveRecord::Base
     proposal_comments = ProposalComment.arel_table
     proposal_rankings = ProposalRanking.arel_table
     query = users.
-        project(users[:id].count(true)).
-        join(proposal_comments, Arel::Nodes::OuterJoin).
-        on(users[:id].eq proposal_comments[:user_id]).
-        join(proposal_rankings, Arel::Nodes::OuterJoin).
-        on(users[:id].eq proposal_rankings[:user_id]).
-        where(proposal_rankings[:proposal_id].eq id).
-        where(proposal_comments[:proposal_id].eq id)
+      project(users[:id].count(true)).
+      join(proposal_comments, Arel::Nodes::OuterJoin).
+      on(users[:id].eq proposal_comments[:user_id]).
+      join(proposal_rankings, Arel::Nodes::OuterJoin).
+      on(users[:id].eq proposal_rankings[:user_id]).
+      where(proposal_rankings[:proposal_id].eq id).
+      where(proposal_comments[:proposal_id].eq id)
     ActiveRecord::Base.connection.execute(query.to_sql)[0]['count'].to_i
   end
 
@@ -463,7 +507,7 @@ class Proposal < ActiveRecord::Base
     text :content, boost: 2
     text :paragraphs do
       (sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content.gsub!(/\p{Cc}/, '') } } +
-          solutions.map { |solution| solution.sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content.gsub!(/\p{Cc}/, '') } } }).flatten
+        solutions.map { |solution| solution.sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content.gsub!(/\p{Cc}/, '') } } }).flatten
     end
     text :tags_list do
       self.tags.map(&:text).join(' ')
@@ -505,8 +549,8 @@ class Proposal < ActiveRecord::Base
 
   def users_j
     self.is_anonima? ?
-        self.proposal_nicknames.where(user_id: self.user_ids).as_json(only: [:nickname]) :
-        self.users.as_json(only: [:id], methods: [:fullname])
+      self.proposal_nicknames.where(user_id: self.user_ids).as_json(only: [:nickname]) :
+      self.users.as_json(only: [:id], methods: [:fullname])
   end
 
 
@@ -644,12 +688,11 @@ class Proposal < ActiveRecord::Base
     if quorum_id_changed? # regenerated
       ProposalsWorker.perform_at(quorum.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: id})
     elsif current_user_id # updated or set votation date
-      if waiting?  # someone chose votation date
+      if waiting? # someone chose votation date
         NotificationProposalWaitingForDate.perform_async(id, current_user.id)
-      else  # standard update
-        NotificationProposalUpdate.perform_in(1, current_user_id, id, groups.first.try(:id))
+      else # standard update
+        NotificationProposalUpdate.perform_async(current_user_id, id, groups.first.try(:id))
       end
-
     end
   end
 
