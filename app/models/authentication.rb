@@ -30,6 +30,14 @@ class Authentication < ActiveRecord::Base
     oauth_data['info'] # Parma
   end
 
+  def self.oauth_provider(oauth_data)
+    oauth_data['provider'].to_s
+  end
+
+  def self.oauth_uid(oauth_data)
+    oauth_data['uid'].to_s
+  end
+
   def self.oauth_user_info(oauth_data)
 
     provider = oauth_data['provider'].to_s

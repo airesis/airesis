@@ -39,16 +39,31 @@ describe 'the oauth2 process', type: :feature, js: true do
       expect(User.last.user_type_id).to eq(UserType::CERTIFIED)
     end
 
-    it 'permits to sign in joining an existing account if email matches' do
+    it 'asks for password reconfirmation to join an existing account with matching email' do
       user = create(:user, email: @oauth_data[:email])
       visit '/users/auth/tecnologiedemocratiche/callback'
-      expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: @oauth_data[:provider].capitalize)}/i)
-      expect(User.count).to eq(1)
+      confirm_credentials_html = I18n.t('users.confirm_credentials.instructions_html')
+      confirm_credentials_text = ActionView::Base.full_sanitizer.sanitize(confirm_credentials_html)
+      expect(page).to have_content(/#{confirm_credentials_text}/i)
+
+      # wrong password
+      fill_in 'user_password', with: Faker::Internet.password
+      click_button 'Join accounts and login'
+      expect(page).to have_content(/#{I18n.t('error.users.join_accounts_password')}/i)
+
+      # right password
+      fill_in 'user_password', with: 'topolino'
+      click_button 'Join accounts and login'
+      expect(page).to have_content(/#{I18n.t('info.user.account_joined')}/i)
+
       user.reload
       expect(user.user_type_id).to eq(UserType::CERTIFIED)
+      expect(user.name).to eq(@oauth_data[:first_name])
+      expect(user.surname).to eq(@oauth_data[:last_name])
+      expect(user.email).to eq(@oauth_data[:email])
     end
 
-    it 'permits the join with an existing account' do
+    it 'permits the join with an existing account when already logged in' do
       user = create(:user)
       login user, 'topolino'
 

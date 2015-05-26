@@ -1309,7 +1309,7 @@ en:
       already_have: "Sorry. You already have a blog"
       comment_added: "Error while adding the comment"
     users:
-      join_accounts: "Error while joining accounts. This operation is not available at the moment"
+      join_accounts: "Error while joining accounts."
       join_accounts_password: "Wrong password"
     group_participations:
        destroy: "You can not leave a group of which you are the sole administrator"

@@ -274,15 +274,15 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def go_oauth
 
     oauth_data = request.env['omniauth.auth']
-    provider = oauth_data['provider'].to_s
-    uid = oauth_data['uid'].to_s
+    provider = Authentication.oauth_provider oauth_data
+    uid = Authentication.oauth_uid oauth_data
     raw_info = Authentication.oauth_raw_info oauth_data
     user_info = Authentication.oauth_user_info oauth_data
 
     # !!! TODO: verificare che gli indirizzi email ricevuti dagli altri provider siano verificati !!!
-    if provider == Authentication::FACEBOOK
+    if provider == Authentication::FACEBOOK && !raw_data['verified']
       flash[:error] = "Account #{provider.capitalize} non verificato."
-      redirect_to privacy_preferences_users_url
+      redirect_to new_user_registration_path
     end
 
     #se sono già autenticato allora sto facendo una join dei due account
@@ -301,34 +301,22 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         #annulla l'operazione!
         flash[:error] = I18n.t('devise.omniauth_callbacks.join_failure', provider: provider.capitalize)
       else
-        current_user.build_authentication_provider(oauth_data)
-
-        if provider == Authentication::TECNOLOGIEDEMOCRATICHE ||
-          ( provider == Authentication::PARMA && raw_info['verified'] )
-          current_user.certify_with_info(user_info)
-        else
-          current_user.email = user_info[:email] unless current_user.email
-
-          current_user.google_page_url = raw_info['profile'] if provider == Authentication::GOOGLE
-          current_user.linkedin_page_url = raw_info['publicProfileUrl'] if provider == Authentication::LINKEDIN
-          current_user.facebook_page_url = raw_info['link'] if provider == Authentication::FACEBOOK
-        end
-
-        current_user.save(validate: false)
+        current_user.oauth_join(oauth_data)
         flash[:notice] = I18n.t('devise.omniauth_callbacks.join_success', provider: provider.capitalize)
       end
       redirect_to privacy_preferences_users_url
     else
 
-      @user, first_association, join = User.find_or_create_for_oauth_provider(oauth_data)
+      @user, first_association, found_from_email = User.find_or_create_for_oauth_provider(oauth_data)
       if @user
-        if join
-          flash[:notice] = I18n.t('devise.omniauth_callbacks.join_success', provider: provider.capitalize)
+        if found_from_email
+          session['devise.omniauth_data'] = env['omniauth.auth']
+          redirect_to confirm_credentials_users_url
         else
           flash[:notice] = first_association ? I18n.t('devise.omniauth_callbacks.success', kind: provider.capitalize) : I18n.t('devise.sessions.user.signed_in')
+          @user.remember_me = true
+          sign_in_and_redirect @user, event: :authentication
         end
-        @user.remember_me = true
-        sign_in_and_redirect @user, event: :authentication
       else
         flash[:error] = "Account #{provider.capitalize} con dati mancanti (nome, cognome, email)."
         redirect_to new_user_registration_path

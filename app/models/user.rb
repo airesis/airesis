@@ -256,17 +256,11 @@ class User < ActiveRecord::Base
       user.subdomain = session[:subdomain] if (session[:subdomain] && !session[:subdomain].blank?)
       user.original_sys_locale_id =user.sys_locale_id = SysLocale.find_by(key: 'en').id
 
-      fdata = session["devise.google_data"] || session["devise.facebook_data"] || session["devise.linkedin_data"] || session['devise.parma_data']
-      data = fdata["extra"]["raw_info"] || fdata["info"] if fdata #raw-info for google and facebook and linkedin, info for parma
-      if data
-        user.email = data["email"]
-        if fdata['provider'] == Authentication::LINKEDIN
-          user.linkedin_page_url = data['publicProfileUrl']
-          user.email = data["emailAddress"]
-        elsif fdata['provider'] == Authentication::GOOGLE #do nothing
-        elsif fdata['provider'] == Authentication::FACEBOOK #do nothing
-        elsif fdata['provider'] == Authentication::PARMA #do nothing
-        end
+      oauth_data = session['devise.omniauth_data']
+      user_info = Authentication.oauth_user_info(oauth_data)
+
+      if user_info
+        user.email = user_info[:email]
       elsif data = session[:user] #what does it do? can't remember
         user.email = session[:user][:email]
         user.login = session[:user][:email]
@@ -656,65 +650,58 @@ class User < ActiveRecord::Base
     return user
   end
 
-  def self.find_or_create_for_tecnologiedemocratiche(oauth_data)
-
-    raw_info = oauth_data['raw_info']
-
-    #se ho trovato l'id dell'utente prendi lui, altrimenti cercane uno con l'email uguale
-    auth = Authentication.find_by_provider_and_uid(oauth_data['provider'], oauth_data['uid'].to_s)
-    user = auth ? auth.user : User.find_by_email(raw_info['email'])
-
-    return user if user
-
-    #crea un nuovo account TD
-    user = User.new( name: raw_info['first_name'],
-                    surname: raw_info['last_name'],
-                    password: Devise.friendly_token[0, 20],
-                    email: raw_info['email'] )
-
-    user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
-    user.user_type_id = UserType::CERTIFIED
-    user.sign_in_count = 0
-    user.build_authentication_provider(oauth_data)
-
-    user.confirm!
-    user.save!
-  end
-
-  # return the user and a flag indicating if it's the first time the oauth account
-  # is associated to the Airesis account or if it's a simple login
+  # return the user, a flag indicating if it's the first time the oauth account
+  # is associated to the Airesis account or if it's a simple login and another flag
+  # indicating if the user has been found by it's email
   def self.find_or_create_for_oauth_provider(oauth_data)
 
-    provider = oauth_data['provider'].to_s
-    uid = oauth_data['uid'].to_s
+    provider = Authentication.oauth_provider oauth_data
+    uid = Authentication.oauth_uid oauth_data
     user_info = Authentication.oauth_user_info oauth_data
 
     #se ho trovato l'id dell'utente prendi lui, altrimenti cercane uno con l'email uguale
     auth = Authentication.find_by_provider_and_uid(provider, uid)
     if auth
+      # return user, first_association, found_from_email
       return auth.user, false, false
     else
-      user = User.find_by_email( Authentication.oauth_user_info(oauth_data)[:email] )
-      if user
-        user.build_authentication_provider(oauth_data)
-        if provider == Authentication::TECNOLOGIEDEMOCRATICHE || ( provider == Authentication::PARMA && raw_info['verified'] )
-            user.certify_with_info(user_info)
-        end
-        return user, true, true
-      else
-        user = create_account_for_oauth(oauth_data)
-        return user, true, false
-      end
+      user = User.find_by_email( user_info[:email] )
+      # return user, first_association, found_from_email
+      return user ? [user, true, true] : [create_account_for_oauth(oauth_data), true, false]
     end
   end
 
+  def oauth_join(oauth_data)
+    provider = Authentication.oauth_provider oauth_data
+    raw_info = Authentication.oauth_raw_info oauth_data
+    user_info = Authentication.oauth_user_info oauth_data
+
+    User.transaction do
+      build_authentication_provider(oauth_data)
+
+      if provider == Authentication::TECNOLOGIEDEMOCRATICHE ||
+        ( provider == Authentication::PARMA && raw_info['verified'] )
+        certify_with_info(user_info)
+      else
+        self.email = user_info[:email] unless self.email
+
+        sef.google_page_url = raw_info['profile'] if provider == Authentication::GOOGLE
+        self.linkedin_page_url = raw_info['publicProfileUrl'] if provider == Authentication::LINKEDIN
+        self.facebook_page_url = raw_info['link'] if provider == Authentication::FACEBOOK
+      end
+
+      save!(validate: false)
+    end
+  end
+
+
   def certify_with_info(user_info)
 
-    raise "Not enough info for certification" if [ user_info[:name], user_info[:surname], user_info[:email] ].any? &:blank?
+    raise "Not enough info for certification" if [user_info[:name], user_info[:surname], user_info[:email]].any? &:blank?
 
     skip_reconfirmation!
-    update!(email: user_info[:email], name: user_info[:name], surname: user_info[:surname])
-    build_certification({name: user_info[:name], surname: user_info[:surname], tax_code: user_info[:email]})
+    update!( email: user_info[:email], name: user_info[:name], surname: user_info[:surname] )
+    build_certification( name: user_info[:name], surname: user_info[:surname], tax_code: user_info[:email] )
     update!( user_type_id: UserType::CERTIFIED )
   end
 
@@ -726,7 +713,7 @@ class User < ActiveRecord::Base
 
   def self.create_account_for_oauth(oauth_data)
 
-    provider = oauth_data['provider'].to_s
+    provider = Authentication.oauth_provider oauth_data
     raw_info = Authentication.oauth_raw_info oauth_data
     user_info = Authentication.oauth_user_info oauth_data
 
