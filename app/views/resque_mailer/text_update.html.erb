@@ -1,45 +1,93 @@
 <% @proposal = Proposal.find(@data[:proposal_id]) %>
 <% @alert_url = check_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang) %>
-<p>
-  <%= raw t('mailer.text_update.view_proposal', proposal: (link_to @proposal.title, @alert_url)) %> <br/>
+
+<% contributes = [] %>
+<% proposal_revisions = @proposal.proposal_revisions.where(ProposalRevision.arel_table[:id].gteq(ProposalRevision.find(@data[:revision_id]).id)) %>
+<h3> Hi, <%= @alert.user.fullname %></h3>
+<p class="lead">
+  <%= raw t('mailer.text_update.view_proposal', proposal: (link_to @proposal.title, @alert_url), count: proposal_revisions.count) %>
+  <br/>
 </p>
 
-<% revisions = @proposal.proposal_revisions.where(ProposalRevision.arel_table[:id].gteq(ProposalRevision.find(@data[:revision_id]).id)) %>
-<% Rails.logger.info "we have #{revisions.count} revisions" %>
-<% revisions.each do |revision| %>
+<% proposal_revisions.each do |proposal_revision| %>
+    <div class="card">
+      <% proposal_revision.section_histories.each do |section_history| %>
+          <div class="proposal_main">
+            <h5>
+              <%= "#{t('pages.proposal_histories.sections.added')}: " if section_history.added %>
+              <%= "#{t('pages.proposal_histories.sections.removed')}: " if section_history.removed %>
+              <%= section_history.title %>
+            </h5>
 
-    <%= render(partial: 'proposal_revisions/proposal_history', locals: {proposal_revision: revision}) %>
+            <div class="proposal_content <%= section_history.removed ? 'ice-del' : '' %> <%= section_history.added ? 'ice-ins' : '' %>">
+              <p>
+                <%= sanitize(section_history.paragraphs.first.parsed_content(@proposal.is_anonima?)) %>
+              </p>
+            </div>
+          </div>
+      <% end %>
 
+      <% if proposal_revision.solution_histories.size > 0 %>
+          <% proposal_revision.solution_histories.includes(section_histories: :paragraphs).order('section_histories.seq').each_with_index do |solution_history, i| %>
+              <div class="solution_main">
+                <h5>
+                  <%= "#{t('pages.proposal_histories.solutions.added')}: " if solution_history.added %>
+                  <%= "#{t('pages.proposal_histories.solutions.removed')}: " if solution_history.removed %>
+                  <%= raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}", num: i+1) %>
+                  <%= "#{solution_history.title}" %>
+                </h5>
 
-    <% contributes = revision.contributes.where(proposal_comments: {user_id: @alert.user.id}) %>
+                <div class="sol_content <%= solution_history.removed ? 'ice-del' : '' %> <%= solution_history.added ? 'ice-ins' : '' %>">
+                  <% solution_history.section_histories.each do |section| %>
+                      <div class="proposal_main">
+                        <h5>
+                          <%= "#{t('pages.proposal_histories.sections.added')}: " if section.added %>
+                          <%= "#{t('pages.proposal_histories.sections.removed')}: " if section.removed %>
+                          <%= section.title %>
+                        </h5>
 
-    <% if contributes.any? %>
-        <p>
-          <%= t('mailer.text_update.integrated_contributes') %>
-        </p>
-
-        <% contributes.each do |contribute| %>
-            <div id="comment<%= contribute.id %>" style="padding: 20px 0 0;clear: both;">
-              <div style="float: left;margin: 0px 5px 5px 0px;">
-                <%= contribute.user_image_tag(40, url: true) %>
-              </div>
-              <div style="border: 1px solid #CCCCCC;border-radius: 3px 3px 0px 0px;margin-left: 50px;color: #333333;">
-                <div>
-                  <div style="word-wrap: break-word;margin: 5px;">
-                    <%= parsed_content(contribute, @proposal.is_anonima?) %>
-                  </div>
-                  <div style="font-size: 0.9em;margin-top: 5px;margin-left: 5px;margin-bottom: 2px;color: #999999;float: left;">
-                    <% who = contribute.user.fullname %>
-                    <%= raw t('pages.proposals.show.comment_inserted_by', when: (l contribute.created_at), who: who) %>
-                    <%= "in \"#{contribute.paragraph.section.title}\"" if contribute.paragraph %>
-                  </div>
-                  <div style="clear:both;"></div>
+                        <div class="proposal_content <%= section.removed ? 'ice-del' : '' %> <%= section.added ? 'ice-ins' : '' %>">
+                          <%= sanitize(section.paragraphs.first.parsed_content(@proposal.is_anonima?)) %>
+                        </div>
+                      </div>
+                  <% end %>
                 </div>
               </div>
-            </div>
-        <% end %>
-        <p>
-          <%= raw t('mailer.text_update.view_proposal_2', click_here: (link_to t('mailer.text_update.connect', name: ENV['APP_SHORT_NAME']), @alert_url)) %>
-        </p>
-    <% end %>
+          <% end %>
+      <% end %>
+    </div>
+    <% contributes += proposal_revision.contributes.where('proposal_comments.user_id = ?', @alert.user.id) %>
 <% end %>
+
+<% if contributes.count > 0 %>
+    <p>
+      <%= t('mailer.text_update.integrated_contributes') %>
+    </p>
+
+    <% contributes.each do |contribute| %>
+        <div id="comment<%= contribute.id %>" style="padding: 20px 0 0;clear: both;">
+          <div style="float: left;margin: 0px 5px 5px 0px;">
+            <%= contribute.user_image_tag(40, url: true) %>
+          </div>
+          <div style="border: 1px solid #CCCCCC;border-radius: 3px 3px 0px 0px;margin-left: 50px;color: #333333;">
+            <div>
+              <div style="word-wrap: break-word;margin: 5px;">
+                <%= parsed_content(contribute, @proposal.is_anonima?) %>
+              </div>
+              <div style="font-size: 0.9em;margin-top: 5px;margin-left: 5px;margin-bottom: 2px;color: #999999;float: left;">
+                <% who = contribute.user.fullname %>
+                <%= raw t('pages.proposals.show.comment_inserted_by', when: (l contribute.created_at), who: who) %>
+                <%= "in \"#{contribute.paragraph.section.title}\"" if contribute.paragraph %>
+              </div>
+              <div style="clear:both;"></div>
+            </div>
+          </div>
+        </div>
+    <% end %>
+    <div class="callout">
+      <p class="panel">
+        <%= raw t('mailer.text_update.view_proposal_2', click_here: (link_to t('mailer.text_update.connect', name: ENV['APP_SHORT_NAME']), @alert_url)) %>
+      </p>
+    </div>
+<% end %>
+

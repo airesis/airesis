@@ -2,7 +2,7 @@ class ParagraphHistory < ActiveRecord::Base
   belongs_to :section, class_name: 'SectionHistory'
 
   #we remove title and username
-  def parsed_content(anonimous=true)
+  def parsed_content(anonimous = true)
     if anonimous
       users = []
       self.content.gsub(/data-userid="([^".]+)"/) do |match| #

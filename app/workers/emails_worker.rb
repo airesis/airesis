@@ -6,6 +6,6 @@ class EmailsWorker
   def perform(attributes)
     ResqueMailer.notification(attributes).deliver
     email_job = EmailJob.find_by(jid: jid)
-    email_job.completed!
+    email_job.completed! if email_job
   end
 end
