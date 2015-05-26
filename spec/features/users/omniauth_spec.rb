@@ -42,9 +42,7 @@ describe 'the oauth2 process', type: :feature, js: true do
     it 'asks for password reconfirmation to join an existing account with matching email' do
       user = create(:user, email: @oauth_data[:email])
       visit '/users/auth/tecnologiedemocratiche/callback'
-      confirm_credentials_html = I18n.t('users.confirm_credentials.instructions_html')
-      confirm_credentials_text = ActionView::Base.full_sanitizer.sanitize(confirm_credentials_html)
-      expect(page).to have_content(/#{confirm_credentials_text}/i)
+      expect(page).to have_content(/#{I18n.t('users.confirm_credentials.title')}/i)
 
       # wrong password
       fill_in 'user_password', with: Faker::Internet.password
