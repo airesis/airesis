@@ -86,7 +86,7 @@ module UsersHelper
     end
   end
 
-  def user_tag_mini(user, proposal=nil, full_name=true)
+  def user_tag_mini(user, proposal = nil, full_name = true)
     raise "Invalid User" unless user
     if proposal && proposal.is_anonima? && (user != current_user)
       u_nick = user.proposal_nicknames.find_by_proposal_id(proposal.id)

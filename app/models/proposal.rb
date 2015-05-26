@@ -426,15 +426,11 @@ class Proposal < ActiveRecord::Base
     users = User.arel_table
     proposal_comments = ProposalComment.arel_table
     proposal_rankings = ProposalRanking.arel_table
-    query = users.
-      project(users[:id].count(true)).
-      join(proposal_comments, Arel::Nodes::OuterJoin).
-      on(users[:id].eq proposal_comments[:user_id]).
-      join(proposal_rankings, Arel::Nodes::OuterJoin).
-      on(users[:id].eq proposal_rankings[:user_id]).
-      where(proposal_rankings[:proposal_id].eq id).
-      where(proposal_comments[:proposal_id].eq id)
-    ActiveRecord::Base.connection.execute(query.to_sql)[0]['count'].to_i
+
+    comments_subquery = join_users_table(proposal_comments)
+    rankings_subquery = join_users_table(proposal_rankings)
+
+    User.where(users[:id].in(comments_subquery).or(users[:id].in(rankings_subquery))).count
   end
 
   #retrieve all the participants to the proposals that are still part of the group
@@ -619,6 +615,14 @@ class Proposal < ActiveRecord::Base
   end
 
   private
+
+  def join_users_table(table)
+    users = User.arel_table
+    users.
+      join(table).on(users[:id].eq(table[:user_id])).
+      where(table[:proposal_id].eq(id)).
+      project(users[:id])
+  end
 
   def before_update_populate
     self.update_user_id = current_user_id

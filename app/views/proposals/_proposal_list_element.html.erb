@@ -69,7 +69,7 @@
               <div class="authors">
                 <%= t('pages.proposals.index.participants_number') %>
                 <div class="title"><%= t('pages.proposals.list.authors').upcase %></div>
-                <% if signed_in? && (proposal.users.include? current_user) %>
+                <% if proposal.users.include? current_user  # if is an author can see other authors name %>
                     <% proposal.users.each do |user| %>
                         <%= user_tag_mini(user) %>
                     <% end %>
@@ -82,7 +82,6 @@
               </div>
             </div>
         <% end %>
-
 
         <div class="proposalDescription contributes" style="float:left" title="<%= t('pages.proposals.index.contributes_number') %>">
           <%= image_tag 'group_proposals.png' %>
