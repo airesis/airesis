@@ -2,60 +2,7 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def facebook
-    #se sono già autenticato allora sto facendo una join dei due account
-    access_token = request.env['omniauth.auth']
-    if current_user
-      data = access_token['extra']['raw_info'] #dati di facebook
-      auth = Authentication.find_by_provider_and_uid(access_token['provider'],access_token['uid'])
-      if auth #se c'è già un altro account
-        if auth.token != access_token['credentials']['token'] #se devo aggiornare il token...fallo
-          auth.update_attribute(:token, access_token['credentials']['token'])
-        end
-
-        if request.env['omniauth.params']['share']
-          redirect_to request.env['omniauth.origin'] + '?share=true'
-        else
-          #annulla l'operazione!
-          flash[:error] = "Esiste già un altro account associato a questo account Facebook. Attendi la funzione di 'Unione account' per procedere"
-          redirect_to privacy_preferences_users_url
-        end
-
-      else
-        if data['verified']
-          current_user.build_authentication_provider(access_token)
-          unless current_user.email
-            current_user.email = data['email']
-          end
-          current_user.facebook_page_url = data['link']
-          current_user.save(validate: false)
-          flash[:notice] = 'Unione account avvenuta corretamente. Complimenti, ora puoi fare login anche attraverso Facebook.'
-        else
-          flash[:error] = "Account facebook non verificato."
-        end
-        redirect_to privacy_preferences_users_url
-      end
-
-
-    else
-      @user = User.find_for_facebook_oauth(env["omniauth.auth"], current_user)
-      if @user
-        #se all'utente è già collegato un account facebook
-        if @user.has_provider?(Authentication::FACEBOOK)
-          flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Facebook"
-          @user.remember_me = true
-          sign_in_and_redirect @user, event: :authentication
-        elsif @user.from_identity_provider?
-          flash[:error] = "Esiste già un altro account con questo indirizzo email."
-          redirect_to new_user_session_path
-        else
-          session["devise.facebook_data"] = env["omniauth.auth"]
-          redirect_to confirm_credentials_users_url
-        end
-      else
-        flash[:error] = "Account facebook non verificato."
-        redirect_to proposals_path
-      end
-    end
+    go_oauth
   end
   
   def google_oauth2
@@ -280,9 +227,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     user_info = Authentication.oauth_user_info oauth_data
 
     # !!! TODO: verificare che gli indirizzi email ricevuti dagli altri provider siano verificati !!!
-    if provider == Authentication::FACEBOOK && !raw_data['verified']
-      flash[:error] = "Account #{provider.capitalize} non verificato."
-      redirect_to new_user_registration_path
+    if provider == Authentication::FACEBOOK && !raw_info['verified']
+      flash[:error] = I18n.t('devise.omniauth_callbacks.account_not_verified', provider: provider.capitalize)
+      return redirect_to new_user_registration_path
     end
 
     #se sono già autenticato allora sto facendo una join dei due account

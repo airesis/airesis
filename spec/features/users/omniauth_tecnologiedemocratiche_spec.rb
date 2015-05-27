@@ -102,7 +102,7 @@ describe 'the oauth2 process', type: :feature, js: true do
       visit '/users/auth/tecnologiedemocratiche/callback'
       expect(page).to have_content(/#{I18n.t('devise.sessions.user.signed_in')}/i)
     end
-end
+  end
 
 end
 

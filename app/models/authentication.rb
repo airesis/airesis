@@ -53,10 +53,10 @@ class Authentication < ActiveRecord::Base
         user_info[:name] = splitted ? splitted[0] : fullname
         user_info[:surname] = splitted ? splitted[1] : ''
       else
-        user_info[:name] = raw_info['name'] || # TD
-                           raw_info['first_name'] || # Parma, Facebook
+        user_info[:name] = raw_info['first_name'] || # Parma, Facebook
                            raw_info['given_name'] || # Google
-                           raw_info['firstName'] # Linkedin
+                           raw_info['firstName'] || # Linkedin
+                           raw_info['name'] # TD
 
         user_info[:surname] = raw_info['last_name'] || # TD, Parma, Facebook
                               raw_info['family_name'] || # Google
