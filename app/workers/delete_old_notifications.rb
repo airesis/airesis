@@ -1,4 +1,3 @@
-#encoding: utf-8
 class DeleteOldNotifications
   include Sidekiq::Worker
   include Sidetiq::Schedulable

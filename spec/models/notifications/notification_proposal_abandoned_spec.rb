@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationProposalAbandoned, type: :model, emails: true do
+describe NotificationProposalAbandoned, type: :model, emails: true, notifications: true do
 
   it 'when is abandoned sends correctly an email to authors and participants' do
     user = create(:user)

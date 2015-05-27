@@ -21,12 +21,19 @@ class EmailJob < ActiveRecord::Base
     update(status: 2)
   end
 
+  def sidekiq_job
+    @sidekiq_job ||= Sidekiq::ScheduledSet.new.find_job(jid)
+  end
+
+  def reschedule(time)
+    sidekiq_job.reschedule(time)
+  end
+
   def accumulate
     nt = alert.notification_type
     delay = (nt.email_delay + nt.alert_delay).minutes
-    sidekiq_job = Sidekiq::ScheduledSet.new.find_job(jid)
-    if sidekiq_job
-      sidekiq_job.reschedule(delay.from_now)
+    if sidekiq_job.present?
+      reschedule(delay.from_now)
     else
       Rails.logger.error('sidekiq process not found when trying to accumulate on an existing email process')
     end

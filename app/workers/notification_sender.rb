@@ -27,7 +27,7 @@ class NotificationSender
     destroyable.each do |notification_type|
       alert_jobs = search_alert_jobs(notification_type, user)
       alert_jobs.each do |alert_job|
-        if alert_job.completed?
+        if alert_job.completed? # TODO this doesn't exist
           alert_job.alert.soft_delete
           email_job = alert_job.alert.email_job
           email_job.canceled! unless email_job.completed?
@@ -57,14 +57,18 @@ class NotificationSender
   def send_cumulable_alert_to_user(notification, user)
     alert_job = search_for_cumulable(notification.notification_type, user)
     if alert_job.present? # an alert is already in queue
-      alert_job.accumulate(1) #accumulate one notification on the previous one
-    else # no alerts in queue
-      alert = search_for_unread_alert(user, notification.notification_type)
-      if alert # we have an unread alert, already sent
-        alert.accumulate(1)
-      else # last alert has been already checked. no email will be sent then (or has already been sent)...create a new alert
-        build_alert(notification, user)
+      if alert_job.sidekiq_job.present?
+        alert_job.accumulate(1) #accumulate one notification on the previous one
+        return
+      else
+        alert_job.destroy
       end
+    end # no alerts in queue
+    alert = search_for_unread_alert(user, notification.notification_type)
+    if alert # we have an unread alert, already sent
+      alert.accumulate(1)
+    else # last alert has been already checked. no email will be sent then (or has already been sent)...create a new alert
+      build_alert(notification, user)
     end
   end
 

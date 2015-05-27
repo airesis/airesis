@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationProposalVoteStarts, type: :model, emails: true do
+describe NotificationProposalVoteStarts, type: :model, emails: true, notifications: true do
 
   it 'when the vote for the proposal starts sends correctly an email to all authors and participants' do
     user1 = create(:user)
