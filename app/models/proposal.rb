@@ -134,11 +134,6 @@ class Proposal < ActiveRecord::Base
 
   after_destroy :remove_scheduled_tasks
 
-  def acked_by?(user)
-    last_view = view_for(user)
-    last_view.present? && (last_view.current_viewed_at > updated_at)
-  end
-
   def init
     self.quorum_id ||= Quorum::STANDARD
     self.anonima = (self.is_petition? ? false : DEFAULT_ANONIMA) if self.anonima.nil?

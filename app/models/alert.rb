@@ -95,9 +95,7 @@ class Alert < ActiveRecord::Base
   protected
 
   def continue?
-    return false if acked?
-    return true if alert_job.nil?
-    !alert_job.canceled?
+    alert_job.nil? || !alert_job.canceled?
   end
 
   def set_counter
@@ -124,9 +122,5 @@ class Alert < ActiveRecord::Base
 
   def complete_alert_job
     alert_job.destroy
-  end
-
-  def acked?
-    trackable.present? && (trackable.respond_to? :acked_by?) && trackable.acked_by?(user)
   end
 end
