@@ -95,7 +95,9 @@ class Alert < ActiveRecord::Base
   protected
 
   def continue?
-    (!alert_job.present? || !alert_job.canceled?) && !acked?
+    return false if acked?
+    return true if alert_job.nil?
+    !alert_job.canceled?
   end
 
   def set_counter
