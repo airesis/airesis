@@ -92,6 +92,22 @@ class Alert < ActiveRecord::Base
     update_all(deleted: true, deleted_at: Time.now)
   end
 
+  def trigger_user
+    @trigger_user ||= User.find(nproperties['user_id'])
+  end
+
+  def image_url
+    if nproperties['user_id'].present?
+      if trackable.instance_of? Proposal
+        trackable.user_avatar_url(trigger_user)
+      else
+        trigger_user.user_image_url
+      end
+    else
+      ActionController::Base.helpers.asset_path("notification_categories/#{notification_category.short.downcase}.png")
+    end
+  end
+
   protected
 
   def continue?

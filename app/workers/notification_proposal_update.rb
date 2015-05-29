@@ -2,16 +2,16 @@ class NotificationProposalUpdate < NotificationSender
 
   def perform(current_user_id, proposal_id, group_id = nil)
     set_instance_variables(current_user_id, proposal_id, group_id)
-    current_user = User.find(current_user_id)
     notification_a = build_notification_a
     @proposal.participants.each do |user|
-      next if user == current_user
+      next if user == @current_user
       send_notification_for_proposal(notification_a, user)
     end
   end
 
   def build_notification_a
     data = {proposal_id: @proposal.id,
+            user_id: @current_user.id,
             revision_id: (@proposal.proposal_revisions.last.id),
             title: @proposal.title}
     if @group.present?
@@ -24,6 +24,7 @@ class NotificationProposalUpdate < NotificationSender
   end
 
   def set_instance_variables(current_user_id, proposal_id, group_id)
+    @current_user = User.find(current_user_id)
     @proposal = Proposal.find(proposal_id)
     @trackable = @proposal
     @notification_type_id = NotificationType::TEXT_UPDATE

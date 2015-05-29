@@ -12,6 +12,7 @@ class NotificationProposalCommentCreate < NotificationSender
             proposal_id: @proposal.id.to_s,
             to_id: "proposal_c_#{@proposal.id}",
             username: name,
+            user_id: comment_user.id,
             name: name,
             title: @proposal.title,
             count: 1}

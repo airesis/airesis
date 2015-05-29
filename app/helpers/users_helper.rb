@@ -57,12 +57,26 @@ module UsersHelper
     link_to h(content_text), user_path(user), options
   end
 
+
+  def user_avatar_url(proposal)
+    if !(proposal.present? && proposal.is_anonima?)
+      user.user_image_url(24)
+    else
+      user.proposal_nicknames.find_by(proposal_id: proposal.id).avatar(24)
+      if proposal_nickname.present?
+        proposal_nickname.avatar(24)
+      else
+        user.user_image_url(24)
+      end
+    end
+  end
+
   #show a small tag with the user image followed by the nickname
   #if fullname is true the user name and surname is written instead of the nickname
   #if a proposal is passed as argument are checked few things,
   #if the proposal is_current? and the user has a nickname associated to it
   #then the user real name and image are hidden and replaced by the proposal nickname ones.  
-  def user_tag(user, proposal=nil, full_name=true, show_rank=false, options={})
+  def user_tag(user, proposal = nil, full_name=true, show_rank=false, options={})
     raise "Invalid User" unless user
     if proposal && proposal.is_anonima?
       u_nick = user.proposal_nicknames.find_by_proposal_id(proposal.id)
@@ -75,14 +89,14 @@ module UsersHelper
           user.user_image_tag(24)
         end
       end) +
-      (content_tag :div, class: 'user-name' do
-        if u_nick
-          u_nick.nickname
-        else
-          link_to_user(user, options.merge(full_name: full_name)) +
-          (" (#{user.rank})" if show_rank)
-        end
-      end)
+        (content_tag :div, class: 'user-name' do
+          if u_nick
+            u_nick.nickname
+          else
+            link_to_user(user, options.merge(full_name: full_name)) +
+              (" (#{user.rank})" if show_rank)
+          end
+        end)
     end
   end
 
