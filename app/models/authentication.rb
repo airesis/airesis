@@ -14,15 +14,6 @@ class Authentication < ActiveRecord::Base
 
   UNDETACHABLE_PROVIDERS = [ TECNOLOGIEDEMOCRATICHE ]
 
-  def self.oauth_avatar_url(oauth_data)
-    raw_info = oauth_raw_info oauth_data
-
-    raw_info['picture'] || # Google
-    raw_info['pictureUrl'] || # Linkedin
-    raw_info['profile_image_url'] || # Twitter
-    raw_info['photo'].try(:[], 'photo_link') || # Meetup
-    oauth_data['info'].try(:[], 'image') # Facebook
-  end
 
   def self.oauth_raw_info(oauth_data)
     oauth_data['raw_info'] || # TD
@@ -40,7 +31,7 @@ class Authentication < ActiveRecord::Base
 
   def self.oauth_user_info(oauth_data)
 
-    provider = oauth_data['provider'].to_s
+    provider = oauth_provider oauth_data
     raw_info = oauth_raw_info oauth_data
 
     Hash.new.tap do |user_info|
@@ -64,6 +55,20 @@ class Authentication < ActiveRecord::Base
       end
 
       user_info[:sex] = raw_info['gender'] ? raw_info['gender'][0] : nil
+
+      # !!! TODO: verificare che gli indirizzi email ricevuti dagli altri provider siano verificati !!!
+      user_info[:email_verified] = case provider
+                                   when Authentication::FACEBOOK then raw_info['verified']
+                                   when Authentication::GOOGLE then true
+                                   else true
+                                   end
+
+      user_info[:avatar_url] = raw_info['picture'] || # Google
+                               raw_info['pictureUrl'] || # Linkedin
+                               raw_info['profile_image_url'] || # Twitter
+                               raw_info['photo'].try(:[], 'photo_link') || # Meetup
+                               oauth_data['info'].try(:[], 'image') # Facebook
+
     end
   end
 
