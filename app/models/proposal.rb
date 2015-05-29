@@ -615,7 +615,7 @@ class Proposal < ActiveRecord::Base
     if !is_anonima?
       user.user_image_url(24)
     else
-      proposal_nickname = proposal_nicknames.find_by(user_id: user.id).avatar(24)
+      proposal_nickname = proposal_nicknames.find_by(user_id: user.id)
       if proposal_nickname.present?
         proposal_nickname.avatar(24)
       else
