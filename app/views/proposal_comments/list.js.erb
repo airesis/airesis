@@ -1,30 +1,33 @@
 <%if params[:reset]%>
-	ProposalsShow.contributes = [];
-	$('#order_bar').html("<%= j(render(partial: 'order_bar'))%>");
-	$('#proposalCommentsContainer').html("<%= j(render(partial: 'proposals/comments'))%>");
-	$('#loading_contributes').hide();
+ProposalsShow.contributes = [];
+$('#order_bar').html("<%= j(render(partial: 'order_bar'))%>");
+$('#proposalCommentsContainer').html("<%= j(render(partial: 'proposals/comments'))%>");
+$('#loading_contributes').hide();
 <%else%>
-	$('#proposalCommentsContainer').append("<%= j(render(partial: 'proposals/comments'))%>");
+$('#proposalCommentsContainer').append("<%= j(render(partial: 'proposals/comments'))%>");
 <%end%>
 
-ProposalsShow.contributes.push(<%= @proposal_comments.map{|p| p.id}.join(',') %>);
+ProposalsShow.contributes.push(<%= @proposal_comment_search.proposal_comments.map{|p| p.id}.join(',') %>);
 
 ProposalsShow.firstCheck = false;
-<%if @total_pages > @current_page%>
-  $('#loading_results').show();
-  if (!ProposalsShow.firstCheck) {
+<%if @proposal_comment_search.show_more?%>
+$('#loading_results').show();
+if (!ProposalsShow.firstCheck) {
     ProposalsShow.checkScroll();
     ProposalsShow.firstCheck = true;
-  }
-  ProposalsShow.checkActive = true;
+}
+ProposalsShow.checkActive = true;
 <%else%>
-  $('#loading_results').hide();
+$('#loading_results').hide();
 <%end%>
 
 disegnaCountdown();
 
 <%if params[:comment_id] %>
+console.log('we have an id!');
 var comment_ = $('[data-comment-id=<%=params[:comment_id]%>]');
-scrollToElement(comment_);
-comment_.effect('highlight', {}, 3000);
+console.log(comment_);
+scrollToElement(comment_, function () {
+    comment_.effect('highlight', {}, 3000);
+});
 <%end%>

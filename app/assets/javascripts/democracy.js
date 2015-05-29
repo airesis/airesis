@@ -3,7 +3,6 @@
     }
 });
 
-var $viewport;
 
 function switchText(button) {
     button.each(function () {
@@ -14,15 +13,17 @@ function switchText(button) {
     });
 }
 
-function scrollToElement(element) {
-    $viewport.animate({
-        scrollTop: element.offset().top - 80
-    }, 2000);
+function scrollToElement(element, callback) {
+    console.log('scroll bitch!');
+    console.log(Airesis.viewport);
+    Airesis.viewport.animate({
+        scrollTop: element.offset().top - 160
+    }, 2000, 'swing', callback);
 
     // Stop the animation if the user scrolls. Defaults on .stop() should be fine
-    $viewport.bind("scroll mousedown DOMMouseScroll mousewheel keyup", function (e) {
+    Airesis.viewport.bind("scroll mousedown DOMMouseScroll mousewheel keyup", function (e) {
         if (e.which > 0 || e.type === "mousedown" || e.type === "mousewheel") {
-            $viewport.stop().unbind('scroll mousedown DOMMouseScroll mousewheel keyup'); // This identifies the scroll as a user action, stops the animation, then unbinds the event straight after (optional)
+            Airesis.viewport.stop().unbind('scroll mousedown DOMMouseScroll mousewheel keyup'); // This identifies the scroll as a user action, stops the animation, then unbinds the event straight after (optional)
         }
     });
     return false;

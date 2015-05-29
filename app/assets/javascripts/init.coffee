@@ -63,7 +63,7 @@ $ ->
 
   $.fn.qtip.defaults = $.extend(true, {}, $.fn.qtip.defaults, style: classes: 'qtip-light qtip-shadow')
 
-  $viewport = $('html, body')
+  Airesis.viewport = $('html, body')
 
   disegnaProgressBar()
 
