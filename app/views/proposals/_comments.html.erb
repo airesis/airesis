@@ -1,6 +1,6 @@
 <div class="blogComments" id="proposalComments">
-  <% if @proposal_comments.any? %>
-      <%= render partial: 'proposals/comment', collection: @proposal_comments, as: :comment %>
+  <% if @proposal_comment_search.proposal_comments.any? %>
+      <%= render partial: 'proposals/comment', collection: @proposal_comment_search.proposal_comments, as: :comment %>
   <% else %>
       <div class="no-contributes-yet panel callout">
         <p><%= t('pages.proposals.show.no_contributes_yet') %></p>
