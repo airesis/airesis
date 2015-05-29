@@ -66,6 +66,8 @@ class Proposal < ActiveRecord::Base
 
   has_many :blocked_proposal_alerts, class_name: 'BlockedProposalAlert', dependent: :destroy
 
+  has_many :alerts, as: :trackable
+
   #validation
   validates_presence_of :title, message: "obbligatorio" #TODO:I18n
   validates_uniqueness_of :title
