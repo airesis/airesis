@@ -38,7 +38,7 @@ class NotificationProposalCommentCreate < NotificationSender
       end
 
       @proposal.participants.each do |user|
-        next if (user == comment_user) || (!@proposal.users.include? user)
+        next if (user == comment_user) || (@proposal.users.include? user)
         notification_b = Notification.create!(notification_type_id: NotificationType::NEW_CONTRIBUTES, url: url +"?#{query.to_query}", data: data)
         send_notification_for_proposal(notification_b, user)
       end
