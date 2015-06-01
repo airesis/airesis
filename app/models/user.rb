@@ -23,10 +23,6 @@ class User < ActiveRecord::Base
   validates_format_of :surname, with: AuthenticationModule.name_regex, allow_nil: true
   validates_length_of :surname, maximum: 50
 
-  validates_length_of :email, within: 6..50, allow_nil: true #r@a.wk
-  validates_format_of :email, with: AuthenticationModule.email_regex, message: AuthenticationModule.bad_email_message, allow_nil: true
-  validates_uniqueness_of :email
-
   validates_confirmation_of :password
 
   validates_acceptance_of :accept_conditions, message: I18n.t('activerecord.errors.messages.TOS')
@@ -500,7 +496,7 @@ class User < ActiveRecord::Base
       # return user, first_association, found_from_email
       return auth.user, false, false
     else
-      user = User.find_by_email( user_info[:email] )
+      user = user_info[:email] && User.find_by_email( user_info[:email] )
       # return user, first_association, found_from_email
       return user ? [user, true, true] : [create_account_for_oauth(oauth_data), true, false]
     end
@@ -525,7 +521,7 @@ class User < ActiveRecord::Base
         self.facebook_page_url = raw_info['link'] if provider == Authentication::FACEBOOK
       end
 
-      save!(validate: false)
+      save!
     end
   end
 
@@ -552,7 +548,7 @@ class User < ActiveRecord::Base
     raw_info = Authentication.oauth_raw_info oauth_data
     user_info = Authentication.oauth_user_info oauth_data
 
-    return nil if [ user_info[:name], user_info[:surname], user_info[:email] ].any? &:blank?
+    return nil if user_info[:name].blank?
 
     user = User.new( name: user_info[:name],
                      surname: user_info[:surname],
@@ -567,6 +563,8 @@ class User < ActiveRecord::Base
       user.linkedin_page_url = raw_info['publicProfileUrl'] if provider == Authentication::LINKEDIN
       user.facebook_page_url = raw_info['link'] if provider == Authentication::FACEBOOK
 
+      user.build_authentication_provider(oauth_data)
+
       user.confirm!
       user.save!
 
@@ -579,7 +577,6 @@ class User < ActiveRecord::Base
 
       User.add_to_parma_group( user, raw_info['verified'] ) if provider == Authentication::PARMA
 
-      user.build_authentication_provider(oauth_data)
       user.sign_in_count = 0
     end
   end

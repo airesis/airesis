@@ -20,10 +20,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     raw_info = Authentication.oauth_raw_info oauth_data
     user_info = Authentication.oauth_user_info oauth_data
 
-    unless user_info[:email_verified]
+    if user_info[:email] && !user_info[:email_verified]
       flash[:error] = I18n.t('devise.omniauth_callbacks.account_not_verified', provider: provider.capitalize)
       return redirect_to new_user_registration_path
     end
+
+#    user_info[:email] = nil unless user_info[:email_verified]
 
     #se sono già autenticato allora sto facendo una join dei due account
     if current_user
@@ -49,7 +51,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
       @user, first_association, found_from_email = User.find_or_create_for_oauth_provider(oauth_data)
       if @user
-        if found_from_email
+        if found_from_email && !user_info[:email].nil?
           session['devise.omniauth_data'] = env['omniauth.auth']
           redirect_to confirm_credentials_users_url
         else
@@ -58,7 +60,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           sign_in_and_redirect @user, event: :authentication
         end
       else
-        flash[:error] = "Account #{provider.capitalize} con dati mancanti (nome, cognome, email)."
+        flash[:error] = "Account #{provider.capitalize} con Nome mancante."
         redirect_to new_user_registration_path
       end
     end

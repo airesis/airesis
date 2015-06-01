@@ -65,7 +65,8 @@ describe 'the oauth2 process', type: :feature, js: true do
     end
 
     it "doesn't permit to sign in if FB account is not verified" do
-      OmniAuth.config.add_mock(:facebook, { info: { verified: false }, extra: { raw_info: { verified: false } } })
+      OmniAuth.config.mock_auth[:facebook][:info][:verified] = false
+      OmniAuth.config.mock_auth[:facebook][:extra][:raw_info][:verified] = false
       visit '/users/auth/facebook/callback'
       expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.account_not_verified', provider: @oauth_data[:provider].capitalize)}/i)
     end
