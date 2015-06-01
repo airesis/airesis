@@ -170,9 +170,8 @@ class User < ActiveRecord::Base
 
 
   def email_required?
-    super && !(has_provider?(Authentication::TWITTER) || has_provider?(Authentication::LINKEDIN))
+    super && !has_oauth_provider_without_email
   end
-
 
   def last_proposal_comment
     self.proposal_comments.order('created_at desc').first
@@ -600,6 +599,11 @@ class User < ActiveRecord::Base
         errors.add(field, I18n.t('activerecord.errors.messages.certified_cannot_edit')) if send("#{field}_changed?")
       end
     end
+  end
+
+  def has_oauth_provider_without_email
+    providers_without_email = [Authentication::TWITTER, Authentication::MEETUP, Authentication::LINKEDIN]
+    providers_without_email.any?{ |provider| has_provider?(provider) }
   end
 
 end
