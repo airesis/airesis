@@ -68,8 +68,14 @@ describe 'the oauth2 process', type: :feature, js: true do
       expect(page).to have_content(/#{I18n.t("devise.omniauth_callbacks.success")}/i)
       user_full_name = "#{@oauth_data[:first_name]} #{@oauth_data[:last_name]}"
       expect(page).to have_content(/#{user_full_name}/i)
+
       expect(User.count).to eq(1)
-      expect(User.last.user_type_id).to eq(UserType::AUTHENTICATED)
+      user = User.last
+
+      expect(user.user_type_id).to eq(UserType::AUTHENTICATED)
+      expect(user.name).to eq(@oauth_data[:first_name])
+      expect(user.surname).to eq(@oauth_data[:last_name])
+      expect(user.email).to eq(@oauth_data[:email])
     end
 
     it 'asks for password reconfirmation to join an existing account with matching email' do

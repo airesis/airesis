@@ -36,7 +36,7 @@ class Authentication < ActiveRecord::Base
 
     Hash.new.tap do |user_info|
       user_info[:email] = raw_info['email'] || # TD, Parma, Google, FB
-                          raw_info['emailAddress'] # Linkedin
+                          oauth_data['info']['email'] # Linkedin
 
       if [ Authentication::TWITTER, Authentication::MEETUP ].include? provider
         fullname = raw_info['name']
@@ -51,7 +51,7 @@ class Authentication < ActiveRecord::Base
 
         user_info[:surname] = raw_info['last_name'] || # TD, Parma, Facebook
                               raw_info['family_name'] || # Google
-                              raw_info['familyName'] # Linkedin
+                              raw_info['lastName'] # Linkedin
       end
 
       user_info[:sex] = raw_info['gender'] ? raw_info['gender'][0] : nil
