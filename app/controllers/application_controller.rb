@@ -145,7 +145,6 @@ class ApplicationController < ActionController::Base
   end
 
   def render_error(exception)
-    @exception = exception
     log_error(exception)
     respond_to do |format|
       format.js {
