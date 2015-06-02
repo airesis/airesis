@@ -256,7 +256,7 @@ class User < ActiveRecord::Base
 
       if user_info
         user.email = user_info[:email]
-      elsif data = session[:user] #what does it do? can't remember
+      elsif(data = session[:user]) #what does it do? can't remember
         user.email = session[:user][:email]
         user.login = session[:user][:email]
         if invite = session[:invite] #if is by invitation
@@ -482,7 +482,7 @@ class User < ActiveRecord::Base
 
   # return the user, a flag indicating if it's the first time the oauth account
   # is associated to the Airesis account or if it's a simple login and another flag
-  # indicating if the user has been found by it's email
+  # indicating if the user has been found in th db by it's email
   def self.find_or_create_for_oauth_provider(oauth_data)
 
     provider = Authentication.oauth_provider oauth_data
@@ -514,25 +514,29 @@ class User < ActiveRecord::Base
         certify_with_info(user_info)
       else
         self.email = user_info[:email] unless self.email
-
-        self.google_page_url = raw_info['profile'] if provider == Authentication::GOOGLE
-        self.linkedin_page_url = raw_info['publicProfileUrl'] if provider == Authentication::LINKEDIN
-        self.facebook_page_url = raw_info['link'] if provider == Authentication::FACEBOOK
+        set_social_network_pages(provider, raw_info)
       end
 
       save!
     end
   end
 
+  def set_social_network_pages(provider, raw_info)
+    self.google_page_url = raw_info['profile'] if provider == Authentication::GOOGLE
+    self.linkedin_page_url = raw_info['publicProfileUrl'] if provider == Authentication::LINKEDIN
+    self.facebook_page_url = raw_info['link'] if provider == Authentication::FACEBOOK
+  end
 
   def certify_with_info(user_info)
 
     raise "Not enough info for certification" if [user_info[:name], user_info[:surname], user_info[:email]].any? &:blank?
 
-    skip_reconfirmation!
-    update!( email: user_info[:email], name: user_info[:name], surname: user_info[:surname] )
-    build_certification( name: user_info[:name], surname: user_info[:surname], tax_code: user_info[:email] )
-    update!( user_type_id: UserType::CERTIFIED )
+    User.transaction do
+      skip_reconfirmation!
+      update!( email: user_info[:email], name: user_info[:name], surname: user_info[:surname] )
+      build_certification( name: user_info[:name], surname: user_info[:surname], tax_code: user_info[:email] )
+      update!( user_type_id: UserType::CERTIFIED )
+    end
   end
 
   protected
@@ -562,35 +566,36 @@ class User < ActiveRecord::Base
       user.linkedin_page_url = raw_info['publicProfileUrl'] if provider == Authentication::LINKEDIN
       user.facebook_page_url = raw_info['link'] if provider == Authentication::FACEBOOK
 
-      user.build_authentication_provider(oauth_data)
+      User.transaction do
+        user.build_authentication_provider(oauth_data)
 
-      user.confirm!
-      user.save!
+        user.sign_in_count = 0
+        user.confirm!
+        user.save!
 
-      if provider == Authentication::TECNOLOGIEDEMOCRATICHE || ( provider == Authentication::PARMA && raw_info['verified'] )
-        user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
-        user.update!( user_type_id: UserType::CERTIFIED )
-      else
-        user.update!( user_type_id: UserType::AUTHENTICATED )
+        if provider == Authentication::TECNOLOGIEDEMOCRATICHE || ( provider == Authentication::PARMA && raw_info['verified'] )
+          user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
+          user.update!( user_type_id: UserType::CERTIFIED )
+        else
+          user.update!( user_type_id: UserType::AUTHENTICATED )
+        end
       end
+      user.add_to_parma_group(raw_info['verified']) if provider == Authentication::PARMA
 
-      User.add_to_parma_group( user, raw_info['verified'] ) if provider == Authentication::PARMA
-
-      user.sign_in_count = 0
     end
   end
 
-  def self.add_to_parma_group(user, verified)
+  def add_to_parma_group(verified)
     parma_group = Group.find_by_subdomain('parma')
-    user.group_participation_requests.build( group: parma_group,
-                                             group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED )
+    group_participation_requests.build( group: parma_group,
+                                        group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED )
     participation_role = group.default_role
     if verified
       #look for best role or fallback
       residente = ParticipationRole.where(['group_id = ? and lower(name) = ?', group.id, 'residente']).first
       participation_role = residente || participation_role
     end
-    user.group_participations.build(group: group, participation_role_id: participation_role.id)
+    group_participations.build(group: group, participation_role_id: participation_role.id)
   end
 
   def cannot_change_info_if_certified

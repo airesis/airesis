@@ -3,7 +3,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   oauth_providers = [:facebook, :google_oauth2, :twitter, :meetup, :parma, :tecnologiedemocratiche, :linkedin]
   oauth_providers.each do |provider|
-      define_method(provider) { manage_oauth }
+      define_method(provider) { manage_oauth_callback }
   end
 
   def passthru
@@ -12,7 +12,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   protected
 
-  def manage_oauth
+  def manage_oauth_callback
 
     oauth_data = request.env['omniauth.auth']
     provider = Authentication.oauth_provider oauth_data
@@ -25,19 +25,18 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       return redirect_to new_user_registration_path
     end
 
-#    user_info[:email] = nil unless user_info[:email_verified]
-
-    #se sono già autenticato allora sto facendo una join dei due account
+    # se sono già autenticato allora sto facendo una join dei due account
     if current_user
       auth = Authentication.find_by_provider_and_uid(provider, uid)
-      if auth #se c'è già un altro account
+      # se c'è già un altro utente con associato l'account del provider
+      if auth
 
         if provider == Authentication::FACEBOOK
           #se devo aggiornare il token...fallo
           new_token = oauth_data['credentials']['token']
           auth.update(token: new_token) if auth.token != new_token
 
-          redirect_to request.env['omniauth.origin'] + '?share=true' if request.env['omniauth.params']['share']
+          return redirect_to request.env['omniauth.origin'] + '?share=true' if request.env['omniauth.params']['share']
         end
 
         #annulla l'operazione!
@@ -60,7 +59,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           sign_in_and_redirect @user, event: :authentication
         end
       else
-        flash[:error] = "Account #{provider.capitalize} con Nome mancante."
+        flash[:error] = I18n.t('devise.omniauth_callbacks.creation_failure', provider: provider.capitalize)
         redirect_to new_user_registration_path
       end
     end
