@@ -81,16 +81,14 @@
     ProposalsShow.times = {
         created_at: <%=@proposal.created_at.to_i%>,
         updated_at: <%=@proposal.updated_at.to_i%>,
-        ends_at: <%=@proposal.quorum.ends_at.to_i%>,
-        descriptions: {},
-        vote_ends_at: <%=@proposal.vote_period.try(:endtime).to_i%>
+        descriptions: {}
     };
     <%if @proposal.quorum.present? %>
     ProposalsShow.times.ends_at = <%=@proposal.quorum.ends_at.to_i%>;
     ProposalsShow.times.descriptions.ends_at = '<%=j l @proposal.quorum.ends_at%>';
     <%end%>
     <%if @proposal.vote_period.present? %>
-    ProposalsShow.times.vote_ends_at = <%=@proposal.vote_period.try(:endtime).to_i%>;
+    ProposalsShow.times.vote_ends_at = <%=@proposal.vote_period.endtime.to_i%>;
     ProposalsShow.times.descriptions.vote_ends_at = '<%=j l @proposal.vote_period.endtime if @proposal.voting?%>';
     <%end%>
 

@@ -56,7 +56,7 @@ class ProposalCommentSearch
       paragraphs_ids = @section.paragraph_ids
       conditions_arel = proposal_comments_t[:paragraph_id].in(paragraphs_ids)
     elsif @all.present?
-      conditions_arel = 1.eq(1)
+      conditions_arel = Arel::Nodes::SqlLiteral.new('1').eq(1)
     else
       conditions_arel = proposal_comments_t[:paragraph_id].eq(nil)
     end
