@@ -215,7 +215,6 @@ class Group < ActiveRecord::Base
       found = InterestBorder.table_element(tkn)
       if found #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
         interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype], territory_id: fid)
-        puts "New Record!" if (interest_b.new_record?)
         self.interest_border = interest_b
       end
     end

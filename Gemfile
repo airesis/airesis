@@ -30,6 +30,9 @@ gem 'premailer-rails'
 
 gem 'uri-js-rails'
 
+gem 'mustache'
+gem 'mustache-js-rails'
+
 group :development do
   gem 'sunspot_solr'
   gem 'better_errors'

@@ -319,6 +319,9 @@ GEM
     multi_json (1.11.0)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    mustache (1.0.1)
+    mustache-js-rails (2.0.0)
+      railties (>= 3.1, <= 5.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
@@ -614,6 +617,8 @@ DEPENDENCIES
   koala (~> 1.8.0rc1)
   mailman
   maktoub
+  mustache
+  mustache-js-rails
   nickname_generator
   omniauth-facebook
   omniauth-google-oauth2

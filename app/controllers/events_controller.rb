@@ -76,7 +76,7 @@ class EventsController < ApplicationController
       @title += "- #{t('pages.events.new.title_meeting')}"
     end
 
-    @starttime = params[:starttime] ? Time.at(params[:starttime].to_i / 1000) : Time.now + 10.minutes
+    @starttime = calculate_starttime
     @endtime = @starttime + 1.days
 
     @event = Event.new(starttime: @starttime, endtime: @endtime, period: "Non ripetere", event_type_id: params[:event_type_id])
@@ -176,6 +176,17 @@ class EventsController < ApplicationController
   end
 
   protected
+
+  def calculate_starttime
+    if params[:starttime]
+      ret = Time.at(params[:starttime].to_i / 1000)
+      puts (params[:has_time] == 'true')
+      ret = ret.change(hour: Time.now.hour, min: Time.now.min) unless (params[:has_time] == 'true')
+      ret
+    else
+      10.minutes.from_now
+    end
+  end
 
   def event_params
     params[:event].delete(:meeting_attributes) if params[:event][:event_type_id] == EventType::VOTAZIONE.to_s

@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe Proposal, type: :model, emails: true do
+describe NotificationProposalReadyForVote, type: :model, emails: true, notifications: true do
 
   it 'when a proposal is ready for vote sends correctly an email to all authors' do
     user1 = create(:user)
@@ -18,10 +18,10 @@ describe Proposal, type: :model, emails: true do
     proposal.reload
     expect(proposal.waiting_date?).to be_truthy
 
-    expect(NotificationProposalReadyForVote.jobs.size).to eq 1
-    NotificationProposalReadyForVote.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 3
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(described_class.jobs.size).to eq 1
+    described_class.drain
+    AlertsWorker.drain
+    EmailsWorker.drain
     deliveries = ActionMailer::Base.deliveries.last 3
 
     receivers = [participants[0], participants[1], user1]

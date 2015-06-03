@@ -22,7 +22,7 @@
         <div class="row collapse">
             <%=f.label :starttime %>
           <div class="small-9 columns">
-            <%= f.text_field :starttime, as: :string, input_html: {value: (l @event.starttime, format: :textfield)} %>
+            <%= f.text_field :starttime, as: :string, value: (l @event.starttime, format: :datetimepicker) %>
           </div>
           <div class="small-3 columns">
             <span class="postfix">
@@ -31,7 +31,17 @@
           </div>
         </div>
 
-        <%= f.input :endtime, as: :string, input_html: {value: (l @event.endtime, format: :textfield)} %>
+        <div class="row collapse">
+          <%=f.label :endtime %>
+          <div class="small-9 columns">
+            <%= f.text_field :endtime, as: :string, value: (l @event.endtime, format: :datetimepicker) %>
+          </div>
+          <div class="small-3 columns">
+            <span class="postfix">
+              <i class="fa fa-calendar"></i>
+            </span>
+          </div>
+        </div>
 
         <%= f.label :all_day do %>
             <%= f.check_box :all_day %>

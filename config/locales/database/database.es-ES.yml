@@ -117,7 +117,7 @@ es-ES:
         email_subject: '%{proposal} - Retroalimentación al debate'
         message: 'Una contribución que has integrado en la propuesta <b>%{proposal}</b> se ha puesto de nuevo en debate'
       new_contributes:
-        description: Nuevas aportaciones y comentarios en las propuestas en las que yo participo
+        description: Nuevas aportaciones en las propuestas en las que yo participo
         email_subject: '%{title} - Nueva contribución'
         message: '<b>%{name}</b> agregó un nuevo aporte en la propuesta <b>%{title}</b>'
       text_update:

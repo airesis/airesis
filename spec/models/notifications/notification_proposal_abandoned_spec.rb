@@ -2,63 +2,50 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe Proposal, type: :model, emails: true do
+describe NotificationProposalAbandoned, type: :model, emails: true, notifications: true do
 
   it 'when is abandoned sends correctly an email to authors and participants' do
     user = create(:user)
     group = create(:group, current_user_id: user.id)
-    @create = create(:group_proposal, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)])
-    proposal = @create
-
-    user2 = create(:user)
-    create_participation(user2, group)
-    user3 = create(:user)
-    create_participation(user3, group)
-    proposal.users << user2
-    proposal.users << user3
+    proposal = create(:group_proposal, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)])
     participants = []
-    5.times do
+    2.times do
       userb = create(:user)
       participants << userb
       create_participation(userb, group)
     end
 
     create(:proposal_comment, proposal: proposal, user: participants[0])
-    create(:proposal_comment, proposal: proposal, user: participants[1])
-    create(:proposal_comment, proposal: proposal, user: participants[2])
-    create(:proposal_comment, proposal: proposal, user: user2)
-    create(:proposal_comment, proposal: proposal, user: user3)
-    create(:negative_ranking, proposal: proposal, user: participants[3])
-    create(:negative_ranking, proposal: proposal, user: participants[4])
-    create(:negative_ranking, proposal: proposal, user: user)
+    create(:negative_ranking, proposal: proposal, user: participants[1])
     proposal.save!
 
     proposal.check_phase(true)  #force the abandon of the proposal
 
-    #it has no valutations so it will be abandoned
 
-    expect(NotificationProposalAbandoned.jobs.size).to eq 1
-    NotificationProposalAbandoned.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 8
-    Sidekiq::Extensions::DelayedMailer.drain
-    first_deliveries = ActionMailer::Base.deliveries.first(3)
+    expect(described_class.jobs.size).to eq 1
+    described_class.drain
 
-    authors = [user,user2,user3]
+    expect(AlertJob.count).to eq 3
+    expect(AlertsWorker.jobs.size).to eq 3
+    AlertsWorker.drain
+    expect(EmailJob.count).to eq 3
+    expect(EmailsWorker.jobs.size).to eq 3
+    EmailsWorker.drain
 
-    emails = first_deliveries.map { |m| m.to[0] }
-    receiver_emails = authors.map(&:email)
-    expect(emails).to match_array receiver_emails
+    first_delivery = ActionMailer::Base.deliveries.first
 
-    last_deliveries = ActionMailer::Base.deliveries.last(5)
+    expect(first_delivery.to[0]).to eq user.email
+
+    last_deliveries = ActionMailer::Base.deliveries.last(2)
     emails = last_deliveries.map { |m| m.to[0] }
     receiver_emails = participants.map(&:email)
     expect(emails).to match_array receiver_emails
 
-    expect(Alert.count).to eq 8
-    expect(Alert.first(3).map { |a| a.user }).to match_array authors
+    expect(Alert.count).to eq 3
+    expect(Alert.first.user).to eq user
     expect(Alert.first.notification_type.id).to eq NotificationType::CHANGE_STATUS_MINE
 
-    expect(Alert.last(5).map { |a| a.user }).to match_array participants
+    expect(Alert.last(2).map { |a| a.user }).to match_array participants
     expect(Alert.last.notification_type.id).to eq NotificationType::CHANGE_STATUS
   end
 end

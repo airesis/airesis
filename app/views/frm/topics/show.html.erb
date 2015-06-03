@@ -19,12 +19,8 @@
   <div class="topic_title">
     <h2><%= @topic.subject %></h2>
   </div>
-  <div id='posts'>
-    <table class="posts">
-      <tbody>
-      <%= render partial: "frm/posts/post", collection: @posts %>
-      </tbody>
-    </table>
+  <div id='posts' class="posts">
+    <%= render partial: "frm/posts/post", collection: @posts %>
   </div>
 
   <%= forem_pages_widget(@posts) %>

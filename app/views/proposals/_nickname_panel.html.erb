@@ -3,10 +3,8 @@
       <h4><i class="fa fa-info-circle nickname-panel"></i>
         <%= t('pages.proposals.show.your_nickname_is') %></h4>
 
-      <div class="mycont">
-        <div class="blogUserImage">
-          <%= user_tag(current_user, @proposal) %>
-        </div>
+      <div class="mycont clearfix">
+        <%= user_tag(current_user, @proposal) %>
       </div>
 
       <div class="regenerate_nickname">

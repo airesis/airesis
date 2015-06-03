@@ -11,7 +11,7 @@
                     <span class="title_placeholder"><%=raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}",num: 0)%></span> <%= sol.text_field :title, placeholder: t("pages.proposals.edit.insert_title.#{@proposal.proposal_type.name.downcase}") %>
                   </div>
                   <span class="remove_sol_button">
-                    <a href="#" onclick="removeSolution(this,false);return false;"> <%= t('pages.proposals.edit.remove_solution') %></a>
+                    <a href="#" onclick="ProposalsEdit.removeSolution(this,false);return false;"> <%= t('pages.proposals.edit.remove_solution') %></a>
                   </span>
                 </div>
               </h3>
@@ -20,28 +20,17 @@
                   <%= sol.hidden_field :seq %>
                   <%= sol.check_box '_destroy', style: 'display:none' %>
                   <% solution.sections.each_with_index do |section, j| %>
-                      <%= sol.fields_for :sections, section do |s| %>
-                          <%= s.hidden_field :title %>
-                          <%= s.hidden_field :question %>
-                          <%= s.hidden_field :seq %>
-                          <%= s.check_box '_destroy', style: 'display:none' %>
-                          <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
-                              <div class="section_container" data-section_id="<%= j %>">
-                                <span class="remove_button">
-                                    <a href="#" onclick="removeSolutionSection(this,true);return false;" class="remove_section" data-section_id="<%= j %>"><%= t('pages.proposals.edit.remove_section') %></a>
-                                </span>
-                                <div class="clearboth"></div>
-                                <%= s.text_field :title, class: "edit_label" %>
-                                <%= p.text_area :content_dirty, rows: 5, style: "width:98%;height:280px;", class: "tinymce" %>
-                                <%= p.hidden_field :content %>
-                                <%= p.hidden_field :seq %>
-                              </div>
+                      <%= sol.hidden_field :seq %>
+                      <%= sol.check_box '_destroy', style: 'display:none' %>
+                      <% solution.sections.each_with_index do |section, j| %>
+                          <%= sol.fields_for :sections, section do |s| %>
+                              <%= render 'solution_section', solution_section_for_mustache(section, @proposal.solutions.count, j) %>
                           <% end %>
                       <% end %>
                   <% end %>
                 </div>
                 <div class="new_section">
-                  <a href="#" onclick="addSolutionSection(this);return false;" data-solution_id="" class="add_section btn full-width"><%= t('pages.proposals.edit.add_paragraph_to_solution') %></a>
+                  <a href="#" data-add-solution-section data-solution_id="" class="add_section btn full-width"><%= t('pages.proposals.edit.add_paragraph_to_solution') %></a>
                 </div>
               </div>
           <% end %>

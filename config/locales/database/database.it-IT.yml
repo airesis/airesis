@@ -121,7 +121,7 @@ it:
         email_subject: '%{proposal} - Contributo rimesso in dibattito'
         message: 'Un contributo che avevi integrato nella proposta <b>%{proposal}</b> è stato rimesso in dibattito'
       new_contributes:
-        description: Nuovi contributi e commenti alle proposte a cui partecipo
+        description: Nuovi contributi alle proposte a cui partecipo
         email_subject: '%{title} - Nuovo contributo'
         message:
           zero: '<b>%{name}</b> ha inserito un contributo alla proposta <b>%{title}</b>'

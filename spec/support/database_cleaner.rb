@@ -1,5 +1,5 @@
 RSpec.configure do |config|
-  excluded_tables = %w(comunes continentes continente_translations statos stato_translations regiones regione_translations provincias provincia_translations event_types group_actions group_participation_request_statuses notification_categories notification_types proposal_categories proposal_states proposal_types ranking_types tutorials steps user_types participation_roles action_abilitations vote_types proposal_votation_types configurations sys_currencies sys_locales sys_movement_types)
+  excluded_tables = %w(event_types group_actions group_participation_request_statuses notification_categories notification_types proposal_categories proposal_states proposal_types ranking_types tutorials steps user_types participation_roles action_abilitations vote_types proposal_votation_types configurations)
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:deletion, except: excluded_tables)
@@ -23,6 +23,13 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.start
+
+    a1 = Continente.create(description: 'Europe')
+    s1 = Stato.create(description: 'Italy', continente_id: a1.id, sigla: 'IT', sigla_ext: 'ITA')
+    r14 = Regione.create(description: 'Emilia Romagna', stato_id: s1.id, continente_id: a1.id)
+    p1 = Provincia.create(description: 'Bologna', regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, sigla: 'BO')
+    Comune.create(description: 'Bologna', provincia_id: p1.id, regione_id: r14.id, stato_id: s1.id, continente_id: a1.id, population: 371217)
+    SysLocale.create(key: 'en', host: 'www.airesis.eu', territory: a1)
 
     admin = ParticipationRole.create(name: 'amministratore', description: 'Amministratore')
     if BestQuorum.count == 0

@@ -1495,7 +1495,9 @@ en:
       title: "%{user} inserted a new %{comment} in the proposal"
       view_proposal: "%{click_here} to see the proposal."
     text_update:
-      view_proposal: "The proposal <b>%{proposal}</b> has been updated!"
+      view_proposal:
+        one: "The proposal <b>%{proposal}</b> has been updated."
+        other: "The proposal <b>%{proposal}</b> has been updated %{count} times."
       integrated_contributes: "Congratulations! The following contributions that you had inserted have been integrated by the editors:"
       view_proposal_2: "%{click_here} and verify that the new text contains your suggestions. <br/> If you are not satisfied you can always put your contributions back in debate by pulling them from History."
       connect: "Log in %{name}"

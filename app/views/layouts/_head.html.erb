@@ -15,6 +15,7 @@
 
 <script type="text/javascript">
     Airesis.id = <%=current_user ? current_user.id : -1 %>;
+    Airesis.fullName = '<%=j current_user ? current_user.fullname : ''%>';
     Airesis.signed_in = <%= signed_in? %>;
     Airesis.environment = '<%= Rails.env %>';
     Airesis.new_user_session_path = '<%=j new_user_session_path %>';
@@ -33,7 +34,7 @@
         type_for_town: '<%=j raw t('pages.events.new.type_for_town')%>',
         locale: '<%=I18n.locale%>',
         feedback: {
-            h2cPath: '<%= asset_path 'html2canvas'%>',
+            h2cPath: '<%= javascript_path 'html2canvas'%>',
             label: '<%=j t('pages.feedback.send_feedback')%>',
             header: '<%=j t('pages.feedback.send_feedback')%>',
             nextLabel: '<%=j t('pages.feedback.add_details')%>',
@@ -46,6 +47,26 @@
             blackoutButtonMessage: "<%=j t('pages.feedback.blackout')%>",
             highlightButtonMessage: "<%=j t('pages.feedback.highlight')%>",
             highlightOrBlackout: "<%=j t('pages.feedback.highlight_or_blackout')%>"
+        },
+        interestBorders: {
+            hintText: '<%=j t('interest_borders.hint')%>',
+            noResultsText: '<%=j t('interest_borders.no_place_found')%>',
+            searchingText: '<%=j t('interest_borders.searching')%>'
+        },
+        tags: {
+            hintText: '<%=j t('digit_tags')%>',
+            searchingText: '<%=j t('digit_tags')%>'
+        },
+        proposals: {
+            edit: {
+                updateConfirm: '<%=j t('pages.proposals.edit.update_confirm')%>',
+                paragraph: '<%=j t('pages.proposals.edit.paragraph')%>',
+                removeSection: '<%=j t('pages.proposals.edit.remove_section') %>',
+                removeSectionConfirm: '<%=j t('pages.proposals.edit.confirm_paragraph_deletion')%>',
+                removeSolutionConfirm: '<%=j t('pages.proposals.edit.confirm_solution_deletion')%>',
+                removeSolution: '<%=j t('pages.proposals.edit.remove_solution')%>',
+                addParagraph: '<%=j t('pages.proposals.edit.add_paragraph_to_solution')%>'
+            }
         }
     };
 </script>

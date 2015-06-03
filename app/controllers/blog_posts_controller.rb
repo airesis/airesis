@@ -1,5 +1,4 @@
 class BlogPostsController < ApplicationController
-
   helper :blog
 
   layout :choose_layout

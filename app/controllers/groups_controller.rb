@@ -1,4 +1,3 @@
-#encoding: utf-8
 class GroupsController < ApplicationController
 
   layout :choose_layout

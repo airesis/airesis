@@ -72,7 +72,7 @@
 
   <% elsif @proposal.voting? %>
       <% unless @proposal.is_petition? %>
-          <b><%= t('.vote_here', link: (link_to t('buttons.vote_here'), '#', data: {scroll_to: :vote_panel}))%></b>
+          <b><%=raw t('.vote_here', link: (link_to t('buttons.vote_here'), '#', data: {scroll_to: :vote_panel}))%></b>
       <% end %>
   <% elsif @proposal.abandoned? %>
       <%= render partial: 'proposals/abandoned_header' %>
@@ -144,7 +144,7 @@
 
 
 <% @proposal.sections.includes(:paragraphs).each do |section| %>
-    <div class="proposal_main card">
+    <div class="proposal_main card" data-section_id="<%=section.id%>">
       <h3>
         <div class="tit1">
           <div class="tit2">
@@ -185,7 +185,7 @@
       </h3>
       <div class="sol_content">
         <% solution.sections.each do |section| %>
-            <div class="proposal_main">
+            <div class="proposal_main" data-section_id="<%=section.id%>">
               <h3>
                 <div class="tit1">
                   <div class="tit2">

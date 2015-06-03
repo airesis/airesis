@@ -1,7 +1,7 @@
 class Provincia < ActiveRecord::Base
   self.table_name = 'provincias'
 
-  has_many :comunes
+  has_many :comunes, dependent: :destroy
   has_many :circoscriziones
 
   belongs_to :regione

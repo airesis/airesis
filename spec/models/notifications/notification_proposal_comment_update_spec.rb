@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require "cancan/matchers"
 
-describe ProposalComment, type: :model, emails: true do
+describe NotificationProposalCommentUpdate, type: :model, emails: true, notifications: true do
 
   it "when a proposal comment is updated sends correctly an email all people which ranked the comment" do
     user1 = create(:user)
@@ -25,14 +25,14 @@ describe ProposalComment, type: :model, emails: true do
     contribute.update!(content: contribute.content)
 
     #no alerts if the content didn't change
-    expect(NotificationProposalCommentUpdate.jobs.size).to eq 0
+    expect(described_class.jobs.size).to eq 0
 
     contribute.update!(content: Faker::Lorem.paragraph)
 
-    expect(NotificationProposalCommentUpdate.jobs.size).to eq 1
-    NotificationProposalCommentUpdate.drain
-    expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 3
-    Sidekiq::Extensions::DelayedMailer.drain
+    expect(described_class.jobs.size).to eq 1
+    described_class.drain
+    AlertsWorker.drain
+    EmailsWorker.drain
     deliveries = ActionMailer::Base.deliveries.last(3)
 
     emails = deliveries.map { |m| m.to[0] }

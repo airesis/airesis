@@ -1,17 +1,17 @@
 $('#proposalCommentsContainer').append("<%= j render 'proposals/edit_comments'%>");
 
-firstCheck = false;
-<%if @total_pages > @current_page%>
+ProposalsEdit.firstCheck = false;
+<%if @proposal_comment_search.show_more?%>
     $('#loading_results').show();
-    if (!firstCheck) {
+    if (!ProposalsEdit.firstCheck) {
         checkScroll();
-        firstCheck = true;
+        ProposalsEdit.firstCheck = true;
     }
-    checkActive = true;
+    ProposalsEdit.checkActive = true;
     hideLeftPanel();
 <%else%>
     $('#loading_results').hide();
-    <%if @proposal_comments.count == 0 %>
+    <%if @proposal_comment_search.proposal_comments.empty? %>
         $('.suggestion-title').remove();
         $('.suggestion_right').remove();
     <%else%>

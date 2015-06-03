@@ -2220,9 +2220,6 @@ small.warning {
     font-size: 1.5em;
     line-height: 1.5em;
   }
-  img {
-    max-width: 100%;
-  }
   h1 {
     text-align: center;
   }
@@ -2865,6 +2862,10 @@ input[type=file] {
 }
 
 //overrides
+.proposal-alert-box {
+  @extend .alert-box;
+}
+
 .introjs-button {
   @extend .btn;
 }

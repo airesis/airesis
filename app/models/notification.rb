@@ -26,16 +26,13 @@ class Notification < ActiveRecord::Base
     #end
   end
 
-
-  def email_subject
-    group = data[:group]
-    subject = group ? "[#{group}] " : ''
+  def message_interpolation
     extension = ".#{data[:extension]}" if data[:extension]
-    subject += I18n.t("db.#{notification_type.class.class_name.tableize}.#{notification_type.name}.email_subject#{extension}", data)
+    "db.notification_types.#{notification_type.name}.message#{extension}"
   end
 
-  def message
+  def email_subject_interpolation
     extension = ".#{data[:extension]}" if data[:extension]
-    I18n.t("db.#{notification_type.class.class_name.tableize}.#{notification_type.name}.message#{extension}", data)
+    "db.notification_types.#{notification_type.name}.email_subject#{extension}"
   end
 end

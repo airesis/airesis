@@ -121,7 +121,7 @@ hu:
         email_subject: '%{proposal} - hozzájárulás visszakerült a vitára'
         message: 'Az Ön által hozzáadott hozzájárulás a(z) <b>%{proposal}</b> indítványban visszakerült vitára'
       new_contributes:
-        description: Új hozzájárulások és megjegyzések az indítványokban, amikben részt veszek
+        description: Új hozzájárulások az indítványokban, amikben részt veszek
         email_subject: '%{title} - Új hozzájárulás'
         message:
           zero: '<b>%{name}</b> beadott egy új hozzájárulást a(z) <b>%{title}</b> indítványhoz'

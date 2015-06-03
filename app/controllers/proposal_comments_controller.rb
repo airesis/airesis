@@ -11,63 +11,9 @@ class ProposalCommentsController < ApplicationController
 
   #retrieve contributes list
   def index
-    order = ""
-    conditions = " 1 = 1 "
-
-    if params[:section_id]
-      @section = Section.find(params[:section_id])
-      paragraphs_ids = @section.paragraph_ids
-      conditions += " AND proposal_comments.paragraph_id in (#{paragraphs_ids.join(',')})"
-    elsif params[:all]
-      conditions += ''
-    else
-      conditions += " AND proposal_comments.paragraph_id is null"
-    end
-
-    if params[:view] == SearchProposal::ORDER_RANDOM
-      #remove already shown contributes
-      conditions << " AND proposal_comments.id not in (#{params[:contributes].join(',')})" if params[:contributes]
-      left = params[:disable_limit] ? 9999999 : COMMENTS_PER_PAGE
-      tmp_comments = []
-      #retrieve contributes with alerts TODO
-      #alerted = Alert.joins({notification: :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and notifications.notification_type_id in (?) and alerts.user_id = ?','proposal_id', @proposal.id.to_s,[NotificationType::NEW_CONTRIBUTES,NotificationType::NEW_CONTRIBUTES_MINE],current_user.id]).pluck('distinct (notification_data.value)')
-      #unread_cond = conditions + " AND proposal_comments.id in "
-      #tmp_comments += @proposal.contributes.listable.all(conditions: unread_cond).map { |c| c.id }
-
-      if left > 0
-        #extract evaluated ids
-        valuated_cond = conditions + " AND proposal_comment_rankings.user_id = #{current_user.id}"
-        valuated_ids = @proposal.contributes.listable.joins(:rankings).where(valuated_cond).select('distinct(proposal_comments.id)').map { |c| c.id }
-
-        #extract not evaluated contributes
-        non_valuated_cond = conditions
-        non_valuated_cond += " AND proposal_comments.id not in (#{valuated_ids.join(',')})" unless valuated_ids.empty?
-        tmp_comments += @proposal.contributes.listable.where(non_valuated_cond).order('random()').limit(left).load
-        left -= tmp_comments.size
-
-        if left > 0 && !valuated_ids.empty?
-          #extract the evaluated ones
-          valuated_cond = conditions
-          valuated_cond += " AND proposal_comments.id in (#{valuated_ids.join(',')})"
-          tmp_comments += @proposal.contributes.listable.where(valuated_cond).order('rank desc').limit(left).load
-        end
-      end
-      @proposal_comments = tmp_comments
-      @total_pages = (@proposal.contributes.listable.count.to_f / COMMENTS_PER_PAGE.to_f).ceil
-      @current_page = (params[:page] || 1).to_i
-    else
-      if params[:view] == SearchProposal::ORDER_BY_RANK
-        order << " proposal_comments.j_value desc, proposal_comments.id desc"
-      else
-        order << "proposal_comments.updated_at desc"
-      end
-      @proposal_comments = @proposal.contributes.listable.where(conditions).order(order).page(params[:page]).per(COMMENTS_PER_PAGE)
-      @total_pages = @proposal_comments.total_pages
-      @current_page = @proposal_comments.current_page
-    end
     respond_to do |format|
-      format.html { @proposal_comments  = @proposal.contributes.listable}
-      format.js
+      format.html { @proposal_comments  = ProposalCommentSearch.new({all: true, disable_limit: true}, @proposal)}
+      format.js { @proposal_comment_search = ProposalCommentSearch.new(params, @proposal, current_user)}
     end
   end
 

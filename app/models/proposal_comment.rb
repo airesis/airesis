@@ -125,5 +125,4 @@ class ProposalComment < ActiveRecord::Base
     integrated_contribute.destroy
     update(integrated: false)
   end
-
 end

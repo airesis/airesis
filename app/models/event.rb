@@ -198,9 +198,9 @@ class Event < ActiveRecord::Base
     self.save
   end
 
-  #put all attached proposals in votation
-  #invia le notifihe per dire che la proposta è in votazione
-  #deletes eventually alerts of type 'new proposal'
+  # put all attached proposals in votation
+  # invia le notifihe per dire che la proposta è in votazione
+  # deletes eventually alerts of type 'new proposal'
   def start_votation
     proposals.each do |proposal|
       proposal.proposal_state_id = ProposalState::VOTING

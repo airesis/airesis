@@ -6,4 +6,8 @@ window.Airesis = {
     stop = (dir is 'up' && element.scrollTop is 0) || (dir is 'down' && element.scrollTop is element.scrollHeight - element.offsetHeight)
     stop && event.preventDefault()
     return
+  development: ->
+    @environment is 'development'
+  log: (args)->
+    console.log args if Airesis.development()
 }
