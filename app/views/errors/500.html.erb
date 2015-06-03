@@ -1,5 +1,7 @@
 <% @page_tile = 'Internal Error' %>
 <div class="error_dialog card">
+  <%= @exception.message %>
+  <%= @exception.backtrace_locations %>
   <div>
     <%=image_tag 'allbroken128.png', style:"margin: auto;display: block;"%>
   </div>

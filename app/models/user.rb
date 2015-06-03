@@ -252,7 +252,7 @@ class User < ActiveRecord::Base
       user.original_sys_locale_id =user.sys_locale_id = SysLocale.find_by(key: 'en').id
 
       oauth_data = session['devise.omniauth_data']
-      user_info = Authentication.oauth_user_info(oauth_data)
+      user_info = OauthDataParser.new(oauth_data).user_info
 
       if user_info
         user.email = user_info[:email]
@@ -485,26 +485,29 @@ class User < ActiveRecord::Base
   # indicating if the user has been found in th db by it's email
   def self.find_or_create_for_oauth_provider(oauth_data)
 
-    provider = Authentication.oauth_provider oauth_data
-    uid = Authentication.oauth_uid oauth_data
-    user_info = Authentication.oauth_user_info oauth_data
+    oauth_data_parser = OauthDataParser.new(oauth_data)
+    provider = oauth_data_parser.provider
+    uid = oauth_data_parser.uid
+    user_info = oauth_data_parser.user_info
 
     #se ho trovato l'id dell'utente prendi lui, altrimenti cercane uno con l'email uguale
-    auth = Authentication.find_by_provider_and_uid(provider, uid)
+    auth = Authentication.find_by(provider: provider, uid: uid)
     if auth
       # return user, first_association, found_from_email
       return auth.user, false, false
     else
-      user = user_info[:email] && User.find_by_email( user_info[:email] )
+      user = user_info[:email] && User.find_by(email: user_info[:email])
       # return user, first_association, found_from_email
       return user ? [user, true, true] : [create_account_for_oauth(oauth_data), true, false]
     end
   end
 
   def oauth_join(oauth_data)
-    provider = Authentication.oauth_provider oauth_data
-    raw_info = Authentication.oauth_raw_info oauth_data
-    user_info = Authentication.oauth_user_info oauth_data
+
+    oauth_data_parser = OauthDataParser.new(oauth_data)
+    provider = oauth_data_parser.provider
+    raw_info = oauth_data_parser.raw_info
+    user_info = oauth_data_parser.user_info
 
     User.transaction do
       build_authentication_provider(oauth_data)
@@ -547,9 +550,11 @@ class User < ActiveRecord::Base
 
   def self.create_account_for_oauth(oauth_data)
 
-    provider = Authentication.oauth_provider oauth_data
-    raw_info = Authentication.oauth_raw_info oauth_data
-    user_info = Authentication.oauth_user_info oauth_data
+    oauth_data_parser = OauthDataParser.new(oauth_data)
+    provider = oauth_data_parser.provider
+    raw_info = oauth_data_parser.raw_info
+    user_info = oauth_data_parser.user_info
+
 
     return nil if user_info[:name].blank?
 
@@ -586,7 +591,7 @@ class User < ActiveRecord::Base
   end
 
   def add_to_parma_group(verified)
-    parma_group = Group.find_by_subdomain('parma')
+    parma_group = Group.find_by(subdomain: 'parma')
     group_participation_requests.build( group: parma_group,
                                         group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED )
     participation_role = group.default_role

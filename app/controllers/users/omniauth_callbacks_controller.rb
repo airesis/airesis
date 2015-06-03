@@ -15,10 +15,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def manage_oauth_callback
 
     oauth_data = request.env['omniauth.auth']
-    provider = Authentication.oauth_provider oauth_data
-    uid = Authentication.oauth_uid oauth_data
-    raw_info = Authentication.oauth_raw_info oauth_data
-    user_info = Authentication.oauth_user_info oauth_data
+
+    oauth_data_parser = OauthDataParser.new(oauth_data)
+    provider = oauth_data_parser.provider
+    uid = oauth_data_parser.uid
+    raw_info = oauth_data_parser.raw_info
+    user_info = oauth_data_parser.user_info
 
     if user_info[:email] && !user_info[:email_verified]
       flash[:error] = I18n.t('devise.omniauth_callbacks.account_not_verified', provider: provider.capitalize)
@@ -27,7 +29,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     # se sono già autenticato allora sto facendo una join dei due account
     if current_user
-      auth = Authentication.find_by_provider_and_uid(provider, uid)
+      auth = Authentication.find_by(provider: provider, uid: uid)
       # se c'è già un altro utente con associato l'account del provider
       if auth
 
@@ -50,7 +52,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
       @user, first_association, found_from_email = User.find_or_create_for_oauth_provider(oauth_data)
       if @user
-        if found_from_email && !user_info[:email].nil?
+        if found_from_email && user_info[:email].present?
           session['devise.omniauth_data'] = env['omniauth.auth']
           redirect_to confirm_credentials_users_url
         else

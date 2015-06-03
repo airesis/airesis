@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/TecnologieDemocratiche/omniauth-tecnologiedemocratiche.git
+  revision: 7a1452a260b979b601d93fec5d9ce9b46b6d0373
+  specs:
+    omniauth-tecnologiedemocratiche (1.3.3)
+      omniauth-oauth2 (~> 1.2)
+
+GIT
   remote: git://github.com/coorasse/client_side_validations-simple_form.git
   revision: 5f389185096e6513a21c0848aa8be6eec28eb252
   specs:
@@ -68,13 +75,6 @@ GIT
   specs:
     sunspot-rails-http-basic-auth (0.0.4)
       sunspot_rails
-
-GIT
-  remote: https://github.com/TecnologieDemocratiche/omniauth-tecnologiedemocratiche.git
-  revision: 7a1452a260b979b601d93fec5d9ce9b46b6d0373
-  specs:
-    omniauth-tecnologiedemocratiche (1.3.3)
-      omniauth-oauth2 (~> 1.2)
 
 GEM
   remote: http://rubygems.org/

@@ -15,17 +15,16 @@ class UsersController < ApplicationController
   def join_accounts
 
     oauth_data = session['devise.omniauth_data']
-    raw_info = Authentication.oauth_raw_info oauth_data
-    user_info = Authentication.oauth_user_info oauth_data
+    oauth_data_parser = OauthDataParser.new(oauth_data)
+    raw_info = oauth_data_parser.raw_info
+    user_info = oauth_data_parser.user_info
 
-    if [params[:user][:email], params[:user][:password]].any? &:blank? ||
-       user_info[:email] != params[:user][:email]
-
+    if wrong_join_accounts_params?(user_info[:email])
       flash[:error] = t('error.users.join_accounts')
       return redirect_to confirm_credentials_users_url
     end
 
-    user = User.find_by_email(user_info[:email]) #trova l'utente del portale con email e password indicati
+    user = User.find_by(email: user_info[:email]) #trova l'utente del portale con email e password indicati
     unless user
       flash[:error] = t('error.users.join_accounts')
       return redirect_to confirm_credentials_users_url
@@ -271,6 +270,9 @@ class UsersController < ApplicationController
 
   protected
 
+  def wrong_join_accounts_params?(user_email)
+    [params[:user][:email], params[:user][:password]].any? &:blank? || user_email != params[:user][:email]
+  end
 
   def user_params
     params.require(:user).permit(:login, :name, :email, :surname, :password, :password_confirmation, :sex, :remember_me, :accept_conditions, :receive_newsletter, :sys_locale_id, :time_zone, :avatar)
