@@ -58,7 +58,7 @@ class NotificationSender
     alert_job = search_for_cumulable(notification.notification_type, user)
     if alert_job.present? # an alert is already in queue
       if alert_job.sidekiq_job.present?
-        alert_job.accumulate(1) #accumulate one notification on the previous one
+        accumulate(alert_job) #accumulate one notification on the previous one
         return
       else
         alert_job.destroy
@@ -70,6 +70,10 @@ class NotificationSender
     else # last alert has been already checked. no email will be sent then (or has already been sent)...create a new alert
       build_alert(notification, user)
     end
+  end
+
+  def accumulate(alert_job)
+    alert_job.accumulate(1)
   end
 
   def search_for_unread_alert(user, notification_type)
