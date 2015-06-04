@@ -430,31 +430,31 @@ class Proposal < ActiveRecord::Base
     User.where(users[:id].in(comments_subquery).or(users[:id].in(rankings_subquery))).count
   end
 
-  #retrieve all the participants to the proposals that are still part of the group
+  # retrieve all the participants to the proposals that are still part of the group
   def participants
-    #all users who ranked the proposal
+    # all users who ranked the proposal
     a = User.joins(proposal_rankings: :proposal).where(proposals: {id: id}).load
-    #all users who contributed to the proposal
+    # all users who contributed to the proposal
     b = User.joins(proposal_comments: :proposal).where(proposals: {id: id}).load
     c = (a | b)
     if private
-      #all users that are part of the group of the proposal
-      d = self.supporting_groups.map { |group| group.participants }.flatten
-      e = self.groups.map { |group| group.participants }.flatten
+      # all users that are part of the group of the proposal
+      d = supporting_groups.map { |group| group.participants }.flatten
+      e = groups.map { |group| group.participants }.flatten
       f = d | e
-      #the participants are user that partecipated the proposal and are still in the group
+      # the participants are user that partecipated the proposal and are still in the group
       c = c & f
     end
     c
   end
 
-  #all users that will receive a notification that asks them to check or give their valutation to the proposal
+  # all users that will receive a notification that asks them to check or give their valutation to the proposal
   def notification_receivers
     #will receive the notification the users that partecipated to the proposal and can change their valutation or they haven't give it yet
     users = self.participants
     res = []
     users.each do |user|
-      #user ranking to the proposal
+      # user ranking to the proposal
       ranking = user.proposal_rankings.where(proposal_id: id).first
       res << user if !ranking || (ranking && (ranking.updated_at < updated_at)) #if he ranked and can change it
     end

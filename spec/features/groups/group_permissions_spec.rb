@@ -58,6 +58,6 @@ describe "check permissions are actually working inside groups", type: :feature 
     within_left_menu do
       click_link I18n.t('pages.groups.show.list_permissions.button')
     end
-    expect(page).to have_content I18n.t('pages.users.show.group_level_permission_title')
+    expect(page).to have_content I18n.t('pages.users.show.what_can_i_do')
   end
 end
