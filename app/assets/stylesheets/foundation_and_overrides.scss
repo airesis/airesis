@@ -1391,6 +1391,11 @@ ul, ol {
   .topmenu {
     position: absolute;
     margin-left: 40px;
+    .topmenu-text {
+      display: inline;
+      overflow: hidden;
+      white-space: nowrap;
+    }
   }
 
   @media #{$medium-up} {
