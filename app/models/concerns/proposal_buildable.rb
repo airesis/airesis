@@ -20,8 +20,8 @@ module Concerns
 
     def build_section(element, section_title, section_question, section_seq)
       element.sections.build(title: section_title,
-                              question: section_question,
-                              seq: section_seq).
+                             question: section_question,
+                             seq: section_seq).
         paragraphs.build(content: '', seq: 1)
     end
 
@@ -30,7 +30,8 @@ module Concerns
     end
 
     def simple_new
-      problems = self.sections.build(title: I18n.t('pages.proposals.new.simple.problems_title'), question: I18n.t('pages.proposals.new.simple.problems_question'), seq: 1)
+      problems = self.sections.build(title: I18n.t('pages.proposals.new.simple.problems_title'),
+                                     question: I18n.t('pages.proposals.new.simple.problems_question'), seq: 1)
       problems.suggestion = I18n.t('pages.proposals.new.standard.suggestion_html')
       problems.paragraphs.build(content: '', seq: 1)
       self.proposal_type = ProposalType.find_by_name(ProposalType::SIMPLE)
@@ -56,7 +57,8 @@ module Concerns
     end
 
     def standard_new
-      problems = self.sections.build(title: I18n.t('pages.proposals.new.standard.problems_title'), question: I18n.t('pages.proposals.new.standard.problems_question'), seq: 1)
+      problems = self.sections.build(title: I18n.t('pages.proposals.new.standard.problems_title'),
+                                     question: I18n.t('pages.proposals.new.standard.problems_question'), seq: 1)
       problems.suggestion = I18n.t('pages.proposals.new.standard.suggestion_html')
       problems.paragraphs.build(content: '', seq: 1)
       self.proposal_type = ProposalType.find_by_name(ProposalType::STANDARD)
@@ -65,57 +67,28 @@ module Concerns
 
     def standard_create
       seq = 1
-      self.sections.build(title: I18n.t('pages.proposals.new.standard.paragraph.similar'), question: I18n.t('pages.proposals.new.standard.question.paragraph.similar'), seq: seq+=1).paragraphs.build(content: '', seq: 1) #TODO:I18n
-      self.sections.build(title: I18n.t('pages.proposals.new.standard.paragraph.stakeholders'), question: I18n.t('pages.proposals.new.standard.question.paragraph.stakeholders'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-      self.sections.build(title: I18n.t('pages.proposals.new.standard.paragraph.requirements'), question: I18n.t('pages.proposals.new.standard.question.paragraph.requirements'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.standard.paragraph.similar'),
+                          question: I18n.t('pages.proposals.new.standard.question.paragraph.similar'), seq: seq+=1).
+        paragraphs.build(content: '', seq: 1) #TODO:I18n
+      self.sections.build(title: I18n.t('pages.proposals.new.standard.paragraph.stakeholders'),
+                          question: I18n.t('pages.proposals.new.standard.question.paragraph.stakeholders'),
+                          seq: seq+=1).
+        paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.standard.paragraph.requirements'),
+                          question: I18n.t('pages.proposals.new.standard.question.paragraph.requirements'),
+                          seq: seq+=1).
+        paragraphs.build(content: '', seq: 1)
 
       solution = standard_solution
       solution.seq = 1
       self.solutions << solution
     end
 
-    #create a solution for a standard proposal
-    def standard_solution
-      seq = 0
-      solution = Solution.new
-      solution.sections.build(title: I18n.t('pages.proposals.new.standard.solution.description'),
-                              question: I18n.t('pages.proposals.new.standard.question.solution.description'),
-                              seq: seq+=1).
-        paragraphs.build(content: '', seq: 1)
-      solution.sections.build(title: I18n.t('pages.proposals.new.standard.solution.time'),
-                              question: I18n.t('pages.proposals.new.standard.question.solution.time'),
-                              seq: seq+=1).
-        paragraphs.build(content: '', seq: 1)
-      solution.sections.build(title: I18n.t('pages.proposals.new.standard.solution.subject'),
-                              question: I18n.t('pages.proposals.new.standard.question.solution.subject'),
-                              seq: seq+=1).
-        paragraphs.build(content: '', seq: 1)
-      solution.sections.build(title: I18n.t('pages.proposals.new.standard.solution.resources'),
-                              question: I18n.t('pages.proposals.new.standard.question.solution.resources'),
-                              seq: seq+=1).
-        paragraphs.build(content: '', seq: 1)
-      solution.sections.build(title: I18n.t('pages.proposals.new.standard.solution.aspects'),
-                              question: I18n.t('pages.proposals.new.standard.question.solution.aspects'),
-                              seq: seq+=1).
-        paragraphs.build(content: '', seq: 1)
-      solution.sections.build(title: I18n.t('pages.proposals.new.standard.solution.documents'),
-                              question: I18n.t('pages.proposals.new.standard.question.solution.documents'),
-                              seq: seq+=1).
-        paragraphs.build(content: '', seq: 1)
-      solution.sections.build(title: I18n.t('pages.proposals.new.standard.solution.pros'),
-                              question: I18n.t('pages.proposals.new.standard.question.solution.pros'),
-                              seq: seq+=1).
-        paragraphs.build(content: '', seq: 1)
-      solution.sections.build(title: I18n.t('pages.proposals.new.standard.solution.cons'),
-                              question: I18n.t('pages.proposals.new.standard.question.solution.cons'),
-                              seq: seq+=1).
-        paragraphs.build(content: '', seq: 1)
-      solution
-    end
-
 
     def agenda_new
-      problems = self.sections.build(title: I18n.t('pages.proposals.new.agenda.problems_title'), question: I18n.t('pages.proposals.new.agenda.problems_question'), seq: 1)
+      problems = self.sections.build(title: I18n.t('pages.proposals.new.agenda.problems_title'),
+                                     question: I18n.t('pages.proposals.new.agenda.problems_question'),
+                                     seq: 1)
       problems.suggestion = I18n.t('pages.proposals.new.agenda.suggestion_html')
       problems.paragraphs.build(content: '', seq: 1)
       self.proposal_type = ProposalType.find_by_name(ProposalType::AGENDA)
@@ -124,8 +97,14 @@ module Concerns
 
     def agenda_create
       seq = 1
-      self.sections.build(title: I18n.t('pages.proposals.new.agenda.paragraph.date_time'), question: I18n.t('pages.proposals.new.agenda.question.paragraph.date_time'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-      self.sections.build(title: I18n.t('pages.proposals.new.agenda.paragraph.place'), question: I18n.t('pages.proposals.new.agenda.question.paragraph.place'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.agenda.paragraph.date_time'),
+                          question: I18n.t('pages.proposals.new.agenda.question.paragraph.date_time'),
+                          seq: seq+=1).
+        paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.agenda.paragraph.place'),
+                          question: I18n.t('pages.proposals.new.agenda.question.paragraph.place'),
+                          seq: seq+=1).
+        paragraphs.build(content: '', seq: 1)
 
       solution = agenda_solution
       solution.seq = 1
@@ -133,7 +112,8 @@ module Concerns
     end
 
     def estimate_new
-      problems = self.sections.build(title: I18n.t('pages.proposals.new.estimate.problems_title'), question: I18n.t('pages.proposals.new.estimate.problems_question'), seq: 1)
+      problems = self.sections.build(title: I18n.t('pages.proposals.new.estimate.problems_title'),
+                                     question: I18n.t('pages.proposals.new.estimate.problems_question'), seq: 1)
       problems.suggestion = I18n.t('pages.proposals.new.estimate.suggestion_html')
       problems.paragraphs.build(content: '', seq: 1)
       self.proposal_type = ProposalType.find_by_name(ProposalType::ESTIMATE)
@@ -142,11 +122,21 @@ module Concerns
 
     def estimate_create
       seq = 1
-      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.technical_constrains'), question: I18n.t('pages.proposals.new.estimate.question.paragraph.technical_constrains'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.temporal_constrains'), question: I18n.t('pages.proposals.new.estimate.question.paragraph.temporal_constrains'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.other_constrains'), question: I18n.t('pages.proposals.new.estimate.question.paragraph.other_constrains'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.budget'), question: I18n.t('pages.proposals.new.estimate.question.paragraph.budget'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.recipient_budget'), question: I18n.t('pages.proposals.new.estimate.question.paragraph.recipient_budget'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.technical_constrains'),
+                          question: I18n.t('pages.proposals.new.estimate.question.paragraph.technical_constrains'),
+                          seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.temporal_constrains'),
+                          question: I18n.t('pages.proposals.new.estimate.question.paragraph.temporal_constrains'),
+                          seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.other_constrains'),
+                          question: I18n.t('pages.proposals.new.estimate.question.paragraph.other_constrains'),
+                          seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.budget'),
+                          question: I18n.t('pages.proposals.new.estimate.question.paragraph.budget'),
+                          seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.estimate.paragraph.recipient_budget'),
+                          question: I18n.t('pages.proposals.new.estimate.question.paragraph.recipient_budget'),
+                          seq: seq+=1).paragraphs.build(content: '', seq: 1)
 
       solution = estimate_solution
       solution.seq = 1
@@ -154,7 +144,8 @@ module Concerns
     end
 
     def event_new
-      problems = self.sections.build(title: I18n.t('pages.proposals.new.event.problems_title'), question: I18n.t('pages.proposals.new.event.problems_question'), seq: 1)
+      problems = self.sections.build(title: I18n.t('pages.proposals.new.event.problems_title'),
+                                     question: I18n.t('pages.proposals.new.event.problems_question'), seq: 1)
       problems.suggestion = I18n.t('pages.proposals.new.event.suggestion_html')
       problems.paragraphs.build(content: '', seq: 1)
       self.proposal_type = ProposalType.find_by_name(ProposalType::EVENT)
@@ -164,9 +155,15 @@ module Concerns
 
     def event_create
       seq = 1
-      self.sections.build(title: I18n.t('pages.proposals.new.event.paragraph.similar_experiences'), question: I18n.t('pages.proposals.new.event.question.paragraph.similar_experiences'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-      self.sections.build(title: I18n.t('pages.proposals.new.event.paragraph.stakeholders'), question: I18n.t('pages.proposals.new.event.question.paragraph.stakeholders'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-      self.sections.build(title: I18n.t('pages.proposals.new.event.paragraph.desired_characteristics'), question: I18n.t('pages.proposals.new.event.question.paragraph.desired_characteristics'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.event.paragraph.similar_experiences'),
+                          question: I18n.t('pages.proposals.new.event.question.paragraph.similar_experiences'),
+                          seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.event.paragraph.stakeholders'),
+                          question: I18n.t('pages.proposals.new.event.question.paragraph.stakeholders'),
+                          seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.event.paragraph.desired_characteristics'),
+                          question: I18n.t('pages.proposals.new.event.question.paragraph.desired_characteristics'),
+                          seq: seq+=1).paragraphs.build(content: '', seq: 1)
 
       solution = event_solution
       solution.seq = 1
@@ -174,7 +171,8 @@ module Concerns
     end
 
     def press_new
-      problems = self.sections.build(title: I18n.t('pages.proposals.new.press.problems_title'), question: I18n.t('pages.proposals.new.press.problems_question'), seq: 1)
+      problems = self.sections.build(title: I18n.t('pages.proposals.new.press.problems_title'),
+                                     question: I18n.t('pages.proposals.new.press.problems_question'), seq: 1)
       problems.suggestion = I18n.t('pages.proposals.new.press.suggestion_html')
       problems.paragraphs.build(content: '', seq: 1)
       self.proposal_type = ProposalType.find_by_name(ProposalType::PRESS)
@@ -183,7 +181,9 @@ module Concerns
 
     def press_create
       seq = 1
-      self.sections.build(title: I18n.t('pages.proposals.new.press.paragraph.target'), question: I18n.t('pages.proposals.new.press.question.paragraph.target'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.press.paragraph.target'),
+                          question: I18n.t('pages.proposals.new.press.question.paragraph.target'),
+                          seq: seq+=1).paragraphs.build(content: '', seq: 1)
 
       solution = press_solution
       solution.seq = 1
@@ -192,7 +192,8 @@ module Concerns
 
 
     def rule_book_new
-      problems = self.sections.build(title: I18n.t('pages.proposals.new.rule_book.problems_title'), question: I18n.t('pages.proposals.new.rule_book.problems_question'), seq: 1)
+      problems = self.sections.build(title: I18n.t('pages.proposals.new.rule_book.problems_title'),
+                                     question: I18n.t('pages.proposals.new.rule_book.problems_question'), seq: 1)
       problems.suggestion = I18n.t('pages.proposals.new.rule_book.suggestion_html')
       problems.paragraphs.build(content: '', seq: 1)
 
@@ -202,15 +203,20 @@ module Concerns
 
     def rule_book_create
       seq = 1
-      self.sections.build(title: I18n.t('pages.proposals.new.rule_book.paragraph.inspire'), question: I18n.t('pages.proposals.new.rule_book.question.paragraph.inspire'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-      self.sections.build(title: I18n.t('pages.proposals.new.rule_book.paragraph.stakeholders'), question: I18n.t('pages.proposals.new.rule_book.question.paragraph.stakeholders'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-      self.sections.build(title: I18n.t('pages.proposals.new.rule_book.paragraph.requirements'), question: I18n.t('pages.proposals.new.rule_book.question.paragraph.requirements'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.rule_book.paragraph.inspire'),
+                          question: I18n.t('pages.proposals.new.rule_book.question.paragraph.inspire'),
+                          seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.rule_book.paragraph.stakeholders'),
+                          question: I18n.t('pages.proposals.new.rule_book.question.paragraph.stakeholders'),
+                          seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.rule_book.paragraph.requirements'),
+                          question: I18n.t('pages.proposals.new.rule_book.question.paragraph.requirements'),
+                          seq: seq+=1).paragraphs.build(content: '', seq: 1)
 
       solution = rule_book_solution
       solution.seq = 1
       self.solutions << solution
     end
-
 
     def poll_new
       @text = self.sections.build(title: 'Testo del sondaggio', seq: 1)
@@ -227,21 +233,25 @@ module Concerns
 
 
     def candidates_new
-      problems = self.sections.build(title: I18n.t('pages.proposals.new.candidates.paragraph.role'), question: I18n.t('pages.proposals.new.candidates.question.paragraph.role'), seq: 1)
+      problems = self.sections.build(title: I18n.t('pages.proposals.new.candidates.paragraph.role'),
+                                     question: I18n.t('pages.proposals.new.candidates.question.paragraph.role'), seq: 1)
       problems.suggestion = I18n.t('pages.proposals.new.candidates.suggestion_html')
       problems.paragraphs.build(content: '', seq: 1)
     end
 
     def candidates_create
       seq = 1
-      self.sections.build(title: I18n.t('pages.proposals.new.candidates.paragraph.requirements'), question: I18n.t('pages.proposals.new.candidates.question.paragraph.requirements'), seq: seq+1).paragraphs.build(content: '', seq: 1)
+      self.sections.build(title: I18n.t('pages.proposals.new.candidates.paragraph.requirements'),
+                          question: I18n.t('pages.proposals.new.candidates.question.paragraph.requirements'),
+                          seq: seq+1).paragraphs.build(content: '', seq: 1)
       solution = candidates_solution
       solution.seq = 1
       self.solutions << solution
     end
 
     def petition_new
-      problems = self.sections.build(title: I18n.t('pages.proposals.new.petition.paragraph.text'), question: I18n.t('pages.proposals.new.petition.question.paragraph.text'), seq: 1)
+      problems = self.sections.build(title: I18n.t('pages.proposals.new.petition.paragraph.text'),
+                                     question: I18n.t('pages.proposals.new.petition.question.paragraph.text'), seq: 1)
       problems.suggestion = I18n.t('pages.proposals.new.petition.suggestion_html')
       problems.paragraphs.build(content: '', seq: 1)
     end
@@ -250,13 +260,28 @@ module Concerns
 
     end
 
+    # create a solution for a standard proposal
+    def standard_solution
+      seq = 0
+      solution = Solution.new
+      %w(description time subject resources aspects documents pros cons).each do |section_name|
+        build_solution_section(solution,
+                               I18n.t("pages.proposals.new.standard.solution.#{section_name}"),
+                               I18n.t("pages.proposals.new.standard.question.solution.#{section_name}"),
+                               seq+=1)
+      end
+      solution
+    end
 
     def candidates_solution
       seq = 0
       solution = Solution.new
-      solution.sections.build(title: I18n.t('pages.proposals.new.candidates.solution.data'), question: I18n.t('pages.proposals.new.candidates.question.solution.data'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-      solution.sections.build(title: I18n.t('pages.proposals.new.candidates.solution.curriculum'), question: I18n.t('pages.proposals.new.candidates.question.solution.curriculum'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-
+      %w(data curriculum).each do |section_name|
+        build_solution_section(solution,
+                               I18n.t("pages.proposals.new.candidates.solution.#{section_name}"),
+                               I18n.t("pages.proposals.new.candidates.question.solution.#{section_name}"),
+                               seq+=1)
+      end
       solution
     end
 
@@ -265,108 +290,66 @@ module Concerns
       solution = Solution.new
       4.times do
         seq+=1
-        solution.sections.build(title: I18n.t('pages.proposals.new.rule_book.solution.article', num: seq), question: I18n.t('pages.proposals.new.rule_book.question.solution.article', num: seq), seq: seq).paragraphs.build(content: '', seq: 1)
+        build_solution_section(solution,
+                               I18n.t('pages.proposals.new.rule_book.solution.article', num: seq),
+                               I18n.t("pages.proposals.new.rule_book.question.solution.article", num: seq),
+                               seq)
       end
-      solution.sections.build(title: I18n.t('pages.proposals.new.rule_book.solution.pros'), question: I18n.t('pages.proposals.new.rule_book.question.solution.pros'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-      solution.sections.build(title: I18n.t('pages.proposals.new.rule_book.solution.cons'), question: I18n.t('pages.proposals.new.rule_book.question.solution.cons'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+
+      %w(pros cons).each do |section_name|
+        build_solution_section(solution,
+                               I18n.t("pages.proposals.new.rule_book.solution.#{section_name}"),
+                               I18n.t("pages.proposals.new.rule_book.question.solution.#{section_name}"),
+                               seq+=1)
+      end
       solution
     end
-
-
 
     def press_solution
       seq = 0
       solution = Solution.new
-      build_solution_section(solution,
-                             I18n.t('pages.proposals.new.press.solution.maintitle'),
-                             I18n.t('pages.proposals.new.press.question.solution.maintitle'),
-                             seq+=1)
-      build_solution_section(solution,
-                             I18n.t('pages.proposals.new.press.solution.subtitle'),
-                             I18n.t('pages.proposals.new.press.question.solution.subtitle'),
-                             seq+=1)
-      build_solution_section(solution,
-                             I18n.t('pages.proposals.new.press.solution.incipit'),
-                             I18n.t('pages.proposals.new.press.question.solution.incipit'),
-                             seq+=1)
-      build_solution_section(solution,
-                             I18n.t('pages.proposals.new.press.solution.body'),
-                             I18n.t('pages.proposals.new.press.question.solution.body'),
-                             seq+=1)
-      build_solution_section(solution,
-                             I18n.t('pages.proposals.new.press.solution.conclusion'),
-                             I18n.t('pages.proposals.new.press.question.solution.conclusion'),
-                             seq+=1)
-      build_solution_section(solution,
-                             I18n.t('pages.proposals.new.press.solution.deep'),
-                             I18n.t('pages.proposals.new.press.question.solution.deep'),
-                             seq+=1)
+      %w(maintitle subtitle incipit body conclusion deep).each do |section_name|
+        build_solution_section(solution,
+                               I18n.t("pages.proposals.new.press.solution.#{section_name}"),
+                               I18n.t("pages.proposals.new.press.question.solution.#{section_name}"),
+                               seq+=1)
+      end
       solution
     end
 
     def event_solution
       seq = 0
       solution = Solution.new
-      build_solution_section(solution,
-                             I18n.t('pages.proposals.new.event.solution.description'),
-                             I18n.t('pages.proposals.new.event.question.solution.description'),
-                             seq+=1)
-      build_solution_section(solution,
-                             I18n.t('pages.proposals.new.event.solution.program'),
-                             I18n.t('pages.proposals.new.event.question.solution.program'),
-                             seq+=1)
-      build_solution_section(solution,
-                             I18n.t('pages.proposals.new.event.solution.place'),
-                             I18n.t('pages.proposals.new.event.question.solution.place'),
-                             seq+=1)
-      build_solution_section(solution,
-                             I18n.t('pages.proposals.new.event.solution.organization'),
-                             I18n.t('pages.proposals.new.event.question.solution.organization'),
-                             seq+=1)
-      build_solution_section(solution,
-                             I18n.t('pages.proposals.new.event.solution.resources'),
-                             I18n.t('pages.proposals.new.event.question.solution.resources'),
-                             seq+=1)
+      %w(description program place organization resources).each do |section_name|
+        build_solution_section(solution,
+                               I18n.t("pages.proposals.new.event.solution.#{section_name}"),
+                               I18n.t("pages.proposals.new.event.question.solution.#{section_name}"),
+                               seq+=1)
+      end
       solution
     end
 
     def estimate_solution
       seq = 0
       solution = Solution.new
-      build_solution_section(solution,
-                             I18n.t('pages.proposals.new.estimate.solution.cost'),
-                             I18n.t('pages.proposals.new.estimate.question.solution.cost'),
-                             seq+=1)
-      build_solution_section(solution,
-                             I18n.t('pages.proposals.new.estimate.solution.problems'),
-                             I18n.t('pages.proposals.new.estimate.question.solution.problems'),
-                             seq+=1)
-      build_solution_section(solution,
-                             I18n.t('pages.proposals.new.estimate.solution.dumentation'),
-                             I18n.t('pages.proposals.new.estimate.question.solution.dumentation'),
-                             seq+=1)
+      %w(cost problems dumentation).each do |section_name|
+        build_solution_section(solution,
+                               I18n.t("pages.proposals.new.estimate.solution.#{section_name}"),
+                               I18n.t("pages.proposals.new.estimate.question.solution.#{section_name}"),
+                               seq+=1)
+      end
       solution
     end
 
     def agenda_solution
       seq = 0
       solution = Solution.new
-      build_solution_section(solution,
-                             I18n.t('pages.proposals.new.agenda.solution.description'),
-                             I18n.t('pages.proposals.new.agenda.question.solution.description'),
-                             seq+=1)
-      build_solution_section(solution,
-                             I18n.t('pages.proposals.new.agenda.solution.links'),
-                             I18n.t('pages.proposals.new.agenda.question.solution.links'),
-                             seq+=1)
-      build_solution_section(solution,
-                             I18n.t('pages.proposals.new.agenda.solution.priorities'),
-                             I18n.t('pages.proposals.new.agenda.question.solution.priorities'),
-                             seq+=1)
-      build_solution_section(solution,
-                             I18n.t('pages.proposals.new.agenda.solution.estimated_time'),
-                             I18n.t('pages.proposals.new.agenda.question.solution.estimated_time'),
-                             seq+=1)
+      %w(description links priorities estimated_time).each do |section_name|
+        build_solution_section(solution,
+                               I18n.t("pages.proposals.new.agenda.solution.#{section_name}"),
+                               I18n.t("pages.proposals.new.agenda.question.solution.#{section_name}"),
+                               seq+=1)
+      end
       solution
     end
   end
