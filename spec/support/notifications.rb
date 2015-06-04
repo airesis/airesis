@@ -1,13 +1,11 @@
 RSpec.configure do |config|
   config.before(:each, notifications: true) do
     AlertJob.any_instance.stub(:sidekiq_job) do |alert_job|
-      puts "overrode! looking for #{alert_job.jid}"
       AlertsWorker.jobs.select { |job| job['jid'] == alert_job.jid }[0]
     end
     AlertJob.any_instance.stub(:reschedule)
 
     EmailJob.any_instance.stub(:sidekiq_job) do |email_job|
-      puts "overrode! looking for #{email_job.jid}"
       EmailsWorker.jobs.select { |job| job['jid'] == email_job.jid }[0]
     end
     EmailJob.any_instance.stub(:reschedule)

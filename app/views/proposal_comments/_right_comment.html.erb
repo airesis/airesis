@@ -1,7 +1,7 @@
-<i class="fi-x close-right-section" data-close-section-id="<%=@section.id%>"></i>
-<h2><%= t('pages.proposals.show.contributes_list', section: @section.title) %></h2>
+<i class="fi-x close-right-section" data-close-section-id="<%=section.id%>"></i>
+<h2><%= t('pages.proposals.show.contributes_list', section: section.title) %></h2>
 
-<%= form_for [@proposal, ProposalComment.new(section_id: @section.id)], remote: true do |f| %>
+<%= form_for [@proposal, ProposalComment.new(section_id: section.id)], remote: true do |f| %>
     <div class="comment-form-comment">
       <%= f.text_area :content, class: 'blogNewCommentField', rows: 5, cols: 70 %>
       <%= f.hidden_field :section_id %>

@@ -32,7 +32,6 @@ class AlertJob < ActiveRecord::Base
   end
 
   def sidekiq_job
-    puts "requested original worker with jid #{jid}"
     @sidekiq_job ||= Sidekiq::ScheduledSet.new.find_job(jid)
   end
 

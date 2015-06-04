@@ -218,6 +218,7 @@ en:
         featured_post:
           'true': Unpin
           'false': Pin on top
+        permissions_title: "You and the group"
       header:
         settings: "SETTINGS"
         documents: "DOCUMENTS"

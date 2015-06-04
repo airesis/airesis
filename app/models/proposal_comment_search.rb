@@ -1,5 +1,7 @@
 class ProposalCommentSearch
 
+  attr_reader :section
+
   def initialize(params, proposal, current_user = nil)
     @proposal = proposal
     @all = params[:all]
@@ -22,8 +24,6 @@ class ProposalCommentSearch
   end
 
   def show_more?
-    puts "total: #{@total_pages}"
-    puts "current: #{@current_page}"
     @total_pages > @current_page
   end
 
