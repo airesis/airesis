@@ -523,7 +523,7 @@ en:
         voting_from_to: "From %{from} to %{to}"
         voting_until: "Until <br/>%{date}"
         votation_finished: "Ended<br/>%{time_ago}"
-        no_votation: "Rejected<br/> %{date}"
+        votation_finished_rejected: "Rejected<br/> %{date}"
         votation_finished_approved: "Approved<br/> %{date}"
         no_votation: "There has not been any vote"
         interest_borders: "Geographic boundaries"

@@ -56,26 +56,25 @@ module ProposalsHelper
   end
 
   def proposal_status(proposal)
-    if proposal.in_valutation?
-      t('pages.proposals.list.last_update', time_ago: time_in_words(proposal.updated_at))
-    elsif proposal.waiting_date?
-      t('pages.proposals.list.waiting_date')
-    elsif proposal.waiting?
-      t('pages.proposals.list.voting_from_to', from: (l proposal.vote_period.starttime), to: (l proposal.vote_period.endtime))
-    elsif proposal.voting?
-      t('pages.proposals.list.voting_until', date: (l proposal.vote_period.endtime, format: :two_rows))
-    elsif proposal.voted?
-      if proposal.is_schulze?
-        t('pages.proposals.list.votation_finished', time_ago: time_in_words(proposal.vote_period.endtime))
-      else
-        if proposal.rejected?
-          t('pages.proposals.list.votation_finished_rejected', time_ago: time_ago_in_words(proposal.vote_period.endtime), date: (l proposal.vote_period.endtime, format: :two_rows))
+    case proposal.proposal_state_id
+      when ProposalState::WAIT_DATE
+        t('pages.proposals.list.waiting_date')
+      when ProposalState::WAIT
+        t('pages.proposals.list.voting_from_to', from: (l proposal.vote_period.starttime), to: (l proposal.vote_period.endtime))
+      when ProposalState::VOTING
+        t('pages.proposals.list.voting_until', date: (l proposal.vote_period.endtime, format: :two_rows))
+      when ProposalState::ACCEPTED, ProposalState::REJECTED
+        if proposal.is_schulze?
+          t('pages.proposals.list.votation_finished', time_ago: time_in_words(proposal.vote_period.endtime))
         else
-          t('pages.proposals.list.votation_finished_approved', date: (l proposal.vote_period.endtime, format: :two_rows))
+          if proposal.rejected?
+            t('pages.proposals.list.votation_finished_rejected', time_ago: time_ago_in_words(proposal.vote_period.endtime), date: (l proposal.vote_period.endtime, format: :two_rows))
+          else
+            t('pages.proposals.list.votation_finished_approved', date: (l proposal.vote_period.endtime, format: :two_rows))
+          end
         end
-      end
-    elsif proposal.abandoned?
-      t('pages.proposals.list.last_update', time_ago: time_in_words(proposal.updated_at))
+      else # abandoned or valutation
+        t('pages.proposals.list.last_update', time_ago: time_in_words(proposal.updated_at))
     end
   end
 
