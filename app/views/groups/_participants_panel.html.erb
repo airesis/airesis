@@ -6,7 +6,7 @@
 <% end %>
 
 <% if @admins.size > 5 %>
-    <%= link_to group_group_participations_url(@group, 'search_participant[role_id]' => ParticipationRole::ADMINISTRATOR), class: "btn disable" do %>
+    <%= link_to group_group_participations_url(@group, 'search_participant[role_id]' => ParticipationRole.admin.id), class: "btn disable" do %>
         <i class="fa fa-user"></i>
         <%= t('pages.groups.show.show_all_admins', count: @admins.size) %>
     <% end %>

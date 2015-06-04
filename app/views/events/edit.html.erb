@@ -1,5 +1,15 @@
+<% @extend=true %>
 <script type="text/javascript"
         src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false">
 </script>
+<div class="card">
+  <%= render 'edit_form' %>
+</div>
 
-<%= render 'edit_form'  %>
+<% content_for :left_panel do %>
+    <div class="mybox">
+      <%= link_to (@group ? group_event_path(@group, @event) : event_path(@event)), class: 'btn', data: {disable_with: t('loading')} do %>
+          <%= t('buttons.go_back') %>
+      <% end%>
+    </div>
+<%end%>

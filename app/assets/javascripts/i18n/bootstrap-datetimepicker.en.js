@@ -9,7 +9,9 @@
         meridiem: ["am", "pm"],
         suffix: ["st", "nd", "rd", "th"],
         today: "Today",
-        autoclose: true
+        autoclose: true,
+        format: "dd/mm/yyyy hh:ii",
+        formatDate: "dd/mm/yyyy"
     };
 
     $.fn.fdatetimepicker.defaults = $.fn.fdatetimepicker.dates['en'];

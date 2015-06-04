@@ -3,18 +3,8 @@ container_.html("<%=j render(partial: @proposal.is_schulze? ? 'schulze_vote_resu
 $('body').append(container_);
 airesis_reveal(container_, false);
 
-
-
-
-
-
-showVoteResults();
-
 $('.results-button').click(function (e) {
     container_.foundation().foundation('reveal', 'open');
     e.preventDefault();
     return false;
 });
-
-
-

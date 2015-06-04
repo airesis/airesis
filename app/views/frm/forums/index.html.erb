@@ -2,9 +2,9 @@
 <%@extend=true%>
 <div id='forums_container'>
   <h1 id='forums_title'><%= t('.title') %></h1>
-
   <%= render @categories %>
 </div>
+
 <% if is_group_admin? @group %>
     <% content_for :left_panel do %>
         <div class="mybox">

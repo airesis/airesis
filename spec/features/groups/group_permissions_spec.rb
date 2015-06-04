@@ -45,11 +45,19 @@ describe "check permissions are actually working inside groups", type: :feature 
     expect(@group.scoped_participants(GroupAction::PROPOSAL_VOTE).count).to eq all
     expect(@group.scoped_participants(GroupAction::PROPOSAL_DATE).count).to eq all
 
-
-
     doc_manager = create(:participation_role, group: @group)
     doc_manager.action_abilitations.create(group_action_id: GroupAction::DOCUMENTS_MANAGE, group_id: @group.id)
+  end
 
+  it 'you can see your permissions in the group', js: true do
+    user = create(:user)
+    create_participation(user, @group)
+    login_as user, scope: :user
 
+    visit group_path(@group)
+    within_left_menu do
+      click_link I18n.t('pages.groups.show.list_permissions.button')
+    end
+    expect(page).to have_content I18n.t('pages.users.show.what_can_i_do')
   end
 end

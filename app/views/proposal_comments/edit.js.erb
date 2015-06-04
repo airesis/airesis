@@ -6,7 +6,7 @@ $('.proposalComment[data-id=<%=@proposal_comment.id%>] .baloon-content').fadeOut
         edit_panel.find('.edit_comment').textntags({
             triggers: {'@': {uniqueTags: false}},
             onDataRequest: function (mode, query, triggerChar, callback) {
-                var data = nicknames;
+                var data = ProposalsShow.nicknames;
 
                 query = query.toLowerCase();
                 var found = _.filter(data, function (item) {

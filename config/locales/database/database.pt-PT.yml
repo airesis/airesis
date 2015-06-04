@@ -121,7 +121,7 @@ pt-PT:
         email_subject: '%{proposal} - contribuição regressa a debate'
         message: 'Uma contribuição que integrou na proposta <b>%{proposal}</b> foi posta em debate novamente'
       new_contributes:
-        description: Novas contribuições e comentários nas propostas em que participo
+        description: Novas contribuições nas propostas em que participo
         email_subject: '%{title} - novo contributo'
         message: '<b>%{name}</b> foi adicionada uma nova contribuição na proposta <b>%{title}</b>'
       text_update:

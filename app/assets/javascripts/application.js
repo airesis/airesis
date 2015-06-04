@@ -4,14 +4,16 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
+//= require airesis
+//= require searcher
 //= require jquery
 //= require jquery.plugin
 //= require jquery-ui
 //= require jquery.sliderAccess
-//= require timepicker
 //= require jquery_ujs
 //= require jquery.tokeninput
 //= require democracy
+//= require moment.min
 //= require fullcalendar
 //= require gcal
 //= require events
@@ -52,5 +54,11 @@
 //= require init
 //= require rails.validations
 //= require rails.validations.simple_form
-ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible :input:enabled[data-validate]';
-$(function(){ $(document).foundation(); });
+//= require facebook
+//= require google_analytics
+//= require twitter
+//= require URI
+//= require jquery.URI
+//= require_tree ./per_page
+//= require mustache
+

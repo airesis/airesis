@@ -1,6 +1,5 @@
-#encoding: utf-8
 class ResqueMailer < ActionMailer::Base
-  helper ProposalsHelper, EmailHelper, GroupsHelper
+  helper ProposalsHelper, EmailHelper, GroupsHelper, UsersHelper
   default from: ENV['DEFAULT_FROM']
 
   layout 'newsletters/default'
@@ -37,7 +36,7 @@ class ResqueMailer < ActionMailer::Base
     @user = @alert.user
     return if @alert.checked # do not send emails for already checked alerts
     I18n.locale = @user.locale.key || 'en'
-    @data = @alert.notification.data
+    @data = @alert.data
     to_id = @data[:to_id]
     subject_id = @data[:subject]
     subject = @alert.email_subject

@@ -4,7 +4,7 @@ require 'requests_helper'
 describe "view proposal revisions", type: :feature, js: true do
 
   let!(:user) { create(:user) }
-  let!(:proposal) { create(:proposal, quorum: BestQuorum.public.first, current_user_id: user.id) }
+  let!(:proposal) { create(:proposal, current_user_id: user.id) }
 
   before :each do
     login_as user, scope: :user

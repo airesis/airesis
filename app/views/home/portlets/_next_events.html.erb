@@ -1,6 +1,6 @@
-<div class="title">
-  <%= t('pages.home.index.next_events') %>
-  <%= link_to t('pages.home.index.show_events'), events_path, class: 'btn' %>
+<div class="title clearfix">
+  <span class="left"><%= t('pages.home.index.next_events') %></span>
+  <%= link_to t('pages.home.index.show_events'), events_path, class: 'btn right' %>
 </div>
 <div class="scrollable">
   <% unless @events.empty? %>

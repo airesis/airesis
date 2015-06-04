@@ -106,10 +106,10 @@
         <% @myparticipation = @group.group_participations.where(user_id: current_user.id).first if current_user %>
         <% if @myparticipation %>
             <div class="mybox">
-              <h4><%= 'You and the group' %></h4>
+              <h4><%= t('pages.groups.show.permissions_title') %></h4>
 
               <div id="permissions_list_container" title="<%= t('pages.groups.show.list_permissions.title') %>"></div>
-              <%= link_to permissions_list_group_path(@group), remote: true, data: {disable_with: t('loading')}, class: 'btn' do %>
+              <%= link_to permissions_list_group_path(@group), data: {remote: true, disable_with: t('loading')}, class: 'btn' do %>
                   <i class="fa fa-info-circle"></i>
                   <%= t('pages.groups.show.list_permissions.button') %>
               <% end %>

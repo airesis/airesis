@@ -13,7 +13,7 @@ class ProposalRanking < ActiveRecord::Base
   after_save :check_proposal_state
   after_destroy :update_counter_cache
 
-  after_commit :send_notification, on: :create
+  after_commit :send_notifications, on: :create
 
   protected
 

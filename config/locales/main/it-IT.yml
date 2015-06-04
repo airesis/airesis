@@ -772,7 +772,7 @@ it-IT:
         debate_end: termine del dibattito
     home:
       index:
-        whatis: "COS'E' AIRESIS"
+        whatis: "COS'E'"
         partecipate: PARTECIPA AL PROGETTO
         videos: VIDEO GUIDE
         whowe: CHI SIAMO
@@ -1196,6 +1196,8 @@ it-IT:
     left_panel:
       promote_proposal: "Promuovi proposta"
       share_with_friends: "Condividi con gli amici"
+    show_proposal:
+      vote_here: "Questa proposta è in votazione. Leggi le soluzioni proposte e %{link}."
   digit_tags: Digita i tag che vuoi inserire
   buttons:
     cancel: Annulla
@@ -1222,6 +1224,7 @@ it-IT:
     preview: Anteprima
     new_newletter: Nuova newsletter
     unlock: "Sblocca"
+    vote_here: "vota qui"
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di maturità.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     random_stack_2: '<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente.'
@@ -1478,7 +1481,9 @@ it-IT:
       title: '%{user} ha inserito un nuovo %{comment} alla proposta'
       view_proposal: '%{click_here} per visualizzare la proposta.'
     text_update:
-      view_proposal: 'La proposta <b>%{proposal}</b> è stata aggiornata!'
+      view_proposal:
+        one: 'La proposta <b>%{proposal}</b> è stata aggiornata.'
+        other: 'La proposta <b>%{proposal}</b> è stata aggiornata %{count} volte.'
       integrated_contributes: 'Complimenti! I seguenti contributi che avevi inserito sono stati integrati dal redattore:'
       view_proposal_2: '%{click_here} e verifica che il nuovo testo contenga i tuoi suggerimenti.<br/>Se non sei soddisfatto potrai sempre rimettere i tuoi contributi in dibattito estraendoli dalla History.'
       connect: 'Collegati a %{name}'

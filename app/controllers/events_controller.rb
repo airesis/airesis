@@ -21,7 +21,7 @@ class EventsController < ApplicationController
         render text: calendar.to_ical
       end
       format.json do
-        @events = @events.time_scoped(Time.at(params['start'].to_i), Time.at(params['end'].to_i))
+        @events = @events.time_scoped(Time.parse(params['start']), Time.parse(params['end']))
         events = []
         @events.each do |event|
           event_obj = event.to_fc
@@ -76,7 +76,7 @@ class EventsController < ApplicationController
       @title += "- #{t('pages.events.new.title_meeting')}"
     end
 
-    @starttime = params[:starttime] ? Time.at(params[:starttime].to_i / 1000) : Time.now + 10.minutes
+    @starttime = calculate_starttime
     @endtime = @starttime + 1.days
 
     @event = Event.new(starttime: @starttime, endtime: @endtime, period: "Non ripetere", event_type_id: params[:event_type_id])
@@ -130,11 +130,12 @@ class EventsController < ApplicationController
 
   def move
     @event.move(params[:minute_delta].to_i, params[:day_delta].to_i, params[:all_day])
+    render nothing: true
   end
-
 
   def resize
     @event.resize(params[:minute_delta].to_i, params[:day_delta].to_i)
+    render nothing: true
   end
 
   def edit
@@ -175,6 +176,17 @@ class EventsController < ApplicationController
   end
 
   protected
+
+  def calculate_starttime
+    if params[:starttime]
+      ret = Time.at(params[:starttime].to_i / 1000)
+      puts (params[:has_time] == 'true')
+      ret = ret.change(hour: Time.now.hour, min: Time.now.min) unless (params[:has_time] == 'true')
+      ret
+    else
+      10.minutes.from_now
+    end
+  end
 
   def event_params
     params[:event].delete(:meeting_attributes) if params[:event][:event_type_id] == EventType::VOTAZIONE.to_s

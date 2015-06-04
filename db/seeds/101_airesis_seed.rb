@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Salorno", provincia_id: 102, regione_id: 5, stato_id: 1, continente_id: 1 )
 Comune.create(description: "San Candido", provincia_id: 102, regione_id: 5, stato_id: 1, continente_id: 1 )
 Comune.create(description: "Aldino", provincia_id: 102, regione_id: 5, stato_id: 1, continente_id: 1 )

@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   around_filter :user_time_zone, if: :current_user
 
-
   before_filter :load_tutorial
 
   skip_before_filter :verify_authenticity_token, if: Proc.new { |c| c.request.format == 'application/json' }
@@ -76,7 +75,6 @@ class ApplicationController < ActionController::Base
     super
   end
 
-
   def load_group
     if params[:group_id].to_s != ''
       @group = Group.friendly.find(params[:group_id])
@@ -85,7 +83,6 @@ class ApplicationController < ActionController::Base
     end
     @group
   end
-
 
   def load_blog_data
     return unless @blog
@@ -129,7 +126,6 @@ class ApplicationController < ActionController::Base
     {l: I18n.locale}
   end
 
-
   def log_error(exception)
     if ENV['SENTRY_PRIVATE_KEY'] && !Rails.env.test? && !Rails.env.development?
       extra = {}
@@ -147,7 +143,6 @@ class ApplicationController < ActionController::Base
       Rails.logger.error exception.backtrace.join("\n")
     end
   end
-
 
   def render_error(exception)
     log_error(exception)
@@ -222,7 +217,6 @@ class ApplicationController < ActionController::Base
     a
   end
 
-
   def link_to_auth (text, link)
     "<a>login</a>"
   end
@@ -230,7 +224,6 @@ class ApplicationController < ActionController::Base
   def title(ttl)
     @page_title = ttl
   end
-
 
   def admin_required
     is_admin? || admin_denied
@@ -310,7 +303,6 @@ class ApplicationController < ActionController::Base
       (params[:action] == 'feedback')
   end
 
-
   def post_contribute
     ProposalComment.transaction do
       @proposal_comment.user_id = current_user.id
@@ -375,8 +367,6 @@ class ApplicationController < ActionController::Base
               flash[:info] = t('info.proposal.available_authors')
             end
             @unread.check_all
-            @not_count = ProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id)
-            @not_count.update_attribute(:count, 0) if @not_count #just to be sure. if everything is correct this would not be required but what if not?...just leave it here
           else
         end
       when 'blog_posts'
@@ -405,9 +395,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :forem_admin_or_moderator?
 
-
   def redirect_url(proposal)
     proposal.private? ? group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal)
   end
-
 end

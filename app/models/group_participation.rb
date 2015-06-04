@@ -11,7 +11,7 @@ class GroupParticipation < ActiveRecord::Base
 
 
   def as_admin?
-    self.participation_role_id == ParticipationRole::ADMINISTRATOR
+    self == ParticipationRole.admin
   end
 
   protected

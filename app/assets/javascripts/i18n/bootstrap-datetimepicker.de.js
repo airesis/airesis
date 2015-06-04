@@ -3,7 +3,7 @@
  * Sam Zurcher <sam@orelias.ch>
  */
 ;(function($){
-	$.fn.datetimepicker.dates['de'] = {
+	$.fn.fdatetimepicker.dates['de'] = {
 		days: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"],
 		daysShort: ["Son", "Mon", "Die", "Mit", "Don", "Fre", "Sam", "Son"],
 		daysMin: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
@@ -13,6 +13,8 @@
 		suffix: [],
 		meridiem: [],
 		weekStart: 1,
-		format: "dd.mm.yyyy"
+		format: "dd.mm.yyyy hh:ii",
+        dateFormat: 'dd.mm.yy'
 	};
+    $.fn.fdatetimepicker.defaults = $.fn.fdatetimepicker.dates['de'];
 }(jQuery));

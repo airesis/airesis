@@ -119,7 +119,7 @@ pt-BR:
         email_subject: "%{proposal} - contribuição retornada em debate"
         message: "Uma sua contribuição na proposta <b>%{proposal}</b> voltou ao debate"
       new_contributes:
-        description: Novas contribuições e comentários nas propostas que participo
+        description: Novas contribuições nas propostas que participo
         email_subject: "%{title} - Nova contribuição"
         message: "<b>%{name}</b> adicionou uma nova contribuição na proposta <b>%{title}</b>"
       text_update:

@@ -1,4 +1,3 @@
-#encoding: utf-8
 class GroupsController < ApplicationController
 
   layout :choose_layout
@@ -410,7 +409,7 @@ class GroupsController < ApplicationController
 
   # retrieve the list of permission for the current user in the group
   def permissions_list
-    @actions = @group.group_participations.find_by_user_id(current_user.id).participation_role.group_actions
+    @actions = @group.group_participations.find_by(user_id: current_user.id).participation_role.group_actions
   end
 
   protected

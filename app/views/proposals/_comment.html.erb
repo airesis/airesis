@@ -48,7 +48,7 @@
 
             <div class="reply_area">
               <%= f.hidden_field :parent_proposal_comment_id, value: comment.id %>
-              <%= f.text_area :content, class: 'reply_textarea', data: {id: comment.id}, id: "#{comment.id}_reply_text_area", placeholder: t('pages.proposals.show.reply_placeholder') %>
+              <%= f.text_area :content, class: 'reply_textarea', data: {id: comment.id, textntags: ''}, id: "#{comment.id}_reply_text_area", placeholder: t('pages.proposals.show.reply_placeholder') %>
             </div>
             <div class="reply_button">
               <%= f.submit t('pages.proposals.show.reply_button'), class: 'btn disable', data: {disable_with: t('sending')} %>

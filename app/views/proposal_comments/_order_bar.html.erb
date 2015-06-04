@@ -7,30 +7,30 @@
      <% if !pv || (pv == 1) %>
         <%= t('pages.proposals.show.random_stack') %>
     <% else %>
-        <%= link_to t('pages.proposals.show.random_stack'), list_proposal_proposal_comments_url(@proposal, view: 1, reset: true), remote: true, onclick: "hideContributes(1);", id: 'random_stack_l' %>
+        <%= link_to t('pages.proposals.show.random_stack'), list_proposal_proposal_comments_url(@proposal, view: 1, reset: true), remote: true, onclick: "hideContributes(1);", id: 'random_stack_l', data: {hide_contributes: 1} %>
     <% end %></span> |
     <% end %>
     <span id="random_stack_2">
       <% if pv == 2 %>
 	    <%= t('pages.proposals.show.most_recent') %>
       <% else %>
-	    <%= link_to t('pages.proposals.show.most_recent'), list_proposal_proposal_comments_url(@proposal, view: 2, reset: true), remote: true, onclick: "hideContributes(2);" %>
+	    <%= link_to t('pages.proposals.show.most_recent'), list_proposal_proposal_comments_url(@proposal, view: 2, reset: true), remote: true, onclick: "hideContributes(2);", data: {hide_contributes: 2} %>
       <% end %>
     </span> |
     <span id="random_stack_3">
       <% if pv == 3 || (!current_user && !pv) %>
 	    <%= t('pages.proposals.show.most_ranked') %>
       <% else %>
-	    <%= link_to t('pages.proposals.show.most_ranked'), list_proposal_proposal_comments_url(@proposal, view: 3, reset: true), remote: true, onclick: "hideContributes(3);" %>
+	    <%= link_to t('pages.proposals.show.most_ranked'), list_proposal_proposal_comments_url(@proposal, view: 3, reset: true), remote: true, onclick: "hideContributes(3);", data: {hide_contributes: 3} %>
     <% end %>
     </span>
 
 
     <script type="text/javascript">
         function hideContributes(view) {
-            checkActive = false;
-            currentPage = 1;
-            currentView = view;
+            ProposalsShow.checkActive = false;
+            ProposalsShow.currentPage = 1;
+            ProposalsShow.currentView = view;
             $('#loading_contributes').show();
             $('#proposalCommentsContainer').html("");
         }

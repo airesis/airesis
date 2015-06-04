@@ -28,9 +28,15 @@ gem 'capistrano-rails', '~> 1.1'
 gem 'rvm1-capistrano3', require: false
 gem 'premailer-rails'
 
+gem 'uri-js-rails'
+
+gem 'mustache'
+gem 'mustache-js-rails'
+
 group :development do
   gem 'sunspot_solr'
   gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'quiet_assets'
   gem 'capistrano-sidekiq'
   gem 'capistrano-passenger'

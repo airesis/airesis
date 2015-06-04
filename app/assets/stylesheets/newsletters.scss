@@ -992,3 +992,71 @@ table.columns .right-text-pad {
     padding-right: 10px !important;
   }
 }
+
+// proposal revisions
+
+.clearboth {
+  clear: both;
+}
+
+.solution_main {
+  .proposal_main {
+    margin-bottom: 0;
+  }
+}
+
+.ice .cts-1 {
+  color: green;
+}
+
+.ice .ins {
+  text-decoration: underline;
+}
+
+.del {
+  text-decoration: line-through;
+}
+
+.ice-ins {
+  background-color: #e5ffcd !important;
+}
+
+.ice-del {
+  background-color: #fad1e1 !important;
+  img.cke_iframe {
+    background-color: #fad1e1 !important;
+  }
+}
+
+.user-tag {
+  margin-bottom: 5px;
+  .user-avatar {
+    margin-right: 5px;
+    display: inline-block;
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  .user-name {
+    width: 130px;
+    display: inline-block;
+    line-height: 24px;
+  }
+}
+
+.card {
+  background: #fff;
+  box-shadow: 1px 1px 0 0 #ccc;
+  padding: 1rem;
+  border: 1px solid #d8d8d8;
+  margin-bottom: 0.8em;
+  position: relative;
+  legend {
+    background-color: transparent;
+  }
+  .card-title {
+    font-size: 1.6rem;
+    padding-bottom: 10px;
+  }
+}

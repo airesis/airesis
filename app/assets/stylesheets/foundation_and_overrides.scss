@@ -1391,6 +1391,11 @@ ul, ol {
   .topmenu {
     position: absolute;
     margin-left: 40px;
+    .topmenu-text {
+      display: inline;
+      overflow: hidden;
+      white-space: nowrap;
+    }
   }
 
   @media #{$medium-up} {
@@ -2862,6 +2867,10 @@ input[type=file] {
 }
 
 //overrides
+.proposal-alert-box {
+  @extend .alert-box;
+}
+
 .introjs-button {
   @extend .btn;
 }
@@ -2897,4 +2906,10 @@ ul.social-network {
 
 h1 .label {
   font-size: $h1-font-size;
+}
+
+.calendar_container .fc-button {
+  @extend .btn;
+  border-radius: 0;
+  height: auto;
 }

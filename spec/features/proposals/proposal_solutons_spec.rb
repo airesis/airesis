@@ -7,7 +7,7 @@ describe 'create proposal solutions', type: :feature, js: true do
   it 'creates solutions in his public proposal' do
     @user = create(:user)
     @ability = Ability.new(@user)
-    @public_proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: @user.id)
+    @public_proposal = create(:public_proposal, current_user_id: @user.id)
 
     login_as @user, scope: :user
 

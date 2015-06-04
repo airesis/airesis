@@ -4,7 +4,7 @@
   <title><%= (@page_title || t('open_space')) + ' - ' + ENV['APP_SHORT_NAME'] %></title>
   <%= render partial: "layouts/head" %>
 </head>
-<body>
+<body data-page="<%= body_page_name %>">
 
 <%= render partial: "layouts/header" %>
 <div id="menu-top">
@@ -34,16 +34,16 @@
       <div id="main-copy">
         <% if @noleft %>
             <div id="centerpanelextended" class="centerpanelextended <%= 'noleft' unless content_for?(:left_panel) %> <%= 'nomargin' if @nomargin %>">
-            <div class="row">
-              <div class="columns large-12">
-                <%= yield :left_panel %>
-                <div id="flash_messages">
-                  <%= render partial: 'layouts/flash', locals: {flash: flash} %>
+              <div class="row">
+                <div class="columns large-12">
+                  <%= yield :left_panel %>
+                  <div id="flash_messages">
+                    <%= render partial: 'layouts/flash', locals: {flash: flash} %>
+                  </div>
+                  <%= render partial: 'layouts/tutorials' %>
+                  <%= yield :layout %>
                 </div>
-                <%= render partial: 'layouts/tutorials' %>
-                <%= yield :layout %>
               </div>
-            </div>
             </div>
         <% else %>
             <% if content_for?(:left_panel) %>

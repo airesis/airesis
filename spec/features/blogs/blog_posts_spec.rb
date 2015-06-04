@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'requests_helper'
 
-describe "the blog posts process", type: :feature, js: true do
+describe "the blog posts process", type: :feature, js: true, ci_ignore: true do
 
   let!(:user) { create(:user) }
   let!(:blog) { create(:blog, user: user) }

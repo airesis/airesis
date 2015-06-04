@@ -7,7 +7,7 @@ describe 'create proposal comments', type: :feature, js: true do
     @luser = create(:user)
     @user = create(:user)
     @ability = Ability.new(@user)
-    @public_proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: @user.id)
+    @public_proposal = create(:public_proposal, current_user_id: @user.id)
 
     visit proposal_path(@public_proposal)
     page_should_be_ok
@@ -32,7 +32,7 @@ describe 'create proposal comments', type: :feature, js: true do
   it 'creates comments in his public proposal' do
     @user = create(:user)
     @ability = Ability.new(@user)
-    @public_proposal = create(:public_proposal, quorum: BestQuorum.public.first, current_user_id: @user.id)
+    @public_proposal = create(:public_proposal, current_user_id: @user.id)
 
     login_as @user, scope: :user
 
@@ -84,7 +84,7 @@ describe 'create proposal comments', type: :feature, js: true do
     @user = create(:user)
     @ability = Ability.new(@user)
     @group = create(:group, current_user_id: @user.id)
-    @proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: @group)])
+    @proposal = create(:group_proposal, current_user_id: @user.id, group_proposals: [GroupProposal.new(group: @group)])
 
     login_as @user, scope: :user
 
@@ -139,7 +139,7 @@ describe 'create proposal comments', type: :feature, js: true do
 
     @user2 = create(:user)
     @group = create(:group, current_user_id: @user2.id)
-    @proposal = create(:group_proposal, quorum: BestQuorum.public.first, current_user_id: @user2.id, group_proposals: [GroupProposal.new(group: @group)])
+    @proposal = create(:group_proposal, current_user_id: @user2.id, group_proposals: [GroupProposal.new(group: @group)])
 
     create_participation(@user,@group)
 

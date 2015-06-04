@@ -103,7 +103,6 @@ class UsersController < ApplicationController
     @proposals_count = @user.proposals.count
   end
 
-
   def change_show_tooltips
     current_user.show_tooltips = params[:active]
     current_user.save!
@@ -315,7 +314,7 @@ class UsersController < ApplicationController
       found = InterestBorder.table_element(border)
 
       if found #if I found something so the ID is correct and I can proceed with geographic border creation
-        interest_b = InterestBorder.find_or_create_by({territory_type: InterestBorder::I_TYPE_MAP[ftype], territory_id: fid})
+        interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype], territory_id: fid)
         i = current_user.user_borders.build({interest_border_id: interest_b.id})
         i.save
       end

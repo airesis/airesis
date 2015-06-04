@@ -11,7 +11,7 @@ describe 'the management of the blog posts', type: :feature, js: true do
       fill_in 'blog_comment_body', with: comment
       click_button I18n.t('pages.blog_comments.new.insert_comment')
     end
-    return comment
+    comment
   end
 
   before :each do

@@ -69,8 +69,41 @@ $border-color: #e2e2e2;
   }
 }
 
+
+.post-container {
+  border-bottom: 1px solid $border-color;
+  .non_user_post {
+    border-left: 1px solid $border-color;
+    background-color: #f9f9f9;
+    .post-header {
+      .columns {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid $border-color;
+        background-color: white;
+        .post-when {
+          float: left;
+        }
+
+        .btn-group {
+          float: right;
+          a {
+            margin: 0 5px;
+            text-decoration: underline;
+            color: $link-color;
+          }
+        }
+      }
+    }
+  }
+  .user_post {
+    padding-top: 1rem;
+  }
+}
+
 .forums, .topics, .posts {
   border: 1px solid $border-color;
+  background-color: white;
   border-collapse: collapse;
   width: 100%;
 
@@ -107,37 +140,30 @@ $border-color: #e2e2e2;
     width: 40%;
   }
 
-  tbody {
-    tr {
-      td {
-        border: 1px solid $border-color;
-        font-size: 0.9em;
-        padding: 0.5em;
+  .row {
+    .columns {
+      &.topics-count {
 
-        &.topics-count {
-
-        }
-
-        &.forum-description, &.last-post, &.byline {
-          padding-left: 20px;
-        }
-        .description p {
-          margin: 0px;
-        }
-        &.user_post {
-          width: 120px;
-          vertical-align: super;
-        }
-        .user {
-          .username {
-            font-weight: bold;
-          }
-        }
-        &.post_content {
-          vertical-align: top;
-        }
       }
 
+      &.forum-description, &.last-post, &.byline {
+        padding-left: 20px;
+      }
+      .description p {
+        margin: 0px;
+      }
+      &.user_post {
+        vertical-align: super;
+      }
+      .user {
+        .username {
+          font-weight: bold;
+        }
+      }
+      &.post_content {
+        vertical-align: top;
+
+      }
     }
   }
 
@@ -164,21 +190,7 @@ $border-color: #e2e2e2;
   }
 }
 
-.post-header {
 
-  .post-when {
-    float: left;
-  }
-
-  .btn-group {
-    float: right;
-    a {
-      margin: 0 5px;
-      text-decoration: underline;
-      color: $link-color;
-    }
-  }
-}
 
 .new_post textarea {
   width: 50%;

@@ -1,4 +1,3 @@
-#encoding: utf-8
 a2 = Continente.create(description: "America")
   a2.translations.where(locale: "it-IT").first_or_create.update_attributes(description: "America")
   a2.translations.where(locale: "en").first_or_create.update_attributes(description: "America")

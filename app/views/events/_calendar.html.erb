@@ -1,6 +1,4 @@
-<script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false">
-</script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false"></script>
 
 <% if @group ? (can? :create_event, @group) : is_admin? %>
     <style type="text/css">
@@ -17,7 +15,6 @@
         }
     </style>
 <% end %>
-
 
 <div class="calendar_container card">
   <div id='calendar'>
@@ -47,7 +44,6 @@
 </div>
 
 <%= content_for :left_panel do %>
-
     <% if @group %>
         <div class="mybox">
           <% if can? :create_any_event, @group %>
@@ -122,11 +118,16 @@
             disableDragging: true,
             disableResizing: true,
             <%end%>
-
             header: {
                 left: 'today prev,next',
                 center: 'title',
-                right: 'agendaList,month,agendaWeek,agendaDay'
+                right: 'list,month,agendaWeek,agendaDay'
+            },
+            eventLimit: true, // for all non-agenda views
+            views: {
+                month: {
+                    eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
+                }
             },
             defaultView: 'month',
             slotMinutes: 15,
@@ -136,8 +137,6 @@
             dayNames: <%=raw t('calendar.dayNames')%>,
             dayNamesShort: <%=raw t('calendar.dayNamesShort')%>,
             buttonText: {
-                prev: "<span class='fc-text-arrow'>&lsaquo;</span>",
-                next: "<span class='fc-text-arrow'>&rsaquo;</span>",
                 prevYear: "<span class='fc-text-arrow'>&laquo;</span>",
                 nextYear: "<span class='fc-text-arrow'>&raquo;</span>",
                 today: '<%=t('calendar.today')%>',
@@ -146,29 +145,19 @@
                 day: '<%=t('calendar.day')%>'
             },
             events: '<%=@group ? group_events_url(@group) : events_url%>',
-            timeFormat: {
-                month: '<%=t('calendar.timeFormat')%>',
-                week: '',
-                agenda: ''
-            },
             columnFormat: {
                 month: 'ddd',
                 week: 'ddd M/d',
                 day: 'dddd M/d'
             },
-            titleFormat: {                                          //TODO:I18n
-                month: 'MMMM yyyy',
-                week: "MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}",
-                day: 'dddd, MMM d, yyyy'
-            },
             axisFormat: 'H:mm',
             dragOpacity: "0.5",
-            eventDrop: function (event, dayDelta, minuteDelta, allDay, revertFunc) {
-                moveEvent(event, dayDelta, minuteDelta, allDay);
+            eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
+                moveEvent(event, delta, revertFunc, jsEvent, ui, view);
             },
 
-            eventResize: function (event, dayDelta, minuteDelta, revertFunc) {
-                resizeEvent(event, dayDelta, minuteDelta);
+            eventResize: function (event, delta, revertFunc, jsEvent, ui, view) {
+                resizeEvent(event, delta, revertFunc, jsEvent, ui, view);
             },
 
             eventClick: function (event, jsEvent, view) {
@@ -180,11 +169,16 @@
                     element.css('cursor', 'pointer');
                 }
             },
-            dayClick: function (date, allDay, jsEvent, view) {
+            dayClick: function (date, jsEvent, view) {
+                console.log(date);
                 <%if (@group ? (can? :create_event, @group) : is_admin?) %>
                 $.ajax({
-                    data: 'starttime=' + date.getTime(),
-                    url: '<%=j raw new_event_url(group_id: @group.try(:id), event_type_id: EventType::INCONTRO) %>',
+                    data: {
+                        starttime: date.valueOf(),
+                        has_time: date.hasTime(),
+                        event_type_id: <%=EventType::INCONTRO%>
+                    },
+                    url: '<%=j raw new_event_url(group_id: @group.try(:id)) %>',
                     dataType: 'script'
                 });
                 <%end%>

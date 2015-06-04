@@ -165,18 +165,18 @@ class Event < ActiveRecord::Base
     event
   end
 
-  def to_fc #fullcalendar format
-    {id: self.id,
-     title: self.title,
-     description: self.description || "Some cool description here...",
-     start: "#{self.starttime.iso8601}",
-     end: "#{self.endtime.iso8601}",
-     allDay: self.all_day,
-     recurring: self.event_series_id ? true : false,
-     backgroundColor: self.backgroundColor,
-     textColor: self.textColor,
-     borderColor: Colors::darken_color(self.backgroundColor),
-     editable: !self.is_votazione?
+  def to_fc # fullcalendar format
+    {id: id,
+     title: title,
+     description: description || 'Some cool description here...',
+     start: "#{starttime.iso8601}",
+     end: "#{endtime.iso8601}",
+     allDay: all_day,
+     recurring: event_series_id.present?,
+     backgroundColor: backgroundColor,
+     textColor: textColor,
+     borderColor: Colors::darken_color(backgroundColor),
+     editable: !is_votazione?
     }
   end
 
@@ -186,9 +186,9 @@ class Event < ActiveRecord::Base
   end
 
 
-  def move(minutes_delta=0, days_delta=0, all_day=nil)
-    self.starttime = minutes_delta.minutes.from_now(days_delta.days.from_now(self.starttime))
-    self.endtime = minutes_delta.minutes.from_now(days_delta.days.from_now(self.endtime))
+  def move(minutes_delta = 0, days_delta = 0, all_day = nil)
+    self.starttime = minutes_delta.minutes.from_now(days_delta.days.from_now(starttime))
+    self.endtime = minutes_delta.minutes.from_now(days_delta.days.from_now(endtime))
     self.all_day = all_day if all_day
     self.save
   end
@@ -198,9 +198,9 @@ class Event < ActiveRecord::Base
     self.save
   end
 
-  #put all attached proposals in votation
-  #invia le notifihe per dire che la proposta è in votazione
-  #deletes eventually alerts of type 'new proposal'
+  # put all attached proposals in votation
+  # invia le notifihe per dire che la proposta è in votazione
+  # deletes eventually alerts of type 'new proposal'
   def start_votation
     proposals.each do |proposal|
       proposal.proposal_state_id = ProposalState::VOTING

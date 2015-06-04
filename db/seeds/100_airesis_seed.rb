@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Dro", provincia_id: 101, regione_id: 5, stato_id: 1, continente_id: 1 , population: 0)
 Comune.create(description: "Ala", provincia_id: 101, regione_id: 5, stato_id: 1, continente_id: 1 , population: 0)
 Comune.create(description: "Albiano", provincia_id: 101, regione_id: 5, stato_id: 1, continente_id: 1 , population: 0)

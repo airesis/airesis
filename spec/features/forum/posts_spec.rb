@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require "cancan/matchers"
 
-describe 'posts', type: :feature, js: true do
+describe 'posts', type: :feature, js: true, ci_ignore: true do
   let!(:user) { create(:user) }
   let!(:group) { create(:group, current_user_id: user.id) }
   let!(:free_category) { create(:frm_category, group: group, visible_outside: true) }

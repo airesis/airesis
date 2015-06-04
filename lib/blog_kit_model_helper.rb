@@ -20,10 +20,6 @@ module BlogKitModelHelper
       user = self
     end
 
-    if user.certified? && certification_logo && size < 60
-      size = size-6
-    end
-
     if user.avatar_file_name.present?
       ret = user.avatar.url
     elsif user.has_provider?(Authentication::FACEBOOK)
@@ -60,7 +56,6 @@ module BlogKitModelHelper
     certification_logo= params[:cert].nil? ? true : params[:cert]
     force_size= params[:force_size].nil? ? true : params[:force_size]
 
-
     if self.respond_to?(:user)
       user = self.user
     else
@@ -68,39 +63,12 @@ module BlogKitModelHelper
     end
 
     if user.certified? && certification_logo && size < 60
-      size = size-6
+      size = size - 6
     end
 
     style= force_size ? "style=\"width:#{size}px;height:#{size}px;\"" : ""
 
-    if size <= 50
-      fsize = 'small'
-    elsif size <= 100
-      fsize = 'normal'
-    else
-      fsize = 'large'
-    end
-
-    if user.avatar_file_name.present?
-      ret = "<img src=\"#{user.avatar.url}\" #{style} alt=\"\" itemprop=\"photo\" />"
-    elsif user.has_provider?(Authentication::FACEBOOK)
-      uid = user.authentications.find_by_provider(Authentication::FACEBOOK).uid
-      ret = "<img src=\"https://graph.facebook.com/#{uid}/picture?type=#{fsize}\" #{style} alt=\"\" itemprop=\"photo\" />"
-    elsif user.has_provider?(Authentication::GOOGLE)
-      uid = user.authentications.find_by_provider(Authentication::GOOGLE).uid
-      ret = "<img src=\"https://www.google.com/s2/photos/profile/#{uid}?sz=#{fsize}\" #{style} alt=\"\" itemprop=\"photo\" />"
-    else
-      # Gravatar
-      require 'digest/md5'
-      if user.email.blank?
-        return ''
-      else
-        email = user.email
-      end
-
-      hash = Digest::MD5.hexdigest(email.downcase)
-      ret = "<img  src=\"https://www.gravatar.com/avatar/#{hash}?s=#{size}\"  itemprop=\"photo\" />"
-    end
+    ret = "<img src=\"#{user.user_image_url(size, params)}\" #{style} alt=\"\" itemprop=\"photo\" />"
 
     if user.certified? && certification_logo
       if size >= 60

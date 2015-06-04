@@ -579,7 +579,5 @@ Airesis::Application.routes.draw do
     resources :tokens, only: [:create, :destroy]
 
     get '/:id' => 'groups#show'
-
   end
-
 end

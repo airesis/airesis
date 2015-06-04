@@ -69,18 +69,13 @@
   border-bottom: 1px solid #D8D2C3;
 }
 
-.proposal_main {
-
-}
-
 .solution_main {
   .proposal_main {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
-}
-
-.solution_main h3 {
-  margin: -5px -7px 17px -5px; //fuck fix
+  h3 {
+    margin: -5px -7px 17px -5px; //fuck fix
+  }
 }
 
 .proposal_comment {
@@ -289,6 +284,9 @@
     top: -3px;
     left: 0px;
     right: 10px;
+    &.voteright {
+      right: 70px;
+    }
   }
 
   .proposalDescription {
@@ -1304,7 +1302,7 @@ ul {
   &.navigator {
     margin-left: 0px;
     overflow: hidden;
-    .sec_nav, .sol_sec_nav {
+    .sec_nav {
       width: 100%;
       &:last-child {
         .move_down {
@@ -1316,7 +1314,9 @@ ul {
           display: none !important;
         }
       }
-
+      &.sol {
+        padding-left: 0;
+      }
     }
     .sol_nav {
       width: 100%;
@@ -1331,13 +1331,9 @@ ul {
         }
       }
     }
-    .sol_sec_nav {
-      padding-left: 0px;
-    }
-
     .sec_title_c {
       overflow: hidden;
-      width: 155px;
+      width: calc(100% - 30px);
       white-space: nowrap;
       margin-left: -20px;
       padding-left: 20px;
