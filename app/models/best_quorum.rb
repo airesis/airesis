@@ -1,4 +1,3 @@
-#encoding: utf-8
 class BestQuorum < Quorum
 
   validates :minutes, numericality: {only_integer: true, greater_than_or_equal_to: 5}

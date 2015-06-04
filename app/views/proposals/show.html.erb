@@ -83,7 +83,7 @@
         updated_at: <%=@proposal.updated_at.to_i%>,
         descriptions: {}
     };
-    <%if @proposal.quorum.present? %>
+    <%if @proposal.quorum.present? && @proposal.quorum.ends_at.present? %>
     ProposalsShow.times.ends_at = <%=@proposal.quorum.ends_at.to_i%>;
     ProposalsShow.times.descriptions.ends_at = '<%=j l @proposal.quorum.ends_at%>';
     <%end%>
