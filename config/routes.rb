@@ -528,6 +528,7 @@ Airesis::Application.routes.draw do
 
     constraints admin_required do
       namespace :admin do
+        resources :sys_locales
         resources :newsletters do
           member do
             get :preview

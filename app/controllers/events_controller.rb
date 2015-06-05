@@ -22,6 +22,7 @@ class EventsController < ApplicationController
       end
       format.json do
         @events = @events.time_scoped(Time.parse(params['start']), Time.parse(params['end']))
+        @events = @events.in_territory(current_domain.territory) unless @group
         events = []
         @events.each do |event|
           event_obj = event.to_fc

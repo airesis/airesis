@@ -124,7 +124,7 @@ class HomeController < ApplicationController
 
   def load_open_space_resources
     @blog_posts = BlogPost.includes(:blog,user: [:user_type,:image]).order('blog_posts.created_at desc').limit(10).accessible_by(Ability.new(current_user))
-    @events = Event.next.order('starttime asc').limit(10).accessible_by(Ability.new(current_user))
+    @events = Event.in_territory(current_domain.territory).next.order('starttime asc').accessible_by(Ability.new(current_user)).limit(10)
   end
 
   def initialize_roadmap

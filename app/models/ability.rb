@@ -390,6 +390,7 @@ class Ability
           can :manage, Frm::Post
           can :manage, GroupArea
           can :manage, Newsletter
+          can :manage, SysLocale
           can :index, GroupParticipation
           can :manage, ParticipationRole
           cannot :destroy, ParticipationRole do |participation_role|

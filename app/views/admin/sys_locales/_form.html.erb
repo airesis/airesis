@@ -1,0 +1,16 @@
+<%= simple_form_for [:admin, @sys_locale] do |f| %>
+    <%= f.error_notification %>
+
+    <div class="inputs">
+      <%= f.input :key %>
+      <%= f.input :host %>
+      <%= f.input :lang %>
+      <%= f.input :territory_type %>
+      <%= f.input :territory_id %>
+      <%= f.input :default %>
+    </div>
+
+    <div class="actions">
+      <%= f.button :submit, class: 'btn blue' %>
+    </div>
+<% end %>
