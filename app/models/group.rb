@@ -83,9 +83,9 @@ class Group < ActiveRecord::Base
   # Check for paperclip
   has_attached_file :image,
                     styles: {
-                        thumb: "100x100#",
-                        medium: "300x300>",
-                        small: "150x150>"
+                      thumb: "100x100#",
+                      medium: "300x300>",
+                      small: "150x150>"
                     },
                     path: "groups/:id/:style/:basename.:extension",
                     default_url: '/img/gruppo-anonimo.png'
@@ -194,10 +194,10 @@ class Group < ActiveRecord::Base
   # utenti che possono eseguire un'azione
   def scoped_participants(action_id)
     self.participants.
-        joins(" join participation_roles on group_participations.participation_role_id = participation_roles.id
+      joins(" join participation_roles on group_participations.participation_role_id = participation_roles.id
             join action_abilitations on participation_roles.id = action_abilitations.participation_role_id").
-        where(action_abilitations: {group_action_id: action_id}).
-        uniq
+      where(action_abilitations: {group_action_id: action_id}).
+      uniq
   end
 
   def participant_tokens=(ids)
@@ -252,19 +252,7 @@ class Group < ActiveRecord::Base
           if params[:area]
             with(:interest_border_id, border.id)
           else
-            if border.is_continente?
-              with(:continente_id, border.territory.id)
-            elsif border.is_stato?
-              with(:stato_id, border.territory.id)
-            elsif border.is_regione?
-              with(:regione_id, border.territory.id)
-            elsif border.is_provincia?
-              with(:provincia_id, border.territory.id)
-            elsif border.is_comune?
-              with(:comune_id, border.territory.id)
-            elsif border.is_circoscrizione?
-              with(:circoscrizione_id, border.territory.id)
-            end
+            with(border.solr_search_field, border.territory.id) if border.present?
           end
         end
         order_by :score, :desc
@@ -278,8 +266,12 @@ class Group < ActiveRecord::Base
   end
 
 
-  def self.most_active
-    Group.order(group_participations_count: :desc).limit(5)
+  def self.most_active(territory = nil)
+    Group.search(include: {interest_border: [:territory]}) do
+      with(territory.solr_search_field, territory.id) if territory.present?
+      order_by :group_participations_count, :desc
+      paginate page: 1, per_page: 5
+    end.results
   end
 
   searchable do
@@ -313,9 +305,9 @@ class Group < ActiveRecord::Base
 
   def self.autocomplete(term)
     where("lower(groups.name) LIKE :term", {term: "%#{term.downcase}%"}).
-        limit(10).
-        select("groups.name, groups.id, groups.image_id, groups.image_url, groups.image_file_name").
-        order("groups.name asc")
+      limit(10).
+      select("groups.name, groups.id, groups.image_id, groups.image_url, groups.image_file_name").
+      order("groups.name asc")
   end
 
   def create_folder

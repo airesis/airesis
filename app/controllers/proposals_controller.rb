@@ -229,8 +229,8 @@ class ProposalsController < ApplicationController
 
   def edit
     @proposal.change_advanced_options = @group ?
-        @group.change_advanced_options :
-        DEFAULT_CHANGE_ADVANCED_OPTIONS
+      @group.change_advanced_options :
+      DEFAULT_CHANGE_ADVANCED_OPTIONS
   end
 
 
@@ -548,7 +548,13 @@ class ProposalsController < ApplicationController
 
     @search.proposal_category_id = params[:category]
 
-    #applica il filtro per il gruppo
+    @search.interest_border = if params[:interest_border].nil?
+                                InterestBorder.find_or_create_by(territory: current_domain.territory)
+                              else
+                                InterestBorder.find_or_create_by_key(params[:interest_border])
+                              end
+
+    # apply filter for the group
     if @group
       @search.group_id = @group.id
       if params[:group_area_id]
@@ -573,24 +579,24 @@ class ProposalsController < ApplicationController
   private
 
   def proposal_params
-    params.require(:proposal).permit(:proposal_category_id, :content, :title, :interest_borders_tkn, :tags_list,
+    params.require(:proposal).permit(:proposal_category_id, :content, :title, :interest_border, :tags_list,
                                      :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id, :group_area_id, :topic_id,
                                      :proposal_type_id, :proposal_votation_type_id,
                                      :integrated_contributes_ids_list, :signatures, :petition_phase,
                                      votation: [:later, :start, :start_edited, :end],
                                      sections_attributes:
-                                         [:id, :seq, :_destroy, :title, paragraphs_attributes:
-                                                 [:id, :seq, :content, :content_dirty]],
+                                       [:id, :seq, :_destroy, :title, paragraphs_attributes:
+                                             [:id, :seq, :content, :content_dirty]],
                                      solutions_attributes:
-                                         [:id, :seq, :_destroy, :title, sections_attributes:
-                                                 [:id, :seq, :_destroy, :title, paragraphs_attributes:
-                                                         [:id, :seq, :content, :content_dirty]]])
+                                       [:id, :seq, :_destroy, :title, sections_attributes:
+                                             [:id, :seq, :_destroy, :title, paragraphs_attributes:
+                                                   [:id, :seq, :content, :content_dirty]]])
   end
 
   def update_proposal_params
     (can? :destroy, @proposal) ?
-        proposal_params :
-        proposal_params.except(:title, :interest_borders_tkn, :tags_list, :quorum_id, :anonima, :visible_outside, :secret_vote)
+      proposal_params :
+      proposal_params.except(:title, :interest_borders_tkn, :tags_list, :quorum_id, :anonima, :visible_outside, :secret_vote)
   end
 
   def regenerate_proposal_params

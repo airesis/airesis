@@ -1,4 +1,6 @@
 class Circoscrizione < ActiveRecord::Base
+  include Concerns::Bordable
+
   belongs_to :comune
   belongs_to :provincia
   belongs_to :regione
@@ -6,6 +8,6 @@ class Circoscrizione < ActiveRecord::Base
   belongs_to :continente
 
   def parent
-    self.comune
+    comune
   end
 end

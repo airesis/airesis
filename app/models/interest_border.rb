@@ -18,99 +18,63 @@ class InterestBorder < ActiveRecord::Base
   SHORT_CONTINENTE = 'K'
   SHORT_GENERIC = 'G'
   TYPE_MAP = {COMUNE => SHORT_COMUNE, REGIONE => SHORT_REGIONE, PROVINCIA => SHORT_PROVINCIA, STATO => SHORT_STATO, CONTINENTE => SHORT_CONTINENTE, GENERIC => SHORT_GENERIC}
-  I_TYPE_MAP = {SHORT_COMUNE => COMUNE, SHORT_REGIONE => REGIONE, SHORT_PROVINCIA => PROVINCIA, SHORT_STATO => STATO, SHORT_CONTINENTE => CONTINENTE, SHORT_GENERIC => GENERIC}
+  I_TYPE_MAP =TYPE_MAP.invert
 
-  #retrieve the comune in wich is the interest border. nil if it's not inside a comune
   def circoscrizione
-    if self.is_circoscrizione?
-      self.territory
-    else
-      nil
-    end
+    is_circoscrizione? ? territory : nil
   end
 
   def comune
-    if self.is_comune?
-      self.territory
-    elsif self.territory.respond_to? :comune
-      self.territory.comune
-    else
-      nil
-    end
+    is_comune? ? territory : territory.try(:comune)
   end
 
   def provincia
-    if self.is_provincia?
-      self.territory
-    elsif self.territory.respond_to? :provincia
-      self.territory.provincia
-    else
-      nil
-    end
+    is_provincia? ? territory : territory.try(:provincia)
   end
 
   def regione
-    if self.is_regione?
-      self.territory
-    elsif self.territory.respond_to? :regione
-      self.territory.regione
-    else
-      nil
-    end
+    is_regione? ? territory : territory.try(:regione)
   end
 
   def stato
-    if self.is_stato?
-      self.territory
-    elsif self.territory.respond_to? :stato
-      self.territory.stato
-    else
-      nil
-    end
+    is_stato? ? territory : territory.try(:stato)
   end
 
   def continente
-    if self.is_continente?
-      self.territory
-    elsif self.territory.respond_to? :continente
-      self.territory.continente
-    else
-      nil
-    end
+    is_continente? ? territory : territory.try(:continente)
   end
 
   def is_circoscrizione?
-    self.territory_type == CIRCOSCRIZIONE
+    territory_type == CIRCOSCRIZIONE
   end
 
   def is_comune?
-    self.territory_type == COMUNE
+    territory_type == COMUNE
   end
 
   def is_provincia?
-    self.territory_type == PROVINCIA
+    territory_type == PROVINCIA
   end
 
   def is_regione?
-    self.territory_type == REGIONE
+    territory_type == REGIONE
   end
 
   def is_stato?
-    self.territory_type == STATO
+    territory_type == STATO
   end
 
   def is_continente?
-    self.territory_type == CONTINENTE
+    territory_type == CONTINENTE
   end
 
   def is_generic?
-    self.territory_type == GENERIC
+    territory_type == GENERIC
   end
 
   def description
-    return territory.description + ' (' + (self.is_generic? ? territory.name : territory_type) + ')'
+    "#{territory.description} (#{(is_generic? ? territory.name : territory_type)})"
   end
-
 
   def self.table_element(border)
     ftype = border[0, 1] #tipologia (primo carattere)
@@ -139,8 +103,19 @@ class InterestBorder < ActiveRecord::Base
     found
   end
 
+  def solr_search_field
+    territory.solr_search_field
+  end
+
   def as_json(options={})
-    {id: TYPE_MAP[self.territory_type] + "-" + self.territory_id.to_s, name: self.description}
+    {id: "#{TYPE_MAP[territory_type]}-#{territory_id}", name: territory.name}
+  end
+
+  def self.find_or_create_by_key(key)
+    return unless key.present?
+    ftype = key[0, 1] # type (primo carattere)
+    fid = key[2..-1] # primary key (dal terzo all'ultimo carattere)
+    find_or_create_by(territory_type: I_TYPE_MAP[ftype], territory_id: fid)
   end
 
 end

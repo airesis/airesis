@@ -1,4 +1,6 @@
 class Provincia < ActiveRecord::Base
+  include Concerns::Bordable
+
   self.table_name = 'provincias'
 
   has_many :comunes, dependent: :destroy
@@ -9,6 +11,10 @@ class Provincia < ActiveRecord::Base
   belongs_to :continente
 
   def parent
-    self.regione
+    regione
+  end
+
+  def name
+    I18n.t('interest_borders.province', name: description)
   end
 end

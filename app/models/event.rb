@@ -60,7 +60,6 @@ class Event < ActiveRecord::Base
              'Ogni mese',
              'Ogni anno']
 
-
   def validate_start_time_end_time
     if starttime && endtime
       errors.add(:starttime, "La data di inizio deve essere antecedente la data di fine") if endtime <= starttime

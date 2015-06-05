@@ -1,4 +1,5 @@
 class Stato < ActiveRecord::Base
+  include Concerns::Bordable
   translates :description
 
   has_many :circoscriziones
@@ -9,7 +10,10 @@ class Stato < ActiveRecord::Base
   belongs_to :continente
 
   def parent
-    self.continente
+    continente
   end
 
+  def name
+    I18n.t('interest_borders.country', name: description)
+  end
 end

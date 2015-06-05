@@ -1,4 +1,6 @@
 class Comune < ActiveRecord::Base
+  include Concerns::Bordable
+
   has_many :places, class_name: 'Place'
   has_many :circoscriziones, class_name: 'Circoscrizione', dependent: :destroy
 
@@ -8,6 +10,10 @@ class Comune < ActiveRecord::Base
   belongs_to :continente
 
   def parent
-    self.provincia
+    provincia
+  end
+
+  def name
+    I18n.t('interest_borders.town', name: description)
   end
 end
