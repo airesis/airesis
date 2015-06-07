@@ -532,15 +532,18 @@ class Proposal < ActiveRecord::Base
     end
   end
 
+  def user_territory
+    user = (proposal_presentations.first || proposal_lives.last.old_proposal_presentations.first).user
+    territory = user.original_locale.territory
+  end
+
   def solr_stato_ids
     if interest_borders.any?
       interest_borders.map(&:stato).map { |i| i.try(:id) }.compact
     elsif group.present?
       group.interest_border.stato.try(:id)
     else
-      user = (proposal_presentations.first || proposal_lives.last.old_proposal_presentations.first).user
-      territory = user.original_locale.territory
-      territory.id if territory.is_a?(Stato)
+      user_territory.id if territory.is_a?(Stato)
     end
   end
 
@@ -550,7 +553,7 @@ class Proposal < ActiveRecord::Base
     elsif group.present?
       group.interest_border.stato.try(:id)
     else
-      territory.is_a?(Stato) ? territory.continente.id : territory.id
+      user_territory.is_a?(Stato) ? territory.continente.id : territory.id
     end
   end
 
