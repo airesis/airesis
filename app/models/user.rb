@@ -96,7 +96,6 @@ class User < ActiveRecord::Base
   belongs_to :locale, class_name: 'SysLocale', foreign_key: 'sys_locale_id'
   belongs_to :original_locale, class_name: 'SysLocale', foreign_key: 'original_sys_locale_id'
 
-
   has_many :events
 
   has_many :proposal_nicknames, class_name: 'ProposalNickname'
@@ -119,8 +118,8 @@ class User < ActiveRecord::Base
   # Check for paperclip
   has_attached_file :avatar,
                     styles: {
-                        thumb: "100x100#",
-                        small: "150x150>"
+                      thumb: "100x100#",
+                      small: "150x150>"
                     },
                     path: "avatars/:id/:style/:basename.:extension"
 
@@ -211,18 +210,18 @@ class User < ActiveRecord::Base
   #all'interno dei quali possiede un determinato permesso
   def scoped_group_participations(abilitation)
     self.group_participations.joins(" INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id"+
-                                        " LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id "+
-                                        " and action_abilitations.group_id = group_participations.group_id")
-        .where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
+                                      " LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id "+
+                                      " and action_abilitations.group_id = group_participations.group_id")
+      .where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
   end
 
   #restituisce l'elenco dei gruppi dell'utente
   #all'interno dei quali possiede un determinato permesso
   def scoped_groups(abilitation, excluded_groups=nil)
     ret = self.groups.joins(" INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id"+
-                                " LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id "+
-                                " and action_abilitations.group_id = group_participations.group_id")
-              .where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
+                              " LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id "+
+                              " and action_abilitations.group_id = group_participations.group_id")
+            .where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
     excluded_groups ? ret - excluded_groups : ret
   end
 
@@ -234,12 +233,12 @@ class User < ActiveRecord::Base
       ret = group.group_areas
     elsif abilitation_id
       ret = group_areas.joins(area_roles: :area_action_abilitations)
-                .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_participations.area_role_id = area_roles.id', group_id, abilitation_id])
-                .uniq
+              .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_participations.area_role_id = area_roles.id', group_id, abilitation_id])
+              .uniq
     else
       ret = group_areas.joins(:area_roles)
-                .where(['group_areas.group_id = ?', group_id])
-                .uniq
+              .where(['group_areas.group_id = ?', group_id])
+              .uniq
     end
     ret
   end
@@ -251,11 +250,11 @@ class User < ActiveRecord::Base
       user.original_sys_locale_id =user.sys_locale_id = SysLocale.find_by(key: 'en').id
 
       oauth_data = session['devise.omniauth_data']
-      user_info = OauthDataParser.new(oauth_data).user_info
+      user_info = OauthDataParser.new(oauth_data).user_info if oauth_data
 
       if user_info
         user.email = user_info[:email]
-      elsif(data = session[:user]) #what does it do? can't remember
+      elsif (data = session[:user]) #what does it do? can't remember
         user.email = session[:user][:email]
         user.login = session[:user][:email]
         if invite = session[:invite] #if is by invitation
@@ -512,7 +511,7 @@ class User < ActiveRecord::Base
       build_authentication_provider(oauth_data)
 
       if provider == Authentication::TECNOLOGIEDEMOCRATICHE ||
-        ( provider == Authentication::PARMA && raw_info['verified'] )
+        (provider == Authentication::PARMA && raw_info['verified'])
         certify_with_info(user_info)
       else
         self.email = user_info[:email] unless self.email
@@ -530,14 +529,12 @@ class User < ActiveRecord::Base
   end
 
   def certify_with_info(user_info)
-
     raise "Not enough info for certification" if [user_info[:name], user_info[:surname], user_info[:email]].any? &:blank?
-
     User.transaction do
       skip_reconfirmation!
-      update!( email: user_info[:email], name: user_info[:name], surname: user_info[:surname] )
-      build_certification( name: user_info[:name], surname: user_info[:surname], tax_code: user_info[:email] )
-      update!( user_type_id: UserType::CERTIFIED )
+      update!(email: user_info[:email], name: user_info[:name], surname: user_info[:surname])
+      build_certification(name: user_info[:name], surname: user_info[:surname], tax_code: user_info[:email])
+      update!(user_type_id: UserType::CERTIFIED)
     end
   end
 
@@ -548,7 +545,6 @@ class User < ActiveRecord::Base
   end
 
   def self.create_account_for_oauth(oauth_data)
-
     oauth_data_parser = OauthDataParser.new(oauth_data)
     provider = oauth_data_parser.provider
     raw_info = oauth_data_parser.raw_info
@@ -557,11 +553,11 @@ class User < ActiveRecord::Base
 
     return nil if user_info[:name].blank?
 
-    user = User.new( name: user_info[:name],
-                     surname: user_info[:surname],
-                     password: Devise.friendly_token[0, 20],
-                     sex: user_info[:sex],
-                     email: user_info[:email] )
+    user = User.new(name: user_info[:name],
+                    surname: user_info[:surname],
+                    password: Devise.friendly_token[0, 20],
+                    sex: user_info[:sex],
+                    email: user_info[:email])
 
     user.tap do |user|
       user.avatar_url = user_info[:avatar_url]
@@ -577,22 +573,21 @@ class User < ActiveRecord::Base
         user.confirm!
         user.save!
 
-        if provider == Authentication::TECNOLOGIEDEMOCRATICHE || ( provider == Authentication::PARMA && raw_info['verified'] )
+        if provider == Authentication::TECNOLOGIEDEMOCRATICHE || (provider == Authentication::PARMA && raw_info['verified'])
           user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
-          user.update!( user_type_id: UserType::CERTIFIED )
+          user.update!(user_type_id: UserType::CERTIFIED)
         else
-          user.update!( user_type_id: UserType::AUTHENTICATED )
+          user.update!(user_type_id: UserType::AUTHENTICATED)
         end
       end
       user.add_to_parma_group(raw_info['verified']) if provider == Authentication::PARMA
-
     end
   end
 
   def add_to_parma_group(verified)
     parma_group = Group.find_by(subdomain: 'parma')
-    group_participation_requests.build( group: parma_group,
-                                        group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED )
+    group_participation_requests.build(group: parma_group,
+                                       group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED)
     participation_role = group.default_role
     if verified
       #look for best role or fallback
@@ -612,7 +607,6 @@ class User < ActiveRecord::Base
 
   def has_oauth_provider_without_email
     providers_without_email = [Authentication::TWITTER, Authentication::MEETUP, Authentication::LINKEDIN]
-    providers_without_email.any?{ |provider| has_provider?(provider) }
+    providers_without_email.any? { |provider| has_provider?(provider) }
   end
-
 end

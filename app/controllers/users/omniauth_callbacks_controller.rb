@@ -1,9 +1,8 @@
-#encoding: utf-8
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   oauth_providers = [:facebook, :google_oauth2, :twitter, :meetup, :parma, :tecnologiedemocratiche, :linkedin]
   oauth_providers.each do |provider|
-      define_method(provider) { manage_oauth_callback }
+    define_method(provider) { manage_oauth_callback }
   end
 
   def passthru
@@ -13,13 +12,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   protected
 
   def manage_oauth_callback
-
     oauth_data = request.env['omniauth.auth']
 
     oauth_data_parser = OauthDataParser.new(oauth_data)
     provider = oauth_data_parser.provider
     uid = oauth_data_parser.uid
-    raw_info = oauth_data_parser.raw_info
     user_info = oauth_data_parser.user_info
 
     if user_info[:email] && !user_info[:email_verified]
@@ -28,20 +25,17 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     # se sono già autenticato allora sto facendo una join dei due account
-    if current_user
+    if current_user.present?
       auth = Authentication.find_by(provider: provider, uid: uid)
       # se c'è già un altro utente con associato l'account del provider
-      if auth
-
+      if auth.present?
         if provider == Authentication::FACEBOOK
           #se devo aggiornare il token...fallo
           new_token = oauth_data['credentials']['token']
           auth.update(token: new_token) if auth.token != new_token
-
           return redirect_to request.env['omniauth.origin'] + '?share=true' if request.env['omniauth.params']['share']
         end
-
-        #annulla l'operazione!
+        # cancel_operation
         flash[:error] = I18n.t('devise.omniauth_callbacks.join_failure', provider: provider.capitalize)
       else
         current_user.oauth_join(oauth_data)
@@ -49,9 +43,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       end
       redirect_to privacy_preferences_users_url
     else
-
       @user, first_association, found_from_email = User.find_or_create_for_oauth_provider(oauth_data)
-      if @user
+      if @user.present?
         if found_from_email && user_info[:email].present?
           session['devise.omniauth_data'] = env['omniauth.auth']
           redirect_to confirm_credentials_users_url
@@ -66,5 +59,4 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       end
     end
   end
-
 end

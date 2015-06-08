@@ -83,5 +83,4 @@ class OauthDataParser
       else true
     end
   end
-
 end

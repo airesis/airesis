@@ -27,6 +27,15 @@ RSpec.configure do |config|
     Proposal.remove_all_from_index!
   end
 
+  config.before(:each, type: :feature) do
+    page.driver.allow_url("https://apis.google.com/js/platform.js")
+    page.driver.allow_url("www.gravatar.com")
+    page.driver.allow_url("http://connect.facebook.net/en/sdk.js")
+    page.driver.allow_url("http://platform.twitter.com")
+    page.driver.allow_url("https://fbstatic-a.akamaihd.net")
+    page.driver.allow_url("https://maps.googleapis.com")
+  end
+
   config.order = 'random'
 
   config.include FactoryGirl::Syntax::Methods
