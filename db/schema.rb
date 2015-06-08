@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150604212337) do
+ActiveRecord::Schema.define(version: 20150607183026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1339,6 +1339,15 @@ ActiveRecord::Schema.define(version: 20150604212337) do
   end
 
   add_index "sys_payment_notifications", ["transaction_id"], name: "index_sys_payment_notifications_on_transaction_id", unique: true, using: :btree
+
+  create_table "tag_counters", force: true do |t|
+    t.integer "tag_id",                       null: false
+    t.integer "territory_id",                 null: false
+    t.string  "territory_type",               null: false
+    t.integer "proposals_count",  default: 0, null: false
+    t.integer "blog_posts_count", default: 0, null: false
+    t.integer "blogs_count",      default: 0, null: false
+  end
 
   create_table "tags", force: true do |t|
     t.string   "text",                             null: false
