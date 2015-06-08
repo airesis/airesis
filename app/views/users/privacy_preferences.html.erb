@@ -124,7 +124,7 @@
                     <%= link_to t('buttons.detach'), [@user, authentication], method: :delete, confirm: t('confirm_detach') %>
                     <br/>
                 <% else %>
-                    <%= link_to t('buttons.detach'), '#', onclick: "alert('#{j t('alert_detach')}');return false;" %>
+                    <%= link_to t('buttons.detach'), '#', data: {detach_disabled: true} %>
                     <br/>
                 <% end %>
               <% end %>
@@ -135,6 +135,12 @@
 </div>
 
 <script type="text/javascript">
+
+    $('a[data-detach-disabled]').click(function(){
+        alert("#{j t('alert_detach')}");
+        return false;
+    });
+
     function change_show_tooltips(el) {
         var active = (el.checked) ? "true" : "false";
         $.ajax({

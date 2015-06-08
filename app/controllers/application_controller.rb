@@ -145,7 +145,6 @@ class ApplicationController < ActionController::Base
   end
 
   def render_error(exception)
-    @exception = exception
     log_error(exception)
     respond_to do |format|
       format.js {
@@ -368,6 +367,8 @@ class ApplicationController < ActionController::Base
               flash[:info] = t('info.proposal.available_authors')
             end
             @unread.check_all
+            @not_count = ProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id)
+            @not_count.update_attribute(:count, 0) if @not_count #just to be sure. if everything is correct this would not be required but what if not?...just leave it here
           else
         end
       when 'blog_posts'
