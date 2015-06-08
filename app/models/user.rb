@@ -23,10 +23,6 @@ class User < ActiveRecord::Base
   validates_format_of :surname, with: AuthenticationModule.name_regex, allow_nil: true
   validates_length_of :surname, maximum: 50
 
-  validates_length_of :email, within: 6..50, allow_nil: true #r@a.wk
-  validates_format_of :email, with: AuthenticationModule.email_regex, message: AuthenticationModule.bad_email_message, allow_nil: true
-  validates_uniqueness_of :email
-
   validates_confirmation_of :password
 
   validates_acceptance_of :accept_conditions, message: I18n.t('activerecord.errors.messages.TOS')
@@ -65,7 +61,7 @@ class User < ActiveRecord::Base
   belongs_to :places, class_name: 'Place', foreign_key: :residenza_id
   belongs_to :places, class_name: 'Place', foreign_key: :nascita_id
   belongs_to :image, class_name: 'Image', foreign_key: :image_id
-  has_many :authentications, class_name: 'Authentication'
+  has_many :authentications, class_name: 'Authentication', dependent: :destroy
 
   has_many :user_borders, class_name: 'UserBorder'
 
@@ -142,6 +138,8 @@ class User < ActiveRecord::Base
   scope :autocomplete, ->(term) { where("lower(users.name) LIKE :term or lower(users.surname) LIKE :term", {term: "%#{term.downcase}%"}).order("users.surname desc, users.name desc").limit(10) }
   scope :non_blocking_notification, ->(notification_type) { User.where.not(id: User.select("users.id").joins(:blocked_alerts).where(blocked_alerts: {notification_type_id: notification_type})) }
 
+  validate :cannot_change_info_if_certified, on: :update
+
   def avatar_url=(url)
     begin
       file = URI.parse(url)
@@ -171,9 +169,8 @@ class User < ActiveRecord::Base
 
 
   def email_required?
-    super && !(has_provider?(Authentication::TWITTER) || has_provider?(Authentication::LINKEDIN))
+    super && !has_oauth_provider_without_email
   end
-
 
   def last_proposal_comment
     self.proposal_comments.order('created_at desc').first
@@ -251,20 +248,14 @@ class User < ActiveRecord::Base
     super.tap do |user|
       user.last_sign_in_ip = session[:remote_ip]
       user.subdomain = session[:subdomain] if (session[:subdomain] && !session[:subdomain].blank?)
-      user.original_sys_locale_id =user.sys_locale_id = SysLocale.find_by(key: I18n.locale).id
+      user.original_sys_locale_id =user.sys_locale_id = SysLocale.find_by(key: 'en').id
 
-      fdata = session["devise.google_data"] || session["devise.facebook_data"] || session["devise.linkedin_data"] || session['devise.parma_data']
-      data = fdata["extra"]["raw_info"] || fdata["info"] if fdata #raw-info for google and facebook and linkedin, info for parma
-      if data
-        user.email = data["email"]
-        if fdata['provider'] == Authentication::LINKEDIN
-          user.linkedin_page_url = data['publicProfileUrl']
-          user.email = data["emailAddress"]
-        elsif fdata['provider'] == Authentication::GOOGLE #do nothing
-        elsif fdata['provider'] == Authentication::FACEBOOK #do nothing
-        elsif fdata['provider'] == Authentication::PARMA #do nothing
-        end
-      elsif data = session[:user] #what does it do? can't remember
+      oauth_data = session['devise.omniauth_data']
+      user_info = OauthDataParser.new(oauth_data).user_info
+
+      if user_info
+        user.email = user_info[:email]
+      elsif(data = session[:user]) #what does it do? can't remember
         user.email = session[:user][:email]
         user.login = session[:user][:email]
         if invite = session[:invite] #if is by invitation
@@ -488,169 +479,66 @@ class User < ActiveRecord::Base
     @parma_user ||= Parma::API.new(authentications.find_by(provider: Authentication::PARMA).token) rescue nil
   end
 
-  #gestisce l'azione di login tramite facebook
-  def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
-    data = access_token['extra']['raw_info'] ##dati di facebook
-    #se è presente un account facebook per l'utente usa quello
-    auth = Authentication.find_by_provider_and_uid(access_token['provider'], access_token['uid'])
-    if auth
-      user = auth.user #se ho trovato l'id dell'utente prendi lui
-    else
-      user = User.find_by_email(data['email']) #altrimenti cercane uno con l'email uguale
-    end
-    return user if user
+  # return the user, a flag indicating if it's the first time the oauth account
+  # is associated to the Airesis account or if it's a simple login and another flag
+  # indicating if the user has been found in th db by it's email
+  def self.find_or_create_for_oauth_provider(oauth_data)
 
-    #crea un nuovo account facebook
-    if data["verified"]
-      user = User.new(name: data["first_name"], surname: data["last_name"], sex: (data["gender"] ? data["gender"][0] : nil), email: data["email"], password: Devise.friendly_token[0, 20], facebook_page_url: data["link"])
-      user.user_type_id = 3
-      user.sign_in_count = 0
-      user.build_authentication_provider(access_token)
-      user.confirm!
-      user.save(validate: false)
+    oauth_data_parser = OauthDataParser.new(oauth_data)
+    provider = oauth_data_parser.provider
+    uid = oauth_data_parser.uid
+    user_info = oauth_data_parser.user_info
+
+    #se ho trovato l'id dell'utente prendi lui, altrimenti cercane uno con l'email uguale
+    auth = Authentication.find_by(provider: provider, uid: uid)
+    if auth
+      # return user, first_association, found_from_email
+      return auth.user, false, false
     else
-      return nil
+      user = user_info[:email] && User.find_by(email: user_info[:email])
+      # return user, first_association, found_from_email
+      return user ? [user, true, true] : [create_account_for_oauth(oauth_data), true, false]
     end
-    return user
   end
 
+  def oauth_join(oauth_data)
 
-  #gestisce l'azione di login tramite linkedin
-  def self.find_for_linkedin_oauth(access_token, signed_in_resource=nil)
-    data = access_token['extra']['raw_info'] ##dati di linkedin
-    #se è presente un account linkedin per l'utente usa quello
-    auth = Authentication.find_by_provider_and_uid(access_token['provider'], access_token['uid'])
-    if auth
-      user = auth.user #se ho trovato l'id dell'utente prendi lui
-    else
-      user = User.find_by_email(data['emailAddress']) #altrimenti cercane uno con l'email uguale
+    oauth_data_parser = OauthDataParser.new(oauth_data)
+    provider = oauth_data_parser.provider
+    raw_info = oauth_data_parser.raw_info
+    user_info = oauth_data_parser.user_info
+
+    User.transaction do
+      build_authentication_provider(oauth_data)
+
+      if provider == Authentication::TECNOLOGIEDEMOCRATICHE ||
+        ( provider == Authentication::PARMA && raw_info['verified'] )
+        certify_with_info(user_info)
+      else
+        self.email = user_info[:email] unless self.email
+        set_social_network_pages(provider, raw_info)
+      end
+
+      save!
     end
-    return user if user
-
-    #crea un nuovo account linkedin
-    user = User.new(name: data["firstName"], surname: data["lastName"], email: data["emailAddress"], password: Devise.friendly_token[0, 20], linkedin_page_url: data[:publicProfileUrl])
-    user.avatar_url = data[:pictureUrl]
-    user.user_type_id = 3
-    user.sign_in_count = 0
-    user.build_authentication_provider(access_token)
-    user.confirm!
-    user.save(validate: false)
-    return user
   end
 
-
-  #gestisce l'azione di login tramite google
-  def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
-    data = access_token['extra']['raw_info'] #dati di google
-    auth = Authentication.find_by(provider: access_token['provider'], uid: access_token['uid'])
-    if auth
-      user = auth.user #se ho trovato l'id dell'utente prendi lui
-    else
-      user = User.find_by(email: data['email']) #altrimenti cercane uno con l'email uguale
-    end
-
-    return user if user
-
-    #create a new one
-    user = User.new(name: data["given_name"], surname: data["family_name"], sex: (data["gender"] ? data["gender"][0] : nil), email: data["email"], password: Devise.friendly_token[0, 20], google_page_url: data["profile"])
-    user.user_type_id = 3
-    user.sign_in_count = 0
-    user.build_authentication_provider(access_token)
-    user.confirm!
-    user.avatar = URI.parse(data['picture']) if data['picture']
-    user.save(validate: false)
-    user
+  def set_social_network_pages(provider, raw_info)
+    self.google_page_url = raw_info['profile'] if provider == Authentication::GOOGLE
+    self.linkedin_page_url = raw_info['publicProfileUrl'] if provider == Authentication::LINKEDIN
+    self.facebook_page_url = raw_info['link'] if provider == Authentication::FACEBOOK
   end
 
+  def certify_with_info(user_info)
 
-  #gestisce l'azione di login tramite twitter
-  def self.find_for_twitter(access_token, signed_in_resource=nil)
-    data = access_token['extra']['raw_info'] #dati di twitter
-    auth = Authentication.find_by_provider_and_uid(access_token['provider'], access_token['uid'])
-    if auth
-      user = auth.user #se ho trovato l'id dell'utente prendi lui
+    raise "Not enough info for certification" if [user_info[:name], user_info[:surname], user_info[:email]].any? &:blank?
+
+    User.transaction do
+      skip_reconfirmation!
+      update!( email: user_info[:email], name: user_info[:name], surname: user_info[:surname] )
+      build_certification( name: user_info[:name], surname: user_info[:surname], tax_code: user_info[:email] )
+      update!( user_type_id: UserType::CERTIFIED )
     end
-
-    return user if user
-
-    #crea un nuovo account twitter
-    fullname = data["name"]
-    splitted = fullname.split(' ', 2)
-    name = splitted ? splitted[0] : fullname
-    surname = splitted ? splitted[1] : ''
-    user = User.new(name: name, surname: surname, password: Devise.friendly_token[0, 20])
-    user.avatar_url = data[:profile_image_url]
-    user.user_type_id = 3
-    user.sign_in_count = 0
-    user.build_authentication_provider(access_token)
-    user.confirm!
-    user.save(validate: false)
-    return user
-  end
-
-
-  #gestisce l'azione di login tramite meetup
-  def self.find_for_meetup(access_token, signed_in_resource=nil)
-    data = access_token['extra']['raw_info'] #dati di twitter
-    auth = Authentication.find_by_provider_and_uid(access_token['provider'], access_token['uid'].to_s)
-    if auth
-      user = auth.user #se ho trovato l'id dell'utente prendi lui
-    end
-
-    return user if user
-
-    #crea un nuovo account twitter
-    fullname = data["name"]
-    splitted = fullname.split(' ', 2)
-    name = splitted ? splitted[0] : fullname
-    surname = splitted ? splitted[1] : ''
-    user = User.new(name: name, surname: surname, password: Devise.friendly_token[0, 20])
-    user.avatar_url = data[:photo][:photo_link] if data[:photo]
-    user.user_type_id = 3
-    user.sign_in_count = 0
-    user.build_authentication_provider(access_token)
-    user.confirm!
-    user.save(validate: false)
-    return user
-  end
-
-  #gestisce l'azione di login tramite parma
-  def self.find_for_parma(access_token, signed_in_resource=nil)
-    data = access_token['info'] #dati di parma
-    auth = Authentication.find_by_provider_and_uid(access_token['provider'], access_token['uid'].to_s)
-    if auth
-      user = auth.user #se ho trovato l'id dell'utente prendi lui
-    else
-      user = User.find_by_email(data['email']) #altrimenti cercane uno con l'email uguale
-    end
-
-    return user if user
-
-    #crea un nuovo account parma
-
-    user = User.new(name: data['first_name'].capitalize, surname: data['last_name'].capitalize, password: Devise.friendly_token[0, 20], email: data['email'])
-    group = Group.find_by_subdomain('parma')
-    user.group_participation_requests.build(group: group, group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED)
-    participation_role = group.default_role
-    if data['verified']
-      certification = user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
-      participation_role = ParticipationRole.where(['group_id = ? and lower(name) = ?', group.id, 'residente']).first || participation_role #look for best role or fallback
-      user.user_type_id = UserType::CERTIFIED
-    else
-      user.user_type_id = UserType::AUTHENTICATED
-    end
-    user.group_participations.build(group: group, participation_role_id: participation_role.id)
-
-    user.sign_in_count = 0
-    user.build_authentication_provider(access_token)
-    user.confirm!
-    user.save!
-
-    #if data['verified']
-    #  UserSensitive.create!({name: user.name, surname: user.surname, tax_code: user.email, user_id: user.id})
-    #end
-
-    return user
   end
 
   protected
@@ -658,4 +546,73 @@ class User < ActiveRecord::Base
   def reconfirmation_required?
     self.class.reconfirmable && @reconfirmation_required
   end
+
+  def self.create_account_for_oauth(oauth_data)
+
+    oauth_data_parser = OauthDataParser.new(oauth_data)
+    provider = oauth_data_parser.provider
+    raw_info = oauth_data_parser.raw_info
+    user_info = oauth_data_parser.user_info
+
+
+    return nil if user_info[:name].blank?
+
+    user = User.new( name: user_info[:name],
+                     surname: user_info[:surname],
+                     password: Devise.friendly_token[0, 20],
+                     sex: user_info[:sex],
+                     email: user_info[:email] )
+
+    user.tap do |user|
+      user.avatar_url = user_info[:avatar_url]
+
+      user.google_page_url = raw_info['profile'] if provider == Authentication::GOOGLE
+      user.linkedin_page_url = raw_info['publicProfileUrl'] if provider == Authentication::LINKEDIN
+      user.facebook_page_url = raw_info['link'] if provider == Authentication::FACEBOOK
+
+      User.transaction do
+        user.build_authentication_provider(oauth_data)
+
+        user.sign_in_count = 0
+        user.confirm!
+        user.save!
+
+        if provider == Authentication::TECNOLOGIEDEMOCRATICHE || ( provider == Authentication::PARMA && raw_info['verified'] )
+          user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
+          user.update!( user_type_id: UserType::CERTIFIED )
+        else
+          user.update!( user_type_id: UserType::AUTHENTICATED )
+        end
+      end
+      user.add_to_parma_group(raw_info['verified']) if provider == Authentication::PARMA
+
+    end
+  end
+
+  def add_to_parma_group(verified)
+    parma_group = Group.find_by(subdomain: 'parma')
+    group_participation_requests.build( group: parma_group,
+                                        group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED )
+    participation_role = group.default_role
+    if verified
+      #look for best role or fallback
+      residente = ParticipationRole.where(['group_id = ? and lower(name) = ?', group.id, 'residente']).first
+      participation_role = residente || participation_role
+    end
+    group_participations.build(group: group, participation_role_id: participation_role.id)
+  end
+
+  def cannot_change_info_if_certified
+    if user_type_id == UserType::CERTIFIED
+      [:name, :surname, :email].each do |field|
+        errors.add(field, I18n.t('activerecord.errors.messages.certified_cannot_edit')) if send("#{field}_changed?")
+      end
+    end
+  end
+
+  def has_oauth_provider_without_email
+    providers_without_email = [Authentication::TWITTER, Authentication::MEETUP, Authentication::LINKEDIN]
+    providers_without_email.any?{ |provider| has_provider?(provider) }
+  end
+
 end

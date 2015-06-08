@@ -157,6 +157,7 @@ en:
         record_invalid: 'Validation failed %{errors}'
         not_found: 'not found.'
         TOS: "It is required to accept the TOS"
+        certified_cannot_edit: 'cannot be edited if you are a certified user'
       full_messages:
         format: "%{attribute} %{message}"
       models:
