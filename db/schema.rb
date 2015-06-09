@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150609181312) do
+ActiveRecord::Schema.define(version: 20150609200906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -211,15 +211,6 @@ ActiveRecord::Schema.define(version: 20150609181312) do
   add_index "circoscriziones", ["regione_id"], name: "index_circoscriziones_on_regione_id", using: :btree
   add_index "circoscriziones", ["stato_id"], name: "index_circoscriziones_on_stato_id", using: :btree
 
-  create_table "circoscrizioni_groups", id: false, force: true do |t|
-    t.integer "id",                                            null: false
-    t.string  "name",               limit: 200
-    t.string  "description",        limit: 2000
-    t.string  "accept_requests",    limit: 1,    default: "v", null: false
-    t.integer "interest_border_id"
-    t.integer "circoscrizione_id"
-  end
-
   create_table "ckeditor_assets", force: true do |t|
     t.string   "data_file_name",               null: false
     t.string   "data_content_type"
@@ -235,15 +226,6 @@ ActiveRecord::Schema.define(version: 20150609181312) do
 
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
-
-  create_table "comunali_groups", id: false, force: true do |t|
-    t.integer "id",                                            null: false
-    t.string  "name",               limit: 200
-    t.string  "description",        limit: 2000
-    t.string  "accept_requests",    limit: 1,    default: "v", null: false
-    t.integer "interest_border_id"
-    t.integer "comune_id"
-  end
 
   create_table "comunes", force: true do |t|
     t.string  "description",   limit: 100, null: false
@@ -1015,15 +997,6 @@ ActiveRecord::Schema.define(version: 20150609181312) do
   add_index "proposals", ["updated_at"], name: "index_proposals_on_updated_at", using: :btree
   add_index "proposals", ["vote_period_id"], name: "_idx_proposals_vote_period_id", using: :btree
 
-  create_table "provinciali_groups", id: false, force: true do |t|
-    t.integer "id",                                            null: false
-    t.string  "name",               limit: 200
-    t.string  "description",        limit: 2000
-    t.string  "accept_requests",    limit: 1,    default: "v", null: false
-    t.integer "interest_border_id"
-    t.integer "provincia_id"
-  end
-
   create_table "provincias", force: true do |t|
     t.string  "description",   limit: 100
     t.integer "regione_id",                null: false
@@ -1086,15 +1059,6 @@ ActiveRecord::Schema.define(version: 20150609181312) do
     t.boolean  "read",       default: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-  end
-
-  create_table "regionali_groups", id: false, force: true do |t|
-    t.integer "id",                                            null: false
-    t.string  "name",               limit: 200
-    t.string  "description",        limit: 2000
-    t.string  "accept_requests",    limit: 1,    default: "v", null: false
-    t.integer "interest_border_id"
-    t.integer "regione_id"
   end
 
   create_table "regiones", force: true do |t|
