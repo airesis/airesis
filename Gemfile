@@ -72,7 +72,7 @@ gem 'omniauth-tecnologiedemocratiche', github: 'TecnologieDemocratiche/omniauth-
 
 gem 'paperclip'
 
-gem 'aws-sdk'
+gem 'aws-sdk', '< 2.0'
 
 gem 'jquery-rails'
 
