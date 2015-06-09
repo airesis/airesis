@@ -90,7 +90,7 @@ it-IT:
         title: "Responsabile reclutamento traduttori e coordinamento"
         content_html: |
           <p>
-             Ho 50 anni, sono un disilluso, ma ho trovato in Airesis una ragione per rimettermi in gioco e la speranza di
+             Ho %{age} anni, sono un disilluso, ma ho trovato in Airesis una ragione per rimettermi in gioco e la speranza di
              sviluppare una società migliore per me, ma soprattutto per i miei figli e anche per te, che sei arrivato fin
              qui e stai leggendo questa frase.
              Nella vita ho fatto di tutto, viaggi, avventure, tentativi d'impresa e porto la mia esperienza di cittadino
