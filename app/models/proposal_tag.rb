@@ -1,5 +1,4 @@
 class ProposalTag < ActiveRecord::Base
-
   belongs_to :proposal, class_name: 'Proposal'
   belongs_to :tag, class_name: 'Tag'
 
@@ -7,14 +6,28 @@ class ProposalTag < ActiveRecord::Base
   after_destroy :decrement_counter_cache
 
   private
+
   def decrement_counter_cache
-    tag.proposals_count = tag.proposals_count - 1
-    tag.save
+    add_to_counters(-1)
   end
 
   def increment_counter_cache
-    tag.proposals_count = tag.proposals_count + 1
-    tag.save
+    add_to_counters(1)
   end
 
+  protected
+
+  def add_to_counters(val)
+    proposal.solr_stato_ids.each do |stato_id|
+      tag.tag_counters.find_or_create_by(territory: Stato.find(stato_id)) do |tag_counter|
+        tag_counter.proposals_count = tag_counter.proposals_count + val
+      end
+    end
+
+    proposal.solr_continente_ids.each do |continente_id|
+      tag.tag_counters.find_or_create_by(territory: Continente.find(continente_id)) do |tag_counter|
+        tag_counter.proposals_count = tag_counter.proposals_count + val
+      end
+    end
+  end
 end

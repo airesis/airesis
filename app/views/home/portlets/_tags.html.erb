@@ -3,7 +3,7 @@
   <%= link_to t('pages.home.index.show_tags'), tags_path, class: 'btn right' %>
 </div>
 <div class="scrollable">
-  <% Tag.most_used.limit(100).each do |tag| %>
+  <% @tags.each do |tag| %>
       <div class="round label tag">
         <a href="<%= tag_path tag.text %>"><%= tag.text %></a>
       </div>

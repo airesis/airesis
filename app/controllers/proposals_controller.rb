@@ -579,7 +579,7 @@ class ProposalsController < ApplicationController
   private
 
   def proposal_params
-    params.require(:proposal).permit(:proposal_category_id, :content, :title, :interest_border, :tags_list,
+    params.require(:proposal).permit(:proposal_category_id, :content, :title, :interest_borders_tkn, :tags_list,
                                      :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id, :group_area_id, :topic_id,
                                      :proposal_type_id, :proposal_votation_type_id,
                                      :integrated_contributes_ids_list, :signatures, :petition_phase,

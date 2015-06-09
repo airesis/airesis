@@ -118,15 +118,14 @@ class Group < ActiveRecord::Base
   end
 
   def save_tags
-    if @tags_list
-      tids = []
-      @tags_list.split(/,/).each do |tag|
-        stripped = tag.strip.downcase.gsub('.', '')
-        t = Tag.find_or_create_by(text: stripped)
-        tids << t.id
-      end
-      self.tag_ids = tids
+    return unless @tags_list
+    tids = []
+    @tags_list.split(/,/).each do |tag|
+      stripped = tag.strip.downcase.gsub('.', '')
+      t = Tag.find_or_create_by(text: stripped)
+      tids << t.id
     end
+    self.tag_ids = tids
   end
 
   def not_resaving?

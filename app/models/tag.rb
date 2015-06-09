@@ -1,13 +1,18 @@
 class Tag < ActiveRecord::Base
 
-  has_many :proposal_tags, class_name: 'ProposalTag'
-  has_many :proposals, through: :proposal_tags, class_name: 'Proposal'
-  has_many :blog_post_tags, class_name: 'BlogPostTag'
-  has_many :blog_posts, through: :blog_post_tags, class_name: 'BlogPost'
+  has_many :proposal_tags
+  has_many :proposals, through: :proposal_tags
+  has_many :blog_post_tags
+  has_many :blog_posts, through: :blog_post_tags
+  has_many :tag_counters
 
-  scope :most_used, ->(limit=10) { where('(blog_posts_count + blogs_count + proposals_count + groups_count) > ?', limit).order('random()') }
-  scope :most_groups, ->(limit=40) { where('groups_count > 0').order('groups_count desc').limit(limit) }
-  scope :most_blogs, ->(limit=40) { where('blog_posts_count > 0').order('blog_posts_count desc').limit(limit) } #todo use blog_post for now
+  scope :most_used, ->(territory, limit=10) { very_used(territory, limit).order('random()') }
+
+  scope :most_groups, ->(territory, limit=40) { used_in_groups(territory).limit(limit) }
+
+  scope :most_blogs, ->(territory, limit=40) { used_in_blogs(territory).limit(limit) }
+
+
   scope :for_twitter, -> { pluck(:text).map { |t| "##{t}" }.join(', ') }
 
   before_save :escape_text, on: :create
@@ -35,9 +40,45 @@ class Tag < ActiveRecord::Base
     Tag.find_by_sql query
   end
 
+
+  def self.territory_filter(territory)
+    tag_counters_t = TagCounter.arel_table
+    arel_conditions = tag_counters_t[:territory_id].eq(territory.id).
+      and(tag_counters_t[:territory_type].eq(territory.class.name))
+    if territory.is_a?(Continente)
+      arel_conditions = arel_conditions.or(tag_counters_t[:territory_id].in(territory.statos.pluck(:id)).
+                                             and(tag_counters_t[:territory_type].eq(Stato.class_name)))
+    end
+    arel_conditions
+  end
+
+  def self.very_used(territory, limit = 40)
+    joins(:tag_counters).
+      where(territory_filter(territory)).
+      where('(blog_posts_count + proposals_count + groups_count) > ?', limit).
+      select('tags.*, blog_posts_count, proposals_count, groups_count')
+  end
+
+  def self.used_in_groups(territory)
+    used_in(territory, :groups_count)
+  end
+
+  def self.used_in_blogs(territory)
+    used_in(territory, :blog_posts_count)
+  end
+
+  def self.used_in(territory, object_name)
+    joins(:tag_counters).
+      where(territory_filter(territory)).
+      where(TagCounter.arel_table[object_name].gt(0)).
+      order(TagCounter.arel_table[object_name].desc).
+      select("tags.*, #{object_name}")
+  end
+
   protected
 
   def escape_text
     self.text = text.strip.downcase.gsub('.', '').gsub("'", '').gsub('/', '')
   end
+
 end

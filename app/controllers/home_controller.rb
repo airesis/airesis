@@ -126,6 +126,7 @@ class HomeController < ApplicationController
     @events = Event.in_territory(current_domain.territory).next.order('starttime asc').accessible_by(Ability.new(current_user)).limit(10)
     @proposals = Proposal.open_space_portlet(current_user, current_domain.territory)
     @most_active_groups = Group.most_active(current_domain.territory)
+    @tags = Tag.most_used(current_domain.territory).limit(100)
   end
 
   def initialize_roadmap

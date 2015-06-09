@@ -23,7 +23,7 @@ class GroupsController < ApplicationController
 
   def index
     unless request.xhr?
-      @tags = Tag.most_groups(10).shuffle
+      @tags = Tag.most_groups(current_domain.territory, 10).shuffle
     end
 
     params[:interest_border_obj] = @interest_border = if params[:interest_border].nil?

@@ -543,7 +543,7 @@ class Proposal < ActiveRecord::Base
     elsif group.present?
       group.interest_border.stato.try(:id)
     else
-      user_territory.id if territory.is_a?(Stato)
+      user_territory.id if user_territory.is_a?(Stato)
     end
   end
 
@@ -553,7 +553,7 @@ class Proposal < ActiveRecord::Base
     elsif group.present?
       group.interest_border.stato.try(:id)
     else
-      user_territory.is_a?(Stato) ? territory.continente.id : territory.id
+      user_territory.is_a?(Stato) ? user_territory.continente.id : user_territory.id
     end
   end
 

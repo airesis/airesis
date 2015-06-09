@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150607183026) do
+ActiveRecord::Schema.define(version: 20150609181312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,13 +185,6 @@ ActiveRecord::Schema.define(version: 20150607183026) do
     t.string   "status",              limit: 1, default: "P",   null: false
     t.integer  "blog_comments_count",           default: 0,     null: false
   end
-
-  create_table "blog_tags", force: true do |t|
-    t.integer "blog_id"
-    t.integer "tag_id",  null: false
-  end
-
-  add_index "blog_tags", ["blog_id", "tag_id"], name: "index_blog_tags_on_blog_id_and_tag_id", unique: true, using: :btree
 
   create_table "blogs", force: true do |t|
     t.integer  "user_id"
@@ -1346,17 +1339,13 @@ ActiveRecord::Schema.define(version: 20150607183026) do
     t.string  "territory_type",               null: false
     t.integer "proposals_count",  default: 0, null: false
     t.integer "blog_posts_count", default: 0, null: false
-    t.integer "blogs_count",      default: 0, null: false
+    t.integer "groups_count",     default: 0, null: false
   end
 
   create_table "tags", force: true do |t|
     t.string   "text",                             null: false
-    t.integer  "proposals_count",      default: 0, null: false
-    t.integer  "blog_posts_count",     default: 0, null: false
-    t.integer  "blogs_count",          default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "groups_count",         default: 0, null: false
     t.integer  "frm_categories_count", default: 0, null: false
     t.integer  "frm_forums_count",     default: 0, null: false
     t.integer  "frm_topics_count",     default: 0, null: false
@@ -1545,7 +1534,7 @@ ActiveRecord::Schema.define(version: 20150607183026) do
   end
 
   add_foreign_key "action_abilitations", "group_actions", name: "action_abilitations_group_action_id_fk"
-  add_foreign_key "action_abilitations", "groups", name: "action_abilitations_group_id_fk"
+  add_foreign_key "action_abilitations", "groups", name: "action_abilitations_group_id_fk", options: "ON UPDATE CASCADE"
   add_foreign_key "action_abilitations", "participation_roles", name: "action_abilitations_partecipation_role_id_fk"
 
   add_foreign_key "alerts", "notifications", name: "user_alerts_notification_id_fk"
@@ -1588,9 +1577,6 @@ ActiveRecord::Schema.define(version: 20150607183026) do
   add_foreign_key "blog_posts", "blogs", name: "blog_posts_blog_id_fk"
   add_foreign_key "blog_posts", "users", name: "blog_posts_user_id_fk"
 
-  add_foreign_key "blog_tags", "blogs", name: "blog_tags_blog_id_fk"
-  add_foreign_key "blog_tags", "tags", name: "blog_tags_tag_id_fk"
-
   add_foreign_key "blogs", "users", name: "blogs_user_id_fk"
 
   add_foreign_key "circoscriziones", "continentes", name: "circoscriziones_continente_id_fk"
@@ -1612,7 +1598,7 @@ ActiveRecord::Schema.define(version: 20150607183026) do
   add_foreign_key "events", "event_types", name: "events_event_type_id_fk"
   add_foreign_key "events", "users", name: "events_user_id_fk"
 
-  add_foreign_key "frm_categories", "groups", name: "frm_categories_group_id_fk"
+  add_foreign_key "frm_categories", "groups", name: "frm_categories_group_id_fk", options: "ON UPDATE CASCADE"
 
   add_foreign_key "frm_category_tags", "frm_categories", name: "frm_category_tags_frm_category_id_fk"
   add_foreign_key "frm_category_tags", "tags", name: "frm_category_tags_tag_id_fk"
@@ -1620,33 +1606,33 @@ ActiveRecord::Schema.define(version: 20150607183026) do
   add_foreign_key "frm_forum_tags", "frm_forums", name: "frm_forum_tags_frm_forum_id_fk"
   add_foreign_key "frm_forum_tags", "tags", name: "frm_forum_tags_tag_id_fk"
 
-  add_foreign_key "frm_forums", "groups", name: "frm_forums_group_id_fk"
+  add_foreign_key "frm_forums", "groups", name: "frm_forums_group_id_fk", options: "ON UPDATE CASCADE"
 
-  add_foreign_key "frm_mods", "groups", name: "frm_groups_group_id_fk"
+  add_foreign_key "frm_mods", "groups", name: "frm_groups_group_id_fk", options: "ON UPDATE CASCADE"
 
   add_foreign_key "frm_topic_tags", "frm_topics", name: "frm_topic_tags_frm_topic_id_fk"
   add_foreign_key "frm_topic_tags", "tags", name: "frm_topic_tags_tag_id_fk"
 
   add_foreign_key "group_areas", "area_roles", name: "group_areas_area_role_id_fk"
-  add_foreign_key "group_areas", "groups", name: "group_areas_group_id_fk"
+  add_foreign_key "group_areas", "groups", name: "group_areas_group_id_fk", options: "ON UPDATE CASCADE"
 
   add_foreign_key "group_invitations", "users", name: "group_invitations_inviter_id_fk", column: "inviter_id"
 
   add_foreign_key "group_participation_requests", "group_participation_request_statuses", name: "parent_fk"
-  add_foreign_key "group_participation_requests", "groups", name: "group_partecipation_requests_group_id_fk"
+  add_foreign_key "group_participation_requests", "groups", name: "group_partecipation_requests_group_id_fk", options: "ON UPDATE CASCADE"
   add_foreign_key "group_participation_requests", "users", name: "group_partecipation_requests_user_id_fk"
 
-  add_foreign_key "group_participations", "groups", name: "group_partecipations_group_id_fk"
+  add_foreign_key "group_participations", "groups", name: "group_partecipations_group_id_fk", options: "ON UPDATE CASCADE"
   add_foreign_key "group_participations", "participation_roles", name: "group_partecipations_partecipation_role_id_fk"
   add_foreign_key "group_participations", "users", name: "group_partecipations_user_id_fk"
 
-  add_foreign_key "group_proposals", "groups", name: "group_proposals_group_id_fk"
+  add_foreign_key "group_proposals", "groups", name: "group_proposals_group_id_fk", options: "ON UPDATE CASCADE"
   add_foreign_key "group_proposals", "proposals", name: "group_proposals_proposal_id_fk"
 
-  add_foreign_key "group_quorums", "groups", name: "group_quorums_group_id_fk"
+  add_foreign_key "group_quorums", "groups", name: "group_quorums_group_id_fk", options: "ON UPDATE CASCADE"
   add_foreign_key "group_quorums", "quorums", name: "group_quorums_quorum_id_fk"
 
-  add_foreign_key "group_tags", "groups", name: "group_tags_group_id_fk"
+  add_foreign_key "group_tags", "groups", name: "group_tags_group_id_fk", options: "ON UPDATE CASCADE"
   add_foreign_key "group_tags", "tags", name: "group_tags_tag_id_fk"
 
   add_foreign_key "groups", "interest_borders", name: "groups_interest_border_id_fk"
@@ -1655,7 +1641,7 @@ ActiveRecord::Schema.define(version: 20150607183026) do
   add_foreign_key "integrated_contributes", "proposal_comments", name: "integrated_contributes_proposal_comment_id_fk"
   add_foreign_key "integrated_contributes", "proposal_revisions", name: "integrated_contributes_proposal_revision_id_fk"
 
-  add_foreign_key "meeting_organizations", "groups", name: "meeting_organizations_group_id_fk"
+  add_foreign_key "meeting_organizations", "groups", name: "meeting_organizations_group_id_fk", options: "ON UPDATE CASCADE"
 
   add_foreign_key "meeting_participations", "meetings", name: "meeting_partecipations_meeting_id_fk"
   add_foreign_key "meeting_participations", "users", name: "meeting_partecipations_user_id_fk"
@@ -1674,11 +1660,11 @@ ActiveRecord::Schema.define(version: 20150607183026) do
 
   add_foreign_key "paragraphs", "sections", name: "paragraphs_section_id_fk"
 
-  add_foreign_key "participation_roles", "groups", name: "partecipation_roles_group_id_fk"
+  add_foreign_key "participation_roles", "groups", name: "partecipation_roles_group_id_fk", options: "ON UPDATE CASCADE"
   add_foreign_key "participation_roles", "participation_roles", name: "partecipation_roles_parent_partecipation_role_id_fk", column: "parent_participation_role_id"
 
   add_foreign_key "post_publishings", "blog_posts", name: "post_publishings_blog_post_id_fk"
-  add_foreign_key "post_publishings", "groups", name: "post_publishings_group_id_fk"
+  add_foreign_key "post_publishings", "groups", name: "post_publishings_group_id_fk", options: "ON UPDATE CASCADE"
 
   add_foreign_key "proposal_borders", "interest_borders", name: "proposal_borders_interest_border_id_fk"
   add_foreign_key "proposal_borders", "proposals", name: "proposal_borders_proposal_id_fk"
@@ -1715,7 +1701,7 @@ ActiveRecord::Schema.define(version: 20150607183026) do
   add_foreign_key "proposal_sections", "proposals", name: "proposal_sections_proposal_id_fk"
   add_foreign_key "proposal_sections", "sections", name: "proposal_sections_section_id_fk"
 
-  add_foreign_key "proposal_supports", "groups", name: "proposal_supports_group_id_fk"
+  add_foreign_key "proposal_supports", "groups", name: "proposal_supports_group_id_fk", options: "ON UPDATE CASCADE"
   add_foreign_key "proposal_supports", "proposals", name: "proposal_supports_proposal_id_fk"
 
   add_foreign_key "proposal_tags", "proposals", name: "proposal_tags_proposal_id_fk"
