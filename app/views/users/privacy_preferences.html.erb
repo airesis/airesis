@@ -86,6 +86,11 @@
             <%= link_to "<div class=\"zocial icon meetup vertical\"></div>".html_safe + t('pages.users.privacy_preferences.join_meetup'), user_omniauth_authorize_path(:meetup) %>
             <br/>
         <% end %>
+
+        <% unless alreadyproviders.include? Authentication::TECNOLOGIEDEMOCRATICHE %>
+            <%= link_to "<div class=\"zocial icon tecnologiedemocratiche vertical\"></div>".html_safe + t('pages.users.privacy_preferences.join_tecnologiedemocratiche'), user_omniauth_authorize_path(:tecnologiedemocratiche) %>
+            <br/>
+        <% end %>
       </div>
 
 
@@ -110,13 +115,18 @@
               <% elsif authentication.provider == Authentication::PARMA %>
                   <div class="zocial icon parma vertical"></div>
                   Comune di Parma
+              <% elsif authentication.provider == Authentication::TECNOLOGIEDEMOCRATICHE %>
+                  <div class="zocial icon tecnologiedemocratiche vertical"></div>
+                  Tecnologie Democratiche
               <% end %>
-              <% if @user.email %>
-                  <%= link_to t('buttons.detach'), [@user, authentication], method: :delete, confirm: t('confirm_detach') %>
-                  <br/>
-              <% else %>
-                  <%= link_to t('buttons.detach'), '#', onclick: "alert('#{j t('alert_detach')}');return false;" %>
-                  <br/>
+              <% unless Authentication::UNDETACHABLE_PROVIDERS.include?(authentication.provider) %>
+                  <% if @user.email %>
+                      <%= link_to t('buttons.detach'), [@user, authentication], method: :delete, data: {confirm: t('confirm_detach')} %>
+                      <br/>
+                  <% else %>
+                      <%= link_to t('buttons.detach'), '#', data: {detach_disabled: true} %>
+                      <br/>
+                  <% end %>
               <% end %>
           <% end %>
       <% end %>
@@ -125,6 +135,12 @@
 </div>
 
 <script type="text/javascript">
+
+    $('a[data-detach-disabled]').click(function () {
+        alert("#{j t('alert_detach')}");
+        return false;
+    });
+
     function change_show_tooltips(el) {
         var active = (el.checked) ? "true" : "false";
         $.ajax({

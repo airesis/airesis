@@ -21,6 +21,10 @@
 <div class="card">
   <h2><%= t('pages.users.show.profile_info') %><%= t('pages.users.show.profile_info_unconfirmed') unless @user.confirmed? %></h2>
 
+  <% if current_user == @user && @user.user_type_id == UserType::CERTIFIED %>
+  <div class="alert-box secondary"><%= t('pages.users.show.certified_cannot_edit_info') %></div>
+  <% end %>
+
   <div id="name_profile" class="profile_element">
 
     <h2 class="label_profile"><%= t('pages.users.show.name_label') %>: </h2>
