@@ -256,7 +256,7 @@ ActiveRecord::Schema.define(version: 20150610203411) do
   create_table "districts", force: true do |t|
     t.integer "municipality_id"
     t.string  "description",     limit: 100
-    t.integer "provincia_id"
+    t.integer "province_id"
     t.integer "region_id"
     t.integer "country_id"
     t.integer "continent_id"
@@ -265,7 +265,7 @@ ActiveRecord::Schema.define(version: 20150610203411) do
 
   add_index "districts", ["continent_id"], name: "index_districts_on_continent_id", using: :btree
   add_index "districts", ["country_id"], name: "index_districts_on_country_id", using: :btree
-  add_index "districts", ["provincia_id"], name: "index_districts_on_provincia_id", using: :btree
+  add_index "districts", ["province_id"], name: "index_districts_on_province_id", using: :btree
   add_index "districts", ["region_id"], name: "index_districts_on_region_id", using: :btree
 
   create_table "email_jobs", force: true do |t|
@@ -694,7 +694,7 @@ ActiveRecord::Schema.define(version: 20150610203411) do
 
   create_table "municipalities", force: true do |t|
     t.string  "description",  limit: 100, null: false
-    t.integer "provincia_id",             null: false
+    t.integer "province_id",              null: false
     t.integer "region_id",                null: false
     t.integer "population"
     t.string  "codistat",     limit: 4
@@ -1017,7 +1017,7 @@ ActiveRecord::Schema.define(version: 20150610203411) do
   add_index "proposals", ["updated_at"], name: "index_proposals_on_updated_at", using: :btree
   add_index "proposals", ["vote_period_id"], name: "_idx_proposals_vote_period_id", using: :btree
 
-  create_table "provincias", force: true do |t|
+  create_table "provinces", force: true do |t|
     t.string  "description",  limit: 100
     t.integer "region_id",                null: false
     t.string  "sigla",        limit: 5
@@ -1027,8 +1027,8 @@ ActiveRecord::Schema.define(version: 20150610203411) do
     t.integer "geoname_id"
   end
 
-  add_index "provincias", ["continent_id"], name: "index_provincias_on_continent_id", using: :btree
-  add_index "provincias", ["country_id"], name: "index_provincias_on_country_id", using: :btree
+  add_index "provinces", ["continent_id"], name: "index_provinces_on_continent_id", using: :btree
+  add_index "provinces", ["country_id"], name: "index_provinces_on_country_id", using: :btree
 
   create_table "quorums", force: true do |t|
     t.string   "name",              limit: 100,                  null: false
@@ -1548,7 +1548,7 @@ ActiveRecord::Schema.define(version: 20150610203411) do
 
   add_foreign_key "districts", "continents", name: "circoscriziones_continente_id_fk"
   add_foreign_key "districts", "countries", name: "circoscriziones_stato_id_fk"
-  add_foreign_key "districts", "provincias", name: "circoscriziones_provincia_id_fk"
+  add_foreign_key "districts", "provinces", name: "circoscriziones_provincia_id_fk"
   add_foreign_key "districts", "regions", name: "circoscriziones_regione_id_fk"
 
   add_foreign_key "event_comment_likes", "event_comments", name: "event_comment_likes_event_comment_id_fk"
@@ -1684,8 +1684,8 @@ ActiveRecord::Schema.define(version: 20150610203411) do
   add_foreign_key "proposals", "proposal_votation_types", name: "proposals_proposal_votation_type_id_fk"
   add_foreign_key "proposals", "quorums", name: "proposals_quorum_id_fk"
 
-  add_foreign_key "provincias", "continents", name: "provincias_continente_id_fk"
-  add_foreign_key "provincias", "countries", name: "provincias_stato_id_fk"
+  add_foreign_key "provinces", "continents", name: "provincias_continente_id_fk"
+  add_foreign_key "provinces", "countries", name: "provincias_stato_id_fk"
 
   add_foreign_key "quorums", "quorums", name: "quorums_quorum_id_fk"
 

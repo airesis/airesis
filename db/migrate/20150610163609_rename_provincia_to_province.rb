@@ -3,7 +3,7 @@ class RenameProvinciaToProvince < ActiveRecord::Migration
     rename_column :comunes, :provincia_id, :province_id
     rename_column :districts, :provincia_id, :province_id
 
-    rename_table :provinces, :provinces
+    rename_table :provincias, :provinces
 
     SysLocale.where(territory_type: 'Provincia').update_all(territory_type: 'Province')
     InterestBorder.where(territory_type: 'Provincia').update_all(territory_type: 'Province')
