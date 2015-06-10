@@ -19,8 +19,8 @@ module Geonames
       @country_output = "state = Country.find_by(description: '#{@country_name}')"
 
       @regions_output = "region = Region.create(description: \"%{name}\", country: state, continent: continent, geoname_id: %{geoname_id})"
-      @provinces_output = "provincia = region.provincias.create(description: \"%{name}\", country: state, continent: continent,  geoname_id: %{geoname_id}, population: %{population})"
-      @cities_output = "provincia.comunes.create(description: \"%{name}\", region: region, country: state, continent: continent, geoname_id: %{geoname_id}, population: %{population})"
+      @provinces_output = "province = region.provinces.create(description: \"%{name}\", country: state, continent: continent,  geoname_id: %{geoname_id}, population: %{population})"
+      @cities_output = "province.comunes.create(description: \"%{name}\", region: region, country: state, continent: continent, geoname_id: %{geoname_id}, population: %{population})"
     end
 
     def extract_features(geoname)
@@ -55,9 +55,9 @@ module Geonames
         regions.each do |region|
           f.puts @regions_output % region
           provinces = fetch_and_extract(region[:geoname_id])
-          provinces.each do |provincia|
-            f.puts @provinces_output % provincia
-            cities = provinces = fetch_and_extract(provincia[:geoname_id])
+          provinces.each do |province|
+            f.puts @provinces_output % province
+            cities = provinces = fetch_and_extract(province[:geoname_id])
             cities.each do |city|
               f.puts @cities_output % city
             end

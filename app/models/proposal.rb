@@ -519,11 +519,11 @@ class Proposal < ActiveRecord::Base
     end
   end
 
-  def solr_provincia_ids
+  def solr_province_ids
     if interest_borders.any?
-      interest_borders.map(&:provincia).map { |i| i.try(:id) }.compact
+      interest_borders.map(&:province).map { |i| i.try(:id) }.compact
     elsif group.present?
-      [group.interest_border.provincia.try(:id)]
+      [group.interest_border.province.try(:id)]
     end
   end
 
@@ -591,8 +591,8 @@ class Proposal < ActiveRecord::Base
     integer :region_id do
       interest_borders.map(&:region).map(:try, :id).compact
     end
-    integer :provincia_id do
-      interest_borders.map(&:provincia).map(:try, :id).compact
+    integer :province_id do
+      interest_borders.map(&:province).map(:try, :id).compact
     end
     integer :comune_id do
       interest_borders.map(&:comune).map(:try, :id).compact

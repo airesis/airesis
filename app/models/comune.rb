@@ -4,13 +4,13 @@ class Comune < ActiveRecord::Base
   has_many :places, dependent: :destroy
   has_many :districts, dependent: :destroy
 
-  belongs_to :provincia
+  belongs_to :province
   belongs_to :region
   belongs_to :country
   belongs_to :continent
 
   def parent
-    provincia
+    province
   end
 
   def name

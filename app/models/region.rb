@@ -3,7 +3,7 @@ class Region < ActiveRecord::Base
 
   has_many :districts
   has_many :comunes
-  has_many :provincias, dependent: :destroy
+  has_many :provinces, dependent: :destroy
 
   belongs_to :country
   belongs_to :continent

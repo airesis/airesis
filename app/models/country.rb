@@ -4,7 +4,7 @@ class Country < ActiveRecord::Base
 
   has_many :districts
   has_many :comunes
-  has_many :provincias
+  has_many :provinces
   has_many :regions
 
   belongs_to :continent

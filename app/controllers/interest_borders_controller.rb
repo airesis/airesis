@@ -23,9 +23,9 @@ class InterestBordersController < ApplicationController
         results += regions.collect { |r| {id: "#{InterestBorder::SHORT_REGION}-#{r.id}", name: r.name} }
         limit -= regions.size
         if limit > 0
-          province = territory.provincias.
-            where(["lower_unaccent(provincias.description) like lower_unaccent(?)", hint]).limit(limit)
-          results += province.collect { |p| {id: "#{InterestBorder::SHORT_PROVINCIA}-#{p.id}", name: p.name} }
+          province = territory.provinces.
+            where(["lower_unaccent(provinces.description) like lower_unaccent(?)", hint]).limit(limit)
+          results += province.collect { |p| {id: "#{InterestBorder::SHORT_PROVINCE}-#{p.id}", name: p.name} }
           limit -= province.size
           if limit > 0
             comunes = territory.comunes.

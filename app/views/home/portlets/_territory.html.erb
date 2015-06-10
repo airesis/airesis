@@ -15,8 +15,8 @@
             if !@ib
                 @place_string = "Italia"
             elsif @ib.territory_type == 'Comune'
-                @place_string = @ib.territory.description + ", " + @ib.territory.provincia.description + ", Italia"
-            elsif @ib.territory_type == 'Provincia'
+                @place_string = @ib.territory.description + ", " + @ib.territory.province.description + ", Italia"
+            elsif @ib.territory_type == 'Province'
                 @place_string = @ib.territory.description + ", Italia"
             elsif @ib.territory_type == 'Region'
                 @place_string = @ib.territory.description + ", Italia"

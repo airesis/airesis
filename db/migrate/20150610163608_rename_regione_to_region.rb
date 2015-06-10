@@ -1,6 +1,6 @@
 class RenameRegioneToRegion < ActiveRecord::Migration
   def change
-    rename_column :provincias, :regione_id, :region_id
+    rename_column :provinces, :regione_id, :region_id
     rename_column :comunes, :regione_id, :region_id
     rename_column :districts, :regione_id, :region_id
 
