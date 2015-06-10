@@ -574,7 +574,6 @@ class ProposalsController < ApplicationController
     @search.per_page = PROPOSALS_PER_PAGE
   end
 
-
   private
 
   def proposal_params
