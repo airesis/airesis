@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Abbateggio", provincia_id: 46, regione_id: 2, country_id: 1, continent_id: 1 , population: 420)
 Comune.create(description: "Alanno", provincia_id: 46, regione_id: 2, country_id: 1, continent_id: 1 , population: 3742)
 Comune.create(description: "Bolognano", provincia_id: 46, regione_id: 2, country_id: 1, continent_id: 1 , population: 1269)

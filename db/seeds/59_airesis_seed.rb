@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Bastiglia", provincia_id: 60, regione_id: 14, country_id: 1, continent_id: 1 , population: 3359)
 Comune.create(description: "Bomporto", provincia_id: 60, regione_id: 14, country_id: 1, continent_id: 1 , population: 7583)
 Comune.create(description: "Campogalliano", provincia_id: 60, regione_id: 14, country_id: 1, continent_id: 1 , population: 7762)

@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Issogne", provincia_id: 77, regione_id: 16, country_id: 1, continent_id: 1 , population: 1346)
 Comune.create(description: "Allein", provincia_id: 77, regione_id: 16, country_id: 1, continent_id: 1 , population: 242)
 Comune.create(description: "Aosta", provincia_id: 77, regione_id: 16, country_id: 1, continent_id: 1 , population: 34062)

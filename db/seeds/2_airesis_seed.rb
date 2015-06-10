@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acquacanina", provincia_id: 2, regione_id: 1, country_id: 1, continent_id: 1 , population: 139)
 Comune.create(description: "Apiro", provincia_id: 2, regione_id: 1, country_id: 1, continent_id: 1 , population: 2431)
 Comune.create(description: "Appignano", provincia_id: 2, regione_id: 1, country_id: 1, continent_id: 1 , population: 3904)

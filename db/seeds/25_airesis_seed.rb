@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acquaro", provincia_id: 25, regione_id: 7, country_id: 1, continent_id: 1 , population: 3046)
 Comune.create(description: "Arena", provincia_id: 25, regione_id: 7, country_id: 1, continent_id: 1 , population: 1799)
 Comune.create(description: "Briatico", provincia_id: 25, regione_id: 7, country_id: 1, continent_id: 1 , population: 4106)

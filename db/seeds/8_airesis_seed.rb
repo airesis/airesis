@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acceglio", provincia_id: 8, regione_id: 13, country_id: 1, continent_id: 1 , population: 197)
 Comune.create(description: "Aisone", provincia_id: 8, regione_id: 13, country_id: 1, continent_id: 1 , population: 257)
 Comune.create(description: "Alba", provincia_id: 8, regione_id: 13, country_id: 1, continent_id: 1 , population: 29910)

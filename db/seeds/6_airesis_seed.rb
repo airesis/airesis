@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Agliano Terme", provincia_id: 6, regione_id: 13, country_id: 1, continent_id: 1 , population: 1697)
 Comune.create(description: "Albugnano", provincia_id: 6, regione_id: 13, country_id: 1, continent_id: 1 , population: 462)
 Comune.create(description: "Antignano", provincia_id: 6, regione_id: 13, country_id: 1, continent_id: 1 , population: 1007)

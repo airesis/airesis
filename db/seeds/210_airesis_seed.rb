@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Tomé", provincia_id: 211, regione_id: 47, country_id: 90, continent_id: 2 , population: 52440)
 Comune.create(description: "Talcahuano", provincia_id: 211, regione_id: 47, country_id: 90, continent_id: 2 , population: 250348)
 Comune.create(description: "Santa Juana", provincia_id: 211, regione_id: 47, country_id: 90, continent_id: 2 , population: 12713)

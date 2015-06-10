@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Argenta", provincia_id: 58, regione_id: 14, country_id: 1, continent_id: 1 , population: 21648)
 Comune.create(description: "Berra", provincia_id: 58, regione_id: 14, country_id: 1, continent_id: 1 , population: 5832)
 Comune.create(description: "Bondeno", provincia_id: 58, regione_id: 14, country_id: 1, continent_id: 1 , population: 15741)

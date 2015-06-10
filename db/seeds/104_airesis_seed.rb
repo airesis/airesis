@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Buggerru", provincia_id: 105, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Calasetta", provincia_id: 105, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Carbonia", provincia_id: 105, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)

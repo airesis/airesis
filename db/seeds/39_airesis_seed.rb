@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Aprilia", provincia_id: 40, regione_id: 9, country_id: 1, continent_id: 1 , population: 56028)
 Comune.create(description: "Bassiano", provincia_id: 40, regione_id: 9, country_id: 1, continent_id: 1 , population: 1617)
 Comune.create(description: "Campodimele", provincia_id: 40, regione_id: 9, country_id: 1, continent_id: 1 , population: 733)

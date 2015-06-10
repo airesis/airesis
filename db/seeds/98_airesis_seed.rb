@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Albaredo Per San Marco", provincia_id: 99, regione_id: 19, country_id: 1, continent_id: 1 , population: 408)
 Comune.create(description: "Albosaggia", provincia_id: 99, regione_id: 19, country_id: 1, continent_id: 1 , population: 3084)
 Comune.create(description: "Andalo Valtellino", provincia_id: 99, regione_id: 19, country_id: 1, continent_id: 1 , population: 548)

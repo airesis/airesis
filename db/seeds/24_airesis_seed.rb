@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Africo", provincia_id: 24, regione_id: 7, country_id: 1, continent_id: 1 , population: 3465)
 Comune.create(description: "Agnana Calabra", provincia_id: 24, regione_id: 7, country_id: 1, continent_id: 1 , population: 673)
 Comune.create(description: "Anoia", provincia_id: 24, regione_id: 7, country_id: 1, continent_id: 1 , population: 2378)

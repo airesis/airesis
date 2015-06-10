@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Babahoyo", provincia_id: 128, regione_id: 1, country_id: 53, continent_id: 2 , population: 90191)
 Comune.create(description: "Buena Fé (San Jacinto de Buena Fé)", provincia_id: 128, regione_id: 1, country_id: 53, continent_id: 2 , population: 38263)
 Comune.create(description: "Montalvo", provincia_id: 128, regione_id: 1, country_id: 53, continent_id: 2 , population: 12734)

@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Vichuquén", provincia_id: 206, regione_id: 46, country_id: 90, continent_id: 2 , population: 4916)
 Comune.create(description: "Teno", provincia_id: 206, regione_id: 46, country_id: 90, continent_id: 2 , population: 25596)
 Comune.create(description: "Sagrada Familia", provincia_id: 206, regione_id: 46, country_id: 90, continent_id: 2 , population: 17519)

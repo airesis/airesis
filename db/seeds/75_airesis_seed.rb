@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Duino Aurisina", provincia_id: 76, regione_id: 15, country_id: 1, continent_id: 1 )
 Comune.create(description: "Monrupino", provincia_id: 76, regione_id: 15, country_id: 1, continent_id: 1 , population: 868)
 Comune.create(description: "Muggia", provincia_id: 76, regione_id: 15, country_id: 1, continent_id: 1 , population: 13306)

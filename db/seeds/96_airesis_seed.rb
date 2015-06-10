@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Abbiategrasso", provincia_id: 97, regione_id: 19, country_id: 1, continent_id: 1 , population: 27739)
 Comune.create(description: "Agrate Brianza", provincia_id: 97, regione_id: 19, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Aicurzio", provincia_id: 97, regione_id: 19, country_id: 1, continent_id: 1 , population: 0)

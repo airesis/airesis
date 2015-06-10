@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Gagliano Aterno", provincia_id: 45, regione_id: 2, country_id: 1, continent_id: 1 , population: 314)
 Comune.create(description: "Gioia Dei Marsi", provincia_id: 45, regione_id: 2, country_id: 1, continent_id: 1 , population: 2284)
 Comune.create(description: "Goriano Sicoli", provincia_id: 45, regione_id: 2, country_id: 1, continent_id: 1 , population: 633)

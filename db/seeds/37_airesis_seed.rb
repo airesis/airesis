@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acerno", provincia_id: 38, regione_id: 8, country_id: 1, continent_id: 1 , population: 3013)
 Comune.create(description: "Agropoli", provincia_id: 38, regione_id: 8, country_id: 1, continent_id: 1 , population: 19949)
 Comune.create(description: "Albanella", provincia_id: 38, regione_id: 8, country_id: 1, continent_id: 1 , population: 6317)

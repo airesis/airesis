@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Aulla", provincia_id: 53, regione_id: 12, country_id: 1, continent_id: 1 , population: 10178)
 Comune.create(description: "Bagnone", provincia_id: 53, regione_id: 12, country_id: 1, continent_id: 1 , population: 2022)
 Comune.create(description: "Carrara", provincia_id: 53, regione_id: 12, country_id: 1, continent_id: 1 , population: 65034)

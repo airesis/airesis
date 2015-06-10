@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acquaviva Collecroce", provincia_id: 87, regione_id: 4, country_id: 1, continent_id: 1 , population: 800)
 Comune.create(description: "Baranello", provincia_id: 87, regione_id: 4, country_id: 1, continent_id: 1 , population: 2653)
 Comune.create(description: "Bojano", provincia_id: 87, regione_id: 4, country_id: 1, continent_id: 1 )

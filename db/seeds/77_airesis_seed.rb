@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Suelli", provincia_id: 78, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Armungia", provincia_id: 78, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Assemini", provincia_id: 78, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)

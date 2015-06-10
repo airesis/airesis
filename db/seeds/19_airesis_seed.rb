@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Augusta", provincia_id: 19, regione_id: 11, country_id: 1, continent_id: 1 , population: 33820)
 Comune.create(description: "Avola", provincia_id: 19, regione_id: 11, country_id: 1, continent_id: 1 , population: 31289)
 Comune.create(description: "Buccheri", provincia_id: 19, regione_id: 11, country_id: 1, continent_id: 1 , population: 2320)

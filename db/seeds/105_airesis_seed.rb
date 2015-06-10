@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Arbus", provincia_id: 106, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Barumini", provincia_id: 106, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Collinas", provincia_id: 106, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)

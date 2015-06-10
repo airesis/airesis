@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Airasca", provincia_id: 11, regione_id: 13, country_id: 1, continent_id: 1 , population: 3554)
 Comune.create(description: "Ala Di Stura", provincia_id: 11, regione_id: 13, country_id: 1, continent_id: 1 , population: 479)
 Comune.create(description: "Alice Superiore", provincia_id: 11, regione_id: 13, country_id: 1, continent_id: 1 , population: 616)

@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Assisi", provincia_id: 88, regione_id: 20, country_id: 1, continent_id: 1 , population: 25304)
 Comune.create(description: "Bastia Umbra", provincia_id: 88, regione_id: 20, country_id: 1, continent_id: 1 , population: 18400)
 Comune.create(description: "Bettona", provincia_id: 88, regione_id: 20, country_id: 1, continent_id: 1 , population: 3784)

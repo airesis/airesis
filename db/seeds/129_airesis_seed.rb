@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Bahía de Caráquez (Sucre)", provincia_id: 130, regione_id: 1, country_id: 53, continent_id: 2 , population: 20921)
 Comune.create(description: "Calceta (Bolivar)", provincia_id: 130, regione_id: 1, country_id: 53, continent_id: 2 , population: 17632)
 Comune.create(description: "Chone", provincia_id: 130, regione_id: 1, country_id: 53, continent_id: 2 , population: 52810)

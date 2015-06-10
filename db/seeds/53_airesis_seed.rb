@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Bientina", provincia_id: 54, regione_id: 12, country_id: 1, continent_id: 1 , population: 6115)
 Comune.create(description: "Buti", provincia_id: 54, regione_id: 12, country_id: 1, continent_id: 1 , population: 5431)
 Comune.create(description: "Calci", provincia_id: 54, regione_id: 12, country_id: 1, continent_id: 1 , population: 5838)

@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Santa Cruz", provincia_id: 204, regione_id: 45, country_id: 90, continent_id: 2 , population: 32387)
 Comune.create(description: "San Fernando", provincia_id: 204, regione_id: 45, country_id: 90, continent_id: 2 , population: 63732)
 Comune.create(description: "Pumanque", provincia_id: 204, regione_id: 45, country_id: 90, continent_id: 2 , population: 3442)

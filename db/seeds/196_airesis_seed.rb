@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "San José de Maipo", provincia_id: 197, regione_id: 44, country_id: 90, continent_id: 2 , population: 13376)
 Comune.create(description: "Puente Alto", provincia_id: 197, regione_id: 44, country_id: 90, continent_id: 2 , population: 492915)
 Comune.create(description: "Pirque", provincia_id: 197, regione_id: 44, country_id: 90, continent_id: 2 , population: 16565)

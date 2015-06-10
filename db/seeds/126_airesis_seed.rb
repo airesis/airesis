@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Balzar", provincia_id: 127, regione_id: 1, country_id: 53, continent_id: 2 , population: 28794)
 Comune.create(description: "Daule", provincia_id: 127, regione_id: 1, country_id: 53, continent_id: 2 , population: 65145)
 Comune.create(description: "Eloy Alfaro (Durán)", provincia_id: 127, regione_id: 1, country_id: 53, continent_id: 2 , population: 230839)

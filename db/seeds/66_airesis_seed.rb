@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Abano Terme", provincia_id: 67, regione_id: 17, country_id: 1, continent_id: 1 , population: 18206)
 Comune.create(description: "Agna", provincia_id: 67, regione_id: 17, country_id: 1, continent_id: 1 , population: 3158)
 Comune.create(description: "Albignasego", provincia_id: 67, regione_id: 17, country_id: 1, continent_id: 1 , population: 19147)

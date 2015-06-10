@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Valdivia", provincia_id: 216, regione_id: 49, country_id: 90, continent_id: 2 , population: 140559)
 Comune.create(description: "Panguipulli", provincia_id: 216, regione_id: 49, country_id: 90, continent_id: 2 , population: 33273)
 Comune.create(description: "Paillaco", provincia_id: 216, regione_id: 49, country_id: 90, continent_id: 2 , population: 19237)

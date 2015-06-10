@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Aritzo", provincia_id: 79, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Atzara", provincia_id: 79, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Austis", provincia_id: 79, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)

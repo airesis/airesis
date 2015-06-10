@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Bibbona", provincia_id: 51, regione_id: 12, country_id: 1, continent_id: 1 , population: 3051)
 Comune.create(description: "Campiglia Marittima", provincia_id: 51, regione_id: 12, country_id: 1, continent_id: 1 , population: 12540)
 Comune.create(description: "Capoliveri", provincia_id: 51, regione_id: 12, country_id: 1, continent_id: 1 , population: 3105)

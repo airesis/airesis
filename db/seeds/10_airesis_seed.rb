@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Alagna Valsesia", provincia_id: 10, regione_id: 13, country_id: 1, continent_id: 1 , population: 457)
 Comune.create(description: "Albano Vercellese", provincia_id: 10, regione_id: 13, country_id: 1, continent_id: 1 , population: 339)
 Comune.create(description: "Alice Castello", provincia_id: 10, regione_id: 13, country_id: 1, continent_id: 1 , population: 2603)

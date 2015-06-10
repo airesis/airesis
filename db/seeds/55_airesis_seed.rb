@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Abbadia San Salvatore", provincia_id: 56, regione_id: 12, country_id: 1, continent_id: 1 , population: 6832)
 Comune.create(description: "Asciano", provincia_id: 56, regione_id: 12, country_id: 1, continent_id: 1 , population: 6488)
 Comune.create(description: "Buonconvento", provincia_id: 56, regione_id: 12, country_id: 1, continent_id: 1 , population: 3168)

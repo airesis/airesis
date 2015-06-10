@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acquaformosa", provincia_id: 22, regione_id: 7, country_id: 1, continent_id: 1 , population: 1295)
 Comune.create(description: "Acquappesa", provincia_id: 22, regione_id: 7, country_id: 1, continent_id: 1 , population: 2068)
 Comune.create(description: "Acri", provincia_id: 22, regione_id: 7, country_id: 1, continent_id: 1 , population: 21891)

@@ -1,4 +1,3 @@
-#encoding: utf-8
 class ParticipationRolesController < ApplicationController
   layout 'groups'
 

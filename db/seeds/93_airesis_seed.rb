@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Abbadia Lariana", provincia_id: 94, regione_id: 19, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Airuno", provincia_id: 94, regione_id: 19, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Annone Di Brianza", provincia_id: 94, regione_id: 19, country_id: 1, continent_id: 1 , population: 0)

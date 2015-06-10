@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Bagno A Ripoli", provincia_id: 49, regione_id: 12, country_id: 1, continent_id: 1 , population: 25232)
 Comune.create(description: "Barberino Di Mugello", provincia_id: 49, regione_id: 12, country_id: 1, continent_id: 1 , population: 9531)
 Comune.create(description: "Borgo San Lorenzo", provincia_id: 49, regione_id: 12, country_id: 1, continent_id: 1 , population: 15825)

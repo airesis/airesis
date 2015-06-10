@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Victoria", provincia_id: 214, regione_id: 48, country_id: 90, continent_id: 2 , population: 33501)
 Comune.create(description: "Traiguén", provincia_id: 214, regione_id: 48, country_id: 90, continent_id: 2 , population: 19534)
 Comune.create(description: "Renaico", provincia_id: 214, regione_id: 48, country_id: 90, continent_id: 2 , population: 9128)

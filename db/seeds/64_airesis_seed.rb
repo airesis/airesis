@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Bellaria-Igea Marina", provincia_id: 65, regione_id: 14, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Cattolica", provincia_id: 65, regione_id: 14, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Coriano", provincia_id: 65, regione_id: 14, country_id: 1, continent_id: 1 , population: 0)

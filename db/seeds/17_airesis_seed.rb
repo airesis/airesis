@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Alia", provincia_id: 17, regione_id: 11, country_id: 1, continent_id: 1 , population: 4184)
 Comune.create(description: "Alimena", provincia_id: 17, regione_id: 11, country_id: 1, continent_id: 1 , population: 2494)
 Comune.create(description: "Aliminusa", provincia_id: 17, regione_id: 11, country_id: 1, continent_id: 1 , population: 1363)

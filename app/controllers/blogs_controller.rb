@@ -1,4 +1,3 @@
-#encoding: utf-8
 class BlogsController < ApplicationController
   layout :choose_layout
 

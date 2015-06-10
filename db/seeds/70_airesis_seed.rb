@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Affi", provincia_id: 71, regione_id: 17, country_id: 1, continent_id: 1 , population: 1942)
 Comune.create(description: "Angiari", provincia_id: 71, regione_id: 17, country_id: 1, continent_id: 1 , population: 1844)
 Comune.create(description: "Arcole", provincia_id: 71, regione_id: 17, country_id: 1, continent_id: 1 , population: 5274)

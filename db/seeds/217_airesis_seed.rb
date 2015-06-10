@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Puerto Varas", provincia_id: 218, regione_id: 50, country_id: 90, continent_id: 2 , population: 32912)
 Comune.create(description: "Puerto Montt", provincia_id: 218, regione_id: 50, country_id: 90, continent_id: 2 , population: 175938)
 Comune.create(description: "Maullín", provincia_id: 218, regione_id: 50, country_id: 90, continent_id: 2 , population: 15580)

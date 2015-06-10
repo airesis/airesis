@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Santo Domingo", provincia_id: 193, regione_id: 43, country_id: 90, continent_id: 2 , population: 7418)
 Comune.create(description: "San Antonio", provincia_id: 193, regione_id: 43, country_id: 90, continent_id: 2 , population: 87205)
 Comune.create(description: "El Tabo", provincia_id: 193, regione_id: 43, country_id: 90, continent_id: 2 , population: 7028)

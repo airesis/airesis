@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Avetrana", provincia_id: 33, regione_id: 6, country_id: 1, continent_id: 1 , population: 7303)
 Comune.create(description: "Carosino", provincia_id: 33, regione_id: 6, country_id: 1, continent_id: 1 , population: 6070)
 Comune.create(description: "Castellaneta", provincia_id: 33, regione_id: 6, country_id: 1, continent_id: 1 , population: 17393)

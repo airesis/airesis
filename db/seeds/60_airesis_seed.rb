@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Albareto", provincia_id: 61, regione_id: 14, country_id: 1, continent_id: 1 , population: 2181)
 Comune.create(description: "Bardi", provincia_id: 61, regione_id: 14, country_id: 1, continent_id: 1 , population: 2719)
 Comune.create(description: "Bedonia", provincia_id: 61, regione_id: 14, country_id: 1, continent_id: 1 , population: 3823)

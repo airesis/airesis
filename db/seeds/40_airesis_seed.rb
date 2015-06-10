@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Accumoli", provincia_id: 41, regione_id: 9, country_id: 1, continent_id: 1 , population: 724)
 Comune.create(description: "Amatrice", provincia_id: 41, regione_id: 9, country_id: 1, continent_id: 1 , population: 2807)
 Comune.create(description: "Antrodoco", provincia_id: 41, regione_id: 9, country_id: 1, continent_id: 1 , population: 2845)

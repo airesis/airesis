@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Annone Veneto", provincia_id: 70, regione_id: 17, country_id: 1, continent_id: 1 , population: 3490)
 Comune.create(description: "Campagna Lupia", provincia_id: 70, regione_id: 17, country_id: 1, continent_id: 1 , population: 6288)
 Comune.create(description: "Campolongo Maggiore", provincia_id: 70, regione_id: 17, country_id: 1, continent_id: 1 , population: 9196)

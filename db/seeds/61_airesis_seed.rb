@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Vigolzone", provincia_id: 62, regione_id: 14, country_id: 1, continent_id: 1 , population: 3556)
 Comune.create(description: "Agazzano", provincia_id: 62, regione_id: 14, country_id: 1, continent_id: 1 , population: 2003)
 Comune.create(description: "Alseno", provincia_id: 62, regione_id: 14, country_id: 1, continent_id: 1 , population: 4661)

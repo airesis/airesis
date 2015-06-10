@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acquapendente", provincia_id: 43, regione_id: 9, country_id: 1, continent_id: 1 , population: 5788)
 Comune.create(description: "Arlena Di Castro", provincia_id: 43, regione_id: 9, country_id: 1, continent_id: 1 , population: 867)
 Comune.create(description: "Bagnoregio", provincia_id: 43, regione_id: 9, country_id: 1, continent_id: 1 , population: 3639)

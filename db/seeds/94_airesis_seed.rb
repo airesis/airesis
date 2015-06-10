@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Abbadia Cerreto", provincia_id: 95, regione_id: 19, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Bertonico", provincia_id: 95, regione_id: 19, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Borghetto Lodigiano", provincia_id: 95, regione_id: 19, country_id: 1, continent_id: 1 , population: 0)

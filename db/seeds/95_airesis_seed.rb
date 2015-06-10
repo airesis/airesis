@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acquanegra Sul Chiese", provincia_id: 96, regione_id: 19, country_id: 1, continent_id: 1 , population: 2936)
 Comune.create(description: "Asola", provincia_id: 96, regione_id: 19, country_id: 1, continent_id: 1 , population: 9470)
 Comune.create(description: "Bagnolo San Vito", provincia_id: 96, regione_id: 19, country_id: 1, continent_id: 1 , population: 5432)

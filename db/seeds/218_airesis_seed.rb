@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "San Pablo", provincia_id: 219, regione_id: 50, country_id: 90, continent_id: 2 , population: 10162)
 Comune.create(description: "San Juan de la Costa", provincia_id: 219, regione_id: 50, country_id: 90, continent_id: 2 , population: 8831)
 Comune.create(description: "Río Negro", provincia_id: 219, regione_id: 50, country_id: 90, continent_id: 2 , population: 14732)

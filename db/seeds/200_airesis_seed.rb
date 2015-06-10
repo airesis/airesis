@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Talagante", provincia_id: 201, regione_id: 44, country_id: 90, continent_id: 2 , population: 59805)
 Comune.create(description: "Peñaflor", provincia_id: 201, regione_id: 44, country_id: 90, continent_id: 2 , population: 66619)
 Comune.create(description: "Padre Hurtado", provincia_id: 201, regione_id: 44, country_id: 90, continent_id: 2 , population: 38768)

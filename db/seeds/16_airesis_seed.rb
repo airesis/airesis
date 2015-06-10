@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acquedolci", provincia_id: 16, regione_id: 11, country_id: 1, continent_id: 1 , population: 5373)
 Comune.create(description: "Alcara Li Fusi", provincia_id: 16, regione_id: 11, country_id: 1, continent_id: 1 , population: 2473)
 Comune.create(description: "Antillo", provincia_id: 16, regione_id: 11, country_id: 1, continent_id: 1 , population: 1128)

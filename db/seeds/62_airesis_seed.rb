@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Alfonsine", provincia_id: 63, regione_id: 14, country_id: 1, continent_id: 1 , population: 11724)
 Comune.create(description: "Bagnacavallo", provincia_id: 63, regione_id: 14, country_id: 1, continent_id: 1 , population: 16122)
 Comune.create(description: "Bagnara Di Romagna", provincia_id: 63, regione_id: 14, country_id: 1, continent_id: 1 , population: 1761)

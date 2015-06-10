@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Airola", provincia_id: 35, regione_id: 8, country_id: 1, continent_id: 1 , population: 7622)
 Comune.create(description: "Amorosi", provincia_id: 35, regione_id: 8, country_id: 1, continent_id: 1 , population: 2761)
 Comune.create(description: "Apice", provincia_id: 35, regione_id: 8, country_id: 1, continent_id: 1 , population: 5666)

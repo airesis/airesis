@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Edolo", provincia_id: 91, regione_id: 19, country_id: 1, continent_id: 1 , population: 4291)
 Comune.create(description: "Acquafredda", provincia_id: 91, regione_id: 19, country_id: 1, continent_id: 1 , population: 1409)
 Comune.create(description: "Adro", provincia_id: 91, regione_id: 19, country_id: 1, continent_id: 1 , population: 6421)

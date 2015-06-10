@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Anghiari", provincia_id: 48, regione_id: 12, country_id: 1, continent_id: 1 , population: 5860)
 Comune.create(description: "Arezzo", provincia_id: 48, regione_id: 12, country_id: 1, continent_id: 1 , population: 91589)
 Comune.create(description: "Badia Tedalda", provincia_id: 48, regione_id: 12, country_id: 1, continent_id: 1 , population: 1215)

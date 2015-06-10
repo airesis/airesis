@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Talca", provincia_id: 208, regione_id: 46, country_id: 90, continent_id: 2 , population: 201797)
 Comune.create(description: "San Rafael", provincia_id: 208, regione_id: 46, country_id: 90, continent_id: 2 , population: 7674)
 Comune.create(description: "San Clemente", provincia_id: 208, regione_id: 46, country_id: 90, continent_id: 2 , population: 37261)

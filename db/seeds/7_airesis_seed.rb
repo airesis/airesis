@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Ailoche", provincia_id: 7, regione_id: 13, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Andorno Micca", provincia_id: 7, regione_id: 13, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Benna", provincia_id: 7, regione_id: 13, country_id: 1, continent_id: 1 , population: 0)

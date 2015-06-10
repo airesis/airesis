@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Adrara San Martino", provincia_id: 90, regione_id: 19, country_id: 1, continent_id: 1 , population: 1908)
 Comune.create(description: "Adrara San Rocco", provincia_id: 90, regione_id: 19, country_id: 1, continent_id: 1 , population: 804)
 Comune.create(description: "Albino", provincia_id: 90, regione_id: 19, country_id: 1, continent_id: 1 , population: 16394)

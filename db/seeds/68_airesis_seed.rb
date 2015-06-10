@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Altivole", provincia_id: 69, regione_id: 17, country_id: 1, continent_id: 1 , population: 6122)
 Comune.create(description: "Arcade", provincia_id: 69, regione_id: 17, country_id: 1, continent_id: 1 , population: 3440)
 Comune.create(description: "Asolo", provincia_id: 69, regione_id: 17, country_id: 1, continent_id: 1 , population: 7605)

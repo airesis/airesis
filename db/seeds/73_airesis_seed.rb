@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Andreis", provincia_id: 74, regione_id: 15, country_id: 1, continent_id: 1 , population: 323)
 Comune.create(description: "Arba", provincia_id: 74, regione_id: 15, country_id: 1, continent_id: 1 , population: 1228)
 Comune.create(description: "Arzene", provincia_id: 74, regione_id: 15, country_id: 1, continent_id: 1 , population: 1608)

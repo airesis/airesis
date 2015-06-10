@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acquaviva Platani", provincia_id: 13, regione_id: 11, country_id: 1, continent_id: 1 , population: 1231)
 Comune.create(description: "Bompensiere", provincia_id: 13, regione_id: 11, country_id: 1, continent_id: 1 , population: 677)
 Comune.create(description: "Butera", provincia_id: 13, regione_id: 11, country_id: 1, continent_id: 1 , population: 5376)

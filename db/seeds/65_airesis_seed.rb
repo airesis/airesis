@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Agordo", provincia_id: 66, regione_id: 17, country_id: 1, continent_id: 1 , population: 4281)
 Comune.create(description: "Alano Di Piave", provincia_id: 66, regione_id: 17, country_id: 1, continent_id: 1 , population: 2773)
 Comune.create(description: "Alleghe", provincia_id: 66, regione_id: 17, country_id: 1, continent_id: 1 , population: 1408)

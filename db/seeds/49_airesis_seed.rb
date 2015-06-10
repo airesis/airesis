@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Arcidosso", provincia_id: 50, regione_id: 12, country_id: 1, continent_id: 1 , population: 4114)
 Comune.create(description: "Campagnatico", provincia_id: 50, regione_id: 12, country_id: 1, continent_id: 1 , population: 2423)
 Comune.create(description: "Capalbio", provincia_id: 50, regione_id: 12, country_id: 1, continent_id: 1 , population: 3750)

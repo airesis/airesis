@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Isca Sullo Jonio", provincia_id: 21, regione_id: 7, country_id: 1, continent_id: 1 )
 Comune.create(description: "Albi", provincia_id: 21, regione_id: 7, country_id: 1, continent_id: 1 , population: 1105)
 Comune.create(description: "Amaroni", provincia_id: 21, regione_id: 7, country_id: 1, continent_id: 1 , population: 2007)

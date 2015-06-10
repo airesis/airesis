@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Affile", provincia_id: 42, regione_id: 9, country_id: 1, continent_id: 1 , population: 1644)
 Comune.create(description: "Agosta", provincia_id: 42, regione_id: 9, country_id: 1, continent_id: 1 , population: 1617)
 Comune.create(description: "Albano Laziale", provincia_id: 42, regione_id: 9, country_id: 1, continent_id: 1 , population: 33692)

@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Cassolnovo", provincia_id: 98, regione_id: 19, country_id: 1, continent_id: 1 , population: 5820)
 Comune.create(description: "Alagna", provincia_id: 98, regione_id: 19, country_id: 1, continent_id: 1 , population: 755)
 Comune.create(description: "Albaredo Arnaboldi", provincia_id: 98, regione_id: 19, country_id: 1, continent_id: 1 , population: 205)

@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Adria", provincia_id: 68, regione_id: 17, country_id: 1, continent_id: 1 , population: 20640)
 Comune.create(description: "Ariano Nel Polesine", provincia_id: 68, regione_id: 17, country_id: 1, continent_id: 1 , population: 4882)
 Comune.create(description: "Badia Polesine", provincia_id: 68, regione_id: 17, country_id: 1, continent_id: 1 , population: 10431)

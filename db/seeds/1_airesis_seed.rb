@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Agugliano", provincia_id: 1, regione_id: 1, country_id: 1, continent_id: 1 , population: 4163)
 Comune.create(description: "Ancona", provincia_id: 1, regione_id: 1, country_id: 1, continent_id: 1 , population: 100507)
 Comune.create(description: "Arcevia", provincia_id: 1, regione_id: 1, country_id: 1, continent_id: 1 , population: 5300)

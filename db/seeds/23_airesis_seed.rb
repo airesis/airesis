@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Belvedere Di Spinello", provincia_id: 23, regione_id: 7, country_id: 1, continent_id: 1 , population: 2470)
 Comune.create(description: "Caccuri", provincia_id: 23, regione_id: 7, country_id: 1, continent_id: 1 , population: 1780)
 Comune.create(description: "Carfizzi", provincia_id: 23, regione_id: 7, country_id: 1, continent_id: 1 , population: 868)

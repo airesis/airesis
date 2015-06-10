@@ -1,4 +1,3 @@
-#encoding: utf-8
 class Authentication < ActiveRecord::Base
   before_destroy :can_be_destroyed?
 

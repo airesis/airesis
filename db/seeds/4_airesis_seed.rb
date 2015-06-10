@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acquasanta Terme", provincia_id: 4, regione_id: 1, country_id: 1, continent_id: 1 , population: 3346)
 Comune.create(description: "Acquaviva Picena", provincia_id: 4, regione_id: 1, country_id: 1, continent_id: 1 , population: 3409)
 Comune.create(description: "Altidona", provincia_id: 4, regione_id: 1, country_id: 1, continent_id: 1 , population: 0)

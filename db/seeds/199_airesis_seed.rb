@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Vitacura", provincia_id: 200, regione_id: 44, country_id: 90, continent_id: 2 , population: 81499)
 Comune.create(description: "Santiago", provincia_id: 200, regione_id: 44, country_id: 90, continent_id: 2 , population: 200792)
 Comune.create(description: "San Ramón", provincia_id: 200, regione_id: 44, country_id: 90, continent_id: 2 , population: 94906)

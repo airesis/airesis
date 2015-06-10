@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Alcamo", provincia_id: 20, regione_id: 11, country_id: 1, continent_id: 1 , population: 43890)
 Comune.create(description: "Buseto Palizzolo", provincia_id: 20, regione_id: 11, country_id: 1, continent_id: 1 , population: 3197)
 Comune.create(description: "Calatafimi", provincia_id: 20, regione_id: 11, country_id: 1, continent_id: 1 )

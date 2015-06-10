@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Arenzano", provincia_id: 82, regione_id: 18, country_id: 1, continent_id: 1 , population: 11431)
 Comune.create(description: "Avegno", provincia_id: 82, regione_id: 18, country_id: 1, continent_id: 1 , population: 2151)
 Comune.create(description: "Bargagli", provincia_id: 82, regione_id: 18, country_id: 1, continent_id: 1 , population: 2624)

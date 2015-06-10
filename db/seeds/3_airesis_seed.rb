@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acqualagna", provincia_id: 3, regione_id: 1, country_id: 1, continent_id: 1 , population: 4178)
 Comune.create(description: "Apecchio", provincia_id: 3, regione_id: 1, country_id: 1, continent_id: 1 , population: 2112)
 Comune.create(description: "Auditore", provincia_id: 3, regione_id: 1, country_id: 1, continent_id: 1 , population: 1425)

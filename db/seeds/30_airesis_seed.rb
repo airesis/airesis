@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Celle Di San Vito", provincia_id: 31, regione_id: 6, country_id: 1, continent_id: 1 )
 Comune.create(description: "Accadia", provincia_id: 31, regione_id: 6, country_id: 1, continent_id: 1 , population: 2702)
 Comune.create(description: "Alberona", provincia_id: 31, regione_id: 6, country_id: 1, continent_id: 1 , population: 1134)

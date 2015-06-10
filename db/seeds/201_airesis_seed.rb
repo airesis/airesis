@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "San Vicente", provincia_id: 202, regione_id: 45, country_id: 90, continent_id: 2 , population: 40253)
 Comune.create(description: "Requínoa", provincia_id: 202, regione_id: 45, country_id: 90, continent_id: 2 , population: 22161)
 Comune.create(description: "Rengo", provincia_id: 202, regione_id: 45, country_id: 90, continent_id: 2 , population: 50830)

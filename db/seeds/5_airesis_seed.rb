@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acqui Terme", provincia_id: 5, regione_id: 13, country_id: 1, continent_id: 1 , population: 19184)
 Comune.create(description: "Albera Ligure", provincia_id: 5, regione_id: 13, country_id: 1, continent_id: 1 , population: 357)
 Comune.create(description: "Alessandria", provincia_id: 5, regione_id: 13, country_id: 1, continent_id: 1 , population: 85438)

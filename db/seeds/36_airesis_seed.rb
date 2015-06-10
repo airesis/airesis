@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acerra", provincia_id: 37, regione_id: 8, country_id: 1, continent_id: 1 , population: 45688)
 Comune.create(description: "Afragola", provincia_id: 37, regione_id: 8, country_id: 1, continent_id: 1 , population: 62319)
 Comune.create(description: "Agerola", provincia_id: 37, regione_id: 8, country_id: 1, continent_id: 1 , population: 7348)

@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Yumbel", provincia_id: 210, regione_id: 47, country_id: 90, continent_id: 2 , population: 20498)
 Comune.create(description: "Tucapel", provincia_id: 210, regione_id: 47, country_id: 90, continent_id: 2 , population: 12777)
 Comune.create(description: "Santa Bárbara", provincia_id: 210, regione_id: 47, country_id: 90, continent_id: 2 , population: 19970)

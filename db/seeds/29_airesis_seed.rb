@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Brindisi", provincia_id: 30, regione_id: 6, country_id: 1, continent_id: 1 , population: 89081)
 Comune.create(description: "Carovigno", provincia_id: 30, regione_id: 6, country_id: 1, continent_id: 1 , population: 14960)
 Comune.create(description: "Ceglie Messapica", provincia_id: 30, regione_id: 6, country_id: 1, continent_id: 1 , population: 21370)

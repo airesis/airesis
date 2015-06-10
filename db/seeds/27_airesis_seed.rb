@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Abriola", provincia_id: 28, regione_id: 3, country_id: 1, continent_id: 1 , population: 1808)
 Comune.create(description: "Acerenza", provincia_id: 28, regione_id: 3, country_id: 1, continent_id: 1 , population: 3010)
 Comune.create(description: "Albano Di Lucania", provincia_id: 28, regione_id: 3, country_id: 1, continent_id: 1 , population: 1612)

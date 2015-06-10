@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Albavilla", provincia_id: 92, regione_id: 19, country_id: 1, continent_id: 1 , population: 5938)
 Comune.create(description: "Albese Con Cassano", provincia_id: 92, regione_id: 19, country_id: 1, continent_id: 1 , population: 3981)
 Comune.create(description: "Albiolo", provincia_id: 92, regione_id: 19, country_id: 1, continent_id: 1 , population: 2260)

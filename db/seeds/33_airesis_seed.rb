@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Aiello Del Sabato", provincia_id: 34, regione_id: 8, country_id: 1, continent_id: 1 , population: 3219)
 Comune.create(description: "Altavilla Irpina", provincia_id: 34, regione_id: 8, country_id: 1, continent_id: 1 , population: 4143)
 Comune.create(description: "Andretta", provincia_id: 34, regione_id: 8, country_id: 1, continent_id: 1 , population: 2295)

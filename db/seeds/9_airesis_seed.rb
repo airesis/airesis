@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Agrate Conturbia", provincia_id: 9, regione_id: 13, country_id: 1, continent_id: 1 , population: 1184)
 Comune.create(description: "Ameno", provincia_id: 9, regione_id: 13, country_id: 1, continent_id: 1 , population: 895)
 Comune.create(description: "Armeno", provincia_id: 9, regione_id: 13, country_id: 1, continent_id: 1 , population: 2187)

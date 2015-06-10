@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Altopascio", provincia_id: 52, regione_id: 12, country_id: 1, continent_id: 1 , population: 11152)
 Comune.create(description: "Bagni Di Lucca", provincia_id: 52, regione_id: 12, country_id: 1, continent_id: 1 , population: 6550)
 Comune.create(description: "Barga", provincia_id: 52, regione_id: 12, country_id: 1, continent_id: 1 , population: 10018)

@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Altino", provincia_id: 44, regione_id: 2, country_id: 1, continent_id: 1 , population: 2536)
 Comune.create(description: "Archi", provincia_id: 44, regione_id: 2, country_id: 1, continent_id: 1 , population: 2336)
 Comune.create(description: "Ari", provincia_id: 44, regione_id: 2, country_id: 1, continent_id: 1 , population: 1328)

@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Alassio", provincia_id: 84, regione_id: 18, country_id: 1, continent_id: 1 , population: 10449)
 Comune.create(description: "Albenga", provincia_id: 84, regione_id: 18, country_id: 1, continent_id: 1 , population: 22690)
 Comune.create(description: "Albisola Marina", provincia_id: 84, regione_id: 18, country_id: 1, continent_id: 1 )

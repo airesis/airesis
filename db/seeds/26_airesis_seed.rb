@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Accettura", provincia_id: 27, regione_id: 3, country_id: 1, continent_id: 1 , population: 2436)
 Comune.create(description: "Aliano", provincia_id: 27, regione_id: 3, country_id: 1, continent_id: 1 , population: 1284)
 Comune.create(description: "Bernalda", provincia_id: 27, regione_id: 3, country_id: 1, continent_id: 1 , population: 11958)

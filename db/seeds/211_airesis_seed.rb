@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Yungay", provincia_id: 212, regione_id: 47, country_id: 90, continent_id: 2 , population: 16814)
 Comune.create(description: "Treguaco", provincia_id: 212, regione_id: 47, country_id: 90, continent_id: 2 , population: 5296)
 Comune.create(description: "San Nicolás", provincia_id: 212, regione_id: 47, country_id: 90, continent_id: 2 , population: 9741)

@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Villarrica", provincia_id: 213, regione_id: 48, country_id: 90, continent_id: 2 , population: 45531)
 Comune.create(description: "Vilcún", provincia_id: 213, regione_id: 48, country_id: 90, continent_id: 2 , population: 22491)
 Comune.create(description: "Toltén", provincia_id: 213, regione_id: 48, country_id: 90, continent_id: 2 , population: 11216)

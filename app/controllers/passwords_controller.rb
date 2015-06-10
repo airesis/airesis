@@ -1,4 +1,3 @@
-#encoding: utf-8
 class PasswordsController < Devise::PasswordsController
   def create
     if params[:user] && params[:user][:login]

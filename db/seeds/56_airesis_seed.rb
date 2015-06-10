@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Argelato", provincia_id: 57, regione_id: 14, country_id: 1, continent_id: 1 , population: 8680)
 Comune.create(description: "Baricella", provincia_id: 57, regione_id: 14, country_id: 1, continent_id: 1 , population: 5624)
 Comune.create(description: "Bazzano", provincia_id: 57, regione_id: 14, country_id: 1, continent_id: 1 , population: 6103)

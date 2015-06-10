@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Agnone", provincia_id: 86, regione_id: 4, country_id: 1, continent_id: 1 , population: 5842)
 Comune.create(description: "Bagnoli Del Trigno", provincia_id: 86, regione_id: 4, country_id: 1, continent_id: 1 , population: 877)
 Comune.create(description: "Belmonte Del Sannio", provincia_id: 86, regione_id: 4, country_id: 1, continent_id: 1 , population: 921)

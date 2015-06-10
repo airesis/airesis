@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Ailano", provincia_id: 36, regione_id: 8, country_id: 1, continent_id: 1 , population: 1466)
 Comune.create(description: "Alife", provincia_id: 36, regione_id: 8, country_id: 1, continent_id: 1 , population: 7164)
 Comune.create(description: "Alvignano", provincia_id: 36, regione_id: 8, country_id: 1, continent_id: 1 , population: 4950)

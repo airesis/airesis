@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Capriva Del Friuli", provincia_id: 73, regione_id: 15, country_id: 1, continent_id: 1 , population: 1613)
 Comune.create(description: "Cormons", provincia_id: 73, regione_id: 15, country_id: 1, continent_id: 1 , population: 7449)
 Comune.create(description: "Dolegna Del Collio", provincia_id: 73, regione_id: 15, country_id: 1, continent_id: 1 , population: 435)

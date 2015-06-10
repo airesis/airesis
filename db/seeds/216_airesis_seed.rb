@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Quinchao", provincia_id: 217, regione_id: 50, country_id: 90, continent_id: 2 , population: 8976)
 Comune.create(description: "Quemchi", provincia_id: 217, regione_id: 50, country_id: 90, continent_id: 2 , population: 8689)
 Comune.create(description: "Quellón", provincia_id: 217, regione_id: 50, country_id: 90, continent_id: 2 , population: 21823)

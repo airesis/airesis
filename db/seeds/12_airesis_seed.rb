@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Agrigento", provincia_id: 12, regione_id: 11, country_id: 1, continent_id: 1 , population: 54619)
 Comune.create(description: "Alessandria Della Rocca", provincia_id: 12, regione_id: 11, country_id: 1, continent_id: 1 , population: 3787)
 Comune.create(description: "Aragona", provincia_id: 12, regione_id: 11, country_id: 1, continent_id: 1 , population: 10065)

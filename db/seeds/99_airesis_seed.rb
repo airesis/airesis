@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Agra", provincia_id: 100, regione_id: 19, country_id: 1, continent_id: 1 , population: 370)
 Comune.create(description: "Albizzate", provincia_id: 100, regione_id: 19, country_id: 1, continent_id: 1 , population: 4919)
 Comune.create(description: "Angera", provincia_id: 100, regione_id: 19, country_id: 1, continent_id: 1 , population: 5477)

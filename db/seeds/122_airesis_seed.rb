@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Arenillas", provincia_id: 123, regione_id: 1, country_id: 53, continent_id: 2 , population: 17346)
 Comune.create(description: "El Guabo", provincia_id: 123, regione_id: 1, country_id: 53, continent_id: 2 , population: 22172)
 Comune.create(description: "Huaquillas", provincia_id: 123, regione_id: 1, country_id: 53, continent_id: 2 , population: 47706)

@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acquarica Del Capo", provincia_id: 32, regione_id: 6, country_id: 1, continent_id: 1 , population: 4734)
 Comune.create(description: "Alessano", provincia_id: 32, regione_id: 6, country_id: 1, continent_id: 1 , population: 6556)
 Comune.create(description: "Alezio", provincia_id: 32, regione_id: 6, country_id: 1, continent_id: 1 , population: 5084)

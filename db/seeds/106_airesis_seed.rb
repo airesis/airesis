@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Arzana", provincia_id: 107, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Bari Sardo", provincia_id: 107, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Baunei", provincia_id: 107, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)

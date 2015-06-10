@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Albinea", provincia_id: 64, regione_id: 14, country_id: 1, continent_id: 1 , population: 7750)
 Comune.create(description: "Bagnolo In Piano", provincia_id: 64, regione_id: 14, country_id: 1, continent_id: 1 , population: 8103)
 Comune.create(description: "Baiso", provincia_id: 64, regione_id: 14, country_id: 1, continent_id: 1 , population: 3261)

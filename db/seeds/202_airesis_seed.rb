@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Pichilemu", provincia_id: 203, regione_id: 45, country_id: 90, continent_id: 2 , population: 12392)
 Comune.create(description: "Paredones", provincia_id: 203, regione_id: 45, country_id: 90, continent_id: 2 , population: 6695)
 Comune.create(description: "Navidad", provincia_id: 203, regione_id: 45, country_id: 90, continent_id: 2 , population: 5422)

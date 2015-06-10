@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Alghero", provincia_id: 81, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Anela", provincia_id: 81, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Ardara", provincia_id: 81, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)

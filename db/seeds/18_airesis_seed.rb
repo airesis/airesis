@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acate", provincia_id: 18, regione_id: 11, country_id: 1, continent_id: 1 , population: 8000)
 Comune.create(description: "Chiaramonte Gulfi", provincia_id: 18, regione_id: 11, country_id: 1, continent_id: 1 , population: 8099)
 Comune.create(description: "Comiso", provincia_id: 18, regione_id: 11, country_id: 1, continent_id: 1 , population: 29076)

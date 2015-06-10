@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Ameglia", provincia_id: 85, regione_id: 18, country_id: 1, continent_id: 1 , population: 4520)
 Comune.create(description: "Arcola", provincia_id: 85, regione_id: 18, country_id: 1, continent_id: 1 , population: 9914)
 Comune.create(description: "Beverino", provincia_id: 85, regione_id: 18, country_id: 1, continent_id: 1 , population: 2233)

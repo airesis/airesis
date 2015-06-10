@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Agugliaro", provincia_id: 72, regione_id: 17, country_id: 1, continent_id: 1 , population: 1251)
 Comune.create(description: "Albettone", provincia_id: 72, regione_id: 17, country_id: 1, continent_id: 1 , population: 1996)
 Comune.create(description: "Alonte", provincia_id: 72, regione_id: 17, country_id: 1, continent_id: 1 , population: 1239)

@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Bagno Di Romagna", provincia_id: 59, regione_id: 14, country_id: 1, continent_id: 1 , population: 6108)
 Comune.create(description: "Bertinoro", provincia_id: 59, regione_id: 14, country_id: 1, continent_id: 1 , population: 9307)
 Comune.create(description: "Borghi", provincia_id: 59, regione_id: 14, country_id: 1, continent_id: 1 , population: 2034)

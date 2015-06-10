@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acquasparta", provincia_id: 89, regione_id: 20, country_id: 1, continent_id: 1 , population: 4527)
 Comune.create(description: "Allerona", provincia_id: 89, regione_id: 20, country_id: 1, continent_id: 1 , population: 1822)
 Comune.create(description: "Alviano", provincia_id: 89, regione_id: 20, country_id: 1, continent_id: 1 , population: 1508)

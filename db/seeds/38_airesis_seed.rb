@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acquafondata", provincia_id: 39, regione_id: 9, country_id: 1, continent_id: 1 , population: 316)
 Comune.create(description: "Acuto", provincia_id: 39, regione_id: 9, country_id: 1, continent_id: 1 , population: 1857)
 Comune.create(description: "Alatri", provincia_id: 39, regione_id: 9, country_id: 1, continent_id: 1 , population: 27068)

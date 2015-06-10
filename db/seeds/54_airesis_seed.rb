@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Abetone", provincia_id: 55, regione_id: 12, country_id: 1, continent_id: 1 , population: 705)
 Comune.create(description: "Agliana", provincia_id: 55, regione_id: 12, country_id: 1, continent_id: 1 , population: 14628)
 Comune.create(description: "Buggiano", provincia_id: 55, regione_id: 12, country_id: 1, continent_id: 1 , population: 8043)

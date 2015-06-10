@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Aci Bonaccorsi", provincia_id: 14, regione_id: 11, country_id: 1, continent_id: 1 , population: 2549)
 Comune.create(description: "Aci Castello", provincia_id: 14, regione_id: 11, country_id: 1, continent_id: 1 , population: 18272)
 Comune.create(description: "Aci Catena", provincia_id: 14, regione_id: 11, country_id: 1, continent_id: 1 , population: 27058)

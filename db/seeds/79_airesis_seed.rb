@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Abbasanta", provincia_id: 80, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Aidomaggiore", provincia_id: 80, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)
 Comune.create(description: "Albagiara", provincia_id: 80, regione_id: 10, country_id: 1, continent_id: 1 , population: 0)

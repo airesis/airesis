@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Aquila Di Arroscia", provincia_id: 83, regione_id: 18, country_id: 1, continent_id: 1 )
 Comune.create(description: "Airole", provincia_id: 83, regione_id: 18, country_id: 1, continent_id: 1 , population: 456)
 Comune.create(description: "Apricale", provincia_id: 83, regione_id: 18, country_id: 1, continent_id: 1 , population: 578)

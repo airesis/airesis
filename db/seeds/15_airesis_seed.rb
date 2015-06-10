@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Agira", provincia_id: 15, regione_id: 11, country_id: 1, continent_id: 1 , population: 8348)
 Comune.create(description: "Aidone", provincia_id: 15, regione_id: 11, country_id: 1, continent_id: 1 , population: 6057)
 Comune.create(description: "Assoro", provincia_id: 15, regione_id: 11, country_id: 1, continent_id: 1 , population: 5393)

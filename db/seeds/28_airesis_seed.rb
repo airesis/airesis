@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acquaviva Delle Fonti", provincia_id: 29, regione_id: 6, country_id: 1, continent_id: 1 , population: 21613)
 Comune.create(description: "Adelfia", provincia_id: 29, regione_id: 6, country_id: 1, continent_id: 1 , population: 16245)
 Comune.create(description: "Alberobello", provincia_id: 29, regione_id: 6, country_id: 1, continent_id: 1 , population: 10859)

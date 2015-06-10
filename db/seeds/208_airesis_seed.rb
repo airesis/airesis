@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Tirúa", provincia_id: 209, regione_id: 47, country_id: 90, continent_id: 2 , population: 9664)
 Comune.create(description: "Los Álamos", provincia_id: 209, regione_id: 47, country_id: 90, continent_id: 2 , population: 18632)
 Comune.create(description: "Lebu", provincia_id: 209, regione_id: 47, country_id: 90, continent_id: 2 , population: 25035)

@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Alba Adriatica", provincia_id: 47, regione_id: 2, country_id: 1, continent_id: 1 , population: 10389)
 Comune.create(description: "Ancarano", provincia_id: 47, regione_id: 2, country_id: 1, continent_id: 1 , population: 1774)
 Comune.create(description: "Arsita", provincia_id: 47, regione_id: 2, country_id: 1, continent_id: 1 , population: 969)

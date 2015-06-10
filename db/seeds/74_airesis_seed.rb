@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Aiello Del Friuli", provincia_id: 75, regione_id: 15, country_id: 1, continent_id: 1 , population: 2180)
 Comune.create(description: "Amaro", provincia_id: 75, regione_id: 15, country_id: 1, continent_id: 1 , population: 751)
 Comune.create(description: "Ampezzo", provincia_id: 75, regione_id: 15, country_id: 1, continent_id: 1 , population: 1161)

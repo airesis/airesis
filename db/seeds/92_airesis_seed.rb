@@ -1,4 +1,3 @@
-#encoding: utf-8
 Comune.create(description: "Acquanegra Cremonese", provincia_id: 93, regione_id: 19, country_id: 1, continent_id: 1 , population: 1226)
 Comune.create(description: "Agnadello", provincia_id: 93, regione_id: 19, country_id: 1, continent_id: 1 , population: 2980)
 Comune.create(description: "Annicco", provincia_id: 93, regione_id: 19, country_id: 1, continent_id: 1 , population: 1897)
