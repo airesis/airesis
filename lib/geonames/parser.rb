@@ -15,12 +15,12 @@ module Geonames
 
       @username = 'coorasse'
 
-      @continent_output = "continent = Continente.find_by(description: '#{@continent_name}')"
+      @continent_output = "continent = Continent.find_by(description: '#{@continent_name}')"
       @country_output = "state = Country.find_by(description: '#{@country_name}')"
 
-      @regions_output = "region = Regione.create(description: \"%{name}\", country: state, continente: continent, geoname_id: %{geoname_id})"
-      @provinces_output = "provincia = region.provincias.create(description: \"%{name}\", country: state, continente: continent,  geoname_id: %{geoname_id}, population: %{population})"
-      @cities_output = "provincia.comunes.create(description: \"%{name}\", regione: region, country: state, continente: continent, geoname_id: %{geoname_id}, population: %{population})"
+      @regions_output = "region = Regione.create(description: \"%{name}\", country: state, continent: continent, geoname_id: %{geoname_id})"
+      @provinces_output = "provincia = region.provincias.create(description: \"%{name}\", country: state, continent: continent,  geoname_id: %{geoname_id}, population: %{population})"
+      @cities_output = "provincia.comunes.create(description: \"%{name}\", regione: region, country: state, continent: continent, geoname_id: %{geoname_id}, population: %{population})"
     end
 
     def extract_features(geoname)

@@ -1,7 +1,6 @@
-class Continente < ActiveRecord::Base
+class Continent < ActiveRecord::Base
   include Concerns::Bordable
   translates :description
-  self.table_name = 'continentes'
 
   has_many :districts
   has_many :comunes

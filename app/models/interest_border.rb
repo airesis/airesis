@@ -9,19 +9,19 @@ class InterestBorder < ActiveRecord::Base
   PROVINCIA = 'Provincia'
   REGIONE = 'Regione'
   COUNTRY = 'Country'
-  CONTINENTE = 'Continente'
+  CONTINENT = 'Continent'
   GENERIC = 'Generic'
   SHORT_COMUNE = 'C'
   SHORT_PROVINCIA = 'P'
   SHORT_REGIONE = 'R'
   SHORT_COUNTRY = 'S'
-  SHORT_CONTINENTE = 'K'
+  SHORT_CONTINENT = 'K'
   SHORT_GENERIC = 'G'
   TYPE_MAP = {COMUNE => SHORT_COMUNE,
               REGIONE => SHORT_REGIONE,
               PROVINCIA => SHORT_PROVINCIA,
               COUNTRY => SHORT_COUNTRY,
-              CONTINENTE => SHORT_CONTINENTE,
+              CONTINENT => SHORT_CONTINENT,
               GENERIC => SHORT_GENERIC}
   I_TYPE_MAP =TYPE_MAP.invert
 
@@ -45,8 +45,8 @@ class InterestBorder < ActiveRecord::Base
     is_country? ? territory : territory.try(:country)
   end
 
-  def continente
-    is_continente? ? territory : territory.try(:continente)
+  def continent
+    is_continent? ? territory : territory.try(:continent)
   end
 
   def is_district?
@@ -69,8 +69,8 @@ class InterestBorder < ActiveRecord::Base
     territory_type == COUNTRY
   end
 
-  def is_continente?
-    territory_type == CONTINENTE
+  def is_continent?
+    territory_type == CONTINENT
   end
 
   def is_generic?
@@ -87,22 +87,17 @@ class InterestBorder < ActiveRecord::Base
     found = false
     case ftype
       when SHORT_COMUNE #comune
-        comune = Comune.find_by_id(fid)
-        found = comune
+        found = Comune.find_by_id(fid)
       when SHORT_PROVINCIA #provincia
-        provincia = Provincia.find_by_id(fid)
-        found = provincia
+        found = Provincia.find_by_id(fid)
       when SHORT_REGIONE #regione
-        regione = Regione.find_by_id(fid)
-        found = regione
+        found = Regione.find_by_id(fid)
       when SHORT_COUNTRY
         found = Country.find_by_id(fid)
-      when SHORT_CONTINENTE
-        continente = Continente.find_by_id(fid)
-        found = continente
+      when SHORT_CONTINENT
+        found = Continent.find_by_id(fid)
       when SHORT_GENERIC
-        generic = GenericBorder.find_by_id(fid)
-        found = generic
+        found = GenericBorder.find_by_id(fid)
     end
     found
   end

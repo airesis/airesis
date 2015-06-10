@@ -6,7 +6,7 @@ class Regione < ActiveRecord::Base
   has_many :provincias, dependent: :destroy
 
   belongs_to :country
-  belongs_to :continente
+  belongs_to :continent
 
   def parent
     country

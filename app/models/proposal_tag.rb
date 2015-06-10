@@ -25,8 +25,8 @@ class ProposalTag < ActiveRecord::Base
         end
       end
     else
-      proposal.solr_continente_ids.each do |continente_id|
-        tag.tag_counters.find_or_create_by(territory: Continente.find(continente_id)) do |tag_counter|
+      proposal.solr_continent_ids.each do |continent_id|
+        tag.tag_counters.find_or_create_by(territory: Continent.find(continent_id)) do |tag_counter|
           tag_counter.proposals_count = tag_counter.proposals_count + val
         end
       end

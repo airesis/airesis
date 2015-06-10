@@ -8,10 +8,10 @@ class InterestBordersController < ApplicationController
     limit = 10 #hints limit
     results = []
 
-    continenti = Continente.with_translations(I18n.locale).
-      where(["upper(continente_translations.description) like upper(?)", hint]).limit(limit)
-    results += continenti.collect { |p| {id: "#{InterestBorder::SHORT_CONTINENTE}-#{p.id}", name: p.name} }
-    limit -= continenti.size
+    continents = Continent.with_translations(I18n.locale).
+      where(["upper(continent_translations.description) like upper(?)", hint]).limit(limit)
+    results += continents.collect { |p| {id: "#{InterestBorder::SHORT_CONTINENT}-#{p.id}", name: p.name} }
+    limit -= continents.size
     if limit > 0
       stati = Country.with_translations([I18n.locale, 'en']).
         where(["upper(country_translations.description) like upper(?)", hint]).limit(limit)

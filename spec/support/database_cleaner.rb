@@ -24,11 +24,11 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.start
 
-    a1 = Continente.create(description: 'Europe')
-    s1 = Country.create(description: 'Italy', continente_id: a1.id, sigla: 'IT', sigla_ext: 'ITA')
-    r14 = Regione.create(description: 'Emilia Romagna', country_id: s1.id, continente_id: a1.id)
-    p1 = Provincia.create(description: 'Bologna', regione_id: r14.id, country_id: s1.id, continente_id: a1.id, sigla: 'BO')
-    Comune.create(description: 'Bologna', provincia_id: p1.id, regione_id: r14.id, country_id: s1.id, continente_id: a1.id, population: 371217)
+    a1 = Continent.create(description: 'Europe')
+    s1 = Country.create(description: 'Italy', continent_id: a1.id, sigla: 'IT', sigla_ext: 'ITA')
+    r14 = Regione.create(description: 'Emilia Romagna', country_id: s1.id, continent_id: a1.id)
+    p1 = Provincia.create(description: 'Bologna', regione_id: r14.id, country_id: s1.id, continent_id: a1.id, sigla: 'BO')
+    Comune.create(description: 'Bologna', provincia_id: p1.id, regione_id: r14.id, country_id: s1.id, continent_id: a1.id, population: 371217)
     SysLocale.create(key: 'en', host: 'www.airesis.eu', territory: a1)
 
     admin = ParticipationRole.create(name: 'amministratore', description: 'Amministratore')

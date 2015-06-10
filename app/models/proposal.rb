@@ -545,13 +545,13 @@ class Proposal < ActiveRecord::Base
     end
   end
 
-  def solr_continente_ids
+  def solr_continent_ids
     if interest_borders.any?
-      interest_borders.map(&:continente).map { |i| i.try(:id) }.compact
+      interest_borders.map(&:continent).map { |i| i.try(:id) }.compact
     elsif group.present?
-      [group.interest_border.country.try(:id)]
+      [group.interest_border.continent.try(:id)]
     else
-      [user_territory.is_a?(Country) ? user_territory.continente.id : user_territory.id]
+      [user_territory.is_a?(Country) ? user_territory.continent.id : user_territory.id]
     end
   end
 
@@ -582,8 +582,8 @@ class Proposal < ActiveRecord::Base
       self.quorum.ends_at if self.quorum
     end
 
-    integer :continente_id do
-      solr_continente_ids
+    integer :continent_id do
+      solr_continent_ids
     end
     integer :country_id do
       solr_country_ids

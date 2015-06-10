@@ -8,14 +8,14 @@ class GroupTag < ActiveRecord::Base
   private
 
   def decrement_counter_cache
-    territory = group.interest_border.is_continente? ? group.interest_border : group.interest_border.country
+    territory = group.interest_border.is_continent? ? group.interest_border : group.interest_border.country
     tag.tag_counters.find_or_create_by(territory: territory) do |tag_counter|
       tag_counter.groups_count = tag_counter.groups_count - 1
     end
   end
 
   def increment_counter_cache
-    territory = group.interest_border.is_continente? ? group.interest_border : group.interest_border.country
+    territory = group.interest_border.is_continent? ? group.interest_border : group.interest_border.country
     tag.tag_counters.find_or_create_by(territory: territory) do |tag_counter|
       tag_counter.groups_count = tag_counter.groups_count + 1
     end

@@ -7,7 +7,7 @@ class Comune < ActiveRecord::Base
   belongs_to :provincia
   belongs_to :regione
   belongs_to :country
-  belongs_to :continente
+  belongs_to :continent
 
   def parent
     provincia

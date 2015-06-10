@@ -36,8 +36,8 @@ class Event < ActiveRecord::Base
 
   scope :in_territory, ->(territory) do
     field = case territory
-              when Continente
-                :continente_id
+              when Continent
+                :continent_id
               when Country
                 :country_id
               when Regione

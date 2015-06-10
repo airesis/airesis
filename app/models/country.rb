@@ -7,10 +7,10 @@ class Country < ActiveRecord::Base
   has_many :provincias
   has_many :regiones
 
-  belongs_to :continente
+  belongs_to :continent
 
   def parent
-    continente
+    continent
   end
 
   def name

@@ -280,8 +280,8 @@ class Group < ActiveRecord::Base
     integer :interest_border_id
     integer :group_participations_count
     time :created_at
-    integer :continente_id do
-      interest_border.continente.try(:id)
+    integer :continent_id do
+      interest_border.continent.try(:id)
     end
     integer :country_id do
       interest_border.country.try(:id)

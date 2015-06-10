@@ -20,9 +20,9 @@ class Blog < ActiveRecord::Base
     territory.id if territory.is_a?(Country)
   end
 
-  def solr_continente_id
+  def solr_continent_id
     territory = user.original_locale.territory
-    territory.is_a?(Country) ? territory.continente.id : territory.id
+    territory.is_a?(Country) ? territory.continent.id : territory.id
   end
 
   searchable do
@@ -35,8 +35,8 @@ class Blog < ActiveRecord::Base
       self.user.fullname
     end
 
-    integer :continente_id do
-      solr_continente_id
+    integer :continent_id do
+      solr_continent_id
     end
     integer :country_id do
       solr_country_id

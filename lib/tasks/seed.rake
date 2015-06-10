@@ -10,20 +10,20 @@ namespace :airesis do
       num = 0
       File.open(filename(num), 'w') do |f|
         f.puts("#encoding: utf-8")
-        Continente.all.each do |continente|
-          f.puts("a#{continente.id} = Continente.create(description: \"#{continente.description}\")")
-          continente.translations.each do |trans|
-            f.puts("  a#{continente.id}.translations.where(locale: \"#{trans.locale}\").first_or_create.update_attributes(description: \"#{trans.description}\")")
+        Continent.all.each do |continent|
+          f.puts("a#{continent.id} = Continent.create(description: \"#{continent.description}\")")
+          continent.translations.each do |trans|
+            f.puts("  a#{continent.id}.translations.where(locale: \"#{trans.locale}\").first_or_create.update_attributes(description: \"#{trans.description}\")")
           end
-          continente.countries.each do |country|
-            f.puts(" s#{country.id} = Country.create( description: \"#{country.description}\", continente_id: a#{continente.id}.id, sigla: \"#{country.sigla}\", sigla_ext: \"#{country.sigla_ext}\")")
+          continent.countries.each do |country|
+            f.puts(" s#{country.id} = Country.create( description: \"#{country.description}\", continent_id: a#{continent.id}.id, sigla: \"#{country.sigla}\", sigla_ext: \"#{country.sigla_ext}\")")
             country.translations.each do |trans|
               f.puts("  s#{country.id}.translations.where(locale: \"#{trans.locale}\").first_or_create.update_attributes(description: \"#{trans.description}\")")
             end
             country.regiones.each do |regione|
-              f.puts("  r#{regione.id} = Regione.create(description: \"#{regione.description}\", country_id: s#{country.id}.id, continente_id: a#{continente.id}.id)")
+              f.puts("  r#{regione.id} = Regione.create(description: \"#{regione.description}\", country_id: s#{country.id}.id, continent_id: a#{continent.id}.id)")
               regione.provincias.each do |provincia|
-                f.puts("   Provincia.create(description: \"#{provincia.description}\", regione_id: r#{regione.id}.id, country_id: s#{country.id}.id, continente_id: a#{continente.id}.id, sigla: \"#{provincia.sigla}\"){ |c| c.id = #{provincia.id}}.save")
+                f.puts("   Provincia.create(description: \"#{provincia.description}\", regione_id: r#{regione.id}.id, country_id: s#{country.id}.id, continent_id: a#{continent.id}.id, sigla: \"#{provincia.sigla}\"){ |c| c.id = #{provincia.id}}.save")
               end
             end
           end
@@ -35,7 +35,7 @@ namespace :airesis do
         File.open(filename(num), 'w') do |f|
           f.puts("#encoding: utf-8")
           provincia.comunes.each do |comune|
-            f.puts("Comune.create(description: \"#{comune.description}\", provincia_id: #{provincia.id}, regione_id: #{provincia.regione.id}, country_id: #{provincia.country.id}, continente_id: #{provincia.continente.id} " + (comune.population ? ", population: #{comune.population}" : "") + ")")
+            f.puts("Comune.create(description: \"#{comune.description}\", provincia_id: #{provincia.id}, regione_id: #{provincia.regione.id}, country_id: #{provincia.country.id}, continent_id: #{provincia.continent.id} " + (comune.population ? ", population: #{comune.population}" : "") + ")")
           end
         end
       end
