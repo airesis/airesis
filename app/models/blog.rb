@@ -15,14 +15,14 @@ class Blog < ActiveRecord::Base
     self.blog_posts.order(created_at: :desc).first
   end
 
-  def solr_stato_id
+  def solr_country_id
     territory = user.original_locale.territory
-    territory.id if territory.is_a?(Stato)
+    territory.id if territory.is_a?(Country)
   end
 
   def solr_continente_id
     territory = user.original_locale.territory
-    territory.is_a?(Stato) ? territory.continente.id : territory.id
+    territory.is_a?(Country) ? territory.continente.id : territory.id
   end
 
   searchable do
@@ -38,8 +38,8 @@ class Blog < ActiveRecord::Base
     integer :continente_id do
       solr_continente_id
     end
-    integer :stato_id do
-      solr_stato_id
+    integer :country_id do
+      solr_country_id
     end
     integer :regione_id do
       nil

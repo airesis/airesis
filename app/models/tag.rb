@@ -46,8 +46,8 @@ class Tag < ActiveRecord::Base
     arel_conditions = tag_counters_t[:territory_id].eq(territory.id).
       and(tag_counters_t[:territory_type].eq(territory.class.name))
     if territory.is_a?(Continente)
-      arel_conditions = arel_conditions.or(tag_counters_t[:territory_id].in(territory.statos.pluck(:id)).
-                                             and(tag_counters_t[:territory_type].eq(Stato.class_name)))
+      arel_conditions = arel_conditions.or(tag_counters_t[:territory_id].in(territory.countries.pluck(:id)).
+                                             and(tag_counters_t[:territory_type].eq(Country.class_name)))
     end
     arel_conditions
   end

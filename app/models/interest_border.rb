@@ -4,24 +4,29 @@ class InterestBorder < ActiveRecord::Base
 
   belongs_to :territory, polymorphic: true
 
-  CIRCOSCRIZIONE = 'Circoscrizione'
+  DISTRICT = 'District'
   COMUNE = 'Comune'
   PROVINCIA = 'Provincia'
   REGIONE = 'Regione'
-  STATO = 'Stato'
+  COUNTRY = 'Country'
   CONTINENTE = 'Continente'
   GENERIC = 'Generic'
   SHORT_COMUNE = 'C'
   SHORT_PROVINCIA = 'P'
   SHORT_REGIONE = 'R'
-  SHORT_STATO = 'S'
+  SHORT_COUNTRY = 'S'
   SHORT_CONTINENTE = 'K'
   SHORT_GENERIC = 'G'
-  TYPE_MAP = {COMUNE => SHORT_COMUNE, REGIONE => SHORT_REGIONE, PROVINCIA => SHORT_PROVINCIA, STATO => SHORT_STATO, CONTINENTE => SHORT_CONTINENTE, GENERIC => SHORT_GENERIC}
+  TYPE_MAP = {COMUNE => SHORT_COMUNE,
+              REGIONE => SHORT_REGIONE,
+              PROVINCIA => SHORT_PROVINCIA,
+              COUNTRY => SHORT_COUNTRY,
+              CONTINENTE => SHORT_CONTINENTE,
+              GENERIC => SHORT_GENERIC}
   I_TYPE_MAP =TYPE_MAP.invert
 
-  def circoscrizione
-    is_circoscrizione? ? territory : nil
+  def district
+    is_district? ? territory : nil
   end
 
   def comune
@@ -36,16 +41,16 @@ class InterestBorder < ActiveRecord::Base
     is_regione? ? territory : territory.try(:regione)
   end
 
-  def stato
-    is_stato? ? territory : territory.try(:stato)
+  def country
+    is_country? ? territory : territory.try(:country)
   end
 
   def continente
     is_continente? ? territory : territory.try(:continente)
   end
 
-  def is_circoscrizione?
-    territory_type == CIRCOSCRIZIONE
+  def is_district?
+    territory_type == DISTRICT
   end
 
   def is_comune?
@@ -60,8 +65,8 @@ class InterestBorder < ActiveRecord::Base
     territory_type == REGIONE
   end
 
-  def is_stato?
-    territory_type == STATO
+  def is_country?
+    territory_type == COUNTRY
   end
 
   def is_continente?
@@ -90,9 +95,8 @@ class InterestBorder < ActiveRecord::Base
       when SHORT_REGIONE #regione
         regione = Regione.find_by_id(fid)
         found = regione
-      when SHORT_STATO
-        stato = Stato.find_by_id(fid)
-        found = stato
+      when SHORT_COUNTRY
+        found = Country.find_by_id(fid)
       when SHORT_CONTINENTE
         continente = Continente.find_by_id(fid)
         found = continente

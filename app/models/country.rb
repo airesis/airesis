@@ -1,8 +1,8 @@
-class Stato < ActiveRecord::Base
+class Country < ActiveRecord::Base
   include Concerns::Bordable
   translates :description
 
-  has_many :circoscriziones
+  has_many :districts
   has_many :comunes
   has_many :provincias
   has_many :regiones

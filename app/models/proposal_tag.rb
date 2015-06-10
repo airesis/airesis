@@ -18,15 +18,17 @@ class ProposalTag < ActiveRecord::Base
   protected
 
   def add_to_counters(val)
-    proposal.solr_stato_ids.each do |stato_id|
-      tag.tag_counters.find_or_create_by(territory: Stato.find(stato_id)) do |tag_counter|
-        tag_counter.proposals_count = tag_counter.proposals_count + val
+    if proposal.solr_country_ids.present?
+      proposal.solr_country_ids.each do |stato_id|
+        tag.tag_counters.find_or_create_by(territory: Country.find(stato_id)) do |tag_counter|
+          tag_counter.proposals_count = tag_counter.proposals_count + val
+        end
       end
-    end
-
-    proposal.solr_continente_ids.each do |continente_id|
-      tag.tag_counters.find_or_create_by(territory: Continente.find(continente_id)) do |tag_counter|
-        tag_counter.proposals_count = tag_counter.proposals_count + val
+    else
+      proposal.solr_continente_ids.each do |continente_id|
+        tag.tag_counters.find_or_create_by(territory: Continente.find(continente_id)) do |tag_counter|
+          tag_counter.proposals_count = tag_counter.proposals_count + val
+        end
       end
     end
   end

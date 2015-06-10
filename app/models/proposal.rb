@@ -507,12 +507,15 @@ class Proposal < ActiveRecord::Base
     Proposal.find_by_sql(sql_q)
   end
 
-
+  def user_territory
+    user = (proposal_presentations.first || proposal_lives.last.old_proposal_presentations.first).user
+    territory = user.original_locale.territory
+  end
   def solr_comune_ids
     if interest_borders.any?
       interest_borders.map(&:comune).map { |i| i.try(:id) }.compact
     elsif group.present?
-      group.interest_border.comune.try(:id)
+      [group.interest_border.comune.try(:id)]
     end
   end
 
@@ -520,7 +523,7 @@ class Proposal < ActiveRecord::Base
     if interest_borders.any?
       interest_borders.map(&:provincia).map { |i| i.try(:id) }.compact
     elsif group.present?
-      group.interest_border.provincia.try(:id)
+      [group.interest_border.provincia.try(:id)]
     end
   end
 
@@ -528,22 +531,17 @@ class Proposal < ActiveRecord::Base
     if interest_borders.any?
       interest_borders.map(&:regione).map { |i| i.try(:id) }.compact
     elsif group.present?
-      group.interest_border.regione.try(:id)
+      [group.interest_border.regione.try(:id)]
     end
   end
 
-  def user_territory
-    user = (proposal_presentations.first || proposal_lives.last.old_proposal_presentations.first).user
-    territory = user.original_locale.territory
-  end
-
-  def solr_stato_ids
+  def solr_country_ids
     if interest_borders.any?
-      interest_borders.map(&:stato).map { |i| i.try(:id) }.compact
+      interest_borders.map(&:country).map { |i| i.try(:id) }.compact
     elsif group.present?
-      group.interest_border.stato.try(:id)
+      [group.interest_border.country.try(:id)]
     else
-      user_territory.id if user_territory.is_a?(Stato)
+      [user_territory.id] if user_territory.is_a?(Country)
     end
   end
 
@@ -551,9 +549,9 @@ class Proposal < ActiveRecord::Base
     if interest_borders.any?
       interest_borders.map(&:continente).map { |i| i.try(:id) }.compact
     elsif group.present?
-      group.interest_border.stato.try(:id)
+      [group.interest_border.country.try(:id)]
     else
-      user_territory.is_a?(Stato) ? user_territory.continente.id : user_territory.id
+      [user_territory.is_a?(Country) ? user_territory.continente.id : user_territory.id]
     end
   end
 
@@ -587,8 +585,8 @@ class Proposal < ActiveRecord::Base
     integer :continente_id do
       solr_continente_ids
     end
-    integer :stato_id do
-      solr_stato_ids
+    integer :country_id do
+      solr_country_ids
     end
     integer :regione_id do
       interest_borders.map(&:regione).map(:try, :id).compact
@@ -599,8 +597,8 @@ class Proposal < ActiveRecord::Base
     integer :comune_id do
       interest_borders.map(&:comune).map(:try, :id).compact
     end
-    integer :circoscrizione_id do
-      interest_borders.map(&:circoscrizione).map(:try, :id).compact
+    integer :district_id do
+      interest_borders.map(&:district).map(:try, :id).compact
     end
 
     integer :votes do

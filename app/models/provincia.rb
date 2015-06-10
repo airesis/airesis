@@ -4,10 +4,10 @@ class Provincia < ActiveRecord::Base
   self.table_name = 'provincias'
 
   has_many :comunes, dependent: :destroy
-  has_many :circoscriziones
+  has_many :districts
 
   belongs_to :regione
-  belongs_to :stato
+  belongs_to :country
   belongs_to :continente
 
   def parent

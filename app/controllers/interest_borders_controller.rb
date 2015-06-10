@@ -13,9 +13,9 @@ class InterestBordersController < ApplicationController
     results += continenti.collect { |p| {id: "#{InterestBorder::SHORT_CONTINENTE}-#{p.id}", name: p.name} }
     limit -= continenti.size
     if limit > 0
-      stati = Stato.with_translations([I18n.locale, 'en']).
-        where(["upper(stato_translations.description) like upper(?)", hint]).limit(limit)
-      results += stati.collect { |p| {id: "#{InterestBorder::SHORT_STATO}-#{p.id}", name: p.name} }
+      stati = Country.with_translations([I18n.locale, 'en']).
+        where(["upper(country_translations.description) like upper(?)", hint]).limit(limit)
+      results += stati.collect { |p| {id: "#{InterestBorder::SHORT_COUNTRY}-#{p.id}", name: p.name} }
       limit -= stati.size
       if limit > 0
         regiones = territory.regiones.

@@ -14,7 +14,7 @@ class CreateTableStatos < ActiveRecord::Migration
       t.string :sigla, length: 5, null: false
    end
 
-   italia = Stato.create(description: "Italia", continente_id: europa.id, sigla: "IT")
+   italia = Country.create(description: "Italia", continente_id: europa.id, sigla: "IT")
     
    add_column :regiones, :stato_id, :integer
    

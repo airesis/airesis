@@ -38,8 +38,8 @@ class Event < ActiveRecord::Base
     field = case territory
               when Continente
                 :continente_id
-              when Stato
-                :stato_id
+              when Country
+                :country_id
               when Regione
                 :regione_id
               when Provincia

@@ -1,15 +1,15 @@
 class Regione < ActiveRecord::Base
   include Concerns::Bordable
 
-  has_many :circoscriziones
+  has_many :districts
   has_many :comunes
   has_many :provincias, dependent: :destroy
 
-  belongs_to :stato
+  belongs_to :country
   belongs_to :continente
 
   def parent
-    stato
+    country
   end
 
   def name
