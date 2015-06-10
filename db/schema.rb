@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610163607) do
+ActiveRecord::Schema.define(version: 20150610163608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -216,7 +216,7 @@ ActiveRecord::Schema.define(version: 20150610163607) do
   create_table "comunes", force: true do |t|
     t.string  "description",  limit: 100, null: false
     t.integer "provincia_id",             null: false
-    t.integer "regione_id",               null: false
+    t.integer "region_id",                null: false
     t.integer "population"
     t.string  "codistat",     limit: 4
     t.string  "cap",          limit: 5
@@ -227,7 +227,7 @@ ActiveRecord::Schema.define(version: 20150610163607) do
 
   add_index "comunes", ["continent_id"], name: "index_comunes_on_continent_id", using: :btree
   add_index "comunes", ["country_id"], name: "index_comunes_on_country_id", using: :btree
-  add_index "comunes", ["regione_id"], name: "index_comunes_on_regione_id", using: :btree
+  add_index "comunes", ["region_id"], name: "index_comunes_on_region_id", using: :btree
 
   create_table "configurations", force: true do |t|
     t.string "name",  limit: 100, null: false
@@ -273,7 +273,7 @@ ActiveRecord::Schema.define(version: 20150610163607) do
     t.integer "comune_id"
     t.string  "description",  limit: 100
     t.integer "provincia_id"
-    t.integer "regione_id"
+    t.integer "region_id"
     t.integer "country_id"
     t.integer "continent_id"
     t.integer "geoname_id"
@@ -282,7 +282,7 @@ ActiveRecord::Schema.define(version: 20150610163607) do
   add_index "districts", ["continent_id"], name: "index_districts_on_continent_id", using: :btree
   add_index "districts", ["country_id"], name: "index_districts_on_country_id", using: :btree
   add_index "districts", ["provincia_id"], name: "index_districts_on_provincia_id", using: :btree
-  add_index "districts", ["regione_id"], name: "index_districts_on_regione_id", using: :btree
+  add_index "districts", ["region_id"], name: "index_districts_on_region_id", using: :btree
 
   create_table "email_jobs", force: true do |t|
     t.integer  "alert_id",               null: false
@@ -1019,7 +1019,7 @@ ActiveRecord::Schema.define(version: 20150610163607) do
 
   create_table "provincias", force: true do |t|
     t.string  "description",  limit: 100
-    t.integer "regione_id",               null: false
+    t.integer "region_id",                null: false
     t.string  "sigla",        limit: 5
     t.integer "country_id"
     t.integer "population"
@@ -1081,14 +1081,14 @@ ActiveRecord::Schema.define(version: 20150610163607) do
     t.datetime "updated_at",                 null: false
   end
 
-  create_table "regiones", force: true do |t|
+  create_table "regions", force: true do |t|
     t.string  "description",  limit: 100
     t.integer "country_id",               null: false
     t.integer "continent_id"
     t.integer "geoname_id"
   end
 
-  add_index "regiones", ["continent_id"], name: "index_regiones_on_continent_id", using: :btree
+  add_index "regions", ["continent_id"], name: "index_regions_on_continent_id", using: :btree
 
   create_table "request_vote_types", force: true do |t|
     t.string "description", limit: 10, null: false
@@ -1546,14 +1546,14 @@ ActiveRecord::Schema.define(version: 20150610163607) do
 
   add_foreign_key "comunes", "continents", name: "comunes_continente_id_fk"
   add_foreign_key "comunes", "countries", name: "comunes_stato_id_fk"
-  add_foreign_key "comunes", "regiones", name: "comunes_regione_id_fk"
+  add_foreign_key "comunes", "regions", name: "comunes_regione_id_fk"
 
   add_foreign_key "countries", "continents", name: "statos_continente_id_fk"
 
   add_foreign_key "districts", "continents", name: "circoscriziones_continente_id_fk"
   add_foreign_key "districts", "countries", name: "circoscriziones_stato_id_fk"
   add_foreign_key "districts", "provincias", name: "circoscriziones_provincia_id_fk"
-  add_foreign_key "districts", "regiones", name: "circoscriziones_regione_id_fk"
+  add_foreign_key "districts", "regions", name: "circoscriziones_regione_id_fk"
 
   add_foreign_key "event_comment_likes", "event_comments", name: "event_comment_likes_event_comment_id_fk"
   add_foreign_key "event_comment_likes", "users", name: "event_comment_likes_user_id_fk"
@@ -1689,8 +1689,8 @@ ActiveRecord::Schema.define(version: 20150610163607) do
 
   add_foreign_key "quorums", "quorums", name: "quorums_quorum_id_fk"
 
-  add_foreign_key "regiones", "continents", name: "regiones_continente_id_fk"
-  add_foreign_key "regiones", "countries", name: "regiones_stato_id_fk"
+  add_foreign_key "regions", "continents", name: "regiones_continente_id_fk"
+  add_foreign_key "regions", "countries", name: "regiones_stato_id_fk"
 
   add_foreign_key "revision_section_histories", "proposal_revisions", name: "revision_section_histories_proposal_revision_id_fk"
   add_foreign_key "revision_section_histories", "section_histories", name: "revision_section_histories_section_history_id_fk"

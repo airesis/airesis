@@ -40,8 +40,8 @@ class Event < ActiveRecord::Base
                 :continent_id
               when Country
                 :country_id
-              when Regione
-                :regione_id
+              when Region
+                :region_id
               when Provincia
                 :provincia_id
               else # comune

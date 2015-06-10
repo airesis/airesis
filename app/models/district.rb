@@ -3,7 +3,7 @@ class District < ActiveRecord::Base
 
   belongs_to :comune
   belongs_to :provincia
-  belongs_to :regione
+  belongs_to :region
   belongs_to :country
   belongs_to :continent
 

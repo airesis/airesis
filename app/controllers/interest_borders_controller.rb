@@ -18,10 +18,10 @@ class InterestBordersController < ApplicationController
       results += stati.collect { |p| {id: "#{InterestBorder::SHORT_COUNTRY}-#{p.id}", name: p.name} }
       limit -= stati.size
       if limit > 0
-        regiones = territory.regiones.
-          where(["upper(regiones.description) like upper(?)", hint]).limit(limit)
-        results += regiones.collect { |r| {id: "#{InterestBorder::SHORT_REGIONE}-#{r.id}", name: r.name} }
-        limit -= regiones.size
+        regions = territory.regions.
+          where(["upper(regions.description) like upper(?)", hint]).limit(limit)
+        results += regions.collect { |r| {id: "#{InterestBorder::SHORT_REGION}-#{r.id}", name: r.name} }
+        limit -= regions.size
         if limit > 0
           province = territory.provincias.
             where(["lower_unaccent(provincias.description) like lower_unaccent(?)", hint]).limit(limit)

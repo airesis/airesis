@@ -1,4 +1,4 @@
-class Regione < ActiveRecord::Base
+class Region < ActiveRecord::Base
   include Concerns::Bordable
 
   has_many :districts

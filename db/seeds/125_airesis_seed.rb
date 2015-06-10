@@ -1,1 +1,1 @@
-Comune.create(description: "Guaranda", provincia_id: 126, regione_id: 1, country_id: 53, continent_id: 2 , population: 23874)
+Comune.create(description: "Guaranda", provincia_id: 126, region_id:  1, country_id: 53, continent_id: 2 , population: 23874)

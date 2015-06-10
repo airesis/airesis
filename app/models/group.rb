@@ -286,8 +286,8 @@ class Group < ActiveRecord::Base
     integer :country_id do
       interest_border.country.try(:id)
     end
-    integer :regione_id do
-      interest_border.regione.try(:id)
+    integer :region_id do
+      interest_border.region.try(:id)
     end
     integer :provincia_id do
       interest_border.provincia.try(:id)

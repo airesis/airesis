@@ -6,12 +6,12 @@ class Provincia < ActiveRecord::Base
   has_many :comunes, dependent: :destroy
   has_many :districts
 
-  belongs_to :regione
+  belongs_to :region
   belongs_to :country
   belongs_to :continent
 
   def parent
-    regione
+    region
   end
 
   def name

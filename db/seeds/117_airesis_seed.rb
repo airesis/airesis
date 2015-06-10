@@ -1,1 +1,1 @@
-Comune.create(description: "Puyo (Pastaza)", provincia_id: 118, regione_id: 1, country_id: 53, continent_id: 2 , population: 33557)
+Comune.create(description: "Puyo (Pastaza)", provincia_id: 118, region_id:  1, country_id: 53, continent_id: 2 , population: 33557)

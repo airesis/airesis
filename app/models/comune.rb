@@ -5,7 +5,7 @@ class Comune < ActiveRecord::Base
   has_many :districts, dependent: :destroy
 
   belongs_to :provincia
-  belongs_to :regione
+  belongs_to :region
   belongs_to :country
   belongs_to :continent
 

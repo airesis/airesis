@@ -41,7 +41,7 @@ class Blog < ActiveRecord::Base
     integer :country_id do
       solr_country_id
     end
-    integer :regione_id do
+    integer :region_id do
       nil
     end
     integer :provincia_id do

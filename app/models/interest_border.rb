@@ -7,18 +7,18 @@ class InterestBorder < ActiveRecord::Base
   DISTRICT = 'District'
   COMUNE = 'Comune'
   PROVINCIA = 'Provincia'
-  REGIONE = 'Regione'
+  REGION = 'Region'
   COUNTRY = 'Country'
   CONTINENT = 'Continent'
   GENERIC = 'Generic'
   SHORT_COMUNE = 'C'
   SHORT_PROVINCIA = 'P'
-  SHORT_REGIONE = 'R'
+  SHORT_REGION = 'R'
   SHORT_COUNTRY = 'S'
   SHORT_CONTINENT = 'K'
   SHORT_GENERIC = 'G'
   TYPE_MAP = {COMUNE => SHORT_COMUNE,
-              REGIONE => SHORT_REGIONE,
+              REGION => SHORT_REGION,
               PROVINCIA => SHORT_PROVINCIA,
               COUNTRY => SHORT_COUNTRY,
               CONTINENT => SHORT_CONTINENT,
@@ -37,8 +37,8 @@ class InterestBorder < ActiveRecord::Base
     is_provincia? ? territory : territory.try(:provincia)
   end
 
-  def regione
-    is_regione? ? territory : territory.try(:regione)
+  def region
+    is_region? ? territory : territory.try(:region)
   end
 
   def country
@@ -61,8 +61,8 @@ class InterestBorder < ActiveRecord::Base
     territory_type == PROVINCIA
   end
 
-  def is_regione?
-    territory_type == REGIONE
+  def is_region?
+    territory_type == REGION
   end
 
   def is_country?
@@ -86,12 +86,12 @@ class InterestBorder < ActiveRecord::Base
     fid = border[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
     found = false
     case ftype
-      when SHORT_COMUNE #comune
+      when SHORT_COMUNE
         found = Comune.find_by_id(fid)
-      when SHORT_PROVINCIA #provincia
+      when SHORT_PROVINCIA
         found = Provincia.find_by_id(fid)
-      when SHORT_REGIONE #regione
-        found = Regione.find_by_id(fid)
+      when SHORT_REGION
+        found = Region.find_by_id(fid)
       when SHORT_COUNTRY
         found = Country.find_by_id(fid)
       when SHORT_CONTINENT

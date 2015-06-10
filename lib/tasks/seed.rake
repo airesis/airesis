@@ -20,10 +20,10 @@ namespace :airesis do
             country.translations.each do |trans|
               f.puts("  s#{country.id}.translations.where(locale: \"#{trans.locale}\").first_or_create.update_attributes(description: \"#{trans.description}\")")
             end
-            country.regiones.each do |regione|
-              f.puts("  r#{regione.id} = Regione.create(description: \"#{regione.description}\", country_id: s#{country.id}.id, continent_id: a#{continent.id}.id)")
-              regione.provincias.each do |provincia|
-                f.puts("   Provincia.create(description: \"#{provincia.description}\", regione_id: r#{regione.id}.id, country_id: s#{country.id}.id, continent_id: a#{continent.id}.id, sigla: \"#{provincia.sigla}\"){ |c| c.id = #{provincia.id}}.save")
+            country.regions.each do |region|
+              f.puts("  r#{region.id} = Region.create(description: \"#{region.description}\", country_id: s#{country.id}.id, continent_id: a#{continent.id}.id)")
+              region.provincias.each do |provincia|
+                f.puts("   Provincia.create(description: \"#{provincia.description}\", region_id:  r#{region.id}.id, country_id: s#{country.id}.id, continent_id: a#{continent.id}.id, sigla: \"#{provincia.sigla}\"){ |c| c.id = #{provincia.id}}.save")
               end
             end
           end
@@ -35,7 +35,7 @@ namespace :airesis do
         File.open(filename(num), 'w') do |f|
           f.puts("#encoding: utf-8")
           provincia.comunes.each do |comune|
-            f.puts("Comune.create(description: \"#{comune.description}\", provincia_id: #{provincia.id}, regione_id: #{provincia.regione.id}, country_id: #{provincia.country.id}, continent_id: #{provincia.continent.id} " + (comune.population ? ", population: #{comune.population}" : "") + ")")
+            f.puts("Comune.create(description: \"#{comune.description}\", provincia_id: #{provincia.id}, region_id:  #{provincia.region.id}, country_id: #{provincia.country.id}, continent_id: #{provincia.continent.id} " + (comune.population ? ", population: #{comune.population}" : "") + ")")
           end
         end
       end
