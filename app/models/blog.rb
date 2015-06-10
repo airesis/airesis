@@ -47,7 +47,7 @@ class Blog < ActiveRecord::Base
     integer :province_id do
       nil
     end
-    integer :comune_id do
+    integer :municipality_id do
       nil
     end
   end

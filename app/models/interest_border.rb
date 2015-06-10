@@ -5,19 +5,19 @@ class InterestBorder < ActiveRecord::Base
   belongs_to :territory, polymorphic: true
 
   DISTRICT = 'District'
-  COMUNE = 'Comune'
+  MUNICIPALITY = 'Municipality'
   PROVINCE = 'Province'
   REGION = 'Region'
   COUNTRY = 'Country'
   CONTINENT = 'Continent'
   GENERIC = 'Generic'
-  SHORT_COMUNE = 'C'
+  SHORT_MUNICIPALITY = 'C'
   SHORT_PROVINCE = 'P'
   SHORT_REGION = 'R'
   SHORT_COUNTRY = 'S'
   SHORT_CONTINENT = 'K'
   SHORT_GENERIC = 'G'
-  TYPE_MAP = {COMUNE => SHORT_COMUNE,
+  TYPE_MAP = {MUNICIPALITY => SHORT_MUNICIPALITY,
               REGION => SHORT_REGION,
               PROVINCE => SHORT_PROVINCE,
               COUNTRY => SHORT_COUNTRY,
@@ -29,8 +29,8 @@ class InterestBorder < ActiveRecord::Base
     is_district? ? territory : nil
   end
 
-  def comune
-    is_comune? ? territory : territory.try(:comune)
+  def municipality
+    is_municipality? ? territory : territory.try(:municipality)
   end
 
   def province
@@ -53,8 +53,8 @@ class InterestBorder < ActiveRecord::Base
     territory_type == DISTRICT
   end
 
-  def is_comune?
-    territory_type == COMUNE
+  def is_municipality?
+    territory_type == MUNICIPALITY
   end
 
   def is_province?
@@ -86,8 +86,8 @@ class InterestBorder < ActiveRecord::Base
     fid = border[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
     found = false
     case ftype
-      when SHORT_COMUNE
-        found = Comune.find_by_id(fid)
+      when SHORT_MUNICIPALITY
+        found = Municipality.find_by_id(fid)
       when SHORT_PROVINCE
         found = Province.find_by_id(fid)
       when SHORT_REGION

@@ -34,8 +34,8 @@ namespace :airesis do
         num += 1
         File.open(filename(num), 'w') do |f|
           f.puts("#encoding: utf-8")
-          province.comunes.each do |comune|
-            f.puts("Comune.create(description: \"#{comune.description}\", province_id: #{province.id}, region_id:  #{province.region.id}, country_id: #{province.country.id}, continent_id: #{province.continent.id} " + (comune.population ? ", population: #{comune.population}" : "") + ")")
+          province.municipalities.each do |municipality|
+            f.puts("Municipality.create(description: \"#{municipality.description}\", province_id: #{province.id}, region_id:  #{province.region.id}, country_id: #{province.country.id}, continent_id: #{province.continent.id} " + (municipality.population ? ", population: #{municipality.population}" : "") + ")")
           end
         end
       end

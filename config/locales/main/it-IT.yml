@@ -1000,7 +1000,7 @@ it-IT:
         meeting:
           place:
             address: Indirizzo
-            comune_id: Comune
+            municipality_id: Comune
       group:
         facebook_page_url: Indirizzo pagina Facebook
         name: Nome

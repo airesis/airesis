@@ -6,8 +6,8 @@ s1.translations.where(locale: "it-IT").first_or_create.update_attributes(descrip
 s1.translations.where(locale: "en").first_or_create.update_attributes(description: "Italy")
 r14 = Region.create(description: "Emilia Romagna", country_id: s1.id, continent_id: a1.id)
 Province.create(description: "Bologna", region_id:  r14.id, country_id: s1.id, continent_id: a1.id, sigla: "BO")
-Comune.create(description: "Bologna", province_id: 57, region_id:  r14.id, country_id: 1, continent_id: 1 , population: 371217)
-Comune.create(description: "Marzabotto", province_id: 57, region_id:  r14.id, country_id: 1, continent_id: 1 , population: 6262)
-Comune.create(description: "Medicina", province_id: 57, region_id:  r14.id, country_id: 1, continent_id: 1 , population: 13570)
+Municipality.create(description: "Bologna", province_id: 57, region_id:  r14.id, country_id: 1, continent_id: 1 , population: 371217)
+Municipality.create(description: "Marzabotto", province_id: 57, region_id:  r14.id, country_id: 1, continent_id: 1 , population: 6262)
+Municipality.create(description: "Medicina", province_id: 57, region_id:  r14.id, country_id: 1, continent_id: 1 , population: 13570)
 
 load File.join(Rails.root, 'db', 'seeds', "999_airesis_seed.rb")

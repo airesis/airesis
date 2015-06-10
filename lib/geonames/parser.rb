@@ -20,7 +20,7 @@ module Geonames
 
       @regions_output = "region = Region.create(description: \"%{name}\", country: state, continent: continent, geoname_id: %{geoname_id})"
       @provinces_output = "province = region.provinces.create(description: \"%{name}\", country: state, continent: continent,  geoname_id: %{geoname_id}, population: %{population})"
-      @cities_output = "province.comunes.create(description: \"%{name}\", region: region, country: state, continent: continent, geoname_id: %{geoname_id}, population: %{population})"
+      @cities_output = "province.municipalities.create(description: \"%{name}\", region: region, country: state, continent: continent, geoname_id: %{geoname_id}, population: %{population})"
     end
 
     def extract_features(geoname)

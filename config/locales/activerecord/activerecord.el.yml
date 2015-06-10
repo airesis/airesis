@@ -23,7 +23,7 @@ el:
         candidates_end_time: Καταληκτική ημερομηνία για την είσοδος των υποψηφίων
       event/meeting/place:
         address: Διεύθυνση
-        comune_id: Πόλη
+        municipality_id: Πόλη
         latitude_original: Γεωγραφικό πλάτος
         longitude_original: Γεωγραφικό μήκος
       group:

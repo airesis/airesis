@@ -56,7 +56,7 @@
         <%= f.simple_fields_for :meeting, @meeting do |m| %>
             <%= m.simple_fields_for :place, @place do |p| %>
                 <div id="edit_luogo">
-                  <%= p.input :comune_id, input_html: {style: 'width:100%', "data-pre" => [{id: @event.place.comune.id, name: @event.place.comune.description}].to_json} %>
+                  <%= p.input :municipality_id, input_html: {style: 'width:100%', "data-pre" => [{id: @event.place.municipality.id, name: @event.place.municipality.description}].to_json} %>
                   <%= p.input :address %>
                   <%= p.hidden_field :latitude_original %>
                   <%= p.hidden_field :longitude_original %>
@@ -97,7 +97,7 @@
             codeAddress('luogo');
         });
 
-        $("#event_meeting_attributes_place_attributes_comune_id").select2({
+        $("#event_meeting_attributes_place_attributes_municipality_id").select2({
             cacheDataSource: [],
             placeholder: "Digita alcuni caratteri per cercare un comune",
             query: function(query) {
@@ -110,7 +110,7 @@
                     return;
                 } else {
                     $.ajax({
-                        url: '/comunes',
+                        url: '/municipalities',
                         data: { q : query.term },
                         dataType: 'json',
                         type: 'GET',

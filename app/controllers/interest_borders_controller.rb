@@ -28,10 +28,10 @@ class InterestBordersController < ApplicationController
           results += province.collect { |p| {id: "#{InterestBorder::SHORT_PROVINCE}-#{p.id}", name: p.name} }
           limit -= province.size
           if limit > 0
-            comunes = territory.comunes.
-              where(["lower_unaccent(comunes.description) like lower_unaccent(?)", hint]).order('population desc nulls last').limit(limit)
-            results += comunes.collect { |p| {id: "#{InterestBorder::SHORT_COMUNE}-#{p.id}", name: p.name} }
-            limit -= comunes.size
+            municipalities = territory.municipalities.
+              where(["lower_unaccent(municipalities.description) like lower_unaccent(?)", hint]).order('population desc nulls last').limit(limit)
+            results += municipalities.collect { |p| {id: "#{InterestBorder::SHORT_MUNICIPALITY}-#{p.id}", name: p.name} }
+            limit -= municipalities.size
             if limit > 0
               generic_borders = GenericBorder.where(["upper(description) like upper(?)", hint]).limit(limit)
               results += generic_borders.collect { |p| {id: "#{InterestBorder::SHORT_GENERIC}-#{p.id}", name: p.name_j} }

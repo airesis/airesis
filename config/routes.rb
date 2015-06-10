@@ -136,7 +136,7 @@ Airesis::Application.routes.draw do
   end
 
   resources :interest_borders
-  resources :comunes
+  resources :municipalities
 
   get 'elfinder' => 'elfinder#elfinder'
   post 'elfinder' => 'elfinder#elfinder'

@@ -3,7 +3,7 @@ class Continent < ActiveRecord::Base
   translates :description
 
   has_many :districts
-  has_many :comunes
+  has_many :municipalities
   has_many :provinces
   has_many :regions
   has_many :countries

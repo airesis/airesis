@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610163608) do
+ActiveRecord::Schema.define(version: 20150610203411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -213,22 +213,6 @@ ActiveRecord::Schema.define(version: 20150610163608) do
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
-  create_table "comunes", force: true do |t|
-    t.string  "description",  limit: 100, null: false
-    t.integer "provincia_id",             null: false
-    t.integer "region_id",                null: false
-    t.integer "population"
-    t.string  "codistat",     limit: 4
-    t.string  "cap",          limit: 5
-    t.integer "country_id"
-    t.integer "continent_id"
-    t.integer "geoname_id"
-  end
-
-  add_index "comunes", ["continent_id"], name: "index_comunes_on_continent_id", using: :btree
-  add_index "comunes", ["country_id"], name: "index_comunes_on_country_id", using: :btree
-  add_index "comunes", ["region_id"], name: "index_comunes_on_region_id", using: :btree
-
   create_table "configurations", force: true do |t|
     t.string "name",  limit: 100, null: false
     t.string "value",             null: false
@@ -270,8 +254,8 @@ ActiveRecord::Schema.define(version: 20150610163608) do
   add_index "country_translations", ["locale"], name: "index_country_translations_on_locale", using: :btree
 
   create_table "districts", force: true do |t|
-    t.integer "comune_id"
-    t.string  "description",  limit: 100
+    t.integer "municipality_id"
+    t.string  "description",     limit: 100
     t.integer "provincia_id"
     t.integer "region_id"
     t.integer "country_id"
@@ -708,6 +692,22 @@ ActiveRecord::Schema.define(version: 20150610163608) do
     t.integer "event_id"
   end
 
+  create_table "municipalities", force: true do |t|
+    t.string  "description",  limit: 100, null: false
+    t.integer "provincia_id",             null: false
+    t.integer "region_id",                null: false
+    t.integer "population"
+    t.string  "codistat",     limit: 4
+    t.string  "cap",          limit: 5
+    t.integer "country_id"
+    t.integer "continent_id"
+    t.integer "geoname_id"
+  end
+
+  add_index "municipalities", ["continent_id"], name: "index_municipalities_on_continent_id", using: :btree
+  add_index "municipalities", ["country_id"], name: "index_municipalities_on_country_id", using: :btree
+  add_index "municipalities", ["region_id"], name: "index_municipalities_on_region_id", using: :btree
+
   create_table "newsletters", force: true do |t|
     t.string "subject"
     t.text   "body"
@@ -780,7 +780,7 @@ ActiveRecord::Schema.define(version: 20150610163608) do
   add_index "periods", ["from", "to"], name: "from_to_unique", unique: true, using: :btree
 
   create_table "places", force: true do |t|
-    t.integer "comune_id"
+    t.integer "municipality_id"
     t.string  "frazione",           limit: 200
     t.string  "address",            limit: 200
     t.string  "civic_number",       limit: 10
@@ -1544,10 +1544,6 @@ ActiveRecord::Schema.define(version: 20150610163608) do
 
   add_foreign_key "blogs", "users", name: "blogs_user_id_fk"
 
-  add_foreign_key "comunes", "continents", name: "comunes_continente_id_fk"
-  add_foreign_key "comunes", "countries", name: "comunes_stato_id_fk"
-  add_foreign_key "comunes", "regions", name: "comunes_regione_id_fk"
-
   add_foreign_key "countries", "continents", name: "statos_continente_id_fk"
 
   add_foreign_key "districts", "continents", name: "circoscriziones_continente_id_fk"
@@ -1615,6 +1611,10 @@ ActiveRecord::Schema.define(version: 20150610163608) do
 
   add_foreign_key "meetings", "events", name: "meetings_event_id_fk"
   add_foreign_key "meetings", "places", name: "meetings_place_id_fk"
+
+  add_foreign_key "municipalities", "continents", name: "comunes_continente_id_fk"
+  add_foreign_key "municipalities", "countries", name: "comunes_stato_id_fk"
+  add_foreign_key "municipalities", "regions", name: "comunes_regione_id_fk"
 
   add_foreign_key "notification_data", "notifications", name: "notification_data_notification_id_fk"
 

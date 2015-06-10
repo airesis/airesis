@@ -1,4 +1,4 @@
-class Comune < ActiveRecord::Base
+class Municipality < ActiveRecord::Base
   include Concerns::Bordable
 
   has_many :places, dependent: :destroy

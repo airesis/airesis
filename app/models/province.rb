@@ -1,9 +1,7 @@
 class Province < ActiveRecord::Base
   include Concerns::Bordable
 
-  self.table_name = 'provinces'
-
-  has_many :comunes, dependent: :destroy
+  has_many :municipalities, dependent: :destroy
   has_many :districts
 
   belongs_to :region

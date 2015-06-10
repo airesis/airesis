@@ -26,7 +26,7 @@ hu:
         candidates_end_time: Határidő a jelöltek jelentkezésére
       event/meeting/place:
         address: Cím
-        comune_id: Város
+        municipality_id: Város
         latitude_original: Szélesség
         longitude_original: Hosszúság
       group:

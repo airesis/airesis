@@ -933,7 +933,7 @@ es-AR:
         meeting:
           place:
             address: Dirección
-            comune_id: Ciudad
+            municipality_id: Ciudad
       group:
         facebook_page_url: 'Dirección de la página  Facebook'
         name: Nombre

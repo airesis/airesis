@@ -511,11 +511,11 @@ class Proposal < ActiveRecord::Base
     user = (proposal_presentations.first || proposal_lives.last.old_proposal_presentations.first).user
     territory = user.original_locale.territory
   end
-  def solr_comune_ids
+  def solr_municipality_ids
     if interest_borders.any?
-      interest_borders.map(&:comune).map { |i| i.try(:id) }.compact
+      interest_borders.map(&:municipality).map { |i| i.try(:id) }.compact
     elsif group.present?
-      [group.interest_border.comune.try(:id)]
+      [group.interest_border.municipality.try(:id)]
     end
   end
 
@@ -594,8 +594,8 @@ class Proposal < ActiveRecord::Base
     integer :province_id do
       interest_borders.map(&:province).map(:try, :id).compact
     end
-    integer :comune_id do
-      interest_borders.map(&:comune).map(:try, :id).compact
+    integer :municipality_id do
+      interest_borders.map(&:municipality).map(:try, :id).compact
     end
     integer :district_id do
       interest_borders.map(&:district).map(:try, :id).compact

@@ -982,7 +982,7 @@ el:
         meeting:
           place:
             address: Διεύθυνση
-            comune_id: Πόλη
+            municipality_id: Πόλη
       group:
         facebook_page_url: Διεύθυνση σελίδας Facebook
         name: Όνομα

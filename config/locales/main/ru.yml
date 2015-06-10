@@ -1019,7 +1019,7 @@ ru:
         meeting:
           place:
             address: Адрес
-            comune_id: Город
+            municipality_id: Город
       group:
         facebook_page_url: Адрес страницы Facebook
         name: Имя

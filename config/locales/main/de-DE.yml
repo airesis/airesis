@@ -739,7 +739,7 @@ de:
         meeting:
           place:
             address: Adresse
-            comune_id: Stadt
+            municipality_id: Stadt
       group:
         facebook_page_url: Adresse der Facebook-Seite
         name: Name

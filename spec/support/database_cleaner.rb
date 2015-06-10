@@ -28,7 +28,7 @@ RSpec.configure do |config|
     s1 = Country.create(description: 'Italy', continent_id: a1.id, sigla: 'IT', sigla_ext: 'ITA')
     r14 = Region.create(description: 'Emilia Romagna', country_id: s1.id, continent_id: a1.id)
     p1 = Province.create(description: 'Bologna', region_id:  r14.id, country_id: s1.id, continent_id: a1.id, sigla: 'BO')
-    Comune.create(description: 'Bologna', province_id: p1.id, region_id:  r14.id, country_id: s1.id, continent_id: a1.id, population: 371217)
+    Municipality.create(description: 'Bologna', province_id: p1.id, region_id:  r14.id, country_id: s1.id, continent_id: a1.id, population: 371217)
     SysLocale.create(key: 'en', host: 'www.airesis.eu', territory: a1)
 
     admin = ParticipationRole.create(name: 'amministratore', description: 'Amministratore')

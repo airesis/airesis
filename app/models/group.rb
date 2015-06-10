@@ -292,8 +292,8 @@ class Group < ActiveRecord::Base
     integer :province_id do
       interest_border.province.try(:id)
     end
-    integer :comune_id do
-      interest_border.comune.try(:id)
+    integer :municipality_id do
+      interest_border.municipality.try(:id)
     end
     integer :district_id do
       interest_border.district.try(:id)

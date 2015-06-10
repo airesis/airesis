@@ -25,7 +25,7 @@ it-IT:
         private: "Privato"
         candidates_end_time: "Termine iscrizione candidati"
       event/meeting/place:
-        comune_id: Comune
+        municipality_id: Comune
         address: Indirizzo
         latitude_original: Latitudine
         longitude_original: Longitudine

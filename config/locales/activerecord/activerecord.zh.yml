@@ -27,7 +27,7 @@ zh:
       meeting:
         place:
           address: "地址"
-          comune_id: "城市"
+          municipality_id: "城市"
       group:
         facebook_page_url: 'Facebook 個人頁面'
         name: '名字'

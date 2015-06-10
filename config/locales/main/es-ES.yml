@@ -846,7 +846,7 @@ es-ES:
         meeting:
           place:
             address: Address
-            comune_id: City
+            municipality_id: City
       group:
         facebook_page_url: Facebook page address
         name: Name

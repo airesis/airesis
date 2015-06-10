@@ -945,7 +945,7 @@ es-CL:
         meeting:
           place:
             address: Dirección
-            comune_id: Ciudad
+            municipality_id: Ciudad
       group:
         facebook_page_url: Dirección de la página de Facebook
         name: Nombre

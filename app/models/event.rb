@@ -47,7 +47,7 @@ class Event < ActiveRecord::Base
               else # comune
                 :id
             end
-    joins(place: :comune).where(Comune.arel_table[field].eq(territory.id))
+    joins(place: :municipality).where(Municipality.arel_table[field].eq(territory.id))
   end
 
   after_destroy :remove_scheduled_tasks
