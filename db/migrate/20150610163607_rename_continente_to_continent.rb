@@ -3,7 +3,7 @@ class RenameContinenteToContinent < ActiveRecord::Migration
     rename_column :continente_translations, :continente_id, :continent_id
     rename_column :countries, :continente_id, :continent_id
     rename_column :regiones, :continente_id, :continent_id
-    rename_column :provinces, :continente_id, :continent_id
+    rename_column :provincias, :continente_id, :continent_id
     rename_column :comunes, :continente_id, :continent_id
     rename_column :districts, :continente_id, :continent_id
 
