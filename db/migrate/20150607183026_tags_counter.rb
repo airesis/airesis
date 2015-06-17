@@ -14,7 +14,7 @@ class TagsCounter < ActiveRecord::Migration
 
     Tag.all.each do |tag|
       tag.tag_counters.create(territory_id: territory_id,
-                              territory_type: 'Stato',
+                              territory_type: 'Country',
                               proposals_count: tag.proposals_count,
                               blog_posts_count: tag.blog_posts_count,
                               groups_count: tag.groups_count)
