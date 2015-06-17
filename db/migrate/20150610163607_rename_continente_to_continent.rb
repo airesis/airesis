@@ -12,6 +12,5 @@ class RenameContinenteToContinent < ActiveRecord::Migration
 
     SysLocale.where(territory_type: 'Continente').update_all(territory_type: 'Continent')
     InterestBorder.where(territory_type: 'Continente').update_all(territory_type: 'Continent')
-    TagCounter.where(territory_type: 'Continente').update_all(territory_type: 'Continent')
   end
 end

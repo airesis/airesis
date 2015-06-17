@@ -6,6 +6,5 @@ class RenameComuneToMunicipality < ActiveRecord::Migration
 
     SysLocale.where(territory_type: 'Comune').update_all(territory_type: 'Municipality')
     InterestBorder.where(territory_type: 'Comune').update_all(territory_type: 'Municipality')
-    TagCounter.where(territory_type: 'Comune').update_all(territory_type: 'Municipality')
   end
 end

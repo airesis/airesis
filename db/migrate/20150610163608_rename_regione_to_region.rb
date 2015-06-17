@@ -8,6 +8,5 @@ class RenameRegioneToRegion < ActiveRecord::Migration
 
     SysLocale.where(territory_type: 'Regione').update_all(territory_type: 'Region')
     InterestBorder.where(territory_type: 'Regione').update_all(territory_type: 'Region')
-    TagCounter.where(territory_type: 'Regione').update_all(territory_type: 'Region')
   end
 end

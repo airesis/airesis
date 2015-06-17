@@ -11,6 +11,5 @@ class RenameStatoToCountry < ActiveRecord::Migration
 
     SysLocale.where(territory_type: 'Stato').update_all(territory_type: 'Country')
     InterestBorder.where(territory_type: 'Stato').update_all(territory_type: 'Country')
-    TagCounter.where(territory_type: 'Stato').update_all(territory_type: 'Country')
   end
 end

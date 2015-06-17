@@ -8,13 +8,8 @@ class TagsCounter < ActiveRecord::Migration
       t.integer :groups_count, default: 0, null: false
     end
 
-    territory_id =  ActiveRecord::Base.connection.
-      execute("SELECT statos.id FROM statos INNER JOIN stato_translations ON stato_translations.stato_id = statos.id
-               WHERE stato_translations.description = 'Italy' AND stato_translations.locale = 'en' LIMIT 1")[0]['id'].to_i
-
     Tag.all.each do |tag|
-      tag.tag_counters.create(territory_id: territory_id,
-                              territory_type: 'Country',
+      tag.tag_counters.create(territory: Country.find_by(description: 'Italy'),
                               proposals_count: tag.proposals_count,
                               blog_posts_count: tag.blog_posts_count,
                               groups_count: tag.groups_count)

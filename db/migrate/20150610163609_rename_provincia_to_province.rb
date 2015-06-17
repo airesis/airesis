@@ -7,6 +7,5 @@ class RenameProvinciaToProvince < ActiveRecord::Migration
 
     SysLocale.where(territory_type: 'Provincia').update_all(territory_type: 'Province')
     InterestBorder.where(territory_type: 'Provincia').update_all(territory_type: 'Province')
-    TagCounter.where(territory_type: 'Provincia').update_all(territory_type: 'Province')
   end
 end
