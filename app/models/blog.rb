@@ -35,19 +35,19 @@ class Blog < ActiveRecord::Base
       self.user.fullname
     end
 
-    integer :continent_id do
+    integer :continent_ids do
       solr_continent_id
     end
-    integer :country_id do
+    integer :country_ids do
       solr_country_id
     end
-    integer :region_id do
+    integer :region_ids do
       nil
     end
-    integer :province_id do
+    integer :province_ids do
       nil
     end
-    integer :municipality_id do
+    integer :municipality_ids do
       nil
     end
   end
