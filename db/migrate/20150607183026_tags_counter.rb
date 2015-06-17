@@ -9,7 +9,7 @@ class TagsCounter < ActiveRecord::Migration
     end
 
     Tag.all.each do |tag|
-      tag.tag_counters.create(territory: Stato.find_by(description: 'Italy'),
+      tag.tag_counters.create(territory: Country.find_by(description: 'Italy'),
                               proposals_count: tag.proposals_count,
                               blog_posts_count: tag.blog_posts_count,
                               groups_count: tag.groups_count)
