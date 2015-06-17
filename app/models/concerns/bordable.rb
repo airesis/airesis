@@ -3,7 +3,7 @@ module Concerns
     extend ActiveSupport::Concern
 
     def solr_search_field
-      "#{self.class.name.underscore}_id".to_sym
+      "#{self.class.name.underscore}_ids".to_sym
     end
   end
 end

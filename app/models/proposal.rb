@@ -509,8 +509,9 @@ class Proposal < ActiveRecord::Base
 
   def user_territory
     user = (proposal_presentations.first || proposal_lives.last.old_proposal_presentations.first).user
-    territory = user.original_locale.territory
+    user.original_locale.territory
   end
+
   def solr_municipality_ids
     if interest_borders.any?
       interest_borders.map(&:municipality).map { |i| i.try(:id) }.compact
@@ -582,23 +583,23 @@ class Proposal < ActiveRecord::Base
       self.quorum.ends_at if self.quorum
     end
 
-    integer :continent_id do
+    integer :continent_ids, multiple: true do
       solr_continent_ids
     end
-    integer :country_id do
+    integer :country_ids, multiple: true do
       solr_country_ids
     end
-    integer :region_id do
-      interest_borders.map(&:region).map(:try, :id).compact
+    integer :region_ids, multiple: true do
+      interest_borders.map(&:region).map { |ib| ib.try(:id) }.compact
     end
-    integer :province_id do
-      interest_borders.map(&:province).map(:try, :id).compact
+    integer :province_ids, multiple: true do
+      interest_borders.map(&:province).map { |ib| ib.try(:id) }.compact
     end
-    integer :municipality_id do
-      interest_borders.map(&:municipality).map(:try, :id).compact
+    integer :municipality_ids, multiple: true do
+      interest_borders.map(&:municipality).map { |ib| ib.try(:id) }.compact
     end
-    integer :district_id do
-      interest_borders.map(&:district).map(:try, :id).compact
+    integer :district_ids, multiple: true do
+      interest_borders.map(&:district).map { |ib| ib.try(:id) }.compact
     end
 
     integer :votes do

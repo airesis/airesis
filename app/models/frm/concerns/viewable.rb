@@ -20,10 +20,7 @@ module Frm
         view = views.find_or_create_by(user_id: user.id)
         view.increment!('count')
         self.class.update_counters id, views_count: 1
-
-        view.current_viewed_at = Time.now if view.current_viewed_at.nil?
-
-        view.past_viewed_at = view.current_viewed_at
+        view.past_viewed_at = view.current_viewed_at || Time.now
         view.current_viewed_at = Time.now
         view.save
       end
