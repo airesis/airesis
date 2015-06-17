@@ -117,6 +117,7 @@ describe 'posts', type: :feature, js: true, ci_ignore: true do
         within_first_post do
           click_link('Edit')
         end
+        sleep 5
         text = Faker::Lorem.paragraph
         fill_in_ckeditor 'frm_post_text', with: text
 

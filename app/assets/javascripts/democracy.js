@@ -380,7 +380,7 @@ function select2town(element) {
                 return;
             } else {
                 $.ajax({
-                    url: '/comunes',
+                    url: '/municipalities',
                     data: {q: query.term},
                     dataType: 'json',
                     type: 'GET',

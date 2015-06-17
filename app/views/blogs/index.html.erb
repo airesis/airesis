@@ -4,19 +4,7 @@
   <div class="row">
     <div class="columns large-6" id="blog_search_form">
       <div class="card">
-
-        <%= form_for blogs_path, method: 'get', remote: true do |f| %>
-            <%= f.label t('buttons.search'), t('pages.blogs.index.search_with_query') %>
-            <div style="float:left">
-              <%= text_field_tag :search, params[:search], title: t('pages.groups.index.find_title'), style: 'width:300px' %>
-            </div>
-            <div class="search_words">
-              <%= check_box_tag :and, params[:and], title: "Scegli se cercare tutte le parole o almeno una" %>
-            </div>
-
-            <div class="clearboth"></div>
-            <%= f.button t('pages.blogs.index.find_button'), onclick: 'return checkCharacters();', class: 'btn', data: {disable_with: t('loading')} %>
-        <% end %>
+        <%= render 'blogs/search_form' %>
       </div>
     </div>
     <div class="columns large-6 show-for-large-up">
@@ -27,6 +15,21 @@
       </div>
     </div>
   </div>
+</div>
+
+<% if @blogs.count > 0 %>
+    <ul id="blogs_list" class="small-block-grid-2 medium-block-grid-3 large-block-grid-4 xlarge-block-grid-5 xxlarge-block-grid-6">
+      <% @blogs.each do |blog| %>
+          <%= render partial: "blog", locals: {blog: blog} %>
+      <% end %>
+    </ul>
+
+<% else %>
+    <h2><%= t('pages.blogs.index.search_description') %></h2>
+<% end %>
+<div class="clearboth"></div>
+<div id="more_blogs_container">
+  <%= render partial: 'more_blogs' %>
 </div>
 
 <script type="text/javascript">
@@ -40,6 +43,17 @@
             return false;
         }
     }
+
+    $('#interest_border').tokenInput("<%=interest_borders_path(format: :json )%>", {
+        crossDomain: false,
+        prePopulate: $('#interest_border').data("pre"),
+        hintText: "<%=t('interest_borders.hint')%>",
+        noResultsText: "<%=t('interest_borders.no_place_found')%>",
+        searchingText: "<%=t('interest_borders.searching')%>",
+        preventDuplicates: true,
+        tokenLimit: 1,
+        allowTabOut: true
+    });
 
     var everPushedSomething = false;
     var initialUrl = location.href;
@@ -75,23 +89,3 @@
     });
 
 </script>
-
-<% if @blogs.count > 0 %>
-    <ul id="blogs_list" class="small-block-grid-2 medium-block-grid-3 large-block-grid-4 xlarge-block-grid-5 xxlarge-block-grid-6">
-      <% @blogs.each do |blog| %>
-          <%= render partial: "blog", locals: {blog: blog} %>
-      <% end %>
-    </ul>
-
-<% else %>
-    <h2><%= t('pages.blogs.index.search_description') %></h2>
-<% end %>
-<div class="clearboth"></div>
-<div id="more_blogs_container">
-  <%= render partial: 'more_blogs' %>
-</div>
-
-
-<% content_for :left_panel do %>
-
-<% end %>

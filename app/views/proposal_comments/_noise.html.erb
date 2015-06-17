@@ -1,4 +1,4 @@
-<h2><%= 'Elenco contributi inutili alla discussione' %></h2>
+<h2><%= t('pages.proposal_comments.noise.title') %></h2>
 <% if @proposal.contributes.noise.count > 0 %>
     <% @proposal.contributes.noise.each do |contribute| %>
         <div class="noise_element" data-id="<%= contribute.id %>">
@@ -6,5 +6,5 @@
         </div>
     <% end %>
 <% else %>
-    <%= 'Nessun contributo è stato eliminato dalla discussione' %>
+    <%= t('pages.proposal_comments.noise.no_contributes') %>
 <% end %>

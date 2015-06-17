@@ -16,7 +16,12 @@
     </div>
     <div>
       <div class="baloon_header">
-        <%=link_to 'Rimetti in dibattito', unintegrate_proposal_proposal_comment_path(@proposal,comment), method: :put, style: 'float:right', class: 'btn', confirm: 'Stai rimettendo il tuo contributo in dibattito. Sei sicuro che non sia stato integrato correttamente?' if can? :unintegrate, comment %>
+        <%=link_to t('buttons.unintegrate'),
+                   unintegrate_proposal_proposal_comment_path(@proposal,comment),
+                   method: :put,
+                   style: 'float:right',
+                   class: 'btn',
+                   confirm: t('confirm.unintegrate') if can? :unintegrate, comment %>
       </div>
       <div class="baloon-content">
         <%= parsed_content(comment,@proposal.is_anonima?) %>

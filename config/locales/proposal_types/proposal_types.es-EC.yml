@@ -1,4 +1,3 @@
-#encoding: utf-8
 es-EC:
   permissions_required: No estás autorizado para realizar esta operación
   test: Prueba
@@ -924,7 +923,7 @@ es-EC:
         meeting:
           place:
             address: Address
-            comune_id: City
+            municipality_id: City
       group:
         facebook_page_url: Facebook page address
         name: Name

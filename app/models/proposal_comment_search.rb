@@ -62,7 +62,6 @@ class ProposalCommentSearch
     end
 
     if random_order?
-
       order = order_clause
 
       #remove already shown contributes

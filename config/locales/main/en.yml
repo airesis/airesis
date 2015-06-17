@@ -970,6 +970,9 @@ en:
         type: "of type %{type}"
     proposal_comments:
       title: "Contribute History"
+      noise:
+        title: "List of noisy contributes"
+        no_contributes: "No contributes here"
     available_authors:
       index:
         explain_html: |
@@ -1007,7 +1010,7 @@ en:
         meeting:
           place:
             address: "Address"
-            comune_id: "City"
+            municipality_id: "City"
       group:
         facebook_page_url: 'Facebook page address'
         name: 'Name'
@@ -1235,6 +1238,7 @@ en:
     new_newsletter: "Create newsletter"
     unlock: "Unlock"
     vote_here: "vote here"
+    unintegrate: "Put back in debate"
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>Firstly they are shown the new contributions or the ones you haven't evaluated, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent"
@@ -1615,3 +1619,5 @@ en:
   groups:
     group:
       delete_group_warning_html: "You are allowed to delete this group. Deleting the group you will destroy all forums, proposals and documents associated with it.<br/>The data cannot be restored.<br/>Be careful!"
+  confirm:
+    unintegrate: "You are going to put your contribute back into the discussion. Are you sure?"

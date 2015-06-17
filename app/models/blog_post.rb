@@ -26,7 +26,14 @@ class BlogPost < ActiveRecord::Base
   scope :viewable_by, ->(user) {
     where("blog_posts.status = ? or (blog_posts.status = ? and group_participations.user_id = ?)",
           PUBLISHED, RESERVED, user.id).
-        joins(groups: [:group_participations]) }
+      joins(groups: [:group_participations]) }
+
+  scope :open_space, ->(user, domain) {
+    includes(:blog, user: [:user_type, :image]).
+      where(users: {original_sys_locale_id: domain.id}).
+    accessible_by(Ability.new(user)).
+      order('blog_posts.created_at desc').limit(10)
+  }
 
   before_save :check_published
   before_save :save_tags

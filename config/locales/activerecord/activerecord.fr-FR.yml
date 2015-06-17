@@ -27,7 +27,7 @@ fr:
         meeting:
           place:
             address: Adresse
-            comune_id: Ville
+            municipality_id: Ville
       group:
         facebook_page_url: Adresse de la page Facebook
         name: Nom

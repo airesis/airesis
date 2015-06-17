@@ -1,4 +1,3 @@
-#encoding: utf-8
 class OldQuorum < Quorum
   validate :minutes_or_percentage
   validates :condition, inclusion: {in: ['OR', 'AND']}

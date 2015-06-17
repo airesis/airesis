@@ -27,7 +27,7 @@ ro-RO:
         meeting:
           place:
             address: Adresă
-            comune_id: Localitate
+            municipality_id: Localitate
       group:
         facebook_page_url: Adresa de pagina de Facebook
         name: Nume

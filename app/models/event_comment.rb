@@ -18,16 +18,6 @@ class EventComment < ActiveRecord::Base
     @collapsed = false
   end
 
-  #quando sto per inserire un commento verifico che non ne sia già stato
-  #inserito uno per lo stesso post dallo stesso utente entro 5 minuti
-  def validate
-    comments = self.event.event_comments.find_all_by_user_id(self.user_id, order: "created_at DESC")
-    comment = comments.first
-    #  if comment and (((Time.now - comment.created_at)/60) < 5)
-    #      self.errors.add(:created_at,"Devono passare almeno cinque minuti tra un commento e l'altro.")
-    #  end
-  end
-
   def formatted_created_at
     self.created_at.strftime('%m/%d/%Y alle %I:%M%p')
   end

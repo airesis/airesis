@@ -1,4 +1,3 @@
-#encoding: utf-8
 module Frm
   class TopicProposal < FrmTable
     belongs_to :topic, class_name: 'Frm::Topic', foreign_key: :topic_id

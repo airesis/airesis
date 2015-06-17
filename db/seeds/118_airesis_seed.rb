@@ -1,3 +1,2 @@
-#encoding: utf-8
-Comune.create(description: "Ambato", provincia_id: 119, regione_id: 1, stato_id: 53, continente_id: 2 , population: 165185)
-Comune.create(description: "Baños de Agua Santa", provincia_id: 119, regione_id: 1, stato_id: 53, continente_id: 2 , population: 12995)
+Municipality.create(description: "Ambato", province_id: 119, region_id:  1, country_id: 53, continent_id: 2 , population: 165185)
+Municipality.create(description: "Baños de Agua Santa", province_id: 119, region_id:  1, country_id: 53, continent_id: 2 , population: 12995)

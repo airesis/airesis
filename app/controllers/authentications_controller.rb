@@ -1,4 +1,3 @@
-#encoding: utf-8
 class AuthenticationsController < ApplicationController
   load_and_authorize_resource :user
   load_and_authorize_resource through: :user

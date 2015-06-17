@@ -167,16 +167,28 @@ class Proposal < ActiveRecord::Base
   end
 
   #retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
-  def self.open_space_portlet(user=nil)
+  def self.open_space_portlet(user = nil, current_territory = nil)
     user_id = user ? user.id : -1
     proposals = Proposal.arel_table
     petition_id = ProposalType.find_by(name: ProposalType::PETITION).id
     alerts_count = alerts_count_subquery(user_id)
     ranking = ranking_subquery(user_id)
-    Proposal.public.
+
+    ids = Proposal.search_ids do
+      any_of do
+        with(:private, false)
+        with(:visible_outside, true)
+      end
+      without(:proposal_type_id, 11) # TODO: removed petitions
+      with(current_territory.solr_search_field, current_territory.id) if current_territory.present?
+      order_by :updated_at, :desc
+      order_by :created_at, :desc
+      paginate page: 1, per_page: 10
+    end
+
+    Proposal.
       select('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
-      where(proposals[:proposal_type_id].not_eq(petition_id)).
-      order(updated_at: :desc).limit(10)
+      where(proposals[:id].in(ids)).order(updated_at: :desc)
   end
 
   #retrieve the list of proposals for the user with a count of the number of the notifications for each proposal
@@ -254,10 +266,10 @@ class Proposal < ActiveRecord::Base
     alerts_count = alerts_count_subquery(user_id)
     ranking = ranking_subquery(user_id)
     Proposal.find_by_sql(proposals.
-      project('distinct proposals.*',alerts_count.as('alerts_count'), ranking.as('ranking')).
-      join(group_proposals).on(proposals[:id].eq(group_proposals[:proposal_id])).
-      where(group_proposals[:group_id].eq(group.id)).
-      order(proposals[:created_at].desc).take(10).to_sql)
+                           project('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
+                           join(group_proposals).on(proposals[:id].eq(group_proposals[:proposal_id])).
+                           where(group_proposals[:group_id].eq(group.id)).
+                           order(proposals[:created_at].desc).take(10).to_sql)
   end
 
 
@@ -392,7 +404,7 @@ class Proposal < ActiveRecord::Base
     "#{id}-#{title.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
   end
 
-  #restituisce il primo autore della proposta
+  # restituisce il primo autore della proposta
   def user
     @first_user ||= proposal_presentations.first.user
   end
@@ -495,6 +507,55 @@ class Proposal < ActiveRecord::Base
     Proposal.find_by_sql(sql_q)
   end
 
+  def user_territory
+    user = (proposal_presentations.first || proposal_lives.last.old_proposal_presentations.first).user
+    user.original_locale.territory
+  end
+
+  def solr_municipality_ids
+    if interest_borders.any?
+      interest_borders.map(&:municipality).map { |i| i.try(:id) }.compact
+    elsif group.present?
+      [group.interest_border.municipality.try(:id)]
+    end
+  end
+
+  def solr_province_ids
+    if interest_borders.any?
+      interest_borders.map(&:province).map { |i| i.try(:id) }.compact
+    elsif group.present?
+      [group.interest_border.province.try(:id)]
+    end
+  end
+
+  def solr_region_ids
+    if interest_borders.any?
+      interest_borders.map(&:region).map { |i| i.try(:id) }.compact
+    elsif group.present?
+      [group.interest_border.region.try(:id)]
+    end
+  end
+
+  def solr_country_ids
+    if interest_borders.any?
+      interest_borders.map(&:country).map { |i| i.try(:id) }.compact
+    elsif group.present?
+      [group.interest_border.country.try(:id)]
+    else
+      [user_territory.id] if user_territory.is_a?(Country)
+    end
+  end
+
+  def solr_continent_ids
+    if interest_borders.any?
+      interest_borders.map(&:continent).map { |i| i.try(:id) }.compact
+    elsif group.present?
+      [group.interest_border.continent.try(:id)]
+    else
+      [user_territory.is_a?(Country) ? user_territory.continent.id : user_territory.id]
+    end
+  end
+
   searchable do
     text :title, boost: 5
     text :content, boost: 2
@@ -520,6 +581,25 @@ class Proposal < ActiveRecord::Base
     double :rank
     time :quorum_ends_at do
       self.quorum.ends_at if self.quorum
+    end
+
+    integer :continent_ids, multiple: true do
+      solr_continent_ids
+    end
+    integer :country_ids, multiple: true do
+      solr_country_ids
+    end
+    integer :region_ids, multiple: true do
+      interest_borders.map(&:region).map { |ib| ib.try(:id) }.compact
+    end
+    integer :province_ids, multiple: true do
+      interest_borders.map(&:province).map { |ib| ib.try(:id) }.compact
+    end
+    integer :municipality_ids, multiple: true do
+      interest_borders.map(&:municipality).map { |ib| ib.try(:id) }.compact
+    end
+    integer :district_ids, multiple: true do
+      interest_borders.map(&:district).map { |ib| ib.try(:id) }.compact
     end
 
     integer :votes do

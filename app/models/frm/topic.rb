@@ -56,18 +56,18 @@ module Frm
 
       def by_pinned
         order('frm_topics.pinned DESC').
-            order('frm_topics.id')
+          order('frm_topics.id')
       end
 
       def by_most_recent_post
         order('frm_topics.last_post_at DESC').
-            order('frm_topics.id')
+          order('frm_topics.id')
       end
 
       def by_pinned_or_most_recent_post
         order('frm_topics.pinned DESC').
-            order('frm_topics.last_post_at DESC').
-            order('frm_topics.id')
+          order('frm_topics.last_post_at DESC').
+          order('frm_topics.id')
       end
 
       def pending_review
@@ -81,7 +81,7 @@ module Frm
       def approved_or_pending_review_for(user)
         if user
           where("frm_topics.state = ? OR " +
-                    "(frm_topics.state = ? AND frm_topics.user_id = ?)",
+                  "(frm_topics.state = ? AND frm_topics.user_id = ?)",
                 'approved', 'pending_review', user.id)
         else
           approved
@@ -125,9 +125,8 @@ module Frm
     end
 
     def subscribe_user(subscriber_id)
-      if subscriber_id && !subscriber?(subscriber_id)
-        subscriptions.create!(subscriber_id: subscriber_id)
-      end
+      return if !subscriber_id || subscriber?(subscriber_id)
+      subscriptions.create!(subscriber_id: subscriber_id)
     end
 
     def unsubscribe_user(subscriber_id)
@@ -147,7 +146,7 @@ module Frm
     end
 
     def last_page
-      (self.posts.count.to_f / TOPICS_PER_PAGE.to_f).ceil
+      (posts.count.to_f / TOPICS_PER_PAGE.to_f).ceil
     end
 
     protected
@@ -170,13 +169,11 @@ module Frm
 
       first_post = posts.by_created_at.first
       first_post.approve! unless first_post.approved?
-      #TODO disattivato user.update_attribute(:forem_state, 'approved') if user.forem_state != 'approved'
+      # TODO: disattivato user.update_attribute(:forem_state, 'approved') if user.forem_state != 'approved'
     end
 
     def moderated?
       user.forem_moderate_posts?
     end
-
-
   end
 end

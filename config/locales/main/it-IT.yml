@@ -960,6 +960,9 @@ it-IT:
         type: 'di tipo %{type}'
     proposal_comments:
       title: Contributi
+      noise:
+        title: "Elenco contributi inutili alla discussione"
+        no_contributes: "Nessun contributo è stato eliminato dalla discussione"
     available_authors:
       index:
         explain_html: |
@@ -997,7 +1000,7 @@ it-IT:
         meeting:
           place:
             address: Indirizzo
-            comune_id: Comune
+            municipality_id: Comune
       group:
         facebook_page_url: Indirizzo pagina Facebook
         name: Nome
@@ -1225,6 +1228,7 @@ it-IT:
     new_newletter: Nuova newsletter
     unlock: "Sblocca"
     vote_here: "vota qui"
+    unintegrate: "Rimetti in dibattito"
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di maturità.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     random_stack_2: '<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente.'
@@ -1600,3 +1604,5 @@ it-IT:
   groups:
     group:
       delete_group_warning_html: "Puoi cancellare questo gruppo.<br>Tutti i dati ad esso associati verranno eliminati e non saranno più ripristinabili.<br>Fai attenzione!"
+  confirm:
+    unintegrate: "Stai rimettendo il tuo contributo in dibattito. Sei sicuro che non sia stato integrato correttamente?"

@@ -15,6 +15,16 @@ class Blog < ActiveRecord::Base
     self.blog_posts.order(created_at: :desc).first
   end
 
+  def solr_country_id
+    territory = user.original_locale.territory
+    territory.id if territory.is_a?(Country)
+  end
+
+  def solr_continent_id
+    territory = user.original_locale.territory
+    territory.is_a?(Country) ? territory.continent.id : territory.id
+  end
+
   searchable do
     text :title, boost: 2
     time :created_at
@@ -23,6 +33,22 @@ class Blog < ActiveRecord::Base
     end
     text :fullname do
       self.user.fullname
+    end
+
+    integer :continent_id do
+      solr_continent_id
+    end
+    integer :country_id do
+      solr_country_id
+    end
+    integer :region_id do
+      nil
+    end
+    integer :province_id do
+      nil
+    end
+    integer :municipality_id do
+      nil
     end
   end
 
@@ -34,12 +60,14 @@ class Blog < ActiveRecord::Base
 
     page = params[:page] || 1
     limite = params[:limit] || 30
-
+    minimum = params[:minimum]
+    interest_border = params[:interest_border_obj]
     if tag
       Blog.joins(blog_posts: :tags).where(['tags.text = ?', tag]).uniq.page(page).per(limite)
     else
       Blog.search do
-        fulltext search, minimum_match: params[:minimum] if search
+        fulltext search, minimum_match: minimum if search
+        with(interest_border.solr_search_field, interest_border.territory.id) if interest_border.present?
         order_by :score, :desc
         order_by :last_post_created_at, :desc
         order_by :created_at, :desc

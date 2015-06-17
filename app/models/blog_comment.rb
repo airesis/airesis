@@ -11,24 +11,10 @@ class BlogComment < ActiveRecord::Base
 
   attr_accessor :collapsed
 
-
   after_commit :send_notifications, only: :create
-
-
-
 
   def after_initialize
     @collapsed = false
-  end
-
-  #quando sto per inserire un commento verifico che non ne sia già stato
-  #inserito uno per lo stesso post dallo stesso utente entro 5 minuti
-  def validate
-    comments = self.blog_post.blog_comments.find_all_by_user_id(self.user_id, order: "created_at DESC")
-    comment = comments.first
-    #  if comment and (((Time.now - comment.created_at)/60) < 5)
-    #      self.errors.add(:created_at,"Devono passare almeno cinque minuti tra un commento e l'altro.")
-    #  end
   end
 
   def formatted_created_at
@@ -44,9 +30,9 @@ class BlogComment < ActiveRecord::Base
   def user_name
     name = self.user ? self.user.name : self.name
     if !self.site_url.blank?
-      return "<a href=\"#{self.site_url}\">#{name}</a>"
+      "<a href=\"#{self.site_url}\">#{name}</a>"
     else
-      return name
+      name
     end
   end
 
@@ -70,16 +56,14 @@ class BlogComment < ActiveRecord::Base
   end
 
   def akismet_attributes
-    {
-        :key => BlogKit.instance.settings['akismet_key'],
-        :blog => BlogKit.instance.settings['blog_url'],
-        :user_ip => user_ip,
-        :user_agent => user_agent,
-        :comment_author => name,
-        comment_author_email: email,
-        :comment_author_url => site_url,
-        :comment_content => body
-    }
+    {key: BlogKit.instance.settings['akismet_key'],
+     blog: BlogKit.instance.settings['blog_url'],
+     user_ip: user_ip,
+     user_agent: user_agent,
+     comment_author: name,
+     comment_author_email: email,
+     comment_author_url: site_url,
+     comment_content: body}
   end
 
 

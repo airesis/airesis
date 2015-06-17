@@ -1,4 +1,3 @@
-#encoding: utf-8
 class GroupArea < ActiveRecord::Base
 
   validates :name, length: {within: 3..200}, uniqueness: {scope: :group_id, message: "Nome area già presente"}

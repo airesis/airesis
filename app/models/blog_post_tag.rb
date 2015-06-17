@@ -10,11 +10,14 @@ class BlogPostTag < ActiveRecord::Base
   protected
 
   def decrement_counter_cache
+
     increment_counter_cache(-1)
   end
 
   def increment_counter_cache(n = 1)
-    tag.blog_posts_count +=  n
-    tag.save
+    territory = blog_post.user.original_locale.territory
+    tag.tag_counters.find_or_create_by(territory: territory) do |tag_counter|
+      tag_counter.blog_posts_count = tag_counter.blog_posts_count + n
+    end
   end
 end

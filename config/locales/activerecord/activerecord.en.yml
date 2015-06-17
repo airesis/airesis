@@ -26,7 +26,7 @@ en:
         candidates_end_time: 'Deadline date for candidates entry'
       event/meeting/place:
         address: "Address"
-        comune_id: "City"
+        municipality_id: "City"
         latitude_original: Latitude
         longitude_original: Longitude
       group:
