@@ -280,22 +280,22 @@ class Group < ActiveRecord::Base
     integer :interest_border_id
     integer :group_participations_count
     time :created_at
-    integer :continent_id do
+    integer :continent_ids do
       interest_border.continent.try(:id)
     end
-    integer :country_id do
+    integer :country_ids do
       interest_border.country.try(:id)
     end
-    integer :region_id do
+    integer :region_ids do
       interest_border.region.try(:id)
     end
-    integer :province_id do
+    integer :province_ids do
       interest_border.province.try(:id)
     end
-    integer :municipality_id do
+    integer :municipality_ids do
       interest_border.municipality.try(:id)
     end
-    integer :district_id do
+    integer :district_ids do
       interest_border.district.try(:id)
     end
   end
