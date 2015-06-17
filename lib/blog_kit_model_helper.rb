@@ -20,21 +20,8 @@ module BlogKitModelHelper
       user = self
     end
 
-    if user.avatar_file_name.present?
+    if user.avatar.exists?
       ret = user.avatar.url
-    elsif user.has_provider?(Authentication::FACEBOOK)
-      if size <= 50
-        fsize = 'small'
-      elsif size <= 100
-        fsize = 'normal'
-      else
-        fsize = 'large'
-      end
-      uid = user.authentications.find_by_provider(Authentication::FACEBOOK).uid
-      ret = "https://graph.facebook.com/#{uid}/picture?type=#{fsize}"
-    elsif user.has_provider?(Authentication::GOOGLE)
-      uid = user.authentications.find_by_provider(Authentication::GOOGLE).uid
-      ret = "https://www.google.com/s2/photos/profile/#{uid}?sz=#{fsize}"
     else
       # Gravatar
       require 'digest/md5'
