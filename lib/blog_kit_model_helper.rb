@@ -8,7 +8,6 @@ module BlogKitModelHelper
     words[0..(length-1)].join(' ') + (words.length > length ? end_string : '')
   end
 
-
   def user_image_url(size=80, params={})
     url= params[:url]
     certification_logo= params[:cert].nil? ? true : params[:cert]
@@ -21,7 +20,7 @@ module BlogKitModelHelper
     end
 
     if user.avatar.exists?
-      ret = user.avatar.url
+      user.avatar.url
     else
       # Gravatar
       require 'digest/md5'
@@ -32,9 +31,8 @@ module BlogKitModelHelper
       end
 
       hash = Digest::MD5.hexdigest(email.downcase)
-      ret = "https://www.gravatar.com/avatar/#{hash}?s=#{size}"
+      "https://www.gravatar.com/avatar/#{hash}?s=#{size}"
     end
-    ret
   end
 
   def user_image_tag(size=80, params={})
@@ -43,11 +41,7 @@ module BlogKitModelHelper
     certification_logo= params[:cert].nil? ? true : params[:cert]
     force_size= params[:force_size].nil? ? true : params[:force_size]
 
-    if self.respond_to?(:user)
-      user = self.user
-    else
-      user = self
-    end
+    user = self.respond_to?(:user) ? self.user : self
 
     if user.certified? && certification_logo && size < 60
       size = size - 6
