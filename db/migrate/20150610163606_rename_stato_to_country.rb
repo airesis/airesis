@@ -2,7 +2,7 @@ class RenameStatoToCountry < ActiveRecord::Migration
   def change
     rename_column :stato_translations, :stato_id, :country_id
     rename_column :regiones, :stato_id, :country_id
-    rename_column :provinces, :stato_id, :country_id
+    rename_column :provincias, :stato_id, :country_id
     rename_column :comunes, :stato_id, :country_id
     rename_column :districts, :stato_id, :country_id
 
