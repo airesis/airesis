@@ -92,9 +92,9 @@ en:
               comments and evaluations to edit a shared summary of the proposal that can gain the largest possible consensus.
             </li>
             <li><strong>Quorum and proposals vote</strong> <br>
-              Each proposal has its own quorum. Voting occurs by preference according to the Schultze method.
+              Each proposal has its own quorum. Voting occurs by preference according to the Schulze method.
             </li>
-            <li><strong>Events\calendar management</strong> <br>
+            <li><strong>Events/calendar management</strong> <br>
               It is possible to schedule events concerning meetings, voting, elections of candidates within groups or in the Open Space.
             </li>
             <li><strong>Newsletter</strong> of events and news about the platform</li>
@@ -153,7 +153,7 @@ en:
           <p>When the period of time assigned for the debate ends and a sufficient number of people agree on the maturity of the proposal (these conditions vary according to the quorum of debate), the proposal go to the <strong>voting phase</strong>.</p>
           <p>At this point the proposal is <strong>frozen</strong> and the editor have to <strong>choose a time frame</strong> in which the group will be able to vote the proposal.
           The 'voting' event is recorded on the group calendar and is <strong>notified</strong> to all members of the group.</p>
-          <p>At the time of vote a new notification is sent in which it is displayed the proposal to be voted and the page in which the vote occurs. At this point each participant, after having read the proposal and the list of possible solutions, can submit his preference <strong>ordering</strong> these solutions from the most liked to the least and thereby allowing the processing of the <a href="http://it.wikipedia.org/wiki/Metodo_Schulze" target="blank">Schulze Method</a> to find out the solution preferrred by the group.</p>
+          <p>At the time of vote a new notification is sent in which it is displayed the proposal to be voted and the page in which the vote occurs. At this point each participant, after having read the proposal and the list of possible solutions, can submit their preference <strong>ordering</strong> these solutions from the most liked to the least and thereby allowing the processing of the <a href="http://it.wikipedia.org/wiki/Metodo_Schulze" target="blank">Schulze Method</a> to find out the solution preferrred by the group.</p>
           <p>At the end of the vote the proposal go to the <strong>"voted"</strong> status, where it is possible to review the result of the vote at any time.</p>
       paragraph_9:
         title: "Promotion of shared proposals and Participatory Democracy"
@@ -172,7 +172,7 @@ en:
             </li>
             <li>the presence of a <strong>discussion board</strong> in each proposal, in which to add contributions that editors will be able to integrate in the text of the proposal, according to the evaluations received;
             </li>
-            <li>reputation system that rewards participation, constructive and clarity, encouraging problem solving
+            <li>reputation system that rewards participation, constructive debates and clarity, encouraging problem solving
             </li>
             <li>the opportunity to invite their contacts to join the discussion
             </li>
@@ -193,7 +193,7 @@ en:
           <p>In any case , at the end of the debate , and after the vote , the participants will be displayed with their real names so that it will be possible to verify the interventions of each of them.</p>
 
           <p>This option is also applicable to the voting stage, so it’s possible to choose if this will take place by open or secret ballot.
-             Important, especially in the case of a secret ballot, is the ability to verify the registration of his vote and the absence of fraud.
+             Important, especially in the case of a secret ballot, is the ability to verify the registration of votes and the absence of fraud.
              This is possible through the system of auditable voting implemented by Airesis .
           </p>
       paragraph_11:
@@ -301,7 +301,7 @@ en:
         title: "The evolution of Airesis"
         content_html: |
           <p>The list below shows the changes of Airesis during its evolution.
-           You can also find highlighted the innovations planned for future versions.
+           You can also find the highlighted innovations planned for future versions.
            Check this page often if you are interested to know which features are being developed and come back to visit us!</p>
       title: "The evolution of Airesis"
       description: "Our road to realize a new software, an idea capable of evolving democracy that came to life in the web."
@@ -313,12 +313,12 @@ en:
         content_html: |
           <p>
            The volunteers working on this project spend a considerable amount of time in order to bring a useful software for our communities.
-           However, volunteering and hard work alone are not sufficient: money is needed to mantain a server installation publicly available, to keep the software updated and experiment with the new features and improvements we are developing. In addition to this, paid work is required for server maintenance and user help desk.
+           However, volunteering and hard work alone are not sufficient: money is needed to maintain the server publicly available and the software updated and experiment with the new features and improvements we are developing. In addition to this, paid work is required for server maintenance and user help desk.
            </p>
       paragraph2:
         title: "Choose what to support"
         content_html: |
-          <p>Airesis allow you to donate for single features.
+          <p>Airesis allow you to donate for a single feature.
           The development group has dozens of ideas to improve the software, however funds are required to implement them</p>
           <p>Today you can donate to realize a specific feature, or to suggest new ideas you are willing to donate for.</p>
           <p>Go to the <a href=%{link}>donations page</a> and see what we would like to realize with your help!</p>
@@ -378,8 +378,8 @@ en:
             <li>Giving comments and suggestions about usability and platform UI</li>
             <li>Programming the platform UI (REQUIRED: knowledge of HTML, CSS or Javascript)</li>
             <li>Programming the platform server-side (REQUIRED: knowledge of Ruby and/or C++ language, or will to learn it with the help of other volunteers)</li>
-            <li>Supporting us with a <a href=%{donations_path}>donation</a> or searching founds</li>
-            <li><a href="#linkback">Spreading the word</a> about the project and managing its comunication</li>
+            <li>Supporting us with a <a href=%{donations_path}>donation</a> or raising founds</li>
+            <li><a href="#linkback">Spreading the word</a> about the project and managing its communication</li>
           </ul>
           <p>To help us coordinate our activities we use these tools. You can start from here:</p>
           <ul>
@@ -390,9 +390,9 @@ en:
       paragraph2:
         title: "How to contribute"
         description_html: |
-          <p>Anyone can help in the open-source project Airesis: you do not need to be a programmer, since there is a lot of activities to do anyway.
+          <p>Anyone can help in the open-source project Airesis: you do not need to be a programmer, since there are a lot of activities to do anyway.
           In the project <a href=%{chisiamo}>we are all unpaid volunteers</a>, sharing the will to help citizens organize transparently and participate in the making of a top notch democracy.</p>
-          <p>To report your availability please fill <a href="%{form}" target="_blank"><strong>this form</strong></a>, or contact <strong>Nicola Giulietti</strong>&nbsp;- %{email} - cell. %{cell} in case of doubts or you want more informations.</p>
+          <p>To report your availability please fill <a href="%{form}" target="_blank"><strong>this form</strong></a>, or contact <strong>Nicola Giulietti</strong>&nbsp;- %{email} - cell. %{cell} in case of doubts or you want more information.</p>
           <p>Here is a list of volunteers that we need:</p>
       developer:
         title: "Developer"

@@ -69,18 +69,18 @@ en:
             requirements: "Solution requirements"
           question:
             paragraph:
-              similar: "Are there experiences to inspire to achieve the goal? Among the possible solutions / initiatives already in place, which have achieved the best results and which the worst? Why?"
-              stakeholders: "Who will receive the benefits and drawbacks from the achievement of the objective and the proposed solutions? These subjects were involved in the discussion of this proposal? In what way?"
+              similar: "Are there experiences to inspire to achieve the goal? Among the possible solutions / initiatives already in place, which ones have achieved the best results and which ones have the worst? Why?"
+              stakeholders: "Who will receive the benefits and drawbacks from the achievement of the objective and the proposed solutions? Were these subjects involved in the discussion of this proposal? In what way?"
               requirements: "What are the characteristics that should respect the ideal solution? May be referred to both technical requirements that values ​​and principles to be observed."
             solution:
-              description: "Describe the solution that, in practice, it is proposed to take to achieve the goal."
+              description: "Describe the solution that, in practice, is proposed to take to achieve the goal."
               time: "When will this solution be implemented? Identify possible stages of implementation."
-              subject: "Chwho will implement or arrange to implement the solution? How will be monitored and verified, in case of implementation, the outcomes of the solution?"
-              resources: "Are funds needed, volunteers, tools and skills to implement this solution? List them and quantify them. How these resources will be found?"
-              aspects: "This solution meets the ethical requirements of the group or community to which it is addressed? What is its social and environmental impact?"
+              subject: "Who will implement or arrange to implement the solution? In case of implementation, how to monitor and verify the outcomes of the solution?"
+              resources: "Are funds, volunteers, tools and skills going to be needed to implement this solution? List and quantify them. How will these resources be found?"
+              aspects: "Does this solution meet the ethical requirements of the group or community to which it is addressed? What is its social and environmental impact?"
               documents: "Is documentation available for the solution?"
-              pros: "List and summarize the main advantages and strengths of this solution. Indicate who are the stakeholders of the advantages."
-              cons: "List and summarize the main problems and disadvantages of this solution. Indicate who are the stakeholders of the disadvantages."
+              pros: "List and summarize the main advantages and strengths of this solution. Indicate the stakeholders of the advantages."
+              cons: "List and summarize the main problems and disadvantages of this solution. Indicate the stakeholders of the disadvantages."
         rule_book:
           problems_title: "Problems"
           problems_title_label: "What are the problems to be solved with the application of this regulation? What are the issues to be regulated? Why?"
@@ -100,13 +100,13 @@ en:
             stakeholders: "Stakeholders (involved people)"
           question:
             paragraph:
-              inspire: "Are there regulations from which take inspiration similar  to that? Among the experiences of similar rules, which have achieved the best results and which the worst? Why?"
+              inspire: "Are there similar regulations from which it takes inspiration? Among the experiences of similar rules, which ones have achieved the best results and which ones have the worst? Why?"
               requirements: "What are the main constraints that the regulation should take into account? What are the values ​​and the principles to be observed? What will be the cost of application of the regulation? What subjects will be instructed to enforce it?"
-              stakeholders: "Who is most affected by the application of the regulation? Who will suffer the consequences? These subjects were involved in the discussion of this proposal? How?"
+              stakeholders: "Who is most affected by the application of the regulation? Who will suffer the consequences? Were these subjects involved in the discussion of this proposal? How?"
             solution:
               article: "Enter the text of the first article, ensuring that its interpretation appears unique. Insert a definition of terms or expressions are subject to misunderstanding."
-              pros: "List and summarize the main advantages and strengths of this solution. Indicate who are the stakeholders of the advantages."
-              cons: "List and summarize the main problems and disadvantages of this solution. Indicate who are the stakeholders of the disadvantages."
+              pros: "List and summarize the main advantages and strengths of this solution. Indicate the stakeholders of the advantages."
+              cons: "List and summarize the main problems and disadvantages of this solution. Indicate the stakeholders of the disadvantages."
         press:
           problems_title_label: "What is the message you want to convey? What obstacles are expected to its proper understanding and streams? There are articles or recent news that you want to replicate or to which you want to provide an adjustment?"
           problems_title: "Message to transmit"
@@ -127,7 +127,7 @@ en:
             target: "Recipients/Target"
           question:
             paragraph:
-              target: "Who is the target of the article / press release? What aspects of the message you want to convey is more interested in?"
+              target: "Who are the targets of the article / press release? Which aspects of the message you want to convey that are the most interesting for them?"
             solution:
               maintitle: "How can you summarize in a few words the message of the article / press release?"
               subtitle: "Indicate in a nutshell, a key concept of the article or additional information to that contained in the title."

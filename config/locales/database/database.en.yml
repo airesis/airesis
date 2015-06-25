@@ -127,8 +127,8 @@ en:
       new_contributes:
         description: "New contributions in the proposals I participate in"
         email_subject:
-          one: "%{title} - A new contribute has been inserted"
-          other: "%{title} - There are %{count} new contributes"
+          one: "%{title} - A new contribution has been inserted"
+          other: "%{title} - There are %{count} new contributions"
         message:
           one: "<b>%{name}</b> added a new contribution in the proposal <b>%{title}</b>"
           other: "There are <b>%{count}</b> new contributions in the proposal <b>%{title}</b>"
@@ -144,7 +144,7 @@ en:
         description: "New contributions in my proposals"
         email_subject:
           one: "%{title} - A new contribution has been inserted"
-          other: "%{title} - There are %{count} new contributes"
+          other: "%{title} - There are %{count} new contributions"
         message:
           zero: "<b>%{name}</b> added a new contribution in your proposal <b>%{title}</b>"
           one: "<b>%{name}</b> added a new contribution in your proposal <b>%{title}</b>"
@@ -248,9 +248,9 @@ en:
         email_subject: "%{title} - New comment"
         message: "<b>%{name}</b> added a comment in a discussion you are taking part in the proposal <b>%{title}</b>"
       contribute_update:
-        description: Update of the text of an already evaualted contribute
-        email_subject: "%{title} - A contribute you have previously evaluated has changed"
-        message: "<b>%{name}</b> changed a contribute in <b>%{title}</b> you have previously evaluated. Check if you want to change your opinion."
+        description: Update of the text of an already evaualted contribution
+        email_subject: "%{title} - A contribution you have previously evaluated has changed"
+        message: "<b>%{name}</b> changed a contribution in <b>%{title}</b> you have previously evaluated. Check if you want to change your opinion."
     proposal_categories:
       no_category:
         description: Uncategorized

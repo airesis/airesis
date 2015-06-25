@@ -1,8 +1,8 @@
 en:
   tutorial:
     proposals_index:
-      welcome_open_space: "Welcome in the open space of Airesis! The open space is a very particular group in which every users participate. Here you find a list of the the proposals freely added by the users of the application and you can even add your own ones"
-      welcome_group: "This is the list of the proposals of the group <b>%{group_name}</b>. Here you find a list of the the proposals added by the members of the group and you can even add your own ones, given that you are allowed to"
+      welcome_open_space: "Welcome in the open space of Airesis! The open space is a very particular group in which every users participates. Here you find a list of the proposals freely added by the users of the application and you can even add your own ones"
+      welcome_group: "This is the list of the proposals of the group <b>%{group_name}</b>. Here you find a list of the proposals added by the members of the group and you can even add your own ones, given that you are allowed to"
       new_proposal: "In the right lateral menu you will find a button to create new proposals..."
       filters: "... and different filters to find the proposals you are interested in"
       tabs: "Proposals in Airesis follow a defined path that is made of four main statuses. Let's discover them!"
@@ -42,7 +42,7 @@ en:
       history: "History of the proposal, in which you can view its modifications and evolution"
     groups_edit:
       welcome: "That is the administrator panel for groups. We will explain you the single sections..."
-      group_info: "Here you can change all the informations about the group and its picture. Please fill the keywords if you have not done it yet. They are important for your group to be found."
+      group_info: "Here you can change all the information about the group and its picture. Please fill the keywords if you have not done it yet. They are important for your group to be found."
       group_roles: "Here you can manage the roles available in the group. You can manage their permissions and the edit the existings one."
       group_users: "Here you can manage the participants in your group. You can assign them roles and send emails."
       group_proposals: "This is the page where you can change everything related to proposals: quorums and settings."
@@ -56,6 +56,6 @@ en:
     users_border_preferences:
       intro: "If you have not done it yet, set your geographical interest borders. Airesis will soon use them to show you specific contents."
     welcome:
-      intro: "Welcome on Airesis %{name}. These tutorials will guide you through the application and exaplain you how to use it and where to find the informations you need."
+      intro: "Welcome on Airesis %{name}. These tutorials will guide you through the application and exaplain you how to use it and where to find the information you need."
     next: "Next"
     back: "Back"
