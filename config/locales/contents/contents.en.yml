@@ -7,46 +7,57 @@ en:
         title: "The Social Network for E-Democracy"
         content_html: |
           <p>Airesis is a <a href="http://en.wikipedia.org/wiki/Free_software">free software platform</a>, built
-          by a team of Italian developers and contributors, to enable communities and groups to organize themselves in a productive manner according to the principles
-          of <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank">direct democracy</a> and participation.</p>
+          by a team of Italian developers and contributors, to enable communities and groups to organize themselves
+          in a productive manner according to the principles of <a href="http://en.wikipedia.org/wiki/Direct_democracy"
+          target="_blank">direct democracy</a> and participation.</p>
 
-          <p>To achieve this goal, the application has been designed as a multifunctional system, which integrates all the tools that can
-          help the development of a community, in particular "social" and deliberative tools.</p>
+          <p>To achieve this goal, the application has been designed as a multifunctional system, which integrates all
+          the tools that can help the development of a community, in particular "social" and deliberative tools.</p>
 
-          <p>Among <strong>social tools</strong>, Airesis offers blogs and a system of promotion of events and meetings with adjoining scheduling.
-          Among <strong>deliberative tools</strong> it includes areas for the collection and deliberation of proposals and initiatives,
-          and a voting system aimed to the election of candidates. The platform also allows you to create groups with access regulations policies and customizable permissions.
-          Since the goal of Airesis is to stimulate participation, great attention has been spent in order to maximize the intuitiveness of the whole platform.
-          The development philosophy is focused on continuous improvement, a kind of evolutionary process based on users feedback.
-          The development team is available to meet the needs of the communities which want to use the software according to the spirit of direct democracy.</p>
+          <p>Of the <strong>social tools</strong>, Airesis offers blogs and a system of promotion of events
+          and meetings with adjoining scheduling.
+          Of the <strong>deliberative tools</strong> it includes areas for the collection and deliberation of proposals
+          and initiatives,
+          and a voting system aimed to the election of candidates. The platform also allows you to create groups with
+          access to regulation policies and customizable permissions.
+          Since the goal of Airesis is to stimulate participation, great attention has been spent in order to maximize
+          the intuitiveness of the whole platform.
+          The development philosophy is focused on continuous improvement, a kind of evolutionary process based on users
+          feedback.
+          The development team is available to meet the needs of the communities which want to use the software
+          according to the spirit of direct democracy.</p>
       paragraph_3:
         title: "Principles and core values"
         content_html: |
           <p>Airesis is an open source decision-making tool for e-democracy,
           strongly oriented to problem-solving and designed to maximize the immense evolutionary power
           of <a heref="http://en.wikipedia.org/wiki/Collective_intelligence" target="_blank">collective intelligence</a>.</p>
-          <p>Entirely developed by volunteers according to non-profit principles, Airesis was created to take faster, informed, shared and participated decisions.<br/>
+          <p>Entirely developed by volunteers according to non-profit principles, Airesis was created to take faster,
+          informed, shared and participated decisions.<br/>
           It is based on the following principles:</p>
           <ul>
           <li><strong>Participation</strong> <br/>
           Involving citizens means having more energy and points of view available.
-          Only through direct participation it is possible to investigate the problems and understand what people really want. Participation is the essence of democratic decisions.
+          Only through direct participation it is possible to investigate the problems and understand what
+          people really want. Participation is the essence of democratic decisions.
           </li>
 
           <li><strong>Transparency and Security</strong><br/>
           Without transparency, rules can be easily circumvented and democracy can quickly degenerate.
-          Transparency also means openness, ability to receive: for this reasons Airesis also allows unregistered users to view the contents of the site.
+          Transparency also means openness, ability to receive: for this reasons Airesis also allows unregistered users
+          to view the contents of the site.
           The source code of the software is also "transparent", being it entirely open source.</li>
 
           <li><strong>Constructive dialogue</strong><br/>
-          No one owns all the right answers. Using appropriate tools, elaborating ideas proposed by many people can be more productive than doing it yourself.</li>
+          No one owns all the right answers. Using appropriate tools, elaborating ideas proposed by many people can be
+          more productive than doing it yourself.</li>
 
           <li><strong>Equal opportunities</strong><br/>
           To be intended as how effective equality, in terms of offered possibilities, can be pursued by the system.
           </li>
 
           <li><strong>Flexibility</strong><br/>
-          Each group ha its own needs, each proposal is different from the others, each user has its own needs.</li>
+          Each group has its own needs, each proposal is different from the others, each user has their own needs.</li>
       paragraph_4:
         title: "Our goal: direct and participative democracy"
         content_html: |
@@ -181,7 +192,7 @@ en:
             </li>
           </ul>
       paragraph_10:
-        title: "Temporarary anonymity, secret ballot and auditable voting"
+        title: "Temporary anonymity, secret ballot and auditable voting"
         content_html: |
           <p>One of the peculiarities of Airesis is that <strong>groups can choose if the proposals debate will be anonymous or not</strong>.</p>
 
@@ -401,7 +412,7 @@ en:
           The developer is the person who actually writes the code of Airesis. <br/>
           He follows the specifications and guidelines agreed upon by the team.
           The developer will write new modules in Ruby when there will be new features to be added, or HTML pages, using also CSS and Javascript in case of UI functionalities.<br/>
-          New applicants fwill be helped and guided by the <a href="%{chisiamo}" target="_blank">head programmer</a> in their first steps to easily start their jobs.
+          New applicants will be helped and guided by the <a href="%{chisiamo}" target="_blank">head programmer</a> in their first steps to easily start their jobs.
           </p>
       analyst:
         title: "Analyst"
@@ -454,5 +465,5 @@ en:
         description_html: |
           <p>
             He is in charge of the software translation. He contacts and coordinates foreign translators.<br/>
-            (N.B.: it is not required to posses any programming skill)
+            (P.S.: it is not required to posses any programming skill)
           </p>

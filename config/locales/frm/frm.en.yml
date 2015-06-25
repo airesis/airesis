@@ -27,7 +27,7 @@ en:
         deleted: The selected forum has been deleted
         created: This forum has been created.
         not_created: This forum could not be created
-        updated: That forum has been updated.
+        updated: This forum has been updated.
         not_updated: This forum could not be updated
       forums:
         edit: Edit
@@ -66,7 +66,7 @@ en:
         deleted: The selected forum category has been deleted
         created: This forum category has been created
         not_created: This forum category could not be created
-        updated: That forum category has been updated
+        updated: This forum category has been updated
         not_updated: This forum category could not be updated
       categories:
         edit: Edit
@@ -176,7 +176,7 @@ en:
       edited: Your post has been edited
       not_edited: Your post could not be edited
       deleted: Your post has been deleted
-      deleted_with_topic: Only post in topic deleted. Topic also deleted
+      deleted_with_topic: The last post in the topic has been deleted. The entire Topic has been also deleted
       cannot_delete: You cannot delete a post you do not own
       cannot_quote_deleted_post: The post you tried to quote does not exist anymore.
     posts:
