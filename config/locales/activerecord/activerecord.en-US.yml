@@ -137,7 +137,7 @@ en-US:
         blank: 'must be filled'
         too_long: 'The text is too long'
         too_short: 'The text is too short'
-        wrong_length: should be% {count} characters)'
+        wrong_length: should be %{count} characters)'
         taken: 'is already taken'
         not_a_number: 'is not a number'
         greater_than: 'must be greater than %{count}'

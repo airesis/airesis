@@ -60,10 +60,10 @@ en:
     omniauth_callbacks:
       success: 'Your registration has been completed. Welcome!'
       failure: 'Could not authorize you from %{kind} because "%{reason}"'
-      creation_failure: "Sono stati riscontrati errori durante l'accesso tramite %{provider}"
-      join_success: "Unione account avvenuta corretamente. Complimenti, ora puoi fare login anche attraverso %{provider}."
-      join_failure: "Esiste già un altro account associato a questo account %{provider}. Attendi la funzione di 'Unione account' per procedere"
-      account_not_verified: "Account %{provider} con email non verificata."
+      creation_failure: "Error while accessing through %{provider}"
+      join_success: "Accounts successfully merged. Congratulations, now you can login through %{provider}."
+      join_failure: "Another %{provider} account exists. The feature to join accounts will be available soon."
+      account_not_verified: "Account %{provider} with unconfirmed email."
     mailer:
       confirmation_instructions:
         subject: 'Confirmation instructions'

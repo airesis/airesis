@@ -1130,7 +1130,7 @@ en:
         less_than_or_equal_to: 'must be less than or equal to %{count}'
         odd: 'must be even'
         even: 'must be odd'
-        record_invalid: 'Validation failed %{errors}'useless contributions
+        record_invalid: 'Validation failed %{errors}'
         not_found: 'not found.'
         TOS: "It is required to accept the TOS"
       full_messages:

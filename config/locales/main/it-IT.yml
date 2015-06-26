@@ -1309,7 +1309,7 @@ it-IT:
     group_participations:
       destroy: "Non puoi uscire da un gruppo del quale sei l'unico portavoce"
       already_member: Errore nella richiesta di partecipazione. Fai già parte di questo gruppo!
-      request_not_registered: Fai già parte di questo gruppo ma la tua richiesta non è mai stata registrata. Dati corretti
+      request_not_registered: Fai già parte di questo gruppo ma la tua richiesta non è mai stata registrata.
       request_sent: Errore nella richiesta di partecipazione
       request_not_found: "Richiesta non trovata. Errore durante l'operazione"
       error_saving: "Errore durante l'operazione. Impossibile procedere"
