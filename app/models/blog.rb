@@ -9,6 +9,8 @@ class Blog < ActiveRecord::Base
   has_many :blog_tags, dependent: :destroy
   has_many :tags, through: :blog_tags, class_name: 'Tag'
 
+  validates :title, presence: true
+
   def last_post
     self.blog_posts.order(created_at: :desc).first
   end

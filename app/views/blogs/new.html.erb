@@ -1,9 +1,15 @@
-<h1><%= t('pages.blogs.new.title') %></h1>
-<%= simple_form_for @blog do |f| %>
-    <%= f.error_notification %>
-    <%= f.input :title %>
-    <p>
-      <%= link_to t('pages.blogs.new.cancel_button'), :back, class: 'btn' %>
-      <%= f.submit t('pages.blogs.new.create_button'), class: 'btn blue' %>
-    </p>
+<div class="card">
+  <h1><%= t('pages.blogs.new.title') %></h1>
+  <%= simple_form_for @blog do |f| %>
+      <%= f.error_notification %>
+      <%= f.input :title %>
+      <p>
+        <%= link_to t('pages.blogs.new.cancel_button'), :back, class: 'btn' %>
+        <%= f.submit t('pages.blogs.new.create_button'), class: 'btn blue' %>
+      </p>
+  <% end %>
+</div>
+
+<%= content_for :left_panel do %>
+    <%= render partial: 'users/user_groups_panel' %>
 <% end %>
