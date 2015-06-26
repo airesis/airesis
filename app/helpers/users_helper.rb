@@ -1,5 +1,9 @@
 module UsersHelper
 
+  def link_to_ip(title, provider, css)
+    link_to title, user_omniauth_authorize_path(provider), alt: title, title: title, class: "zocial icon #{css}"
+  end
+
   def link_to_user(user, options={})
     options.reverse_merge! content_method: :name, title_method: :login, class: :nickname
     if options[:full_name]
@@ -27,7 +31,7 @@ module UsersHelper
         if u_nick
           image_tag "https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(u_nick.nickname)}?s=24&d=identicon&r=PG"
         else
-          user.user_image_tag(24)
+          avatar(user, size: 24)
         end
       end) +
         (content_tag :div, class: 'user-name' do
@@ -49,7 +53,7 @@ module UsersHelper
     if u_nick
       ret += "<img src=\"https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(u_nick.nickname)}?s=24&d=identicon&r=PG\"/>"
     else
-      ret += user.user_image_tag(20)
+      ret += avatar(user, size: 20)
     end
     ret += "</div>"
     ret.html_safe
@@ -57,14 +61,39 @@ module UsersHelper
 
   def user_valutation_image(user, proposal, options={})
     val = if proposal.respond_to?(:ranking)
-      proposal.ranking.to_i
-    else
-      proposal.rankings.find_by(user_id: user.id).try(:ranking_type_id)
-    end
+            proposal.ranking.to_i
+          else
+            proposal.rankings.find_by(user_id: user.id).try(:ranking_type_id)
+          end
     if val == ProposalRanking::POSITIVE
       "<div class=\"like-mini\" style=\"display:inline-block;\" title=\"Hai valutato positivamente questa proposta\"></div>".html_safe
     elsif val == ProposalRanking::NEGATIVE
       "<div class=\"dislike-mini\" style=\"display:inline-block;\" title=\"Hai valutato negativamente questa proposta\"></div>".html_safe
     end
+  end
+
+  def avatar(user, params={})
+    size= params[:size] || 80
+    url= params[:url]
+    certification_logo= params[:cert].nil? ? true : params[:cert]
+    force_size= params[:force_size].nil? ? true : params[:force_size]
+
+    if user.certified? && certification_logo && size < 60
+      size = size - 6
+    end
+
+    style= force_size ? "style=\"width:#{size}px;height:#{size}px;\"" : ""
+
+    ret = "<img src=\"#{user.user_image_url(size, params)}\" #{style} alt=\"\" itemprop=\"photo\" />"
+
+    if user.certified? && certification_logo
+      if size >= 60
+        cert_img = "<img class=\"certification\" src=\"#{asset_path 'certification.png'}\"/>"
+        ret = "<div class=\"user_certified\">#{ret}#{cert_img}</div>"
+      else
+        ret = "<div class=\"user_certified_mini\"  style=\"width:#{size+6}px;height:#{size+6}px;\">#{ret}</div>"
+      end
+    end
+    ret.html_safe
   end
 end

@@ -20,7 +20,7 @@
     </div>
 
     <div class='user span2'>
-      <div class='icon'><%= post.user.user_image_tag 100 if post.user %></div>
+      <div class='icon'><%= avatar(post.user, size: 100) if post.user %></div>
       <div class='username'>
         <%= link_to(post.user.fullname, post.user) if post.user %>
       </div>

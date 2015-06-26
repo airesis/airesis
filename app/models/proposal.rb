@@ -1,5 +1,5 @@
 class Proposal < ActiveRecord::Base
-  include BlogKitModelHelper, Frm::Concerns::Viewable, Concerns::ProposalBuildable
+  include Frm::Concerns::Viewable, Concerns::ProposalBuildable
 
   belongs_to :state, class_name: 'ProposalState', foreign_key: :proposal_state_id
   belongs_to :category, class_name: 'ProposalCategory', foreign_key: :proposal_category_id
@@ -407,6 +407,11 @@ class Proposal < ActiveRecord::Base
   # restituisce il primo autore della proposta
   def user
     @first_user ||= proposal_presentations.first.user
+  end
+
+  def truncate_words(text, length = 30, end_string = ' ...')
+    words = text.split()
+    words[0..(length-1)].join(' ') + (words.length > length ? end_string : '')
   end
 
   def short_content

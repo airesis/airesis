@@ -19,6 +19,7 @@ en:
       find_groups: 'Search Groups'
       parma_login: "Login with Parma"
       tecnologiedemocratiche_login: "Login with Tecnologie Democratiche"
+      tecnologiedemocratiche: "Tecnologie Democratiche"
     user:
       notifications: 'Alarms and Notifications'
       privacy: "Account and privacy"
@@ -1210,7 +1211,7 @@ en:
       promote_proposal: "Promote proposal"
       share_with_friends: "Share with friends"
     show_proposal:
-      vote_here: "This proposal is in votation. Read the solution/s and %{link}."
+      vote_here: "This proposal is in the voting phase. Read the solution(s) and %{link}."
   digit_tags: "Type the tags you want to add"
   buttons:
     cancel: "Cancel"
@@ -1618,6 +1619,6 @@ en:
   delete_event_confirm: "Are you sure to delete this comment?"
   groups:
     group:
-      delete_group_warning_html: "You are allowed to delete this group. Deleting the group you will destroy all forums, proposals and documents associated with it.<br/>The data cannot be restored.<br/>Be careful!"
+      delete_group_warning_html: "You are allowed to delete this group. By deleting this group, you will delete all forums, proposals and documents associated with it.<br/>The data cannot be restored.<br/>Be careful!"
   confirm:
     unintegrate: "You are going to put your contribution back into the discussion. Are you sure?"

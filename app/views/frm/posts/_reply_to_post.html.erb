@@ -8,7 +8,7 @@
         <div class='username'>
           <%= link_to post.user.fullname, post.user %>
         </div>
-        <div class='icon'><%= post.user.user_image_tag 100 %></div>
+        <div class='icon'><%= avatar(post.user, size: 100) %></div>
       </div>
     </td>
     <td>
@@ -29,7 +29,7 @@
   <tr>
     <td>
       <div class="post-body">
-        <%=sanitize post.text %>
+        <%= sanitize post.text %>
       </div>
 
     </td>

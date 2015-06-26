@@ -29,7 +29,8 @@
 
 
     <div class="blogPostPostedAt">
-      <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to ((blog_post.user_image_tag 15) + blog_post.user.fullname), blog_post.user), date: (l blog_post.created_at)) %>
+      <%- name = link_to (avatar(blog_post.user, size: 15) + blog_post.user.fullname), blog_post.user %>
+      <%= raw t('pages.blog_posts.list_elements.inserted', name: name, date: (l blog_post.created_at)) %>
       |
       <span class="blogComments">
 

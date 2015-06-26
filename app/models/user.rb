@@ -1,20 +1,12 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable, :omniauthable, #:reconfirmable,
          :recoverable, :rememberable, :trackable, :validatable, :blockable, :traceable
 
-  include BlogKitModelHelper, TutorialAssigneesHelper
-  #include Rails.application.routes.url_helpers
+  include TutorialAssigneesHelper
 
   attr_accessor :image_url, :accept_conditions, :subdomain, :accept_privacy
-
-  #validates_presence_of     :login, unless: :from_identity_provider?
-  #validates_length_of       :login,    within: 3..40, unless: :from_identity_provider?
-  #validates_uniqueness_of   :login, unless: :from_identity_provider?
-  #validates_format_of       :login,    with: AuthenticationModule.login_regex, message: AuthenticationModule.bad_login_message, unless: :from_identity_provider?
 
   validates_presence_of :name
   validates_format_of :name, with: AuthenticationModule.name_regex, allow_nil: true
@@ -28,7 +20,6 @@ class User < ActiveRecord::Base
   validates_acceptance_of :accept_conditions, message: I18n.t('activerecord.errors.messages.TOS')
   validates_acceptance_of :accept_privacy, message: I18n.t('activerecord.errors.messages.privacy')
 
-  #relations
   has_many :proposal_presentations, class_name: 'ProposalPresentation'
   has_many :proposals, through: :proposal_presentations, class_name: 'Proposal'
   has_many :notifications, through: :alerts, class_name: 'Notification'
@@ -455,6 +446,28 @@ class User < ActiveRecord::Base
     fullname
   end
 
+  def user_image_url(size=80, params={})
+    if self.respond_to?(:user)
+      user = self.user
+    else
+      user = self
+    end
+
+    if user.avatar.exists?
+      user.avatar.url
+    else
+      # Gravatar
+      require 'digest/md5'
+      if !user.email.blank?
+        email = user.email
+      else
+        return ''
+      end
+
+      hash = Digest::MD5.hexdigest(email.downcase)
+      "https://www.gravatar.com/avatar/#{hash}?s=#{size}"
+    end
+  end
 
   #authentication method
   def has_provider?(provider_name)

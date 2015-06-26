@@ -1,6 +1,4 @@
 class BlogPost < ActiveRecord::Base
-  include BlogKitModelHelper
-
   PUBLISHED = 'P'
   RESERVED = 'R'
   DRAFT = 'D'

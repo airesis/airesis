@@ -1,5 +1,6 @@
 # controller for users
 class UsersController < ApplicationController
+  include UsersHelper
   layout :choose_layout
 
   before_filter :authenticate_user!, except: [:index, :show, :confirm_credentials, :join_accounts]
@@ -89,8 +90,8 @@ class UsersController < ApplicationController
     current_user.show_tooltips = params[:active]
     current_user.save!
     params[:active] == 'true' ?
-        flash[:notice] = t('info.user.tooltips_enabled') :
-        flash[:notice] = t('info.user.tooltips_disabled')
+      flash[:notice] = t('info.user.tooltips_enabled') :
+      flash[:notice] = t('info.user.tooltips_disabled')
 
     respond_to do |format|
       format.js { render partial: 'layouts/messages' }
@@ -107,8 +108,8 @@ class UsersController < ApplicationController
     current_user.show_urls = params[:active]
     current_user.save!
     params[:active] == 'true' ?
-        flash[:notice] = t('info.user.url_shown') :
-        flash[:notice] = t('info.user.url_hidden')
+      flash[:notice] = t('info.user.url_shown') :
+      flash[:notice] = t('info.user.url_hidden')
 
     respond_to do |format|
       format.js { render partial: 'layouts/messages' }
@@ -262,7 +263,7 @@ class UsersController < ApplicationController
     @group = Group.friendly.find(params[:group_id])
     users = @group.participants.autocomplete(params[:term])
     users = users.map do |u|
-      {id: u.id, identifier: "#{u.surname} #{u.name}", image_path: "#{u.user_image_tag 20}"}
+      {id: u.id, identifier: "#{u.surname} #{u.name}", image_path: "#{avatar(u, size: 20)}"}
     end
     render json: users
   end

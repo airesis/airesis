@@ -1,6 +1,6 @@
 module Frm
   class Post < FrmTable
-    include Workflow, BlogKitModelHelper
+    include Workflow
 
     workflow_column :state
     workflow do

@@ -63,7 +63,10 @@
       <% end %>
       <div class="providers">
         <% unless alreadyproviders.include? Authentication::FACEBOOK %>
-            <%= link_to "<div class=\"zocial icon facebook vertical\"></div>".html_safe + t('pages.users.privacy_preferences.join_facebook'), user_omniauth_authorize_path(:facebook) %>
+            <%= link_to user_omniauth_authorize_path(:facebook) do %>
+                <div class="zocial icon facebook vertical"></div>
+                <%= t('pages.users.privacy_preferences.join_facebook') %>
+            <% end %>
             <br/>
         <% end %>
 

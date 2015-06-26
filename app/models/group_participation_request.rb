@@ -1,6 +1,4 @@
 class GroupParticipationRequest < ActiveRecord::Base
-  include BlogKitModelHelper
-
   belongs_to :user, class_name: 'User', foreign_key: :user_id
   #has_one :participation_role, class_name: 'ParticipationRole', foreign_key: :participation_role_id
   belongs_to :group, class_name: 'Group', foreign_key: :group_id

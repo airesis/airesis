@@ -2,8 +2,6 @@ class Blog < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: [:slugged, :history]
 
-  include BlogKitModelHelper
-
   belongs_to :user
   has_many :blog_posts, dependent: :destroy
   has_many :comments, through: :blog_posts, source: :blog_comments

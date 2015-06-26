@@ -226,7 +226,7 @@ en:
       new_participation_request:
         description: New participation request
         email_subject:
-          one: "A new participation request is present"
+          one: "There is a new participation request"
           other: "There are %{count} new participation requests"
         message:
           one: "<b>%{user}</b> asked to participate in the group <b>%{group}</b>"

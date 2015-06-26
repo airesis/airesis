@@ -8,7 +8,7 @@
     <% if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) %>
         <img src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(proposal_nickname.nickname) %>?s=40&d=identicon&r=PG"/>
     <% else %>
-        <%= comment.user_image_tag(40) %>
+        <%= avatar(comment.user, size: 40) %>
     <% end %>
   </div>
   <div class="proposal_comment">
