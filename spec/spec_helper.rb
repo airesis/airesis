@@ -41,6 +41,7 @@ RSpec.configure do |config|
     page.driver.allow_url("ssl.gstatic.com")
     page.driver.allow_url("maps.gstatic.com")
     page.driver.allow_url("www.google.com")
+    page.driver.allow_url("fonts.googleapis.com")
 
     page.driver.allow_url("connect.facebook.net/en/sdk.js")
     page.driver.allow_url("fbstatic-a.akamaihd.net")
