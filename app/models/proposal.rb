@@ -1,5 +1,5 @@
 class Proposal < ActiveRecord::Base
-  include Frm::Concerns::Viewable, Concerns::ProposalBuildable
+  include Frm::Concerns::Viewable, Concerns::ProposalBuildable, Concerns::Taggable
 
   belongs_to :state, class_name: 'ProposalState', foreign_key: :proposal_state_id
   belongs_to :category, class_name: 'ProposalCategory', foreign_key: :proposal_category_id
@@ -132,7 +132,6 @@ class Proposal < ActiveRecord::Base
   after_commit :send_update_notifications, on: :update
 
   before_update :before_update_populate
-  before_save :save_tags
 
   after_destroy :remove_scheduled_tasks
 
@@ -369,37 +368,6 @@ class Proposal < ActiveRecord::Base
     presentation_areas.first
   end
 
-  def tags_list
-    @tags_list ||= tags.map(&:text).join(', ')
-  end
-
-
-  def tags_list=(tags_list)
-    @tags_list = tags_list
-  end
-
-  def tags_list_json
-    @tags_list ||= tags.map(&:text).join(', ')
-  end
-
-
-  def tags_with_links
-    tags.collect { |t| "<a href=\"/tag/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
-  end
-
-  def save_tags
-    return unless @tags_list
-    tids = []
-    @tags_list.split(/,/).each do |tag|
-      stripped = tag.strip.downcase.gsub('.', '').gsub("'", "")
-      unless stripped.blank?
-        t = Tag.find_or_create_by(text: stripped)
-        tids << t.id
-      end
-    end
-    self.tag_ids = tids
-  end
-
   def to_param
     "#{id}-#{title.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
   end
@@ -432,7 +400,6 @@ class Proposal < ActiveRecord::Base
       groups.first.scoped_participants(GroupAction::PROPOSAL_VOTE).count #todo more groups
     end
   end
-
 
   # count without fetching, for the list.
   # this number may be different from participants because doesn't look if the participants are still in the group
@@ -478,8 +445,7 @@ class Proposal < ActiveRecord::Base
     res
   end
 
-
-  #all users that will receive a notification that asks them to vote the proposal
+  # all users that will receive a notification that asks them to vote the proposal
   def vote_notification_receivers
     #will receive the notification the users that partecipated to the proposal and can change their valutation or they haven't give it yet
     users = self.participants
@@ -491,7 +457,7 @@ class Proposal < ActiveRecord::Base
     end
   end
 
-  #restituisce la lista delle 10 proposte più vicine a questa
+  # restituisce la lista delle 10 proposte più vicine a questa
   def closest(group_id=nil)
     sql_q = " SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.quorum_id, p.anonima, p.visible_outside, p.secret_vote, p.proposal_votation_type_id, p.content,
               p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,

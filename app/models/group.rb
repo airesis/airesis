@@ -1,5 +1,7 @@
 class Group < ActiveRecord::Base
   extend FriendlyId
+  include Concerns::Taggable
+
   friendly_id :name, use: [:slugged, :history]
 
   has_paper_trail class_name: 'GroupVersion'
@@ -99,38 +101,6 @@ class Group < ActiveRecord::Base
   after_commit :create_folder
 
   before_save :normalize_blank_values
-  before_save :save_tags, if: :not_resaving?
-
-  def tags_list
-    @tags_list ||= self.tags.map(&:text).join(', ')
-  end
-
-  def tags_list_json
-    @tags_list ||= self.tags.map(&:text).join(', ')
-  end
-
-  def tags_list=(tags_list)
-    @tags_list = tags_list
-  end
-
-  def tags_with_links
-    self.tags.collect { |t| "<a href=\"/tags/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
-  end
-
-  def save_tags
-    return unless @tags_list
-    tids = []
-    @tags_list.split(/,/).each do |tag|
-      stripped = tag.strip.downcase.gsub('.', '')
-      t = Tag.find_or_create_by(text: stripped)
-      tids << t.id
-    end
-    self.tag_ids = tids
-  end
-
-  def not_resaving?
-    !@resaving
-  end
 
   def description
     super.try(:html_safe)
@@ -262,7 +232,6 @@ class Group < ActiveRecord::Base
       end.results
     end
   end
-
 
   def self.most_active(territory = nil)
     Group.search(include: {interest_border: [:territory]}) do
