@@ -144,17 +144,16 @@ class Group < ActiveRecord::Base
 
   def pre_populate
     #creator is also administrator
-    participation_requests.build({user_id: current_user_id, group_participation_request_status_id: 3})
-
-    group_participations.build({user_id: current_user_id, participation_role: ParticipationRole.admin}) #portavoce
+    participation_requests.build(user_id: current_user_id, group_participation_request_status_id: 3)
+    group_participations.build(user_id: current_user_id, participation_role: ParticipationRole.admin) #portavoce
 
     BestQuorum.public.each do |quorum|
       copy = quorum.dup
       copy.public = false
       copy.save!
-      self.group_quorums.build(quorum_id: copy.id)
+      group_quorums.build(quorum_id: copy.id)
     end
-    role = participation_roles.build({name: default_role_name, description: I18n.t('pages.groups.edit_permissions.default_role')})
+    role = participation_roles.build(name: default_role_name, description: I18n.t('pages.groups.edit_permissions.default_role'))
     default_role_actions.each do |action_id|
       abilitation = role.action_abilitations.build(group_action_id: action_id)
     end if default_role_actions
@@ -168,17 +167,17 @@ class Group < ActiveRecord::Base
     ActionAbilitation.where(id: ids).update_all({group_id: self.id})
 
     #create default forums
-    private = self.categories.create(name: I18n.t('frm.admin.categories.default_private'), visible_outside: false)
+    private = categories.create(name: I18n.t('frm.admin.categories.default_private'), visible_outside: false)
     private_f = private.forums.build(name: I18n.t('frm.admin.forums.default_private'), description: I18n.t('frm.admin.forums.default_private_description'), visible_outside: false)
     private_f.group = self
     private_f.save!
 
-    public = self.categories.create(name: I18n.t('frm.admin.categories.default_public'))
+    public = categories.create(name: I18n.t('frm.admin.categories.default_public'))
     public_f = public.forums.create(name: I18n.t('frm.admin.forums.default_public'), description: I18n.t('frm.admin.forums.default_public_description'))
     public_f.group = self
     public_f.save!
 
-    GroupStatistic.create(group_id: self.id, valutations: 0, vote_valutations: 0, good_score: 0).save!
+    GroupStatistic.create(group_id: id, valutations: 0, vote_valutations: 0, good_score: 0).save!
   end
 
   def destroy

@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150618179535) do
+ActiveRecord::Schema.define(version: 20150628172103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "action_abilitations", force: true do |t|
     t.integer  "group_action_id"
@@ -631,7 +630,7 @@ ActiveRecord::Schema.define(version: 20150618179535) do
     t.integer  "max_storage_size",                             default: 51200,    null: false
     t.integer  "actual_storage_size",                          default: 0,        null: false
     t.boolean  "enable_areas",                                 default: false,    null: false
-    t.integer  "group_participations_count",                   default: 1,        null: false
+    t.integer  "group_participations_count",                   default: 0,        null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"

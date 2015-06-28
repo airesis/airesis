@@ -9,7 +9,6 @@ class GroupParticipation < ActiveRecord::Base
 
   PER_PAGE=12
 
-
   def as_admin?
     self == ParticipationRole.admin
   end
