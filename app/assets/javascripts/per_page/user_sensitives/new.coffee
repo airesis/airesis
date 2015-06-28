@@ -26,3 +26,6 @@ window.UserSensitivesNew =
       user_sensitive_surname_field.val(el.surname)
     )
 
+window.UserSensitivesCreate = window.UserSensitivesNew
+window.UserSensitivesEdit = window.UserSensitivesNew
+window.UserSensitivesUpdate = window.UserSensitivesNew

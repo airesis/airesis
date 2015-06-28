@@ -1479,6 +1479,9 @@ en:
       anymore: "Invitation rejected. You will not receive other invites."
     blog_comment:
       destroyed: "The comment has been deleted"
+    user_sensitive:
+      updated: "User sensitive was successfully updated."
+      created: "User sensitive was successfully created."
   interest_borders:
     hint: "Type a few characters to search for a place"
     no_place_found: "No place found"

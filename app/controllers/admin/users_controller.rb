@@ -41,6 +41,5 @@ module Admin
       end
       render json: users
     end
-
   end
 end
