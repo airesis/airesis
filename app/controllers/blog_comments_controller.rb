@@ -1,6 +1,4 @@
 class BlogCommentsController < ApplicationController
-  helper :blog
-
   layout('application')
 
   before_filter :save_comment, only: :create
