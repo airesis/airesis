@@ -1,6 +1,5 @@
 module Admin
   class AnnouncementsController < Admin::ApplicationController
-
     load_and_authorize_resource
 
     def index

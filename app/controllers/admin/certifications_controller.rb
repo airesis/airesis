@@ -3,7 +3,6 @@ module Admin
     before_filter :load_group, only: [:create, :destroy]
 
     def index
-
     end
 
     def create
@@ -17,7 +16,6 @@ module Admin
       end
       render :index
     end
-
 
     def destroy
       if @group.certified?

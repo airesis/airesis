@@ -29,6 +29,5 @@ module Admin
       flash[:notice] = 'Translations unzipped and zip deleted'
       redirect_to admin_panel_path
     end
-
   end
 end
