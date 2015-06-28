@@ -173,28 +173,7 @@ class GroupsController < ApplicationController
         end
       end
     end
-    redirect_to :back
-  end
-
-  #fa partire una richiesta per seguire il gruppo
-  def ask_for_follow
-    #verifica se l'utente stà già seguendo questo gruppo
-    follow = current_user.group_follows.find_by(group_id: @group.id)
-
-    if (!follow) #se non lo segue
-      #segui il gruppo
-      follow = current_user.group_follows.build(group_id: @group.id)
-
-      saved = follow.save
-      if (!saved)
-        flash[:error] = 'Errore nella procedura per seguire il gruppo. Spiacenti!'
-      else
-        flash[:notice] = 'Ora segui questo gruppo'
-      end
-    else
-      flash[:error] = 'Stai già seguendo questo gruppo'
-    end
-    redirect_to group_url(@group)
+    redirect_to_back(group_path(@group))
   end
 
   #fa partire una richiesta di partecipazione a ciascun gruppo

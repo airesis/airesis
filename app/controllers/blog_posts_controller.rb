@@ -1,6 +1,4 @@
 class BlogPostsController < ApplicationController
-  helper :blog
-
   layout :choose_layout
 
   before_filter :load_group

@@ -39,7 +39,6 @@ module StepsHelper
 
   end
 
-
   #ritorna true se lo step è già stato fatto dall'utente e può essere saltato
   def check_step_condition(step, user)
     progress = TutorialProgress.find_by_step_id_and_user_id(step.id, user.id)
@@ -87,11 +86,6 @@ module StepsHelper
         logger.error "Impossibile trovare tutorial_id: " + step.tutotial_id.to_s + ", step_index: " + step.index.to_s
         return false
     end
-  end
-
-  #salta uno step del tutorial
-  def skip_step(step, user)
-
   end
 
   #segna come completato uno step del tutorial

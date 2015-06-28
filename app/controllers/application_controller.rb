@@ -275,6 +275,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def redirect_to_back(path)
+    redirect_to (request.env["HTTP_REFERER"] ? :back : path)
+  end
+
   # response if you do not have permissions to do an action
   def permissions_denied(exception = nil)
     respond_to do |format|
