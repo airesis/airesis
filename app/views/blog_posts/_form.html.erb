@@ -2,7 +2,6 @@
     <div class="editBlogPost">
       <%= f.error_notification %>
 
-
       <%= f.input :title, style: 'width:80%' %>
 
       <%= f.label :body %>
@@ -51,13 +50,6 @@
       </div>
     </div>
 <% end %>
-
-<% data = "["
-   @blog_post.tags_list.split(',').each do |l|
-     data += "{\"id\":\""+ l + "\",\"name\":\"" + l + "\"},"
-   end
-   data += "]"
-%>
 
 <script type="text/javascript">
 
