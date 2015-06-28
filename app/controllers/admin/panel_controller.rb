@@ -42,14 +42,14 @@ module Admin
       redirect_to admin_panel_path
     end
 
-    #invia una mail di prova tramite resque e redis
+    # invia una mail di prova tramite resque e redis
     def test_redis
       ResqueMailer.delay.test_mail
       flash[:notice] = 'Test avviato'
       redirect_to admin_panel_path
     end
 
-    #invia una notifica di prova tramite resque e redis
+    # invia una notifica di prova tramite resque e redis
     def test_notification
       if params[:alert_id].to_s != ''
         ResqueMailer.delay.notification(params[:alert_id])
@@ -68,7 +68,7 @@ module Admin
       raise Exception.new("Test this exception!")
     end
 
-    #esegue un job di prova tramite resque_scheduler
+    # esegue un job di prova tramite resque_scheduler
     def test_scheduler
       ProposalsWorker.perform_at(15.seconds.from_now, proposal_id: 1)
       flash[:notice] = 'Test avviato'
