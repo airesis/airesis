@@ -1,4 +1,5 @@
 class BlogPost < ActiveRecord::Base
+  include Concerns::Taggable
   PUBLISHED = 'P'
   RESERVED = 'R'
   DRAFT = 'D'
@@ -34,53 +35,19 @@ class BlogPost < ActiveRecord::Base
   }
 
   before_save :check_published
-  before_save :save_tags
 
   after_commit :send_notifications, on: :create
 
   def published?
-    self.status == PUBLISHED
+    status == PUBLISHED
   end
 
   def draft?
-    self.status == DRAFT
+    status == DRAFT
   end
 
   def reserved?
-    self.status == RESERVED
-  end
-
-  def tags_list
-    @tags_list ||= self.tags.map(&:text).join(', ')
-  end
-
-  def tags_list_json
-    @tags_list ||= self.tags.map(&:text).join(', ')
-  end
-
-  def tags_list=(tags_list)
-    @tags_list = tags_list
-  end
-
-  def tags_with_links
-    html = self.tags.collect { |t| "<a href=\"/tags/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
-    return html
-  end
-
-  def save_tags
-    return unless @tags_list
-
-    # Remove old tags
-    #self.blog_post_tags.destroy_all
-
-    # Save new tags
-    tids = []
-    @tags_list.split(/,/).each do |tag|
-      stripped = tag.strip.downcase.gsub('.', '')
-      t = Tag.find_or_create_by(text: stripped)
-      tids << t.id
-    end
-    self.tag_ids = tids
+    status == RESERVED
   end
 
   def check_published
@@ -94,12 +61,8 @@ class BlogPost < ActiveRecord::Base
     self.published_at = Time.now
   end
 
-  def show_user?
-    self.user
-  end
-
   def formatted_updated_at
-    self.updated_at.strftime('%m/%d/%Y alle %I:%M%p')
+    updated_at.strftime('%m/%d/%Y alle %I:%M%p')
   end
 
   # Provide SEO Friendly URL's
