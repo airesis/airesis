@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150628172103) do
+ActiveRecord::Schema.define(version: 20150628183701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "action_abilitations", force: true do |t|
     t.integer  "group_action_id"
@@ -382,6 +381,7 @@ ActiveRecord::Schema.define(version: 20150628172103) do
   end
 
   add_index "frm_forums", ["group_id", "slug"], name: "index_frm_forums_on_group_id_and_slug", unique: true, using: :btree
+  add_index "frm_forums", ["group_id"], name: "index_frm_forums_on_group_id", using: :btree
   add_index "frm_forums", ["slug"], name: "index_frm_forums_on_slug", using: :btree
 
   create_table "frm_memberships", force: true do |t|
@@ -459,6 +459,7 @@ ActiveRecord::Schema.define(version: 20150628172103) do
     t.string   "token"
   end
 
+  add_index "frm_topics", ["created_at"], name: "index_frm_topics_on_created_at", using: :btree
   add_index "frm_topics", ["forum_id", "slug"], name: "index_frm_topics_on_forum_id_and_slug", unique: true, using: :btree
   add_index "frm_topics", ["forum_id"], name: "index_frm_topics_on_forum_id", using: :btree
   add_index "frm_topics", ["slug"], name: "index_frm_topics_on_slug", using: :btree
@@ -479,6 +480,8 @@ ActiveRecord::Schema.define(version: 20150628172103) do
 
   add_index "frm_views", ["updated_at"], name: "index_frm_views_on_updated_at", using: :btree
   add_index "frm_views", ["user_id"], name: "index_frm_views_on_user_id", using: :btree
+  add_index "frm_views", ["viewable_id"], name: "index_frm_views_on_viewable_id", using: :btree
+  add_index "frm_views", ["viewable_type"], name: "index_frm_views_on_viewable_type", using: :btree
 
   create_table "generic_borders", force: true do |t|
     t.string  "description", null: false
