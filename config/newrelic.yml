@@ -29,6 +29,10 @@ test:
   <<: *default_settings
   monitor_mode: false
 
+staging:
+  <<: *default_settings
+  monitor_mode: true
+
 production:
   <<: *default_settings
   monitor_mode: true
