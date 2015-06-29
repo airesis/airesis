@@ -97,6 +97,11 @@ AWS_SECRET_ACCESS_KEY: ""
 # remove this variable if you are not using cloudfront. set it to cloudfront alias if you want to you it
 AWS_ALIAS: "static.yourwebsite.com"
 
+
+# Newrelic
+NEW_RELIC_LICENSE_KEY: 'FROM NEW RELCI'
+NEW_RELIC_APP_NAME: 'YOUR NEW RELIC APP NAME'
+
 #####################
 #crowdin integration (optional)
 #####################
