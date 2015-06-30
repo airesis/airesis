@@ -81,6 +81,23 @@ describe 'the oauth2 process', type: :feature, js: true do
       expect(user.email).to eq(@oauth_data[:email])
     end
 
+    it 'does not permit to proceed with the join if TD email is already taken' do
+      airesis_user = create(:user, email: @oauth_data[:email])
+
+      user = create(:user)
+      initial_data = { email: user.email, first_name: user.name, last_name: user.surname }
+      login user, 'topolino'
+
+      visit '/users/auth/tecnologiedemocratiche/callback'
+      expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.certified_email_taken')}/i)
+
+      user.reload
+      expect(user.user_type_id).to eq(UserType::AUTHENTICATED)
+      expect(user.name).to eq(initial_data[:first_name])
+      expect(user.surname).to eq(initial_data[:last_name])
+      expect(user.email).to eq(initial_data[:email])
+    end
+
     it "doesn't permit the join if TD account is already taken" do
       user = create(:user)
       login user, 'topolino'
@@ -111,4 +128,3 @@ describe 'the oauth2 process', type: :feature, js: true do
   end
 
 end
-
