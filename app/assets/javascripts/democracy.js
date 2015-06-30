@@ -381,7 +381,7 @@ function select2town(element) {
             } else {
                 $.ajax({
                     url: '/municipalities',
-                    data: {q: query.term},
+                    data: {q: query.term, l: Airesis.i18n.locale},
                     dataType: 'json',
                     type: 'GET',
                     success: function (data) {
