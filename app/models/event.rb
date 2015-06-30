@@ -35,6 +35,9 @@ class Event < ActiveRecord::Base
   end
 
   scope :in_territory, ->(territory) do
+    municipality_t = Municipality.arel_table
+    event_t = Event.arel_table
+
     field = case territory
               when Continent
                 :continent_id
@@ -47,7 +50,10 @@ class Event < ActiveRecord::Base
               else # comune
                 :id
             end
-    joins(place: :municipality).where(Municipality.arel_table[field].eq(territory.id))
+    conditions = (event_t[:event_type_id].eq(EventType::INCONTRO).and(municipality_t[field].eq(territory.id))).
+      or(event_t[:event_type_id].eq(EventType::VOTAZIONE))
+
+    includes(:event_type, place: :municipality).where(conditions)
   end
 
   after_destroy :remove_scheduled_tasks
@@ -97,37 +103,37 @@ class Event < ActiveRecord::Base
 
 
   def organizer_id=(id)
-    if self.meeting_organizations.empty?
-      self.meeting_organizations.build(group_id: id)
+    if meeting_organizations.empty?
+      meeting_organizations.build(group_id: id)
     end
   end
 
   def organizer_id
-    self.meeting_organizations.first.group_id rescue nil
+    meeting_organizations.first.group_id rescue nil
   end
 
   def is_past?
-    self.endtime < Time.now
+    endtime < Time.now
   end
 
   def is_now?
-    self.starttime < Time.now && self.endtime > Time.now
+    starttime < Time.now && endtime > Time.now
   end
 
   def is_not_started?
-    Time.now < self.starttime
+    Time.now < starttime
   end
 
   def is_votazione?
-    self.event_type_id == EventType::VOTAZIONE
+    event_type_id == EventType::VOTAZIONE
   end
 
   def is_incontro?
-    self.event_type_id == EventType::INCONTRO
+    event_type_id == EventType::INCONTRO
   end
 
   def backgroundColor
-    self.event_type.color || "#DFEFFC"
+    event_type.color || "#DFEFFC"
   end
 
   def textColor
