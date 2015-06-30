@@ -30,6 +30,7 @@ class OauthDataParser
                      info[:sex] = user_sex
                      info[:email_verified] = user_email_verified?
                      info[:avatar_url] = user_avatar_url
+                     info[:certified] = user_certified?
                    end
   end
 
@@ -73,6 +74,11 @@ class OauthDataParser
                          raw_info['profile_image_url'] || # Twitter
                          raw_info['photo'].try(:[], 'photo_link') || # Meetup
                          data['info'].try(:[], 'image') # Facebook
+  end
+
+  def user_certified?
+    provider == Authentication::TECNOLOGIEDEMOCRATICHE ||
+    (provider == Authentication::PARMA && raw_info['verified'])
   end
 
   # !!! TODO: verificare che gli indirizzi email ricevuti dagli altri provider siano verificati !!!

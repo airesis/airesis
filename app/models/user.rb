@@ -279,9 +279,9 @@ class User < ActiveRecord::Base
     write_attribute :login, (value.try(:downcase))
   end
 
-  #determina se un oggetto appartiene all'utente verificando che 
+  #determina se un oggetto appartiene all'utente verificando che
   #l'oggetto abbia un campo user_id corrispondente all'id dell'utente
-  #in caso contrario verifica se l'oggetto ha un elenco di utenti collegati 
+  #in caso contrario verifica se l'oggetto ha un elenco di utenti collegati
   #e proprietari, in caso affermativo verifica di rientrare tra questi.
   def is_mine?(object)
     if object
@@ -361,7 +361,7 @@ class User < ActiveRecord::Base
     user_type.short_name == 'mod' || admin?
   end
 
-  #restituisce la richiesta di partecipazione 
+  #restituisce la richiesta di partecipazione
   def has_asked_for_participation?(group_id)
     group_participation_requests.find_by(group_id: group_id)
   end
@@ -523,8 +523,7 @@ class User < ActiveRecord::Base
     User.transaction do
       build_authentication_provider(oauth_data)
 
-      if provider == Authentication::TECNOLOGIEDEMOCRATICHE ||
-        (provider == Authentication::PARMA && raw_info['verified'])
+      if user_info[:certified]
         certify_with_info(user_info)
       else
         self.email = user_info[:email] unless self.email

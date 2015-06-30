@@ -38,6 +38,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         # cancel_operation
         flash[:error] = I18n.t('devise.omniauth_callbacks.join_failure', provider: provider.capitalize)
       else
+        # the certified email is already present in another account in Airesis
+        # cannot update user email with one already taken
+        if user_info[:certified] && User.where(email: user_info[:email]).exists?
+          flash[:error] = I18n.t 'devise.omniauth_callbacks.certified_email_taken'
+          return redirect_to privacy_preferences_users_url
+        end
+
         current_user.oauth_join(oauth_data)
         flash[:notice] = I18n.t('devise.omniauth_callbacks.join_success', provider: provider.capitalize)
       end
