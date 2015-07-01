@@ -11,7 +11,8 @@ describe 'the oauth2 process', type: :feature, js: true do
         uid: Faker::Number.number(10),
         email: Faker::Internet.email,
         first_name: Faker::Name.first_name,
-        last_name: Faker::Name.last_name
+        last_name: Faker::Name.last_name,
+        tax_code: 'XXXXXXXXXXXXXXXX'
       }
 
       OmniAuth.config.mock_auth[:tecnologiedemocratiche] = OmniAuth::AuthHash.new({
@@ -23,7 +24,8 @@ describe 'the oauth2 process', type: :feature, js: true do
         info: {
           email: @oauth_data[:email],
           name: @oauth_data[:first_name],
-          last_name: @oauth_data[:last_name]
+          last_name: @oauth_data[:last_name],
+          tax_code: @oauth_data[:tax_code]
         }
       })
       Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
@@ -111,6 +113,32 @@ describe 'the oauth2 process', type: :feature, js: true do
       login user2, 'topolino'
       visit '/users/auth/tecnologiedemocratiche/callback'
       expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_failure', provider: @oauth_data[:provider].capitalize)}/i)
+    end
+
+    it 'does not permit to join TD account if the user has another certified account' do
+      certified_account = create(:user)
+      UserSensitive.create!(user: certified_account, name: @oauth_data[:first_name], surname: @oauth_data[:last_name], tax_code: @oauth_data[:tax_code])
+
+      user = create(:user)
+      initial_data = { email: user.email, first_name: user.name, last_name: user.surname }
+      login user, 'topolino'
+
+      visit '/users/auth/tecnologiedemocratiche/callback'
+      expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.already_certified')}/i)
+
+      user.reload
+      expect(user.user_type_id).to eq(UserType::AUTHENTICATED)
+      expect(user.name).to eq(initial_data[:first_name])
+      expect(user.surname).to eq(initial_data[:last_name])
+      expect(user.email).to eq(initial_data[:email])
+    end
+
+    it 'does not permit to sign in with TD if that user has another certified account' do
+      certified_account = create(:user)
+      UserSensitive.create!(user: certified_account, name: @oauth_data[:first_name], surname: @oauth_data[:last_name], tax_code: @oauth_data[:tax_code])
+
+      visit '/users/auth/tecnologiedemocratiche/callback'
+      expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.already_certified')}/i)
     end
 
     it "remembers TD account after joining" do

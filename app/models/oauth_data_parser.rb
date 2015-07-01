@@ -31,6 +31,7 @@ class OauthDataParser
                      info[:email_verified] = user_email_verified?
                      info[:avatar_url] = user_avatar_url
                      info[:certified] = user_certified?
+                     info[:tax_code] = user_tax_code
                    end
   end
 
@@ -81,6 +82,10 @@ class OauthDataParser
     (provider == Authentication::PARMA && raw_info['verified'])
   end
 
+  def user_tax_code
+    @user_tax_code ||= raw_info['tax_code'] # TD
+  end
+
   # !!! TODO: verificare che gli indirizzi email ricevuti dagli altri provider siano verificati !!!
   def user_email_verified?
     case provider
@@ -88,5 +93,9 @@ class OauthDataParser
       when Authentication::GOOGLE then true
       else true
     end
+  end
+
+  def multiple_certification_attempt?
+    user_info[:certified] && UserSensitive.where(tax_code: user_info[:tax_code]).exists?
   end
 end
