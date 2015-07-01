@@ -42,6 +42,7 @@ group :development do
   gem 'capistrano-passenger'
   gem 'i18n-tasks', '~> 0.7.7'
   gem 'rubocop'
+  gem 'rack-mini-profiler', require: false
 end
 
 group :development, :test do

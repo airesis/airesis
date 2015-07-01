@@ -185,9 +185,11 @@ class Proposal < ActiveRecord::Base
       paginate page: 1, per_page: 10
     end
 
-    Proposal.
+    proposals = Proposal.
       select('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
       where(proposals[:id].in(ids)).order(updated_at: :desc)
+    ActiveRecord::Associations::Preloader.new(proposals, [:quorum, :groups, :supporting_groups]).run
+    proposals
   end
 
   #retrieve the list of proposals for the user with a count of the number of the notifications for each proposal
