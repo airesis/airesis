@@ -94,4 +94,8 @@ class OauthDataParser
       else true
     end
   end
+
+  def multiple_certification_attempt?
+    user_info[:certified] && UserSensitive.where(tax_code: user_info[:tax_code]).exists?
+  end
 end

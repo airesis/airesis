@@ -566,7 +566,7 @@ class User < ActiveRecord::Base
     return nil if user_info[:name].blank?
 
     # A user cannot have more than one certified account
-    return nil if user_info[:certified] && UserSensitive.where(tax_code: user_info[:tax_code]).exists?
+    return nil if oauth_data_parser.multiple_certification_attempt?
 
     user = User.new(name: user_info[:name],
                     surname: user_info[:surname],
