@@ -545,7 +545,7 @@ class User < ActiveRecord::Base
     User.transaction do
       skip_reconfirmation!
       update!(email: user_info[:email], name: user_info[:name], surname: user_info[:surname])
-      build_certification(name: user_info[:name], surname: user_info[:surname], tax_code: user_info[:email])
+      build_certification(name: user_info[:name], surname: user_info[:surname], tax_code: user_info[:tax_code])
       update!(user_type_id: UserType::CERTIFIED)
     end
   end
@@ -562,8 +562,11 @@ class User < ActiveRecord::Base
     raw_info = oauth_data_parser.raw_info
     user_info = oauth_data_parser.user_info
 
-
+    # Not enough info from oauth provider
     return nil if user_info[:name].blank?
+
+    # A user cannot have more than one certified account
+    return nil if user_info[:certified] && UserSensitive.where(tax_code: user_info[:tax_code]).exists?
 
     user = User.new(name: user_info[:name],
                     surname: user_info[:surname],
@@ -585,8 +588,8 @@ class User < ActiveRecord::Base
         user.confirm!
         user.save!
 
-        if provider == Authentication::TECNOLOGIEDEMOCRATICHE || (provider == Authentication::PARMA && raw_info['verified'])
-          user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
+        if user_info[:certified]
+          user.build_certification(name: user.name, surname: user.surname, tax_code: user_info[:tax_code])
           user.update!(user_type_id: UserType::CERTIFIED)
         else
           user.update!(user_type_id: UserType::AUTHENTICATED)

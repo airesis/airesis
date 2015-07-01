@@ -31,6 +31,7 @@ class OauthDataParser
                      info[:email_verified] = user_email_verified?
                      info[:avatar_url] = user_avatar_url
                      info[:certified] = user_certified?
+                     info[:tax_code] = user_tax_code
                    end
   end
 
@@ -79,6 +80,10 @@ class OauthDataParser
   def user_certified?
     provider == Authentication::TECNOLOGIEDEMOCRATICHE ||
     (provider == Authentication::PARMA && raw_info['verified'])
+  end
+
+  def user_tax_code
+    @user_tax_code ||= raw_info['tax_code'] # TD
   end
 
   # !!! TODO: verificare che gli indirizzi email ricevuti dagli altri provider siano verificati !!!
