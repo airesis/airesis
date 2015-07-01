@@ -45,6 +45,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           return redirect_to privacy_preferences_users_url
         end
 
+        # A user cannot have more than one certified account
+        if oauth_data_parser.multiple_certification_attempt?
+          flash[:error] = I18n.t 'devise.omniauth_callbacks.already_certified'
+          return redirect_to privacy_preferences_users_url
+        end
+
         current_user.oauth_join(oauth_data)
         flash[:notice] = I18n.t('devise.omniauth_callbacks.join_success', provider: provider.capitalize)
       end
@@ -60,8 +66,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           @user.remember_me = true
           sign_in_and_redirect @user, event: :authentication
         end
-      else
-        flash[:error] = I18n.t('devise.omniauth_callbacks.creation_failure', provider: provider.capitalize)
+      else # something went wrong while creating a new user with oauth info
+        if oauth_data_parser.multiple_certification_attempt?
+          flash[:error] = I18n.t 'devise.omniauth_callbacks.already_certified'
+        else
+          flash[:error] = I18n.t('devise.omniauth_callbacks.creation_failure', provider: provider.capitalize)
+        end
         redirect_to new_user_registration_path
       end
     end

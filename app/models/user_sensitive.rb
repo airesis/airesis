@@ -19,4 +19,5 @@ class UserSensitive < ActiveRecord::Base
   def update_user
     user.update_columns(name: name, surname: surname, user_type_id: UserType::CERTIFIED)
   end
+
 end
