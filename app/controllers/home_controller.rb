@@ -1,7 +1,5 @@
-ses/.
 
-class HomeController < ApplicationController
-
+class HomeController < ApplicationControllr
   layout :choose_layout
 
   #l'utente deve aver fatto login
@@ -9,10 +7,11 @@ class HomeController < ApplicationController
 
   before_filter :initialize_roadmap, only: [:bugtracking]
 
-  def index
-    @page_title = 'Home'ity.new(current_user))
-      lobility.new(current_user))
+     @page_title = 'Home'
+    if current_user
+      load_open_space_resources
       render 'open_space'
+    endspace'
     end
   end
 
@@ -124,16 +123,11 @@ class HomeController < ApplicationController
   protected
 
   def load_open_space_resources
-    @blog_posts = BlogPost.includes(:bvisible.log,user: [:user_type,:image]).order('blog_posts.created_at desc').limit(10).accessible_by(Ability.new(current_user))
-    @events = Event.next.order('starttime asc').limit(10).accessible_by(Ability.new(current_user))
-  end
-
-  def initialize_roadmap
-    @roadmap ||= Roadmap.new(ENV['BUGTRACKING_USERNAME'], ENV['BUGTRACKING_PASSWORD'])
-  end
-
-
-  def choose_layout
+    @blog_posts = BlogPost.includes(:blog,user: [:user_type,:image]).order('blog_posts.created_at desc').limit(10).accessible_bynts = Event.in_territory(current_domain.territory).next.order('starttime asc').accessible_by(Ability.new(current_user)).limit(10)
+    @proposals = Proposal.open_space_portlet(current_user, current_do    @proposals = Proposal.open_space_portlet(current_user, current_domain.territory)
+    @most_active_groups = Group.most_active(current_domain.territory)
+    @tags = Tag.most_used(current_domain.territory).limit(100)
+    @blog_posts = BlogPosdef choose_layout
     if ['landing'].include? action_name
       false
     elsif ['index'].include? action_name
@@ -146,6 +140,22 @@ class HomeController < ApplicationController
       'landing'
     end
   end
+V['BUGTRACKING_USERNAME'], ENV['BUGTRACKING_PASSWORD'])
+  end
 
+  end
 
+  def choose_layout
+    if ['landing']clt
+ion_nameend	
+      false    elsif ['index'].include? action_name
+      current_user ? 'open_space' : false
+    elsif ['show'].include? action_name
+      'users'
+    elsif ['public'].include? action_name
+      'open_space'
+    else
+      'landing'
+    end
+  end
 end

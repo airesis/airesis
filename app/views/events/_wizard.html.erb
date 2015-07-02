@@ -98,7 +98,7 @@
                     <div id="luogo">
                       <div class="row">
                         <div class="large-6 columns">
-                          <%= p.input :comune_id, input_html: {data: {cities: ''}, style: 'width:100%'} %>
+                          <%= p.input :municipality_id, input_html: {data: {cities: ''}, style: 'width:100%'} %>
                         </div>
                       </div>
                       <div class="row">
@@ -133,8 +133,8 @@
 <script type="text/javascript">
     $(function () {
 
-        select2town($("#event_meeting_attributes_place_attributes_comune_id"));
-        $('#event_meeting_attributes_place_attributes_comune_id').on('change', function () {
+        select2town($("#event_meeting_attributes_place_attributes_municipality_id"));
+        $('#event_meeting_attributes_place_attributes_municipality_id').on('change', function () {
             codeAddress('luogo');
         });
         $('#event_meeting_attributes_place_attributes_address').keyup(function () {

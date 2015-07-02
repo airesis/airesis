@@ -1,4 +1,3 @@
-#encoding: utf-8
 class BestQuorum < Quorum
 
   validates :minutes, numericality: {only_integer: true, greater_than_or_equal_to: 5}
@@ -131,7 +130,7 @@ class BestQuorum < Quorum
 
   end
 
-  def check_phase(force_end=false)
+  def check_phase(force_end = false)
     return unless force_end || (Time.now > ends_at) #skip if we have not passed the time yet
 
     vpassed = !valutations || (proposal.valutations >= valutations)
@@ -155,10 +154,6 @@ class BestQuorum < Quorum
           else
             @event = Event.create!(event_p)
           end
-
-          #fai partire il timer per far scadere la proposta
-          EventsWorker.perform_at(@event.starttime, {action: EventsWorker::STARTVOTATION, event_id: @event.id})
-          EventsWorker.perform_at(@event.endtime, {action: EventsWorker::ENDVOTATION, event_id: @event.id})
         end
         proposal.vote_period = @event
       else

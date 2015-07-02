@@ -406,7 +406,7 @@ es-ES:
       new:
         quorum_prompt: Select quorum
         quorum_help: "I don't get this!"
-        step_classification: Initial information
+        step_classification: Classification
         step_similar: Similar proposals
         step_3: Problems and objectives
         step_dates: Creation of the proposal
@@ -846,7 +846,7 @@ es-ES:
         meeting:
           place:
             address: Address
-            comune_id: City
+            municipality_id: City
       group:
         facebook_page_url: Facebook page address
         name: Name

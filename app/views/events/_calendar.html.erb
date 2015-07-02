@@ -1,6 +1,4 @@
-<script type="text/javascript"
-        src="//maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false">
-</script>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false"></script>
 
 <% if @group ? (can? :create_event, @group) : is_admin? %>
     <style type="text/css">
@@ -29,6 +27,7 @@
 
 <div class="choose_event_type" style="display:none;">
   <h2 class="modal_title"><%= t('pages.events.index.choose_type') %></h2>
+
   <div style="max-width:540px;margin:auto;">
     <% EventType.active.each do |event_type| %>
         <div class="event_model_option" data-id="<%= event_type.id %>" style="background-color: <%= event_type.color %>">
@@ -153,11 +152,11 @@
             },
             axisFormat: 'H:mm',
             dragOpacity: "0.5",
-            eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {
+            eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
                 moveEvent(event, delta, revertFunc, jsEvent, ui, view);
             },
 
-            eventResize: function(event, delta, revertFunc, jsEvent, ui, view) {
+            eventResize: function (event, delta, revertFunc, jsEvent, ui, view) {
                 resizeEvent(event, delta, revertFunc, jsEvent, ui, view);
             },
 
@@ -171,11 +170,15 @@
                 }
             },
             dayClick: function (date, jsEvent, view) {
-                <%if (@group ? (can? :create_event, @group) : is_admin?) %>
+                 <%if (@group ? (can? :create_event, @group) : is_admin?) %>
                 $.ajax({
+                    data: {
+                        starttime: date.valueOf(),
+                        has_time: date.hasTime(),
+                        event_type_id: <%=EventType::INCONTRO%>
+                    },
+                    url: '<%=j raw new_event_url(group_id: @group.try(:id)) %>',
                     dataType: 'script'
-                    data: 'starttime=' + date.valueOf(),
-                    url: '<%=j raw new_event_url(group_id: @group.try(:id), event_type_id: EventType::INCONTRO) %>'
                 });
                 <%end%>
             }

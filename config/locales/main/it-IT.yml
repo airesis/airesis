@@ -960,6 +960,9 @@ it-IT:
         type: 'di tipo %{type}'
     proposal_comments:
       title: Contributi
+      noise:
+        title: "Elenco contributi inutili alla discussione"
+        no_contributes: "Nessun contributo è stato eliminato dalla discussione"
     available_authors:
       index:
         explain_html: |
@@ -997,7 +1000,7 @@ it-IT:
         meeting:
           place:
             address: Indirizzo
-            comune_id: Comune
+            municipality_id: Comune
       group:
         facebook_page_url: Indirizzo pagina Facebook
         name: Nome
@@ -1225,6 +1228,7 @@ it-IT:
     new_newletter: Nuova newsletter
     unlock: "Sblocca"
     vote_here: "vota qui"
+    unintegrate: "Rimetti in dibattito"
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di maturità.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     random_stack_2: '<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente.'
@@ -1305,7 +1309,7 @@ it-IT:
     group_participations:
       destroy: "Non puoi uscire da un gruppo del quale sei l'unico portavoce"
       already_member: Errore nella richiesta di partecipazione. Fai già parte di questo gruppo!
-      request_not_registered: Fai già parte di questo gruppo ma la tua richiesta non è mai stata registrata. Dati corretti
+      request_not_registered: Fai già parte di questo gruppo ma la tua richiesta non è mai stata registrata.
       request_sent: Errore nella richiesta di partecipazione
       request_not_found: "Richiesta non trovata. Errore durante l'operazione"
       error_saving: "Errore durante l'operazione. Impossibile procedere"
@@ -1481,7 +1485,9 @@ it-IT:
       title: '%{user} ha inserito un nuovo %{comment} alla proposta'
       view_proposal: '%{click_here} per visualizzare la proposta.'
     text_update:
-      view_proposal: 'La proposta <b>%{proposal}</b> è stata aggiornata!'
+      view_proposal:
+        one: 'La proposta <b>%{proposal}</b> è stata aggiornata.'
+        other: 'La proposta <b>%{proposal}</b> è stata aggiornata %{count} volte.'
       integrated_contributes: 'Complimenti! I seguenti contributi che avevi inserito sono stati integrati dal redattore:'
       view_proposal_2: '%{click_here} e verifica che il nuovo testo contenga i tuoi suggerimenti.<br/>Se non sei soddisfatto potrai sempre rimettere i tuoi contributi in dibattito estraendoli dalla History.'
       connect: 'Collegati a %{name}'
@@ -1598,3 +1604,5 @@ it-IT:
   groups:
     group:
       delete_group_warning_html: "Puoi cancellare questo gruppo.<br>Tutti i dati ad esso associati verranno eliminati e non saranno più ripristinabili.<br>Fai attenzione!"
+  confirm:
+    unintegrate: "Stai rimettendo il tuo contributo in dibattito. Sei sicuro che non sia stato integrato correttamente?"

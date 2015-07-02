@@ -6,15 +6,15 @@
   <% @blog_posts.each do |blog_post| %>
       <div class="blog_post_list">
         <div class="comment_avatar">
-          <%= blog_post.user_image_tag 40 %>
+          <%= avatar(blog_post.user, size: 40) %>
         </div>
         <div class="blog_post_desc">
-        <div class="blog_post_title">
-          <%= link_to blog_post.title, [blog_post.blog,blog_post], title: blog_post.title %>
-        </div>
-        <div class="blog_post_footer">
-          <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to blog_post.user.name, blog_post.user), date: (l blog_post.created_at)) %>
-        </div>
+          <div class="blog_post_title">
+            <%= link_to blog_post.title, [blog_post.blog, blog_post], title: blog_post.title %>
+          </div>
+          <div class="blog_post_footer">
+            <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to blog_post.user.name, blog_post.user), date: (l blog_post.created_at)) %>
+          </div>
         </div>
         <div class="clearboth"></div>
       </div>

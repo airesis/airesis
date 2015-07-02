@@ -1,4 +1,3 @@
-#encoding: utf-8
 class OldQuorum < Quorum
   validate :minutes_or_percentage
   validates :condition, inclusion: {in: ['OR', 'AND']}
@@ -106,10 +105,6 @@ class OldQuorum < Quorum
             else
               @event = Event.create!(event_p)
             end
-
-            #fai partire il timer per far scadere la proposta
-            EventsWorker.perform_at(@event.starttime, {action: EventsWorker::STARTVOTATION, event_id: @event.id})
-            EventsWorker.perform_at(@event.endtime, {action: EventsWorker::ENDVOTATION, event_id: @event.id})
           end
           proposal.vote_period = @event
         else

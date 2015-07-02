@@ -1,4 +1,3 @@
-#encoding: utf-8
 class BlockedProposalAlertsController < ApplicationController
 
   before_filter :authenticate_user!

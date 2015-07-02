@@ -5,17 +5,23 @@
     <a href="#" class="right report_contribute hidden_link" data-dropdown="commentdropdown<%= comment.id %>"></a>
     <ul class="f-dropdown" id="commentdropdown<%= comment.id %>" data-dropdown-content>
       <% if can? :update, comment %>
-          <li><%= link_to t('pages.proposals.update_comment'), edit_proposal_proposal_comment_path(@proposal, comment), class: "editCommentLink menu_item", data: {edit_contribute: comment.id} %></li>
+          <li><%= link_to t('pages.proposals.update_comment'),
+                          edit_proposal_proposal_comment_path(@proposal, comment),
+                          class: "editCommentLink menu_item", data: {edit_contribute: comment.id} %></li>
       <% end %>
 
       <% if comment.versions.length > 0 %>
-          <li><%= link_to t('pages.proposals.history_comment'), history_proposal_proposal_comment_path(@proposal, comment), class: "historyCommentLink menu_item", data: {history_contribute: comment.id} %></li>
+          <li><%= link_to t('pages.proposals.history_comment'),
+                          history_proposal_proposal_comment_path(@proposal, comment),
+                          class: "historyCommentLink menu_item", data: {history_contribute: comment.id} %></li>
       <% end %>
 
       <li><a href="#" data-report-contribute="<%= comment.id %>"> <%= t('buttons.report') %> </a></li>
 
       <% if can? :destroy, comment %>
-          <li><%= link_to t('pages.proposals.delete_comment'), [@proposal, comment], method: :delete, data: {remote: true, confirm: t('pages.proposals.show.delete_contribute_confirmation')}, class: "deleteCommentLink menu_item" %></li>
+          <li><%= link_to t('pages.proposals.delete_comment'), [@proposal, comment], method: :delete,
+                          data: {remote: true, confirm: t('pages.proposals.show.delete_contribute_confirmation')},
+                          class: "deleteCommentLink menu_item" %></li>
       <% end %>
 
     </ul>
@@ -24,7 +30,11 @@
     <%= parsed_content(comment, @proposal.is_anonima?) %>
   </div>
   <div class="baloon-footer" title='<%= l(comment.updated_at || comment.created_at) %>'>
-    <% who = (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) ? proposal_nickname.nickname : (link_to_user comment.user, content_text: comment.user.fullname + ((proposal_nickname && @proposal.is_anonima?) ? (' (' + proposal_nickname.nickname + ')') : '')) %>
+    <% who = (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) ?
+            proposal_nickname.nickname :
+            (link_to_user comment.user, content_text: comment.user.fullname + ((proposal_nickname && @proposal.is_anonima?) ?
+                                              (' (' + proposal_nickname.nickname + ')') :
+                                              '')) %>
     <% if comment.created_at == comment.updated_at %>
         <%= raw t('pages.proposals.show.comment_inserted_by', when: time_in_words(comment.created_at), who: who) %>
     <% else %>

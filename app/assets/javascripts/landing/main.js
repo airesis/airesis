@@ -1,42 +1,27 @@
-/*-----------------------------------------------------------------------------------
- /*
- /* Main JS
- /*
- -----------------------------------------------------------------------------------*/
+$(function () {
 
-(function ($) {
+    // will first fade out the loading animation
+    $("#status").fadeOut("slow");
 
-    /*---------------------------------------------------- */
-    /* Preloader
-     ------------------------------------------------------ */
-    $(window).load(function () {
-        // will first fade out the loading animation
-        $("#status").fadeOut("slow");
+    // will fade out the whole DIV that covers the website.
+    $("#preloader").delay(500).fadeOut("slow").remove();
+    $('.login-form').addClass("animated fadeInDownBig");
+    $('.hero-text').addClass("animated fadeInDownBig");
+    $('.buttons').addClass("animated fadeInDownBig");
+    //$('.buttons .learn-more').addClass("animated fadeInRightBig");
+    $('.js #hero .hero-image img').addClass("animated fadeInUpBig");
+    $('.js #hero .buttons a.trial').addClass("animated shake");
 
-        // will fade out the whole DIV that covers the website.
-        $("#preloader").delay(500).fadeOut("slow").remove();
-        $('.login-form').addClass("animated fadeInDownBig");
-        $('.hero-text').addClass("animated fadeInDownBig");
-        $('.buttons').addClass("animated fadeInDownBig");
-        //$('.buttons .learn-more').addClass("animated fadeInRightBig");
-        $('.js #hero .hero-image img').addClass("animated fadeInUpBig");
-        $('.js #hero .buttons a.trial').addClass("animated shake");
+    !function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (!d.getElementById(id)) {
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }
+    }(document, "script", "twitter-wjs");
 
-        !function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (!d.getElementById(id)) {
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "//platform.twitter.com/widgets.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            }
-        }(document, "script", "twitter-wjs");
-    });
-
-
-    /*---------------------------------------------------- */
-    /* Mobile Menu
-     ------------------------------------------------------ */
     var toggle_button = $("<a>", {
             id: "toggle-btn",
             html: "Menu",
@@ -44,7 +29,7 @@
             href: "#"
         }
     );
-    var nav_wrap = $('nav#nav-wrap')
+    var nav_wrap = $('nav#nav-wrap');
     var nav = $("ul#nav");
 
     /* id JS is enabled, remove the two a.mobile-btns
@@ -68,26 +53,15 @@
     });
 
 
-    /*----------------------------------------------------*/
-    /* FitText Settings
-     ------------------------------------------------------ */
     setTimeout(function () {
-
         $('h1.responsive-headline').fitText(1.2, {minFontSize: '25px', maxFontSize: '50px'});
-
     }, 100);
 
 
-    /*----------------------------------------------------*/
-    /* Smooth Scrolling
-     ------------------------------------------------------ */
     $('.smoothscroll').on('click', function (e) {
-
         e.preventDefault();
-
         var target = this.hash,
             $target = $(target);
-
         $('html, body').stop().animate({
             'scrollTop': $target.offset().top
         }, 800, 'swing', function () {
@@ -97,9 +71,6 @@
     });
 
 
-    /*----------------------------------------------------*/
-    /* Highlight the current section in the navigation bar
-     ------------------------------------------------------*/
     var sections = $("section"),
         navigation_links = $("#nav-wrap a");
 
@@ -122,9 +93,6 @@
     });
 
 
-    /*----------------------------------------------------*/
-    /* Waypoints Animations
-     ------------------------------------------------------ */
     if (window.innerWidth > 640) {
         $('.js .groups').waypoint(function () {
             $('.js .groups .feature-media').addClass('animated fadeInLeftBig').show();
@@ -186,4 +154,4 @@
         animationSpeed: 600,
         randomize: false
     });
-})(jQuery);
+});

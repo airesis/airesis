@@ -40,7 +40,7 @@ class SearchProposal < ActiveRecord::Base
         with(:proposal_category_id, proposal_category_id) if proposal_category_id
 
         with(:proposal_type_id, proposal_type_id) if proposal_type_id
-        without(:proposal_type_id, 11) #TODO removed petitions
+        without(:proposal_type_id, 11) # TODO: removed petitions
 
         if created_at_from
           ends = created_at_to || Time.now
@@ -79,6 +79,7 @@ class SearchProposal < ActiveRecord::Base
             with(:private, false)
             with(:visible_outside, true)
           end
+          with(interest_border.solr_search_field, interest_border.territory.id) if interest_border.present?
         end
       end
 

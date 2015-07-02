@@ -44,11 +44,11 @@
         <% if current_user %>
             <li>
               <%= link_to '#', class: 'button account show-for-large-up', data: {dropdown: "personal_menu_large", options: "is_hover:false"} do %>
-                  <%= current_user.user_image_tag 34, cert: false %>
+                  <%= avatar(current_user, size: 34, cert: false) %>
                   <span><%= current_user.fullname %></span>
               <% end %>
               <%= link_to '#', class: 'small account hide-for-large-up', data: {dropdown: "personal_menu_small", options: "is_hover:false"} do %>
-                  <%= current_user.user_image_tag 34, cert: false %>
+                  <%= avatar(current_user, size: 34, cert: false) %>
               <% end %>
             </li>
             <li>

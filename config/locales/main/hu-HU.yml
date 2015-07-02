@@ -1025,7 +1025,7 @@ hu:
         meeting:
           place:
             address: Cím
-            comune_id: Város
+            municipality_id: Város
       group:
         facebook_page_url: Facebook oldal címe
         name: Név

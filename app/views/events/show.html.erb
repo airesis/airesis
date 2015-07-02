@@ -62,7 +62,7 @@
             <div class="event_content" itemprop="location" itemscope itemtype="http://schema.org/Place">
               <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
                 <h4>
-                  <span itemprop="addressLocality"><%= "#{@event.place.comune.description}" if @event.place.comune %></span>,
+                  <span itemprop="addressLocality"><%= "#{@event.place.municipality.description}" if @event.place.municipality %></span>,
                   <span itemprop="streetAddress"><%= @event.place.address %></span></h4>
               </div>
 

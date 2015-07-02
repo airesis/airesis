@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :store_location
 
+  before_filter :set_current_domain
   before_filter :set_locale
   around_filter :user_time_zone, if: :current_user
 
@@ -94,6 +95,24 @@ class ApplicationController < ActionController::Base
   end
 
   def extract_locale_from_tld
+  end
+
+  def set_current_domain
+    @domain_locale = request.host.split('.').last
+    if params[:l].present?
+      @current_domain = SysLocale.find_by(key: params[:l])
+    else
+      @current_domain = SysLocale.find_by(host: request.host, lang: nil) || SysLocale.find_by(host: request.host)
+    end
+    @current_domain ||= SysLocale.default
+  end
+
+  def current_domain
+    @current_domain
+  end
+
+  def current_territory
+
   end
 
   def set_locale
@@ -253,6 +272,10 @@ class ApplicationController < ActionController::Base
         end
       end
     end
+  end
+
+  def redirect_to_back(path)
+    redirect_to (request.env["HTTP_REFERER"] ? :back : path)
   end
 
   # response if you do not have permissions to do an action

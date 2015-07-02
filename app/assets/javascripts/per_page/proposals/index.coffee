@@ -28,6 +28,21 @@ window.ProposalsIndex =
         at: "right bottom"
         of: $(this)
       event.stopPropagation()
+
+    input = $('.interest_borders')
+    input.tokenInput "/interest_borders.json",
+      crossDomain: false
+      prePopulate: input.data("pre")
+      hintText: Airesis.i18n.interestBorders.hintText
+      noResultsText: Airesis.i18n.interestBorders.noResultsText
+      searchingText: Airesis.i18n.interestBorders.searchingText
+      preventDuplicates: true
+      tokenLimit: 1
+      allowTabOut: true
+      onAdd: ->
+        @.closest('form').submit()
+      onDelete: ->
+        @.closest('form').submit()
   active_tab: ->
     $('#proposals-tabs').find('.active')
   hash_tab_value: ->

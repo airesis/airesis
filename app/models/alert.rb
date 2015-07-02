@@ -23,7 +23,6 @@ class Alert < ActiveRecord::Base
   has_one :notification_type, through: :notification
   has_one :notification_category, through: :notification_type
   has_one :email_job
-
   before_create :set_counter
   before_create :continue?
 
@@ -36,7 +35,7 @@ class Alert < ActiveRecord::Base
   end
 
   def data
-    ret = nproperties.symbolize_keys
+    ret = nproperties.with_indifferent_access
     ret[:count] = ret[:count].to_i
     ret
   end
@@ -65,7 +64,7 @@ class Alert < ActiveRecord::Base
 
   def accumulate(by = 1)
     increase_count! # increase the count in the alert
-    if email_job.scheduled? # an email is in queue?
+    if email_job.present? && email_job.sidekiq_job.present? # an email is in queue?
       email_job.accumulate # requeue it on new daly
     else # alert is sent, email is sent, but alert is not read yet, just send a new email for the previous (accumulated) alert
       send_email(true)
@@ -88,10 +87,26 @@ class Alert < ActiveRecord::Base
     update_all(deleted: true, deleted_at: Time.now)
   end
 
+  def trigger_user
+    @trigger_user ||= User.find(nproperties['user_id'])
+  end
+
+  def image_url
+    if nproperties['user_id'].present?
+      if trackable.instance_of? Proposal
+        trackable.user_avatar_url(trigger_user)
+      else
+        trigger_user.user_image_url
+      end
+    else
+      ActionController::Base.helpers.asset_path("notification_categories/#{notification_category.short.downcase}.png")
+    end
+  end
+
   protected
 
   def continue?
-    (!alert_job.present? || !alert_job.canceled?) && !acked?
+    alert_job.nil? || !alert_job.canceled?
   end
 
   def set_counter
@@ -117,10 +132,6 @@ class Alert < ActiveRecord::Base
   end
 
   def complete_alert_job
-    alert_job.complete(self)
-  end
-
-  def acked?
-    trackable.present? && (trackable.respond_to? :acked_by?) && trackable.acked_by?(user)
+    alert_job.destroy
   end
 end

@@ -5,6 +5,7 @@
 // the compiled file.
 //
 //= require airesis
+//= require searcher
 //= require jquery
 //= require jquery.plugin
 //= require jquery-ui

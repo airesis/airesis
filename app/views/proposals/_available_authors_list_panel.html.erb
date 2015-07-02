@@ -6,7 +6,7 @@
     <%= form_for 'authors', url: {controller: "proposals", action: "add_authors", group_id: params[:group_id]}, remote: true, method: :put do |f| %>
         <% @available_authors.each do |user| %>
             <div>
-              <input type="checkbox" name="user_ids[]" value="<%= user.id %>"> <%= user.fullname %> <%= user.user_image_tag 24 %>
+              <input type="checkbox" name="user_ids[]" value="<%= user.id %>"> <%= user.fullname %> <%= avatar(user, size: 24) %>
             </div>
         <% end %>
 

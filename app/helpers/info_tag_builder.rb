@@ -4,12 +4,11 @@ class InfoTagBuilder < ActionView::Helpers::FormBuilder
 
   def field_name(label, index=nil)
     output = index ? "[#{index}]" : ''
-    return @object_name + output + "[#{label}]"
+    @object_name + output + "[#{label}]"
   end
 
   def field_id(label, index=nil)
     output = index ? "_#{index}" : ''
-    return @object_name + output + "_#{label}"
+    @object_name + output + "_#{label}"
   end
-
 end

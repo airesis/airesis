@@ -17,21 +17,20 @@ module Admin
     end
 
     def create
-      @user_sensitive = UserSensitive.new(params[:user_sensitive])
+      @user_sensitive = UserSensitive.new(user_sensitive_params)
 
       if @user_sensitive.save
-        redirect_to @user_sensitive, notice: 'User sensitive was successfully created.'
+        redirect_to [:admin, @user_sensitive], notice: t('info.user_sensitive.created')
       else
         render action: :new
       end
     end
 
-
     def update
       @user_sensitive = UserSensitive.find(params[:id])
 
-      if @user_sensitive.update_attributes(params[:user_sensitive])
-        redirect_to [:admin, @user_sensitive], notice: 'User sensitive was successfully updated.'
+      if @user_sensitive.update(user_sensitive_params)
+        redirect_to [:admin, @user_sensitive], notice: t('info.user_sensitive.updated')
       else
         render action: :edit
       end
@@ -47,6 +46,12 @@ module Admin
     def document
       @user_sensitive = UserSensitive.find(params[:id])
       send_file @user_sensitive.document.url(:default, timestamp: false)
+    end
+
+    protected
+
+    def user_sensitive_params
+      params.require(:user_sensitive).permit(:user_id, :name, :surname, :birth_date, :tax_code, :document)
     end
   end
 end

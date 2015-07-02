@@ -1,6 +1,4 @@
 class ProposalComment < ActiveRecord::Base
-  include BlogKitModelHelper
-  include LogicalDeleteHelper
   include ActionView::Helpers::TextHelper
 
   has_paper_trail class_name: 'ProposalCommentVersion', only: [:content], on: [:update, :destroy]
@@ -125,5 +123,4 @@ class ProposalComment < ActiveRecord::Base
     integrated_contribute.destroy
     update(integrated: false)
   end
-
 end

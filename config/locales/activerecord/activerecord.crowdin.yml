@@ -27,7 +27,7 @@ crowdin:
         meeting:
           place:
             address: "{crwdns5904:0}{crwdne5904:0}"
-            comune_id: "{crwdns5905:0}{crwdne5905:0}"
+            municipality_id: "{crwdns5905:0}{crwdne5905:0}"
       group:
         facebook_page_url: "{crwdns5906:0}{crwdne5906:0}"
         name: "{crwdns5907:0}{crwdne5907:0}"

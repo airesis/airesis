@@ -1,4 +1,3 @@
-#encoding: utf-8
 class Quorum < ActiveRecord::Base
   include ActionView::Helpers::TextHelper, Rails.application.routes.url_helpers, GroupsHelper
 

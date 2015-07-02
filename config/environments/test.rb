@@ -5,7 +5,7 @@ Airesis::Application.configure do
   config.static_cache_control = 'public, max-age=3600'
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = false
-  config.action_dispatch.show_exceptions = false
+  config.action_dispatch.show_exceptions = true
   config.action_controller.allow_forgery_protection = false
   config.active_support.deprecation = :stderr
   #config.action_mailer.perform_deliveries = true

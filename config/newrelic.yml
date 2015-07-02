@@ -1,0 +1,38 @@
+common: &default_settings
+  license_key: <%= ENV['NEW_RELIC_LICENSE_KEY'] %>
+  app_name: <%= ENV['NEW_RELIC_APP_NAME'] %>
+  monitor_mode: true
+  developer_mode: false
+  log_level: info
+  browser_monitoring:
+    auto_instrument: true
+  audit_log:
+    enabled: false
+  capture_params: true
+  transaction_tracer:
+    enabled: true
+    transaction_threshold: apdex_f
+    record_sql: raw
+    stack_trace_threshold: 0.500
+    explain_enabled: true
+    explain_threshold: 1.0
+  error_collector:
+    enabled: true
+    ignore_errors: "ActionController::RoutingError,Sinatra::NotFound"
+
+development:
+  <<: *default_settings
+  monitor_mode: false
+  developer_mode: true
+
+test:
+  <<: *default_settings
+  monitor_mode: false
+
+staging:
+  <<: *default_settings
+  monitor_mode: true
+
+production:
+  <<: *default_settings
+  monitor_mode: true

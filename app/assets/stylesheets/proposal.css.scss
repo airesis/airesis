@@ -69,18 +69,13 @@
   border-bottom: 1px solid #D8D2C3;
 }
 
-.proposal_main {
-
-}
-
 .solution_main {
   .proposal_main {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
-}
-
-.solution_main h3 {
-  margin: -5px -7px 17px -5px; //fuck fix
+  h3 {
+    margin: -5px -7px 17px -5px; //fuck fix
+  }
 }
 
 .proposal_comment {

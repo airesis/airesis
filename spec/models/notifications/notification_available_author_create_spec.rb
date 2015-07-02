@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationAvailableAuthorCreate, type: :model, emails: true do
+describe NotificationAvailableAuthorCreate, type: :model, emails: true, notifications: true do
 
   let!(:event_class) { NotificationAvailableAuthorCreate }
   let!(:notification_type) { NotificationType.find_by(name: 'available_author') }

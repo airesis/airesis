@@ -1,7 +1,7 @@
 <% @group_participations.each do |participant| %>
     <li>
       <div class="card cool left">
-        <div class="image" style="background: url('<%=participant.user_image_url(120, force_size: false)%>'); background-size: cover;">
+        <div class="image" style="background: url('<%=participant.user.user_image_url(120, force_size: false)%>'); background-size: cover;">
         </div>
         <div class="info">
           <div class="name">

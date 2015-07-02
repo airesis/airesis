@@ -1,4 +1,3 @@
-#encoding: utf-8
 class EventCommentsController < ApplicationController
 
   load_and_authorize_resource :event

@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationBlogCommentCreate, type: :model, emails: true do
+describe NotificationBlogCommentCreate, type: :model, emails: true, notifications: true do
 
 
   let!(:event_class) { NotificationBlogCommentCreate }

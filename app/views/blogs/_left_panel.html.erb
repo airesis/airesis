@@ -4,7 +4,7 @@
     <%@recent_comments.each do |comment| %>
         <div class="blog_comment">
           <div class="comment_avatar">
-            <%=comment.user_image_tag 40%>
+            <%= avatar(comment.user, size: 40) %>
           </div>
           <div class="comment_desc">
             <%=link_to_user comment.user, full_name: true%> on <%=link_to(h(comment.blog_post.title), [@blog, comment.blog_post])%>

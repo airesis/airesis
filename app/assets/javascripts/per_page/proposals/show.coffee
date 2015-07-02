@@ -6,7 +6,7 @@ window.ProposalsShow =
   contributes: []
   nicknames: []
   checkActive: false
-  currentView: if Airesis.signed_in then 1 else 3
+  currentView:  3
   currentPage: 0
   proposalId: null
   openShare: false
@@ -14,6 +14,7 @@ window.ProposalsShow =
   times: {},
   firstCheck: false
   init: ->
+    @currentView = if Airesis.signed_in then 1 else 3
     $('[data-scroll-to="vote_panel"]').on 'click', ->
       @scroll_to_vote_panel()
     $(document).on 'click', '[data-cancel-edit-comment]', ->
@@ -65,19 +66,22 @@ window.ProposalsShow =
       if matchMedia(Foundation.media_queries['medium']).matches
         $('.results-button')[0].click()
 
-    #open the contribute if it's a link from an email
-    if Airesis.show_section_id
-      $(".contribute-button[data-section_id=#{Airesis.show_section_id}]").trigger('click', [Airesis.show_comment_id])
-    if @openShare isnt ''
-      $('#promote_proposal').click();
-
     $('img.cke_iframe').each ->
       realelement = $(this).data('cke-realelement')
       $(this).after($(unescape(realelement)))
       $(this).remove()
+
     @init_text_areas()
     @init_contributes_button()
     @init_countdowns()
+    @initVotePeriodSelect()
+
+    #open the contribute if it's a link from an email
+    if Airesis.show_section_id
+      $(".contribute-button[data-section_id=#{Airesis.show_section_id}]").trigger('click', [Airesis.show_comment_id])
+
+    if @openShare isnt ''
+      $('#promote_proposal').click();
   init_text_areas: ->
     $('[data-contribute-area]').each ->
       if $(this).attr('data-initialized') != 1
@@ -99,15 +103,15 @@ window.ProposalsShow =
     return false
   contribute: (section_id)->
     $('#proposal_comment_section_id').val(section_id)
-    $viewport.animate({
+    Airesis.viewport.animate({
         scrollTop: $("#proposal_comment_content").offset().top - 150
       }, 2000, ->
       $('#proposal_comment_content').focus()
       $('#comment-form-comment').effect('highlight', {}, 3000)
     )
-    $viewport.bind "scroll mousedown DOMMouseScroll mousewheel keyup", (e)->
+    Airesis.viewport.bind "scroll mousedown DOMMouseScroll mousewheel keyup", (e)->
       if matchMedia(Foundation.media_queries['medium']).matches && e.which > 0 || e.type is "mousedown" || e.type is "mousewheel"
-        $viewport.stop().unbind 'scroll mousedown DOMMouseScroll mousewheel keyup'
+        Airesis.viewport.stop().unbind 'scroll mousedown DOMMouseScroll mousewheel keyup'
     return false
   edit_contribute: (id)->
     close_all_dropdown()
@@ -235,17 +239,15 @@ window.ProposalsShow =
         $('.suggestion_right').bind 'mousewheel DOMMouseScroll', (e)->
           if matchMedia(Foundation.media_queries['medium']).matches
             Airesis.scrollLock(this,e)
+        scrollToElement($(".proposal_main[data-section_id=#{section_id}]"))
       else if this_status is '2' #closed and fetched
         ProposalsShow.open_right_contributes($(this), comment_id)
+        scrollToElement($(".proposal_main[data-section_id=#{section_id}]"))
       else #status == 1  fetched and open
         if comment_id?
           comment_ = $('#comment' + comment_id + ' .proposal_comment')
           section_id = $(this).attr("data-section_id")
-          $('.suggestion_right[data-section_id=' + section_id + ']').scrollTop(0)
-          $('.suggestion_right[data-section_id=' + section_id + ']').animate
-            scrollTop: comment_.offset().top - 100
-          , 2000
-          comment_.effect('highlight', {}, 3000)
+          scrollToElement($(".proposal_main[data-section_id=#{section_id}]"))
         else
           ProposalsShow.close_right_contributes($(this))
       return false
@@ -286,3 +288,10 @@ window.ProposalsShow =
         description: ProposalsShow.times.descriptions.vote_ends_at
       ,
         $.countdown.regionalOptions[Airesis.i18n.locale]
+  initVotePeriodSelect: ->
+    $('#proposal_vote_period_id').select2
+      minimumResultsForSearch: -1,
+      formatResult: formatPeriod,
+      formatSelection: formatPeriod,
+      escapeMarkup: (m)->
+        m

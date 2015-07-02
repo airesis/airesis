@@ -16,8 +16,8 @@
     "interest_borders": [
         {
             "territory_id": 6150,
-            "territory_type": "Comune",
-            "description": "Itala (Comune)"
+            "territory_type": "Municipality",
+            "description": "Itala (Municipality)"
         }
     ],
     "groups": [],

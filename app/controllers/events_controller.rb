@@ -22,6 +22,7 @@ class EventsController < ApplicationController
       end
       format.json do
         @events = @events.time_scoped(Time.parse(params['start']), Time.parse(params['end']))
+        @events = @events.in_territory(current_domain.territory) unless @group
         events = []
         @events.each do |event|
           event_obj = event.to_fc
@@ -76,7 +77,7 @@ class EventsController < ApplicationController
       @title += "- #{t('pages.events.new.title_meeting')}"
     end
 
-    @starttime = params[:starttime] ? Time.at(params[:starttime].to_i / 1000) : Time.now + 10.minutes
+    @starttime = calculate_starttime
     @endtime = @starttime + 1.days
 
     @event = Event.new(starttime: @starttime, endtime: @endtime, period: "Non ripetere", event_type_id: params[:event_type_id])
@@ -177,9 +178,20 @@ class EventsController < ApplicationController
 
   protected
 
+  def calculate_starttime
+    if params[:starttime]
+      ret = Time.at(params[:starttime].to_i / 1000)
+      puts (params[:has_time] == 'true')
+      ret = ret.change(hour: Time.now.hour, min: Time.now.min) unless (params[:has_time] == 'true')
+      ret
+    else
+      10.minutes.from_now
+    end
+  end
+
   def event_params
     params[:event].delete(:meeting_attributes) if params[:event][:event_type_id] == EventType::VOTAZIONE.to_s
-    params.require(:event).permit(:id, :title, :starttime, :endtime, :frequency, :all_day, :description, :event_type_id, :private, :proposal_id, meeting_attributes: [:id, place_attributes: [:id, :comune_id, :address, :latitude_original, :longitude_original, :latitude_center, :longitude_center, :zoom]])
+    params.require(:event).permit(:id, :title, :starttime, :endtime, :frequency, :all_day, :description, :event_type_id, :private, :proposal_id, meeting_attributes: [:id, place_attributes: [:id, :municipality_id, :address, :latitude_original, :longitude_original, :latitude_center, :longitude_center, :zoom]])
   end
 
   def choose_layout

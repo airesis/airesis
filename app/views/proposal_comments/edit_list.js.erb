@@ -1,7 +1,7 @@
 $('#proposalCommentsContainer').append("<%= j render 'proposals/edit_comments'%>");
 
 ProposalsEdit.firstCheck = false;
-<%if @total_pages > @current_page%>
+<%if @proposal_comment_search.show_more?%>
     $('#loading_results').show();
     if (!ProposalsEdit.firstCheck) {
         checkScroll();
@@ -11,7 +11,7 @@ ProposalsEdit.firstCheck = false;
     hideLeftPanel();
 <%else%>
     $('#loading_results').hide();
-    <%if @proposal_comments.count == 0 %>
+    <%if @proposal_comment_search.proposal_comments.empty? %>
         $('.suggestion-title').remove();
         $('.suggestion_right').remove();
     <%else%>

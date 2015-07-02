@@ -1,6 +1,5 @@
-<tr id='post_<%= post_counter + 1 %>'>
-
-  <td class="user_post" rowspan="2">
+<div class="row full-width post-container" id='post_<%= post_counter + 1 %>' data-equalizer>
+  <div class="columns small-2 user_post text-center" data-equalizer-watch>
     <a name='post-<%= post.id %>'></a>
 
     <div class='post <%= cycle('odd', 'even') -%> span10'>
@@ -19,51 +18,52 @@
           </div>
       <% end %>
     </div>
+
     <div class='user span2'>
-      <div class='icon'><%= post.user.user_image_tag 100 if post.user %></div>
+      <div class='icon'><%= avatar(post.user, size: 100) if post.user %></div>
       <div class='username'>
         <%= link_to(post.user.fullname, post.user) if post.user %>
       </div>
     </div>
-  </td>
-  <td>
-    <div class="post-header">
-      <a href='#post-<%= post.id %>'>
-        <div class="post-when">
-          <time datetime="<%= post.created_at.to_s(:db) -%>"><%= "#{time_ago_in_words(post.created_at)}" %></time>
-          <% if post.reply_to %>
+  </div>
+  <div class="columns small-10 non_user_post" data-equalizer-watch>
+    <div class="row post-header">
+      <div class="columns">
+        <a href='#post-<%= post.id %>'>
+          <div class="post-when">
+            <time datetime="<%= post.created_at.to_s(:db) -%>"><%= "#{time_ago_in_words(post.created_at)}" %></time>
+            <% if post.reply_to %>
             <span class='in-reply-to'>
               <%= link_to "#{t(".in_reply_to")} #{post.reply_to.user}", "#post-#{post.reply_to.id}" %>
             </span>
+            <% end %>
+          </div>
+          <% if current_user %>
+              <div class='btn-group'>
+                <% if can?(:reply, post.topic) %>
+                    <% if post.topic.can_be_replied_to? %>
+                        <%= link_to t('reply', scope: 'frm.topic'), new_group_forum_topic_post_url(@group, post.topic.forum, post.topic, reply_to_id: post.id) %>
+                        <%= link_to t('quote', scope: 'frm.topic'), new_group_forum_topic_post_url(@group, post.topic.forum, post.topic, reply_to_id: post.id, quote: true) %>
+                    <% end %>
+                <% end %>
+                <% if post.owner_or_moderator?(current_user) %>
+                    <% if can?(:edit_post, post.topic.forum) %>
+                        <%= link_to t('edit', scope: 'frm.post.buttons'), edit_group_forum_topic_post_url(@group, post.topic.forum, post.topic, post) %>
+                    <% end %>
+                    <%= link_to t('delete', scope: 'frm.topic'), group_forum_topic_post_url(@group, post.topic.forum, post.topic, post), method: :delete, data: {confirm: t("are_you_sure")} %>
+                <% end %>
+              </div>
           <% end %>
+
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns post_content">
+        <div class="post-body">
+          <%= sanitize post.text %>
         </div>
-        <% if current_user %>
-            <div class='btn-group'>
-              <% if can?(:reply, post.topic) %>
-                  <% if post.topic.can_be_replied_to? %>
-                      <%= link_to t('reply', scope: 'frm.topic'), new_group_forum_topic_post_url(@group, post.topic.forum, post.topic, reply_to_id: post.id) %>
-                      <%= link_to t('quote', scope: 'frm.topic'), new_group_forum_topic_post_url(@group, post.topic.forum, post.topic, reply_to_id: post.id, quote: true) %>
-                  <% end %>
-              <% end %>
-              <% if post.owner_or_moderator?(current_user) %>
-                  <% if can?(:edit_post, post.topic.forum) %>
-                      <%= link_to t('edit', scope: 'frm.post.buttons'), edit_group_forum_topic_post_url(@group, post.topic.forum, post.topic, post) %>
-                  <% end %>
-                  <%= link_to t('delete', scope: 'frm.topic'), group_forum_topic_post_url(@group, post.topic.forum, post.topic, post), method: :delete, data: {confirm: t("are_you_sure")} %>
-              <% end %>
-            </div>
-        <% end %>
-
-      </a>
+      </div>
     </div>
-  </td>
-</tr>
-<tr>
-  <td class="post_content">
-    <div class="post-body">
-      <%= sanitize post.text %>
-    </div>
-
-  </td>
-</tr>
-
+  </div>
+</div>

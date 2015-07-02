@@ -41,6 +41,10 @@ set :linked_files, %w{config/application.yml config/database.yml config/paypal.y
 
 set :sidekiq_config, "#{current_path}/config/sidekiq.yml"
 
+set :passenger_restart_with_touch, true
+
+set :passenger_environment_variables, {path: '$HOME/passenger-4.0.26/bin:$PATH'}
+
 namespace :deploy do
 
   desc 'Restart application'

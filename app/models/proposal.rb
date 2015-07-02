@@ -1,6 +1,6 @@
 
 class Proposal < ActiveRecord::Base
-  include BlogKitModelHelper, Frm::Concerns::Viewable, Concerns::ProposalBuildable
+  include Frm::Concerns::Viewable, Concerns::ProposalBuildable, Concerns::Taggable
 
   belongs_to :state, class_name: 'ProposalState', foreign_key: :proposal_state_id
   belongs_to :category, class_name: 'ProposalCategory', foreign_key: :proposal_category_id
@@ -63,9 +63,9 @@ class Proposal < ActiveRecord::Base
 
   #forum
   has_many :topic_proposals, class_name: 'Frm::TopicProposal', foreign_key: 'proposal_id'
-  has_many :topics, class_name: 'Frm::Topic', through: :topic_proposals
+  has_sal_alerts, class_name: 'BlockedProposalAlert', dependent: :destroy
 
-  has_manyosal_alerts, class_name: 'BlockedProposalAlert', dependent: :destroy
+  has_many :alerts, as: :trackable
 
   #validation
   validates_presence_of :title, message: "obbligatorio" #TODO:I18n
@@ -76,7 +76,7 @@ class Proposal < ActiveRecord::Base
 
   validates_with AtLeastOneValidator, associations: [:solutions], unless: :is_petition?
 
-  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list, :last_revision, :topic_id, :votation, :petition_phase, :change_advanced_options, :current_user_id, :interest_borders_tkn
+  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list, :topic_id, :votation, :petition_phase, :change_advanced_options, :current_user_id, :interest_borders_tkn
 
   accepts_nested_attributes_for :sections, allow_destroy: true
   accepts_nested_attributes_for :solutions, allow_destroy: true
@@ -127,10 +127,8 @@ class Proposal < ActiveRecord::Base
 
   after_create :generate_nickname
 
-  after_commit :send_notifications, on: :create
-  after_commit :send_update_notifications, on: :update
-
-  before_update :before_update_populate
+  after_commi: :create
+  after_commit pdate :before_update_populate
   before_save :save_tags
 
   after_destroy :remove_scheduled_tasks
@@ -166,21 +164,35 @@ class Proposal < ActiveRecord::Base
     proposal_rankings = ProposalRanking.arel_table
     ranking = proposal_rankings.
       project(proposal_rankings[:ranking_type_id]).
-      where(proposal_rankings[:proposal_id].eq(proposals[:id]).
-              and(proposal_rankings[:user_id].eq(user_id)))
-  end
-
-  #retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
-  def self.open_space_portlet(user=nil)
+      where(proposal_rankings[:proposal_id].eq(proposals[:id]  def self.open_space_portlet(user = nil, current_territory = nil)
     user_id = user ? user.id : -1
     proposals = Proposal.arel_table
     petition_id = ProposalType.find_by(name: ProposalType::PETITION).id
     alerts_count = alerts_count_subquery(user_id)
     ranking = ranking_subquery(user_id)
-    Proposal.visible.
+
+    ids = Proposal.search_ids do
+      any_of do
+        with(:private, false)
+        with(:visible_outside, true)
+      end
+      without(:proposal_type_id, 11) # TODO: removed petitions
+      with(current_territory.solr_search_field, current_territory.id) if current_territory.present?
+      order_by :updated_at, :desc
+      order_by :created_at, :desc
+      paginate page: 1, per_page: 10
+    end
+
+    proposals = Proposal.
       select('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
-      where(proposals[:proposal_type_id].not_eq(petition_id)).
-      order(updated_at: :desc).limit(10)
+      where(proposals[:id].in(ids)).order(updated_at: :desc)
+    ActiveRecord::Associations::Preloader.new(proposals, [:quorum, :groups, :supporting_groups]).run
+    proposals
+  end
+t'), ranking.as('ranking')).
+      where(proposals[:id].in(ids)).order(updated_at: :desc)
+    ActiveRecord::Associations::Preloader.new(proposals, [:quorum, :groups, :supporting_groups]).run
+    proposals
   end
 
   #retrieve the list of proposals for the user with a count of the number of the notifications for each proposal
@@ -258,15 +270,15 @@ class Proposal < ActiveRecord::Base
     alerts_count = alerts_count_subquery(user_id)
     ranking = ranking_subquery(user_id)
     Proposal.find_by_sql(proposals.
-      project('distinct proposals.*',alerts_count.as('alerts_count'), ranking.as('ranking')).
-      join(group_proposals).on(proposals[:id].eq(group_proposals[:proposal_id])).
-      where(group_proposals[:group_id].eq(group.id)).
-      order(proposals[:created_at].desc).take(10).to_sql)
+                           project('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
+                           join(group_proposals).on(proposals[:id].eq(group_proposals[:proposal_id])).
+                           where(group_proposals[:group_id].eq(group.id)).
+                           order(proposals[:created_at].desc).take(10).to_sql)
   end
 
 
   def count_notifications(user_id)
-    alerts = Alert.where(trackable: self, checked: false, user_id: user.id).count
+    alerts = Alert.where(trackable: self, checked: false, user_id: user_id).count
   end
 
   #after_find :calculate_percentage
@@ -361,44 +373,18 @@ class Proposal < ActiveRecord::Base
     presentation_areas.first
   end
 
-  def tags_list
-    @tags_list ||= tags.map(&:text).join(', ')
-  end
-
-
-  def tags_list=(tags_list)
-    @tags_list = tags_list
-  end
-
-  def tags_list_json
-    @tags_list ||= tags.map(&:text).join(', ')
-  end
-
-
-  def tags_with_links
-    tags.collect { |t| "<a href=\"/tag/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
-  end
-
-  def save_tags
-    return unless @tags_list
-    tids = []
-    @tags_list.split(/,/).each do |tag|
-      stripped = tag.strip.downcase.gsub('.', '').gsub("'", "")
-      unless stripped.blank?
-        t = Tag.find_or_create_by(text: stripped)
-        tids << t.id
-      end
-    end
-    self.tag_ids = tids
-  end
-
   def to_param
     "#{id}-#{title.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
   end
 
-  #restituisce il primo autore della proposta
+  # restituisce il primo autore della proposta
   def user
     @first_user ||= proposal_presentations.first.user
+  end
+
+  def truncate_words(text, length = 30, end_string = ' ...')
+    words = text.split()
+    words[0..(length-1)].join(' ') + (words.length > length ? end_string : '')
   end
 
   def short_content
@@ -420,57 +406,51 @@ class Proposal < ActiveRecord::Base
     end
   end
 
-
   # count without fetching, for the list.
   # this number may be different from participants because doesn't look if the participants are still in the group
   def participants_count
     users = User.arel_table
     proposal_comments = ProposalComment.arel_table
     proposal_rankings = ProposalRanking.arel_table
-    query = users.
-      project(users[:id].count(true)).
-      join(proposal_comments, Arel::Nodes::OuterJoin).
-      on(users[:id].eq proposal_comments[:user_id]).
-      join(proposal_rankings, Arel::Nodes::OuterJoin).
-      on(users[:id].eq proposal_rankings[:user_id]).
-      where(proposal_rankings[:proposal_id].eq id).
-      where(proposal_comments[:proposal_id].eq id)
-    ActiveRecord::Base.connection.execute(query.to_sql)[0]['count'].to_i
+
+    comments_subquery = join_users_table(proposal_comments)
+    rankings_subquery = join_users_table(proposal_rankings)
+
+    User.where(users[:id].in(comments_subquery).or(users[:id].in(rankings_subquery))).count
   end
 
-  #retrieve all the participants to the proposals that are still part of the group
+  # retrieve all the participants to the proposals that are still part of the group
   def participants
-    #all users who ranked the proposal
+    # all users who ranked the proposal
     a = User.joins(proposal_rankings: :proposal).where(proposals: {id: id}).load
-    #all users who contributed to the proposal
+    # all users who contributed to the proposal
     b = User.joins(proposal_comments: :proposal).where(proposals: {id: id}).load
     c = (a | b)
     if private
-      #all users that are part of the group of the proposal
-      d = self.supporting_groups.map { |group| group.participants }.flatten
-      e = self.groups.map { |group| group.participants }.flatten
+      # all users that are part of the group of the proposal
+      d = supporting_groups.map { |group| group.participants }.flatten
+      e = groups.map { |group| group.participants }.flatten
       f = d | e
-      #the participants are user that partecipated the proposal and are still in the group
+      # the participants are user that partecipated the proposal and are still in the group
       c = c & f
     end
     c
   end
 
-  #all users that will receive a notification that asks them to check or give their valutation to the proposal
+  # all users that will receive a notification that asks them to check or give their valutation to the proposal
   def notification_receivers
     #will receive the notification the users that partecipated to the proposal and can change their valutation or they haven't give it yet
     users = self.participants
     res = []
     users.each do |user|
-      #user ranking to the proposal
+      # user ranking to the proposal
       ranking = user.proposal_rankings.where(proposal_id: id).first
       res << user if !ranking || (ranking && (ranking.updated_at < updated_at)) #if he ranked and can change it
     end
     res
   end
 
-
-  #all users that will receive a notification that asks them to vote the proposal
+  # all users that will receive a notification that asks them to vote the proposal
   def vote_notification_receivers
     #will receive the notification the users that partecipated to the proposal and can change their valutation or they haven't give it yet
     users = self.participants
@@ -482,7 +462,7 @@ class Proposal < ActiveRecord::Base
     end
   end
 
-  #restituisce la lista delle 10 proposte più vicine a questa
+  # restituisce la lista delle 10 proposte più vicine a questa
   def closest(group_id=nil)
     sql_q = " SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.quorum_id, p.anonima, p.visible_outside, p.secret_vote, p.proposal_votation_type_id, p.content,
               p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
@@ -501,6 +481,55 @@ class Proposal < ActiveRecord::Base
                p.rank, p.show_comment_authors
                ORDER BY closeness DESC limit 10"
     Proposal.find_by_sql(sql_q)
+  end
+
+  def user_territory
+    user = (proposal_presentations.first || proposal_lives.last.old_proposal_presentations.first).user
+    user.original_locale.territory
+  end
+
+  def solr_municipality_ids
+    if interest_borders.any?
+      interest_borders.map(&:municipality).map { |i| i.try(:id) }.compact
+    elsif group.present?
+      [group.interest_border.municipality.try(:id)]
+    end
+  end
+
+  def solr_province_ids
+    if interest_borders.any?
+      interest_borders.map(&:province).map { |i| i.try(:id) }.compact
+    elsif group.present?
+      [group.interest_border.province.try(:id)]
+    end
+  end
+
+  def solr_region_ids
+    if interest_borders.any?
+      interest_borders.map(&:region).map { |i| i.try(:id) }.compact
+    elsif group.present?
+      [group.interest_border.region.try(:id)]
+    end
+  end
+
+  def solr_country_ids
+    if interest_borders.any?
+      interest_borders.map(&:country).map { |i| i.try(:id) }.compact
+    elsif group.present?
+      [group.interest_border.country.try(:id)]
+    else
+      [user_territory.id] if user_territory.is_a?(Country)
+    end
+  end
+
+  def solr_continent_ids
+    if interest_borders.any?
+      interest_borders.map(&:continent).map { |i| i.try(:id) }.compact
+    elsif group.present?
+      [group.interest_border.continent.try(:id)]
+    else
+      [user_territory.is_a?(Country) ? user_territory.continent.id : user_territory.id]
+    end
   end
 
   searchable do
@@ -528,6 +557,25 @@ class Proposal < ActiveRecord::Base
     double :rank
     time :quorum_ends_at do
       self.quorum.ends_at if self.quorum
+    end
+
+    integer :continent_ids, multiple: true do
+      solr_continent_ids
+    end
+    integer :country_ids, multiple: true do
+      solr_country_ids
+    end
+    integer :region_ids, multiple: true do
+      interest_borders.map(&:region).map { |ib| ib.try(:id) }.compact
+    end
+    integer :province_ids, multiple: true do
+      interest_borders.map(&:province).map { |ib| ib.try(:id) }.compact
+    end
+    integer :municipality_ids, multiple: true do
+      interest_borders.map(&:municipality).map { |ib| ib.try(:id) }.compact
+    end
+    integer :district_ids, multiple: true do
+      interest_borders.map(&:district).map { |ib| ib.try(:id) }.compact
     end
 
     integer :votes do
@@ -619,7 +667,28 @@ class Proposal < ActiveRecord::Base
     save!
   end
 
+  def user_avatar_url(user)
+    if !is_anonima?
+      user.user_image_url(24)
+    else
+      proposal_nickname = proposal_nicknames.find_by(user_id: user.id)
+      if proposal_nickname.present?
+        proposal_nickname.avatar(24)
+      else
+        user.user_image_url(24)
+      end
+    end
+  end
+
   private
+
+  def join_users_table(table)
+    users = User.arel_table
+    users.
+      join(table).on(users[:id].eq(table[:user_id])).
+      where(table[:proposal_id].eq(id)).
+      project(users[:id])
+  end
 
   def before_update_populate
     self.update_user_id = current_user_id

@@ -11,4 +11,8 @@ class SysLocale < ActiveRecord::Base
     url_ += "?l=#{self.lang}" if self.lang
     url_
   end
+
+  def self.default
+    find_by(default: true)
+  end
 end

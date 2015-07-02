@@ -3,7 +3,6 @@
     }
 });
 
-var $viewport;
 
 function switchText(button) {
     button.each(function () {
@@ -14,15 +13,17 @@ function switchText(button) {
     });
 }
 
-function scrollToElement(element) {
-    $viewport.animate({
-        scrollTop: element.offset().top - 80
-    }, 2000);
+function scrollToElement(element, callback) {
+    console.log('scroll bitch!');
+    console.log(Airesis.viewport);
+    Airesis.viewport.animate({
+        scrollTop: element.offset().top - 160
+    }, 2000, 'swing', callback);
 
     // Stop the animation if the user scrolls. Defaults on .stop() should be fine
-    $viewport.bind("scroll mousedown DOMMouseScroll mousewheel keyup", function (e) {
+    Airesis.viewport.bind("scroll mousedown DOMMouseScroll mousewheel keyup", function (e) {
         if (e.which > 0 || e.type === "mousedown" || e.type === "mousewheel") {
-            $viewport.stop().unbind('scroll mousedown DOMMouseScroll mousewheel keyup'); // This identifies the scroll as a user action, stops the animation, then unbinds the event straight after (optional)
+            Airesis.viewport.stop().unbind('scroll mousedown DOMMouseScroll mousewheel keyup'); // This identifies the scroll as a user action, stops the animation, then unbinds the event straight after (optional)
         }
     });
     return false;
@@ -379,8 +380,8 @@ function select2town(element) {
                 return;
             } else {
                 $.ajax({
-                    url: '/comunes',
-                    data: {q: query.term},
+                    url: '/municipalities',
+                    data: {q: query.term, l: Airesis.i18n.locale},
                     dataType: 'json',
                     type: 'GET',
                     success: function (data) {
@@ -912,46 +913,6 @@ function showOnField(field, text) {
         field.removeClass('warning');
         to_attach.slideUp();
     }, 10000)
-}
-
-function showVoteResults() {
-    "use strict";
-    $('#votes_table').dataTable({
-        "oLanguage": {
-            "sLengthMenu": "Mostra _MENU_ utenti per pagina",
-            "sSearch": "Cerca:",
-            "sZeroRecords": "Nessun utente, spiacente..",
-            "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ utenti",
-            "sInfoEmpty": "Sto mostrando 0 utenti",
-            "sInfoFiltered": "(filtrati da un totale di _MAX_ utenti)",
-            "oPaginate": {
-                "sPrevious": "Pagina precedente",
-                "sNext": "Pagina successiva"
-            }
-        }
-        //"aoColumns": [null,{ "bSortable": false }]
-    });
-
-    $('#votes_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");
-
-    $('#cast_table').dataTable({
-        "oLanguage": {
-            "sLengthMenu": "Mostra _MENU_ voti per pagina",
-            "sSearch": "Cerca:",
-            "sZeroRecords": "Nessun voto, spiacente..",
-            "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ voti",
-            "sInfoEmpty": "Sto mostrando 0 voti",
-            "sInfoFiltered": "(filtrati da un totale di _MAX_ voti)",
-            "oPaginate": {
-                "sPrevious": "Pagina precedente",
-                "sNext": "Pagina successiva"
-            }
-        },
-        "bFilter": false
-        //"aoColumns": [null,{ "bSortable": false }]
-    });
-
-    $('#cast_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");
 }
 
 function close_all_dropdown() {

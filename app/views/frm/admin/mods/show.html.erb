@@ -4,46 +4,31 @@
   <li class="current"><%= @frm_mod.name %></li>
 </ul>
 
-<div class="row">
-  <label><%= t('.add_a_new_member') %></label>
-  <%= form_tag add_group_frm_admin_mod_members_url(@group, @frm_mod), remote: true do %>
-      <p>
-        <%= text_field_tag "frm_user_id" %>
-      </p>
+<div class="card">
+  <div class="row">
+    <label><%= t('.add_a_new_member') %></label>
+    <%= form_tag add_group_frm_admin_mod_members_url(@group, @frm_mod), remote: true do %>
+        <p>
+          <%= text_field_tag "frm_user_id" %>
+        </p>
 
-      <p class="span1">
-        <%= submit_tag t('.add_member'), class: "btn blue", data:{disable_with: t('loading')} %>
-      </p>
-  <% end %>
+        <p class="span1">
+          <%= submit_tag t('.add_member'), class: "btn blue", data: {disable_with: t('loading')} %>
+        </p>
+    <% end %>
+  </div>
+</div>
+<div class="card">
+  <div id="group_members_container">
+    <%= render partial: 'group_members' %>
+  </div>
 </div>
 
-<div id="group_members_container">
-  <%= render partial: 'group_members' %>
-</div>
-
-<script>
-    function format(state) {
-        if (!state.id) return state.text; // optgroup
-        return state.image_path + state.identifier;
-    }
-
-    $("#frm_user_id").select2({
-        containerCssClass: "user_auto",
-        ajax: {
-            url: "<%= group_user_autocomplete_url(@group) %>",
-            data: function (term, page) {
-                return { "term": term }
-            },
-            results: function (data, page) {
-                return { results: data };
-            }
-        },
-        formatResult: format,
-        formatSelection: format
-    });
+<script type="text/javascript">
+    ModsShow.autocompleteUrl = '<%=j group_user_autocomplete_url(@group) %>';
 </script>
 
 
 <%= content_for :left_panel do %>
-    <%= render partial: 'groups/administration_panel' %>
+    <%= render 'groups/administration_panel' %>
 <% end %>

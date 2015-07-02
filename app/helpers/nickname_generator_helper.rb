@@ -2,7 +2,6 @@ require 'data_handler'
 require 'name_generator'
 
 module NicknameGeneratorHelper
-
   @data_handler = DataHandler.new
   @data_handler.read_data_file("lib/data-ita.txt")
 
@@ -11,6 +10,5 @@ module NicknameGeneratorHelper
     names = name_generator.generate_names(@data_handler.start_pairs, 1)
     return names[0].strip
    end
-
 end
 

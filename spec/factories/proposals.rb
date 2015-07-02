@@ -14,6 +14,10 @@ FactoryGirl.define do
       visible_outside true
     end
 
+    after(:build) do |proposal|
+      proposal.build_sections
+    end
+
     after(:create) do
       Sunspot.commit
     end

@@ -5,7 +5,7 @@
   <% @new_alerts.each do |alert| %>
       <li>
         <%= link_to alert.notification.url do %>
-            <%= alert.created_at.strftime("%d/%m/%Y %H:%M") %> - <%= raw alert.notification.message %>
+            <%= alert.created_at.strftime("%d/%m/%Y %H:%M") %> - <%= raw alert.message %>
         <% end %>
       </li>
   <% end unless @new_alerts.empty? %>
@@ -17,7 +17,7 @@
   <% @old_alerts.each do |alert| %>
       <li>
         <%= link_to alert.notification.url do %>
-            <%= alert.created_at.strftime("%d/%m/%Y %H:%M") %> - <%= raw alert.notification.message %>
+            <%= alert.created_at.strftime("%d/%m/%Y %H:%M") %> - <%= raw alert.message %>
         <% end %>
       </li>
   <% end unless @old_alerts.empty? %>

@@ -65,7 +65,7 @@
 <% end %>
 
 <% if params[:time] %>
-    <script>
+    <script type="application/javascript">
         ProposalsIndex.timeFilter = <%=raw params[:time].to_json %>;
     </script>
 <% end %>

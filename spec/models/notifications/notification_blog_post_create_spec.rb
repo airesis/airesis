@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationBlogPostCreate, type: :model, emails: true do
+describe NotificationBlogPostCreate, type: :model, emails: true, notifications: true do
   let!(:notification_type) { NotificationType::NEW_POST_GROUP }
   let!(:user) { create(:user) }
   let!(:blog) { create(:blog) }

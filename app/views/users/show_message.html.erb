@@ -1,6 +1,6 @@
 <div class="card">
   <div class="image-container">
-    <%= @user.user_image_tag 120 %>
+    <%= avatar(@user, size: 120) %>
     <% if @user == current_user %>
         <div class="caption">
           <a><%= t('pages.users.show.edit_image') %></a>
@@ -8,4 +8,4 @@
     <% end %>
   </div>
 </div>
-<%= render 'users/message'%>
+<%= render 'users/message' %>

@@ -1,4 +1,3 @@
-#encoding: utf-8
 class Event < ActiveRecord::Base
   attr_accessor :period, :frequency, :commit_button, :backgroundColor, :textColor, :proposal_id
 
@@ -29,9 +28,33 @@ class Event < ActiveRecord::Base
 
   scope :next, -> { where(['starttime > ?', Time.now]) }
 
-  scope :time_scoped, -> (starttime, endtime) { where(["(starttime >= :starttime and starttime < :endtime) or (endtime >= :starttime and endtime < :endtime)",
-                                                       starttime: starttime.to_formatted_s(:db),
-                                                       endtime: endtime.to_formatted_s(:db)]) }
+  scope :time_scoped, -> (starttime, endtime) do
+    event_t = Event.arel_table
+    where((event_t[:starttime].gteq(starttime).and(event_t[:starttime].lt(endtime))).
+            or(event_t[:endtime].gteq(starttime).and(event_t[:endtime].lt(endtime))))
+  end
+
+  scope :in_territory, ->(territory) do
+    municipality_t = Municipality.arel_table
+    event_t = Event.arel_table
+
+    field = case territory
+              when Continent
+                :continent_id
+              when Country
+                :country_id
+              when Region
+                :region_id
+              when Province
+                :province_id
+              else # comune
+                :id
+            end
+    conditions = (event_t[:event_type_id].eq(EventType::INCONTRO).and(municipality_t[field].eq(territory.id))).
+      or(event_t[:event_type_id].eq(EventType::VOTAZIONE))
+
+    includes(:event_type, place: :municipality).where(conditions)
+  end
 
   after_destroy :remove_scheduled_tasks
 
@@ -42,7 +65,6 @@ class Event < ActiveRecord::Base
              'Ogni settimana',
              'Ogni mese',
              'Ogni anno']
-
 
   def validate_start_time_end_time
     if starttime && endtime
@@ -81,37 +103,37 @@ class Event < ActiveRecord::Base
 
 
   def organizer_id=(id)
-    if self.meeting_organizations.empty?
-      self.meeting_organizations.build(group_id: id)
+    if meeting_organizations.empty?
+      meeting_organizations.build(group_id: id)
     end
   end
 
   def organizer_id
-    self.meeting_organizations.first.group_id rescue nil
+    meeting_organizations.first.group_id rescue nil
   end
 
   def is_past?
-    self.endtime < Time.now
+    endtime < Time.now
   end
 
   def is_now?
-    self.starttime < Time.now && self.endtime > Time.now
+    starttime < Time.now && endtime > Time.now
   end
 
   def is_not_started?
-    Time.now < self.starttime
+    Time.now < starttime
   end
 
   def is_votazione?
-    self.event_type_id == EventType::VOTAZIONE
+    event_type_id == EventType::VOTAZIONE
   end
 
   def is_incontro?
-    self.event_type_id == EventType::INCONTRO
+    event_type_id == EventType::INCONTRO
   end
 
   def backgroundColor
-    self.event_type.color || "#DFEFFC"
+    event_type.color || "#DFEFFC"
   end
 
   def textColor

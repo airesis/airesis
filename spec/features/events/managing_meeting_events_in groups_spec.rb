@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe "manage correctly meeting events", type: :feature, js: true do
+describe "manage correctly meeting events", type: :feature, js: true, ci_ignore: true do
 
   let!(:user) { create(:user) }
   let!(:group) { create(:group, current_user_id: user.id) }
@@ -34,8 +34,8 @@ describe "manage correctly meeting events", type: :feature, js: true do
     fill_in I18n.t('activerecord.attributes.event.endtime'), with: (I18n.l Time.now + 1.day, format: :datetimepicker)
     page.execute_script("$('#event_endtime').fdatetimepicker('hide');")
     click_button I18n.t('buttons.next')
-    expect(page).to have_selector('#s2id_event_meeting_attributes_place_attributes_comune_id')
-    select2("Bologna", xpath: "//div[@id='s2id_event_meeting_attributes_place_attributes_comune_id']")
+    expect(page).to have_selector('#s2id_event_meeting_attributes_place_attributes_municipality_id')
+    select2("Bologna", xpath: "//div[@id='s2id_event_meeting_attributes_place_attributes_municipality_id']")
     fill_in I18n.t('activerecord.attributes.event.meeting.place.address'), with: 'Via Rizzoli 2'
     #page.execute_script("codeAddress('luogo');") google does not work during tests
     page.execute_script("$('#event_meeting_attributes_place_attributes_latitude_original').val(#{Faker::Address.latitude});")

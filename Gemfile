@@ -40,6 +40,7 @@ group :development do
   gem 'capistrano-passenger'
   gem 'i18n-tasks', '~> 0.7.7'
   gem 'rubocop'
+  gem 'rack-mini-profiler', require: false
 end
 
 group :development, :test do
@@ -52,11 +53,6 @@ group :development, :test do
   gem 'capybara-screenshot'
   gem 'spring'
   gem 'sunspot_test'
-
-end
-
-group :test do
-  gem 'rspec-sidekiq'
 end
 
 gem 'crowdin-api', group: [:development, :staging]
@@ -66,15 +62,20 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :staging, :production do
+  gem 'newrelic_rpm'
+end
+
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-meetup'
 gem 'omniauth-linkedin'
+gem 'omniauth-tecnologiedemocratiche', github: 'TecnologieDemocratiche/omniauth-tecnologiedemocratiche'
 
 gem 'paperclip'
 
-gem 'aws-sdk'
+gem 'aws-sdk', '< 2.0'
 
 gem 'jquery-rails'
 

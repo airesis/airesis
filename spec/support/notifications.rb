@@ -1,3 +1,17 @@
+RSpec.configure do |config|
+  config.before(:each, notifications: true) do
+    AlertJob.any_instance.stub(:sidekiq_job) do |alert_job|
+      AlertsWorker.jobs.select { |job| job['jid'] == alert_job.jid }[0]
+    end
+    AlertJob.any_instance.stub(:reschedule)
+
+    EmailJob.any_instance.stub(:sidekiq_job) do |email_job|
+      EmailsWorker.jobs.select { |job| job['jid'] == email_job.jid }[0]
+    end
+    EmailJob.any_instance.stub(:reschedule)
+  end
+end
+
 def cumulable_event_process_spec
   before(:each) do
     trigger_event
@@ -8,6 +22,7 @@ def cumulable_event_process_spec
   end
 
   context 'event chain running' do
+
     before(:each) do
       event_class.drain
     end
@@ -66,7 +81,7 @@ def cumulable_event_process_spec
           end
 
           it 'does not schedule other alerts' do
-            expect(AlertJob.count).to eq expected_alerts
+            expect(AlertJob.any?).to be_falsey
           end
 
           it 'accumulates on the alerts sent already' do
@@ -138,7 +153,7 @@ def cumulable_event_process_spec
             end
 
             it 'does not schedule other alerts' do
-              expect(AlertJob.count).to eq expected_alerts
+              expect(AlertJob.any?).to be_falsey
             end
 
             it 'accumulates on the alerts sent already' do
