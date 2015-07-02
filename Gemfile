@@ -2,15 +2,15 @@ source 'http://rubygems.org'
 
 ruby '2.2.0'
 
-gem 'rails', '~> 4.2'
+gem 'rails', '4.0.2'
 
-gem 'therubyracer', platforms: :ruby
+gem 'maktoub'
 
-gem 'maktoub' #newsletter
+gem 'turnout'
 
-gem 'sass-rails'
-gem 'uglifier'
-gem 'coffee-rails'
+gem 'sass-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'uglifier', '>= 1.3.0'
 
 # not the official repossitory. waiting for update to 5.4.7
 gem 'foundation-rails', github: 'johnantoni/foundation-rails', branch: 'foundation-5.4.7'
@@ -44,10 +44,10 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.0.0'
   gem 'factory_girl_rails'
   gem 'capybara'
-  gem 'database_cleaner', '1.3.0' #issue 317
+  gem 'database_cleaner'
   gem 'selenium-webdriver'
   gem 'capybara-webkit'
   gem 'capybara-screenshot'
@@ -80,10 +80,8 @@ gem 'aws-sdk', '< 2.0'
 gem 'jquery-rails'
 
 gem 'turbolinks'
-gem 'jquery-turbolinks'
-gem 'nprogress-rails'
 
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder', '~> 1.2'
 
 gem 'devise'
 
@@ -99,7 +97,7 @@ gem 'sidekiq'
 gem 'sidekiq-failures'
 gem 'sidetiq'
 
-gem 'cancancan'
+gem 'cancancan', '~> 1.9'
 
 gem 'foreigner'
 
@@ -122,7 +120,7 @@ gem 'thin'
 gem 'ruby-prof', group: :test
 gem 'test-unit', group: :test
 
-gem 'globalize'
+gem 'globalize', '~> 4.0.0'
 
 gem 'sanitize'
 
@@ -154,9 +152,9 @@ gem 'email_reply_parser'
 
 gem 'paper_trail', '~> 3.0.0'
 
-gem 'client_side_validations', github: 'DavyJonesLocker/client_side_validations'
+gem 'client_side_validations', github: 'coorasse/client_side_validations', branch: '4-0-beta'
 
-gem 'client_side_validations-simple_form', github: 'DavyJonesLocker/client_side_validations-simple_form'
+gem 'client_side_validations-simple_form', github: 'coorasse/client_side_validations-simple_form'
 
 gem 'figaro'
 
