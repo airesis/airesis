@@ -1,4 +1,3 @@
-#encoding: utf-8
 class QuorumsController < ApplicationController
   layout :choose_layout
 

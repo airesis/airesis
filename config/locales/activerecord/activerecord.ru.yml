@@ -26,7 +26,7 @@ ru:
         candidates_end_time: Последний срок записи кандидатов
       event/meeting/place:
         address: Адрес
-        comune_id: Город
+        municipality_id: Город
         latitude_original: Широта
         longitude_original: Долгота
       group:

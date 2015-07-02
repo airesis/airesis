@@ -1,4 +1,3 @@
-#encoding: utf-8
-Comune.create(description: "Timaukel", provincia_id: 227, regione_id: 52, stato_id: 90, continente_id: 2 , population: 423)
-Comune.create(description: "Primavera", provincia_id: 227, regione_id: 52, stato_id: 90, continente_id: 2 , population: 1016)
-Comune.create(description: "Porvenir", provincia_id: 227, regione_id: 52, stato_id: 90, continente_id: 2 , population: 5465)
+Municipality.create(description: "Timaukel", province_id: 227, region_id:  52, country_id: 90, continent_id: 2 , population: 423)
+Municipality.create(description: "Primavera", province_id: 227, region_id:  52, country_id: 90, continent_id: 2 , population: 1016)
+Municipality.create(description: "Porvenir", province_id: 227, region_id:  52, country_id: 90, continent_id: 2 , population: 5465)

@@ -1,5 +1,5 @@
 class SearchesController < ApplicationController
-  include GroupsHelper
+  include GroupsHelper, UsersHelper
   before_action :set_search, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -18,14 +18,14 @@ class SearchesController < ApplicationController
       results << {value: 'Proposals', type: 'Divider'}
       @search.proposals.each do |proposal|
         url = proposal.private? ?
-            group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal)
+          group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal)
         results << {value: proposal.title, type: 'Proposal', url: url, image: "/img/gruppo-anonimo.png"}
       end
     end
     if @search.blogs.count > 0
       results << {value: 'Blogs', type: 'Divider'}
       @search.blogs.each do |blog|
-        results << {value: blog.title, type: 'Blog', url: blog_url(blog), username: blog.user.fullname, user_url: user_url(blog.user), image: blog.user_image_tag(40)}
+        results << {value: blog.title, type: 'Blog', url: blog_url(blog), username: blog.user.fullname, user_url: user_url(blog.user), image: avatar(blog.user, size: 40)}
       end
     end
     render json: results

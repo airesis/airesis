@@ -1,13 +1,13 @@
-  <ul>
-    <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-        <li><%= link_to t('pages.sessions.links.register'), new_registration_path(resource_name) %></li>
-    <% end -%>
+<ul>
+  <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+      <li><%= link_to t('pages.sessions.links.register'), new_registration_path(resource_name) %></li>
+  <% end -%>
 
-    <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-        <li><%= link_to t('pages.sessions.links.forgot_password'), new_password_path(resource_name) %></li>
-    <% end -%>
+  <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+      <li><%= link_to t('pages.sessions.links.forgot_password'), new_password_path(resource_name) %></li>
+  <% end -%>
 
-    <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-        <li><%= link_to t('pages.sessions.links.havent_received_email'), new_confirmation_path(resource_name) %></li>
-    <% end -%>
-  </ul>
+  <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+      <li><%= link_to t('pages.sessions.links.havent_received_email'), new_confirmation_path(resource_name) %></li>
+  <% end -%>
+</ul>

@@ -17,10 +17,9 @@ def fill_in_ckeditor(locator, opts)
     ckeditor.focus();
     ckeditor.updateElement();
     $('textarea##{locator}').text(#{content});
-    console.log('wrote text in ckeditor');
     console.log($('textarea##{locator}').text());
   SCRIPT
-  page.driver.console_messages.to_s  # TODO: workaround to execute the script
+  puts page.driver.console_messages # TODO: workaround to execute the script
 end
 
 def toastr_clear

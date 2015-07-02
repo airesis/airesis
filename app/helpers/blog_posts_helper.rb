@@ -1,5 +1,4 @@
 module BlogPostsHelper
-
   def blog_post_label(blog_post)
     if blog_post.draft?
       content_tag :div, class: 'label round warning', data: {qtip: ''}, title: t('draft_tooltip') do

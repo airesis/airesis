@@ -380,8 +380,8 @@ function select2town(element) {
                 return;
             } else {
                 $.ajax({
-                    url: '/comunes',
-                    data: {q: query.term},
+                    url: '/municipalities',
+                    data: {q: query.term, l: Airesis.i18n.locale},
                     dataType: 'json',
                     type: 'GET',
                     success: function (data) {

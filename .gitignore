@@ -18,6 +18,7 @@ config/paypal.yml
 test/fixtures
 script/igraph-0.5.4
 public/assets
+public/system
 public/ckeditor_assets
 private
 solr/data/

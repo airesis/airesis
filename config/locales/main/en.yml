@@ -18,6 +18,8 @@ en:
       openid_login: "Login with OpenID"
       find_groups: 'Search Groups'
       parma_login: "Login with Parma"
+      tecnologiedemocratiche_login: "Login with Tecnologie Democratiche"
+      tecnologiedemocratiche: "Tecnologie Democratiche"
     user:
       notifications: 'Alarms and Notifications'
       privacy: "Account and privacy"
@@ -56,12 +58,13 @@ en:
         certified_from: "Certified from"
         group_level_permission_title: "Group level permissions"
         admin_permissions: "You are administrator of this group and you have all permissions"
+        certified_cannot_edit_info: "You're a certified user: you can't edit your Name, Surname and Email"
       send_message:
         subject_label: "Subject"
         body_label: "Body"
         massive_email: "Sending massive mail"
       left_panel:
-        general_info: "General informations"
+        general_info: "General information"
         alarm_and_notifications: "Alarm and notifications"
         geographic_borders: "Geographic borders"
         account_and_privacy: "Account and privacy"
@@ -138,7 +141,7 @@ en:
         groups_list: "Groups you participate in"
         groups_registration: "Group Registration"
         groups_list_2: "Groups list"
-        no_groups_yet: "You don't participate to any %{name} yet"
+        no_groups_yet: "You don't participate at any %{name} yet"
         open_space_title: "Public events"
         show_more: "Show more groups"
         search_mask: "Search tool"
@@ -211,9 +214,9 @@ en:
         rule_book_html: |
           The rules can be selected while creating a group.<br/>
           <p>All users can create a group, as of now.</p>
-          <p>When you participate in a group the posts your blog can be shown in the Wall of the group.</p>
+          <p>When you participate in a group the posts in your blog can be shown in the Wall of the group.</p>
           <p>Groups can sustain proposals, create new ones, create surveys and organize members using roles and permissions.</p>
-          <p>It is possible to change the rules of this group using through its <b>Settings</b>.</p>
+          <p>It is possible to change the rules of this group through its <b>Settings</b>.</p>
         short_url: "Short url"
         featured_post:
           'true': Unpin
@@ -237,9 +240,9 @@ en:
           advanced: "Advanced"
           time_description: "The debate last %{days} %{hours} %{minutes}"
           simple_percentage_description: "and a maturity equal or superior to %{good_score}%."
-          advanced_participation_description: "%{participants_percentage}%+1 (%{current_number} out of %{total_number} that have right) <b>(average value: %{average})</b>"
+          advanced_participation_description: "%{participants_percentage}%+1 (%{current_number} out of %{total_number} that have the right) <b>(average value: %{average})</b>"
           advanced_percentage_description: "If however the maturity is inferior to %{bad_score}% the proposal is abandoned."
-          advanced_percentage_description3: "The proposal remains in debate until the maturity is between the two thresholds."
+          advanced_percentage_description3: "The proposal remains in debate if the maturity is between the two thresholds."
         active: "Active"
         name: "Name"
         participants: "Participants"
@@ -299,7 +302,7 @@ en:
         added_by: "Added by"
         remove_all: "Remove all"
       statistics:
-        title: "Average values calulated (last update on %{date})"
+        title: "Average values calculated (last update on %{date})"
       archives:
         page_title: "Archive for %{month}, %{year}"
     login:
@@ -451,7 +454,7 @@ en:
         close_contribute: "CLOSE CONTRIBUTIONS"
         contributes_list: "List of contributions in '%{section}'"
         add_comment: "Add a comment"
-        add_contribute: "Give your ideas! Propose modifications of the tex and help the editor improve the proposal"
+        add_contribute: "Give your ideas! Propose modifications of the text and help the editor improve the proposal"
         login_to_comment: "Login to add a comment"
         regenerate_nickname: "Regenerate nickname"
         add_contribution_no_paragraph: "No paragraph specified"
@@ -469,16 +472,16 @@ en:
         group_area: "Work area"
         nickname_assigned: "We assigned you the nickname '%{nickname}'. If you don't like it, you can change it from the left menu within 10 minutes"
         cant_participate:
-          no_permissions: "You cannot participate to this proposal because you are a member of the group but you do not have the permission to participate."
-          ask_permissions: "Ask your administrator the permissions, sending him a message."
-          request_pending: "You cannot participate to this proposal because you asked to be a member of this group, but your request has not been accepted yet."
+          no_permissions: "You cannot participate at this proposal because you are a member of the group but you do not have the permission to participate."
+          ask_permissions: "Ask your administrator for the permissions, sending him a message."
+          request_pending: "You cannot participate at this proposal because you asked to be a member of this group, but your request has not been accepted yet."
           send_message: "Do you want to send a message to the administrator of the group?"
-          not_a_member: "You cannot participate to this proposal because you are not member of this group."
-          not_logged_in: "You cannot participate to this proposal because you are not currently logged in. "
+          not_a_member: "You cannot participate at this proposal because you are not member of this group."
+          not_logged_in: "You cannot participate at this proposal because you are not currently logged in. "
         read_contribute: "SHOW CONTRIBUTIONS"
         security_token: "Security Token"
-        you_can_choose_vote_dates: "This proposal is waiting since %{count} days for a voting date, so you are now allowed to choose one."
-        no_contributes_yet: "No contributes here yet"
+        you_can_choose_vote_dates: "This proposal has been waiting for %{count} days for a voting date, so you are now allowed to choose one."
+        no_contributes_yet: "No contributions here yet"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "Help"
@@ -496,9 +499,9 @@ en:
         tags_list_placeholder: "Insert some tags for your proposal"
         step_1_title: "You can pose a problem to solve, an idea to improve, an initiative to organize ... The important thing is to have a clear goal: Airesis will help you achieve it with the help of other people, through a process of shared problem solving."
         step_2_title: "Maybe someone has already created a similar proposal: check below and eventually stop your creation to avoid duplication. Joining forces gives strength to your ideas! Clicking on the title the proposals will be opened in a new tab."
-        step_4_title: "Perfect! Choose your options and click 'Create the proposal' to complete the guide. Your proposal will be included in Airesis and you will be able to fill it out when you want with more information."
+        step_4_title: "Perfect! Choose your options and click 'Create the proposal' to complete the guide. Your proposal will be included in Airesis and you will be able to add more information whenever you want with more information."
         step_4_footer_html: |
-          Airesis will help you to reach your goal throught shared problem solving: users will suggest modifications and contributions to your text and <b>it is up to you</b> to integrate the most liked.<br/>
+          Airesis will help you to reach your goal through shared problem solving: users will suggest modifications and contributions to your text and <b>it is up to you</b> to integrate the most liked.<br/>
           If you don't do it, your proposal won't go to the voting phase.<br/>
           Good luck and don't get scared: you can be helped by other people in your task.
         category_prompt: "--Choose a category--"
@@ -548,7 +551,7 @@ en:
         mark_title: "Mark the contribution"
         mark_description: "You can point out to the editors of the proposal that this contribution does not contain relevant information to find a solution to the proposal.<br/> If the contribution is marked %{num} times, the editors of the proposal can delete it from the discussion and place it in the \"noise\" folder.<br/>"
         report_title: "Report the contribution"
-        report_description: "You can point out to the webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
+        report_description: "You can point out to the webmaster that this contribution violates the laws currently in force. <br/> Once the infringement is ascertained the contribution will be removed. Don't abuse this tool."
       vote_panel:
         title: "Make your vote!"
         schulze_title: "There are several solutions to this proposal.<br> Order them according to your preferences <br>from 1 (don't like) to %{max} (I really like)"
@@ -568,7 +571,7 @@ en:
         add_paragraph: "Add a new paragraph"
         edit_proposal: "Modify and update the text of the proposal!"
         remove_solution: "Remove solution"
-        press_to_compress: "Click on the title to compress this solution"
+        press_to_compress: "Click on the title to collapse this solution"
         add_paragraph_to_solution: "Add a paragraph to the solution"
         you_know_what_you_do: "Do you know what are you going to do?"
         schulze_title: "One or more solutions?"
@@ -588,12 +591,12 @@ en:
         integrated: "Integrated"
         contribution_valuation: "What do they think?"
         navigator: "Navigator"
-        compress_solutions: "Compress solutions"
-        hide_contributes: "Hide contributes"
+        compress_solutions: "Collapse solutions"
+        hide_contributes: "Hide contributions"
         expand_solutions: "Expand solutions"
-        show_contributes: "Show contributes"
+        show_contributes: "Show contributions"
         cancel_confirm: "Cancel your operations and show the proposal?"
-        update_confirm: "You have not integrated any contribute. Are you sure to continue?"
+        update_confirm: "You have not integrated any contribution. Are you sure to continue?"
       manage_noise:
         available: "Contributions eligible for deletion"
         removed: "Contributions removed from discussion"
@@ -625,7 +628,7 @@ en:
         group_title: "Events calendar"
         choose_type: "SELECT EVENT TYPE"
       new:
-        private_tooltip: "Only group members can see and participate to the event"
+        private_tooltip: "Only group members can see and participate at the event"
         title: "New Event"
         submit: "Create event"
         type_for_town: "Type some characters to search for a town"
@@ -655,7 +658,7 @@ en:
         will_be_in: "Are you attending the event?"
         participants: "Who attended?"
         will_partecipate: "Who will attend?"
-        no_participants: "Did not attend no one"
+        no_participants: "No one attended"
         no_participants_yet: "Still no participants"
         non_participants: "Who did not attend?"
         will_non_participants: "Who will not attend?"
@@ -666,9 +669,9 @@ en:
           vote_positive: 'Positive rating'
           vote_neutral: 'Neutral rating'
           vote_negative: 'Negative rating'
-          confirm_positive: "Confirm your POSITIVE vote on the proposal '% {name}'?  Once you have voted it cannot be modified."
-          confirm_neutral: "Confirm your NEUTRAL vote on the proposal  '% {name}'? Once you have voted it cannot be modified."
-          confirm_negative: "Confirm your NEGATIVE vote on the proposal  '% {name}'? Once you have voted it cannot be modified."
+          confirm_positive: "Confirm your POSITIVE vote on the proposal '%{name}'?  Once you have voted it cannot be modified."
+          confirm_neutral: "Confirm your NEUTRAL vote on the proposal  '%{name}'? Once you have voted it cannot be modified."
+          confirm_negative: "Confirm your NEGATIVE vote on the proposal  '%{name}'? Once you have voted it cannot be modified."
           confirm_schulze: "Confirm your vote on the proposal %{name}? Once you have voted it cannot be modified."
     blog_posts:
       new:
@@ -736,7 +739,7 @@ en:
         forgot_password_button: "Forgotten password?"
         resend_email_button: "Haven't you received a confirmation email?"
         no_notifications: "No notification"
-        sign_has_read: "Sign as read"
+        sign_has_read: "Mark as read"
         moderator: "MODERATOR PANEL"
         profile: "PROFILE"
       welcome: "Welcome"
@@ -798,7 +801,7 @@ en:
         follw_on_twitter: "Follow @democracyo on Twitter"
         field_1:
           title: "<em>Propose</em> solutions"
-          content: "A place to report problems, propose solutions, discuss alternatives, to summarize shared. A powerful tool to enhance collective intelligence."
+          content: "A place to report problems, propose solutions, discuss alternatives, to summarize shared decision. A powerful tool to enhance collective intelligence."
         field_2:
           title: "<em>Get involved</em> into e-democracy"
           content: "Join Groups, choose who represents you and participate in events according to your interests. Together we are stronger."
@@ -871,7 +874,7 @@ en:
       rank_bar_explain:
         title: "The maturity bar"
         description_html: |
-          The maturity bar is situated in the right lateral menu.<br />
+          The maturity bar is situated in the left lateral menu.<br />
           The bar shows the maturity of approval of the proposal among the participants.<br />
           You can suggest if the text of the proposal is complete or not using the two buttons below the bar.<br />
           The editor of the proposal has to write the text on the basis of the contributions of other participants. When the text of the proposal changes you will be given the possibility to suggest if you like or not the new text and, as a consequence, to modify your previous evaluation.<br />
@@ -886,13 +889,13 @@ en:
         description_html: |
           This short tutorial will help you in the first choices inside the platform.<br/>
           This is your desktop: here you will find all the information you need to keep in touch with your territory.<br/>
-          You can manage your proposals and your groups, view the events around you get in touch with other citizens.<br/>
-          Improve Airesis sending a feedback to <a href="mailto:info@airesis.it">info@airesis.it</a>.<br/>
+          You can manage your proposals and your groups, view the events around you and get in touch with other citizens.<br/>
+          Improve Airesis by sending a feedback to <a href="mailto:info@airesis.it">info@airesis.it</a>.<br/>
       choose_follow:
         description_html: |
           Here you are the most active groups in the territories inside your interest borders.<br />
           Choose the ones you want to participate in, so you will be able to get in touch with them and participate in their events and proposals.<br />
-          A click to select, a second one to deselect.<br />
+          Click once to select, click again to deselect.<br />
       first_proposal:
         title_html: Your first contribution
         description_html: |
@@ -967,7 +970,10 @@ en:
       index:
         type: "of type %{type}"
     proposal_comments:
-      title: "Contribute History"
+      title: "Contribution History"
+      noise:
+        title: "List of noisy contributions"
+        no_contributes: "No contributions here"
     available_authors:
       index:
         explain_html: |
@@ -1005,7 +1011,7 @@ en:
         meeting:
           place:
             address: "Address"
-            comune_id: "City"
+            municipality_id: "City"
       group:
         facebook_page_url: 'Facebook page address'
         name: 'Name'
@@ -1115,7 +1121,7 @@ en:
         blank: 'must be filled'
         too_long: 'The text is too long'
         too_short: 'The text is too short'
-        wrong_length: should be% {count} characters)'
+        wrong_length: 'should be %{count} characters'
         taken: 'is already taken'
         not_a_number: 'is not a number'
         greater_than: 'must be greater than %{count}'
@@ -1205,7 +1211,7 @@ en:
       promote_proposal: "Promote proposal"
       share_with_friends: "Share with friends"
     show_proposal:
-      vote_here: "This proposal is in votation. Read the solution/s and %{link}."
+      vote_here: "This proposal is in the voting phase. Read the solution(s) and %{link}."
   digit_tags: "Type the tags you want to add"
   buttons:
     cancel: "Cancel"
@@ -1233,8 +1239,9 @@ en:
     new_newsletter: "Create newsletter"
     unlock: "Unlock"
     vote_here: "vote here"
+    unintegrate: "Put back in debate"
   tooltips:
-    random_stack_1: "<strong>How it works?</strong><br/>Firstly they are shown the new contributions or the ones you haven't evaluated, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
+    random_stack_1: "<strong>How it works?</strong><br/>First, new contributions or the ones you haven't evaluated are shown, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent"
     random_stack_3: "<strong>How it works?</strong><br/>Contributions are shown in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     miglioricontributi: "<strong> How can I help? </strong> <br/> Contributions should not express simple appreciation but substantial changes to the text: constructive criticism, alternatives or improvements to the proposal will help the writer to develop a shared summary of the text. <br /> <br/> <b>Note</b>: The most valuable contribution is what makes it possible to find a solution to the proposal!"
@@ -1244,8 +1251,8 @@ en:
     valutazioni: "total number of evaluations received"
     gradimento: "percentage of positive evaluations on the total"
     nickname: "<strong> In this proposal, we have chosen to discuss anonymously </strong> <br /> In this way is not possible for other users to know who you are and at the same time, it is not possible for you to know who the others are. <br /> working and talking this way you will be able to make decisions and evaluate proposals based only on on content. <br/> <b>Note</b>: When the discussion is finished and the proposal will be approved or rejected then you will see the real names of users!"
-    manage_noise: "<strong> Manage useless contributions</ strong> <br /> Participants will advise you what contributions are useless to the discussion. With this panel you can remove and put them in the Deleted Contributions folder."
-    view_noise: "View <strong>useless contributions</ strong> <br /> In here you will find all the contributions that have been deemed useless and removed the discussion by the editors of the proposal"
+    manage_noise: "<strong> Manage useless contributions</strong> <br /> Participants will advise you what contributions are useless to the discussion. With this panel you can remove and put them in the Deleted Contributions folder."
+    view_noise: "View <strong>useless contributions</strong> <br /> In here you will find all the contributions that have been deemed useless and removed the discussion by the editors of the proposal"
     quorum_minutes: "until <b>%{date}</b> at %{time}"
     quorum_valutations: "until it will be rated by at <b>least %{valutations} people</b>"
     quorum_description: "The proposal will be in debate %{conditions}. It will go to the voting phase only if its <b>maturity</b> is greater than <b>%{good_score}%</b>."
@@ -1308,12 +1315,12 @@ en:
       already_have: "Sorry. You already have a blog"
       comment_added: "Error while adding the comment"
     users:
-      join_accounts: "Error while joining accounts. This operation is not available at the moment"
+      join_accounts: "Error while joining accounts."
       join_accounts_password: "Wrong password"
     group_participations:
        destroy: "You can not leave a group of which you are the sole administrator"
        already_member: "Error while creating the participation request. You are already member of this group!"
-       request_not_registered: "You are already member of this groups but your participation request has not been registered. Valid data"
+       request_not_registered: "You are already member of this groups but your participation request has not been registered."
        request_sent: "Error while creating the participation request"
        request_not_found: "Request not found. Operation error"
        error_saving: "Error in the procedure. Unable to continue"
@@ -1472,6 +1479,9 @@ en:
       anymore: "Invitation rejected. You will not receive other invites."
     blog_comment:
       destroyed: "The comment has been deleted"
+    user_sensitive:
+      updated: "User sensitive was successfully updated."
+      created: "User sensitive was successfully created."
   interest_borders:
     hint: "Type a few characters to search for a place"
     no_place_found: "No place found"
@@ -1528,8 +1538,8 @@ en:
       no_more_button: "No further invitations"
       subject: "You have been invited to %{group_name}"
     update_contribute:
-      title: "%{user} changed his contribute"
-      view_proposal: "%{click_here} to see the contribute and change your evaluation"
+      title: "%{user} changed his contribution"
+      view_proposal: "%{click_here} to see the contribution and change your evaluation"
   words:
     contribute: "contribution"
     comment: "comment"
@@ -1576,22 +1586,22 @@ en:
     statistics:
       title: "User statistics"
       last_login: "Last login"
-      integrated_count: "Integrated contributes number"
-      spam_count: "SPAM Contributes number"
-      noisy_count: "Noisy contributes number"
-      total_count: "Total contributes number"
+      integrated_count: "Integrated contributions number"
+      spam_count: "SPAM Contributions number"
+      noisy_count: "Noisy contributions number"
+      total_count: "Total contributions number"
       total_comments_count: "Total comments number"
-      proposals_editor: "Number of proposals you have been editor"
+      proposals_editor: "Number of proposals you have edited"
       proposals_voted: "Number of proposals that have been voted"
       average_rank_voted_proposals: "Average rank of proposals that have been voted"
       proposals_accepted_count: "Number of proposals that have been accepted"
       proposals_abandonend_count: "Number of proposals that have been abandoned"
-      good_writer: "Good contributes writer"
+      good_writer: "Good contributions writer"
       good_proposals_writer: "Good proposals writer"
   proposal_comments:
     manage_noise:
-      title: "Manage useless contributes"
-      help: "Drag and drop on the right the contributes you consider useless for the discussion"
+      title: "Manage useless contributions"
+      help: "Drag and drop the contributions you consider useless for the discussion on the right"
   votations:
     create:
       confirm: "Vote registered correctly. Thank you!"
@@ -1612,4 +1622,6 @@ en:
   delete_event_confirm: "Are you sure to delete this comment?"
   groups:
     group:
-      delete_group_warning_html: "You are allowed to delete this group. Deleting the group you will destroy all forums, proposals and documents associated with it.<br/>The data cannot be restored.<br/>Be careful!"
+      delete_group_warning_html: "You are allowed to delete this group. By deleting this group, you will delete all forums, proposals and documents associated with it.<br/>The data cannot be restored.<br/>Be careful!"
+  confirm:
+    unintegrate: "You are going to put your contribution back into the discussion. Are you sure?"

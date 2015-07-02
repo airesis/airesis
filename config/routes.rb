@@ -136,7 +136,7 @@ Airesis::Application.routes.draw do
   end
 
   resources :interest_borders
-  resources :comunes
+  resources :municipalities
 
   get 'elfinder' => 'elfinder#elfinder'
   post 'elfinder' => 'elfinder#elfinder'
@@ -364,7 +364,6 @@ Airesis::Application.routes.draw do
     resources :groups do
       member do
         get :ask_for_participation
-        get :ask_for_follow
         put :participation_request_confirm
         put :participation_request_decline
         post :create_event
@@ -528,6 +527,7 @@ Airesis::Application.routes.draw do
 
     constraints admin_required do
       namespace :admin do
+        resources :sys_locales
         resources :newsletters do
           member do
             get :preview

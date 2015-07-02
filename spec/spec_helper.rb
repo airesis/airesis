@@ -27,6 +27,28 @@ RSpec.configure do |config|
     Proposal.remove_all_from_index!
   end
 
+  config.before(:each, type: :feature, js: true) do
+    page.driver.allow_url("pbs.twimg.com")
+    page.driver.allow_url("syndication.twitter.com")
+    page.driver.allow_url("platform.twitter.com")
+    page.driver.allow_url("platform.twitter.com")
+
+    page.driver.allow_url("www.gravatar.com")
+
+    page.driver.allow_url("maps.googleapis.com")
+    page.driver.allow_url("apis.google.com")
+    page.driver.allow_url("oauth.googleusercontent.com")
+    page.driver.allow_url("ssl.gstatic.com")
+    page.driver.allow_url("maps.gstatic.com")
+    page.driver.allow_url("www.google.com")
+    page.driver.allow_url("fonts.googleapis.com")
+
+    page.driver.allow_url("connect.facebook.net/en/sdk.js")
+    page.driver.allow_url("fbstatic-a.akamaihd.net")
+    page.driver.allow_url("graph.facebook.com")
+    page.driver.allow_url("connect.facebook.net")
+  end
+
   config.order = 'random'
 
   config.include FactoryGirl::Syntax::Methods
@@ -57,3 +79,5 @@ RSpec.configure do |config|
     Capybara::Screenshot.append_timestamp = false
   end
 end
+
+OmniAuth.config.test_mode = true

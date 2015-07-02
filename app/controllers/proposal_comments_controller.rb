@@ -1,4 +1,3 @@
-#encoding: utf-8
 class ProposalCommentsController < ApplicationController
 
   before_filter :save_post_and_authenticate_user, only: [:create]

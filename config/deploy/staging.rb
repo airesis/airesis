@@ -29,6 +29,8 @@ set :default_shell, "bash -l"
 
 set :bundle_flags, '--deployment'
 
+set :deploy_to, '/home/airesistest/airesis_capistrano'
+
 before 'deploy', 'rvm1:install:ruby'
 
 #set :rvm_type, :user

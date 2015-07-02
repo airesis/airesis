@@ -1,5 +1,4 @@
 module AdminHelper
-
   # cancella le vecchie notifiche
   def self.delete_old_notifications
     msg = "Cancella vecchie notifiche\n"

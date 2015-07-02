@@ -22,6 +22,7 @@ class EventsController < ApplicationController
       end
       format.json do
         @events = @events.time_scoped(Time.parse(params['start']), Time.parse(params['end']))
+        @events = @events.in_territory(current_domain.territory) unless @group
         events = []
         @events.each do |event|
           event_obj = event.to_fc
@@ -190,7 +191,7 @@ class EventsController < ApplicationController
 
   def event_params
     params[:event].delete(:meeting_attributes) if params[:event][:event_type_id] == EventType::VOTAZIONE.to_s
-    params.require(:event).permit(:id, :title, :starttime, :endtime, :frequency, :all_day, :description, :event_type_id, :private, :proposal_id, meeting_attributes: [:id, place_attributes: [:id, :comune_id, :address, :latitude_original, :longitude_original, :latitude_center, :longitude_center, :zoom]])
+    params.require(:event).permit(:id, :title, :starttime, :endtime, :frequency, :all_day, :description, :event_type_id, :private, :proposal_id, meeting_attributes: [:id, place_attributes: [:id, :municipality_id, :address, :latitude_original, :longitude_original, :latitude_center, :longitude_center, :zoom]])
   end
 
   def choose_layout

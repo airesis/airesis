@@ -16,7 +16,7 @@
             <td>
               <%= link_to group.name, group_frm_admin_mod_url(@group, group) %> <br/>
               <% group.members.each do |member| %>
-                  <%= member.user_image_tag 20 %>
+                  <%= avatar(member, size: 20) %>
               <% end %>
             </td>
             <td>

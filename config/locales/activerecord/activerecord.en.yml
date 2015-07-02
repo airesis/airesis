@@ -26,7 +26,7 @@ en:
         candidates_end_time: 'Deadline date for candidates entry'
       event/meeting/place:
         address: "Address"
-        comune_id: "City"
+        municipality_id: "City"
         latitude_original: Latitude
         longitude_original: Longitude
       group:
@@ -157,6 +157,7 @@ en:
         record_invalid: 'Validation failed %{errors}'
         not_found: 'not found.'
         TOS: "It is required to accept the TOS"
+        certified_cannot_edit: 'cannot be edited if you are a certified user'
       full_messages:
         format: "%{attribute} %{message}"
       models:

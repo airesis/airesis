@@ -1129,5 +1129,9 @@ ul.social-network {
 }
 
 .zocial.parma {
-  background: center url('/assets/parma.png') no-repeat;
+  background: center asset_url('parma.png') no-repeat;
+}
+
+.zocial.tecnologiedemocratiche {
+  background: center asset_url('td_logo.png') no-repeat;
 }

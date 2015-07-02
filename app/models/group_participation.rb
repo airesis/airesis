@@ -1,5 +1,5 @@
 class GroupParticipation < ActiveRecord::Base
-  include BlogKitModelHelper, ImageHelper
+  include ImageHelper
   belongs_to :user, class_name: 'User', foreign_key: :user_id
   belongs_to :participation_role, class_name: 'ParticipationRole', foreign_key: :participation_role_id
   belongs_to :group, class_name: 'Group', foreign_key: :group_id, counter_cache: true
@@ -8,7 +8,6 @@ class GroupParticipation < ActiveRecord::Base
   after_destroy :remove_user_data
 
   PER_PAGE=12
-
 
   def as_admin?
     self == ParticipationRole.admin

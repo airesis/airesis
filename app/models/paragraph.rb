@@ -1,4 +1,3 @@
-#encoding: utf-8
 class Paragraph < ActiveRecord::Base
   belongs_to :section
 

@@ -1,4 +1,3 @@
-#encoding: utf-8
 #todo che cazzo fa sto controller?
 class RequestVotesController < ApplicationController
    

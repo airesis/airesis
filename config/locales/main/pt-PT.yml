@@ -933,7 +933,7 @@ pt-PT:
         meeting:
           place:
             address: Endereço
-            comune_id: Cidade
+            municipality_id: Cidade
       group:
         facebook_page_url: Endereço da página de Facebook
         name: Nome

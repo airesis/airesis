@@ -1,7 +1,6 @@
-#encoding: utf-8
-Comune.create(description: "Santo Domingo", provincia_id: 193, regione_id: 43, stato_id: 90, continente_id: 2 , population: 7418)
-Comune.create(description: "San Antonio", provincia_id: 193, regione_id: 43, stato_id: 90, continente_id: 2 , population: 87205)
-Comune.create(description: "El Tabo", provincia_id: 193, regione_id: 43, stato_id: 90, continente_id: 2 , population: 7028)
-Comune.create(description: "El Quisco", provincia_id: 193, regione_id: 43, stato_id: 90, continente_id: 2 , population: 9467)
-Comune.create(description: "Cartagena", provincia_id: 193, regione_id: 43, stato_id: 90, continente_id: 2 , population: 16875)
-Comune.create(description: "Algarrobo", provincia_id: 193, regione_id: 43, stato_id: 90, continente_id: 2 , population: 8601)
+Municipality.create(description: "Santo Domingo", province_id: 193, region_id:  43, country_id: 90, continent_id: 2 , population: 7418)
+Municipality.create(description: "San Antonio", province_id: 193, region_id:  43, country_id: 90, continent_id: 2 , population: 87205)
+Municipality.create(description: "El Tabo", province_id: 193, region_id:  43, country_id: 90, continent_id: 2 , population: 7028)
+Municipality.create(description: "El Quisco", province_id: 193, region_id:  43, country_id: 90, continent_id: 2 , population: 9467)
+Municipality.create(description: "Cartagena", province_id: 193, region_id:  43, country_id: 90, continent_id: 2 , population: 16875)
+Municipality.create(description: "Algarrobo", province_id: 193, region_id:  43, country_id: 90, continent_id: 2 , population: 8601)

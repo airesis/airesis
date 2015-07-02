@@ -15,7 +15,7 @@
     <% if @proposal.is_anonima? %>
         <img src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(@username) %>?s=40&d=identicon&r=PG"/>
     <% else %>
-        <%= @comment.user_image_tag(40, url: true) %>
+        <%= avatar(@comment.user, size: 40, url: true) %>
     <% end %>
   </div>
   <div style="border: 1px solid #CCCCCC;border-radius: 3px 3px 0px 0px;margin-left: 50px;color: #333333;">

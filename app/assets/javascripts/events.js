@@ -96,7 +96,7 @@ var basename = "event_meeting_attributes_place_attributes_";
  */
 function codeAddress(id) {
     delay(function () {
-        var comune = $('#event_meeting_attributes_place_attributes_comune_id').select2('data')['text'];
+        var comune = $('#event_meeting_attributes_place_attributes_municipality_id').select2('data')['text'];
         if (comune != null) {
             var address = comune + ", " + document.getElementById(basename + "address").value;
             putMarker(address);

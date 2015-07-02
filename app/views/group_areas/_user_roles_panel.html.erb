@@ -8,7 +8,7 @@
 		<%@group_area.area_participations.each do |gp| %>
 		<tr>
 			<td>
-              <%= gp.user.user_image_tag 16 %>
+              <%= avatar(gp.user, size: 16) %>
               <%= link_to gp.user.fullname, gp.user %>
 			</td>
 			<td>

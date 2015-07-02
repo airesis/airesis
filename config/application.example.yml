@@ -1,4 +1,3 @@
-#encoding: utf-8
 #####################
 #social networks and services keys
 #####################
@@ -9,6 +8,7 @@ TWITTER_APP_ID: ""
 MEETUP_APP_ID: ""
 LINKEDIN_APP_ID: ""
 PARMA_APP_ID: ""
+TECNOLOGIEDEMOCRATICHE_APP_ID: ''
 
 MAPS_API_KEY: ""
 
@@ -18,6 +18,9 @@ TWITTER_APP_SECRET: ""
 MEETUP_APP_SECRET: ""
 LINKEDIN_APP_SECRET: ""
 PARMA_APP_SECRET: ""
+TECNOLOGIEDEMOCRATICHE_APP_SECRET: ''
+
+TECNOLOGIEDEMOCRATICHE_APP_URL: "https://tecnologiedemocratiche.herokuapp.com/"
 
 RECAPTCHA_PUBLIC: ""
 RECAPTCHA_PRIVATE: ""
@@ -93,6 +96,11 @@ AWS_SECRET_ACCESS_KEY: ""
 
 # remove this variable if you are not using cloudfront. set it to cloudfront alias if you want to you it
 AWS_ALIAS: "static.yourwebsite.com"
+
+
+# Newrelic
+NEW_RELIC_LICENSE_KEY: 'FROM NEW RELCI'
+NEW_RELIC_APP_NAME: 'YOUR NEW RELIC APP NAME'
 
 #####################
 #crowdin integration (optional)

@@ -117,6 +117,7 @@ describe 'posts', type: :feature, js: true, ci_ignore: true do
         within_first_post do
           click_link('Edit')
         end
+        sleep 5
         text = Faker::Lorem.paragraph
         fill_in_ckeditor 'frm_post_text', with: text
 
@@ -176,13 +177,12 @@ describe 'posts', type: :feature, js: true, ci_ignore: true do
           visit group_forum_topic_path(group, forum, topic)
         end
 
-        it 'topic is deleted if only post', js: false do
+        it 'topic is deleted if only post' do
           expect(Frm::Topic.count).to eq 1
-          screenshot_and_save_page
           within_first_post do
             click_link('Delete')
           end
-
+          expect(page).to have_content(I18n.t('frm.post.deleted_with_topic'))
           expect(Frm::Topic.count).to eq 0
           expect(Frm::Post.count).to eq 0
         end

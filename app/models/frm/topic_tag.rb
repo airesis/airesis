@@ -7,6 +7,7 @@ module Frm
     after_destroy :decrement_counter_cache
 
     private
+
     def decrement_counter_cache
       tag.frm_topics_count = tag.frm_topics_count - 1
       tag.save

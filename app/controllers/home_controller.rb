@@ -1,5 +1,4 @@
 class HomeController < ApplicationController
-
   layout :choose_layout
 
   #l'utente deve aver fatto login
@@ -123,14 +122,16 @@ class HomeController < ApplicationController
   protected
 
   def load_open_space_resources
-    @blog_posts = BlogPost.includes(:blog,user: [:user_type,:image]).order('blog_posts.created_at desc').limit(10).accessible_by(Ability.new(current_user))
-    @events = Event.next.order('starttime asc').limit(10).accessible_by(Ability.new(current_user))
+    @blog_posts = BlogPost.open_space(current_user, current_domain)
+    @events = Event.in_territory(current_domain.territory).next.order('starttime asc').accessible_by(Ability.new(current_user)).limit(10)
+    @proposals = Proposal.open_space_portlet(current_user, current_domain.territory)
+    @most_active_groups = Group.most_active(current_domain.territory)
+    @tags = Tag.most_used(current_domain.territory).limit(100)
   end
 
   def initialize_roadmap
     @roadmap ||= Roadmap.new(ENV['BUGTRACKING_USERNAME'], ENV['BUGTRACKING_PASSWORD'])
   end
-
 
   def choose_layout
     if ['landing'].include? action_name
@@ -145,6 +146,4 @@ class HomeController < ApplicationController
       'landing'
     end
   end
-
-
 end

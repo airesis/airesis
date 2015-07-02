@@ -1,8 +1,6 @@
 <%= simple_form_for [@blog, @blog_post], html: {multipart: true} do |f| %>
-
     <div class="editBlogPost">
       <%= f.error_notification %>
-
 
       <%= f.input :title, style: 'width:80%' %>
 
@@ -53,14 +51,6 @@
     </div>
 <% end %>
 
-<% data = "["
-   @blog_post.tags_list.split(',').each do |l|
-     data += "{\"id\":\""+ l + "\",\"name\":\"" + l + "\"},"
-   end
-   data += "]"
-%>
-
-
 <script type="text/javascript">
 
     $(function () {
@@ -71,6 +61,7 @@
             minChars: 3,
             hintText: "<%=t('digit_tags')%>",
             searchingText: "<%=t('digit_tags')%>",
+            prePopulate: <%=raw @blog_post.tags_data%>,
             preventDuplicates: true,
             allowTabOut: true,
             tokenValue: "name"

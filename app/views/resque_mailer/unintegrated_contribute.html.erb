@@ -3,21 +3,23 @@
 <% @comment = @proposal.contributes.find(@data[:comment_id]) %>
 <% @alert_url = check_alert_url(@alert) %>
 <p>
-  <%=raw t('mailer.unintegrated_contribute.view_proposal', click_here: (link_to @proposal.title, @alert_url) ) %>
+  <%= raw t('mailer.unintegrated_contribute.view_proposal', click_here: (link_to @proposal.title, @alert_url)) %>
 </p>
 
 <div id="comment<%= @comment.id %>" style="padding: 20px 0 0;clear: both;">
-  <div style="float: left;margin: 0px 5px 5px 0px;" title="<% if @proposal.is_anonima? %><%= @username %><% end %>">
+  <div style="float: left;margin: 0px 5px 5px 0px;" title="
+    <% if @proposal.is_anonima? %><%= @username %>
+    <% end %>">
     <% if @proposal.is_anonima? %>
         <img src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(@username) %>?s=40&d=identicon&r=PG"/>
     <% else %>
-        <%= @comment.user_image_tag(40, url: true) %>
+        <%= avatar(@comment.user, size: 40, url: true) %>
     <% end %>
   </div>
   <div style="border: 1px solid #CCCCCC;border-radius: 3px 3px 0px 0px;margin-left: 50px;color: #333333;">
     <div>
       <div style="word-wrap: break-word;margin: 5px;">
-        <%= parsed_content(@comment,@proposal.is_anonima?)%>
+        <%= parsed_content(@comment, @proposal.is_anonima?) %>
       </div>
       <div style="font-size: 0.9em;margin-top: 5px;margin-left: 5px;margin-bottom: 2px;color: #999999;float: left;">
         <% who = @username %>
@@ -30,5 +32,5 @@
 </div>
 
 <p>
-  <%=raw t('mailer.unintegrated_contribute.view_proposal_2', click_here: (link_to t('mailer.unintegrated_contribute.verify'), @alert_url) ) %>
+  <%= raw t('mailer.unintegrated_contribute.view_proposal_2', click_here: (link_to t('mailer.unintegrated_contribute.verify'), @alert_url)) %>
 </p>

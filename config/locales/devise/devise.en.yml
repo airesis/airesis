@@ -60,6 +60,12 @@ en:
     omniauth_callbacks:
       success: 'Your registration has been completed. Welcome!'
       failure: 'Could not authorize you from %{kind} because "%{reason}"'
+      creation_failure: "Error while accessing through %{provider}"
+      join_success: "Accounts successfully merged. Congratulations, now you can login through %{provider}."
+      join_failure: "Another %{provider} account exists. The feature to join accounts will be available soon."
+      certified_email_taken: "Another account with your certified email exists."
+      already_certified: "Another account has been certified with your tax code."
+      account_not_verified: "Account %{provider} with unconfirmed email."
     mailer:
       confirmation_instructions:
         subject: 'Confirmation instructions'

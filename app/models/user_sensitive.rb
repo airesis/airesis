@@ -14,13 +14,10 @@ class UserSensitive < ActiveRecord::Base
 
   validates_presence_of :name, :surname, :user_id, :tax_code
 
-  before_save :update_user
+  after_create :update_user
 
   def update_user
-    self.user.name = self.name
-    self.user.surname = self.surname
-    self.user.user_type_id = UserType::CERTIFIED
-    self.user.save!
+    user.update_columns(name: name, surname: surname, user_type_id: UserType::CERTIFIED)
   end
 
 end

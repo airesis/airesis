@@ -1,4 +1,3 @@
-#encoding: utf-8
 module Certified
   module ParmaHelper
     def parma_participation_request

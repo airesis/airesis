@@ -21,7 +21,7 @@ describe "the creation of a group process", type: :feature, js: true do
       fill_in I18n.t('activerecord.attributes.group.name'), with: group_name
       fill_in_ckeditor 'group_description', with: Faker::Lorem.paragraph
       fill_tokeninput '#group_tags_list', with: ['tag1', 'tag2', 'tag3']
-      fill_tokeninput '#group_interest_border_tkn', with: ["P-#{Provincia.first.id}"]
+      fill_tokeninput '#group_interest_border_tkn', with: ["P-#{Province.first.id}"]
       fill_in I18n.t('activerecord.attributes.group.default_role_name'), with: Faker::Name.title
       click_button I18n.t('pages.groups.new.create_button')
     end
