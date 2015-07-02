@@ -1,5 +1,5 @@
 module Admin
-  class ApplicationController < ApplicationController
+  class ApplicationController < ::ApplicationController
     layout 'admin'
 
     before_filter :admin_required
