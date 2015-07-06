@@ -8,7 +8,7 @@ class Proposal < ActiveRecord::Base
 
   has_many :proposal_tags, class_name: 'ProposalTag', dependent: :destroy
   has_many :tags, through: :proposal_tags, class_name: 'Tag'
-  
+
   has_many :proposal_presentations, -> { order 'id DESC' }, class_name: 'ProposalPresentation', dependent: :destroy
 
   has_many :proposal_borders, class_name: 'ProposalBorder', dependent: :destroy
