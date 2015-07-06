@@ -67,6 +67,7 @@ describe 'the oauth2 process', type: :feature, js: true do
       expect(user.name).to eq(@oauth_data[:first_name])
       expect(user.surname).to eq(@oauth_data[:last_name])
       expect(user.email).to eq(@oauth_data[:email])
+      expect(user.certification).to be_present
     end
 
     it 'permits the join with an existing account when already logged in' do
