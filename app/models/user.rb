@@ -117,6 +117,7 @@ class User < ActiveRecord::Base
   validates_attachment_size :avatar, less_than: 2.megabytes
   validates_attachment_content_type :avatar, content_type: ['image/jpeg', 'image/png', 'image/gif', 'image/jpg']
 
+  scope :all_except, ->(user) { where.not(id: user) }
 
   scope :blocked, -> { where(blocked: true) }
   scope :unblocked, -> { where(blocked: false) }
