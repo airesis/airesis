@@ -5,6 +5,10 @@ class Proposal < ActiveRecord::Base
   belongs_to :category, class_name: 'ProposalCategory', foreign_key: :proposal_category_id
   belongs_to :vote_period, class_name: 'Event', foreign_key: :vote_period_id #attached when is decided
   belongs_to :vote_event, class_name: 'Event', foreign_key: :vote_event_id #attached when the proposal is created, only possible
+
+  has_many :proposal_tags, class_name: 'ProposalTag', dependent: :destroy
+  has_many :tags, through: :proposal_tags, class_name: 'Tag'
+  
   has_many :proposal_presentations, -> { order 'id DESC' }, class_name: 'ProposalPresentation', dependent: :destroy
 
   has_many :proposal_borders, class_name: 'ProposalBorder', dependent: :destroy
@@ -33,8 +37,6 @@ class Proposal < ActiveRecord::Base
   #confini di interesse
   has_many :interest_borders, through: :proposal_borders, class_name: 'InterestBorder'
 
-  has_many :proposal_tags, class_name: 'ProposalTag', dependent: :destroy
-  has_many :tags, through: :proposal_tags, class_name: 'Tag'
 
   has_many :proposal_nicknames, class_name: 'ProposalNickname', dependent: :destroy
 
@@ -393,7 +395,7 @@ class Proposal < ActiveRecord::Base
     end
   end
 
-  #retrieve the number of users that can vote this proposal
+  # retrieve the number of users that can vote this proposal
   def eligible_voters_count
     return User.confirmed.unblocked.count unless private?
     if self.presentation_areas.size > 0 #if we are in a working area
