@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
 
   has_many :proposal_nicknames, class_name: 'ProposalNickname'
 
-  has_one :certification, class_name: 'UserSensitive', foreign_key: :user_id
+  has_one :certification, class_name: 'UserSensitive', foreign_key: :user_id, autosave: true
 
   #forum
   has_many :viewed, class_name: 'Frm::View'
