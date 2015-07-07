@@ -14,8 +14,7 @@ gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 
-# not the official repossitory. waiting for update to 5.4.7
-gem 'foundation-rails', github: 'johnantoni/foundation-rails', branch: 'foundation-5.4.7'
+gem 'foundation-rails'
 
 gem 'pg'
 

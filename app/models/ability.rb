@@ -367,6 +367,7 @@ class Ability
         if user.admin?
           #can close debate of a proposal
           can :close_debate, Proposal, proposal_state_id: ProposalState::VALUTATION
+          can :start_votation, Proposal, proposal_state_id: ProposalState::WAIT
 
           # can send messages to every user although they denied it
           can :send_message, User

@@ -105,44 +105,6 @@
   float: right;
 }
 
-.votered {
-  background: asset_url('red-2.png') 0 0 no-repeat;
-  width: 32px;
-  height: 32px;
-  display: block;
-  margin-left: 7px;
-  margin-top: 5px;
-}
-
-.votered:hover {
-  background: asset_url('red.png') 0 0 no-repeat;
-}
-
-.voteyellow {
-  background: asset_url('yellow-2.png') 0 0 no-repeat;
-  width: 32px;
-  height: 32px;
-  display: block;
-  margin-left: 7px;
-  margin-top: 5px;
-}
-
-.voteyellow:hover {
-  background: asset_url('yellow.png') 0 0 no-repeat;
-}
-
-.votegreen {
-  background: asset_url('green-2.png') 0 0 no-repeat;
-  width: 32px;
-  height: 32px;
-  display: block;
-  margin-left: 7px;
-  margin-top: 5px;
-}
-
-.votegreen:hover {
-  background: asset_url('green.png') 0 0 no-repeat;
-}
 
 .points {
   margin: 5px 0px 0px 0px;

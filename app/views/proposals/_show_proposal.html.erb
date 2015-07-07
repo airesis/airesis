@@ -1,6 +1,6 @@
 <% if current_user %>
     <% @unread = @proposal.contributes.listable.unread(current_user.id, @proposal.id) %>
-    <% if false && @unread.count > 0 #TODO            %>
+    <% if false && @unread.count > 0 #TODO              %>
         <%= link_to '#', class: 'read_contributes' do %>
             <div class="icon-bell medium"></div>
         <% end %>
@@ -64,7 +64,7 @@
           <i class="fa fa-close"></i>
           <%= t('pages.proposals.show.close_debate_button') %>
       <% end  if can? :close_debate, @proposal %>
-  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox        %>
+  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox          %>
       <div id="wait_date_header_container">
         <%= render partial: 'proposals/wait_date_header' %>
       </div>
@@ -72,7 +72,7 @@
 
   <% elsif @proposal.voting? %>
       <% unless @proposal.is_petition? %>
-          <b><%=raw t('.vote_here', link: (link_to t('buttons.vote_here'), '#', data: {scroll_to: :vote_panel}))%></b>
+          <b><%= raw t('.vote_here', link: (link_to t('buttons.vote_here'), '#', data: {scroll_to: :vote_panel})) %></b>
       <% end %>
   <% elsif @proposal.abandoned? %>
       <%= render partial: 'proposals/abandoned_header' %>
@@ -127,7 +127,11 @@
 <% end %>
 
 <% unless @proposal.is_petition? %>
-    <% if @proposal.waiting? #waiting for the vote period                  %>
+    <% if @proposal.waiting? #waiting for the vote period                    %>
+        <%= link_to @group ? start_votation_group_proposal_url(@group, @proposal) : start_votation_proposal_url(@proposal), method: :post, data: {confirm: t('pages.proposals.show.start_votation_proposal_confirmation')}, class: 'btn' do %>
+            <i class="fa fa-check-square-o"></i>
+            <%= t('pages.proposals.show.start_votation_button') %>
+        <% end  if can? :start_votation, @proposal %>
         <div class="status_description card">
           <b><%= t('pages.proposals.show.votation_message', from: l(@proposal.vote_period.starttime), to: l(@proposal.vote_period.endtime)) %></b>
         </div>
@@ -144,7 +148,7 @@
 
 
 <% @proposal.sections.includes(:paragraphs).each do |section| %>
-    <div class="proposal_main card" data-section_id="<%=section.id%>">
+    <div class="proposal_main card" data-section_id="<%= section.id %>">
       <h3>
         <div class="tit1">
           <div class="tit2">
@@ -185,7 +189,7 @@
       </h3>
       <div class="sol_content">
         <% solution.sections.each do |section| %>
-            <div class="proposal_main" data-section_id="<%=section.id%>">
+            <div class="proposal_main" data-section_id="<%= section.id %>">
               <h3>
                 <div class="tit1">
                   <div class="tit2">
