@@ -10,7 +10,7 @@ class EventsController < ApplicationController
     authorize! :view_data, @group if @group
     respond_to do |format|
       format.html do
-        @page_title = @group ? t('pages.events.index.title') + " - " + @group.name : t('pages.events.index.title')
+        @page_title = @group ? "#{t('pages.events.index.title')} - #{@group.name}" : t('pages.events.index.title')
       end
       format.ics do
         calendar = Icalendar::Calendar.new

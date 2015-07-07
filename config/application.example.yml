@@ -1,7 +1,9 @@
 #####################
 #social networks and services keys
 #####################
-
+development:
+  a: ''
+  b: ''
 FACEBOOK_APP_ID: ""
 GOOGLE_APP_ID: ""
 TWITTER_APP_ID: ""

@@ -405,10 +405,16 @@ class ProposalsController < ApplicationController
     authorize! :show, @proposal
   end
 
-  #exlipcitly close the debate of a proposal
+  # exlipcitly close the debate of a proposal
   def close_debate
     authorize! :close_debate, @proposal
     @proposal.check_phase(true)
+    redirect_to @proposal
+  end
+
+  # explicitly start the votation of a proposal
+  def start_votation
+    @proposal.start_votation
     redirect_to @proposal
   end
 

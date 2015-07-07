@@ -657,6 +657,20 @@ class Proposal < ActiveRecord::Base
     end
   end
 
+  def start_votation
+    return if voting?
+    self.proposal_state_id = ProposalState::VOTING
+    self.save!
+    unless vote #se non ha i dati per la votazione creali
+      vote_data = ProposalVote.new(proposal_id: id, positive: 0, negative: 0, neutral: 0)
+      vote_data.save!
+    end
+
+    NotificationProposalVoteStarts.perform_async(id, groups.first.try(:id), presentation_areas.first.try(:id))
+
+    ProposalsWorker.perform_at(vote_period.endtime - 24.hours, {action: ProposalsWorker::LEFT24VOTE, proposal_id: id}) if (vote_period.duration/60) > 1440
+    ProposalsWorker.perform_at(vote_period.endtime - 1.hour, {action: ProposalsWorker::LEFT1VOTE, proposal_id: id}) if (vote_period.duration/60) > 60
+  end
 
   def set_votation_date(vote_period_id)
     vote_period = Event.find(vote_period_id)
