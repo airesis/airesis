@@ -52,6 +52,9 @@ class QuorumsController < ApplicationController
       respond_to do |format|
         flash[:notice] = t('info.quorums.quorum_updated')
         format.js
+        format.html {
+          redirect_to group_quorum_url(@group)
+        }
       end
     else
       respond_to do |format|

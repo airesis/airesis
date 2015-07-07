@@ -16,26 +16,90 @@
       <div class="columns large-6">
         <fieldset>
           <legend><%= 'Debate' %></legend>
-          <p>
-            <%= e.label :minutes %>
-            <%= e.text_field(:days_m, class: "days", readonly: true)+(t 'activerecord.attributes.quorum.days_m') %>
-            <%= e.text_field(:hours_m, class: "hours", readonly: true)+(t 'activerecord.attributes.quorum.hours_m') %>
-            <%= e.text_field(:minutes_m, class: "minutes", readonly: true)+(t 'activerecord.attributes.quorum.minutes_m') %>
-          </p>
+          <%= e.label :minutes %>
 
-          <p>
-            <%= e.label :percentage %>
-            <%= raw t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
-                      participants_percentage: (e.text_field :percentage, class: "percentage participants", title: t('activerecord.attributes.quorum.percentage_title'), readonly: true),
-                      current_number: "<span id=\"participants_number\">1</span>", total_number: @group_participations_count, average: (@group.statistic.valutations*100 / @group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count).round(2)) %>
-          </p>
+          <div class="row collapse">
+            <div class="small-4 columns">
+              <div class="row collapse postfix-radius">
+                <div class="small-6 columns">
+                  <%= e.number_field(:days_m, class: "days", min: 0) %>
+                </div>
+                <div class="small-6 columns">
+                  <span class="postfix">
+                    <%= (t 'activerecord.attributes.quorum.days_m') %>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="small-4 columns">
+              <div class="row collapse postfix-radius">
+                <div class="small-6 columns">
+                  <%= e.number_field(:hours_m, class: "hours", min: 0, max: 23) %>
+                </div>
+                <div class="small-6 columns">
+                  <span class="postfix">
+                    <%= (t 'activerecord.attributes.quorum.hours_m') %>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="small-4 columns">
+              <div class="row collapse postfix-radius">
+                <div class="small-6 columns">
+                  <%= e.number_field(:minutes_m, class: "minutes", min: 0, max: 55, step: 5) %>
+                </div>
+                <div class="small-6 columns">
+                  <span class="postfix">
+                    <%= (t 'activerecord.attributes.quorum.minutes_m') %>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
 
-          <p>
-            <%= e.label :good_score %>
-            <%= e.text_field :good_score, class: "percentage", validate: false, title: t('activerecord.attributes.quorum.good_score_title'), readonly: true %>
-            %
-            <b><%= "(average value: #{@group.statistic.good_score.round(2)}%)" %></b>
-          </p>
+          <%= e.label :percentage %>
+          <div class="row">
+            <div class="small-12 columns">
+              <div class="row collapse postfix-radius">
+                <div class="small-9 columns">
+                  <%= e.number_field :percentage, class: "percentage participants", title: t('activerecord.attributes.quorum.percentage_title'), min: 1, max: 100 %>
+                </div>
+                <div class="small-3 columns">
+                  <span class="postfix">
+                    % + 1
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="columns small-12">
+              <%= raw t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
+                        current_number: "<span id=\"participants_number\">1</span>", total_number: @group_participations_count, average: (@group.statistic.valutations*100 / @group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count).round(2)) %>
+
+            </div>
+          </div>
+
+          <%= e.label :good_score %>
+          <div class="row">
+            <div class="small-12 columns">
+              <div class="row collapse postfix-radius">
+                <div class="small-9 columns">
+                  <%= e.number_field :good_score, class: "percentage", validate: false, title: t('activerecord.attributes.quorum.good_score_title'), min: 1, max: 100 %>
+                </div>
+                <div class="small-3 columns">
+                  <span class="postfix">
+                    %
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="columns small-12">
+              <b><%= "(average value: #{@group.statistic.good_score.round(2)}%)" %></b>
+            </div>
+          </div>
 
           <%= e.hidden_field :t_percentage, value: 's' %>
           <%= e.hidden_field :t_minutes, value: 's' %>
@@ -54,18 +118,44 @@
             <%= 'free' %>
           </p>
 
-          <p>
-            <%= e.label :vote_percentage %>
-            <%= raw t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
-                      participants_percentage: (e.text_field :vote_percentage, class: "percentage vote_participants", title: t('activerecord.attributes.quorum.percentage_title'), readonly: true),
-                      current_number: "<span id=\"vote_participants_number\">1</span>", total_number: @vote_participants_count, average: (@group.statistic.vote_valutations*100 / @group.scoped_participants(GroupAction::PROPOSAL_VOTE).count).round(2)) %>
-          </p>
 
-          <p>
-            <%= e.label :vote_good_score %>
-            <%= e.text_field :vote_good_score, class: "percentage", validate: false, title: t('activerecord.attributes.quorum.good_score_title'), readonly: true %>
-            %
-          </p>
+          <%= e.label :vote_percentage %>
+          <div class="row">
+            <div class="small-12 columns">
+              <div class="row collapse postfix-radius">
+                <div class="small-9 columns">
+                  <%= e.number_field :vote_percentage, class: "percentage vote_participants", title: t('activerecord.attributes.quorum.percentage_title'), min: 1, max: 100 %>
+                </div>
+                <div class="small-3 columns">
+                  <span class="postfix">
+                    % + 1
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="columns small-12">
+              <%= raw t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
+                        current_number: "<span id=\"vote_participants_number\">1</span>", total_number: @vote_participants_count, average: (@group.statistic.vote_valutations*100 / @group.scoped_participants(GroupAction::PROPOSAL_VOTE).count).round(2)) %>
+            </div>
+          </div>
+
+          <%= e.label :vote_good_score %>
+          <div class="row">
+            <div class="small-12 columns">
+              <div class="row collapse postfix-radius">
+                <div class="small-9 columns">
+                  <%= e.number_field :vote_good_score, class: "percentage", validate: false, title: t('activerecord.attributes.quorum.good_score_title'), min: 1, max: 100 %>
+                </div>
+                <div class="small-3 columns">
+                  <span class="postfix">
+                    %
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <%= e.hidden_field :t_vote_percentage, value: 's' %>
           <%= e.hidden_field :t_vote_minutes, value: 'f' %>
@@ -87,6 +177,31 @@
 <a class="close-reveal-modal">&#215;</a>
 <script type="text/javascript">
 
+    function update_participants(value) {
+        var calculated = Math.min(Math.floor(parseFloat(value) * 0.01 * parseFloat(<%=@group_participations_count%>)) + 1, <%=@group_participations_count%>);
+        console.log('calculated', calculated);
+        $('#participants_number').html(calculated);
+    }
+
+    update_participants(<%=@quorum.percentage%>);
+
+    $(".participants").on('input', function (e) {
+        var num = $(this).val();
+        update_participants(num);
+    });
+
+    function update_vote_participants(value) {
+        var calculated = Math.min(Math.floor(parseFloat(value) * 0.01 * parseFloat(<%=@vote_participants_count%>)) + 1, <%=@vote_participants_count%>);
+        $('#vote_participants_number').html(calculated);
+    }
+
+    $(".vote_participants").on('input', function (e) {
+        var num = $(this).val();
+        update_vote_participants(num);
+    });
+
+    update_vote_participants(<%=@quorum.vote_percentage%>);
+
     function closeMe() {
         $('#quorum_container').foundation('reveal', 'close');
     }
@@ -94,78 +209,6 @@
         $("#new_best_quorum").validate();
         $('.advanced').hide();
 
-        function update_participants(value) {
-            $('#participants_number').html(Math.min(Math.floor(parseFloat(value) * 0.01 * parseFloat(<%=@group_participations_count%>)) + 1, <%=@group_participations_count%>));
-        }
-
-        function update_vote_participants(value) {
-            $('#vote_participants_number').html(Math.min(Math.floor(parseFloat(value) * 0.01 * parseFloat(<%=@vote_participants_count%>)) + 1, <%=@vote_participants_count%>));
-        }
-
-        $(".participants").spinner({
-            incremental: true,
-            max: 100,
-            min: 0,
-            spin: function (event, ui) {
-                update_participants(ui.value);
-            }
-        });
-
-        $(".vote_participants").spinner({
-            incremental: true,
-            max: 100,
-            min: 0,
-            spin: function (event, ui) {
-                update_vote_participants(ui.value);
-            }
-        });
-
-        update_participants(<%=@quorum.percentage%>);
-        update_vote_participants(<%=@quorum.vote_percentage%>);
-
-        $('#best_quorum_good_score').spinner({
-            incremental: true,
-            max: 100,
-            min: 0,
-            spin: function (event, ui) {
-                var good = ui.value;
-                var bad = parseInt($('#quorum_bad_score').val());
-                if (good < bad) {
-                    $('#quorum_bad_score').val(good);
-                }
-            }
-        });
-
-        $('#best_quorum_vote_good_score').spinner({
-            incremental: true,
-            max: 100,
-            min: 0,
-            spin: function (event, ui) {
-                var good = parseInt($('#quorum_good_score').val());
-                var bad = ui.value;
-                if (bad >= good) {
-                    $('#quorum_good_score').val(bad);
-                }
-            }
-        });
-
-        $(".hours").spinner({
-            incremental: true,
-            max: 23,
-            min: 0
-        });
-        $(".days").spinner({
-            incremental: true,
-            min: 0
-        });
-        $(".minutes").spinner({
-            incremental: true,
-            max: 55,
-            min: 0,
-            step: 5
-        });
-
-        $("#radio").buttonset();
         $(".elastic").elastic();
     });
 </script>

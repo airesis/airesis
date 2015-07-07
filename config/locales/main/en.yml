@@ -240,7 +240,7 @@ en:
           advanced: "Advanced"
           time_description: "The debate last %{days} %{hours} %{minutes}"
           simple_percentage_description: "and a maturity equal or superior to %{good_score}%."
-          advanced_participation_description: "%{participants_percentage}%+1 (%{current_number} out of %{total_number} that have the right) <b>(average value: %{average})</b>"
+          advanced_participation_description: "(%{current_number} out of %{total_number} that have the right) <b>(average value: %{average})</b>"
           advanced_percentage_description: "If however the maturity is inferior to %{bad_score}% the proposal is abandoned."
           advanced_percentage_description3: "The proposal remains in debate if the maturity is between the two thresholds."
         active: "Active"
@@ -482,6 +482,7 @@ en:
         security_token: "Security Token"
         you_can_choose_vote_dates: "This proposal has been waiting for %{count} days for a voting date, so you are now allowed to choose one."
         no_contributes_yet: "No contributions here yet"
+        start_votation_proposal_confirmation: "Are you sure you want to start immediatly the votation?"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "Help"

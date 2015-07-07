@@ -3,8 +3,8 @@
   <tr>
     <td rowspan="2"><%= t('pages.groups.edit_quorums.active') %></td>
     <td rowspan="2"><%= t('pages.groups.edit_quorums.name') %></td>
-    <td colspan="3"><%='Debate'%></td>
-    <td colspan="2"><%='Votation'%></td>
+    <td colspan="3"><%= 'Debate' %></td>
+    <td colspan="2"><%= 'Votation' %></td>
   </tr>
   <tr>
     <td><%= t('pages.groups.edit_quorums.time') %></td>
@@ -14,7 +14,6 @@
     <td>
       <%= t('pages.groups.edit_quorums.good_percentage') %>
     </td>
-    <!--<td><%= t('pages.groups.edit_quorums.time') %></td>-->
     <td>
       <%= t('pages.groups.edit_quorums.participants') %>
     </td>
@@ -25,7 +24,7 @@
   <% @group.quorums.each do |quorum| %>
       <tr valign="top" title="<%= quorum.description %>">
         <td>
-          <input type="checkbox" onclick="return change_quorum_status(this,<%=quorum.id%>);"
+          <input type="checkbox" data-quorum-check="<%=quorum.id%>"
                  <% if quorum.active %>
                  checked="true"
                  <% end %>
@@ -39,37 +38,22 @@
         </td>
         <td> <%= quorum.good_score %>%
         </td>
-        <!--<td> <%= quorum.vote_time %>-->
         <td> <%= desc_percentage(quorum.vote_percentage) %>
         </td>
         <td> <%= quorum.vote_good_score %>%
         </td>
         <td>
-            <%= link_to "Modifica", edit_group_best_quorum_url(@group, quorum), remote: true, title: t('buttons.edit'), class: "ui-icon ui-icon-pencil", :style=>'float:left' %>
-            <%= link_to 'Delete', [@group, quorum], method: :delete, remote: true, data: {confirm: raw(t('pages.groups.edit_quorums.confirm_deletion', quorum: quorum.name))}, title: t('buttons.delete'), class: "ui-icon ui-icon-trash", :style=>'float:left' %>
+          <%= link_to edit_group_best_quorum_url(@group, quorum), remote: true,
+                      title: t('buttons.edit') do %>
+              <i class="fa fa-pencil"></i>
+          <% end %>
+          <%= link_to [@group, quorum], method: :delete, remote: true,
+                      data: {confirm: raw(t('pages.groups.edit_quorums.confirm_deletion', quorum: quorum.name))},
+                      title: t('buttons.delete') do %>
+              <i class="fa fa-trash"></i>
+          <% end %>
         </td>
       </tr>
   <% end %>
   </tbody>
 </table>
-
-<script type="text/javascript">
-    function change_quorum_status(el, quorum_id) {
-        if (el.checked) {
-            $.ajax({
-                data: "active=true"+"&l=<%=I18n.locale%>",
-                url: "/groups/" + <%=@group.id%> +"/quorums/" + quorum_id + "/change_status",
-                dataType: 'script',
-                type: 'post'
-            });
-        }
-        else {
-            $.ajax({
-                data: "active=false"+"&l=<%=I18n.locale%>",
-                url: "/groups/" + <%=@group.id%> +"/quorums/" + quorum_id + "/change_status",
-                dataType: 'script',
-                type: 'post'
-            });
-        }
-    }
-</script>

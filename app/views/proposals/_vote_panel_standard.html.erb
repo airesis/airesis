@@ -1,0 +1,28 @@
+<h4><%= t('pages.proposals.vote_panel.single_title') %></h4>
+<h4><%= @proposal.secret_vote ? t('pages.proposals.vote_panel.secret_vote') : t('pages.proposals.vote_panel.clear_vote') %></h4>
+
+<%= form_for 'data', url: votation_vote_path(proposal_id: @proposal.id), remote: true, method: :put do |f| %>
+    <%= f.hidden_field 'vote_type' %>
+    <% if current_user.rotp_enabled && ::Configuration.rotp %>
+        <%= f.label 'Token di sicurezza' %> <br/>
+        <%= f.text_field 'token', maxlength: 6 %>
+    <% end %>
+<% end %>
+
+<ul class="button-group even-3">
+  <li><%= link_to t('pages.votations.show.vote_positive'), '#',
+                  class: "votegreen votebutton button success",
+                  title: t('pages.votations.show.vote_positive'),
+                  data: {vote_type: VoteType::POSITIVE} %></li>
+  <li><%= link_to t('pages.votations.show.vote_neutral'), '#',
+                  class: "voteyellow votebutton button secondary",
+                  title: t('pages.votations.show.vote_neutral'),
+                  data: {vote_type: VoteType::NEUTRAL} %></li>
+  <li><%= link_to t('pages.votations.show.vote_negative'), '#',
+                  class: "votered votebutton button alert",
+                  title: t('pages.votations.show.vote_negative'),
+                  data: {vote_type: VoteType::NEGATIVE} %></li>
+</ul>
+
+<%= image_tag "spinner.gif", style: 'display: none;', class: "loading_vote" %>
+<div style="clear: both"></div>

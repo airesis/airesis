@@ -463,6 +463,7 @@ Airesis::Application.routes.draw do
         end
         member do
           post :close_debate
+          post :start_votation
           patch :regenerate
           patch :set_votation_date
           get :geocode

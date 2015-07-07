@@ -61,15 +61,6 @@ GIT
       faraday (>= 0.7.6)
 
 GIT
-  remote: git://github.com/johnantoni/foundation-rails.git
-  revision: 254b4c03407e567ab14238440962433c36585685
-  branch: foundation-5.4.7
-  specs:
-    foundation-rails (5.4.7.0)
-      railties (>= 3.1.0)
-      sass (>= 3.2.0)
-
-GIT
   remote: git://github.com/jwachira/sunspot-rails-http-basic-auth.git
   revision: d8b4069568be1863d04704af3fbba874167a9dee
   specs:
@@ -239,6 +230,9 @@ GEM
       railties (>= 3.2, < 5.0)
     foreigner (1.7.4)
       activerecord (>= 3.0.0)
+    foundation-rails (5.5.0.0)
+      railties (>= 3.1.0)
+      sass (>= 3.2.0, < 3.4)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
     gemoji (2.1.0)
@@ -309,7 +303,7 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.6.2)
     minitest (4.7.5)
-    multi_json (1.11.0)
+    multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     mustache (1.0.1)
@@ -380,7 +374,7 @@ GEM
       faye
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
-    rack (1.5.3)
+    rack (1.5.5)
     rack-accept (0.4.5)
       rack (>= 0.4)
     rack-mini-profiler (0.9.3)
@@ -599,7 +593,7 @@ DEPENDENCIES
   figaro
   font-awesome-rails
   foreigner
-  foundation-rails!
+  foundation-rails
   friendly_id
   gemoji
   geocoder
