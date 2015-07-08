@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe "check if quorums are working correctly", type: :feature, js: true do
+describe 'check if quorums are working correctly', type: :feature, js: true do
 
   let(:user) { create(:user) }
   let(:group) { create(:group, current_user_id: user.id) }
@@ -25,7 +25,7 @@ describe "check if quorums are working correctly", type: :feature, js: true do
     expect(page).to have_content(proposal.secret_vote ? I18n.t('pages.proposals.vote_panel.secret_vote') : I18n.t('pages.proposals.vote_panel.clear_vote'))
     if id.present?
       within (".solution_row[data-id=\"#{id}\"]") do
-        find('.slideNumber').select("3")
+        find('[data-slider-input]').set('3')
       end
     end
 
@@ -37,7 +37,7 @@ describe "check if quorums are working correctly", type: :feature, js: true do
     proposal.reload
   end
 
-  it "they can vote in a simple way and the proposal get accepted" do
+  it 'they can vote in a simple way and the proposal get accepted' do
     #populate the group
     49.times do
       user2 = create(:user)
@@ -121,7 +121,7 @@ describe "check if quorums are working correctly", type: :feature, js: true do
   end
 
 
-  it "they can vote in a simple way and the proposal get rejected" do
+  it 'they can vote in a simple way and the proposal get rejected' do
     #populate the group
     29.times do
       user2 = create(:user)
@@ -191,7 +191,7 @@ describe "check if quorums are working correctly", type: :feature, js: true do
     expect(proposal.rejected?).to be_truthy
   end
 
-  it "they can vote in a schulze way and the proposal get accepted" do
+  it 'they can vote in a schulze way and the proposal get accepted' do
     #populate the group
     9.times do
       user2 = create(:user)
@@ -246,7 +246,7 @@ describe "check if quorums are working correctly", type: :feature, js: true do
   end
 
 
-  it "they can vote in a schulze way and the proposal get rejected (no votes)" do
+  it 'they can vote in a schulze way and the proposal get rejected (no votes)' do
     #populate the group
     9.times do
       user2 = create(:user)
@@ -281,7 +281,7 @@ describe "check if quorums are working correctly", type: :feature, js: true do
   end
 
 
-  it "they can see vote results" do
+  it 'they can see vote results' do
     #populate the group
     9.times do
       user2 = create(:user)

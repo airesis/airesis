@@ -6,10 +6,11 @@ class Proposal < ActiveRecord::Base
   belongs_to :vote_period, class_name: 'Event', foreign_key: :vote_period_id #attached when is decided
   belongs_to :vote_event, class_name: 'Event', foreign_key: :vote_event_id #attached when the proposal is created, only possible
 
+  # TODO: can't move tags before proposal_presentations because these are necessary when creating the tags
+  # TODO: can't destroy the proposal because proposal presentations are destroyed before the tags
+  has_many :proposal_presentations, -> { order 'id DESC' }, class_name: 'ProposalPresentation', dependent: :destroy
   has_many :proposal_tags, class_name: 'ProposalTag', dependent: :destroy
   has_many :tags, through: :proposal_tags, class_name: 'Tag'
-
-  has_many :proposal_presentations, -> { order 'id DESC' }, class_name: 'ProposalPresentation', dependent: :destroy
 
   has_many :proposal_borders, class_name: 'ProposalBorder', dependent: :destroy
 
@@ -718,7 +719,6 @@ class Proposal < ActiveRecord::Base
 
     current_user = User.find(current_user_id)
     proposal_presentations.build(user: current_user)
-
     #per sicurezza reimposto questi parametri per far si che i cattivi hacker non cambino le impostazioni se non possono
     if group
       unless group.change_advanced_options

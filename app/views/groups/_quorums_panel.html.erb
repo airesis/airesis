@@ -2,22 +2,31 @@
   <thead>
   <tr>
     <td rowspan="2"><%= t('pages.groups.edit_quorums.active') %></td>
-    <td rowspan="2"><%= t('pages.groups.edit_quorums.name') %></td>
+    <td rowspan="2" class="show-for-large-up"><%= t('pages.groups.edit_quorums.name') %></td>
     <td colspan="3"><%= 'Debate' %></td>
     <td colspan="2"><%= 'Votation' %></td>
   </tr>
   <tr>
-    <td><%= t('pages.groups.edit_quorums.time') %></td>
     <td>
-      <%= t('pages.groups.edit_quorums.participants') %>
+      <span class="show-for-large-up"><%= t('pages.groups.edit_quorums.time') %></span>
+      <span class="hide-for-large-up"><i class="fa fa-clock-o"></i></span>
     </td>
     <td>
-      <%= t('pages.groups.edit_quorums.good_percentage') %>
+      <span class="show-for-large-up"><%= t('pages.groups.edit_quorums.participants') %></span>
+      <span class="hide-for-large-up"><i class="fa fa-users"></i></span>
     </td>
     <td>
-      <%= t('pages.groups.edit_quorums.participants') %>
+      <span class="show-for-large-up"><%= t('pages.groups.edit_quorums.good_percentage') %></span>
+      <span class="hide-for-large-up"><i class="fa fa-tachometer"></i></span>
     </td>
-    <td><%= 'Percentage' %></td>
+    <td>
+      <span class="show-for-large-up"><%= t('pages.groups.edit_quorums.participants') %></span>
+      <span class="hide-for-large-up"><i class="fa fa-users"></i></span>
+    </td>
+    <td>
+      <span class="show-for-large-up"><%= 'Percentage' %></span>
+      <span class="hide-for-large-up"><i class="fa fa-tachometer"></i></span>
+    </td>
   </tr>
   </thead>
   <tbody>
@@ -30,7 +39,7 @@
                  <% end %>
                  />
         </td>
-        <td>
+        <td class="show-for-large-up">
           <b><%= quorum.name %>:</b>
         </td>
         <td> <%= quorum.time %>
