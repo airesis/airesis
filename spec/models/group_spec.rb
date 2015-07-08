@@ -8,6 +8,7 @@ describe Group do
       group.save
     end
     it 'has one participant' do
+      group.reload
       expect(group.group_participations_count).to eq 1
     end
   end
