@@ -16,9 +16,11 @@ before_script:
  - "RAILS_ENV=test bundle exec rake db:setup --trace"
  - bundle exec sidekiq -d -L /tmp/sidekiq.log
  - sleep 1
+after_failure: "cat log/test.log"
 services:
  - redis-server
 script: RAILS_ENV=test DISPLAY=:99.0 bundle exec rspec --tag ~ci_ignore
 notifications:
   recipients:
     - coorasse@gmail.com
+
