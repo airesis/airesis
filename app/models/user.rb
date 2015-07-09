@@ -586,7 +586,7 @@ class User < ActiveRecord::Base
         user.build_authentication_provider(oauth_data)
 
         user.sign_in_count = 0
-        user.confirm!
+        user.confirm
         user.save!
 
         if user_info[:certified]

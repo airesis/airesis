@@ -44,6 +44,9 @@ RSpec.configure do |config|
     config.allow_url('csi.gstatic.com')
     config.allow_url('mt0.googleapis.com')
     config.allow_url('mt1.googleapis.com')
+    config.allow_url('mts0.googleapis.com')
+    config.allow_url('mts1.googleapis.com')
+
     config.allow_url('fonts.googleapis.com')
 
     config.allow_url('connect.facebook.net/en/sdk.js')
