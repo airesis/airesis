@@ -1,4 +1,3 @@
-
 class Proposal < ActiveRecord::Base
   include Frm::Concerns::Viewable, Concerns::ProposalBuildable, Concerns::Taggable
 
@@ -66,7 +65,9 @@ class Proposal < ActiveRecord::Base
 
   #forum
   has_many :topic_proposals, class_name: 'Frm::TopicProposal', foreign_key: 'proposal_id'
-  has_sal_alerts, class_name: 'BlockedProposalAlert', dependent: :destroy
+  has_many :topics, class_name: 'Frm::Topic', through: :topic_proposals
+
+  has_many :blocked_proposal_alerts, class_name: 'BlockedProposalAlert', dependent: :destroy
 
   has_many :alerts, as: :trackable
 
@@ -98,7 +99,7 @@ class Proposal < ActiveRecord::Base
 
   #waiting for the votation to start (already choosen)
   scope :waiting, -> { where(proposal_state_id: ProposalState::WAIT) }
-  scope :voting, -> { where(proposal_state_id: ProposalState::VOTING) }
+  scope :voting, -> { where(arel_table[:proposal_state_id].eq(ProposalState::VOTING)) }
 
   scope :not_voted_by, ->(user_id) { where('proposal_state_id = ? and proposals.id not in (select proposal_id from user_votes where user_id = ?)', ProposalState::VOTING, user_id) }
 
@@ -130,16 +131,12 @@ class Proposal < ActiveRecord::Base
 
   after_create :generate_nickname
 
-  after_commi: :create
-  after_commit pdate :before_update_populate
-  before_save :save_tags
+  after_commit :send_notifications, on: :create
+  after_commit :send_update_notifications, on: :update
+
+  before_update :before_update_populate
 
   after_destroy :remove_scheduled_tasks
-
-  def acked_by?(user)
-    last_view = view_for(user)
-    last_view.present? && (last_view.current_viewed_at > updated_at)
-  end
 
   def init
     self.quorum_id ||= Quorum::STANDARD
@@ -167,7 +164,12 @@ class Proposal < ActiveRecord::Base
     proposal_rankings = ProposalRanking.arel_table
     ranking = proposal_rankings.
       project(proposal_rankings[:ranking_type_id]).
-      where(proposal_rankings[:proposal_id].eq(proposals[:id]  def self.open_space_portlet(user = nil, current_territory = nil)
+      where(proposal_rankings[:proposal_id].eq(proposals[:id]).
+              and(proposal_rankings[:user_id].eq(user_id)))
+  end
+
+  #retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
+  def self.open_space_portlet(user = nil, current_territory = nil)
     user_id = user ? user.id : -1
     proposals = Proposal.arel_table
     petition_id = ProposalType.find_by(name: ProposalType::PETITION).id
@@ -189,12 +191,7 @@ class Proposal < ActiveRecord::Base
     proposals = Proposal.
       select('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
       where(proposals[:id].in(ids)).order(updated_at: :desc)
-    ActiveRecord::Associations::Preloader.new(proposals, [:quorum, :groups, :supporting_groups]).run
-    proposals
-  end
-t'), ranking.as('ranking')).
-      where(proposals[:id].in(ids)).order(updated_at: :desc)
-    ActiveRecord::Associations::Preloader.new(proposals, [:quorum, :groups, :supporting_groups]).run
+    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, :groups, :supporting_groups])
     proposals
   end
 
@@ -215,7 +212,7 @@ t'), ranking.as('ranking')).
       where(proposals[:proposal_type_id].not_eq(petition_id)).
       where(proposals[:id].in(list_c)).
       order(updated_at: :desc).to_a
-    ActiveRecord::Associations::Preloader.new(proposals, [:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category]).run
+    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category])
     proposals
   end
 
@@ -225,7 +222,7 @@ t'), ranking.as('ranking')).
     petition_id = ProposalType.find_by(name: ProposalType::PETITION).id
     alerts_count = alerts_count_subquery(user.id)
 
-    Proposal.public.
+    Proposal.visible.
       select('distinct proposals.*', alerts_count.as('alerts_count')).
       where(proposals[:proposal_type_id].eq(petition_id)).
       order(updated_at: :desc).limit(10)
@@ -253,15 +250,15 @@ t'), ranking.as('ranking')).
                                       and(group_participations[:user_id].eq(user.id))).
       join(participation_roles).on(group_participations[:participation_role_id].eq(participation_roles[:id])).
       join(events).on(events[:id].eq(proposals[:vote_period_id])).
-      join(action_abilitations, Arel::OuterJoin).on(action_abilitations[:participation_role_id].eq(participation_roles[:id])).
-      join(user_votes, Arel::OuterJoin).on(user_votes[:proposal_id].eq(proposals[:id]).and(user_votes[:user_id].eq(user.id))).
+      join(action_abilitations, Arel::Nodes::OuterJoin).on(action_abilitations[:participation_role_id].eq(participation_roles[:id])).
+      join(user_votes, Arel::Nodes::OuterJoin).on(user_votes[:proposal_id].eq(proposals[:id]).and(user_votes[:user_id].eq(user.id))).
       where(proposals[:proposal_type_id].not_eq(petition_id)).
       where(user_votes[:id].eq(nil)).
       where(action_abilitations[:group_action_id].eq(GroupAction::PROPOSAL_VOTE).
               or(participation_roles[:id].eq(ParticipationRole.admin.id))).
       order('end_time asc').to_sql
     proposals = Proposal.find_by_sql(proposals_sql)
-    ActiveRecord::Associations::Preloader.new(proposals, [:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category]).run
+    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category])
     proposals
   end
 
@@ -279,12 +276,11 @@ t'), ranking.as('ranking')).
                            order(proposals[:created_at].desc).take(10).to_sql)
   end
 
-
   def count_notifications(user_id)
-    alerts = Alert.where(trackable: self, checked: false, user_id: user_id).count
+    Alert.unscoped.where(trackable: self, checked: false, user_id: user_id).count
   end
 
-  #after_find :calculate_percentage
+  # after_find :calculate_percentage
 
   def integrated_contributes_ids_list=(value)
     self.integrated_contributes_ids = value.split(/,\s*/)
@@ -775,7 +771,7 @@ t'), ranking.as('ranking')).
       ProposalsWorker.perform_at(quorum.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: id})
     elsif current_user_id # updated or set votation date
       if waiting? # someone chose votation date
-        NotificationProposalWaitingForDate.perform_async(id, current_user.id)
+        NotificationProposalWaitingForDate.perform_async(id, current_user_id)
       else # standard update
         NotificationProposalUpdate.perform_async(current_user_id, id, groups.first.try(:id))
       end

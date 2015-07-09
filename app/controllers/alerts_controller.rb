@@ -16,7 +16,7 @@ class AlertsController < ApplicationController
       format.json do
         unread = @alerts.where(checked: false, deleted: false).
           includes(:notification_type, :notification_category)
-        numunread = unread.count
+        numunread = unread.length
         if numunread < 10
           unread += @alerts.where(checked: true, deleted: false).
             includes(:notification_type, :notification_category).limit(10 - numunread)
@@ -67,10 +67,6 @@ class AlertsController < ApplicationController
   def proposal
     @proposal_id = params[:proposal_id]
     @unread = current_user.alerts.where(["(notifications.properties -> 'proposal_id') = ? and alerts.checked = ?", @proposal_id.to_s, false])
-    render layout: false
-  end
-end
-t_user.alerts.where(["(notifications.properties -> 'proposal_id') = ? and alerts.checked = ?", @proposal_id.to_s, false])
     render layout: false
   end
 end

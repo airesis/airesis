@@ -27,26 +27,29 @@ RSpec.configure do |config|
     Proposal.remove_all_from_index!
   end
 
-  config.before(:each, type: :feature, js: true) do
-    page.driver.allow_url("pbs.twimg.com")
-    page.driver.allow_url("syndication.twitter.com")
-    page.driver.allow_url("platform.twitter.com")
-    page.driver.allow_url("platform.twitter.com")
+  Capybara::Webkit.configure do |config|
+    config.allow_url('pbs.twimg.com')
+    config.allow_url('syndication.twitter.com')
+    config.allow_url('platform.twitter.com')
+    config.allow_url('platform.twitter.com')
 
-    page.driver.allow_url("www.gravatar.com")
+    config.allow_url('www.gravatar.com')
 
-    page.driver.allow_url("maps.googleapis.com")
-    page.driver.allow_url("apis.google.com")
-    page.driver.allow_url("oauth.googleusercontent.com")
-    page.driver.allow_url("ssl.gstatic.com")
-    page.driver.allow_url("maps.gstatic.com")
-    page.driver.allow_url("www.google.com")
-    page.driver.allow_url("fonts.googleapis.com")
+    config.allow_url('maps.googleapis.com')
+    config.allow_url('apis.google.com')
+    config.allow_url('oauth.googleusercontent.com')
+    config.allow_url('ssl.gstatic.com')
+    config.allow_url('maps.gstatic.com')
+    config.allow_url('www.google.com')
+    config.allow_url('csi.gstatic.com')
+    config.allow_url('mt0.googleapis.com')
+    config.allow_url('mt1.googleapis.com')
+    config.allow_url('fonts.googleapis.com')
 
-    page.driver.allow_url("connect.facebook.net/en/sdk.js")
-    page.driver.allow_url("fbstatic-a.akamaihd.net")
-    page.driver.allow_url("graph.facebook.com")
-    page.driver.allow_url("connect.facebook.net")
+    config.allow_url('connect.facebook.net/en/sdk.js')
+    config.allow_url('fbstatic-a.akamaihd.net')
+    config.allow_url('graph.facebook.com')
+    config.allow_url('connect.facebook.net')
   end
 
   config.order = 'random'

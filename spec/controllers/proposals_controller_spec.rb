@@ -130,7 +130,6 @@ describe ProposalsController, type: :controller, search: :true do
     it 'can retrieve private proposals that are visible outside' do
       group = create(:group, current_user_id: user.id)
       proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: true)
-
       get :tab_list, state: ProposalState::TAB_DEBATE
       expect(assigns(:proposals)).to match_array([proposal3, proposal1])
     end
@@ -218,8 +217,8 @@ describe ProposalsController, type: :controller, search: :true do
       expect(assigns(:proposals)).to eq([proposal2, proposal1])
     end
 
-    it "does not retrieve nothing with wrong title" do
-      proposal2 = create(:public_proposal, title: 'una giornata da inferno', quorum: BestQuorum.public.first, current_user_id: @user.id)
+    it "does not retrieve anything with a wrong title" do
+      proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
       xhr :get, :similar, title: 'rappresentative', format: :js
       expect(assigns(:proposals)).to eq([])
     end

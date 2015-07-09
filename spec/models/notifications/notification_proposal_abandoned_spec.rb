@@ -41,7 +41,7 @@ describe NotificationProposalAbandoned, type: :model, emails: true, notification
     receiver_emails = participants.map(&:email)
     expect(emails).to match_array receiver_emails
 
-    expect(Alert.count).to eq 3
+    expect(Alert.unscoped.count).to eq 3
     expect(Alert.first.user).to eq user
     expect(Alert.first.notification_type.id).to eq NotificationType::CHANGE_STATUS_MINE
 

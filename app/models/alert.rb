@@ -4,7 +4,12 @@ class Alert < ActiveRecord::Base
   belongs_to :notification, class_name: 'Notification', foreign_key: :notification_id
   belongs_to :trackable, polymorphic: true
 
-  default_scope -> {select('alerts.*, (notifications.properties || alerts.properties) as nproperties').joins(:notification)}
+  attr_accessor :jid
+
+  default_scope -> {
+    select('alerts.*, notifications.properties || alerts.properties as nproperties').
+      joins(:notification)
+  }
 
   scope :another, ->(attribute, attr_id, user_id, notification_type) {
     joins([:notification, :user]).

@@ -15,12 +15,10 @@ describe "manage correctly meeting events", type: :feature, js: true, ci_ignore:
   end
 
   it "participants can create meeting events" do
-    page.driver.allow_url 'maps.googleapis.com/*'
-    page.driver.allow_url 'maps.gstatic.com/*'
     #can manage his event
     login_as user2, scope: :user
     visit new_group_event_path(group)
-    page.execute_script("$('#create_event_dialog').foundation('reveal', 'open');")
+    #page.execute_script("$('#create_event_dialog').foundation('reveal', 'open');")
     expect(page).to have_content(I18n.t('pages.events.new.title_meeting'))
     title = Faker::Lorem.sentence
     description = Faker::Lorem.paragraph

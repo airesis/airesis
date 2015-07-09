@@ -2,26 +2,26 @@ source 'http://rubygems.org'
 
 ruby File.read('.ruby-version').strip
 
-gem 'rails', '4.0.2'
+gem 'rails', '~> 4.2.0'
 
 gem 'maktoub'
 
 gem 'turnout'
 
-gem 'sass-rails', '~> 5.0.0'
-gem 'coffee-rails', '~> 4.0.0'
-gem 'uglifier', '>= 1.3.0'
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
 
 gem 'foundation-rails'
 
 gem 'pg'
 
-gem 'sunspot_rails', github: 'coorasse/sunspot', tag: 'v2.1.1-threadsafe'
+gem 'sunspot_rails'
 gem 'sunspot-queue'
 
-gem 'capistrano', '~> 3.2.0'
-gem 'capistrano-bundler', '~> 1.1.2'
-gem 'capistrano-rails', '~> 1.1'
+gem 'capistrano'
+gem 'capistrano-bundler'
+gem 'capistrano-rails'
 gem 'rvm1-capistrano3', require: false
 gem 'premailer-rails'
 
@@ -37,13 +37,13 @@ group :development do
   gem 'quiet_assets'
   gem 'capistrano-sidekiq'
   gem 'capistrano-passenger'
-  gem 'i18n-tasks', '~> 0.7.7'
+  gem 'i18n-tasks'
   gem 'rubocop'
   gem 'rack-mini-profiler', require: false
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0.0'
+  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'
@@ -80,25 +80,23 @@ gem 'jquery-rails'
 
 gem 'turbolinks'
 
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder'
 
 gem 'devise'
 
 gem 'devise_traceable', github: 'coorasse/devise_traceable'
 
-gem 'koala', '~> 1.8.0rc1'
+gem 'koala'
 
 gem 'xmpp4r_facebook'
 
-gem 'sinatra', '>= 1.3.0', require: nil
+gem 'sinatra', require: false
 
 gem 'sidekiq'
 gem 'sidekiq-failures'
 gem 'sidetiq'
 
-gem 'cancancan', '~> 1.9'
-
-gem 'foreigner'
+gem 'cancancan'
 
 gem 'sitemap_generator'
 
@@ -119,7 +117,7 @@ gem 'thin'
 gem 'ruby-prof', group: :test
 gem 'test-unit', group: :test
 
-gem 'globalize', '~> 4.0.0'
+gem 'globalize'
 
 gem 'sanitize'
 
@@ -149,17 +147,17 @@ gem 'mailman', require: false
 
 gem 'email_reply_parser'
 
-gem 'paper_trail', '~> 3.0.0'
+gem 'paper_trail'
 
-gem 'client_side_validations', github: 'coorasse/client_side_validations', branch: '4-0-beta'
+gem 'client_side_validations', github: 'DavyJonesLocker/client_side_validations'
 
-gem 'client_side_validations-simple_form', github: 'coorasse/client_side_validations-simple_form'
+gem 'client_side_validations-simple_form', github: 'DavyJonesLocker/client_side_validations-simple_form'
 
 gem 'figaro'
 
 gem 'faker'
 
-gem 'sshkit', '1.3.0'
+gem 'sshkit'
 
 gem 'font-awesome-rails'
 

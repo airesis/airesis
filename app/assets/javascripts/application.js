@@ -9,9 +9,6 @@
 //= require jquery
 //= require jquery.plugin
 //= require jquery-ui
-
-//= require nprogress
-//= require nprogress-turbolinks
 //= require jquery.sliderAccess
 //= require jquery_ujs
 //= require jquery.tokeninput
@@ -64,7 +61,9 @@
 //= require jquery.URI
 //= require_tree ./per_page
 //= require mustache
-//= require turbolinks
-//= require jquery.turbolinks
 
-NProgress.configure({ parent: '#main-copy' });
+//// require nprogress
+//// require nprogress-turbolinks
+//// require turbolinks
+//// require jquery.turbolinks
+//NProgress.configure({ parent: '#main-copy' });
