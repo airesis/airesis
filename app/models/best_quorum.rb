@@ -131,7 +131,7 @@ class BestQuorum < Quorum
   end
 
   def check_phase(force_end = false)
-    return unless force_end || (Time.now > ends_at) #skip if we have not passed the time yet
+    return unless force_end || (Time.now > ends_at) # skip if we have not passed the time yet
 
     vpassed = !valutations || (proposal.valutations >= valutations)
     if (proposal.rank >= good_score) && vpassed #and we passed the debate quorum

@@ -1104,7 +1104,7 @@ ro:
     province: "%{name} (provincia)"
     town: "%{name} (oraş)"
     country: "%{name} (ţara)"
-    continent: "%{nume} (Continent)"
+    continent: "%{name} (Continent)"
   mailer:
     default:
       follow_twitter: Urmărește-ne pe Twitter

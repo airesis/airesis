@@ -6,7 +6,12 @@ class Proposal < ActiveRecord::Base
   belongs_to :category, class_name: 'ProposalCategory', foreign_key: :proposal_category_id
   belongs_to :vote_period, class_name: 'Event', foreign_key: :vote_period_id #attached when is decided
   belongs_to :vote_event, class_name: 'Event', foreign_key: :vote_event_id #attached when the proposal is created, only possible
+
+  # TODO: can't move tags before proposal_presentations because these are necessary when creating the tags
+  # TODO: can't destroy the proposal because proposal presentations are destroyed before the tags
   has_many :proposal_presentations, -> { order 'id DESC' }, class_name: 'ProposalPresentation', dependent: :destroy
+  has_many :proposal_tags, class_name: 'ProposalTag', dependent: :destroy
+  has_many :tags, through: :proposal_tags, class_name: 'Tag'
 
   has_many :proposal_borders, class_name: 'ProposalBorder', dependent: :destroy
 
@@ -34,8 +39,6 @@ class Proposal < ActiveRecord::Base
   #confini di interesse
   has_many :interest_borders, through: :proposal_borders, class_name: 'InterestBorder'
 
-  has_many :proposal_tags, class_name: 'ProposalTag', dependent: :destroy
-  has_many :tags, through: :proposal_tags, class_name: 'Tag'
 
   has_many :proposal_nicknames, class_name: 'ProposalNickname', dependent: :destroy
 
@@ -396,7 +399,7 @@ t'), ranking.as('ranking')).
     end
   end
 
-  #retrieve the number of users that can vote this proposal
+  # retrieve the number of users that can vote this proposal
   def eligible_voters_count
     return User.confirmed.unblocked.count unless private?
     if self.presentation_areas.size > 0 #if we are in a working area
@@ -658,6 +661,20 @@ t'), ranking.as('ranking')).
     end
   end
 
+  def start_votation
+    return if voting?
+    self.proposal_state_id = ProposalState::VOTING
+    self.save!
+    unless vote #se non ha i dati per la votazione creali
+      vote_data = ProposalVote.new(proposal_id: id, positive: 0, negative: 0, neutral: 0)
+      vote_data.save!
+    end
+
+    NotificationProposalVoteStarts.perform_async(id, groups.first.try(:id), presentation_areas.first.try(:id))
+
+    ProposalsWorker.perform_at(vote_period.endtime - 24.hours, {action: ProposalsWorker::LEFT24VOTE, proposal_id: id}) if (vote_period.duration/60) > 1440
+    ProposalsWorker.perform_at(vote_period.endtime - 1.hour, {action: ProposalsWorker::LEFT1VOTE, proposal_id: id}) if (vote_period.duration/60) > 60
+  end
 
   def set_votation_date(vote_period_id)
     vote_period = Event.find(vote_period_id)
@@ -705,7 +722,6 @@ t'), ranking.as('ranking')).
 
     current_user = User.find(current_user_id)
     proposal_presentations.build(user: current_user)
-
     #per sicurezza reimposto questi parametri per far si che i cattivi hacker non cambino le impostazioni se non possono
     if group
       unless group.change_advanced_options

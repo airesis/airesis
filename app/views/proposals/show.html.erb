@@ -13,7 +13,6 @@
     <meta property="article:section" content="<%= @proposal.category.description %>">
     <meta property="article:tag" content="<%= @proposal.tags_list %>">
     <meta name="description" content="<%= @proposal.short_content %>">
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false"></script>
 <% end %>
 
 <%= render partial: 'proposals/show_proposal' %>
@@ -62,6 +61,14 @@
         charactersLeft: '<%=j t('pages.proposals.show.characters_left')%>',
         loadingContributes: '<%=j t('pages.proposals.show.loading_contributions') %>',
         errorLoadingParagraph: '<%=j t('pages.proposals.show.error_loading_paragraph')%>'
+    };
+    Airesis.i18n.proposals.vote = {
+        positive: <%=VoteType::POSITIVE%>,
+        neutral: <%=VoteType::NEUTRAL%>,
+        negative: <%=VoteType::NEGATIVE%>,
+        confirm_positive: '<%=j raw t('pages.votations.show.confirm_positive', name: @proposal.title) %>',
+        confirm_neutral: '<%=j raw t('pages.votations.show.confirm_neutral', name: @proposal.title) %>',
+        confirm_negative: '<%=j raw t('pages.votations.show.confirm_negative', name: @proposal.title) %>'
     };
 
     Airesis.can_participate = <%=can? :participate, @proposal%>;

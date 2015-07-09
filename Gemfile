@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '2.2.0'
+ruby File.read('.ruby-version').strip
 
 gem 'rails', '4.0.2'
 
@@ -8,12 +8,11 @@ gem 'maktoub'
 
 gem 'turnout'
 
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 5.0.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 
-# not the official repossitory. waiting for update to 5.4.7
-gem 'foundation-rails', github: 'johnantoni/foundation-rails', branch: 'foundation-5.4.7'
+gem 'foundation-rails'
 
 gem 'pg'
 

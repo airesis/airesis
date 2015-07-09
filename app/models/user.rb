@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
 
   has_many :proposal_nicknames, class_name: 'ProposalNickname'
 
-  has_one :certification, class_name: 'UserSensitive', foreign_key: :user_id
+  has_one :certification, class_name: 'UserSensitive', foreign_key: :user_id, autosave: true
 
   #forum
   has_many :viewed, class_name: 'Frm::View'
@@ -117,6 +117,7 @@ class User < ActiveRecord::Base
   validates_attachment_size :avatar, less_than: 2.megabytes
   validates_attachment_content_type :avatar, content_type: ['image/jpeg', 'image/png', 'image/gif', 'image/jpg']
 
+  scope :all_except, ->(user) { where.not(id: user) }
 
   scope :blocked, -> { where(blocked: true) }
   scope :unblocked, -> { where(blocked: false) }

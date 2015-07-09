@@ -21,12 +21,12 @@ class ProposalTag < ActiveRecord::Base
     if proposal.solr_country_ids.present?
       proposal.solr_country_ids.each do |stato_id|
         tag_counter = tag.tag_counters.find_or_create_by(territory: Country.find(stato_id))
-        tag_counter.update(:proposals_count, tag_counter.proposals_count + val)
+        tag_counter.update(proposals_count: tag_counter.proposals_count + val)
       end
     else
       proposal.solr_continent_ids.each do |continent_id|
         tag_counter = tag.tag_counters.find_or_create_by(territory: Continent.find(continent_id))
-        tag_counter.update(:proposals_count, tag_counter.proposals_count + val)
+        tag_counter.update(proposals_count: tag_counter.proposals_count + val)
       end
     end
   end
