@@ -1,4 +1,3 @@
-#encoding: utf-8
 class ProposalCommentsController < ApplicationController
 
   before_filter :save_post_and_authenticate_user, only: [:create]
@@ -11,65 +10,9 @@ class ProposalCommentsController < ApplicationController
 
   #retrieve contributes list
   def index
-    order = ""
-    conditions = " 1 = 1 "
-
-    if params[:section_id]
-      @section = Section.find(params[:section_id])
-      paragraphs_ids = @section.paragraph_ids
-      conditions += " AND proposal_comments.paragraph_id in (#{paragraphs_ids.join(',')})"
-    elsif params[:all]
-      conditions += ''
-    else
-      conditions += " AND proposal_comments.paragraph_id is null"
-    end
-
-    if params[:view] == SearchProposal::ORDER_RANDOM
-      #remove already shown contributes
-      conditions << " AND proposal_comments.id not in (#{params[:contributes].join(',')})" if params[:contributes]
-      left = params[:disable_limit] ? 9999999 : COMMENTS_PER_PAGE
-      tmp_comments = []
-      #retrieve contributes with alerts TODO
-      #alerted = Alert.joins({notification: :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and notifications.notification_type_id in (?) and alerts.user_id = ?','proposal_id', @proposal.id.to_s,[NotificationType::NEW_CONTRIBUTES,NotificationType::NEW_CONTRIBUTES_MINE],current_user.id]).pluck('distinct (notification_data.value)')
-      #unread_cond = conditions + " AND proposal_comments.id in "
-      #tmp_comments += @proposal.contributes.listable.all(conditions: unread_cond).map { |c| c.id }
-
-      if left > 0
-        #extract evaluated ids
-        valuated_cond = conditions + " AND proposal_comment_rankings.user_id = #{current_user.id}"
-        valuated_ids = @proposal.contributes.listable.joins(:rankings).where(valuated_cond).select('distinct(proposal_comments.id)').map { |c| c.id }
-
-        #extract not evaluated contributes
-        non_valuated_cond = conditions
-        non_valuated_cond += " AND proposal_comments.id not in (#{valuated_ids.join(',')})" unless valuated_ids.empty?
-        tmp_comments += @proposal.contributes.listable.where(non_valuated_cond).order('random()').limit(left).load
-        left -= tmp_comments.size
-
-        if left > 0 && !valuated_ids.empty?
-          #extract the evaluated ones
-          valuated_cond = conditions
-          valuated_cond += " AND proposal_comments.id in (#{valuated_ids.join(',')})"
-          tmp_comments += @proposal.contributes.listable.where(valuated_cond).order('rank desc').limit(left).load
-        end
-      end
-      @proposal_comments = tmp_comments
-      @total_pages = (@proposal.contributes.listable.count.to_f / COMMENTS_PER_PAGE.to_f).ceil
-      @current_page = (params[:page] || 1).to_i
-    else
-      if params[:view] == SearchProposal::ORDER_BY_RANK
-        order << " proposal_comments.j_value desc, proposal_comments.id desc"
-      else
-        order << "proposal_comments.updated_at desc"
-      end
-      @proposal_comments = @proposal.contributes.listable.where(conditions).order(order).page(params[:page]).per(COMMENTS_PER_PAGE)
-      @total_pages = @proposal_comments.total_pages
-      @current_page = @proposal_comments.current_page
-    end
-
-
     respond_to do |format|
-      format.js
-      format.html { @proposal_comments  = @proposal.contributes.listable}
+      format.html { @proposal_comment_search  = ProposalCommentSearch.new({all: true, disable_limit: true}, @proposal)}
+      format.js { @proposal_comment_search = ProposalCommentSearch.new(params, @proposal, current_user)}
     end
   end
 
@@ -114,9 +57,9 @@ class ProposalCommentsController < ApplicationController
     respond_to do |format|
       @my_nickname = current_user.proposal_nicknames.find_by(proposal_id: @proposal.id)
       @proposal_comment.collapsed = true
+      format.html { redirect_to @proposal }
       format.js
       format.json { head :ok }
-      format.html { redirect_to @proposal }
     end
 
   rescue Exception => e
@@ -134,8 +77,8 @@ class ProposalCommentsController < ApplicationController
     respond_to do |format|
       if @proposal_comment.update(proposal_comment_update_params)
         flash[:notice] = t('info.proposal.updated_comment')
-        format.js
         format.html { redirect_to(@proposal) }
+        format.js
       else
         format.html { render action: "edit" }
       end
@@ -149,8 +92,8 @@ class ProposalCommentsController < ApplicationController
 
     respond_to do |format|
       flash[:notice] = t('info.proposal.comment_deleted')
-      format.js
       format.html { redirect_to @proposal }
+      format.js
     end
   end
 
@@ -216,8 +159,8 @@ class ProposalCommentsController < ApplicationController
     to_inactive.update_all(noise: true)
 
     respond_to do |format|
-      format.js { render nothing: true }
       format.html { redirect_to @proposal }
+      format.js { render nothing: true }
     end
 
   end
@@ -256,12 +199,12 @@ class ProposalCommentsController < ApplicationController
       if @ranking.save
         @proposal_comment.reload
         flash[:notice] = t('info.proposal.rank_recorderd')
-        format.js { render 'rank' }
         format.html { redirect_to @proposal }
+        format.js { render 'rank' }
       else
         flash[:notice] = t(:error_on_proposal_comment_rank)
-        format.js { render 'layouts/error' }
         format.html { redirect_to @proposal }
+        format.js { render 'layouts/error' }
       end
     end
   end

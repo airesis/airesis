@@ -5,6 +5,8 @@ class Frm::ApplicationController < ApplicationController
 
   before_filter :load_group
 
+  authorize_resource :group
+
   protected
   def load_group
     super

@@ -1,6 +1,5 @@
-#encoding: utf-8
-Comune.create(description: "Talagante", provincia_id: 201, regione_id: 44, stato_id: 90, continente_id: 2 , population: 59805)
-Comune.create(description: "Peñaflor", provincia_id: 201, regione_id: 44, stato_id: 90, continente_id: 2 , population: 66619)
-Comune.create(description: "Padre Hurtado", provincia_id: 201, regione_id: 44, stato_id: 90, continente_id: 2 , population: 38768)
-Comune.create(description: "Isla de Maipo", provincia_id: 201, regione_id: 44, stato_id: 90, continente_id: 2 , population: 25798)
-Comune.create(description: "El Monte", provincia_id: 201, regione_id: 44, stato_id: 90, continente_id: 2 , population: 26459)
+Municipality.create(description: "Talagante", province_id: 201, region_id:  44, country_id: 90, continent_id: 2 , population: 59805)
+Municipality.create(description: "Peñaflor", province_id: 201, region_id:  44, country_id: 90, continent_id: 2 , population: 66619)
+Municipality.create(description: "Padre Hurtado", province_id: 201, region_id:  44, country_id: 90, continent_id: 2 , population: 38768)
+Municipality.create(description: "Isla de Maipo", province_id: 201, region_id:  44, country_id: 90, continent_id: 2 , population: 25798)
+Municipality.create(description: "El Monte", province_id: 201, region_id:  44, country_id: 90, continent_id: 2 , population: 26459)

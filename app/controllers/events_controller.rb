@@ -1,4 +1,3 @@
-#encoding: utf-8
 class EventsController < ApplicationController
   layout :choose_layout
 
@@ -11,7 +10,7 @@ class EventsController < ApplicationController
     authorize! :view_data, @group if @group
     respond_to do |format|
       format.html do
-        @page_title = @group ? t('pages.events.index.title') + " - " + @group.name : t('pages.events.index.title')
+        @page_title = @group ? "#{t('pages.events.index.title')} - #{@group.name}" : t('pages.events.index.title')
       end
       format.ics do
         calendar = Icalendar::Calendar.new
@@ -22,7 +21,8 @@ class EventsController < ApplicationController
         render text: calendar.to_ical
       end
       format.json do
-        @events = @events.time_scoped(Time.at(params['start'].to_i), Time.at(params['end'].to_i))
+        @events = @events.time_scoped(Time.parse(params['start']), Time.parse(params['end']))
+        @events = @events.in_territory(current_domain.territory) unless @group
         events = []
         @events.each do |event|
           event_obj = event.to_fc
@@ -47,8 +47,8 @@ class EventsController < ApplicationController
     @event_comment = @event.event_comments.new
     @event_comments = @event.event_comments.includes(:user).order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
     respond_to do |format|
-      format.js
       format.html
+      format.js
       format.ics do
         calendar = Icalendar::Calendar.new
         calendar.add_event(@event.to_ics)
@@ -77,12 +77,11 @@ class EventsController < ApplicationController
       @title += "- #{t('pages.events.new.title_meeting')}"
     end
 
-    @starttime = params[:starttime] ? Time.at(params[:starttime].to_i / 1000) : Time.now + 10.minutes
+    @starttime = calculate_starttime
     @endtime = @starttime + 1.days
 
     @event = Event.new(starttime: @starttime, endtime: @endtime, period: "Non ripetere", event_type_id: params[:event_type_id])
     @meeting = @event.build_meeting
-    @election = @event.build_election
     @place = @meeting.build_place
 
     if params[:proposal_id]
@@ -91,8 +90,8 @@ class EventsController < ApplicationController
     if @group
       @event.private = true
       respond_to do |format|
-        format.js
         format.html { redirect_to controller: 'events', action: 'index', group_id: params[:group_id], new_event: 'true', event_type_id: (params[:event_type_id] || EventType::INCONTRO) }
+        format.js
       end
     end
   end
@@ -132,11 +131,12 @@ class EventsController < ApplicationController
 
   def move
     @event.move(params[:minute_delta].to_i, params[:day_delta].to_i, params[:all_day])
+    render nothing: true
   end
-
 
   def resize
     @event.resize(params[:minute_delta].to_i, params[:day_delta].to_i)
+    render nothing: true
   end
 
   def edit
@@ -146,13 +146,13 @@ class EventsController < ApplicationController
     if @event.update(event_params)
       flash[:notice] = t('info.events.event_updated')
       respond_to do |format|
-        format.js
         format.html { redirect_to @group ? group_event_url(@group, @event) : event_url(@event) }
+        format.js
       end
     else
       respond_to do |format|
-        format.js { render 'layouts/active_record_error', locals: {object: @event || @event_series} }
         format.html { render :edit }
+        format.js { render 'layouts/active_record_error', locals: {object: @event || @event_series} }
       end
     end
   end
@@ -178,9 +178,20 @@ class EventsController < ApplicationController
 
   protected
 
+  def calculate_starttime
+    if params[:starttime]
+      ret = Time.at(params[:starttime].to_i / 1000)
+      puts (params[:has_time] == 'true')
+      ret = ret.change(hour: Time.now.hour, min: Time.now.min) unless (params[:has_time] == 'true')
+      ret
+    else
+      10.minutes.from_now
+    end
+  end
+
   def event_params
     params[:event].delete(:meeting_attributes) if params[:event][:event_type_id] == EventType::VOTAZIONE.to_s
-    params.require(:event).permit(:id, :title, :starttime, :endtime, :frequency, :all_day, :description, :event_type_id, :private, :proposal_id, meeting_attributes: [:id, place_attributes: [:id, :comune_id, :address, :latitude_original, :longitude_original, :latitude_center, :longitude_center, :zoom]])
+    params.require(:event).permit(:id, :title, :starttime, :endtime, :frequency, :all_day, :description, :event_type_id, :private, :proposal_id, meeting_attributes: [:id, place_attributes: [:id, :municipality_id, :address, :latitude_original, :longitude_original, :latitude_center, :longitude_center, :zoom]])
   end
 
   def choose_layout

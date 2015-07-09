@@ -6,25 +6,90 @@ class NotificationSender
 
   protected
 
-  #invia una notifica ad un utente.
-  #se l'utente ha bloccato il tipo di notifica allora non viene inviata
-  #se l'utente ha abilitato anche l'invio via mail allora viene inviata via mail
-  def send_notification_to_user(notification,user)
-    unless user.blocked_notifications.include?notification.notification_type #se il tipo non è bloccato
-      alert = Alert.new(user_id: user.id, notification_id: notification.id, checked: false)
-      alert.save! #invia la notifica
-      res = PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil  #todo send specific alert to be included
+  #send notifications to the authors of a proposal
+  def send_notification_to_authors(notification)
+    @proposal.users.each do |user|
+      send_notification_for_proposal(notification, user)
     end
-    true
   end
 
-  #invia una notifica ad un utente a meno che non abbia bloccato le notifiche per quella proposta
-  #se l'utente ha bloccato il tipo di notifica allora non viene inviata
-  #se l'utente ha abilitato anche l'invio via mail allora viene inviata via mail
-  def send_notification_for_proposal(notification,user,proposal)
-    send_notification_to_user(notification, user) unless BlockedProposalAlert.find_by(user_id: user.id, proposal_id: proposal.id)
+  ###
+
+  # check if the user blocked alerts from the proposal and then send the alert
+  def send_notification_for_proposal(notification, user)
+    return if BlockedProposalAlert.find_by(user: user, proposal: @proposal)
+    send_notification_to_user(notification, user)
   end
 
+  # TODO: implement
+  def check_destroyable(notification, user)
+    destroyable = notification.notification_type.destroyable #list of destroyable notification types
+    destroyable.each do |notification_type|
+      alert_jobs = search_alert_jobs(notification_type, user)
+      alert_jobs.each do |alert_job|
+        if alert_job.completed? # TODO this doesn't exist
+          alert_job.alert.soft_delete
+          email_job = alert_job.alert.email_job
+          email_job.canceled! unless email_job.completed?
+        else
+          alert_job.canceled!
+        end
+      end
+    end
+  end
+
+  def build_alert(notification, user)
+    AlertJob.factory(notification, user, @trackable)
+  end
+
+  # send an alert to the user
+  # if the user blocked the notificaiton type, then the alert is not sent
+  def send_notification_to_user(notification, user)
+    return if user.blocked_notifications.include? notification.notification_type #se il tipo non è bloccato
+    check_destroyable(notification, user)
+    if notification.notification_type.cumulable?
+      send_cumulable_alert_to_user(notification, user)
+    else # this notification type is not cumulable. just send it
+      build_alert(notification, user)
+    end
+  end
+
+  def send_cumulable_alert_to_user(notification, user)
+    alert_job = search_for_cumulable(notification.notification_type, user)
+    if alert_job.present? # an alert is already in queue
+      if alert_job.sidekiq_job.present?
+        accumulate(alert_job) #accumulate one notification on the previous one
+        return
+      else
+        alert_job.destroy
+      end
+    end # no alerts in queue
+    alert = search_for_unread_alert(user, notification.notification_type)
+    if alert # we have an unread alert, already sent
+      alert.accumulate(1)
+    else # last alert has been already checked. no email will be sent then (or has already been sent)...create a new alert
+      build_alert(notification, user)
+    end
+  end
+
+  def accumulate(alert_job)
+    alert_job.accumulate(1)
+  end
+
+  def search_for_unread_alert(user, notification_type)
+    Alert.joins(:notification).
+      find_by(checked: false, user: user, trackable: @trackable, notifications: {notification_type_id: notification_type.id})
+  end
+
+  def search_for_cumulable(notification_type, user)
+    search_alert_jobs(notification_type, user).where(status: 0).first
+  end
+
+  def search_alert_jobs(notification_type, user)
+    AlertJob.where(notification_type: notification_type, user: user, trackable: @trackable)
+  end
+
+  ###
 
   # delete previous notifications
   # @param attribute [String] column to be checked
@@ -32,12 +97,14 @@ class NotificationSender
   # @return nil
   # @param [Integer] user_id receiver of the alert
   # @param [Integer] notification_type
+  # @deprecated
   def another_delete(attribute, attr_id, user_id, notification_type)
     another = Alert.another(attribute, attr_id, user_id, notification_type)
     another.soft_delete_all
   end
 
   #increase previous notification
+  ## @deprecated
   def another_increase_or_do(attribute, attr_id, user_id, notification_type, &block)
     another = Alert.another_unread(attribute, attr_id, user_id, notification_type).first
     if another
@@ -48,8 +115,7 @@ class NotificationSender
     end
   end
 
-
-  def url_for_proposal(proposal,group=nil)
-    group ? group_proposal_url(group, proposal) : proposal_url(proposal)
+  def url_for_proposal
+    @proposal.group ? group_proposal_url(@proposal.group, @proposal) : proposal_url(@proposal)
   end
 end

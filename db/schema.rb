@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150123190330) do
+ActiveRecord::Schema.define(version: 20150628183701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,19 @@ ActiveRecord::Schema.define(version: 20150123190330) do
     t.datetime "updated_at"
   end
 
+  create_table "alert_jobs", force: true do |t|
+    t.integer  "trackable_id",                     null: false
+    t.string   "trackable_type",                   null: false
+    t.integer  "notification_type_id",             null: false
+    t.integer  "user_id",                          null: false
+    t.integer  "alert_id"
+    t.string   "jid",                              null: false
+    t.integer  "accumulated_count",    default: 1, null: false
+    t.integer  "status",               default: 0, null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
   create_table "alerts", force: true do |t|
     t.integer  "notification_id",                 null: false
     t.integer  "user_id"
@@ -35,6 +48,8 @@ ActiveRecord::Schema.define(version: 20150123190330) do
     t.hstore   "properties",      default: {},    null: false
     t.boolean  "deleted",         default: false, null: false
     t.datetime "deleted_at"
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
   end
 
   add_index "alerts", ["checked"], name: "index_alerts_on_checked", using: :btree
@@ -172,13 +187,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
     t.integer  "blog_comments_count",           default: 0,     null: false
   end
 
-  create_table "blog_tags", force: true do |t|
-    t.integer "blog_id"
-    t.integer "tag_id",  null: false
-  end
-
-  add_index "blog_tags", ["blog_id", "tag_id"], name: "index_blog_tags_on_blog_id_and_tag_id", unique: true, using: :btree
-
   create_table "blogs", force: true do |t|
     t.integer  "user_id"
     t.string   "title"
@@ -188,39 +196,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   end
 
   add_index "blogs", ["slug"], name: "index_blogs_on_slug", using: :btree
-
-  create_table "candidates", force: true do |t|
-    t.integer  "user_id",     null: false
-    t.integer  "election_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "score"
-  end
-
-  add_index "candidates", ["user_id", "election_id"], name: "index_candidates_on_user_id_and_election_id", unique: true, using: :btree
-
-  create_table "circoscriziones", force: true do |t|
-    t.integer "comune_id"
-    t.string  "description",   limit: 100
-    t.integer "provincia_id"
-    t.integer "regione_id"
-    t.integer "stato_id"
-    t.integer "continente_id"
-  end
-
-  add_index "circoscriziones", ["continente_id"], name: "index_circoscriziones_on_continente_id", using: :btree
-  add_index "circoscriziones", ["provincia_id"], name: "index_circoscriziones_on_provincia_id", using: :btree
-  add_index "circoscriziones", ["regione_id"], name: "index_circoscriziones_on_regione_id", using: :btree
-  add_index "circoscriziones", ["stato_id"], name: "index_circoscriziones_on_stato_id", using: :btree
-
-  create_table "circoscrizioni_groups", id: false, force: true do |t|
-    t.integer "id",                                            null: false
-    t.string  "name",               limit: 200
-    t.string  "description",        limit: 2000
-    t.string  "accept_requests",    limit: 1,    default: "v", null: false
-    t.integer "interest_border_id"
-    t.integer "circoscrizione_id"
-  end
 
   create_table "ckeditor_assets", force: true do |t|
     t.string   "data_file_name",               null: false
@@ -238,69 +213,67 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
-  create_table "comunali_groups", id: false, force: true do |t|
-    t.integer "id",                                            null: false
-    t.string  "name",               limit: 200
-    t.string  "description",        limit: 2000
-    t.string  "accept_requests",    limit: 1,    default: "v", null: false
-    t.integer "interest_border_id"
-    t.integer "comune_id"
-  end
-
-  create_table "comunes", force: true do |t|
-    t.string  "description",   limit: 100, null: false
-    t.integer "provincia_id",              null: false
-    t.integer "regione_id",                null: false
-    t.integer "population"
-    t.string  "codistat",      limit: 4
-    t.string  "cap",           limit: 5
-    t.integer "stato_id"
-    t.integer "continente_id"
-  end
-
-  add_index "comunes", ["continente_id"], name: "index_comunes_on_continente_id", using: :btree
-  add_index "comunes", ["regione_id"], name: "index_comunes_on_regione_id", using: :btree
-  add_index "comunes", ["stato_id"], name: "index_comunes_on_stato_id", using: :btree
-
   create_table "configurations", force: true do |t|
     t.string "name",  limit: 100, null: false
     t.string "value",             null: false
   end
 
-  create_table "continente_translations", force: true do |t|
-    t.integer  "continente_id"
+  create_table "continent_translations", force: true do |t|
+    t.integer  "continent_id"
     t.string   "locale"
     t.string   "description"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
-  add_index "continente_translations", ["continente_id"], name: "index_continente_translations_on_continente_id", using: :btree
-  add_index "continente_translations", ["locale"], name: "index_continente_translations_on_locale", using: :btree
+  add_index "continent_translations", ["continent_id"], name: "index_continent_translations_on_continent_id", using: :btree
+  add_index "continent_translations", ["locale"], name: "index_continent_translations_on_locale", using: :btree
 
-  create_table "continentes", force: true do |t|
-    t.string "description", null: false
+  create_table "continents", force: true do |t|
+    t.string  "description", null: false
+    t.integer "geoname_id"
   end
 
-  create_table "election_votes", force: true do |t|
-    t.integer  "user_id",     null: false
-    t.integer  "election_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "countries", force: true do |t|
+    t.string  "description",            null: false
+    t.integer "continent_id",           null: false
+    t.string  "sigla",                  null: false
+    t.string  "sigla_ext",    limit: 3
+    t.integer "geoname_id"
   end
 
-  add_index "election_votes", ["user_id", "election_id"], name: "index_election_votes_on_user_id_and_election_id", unique: true, using: :btree
+  create_table "country_translations", force: true do |t|
+    t.integer  "country_id"
+    t.string   "locale"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
-  create_table "elections", force: true do |t|
-    t.string   "name",                                null: false
-    t.string   "description",                         null: false
-    t.integer  "event_id",                            null: false
-    t.datetime "groups_end_time",                     null: false
-    t.datetime "candidates_end_time",                 null: false
-    t.string   "status",              default: "1",   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "score_calculated",    default: false
+  add_index "country_translations", ["country_id"], name: "index_country_translations_on_country_id", using: :btree
+  add_index "country_translations", ["locale"], name: "index_country_translations_on_locale", using: :btree
+
+  create_table "districts", force: true do |t|
+    t.integer "municipality_id"
+    t.string  "description",     limit: 100
+    t.integer "province_id"
+    t.integer "region_id"
+    t.integer "country_id"
+    t.integer "continent_id"
+    t.integer "geoname_id"
+  end
+
+  add_index "districts", ["continent_id"], name: "index_districts_on_continent_id", using: :btree
+  add_index "districts", ["country_id"], name: "index_districts_on_country_id", using: :btree
+  add_index "districts", ["province_id"], name: "index_districts_on_province_id", using: :btree
+  add_index "districts", ["region_id"], name: "index_districts_on_region_id", using: :btree
+
+  create_table "email_jobs", force: true do |t|
+    t.integer  "alert_id",               null: false
+    t.string   "jid",                    null: false
+    t.integer  "status",     default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "event_comment_likes", force: true do |t|
@@ -409,14 +382,8 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   end
 
   add_index "frm_forums", ["group_id", "slug"], name: "index_frm_forums_on_group_id_and_slug", unique: true, using: :btree
+  add_index "frm_forums", ["group_id"], name: "index_frm_forums_on_group_id", using: :btree
   add_index "frm_forums", ["slug"], name: "index_frm_forums_on_slug", using: :btree
-
-  create_table "frm_groups", force: true do |t|
-    t.string  "name"
-    t.integer "group_id"
-  end
-
-  add_index "frm_groups", ["name"], name: "index_frm_groups_on_name", using: :btree
 
   create_table "frm_memberships", force: true do |t|
     t.integer "group_id"
@@ -431,6 +398,13 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   end
 
   add_index "frm_moderator_groups", ["forum_id"], name: "index_frm_moderator_groups_on_forum_id", using: :btree
+
+  create_table "frm_mods", force: true do |t|
+    t.string  "name"
+    t.integer "group_id"
+  end
+
+  add_index "frm_mods", ["name"], name: "index_frm_mods_on_name", using: :btree
 
   create_table "frm_posts", force: true do |t|
     t.integer  "topic_id"
@@ -486,6 +460,7 @@ ActiveRecord::Schema.define(version: 20150123190330) do
     t.string   "token"
   end
 
+  add_index "frm_topics", ["created_at"], name: "index_frm_topics_on_created_at", using: :btree
   add_index "frm_topics", ["forum_id", "slug"], name: "index_frm_topics_on_forum_id_and_slug", unique: true, using: :btree
   add_index "frm_topics", ["forum_id"], name: "index_frm_topics_on_forum_id", using: :btree
   add_index "frm_topics", ["slug"], name: "index_frm_topics_on_slug", using: :btree
@@ -506,6 +481,8 @@ ActiveRecord::Schema.define(version: 20150123190330) do
 
   add_index "frm_views", ["updated_at"], name: "index_frm_views_on_updated_at", using: :btree
   add_index "frm_views", ["user_id"], name: "index_frm_views_on_user_id", using: :btree
+  add_index "frm_views", ["viewable_id"], name: "index_frm_views_on_viewable_id", using: :btree
+  add_index "frm_views", ["viewable_type"], name: "index_frm_views_on_viewable_type", using: :btree
 
   create_table "generic_borders", force: true do |t|
     t.string  "description", null: false
@@ -543,41 +520,29 @@ ActiveRecord::Schema.define(version: 20150123190330) do
     t.datetime "image_updated_at"
   end
 
-  create_table "group_elections", force: true do |t|
-    t.integer  "group_id",    null: false
-    t.integer  "election_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "group_elections", ["group_id", "election_id"], name: "index_group_elections_on_group_id_and_election_id", unique: true, using: :btree
-
   create_table "group_follows", force: true do |t|
     t.integer "user_id",  null: false
     t.integer "group_id", null: false
   end
 
   create_table "group_invitation_emails", force: true do |t|
-    t.string   "email",      limit: 200,               null: false
-    t.integer  "group_id",                             null: false
-    t.string   "accepted",   limit: 1,   default: "W", null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.string   "email",               limit: 200,                 null: false
+    t.string   "accepted",            limit: 1,   default: "W",   null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "token",               limit: 32
+    t.boolean  "consumed",                        default: false
+    t.integer  "user_id"
+    t.integer  "group_invitation_id"
   end
-
-  add_index "group_invitation_emails", ["email", "group_id"], name: "index_group_invitation_emails_on_email_and_group_id", unique: true, using: :btree
 
   create_table "group_invitations", force: true do |t|
-    t.string   "token",                     limit: 32,                   null: false
-    t.datetime "created_at",                                             null: false
-    t.integer  "inviter_id",                                             null: false
-    t.integer  "invited_id"
-    t.boolean  "consumed",                               default: false, null: false
-    t.integer  "group_invitation_email_id",                              null: false
-    t.string   "testo",                     limit: 4000
+    t.datetime "created_at",                              null: false
+    t.integer  "inviter_id",                              null: false
+    t.boolean  "consumed",                default: false, null: false
+    t.string   "testo",      limit: 4000
+    t.integer  "group_id"
   end
-
-  add_index "group_invitations", ["group_invitation_email_id"], name: "index_group_invitations_on_group_invitation_email_id", unique: true, using: :btree
 
   create_table "group_participation_request_statuses", force: true do |t|
     t.string "description", limit: 200, null: false
@@ -659,7 +624,7 @@ ActiveRecord::Schema.define(version: 20150123190330) do
     t.string   "facebook_page_url"
     t.integer  "image_id"
     t.string   "title_bar"
-    t.string   "image_url"
+    t.string   "old_image_url"
     t.integer  "participation_role_id",                        default: 1,        null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -670,7 +635,7 @@ ActiveRecord::Schema.define(version: 20150123190330) do
     t.integer  "max_storage_size",                             default: 51200,    null: false
     t.integer  "actual_storage_size",                          default: 0,        null: false
     t.boolean  "enable_areas",                                 default: false,    null: false
-    t.integer  "group_participations_count",                   default: 1,        null: false
+    t.integer  "group_participations_count",                   default: 0,        null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -731,6 +696,27 @@ ActiveRecord::Schema.define(version: 20150123190330) do
     t.integer "event_id"
   end
 
+  create_table "municipalities", force: true do |t|
+    t.string  "description",  limit: 100, null: false
+    t.integer "province_id",              null: false
+    t.integer "region_id",                null: false
+    t.integer "population"
+    t.string  "codistat",     limit: 4
+    t.string  "cap",          limit: 5
+    t.integer "country_id"
+    t.integer "continent_id"
+    t.integer "geoname_id"
+  end
+
+  add_index "municipalities", ["continent_id"], name: "index_municipalities_on_continent_id", using: :btree
+  add_index "municipalities", ["country_id"], name: "index_municipalities_on_country_id", using: :btree
+  add_index "municipalities", ["region_id"], name: "index_municipalities_on_region_id", using: :btree
+
+  create_table "newsletters", force: true do |t|
+    t.string "subject"
+    t.text   "body"
+  end
+
   create_table "notification_categories", force: true do |t|
     t.integer "seq"
     t.string  "short", limit: 8
@@ -745,8 +731,11 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   add_index "notification_data", ["notification_id", "name"], name: "index_notification_data_on_notification_id_and_name", unique: true, using: :btree
 
   create_table "notification_types", force: true do |t|
-    t.integer "notification_category_id", null: false
+    t.integer "notification_category_id",                 null: false
     t.string  "name"
+    t.integer "email_delay",                              null: false
+    t.integer "alert_delay",                              null: false
+    t.boolean "cumulable",                default: false, null: false
   end
 
   create_table "notifications", force: true do |t|
@@ -795,7 +784,7 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   add_index "periods", ["from", "to"], name: "from_to_unique", unique: true, using: :btree
 
   create_table "places", force: true do |t|
-    t.integer "comune_id"
+    t.integer "municipality_id"
     t.string  "frazione",           limit: 200
     t.string  "address",            limit: 200
     t.string  "civic_number",       limit: 10
@@ -812,14 +801,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
     t.integer "group_id"
     t.boolean "featured",     default: false, null: false
   end
-
-  create_table "proposal_alerts", force: true do |t|
-    t.integer "proposal_id",             null: false
-    t.integer "user_id",                 null: false
-    t.integer "count",       default: 0, null: false
-  end
-
-  add_index "proposal_alerts", ["proposal_id", "user_id"], name: "index_proposal_alerts_on_proposal_id_and_user_id", unique: true, using: :btree
 
   create_table "proposal_borders", force: true do |t|
     t.integer "proposal_id",        null: false
@@ -1007,13 +988,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
     t.datetime "updated_at"
   end
 
-  create_table "proposal_watches", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "proposal_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "proposals", force: true do |t|
     t.integer  "proposal_state_id"
     t.integer  "proposal_category_id",                    default: 5,     null: false
@@ -1047,26 +1021,18 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   add_index "proposals", ["updated_at"], name: "index_proposals_on_updated_at", using: :btree
   add_index "proposals", ["vote_period_id"], name: "_idx_proposals_vote_period_id", using: :btree
 
-  create_table "provinciali_groups", id: false, force: true do |t|
-    t.integer "id",                                            null: false
-    t.string  "name",               limit: 200
-    t.string  "description",        limit: 2000
-    t.string  "accept_requests",    limit: 1,    default: "v", null: false
-    t.integer "interest_border_id"
-    t.integer "provincia_id"
-  end
-
-  create_table "provincias", force: true do |t|
-    t.string  "description",   limit: 100
-    t.integer "regione_id",                null: false
-    t.string  "sigla",         limit: 5
-    t.integer "stato_id"
+  create_table "provinces", force: true do |t|
+    t.string  "description",  limit: 100
+    t.integer "region_id",                null: false
+    t.string  "sigla",        limit: 5
+    t.integer "country_id"
     t.integer "population"
-    t.integer "continente_id"
+    t.integer "continent_id"
+    t.integer "geoname_id"
   end
 
-  add_index "provincias", ["continente_id"], name: "index_provincias_on_continente_id", using: :btree
-  add_index "provincias", ["stato_id"], name: "index_provincias_on_stato_id", using: :btree
+  add_index "provinces", ["continent_id"], name: "index_provinces_on_continent_id", using: :btree
+  add_index "provinces", ["country_id"], name: "index_provinces_on_country_id", using: :btree
 
   create_table "quorums", force: true do |t|
     t.string   "name",              limit: 100,                  null: false
@@ -1119,22 +1085,14 @@ ActiveRecord::Schema.define(version: 20150123190330) do
     t.datetime "updated_at",                 null: false
   end
 
-  create_table "regionali_groups", id: false, force: true do |t|
-    t.integer "id",                                            null: false
-    t.string  "name",               limit: 200
-    t.string  "description",        limit: 2000
-    t.string  "accept_requests",    limit: 1,    default: "v", null: false
-    t.integer "interest_border_id"
-    t.integer "regione_id"
+  create_table "regions", force: true do |t|
+    t.string  "description",  limit: 100
+    t.integer "country_id",               null: false
+    t.integer "continent_id"
+    t.integer "geoname_id"
   end
 
-  create_table "regiones", force: true do |t|
-    t.string  "description",   limit: 100
-    t.integer "stato_id",                  null: false
-    t.integer "continente_id"
-  end
-
-  add_index "regiones", ["continente_id"], name: "index_regiones_on_continente_id", using: :btree
+  add_index "regions", ["continent_id"], name: "index_regions_on_continent_id", using: :btree
 
   create_table "request_vote_types", force: true do |t|
     t.string "description", limit: 10, null: false
@@ -1154,16 +1112,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
 
   add_index "revision_section_histories", ["proposal_revision_id"], name: "index_revision_section_histories_on_proposal_revision_id", using: :btree
   add_index "revision_section_histories", ["section_history_id"], name: "index_revision_section_histories_on_section_history_id", using: :btree
-
-  create_table "schulze_votes", force: true do |t|
-    t.integer  "election_id",             null: false
-    t.string   "preferences",             null: false
-    t.integer  "count",       default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "schulze_votes", ["election_id", "preferences"], name: "index_schulze_votes_on_election_id_and_preferences", unique: true, using: :btree
 
   create_table "search_participants", force: true do |t|
     t.integer  "role_id"
@@ -1229,15 +1177,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
-  create_table "simple_votes", force: true do |t|
-    t.integer  "candidate_id",             null: false
-    t.integer  "count",        default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "simple_votes", ["candidate_id"], name: "index_simple_votes_on_candidate_id", unique: true, using: :btree
-
   create_table "solution_histories", force: true do |t|
     t.integer "proposal_revision_id", null: false
     t.integer "seq",                  null: false
@@ -1286,24 +1225,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
     t.integer "value"
   end
 
-  create_table "stato_translations", force: true do |t|
-    t.integer  "stato_id"
-    t.string   "locale"
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "stato_translations", ["locale"], name: "index_stato_translations_on_locale", using: :btree
-  add_index "stato_translations", ["stato_id"], name: "index_stato_translations_on_stato_id", using: :btree
-
-  create_table "statos", force: true do |t|
-    t.string  "description",             null: false
-    t.integer "continente_id",           null: false
-    t.string  "sigla",                   null: false
-    t.string  "sigla_ext",     limit: 3
-  end
-
   create_table "steps", force: true do |t|
     t.integer  "tutorial_id",                  null: false
     t.integer  "index",       default: 0,      null: false
@@ -1315,15 +1236,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
     t.datetime "updated_at"
     t.string   "format",      default: "html"
   end
-
-  create_table "supporters", force: true do |t|
-    t.integer  "candidate_id", null: false
-    t.integer  "group_id",     null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "supporters", ["candidate_id", "group_id"], name: "index_supporters_on_candidate_id_and_group_id", unique: true, using: :btree
 
   create_table "sys_currencies", force: true do |t|
     t.string   "description", limit: 10, null: false
@@ -1354,6 +1266,7 @@ ActiveRecord::Schema.define(version: 20150123190330) do
     t.string  "lang"
     t.string  "territory_type"
     t.integer "territory_id"
+    t.boolean "default",        default: false
   end
 
   create_table "sys_movement_types", force: true do |t|
@@ -1389,14 +1302,19 @@ ActiveRecord::Schema.define(version: 20150123190330) do
 
   add_index "sys_payment_notifications", ["transaction_id"], name: "index_sys_payment_notifications_on_transaction_id", unique: true, using: :btree
 
+  create_table "tag_counters", force: true do |t|
+    t.integer "tag_id",                       null: false
+    t.integer "territory_id",                 null: false
+    t.string  "territory_type",               null: false
+    t.integer "proposals_count",  default: 0, null: false
+    t.integer "blog_posts_count", default: 0, null: false
+    t.integer "groups_count",     default: 0, null: false
+  end
+
   create_table "tags", force: true do |t|
     t.string   "text",                             null: false
-    t.integer  "proposals_count",      default: 0, null: false
-    t.integer  "blog_posts_count",     default: 0, null: false
-    t.integer  "blogs_count",          default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "groups_count",         default: 0, null: false
     t.integer  "frm_categories_count", default: 0, null: false
     t.integer  "frm_forums_count",     default: 0, null: false
     t.integer  "frm_topics_count",     default: 0, null: false
@@ -1585,7 +1503,7 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   end
 
   add_foreign_key "action_abilitations", "group_actions", name: "action_abilitations_group_action_id_fk"
-  add_foreign_key "action_abilitations", "groups", name: "action_abilitations_group_id_fk"
+  add_foreign_key "action_abilitations", "groups", name: "action_abilitations_group_id_fk", options: "ON UPDATE CASCADE"
   add_foreign_key "action_abilitations", "participation_roles", name: "action_abilitations_partecipation_role_id_fk"
 
   add_foreign_key "alerts", "notifications", name: "user_alerts_notification_id_fk"
@@ -1628,27 +1546,14 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   add_foreign_key "blog_posts", "blogs", name: "blog_posts_blog_id_fk"
   add_foreign_key "blog_posts", "users", name: "blog_posts_user_id_fk"
 
-  add_foreign_key "blog_tags", "blogs", name: "blog_tags_blog_id_fk"
-  add_foreign_key "blog_tags", "tags", name: "blog_tags_tag_id_fk"
-
   add_foreign_key "blogs", "users", name: "blogs_user_id_fk"
 
-  add_foreign_key "candidates", "elections", name: "candidates_election_id_fk"
-  add_foreign_key "candidates", "users", name: "candidates_user_id_fk"
+  add_foreign_key "countries", "continents", name: "statos_continente_id_fk"
 
-  add_foreign_key "circoscriziones", "continentes", name: "circoscriziones_continente_id_fk"
-  add_foreign_key "circoscriziones", "provincias", name: "circoscriziones_provincia_id_fk"
-  add_foreign_key "circoscriziones", "regiones", name: "circoscriziones_regione_id_fk"
-  add_foreign_key "circoscriziones", "statos", name: "circoscriziones_stato_id_fk"
-
-  add_foreign_key "comunes", "continentes", name: "comunes_continente_id_fk"
-  add_foreign_key "comunes", "regiones", name: "comunes_regione_id_fk"
-  add_foreign_key "comunes", "statos", name: "comunes_stato_id_fk"
-
-  add_foreign_key "election_votes", "elections", name: "election_votes_election_id_fk"
-  add_foreign_key "election_votes", "users", name: "election_votes_user_id_fk"
-
-  add_foreign_key "elections", "events", name: "elections_event_id_fk"
+  add_foreign_key "districts", "continents", name: "circoscriziones_continente_id_fk"
+  add_foreign_key "districts", "countries", name: "circoscriziones_stato_id_fk"
+  add_foreign_key "districts", "provinces", name: "circoscriziones_provincia_id_fk"
+  add_foreign_key "districts", "regions", name: "circoscriziones_regione_id_fk"
 
   add_foreign_key "event_comment_likes", "event_comments", name: "event_comment_likes_event_comment_id_fk"
   add_foreign_key "event_comment_likes", "users", name: "event_comment_likes_user_id_fk"
@@ -1660,7 +1565,7 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   add_foreign_key "events", "event_types", name: "events_event_type_id_fk"
   add_foreign_key "events", "users", name: "events_user_id_fk"
 
-  add_foreign_key "frm_categories", "groups", name: "frm_categories_group_id_fk"
+  add_foreign_key "frm_categories", "groups", name: "frm_categories_group_id_fk", options: "ON UPDATE CASCADE"
 
   add_foreign_key "frm_category_tags", "frm_categories", name: "frm_category_tags_frm_category_id_fk"
   add_foreign_key "frm_category_tags", "tags", name: "frm_category_tags_tag_id_fk"
@@ -1668,39 +1573,33 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   add_foreign_key "frm_forum_tags", "frm_forums", name: "frm_forum_tags_frm_forum_id_fk"
   add_foreign_key "frm_forum_tags", "tags", name: "frm_forum_tags_tag_id_fk"
 
-  add_foreign_key "frm_forums", "groups", name: "frm_forums_group_id_fk"
+  add_foreign_key "frm_forums", "groups", name: "frm_forums_group_id_fk", options: "ON UPDATE CASCADE"
 
-  add_foreign_key "frm_groups", "groups", name: "frm_groups_group_id_fk"
+  add_foreign_key "frm_mods", "groups", name: "frm_groups_group_id_fk", options: "ON UPDATE CASCADE"
 
   add_foreign_key "frm_topic_tags", "frm_topics", name: "frm_topic_tags_frm_topic_id_fk"
   add_foreign_key "frm_topic_tags", "tags", name: "frm_topic_tags_tag_id_fk"
 
   add_foreign_key "group_areas", "area_roles", name: "group_areas_area_role_id_fk"
-  add_foreign_key "group_areas", "groups", name: "group_areas_group_id_fk"
+  add_foreign_key "group_areas", "groups", name: "group_areas_group_id_fk", options: "ON UPDATE CASCADE"
 
-  add_foreign_key "group_elections", "elections", name: "group_elections_election_id_fk"
-  add_foreign_key "group_elections", "groups", name: "group_elections_group_id_fk"
-
-  add_foreign_key "group_invitation_emails", "groups", name: "group_invitation_emails_group_id_fk"
-
-  add_foreign_key "group_invitations", "users", name: "group_invitations_invited_id_fk", column: "invited_id"
   add_foreign_key "group_invitations", "users", name: "group_invitations_inviter_id_fk", column: "inviter_id"
 
   add_foreign_key "group_participation_requests", "group_participation_request_statuses", name: "parent_fk"
-  add_foreign_key "group_participation_requests", "groups", name: "group_partecipation_requests_group_id_fk"
+  add_foreign_key "group_participation_requests", "groups", name: "group_partecipation_requests_group_id_fk", options: "ON UPDATE CASCADE"
   add_foreign_key "group_participation_requests", "users", name: "group_partecipation_requests_user_id_fk"
 
-  add_foreign_key "group_participations", "groups", name: "group_partecipations_group_id_fk"
+  add_foreign_key "group_participations", "groups", name: "group_partecipations_group_id_fk", options: "ON UPDATE CASCADE"
   add_foreign_key "group_participations", "participation_roles", name: "group_partecipations_partecipation_role_id_fk"
   add_foreign_key "group_participations", "users", name: "group_partecipations_user_id_fk"
 
-  add_foreign_key "group_proposals", "groups", name: "group_proposals_group_id_fk"
+  add_foreign_key "group_proposals", "groups", name: "group_proposals_group_id_fk", options: "ON UPDATE CASCADE"
   add_foreign_key "group_proposals", "proposals", name: "group_proposals_proposal_id_fk"
 
-  add_foreign_key "group_quorums", "groups", name: "group_quorums_group_id_fk"
+  add_foreign_key "group_quorums", "groups", name: "group_quorums_group_id_fk", options: "ON UPDATE CASCADE"
   add_foreign_key "group_quorums", "quorums", name: "group_quorums_quorum_id_fk"
 
-  add_foreign_key "group_tags", "groups", name: "group_tags_group_id_fk"
+  add_foreign_key "group_tags", "groups", name: "group_tags_group_id_fk", options: "ON UPDATE CASCADE"
   add_foreign_key "group_tags", "tags", name: "group_tags_tag_id_fk"
 
   add_foreign_key "groups", "interest_borders", name: "groups_interest_border_id_fk"
@@ -1709,13 +1608,17 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   add_foreign_key "integrated_contributes", "proposal_comments", name: "integrated_contributes_proposal_comment_id_fk"
   add_foreign_key "integrated_contributes", "proposal_revisions", name: "integrated_contributes_proposal_revision_id_fk"
 
-  add_foreign_key "meeting_organizations", "groups", name: "meeting_organizations_group_id_fk"
+  add_foreign_key "meeting_organizations", "groups", name: "meeting_organizations_group_id_fk", options: "ON UPDATE CASCADE"
 
   add_foreign_key "meeting_participations", "meetings", name: "meeting_partecipations_meeting_id_fk"
   add_foreign_key "meeting_participations", "users", name: "meeting_partecipations_user_id_fk"
 
   add_foreign_key "meetings", "events", name: "meetings_event_id_fk"
   add_foreign_key "meetings", "places", name: "meetings_place_id_fk"
+
+  add_foreign_key "municipalities", "continents", name: "comunes_continente_id_fk"
+  add_foreign_key "municipalities", "countries", name: "comunes_stato_id_fk"
+  add_foreign_key "municipalities", "regions", name: "comunes_regione_id_fk"
 
   add_foreign_key "notification_data", "notifications", name: "notification_data_notification_id_fk"
 
@@ -1728,11 +1631,11 @@ ActiveRecord::Schema.define(version: 20150123190330) do
 
   add_foreign_key "paragraphs", "sections", name: "paragraphs_section_id_fk"
 
-  add_foreign_key "participation_roles", "groups", name: "partecipation_roles_group_id_fk"
+  add_foreign_key "participation_roles", "groups", name: "partecipation_roles_group_id_fk", options: "ON UPDATE CASCADE"
   add_foreign_key "participation_roles", "participation_roles", name: "partecipation_roles_parent_partecipation_role_id_fk", column: "parent_participation_role_id"
 
   add_foreign_key "post_publishings", "blog_posts", name: "post_publishings_blog_post_id_fk"
-  add_foreign_key "post_publishings", "groups", name: "post_publishings_group_id_fk"
+  add_foreign_key "post_publishings", "groups", name: "post_publishings_group_id_fk", options: "ON UPDATE CASCADE"
 
   add_foreign_key "proposal_borders", "interest_borders", name: "proposal_borders_interest_border_id_fk"
   add_foreign_key "proposal_borders", "proposals", name: "proposal_borders_proposal_id_fk"
@@ -1769,7 +1672,7 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   add_foreign_key "proposal_sections", "proposals", name: "proposal_sections_proposal_id_fk"
   add_foreign_key "proposal_sections", "sections", name: "proposal_sections_section_id_fk"
 
-  add_foreign_key "proposal_supports", "groups", name: "proposal_supports_group_id_fk"
+  add_foreign_key "proposal_supports", "groups", name: "proposal_supports_group_id_fk", options: "ON UPDATE CASCADE"
   add_foreign_key "proposal_supports", "proposals", name: "proposal_supports_proposal_id_fk"
 
   add_foreign_key "proposal_tags", "proposals", name: "proposal_tags_proposal_id_fk"
@@ -1785,20 +1688,16 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   add_foreign_key "proposals", "proposal_votation_types", name: "proposals_proposal_votation_type_id_fk"
   add_foreign_key "proposals", "quorums", name: "proposals_quorum_id_fk"
 
-  add_foreign_key "provincias", "continentes", name: "provincias_continente_id_fk"
-  add_foreign_key "provincias", "statos", name: "provincias_stato_id_fk"
+  add_foreign_key "provinces", "continents", name: "provincias_continente_id_fk"
+  add_foreign_key "provinces", "countries", name: "provincias_stato_id_fk"
 
   add_foreign_key "quorums", "quorums", name: "quorums_quorum_id_fk"
 
-  add_foreign_key "regiones", "continentes", name: "regiones_continente_id_fk"
-  add_foreign_key "regiones", "statos", name: "regiones_stato_id_fk"
+  add_foreign_key "regions", "continents", name: "regiones_continente_id_fk"
+  add_foreign_key "regions", "countries", name: "regiones_stato_id_fk"
 
   add_foreign_key "revision_section_histories", "proposal_revisions", name: "revision_section_histories_proposal_revision_id_fk"
   add_foreign_key "revision_section_histories", "section_histories", name: "revision_section_histories_section_history_id_fk"
-
-  add_foreign_key "schulze_votes", "elections", name: "schulze_votes_election_id_fk"
-
-  add_foreign_key "simple_votes", "candidates", name: "simple_votes_candidate_id_fk"
 
   add_foreign_key "solution_histories", "proposal_revisions", name: "solution_histories_proposal_revision_id_fk"
 
@@ -1809,11 +1708,6 @@ ActiveRecord::Schema.define(version: 20150123190330) do
   add_foreign_key "solution_sections", "solutions", name: "solution_sections_solution_id_fk"
 
   add_foreign_key "solutions", "proposals", name: "solutions_proposal_id_fk"
-
-  add_foreign_key "statos", "continentes", name: "statos_continente_id_fk"
-
-  add_foreign_key "supporters", "candidates", name: "supporters_candidate_id_fk"
-  add_foreign_key "supporters", "groups", name: "supporters_group_id_fk"
 
   add_foreign_key "sys_movements", "sys_currencies", name: "sys_movements_sys_currency_id_fk"
   add_foreign_key "sys_movements", "sys_movement_types", name: "sys_movements_sys_movement_type_id_fk"

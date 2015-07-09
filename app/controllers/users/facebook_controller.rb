@@ -1,4 +1,3 @@
-#encoding: utf-8
 class Users::FacebookController < ApplicationController
   def setup
     request.env['omniauth.strategy'].options[:scope] = 'email'

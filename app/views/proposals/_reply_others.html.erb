@@ -5,16 +5,16 @@
         <%= comment_nickname.nickname %>
     <% end %>">
     <% if comment_nickname && @proposal.is_anonima? %>
-        <img src="http://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(comment_nickname.nickname) %>?s=32&d=identicon&r=PG"/>
+        <img src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(comment_nickname.nickname) %>?s=32&d=identicon&r=PG"/>
     <% else %>
-        <%= reply.user_image_tag(32) %>
+        <%= avatar(reply.user, size: 32) %>
     <% end %>
   </div>
   <div class="proposal_comment_reply">
     <div class="baloon-triangle"></div>
     <div class="reply_content">
-      <%= parsed_content(reply,@proposal.is_anonima?) %>
-      <div class="reply-footer" title='<%=l(reply.created_at)%>'>
+      <%= parsed_content(reply, @proposal.is_anonima?) %>
+      <div class="reply-footer" title='<%= l(reply.created_at) %>'>
         <% who = (comment_nickname && @proposal.is_anonima?) ? comment_nickname.nickname : reply.user.fullname %>
         <%= raw t('pages.proposals.show.comment_inserted_by', when: time_in_words(reply.created_at), who: who) %>
       </div>

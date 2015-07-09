@@ -1,3 +1,4 @@
+# keep track of views on a polymorphic object by a user
 module Frm
   class View < FrmTable
     before_create :set_viewed_at_to_now
@@ -7,13 +8,14 @@ module Frm
 
     validates :viewable_id, :viewable_type, presence: true
 
+    scope :topics, -> { where "viewable_type = 'Frm::Topic'" }
 
-    scope :topics,  -> {where "viewable_type = 'Frm::Topic'"}
     def viewed_at
       updated_at
     end
 
     private
+
     def set_viewed_at_to_now
       self.current_viewed_at = Time.now
       self.past_viewed_at = current_viewed_at

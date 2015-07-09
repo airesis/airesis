@@ -1,29 +1,20 @@
-development:
+defaults: &defaults
   adapter: postgresql
   encoding: unicode
-  database: airesis_development
   pool: 20
   username: postgres
-  password: postgres  
+  password: postgres
   host: localhost
   port: 5432
+
+development:
+  database: airesis_development
+  <<: *defaults
 
 test:
-  adapter: postgresql
-  encoding: unicode
   database: airesis_test
-  pool: 20
-  username: postgres
-  password: postgres
-  host: localhost
-  port: 5432
+  <<: *defaults
 
 production:
-  adapter: postgresql
-  encoding: unicode
   database: airesis_production
-  pool: 5
-  username: postgres
-  password: postgres
-  host: localhost
-  port: 5432
+  <<: *defaults

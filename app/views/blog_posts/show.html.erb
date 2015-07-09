@@ -1,9 +1,22 @@
 <% if current_user %>
     <%= subscribe_to blog_blog_post_path(@blog_post.blog, @blog_post) %>
 <% end %>
+
 <% content_for :html_options do %>
     itemscope itemtype="http://schema.org/Blog"
 <% end %>
+
+<%= content_for :head do %>
+    <meta property="og:url" content="<%= current_url %>"/>
+    <meta property="og:title" content="<%= @blog_post.title %>"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:image" content="<%= asset_url('logo120.png') %>"/>
+    <meta property="og:site_name" content="<%= ENV['APP_LONG_NAME'] %>"/>
+    <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>"/>
+    <meta property="article:published_time" content="<%= @blog_post.created_at.strftime('%Y/%m/%d') %>">
+    <meta property="article:tag" content="<%= @blog_post.tags_list %>">
+<% end %>
+
 <% javascript 'endless_page' %>
 
 <div class="blogPost">
@@ -13,19 +26,20 @@
   </script>
   <div class="card">
     <h1>
-      <%=blog_post_label @blog_post %>
+      <%= blog_post_label @blog_post %>
       <%= @page_title %>
     </h1>
+
     <div class="blogPostBody" itemprop="description">
       <%= sanitize @blog_post.body %>
       <div class="clearboth"></div>
     </div>
     <div class="blogPostFooter">
       <div class="blogPostPostedAt">
-        <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to ((@blog_post.user_image_tag 15) + @blog_post.user.fullname), @blog_post.user), date: (l @blog_post.created_at)) %>
+        <%- name = link_to((avatar(@blog_post.user, size: 15, cert: false) + @blog_post.user.fullname), @blog_post.user) %>
+        <%= raw t('pages.blog_posts.list_elements.inserted', name: name, date: (l @blog_post.created_at)) %>
         |
       <span class="blogComments">
-
       <%= link_to t('pages.blog_posts.view.comments', count: @blog_post.blog_comments.count), '#blogPostCommentsContainer' %>
       </span>
       </div>

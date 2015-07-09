@@ -1,7 +1,5 @@
 class SysLocale < ActiveRecord::Base
-
   has_many :users
-
   belongs_to :territory, polymorphic: true
 
   def description
@@ -9,9 +7,12 @@ class SysLocale < ActiveRecord::Base
   end
 
   def url
-    url_ = 'http://' + self.host
+    url_ = "http://#{self.host}"
     url_ += "?l=#{self.lang}" if self.lang
     url_
   end
 
+  def self.default
+    find_by(default: true)
+  end
 end

@@ -1,5 +1,7 @@
 class Group < ActiveRecord::Base
   extend FriendlyId
+  include Concerns::Taggable
+
   friendly_id :name, use: [:slugged, :history]
 
   has_paper_trail class_name: 'GroupVersion'
@@ -17,7 +19,6 @@ class Group < ActiveRecord::Base
   validates_uniqueness_of :name
 
   validates_presence_of :description
-  validates_length_of :image_url, within: 1..255, allow_blank: true
   validates_length_of :facebook_page_url, within: 10..255, allow_blank: true
   validates_length_of :title_bar, within: 1..255, allow_blank: true
   validates_presence_of :interest_border_id
@@ -31,7 +32,7 @@ class Group < ActiveRecord::Base
 
   has_many :group_participations, class_name: 'GroupParticipation', dependent: :destroy
   has_many :participants, through: :group_participations, source: :user, class_name: 'User'
-  has_many :portavoce, -> { where(["group_participations.participation_role_id = ?", ParticipationRole::ADMINISTRATOR]) }, through: :group_participations, source: :user, class_name: 'User'
+  has_many :portavoce, -> { where(["group_participations.participation_role_id = ?", ParticipationRole.admin.id]) }, through: :group_participations, source: :user, class_name: 'User'
 
   has_many :followers, through: :group_follows, source: :user, class_name: 'User'
   has_many :blog_posts, through: :post_publishings, source: :blog_post
@@ -51,23 +52,13 @@ class Group < ActiveRecord::Base
 
   has_many :action_abilitations, class_name: 'ActionAbilitation'
 
-  has_many :group_elections, class_name: 'GroupElection'
-  #elezioni a cui partecipa
-  has_many :elections, through: :group_elections, class_name: 'Election'
-
-  has_many :supporters, class_name: 'Supporter'
-  #candidati che sostiene alle elezioni
-  has_many :candidates, through: :supporters, class_name: 'Candidate'
-
   has_many :group_proposals, class_name: 'GroupProposal', dependent: :destroy
   has_many :proposals, through: :group_proposals, class_name: 'Proposal', source: :proposal
 
   has_many :group_quorums, class_name: 'GroupQuorum', dependent: :destroy
   has_many :quorums, -> { order 'seq nulls last, quorums.id' }, through: :group_quorums, class_name: 'BestQuorum', source: :quorum
 
-  has_many :voters, -> { include(:participation_roles).where(["participation_roles.id = ?", 2]) }, through: :group_participations, source: :user, class_name: 'User'
-
-  has_many :invitation_emails, class_name: 'GroupInvitationEmail', dependent: :destroy
+  has_many :voters, -> { include(:participation_roles).where(["participation_roles.id = ?", ParticipationRole.admin.id]) }, through: :group_participations, source: :user, class_name: 'User'
 
   has_many :group_areas, dependent: :destroy
 
@@ -76,6 +67,10 @@ class Group < ActiveRecord::Base
   has_many :group_tags, dependent: :destroy
   has_many :tags, through: :group_tags, class_name: 'Tag'
 
+  # invitations
+  has_many :group_invitations
+  has_many :group_invitation_emails, through: :group_invitations
+
   #forum
   has_many :forums, class_name: 'Frm::Forum', foreign_key: 'group_id', dependent: :destroy
   has_many :topics, through: :forums, class_name: 'Frm::Topic', source: :topics
@@ -83,20 +78,19 @@ class Group < ActiveRecord::Base
   has_many :last_topics, through: :forums, class_name: 'Frm::Topic', source: :topics
 
   has_many :categories, class_name: 'Frm::Category', foreign_key: 'group_id', dependent: :destroy
-  has_many :moderator_groups, class_name: 'Frm::Group', foreign_key: 'group_id', dependent: :destroy
+  has_many :mods, class_name: 'Frm::Mod', foreign_key: 'group_id', dependent: :destroy
 
   has_one :statistic, class_name: 'GroupStatistic'
 
   # Check for paperclip
   has_attached_file :image,
                     styles: {
-                        thumb: "100x100#",
-                        medium: "300x300>",
-                        small: "150x150>"
+                      thumb: "100x100#",
+                      medium: "300x300>",
+                      small: "150x150>"
                     },
-                    storage: :filesystem,
-                    url: "/assets/images/groups/:id/:style/:basename.:extension",
-                    path: ":rails_root/public/assets/images/groups/:id/:style/:basename.:extension"
+                    path: "groups/:id/:style/:basename.:extension",
+                    default_url: '/img/gruppo-anonimo.png'
 
   validates_attachment_size :image, less_than: 2.megabytes
   validates_attachment_content_type :image, content_type: ['image/jpeg', 'image/png', 'image/gif']
@@ -107,39 +101,6 @@ class Group < ActiveRecord::Base
   after_commit :create_folder
 
   before_save :normalize_blank_values
-  before_save :save_tags, if: :not_resaving?
-
-  def tags_list
-    @tags_list ||= self.tags.map(&:text).join(', ')
-  end
-
-  def tags_list_json
-    @tags_list ||= self.tags.map(&:text).join(', ')
-  end
-
-  def tags_list=(tags_list)
-    @tags_list = tags_list
-  end
-
-  def tags_with_links
-    self.tags.collect { |t| "<a href=\"/tags/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
-  end
-
-  def save_tags
-    if @tags_list
-      tids = []
-      @tags_list.split(/,/).each do |tag|
-        stripped = tag.strip.downcase.gsub('.', '')
-        t = Tag.find_or_create_by(text: stripped)
-        tids << t.id
-      end
-      self.tag_ids = tids
-    end
-  end
-
-  def not_resaving?
-    !@resaving
-  end
 
   def description
     super.try(:html_safe)
@@ -153,17 +114,16 @@ class Group < ActiveRecord::Base
 
   def pre_populate
     #creator is also administrator
-    participation_requests.build({user_id: current_user_id, group_participation_request_status_id: 3})
-
-    group_participations.build({user_id: current_user_id, participation_role_id: 2}) #portavoce
+    participation_requests.build(user_id: current_user_id, group_participation_request_status_id: 3)
+    group_participations.build(user_id: current_user_id, participation_role: ParticipationRole.admin) #portavoce
 
     BestQuorum.public.each do |quorum|
       copy = quorum.dup
       copy.public = false
       copy.save!
-      self.group_quorums.build(quorum_id: copy.id)
+      group_quorums.build(quorum_id: copy.id)
     end
-    role = participation_roles.build({name: default_role_name, description: I18n.t('pages.groups.edit_permissions.default_role')})
+    role = participation_roles.build(name: default_role_name, description: I18n.t('pages.groups.edit_permissions.default_role'))
     default_role_actions.each do |action_id|
       abilitation = role.action_abilitations.build(group_action_id: action_id)
     end if default_role_actions
@@ -177,52 +137,40 @@ class Group < ActiveRecord::Base
     ActionAbilitation.where(id: ids).update_all({group_id: self.id})
 
     #create default forums
-    private = self.categories.create(name: I18n.t('frm.admin.categories.default_private'), visible_outside: false)
+    private = categories.create(name: I18n.t('frm.admin.categories.default_private'), visible_outside: false)
     private_f = private.forums.build(name: I18n.t('frm.admin.forums.default_private'), description: I18n.t('frm.admin.forums.default_private_description'), visible_outside: false)
     private_f.group = self
     private_f.save!
 
-    public = self.categories.create(name: I18n.t('frm.admin.categories.default_public'))
+    public = categories.create(name: I18n.t('frm.admin.categories.default_public'))
     public_f = public.forums.create(name: I18n.t('frm.admin.forums.default_public'), description: I18n.t('frm.admin.forums.default_public_description'))
     public_f.group = self
     public_f.save!
 
-    GroupStatistic.create(group_id: self.id, valutations: 0, vote_valutations: 0, good_score: 0).save!
+    GroupStatistic.create(group_id: id, valutations: 0, vote_valutations: 0, good_score: 0).save!
   end
 
   def destroy
-    self.update_attribute(:participation_role_id, 2) && super
+    self.update_attribute(:participation_role_id, ParticipationRole.admin.id) && super
   end
 
-  #return true if the group is private and do not show anything to non-participants
+  # return true if the group is private and do not show anything to non-participants
   def is_private?
     self.private
   end
 
-  #utenti che possono eseguire un'azione
+  # utenti che possono eseguire un'azione
   def scoped_participants(action_id)
     self.participants.
-        joins(" join participation_roles on group_participations.participation_role_id = participation_roles.id
+      joins(" join participation_roles on group_participations.participation_role_id = participation_roles.id
             join action_abilitations on participation_roles.id = action_abilitations.participation_role_id").
-        where(action_abilitations: {group_action_id: action_id}).
-        uniq
+      where(action_abilitations: {group_action_id: action_id}).
+      uniq
   end
 
   def participant_tokens=(ids)
     self.participant_ids = ids.split(",")
   end
-
-
-  def image_url
-    if self.image.exists?
-      self.image.url
-    elsif read_attribute(:image_url) != nil
-      read_attribute(:image_url)
-    else
-      ActionController::Base.helpers.asset_path("gruppo-anonimo.png")
-    end
-  end
-
 
   def interest_border_tkn
     self.interest_border.territory_type + "-" + self.interest_border.territory_id.to_s if self.interest_border
@@ -235,22 +183,21 @@ class Group < ActiveRecord::Base
       found = InterestBorder.table_element(tkn)
       if found #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
         interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype], territory_id: fid)
-        puts "New Record!" if (interest_b.new_record?)
         self.interest_border = interest_b
       end
     end
   end
 
   def request_by_vote?
-    self.accept_requests == REQ_BY_VOTE
+    accept_requests == REQ_BY_VOTE
   end
 
   def request_by_portavoce?
-    self.accept_requests == REQ_BY_PORTAVOCE
+    accept_requests == REQ_BY_PORTAVOCE
   end
 
   def request_by_both?
-    self.accept_requests == REQ_BY_BOTH
+    accept_requests == REQ_BY_BOTH
   end
 
   def self.look(params)
@@ -263,7 +210,7 @@ class Group < ActiveRecord::Base
     limite = params[:limit] || 30
 
     if tag
-      Group.joins(:tags).where(['tags.text = ?', tag]).order('group_participations_count desc, created_at desc').page(page).per(limite)
+      Group.joins(:tags).where(tags: {text: tag}).order('group_participations_count desc, created_at desc').page(page).per(limite)
     else
       Group.search(include: [:next_events, interest_border: [:territory]]) do
         fulltext search, minimum_match: params[:minimum] if search
@@ -273,19 +220,7 @@ class Group < ActiveRecord::Base
           if params[:area]
             with(:interest_border_id, border.id)
           else
-            if border.is_continente?
-              with(:continente_id, border.territory.id)
-            elsif border.is_stato?
-              with(:stato_id, border.territory.id)
-            elsif border.is_regione?
-              with(:regione_id, border.territory.id)
-            elsif border.is_provincia?
-              with(:provincia_id, border.territory.id)
-            elsif border.is_comune?
-              with(:comune_id, border.territory.id)
-            elsif border.is_circoscrizione?
-              with(:circoscrizione_id, border.territory.id)
-            end
+            with(border.solr_search_field, border.territory.id) if border.present?
           end
         end
         order_by :score, :desc
@@ -298,11 +233,13 @@ class Group < ActiveRecord::Base
     end
   end
 
-
-  def self.most_active
-    Group.order(group_participations_count: :desc).limit(5)
+  def self.most_active(territory = nil)
+    Group.search(include: {interest_border: [:territory]}) do
+      with(territory.solr_search_field, territory.id) if territory.present?
+      order_by :group_participations_count, :desc
+      paginate page: 1, per_page: 5
+    end.results
   end
-
 
   searchable do
     text :name, boost: 5
@@ -311,23 +248,23 @@ class Group < ActiveRecord::Base
     integer :interest_border_id
     integer :group_participations_count
     time :created_at
-    integer :continente_id do
-      self.interest_border.continente.try(:id)
+    integer :continent_ids do
+      interest_border.continent.try(:id)
     end
-    integer :stato_id do
-      self.interest_border.stato.try(:id)
+    integer :country_ids do
+      interest_border.country.try(:id)
     end
-    integer :regione_id do
-      self.interest_border.regione.try(:id)
+    integer :region_ids do
+      interest_border.region.try(:id)
     end
-    integer :provincia_id do
-      self.interest_border.provincia.try(:id)
+    integer :province_ids do
+      interest_border.province.try(:id)
     end
-    integer :comune_id do
-      self.interest_border.comune.try(:id)
+    integer :municipality_ids do
+      interest_border.municipality.try(:id)
     end
-    integer :circoscrizione_id do
-      self.interest_border.circoscrizione.try(:id)
+    integer :district_ids do
+      interest_border.district.try(:id)
     end
   end
 
@@ -335,9 +272,9 @@ class Group < ActiveRecord::Base
 
   def self.autocomplete(term)
     where("lower(groups.name) LIKE :term", {term: "%#{term.downcase}%"}).
-        limit(10).
-        select("groups.name, groups.id, groups.image_id, groups.image_url, groups.image_file_name").
-        order("groups.name asc")
+      limit(10).
+      select("groups.name, groups.id, groups.image_id, groups.image_url, groups.image_file_name").
+      order("groups.name asc")
   end
 
   def create_folder

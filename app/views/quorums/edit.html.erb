@@ -1,18 +1,13 @@
 <ul class="breadcrumbs">
-  <li><%= link_to t('pages.groups.administration_panel.proposals'), edit_proposals_group_url(@group) %></li>
+  <li><%= link_to t('pages.groups.administration_panel.proposals'), group_quorums_url(@group) %></li>
   <li class="current"><%= @quorum.name %></li>
 </ul>
 <br/>
 
-<div  class='panel callout'>
-  <p>
-    <%=t('pages.groups.edit_quorums.edit_quorum_warning')%>
-  </p>
-</div>
-<br/>
+<div class="card">
 <%= render(partial: 'quorums/form', locals: {button_name: t('buttons.update')})%>
-
+</div>
 
 <%= content_for :left_panel do %>
-    <%= render partial: 'groups/administration_panel' %>
+    <%= render 'groups/administration_panel' %>
 <% end %>

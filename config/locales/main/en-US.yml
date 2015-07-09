@@ -54,6 +54,7 @@ en-US:
         what_i_cant_do: "What can't I do?"
         certified_from: "Certified from"
         group_level_permission_title: "Group level permissions"
+        certified_cannot_edit_info: "You're a certified user: you can't edit your Name, Surname and Email"
       send_message:
         subject_label: "Subject"
         body_label: "Body"
@@ -80,6 +81,7 @@ en-US:
         join_twitter: "Join your Twitter account"
         join_linkedin: "Join your LinkedIn account"
         join_meetup: "Join your Meetup account"
+        join_tecnologiedemocratiche: "Join your Tecnologie Democratiche account"
         providers_list: "List of activated providers"
         options: "Options"
         rotp: "Enable Security Token"
@@ -469,7 +471,7 @@ en-US:
         step_2_title: "Maybe someone has already created a similar proposal: check below and eventually stop your creation to avoid duplication. Joining forces gives strength to your ideas! Clicking on the title the proposals will be opened in a new tab."
         step_4_title: "Perfect! Choose your options and click 'Create the proposal' to complete the guide. Your proposal will be included in Airesis and you will be able to fill it out when you want with more information."
         step_4_footer_html: |
-          Airesis will help you to reach your goal throught shared problem solving: users will suggest modifications and contributions to your text and <b>it is up to you</b> to integrate the most liked.<br/>
+          Airesis will help you to reach your goal through shared problem solving: users will suggest modifications and contributions to your text and <b>it is up to you</b> to integrate the most liked.<br/>
           If you don't do it, your proposal won't go to the voting phase.<br/>
           Good luck and don't get scared: you can be helped by other people in your task.
         category_prompt: "--Choose a category--"
@@ -534,7 +536,7 @@ en-US:
         add_paragraph: "Add a new paragraph"
         edit_proposal: "Modify and update the text of the proposal!"
         remove_solution: "Remove solution"
-        press_to_compress: "Click on the title to compress this solution"
+        press_to_compress: "Click on the title to collapse this solution"
         add_paragraph_to_solution: "Add a paragraph to the solution"
         you_know_what_you_do: "Do you know what are you going to do?"
         schulze_title: "One or more solutions?"
@@ -734,7 +736,7 @@ en-US:
         debate_end: "end of debate"
     home:
       index:
-        whatis: "WHAT IS AIRESIS"
+        whatis: "WHAT IS"
         partecipate: "GET INVOLVED"
         videos: "VIDEO GUIDES"
         whowe: "ABOUT US"
@@ -955,7 +957,7 @@ en-US:
         meeting:
           place:
             address: "Address"
-            comune_id: "City"
+            municipality_id: "City"
       group:
         facebook_page_url: 'Facebook page address'
         name: 'Name'
@@ -1236,7 +1238,7 @@ en-US:
     group_participations:
        destroy: "You can not leave a group of which you are the sole spokesperson"
        already_member: "Error while creating the participation request. You are already member of this group!"
-       request_not_registered: "You are already member of this groups but your participation request has not been registered. Valid data"
+       request_not_registered: "You are already member of this groups but your participation request has not been registered."
        request_sent: "Error while creating the participation request"
        request_not_found: "Request not found. Operation error"
        error_saving: "Error in the procedure. Unable to continue"

@@ -1,7 +1,6 @@
 module Frm
   class ForumsController < Frm::ApplicationController
 
-    load_and_authorize_resource :group
     load_and_authorize_resource class: 'Frm::Forum', through: :group
 
     helper 'frm/topics'

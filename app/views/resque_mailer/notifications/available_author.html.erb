@@ -7,8 +7,8 @@
 <% end %>
 
 <p>
-  <%= @user.user_image_tag(40, url: true) %>
-  <%= raw @alert.notification.message %>
+  <%= avatar(@user, size: 40, url: true) %>
+  <%= raw @alert.message %>
 </p>
 
 <%= blue_panel do %>

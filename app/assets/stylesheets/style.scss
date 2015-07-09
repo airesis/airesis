@@ -469,45 +469,6 @@ table.stiled tr.even.gradeA {
   margin-right: 5px;
 }
 
-.votered {
-  background: asset_url('red-2.png') 0 0 no-repeat;
-  width: 32px;
-  height: 32px;
-  display: block;
-  margin-left: 7px;
-  margin-top: 5px;
-}
-
-.votered:hover {
-  background: asset_url('red.png') 0 0 no-repeat;
-}
-
-.voteyellow {
-  background: asset_url('yellow-2.png') 0 0 no-repeat;
-  width: 32px;
-  height: 32px;
-  display: block;
-  margin-left: 7px;
-  margin-top: 5px;
-}
-
-.voteyellow:hover {
-  background: asset_url('yellow.png') 0 0 no-repeat;
-}
-
-.votegreen {
-  background: asset_url('green-2.png') 0 0 no-repeat;
-  width: 32px;
-  height: 32px;
-  display: block;
-  margin-left: 7px;
-  margin-top: 5px;
-}
-
-.votegreen:hover {
-  background: asset_url('green.png') 0 0 no-repeat;
-}
-
 #registration-panel {
   background-color: white;
   border-bottom: 1px solid #CCCCCC;
@@ -944,4 +905,16 @@ form.paypal-button {
 
 [data-collapsed] {
   display: none;
+}
+
+.width-80 {
+  width: 80%;
+}
+
+.rank {
+  margin-top: 10px;
+}
+
+.flag-icon {
+  max-width: 80px;
 }

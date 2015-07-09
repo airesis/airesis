@@ -1,4 +1,3 @@
-#encoding: utf-8
 class ProposalSupportsController < ApplicationController
 
   #load_and_authorize_resource
@@ -19,8 +18,8 @@ class ProposalSupportsController < ApplicationController
   def new
     @proposal_support = @proposal.proposal_supports.build
     respond_to do |format|
+      format.html
       format.js
-      format.html # index.html.erb      
     end
   end
 
@@ -46,20 +45,19 @@ class ProposalSupportsController < ApplicationController
     flash[:notice] = "Sostegno alla proposta salvato correttamente"
 
     respond_to do |format|
+      format.html
       format.js
-      format.html # index.html.erb      
     end
 
   rescue ActiveRecord::ActiveRecordError => e
     respond_to do |format|
+      format.html redirect_to proposal_path(@proposal)
       format.js do
         render :update do |page|
           page.alert "Errore durante l'operazione"
         end
       end
-      format.html redirect_to proposal_path(@proposal) # index.html.erb
     end
-
   end
 
   def edit

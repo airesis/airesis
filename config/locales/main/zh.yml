@@ -543,7 +543,7 @@ zh:
         title: "可選擇的門檻"
     home:
       index:
-        whatis: "甚麼是AIRESIS"
+        whatis: "甚麼是"
         partecipate: "參與"
         videos: "影片教學"
         whowe: "關於我們"
@@ -689,7 +689,7 @@ zh:
       meeting:
         place:
           address: "地址"
-          comune_id: "城市"
+          municipality_id: "城市"
       group:
         facebook_page_url: 'Facebook 個人頁面'
         name: '名字'

@@ -30,6 +30,8 @@ set :default_shell, "bash -l"
 
 set :bundle_flags, '--deployment'
 
+set :deploy_to, '/home/coorasse/airesis_capistrano'
+
 before 'deploy', 'rvm1:install:ruby'
 
 

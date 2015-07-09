@@ -1,4 +1,3 @@
-#encoding: utf-8
 class ProposalStatisticsController < ApplicationController
   
   #carica la proposta
@@ -8,7 +7,6 @@ class ProposalStatisticsController < ApplicationController
   
   #l'utente deve aver fatto login
   before_filter :authenticate_user!
-  
   
   def rank_time
     respond_to do |format|

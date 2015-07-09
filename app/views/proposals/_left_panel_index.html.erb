@@ -1,5 +1,5 @@
 <div class="mybox">
-    <%= render 'proposals/new_proposal' %>
+  <%= render 'proposals/new_proposal' %>
 </div>
 
 <% if @group && @group.enable_areas && @group.group_areas.length > 0 && ::Configuration.group_areas %>
@@ -34,6 +34,18 @@
           <% end %>
 
         </div>
+      </div>
+    </div>
+<% else # all public proposals      %>
+    <div class="mybox">
+      <h4><%= t('pages.proposals.index.territory') %></h4>
+
+      <div class="mycont">
+        <%= form_tag current_url, method: :get do %>
+            <%= text_field_tag :interest_border, params[:interest_border],
+                               title: t('buttons.search'), class: 'interest_borders',
+                               data: {pre: ([@search.interest_border].to_json if @search.interest_border)} %>
+        <% end %>
       </div>
     </div>
 <% end %>
@@ -74,12 +86,19 @@
               <div class="row">
                 <% if params[:category] == category.id.to_s %>
                     <div class="columns large-2">
-                      <%= image_tag("proposal_categories/"+category.id.to_s + "_s.png", align: 'middle', alt: category.description, title: category.description, style: "width:22px;padding-right:2px;") %>
+                      <%= image_tag("proposal_categories/#{category.id}_s.png",
+                                    align: 'middle', alt: category.description,
+                                    title: category.description,
+                                    style: "width:22px;padding-right:2px;") %>
                     </div>
                     <div class="columns large-10"><%= category.description %></div>
                 <% else %>
                     <div class="columns large-2">
-                      <%= link_to image_tag("proposal_categories/"+category.id.to_s + "_s.png", align: 'middle', alt: category.description, style: "width:22px;padding-right:2px;"), current_url(category: category.id) %>
+                      <%= link_to image_tag("proposal_categories/#{category.id}_s.png",
+                                            align: 'middle',
+                                            alt: category.description,
+                                            style: "width:22px;padding-right:2px;"),
+                                  current_url(category: category.id) %>
                     </div>
                     <div class="columns large-10">
                       <%= link_to category.description, current_url(category: category.id) %>
@@ -156,7 +175,7 @@
     <div class="mycont">
 
       <div class="hidden_link text-right">
-        <b><%=t('pages.proposals.left_panel.any_date')%></b>
+        <b><%= t('pages.proposals.left_panel.any_date') %></b>
       </div>
 
       <div class="hidden_menu">
@@ -164,43 +183,43 @@
         <%= link_to t('pages.proposals.left_panel.last_hour'), current_url({time: {start: (Time.now - 1.hour).to_i * 1000, end: Time.now.to_i * 1000, type: '1h'}}), class: 'menu_item', data: {type: '1h'} %>
         <%= link_to t('pages.proposals.left_panel.last_24_hour'), current_url({time: {start: (Time.now - 24.hours).to_i * 1000, end: Time.now.to_i * 1000, type: '24h'}}), class: 'menu_item', data: {type: '24h'} %>
         <%= link_to t('pages.proposals.left_panel.last_week'), current_url({time: {start: (Time.now - 7.days).to_i * 1000, end: Time.now.to_i * 1000, type: '7d'}}), class: 'menu_item', data: {type: '7d'} %>
-        <%= link_to t('pages.proposals.left_panel.last_month'), current_url({time: {start: (Time.now - 1.month).to_i * 1000, end: Time.now.to_i * 1000, type:  '1m'}}), class: 'menu_item', data: {type: '1m'} %>
-        <%= link_to t('pages.proposals.left_panel.last_year'), current_url({time: {start: (Time.now - 1.year).to_i * 1000, end: Time.now.to_i * 1000, type:  '1y'}}), class: 'menu_item', data: {type: '1y'} %>
+        <%= link_to t('pages.proposals.left_panel.last_month'), current_url({time: {start: (Time.now - 1.month).to_i * 1000, end: Time.now.to_i * 1000, type: '1m'}}), class: 'menu_item', data: {type: '1m'} %>
+        <%= link_to t('pages.proposals.left_panel.last_year'), current_url({time: {start: (Time.now - 1.year).to_i * 1000, end: Time.now.to_i * 1000, type: '1y'}}), class: 'menu_item', data: {type: '1y'} %>
         <span class="separator"></span>
         <%= link_to t('pages.proposals.left_panel.date_range'), '#', class: 'menu_item', data: {type: 'f'}, onclick: "$('#choose_dates').foundation('reveal','open');return false;" %>
 
       </div>
-      <div id="choose_dates"  class="reveal-modal small" data-reveal>
+      <div id="choose_dates" class="reveal-modal small" data-reveal>
         <h2><%= t('pages.proposals.left_panel.choose_creation_date') %></h2>
         <%= form_for 'time', {url: @group ? group_proposals_url(@group) : proposals_url, method: :get} do |f| %>
-            <%if params[:type] %>
-                <input name="type" value="<%=params[:type]%>" type="hidden">
-            <%end%>
-            <%if params[:category] %>
-                <input name="category" value="<%=params[:category]%>" type="hidden">
-            <%end%>
-            <%if params[:l] %>
-                <input name="l" value="<%=params[:l]%>" type="hidden">
-            <%end%>
-            <%if params[:group_area_id] %>
-                <input name="group_area_id" value="<%=params[:group_area_id]%>" type="hidden">
-            <%end%>
-            <%if params[:search] %>
-                <input name="search" value="<%=params[:search]%>" type="hidden">
-            <%end%>
-            <%if params[:or] %>
-                <input name="or" value="<%=params[:or]%>" type="hidden">
-            <%end%>
+            <% if params[:type] %>
+                <input name="type" value="<%= params[:type] %>" type="hidden">
+            <% end %>
+            <% if params[:category] %>
+                <input name="category" value="<%= params[:category] %>" type="hidden">
+            <% end %>
+            <% if params[:l] %>
+                <input name="l" value="<%= params[:l] %>" type="hidden">
+            <% end %>
+            <% if params[:group_area_id] %>
+                <input name="group_area_id" value="<%= params[:group_area_id] %>" type="hidden">
+            <% end %>
+            <% if params[:search] %>
+                <input name="search" value="<%= params[:search] %>" type="hidden">
+            <% end %>
+            <% if params[:or] %>
+                <input name="or" value="<%= params[:or] %>" type="hidden">
+            <% end %>
 
             <p>
               <%= f.label :start_w, t('label.from').capitalize %>
-              <%= f.text_field :start_w, value: (params[:time][:start_w] if params[:time]), class: 'datePicker', autocomplete: 'off' %>
+              <%= f.text_field :start_w, value: (params[:time][:start_w] if params[:time]), class: 'datePicker', autocomplete: 'off', data: {start_view: 4, min_view: 2} %>
               <%= f.hidden_field :start, value: (params[:time][:start] if params[:time]) %>
             </p>
 
             <p>
               <%= f.label :end_w, t('label.to').capitalize %>
-              <%= f.text_field :end_w, value: (params[:time][:end_w] if params[:time]), class: 'datePicker', autocomplete: 'off' %>
+              <%= f.text_field :end_w, value: (params[:time][:end_w] if params[:time]), class: 'datePicker', autocomplete: 'off', data: {start_view: 4, min_view: 2} %>
               <%= f.hidden_field :end, value: (params[:time][:end] if params[:time]) %>
             </p>
 
@@ -208,7 +227,7 @@
 
             <p>
               <input type="button" value="<%= t('buttons.cancel') %>" class="btn" onclick="$('#choose_dates').foundation('reveal','close');"/>
-              <%= f.button t('buttons.search'), class: 'btn blue', data:{disable_with: t('loading')} %>
+              <%= f.button t('buttons.search'), class: 'btn blue', data: {disable_with: t('loading')} %>
             </p>
         <% end %>
       </div>
@@ -221,6 +240,7 @@
 <% if @group && (can? :view_proposal, @group) %>
     <div class="mybox">
       <h4><%= t('pages.proposals.index.search_title') %></h4>
+
       <div class="mybox_button"></div>
       <div class="mycont">
         <%= render partial: 'search_form' %>

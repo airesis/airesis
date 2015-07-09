@@ -1,4 +1,3 @@
-#encoding: utf-8
 class ApplicationController < ActionController::Base
   include ApplicationHelper, GroupsHelper, StepsHelper
   helper :all
@@ -7,9 +6,9 @@ class ApplicationController < ActionController::Base
 
   before_filter :store_location
 
+  before_filter :set_current_domain
   before_filter :set_locale
   around_filter :user_time_zone, if: :current_user
-
 
   before_filter :load_tutorial
 
@@ -18,7 +17,6 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
   helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :age, :is_group_admin?, :in_subdomain?
-
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :name, :surname, :accept_conditions, :sys_locale_id, :password) }
@@ -78,7 +76,6 @@ class ApplicationController < ActionController::Base
     super
   end
 
-
   def load_group
     if params[:group_id].to_s != ''
       @group = Group.friendly.find(params[:group_id])
@@ -87,7 +84,6 @@ class ApplicationController < ActionController::Base
     end
     @group
   end
-
 
   def load_blog_data
     return unless @blog
@@ -101,22 +97,40 @@ class ApplicationController < ActionController::Base
   def extract_locale_from_tld
   end
 
+  def set_current_domain
+    @domain_locale = request.host.split('.').last
+    if params[:l].present?
+      @current_domain = SysLocale.find_by(key: params[:l])
+    else
+      @current_domain = SysLocale.find_by(host: request.host, lang: nil) || SysLocale.find_by(host: request.host)
+    end
+    @current_domain ||= SysLocale.default
+  end
+
+  def current_domain
+    @current_domain
+  end
+
+  def current_territory
+
+  end
+
   def set_locale
     @domain_locale = request.host.split('.').last
     params[:l] = SysLocale.find_by(key: params[:l]) ? params[:l] : nil
     @locale =
-        if Rails.env.staging?
-          params[:l] || I18n.default_locale
-        elsif Rails.env.test?
-          params[:l] || I18n.default_locale
-        else
-          params[:l] || @domain_locale || I18n.default_locale
-        end
+      if Rails.env.staging?
+        params[:l] || I18n.default_locale
+      elsif Rails.env.test?
+        params[:l] || I18n.default_locale
+      else
+        params[:l] || @domain_locale || I18n.default_locale
+      end
     @locale = 'en' if ['en', 'eu'].include? @locale
     @locale = 'en-US' if ['us'].include? @locale
     @locale = 'zh' if ['cn'].include? @locale
     @locale = 'it-IT' if ['it', 'org', 'net'].include? @locale
-     I18n.locale = @locale
+    I18n.locale = @locale
   end
 
   def user_time_zone(&block)
@@ -131,13 +145,16 @@ class ApplicationController < ActionController::Base
     {l: I18n.locale}
   end
 
-
   def log_error(exception)
     if ENV['SENTRY_PRIVATE_KEY'] && !Rails.env.test? && !Rails.env.development?
+      extra = {}
+      extra[:current_user_id] = current_user.id if current_user
+      if exception.instance_of? CanCan::AccessDenied
+        extra[:action] = exception.action.to_s
+        extra[:subject] = exception.subject.class.class_name.to_s rescue nil
+      end
       Raven.capture_exception(exception, {
-                                           extra: {
-                                               current_user_id: current_user.try(:id)
-                                           }
+                                         extra: extra
                                        })
     else
       message = "\n#{exception.class} (#{exception.message}):\n"
@@ -145,7 +162,6 @@ class ApplicationController < ActionController::Base
       Rails.logger.error exception.backtrace.join("\n")
     end
   end
-
 
   def render_error(exception)
     log_error(exception)
@@ -215,11 +231,10 @@ class ApplicationController < ActionController::Base
     a = today.year - birthdate.year
     a = a - 1 if (
     birthdate.month > today.month or
-        (birthdate.month >= today.month and birthdate.day > today.day)
+      (birthdate.month >= today.month and birthdate.day > today.day)
     )
     a
   end
-
 
   def link_to_auth (text, link)
     "<a>login</a>"
@@ -228,7 +243,6 @@ class ApplicationController < ActionController::Base
   def title(ttl)
     @page_title = ttl
   end
-
 
   def admin_required
     is_admin? || admin_denied
@@ -261,8 +275,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  #response if you do not have permissions to do an action
-  def permissions_denied(exception=nil)
+  def redirect_to_back(path)
+    redirect_to (request.env["HTTP_REFERER"] ? :back : path)
+  end
+
+  # response if you do not have permissions to do an action
+  def permissions_denied(exception = nil)
     respond_to do |format|
       format.js do #se era una chiamata ajax, mostra il messaggio
         if current_user
@@ -270,7 +288,6 @@ class ApplicationController < ActionController::Base
           flash.now[:error] = exception.message
           render 'layouts/error', status: :forbidden
         else
-
           render 'layouts/authenticate'
         end
       end
@@ -282,6 +299,10 @@ class ApplicationController < ActionController::Base
         else
           redirect_to new_user_session_path
         end
+      end
+      format.all do
+        log_error(exception)
+        render text: 'Permission denied', status: :forbidden
       end
     end
   end
@@ -296,15 +317,14 @@ class ApplicationController < ActionController::Base
 
   def skip_store_location?
     request.xhr? || !params[:controller] || !request.get? ||
-        (params[:controller].starts_with? "devise/") ||
-        (params[:controller] == "passwords") ||
-        (params[:controller] == "sessions") ||
-        (params[:controller] == "users/omniauth_callbacks") ||
-        (params[:controller] == "alerts" && params[:action] == "index") ||
-        (params[:controller] == "users" && (["join_accounts", "confirm_credentials"].include? params[:action])) ||
-        (params[:action] == 'feedback')
+      (params[:controller].starts_with? "devise/") ||
+      (params[:controller] == "passwords") ||
+      (params[:controller] == "sessions") ||
+      (params[:controller] == "users/omniauth_callbacks") ||
+      (params[:controller] == "alerts" && params[:action] == "index") ||
+      (params[:controller] == "users" && (["join_accounts", "confirm_credentials"].include? params[:action])) ||
+      (params[:action] == 'feedback')
   end
-
 
   def post_contribute
     ProposalComment.transaction do
@@ -370,8 +390,6 @@ class ApplicationController < ActionController::Base
               flash[:info] = t('info.proposal.available_authors')
             end
             @unread.check_all
-            @not_count = ProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id)
-            @not_count.update_attribute(:count, 0) if @not_count #just to be sure. if everything is correct this would not be required but what if not?...just leave it here
           else
         end
       when 'blog_posts'
@@ -400,9 +418,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :forem_admin_or_moderator?
 
-
   def redirect_url(proposal)
     proposal.private? ? group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal)
   end
-
 end

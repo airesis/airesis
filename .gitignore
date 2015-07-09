@@ -12,14 +12,13 @@ pkg
 .DS_Store
 tmp
 log
-app/assets/images/users
 config/database.yml
 config/application.yml
 config/paypal.yml
-config/initializers/constants.rb
 test/fixtures
 script/igraph-0.5.4
 public/assets
+public/system
 public/ckeditor_assets
 private
 solr/data/

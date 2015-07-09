@@ -1,4 +1,3 @@
-#encoding: utf-8
 module EmailHelper
 
   def blue_panel(&block)
@@ -52,4 +51,5 @@ module EmailHelper
     "<h5 style=\"color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 24px; margin: 0; padding: 0 0 10px;\" align=\"left\">
     #{capture(&block)}</h5>".html_safe
   end
+
 end

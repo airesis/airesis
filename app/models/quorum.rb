@@ -1,4 +1,3 @@
-#encoding: utf-8
 class Quorum < ActiveRecord::Base
   include ActionView::Helpers::TextHelper, Rails.application.routes.url_helpers, GroupsHelper
 
@@ -12,10 +11,10 @@ class Quorum < ActiveRecord::Base
   has_one :proposal, class_name: 'Proposal'
   has_one :proposal_life
 
-  scope :public, -> {where(["public = ?", true])}
-  scope :active, -> {where(["active = ?", true])}
-  scope :assigned, -> {where(["assigned = ?", true])}
-  scope :unassigned, -> {where(["assigned = ?", false])}
+  scope :public, -> { where(["public = ?", true]) }
+  scope :active, -> { where(["active = ?", true]) }
+  scope :assigned, -> { where(["assigned = ?", true]) }
+  scope :unassigned, -> { where(["assigned = ?", false]) }
 
 
   attr_accessor :days_m, :hours_m, :minutes_m

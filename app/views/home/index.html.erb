@@ -17,10 +17,9 @@
   <meta name="description" content="<%= t('home.tags.description') %>">
   <meta property="og:title" content="<%= t('home.tags.title') %>"/>
   <meta property="og:type" content="website"/>
-  <meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{asset_path("logo120.png")}" %>"/>
+  <meta property="og:image" content="<%= asset_url('logo120.png') %>"/>
   <meta property="og:site_name" content="<%= ENV['APP_LONG_NAME'] %>"/>
-  <meta property="og:description" content="
-    <% t('home.tags.description') %>"/>
+  <meta property="og:description" content="<%= t('home.tags.description') %>"/>
   <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>"/>
   <meta name="author" content="Tecnologie Democratiche">
 
@@ -31,13 +30,13 @@
   <%= stylesheet_link_tag 'landing/all' %>
 
   <%= javascript_include_tag 'jquery' %>
-  <%= javascript_include_tag "vendor/modernizr" %>
+  <%= javascript_include_tag 'vendor/modernizr' %>
 
-  <%= javascript_include_tag "landing/all" %>
+  <%= javascript_include_tag 'landing/all' %>
 
   <%= render 'layouts/favicons' %>
 
-  <% if I18n.locale.to_s == "crowdin" %>
+  <% if I18n.locale.to_s == 'crowdin' %>
       <script type="text/javascript">
           var _jipt = [];
           _jipt.push(['project', 'airesis']);
@@ -48,59 +47,50 @@
 </head>
 
 <body>
+<%= javascript_include_tag 'landing/main' %>
 
 <script type="text/javascript">
-    window.___gcfg = {
-        lang: 'it'
-    };
-    (function () {
-        var po = document.createElement("script");
-        po.type = "text/javascript";
-        po.async = true;
-        po.src = "https://apis.google.com/js/plusone.js";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(po, s);
-    })();
+    $(function () {
+        window.___gcfg = {
+            lang: 'it'
+        };
+        (function () {
+            var po = document.createElement("script");
+            po.type = "text/javascript";
+            po.async = true;
+            po.src = "https://apis.google.com/js/plusone.js";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(po, s);
+        })();
 
-    ( function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {
-            return;
-        }
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/<%="#{I18n.locale.to_s.gsub('-','_')}"%>/all.js#xfbml=1&appId=221145254619152";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-    !function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (!d.getElementById(id)) {
+        ( function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
             js = d.createElement(s);
             js.id = id;
-            js.src = "//platform.twitter.com/widgets.js";
+            js.src = "//connect.facebook.net/<%="#{I18n.locale.to_s.gsub('-','_')}"%>/all.js#xfbml=1&appId=221145254619152";
             fjs.parentNode.insertBefore(js, fjs);
-        }
-    }(document, "script", "twitter-wjs");
+        }(document, 'script', 'facebook-jssdk'));
 
-    //google analytics
-    <%if Rails.env == 'production'%>
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-34897773-1']);
-    _gaq.push(['_trackPageview']);
-    _gaq.push(['_setDomainName', '<%= request.domain %>']);
+        //google analytics
+        <%if Rails.env == 'production'%>
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-34897773-1']);
+        _gaq.push(['_trackPageview']);
+        _gaq.push(['_setDomainName', '<%= request.domain %>']);
 
-    (function () {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
-    <%end%>
-
-
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+        <%end%>
+    });
 </script>
 <div id="fb-root"></div>
 
@@ -111,8 +101,6 @@
   </div>
 </div>
 
-<!-- Header
-================================================== -->
 <header>
 
   <div class="logo">
@@ -127,17 +115,13 @@
     <a class="mobile-btn" href="#" title="Hide navigation">Hide Menu</a>
 
     <ul id="nav" class="nav">
-      <li><%= link_to 'What is', edemocracy_path %></li>
-      <li><a class="smoothscroll" href="#features">Features</a></li>
-      <li><%= link_to 'Donations', donations_path %></li>
-      <li><%= link_to 'Volunteers', chisiamo_path %></li>
-      <li><%= link_to 'Register', new_user_registration_path %></li>
+      <li><%= link_to t('pages.home.index.whatis'), edemocracy_path %></li>
+      <li><%=link_to t('pages.home.index.features'), '#features', class: 'smoothscroll'%></li>
+      <li><%= link_to t('pages.home.index.donations'), sostienici_path %></li>
+      <li><%= link_to t('pages.home.index.volunteers'), chisiamo_path %></li>
+      <li><%= link_to t('pages.home.index.register'), new_user_registration_path %></li>
     </ul>
-    <!-- end #nav -->
-
   </nav>
-  <!-- end #nav-wrap -->
-
 
   <ul class="header-social">
     <li><a href="https://www.facebook.com/airesisit"><i class="fa fa-facebook"></i></a></li>
@@ -146,8 +130,6 @@
   </ul>
 
 </header>
-<!-- Header End -->
-
 
 <!-- Homepage Hero
 ================================================== -->
@@ -155,10 +137,8 @@
   <div class="row">
     <div class="columns">
       <div class="hero-text">
-        <%= image_tag 'logo_completo_medium.png', alt: "Airesis - Scegli di partecipare", title: t('home.tags.title') %>
+        <%= image_tag 'logo_completo_medium.png', alt: 'Airesis - Scegli di partecipare', title: t('home.tags.title') %>
         <h1 class="responsive-headline"><%= t('home.intro.paragraph_1.title') %></h1>
-
-
       </div>
       <div class="row" data-equalizer>
         <div class="columns large-6">
@@ -166,12 +146,13 @@
             <%= form_for resource, as: resource_name, url: user_session_path do |f| %>
                 <div class="row">
                   <div class="columns large-12 medium-10 medium-push-1 large-push-0">
-                    <ul class="social-network small-block-grid-5">
-                      <li><%= link_to t('pages.top_panel.facebook_login'), user_omniauth_authorize_path(:facebook), alt: t('pages.top_panel.facebook_login'), title: t('pages.top_panel.facebook_login'), class: 'zocial icon facebook' %></li>
-                      <li><%= link_to t('pages.top_panel.google_login'), user_omniauth_authorize_path(:google_oauth2), alt: t('pages.top_panel.google_login'), title: t('pages.top_panel.google_login'), class: 'zocial icon googleplus' %></li>
-                      <li><%= link_to t('pages.top_panel.twitter_login'), user_omniauth_authorize_path(:twitter), alt: t('pages.top_panel.twitter_login'), title: t('pages.top_panel.twitter_login'), class: 'zocial icon twitter' %></li>
-                      <li><%= link_to t('pages.top_panel.meetup_login'), user_omniauth_authorize_path(:meetup), alt: t('pages.top_panel.meetup_login'), title: t('pages.top_panel.meetup_login'), class: 'zocial icon meetup' %></li>
-                      <li><%= link_to t('pages.top_panel.linkedin_login'), user_omniauth_authorize_path(:linkedin), alt: t('pages.top_panel.linkedin_login'), title: t('pages.top_panel.linkedin_login'), class: 'zocial icon linkedin' %></li>
+                    <ul class="social-network small-block-grid-6">
+                      <li><%= link_to_ip t('pages.top_panel.facebook_login'), :facebook, 'facebook' %></li>
+                      <li><%= link_to_ip t('pages.top_panel.google_login'), :google_oauth2, 'googleplus' %></li>
+                      <li><%= link_to_ip t('pages.top_panel.twitter_login'), :twitter, 'twitter' %></li>
+                      <li><%= link_to_ip t('pages.top_panel.meetup_login'), :meetup, 'meetup' %></li>
+                      <li><%= link_to_ip t('pages.top_panel.linkedin_login'), :linkedin, 'linkedin' %></li>
+                      <li><%= link_to_ip t('pages.top_panel.tecnologiedemocratiche'), :tecnologiedemocratiche, 'tecnologiedemocratiche' %></li>
                     </ul>
                   </div>
                   <div class="columns large-12 medium-10 medium-push-1 large-push-0">
@@ -185,7 +166,7 @@
                     </div>
                   </div>
                   <div class="column large-6 medium-5 medium-pull-1 large-pull-0 text-right">
-                    <%= f.submit t('pages.home.index.login'), class: "button" %>
+                    <%= f.submit t('pages.home.index.login'), class: 'button' %>
                   </div>
                 </div>
             <% end %>
@@ -202,7 +183,7 @@
               <div class="columns large-12 medium-10 medium-push-1 large-push-0">
                 <div class="row">
                   <div class="columns medium-6">
-                    <%= link_to t('pages.home.index.register'), new_user_registration_path, class: "button trial alert" %>
+                    <%= link_to t('pages.home.index.register'), new_user_registration_path, class: 'button trial alert' %>
                   </div>
                   <div class="columns medium-6">
                     <%= link_to t('pages.home.index.try_it'), public_path, class: 'button' %>
@@ -366,17 +347,7 @@
           </p>
 
           <div class="plan-sign-up">
-            <script src="<%= asset_path('paypal-button.min.js') %>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
-                    data-button="donate"
-                    data-name="Airesis - Scegli di partecipare"
-                    data-number="1"
-                    data-size="small"
-                    data-currency="EUR"
-                    data-amount="5.00"
-                    data-quantity="1"
-                    data-lc="<%= I18n.locale %>"
-                    data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
-            </script>
+            <%= paypal_button(size: 'small', amount: '5.00') %>
           </div>
         </div>
       </li>
@@ -390,17 +361,7 @@
           </p>
 
           <div class="plan-sign-up">
-            <script src="<%= asset_path('paypal-button.min.js') %>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
-                    data-button="donate"
-                    data-name="Airesis"
-                    data-number="1"
-                    data-size="small"
-                    data-currency="EUR"
-                    data-amount="20.00"
-                    data-quantity="1"
-                    data-lc="<%= I18n.locale %>"
-                    data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
-            </script>
+            <%= paypal_button(size: 'small', amount: '20.00') %>
           </div>
         </div>
       </li>
@@ -414,17 +375,7 @@
           </p>
 
           <div class="plan-sign-up">
-            <script src="<%= asset_path('paypal-button.min.js') %>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
-                    data-button="donate"
-                    data-name="Airesis"
-                    data-number="1"
-                    data-size="small"
-                    data-currency="EUR"
-                    data-amount="50.00"
-                    data-quantity="1"
-                    data-lc="<%= I18n.locale %>"
-                    data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
-            </script>
+            <%= paypal_button(size: 'small', amount: '50.00') %>
           </div>
         </div>
       </li>
@@ -437,16 +388,7 @@
           </p>
 
           <div class="plan-sign-up">
-            <script src="<%= asset_path('paypal-button.min.js') %>?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
-                    data-button="donate"
-                    data-name="Airesis"
-                    data-number="1"
-                    data-size="small"
-                    data-currency="EUR"
-                    data-quantity="1"
-                    data-lc="<%= I18n.locale %>"
-                    data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
-            </script>
+            <%= paypal_button(size: 'small') %>
           </div>
         </div>
       </li>
@@ -460,7 +402,7 @@
 <!-- Subscribe
 ================================================== -->
 <section id="subscribe">
-  <h1><%= "FOLLOW US" %></h1>
+  <h1><%= 'FOLLOW US' %></h1>
 
   <div class="row">
     <div class="columns medium-6">
@@ -469,20 +411,9 @@
     <div class="columns medium-6">
       <a class="twitter-timeline" href="https://twitter.com/hashtag/airesis" data-widget-id="511174030523518976">#airesis
         Tweet</a>
-      <script>!function (d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
-          if (!d.getElementById(id)) {
-              js = d.createElement(s);
-              js.id = id;
-              js.src = p + "://platform.twitter.com/widgets.js";
-              fjs.parentNode.insertBefore(js, fjs);
-          }
-      }(document, "script", "twitter-wjs");</script>
     </div>
   </div>
-
 </section>
-
 
 <section id="testimonials" class="green-background">
   <div class="row content">
@@ -490,7 +421,7 @@
 
     <div class="text-container">
       <div class="columns">
-        <h1><%= "Citations" %></h1>
+        <h1><%= 'Citations' %></h1>
       </div>
       <div class="columns flex-container">
         <div class="flexslider">
@@ -548,7 +479,7 @@
         <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'development') do %>
-                <%= image_tag "volunteers/rodi_alessandro.jpg" %>
+                <%= image_tag 'volunteers/rodi_alessandro.jpg' %>
                 <div class="link-icon">
                   <div>Alessandro Rodi</div>
                   <i class="fa fa-plus"></i>
@@ -561,7 +492,7 @@
         <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'development') do %>
-                <%= image_tag "volunteers/tilatti_marino.png" %>
+                <%= image_tag 'volunteers/tilatti_marino.png' %>
                 <div class="link-icon">
                   <div>Marino Tilatti</div>
                   <i class="fa fa-plus"></i>
@@ -573,7 +504,7 @@
         <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'analysis') do %>
-                <%= image_tag "volunteers/giulietti_nicola.png" %>
+                <%= image_tag 'volunteers/giulietti_nicola.png' %>
                 <div class="link-icon">
                   <div>Nicola Giulietti</div>
                   <i class="fa fa-plus"></i>
@@ -585,7 +516,7 @@
         <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'analysis') do %>
-                <%= image_tag "volunteers/baiotto_marco.png" %>
+                <%= image_tag 'volunteers/baiotto_marco.png' %>
                 <div class="link-icon">
                   <div>Marco Baiotto</div>
                   <i class="fa fa-plus"></i>
@@ -599,7 +530,7 @@
         <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'i18n') do %>
-                <%= image_tag "volunteers/tolja_jacopo.jpg" %>
+                <%= image_tag 'volunteers/tolja_jacopo.jpg' %>
                 <div class="link-icon">
                   <div>Jacopo Tolja</div>
                   <i class="fa fa-plus"></i>
@@ -611,7 +542,7 @@
         <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'communication') do %>
-                <%= image_tag "volunteers/curini_simone.jpg" %>
+                <%= image_tag 'volunteers/curini_simone.jpg' %>
                 <div class="link-icon">
                   <div>Simone Curini</div>
                   <i class="fa fa-plus"></i>
@@ -623,7 +554,7 @@
         <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'test') do %>
-                <%= image_tag "volunteers/mion_carlo.jpg" %>
+                <%= image_tag 'volunteers/mion_carlo.jpg' %>
                 <div class="link-icon">
                   <div>Carlo Mion</div>
                   <i class="fa fa-plus"></i>
@@ -636,7 +567,7 @@
         <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'test') do %>
-                <%= image_tag "volunteers/zanellato_luca.jpg" %>
+                <%= image_tag 'volunteers/zanellato_luca.jpg' %>
                 <div class="link-icon">
                   <div>Luca Zanellato</div>
                   <i class="fa fa-plus"></i>
@@ -649,7 +580,7 @@
         <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'graphic') do %>
-                <%= image_tag "volunteers/kabora_marcello.png" %>
+                <%= image_tag 'volunteers/kabora_marcello.png' %>
                 <div class="link-icon">
                   <div>Marcello Kabora</div>
                   <i class="fa fa-plus"></i>
@@ -661,7 +592,7 @@
         <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'communication') do %>
-                <%= image_tag "volunteers/chiara_gianferrari.jpg" %>
+                <%= image_tag 'volunteers/chiara_gianferrari.jpg' %>
                 <div class="link-icon">
                   <div>Chiara Gianferrari</div>
                   <i class="fa fa-plus"></i>
@@ -673,7 +604,7 @@
         <li>
           <div class="item-wrap">
             <%= link_to chisiamo_path(anchor: 'communication') do %>
-                <%= image_tag "volunteers/matteo_martini.jpg" %>
+                <%= image_tag 'volunteers/matteo_martini.jpg' %>
                 <div class="link-icon">
                   <div>Matteo Martini</div>
                   <i class="fa fa-plus"></i>
@@ -685,7 +616,7 @@
         <li>
           <div class="item-wrap">
             <%= link_to partecipa_path(anchor: 'partecipare') do %>
-                <%= image_tag "volunteers/you.png" %>
+                <%= image_tag 'volunteers/you.png' %>
                 <div class="link-icon">
                   <div><%= t('you') %></div>
                   <i class="fa fa-plus"></i>
@@ -695,23 +626,10 @@
         </li>
 
       </ul>
-      <!-- portfolio-wrapper end -->
-
     </div>
-    <!-- twelve columns end -->
-
   </div>
-  <!-- end row -->
-
 </section>
-<!-- Screenshots End -->
 
-
-<!-- Subscribe Section End-->
-
-
-<!-- Footer
-================================================== -->
 <footer>
 
   <div class="row">
@@ -754,28 +672,12 @@
             <li><a href="mailto:marino.tilatti@airesis.it">Marino Tilatti</a></li>
           </ul>
         </div>
-
       </div>
-      <!-- Nested Row End -->
-
     </div>
-
-
     <div id="go-top">
       <a class="smoothscroll" title="Back to Top" href="#hero"><i class="fa fa-chevron-up"></i></a>
     </div>
-
   </div>
-  <!-- Row End -->
-
 </footer>
-<!-- Footer End-->
-
-
-<!-- Java Script
-================================================== -->
-<%= javascript_include_tag 'landing/main' %>
-
 </body>
-
 </html>

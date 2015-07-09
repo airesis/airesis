@@ -3,7 +3,7 @@
  * Nico Mollet <nico.mollet@gmail.com>
  */
 ;(function($){
-	$.fn.datetimepicker.dates['fr'] = {
+	$.fn.fdatetimepicker.dates['fr'] = {
 		days: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
 		daysShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
 		daysMin: ["D", "L", "Ma", "Me", "J", "V", "S", "D"],
@@ -13,6 +13,8 @@
 		suffix: [],
 		meridiem: ["am", "pm"],
 		weekStart: 1,
-		format: "dd/mm/yyyy"
+		format: "dd/mm/yyyy hh:ii",
+		formatDate: "dd/mm/yyyy"
 	};
+    $.fn.fdatetimepicker.defaults = $.fn.fdatetimepicker.dates['fr'];
 }(jQuery));

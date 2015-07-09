@@ -1,5 +1,4 @@
 module UrlHelper
-
   def with_subdomain(options)
     subdomain = (options.delete(:subdomain) || "")
     subdomain += "." unless subdomain.empty?
@@ -11,7 +10,6 @@ module UrlHelper
       host = host.gsub('www.','').split(':')[0]
       options[:host] = [subdomain, host].join
     end
-
   end
 
   def url_for(options = nil)

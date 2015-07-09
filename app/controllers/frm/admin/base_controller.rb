@@ -5,9 +5,6 @@ module Frm
       layout 'groups'
 
       before_filter :authorize_frm_admin
-      #before_filter :load_group
-
-
 
       def index
 

@@ -1,4 +1,3 @@
-#encoding: utf-8
 class QuorumsController < ApplicationController
   layout :choose_layout
 
@@ -21,8 +20,8 @@ class QuorumsController < ApplicationController
     @group_participations_count = @group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count
     @vote_participants_count = @group.scoped_participants(GroupAction::PROPOSAL_VOTE).count
     respond_to do |format|
-      format.js
       format.html
+      format.js
     end
   end
 
@@ -53,6 +52,9 @@ class QuorumsController < ApplicationController
       respond_to do |format|
         flash[:notice] = t('info.quorums.quorum_updated')
         format.js
+        format.html {
+          redirect_to group_quorum_url(@group)
+        }
       end
     else
       respond_to do |format|
@@ -97,7 +99,6 @@ class QuorumsController < ApplicationController
     end
   end
 
-
   def help
     if params[:group_id]
       @group = Group.find(params[:group_id])
@@ -106,14 +107,14 @@ class QuorumsController < ApplicationController
       @quorums = Quorum.public.active.all
     end
     respond_to do |format|
-      format.js
       format.html
+      format.js
     end
   end
 
   #retrieve a list of votation dates compatibles with that quorum
   def dates
-    starttime = Time.now + @quorum.minutes.minutes + DEBATE_VOTE_DIFFERENCE
+    starttime = (@quorum.minutes.minutes + DEBATE_VOTE_DIFFERENCE).from_now
     if @group
       @dates = @group.events.private.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] } #TODO:I18n
     else

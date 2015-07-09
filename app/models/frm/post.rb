@@ -1,11 +1,11 @@
 module Frm
   class Post < FrmTable
-    include Workflow, BlogKitModelHelper
+    include Workflow
 
     workflow_column :state
     workflow do
       state :pending_review do
-        event :spam,    transitions_to: :spam
+        event :spam, transitions_to: :spam
         event :approve, transitions_to: :approved
       end
       state :spam
@@ -18,12 +18,12 @@ module Frm
     attr_accessor :moderation_option
 
     belongs_to :topic
-    belongs_to :user,     class_name: 'User'
+    belongs_to :user, class_name: 'User'
     belongs_to :reply_to, class_name: "Post"
 
-    has_many :replies, :class_name  => "Post",
-                       foreign_key: "reply_to_id",
-                       :dependent   => :nullify
+    has_many :replies, class_name: "Post",
+             foreign_key: "reply_to_id",
+             dependent: :nullify
 
     validates :text, presence: true
 
@@ -37,7 +37,7 @@ module Frm
 
     before_create :populate_token
 
-    after_save :approve_user,   if: :approved?
+    after_save :approve_user, if: :approved?
     after_save :blacklist_user, if: :spam?
     after_save :email_topic_subscribers, if: Proc.new { |p| p.approved? && !p.notified? }
 
@@ -50,7 +50,7 @@ module Frm
       def approved_or_pending_review_for(user)
         if user
           where arel_table[:state].eq('approved').or(
-                  arel_table[:state].eq('pending_review').and(arel_table[:user_id].eq(user.id))
+                    arel_table[:state].eq('pending_review').and(arel_table[:user_id].eq(user.id))
                 )
         else
           approved
@@ -69,17 +69,17 @@ module Frm
         where state: 'spam'
       end
 
-      def visible(user=nil)
+      def visible(user = nil)
         if user
-          joins(:topic).where('frm_topics.hidden = false or frm_topics.user_id = ?',user.id)
+          joins(:topic).where('frm_topics.hidden = false or frm_topics.user_id = ?', user.id)
         else
-          joins(:topic).where(frm_topics: { hidden: false })
+          joins(:topic).where(frm_topics: {hidden: false})
         end
 
       end
 
       def topic_not_pending_review
-        joins(:topic).where(frm_topics: { state: 'approved'})
+        joins(:topic).where(frm_topics: {state: 'approved'})
       end
 
       def moderate!(posts)

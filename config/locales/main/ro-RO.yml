@@ -583,7 +583,7 @@ ro:
         title: Toate cvorumurile disponibile
     home:
       index:
-        whatis: CE ESTE AIRESIS
+        whatis: CE ESTE
         partecipate: IMPLICAŢI-VĂ
         videos: GHIDURI VIDEO
         whowe: DESPRE NOI
@@ -777,7 +777,7 @@ ro:
         meeting:
           place:
             address: Adresă
-            comune_id: Localitate
+            municipality_id: Localitate
       group:
         facebook_page_url: Adresa de pagina de Facebook
         name: Nume
@@ -1104,7 +1104,7 @@ ro:
     province: "%{name} (provincia)"
     town: "%{name} (oraş)"
     country: "%{name} (ţara)"
-    continent: "%{nume} (Continent)"
+    continent: "%{name} (Continent)"
   mailer:
     default:
       follow_twitter: Urmărește-ne pe Twitter

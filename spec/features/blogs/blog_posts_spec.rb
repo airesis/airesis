@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'requests_helper'
 
-describe "the blog posts process", type: :feature, js: true do
+describe "the blog posts process", type: :feature, js: true, ci_ignore: true do
 
   let!(:user) { create(:user) }
   let!(:blog) { create(:blog, user: user) }
@@ -20,9 +20,10 @@ describe "the blog posts process", type: :feature, js: true do
     within_left_menu do
       click_link I18n.t('pages.blog_posts.new_button')
     end
-
+    expect(page).to have_content(I18n.t('pages.blog_posts.new_button'))
     blog_post_name = Faker::Company.name
     #fill form fields
+
     within("#main-copy") do
       fill_in I18n.t('activerecord.attributes.blog_post.title'), with: blog_post_name
       fill_in_ckeditor 'blog_post_body', with: Faker::Lorem.paragraph

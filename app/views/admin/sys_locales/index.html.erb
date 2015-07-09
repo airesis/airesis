@@ -1,0 +1,33 @@
+<h1>Listing sys_locales</h1>
+
+<table>
+  <tr>
+    <th>key</th>
+    <th>host</th>
+    <th>lang</th>
+    <th>territory type</th>
+    <th>territory id</th>
+    <th>default</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @sys_locales.each do |sys_locale| %>
+  <tr>
+    <td><%= sys_locale.key %></td>
+    <td><%= sys_locale.host %></td>
+    <td><%= sys_locale.lang %></td>
+    <td><%= sys_locale.territory_type %></td>
+    <td><%= sys_locale.territory_id %></td>
+    <td><%= sys_locale.default %></td>
+    <td><%= link_to 'Show', [:admin,sys_locale] %></td>
+    <td><%= link_to 'Edit', edit_admin_sys_locale_path(sys_locale) %></td>
+    <td><%= link_to 'Destroy', [:admin,sys_locale], confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Sys locale', new_admin_sys_locale_path %>

@@ -7,19 +7,17 @@ class UserSensitive < ActiveRecord::Base
 
   # Check for paperclip
   has_attached_file :document,
-                    url: ":rails_root/private/users/:id/documents/:basename.:extension",
-                    path: ":rails_root/private/users/:id/documents/:basename.:extension"
+                    s3_permissions: :private,
+                    url: ":user_sensitives/:id/documents/:basename.:extension",
+                    path: ":user_sensitives/:id/documents/:basename.:extension"
 
 
   validates_presence_of :name, :surname, :user_id, :tax_code
 
-  before_save :update_user
+  after_create :update_user
 
   def update_user
-    self.user.name = self.name
-    self.user.surname = self.surname
-    self.user.user_type_id = UserType::CERTIFIED
-    self.user.save!
+    user.update_columns(name: name, surname: surname, user_type_id: UserType::CERTIFIED)
   end
 
 end

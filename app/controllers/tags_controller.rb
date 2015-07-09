@@ -1,4 +1,3 @@
-#encoding: utf-8
 class TagsController < ApplicationController
 
   layout "open_space"
@@ -24,26 +23,27 @@ class TagsController < ApplicationController
     else
       @page_title = "Tag '" + params[:id] + "' non trovato"
 
-      @tags = Tag.most_used
+      @tags = Tag.most_used(current_domain.territory)
 
       respond_to do |format|
         format.html { render 'index' }
       end
     end
-
   end
 
   def index
     if params[:q]
       hint = params[:q] + "%"
-      @tags = Tag.where(["upper(text) like upper(?)", hint.strip]).order("(blogs_count + blog_posts_count + proposals_count) desc").limit(10).collect { |t| {id: t.id.to_s, name: t.text} }
+      @tags = Tag.where(["upper(text) like upper(?)", hint.strip]).
+        order("(blogs_count + blog_posts_count + proposals_count) desc").
+        limit(10).collect { |t| {id: t.id.to_s, name: t.text} }
 
       respond_to do |format|
         format.json { render json: @tags }
       end
     else
       @page_title = 'Elenco dei tag più utilizzati'
-      @tags = Tag.most_used
+      @tags = Tag.most_used(current_domain.territory)
       respond_to do |format|
         format.html
       end

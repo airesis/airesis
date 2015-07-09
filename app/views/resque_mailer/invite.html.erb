@@ -1,18 +1,61 @@
-<%= t('mailer.invite.hi_user') %><br/>
-<%=raw t('mailer.invite.invitation', {user: @group_invitation.inviter.fullname, group: (link_to @group.name, group_url(@group)), app_name: (link_to ENV['APP_LONG_NAME'], Maktoub.home_domain)}) %><br />
-<%if @group_invitation.testo %>
-<%= t('mailer.invite.message_intro') %><br/>
-    <p style="font-style: italic;">
-      <%=h @group_invitation.testo%>
-    </p>
-<%end%>
+<table class="row">
+  <tbody>
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tbody>
+        <tr>
+          <td>
+            <h1><%= t('mailer.invite.hi_user') %></h1>
 
-<%= t('mailer.invite.accept_or_reject') %> <br />
+            <p class="lead">
+              <%= raw t('mailer.invite.invitation',
+                        {user: @user.fullname,
+                         group: (link_to @group.name, group_url(@group)),
+                         app_name: (link_to ENV['APP_LONG_NAME'], Maktoub.home_domain)}) %>
+            </p>
+
+            <p><%= t('mailer.invite.message_intro') %></p>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<table class="row callout">
+  <tbody>
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tbody>
+        <tr>
+          <td class="panel">
+            <% if @group_invitation.testo %>
+
+                <p>
+                  <%= h @group_invitation.testo %>
+                </p>
+            <% end %>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<%= t('mailer.invite.accept_or_reject') %> <br/>
 <%= t('mailer.invite.no_more', {app_name: ENV['APP_SHORT_NAME']}) %> <br/>
 
-<%= link_to t('mailer.invite.accept'), accept_group_invitations_url(group_id: @group.id, token: @group_invitation.token, email: @group_invitation_email.email), style: 'text-decoration: none;
-        text-shadow: 0 1px rgba(0, 0, 0, 0.1);font: bold 11px Arial, sans-serif;color: #444;
-        line-height: 17px;
+<%= link_to t('mailer.invite.accept'), accept_group_group_invitation_group_invitation_email_url(@group, @group_invitation, @group_invitation_email.token, email: @group_invitation_email.email),
+            style: 'text-decoration: none;
+        text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+        font: bold 14px Arial, sans-serif;
+        color: #444;
+        line-height: 20px;
         display: inline-block;
         margin: 5px;
         padding: 8px 14px;
@@ -26,9 +69,17 @@
         -o-transition: border-color .20s;
         transition: border-color .20s;
         cursor: pointer;
-        position: relative;' %> |
-<%= link_to t('mailer.invite.reject'), reject_group_invitations_url(group_id: @group.id, token: @group_invitation.token, email: @group_invitation_email.email), style: 'text-decoration: none;
-        text-shadow: 0 1px rgba(0, 0, 0, 0.1);font: bold 11px Arial, sans-serif;color: #444;line-height: 17px;display: inline-block;margin: 5px;padding: 8px 14px;background: #F3F3F3;
+        position: relative;' %>
+<%= link_to t('mailer.invite.reject'), reject_group_group_invitation_group_invitation_email_url(@group, @group_invitation, @group_invitation_email.token, email: @group_invitation_email.email),
+            style: 'text-decoration: none;
+        text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+        font: bold 14px Arial, sans-serif;
+        color: #444;
+        line-height: 20px;
+        display: inline-block;
+        margin: 5px;
+        padding: 8px 14px;
+        background: #F3F3F3;
         border: solid 1px #D9D9D9;
         border-radius: 2px;
         -webkit-border-radius: 2px;
@@ -38,7 +89,6 @@
         -o-transition: border-color .20s;
         transition: border-color .20s;
         cursor: pointer;
-        position: relative;' %> <br />
-<br />
-<%= t('mailer.invite.greetings') %><br />
-<%= link_to t('mailer.invite.no_more_button'), anymore_group_invitations_url(group_id: @group.id, token: @group_invitation.token, email: @group_invitation_email.email), :style=> "font-size: 10px;" %>
+        position: relative;' %> <br/>
+<br/>
+<%= t('mailer.invite.greetings') %><br/>

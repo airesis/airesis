@@ -6,7 +6,7 @@
 <% end %>
 
 <% if @admins.size > 5 %>
-    <%= link_to group_group_participations_url(@group, 'search_participant[role_id]' => ParticipationRole::ADMINISTRATOR), class: "btn disable" do %>
+    <%= link_to group_group_participations_url(@group, 'search_participant[role_id]' => ParticipationRole.admin.id), class: "btn disable" do %>
         <i class="fa fa-user"></i>
         <%= t('pages.groups.show.show_all_admins', count: @admins.size) %>
     <% end %>
@@ -15,14 +15,14 @@
 <h4><%= t('pages.groups.show.participants_list') %></h4>
 
 <% if can? :accept_requests, @group %>
-    <%= link_to new_group_invitation_path(group_id: @group.id), remote: true, class: "btn disable" do %>
+    <%= link_to new_group_group_invitation_path(@group), remote: true, class: "btn disable" do %>
         <i class="fa fa-envelope-o"></i>
         <%= t('pages.groups.show.invite_button') %>
     <% end %>
     <div id="new_invitation_container"></div>
 <% end %>
 
-<% @participation_request = current_user.has_asked_for_participation?(@group.id) if user_signed_in?%>
+<% @participation_request = current_user.has_asked_for_participation?(@group.id) if user_signed_in? %>
 <% unless @participation_request %>
     <% if @group.disable_participation_requests %>
         <%= eval "#{@group.subdomain}_participation_request" %>
@@ -36,7 +36,7 @@
 
 <% if @group.group_participations.size > 1 %>
 
-    <% @group_participations = @group.group_participations.includes([{user: [:image, :user_type]}, :participation_role]) %>
+    <% @group_participations = @group.group_participations.includes(:participation_role, user: [:image, :user_type]) %>
 
     <% @group_participations.limit(5).each do |participant| %>
         <% next if participant.as_admin? %>

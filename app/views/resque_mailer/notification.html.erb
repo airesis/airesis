@@ -1,5 +1,5 @@
 <p>
-<a href="<%=check_alert_url(@alert, host: @alert.user.locale.host)%>">
-    <%=raw @alert.notification.message%>
-</a>
+  <a href="<%= check_alert_url(@alert) %>">
+    <%= raw @alert.message %>
+  </a>
 </p>

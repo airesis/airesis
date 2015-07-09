@@ -10,10 +10,11 @@ gem 'maktoub'
 
 gem 'turnout'
 
-gem 'sass-rails', "~> 4.0.0"
-gem 'coffee-rails', "~> 4.0.0"
-gem 'uglifier', ">= 1.3.0"
-gem 'foundation-rails', github: 'johnantoni/foundation-rails', branch: 'foundation-5.4.7' #not the official repossitory. waiting for update to 5.4.7
+gem 'sass-rails', '~> 5.0.0'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'uglifier', '>= 1.3.0'
+
+gem 'foundation-rails'
 
 gem 'pg'
 
@@ -24,14 +25,23 @@ gem 'capistrano', '~> 3.2.0'
 gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-rails', '~> 1.1'
 gem 'rvm1-capistrano3', require: false
+gem 'premailer-rails'
+
+gem 'uri-js-rails'
+
+gem 'mustache'
+gem 'mustache-js-rails'
 
 group :development do
   gem 'sunspot_solr'
-  gem "better_errors"
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'quiet_assets'
   gem 'capistrano-sidekiq'
   gem 'capistrano-passenger'
   gem 'i18n-tasks', '~> 0.7.7'
+  gem 'rubocop'
+  gem 'rack-mini-profiler', require: false
 end
 
 group :development, :test do
@@ -42,10 +52,9 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'capybara-webkit'
   gem 'capybara-screenshot'
-  gem "spring"
-  gem "sunspot_test"
+  gem 'spring'
+  gem 'sunspot_test'
 end
-
 
 gem 'crowdin-api', group: [:development, :staging]
 gem 'rubyzip', group: [:development, :staging]
@@ -54,15 +63,20 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :staging, :production do
+  gem 'newrelic_rpm'
+end
+
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-meetup'
 gem 'omniauth-linkedin'
+gem 'omniauth-tecnologiedemocratiche', github: 'TecnologieDemocratiche/omniauth-tecnologiedemocratiche'
 
 gem 'paperclip'
 
-gem 'aws-sdk'
+gem 'aws-sdk', '< 2.0'
 
 gem 'jquery-rails'
 
@@ -78,13 +92,11 @@ gem 'koala', '~> 1.8.0rc1'
 
 gem 'xmpp4r_facebook'
 
-
 gem 'sinatra', '>= 1.3.0', require: nil
 
-gem 'sidekiq'#, '~> 2.17.7' #added for issue https://github.com/tobiassvn/sidetiq/issues/79
+gem 'sidekiq'
 gem 'sidekiq-failures'
 gem 'sidetiq'
-
 
 gem 'cancancan', '~> 1.9'
 
@@ -105,7 +117,7 @@ gem 'el_finder'
 gem 'recaptcha', require: 'recaptcha/rails'
 
 gem 'bullet', group: :development
-gem 'thin', group: :development
+gem 'thin'
 gem 'ruby-prof', group: :test
 gem 'test-unit', group: :test
 
@@ -159,4 +171,4 @@ gem 'sunspot-rails-http-basic-auth', github: 'jwachira/sunspot-rails-http-basic-
 
 gem 'activerecord-session_store'
 
-gem "sentry-raven", github: 'getsentry/raven-ruby', group: [:development, :staging, :production]
+gem 'sentry-raven', github: 'getsentry/raven-ruby', group: [:staging, :production]

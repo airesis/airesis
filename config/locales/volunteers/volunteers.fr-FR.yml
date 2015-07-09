@@ -60,7 +60,7 @@ fr:
         title: Responsable de recrutement et de la coordination des traducteurs
         content_html: |
           <p>
-             Je suis âgé de 50 ans, un peu désabusé, mais j'ai trouvé dans Airesis une raison de revenir dans le jeu et j'espère développer une société meilleure pour moi, mais surtout pour mes enfants et aussi pour vous qui arrivez à ce niveau et lisez cette phrase.
+             Je suis âgé de %{age} ans, un peu désabusé, mais j'ai trouvé dans Airesis une raison de revenir dans le jeu et j'espère développer une société meilleure pour moi, mais surtout pour mes enfants et aussi pour vous qui arrivez à ce niveau et lisez cette phrase.
               J'ai tout fait au cours de ma vie, les voyages, les aventures, les tentatives d'exploitation et j'ai apporté mon expérience en tant que citoyen du monde pour m'assurer que Airesis soit utilisé par le plus grand nombre de personnes dans le moindre coin le plus reculé du monde.
              J'offre mon aide dans la coordination de ' <a href="https://crowdin.net/project/airesis" target="blank_">  l'internationalisation et le processus de localisation d'Airesis</a> et je suis intéressé pour développer le site Airesis et en faire l'interface utilisateur la plus simple et la plus intuitive existant sur ​​le web !
               J'ai un gros défaut, je suis antidémocratique et donc , ici, je vais bien, je suis l'exception qui confirme la règle !

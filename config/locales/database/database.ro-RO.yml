@@ -117,7 +117,7 @@ ro-RO:
         email_subject: '%{proposal} - contribuţie înapoi în dezbatere'
         message: 'O contribuţie inclusă în propunerea <b>%{proposal}</b> a fost pusă înapoi în dezbatere'
       new_contributes:
-        description: Noi contribuţii şi comentarii la propunerile la care particip
+        description: Noi contribuţii la propunerile la care particip
         email_subject: '%{title} - contribuție nouă'
         message: '<b>%{name}</b> a adăugat o nouă contribuţie în propunerea <b>%{title}</b>'
       text_update:

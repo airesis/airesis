@@ -1,0 +1,34 @@
+<ul class="breadcrumbs">
+  <li><%= link_to t('pages.groups.administration_panel.forum'), group_frm_admin_root_url(@group) %></li>
+  <li><%= link_to t('frm.admin.group.index'), group_frm_admin_mods_url(@group) %></li>
+  <li class="current"><%= @frm_mod.name %></li>
+</ul>
+
+<div class="card">
+  <div class="row">
+    <label><%= t('.add_a_new_member') %></label>
+    <%= form_tag add_group_frm_admin_mod_members_url(@group, @frm_mod), remote: true do %>
+        <p>
+          <%= text_field_tag "frm_user_id" %>
+        </p>
+
+        <p class="span1">
+          <%= submit_tag t('.add_member'), class: "btn blue", data: {disable_with: t('loading')} %>
+        </p>
+    <% end %>
+  </div>
+</div>
+<div class="card">
+  <div id="group_members_container">
+    <%= render partial: 'group_members' %>
+  </div>
+</div>
+
+<script type="text/javascript">
+    ModsShow.autocompleteUrl = '<%=j group_user_autocomplete_url(@group) %>';
+</script>
+
+
+<%= content_for :left_panel do %>
+    <%= render 'groups/administration_panel' %>
+<% end %>

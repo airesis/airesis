@@ -26,7 +26,7 @@ module Airesis
     config.i18n.fallbacks =[:en]
 
     config.to_prepare do
-      Devise::Mailer.layout "maktoub/unregistered_mailer" # email.haml or email.erb
+      Devise::Mailer.layout "newsletters/default"
     end
 
     config.action_view.sanitized_allowed_tags = %w(u iframe table tr td th)
@@ -54,15 +54,25 @@ module Airesis
         authentication: :plain
     }
 
-    config.paperclip_defaults = {
-        storage: :s3,
-        bucket: ENV['AWS_BUCKET'],
-        s3_credentials: {
-            access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-            secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
-        },
-        s3_host_name: 's3-eu-west-1.amazonaws.com'
-    }
+    if ENV['AWS_HOST'].present?
+      options = {
+          storage: :s3,
+          s3_protocol: :https,
+          bucket: ENV['AWS_BUCKET'],
+          s3_credentials: {
+              access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+              secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+          },
+          s3_host_name: ENV['AWS_HOST']
+      }
+
+      if ENV['AWS_ALIAS'].present?
+        options.merge!(s3_host_alias: ENV['AWS_ALIAS'],
+                       url: ':s3_alias_url')
+      end
+
+      config.paperclip_defaults = options
+    end
   end
 end
 

@@ -1,4 +1,3 @@
-#encoding: utf-8
 class BestQuorum < Quorum
 
   validates :minutes, numericality: {only_integer: true, greater_than_or_equal_to: 5}
@@ -131,8 +130,8 @@ class BestQuorum < Quorum
 
   end
 
-  def check_phase(force_end=false)
-    return unless force_end || (Time.now > ends_at) #skip if we have not passed the time yet
+  def check_phase(force_end = false)
+    return unless force_end || (Time.now > ends_at) # skip if we have not passed the time yet
 
     vpassed = !valutations || (proposal.valutations >= valutations)
     if (proposal.rank >= good_score) && vpassed #and we passed the debate quorum
@@ -155,10 +154,6 @@ class BestQuorum < Quorum
           else
             @event = Event.create!(event_p)
           end
-
-          #fai partire il timer per far scadere la proposta
-          EventsWorker.perform_at(@event.starttime, {action: EventsWorker::STARTVOTATION, event_id: @event.id})
-          EventsWorker.perform_at(@event.endtime, {action: EventsWorker::ENDVOTATION, event_id: @event.id})
         end
         proposal.vote_period = @event
       else
@@ -187,7 +182,7 @@ class BestQuorum < Quorum
         vs = SchulzeBasic.do votesstring, num_solutions
         solutions_sorted = proposal.solutions.sort { |a, b| a.id <=> b.id } #order the solutions by the id (as the plugin output the results)
         solutions_sorted.each_with_index do |c, i|
-          c.schulze_score = vs.ranks[i].to_i  #save the result in the solution
+          c.schulze_score = vs.ranks[i].to_i #save the result in the solution
           c.save!
         end
         votes = proposal.schulze_votes.sum(:count)

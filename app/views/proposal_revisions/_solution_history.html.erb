@@ -1,0 +1,29 @@
+<div class="solution_main">
+  <h3>
+    <div class="tit1 sol">
+      <div class="tit2">
+        <%= "#{t('pages.proposal_histories.solutions.added')}: " if solution_history.added %>
+        <%= "#{t('pages.proposal_histories.solutions.removed')}: " if solution_history.removed %>
+        <%=raw t("pages.proposals.edit.new_solution_title.#{proposal.proposal_type.name.downcase}",num: i+1)%> <%= "#{solution_history.title}" %>
+      </div>
+    </div>
+  </h3>
+  <div class="sol_content <%= solution_history.removed ? 'ice-del' : ''%> <%= solution_history.added ? 'ice-ins' : ''%>">
+    <% solution_history.section_histories.each do |section| %>
+        <div class="proposal_main">
+          <h3>
+            <div class="tit1">
+              <div class="tit2">
+                <%= "#{t('pages.proposal_histories.sections.added')}: " if section.added %>
+                <%= "#{t('pages.proposal_histories.sections.removed')}: " if section.removed %>
+                <%= section.title %>
+              </div>
+            </div>
+          </h3>
+          <div class="proposal_content <%= section.removed ? 'ice-del' : ''%> <%= section.added ? 'ice-ins' : ''%>">
+            <%= sanitize(section.paragraphs.first.parsed_content(proposal.is_anonima?)) %>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>

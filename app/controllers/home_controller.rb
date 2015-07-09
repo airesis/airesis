@@ -1,14 +1,4 @@
-#encoding: utf-8
-#Copyright 2012 Rodi Alessandro
-#This file is part of Airesis.
-#Airesis is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as 
-#published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-#Airesis is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
-#or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-#You should have received a copy of the GNU General Public License along with Foobar. If not, see http://www.gnu.org/licenses/.
-
 class HomeController < ApplicationController
-
   layout :choose_layout
 
   #l'utente deve aver fatto login
@@ -19,11 +9,13 @@ class HomeController < ApplicationController
   def index
     @page_title = 'Home'
     if current_user
+      load_open_space_resources
       render 'open_space'
     end
   end
 
   def public
+    load_open_space_resources
     render 'open_space'
   end
 
@@ -127,12 +119,19 @@ class HomeController < ApplicationController
     end
   end
 
-  private
+  protected
+
+  def load_open_space_resources
+    @blog_posts = BlogPost.open_space(current_user, current_domain)
+    @events = Event.in_territory(current_domain.territory).next.order('starttime asc').accessible_by(Ability.new(current_user)).limit(10)
+    @proposals = Proposal.open_space_portlet(current_user, current_domain.territory)
+    @most_active_groups = Group.most_active(current_domain.territory)
+    @tags = Tag.most_used(current_domain.territory).limit(100)
+  end
+
   def initialize_roadmap
     @roadmap ||= Roadmap.new(ENV['BUGTRACKING_USERNAME'], ENV['BUGTRACKING_PASSWORD'])
   end
-
-  private
 
   def choose_layout
     if ['landing'].include? action_name
@@ -147,6 +146,4 @@ class HomeController < ApplicationController
       'landing'
     end
   end
-
-
 end

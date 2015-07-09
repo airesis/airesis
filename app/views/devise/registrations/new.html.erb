@@ -14,6 +14,8 @@
       <%= link_to t('pages.top_panel.meetup_login'), user_omniauth_authorize_path(:meetup), alt: t('pages.top_panel.meetup_login'), title: t('pages.top_panel.meetup_login'), class: 'zocial icon meetup' %>
 
       <%= link_to t('pages.top_panel.linkedin_login'), user_omniauth_authorize_path(:linkedin), alt: t('pages.top_panel.linkedin_login'), title: t('pages.top_panel.linkedin_login'), class: 'zocial icon linkedin' %>
+
+      <%= link_to t('pages.top_panel.tecnologiedemocratiche_login'), user_omniauth_authorize_path(:tecnologiedemocratiche), alt: t('pages.top_panel.tecnologiedemocratiche_login'), title: t('pages.top_panel.tecnologiedemocratiche_login'), class: 'zocial icon tecnologiedemocratiche' %>
     </div>
 <% end %>
 <div class="card">
@@ -38,7 +40,7 @@
 
       <%= f.label :accept_conditions do %>
           <div class="conditions">
-            <%=render 'devise/registrations/eula' %>
+            <%= render 'devise/registrations/eula' %>
           </div>
           <%= f.check_box :accept_conditions %>
           <%= t('pages.registration.accept_conditions') %>
@@ -46,7 +48,7 @@
 
       <%= f.label :accept_privacy do %>
           <div class="conditions">
-            <%=render 'devise/registrations/privacy' %>
+            <%= render 'devise/registrations/privacy' %>
           </div>
           <%= f.check_box :accept_privacy %>
           <%= t('pages.registration.accept_privacy') %>
@@ -63,32 +65,14 @@
   <% end %>
 </div>
 
-
-
 <div id="eula_modal" class="reveal-modal medium" data-reveal>
   <p>
     <%= render partial: 'devise/registrations/eula' %>
   </p>
 </div>
 
-
 <div id="privacy_modal" class="reveal-modal medium" data-reveal>
   <p>
     <%= render partial: 'devise/registrations/privacy' %>
   </p>
 </div>
-
-<script type="text/javascript">
-
-    //window.ClientSideValidations.remote_validators_prefix= null;
-
-    function openPrivacyModal() {
-        $("#privacy_modal").foundation('reveal', 'open');
-        return false;
-    }
-
-    function openModal() {
-        $("#eula_modal").foundation('reveal', 'open');
-        return false;
-    }
-</script>

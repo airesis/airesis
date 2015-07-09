@@ -247,7 +247,7 @@ $h4-font-size: rem-calc(15);
 // Button Groups
 
 // $include-html-button-classes: $include-html-classes;
-$include-html-button-classes: false;
+$include-html-button-classes: true;
 
 // Sets the margin for the right side by default, and the left margin if right-to-left direction is used
 // $button-bar-margin-opposite: rem-calc(10);
@@ -1023,7 +1023,7 @@ $topbar-bg-color: #33b5e5;
 $topbar-bg: $topbar-bg-color;
 
 // Height and margin
-$topbar-height: 40px;
+$topbar-height: rem-calc(40px);
 // $topbar-margin-bottom: 0;
 
 // Controlling the styles for the title in the top bar
@@ -1201,18 +1201,18 @@ $namespace: false;
 @import 'foundation';
 
 //airesis specific
-$page-min-width: 320px;
-$left-menu-width: 250px;
+$page-min-width: rem-calc(320px);
+$left-menu-width: rem-calc(250px);
 
-$sectionbar-height-large: 40px;
-$sectionbar-height-small: $sectionbar-height-large + 20;
+$sectionbar-height-large: rem-calc(40px);
+$sectionbar-height-small: $sectionbar-height-large + rem-calc(20);
 $sectionbar-bg-color: #808080;
 
 $footer-height-large: 31px;
 $footer-height-small: 48px;
 
-$top-small: $topbar-height+$sectionbar-height-small;
-$top-large: $topbar-height+$sectionbar-height-large;
+$top-small: $topbar-height + $sectionbar-height-small;
+$top-large: $topbar-height + $sectionbar-height-large;
 
 .medium-bar {
   background: none;
@@ -1391,6 +1391,11 @@ ul, ol {
   .topmenu {
     position: absolute;
     margin-left: 40px;
+    .topmenu-text {
+      display: inline;
+      overflow: hidden;
+      white-space: nowrap;
+    }
   }
 
   @media #{$medium-up} {
@@ -2092,6 +2097,7 @@ small.warning {
     position: absolute;
     right: 15px;
     top: 3px;
+    height: 20px;
   }
 }
 
@@ -2219,9 +2225,6 @@ small.warning {
     text-align: center;
     font-size: 1.5em;
     line-height: 1.5em;
-  }
-  img {
-    max-width: 100%;
   }
   h1 {
     text-align: center;
@@ -2559,6 +2562,10 @@ input[type=file] {
 
     &.account {
       line-height: 40px;
+      height: $topbar-height;
+    }
+    &#logo-but {
+      height: $topbar-height;
     }
   }
 }
@@ -2865,6 +2872,10 @@ input[type=file] {
 }
 
 //overrides
+.proposal-alert-box {
+  @extend .alert-box;
+}
+
 .introjs-button {
   @extend .btn;
 }
@@ -2900,4 +2911,10 @@ ul.social-network {
 
 h1 .label {
   font-size: $h1-font-size;
+}
+
+.calendar_container .fc-button {
+  @extend .btn;
+  border-radius: 0;
+  height: auto;
 }

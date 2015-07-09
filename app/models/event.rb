@@ -1,4 +1,3 @@
-#encoding: utf-8
 class Event < ActiveRecord::Base
   attr_accessor :period, :frequency, :commit_button, :backgroundColor, :textColor, :proposal_id
 
@@ -15,8 +14,6 @@ class Event < ActiveRecord::Base
 
   has_many :groups, through: :meeting_organizations, class_name: 'Group', source: :group
 
-  has_one :election, class_name: 'Election', dependent: :destroy
-
   has_many :event_comments, class_name: 'EventComment', foreign_key: :event_id, dependent: :destroy
 
   belongs_to :user
@@ -31,9 +28,33 @@ class Event < ActiveRecord::Base
 
   scope :next, -> { where(['starttime > ?', Time.now]) }
 
-  scope :time_scoped, -> (starttime, endtime) { where(["(starttime >= :starttime and starttime < :endtime) or (endtime >= :starttime and endtime < :endtime)",
-                                                       starttime: starttime.to_formatted_s(:db),
-                                                       endtime: endtime.to_formatted_s(:db)]) }
+  scope :time_scoped, -> (starttime, endtime) do
+    event_t = Event.arel_table
+    where((event_t[:starttime].gteq(starttime).and(event_t[:starttime].lt(endtime))).
+            or(event_t[:endtime].gteq(starttime).and(event_t[:endtime].lt(endtime))))
+  end
+
+  scope :in_territory, ->(territory) do
+    municipality_t = Municipality.arel_table
+    event_t = Event.arel_table
+
+    field = case territory
+              when Continent
+                :continent_id
+              when Country
+                :country_id
+              when Region
+                :region_id
+              when Province
+                :province_id
+              else # comune
+                :id
+            end
+    conditions = (event_t[:event_type_id].eq(EventType::INCONTRO).and(municipality_t[field].eq(territory.id))).
+      or(event_t[:event_type_id].eq(EventType::VOTAZIONE))
+
+    includes(:event_type, place: :municipality).where(conditions)
+  end
 
   after_destroy :remove_scheduled_tasks
 
@@ -45,20 +66,9 @@ class Event < ActiveRecord::Base
              'Ogni mese',
              'Ogni anno']
 
-
   def validate_start_time_end_time
     if starttime && endtime
       errors.add(:starttime, "La data di inizio deve essere antecedente la data di fine") if endtime <= starttime
-    end
-
-    if event_type_id == EventType::ELEZIONI
-      #if election.groups_end_time && election.candidates_end_time
-      if election.candidates_end_time
-        if  election.candidates_end_time <= starttime ||
-            election.candidates_end_time >= endtime
-          errors.add(:candidates_end_time, "deve essere compreso tra la data inizio e la data fine dell'evento")
-        end
-      end
     end
   end
 
@@ -93,45 +103,37 @@ class Event < ActiveRecord::Base
 
 
   def organizer_id=(id)
-    if self.meeting_organizations.empty?
-      self.meeting_organizations.build(group_id: id)
+    if meeting_organizations.empty?
+      meeting_organizations.build(group_id: id)
     end
   end
 
   def organizer_id
-    self.meeting_organizations.first.group_id rescue nil
+    meeting_organizations.first.group_id rescue nil
   end
 
   def is_past?
-    self.endtime < Time.now
+    endtime < Time.now
   end
 
   def is_now?
-    self.starttime < Time.now && self.endtime > Time.now
+    starttime < Time.now && endtime > Time.now
   end
 
   def is_not_started?
-    Time.now < self.starttime
-  end
-
-  def is_elezione?
-    self.event_type_id == EventType::ELEZIONI
+    Time.now < starttime
   end
 
   def is_votazione?
-    self.event_type_id == EventType::VOTAZIONE
+    event_type_id == EventType::VOTAZIONE
   end
 
   def is_incontro?
-    self.event_type_id == EventType::INCONTRO
-  end
-
-  def is_riunione?
-    self.event_type_id == EventType::RIUNIONE
+    event_type_id == EventType::INCONTRO
   end
 
   def backgroundColor
-    self.event_type.color || "#DFEFFC"
+    event_type.color || "#DFEFFC"
   end
 
   def textColor
@@ -185,18 +187,18 @@ class Event < ActiveRecord::Base
     event
   end
 
-  def to_fc #fullcalendar format
-    {id: self.id,
-     title: self.title,
-     description: self.description || "Some cool description here...",
-     start: "#{self.starttime.iso8601}",
-     end: "#{self.endtime.iso8601}",
-     allDay: self.all_day,
-     recurring: self.event_series_id ? true : false,
-     backgroundColor: self.backgroundColor,
-     textColor: self.textColor,
-     borderColor: Colors::darken_color(self.backgroundColor),
-     editable: !self.is_votazione?
+  def to_fc # fullcalendar format
+    {id: id,
+     title: title,
+     description: description || 'Some cool description here...',
+     start: "#{starttime.iso8601}",
+     end: "#{endtime.iso8601}",
+     allDay: all_day,
+     recurring: event_series_id.present?,
+     backgroundColor: backgroundColor,
+     textColor: textColor,
+     borderColor: Colors::darken_color(backgroundColor),
+     editable: !is_votazione?
     }
   end
 
@@ -206,9 +208,9 @@ class Event < ActiveRecord::Base
   end
 
 
-  def move(minutes_delta=0, days_delta=0, all_day=nil)
-    self.starttime = minutes_delta.minutes.from_now(days_delta.days.from_now(self.starttime))
-    self.endtime = minutes_delta.minutes.from_now(days_delta.days.from_now(self.endtime))
+  def move(minutes_delta = 0, days_delta = 0, all_day = nil)
+    self.starttime = minutes_delta.minutes.from_now(days_delta.days.from_now(starttime))
+    self.endtime = minutes_delta.minutes.from_now(days_delta.days.from_now(endtime))
     self.all_day = all_day if all_day
     self.save
   end
@@ -218,24 +220,9 @@ class Event < ActiveRecord::Base
     self.save
   end
 
-  #put all attached proposals in votation
-  #invia le notifihe per dire che la proposta è in votazione
-  #deletes eventually alerts of type 'new proposal'
+  # put all attached proposals in votation
   def start_votation
-    proposals.each do |proposal|
-      proposal.proposal_state_id = ProposalState::VOTING
-      proposal.save!
-      vote_data = proposal.vote
-      unless vote_data #se non ha i dati per la votazione creali
-        vote_data = ProposalVote.new(proposal_id: proposal.id, positive: 0, negative: 0, neutral: 0)
-        vote_data.save!
-      end
-
-      NotificationProposalVoteStarts.perform_async(proposal.id, proposal.groups.first.try(:id), proposal.presentation_areas.first.try(:id))
-
-      ProposalsWorker.perform_at(endtime - 24.hours, {action: ProposalsWorker::LEFT24VOTE, proposal_id: proposal.id}) if (duration/60) > 1440
-      ProposalsWorker.perform_at(endtime - 1.hour, {action: ProposalsWorker::LEFT1VOTE, proposal_id: proposal.id}) if (duration/60) > 60
-    end
+    proposals.each { |proposal| proposal.start_votation }
   end
 
   def end_votation

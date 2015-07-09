@@ -39,7 +39,19 @@
                     <span class="show-for-medium-up"><%= participation.group.name %></span>
                 <% end %>
               </td>
-              <td><span id="participation_<%= participation.id %>"><%= participation.participation_role.name %></span>
+              <td>
+                <span>
+                <%= participation.participation_role.name %>
+                  <i class="fa fa-info-circle" id="participation_<%= participation.id %>" data-participation-tooltip></i>
+                  <span style="display: none;" data-participation-tooltip-text>
+                    <strong><%= t('pages.users.show.what_can_i_do') %></strong>
+                    <ul>
+                      <li>
+                        <%= raw participation.participation_role.group_actions.order(:seq).map { |a| a.description }.join('</li><li>') %>
+                      </li>
+                    </ul>
+                  </span>
+                    </span>
               </td>
               <td class="show-for-medium-up"><%= participation.created_at if participation.created_at %></td>
               <td><%= participation.created_at.to_i if participation.created_at %></td>
@@ -48,11 +60,7 @@
         <% end %>
         </tbody>
       </table>
-      <script>
-          <%@group_participations.each do |participation| %>
-          $('#participation_<%=participation.id%>').qtip({content: "<strong><%=t('pages.users.show.what_can_i_do')%></strong><ul><li><%=raw participation.participation_role.group_actions.order(:seq).map{|a| a.description}.join('</li><li>')%></li></ul><br/>"});
-          <%end%>
-      </script>
+
     </div>
 <% end %>
 
@@ -104,21 +112,6 @@
       <a class="close-reveal-modal">&#215;</a>
     </div>
 <% end %>
-
-<script type="text/javascript">
-    <%if current_user == @user%>
-    $('#participation_table').dataTable({
-        "bPaginate": false,
-        "bFilter": false,
-        "bSearchable": false,
-        "bInfo": false,
-        "aaSorting": [
-            [2, 'desc']
-        ],
-        "aoColumns": [null, null, {"iDataSort": 3}, {"bVisible": false}, null]
-    });
-    <%end%>
-</script>
 
 <% content_for :left_panel do %>
     <% if current_user == @user %>

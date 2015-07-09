@@ -734,7 +734,7 @@ fr:
         debate_end: fin du débat
     home:
       index:
-        whatis: "Qu'EST-CE QUE AIRESIS"
+        whatis: "Qu'EST-CE QUE"
         partecipate: IMPLIQUEZ-VOUS
         videos: GUIDES VIDÉO
         whowe: QUI SOMMES NOUS
@@ -943,7 +943,7 @@ fr:
         meeting:
           place:
             address: Adresse
-            comune_id: Ville
+            municipality_id: Ville
       group:
         facebook_page_url: Adresse de la page Facebook
         name: Nom

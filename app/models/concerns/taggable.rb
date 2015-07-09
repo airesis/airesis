@@ -7,15 +7,15 @@ module Concerns
     end
 
     def tags_list
-      @tags_list ||= self.tags.map(&:text).join(', ')
+      @tags_list ||= tags.map(&:text).join(', ')
     end
 
     def tags_list_json
-      @tags_list ||= self.tags.map(&:text).join(', ')
+      @tags_list ||= tags.map(&:text).join(', ')
     end
 
     def tags_data
-      self.tags.map{|t| {id: t.text, name: t.text}}.to_json
+      tags.map { |t| {id: t.text, name: t.text} }.to_json
     end
 
     def tags_list=(tags_list)
@@ -23,8 +23,7 @@ module Concerns
     end
 
     def tags_with_links
-      html = self.tags.collect { |t| "<a href=\"/tags/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
-      return html
+      tags.collect { |t| "<a href=\"/tags/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
     end
 
     def save_tags

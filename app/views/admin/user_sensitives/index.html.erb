@@ -1,0 +1,31 @@
+<div class="card">
+  <h1>Listing Certified Users</h1>
+
+  <table>
+    <tr>
+      <th>User Id</th>
+      <th>Certification Id</th>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Email</th>
+      <th>Certified at</th>
+    </tr>
+
+    <% @user_sensitives.each do |user_sensitive| %>
+        <tr>
+          <td><%= user_sensitive.user.id %></td>
+          <td><%= user_sensitive.id %></td>
+          <td><%= user_sensitive.name %></td>
+          <td><%= user_sensitive.surname %></td>
+          <td><%= user_sensitive.user.email %></td>
+          <td><%= user_sensitive.created_at %></td>
+          <td><%= link_to 'Show', [:admin, user_sensitive] %></td>
+          <td><%= link_to 'User Page', user_sensitive.user %></td>
+          <td><%= link_to 'Edit', edit_admin_user_sensitive_path(user_sensitive) %></td>
+          <td><%= link_to 'Destroy', [:admin, user_sensitive], data: {confirm: 'Are you sure?'}, method: :delete %></td>
+        </tr>
+    <% end %>
+  </table>
+
+  <%= link_to 'Certify a new user', new_admin_user_sensitive_path, class: 'btn blue' %>
+</div>

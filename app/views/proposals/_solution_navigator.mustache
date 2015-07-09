@@ -1,0 +1,19 @@
+<li data-solution_id="{{i}}" class="sol_nav collapsed expanded">
+    <span class="sol_title">{{{title}}}</span>
+
+    <a onclick="return false;" class="action sol move_up">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+    <a onclick="return false;" class="action sol move_down">
+        <i class="fa fa-arrow-down"></i>
+    </a>
+    <a onclick="return false;" class="action sol remove">
+        <i class="fa fa-trash"></i>
+    </a>
+
+    <ul class="sub_navigator">
+        {{#sections}}
+            {{> proposals/_section_navigator}}
+        {{/sections}}
+    </ul>
+</li>

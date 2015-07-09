@@ -1,0 +1,58 @@
+<% range = @proposal.solutions.count %>
+<% range += 1 if range.even? %>
+
+<p><%= raw t('pages.proposals.vote_panel.schulze_title', max: range) %></p>
+<h5><%= @proposal.secret_vote ? t('pages.proposals.vote_panel.secret_vote') : t('pages.proposals.vote_panel.clear_vote') %></h5>
+
+<div id="solutions_table">
+  <% @proposal.solutions.each_with_index do |solution, i| %>
+      <div class="row solution_row panel" data-id="<%= solution.id %>">
+        <div class="columns large-3 small-8">
+          <a class="vote_solution_title" data-id="<%= solution.id %>"
+             href="#">
+            <%= raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}", num: i+1) %>
+            <%= "#{solution.title}" %>
+          </a>
+        </div>
+        <div class="columns large-7 small-9 hide-for-small outer_slider_row">
+          <div class="row">
+            <div class="columns large-1 small-1">
+              <div class="schulze bad"></div>
+            </div>
+            <div class="columns large-10 small-10 slider_row">
+              <div class="range-slider"
+                   data-slider
+                   data-options="initial: <%= (range/2)+1 %>; start: 1; end: <%= range %>; display_selector: #slider-input-<%= i %>; ">
+                <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                <span class="range-slider-active-segment"></span>
+                <input type="hidden">
+              </div>
+            </div>
+            <div class="columns large-1 small-1">
+              <div class="schulze good"></div>
+            </div>
+          </div>
+        </div>
+        <div class="columns large-2 small-4">
+          <input data-slider-input="<%= solution.id %>" type="number" id="slider-input-<%= i %>" value="<%= (range/2)+1 %>" min="1" max="<%= range %>"/>
+        </div>
+      </div>
+  <% end %>
+</div>
+
+<%= form_for 'data', url: {action: "vote_schulze", controller: "votations", proposal_id: @proposal.id},
+             method: :put, remote: true do |f| %>
+    <%= f.hidden_field 'votes' %>
+
+    <%= render partial: 'fragments/how_schulze_works' %>
+    <% if current_user.rotp_enabled && ::Configuration.rotp %>
+        <%= f.label t('pages.proposals.show.security_token') %>
+        <%= f.text_field 'token', maxlength: 6 %>
+    <% end %>
+    <%= f.button remote: true,
+                 data: {confirm: t('pages.votations.show.confirm_schulze', name: @proposal.title)},
+                 id: 'schulze-submit', class: 'btn blue' do %>
+        <i class="fa fa-check"></i>
+        <%= t('pages.proposals.show.vote_button') %>
+    <% end %>
+<% end %>

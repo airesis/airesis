@@ -1,4 +1,3 @@
-#encoding: utf-8
 class VotationsController < ApplicationController
   include RotpModule
 
@@ -8,17 +7,15 @@ class VotationsController < ApplicationController
 
   def vote
     Proposal.transaction do
-      @proposal = Proposal.find_by_id(params[:proposal_id])
-
+      @proposal = Proposal.find(params[:proposal_id])
       authorize! :vote, @proposal
 
       return unless validate_security_token
 
       vote_type = params[:data][:vote_type].to_i
 
-      vote = UserVote.new(user_id: current_user.id, proposal_id: @proposal.id)
+      vote = @proposal.user_votes.build(user_id: current_user.id)
       vote.vote_type_id = vote_type unless @proposal.secret_vote
-      vote.save!
 
       if vote_type == VoteType::POSITIVE
         @proposal.vote.positive += 1
@@ -28,18 +25,19 @@ class VotationsController < ApplicationController
         @proposal.vote.neutral += 1
       end
       @proposal.vote.save!
+      @proposal.save!
+      flash[:notice] = t('votations.create.confirm')
       respond_to do |format|
-        flash[:notice] = t('votations.create.confirm')
-        format.js
         format.html { redirect_to votation_path }
+        format.js
       end
     end
   rescue ActiveRecord::ActiveRecordError => e
     if @proposal.errors[:user_votes]
+      flash[:error] = t('errors.votation.already_voted')
       respond_to do |format|
-        flash[:error] = t('errors.votation.already_voted')
-        format.js { render 'votations/errors/vote_error' }
         format.html { redirect_to votation_path }
+        format.js { render 'votations/errors/vote_error' }
       end
     end
   end
@@ -49,7 +47,7 @@ class VotationsController < ApplicationController
   def vote_schulze
     begin
       Proposal.transaction do
-        @proposal = Proposal.find_by_id(params[:proposal_id])
+        @proposal = Proposal.find(params[:proposal_id])
         authorize! :vote, @proposal
 
         return unless validate_security_token

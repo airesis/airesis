@@ -8,7 +8,7 @@ class GroupParticipationRequestStatus < ActiveRecord::Base
   has_many :group_participation_requests, class_name: 'GroupParticipationRequests'
 
   def self.active
-      where(['id != ?',VOTING])
+    where(['id != ?', VOTING])
   end
 
 end

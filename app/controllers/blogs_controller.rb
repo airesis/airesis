@@ -1,4 +1,3 @@
-#encoding: utf-8
 class BlogsController < ApplicationController
   layout :choose_layout
 
@@ -7,12 +6,19 @@ class BlogsController < ApplicationController
   before_filter :load_blog_data, only: [:show, :edit, :by_year_and_month]
 
   def index
-    @tags = Tag.most_blogs.shuffle unless request.xhr?
+    @tags = Tag.most_blogs(current_domain.territory).shuffle unless request.xhr?
     @page_title = t('pages.blogs.show.title')
+
+    params[:interest_border_obj] = @interest_border = if params[:interest_border].nil?
+                                                        InterestBorder.find_or_create_by(territory: current_domain.territory)
+                                                      else
+                                                        InterestBorder.find_or_create_by_key(params[:interest_border])
+                                                      end
     @blogs = Blog.look(params)
+
     respond_to do |format|
-      format.js
       format.html
+      format.js
     end
   end
 
@@ -20,8 +26,8 @@ class BlogsController < ApplicationController
     @page_title = @blog.title
     @blog_posts = @blog_posts.published.page(params[:page]).per(COMMENTS_PER_PAGE)
     respond_to do |format|
-      format.js
       format.html
+      format.js
       format.atom
       format.json
     end
@@ -32,8 +38,8 @@ class BlogsController < ApplicationController
     @blog_posts = @blog_posts.published.where("extract(year from created_at) = ? AND extract(month from created_at) = ? ", params[:year], params[:month]).order("created_at DESC").page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
-      format.js
       format.html
+      format.js
     end
   end
 

@@ -1,31 +1,30 @@
 <% if signed_in? && @my_nickname && @proposal.is_anonima? %>
     <div class="mybox">
-      <h4><%= t('pages.proposals.show.your_nickname_is') %></h4>
+      <h4><i class="fa fa-info-circle nickname-panel"></i>
+        <%= t('pages.proposals.show.your_nickname_is') %></h4>
 
-      <div class="mycont">
-        <span class="nickname_panel">
-          <i class="fa fa-info-circle"></i>
-        </span>
-
-        <div class="blogUserImage">
-          <%= user_tag(current_user, @proposal) %>
-        </div>
+      <div class="mycont clearfix">
+        <%= user_tag(current_user, @proposal) %>
       </div>
 
       <div class="regenerate_nickname">
-      <% if can? :update, @my_nickname %>
-          <%= link_to t('pages.proposals.show.regenerate_nickname'), proposal_nickname_path(@my_nickname), method: :put, class: 'btn', style: 'display: inline-block' %>
-          <div> <%= '(puoi farlo ancora per ' %>  <!--TODO:I18n-->
-            <div class="change_nick"></div> <%= ')' %></div>
-          <script type="text/javascript">
-              var endsDate = new Date(<%=(@my_nickname.created_at + 10.minutes).utc.to_i * 1000%>);
-              $('.change_nick').countdown($.extend({until: endsDate, compact: true, onExpiry: removeButton}, $.countdown.regionalOptions['it']));
+        <% if can? :update, @my_nickname %>
+            <%= link_to t('pages.proposals.show.regenerate_nickname'), proposal_nickname_path(@my_nickname), method: :put, class: 'btn', style: 'display: inline-block' %>
+            <div> <%= '(puoi farlo ancora per ' %>  <!--TODO:I18n-->
+              <div class="change_nick"></div> <%= ')' %></div>
+            <script type="text/javascript">
+                var endsDate = new Date(<%=(@my_nickname.created_at + 10.minutes).utc.to_i * 1000%>);
+                $('.change_nick').countdown($.extend({
+                    until: endsDate,
+                    compact: true,
+                    onExpiry: removeButton
+                }, $.countdown.regionalOptions['it']));
 
-              function removeButton() {
+                function removeButton() {
                     $('.regenerate_nickname').fadeOut();
-              }
-          </script>
-      <% end %>
+                }
+            </script>
+        <% end %>
       </div>
     </div>
 <% end %>

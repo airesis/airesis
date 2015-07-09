@@ -1,19 +1,20 @@
 //open canvas even if button is not included
-;(function ($, window, document, undefined) {
+;
+(function ($, window, document, undefined) {
     'use strict';
 
     Foundation.libs.offcanvas = {
-        name : 'offcanvas',
+        name: 'offcanvas',
 
-        version : '5.1.1',
+        version: '5.1.1',
 
-        settings : {},
+        settings: {},
 
-        init : function (scope, method, options) {
+        init: function (scope, method, options) {
             this.events();
         },
 
-        events : function () {
+        events: function () {
             var S = this.S;
 
             S(this.scope).off('.offcanvas')
@@ -35,476 +36,39 @@
                 });
         },
 
-        reflow : function () {}
+        reflow: function () {
+        }
     };
 }(jQuery, this, this.document));
 
-//todo to be removed with foundation 5.3. we need this for capybara-webkit tests
-;(function ($, window, document, undefined) {
-    'use strict';
-
-    Foundation.libs.reveal = {
-        name : 'reveal',
-
-        version : '5.2.2',
-
-        locked : false,
-
-        settings : {
-            animation: 'fadeAndPop',
-            animation_speed: 250,
-            close_on_background_click: true,
-            close_on_esc: true,
-            dismiss_modal_class: 'close-reveal-modal',
-            bg_class: 'reveal-modal-bg',
-            open: function(){},
-            opened: function(){},
-            close: function(){},
-            closed: function(){},
-            bg : $('.reveal-modal-bg'),
-            css : {
-                open : {
-                    'opacity': 0,
-                    'visibility': 'visible',
-                    'display' : 'block'
-                },
-                close : {
-                    'opacity': 1,
-                    'visibility': 'hidden',
-                    'display': 'none'
-                }
-            }
-        },
-
-        init : function (scope, method, options) {
-            $.extend(true, this.settings, method, options);
-            this.bindings(method, options);
-        },
-
-        events : function (scope) {
-            var self = this,
-                S = self.S;
-
-            S(this.scope)
-                .off('.reveal')
-                .on('click.fndtn.reveal', '[' + this.add_namespace('data-reveal-id') + ']', function (e) {
-                    e.preventDefault();
-
-                    if (!self.locked) {
-                        var element = S(this),
-                            ajax = element.data(self.data_attr('reveal-ajax'));
-
-                        self.locked = true;
-
-                        if (typeof ajax === 'undefined') {
-                            self.open.call(self, element);
-                        } else {
-                            var url = ajax === true ? element.attr('href') : ajax;
-
-                            self.open.call(self, element, {url: url});
-                        }
-                    }
-                });
-
-            S(document)
-                .on('touchend.fndtn.reveal click.fndtn.reveal', this.close_targets(), function (e) {
-
-                    e.preventDefault();
-
-                    if (!self.locked) {
-                        var settings = S('[' + self.attr_name() + '].open').data(self.attr_name(true) + '-init'),
-                            bg_clicked = S(e.target)[0] === S('.' + settings.bg_class)[0];
-
-                        if (bg_clicked) {
-                            if (settings.close_on_background_click) {
-                                e.stopPropagation();
-                            } else {
-                                return;
-                            }
-                        }
-
-                        self.locked = true;
-                        self.close.call(self, bg_clicked ? S('[' + self.attr_name() + '].open') : S(this).closest('[' + self.attr_name() + ']'));
-                    }
-                });
-
-            if(S('[' + self.attr_name() + ']', this.scope).length > 0) {
-                S(this.scope)
-                    // .off('.reveal')
-                    .on('open.fndtn.reveal', this.settings.open)
-                    .on('opened.fndtn.reveal', this.settings.opened)
-                    .on('opened.fndtn.reveal', this.open_video)
-                    .on('close.fndtn.reveal', this.settings.close)
-                    .on('closed.fndtn.reveal', this.settings.closed)
-                    .on('closed.fndtn.reveal', this.close_video);
-            } else {
-                S(this.scope)
-                    // .off('.reveal')
-                    .on('open.fndtn.reveal', '[' + self.attr_name() + ']', this.settings.open)
-                    .on('opened.fndtn.reveal', '[' + self.attr_name() + ']', this.settings.opened)
-                    .on('opened.fndtn.reveal', '[' + self.attr_name() + ']', this.open_video)
-                    .on('close.fndtn.reveal', '[' + self.attr_name() + ']', this.settings.close)
-                    .on('closed.fndtn.reveal', '[' + self.attr_name() + ']', this.settings.closed)
-                    .on('closed.fndtn.reveal', '[' + self.attr_name() + ']', this.close_video);
-            }
-
-            return true;
-        },
-
-        // PATCH #3: turning on key up capture only when a reveal window is open
-        key_up_on : function (scope) {
-            var self = this;
-
-            // PATCH #1: fixing multiple keyup event trigger from single key press
-            self.S('body').off('keyup.fndtn.reveal').on('keyup.fndtn.reveal', function ( event ) {
-                var open_modal = self.S('[' + self.attr_name() + '].open'),
-                    settings = open_modal.data(self.attr_name(true) + '-init');
-                // PATCH #2: making sure that the close event can be called only while unlocked,
-                //           so that multiple keyup.fndtn.reveal events don't prevent clean closing of the reveal window.
-                if ( settings && event.which === 27  && settings.close_on_esc && !self.locked) { // 27 is the keycode for the Escape key
-                    self.close.call(self, open_modal);
-                }
-            });
-
-            return true;
-        },
-
-        // PATCH #3: turning on key up capture only when a reveal window is open
-        key_up_off : function (scope) {
-            this.S('body').off('keyup.fndtn.reveal');
-            return true;
-        },
-
-        open : function (target, ajax_settings) {
-            var self = this;
-            if (target) {
-                if (typeof target.selector !== 'undefined') {
-                    // Find the named node; only use the first one found, since the rest of the code assumes there's only one node
-                    var modal = self.S('#' + target.data(self.data_attr('reveal-id'))).first();
-                } else {
-                    var modal = self.S(this.scope);
-
-                    ajax_settings = target;
-                }
-            } else {
-                var modal = self.S(this.scope);
-            }
-
-            var settings = modal.data(self.attr_name(true) + '-init');
-            settings = settings || this.settings;
-
-            if (!modal.hasClass('open')) {
-                var open_modal = self.S('[' + self.attr_name() + '].open');
-
-                if (typeof modal.data('css-top') === 'undefined') {
-                    modal.data('css-top', parseInt(modal.css('top'), 10))
-                        .data('offset', this.cache_offset(modal));
-                }
-
-                this.key_up_on(modal);    // PATCH #3: turning on key up capture only when a reveal window is open
-                modal.trigger('open');
-
-                if (open_modal.length < 1) {
-                    this.toggle_bg(modal, true);
-                }
-
-                if (typeof ajax_settings === 'string') {
-                    ajax_settings = {
-                        url: ajax_settings
-                    };
-                }
-
-                if (typeof ajax_settings === 'undefined' || !ajax_settings.url) {
-                    if (open_modal.length > 0) {
-                        this.hide(open_modal, settings.css.close);
-                    }
-
-                    this.show(modal, settings.css.open);
-                } else {
-                    var old_success = typeof ajax_settings.success !== 'undefined' ? ajax_settings.success : null;
-
-                    $.extend(ajax_settings, {
-                        success: function (data, textStatus, jqXHR) {
-                            if ( $.isFunction(old_success) ) {
-                                old_success(data, textStatus, jqXHR);
-                            }
-
-                            modal.html(data);
-                            self.S(modal).foundation('section', 'reflow');
-                            self.S(modal).children().foundation();
-
-                            if (open_modal.length > 0) {
-                                self.hide(open_modal, settings.css.close);
-                            }
-                            self.show(modal, settings.css.open);
-                        }
-                    });
-
-                    $.ajax(ajax_settings);
-                }
-            }
-        },
-
-        close : function (modal) {
-            var modal = modal && modal.length ? modal : this.S(this.scope),
-                open_modals = this.S('[' + this.attr_name() + '].open'),
-                settings = modal.data(this.attr_name(true) + '-init');
-
-            if (open_modals.length > 0) {
-                this.locked = true;
-                this.key_up_off(modal);   // PATCH #3: turning on key up capture only when a reveal window is open
-                modal.trigger('close');
-                this.toggle_bg(modal, false);
-                this.hide(open_modals, settings.css.close, settings);
-            }
-        },
-
-        close_targets : function () {
-            var base = '.' + this.settings.dismiss_modal_class;
-
-            if (this.settings.close_on_background_click) {
-                return base + ', .' + this.settings.bg_class;
-            }
-
-            return base;
-        },
-
-        toggle_bg : function (modal, state) {
-            if (this.S('.' + this.settings.bg_class).length === 0) {
-                this.settings.bg = $('<div />', {'class': this.settings.bg_class})
-                    .appendTo('body').hide();
-            }
-
-            var visible = this.settings.bg.filter(':visible').length > 0;
-            if ( state != visible ) {
-                if ( state == undefined ? visible : !state ) {
-                    this.hide(this.settings.bg);
-                } else {
-                    this.show(this.settings.bg);
-                }
-            }
-        },
-
-        show : function (el, css) {
-            // is modal
-            if (css) {
-                var settings = el.data(this.attr_name(true) + '-init');
-                settings = settings || this.settings;
-
-                if (el.parent('body').length === 0) {
-                    var placeholder = el.wrap('<div style="display: none;" />').parent(),
-                        rootElement = this.settings.rootElement || 'body';
-
-                    el.on('closed.fndtn.reveal.wrapped', function() {
-                        el.detach().appendTo(placeholder);
-                        el.unwrap().unbind('closed.fndtn.reveal.wrapped');
-                    });
-
-                    el.detach().appendTo(rootElement);
-                }
-
-                var animData = getAnimationData(settings.animation);
-                if (!animData.animate) {
-                    this.locked = false;
-                }
-                if (animData.pop) {
-                    css.top = $(window).scrollTop() - el.data('offset') + 'px';
-                    var end_css = {
-                        top: $(window).scrollTop() + el.data('css-top') + 'px',
-                        opacity: 1
-                    };
-
-                    return setTimeout(function () {
-                        return el
-                            .css(css)
-                            .animate(end_css, settings.animation_speed, 'linear', function () {
-                                this.locked = false;
-                                el.trigger('opened');
-                            }.bind(this))
-                            .addClass('open');
-                    }.bind(this), settings.animation_speed / 2);
-                }
-
-                if (animData.fade) {
-                    css.top = $(window).scrollTop() + el.data('css-top') + 'px';
-                    var end_css = {opacity: 1};
-
-                    return setTimeout(function () {
-                        return el
-                            .css(css)
-                            .animate(end_css, settings.animation_speed, 'linear', function () {
-                                this.locked = false;
-                                el.trigger('opened');
-                            }.bind(this))
-                            .addClass('open');
-                    }.bind(this), settings.animation_speed / 2);
-                }
-
-                return el.css(css).show().css({opacity: 1}).addClass('open').trigger('opened');
-            }
-
-            var settings = this.settings;
-
-            // should we animate the background?
-            if (getAnimationData(settings.animation).fade) {
-                return el.fadeIn(settings.animation_speed / 2);
-            }
-
-            this.locked = false;
-
-            return el.show();
-        },
-
-        hide : function (el, css) {
-            // is modal
-            if (css) {
-                var settings = el.data(this.attr_name(true) + '-init');
-                settings = settings || this.settings;
-
-                var animData = getAnimationData(settings.animation);
-                if (!animData.animate) {
-                    this.locked = false;
-                }
-                if (animData.pop) {
-                    var end_css = {
-                        top: - $(window).scrollTop() - el.data('offset') + 'px',
-                        opacity: 0
-                    };
-
-                    return setTimeout(function () {
-                        return el
-                            .animate(end_css, settings.animation_speed, 'linear', function () {
-                                this.locked = false;
-                                el.css(css).trigger('closed');
-                            }.bind(this))
-                            .removeClass('open');
-                    }.bind(this), settings.animation_speed / 2);
-                }
-
-                if (animData.fade) {
-                    var end_css = {opacity: 0};
-
-                    return setTimeout(function () {
-                        return el
-                            .animate(end_css, settings.animation_speed, 'linear', function () {
-                                this.locked = false;
-                                el.css(css).trigger('closed');
-                            }.bind(this))
-                            .removeClass('open');
-                    }.bind(this), settings.animation_speed / 2);
-                }
-
-                return el.hide().css(css).removeClass('open').trigger('closed');
-            }
-
-            var settings = this.settings;
-
-            // should we animate the background?
-            if (getAnimationData(settings.animation).fade) {
-                return el.fadeOut(settings.animation_speed / 2);
-            }
-
-            return el.hide();
-        },
-
-        close_video : function (e) {
-            var video = $('.flex-video', e.target),
-                iframe = $('iframe', video);
-
-            if (iframe.length > 0) {
-                iframe.attr('data-src', iframe[0].src);
-                iframe.attr('src', 'about:blank');
-                video.hide();
-            }
-        },
-
-        open_video : function (e) {
-            var video = $('.flex-video', e.target),
-                iframe = video.find('iframe');
-
-            if (iframe.length > 0) {
-                var data_src = iframe.attr('data-src');
-                if (typeof data_src === 'string') {
-                    iframe[0].src = iframe.attr('data-src');
-                } else {
-                    var src = iframe[0].src;
-                    iframe[0].src = undefined;
-                    iframe[0].src = src;
-                }
-                video.show();
-            }
-        },
-
-        data_attr: function (str) {
-            if (this.namespace.length > 0) {
-                return this.namespace + '-' + str;
-            }
-
-            return str;
-        },
-
-        cache_offset : function (modal) {
-            var offset = modal.show().height() + parseInt(modal.css('top'), 10);
-
-            modal.hide();
-
-            return offset;
-        },
-
-        off : function () {
-            $(this.scope).off('.fndtn.reveal');
-        },
-
-        reflow : function () {}
-    };
-
-    /*
-     * getAnimationData('popAndFade') // {animate: true,  pop: true,  fade: true}
-     * getAnimationData('fade')       // {animate: true,  pop: false, fade: true}
-     * getAnimationData('pop')        // {animate: true,  pop: true,  fade: false}
-     * getAnimationData('foo')        // {animate: false, pop: false, fade: false}
-     * getAnimationData(null)         // {animate: false, pop: false, fade: false}
-     */
-    function getAnimationData(str) {
-        var fade = /fade/i.test(str);
-        var pop = /pop/i.test(str);
-        return {
-            animate: fade || pop,
-            pop: pop,
-            fade: fade
-        };
-    }
-}(jQuery, window, window.document));
-
-
-
-
-
 //dropdown patch
-;(function ($, window, document, undefined) {
+;
+(function ($, window, document, undefined) {
     'use strict';
 
     Foundation.libs.dropdown = {
-        name : 'dropdown',
+        name: 'dropdown',
 
-        version : '{{VERSION}}',
+        version: '{{VERSION}}',
 
-        settings : {
+        settings: {
             active_class: 'open',
             disabled_class: 'disabled',
             mega_class: 'mega',
             align: 'bottom',
             is_hover: false,
-            opened: function(){},
-            closed: function(){}
+            opened: function () {
+            },
+            closed: function () {
+            }
         },
 
-        init : function (scope, method, options) {
+        init: function (scope, method, options) {
             Foundation.inherit(this, 'throttle');
             this.bindings(method, options);
         },
 
-        events : function (scope) {
+        events: function (scope) {
             var self = this,
                 S = self.S;
 
@@ -534,7 +98,7 @@
 
                     var settings = target.data(self.attr_name(true) + '-init') || self.settings;
 
-                    if(S(e.currentTarget).data(self.data_attr()) && settings.is_hover) {
+                    if (S(e.currentTarget).data(self.data_attr()) && settings.is_hover) {
                         self.closeall.call(self);
                     }
 
@@ -547,7 +111,7 @@
                             var settings = $this.data(self.data_attr(true) + '-init') || self.settings;
                             if (settings.is_hover) self.close.call(self, S('#' + $this.data(self.data_attr())));
                         } else {
-                            var target   = S('[' + self.attr_name() + '="' + S(this).attr('id') + '"]'),
+                            var target = S('[' + self.attr_name() + '="' + S(this).attr('id') + '"]'),
                                 settings = target.data(self.attr_name(true) + '-init') || self.settings;
                             if (settings.is_hover) self.close.call(self, $this);
                         }
@@ -587,11 +151,11 @@
         close: function (dropdown) {
             var self = this;
             dropdown.each(function () {
-                var original_target = $('[' + self.attr_name() + '=' + dropdown[0].id + ']') || $('aria-controls=' + dropdown[0].id+ ']');
+                var original_target = $('[' + self.attr_name() + '=' + dropdown[0].id + ']') || $('aria-controls=' + dropdown[0].id + ']');
                 original_target.attr('aria-expanded', "false");
                 if (self.S(this).hasClass(self.settings.active_class)) {
                     self.S(this)
-                        .css(Foundation.rtl ? 'right':'left', '-99999px')
+                        .css(Foundation.rtl ? 'right' : 'left', '-99999px')
                         .attr('aria-hidden', "true")
                         .removeClass(self.settings.active_class)
                         .prev('[' + self.attr_name() + ']')
@@ -604,9 +168,9 @@
             dropdown.removeClass("f-open-" + this.attr_name(true));
         },
 
-        closeall: function() {
+        closeall: function () {
             var self = this;
-            $.each(self.S(".f-open-" + this.attr_name(true)), function() {
+            $.each(self.S(".f-open-" + this.attr_name(true)), function () {
                 self.close.call(self, self.S(this));
             });
         },
@@ -631,7 +195,7 @@
             return this.name;
         },
 
-        toggle : function (target) {
+        toggle: function (target) {
             if (target.hasClass(this.settings.disabled_class)) {
                 return;
             }
@@ -652,7 +216,7 @@
             }
         },
 
-        resize : function () {
+        resize: function () {
             var dropdown = this.S('[' + this.attr_name() + '-content].open'),
                 target = this.S("[" + this.attr_name() + "='" + dropdown.attr('id') + "']");
 
@@ -661,7 +225,7 @@
             }
         },
 
-        css : function (dropdown, target) {
+        css: function (dropdown, target) {
             var left_offset = Math.max((target.width() - dropdown.width()) / 2, 8),
                 settings = target.data(this.attr_name(true) + '-init') || this.settings;
 
@@ -671,13 +235,13 @@
                 var p = this.dirs.bottom.call(dropdown, target, settings);
 
                 dropdown.attr('style', '').removeClass('drop-left drop-right drop-top').css({
-                    position : 'absolute',
+                    position: 'absolute',
                     width: '95%',
                     'max-width': 'none',
                     top: p.top
                 });
 
-                dropdown.css(Foundation.rtl ? 'right':'left', left_offset);
+                dropdown.css(Foundation.rtl ? 'right' : 'left', left_offset);
             } else {
 
                 this.style(dropdown, target, settings);
@@ -686,7 +250,7 @@
             return dropdown;
         },
 
-        style : function (dropdown, target, settings) {
+        style: function (dropdown, target, settings) {
             var css = $.extend({position: 'absolute'},
                 this.dirs[settings.align].call(dropdown, target, settings));
 
@@ -695,9 +259,9 @@
 
         // return CSS property object
         // `this` is the dropdown
-        dirs : {
+        dirs: {
             // Calculate target offset
-            _base : function (t) {
+            _base: function (t) {
                 var o_p = this.offsetParent(),
                     o = o_p.offset(),
                     p = t.offset();
@@ -755,17 +319,19 @@
                 }
 
                 if (t.outerWidth() < this.outerWidth() || self.small() || this.hasClass(s.mega_menu)) {
-                    self.adjust_pip(this,t,s,p);
+                    self.adjust_pip(this, t, s, p);
                 }
 
                 if (Foundation.rtl) {
-                    return {left: p.left - this.outerWidth() + t.outerWidth(),
-                        top: p.top - this.outerHeight()};
+                    return {
+                        left: p.left - this.outerWidth() + t.outerWidth(),
+                        top: p.top - this.outerHeight()
+                    };
                 }
 
                 return {left: p.left, top: p.top - this.outerHeight()};
             },
-            bottom: function (t,s) {
+            bottom: function (t, s) {
 
                 var self = Foundation.libs.dropdown,
                     p = self.dirs._base.call(this, t);
@@ -775,7 +341,7 @@
                 }
 
                 if (t.outerWidth() < this.outerWidth() || self.small() || this.hasClass(s.mega_menu)) {
-                    self.adjust_pip(this,t,s,p);
+                    self.adjust_pip(this, t, s, p);
                 }
 
                 if (self.rtl) {
@@ -790,7 +356,7 @@
                 this.addClass('drop-left');
 
                 if (p.missLeft == true) {
-                    p.left =  p.left + this.outerWidth();
+                    p.left = p.left + this.outerWidth();
                     p.top = p.top + t.outerHeight();
                     this.removeClass('drop-left');
                 }
@@ -812,7 +378,7 @@
 
                 var self = Foundation.libs.dropdown;
                 if (t.outerWidth() < this.outerWidth() || self.small() || this.hasClass(s.mega_menu)) {
-                    self.adjust_pip(this,t,s,p);
+                    self.adjust_pip(this, t, s, p);
                 }
 
                 return {left: p.left + t.outerWidth(), top: p.top};
@@ -820,12 +386,12 @@
         },
 
         // Insert rule to style psuedo elements
-        adjust_pip : function (dropdown,target,settings,position) {
+        adjust_pip: function (dropdown, target, settings, position) {
             var sheet = Foundation.stylesheet,
                 pip_offset_base = 8;
 
             if (dropdown.hasClass(settings.mega_class)) {
-                pip_offset_base = position.left + (target.outerWidth()/2) - 8;
+                pip_offset_base = position.left + (target.outerWidth() / 2) - 8;
             }
             else if (this.small()) {
                 pip_offset_base += position.left - 8;
@@ -835,24 +401,24 @@
 
             //default
             var sel_before = '.f-dropdown.open:before',
-                sel_after  = '.f-dropdown.open:after',
+                sel_after = '.f-dropdown.open:after',
                 css_before = 'left: ' + pip_offset_base + 'px;',
-                css_after  = 'left: ' + (pip_offset_base - 1) + 'px;';
+                css_after = 'left: ' + (pip_offset_base - 1) + 'px;';
 
             if (position.missRight == true) {
                 pip_offset_base = dropdown.outerWidth() - 23;
                 sel_before = '.f-dropdown.open:before',
-                    sel_after  = '.f-dropdown.open:after',
+                    sel_after = '.f-dropdown.open:after',
                     css_before = 'left: ' + pip_offset_base + 'px;',
-                    css_after  = 'left: ' + (pip_offset_base - 1) + 'px;';
+                    css_after = 'left: ' + (pip_offset_base - 1) + 'px;';
             }
 
             //just a case where right is fired, but its not missing right
             if (position.triggeredRight == true) {
                 sel_before = '.f-dropdown.open:before',
-                    sel_after  = '.f-dropdown.open:after',
+                    sel_after = '.f-dropdown.open:after',
                     css_before = 'left:-12px;',
-                    css_after  = 'left:-14px;';
+                    css_after = 'left:-14px;';
             }
 
             if (sheet.insertRule) {
@@ -865,7 +431,7 @@
         },
 
         // Remove old dropdown rule index
-        clear_idx : function () {
+        clear_idx: function () {
             var sheet = Foundation.stylesheet;
 
             if (typeof this.rule_idx !== 'undefined') {
@@ -875,9 +441,8 @@
             }
         },
 
-        small : function () {
-            return matchMedia(Foundation.media_queries.small).matches &&
-                !matchMedia(Foundation.media_queries.medium).matches;
+        small: function () {
+            return matchMedia(Foundation.media_queries.small).matches && !matchMedia(Foundation.media_queries.medium).matches;
         },
 
         off: function () {
@@ -887,6 +452,291 @@
             this.S('[data-dropdown-content]').off('.fndtn.dropdown');
         },
 
-        reflow : function () {}
+        reflow: function () {
+        }
     };
+}(jQuery, window, window.document));
+
+
+;
+(function ($, window, document, undefined) {
+    'use strict';
+
+    Foundation.libs.slider = {
+        name: 'slider',
+
+        version: '{{VERSION}}',
+
+        settings: {
+            start: 0,
+            end: 100,
+            step: 1,
+            precision: null,
+            initial: null,
+            display_selector: '',
+            vertical: false,
+            trigger_input_change: false,
+            on_change: function () {
+            }
+        },
+
+        cache: {},
+
+        init: function (scope, method, options) {
+            Foundation.inherit(this, 'throttle');
+            this.bindings(method, options);
+            this.reflow();
+        },
+
+        events: function () {
+            var self = this;
+
+            $(this.scope)
+                .off('.slider')
+                .on('mousedown.fndtn.slider touchstart.fndtn.slider pointerdown.fndtn.slider',
+                '[' + self.attr_name() + ']:not(.disabled, [disabled]) .range-slider-handle', function (e) {
+                    if (!self.cache.active) {
+                        e.preventDefault();
+                        self.set_active_slider($(e.target));
+                    }
+                })
+                .on('mousemove.fndtn.slider touchmove.fndtn.slider pointermove.fndtn.slider', function (e) {
+                    if (!!self.cache.active) {
+                        e.preventDefault();
+                        if ($.data(self.cache.active[0], 'settings').vertical) {
+                            var scroll_offset = 0;
+                            if (!e.pageY) {
+                                scroll_offset = window.scrollY;
+                            }
+                            self.calculate_position(self.cache.active, self.get_cursor_position(e, 'y') + scroll_offset);
+                        } else {
+                            self.calculate_position(self.cache.active, self.get_cursor_position(e, 'x'));
+                        }
+                    }
+                })
+                .on('mouseup.fndtn.slider touchend.fndtn.slider pointerup.fndtn.slider', function (e) {
+                    self.remove_active_slider();
+                })
+                .on('change.fndtn.slider', function (e) {
+                    self.settings.on_change();
+                });
+
+            self.S(window)
+                .on('resize.fndtn.slider', self.throttle(function (e) {
+                    self.reflow();
+                }, 300));
+
+            // update slider value as users change input value
+            this.S('[' + this.attr_name() + ']').each(function () {
+                var slider = $(this),
+                    handle = slider.children('.range-slider-handle')[0],
+                    settings = self.initialize_settings(handle);
+
+                if (settings.display_selector != '') {
+                    $(settings.display_selector).each(function () {
+                        if ($(this).attr('value')) {
+                            $(this).off('change').on('change', function () {
+                                slider.foundation("slider", "set_value", $(this).val());
+                            });
+                        }
+                    });
+                }
+            });
+        },
+
+        get_cursor_position: function (e, xy) {
+            var pageXY = 'page' + xy.toUpperCase(),
+                clientXY = 'client' + xy.toUpperCase(),
+                position;
+
+            if (typeof e[pageXY] !== 'undefined') {
+                position = e[pageXY];
+            } else if (typeof e.originalEvent[clientXY] !== 'undefined') {
+                position = e.originalEvent[clientXY];
+            } else if (e.originalEvent.touches && e.originalEvent.touches[0] && typeof e.originalEvent.touches[0][clientXY] !== 'undefined') {
+                position = e.originalEvent.touches[0][clientXY];
+            } else if (e.currentPoint && typeof e.currentPoint[xy] !== 'undefined') {
+                position = e.currentPoint[xy];
+            }
+
+            return position;
+        },
+
+        set_active_slider: function ($handle) {
+            this.cache.active = $handle;
+        },
+
+        remove_active_slider: function () {
+            this.cache.active = null;
+        },
+
+        calculate_position: function ($handle, cursor_x) {
+            var self = this,
+                settings = $.data($handle[0], 'settings'),
+                handle_l = $.data($handle[0], 'handle_l'),
+                handle_o = $.data($handle[0], 'handle_o'),
+                bar_l = $.data($handle[0], 'bar_l'),
+                bar_o = $.data($handle[0], 'bar_o');
+
+            requestAnimationFrame(function () {
+                var pct;
+
+                if (Foundation.rtl && !settings.vertical) {
+                    pct = self.limit_to(((bar_o + bar_l - cursor_x) / bar_l), 0, 1);
+                } else {
+                    pct = self.limit_to(((cursor_x - bar_o) / bar_l), 0, 1);
+                }
+
+                pct = settings.vertical ? 1 - pct : pct;
+
+                var norm = self.normalized_value(pct, settings.start, settings.end, settings.step, settings.precision);
+
+                self.set_ui($handle, norm);
+            });
+        },
+
+        set_ui: function ($handle, value) {
+            var settings = $.data($handle[0], 'settings'),
+                handle_l = $.data($handle[0], 'handle_l'),
+                bar_l = $.data($handle[0], 'bar_l'),
+                norm_pct = this.normalized_percentage(value, settings.start, settings.end),
+                handle_offset = norm_pct * (bar_l - handle_l) - 1,
+                progress_bar_length = norm_pct * 100,
+                $handle_parent = $handle.parent(),
+                $hidden_inputs = $handle.parent().children('input[type=hidden]');
+
+            if (Foundation.rtl && !settings.vertical) {
+                handle_offset = -handle_offset;
+            }
+
+            handle_offset = settings.vertical ? -handle_offset + bar_l - handle_l + 1 : handle_offset;
+            this.set_translate($handle, handle_offset, settings.vertical);
+
+            if (settings.vertical) {
+                $handle.siblings('.range-slider-active-segment').css('height', progress_bar_length + '%');
+            } else {
+                $handle.siblings('.range-slider-active-segment').css('width', progress_bar_length + '%');
+            }
+
+            $handle_parent.attr(this.attr_name(), value).trigger('change.fndtn.slider');
+
+            $hidden_inputs.val(value);
+            if (settings.trigger_input_change) {
+                $hidden_inputs.trigger('change.fndtn.slider');
+            }
+
+            if (!$handle[0].hasAttribute('aria-valuemin')) {
+                $handle.attr({
+                    'aria-valuemin': settings.start,
+                    'aria-valuemax': settings.end
+                });
+            }
+            $handle.attr('aria-valuenow', value);
+
+            if (settings.display_selector != '') {
+                $(settings.display_selector).each(function () {
+                    if (this.hasAttribute('value')) {
+                        $(this).val(value);
+                    } else {
+                        $(this).text(value);
+                    }
+                });
+            }
+
+        },
+
+        normalized_percentage: function (val, start, end) {
+            return Math.min(1, (val - start) / (end - start));
+        },
+
+        normalized_value: function (val, start, end, step, precision) {
+            var range = end - start,
+                point = val * range,
+                mod = (point - (point % step)) / step,
+                rem = point % step,
+                round = ( rem >= step * 0.5 ? step : 0);
+            return ((mod * step + round) + start).toFixed(precision);
+        },
+
+        set_translate: function (ele, offset, vertical) {
+            if (vertical) {
+                $(ele)
+                    .css('-webkit-transform', 'translateY(' + offset + 'px)')
+                    .css('-moz-transform', 'translateY(' + offset + 'px)')
+                    .css('-ms-transform', 'translateY(' + offset + 'px)')
+                    .css('-o-transform', 'translateY(' + offset + 'px)')
+                    .css('transform', 'translateY(' + offset + 'px)');
+            } else {
+                $(ele)
+                    .css('-webkit-transform', 'translateX(' + offset + 'px)')
+                    .css('-moz-transform', 'translateX(' + offset + 'px)')
+                    .css('-ms-transform', 'translateX(' + offset + 'px)')
+                    .css('-o-transform', 'translateX(' + offset + 'px)')
+                    .css('transform', 'translateX(' + offset + 'px)');
+            }
+        },
+
+        limit_to: function (val, min, max) {
+            return Math.min(Math.max(val, min), max);
+        },
+
+        initialize_settings: function (handle) {
+            var settings = $.extend({}, this.settings, this.data_options($(handle).parent())),
+                decimal_places_match_result;
+
+            if (settings.precision === null) {
+                decimal_places_match_result = ('' + settings.step).match(/\.([\d]*)/);
+                settings.precision = decimal_places_match_result && decimal_places_match_result[1] ? decimal_places_match_result[1].length : 0;
+            }
+
+            if (settings.vertical) {
+                $.data(handle, 'bar_o', $(handle).parent().offset().top);
+                $.data(handle, 'bar_l', $(handle).parent().outerHeight());
+                $.data(handle, 'handle_o', $(handle).offset().top);
+                $.data(handle, 'handle_l', $(handle).outerHeight());
+            } else {
+                $.data(handle, 'bar_o', $(handle).parent().offset().left);
+                $.data(handle, 'bar_l', $(handle).parent().outerWidth());
+                $.data(handle, 'handle_o', $(handle).offset().left);
+                $.data(handle, 'handle_l', $(handle).outerWidth());
+            }
+
+            $.data(handle, 'bar', $(handle).parent());
+            return $.data(handle, 'settings', settings);
+        },
+
+        set_initial_position: function ($ele) {
+            var settings = $.data($ele.children('.range-slider-handle')[0], 'settings'),
+                initial = ((typeof settings.initial == 'number' && !isNaN(settings.initial)) ? settings.initial : Math.floor((settings.end - settings.start) * 0.5 / settings.step) * settings.step + settings.start),
+                $handle = $ele.children('.range-slider-handle');
+            this.set_ui($handle, initial);
+        },
+
+        set_value: function (value) {
+            var self = this;
+            $('[' + self.attr_name() + ']', this.scope).each(function () {
+                $(this).attr(self.attr_name(), value);
+            });
+            if (!!$(this.scope).attr(self.attr_name())) {
+                $(this.scope).attr(self.attr_name(), value);
+            }
+            self.reflow();
+        },
+
+        reflow: function () {
+            var self = this;
+            self.S('[' + this.attr_name() + ']').each(function () {
+                var handle = $(this).children('.range-slider-handle')[0],
+                    val = $(this).attr(self.attr_name());
+                self.initialize_settings(handle);
+
+                if (val) {
+                    self.set_ui($(handle), parseFloat(val));
+                } else {
+                    self.set_initial_position($(this));
+                }
+            });
+        }
+    };
+
 }(jQuery, window, window.document));

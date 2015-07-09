@@ -153,12 +153,11 @@
       <div class="descrizione_volontario">
         <h3>Jacopo Tolja</h3>
         <h4><%= t('.tolja_jacopo.title') %></h4>
-        <%= t('.tolja_jacopo.content_html') %>
+        <%= t('.tolja_jacopo.content_html', age: age(Date.new(1963, 01, 11))) %>
       </div>
     </div>
   </div>
 </div>
-
 
 <div class="slide red">
   <div class="row centered">
@@ -314,17 +313,18 @@
       </li>
       <li>HomePage Design by <a title="Styleshout" href="http://www.styleshout.com/" target="_blank">Styleshout</a></li>
       <li><%=raw "Many thanks to <a href=\"https://www.getsentry.com\">GetSentry</a> which offers us a free plan."%> </li>
+      <li><%=raw "All Geographical informations are provided for free by <a href=\"http://www.geonames.org\">geonames.org</a>."%> </li>
     </ul>
-    <a href="http://www.jetbrains.com/ruby/" target="_blank" style="margin-right:40px;">
-      <img src="http://confluence.jetbrains.com/download/attachments/20238/RM_logo.gif" style="height:32px"/>
+    <a href="https://www.jetbrains.com/ruby/" target="_blank" style="margin-right:40px;">
+      <img src="https://confluence.jetbrains.com/download/attachments/20238/RM_logo.gif" style="height:32px"/>
     </a>
     <a href="http://www.gurock.com/testrail/" target="_blank" style="margin-right:40px;">
       <img src="http://www.gurock.com/images/start/testrail.png" style="height:32px"/>
     </a>
-    <a href="http://railscasts.com/" target="_blank"  style="margin-right:40px;">
-      <img src="http://railscasts.com/assets/railscasts_logo-7101a7cd0a48292a0c07276981855edb.png" style="height:32px"/>
+    <a href="https://railscasts.com/" target="_blank"  style="margin-right:40px;">
+      <img src="https://railscasts.com/assets/railscasts_logo-7101a7cd0a48292a0c07276981855edb.png" style="height:32px"/>
     </a>
-    <a href="http://www.getsentry.com/" target="_blank">
+    <a href="https://www.getsentry.com/" target="_blank">
       <%=image_tag 'getsentry.jpeg', style: 'height: 32px' %>
     </a>
   </div>

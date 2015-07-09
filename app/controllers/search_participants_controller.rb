@@ -10,8 +10,8 @@ class SearchParticipantsController < ApplicationController
     @group_participations = @unscoped_group_participations.page(params[:page]).per(GroupParticipation::PER_PAGE)
     flash[:notice] = t('info.groups.search_participants')
     respond_to do |format|
-      format.js
       format.html
+      format.js
     end
   end
 

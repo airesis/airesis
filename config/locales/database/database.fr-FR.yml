@@ -121,7 +121,7 @@ fr:
         email_subject: '%{proposal} - Contribution remise en débat'
         message: 'Une contribution que vous avez intégré dans la proposition <b>%{proposal}</b> a été remise en débat'
       new_contributes:
-        description: Nouvelles contributions et commentaires aux propositions auxquelles je participe
+        description: Nouvelles contributions aux propositions auxquelles je participe
         email_subject: '%{title} - nouvelle contribution'
         message: '<b>%{name}</b> a ajouté une nouvelle contribution à la proposition <b>%{title}</b>'
       text_update:

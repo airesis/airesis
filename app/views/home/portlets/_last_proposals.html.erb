@@ -1,11 +1,10 @@
-<div class="title">
-  <%= t('pages.home.index.last_proposals') %>
-  <%=link_to t('.proceed_to_proposals'), proposals_path, class: 'btn' %>
+<div class="title clearfix">
+  <span class="left"><%= t('pages.home.index.last_proposals') %></span>
+  <%= link_to t('.proceed_to_proposals'), proposals_path, class: 'btn right' %>
 </div>
 
-<% @proposals_p = Proposal.open_space_portlet(current_user) %>
-   <% unless @proposals_p.empty? %>
+<% unless @proposals.empty? %>
     <div class="scrollable">
-      <%= render partial: 'proposals/mini_proposal', collection: @proposals_p, as: 'proposal' %>
+      <%= render partial: 'proposals/mini_proposal', collection: @proposals, as: 'proposal' %>
     </div>
 <% end %>

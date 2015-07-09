@@ -1,0 +1,23 @@
+<div class="card"><p>
+  <b>Name:</b>
+  <%= @user_sensitive.name %>
+</p>
+
+  <p>
+    <b>Surname:</b>
+    <%= @user_sensitive.surname %>
+  </p>
+
+  <p>
+    <b>Tax code:</b>
+    <%= @user_sensitive.tax_code %>
+  </p>
+  <% if @user_sensitive.document %>
+      <p>
+        <%= link_to 'Download attached document', document_admin_user_sensitive_path(@user_sensitive) %>
+      </p>
+  <% end %>
+
+  <%= link_to 'Edit', edit_admin_user_sensitive_path(@user_sensitive), class: 'btn blue' %>
+  <%= link_to 'Back', admin_user_sensitives_path, class: 'btn' %>
+</div>

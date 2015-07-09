@@ -1,31 +1,17 @@
 $('.suggestion_right[data-section_id=<%=params[:section_id]%>]').html('');
-
-<% if ((can? :participate, @proposal) || (!current_user && !@proposal.private)) && (!@proposal.voting?) && @section%>
+<% if ((can? :participate, @proposal) || (!current_user && !@proposal.private)) && (!@proposal.voting?) && @proposal_comment_search.section%>
 var div_ = $("<div class='blogNewComment'></div>");
-div_.append("<%=j (render partial: 'proposal_comments/right_comment')%>");
+div_.append("<%=j (render partial: 'proposal_comments/right_comment', locals: {section: @proposal_comment_search.section})%>");
 $('.suggestion_right[data-section_id=<%=params[:section_id]%>]').append(div_);
 <% end %>
-$('.suggestion_right[data-section_id=<%=params[:section_id]%>]').append("<%= escape_javascript(render(partial: 'proposals/comments'))%>");
+$('.suggestion_right[data-section_id=<%=params[:section_id]%>]').append("<%= j render 'proposals/comments'%>");
 $('#loading_contributes').hide();
 
 
 <%if params[:comment_id] %>
 var comment_ = $('[data-comment-id=<%=params[:comment_id]%>]');
 
-$('.suggestion_right[data-section_id=<%=params[:section_id]%>]').animate({
-    scrollTop: comment_.offset().top - 100
-}, 2000);
-
-// Stop the animation if the user scrolls. Defaults on .stop() should be fine
-/*$viewport.bind("scroll mousedown DOMMouseScroll mousewheel keyup", function (e) {
- if (e.which > 0 || e.type === "mousedown" || e.type === "mousewheel") {
- $viewport.stop().unbind('scroll mousedown DOMMouseScroll mousewheel keyup'); // This identifies the scroll as a user action, stops the animation, then unbinds the event straight after (optional)
- }
- });
- return false;
- */
-
-comment_.effect('highlight', {}, 3000);
+scrollToElement($(".proposal_main[data-section_id=<%=params[:section_id]%>]"));
 <%end%>
 
 disegnaCountdown();

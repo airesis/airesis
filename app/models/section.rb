@@ -13,5 +13,7 @@ class Section < ActiveRecord::Base
 
   attr_accessor :suggestion
 
-
+  def paragraph
+    paragraphs.first
+  end
 end

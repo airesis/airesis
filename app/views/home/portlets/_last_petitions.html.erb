@@ -1,9 +1,7 @@
-<div class="title">
-  <%= t('pages.home.index.last_petitions') %>
-  <%=link_to 'Vai alle petizioni', proposals_path, class: 'btn' %>
+<div class="title clearifx">
+  <span class="left"><%= t('pages.home.index.last_petitions') %></span>
+  <%=link_to 'Vai alle petizioni', proposals_path, class: 'btn right' %>
 </div>
-
-
 <% @proposals_p = Proposal.open_space_petitions_portlet(current_user) %>
 <% unless @proposals_p.empty? %>
     <div class="scrollable">

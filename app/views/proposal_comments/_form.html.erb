@@ -1,6 +1,6 @@
 <%=form_for [@proposal,@proposal_comment], remote: true do |f| %>
     <%=f.text_area :content, class: 'edit_comment' %>
-    <%=link_to t('buttons.cancel'), '#', class: 'btn', onclick: "cancel_edit_comment(#{@proposal_comment.id});return false;" %>
+    <%=link_to t('buttons.cancel'), '#', class: 'btn', data: {cancel_edit_comment: @proposal_comment.id} %>
     <%=f.button t('buttons.update'), class: 'btn blue', data:{disable_with: t('updating')} %>
 <%end%>
 

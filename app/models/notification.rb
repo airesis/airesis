@@ -1,6 +1,6 @@
 class Notification < ActiveRecord::Base
-  belongs_to :notification_type, class_name: 'NotificationType', foreign_key: :notification_type_id
-  has_many :alerts, class_name: "Alert", dependent: :destroy
+  belongs_to :notification_type
+  has_many :alerts, dependent: :destroy
   has_many :notification_data, class_name: "NotificationData", dependent: :destroy, foreign_key: :notification_id
 
   def data
@@ -26,27 +26,13 @@ class Notification < ActiveRecord::Base
     #end
   end
 
-
-  def email_subject
-    group = data[:group]
-    subject = group ? "[#{group}] " : ''
-    if data[:extension]
-      subject += I18n.t("db.#{self.notification_type.class.class_name.tableize}.#{self.notification_type.name}.email_subject.#{data[:extension]}", data)
-    else
-      subject += I18n.t("db.#{self.notification_type.class.class_name.tableize}.#{self.notification_type.name}.email_subject", data)
-    end
-
+  def message_interpolation
+    extension = ".#{data[:extension]}" if data[:extension]
+    "db.notification_types.#{notification_type.name}.message#{extension}"
   end
 
-  def message
-    if data[:i18n]     #todo 'if' added for back support
-      if data[:extension]
-        I18n.t("db.#{self.notification_type.class.class_name.tableize}.#{self.notification_type.name}.message.#{data[:extension]}", data)
-      else
-        I18n.t("db.#{self.notification_type.class.class_name.tableize}.#{self.notification_type.name}.message", data)
-      end
-    else
-      read_attribute :message
-    end
+  def email_subject_interpolation
+    extension = ".#{data[:extension]}" if data[:extension]
+    "db.notification_types.#{notification_type.name}.email_subject#{extension}"
   end
 end

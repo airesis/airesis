@@ -1,4 +1,3 @@
-#encoding: utf-8
 class Paragraph < ActiveRecord::Base
   belongs_to :section
 
@@ -23,7 +22,7 @@ class Paragraph < ActiveRecord::Base
   end
 
   def content=(content)
-    ed_content = content ? content.gsub('&nbsp;', ' ').strip.gsub('<br></p>','</p>') : nil
+    ed_content = content ? content.gsub('&nbsp;', ' ').strip.gsub('<br></p>', '</p>') : nil
     ed_content='<p></p>' if ed_content.to_s == ''
     write_attribute(:content, ed_content)
   end

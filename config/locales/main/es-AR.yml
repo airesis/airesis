@@ -729,7 +729,7 @@ es-AR:
         debate_end: fin del debate
     home:
       index:
-        whatis: ¿QUÉ ES AIRESIS
+        whatis: ¿QUÉ ES
         partecipate: INVOLUCRARSE
         videos: VÍDEO GUÍAS
         whowe: Sobre nosotros
@@ -933,7 +933,7 @@ es-AR:
         meeting:
           place:
             address: Dirección
-            comune_id: Ciudad
+            municipality_id: Ciudad
       group:
         facebook_page_url: 'Dirección de la página  Facebook'
         name: Nombre
@@ -1339,7 +1339,7 @@ es-AR:
     province: '%{name} (Provincia)'
     town: '%{name}  (Ciudad)'
     country: '%{name}  (Pais)'
-    continent: '%{name} (Continente)'
+    continent: '%{name} (Continent)'
   mailer:
     default:
       follow_twitter: Síguenos en Twitter

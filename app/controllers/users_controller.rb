@@ -1,5 +1,6 @@
-#encoding: utf-8
+# controller for users
 class UsersController < ApplicationController
+  include UsersHelper
   layout :choose_layout
 
   before_filter :authenticate_user!, except: [:index, :show, :confirm_credentials, :join_accounts]
@@ -11,59 +12,43 @@ class UsersController < ApplicationController
     @orig = User.find_by_email(@user.email)
   end
 
-  #unisce due account
+  # joins two different account when logging in
   def join_accounts
-    data = session["devise.google_data"] || session["devise.facebook_data"] || session["devise.linkedin_data"] || session['devise.parma_data'] #prendi i dati di facebook dalla sessione
-    email = ""
-    if data["provider"] == Authentication::LINKEDIN
-      email = data["extra"]["raw_info"]["emailAddress"]
-    elsif data["provider"] == Authentication::PARMA
-      email = data["info"]["email"]
-    else
-      email = data["extra"]["raw_info"]["email"]
+
+    oauth_data = session['devise.omniauth_data']
+    oauth_data_parser = OauthDataParser.new(oauth_data)
+    raw_info = oauth_data_parser.raw_info
+    user_info = oauth_data_parser.user_info
+
+    if wrong_join_accounts_params?(user_info[:email])
+      flash[:error] = t('error.users.join_accounts')
+      return redirect_to confirm_credentials_users_url
     end
-    if params[:user][:email] && (email != params[:user][:email]) #se per caso viene passato un indirizzo email differente
-      flash[:error] = 'Dai va là!'
+
+    user = User.find_by(email: user_info[:email]) #trova l'utente del portale con email e password indicati
+    unless user
+      flash[:error] = t('error.users.join_accounts')
+      return redirect_to confirm_credentials_users_url
+    end
+
+    if user.valid_password?(params[:user][:password]) #se la password fornita è corretta
+      user.oauth_join(oauth_data)
+      flash[:notice] = t('info.user.account_joined')
+      sign_in_and_redirect user, event: :authentication
+    else
+      flash[:error] = t('error.users.join_accounts_password')
       redirect_to confirm_credentials_users_url
-    else
-      auth = User.find_by_email(email) #trova l'utente del portale con email e password indicati
-      if (auth.valid_password?(params[:user][:password]) unless auth.nil?) #se la password fornita è corretta
-        #aggiungi il provider
-        User.transaction do
-          auth.authentications.build(provider: data['provider'], uid: data['uid'], token: (data['credentials']['token'] rescue nil))
-          if data["provider"] == Authentication::PARMA
-            group = Group.find_by_subdomain('parma')
-            auth.group_participation_requests.build(group: group, group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED)
-            participation_role = group.default_role
-            if data['info']['verified']
-              certification = auth.build_certification({name: auth.name, surname: auth.surname, tax_code: auth.email})
-              participation_role = ParticipationRole.where(['group_id = ? and lower(name) = ?', group.id, 'residente']).first || participation_role #look for best role or fallback
-              auth.user_type_id = UserType::CERTIFIED
-            end
-            auth.group_participations.build(group: group, participation_role_id: participation_role.id)
-          end
-          auth.save!
-        end
-        #fine dell'unione
-        flash[:notice] = t('info.user.account_joined')
-        sign_in_and_redirect auth, event: :authentication
-      else
-        flash[:error] = t('error.users.join_accounts_password')
-        redirect_to confirm_credentials_users_url
-      end
     end
-  rescue Exception => e
-    flash[:error] = t('error.users.join_accounts')
-    redirect_to confirm_credentials_users_url
+
   end
 
   def index
     return redirect_to root_path if user_signed_in?
-    @users = User.where("upper(name) like upper(?)","%#{params[:q]}%")
+    @users = User.where('upper(name) like upper(?)', "%#{params[:q]}%")
 
     respond_to do |format|
+      format.html
       format.json { render json: @users.to_json(only: [:id, :name]) }
-      format.html # index.html.erb
     end
   end
 
@@ -101,13 +86,12 @@ class UsersController < ApplicationController
     @proposals_count = @user.proposals.count
   end
 
-
   def change_show_tooltips
     current_user.show_tooltips = params[:active]
     current_user.save!
     params[:active] == 'true' ?
-        flash[:notice] = t('info.user.tooltips_enabled') :
-        flash[:notice] = t('info.user.tooltips_disabled')
+      flash[:notice] = t('info.user.tooltips_enabled') :
+      flash[:notice] = t('info.user.tooltips_disabled')
 
     respond_to do |format|
       format.js { render partial: 'layouts/messages' }
@@ -124,8 +108,8 @@ class UsersController < ApplicationController
     current_user.show_urls = params[:active]
     current_user.save!
     params[:active] == 'true' ?
-        flash[:notice] = t('info.user.url_shown') :
-        flash[:notice] = t('info.user.url_hidden')
+      flash[:notice] = t('info.user.url_shown') :
+      flash[:notice] = t('info.user.url_hidden')
 
     respond_to do |format|
       format.js { render partial: 'layouts/messages' }
@@ -237,7 +221,7 @@ class UsersController < ApplicationController
         flash[:notice] += t('info.user.confirm_email') if params[:user][:email] && @user.email != params[:user][:email]
         format.js
         format.html {
-          if params[:back] == "home"
+          if params[:back] == 'home'
             redirect_to home_url
           else
             redirect_to @user
@@ -247,14 +231,14 @@ class UsersController < ApplicationController
         @user.errors.full_messages.each do |msg|
           flash[:error] = msg
         end
-        format.js { render 'layouts/error' }
         format.html {
-          if params[:back] == "home"
+          if params[:back] == 'home'
             redirect_to home_url
           else
-            render action: "show"
+            render action: 'show'
           end
         }
+        format.js { render 'layouts/error' }
       end
     end
   end
@@ -270,8 +254,8 @@ class UsersController < ApplicationController
     ResqueMailer.delay.user_message(params[:message][:subject], params[:message][:body], current_user.id, @user.id)
     flash[:notice] = t('info.message_sent')
     respond_to do |format|
-      format.js
       format.html { redirect_to @user }
+      format.js
     end
   end
 
@@ -279,16 +263,19 @@ class UsersController < ApplicationController
     @group = Group.friendly.find(params[:group_id])
     users = @group.participants.autocomplete(params[:term])
     users = users.map do |u|
-      {id: u.id, identifier: "#{u.surname} #{u.name}", image_path: "#{u.user_image_tag 20}"}
+      {id: u.id, identifier: "#{u.surname} #{u.name}", image_path: "#{avatar(u, size: 20)}"}
     end
     render json: users
   end
 
   protected
 
+  def wrong_join_accounts_params?(user_email)
+    [params[:user][:email], params[:user][:password]].any? &:blank? || user_email != params[:user][:email]
+  end
 
   def user_params
-    params.require(:user).permit(:login, :name, :email, :surname, :password, :password_confirmation, :sex, :remember_me, :accept_conditions, :receive_newsletter, :facebook_page_url, :linkedin_page_url, :google_page_url, :sys_locale_id, :time_zone, :avatar)
+    params.require(:user).permit(:login, :name, :email, :surname, :password, :password_confirmation, :sex, :remember_me, :accept_conditions, :receive_newsletter, :sys_locale_id, :time_zone, :avatar)
   end
 
   def choose_layout
@@ -313,7 +300,7 @@ class UsersController < ApplicationController
       found = InterestBorder.table_element(border)
 
       if found #if I found something so the ID is correct and I can proceed with geographic border creation
-        interest_b = InterestBorder.find_or_create_by({territory_type: InterestBorder::I_TYPE_MAP[ftype], territory_id: fid})
+        interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype], territory_id: fid)
         i = current_user.user_borders.build({interest_border_id: interest_b.id})
         i.save
       end
