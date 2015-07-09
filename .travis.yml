@@ -3,7 +3,7 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
 language: ruby
 rvm:
-  - 2.2.0
+  - 2.2.2
 before_script:
  - "curl https://raw.githubusercontent.com/moliware/travis-solr/master/travis-solr.sh | SOLR_VERSION=4.2.0 bash"
  - "cp config/database.travis.yml config/database.yml"
