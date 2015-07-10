@@ -1,0 +1,40 @@
+- @extend=true
+- @page_descr = CGI::escapeHTML(strip_tags @group.description)
+- javascript 'endless_page'
+= content_for :head do
+  meta content="#{current_url}" property="og:url"
+  meta content="#{ENV['APP_LONG_NAME']}" property="og:site_name"
+  meta content="#{ENV['FACEBOOK_APP_ID']}" property="fb:app_id"
+  meta content="#{@group.name}" property="og:title"
+  meta content="airesis:group" property="og:type"
+  meta content="#{@page_descr}" name="description"
+  meta content=("#{@group.image.exists? ? @group.image.url : asset_url('gruppo-anonimo.png')}") property="og:image"
+  meta content="#{@page_descr}" property="og:description"
+  = auto_discovery_link_tag(:atom, group_url(@group, format: 'atom'))
+
+- if can? :view_data, @group
+  - javascript 'endless_page'
+  .row.full-width
+    .row
+      .columns.medium-12.large-8
+        - if params[:action] == 'by_year_and_month'
+          h2 = t('pages.groups.archives.page_title', year: params[:year], month: t('date.month_names')[params[:month].to_i])
+        - else
+          .card = raw (@group.description)
+        #posts_container
+          - if @group_posts.any?
+            = render collection: @group_posts, partial: 'blog_posts/group_blog_post', as: 'post_publishing'
+          - else
+            .blogPost
+              p = t('pages.groups.show.no_blogs_yet')
+        - if @group_posts.size > COMMENTS_PER_PAGE
+          #loading_results.post_results
+            span= t('pages.blogs.show.previous_posts')
+      .homegroup.columns.large-4.show-for-large-up
+        - if can? :view_proposal, @group
+          = render partial: "groups/portlets/proposals", layout: "layouts/portlet"
+        = render partial: "groups/portlets/topics", layout: "layouts/portlet"
+        = render partial: "groups/portlets/events", layout: "layouts/portlet"
+  = render 'rules_panel'
+
+= render 'left_panel'

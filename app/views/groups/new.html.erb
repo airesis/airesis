@@ -1,9 +1,0 @@
-<%@page_title = t('pages.groups.new.title')%>
-<div class="card">
-<h1><%= t('pages.groups.new.new_group') %></h1>
-
-<%= render partial: @group, locals: { button_name: t('pages.groups.new.create_button')} %>
-</div>
-<%=content_for :left_panel do%>	
-	<%= render partial: 'users/user_groups_panel' %>
-<%end%>

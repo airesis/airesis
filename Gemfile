@@ -29,6 +29,7 @@ gem 'uri-js-rails'
 
 gem 'mustache'
 gem 'mustache-js-rails'
+gem 'slim-rails'
 
 group :development do
   gem 'sunspot_solr'

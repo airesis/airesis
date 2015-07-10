@@ -6,8 +6,8 @@
 <%= stylesheet_link_tag 'application' %>
 <%= javascript_include_tag 'application' %>
 <%= javascript_include_tag "i18n/bootstrap-datetimepicker.#{I18n.locale}" %>
-<%= stylesheet_link_tag 'elfinder.min'%>
-<%= javascript_include_tag 'elfinder.full', 'elFinderSupportVer1'%>
+<%= stylesheet_link_tag 'elfinder.min' %>
+<%= javascript_include_tag 'elfinder.full', 'elFinderSupportVer1' %>
 <%= javascript_include_tag "i18n/elfinder.#{I18n.locale}" %>
 
 <%= javascript_include_tag "i18n/jquery.countdown.#{I18n.locale}" %>
@@ -74,6 +74,13 @@
         buttons: {
             goBack: '<%=j t('buttons.go_back')%>',
             next: '<%=j t('buttons.next')%>'
+        },
+        groups: {
+            exactBorder: '<%=j t('pages.groups.index.switchButton.exact_border')%>',
+            areaBorder: '<%=j t('pages.groups.index.switchButton.area_border')%>',
+            queryOrPlace: '<%=j t('pages.groups.index.insert_query_or_place')%>',
+            allWords: '<%=j t('pages.groups.index.switchButton.all_words')%>',
+            oneWord: '<%=j t('pages.groups.index.switchButton.one_word')%>'
         }
     };
 </script>

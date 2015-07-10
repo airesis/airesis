@@ -35,7 +35,9 @@ class GroupsController < ApplicationController
     @groups = Group.look(params)
     respond_to do |format|
       format.html
-      format.js
+      format.js {
+        @disable_per_page = true
+      }
     end
   end
 
