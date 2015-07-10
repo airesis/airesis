@@ -11,4 +11,3 @@ module NicknameGeneratorHelper
     return names[0].strip
    end
 end
-

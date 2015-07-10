@@ -135,5 +135,3 @@ module Crowdin
 
   end
 end
-
-
