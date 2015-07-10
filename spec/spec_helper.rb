@@ -27,32 +27,16 @@ RSpec.configure do |config|
     Proposal.remove_all_from_index!
   end
 
+  allowed_urls = %w(pbs.twimg.com syndication.twitter.com platform.twitter.com platform.twitter.com www.gravatar.com
+                    maps.googleapis.com apis.google.com oauth.googleusercontent.com ssl.gstatic.com maps.gstatic.com
+                    www.google.com csi.gstatic.com mt0.googleapis.com mt1.googleapis.com mts0.googleapis.com
+                    mts1.googleapis.com fonts.googleapis.com connect.facebook.net/en/sdk.js fbstatic-a.akamaihd.net
+                    graph.facebook.com connect.facebook.net)
+
   Capybara::Webkit.configure do |config|
-    config.allow_url('pbs.twimg.com')
-    config.allow_url('syndication.twitter.com')
-    config.allow_url('platform.twitter.com')
-    config.allow_url('platform.twitter.com')
-
-    config.allow_url('www.gravatar.com')
-
-    config.allow_url('maps.googleapis.com')
-    config.allow_url('apis.google.com')
-    config.allow_url('oauth.googleusercontent.com')
-    config.allow_url('ssl.gstatic.com')
-    config.allow_url('maps.gstatic.com')
-    config.allow_url('www.google.com')
-    config.allow_url('csi.gstatic.com')
-    config.allow_url('mt0.googleapis.com')
-    config.allow_url('mt1.googleapis.com')
-    config.allow_url('mts0.googleapis.com')
-    config.allow_url('mts1.googleapis.com')
-
-    config.allow_url('fonts.googleapis.com')
-
-    config.allow_url('connect.facebook.net/en/sdk.js')
-    config.allow_url('fbstatic-a.akamaihd.net')
-    config.allow_url('graph.facebook.com')
-    config.allow_url('connect.facebook.net')
+    allowed_urls.each do |allowed_ur|
+      config.allow_url(allowed_url)
+    end
   end
 
   config.order = 'random'
