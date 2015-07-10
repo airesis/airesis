@@ -4,7 +4,6 @@ class Users::FacebookController < ApplicationController
     request.env['omniauth.strategy'].options[:client_options] = {ssl: {verify: false, ca_path: '/etc/ssl/certs'}}
 
     render text: "Setup complete.", status: 404
-
   end
 
 end

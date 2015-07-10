@@ -135,11 +135,9 @@ class ProposalCommentsController < ApplicationController
 
 
   def noise
-
   end
 
   def manage_noise
-
   end
 
   #the editor marked some contributes as unuseful
@@ -162,7 +160,6 @@ class ProposalCommentsController < ApplicationController
       format.html { redirect_to @proposal }
       format.js { render nothing: true }
     end
-
   end
 
 

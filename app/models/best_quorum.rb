@@ -127,7 +127,6 @@ class BestQuorum < Quorum
       else
 
     end
-
   end
 
   def check_phase(force_end = false)

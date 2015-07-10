@@ -83,12 +83,10 @@ class StepsController < ApplicationController
       format.html { redirect_to :back }
       format.js { render nothing: true }
     end
-
   end
 
   #segna come 'skipped' uno step del tutorial
   def skip
-
   end
 
   protected

@@ -36,7 +36,6 @@ module StepsHelper
       else
         step
     end
-
   end
 
   #ritorna true se lo step è già stato fatto dall'utente e può essere saltato
@@ -60,7 +59,6 @@ module StepsHelper
         logger.error "Impossibile trovare tutorial_id: " + step.tutorial_id.to_s
         return false
     end
-
   end
 
   def show_proposal_steps(step, user)

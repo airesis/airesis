@@ -14,7 +14,6 @@ class ProposalRevisionsController < ApplicationController
   end
 
   def show
-
   end
 
   protected

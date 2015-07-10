@@ -257,7 +257,6 @@ module Concerns
     end
 
     def petition_create(proposal)
-
     end
 
     # create a solution for a standard proposal

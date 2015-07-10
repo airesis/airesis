@@ -63,7 +63,6 @@ class OldQuorum < Quorum
     else
       "IN STALLO" #todo:i18n
     end
-
   end
 
 

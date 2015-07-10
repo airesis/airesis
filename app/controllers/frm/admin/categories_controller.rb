@@ -75,7 +75,6 @@ module Frm
           }
           format.js
         end
-
       end
 
       def update_failed
@@ -90,7 +89,6 @@ module Frm
             end
           }
         end
-
       end
 
     end

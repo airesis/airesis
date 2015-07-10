@@ -83,7 +83,6 @@ module Frm
           render 'subscribe'
         }
       end
-
     end
 
     def unsubscribe_successful

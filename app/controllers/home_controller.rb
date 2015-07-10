@@ -75,7 +75,6 @@ class HomeController < ApplicationController
 
   def statistics
     @stat1 = StatNumProposal.extract
-
   end
 
   def show

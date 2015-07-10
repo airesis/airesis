@@ -75,7 +75,6 @@ module Frm
         else
           joins(:topic).where(frm_topics: {hidden: false})
         end
-
       end
 
       def topic_not_pending_review

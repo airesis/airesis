@@ -8,11 +8,9 @@ class AreaRolesController < ApplicationController
   load_and_authorize_resource through: :group_area
 
   def new
-
   end
 
   def edit
-
   end
 
   def create

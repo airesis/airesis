@@ -83,7 +83,6 @@ class Event < ActiveRecord::Base
   end
 
   def time_left
-
     amount = self.endtime - Time.now #left in seconds
     left = I18n.t('time.left.seconds', count: amount.to_i) #todo:i18n
     if amount >= 60 #if more or equal than 60 seconds left give me minutes

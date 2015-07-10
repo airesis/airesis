@@ -85,7 +85,6 @@ class ProposalsController < ApplicationController
       }
       format.json
     end
-
   end
 
   #list all proposals in a state
@@ -234,7 +233,6 @@ class ProposalsController < ApplicationController
 
 
   def geocode
-
   end
 
   def create

@@ -340,7 +340,6 @@ class GroupsController < ApplicationController
   end
 
   def reload_storage_size
-
   end
 
   def enable_areas

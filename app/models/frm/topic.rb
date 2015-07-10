@@ -51,7 +51,6 @@ module Frm
         else
           where(hidden: false)
         end
-
       end
 
       def by_pinned

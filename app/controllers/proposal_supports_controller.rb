@@ -11,7 +11,6 @@ class ProposalSupportsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-
   end
 
   #mostra il pannello o la pagina per fornire supporto alla proposta da parte di un gruppo
@@ -61,16 +60,13 @@ class ProposalSupportsController < ApplicationController
   end
 
   def edit
-
   end
 
   def update
-
   end
 
 
   def destroy
-
   end
 
 

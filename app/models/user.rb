@@ -155,7 +155,6 @@ class User < ActiveRecord::Base
     params[:interest_border_obj] = border
     params[:limit] = 12
     Group.look(params)
-
   end
 
 
@@ -496,7 +495,6 @@ class User < ActiveRecord::Base
   # is associated to the Airesis account or if it's a simple login and another flag
   # indicating if the user has been found in th db by it's email
   def self.find_or_create_for_oauth_provider(oauth_data)
-
     oauth_data_parser = OauthDataParser.new(oauth_data)
     provider = oauth_data_parser.provider
     uid = oauth_data_parser.uid
@@ -515,7 +513,6 @@ class User < ActiveRecord::Base
   end
 
   def oauth_join(oauth_data)
-
     oauth_data_parser = OauthDataParser.new(oauth_data)
     provider = oauth_data_parser.provider
     raw_info = oauth_data_parser.raw_info

@@ -112,7 +112,6 @@ class ApplicationController < ActionController::Base
   end
 
   def current_territory
-
   end
 
   def set_locale
