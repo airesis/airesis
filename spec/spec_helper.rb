@@ -34,7 +34,7 @@ RSpec.configure do |config|
                     graph.facebook.com connect.facebook.net)
 
   Capybara::Webkit.configure do |config|
-    allowed_urls.each do |allowed_ur|
+    allowed_urls.each do |allowed_url|
       config.allow_url(allowed_url)
     end
   end
