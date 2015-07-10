@@ -1,5 +1,5 @@
 class TutorialProgressesController < ApplicationController
-   before_filter :admin_required
+  before_filter :admin_required
   # GET /tutorial_progresses
   # GET /tutorial_progresses.json
   def index

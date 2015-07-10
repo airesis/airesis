@@ -3,7 +3,7 @@ class TutorialsController < ApplicationController
 
   before_filter :authenticate_user!
   before_filter :admin_required
-    
+
   def index
     @tutorials = Tutorial.all
 
@@ -71,5 +71,5 @@ class TutorialsController < ApplicationController
       format.html { redirect_to tutorials_url }
       format.json { head :ok }
     end
-  end  
+  end
 end

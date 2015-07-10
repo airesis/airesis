@@ -6,7 +6,7 @@ class ProposalLivesController < ApplicationController
 
   ###SICUREZZA###
 
-#l'utente deve aver fatto login
+  #l'utente deve aver fatto login
   before_filter :authenticate_user!
 
 

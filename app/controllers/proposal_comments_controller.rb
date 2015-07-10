@@ -11,8 +11,8 @@ class ProposalCommentsController < ApplicationController
   #retrieve contributes list
   def index
     respond_to do |format|
-      format.html { @proposal_comment_search  = ProposalCommentSearch.new({all: true, disable_limit: true}, @proposal)}
-      format.js { @proposal_comment_search = ProposalCommentSearch.new(params, @proposal, current_user)}
+      format.html { @proposal_comment_search = ProposalCommentSearch.new({all: true, disable_limit: true}, @proposal) }
+      format.js { @proposal_comment_search = ProposalCommentSearch.new(params, @proposal, current_user) }
     end
   end
 

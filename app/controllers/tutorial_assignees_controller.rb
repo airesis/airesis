@@ -1,13 +1,13 @@
 class TutorialAssigneesController < ApplicationController
   include TutorialAssigneesHelper
-  
+
   before_filter :admin_required
   # GET /steps
   # GET /steps.json
-  
+
   before_filter :load_tutorial
-  
-  
+
+
   def index
     @tutorial_assignees = @tutorial.assignees.all
 
@@ -24,7 +24,7 @@ class TutorialAssigneesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-    #  format.json { render json: @tutorial_assignee }
+      #  format.json { render json: @tutorial_assignee }
     end
   end
 
@@ -35,7 +35,7 @@ class TutorialAssigneesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-   #   format.json { render json: @tutorial_assignee }
+      #   format.json { render json: @tutorial_assignee }
     end
   end
 
@@ -48,8 +48,8 @@ class TutorialAssigneesController < ApplicationController
   # POST /tutorial_assignees.json
   def create
     user = User.find_by_id(params[:tutorial_assignee][:user_id])
-    assign_tutorial(user,@tutorial)
-    
+    assign_tutorial(user, @tutorial)
+
     respond_to do |format|
       format.html { redirect_to @tutorial, notice: 'Tutorial assignee was successfully created.' }
     end
@@ -63,10 +63,10 @@ class TutorialAssigneesController < ApplicationController
     respond_to do |format|
       if @tutorial_assignee.update_attributes(params[:tutorial_assignee])
         format.html { redirect_to @tutorial, notice: 'Tutorial assignee was successfully updated.' }
-     #   format.json { head :ok }
+        #   format.json { head :ok }
       else
         format.html { render action: "edit" }
-    #    format.json { render json: @tutorial_assignee.errors, status: :unprocessable_entity }
+        #    format.json { render json: @tutorial_assignee.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -79,13 +79,13 @@ class TutorialAssigneesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to @tutorial }
-    #  format.json { head :ok }
+      #  format.json { head :ok }
     end
   end
-  
-  
-   protected
-   
+
+
+  protected
+
   def load_tutorial
     @tutorial = Tutorial.find(params[:tutorial_id])
   end

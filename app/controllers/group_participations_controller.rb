@@ -88,9 +88,9 @@ class GroupParticipationsController < ApplicationController
   def destroy
     @group_participation.destroy
     flash[:notice] =
-        (current_user == @group_participation.user) ?
-            t('info.group_participations.destroy_ok_1') :
-            t('info.participation_roles.user_removed_from_group', name: @group_participation.user.fullname)
+      (current_user == @group_participation.user) ?
+        t('info.group_participations.destroy_ok_1') :
+        t('info.participation_roles.user_removed_from_group', name: @group_participation.user.fullname)
 
     redirect_to :back
   end

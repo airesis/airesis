@@ -106,7 +106,7 @@ module Frm
     end
 
     def topic_params
-      params.require(:frm_topic).permit(:subject, :tags_list, posts_attributes: [:text] )
+      params.require(:frm_topic).permit(:subject, :tags_list, posts_attributes: [:text])
     end
 
 

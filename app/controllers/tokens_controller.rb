@@ -16,7 +16,7 @@ class TokensController < ApplicationController
       return
     end
 
-    @user=User.where(["lower(login) = :value OR lower(email) = :value", { value: email.downcase }]).first
+    @user=User.where(["lower(login) = :value OR lower(email) = :value", {value: email.downcase}]).first
 
     if @user.nil?
       logger.info("User #{email} failed signin, user cannot be found.")

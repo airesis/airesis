@@ -26,10 +26,10 @@ class GroupsController < ApplicationController
     end
 
     params[:interest_border_obj] = @interest_border = if params[:interest_border].nil?
-                                                         InterestBorder.find_or_create_by(territory: current_domain.territory)
-                                                       else
-                                                         InterestBorder.find_or_create_by_key(params[:interest_border])
-                                                       end
+                                                        InterestBorder.find_or_create_by(territory: current_domain.territory)
+                                                      else
+                                                        InterestBorder.find_or_create_by_key(params[:interest_border])
+                                                      end
 
     @groups = Group.look(params)
     respond_to do |format|

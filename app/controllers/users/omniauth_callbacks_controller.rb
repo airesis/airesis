@@ -41,7 +41,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         # the certified email is already present in another account in Airesis
         # cannot update user email with one already taken
         if user_info[:certified] &&
-           User.all_except(current_user).where(email: user_info[:email]).exists?
+          User.all_except(current_user).where(email: user_info[:email]).exists?
           flash[:error] = I18n.t 'devise.omniauth_callbacks.certified_email_taken'
           return redirect_to privacy_preferences_users_url
         end

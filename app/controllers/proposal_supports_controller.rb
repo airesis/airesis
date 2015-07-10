@@ -7,13 +7,13 @@ class ProposalSupportsController < ApplicationController
 ###SICUREZZA###
   authorize_resource only: [:new]
 
-  #l'utente deve aver fatto login
+#l'utente deve aver fatto login
   before_filter :authenticate_user!
 
   def index
   end
 
-  #mostra il pannello o la pagina per fornire supporto alla proposta da parte di un gruppo
+#mostra il pannello o la pagina per fornire supporto alla proposta da parte di un gruppo
   def new
     @proposal_support = @proposal.proposal_supports.build
     respond_to do |format|
