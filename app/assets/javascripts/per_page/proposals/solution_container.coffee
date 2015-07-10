@@ -51,7 +51,6 @@ class Airesis.SolutionContainer
     else
       @show()
   show: ->
-    console.log 'show'
     duration = 500
     easing = 'swing'
     if @element.is(':animated')

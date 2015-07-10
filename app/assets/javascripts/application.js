@@ -16,7 +16,6 @@
 //= require moment.min
 //= require fullcalendar
 //= require gcal
-//= require events
 //= require charCount
 //= require jquery.progressbar
 //= require jquery.dataTables.min

@@ -4,6 +4,7 @@
 
     execute_page_js('<%=body_page_name%>')
 
+    <%= yield :after_page_js %>
 })();
 
 <%= yield :no_closure %>

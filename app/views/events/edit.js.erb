@@ -4,74 +4,9 @@ event_edit.html("<%=j render 'edit_form'%>");
 
 airesis_reveal(event_edit);
 
-$(event_edit).on('opened', function () {
-    google.maps.event.trigger(map, 'resize');
-    map.setCenter(center);
+$(event_edit).on('opened.fndtn.reveal', function () {
+    EventsEdit.mapManager.refresh();
 });
+<%content_for :after_page_js do %>
 
-window.ClientSideValidations.selectors = {
-    inputs: ':input:not(button):not([type="submit"])[name]:enabled',
-    validate_inputs: ':input:enabled:visible[data-validate], .select2-container:visible ~ :input:enabled[data-validate]',
-    forms: 'form[data-validate]'
-};
-
-$('#edit_event_<%=@event.id%>').enableClientSideValidations();
-
-if (!geocoder)
-    geocoder = new google.maps.Geocoder();
-<%if @event.place%>
-var latlng = new google.maps.LatLng(<%=@event.place.latitude_original%>, <%=@event.place.longitude_original%>);
-var center = new google.maps.LatLng(<%=@event.place.latitude_center%>, <%=@event.place.longitude_center%>);
-var zoom = <%=@event.place.zoom%>;
-<%else%>
-var latlng = new google.maps.LatLng(42.407235, 14.260254);
-var center = latlng;
-var zoom = 5;
-<%end%>
-
-
-var map_canvas = $('#edit_map_canvas')[0];
-
-if (map_canvas) {
-    var myOptions = {
-        zoom: zoom,
-        center: center,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        panControl: true,
-        streetViewControl: true,
-        mapTypeControl: false
-    };
-
-    map = new google.maps.Map(map_canvas, myOptions);
-    var panoramaOptions = {
-        position: latlng,
-        pov: {
-            heading: 34,
-            pitch: 10,
-            zoom: 1
-        }
-    };
-
-    marker = new google.maps.Marker({
-        map: map,
-        position: latlng,
-        draggable: true
-    });
-
-    google.maps.event.addListener(marker, 'dragend', listenMarkerPosition);
-    google.maps.event.addListener(map, 'center_changed', listenCenterChanged);
-    google.maps.event.addListener(map, 'zoom_changed', listenZoomChanged);
-
-    /*var panorama = new  google.maps.StreetViewPanorama(document.getElementById("panorama_canvas"),panoramaOptions);
-     map.setStreetView(panorama);*/
-
-    <%unless @event.place%>
-    putMarker("Italy");	//inizializza il marcatore sull'Italia
-    <%end%>
-    google.maps.event.trigger(map, 'resize')
-}
-
-
-<%if @event.is_votazione? %>
-showPlace('2');
 <%end%>

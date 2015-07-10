@@ -60,9 +60,10 @@ class EventsController < ApplicationController
 
 
   def new
+    event_type = params[:event_type_id] || EventType::INCONTRO
     @title = @group ? "#{@group.name}" : ''
     if @group
-      if params[:event_type_id] == EventType::VOTAZIONE.to_s
+      if event_type == EventType::VOTAZIONE.to_s
         authorize! :create_date, @group
       else
         authorize! :create_event, @group
@@ -71,7 +72,7 @@ class EventsController < ApplicationController
       return unless admin_required
     end
 
-    if params[:event_type_id] == EventType::VOTAZIONE.to_s
+    if event_type == EventType::VOTAZIONE.to_s
       @title += "- #{t('pages.events.new.title_event')}"
     else
       @title += "- #{t('pages.events.new.title_meeting')}"
@@ -80,7 +81,8 @@ class EventsController < ApplicationController
     @starttime = calculate_starttime
     @endtime = @starttime + 1.days
 
-    @event = Event.new(starttime: @starttime, endtime: @endtime, period: "Non ripetere", event_type_id: params[:event_type_id])
+    @event = Event.new(starttime: @starttime, endtime: @endtime, period: "Non ripetere",
+                       event_type_id: event_type)
     @meeting = @event.build_meeting
     @place = @meeting.build_place
 
@@ -90,7 +92,7 @@ class EventsController < ApplicationController
     if @group
       @event.private = true
       respond_to do |format|
-        format.html { redirect_to controller: 'events', action: 'index', group_id: params[:group_id], new_event: 'true', event_type_id: (params[:event_type_id] || EventType::INCONTRO) }
+        format.html
         format.js
       end
     end
@@ -108,18 +110,12 @@ class EventsController < ApplicationController
     end
 
     Event.transaction do
-      if (!event_params[:period]) || (event_params[:period] == "Non ripetere")
-        @event.user = current_user
-        @group ? @group.save! : @event.save!
-        if @event.proposal_id.present?
-          @proposal = Proposal.find(@event.proposal_id)
-          @proposal.vote_period_id = @event.id
-        end
-      else
-        @event_series = EventSeries.new(event_params)
-        @event_series.save!
+      @event.user = current_user
+      @group ? @group.save! : @event.save!
+      if @event.proposal_id.present?
+        @proposal = Proposal.find(@event.proposal_id)
+        @proposal.vote_period_id = @event.id
       end
-
     end
 
   rescue ActiveRecord::ActiveRecordError => e
@@ -127,7 +123,6 @@ class EventsController < ApplicationController
       format.js { render 'layouts/active_record_error', locals: {object: (@event || @event_series)} }
     end
   end
-
 
   def move
     @event.move(params[:minute_delta].to_i, params[:day_delta].to_i, params[:all_day])
@@ -191,7 +186,12 @@ class EventsController < ApplicationController
 
   def event_params
     params[:event].delete(:meeting_attributes) if params[:event][:event_type_id] == EventType::VOTAZIONE.to_s
-    params.require(:event).permit(:id, :title, :starttime, :endtime, :frequency, :all_day, :description, :event_type_id, :private, :proposal_id, meeting_attributes: [:id, place_attributes: [:id, :municipality_id, :address, :latitude_original, :longitude_original, :latitude_center, :longitude_center, :zoom]])
+    params.require(:event).permit(:id, :title, :starttime, :endtime, :frequency, :all_day, :description,
+                                  :event_type_id, :private, :proposal_id,
+                                  meeting_attributes: [:id,
+                                                       place_attributes: [:id, :municipality_id, :address,
+                                                                          :latitude_original, :longitude_original,
+                                                                          :latitude_center, :longitude_center, :zoom]])
   end
 
   def choose_layout
@@ -209,5 +209,4 @@ class EventsController < ApplicationController
     end
     true
   end
-
 end

@@ -70,6 +70,10 @@
                 removeSolution: '<%=j t('pages.proposals.edit.remove_solution')%>',
                 addParagraph: '<%=j t('pages.proposals.edit.add_paragraph_to_solution')%>'
             }
+        },
+        buttons: {
+            goBack: '<%=j t('buttons.go_back')%>',
+            next: '<%=j t('buttons.next')%>'
         }
     };
 </script>
@@ -88,5 +92,7 @@
         lang: '<%=I18n.locale%>'
     }
 </script>
+
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false"></script>
 
 <%= yield :head %>

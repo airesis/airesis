@@ -179,7 +179,6 @@
 
     function update_participants(value) {
         var calculated = Math.min(Math.floor(parseFloat(value) * 0.01 * parseFloat(<%=@group_participations_count%>)) + 1, <%=@group_participations_count%>);
-        console.log('calculated', calculated);
         $('#participants_number').html(calculated);
     }
 
