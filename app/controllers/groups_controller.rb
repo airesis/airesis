@@ -408,10 +408,3 @@ class GroupsController < ApplicationController
     @group ? 'groups' : 'open_space'
   end
 end
-
-
-
-
-
-
-
