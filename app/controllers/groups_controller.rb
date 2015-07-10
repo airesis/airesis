@@ -20,7 +20,6 @@ class GroupsController < ApplicationController
     render json: groups
   end
 
-
   def index
     unless request.xhr?
       @tags = Tag.most_groups(current_domain.territory, 10).shuffle
@@ -66,7 +65,6 @@ class GroupsController < ApplicationController
     end
   end
 
-
   def by_year_and_month
     @group_posts = @group.post_publishings
                      .viewable_by(current_user)
@@ -91,7 +89,6 @@ class GroupsController < ApplicationController
     end
   end
 
-
   def new
     authorize! :create, Group
     @group = Group.new(accept_requests: 'p')
@@ -103,8 +100,6 @@ class GroupsController < ApplicationController
     @page_title = t('pages.groups.edit.title')
   end
 
-
-  #crea un nuovo gruppo
   def create
     @group.current_user_id = current_user.id
     if @group.save
@@ -130,7 +125,6 @@ class GroupsController < ApplicationController
     end
   end
 
-
   def destroy
     authorize! :destroy, @group
     @group.destroy
@@ -141,7 +135,6 @@ class GroupsController < ApplicationController
     end
   end
 
-  #fa partire una richiesta per la partecipazione dell'utente corrente al gruppo
   def ask_for_participation
     #verifica se l'utente ha già effettuato una richiesta di partecipazione a questo gruppo
     request = current_user.group_participation_requests.find_by(group_id: @group.id)
@@ -178,7 +171,6 @@ class GroupsController < ApplicationController
     redirect_to_back(group_path(@group))
   end
 
-  #fa partire una richiesta di partecipazione a ciascun gruppo
   def ask_for_multiple_follow
     Group.transaction do
       groups = params[:groupsi][:group_ids].split(';')
@@ -209,12 +201,8 @@ class GroupsController < ApplicationController
       flash[:notice] = t('info.participation_request.multiple_request', count: number)
       redirect_to home_path
     end
-
   end
 
-
-  #accetta una richiesta di partecipazione passandola allo stato IN VOTAZIONE se
-  # è previsto o accettandola altrimenti.
   def participation_request_confirm
     authorize! :accept_requests, @group
     @request = @group.participation_requests.pending.find(params[:request_id])
@@ -323,7 +311,6 @@ class GroupsController < ApplicationController
     end
   end
 
-  #change the default option in a group for the public proposals
   def change_default_visible_outside
     default_visible_outside = (params[:active] == 'true')
     @group.default_visible_outside = default_visible_outside
@@ -338,7 +325,6 @@ class GroupsController < ApplicationController
     end
   end
 
-  #change the default option in a group for the secret vote
   def change_default_secret_vote
     default_secret_vote = (params[:active] == 'true')
     @group.default_secret_vote = default_secret_vote
@@ -352,7 +338,6 @@ class GroupsController < ApplicationController
       render 'layouts/error'
     end
   end
-
 
   def reload_storage_size
 
