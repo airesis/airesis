@@ -40,6 +40,13 @@ GIT
     vote-schulze (0.2.0)
 
 GIT
+  remote: git://github.com/gaffneyc/sunspot-queue.git
+  revision: d0fbd1a5da31bde83c1c97b3510a319c85ec17d9
+  specs:
+    sunspot-queue (0.10.2)
+      sunspot_rails (>= 1.3.0)
+
+GIT
   remote: git://github.com/getsentry/raven-ruby.git
   revision: 2e077fa2b1c396b8c15d1ef29e3a8b973920d6cd
   specs:
@@ -515,8 +522,6 @@ GEM
     sunspot (2.2.0)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
-    sunspot-queue (0.10.2)
-      sunspot_rails (>= 1.3.0)
     sunspot_rails (2.2.0)
       nokogiri
       rails (>= 3)
@@ -658,7 +663,7 @@ DEPENDENCIES
   sitemap_generator
   spring
   sshkit
-  sunspot-queue
+  sunspot-queue!
   sunspot-rails-http-basic-auth!
   sunspot_rails
   sunspot_solr

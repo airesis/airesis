@@ -191,7 +191,7 @@ class Proposal < ActiveRecord::Base
     proposals = Proposal.
       select('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
       where(proposals[:id].in(ids)).order(updated_at: :desc)
-    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, :groups, :supporting_groups])
+    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, :groups, :supporting_groups, :category])
     proposals
   end
 
@@ -212,7 +212,7 @@ class Proposal < ActiveRecord::Base
       where(proposals[:proposal_type_id].not_eq(petition_id)).
       where(proposals[:id].in(list_c)).
       order(updated_at: :desc).to_a
-    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category])
+    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, :category, {users: :image}, :proposal_type, :groups, :supporting_groups])
     proposals
   end
 

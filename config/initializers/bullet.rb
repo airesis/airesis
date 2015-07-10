@@ -1,4 +1,4 @@
 if defined? Bullet
-  Bullet.enable = false
-  Bullet.alert = true
+  Bullet.enable = true
+  Bullet.add_footer = true
 end

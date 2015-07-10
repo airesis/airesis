@@ -17,7 +17,7 @@ gem 'foundation-rails'
 gem 'pg'
 
 gem 'sunspot_rails'
-gem 'sunspot-queue'
+gem 'sunspot-queue', github: 'gaffneyc/sunspot-queue'
 
 gem 'capistrano'
 gem 'capistrano-bundler'
@@ -39,6 +39,7 @@ group :development do
   gem 'capistrano-passenger'
   gem 'i18n-tasks'
   gem 'rubocop'
+  gem 'bullet'
   gem 'rack-mini-profiler', require: false
 end
 
@@ -112,7 +113,7 @@ gem 'el_finder'
 
 gem 'recaptcha', require: 'recaptcha/rails'
 
-gem 'bullet', group: :development
+
 gem 'thin'
 gem 'ruby-prof', group: :test
 gem 'test-unit', group: :test
