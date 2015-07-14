@@ -31,7 +31,8 @@ RSpec.configure do |config|
                     maps.googleapis.com apis.google.com oauth.googleusercontent.com ssl.gstatic.com maps.gstatic.com
                     www.google.com csi.gstatic.com mt0.googleapis.com mt1.googleapis.com mts0.googleapis.com
                     mts1.googleapis.com fonts.googleapis.com connect.facebook.net/en/sdk.js fbstatic-a.akamaihd.net
-                    graph.facebook.com connect.facebook.net)
+                    graph.facebook.com connect.facebook.net scontent.xx.fbcdn.net fbexternal-a.akamaihd.net
+                    fbcdn-profile-a.akamaihd.net)
 
   Capybara::Webkit.configure do |config|
     allowed_urls.each do |allowed_url|
