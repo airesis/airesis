@@ -8,7 +8,7 @@ class MeetingParticipationsController < ApplicationController
   def create
     @meeting_participation.user = current_user
     if @meeting_participation.save
-      flash[:notice] = "La tua risposta è stata inviata."
+      flash[:notice] = 'La tua risposta è stata inviata.'
       respond_to do |format|
         format.html {
           redirect_to event_path(params[:event_id])

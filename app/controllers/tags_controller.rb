@@ -1,6 +1,6 @@
 class TagsController < ApplicationController
 
-  layout "open_space"
+  layout 'open_space'
 
   #l'utente deve aver fatto login
   before_filter :authenticate_user!, except: [:index, :show]
@@ -33,9 +33,9 @@ class TagsController < ApplicationController
 
   def index
     if params[:q]
-      hint = params[:q] + "%"
-      @tags = Tag.where(["upper(text) like upper(?)", hint.strip]).
-        order("(blogs_count + blog_posts_count + proposals_count) desc").
+      hint = params[:q] + '%'
+      @tags = Tag.where(['upper(text) like upper(?)', hint.strip]).
+        order('(blogs_count + blog_posts_count + proposals_count) desc').
         limit(10).collect { |t| {id: t.id.to_s, name: t.text} }
 
       respond_to do |format|

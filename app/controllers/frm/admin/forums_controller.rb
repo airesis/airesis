@@ -42,28 +42,28 @@ module Frm
 
 
       def create_successful
-        flash[:notice] = t("frm.admin.forum.created")
+        flash[:notice] = t('frm.admin.forum.created')
         redirect_to group_frm_admin_forums_url(@group)
       end
 
       def create_failed
-        flash.now.alert = t("frm.admin.forum.not_created")
-        render action: "new"
+        flash.now.alert = t('frm.admin.forum.not_created')
+        render action: 'new'
       end
 
       def destroy_successful
-        flash[:notice] = t("frm.admin.forum.deleted")
+        flash[:notice] = t('frm.admin.forum.deleted')
         redirect_to group_frm_admin_forums_url(@group)
       end
 
       def update_successful
-        flash[:notice] = t("frm.admin.forum.updated")
+        flash[:notice] = t('frm.admin.forum.updated')
         redirect_to group_frm_admin_forums_url(@group)
       end
 
       def update_failed
-        flash.now.alert = t("frm.admin.forum.not_updated")
-        render action: "edit"
+        flash.now.alert = t('frm.admin.forum.not_updated')
+        render action: 'edit'
       end
 
     end

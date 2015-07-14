@@ -4,7 +4,7 @@ class NotificationsController < ApplicationController
 
   #cambia l'impostazione delle notifiche che si vogliono ricevere
   def change_notification_block
-    if params[:block] == "true"
+    if params[:block] == 'true'
       b = current_user.blocked_alerts.build(notification_type_id: params[:id])
       b.save!
     else
@@ -22,7 +22,7 @@ class NotificationsController < ApplicationController
 
   #cambia l'impostazione delle notifiche che si vogliono ricevere via email
   def change_email_notification_block
-    if params[:block] == "true"
+    if params[:block] == 'true'
       b = current_user.blocked_emails.build(notification_type_id: params[:id])
       b.save!
     else
@@ -40,7 +40,7 @@ class NotificationsController < ApplicationController
 
   #cambia la ricezione delle newsletter
   def change_email_block
-    if params[:block] == "true"
+    if params[:block] == 'true'
       current_user.receive_newsletter = false
       current_user.save!
     else

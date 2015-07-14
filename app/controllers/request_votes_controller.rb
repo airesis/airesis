@@ -53,7 +53,7 @@ class RequestVotesController < ApplicationController
         flash[:notice] = 'Hai creato il gruppo.'
         format.html { redirect_to(@group) }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
       end
     end
   end
@@ -67,7 +67,7 @@ class RequestVotesController < ApplicationController
           p.destroy
         end
 
-        participant_ids = params[:group][:participant_tokens].split(",")
+        participant_ids = params[:group][:participant_tokens].split(',')
         participant_ids.each do |id|
           part = GroupParticipation.new
           part.user_id = id
@@ -82,7 +82,7 @@ class RequestVotesController < ApplicationController
           flash[:notice] = 'Gruppo aggiornato correttamente.'
           format.html { redirect_to(@group) }
         else
-          format.html { render action: "edit" }
+          format.html { render action: 'edit' }
         end
       end
 

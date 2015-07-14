@@ -43,7 +43,7 @@ module Frm
       private
 
       def create_successful
-        flash[:notice] = t("frm.admin.category.created")
+        flash[:notice] = t('frm.admin.category.created')
         respond_to do |format|
           format.html {
             redirect_to group_frm_admin_categories_url(@group)
@@ -53,12 +53,12 @@ module Frm
       end
 
       def create_failed
-        flash.now.alert = t("frm.admin.category.not_created")
+        flash.now.alert = t('frm.admin.category.not_created')
         render action: :new
       end
 
       def destroy_successful
-        flash[:notice] = t("frm.admin.category.deleted")
+        flash[:notice] = t('frm.admin.category.deleted')
         respond_to do |format|
           format.html {
             redirect_to group_frm_admin_categories_url(@group)
@@ -68,7 +68,7 @@ module Frm
       end
 
       def update_successful
-        flash[:notice] = t("frm.admin.category.updated")
+        flash[:notice] = t('frm.admin.category.updated')
         respond_to do |format|
           format.html {
             redirect_to group_frm_admin_categories_url(@group)
@@ -78,7 +78,7 @@ module Frm
       end
 
       def update_failed
-        flash.now.alert = t("frm.admin.category.not_updated")
+        flash.now.alert = t('frm.admin.category.not_updated')
         respond_to do |format|
           format.html {
             render action: :edit

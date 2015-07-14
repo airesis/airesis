@@ -81,7 +81,7 @@ class EventsController < ApplicationController
     @starttime = calculate_starttime
     @endtime = @starttime + 1.days
 
-    @event = Event.new(starttime: @starttime, endtime: @endtime, period: "Non ripetere",
+    @event = Event.new(starttime: @starttime, endtime: @endtime, period: 'Non ripetere',
                        event_type_id: event_type)
     @meeting = @event.build_meeting
     @place = @meeting.build_place
@@ -195,7 +195,7 @@ class EventsController < ApplicationController
   end
 
   def choose_layout
-    @group ? "groups" : "open_space"
+    @group ? 'groups' : 'open_space'
   end
 
   private
@@ -205,7 +205,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       @title = t('error.error_404.events.title')
       @message = t('error.error_404.events.description')
-      format.html { render "errors/404", status: 404, layout: true }
+      format.html { render 'errors/404', status: 404, layout: true }
     end
     true
   end

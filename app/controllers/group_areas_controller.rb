@@ -35,7 +35,7 @@ class GroupAreasController < ApplicationController
   end
 
   def edit_permissions
-    @page_title = t("pages.groups.edit_permissions.title")
+    @page_title = t('pages.groups.edit_permissions.title')
   end
 
   def create

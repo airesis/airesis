@@ -19,6 +19,6 @@ class ProposalRevisionsController < ApplicationController
   protected
 
   def choose_layout
-    @proposal.private ? "groups" : "open_space"
+    @proposal.private ? 'groups' : 'open_space'
   end
 end

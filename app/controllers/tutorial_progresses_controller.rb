@@ -48,7 +48,7 @@ class TutorialProgressesController < ApplicationController
         format.html { redirect_to @tutorial_progress, notice: 'Tutorial progress was successfully created.' }
         format.json { render json: @tutorial_progress, status: :created, location: @tutorial_progress }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
         format.json { render json: @tutorial_progress.errors, status: :unprocessable_entity }
       end
     end
@@ -64,7 +64,7 @@ class TutorialProgressesController < ApplicationController
         format.html { redirect_to @tutorial_progress, notice: 'Tutorial progress was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
+        format.html { render action: 'edit' }
         format.json { render json: @tutorial_progress.errors, status: :unprocessable_entity }
       end
     end

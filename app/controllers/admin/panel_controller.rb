@@ -65,7 +65,7 @@ module Admin
     end
 
     def test_exceptions
-      raise Exception.new("Test this exception!")
+      raise Exception.new('Test this exception!')
     end
 
     # esegue un job di prova tramite resque_scheduler
@@ -83,7 +83,7 @@ module Admin
     end
 
     def write_sitemap
-      Rake::Task["sitemap:refresh"].invoke
+      Rake::Task['sitemap:refresh'].invoke
       flash[:notice] = 'Sitemap aggiornata.'
       redirect_to admin_panel_path
     end

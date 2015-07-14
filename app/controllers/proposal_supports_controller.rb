@@ -41,7 +41,7 @@ class ProposalSupportsController < ApplicationController
     @proposal.supporting_group_ids -= no_supp
 
     @proposal.save!
-    flash[:notice] = "Sostegno alla proposta salvato correttamente"
+    flash[:notice] = 'Sostegno alla proposta salvato correttamente'
 
     respond_to do |format|
       format.html

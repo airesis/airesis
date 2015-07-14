@@ -10,7 +10,7 @@ class SessionsController < Devise::SessionsController
   def after_sign_in_path_for(resource)
     if resource.banned?
       sign_out resource
-      flash[:error] = "Account momentaneamente sospeso"
+      flash[:error] = 'Account momentaneamente sospeso'
       root_path
     else
       super

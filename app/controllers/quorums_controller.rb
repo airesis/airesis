@@ -72,8 +72,8 @@ class QuorumsController < ApplicationController
 
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-        page.replace_html "quorum_panel_container", partial: 'groups/quorums_panel'
+        page.replace_html 'flash_messages', partial: 'layouts/flash', locals: {flash: flash}
+        page.replace_html 'quorum_panel_container', partial: 'groups/quorums_panel'
       end
       }
     end
@@ -83,7 +83,7 @@ class QuorumsController < ApplicationController
     Quorum.transaction do
       quorum = @group.quorums.find_by_id(params[:id])
       if quorum
-        if params[:active] == "true" #devo togliere i permessi
+        if params[:active] == 'true' #devo togliere i permessi
           quorum.active = true
           flash[:notice] =t('info.quorums.quorum_activated')
         else #lo disattivo

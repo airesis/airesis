@@ -7,18 +7,18 @@ module Frm
 
       def update
         if @topic.update(topic_params)
-          flash[:notice] = t("frm.topic.updated")
+          flash[:notice] = t('frm.topic.updated')
           redirect_to group_forum_topic_url(@group, @topic.forum, @topic)
         else
-          flash.alert = t("frm.topic.not_updated")
-          render action: "edit"
+          flash.alert = t('frm.topic.not_updated')
+          render action: 'edit'
         end
       end
 
       def destroy
         forum = @topic.forum
         @topic.destroy
-        flash[:notice] = t("frm.topic.deleted")
+        flash[:notice] = t('frm.topic.deleted')
         redirect_to group_forum_topics_url(@group, forum)
       end
 

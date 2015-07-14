@@ -79,7 +79,7 @@ class GroupParticipationsController < ApplicationController
     flash[:notice] = t('error.participations_destroyed')
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
+        page.replace_html 'flash_messages', partial: 'layouts/flash', locals: {flash: flash}
       end }
     end
   end
