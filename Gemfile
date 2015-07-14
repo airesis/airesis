@@ -56,15 +56,24 @@ group :development, :test do
   gem 'sunspot_test'
 end
 
-gem 'crowdin-api', group: [:development, :staging]
-gem 'rubyzip', group: [:development, :staging]
+group :test do
+  gem "codeclimate-test-reporter", require: nil
+  gem 'ruby-prof'
+  gem 'test-unit'
+end
 
-group :doc do
-  gem 'sdoc', require: false
+group :development, :staging do
+  gem 'crowdin-api'
+  gem 'rubyzip'
 end
 
 group :staging, :production do
   gem 'newrelic_rpm'
+  gem 'sentry-raven', github: 'getsentry/raven-ruby'
+end
+
+group :doc do
+  gem 'sdoc', require: false
 end
 
 gem 'omniauth-facebook'
@@ -116,8 +125,6 @@ gem 'recaptcha', require: 'recaptcha/rails'
 
 
 gem 'thin'
-gem 'ruby-prof', group: :test
-gem 'test-unit', group: :test
 
 gem 'globalize'
 
@@ -169,4 +176,3 @@ gem 'sunspot-rails-http-basic-auth', github: 'jwachira/sunspot-rails-http-basic-
 
 gem 'activerecord-session_store'
 
-gem 'sentry-raven', github: 'getsentry/raven-ruby', group: [:staging, :production]
