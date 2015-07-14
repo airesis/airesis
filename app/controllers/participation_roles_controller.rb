@@ -1,11 +1,12 @@
 class ParticipationRolesController < ApplicationController
   layout 'groups'
 
-  #l'utente deve aver fatto login
   before_filter :authenticate_user!
 
   before_filter :load_group
+
   authorize_resource :group
+  before_filter :load_participation_roles, only: [:index]
   load_and_authorize_resource through: :group
 
   def index
@@ -83,6 +84,10 @@ class ParticipationRolesController < ApplicationController
   end
 
   protected
+
+  def load_participation_roles
+    @participation_roles = @group.participation_roles
+  end
 
   def participation_role_params
     params.require(:participation_role).permit(:id, :parent_participation_role_id, :name, :description)
