@@ -419,23 +419,8 @@ class User < ActiveRecord::Base
     !topic.hidden? || forem_admin?(topic.forum.group) || (topic.user == self)
   end
 
-  def auto_subscribe?
-    true
-  end
-
-
   def can_moderate_forem_forum?(forum)
     forum.moderator?(self)
-  end
-
-  def forem_moderate_posts?
-    false #todo
-  end
-
-  alias_method :forem_needs_moderation?, :forem_moderate_posts?
-
-  def forem_approved_to_post?
-    true
   end
 
   def forem_admin?(group)

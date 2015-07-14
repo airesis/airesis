@@ -32,7 +32,7 @@ module Frm
     delegate :group, to: :forum
 
     after_create :set_topic_last_post_at
-    after_create :subscribe_replier, if: :user_auto_subscribe?
+    after_create :subscribe_replier
     after_create :skip_pending_review
 
     before_create :populate_token
@@ -91,7 +91,7 @@ module Frm
     end
 
     def user_auto_subscribe?
-      user && user.auto_subscribe?
+      user.present?
     end
 
     def owner_or_admin?(other_user)
@@ -122,7 +122,7 @@ module Frm
     end
 
     def skip_pending_review
-      approve! unless user && user.forem_moderate_posts?
+      approve!
     end
 
     def populate_token
