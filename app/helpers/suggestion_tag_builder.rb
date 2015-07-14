@@ -4,7 +4,7 @@ class SuggestionTagBuilder < ActionView::Helpers::FormBuilder
  
   # Accepts an int and displays a smiley based on >, <, or = 0
   def suggestion_tag(method, options = {})
-    ret = "hei"
+    ret = 'hei'
     ret
   end
 
