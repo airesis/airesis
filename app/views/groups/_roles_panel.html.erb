@@ -1,7 +1,7 @@
 <%group_actions = GroupAction.order(:seq) %>
 <dl id="roles_accordion" class="accordion" data-accordion>
   <% @participation_roles.includes(:group_actions).each_with_index do |role, idx| %>
-      <dd>
+      <dd class="accordion-navigation">
         <a href="#role_<%= role.id %>"><%= role.name %>
           <% if role.id == @group.participation_role_id %> (default)
           <% end %>
