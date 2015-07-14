@@ -12,7 +12,7 @@ class ProposalCommentRanking < ActiveRecord::Base
   after_destroy :update_counter_cache
 
   def update_counter_cache
-    rankings = ProposalCommentRanking.where(["proposal_comment_id = ?", self.proposal_comment.id])
+    rankings = ProposalCommentRanking.where(['proposal_comment_id = ?', self.proposal_comment.id])
     nvalutations = rankings.count
     num_pos = rankings.positives.count
     num_neg = rankings.negatives.count

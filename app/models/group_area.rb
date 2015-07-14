@@ -1,6 +1,6 @@
 class GroupArea < ActiveRecord::Base
 
-  validates :name, length: {within: 3..200}, uniqueness: {scope: :group_id, message: "Nome area già presente"}
+  validates :name, length: {within: 3..200}, uniqueness: {scope: :group_id, message: 'Nome area già presente'}
 
   validates :description, length: {within: 1..2000}, allow_nil: true
 

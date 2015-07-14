@@ -85,7 +85,7 @@ class BestQuorum < Quorum
       end
       left.upcase
     else
-      "STALLED" #todo:i18n
+      'STALLED' #todo:i18n
     end
   end
 
@@ -172,7 +172,7 @@ class BestQuorum < Quorum
     if proposal.is_schulze?
       vote_data_schulze = proposal.schulze_votes
       Proposal.transaction do
-        votesstring = ""; #this is the string to pass to schulze library to calculate the score
+        votesstring = ''; #this is the string to pass to schulze library to calculate the score
         vote_data_schulze.each do |vote|
           #each row is composed by the vote string and, if more then one, the number of votes of that kind
           vote.count > 1 ? votesstring += "#{vote.count}=#{vote.preferences}\n" : votesstring += "#{vote.preferences}\n"
@@ -255,7 +255,7 @@ class BestQuorum < Quorum
       ret = unassigned_explanation_pop #it a non assigned quorum
     end
 
-    ret += "."
+    ret += '.'
     ret.html_safe
   end
 
@@ -267,7 +267,7 @@ class BestQuorum < Quorum
     time = "<b>#{self.time}</b> "
     time +=I18n.t('models.quorum.until_date', date: I18n.l(self.ends_at))
     ret = I18n.translate('models.quorum.time_condition_1', time: time) #display the time left for discussion
-    ret += "<br/>"
+    ret += '<br/>'
     participants = I18n.t('models.quorum.participants', count: self.valutations)
     ret += I18n.translate('models.best_quorum.good_score_condition', good_score: self.good_score, participants: participants)
     ret
@@ -279,7 +279,7 @@ class BestQuorum < Quorum
     time = "<b>#{self.time(true)}</b> " #show total time if the quorum is terminated
     time +=I18n.t('models.quorum.until_date', date: I18n.l(self.ends_at))
     ret = I18n.translate('models.quorum.time_condition_1_past', time: time) #display the time left for discussion
-    ret += "<br/>"
+    ret += '<br/>'
     participants = I18n.t('models.quorum.participants_past', count: self.valutations)
     ret += I18n.translate('models.best_quorum.good_score_condition_past', good_score: self.good_score, participants: participants)
     ret
@@ -290,7 +290,7 @@ class BestQuorum < Quorum
     ret = ''
     time = "<b>#{self.time}</b> "
     ret = I18n.translate('models.quorum.time_condition_1', time: time) #display the time left for discussion
-    ret += "<br/>"
+    ret += '<br/>'
     participants = I18n.t('models.quorum.participants', count: self.min_participants)
     ret += I18n.translate('models.best_quorum.good_score_condition', good_score: self.good_score, participants: participants)
     ret

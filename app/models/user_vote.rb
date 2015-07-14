@@ -7,7 +7,7 @@ class UserVote < ActiveRecord::Base
 
   #TODO
   def desc_vote_schulze
-    desc = ""
+    desc = ''
     #ids is an array of two. each element with his previous delimiter
     solution_ids = self.proposal.solutions.pluck(:id)
     ids = self.vote_schulze.scan(/(;|,|)(\d+)/).map { |d, n| [d, n.to_i] }.each do |d, n|

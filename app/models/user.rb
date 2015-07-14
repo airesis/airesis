@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
 
   has_many :group_participations, class_name: 'GroupParticipation'
   has_many :groups, through: :group_participations, class_name: 'Group'
-  has_many :portavoce_groups, -> { joins(" INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id").where("(participation_roles.name = 'amministratore')") }, through: :group_participations, class_name: 'Group', source: 'group'
+  has_many :portavoce_groups, -> { joins(' INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id').where("(participation_roles.name = 'amministratore')") }, through: :group_participations, class_name: 'Group', source: 'group'
 
   has_many :area_participations, class_name: 'AreaParticipation'
   has_many :group_areas, through: :area_participations, class_name: 'GroupArea'
@@ -68,14 +68,14 @@ class User < ActiveRecord::Base
   has_many :group_participation_requests, class_name: 'GroupParticipationRequest'
 
   #record di tutti coloro che mi seguono
-  has_many :followers_user_follow, class_name: "UserFollow", foreign_key: :followed_id
+  has_many :followers_user_follow, class_name: 'UserFollow', foreign_key: :followed_id
   #tutti coloro che mi seguono
-  has_many :followers, through: :followers_user_follow, class_name: "User", source: :followed
+  has_many :followers, through: :followers_user_follow, class_name: 'User', source: :followed
 
   #record di tutti coloro che seguo
-  has_many :followed_user_follow, class_name: "UserFollow", foreign_key: :follower_id
+  has_many :followed_user_follow, class_name: 'UserFollow', foreign_key: :follower_id
   #tutti coloro che seguo
-  has_many :followed, through: :followed_user_follow, class_name: "User", source: :follower
+  has_many :followed, through: :followed_user_follow, class_name: 'User', source: :follower
 
   has_many :tutorial_assignees, class_name: 'TutorialAssignee'
   has_many :tutorial_progresses, class_name: 'TutorialProgress'
@@ -109,10 +109,10 @@ class User < ActiveRecord::Base
   # Check for paperclip
   has_attached_file :avatar,
                     styles: {
-                      thumb: "100x100#",
-                      small: "150x150>"
+                      thumb: '100x100#',
+                      small: '150x150>'
                     },
-                    path: "avatars/:id/:style/:basename.:extension"
+                    path: 'avatars/:id/:style/:basename.:extension'
 
   validates_attachment_size :avatar, less_than: 2.megabytes
   validates_attachment_content_type :avatar, content_type: ['image/jpeg', 'image/png', 'image/gif', 'image/jpg']
@@ -126,8 +126,8 @@ class User < ActiveRecord::Base
   scope :certified, -> { where(user_type_id: UserType::CERTIFIED) }
   scope :count_active, -> { count.to_f * (ENV['ACTIVE_USERS_PERCENTAGE'].to_f / 100.0) }
 
-  scope :autocomplete, ->(term) { where("lower(users.name) LIKE :term or lower(users.surname) LIKE :term", {term: "%#{term.downcase}%"}).order("users.surname desc, users.name desc").limit(10) }
-  scope :non_blocking_notification, ->(notification_type) { User.where.not(id: User.select("users.id").joins(:blocked_alerts).where(blocked_alerts: {notification_type_id: notification_type})) }
+  scope :autocomplete, ->(term) { where('lower(users.name) LIKE :term or lower(users.surname) LIKE :term', {term: "%#{term.downcase}%"}).order('users.surname desc, users.name desc').limit(10) }
+  scope :non_blocking_notification, ->(notification_type) { User.where.not(id: User.select('users.id').joins(:blocked_alerts).where(blocked_alerts: {notification_type_id: notification_type})) }
 
   validate :cannot_change_info_if_certified, on: :update
 
@@ -143,7 +143,7 @@ class User < ActiveRecord::Base
   def check_uncertified
     if certified?
       if self.name_changed? || self.surname_changed?
-        self.errors.add(:user_type_id, "Non puoi modificare questi dati in quanto il tuo utente è certificato")
+        self.errors.add(:user_type_id, 'Non puoi modificare questi dati in quanto il tuo utente è certificato')
       end
     end
   end
@@ -200,19 +200,19 @@ class User < ActiveRecord::Base
   #restituisce l'elenco delle partecipazioni ai gruppi dell'utente
   #all'interno dei quali possiede un determinato permesso
   def scoped_group_participations(abilitation)
-    self.group_participations.joins(" INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id"+
-                                      " LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id "+
-                                      " and action_abilitations.group_id = group_participations.group_id")
-      .where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
+    self.group_participations.joins(' INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id'+
+                                      ' LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id '+
+                                      ' and action_abilitations.group_id = group_participations.group_id')
+      .where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ')')
   end
 
   #restituisce l'elenco dei gruppi dell'utente
   #all'interno dei quali possiede un determinato permesso
   def scoped_groups(abilitation, excluded_groups=nil)
-    ret = self.groups.joins(" INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id"+
-                              " LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id "+
-                              " and action_abilitations.group_id = group_participations.group_id")
-            .where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
+    ret = self.groups.joins(' INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id'+
+                              ' LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id '+
+                              ' and action_abilitations.group_id = group_participations.group_id')
+            .where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ')')
     excluded_groups ? ret - excluded_groups : ret
   end
 
@@ -377,7 +377,7 @@ class User < ActiveRecord::Base
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
-      where(conditions).where(["lower(login) = :value OR lower(email) = :value", {value: login.downcase}]).first
+      where(conditions).where(['lower(login) = :value OR lower(email) = :value', {value: login.downcase}]).first
     else
       where(conditions).first
     end
@@ -539,7 +539,7 @@ class User < ActiveRecord::Base
   end
 
   def certify_with_info(user_info)
-    raise "Not enough info for certification" if [user_info[:name], user_info[:surname], user_info[:email]].any? &:blank?
+    raise 'Not enough info for certification' if [user_info[:name], user_info[:surname], user_info[:email]].any? &:blank?
     User.transaction do
       skip_reconfirmation!
       update!(email: user_info[:email], name: user_info[:name], surname: user_info[:surname])

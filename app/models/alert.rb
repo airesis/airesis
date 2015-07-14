@@ -133,7 +133,7 @@ class Alert < ActiveRecord::Base
   def private_pub
     PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello')
   rescue
-    Rails.logger.error "Error while pushing to PrivatePub"
+    Rails.logger.error 'Error while pushing to PrivatePub'
   end
 
   def complete_alert_job

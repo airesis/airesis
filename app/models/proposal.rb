@@ -72,9 +72,9 @@ class Proposal < ActiveRecord::Base
   has_many :alerts, as: :trackable
 
   #validation
-  validates_presence_of :title, message: "obbligatorio" #TODO:I18n
+  validates_presence_of :title, message: 'obbligatorio' #TODO:I18n
   validates_uniqueness_of :title
-  validates_presence_of :proposal_category_id, message: "obbligatorio"
+  validates_presence_of :proposal_category_id, message: 'obbligatorio'
 
   validates_presence_of :quorum, unless: :is_petition? #todo bug in client_side_validation
 
@@ -468,13 +468,13 @@ class Proposal < ActiveRecord::Base
               p.rank, p.show_comment_authors, COUNT(*) AS closeness
               FROM proposal_tags pt join proposals p on pt.proposal_id = p.id "
 
-    sql_q += " left join group_proposals gp on gp.proposal_id = p.id " if group_id
+    sql_q += ' left join group_proposals gp on gp.proposal_id = p.id ' if group_id
     sql_q += " WHERE pt.tag_id IN (SELECT pti.tag_id
                                   FROM proposal_tags pti
                                   WHERE pti.proposal_id = #{self.id})
               AND pt.proposal_id != #{self.id} "
-    sql_q += " AND (p.private = false OR p.visible_outside = true "
-    sql_q += group_id ? " OR (p.private = true AND gp.group_id = #{group_id}))" : ")"
+    sql_q += ' AND (p.private = false OR p.visible_outside = true '
+    sql_q += group_id ? " OR (p.private = true AND gp.group_id = #{group_id}))" : ')'
     sql_q += " GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.quorum_id, p.anonima, p.visible_outside, p.secret_vote, p.proposal_votation_type_id, p.content,
                p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
                p.rank, p.show_comment_authors

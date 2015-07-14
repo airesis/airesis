@@ -79,8 +79,8 @@ module Frm
 
       def approved_or_pending_review_for(user)
         if user
-          where("frm_topics.state = ? OR " +
-                  "(frm_topics.state = ? AND frm_topics.user_id = ?)",
+          where('frm_topics.state = ? OR ' +
+                  '(frm_topics.state = ? AND frm_topics.user_id = ?)',
                 'approved', 'pending_review', user.id)
         else
           approved

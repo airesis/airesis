@@ -8,8 +8,8 @@ class UserSensitive < ActiveRecord::Base
   # Check for paperclip
   has_attached_file :document,
                     s3_permissions: :private,
-                    url: ":user_sensitives/:id/documents/:basename.:extension",
-                    path: ":user_sensitives/:id/documents/:basename.:extension"
+                    url: ':user_sensitives/:id/documents/:basename.:extension',
+                    path: ':user_sensitives/:id/documents/:basename.:extension'
 
 
   validates_presence_of :name, :surname, :user_id, :tax_code

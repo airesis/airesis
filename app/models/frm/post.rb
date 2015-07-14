@@ -19,10 +19,10 @@ module Frm
 
     belongs_to :topic
     belongs_to :user, class_name: 'User'
-    belongs_to :reply_to, class_name: "Post"
+    belongs_to :reply_to, class_name: 'Post'
 
-    has_many :replies, class_name: "Post",
-             foreign_key: "reply_to_id",
+    has_many :replies, class_name: 'Post',
+             foreign_key: 'reply_to_id',
              dependent: :nullify
 
     validates :text, presence: true
@@ -44,7 +44,7 @@ module Frm
     class << self
 
       def approved
-        where(state: "approved")
+        where(state: 'approved')
       end
 
       def approved_or_pending_review_for(user)
@@ -137,7 +137,7 @@ module Frm
     end
 
     def blacklist_user
-      user.update_attribute(:forem_state, "spam") if user
+      user.update_attribute(:forem_state, 'spam') if user
     end
 
   end

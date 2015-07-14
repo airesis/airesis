@@ -68,7 +68,7 @@ class Event < ActiveRecord::Base
 
   def validate_start_time_end_time
     if starttime && endtime
-      errors.add(:starttime, "La data di inizio deve essere antecedente la data di fine") if endtime <= starttime
+      errors.add(:starttime, 'La data di inizio deve essere antecedente la data di fine') if endtime <= starttime
     end
   end
 
@@ -132,16 +132,16 @@ class Event < ActiveRecord::Base
   end
 
   def backgroundColor
-    event_type.color || "#DFEFFC"
+    event_type.color || '#DFEFFC'
   end
 
   def textColor
-    "#333333"
+    '#333333'
   end
 
   def validate
     if (starttime >= endtime) and !all_day
-      errors.add_to_base("Start Time must be less than End Time")
+      errors.add_to_base('Start Time must be less than End Time')
     end
   end
 
@@ -175,12 +175,12 @@ class Event < ActiveRecord::Base
 
   def to_ics
     event = Icalendar::Event.new
-    event.dtstart = starttime.strftime("%Y%m%dT%H%M%S")
-    event.dtend = endtime.strftime("%Y%m%dT%H%M%S")
+    event.dtstart = starttime.strftime('%Y%m%dT%H%M%S')
+    event.dtend = endtime.strftime('%Y%m%dT%H%M%S')
     event.summary = title
     event.description = description
-    event.created = created_at.strftime("%Y%m%dT%H%M%S")
-    event.last_modified = updated_at.strftime("%Y%m%dT%H%M%S")
+    event.created = created_at.strftime('%Y%m%dT%H%M%S')
+    event.last_modified = updated_at.strftime('%Y%m%dT%H%M%S')
     event.uid = "#{id}"
     event.url = "#{Maktoub.home_domain}/events/#{id}"
     event

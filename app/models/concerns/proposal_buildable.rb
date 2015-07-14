@@ -291,7 +291,7 @@ module Concerns
         seq+=1
         build_solution_section(solution,
                                I18n.t('pages.proposals.new.rule_book.solution.article', num: seq),
-                               I18n.t("pages.proposals.new.rule_book.question.solution.article", num: seq),
+                               I18n.t('pages.proposals.new.rule_book.question.solution.article', num: seq),
                                seq)
       end
 
