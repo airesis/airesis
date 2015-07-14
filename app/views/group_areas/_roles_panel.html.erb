@@ -1,6 +1,6 @@
 <dl id="roles_accordion" class="accordion" data-accordion>
   <% @group_area.area_roles.each_with_index do |role, idx| %>
-      <dd>
+      <dd class="accordion-navigation">
         <a href="#role_<%= role.id %>"><%= role.name %>
           <% if role.id == @group_area.area_role_id %> (default)
           <% end %>
