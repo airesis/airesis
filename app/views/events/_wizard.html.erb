@@ -1,6 +1,6 @@
 <h2><%= @title %></h2>
 <div id="create_event">
-  <%= simple_form_for (@group && !in_subdomain?) ? [@group, @event] : @event, remote: true, validate: true do |f| %>
+  <%= simple_form_for (@group && !in_subdomain?) ? [@group, @event] : @event, remote: request.xhr?, validate: true do |f| %>
       <div class="legend">
         <div class="number">1</div>
         <div class="title">

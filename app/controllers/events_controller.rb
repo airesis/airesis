@@ -118,6 +118,11 @@ class EventsController < ApplicationController
       end
     end
 
+    respond_to do |format|
+      format.html { redirect_to @group ? group_events_url(@group) : events_url}
+      format.js
+    end
+
   rescue ActiveRecord::ActiveRecordError => e
     respond_to do |format|
       format.js { render 'layouts/active_record_error', locals: {object: (@event || @event_series)} }
