@@ -52,7 +52,7 @@ class GroupParticipationsController < ApplicationController
     ids = params[:message][:receiver_ids]
     subject = params[:message][:subject]
     body = params[:message][:body]
-    ResqueMailer.delay.massive_email(current_user.id, ids, @group.id, subject, body)
+    ResqueMailer.massive_email(current_user.id, ids, @group.id, subject, body).deliver_later
     flash[:notice] = t('info.message_sent')
   end
 
@@ -79,7 +79,7 @@ class GroupParticipationsController < ApplicationController
     flash[:notice] = t('error.participations_destroyed')
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
+        page.replace_html 'flash_messages', partial: 'layouts/flash', locals: {flash: flash}
       end }
     end
   end
@@ -88,9 +88,9 @@ class GroupParticipationsController < ApplicationController
   def destroy
     @group_participation.destroy
     flash[:notice] =
-        (current_user == @group_participation.user) ?
-            t('info.group_participations.destroy_ok_1') :
-            t('info.participation_roles.user_removed_from_group', name: @group_participation.user.fullname)
+      (current_user == @group_participation.user) ?
+        t('info.group_participations.destroy_ok_1') :
+        t('info.participation_roles.user_removed_from_group', name: @group_participation.user.fullname)
 
     redirect_to :back
   end

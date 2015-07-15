@@ -29,10 +29,12 @@ describe NotificationProposalCommentUpdate, type: :model, emails: true, notifica
 
     contribute.update!(content: Faker::Lorem.paragraph)
 
+
     expect(described_class.jobs.size).to eq 1
     described_class.drain
     AlertsWorker.drain
     EmailsWorker.drain
+
     deliveries = ActionMailer::Base.deliveries.last(3)
 
     emails = deliveries.map { |m| m.to[0] }
@@ -40,7 +42,7 @@ describe NotificationProposalCommentUpdate, type: :model, emails: true, notifica
     expect(emails).to match_array(Array.new(3,"discussion+proposal_c_#{proposal.id}@airesis.it"))
     expect(deliveries.map { |m| m.bcc[0] }).to match_array receiver_emails
 
-    expect(Alert.count).to eq 3
+    expect(Alert.unscoped.count).to eq 3
     expect(Alert.last(3).map { |a| a.user }).to match_array [participants[1],participants[2],participants[3]]
   end
 end

@@ -19,9 +19,9 @@ module Frm
       if params[:topic]
         topic = forum.topics.friendly.find(params[:topic_id])
         topic.moderate!(params[:topic][:moderation_option])
-        flash[:notice] = t("frm.topic.moderation.success")
+        flash[:notice] = t('frm.topic.moderation.success')
       else
-        flash[:error] = t("frm.topic.moderation.no_option_selected")
+        flash[:error] = t('frm.topic.moderation.no_option_selected')
       end
       redirect_to :back
     end

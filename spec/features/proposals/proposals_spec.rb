@@ -56,7 +56,6 @@ describe "create a proposal in his group", type: :feature, js: true, ci_ignore: 
     visit edit_group_proposal_path(group, proposal)
     sleep 5
     new_content = Faker::Lorem.paragraph
-
     fill_in_ckeditor 'proposal_sections_attributes_0_paragraphs_attributes_0_content_dirty', with: new_content
 
     within_left_menu do
@@ -66,7 +65,7 @@ describe "create a proposal in his group", type: :feature, js: true, ci_ignore: 
     expect(page).to have_content(new_content)
   end
 
-  it "can edit a proposal", ci_ignore: true do
+  it "can edit a proposal" do
     simple_editing
   end
 

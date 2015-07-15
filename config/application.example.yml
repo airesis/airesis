@@ -1,9 +1,9 @@
 #####################
 #social networks and services keys
 #####################
-development:
-  a: ''
-  b: ''
+
+SECRET_KEY_BASE: "08b7a7ae2d0446f1c434af0a57585d67c015a75ebff30118c720f1d59f04bfcf273a53a86dd44045e629fec9b2f556019c10485caa4e660d68b796b715de4a12"
+
 FACEBOOK_APP_ID: ""
 GOOGLE_APP_ID: ""
 TWITTER_APP_ID: ""
@@ -210,3 +210,4 @@ DEFAULT_AREA_ACTIONS: "6, 7, 8, 11, 12"
 
 #after this number of days, if the author has not chose a voting date, the users which have the right to choose a vote day, can do it
 OTHERS_CHOOSE_VOTE_DATE_DAYS: "5"
+

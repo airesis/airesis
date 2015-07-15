@@ -72,9 +72,9 @@ class Proposal < ActiveRecord::Base
   has_many :alerts, as: :trackable
 
   #validation
-  validates_presence_of :title, message: "obbligatorio" #TODO:I18n
+  validates_presence_of :title, message: 'obbligatorio' #TODO:I18n
   validates_uniqueness_of :title
-  validates_presence_of :proposal_category_id, message: "obbligatorio"
+  validates_presence_of :proposal_category_id, message: 'obbligatorio'
 
   validates_presence_of :quorum, unless: :is_petition? #todo bug in client_side_validation
 
@@ -99,7 +99,7 @@ class Proposal < ActiveRecord::Base
 
   #waiting for the votation to start (already choosen)
   scope :waiting, -> { where(proposal_state_id: ProposalState::WAIT) }
-  scope :voting, -> { where(proposal_state_id: ProposalState::VOTING) }
+  scope :voting, -> { where(arel_table[:proposal_state_id].eq(ProposalState::VOTING)) }
 
   scope :not_voted_by, ->(user_id) { where('proposal_state_id = ? and proposals.id not in (select proposal_id from user_votes where user_id = ?)', ProposalState::VOTING, user_id) }
 
@@ -116,9 +116,9 @@ class Proposal < ActiveRecord::Base
   scope :revision, -> { where(proposal_state_id: ProposalState::ABANDONED) }
 
   #all proposals visible to not logged users
-  scope :public, -> { where(['private = ? or visible_outside = ?', false, true]) }
+  scope :visible, -> { where(['private = ? or visible_outside = ?', false, true]) }
 
-  scope :private, -> { where(private: true) } #proposte interne ai gruppi
+  scope :internal, -> { where(private: true) } #proposte interne ai gruppi
 
   #inconsistent proposals
   scope :invalid_debate_phase, -> { in_valutation.joins(:quorum).where('current_timestamp > quorums.ends_at') }
@@ -191,7 +191,7 @@ class Proposal < ActiveRecord::Base
     proposals = Proposal.
       select('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
       where(proposals[:id].in(ids)).order(updated_at: :desc)
-    ActiveRecord::Associations::Preloader.new(proposals, [:quorum, :groups, :supporting_groups]).run
+    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, :groups, :supporting_groups, :category])
     proposals
   end
 
@@ -212,7 +212,7 @@ class Proposal < ActiveRecord::Base
       where(proposals[:proposal_type_id].not_eq(petition_id)).
       where(proposals[:id].in(list_c)).
       order(updated_at: :desc).to_a
-    ActiveRecord::Associations::Preloader.new(proposals, [:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category]).run
+    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, :category, {users: :image}, :proposal_type, :groups, :supporting_groups])
     proposals
   end
 
@@ -222,7 +222,7 @@ class Proposal < ActiveRecord::Base
     petition_id = ProposalType.find_by(name: ProposalType::PETITION).id
     alerts_count = alerts_count_subquery(user.id)
 
-    Proposal.public.
+    Proposal.visible.
       select('distinct proposals.*', alerts_count.as('alerts_count')).
       where(proposals[:proposal_type_id].eq(petition_id)).
       order(updated_at: :desc).limit(10)
@@ -250,15 +250,15 @@ class Proposal < ActiveRecord::Base
                                       and(group_participations[:user_id].eq(user.id))).
       join(participation_roles).on(group_participations[:participation_role_id].eq(participation_roles[:id])).
       join(events).on(events[:id].eq(proposals[:vote_period_id])).
-      join(action_abilitations, Arel::OuterJoin).on(action_abilitations[:participation_role_id].eq(participation_roles[:id])).
-      join(user_votes, Arel::OuterJoin).on(user_votes[:proposal_id].eq(proposals[:id]).and(user_votes[:user_id].eq(user.id))).
+      join(action_abilitations, Arel::Nodes::OuterJoin).on(action_abilitations[:participation_role_id].eq(participation_roles[:id])).
+      join(user_votes, Arel::Nodes::OuterJoin).on(user_votes[:proposal_id].eq(proposals[:id]).and(user_votes[:user_id].eq(user.id))).
       where(proposals[:proposal_type_id].not_eq(petition_id)).
       where(user_votes[:id].eq(nil)).
       where(action_abilitations[:group_action_id].eq(GroupAction::PROPOSAL_VOTE).
               or(participation_roles[:id].eq(ParticipationRole.admin.id))).
       order('end_time asc').to_sql
     proposals = Proposal.find_by_sql(proposals_sql)
-    ActiveRecord::Associations::Preloader.new(proposals, [:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category]).run
+    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category])
     proposals
   end
 
@@ -276,12 +276,11 @@ class Proposal < ActiveRecord::Base
                            order(proposals[:created_at].desc).take(10).to_sql)
   end
 
-
   def count_notifications(user_id)
-    alerts = Alert.where(trackable: self, checked: false, user_id: user_id).count
+    Alert.unscoped.where(trackable: self, checked: false, user_id: user_id).count
   end
 
-  #after_find :calculate_percentage
+  # after_find :calculate_percentage
 
   def integrated_contributes_ids_list=(value)
     self.integrated_contributes_ids = value.split(/,\s*/)
@@ -469,13 +468,13 @@ class Proposal < ActiveRecord::Base
               p.rank, p.show_comment_authors, COUNT(*) AS closeness
               FROM proposal_tags pt join proposals p on pt.proposal_id = p.id "
 
-    sql_q += " left join group_proposals gp on gp.proposal_id = p.id " if group_id
+    sql_q += ' left join group_proposals gp on gp.proposal_id = p.id ' if group_id
     sql_q += " WHERE pt.tag_id IN (SELECT pti.tag_id
                                   FROM proposal_tags pti
                                   WHERE pti.proposal_id = #{self.id})
               AND pt.proposal_id != #{self.id} "
-    sql_q += " AND (p.private = false OR p.visible_outside = true "
-    sql_q += group_id ? " OR (p.private = true AND gp.group_id = #{group_id}))" : ")"
+    sql_q += ' AND (p.private = false OR p.visible_outside = true '
+    sql_q += group_id ? " OR (p.private = true AND gp.group_id = #{group_id}))" : ')'
     sql_q += " GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.quorum_id, p.anonima, p.visible_outside, p.secret_vote, p.proposal_votation_type_id, p.content,
                p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
                p.rank, p.show_comment_authors
@@ -772,7 +771,7 @@ class Proposal < ActiveRecord::Base
       ProposalsWorker.perform_at(quorum.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: id})
     elsif current_user_id # updated or set votation date
       if waiting? # someone chose votation date
-        NotificationProposalWaitingForDate.perform_async(id, current_user.id)
+        NotificationProposalWaitingForDate.perform_async(id, current_user_id)
       else # standard update
         NotificationProposalUpdate.perform_async(current_user_id, id, groups.first.try(:id))
       end

@@ -1,14 +1,14 @@
-ENV['RAILS_ENV'] ||= 'test'
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
+
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'database_cleaner'
 require 'sidekiq/testing'
 require 'sunspot_test/rspec'
 
-DEBUG=false
-unless DEBUG
-  require 'capybara-screenshot/rspec'
-end
+
+require 'capybara-screenshot/rspec' unless ENV['DISABLE_SCREENSHOTS']
 
 #Sidekiq::Testing.inline!
 
@@ -27,26 +27,17 @@ RSpec.configure do |config|
     Proposal.remove_all_from_index!
   end
 
-  config.before(:each, type: :feature, js: true) do
-    page.driver.allow_url("pbs.twimg.com")
-    page.driver.allow_url("syndication.twitter.com")
-    page.driver.allow_url("platform.twitter.com")
-    page.driver.allow_url("platform.twitter.com")
+  allowed_urls = %w(pbs.twimg.com syndication.twitter.com platform.twitter.com platform.twitter.com www.gravatar.com
+                    maps.googleapis.com apis.google.com oauth.googleusercontent.com ssl.gstatic.com maps.gstatic.com
+                    www.google.com csi.gstatic.com mt0.googleapis.com mt1.googleapis.com mts0.googleapis.com
+                    mts1.googleapis.com fonts.googleapis.com connect.facebook.net/en/sdk.js fbstatic-a.akamaihd.net
+                    graph.facebook.com connect.facebook.net scontent.xx.fbcdn.net fbexternal-a.akamaihd.net
+                    fbcdn-profile-a.akamaihd.net)
 
-    page.driver.allow_url("www.gravatar.com")
-
-    page.driver.allow_url("maps.googleapis.com")
-    page.driver.allow_url("apis.google.com")
-    page.driver.allow_url("oauth.googleusercontent.com")
-    page.driver.allow_url("ssl.gstatic.com")
-    page.driver.allow_url("maps.gstatic.com")
-    page.driver.allow_url("www.google.com")
-    page.driver.allow_url("fonts.googleapis.com")
-
-    page.driver.allow_url("connect.facebook.net/en/sdk.js")
-    page.driver.allow_url("fbstatic-a.akamaihd.net")
-    page.driver.allow_url("graph.facebook.com")
-    page.driver.allow_url("connect.facebook.net")
+  Capybara::Webkit.configure do |config|
+    allowed_urls.each do |allowed_url|
+      config.allow_url(allowed_url)
+    end
   end
 
   config.order = 'random'
@@ -70,14 +61,10 @@ RSpec.configure do |config|
   #  Capybara::Selenium::Driver.new(app, :browser => :firefox)
   #end
 
-  unless DEBUG
-    Capybara.javascript_driver = :webkit
-    Capybara::Screenshot.autosave_on_failure = true
-    Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
-      "screenshot_#{example.description.gsub(' ', '-').gsub(/^.*\/spec\//, '')}"
-    end
-    Capybara::Screenshot.append_timestamp = false
-  end
+
+  Capybara.javascript_driver = :webkit
+
+  Capybara::Screenshot.autosave_on_failure = true unless ENV['DISABLE_SCREENSHOTS']
 end
 
 OmniAuth.config.test_mode = true

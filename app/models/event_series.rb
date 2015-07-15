@@ -12,13 +12,13 @@ class EventSeries < ActiveRecord::Base
   after_initialize :initilize_me
 
   def initilize_me
-    puts "Hi man"
+    puts 'Hi man'
   end
 
 
   def validate_start_time_before_end_time
     if starttime && endtime
-      errors.add(:starttime, "La data di inizio deve essere antecedente la data di fine") if endtime < starttime
+      errors.add(:starttime, 'La data di inizio deve essere antecedente la data di fine') if endtime < starttime
     end
   end
 
@@ -54,11 +54,11 @@ class EventSeries < ActiveRecord::Base
     case period
       when 'Ogni giorno'
         p = 'days'
-      when "Ogni settimana"
+      when 'Ogni settimana'
         p = 'weeks'
-      when "Ogni mese"
+      when 'Ogni mese'
         p = 'months'
-      when "Ogni anno"
+      when 'Ogni anno'
         p = 'years'
     end
     return p

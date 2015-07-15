@@ -11,6 +11,7 @@
  * @author Dmitry (dio) Levashov
  **/
 window.elFinderSupportVer1 = function(upload) {
+    console.log('defining support v1');
 	var self = this;
 	
 	this.upload = upload || 'auto';

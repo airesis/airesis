@@ -1,0 +1,32 @@
+.card
+  h1 = t('pages.alerts.index.new_not_read')
+  ul
+    - if @new_alerts.any?
+      - @new_alerts.each do |alert|
+        li
+          = link_to alert.notification.url do
+            = alert.created_at.strftime("%d/%m/%Y %H:%M")
+            | - #{raw alert.message}
+    - else
+      b = t('pages.alerts.index.no_new')
+  h1 = t('pages.alerts.index.old_not_read')
+  ul
+    - @old_alerts.any?
+      - @old_alerts.each do |alert|
+        li
+          = link_to alert.notification.url do
+            = alert.created_at.strftime("%d/%m/%Y %H:%M")
+            | - #{raw alert.message}
+    else
+      b = t('pages.alerts.index.no_old')
+
+- content_for :left_panel do
+  - if current_user
+    = render partial: 'users/preferences_panel'
+
+coffee:
+  $.ajax
+    data: ''
+    dataType: 'script'
+    type: 'POST'
+    url: "/alerts/check_all"

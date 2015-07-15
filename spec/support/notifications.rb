@@ -1,14 +1,14 @@
 RSpec.configure do |config|
   config.before(:each, notifications: true) do
-    AlertJob.any_instance.stub(:sidekiq_job) do |alert_job|
+    allow_any_instance_of(AlertJob).to receive(:sidekiq_job) do |alert_job|
       AlertsWorker.jobs.select { |job| job['jid'] == alert_job.jid }[0]
     end
-    AlertJob.any_instance.stub(:reschedule)
+    allow_any_instance_of(AlertJob).to receive(:reschedule)
 
-    EmailJob.any_instance.stub(:sidekiq_job) do |email_job|
+    allow_any_instance_of(EmailJob).to receive(:sidekiq_job) do |email_job|
       EmailsWorker.jobs.select { |job| job['jid'] == email_job.jid }[0]
     end
-    EmailJob.any_instance.stub(:reschedule)
+    allow_any_instance_of(EmailJob).to receive(:reschedule)
   end
 end
 
@@ -112,7 +112,7 @@ def cumulable_event_process_spec
       end
 
       it 'are sent to users' do
-        expect(Alert.count).to eq expected_alerts
+        expect(Alert.unscoped.count).to eq expected_alerts
         Alert.all.each do |alert|
           expect(alert.notification_type).to eq notification_type
           expect(alert.properties['count'].to_i).to eq 1
@@ -198,7 +198,7 @@ def event_process_spec
       end
 
       it 'sent alerts correctly' do
-        expect(Alert.count).to eq expected_alerts
+        expect(Alert.unscoped.count).to eq expected_alerts
         expect(Alert.last(3).map { |a| a.user }).to match_array receivers
         expect(Alert.last.notification_type.id).to eq notification_type
       end

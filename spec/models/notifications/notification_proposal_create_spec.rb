@@ -27,7 +27,7 @@ describe NotificationProposalCreate, type: :model, emails: true, notifications: 
     receiver_emails = receivers.map(&:email)
     expect(emails).to match_array receiver_emails
 
-    expect(Alert.count).to eq 5
+    expect(Alert.unscoped.count).to eq 5
     expect(Alert.last(5).map { |a| a.user }).to match_array receivers
     expect(Alert.last(5).map{|a| a.notification_type.id}).to match_array Array.new(5,NotificationType::NEW_PROPOSALS)
   end
@@ -45,7 +45,7 @@ describe NotificationProposalCreate, type: :model, emails: true, notifications: 
     AlertsWorker.drain
     EmailsWorker.drain
 
-    expect(Alert.count).to eq 0
+    expect(Alert.unscoped.count).to eq 0
   end
 
   it " when a new proposal is created users can receive notifications for public proposals" do
@@ -62,6 +62,6 @@ describe NotificationProposalCreate, type: :model, emails: true, notifications: 
     AlertsWorker.drain
     EmailsWorker.drain
 
-    expect(Alert.count).to eq 2
+    expect(Alert.unscoped.count).to eq 2
   end
 end

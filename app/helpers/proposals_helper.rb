@@ -13,10 +13,10 @@ module ProposalsHelper
   end
 
   def reload_message
-    ret = "toastr.options = {tapToDismiss: false, extendedTimeOut: 0, timeOut: 0};"
+    ret = 'toastr.options = {tapToDismiss: false, extendedTimeOut: 0, timeOut: 0};'
     ret += "toastr.info('<div id=\"reload_proposal\">"
     ret += 'This page is outdate.<br/>Please reload the page.'
-    ret += "<br/>"
+    ret += '<br/>'
     ret += '<a href="" class="btn" style="color: #444">Reload</a>'
     ret += "</div>');"
     ret.html_safe
@@ -126,7 +126,7 @@ module ProposalsHelper
   def proposal_tag(proposal, options={})
     ret = "<div class='proposal_tag'>"
     ret += link_to_proposal(proposal)
-    ret += "</div>"
+    ret += '</div>'
     ret.html_safe
   end
 

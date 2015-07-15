@@ -1,6 +1,4 @@
 <style type="text/css">
-    /* Character Count styles */
-
     .mybox label {
         display: block;
         font-size: 14px;
@@ -17,16 +15,18 @@
         position: relative;
         margin: 1em 0;
     }
-
-
 </style>
 <% if user_signed_in? %>
     <% participation = @event.meeting.meeting_participations.find_by(user_id: current_user.id) %>
     <% if participation %>
         <% if @event.is_past? %>
-            <h5><%= participation.will_come? ? t('pages.events.show.yes_partecipated') : t('pages.events.show.no_partecipated') %></h5>
+            <h5><%= participation.will_come? ?
+                            t('pages.events.show.yes_partecipated') :
+                            t('pages.events.show.no_partecipated') %></h5>
         <% else %>
-            <h5><%= participation.will_come? ? t('pages.events.show.yes_partecipate') : t('pages.events.show.no_partecipate') %></h5>
+            <h5><%= participation.will_come? ?
+                            t('pages.events.show.yes_partecipate') :
+                            t('pages.events.show.no_partecipate') %></h5>
         <% end %>
     <% else %>    <!--you didn't answer -->
         <% if @event.is_past? %>
@@ -36,17 +36,27 @@
             <%= form_for [@event, MeetingParticipation.new], remote: true do |f| %>
                 <div>
                   <div style="height:14px; position: relative;">
-                    <input type="radio" name="meeting_participation[response]" value="Y" checked="checked" id="yes_response"/><label for="yes_response" style="display:inline"><%= t('buttons.yes_word') %></label>
-                    <span id="guests_number"><%= raw t('pages.events.show.with_guests', field: (f.text_field :guests, style: "width: 35px;display:inline;height:21px;padding: 0 8px;", maxlength: 2)) %></span>
+                    <input type="radio"
+                           name="meeting_participation[response]"
+                           value="Y" checked="checked" id="yes_response"/>
+                    <label for="yes_response" style="display:inline"><%= t('buttons.yes_word') %></label>
+                    <span id="guests_number">
+                      <%= raw t('pages.events.show.with_guests',
+                                field: (f.text_field :guests,
+                                                     style: "width: 35px;display:inline;height:21px;padding: 0 8px;",
+                                                     maxlength: 2)) %>
+                    </span>
                     <br/>
                   </div>
                   <div style="height:14px;">
-                    <input type="radio" name="meeting_participation[response]" value="N" id="no_response"/><label for="no_response" style="display:inline"><%= t('buttons.no_word') %></label>
+                    <input type="radio" name="meeting_participation[response]" value="N" id="no_response"/>
+                    <label for="no_response" style="display:inline"><%= t('buttons.no_word') %></label>
                   </div>
                   <br/>
                 </div>
                 <%= f.text_area :comment, rows: 4, cols: 10 %>
-                <%= f.submit t('pages.events.show.reply'), style: "margin-bottom: 15px;margin-top: 10px;", class: 'btn blue', data: {disable_with: t('sending')} %>
+                <%= f.submit t('pages.events.show.reply'), style: "margin-bottom: 15px;margin-top: 10px;",
+                             class: 'btn blue', data: {disable_with: t('sending')} %>
             <% end %>
             <script type="text/javascript">
                 $(function () {
@@ -65,7 +75,6 @@
                         }
                     });
                 });
-
             </script>
         <% end %>
     <% end %>

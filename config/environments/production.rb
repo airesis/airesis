@@ -9,7 +9,7 @@ Airesis::Application.configure do
   config.i18n.fallbacks = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false
+  config.serve_static_files = false
 
   # Compress JavaScripts and CSS
   config.assets.js_compressor = :uglifier
@@ -30,6 +30,8 @@ Airesis::Application.configure do
   config.force_ssl = true
 
   config.logger = Logger.new(Rails.root.join("log", Rails.env + ".log"), 50, 100.megabytes)
+
+  config.active_record.raise_in_transactional_callbacks = true
 end
 
 Airesis::Application.default_url_options = Airesis::Application.config.action_mailer.default_url_options

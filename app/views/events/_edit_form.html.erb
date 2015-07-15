@@ -6,7 +6,6 @@
 <%= simple_form_for (@group && !in_subdomain?) ? [@group, @event] : @event, validate: true do |f| %>
     <%= f.hidden_field :organizer_id %>
     <div class="row">
-
       <div class="columns medium-6">
         <%= f.input :title %>
         <%= f.input :description, rows: 4, cols: 30 %>
@@ -20,7 +19,7 @@
             <% end %>
         <% end %>
         <div class="row collapse">
-            <%=f.label :starttime %>
+          <%= f.label :starttime %>
           <div class="small-9 columns">
             <%= f.text_field :starttime, as: :string, value: (l @event.starttime, format: :datetimepicker) %>
           </div>
@@ -30,9 +29,8 @@
             </span>
           </div>
         </div>
-
         <div class="row collapse">
-          <%=f.label :endtime %>
+          <%= f.label :endtime %>
           <div class="small-9 columns">
             <%= f.text_field :endtime, as: :string, value: (l @event.endtime, format: :datetimepicker) %>
           </div>
@@ -42,91 +40,57 @@
             </span>
           </div>
         </div>
-
         <%= f.label :all_day do %>
             <%= f.check_box :all_day %>
             <%= t('activerecord.attributes.event.all_day') %>
         <% end %>
-
         <%= f.hidden_field :commit_button, value: "" %>
       </div>
 
       <div class="columns medium-6">
         <% if @event.is_incontro? %>
-        <%= f.simple_fields_for :meeting, @meeting do |m| %>
-            <%= m.simple_fields_for :place, @place do |p| %>
-                <div id="edit_luogo">
-                  <%= p.input :municipality_id, input_html: {style: 'width:100%', "data-pre" => [{id: @event.place.municipality.id, name: @event.place.municipality.description}].to_json} %>
-                  <%= p.input :address %>
-                  <%= p.hidden_field :latitude_original %>
-                  <%= p.hidden_field :longitude_original %>
-                  <%= p.hidden_field :latitude_center %>
-                  <%= p.hidden_field :longitude_center %>
-                  <%= p.hidden_field :zoom %>
+            <%= f.simple_fields_for :meeting, @meeting do |m| %>
+                <%= m.simple_fields_for :place, @place do |p| %>
+                    <div id="edit_luogo">
+                      <%= p.input :municipality_id,
+                                  input_html: {style: 'width:100%',
+                                               'data-pre': {id: @event.place.municipality.id,
+                                                            text: @event.place.municipality.description}.to_json} %>
+                      <%= p.input :address %>
+                      <%= p.hidden_field :latitude_original %>
+                      <%= p.hidden_field :longitude_original %>
+                      <%= p.hidden_field :latitude_center %>
+                      <%= p.hidden_field :longitude_center %>
+                      <%= p.hidden_field :zoom %>
 
-                  <div id="edit_map_canvas" style="width: 320px; height: 320px;"></div>
-                  <!--<div id="panorama_canvas" style="width: 320px; height: 120px;"></div>-->
-                </div>
+                      <div id="edit_map_canvas" style="width: 320px; height: 320px;"></div>
+                    </div>
+                <% end %>
             <% end %>
         <% end %>
-        <% end %>
-
       </div>
     </div>
-
     <div class="row">
       <div class="columns large-12 small-12">
-        <a href="#" class="btn" onclick="$('#event_edit').foundation('reveal','close');$('#event_edit').remove();"><%= t('buttons.cancel') %></a>
-        <% if @event.event_series -%>
-            <%= f.submit 'Aggiorna solo questa occorrenza', onclick: "document.getElementById('event_commit_button').value = this.value" %>
-            <%= f.submit 'Aggiorna tutte le occorrenze', onclick: "document.getElementById('event_commit_button').value = this.value" %>
-            <%= f.submit 'Aggiorna tutte le occorrenze successive', onclick: "document.getElementById('event_commit_button').value = this.value" %>
-        <% else -%>
-            <%= f.submit 'Aggiorna', onclick: "document.getElementById('event_commit_button').value = this.value", class: 'btn blue', data: {disable_with: t('updating')} %>
-        <% end -%>
+        <a href="#" class="btn" onclick="$('#event_edit').foundation('reveal','close');$('#event_edit').remove();">
+          <%= t('buttons.cancel') %></a>
+        <%= f.submit t('buttons.update'),
+                     class: 'btn blue',
+                     data: {disable_with: t('updating')} %>
       </div>
     </div>
 <% end %>
 <a class="close-reveal-modal">&#215;</a>
 
 <script type="text/javascript">
-    $(function() {
-        start_end_fdatetimepicker($('#event_starttime'), $("#event_endtime"));
-
-        $('#event_meeting_attributes_place_attributes_address').keyup(function() {
-            codeAddress('luogo');
-        });
-
-        $("#event_meeting_attributes_place_attributes_municipality_id").select2({
-            cacheDataSource: [],
-            placeholder: "Digita alcuni caratteri per cercare un comune",
-            query: function(query) {
-                self = this;
-                var key = query.term;
-                var cachedData = self.cacheDataSource[key];
-
-                if(cachedData) {
-                    query.callback({results: cachedData});
-                    return;
-                } else {
-                    $.ajax({
-                        url: '/municipalities',
-                        data: { q : query.term },
-                        dataType: 'json',
-                        type: 'GET',
-                        success: function(data) {
-                            self.cacheDataSource[key] = data;
-                            query.callback({results: data});
-                        }
-                    })
-                }
-            },
-            escapeMarkup: function (m) { return m; }
-        });
-
-        /*$('#event_meeting_attributes_place_attributes_comune_id').on('change',function() {
-            codeAddress('luogo');
-        });*/
-
-    });
+    EventsEdit.eventId = <%=@event.id%>;
+    EventsEdit.votation = <%=@event.is_votazione?%>;
+    <%if @event.place%>
+    EventsEdit.placeDefined = true;
+    EventsEdit.latitudeOriginal = <%=@event.place.latitude_original%>;
+    EventsEdit.longitudeOriginal = <%=@event.place.longitude_original%>;
+    EventsEdit.latitudeCenter = <%=@event.place.latitude_center%>;
+    EventsEdit.longitudeCenter = <%=@event.place.longitude_center%>;
+    EventsEdit.zoom = <%=@event.place.zoom%>;
+    <%end%>
 </script>

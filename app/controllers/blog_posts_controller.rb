@@ -118,7 +118,7 @@ class BlogPostsController < ApplicationController
     respond_to do |format|
       @title = t('error.error_404.blog_posts.title')
       @message = t('error.error_404.blog_posts.description')
-      format.html { render "errors/404", status: 404, layout: true }
+      format.html { render 'errors/404', status: 404, layout: true }
     end
     true
   end

@@ -36,7 +36,7 @@ class ProposalComment < ActiveRecord::Base
 
   scope :listable, -> { where({integrated: false, noise: false}) }
 
-  scope :unread, lambda { |user_id, proposal_id| where(["proposal_comments.id not in (select p2.id from proposal_comments p2 join proposal_comment_rankings pr on p2.id = pr.proposal_comment_id where pr.user_id = ? and p2.proposal_id = ?) ", user_id, proposal_id]) }
+  scope :unread, lambda { |user_id, proposal_id| where(['proposal_comments.id not in (select p2.id from proposal_comments p2 join proposal_comment_rankings pr on p2.id = pr.proposal_comment_id where pr.user_id = ? and p2.proposal_id = ?) ', user_id, proposal_id]) }
 
   scope :removable, -> { where(['soft_reports_count >= ? and noise = false', CONTRIBUTE_MARKS]) }
 
@@ -67,7 +67,7 @@ class ProposalComment < ActiveRecord::Base
   end
 
   def check_last_comment
-    comments = self.proposal.proposal_comments.where(user_id: self.user_id).order("created_at DESC")
+    comments = self.proposal.proposal_comments.where(user_id: self.user_id).order('created_at DESC')
     comment = comments.first
     if LIMIT_COMMENTS and comment and ((Time.now - comment.created_at) < 30.seconds)
       self.errors.add(:created_at, "devono passare almeno trenta secondi tra un commento e l'altro.")

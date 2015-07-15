@@ -29,6 +29,7 @@ describe NotificationProposalPresentationCreate, type: :model, emails: true, not
     described_class.drain
     AlertsWorker.drain
     EmailsWorker.drain
+
     delivery_to_user2 = ActionMailer::Base.deliveries.first
     last_deliveries = ActionMailer::Base.deliveries.last(5)
 

@@ -24,6 +24,7 @@ module Airesis
     config.i18n.default_locale = :en
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{yml}')]
     config.i18n.fallbacks =[:en]
+    config.i18n.enforce_available_locales = false
 
     config.to_prepare do
       Devise::Mailer.layout "newsletters/default"
@@ -39,6 +40,8 @@ module Airesis
     config.after_initialize do
       GroupsHelper.init
     end
+
+    config.active_job.queue_adapter = :sidekiq
 
     config.action_mailer.delivery_method = :smtp
 

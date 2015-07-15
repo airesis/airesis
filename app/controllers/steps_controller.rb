@@ -43,7 +43,7 @@ class StepsController < ApplicationController
         format.html { redirect_to [@tutorial, @step], notice: 'Step was successfully created.' }
         #   format.json { render json: @step, status: :created, location: @step }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
         #  format.json { render json: @step.errors, status: :unprocessable_entity }
       end
     end
@@ -57,7 +57,7 @@ class StepsController < ApplicationController
         format.html { redirect_to [@tutorial, @step], notice: 'Step was successfully updated.' }
         #   format.json { head :ok }
       else
-        format.html { render action: "edit" }
+        format.html { render action: 'edit' }
         #   format.json { render json: @step.errors, status: :unprocessable_entity }
       end
     end
@@ -83,12 +83,10 @@ class StepsController < ApplicationController
       format.html { redirect_to :back }
       format.js { render nothing: true }
     end
-
   end
 
   #segna come 'skipped' uno step del tutorial
   def skip
-
   end
 
   protected

@@ -16,7 +16,7 @@ module Frm
         if @reply_to_post
           @post.text = view_context.forem_quote(@reply_to_post.text)
         else
-          flash[:notice] = t("frm.post.cannot_quote_deleted_post")
+          flash[:notice] = t('frm.post.cannot_quote_deleted_post')
           redirect_to [@group, @forum, @topic]
         end
       end
@@ -66,23 +66,23 @@ module Frm
     end
 
     def create_successful
-      flash[:notice] = t("frm.post.created")
+      flash[:notice] = t('frm.post.created')
       redirect_to group_forum_topic_url(@group, @topic.forum, @topic, page: @topic.last_page)
     end
 
     def create_failed
       params[:reply_to_id] = params[:frm_post][:reply_to_id]
-      flash.now.alert = t("frm.post.not_created")
-      render action: "new"
+      flash.now.alert = t('frm.post.not_created')
+      render action: 'new'
     end
 
     def destroy_successful
       if @post.topic.posts.empty?
         @post.topic.destroy
-        flash[:notice] = t("frm.post.deleted_with_topic")
+        flash[:notice] = t('frm.post.deleted_with_topic')
         redirect_to group_forum_path(@group, @topic.forum)
       else
-        flash[:notice] = t("frm.post.deleted")
+        flash[:notice] = t('frm.post.deleted')
         redirect_to group_forum_topic_path(@group, @topic.forum, @topic)
       end
     end
@@ -92,13 +92,13 @@ module Frm
     end
 
     def update_failed
-      flash.now.alert = t("frm.post.not_edited")
-      render action: "edit"
+      flash.now.alert = t('frm.post.not_edited')
+      render action: 'edit'
     end
 
     def reject_locked_topic!
       if @topic.locked?
-        flash.alert = t("frm.post.not_created_topic_locked")
+        flash.alert = t('frm.post.not_created_topic_locked')
         redirect_to group_forum_topic_url(@group, @topic.forum, @topic) and return
       end
     end

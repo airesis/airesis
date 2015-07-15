@@ -13,7 +13,7 @@ module Frm
 
         if forum_view
           if topic_view.nil? && topic.created_at > forum_view.past_viewed_at
-            content_tag :super, "New"
+            content_tag :super, 'New'
           end
         end
       end
@@ -32,21 +32,21 @@ module Frm
 
 
     def icon_classes(topic)
-      classes = "icon "
+      classes = 'icon '
       if topic.locked?
-        classes += " lock "
+        classes += ' lock '
       end
       if topic.pinned?
-        classes += " pin "
+        classes += ' pin '
       end
       if topic.hidden?
-        classes += " hidden "
+        classes += ' hidden '
       end
       if current_user
         topic_view = topic.view_for(current_user)
         forum_view = topic.forum.view_for(current_user)
-        if (topic_view && topic.posts.exists?(["created_at > ?", topic_view.updated_at])) || (forum_view && topic.created_at > forum_view.updated_at)
-          classes += " new_posts "
+        if (topic_view && topic.posts.exists?(['created_at > ?', topic_view.updated_at])) || (forum_view && topic.created_at > forum_view.updated_at)
+          classes += ' new_posts '
         end
       end
       classes

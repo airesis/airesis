@@ -138,4 +138,3 @@ describe 'the oauth2 process', type: :feature, js: true do
   end
 
 end
-

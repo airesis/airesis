@@ -10,7 +10,7 @@ class ParticipationRolesController < ApplicationController
   load_and_authorize_resource through: :group
 
   def index
-    @page_title = t("pages.groups.edit_permissions.title")
+    @page_title = t('pages.groups.edit_permissions.title')
   end
 
   def new
@@ -65,7 +65,7 @@ class ParticipationRolesController < ApplicationController
   #todo move from here and put in action_abilitation#create and action_abilitations#destroy
   def change_group_permission
     ActionAbilitation.transaction do
-      if params[:block] == "true" #devo togliere i permessi
+      if params[:block] == 'true' #devo togliere i permessi
         abilitation = @participation_role.action_abilitations.where(group_action_id: params[:action_id])
         if abilitation.exists?
           flash[:notice] = t('info.participation_roles.permissions_updated')

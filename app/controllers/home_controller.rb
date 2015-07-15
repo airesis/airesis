@@ -75,7 +75,6 @@ class HomeController < ApplicationController
 
   def statistics
     @stat1 = StatNumProposal.extract
-
   end
 
   def show
@@ -90,7 +89,7 @@ class HomeController < ApplicationController
         feedback = JSON.parse(params[:data])
         data = feedback[1][22..-1] if feedback[1] #get the feedback image data
 
-        stack = ""
+        stack = ''
         if current_user
           stack << "user id: #{current_user.id}\n"
           stack << "user email: #{current_user.email}\n"
@@ -112,7 +111,7 @@ class HomeController < ApplicationController
         end
         feedback.save!
 
-        ResqueMailer.delay.feedback(feedback.id)
+        ResqueMailer.feedback(feedback.id).deliver_later
         render nothing: true
       }
       format.html { render nothing: true }

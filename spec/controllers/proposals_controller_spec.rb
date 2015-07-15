@@ -161,73 +161,71 @@ describe ProposalsController, type: :controller, search: :true do
     end
 
     it 'does not retrieve any results if no tag matches' do
-      get :similar, tags: 'a,b,c', format: :js
+      xhr :get, :similar, tags: 'a,b,c', format: :js
       expect(assigns(:proposals)).to eq([])
     end
 
     it 'retrieve correct result matching title but not tags' do
-      get :similar, tags: 'a,b,c', title: 'bella giornata', format: :js
+      xhr :get, :similar, tags: 'a,b,c', title: 'bella giornata', format: :js
       expect(assigns(:proposals)).to eq([proposal1])
     end
 
     it 'retrieve correct result matching title' do
-      get :similar, title: 'bella giornata', format: :js
+      xhr :get, :similar, title: 'bella giornata', format: :js
       expect(assigns(:proposals)).to eq([proposal1])
     end
 
     it 'retrieve both proposals with correct tag' do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
-      get :similar, tags: 'tag1', format: :js
+      xhr :get, :similar, tags: 'tag1', format: :js
       expect(assigns(:proposals)).to match_array([proposal1, proposal2])
     end
 
     it 'retrieve both proposals matching title with tag' do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
-      get :similar, tags: 'giornata', format: :js
+      xhr :get, :similar, tags: 'giornata', format: :js
       expect(assigns(:proposals)).to eq([proposal1, proposal2])
     end
 
     it 'retrieve only one if only one matches' do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
-      get :similar, tags: 'inferno', format: :js
+      xhr :get, :similar, tags: 'inferno', format: :js
       expect(assigns(:proposals)).to eq([proposal2])
     end
 
     it 'retrieve both proposals matching title' do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
-      get :similar, title: 'giornata', format: :js
+      xhr :get, :similar, title: 'giornata', format: :js
       expect(assigns(:proposals)).to eq([proposal1, proposal2])
     end
 
     it 'find first the most relevant' do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
-      get :similar, title: 'inferno', tags: 'tag1', format: :js
+      xhr :get, :similar, title: 'inferno', tags: 'tag1', format: :js
       expect(assigns(:proposals)).to eq([proposal2, proposal1])
     end
 
     it 'find first the most relevant mixing title and tags' do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
-      get :similar, title: 'inferno', tags: 'giornata', format: :js
+      xhr :get, :similar, title: 'inferno', tags: 'giornata', format: :js
       expect(assigns(:proposals)).to eq([proposal2, proposal1])
     end
 
     it 'find both also with some other words' do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
-      get :similar, title: 'inferno', tags: 'giornata, tag1, parole, a, caso', format: :js
+      xhr :get, :similar, title: 'inferno', tags: 'giornata, tag1, parole, a, caso', format: :js
       expect(assigns(:proposals)).to eq([proposal2, proposal1])
     end
 
-    it 'does not retrieve nothing with wrong title' do
+    it "does not retrieve anything with a wrong title" do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
-      get :similar, title: 'rappresentative', format: :js
+      xhr :get, :similar, title: 'rappresentative', format: :js
       expect(assigns(:proposals)).to eq([])
     end
 
     it "can't retrieve private proposals not visible outside" do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
-      group = create(:group, current_user_id: user.id)
-      proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
-      get :similar, title: 'inferno', format: :js
+      xhr :get, :similar, title: 'inferno', format: :js
       expect(assigns(:proposals)).to eq([proposal2])
     end
 
@@ -235,7 +233,7 @@ describe ProposalsController, type: :controller, search: :true do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
       group = create(:group, current_user_id: user.id)
       proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: true)
-      get :similar, title: 'inferno', format: :js
+      xhr :get, :similar, title: 'inferno', format: :js
       expect(assigns(:proposals)).to match_array([proposal3, proposal2])
     end
 
@@ -243,9 +241,7 @@ describe ProposalsController, type: :controller, search: :true do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
       group = create(:group, current_user_id: user.id)
       proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
-      #requires similar proposals inside a group but not logged in. no results cause proposals should be inside the group
-      #but he has not enough permissions
-      get :similar, title: 'inferno', group_id: group.id, format: :js
+      xhr :get, :similar, title: 'inferno', group_id: group.id, format: :js
       expect(assigns(:proposals)).to eq([])
     end
 
@@ -257,7 +253,7 @@ describe ProposalsController, type: :controller, search: :true do
       sign_in user
 
       #repeat same request
-      get :similar, title: 'inferno', group_id: group.id, format: :js
+      xhr :get, :similar, title: 'inferno', group_id: group.id, format: :js
       expect(assigns(:proposals)).to eq([proposal3])
     end
 
@@ -270,7 +266,7 @@ describe ProposalsController, type: :controller, search: :true do
       sign_in user
 
       #repeat same request
-      get :similar, title: 'inferno', format: :js
+      xhr :get, :similar, title: 'inferno', format: :js
       expect(assigns(:proposals)).to eq([proposal3, proposal2])
     end
 
@@ -284,12 +280,11 @@ describe ProposalsController, type: :controller, search: :true do
       @request.env['devise.mapping'] = Devise.mappings[:user]
       sign_in user2
 
-      get :similar, title: 'inferno', format: :js
+      xhr :get, :similar, title: 'inferno', format: :js
       expect(assigns(:proposals)).to eq([proposal3, proposal2])
     end
 
     it "can retrieve public proposals and can see group area's proposals if he has enough permissions" do
-
       group = create(:group, current_user_id: user.id)
       proposal3 = create(:group_proposal, title: 'questa giornata è un INFERNO! riorganizziamolo!!!!', current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
 
@@ -300,7 +295,7 @@ describe ProposalsController, type: :controller, search: :true do
       @request.env['devise.mapping'] = Devise.mappings[:user]
       sign_in user2
 
-      get :similar, title: 'giornata', format: :js
+      xhr :get, :similar, title: 'giornata', format: :js
       expect(assigns(:proposals)).to eq([proposal3, proposal1])
     end
   end

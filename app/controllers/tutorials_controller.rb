@@ -3,7 +3,7 @@ class TutorialsController < ApplicationController
 
   before_filter :authenticate_user!
   before_filter :admin_required
-    
+
   def index
     @tutorials = Tutorial.all
 
@@ -43,7 +43,7 @@ class TutorialsController < ApplicationController
         format.html { redirect_to @tutorial, notice: 'Tutorial was successfully created.' }
         format.json { render json: @tutorial, status: :created, location: @tutorial }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
         format.json { render json: @tutorial.errors, status: :unprocessable_entity }
       end
     end
@@ -57,7 +57,7 @@ class TutorialsController < ApplicationController
         format.html { redirect_to @tutorial, notice: 'Tutorial was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
+        format.html { render action: 'edit' }
         format.json { render json: @tutorial.errors, status: :unprocessable_entity }
       end
     end
@@ -71,5 +71,5 @@ class TutorialsController < ApplicationController
       format.html { redirect_to tutorials_url }
       format.json { head :ok }
     end
-  end  
+  end
 end

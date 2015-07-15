@@ -24,7 +24,7 @@ class CalculateRankings
       msg  += "  user rank: " + user.rank.to_s + "\n----\n"
       user.save(validate: false)
     end
-    ResqueMailer.delay.admin_message(msg)
+    ResqueMailer.admin_message(msg).deliver_later
   end
 
 end

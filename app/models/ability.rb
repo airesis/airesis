@@ -33,7 +33,7 @@ class Ability
     can :ask_for_multiple_follow, Group
     can :read, GroupInvitation
     can [:accept, :reject, :anymore, :show], GroupInvitationEmail
-    can :read, Announcement, ["starts_at <= :now and ends_at >= :now", now: Time.zone.now] do |a|
+    can :read, Announcement, ['starts_at <= :now and ends_at >= :now', now: Time.zone.now] do |a|
       true
     end
     can :hide, Announcement

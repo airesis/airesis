@@ -8,7 +8,7 @@ module Frm
         avatar_url user.try(:email), options
       end
 
-      image_tag image, alt: "Avatar" if image.present?
+      image_tag image, alt: 'Avatar' if image.present?
     end
 
     def avatar_url(email, options = {})

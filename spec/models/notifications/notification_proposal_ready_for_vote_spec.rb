@@ -22,6 +22,7 @@ describe NotificationProposalReadyForVote, type: :model, emails: true, notificat
     described_class.drain
     AlertsWorker.drain
     EmailsWorker.drain
+
     deliveries = ActionMailer::Base.deliveries.last 3
 
     receivers = [participants[0], participants[1], user1]
@@ -30,7 +31,7 @@ describe NotificationProposalReadyForVote, type: :model, emails: true, notificat
     receiver_emails = receivers.map(&:email)
     expect(emails).to match_array receiver_emails
 
-    expect(Alert.count).to eq 3
+    expect(Alert.unscoped.count).to eq 3
     expect(Alert.last(3).map { |a| a.user }).to match_array receivers
     expect(Alert.last(3).map { |a| a.notification_type.id }).to match_array Array.new(3, NotificationType::CHANGE_STATUS_MINE)
   end

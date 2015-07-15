@@ -7,7 +7,7 @@ class SearchParticipant < ActiveRecord::Base
       ret = self.group.group_participations.joins(:user)
       ret = ret.where(participation_role_id: self.role_id) if self.role_id.present?
       ret = ret.where(["upper(users.name) like '%' || upper(:key) || '%' or upper(users.surname) like '%' || upper(:key) || '%'", key: self.keywords]) if self.keywords.present?
-      ret = ret.joins("join group_participation_requests gpr on (gpr.user_id = group_participations.user_id and gpr.group_id = group_participations.group_id)").where(["gpr.group_participation_request_status_id = ?", self.status_id]) if self.status_id.present?
+      ret = ret.joins('join group_participation_requests gpr on (gpr.user_id = group_participations.user_id and gpr.group_id = group_participations.group_id)').where(['gpr.group_participation_request_status_id = ?', self.status_id]) if self.status_id.present?
 
     else
       ret = self.group.participation_requests.where(group_participation_request_status_id: self.status_id)

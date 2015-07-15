@@ -86,7 +86,7 @@ namespace :airesis do
           f.puts("UserType.create( description: \"#{usertype.description}\", short_name: \"#{usertype.short_name}\" ){ |c| c.id = #{usertype.id}}.save")
         end
 
-        Quorum.public.each do |quorum|
+        Quorum.visible.each do |quorum|
           f.puts("Quorum.create(name: \"#{quorum.name}\", percentage: #{quorum.percentage || 'nil'}, minutes: #{quorum.minutes || 'nil'}, good_score: #{quorum.good_score || 'nil'}, bad_score: #{quorum.bad_score || 'nil'}, vote_percentage: #{quorum.vote_percentage || 'nil'}, vote_minutes: #{quorum.vote_minutes || 'nil'}, vote_good_score: #{quorum.vote_good_score || 'nil'}, t_percentage: \"#{quorum.t_percentage}\", t_minutes: \"#{quorum.t_minutes}\", t_good_score: \"#{quorum.t_good_score}\", t_vote_percentage: \"#{quorum.t_vote_percentage}\", t_vote_minutes: \"#{quorum.t_vote_minutes}\", t_vote_good_score: \"#{quorum.t_vote_good_score}\", public: true, seq: #{quorum.seq || 'nil'})")
         end
 

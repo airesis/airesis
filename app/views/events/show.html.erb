@@ -3,26 +3,17 @@
     itemscope itemtype="http://schema.org/Event"
 <% end %>
 
-<script type="text/javascript">
-    var pageURL = "<%= event_event_comments_url(@event) %>";
-</script>
-
 <% javascript 'endless_page' %>
 
 <div class="row full-width">
   <div class="row">
-
-    <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false">
-    </script>
-
     <div class="columns large-6">
       <div class="card">
         <div class="card-title">
           <% if @event.private %>
-              <div class="label round">private</div>
+              <div class="label round"><%= 'private' %></div>
           <% else %>
-              <div class="label round">public</div>
+              <div class="label round"><%= 'public' %></div>
           <% end %>
           <%= @event.title %>
         </div>
@@ -62,7 +53,9 @@
             <div class="event_content" itemprop="location" itemscope itemtype="http://schema.org/Place">
               <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
                 <h4>
-                  <span itemprop="addressLocality"><%= "#{@event.place.municipality.description}" if @event.place.municipality %></span>,
+                  <span itemprop="addressLocality">
+                    <%= "#{@event.place.municipality.description}" if @event.place.municipality %>
+                  </span>,
                   <span itemprop="streetAddress"><%= @event.place.address %></span></h4>
               </div>
 
@@ -70,53 +63,22 @@
                 <div id="map_canvas" style="width: 100%; height: 320px;"></div>
               </div>
             </div>
-
-
             <div id="map_modal" title="<%= t('pages.events.show.event_place') %>" style="width:400px;height:400px;display:none">
-
             </div>
           </div>
         </div>
-
-
-        <script type="text/javascript">
-            var latlng = new google.maps.LatLng(<%=@event.place.latitude_original%>, <%=@event.place.longitude_original%>);
-
-            if (!geocoder) {
-                geocoder = new google.maps.Geocoder();
-            }
-
-            var center = latlng;
-            var zoom = <%=@event.place.zoom%>;
-
-            var myOptions = {
-                zoom: zoom,
-                center: latlng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                panControl: false,
-                streetViewControl: false,
-                mapTypeControl: true,
-                draggable: true
-            };
-
-            map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
-
-            marker = new google.maps.Marker({
-                map: map,
-                position: latlng,
-                draggable: false
-            });
-        </script>
     <% end %>
 
     <% content_for :left_panel do %>
         <% if can? :update, @event %>
             <div class="mybox">
-              <%= link_to (@group ? edit_group_event_path(@group, @event) : edit_event_path(@event)), remote: true, class: 'btn', data: {disable_with: t('loading')} do %>
+              <%= link_to (@group ? edit_group_event_path(@group, @event) : edit_event_path(@event)),
+                          remote: true, class: 'btn', data: {disable_with: t('loading')} do %>
                   <i class="fa fa-pencil"></i>
                   <%= t('buttons.edit') %>
               <% end if can? :update, @event %>
-              <%= link_to @event, method: :delete, class: 'btn red', data: {confirm: t('delete_event_confirm'), disable_with: t('loading')} do %>
+              <%= link_to @event, method: :delete, class: 'btn red',
+                          data: {confirm: t('delete_event_confirm'), disable_with: t('loading')} do %>
                   <i class="fa fa-trash-o"></i>
                   <%= t('buttons.delete') %>
               <% end if can? :destroy, @event %>
@@ -131,17 +93,12 @@
                  data-count="vertical"
                  data-text="<%= t('twitter.share.event', app: ENV['APP_SHORT_NAME']) %>">Tweet</a>
               <g:plusone size="tall"></g:plusone>
-              <div class="fb-like" data-send="false" data-layout="box_count" data-width="100" data-show-faces="false" data-likeable_type="<%= @event.class.class_name %>" data-likeable_id="<%= @event.id %>"></div>
+              <div class="fb-like" data-send="false" data-layout="box_count" data-width="100"
+                   data-show-faces="false" data-likeable_type="<%= @event.class.class_name %>"
+                   data-likeable_id="<%= @event.id %>"></div>
             </div>
         <% end %>
 
-        <!--
-        <% @event.groups.each do |group| %>
-				<div class="leftBlogImage">
-			    	<%= group.group_image_tag 120 %>
-			    </div>
-
-        <% end %>-->
         <% if @event.meeting %>
             <div class="mybox participation_panel_container">
               <%= render partial: 'participation_panel' %>
@@ -155,8 +112,6 @@
             <% end %>
         <% end %>
     <% end %>
-
-
 
     <% if @event.is_votazione? %>
         <div class="columns large-6">
@@ -200,3 +155,16 @@
       </div>
     </div>
 <% end %>
+
+<script type="text/javascript">
+    var pageURL = "<%= event_event_comments_url(@event) %>";
+
+    EventsShow.votation = <%=@event.is_votazione?%>;
+    <%if @event.place%>
+    EventsShow.latitudeOriginal = <%=@event.place.latitude_original%>;
+    EventsShow.longitudeOriginal = <%=@event.place.longitude_original%>;
+    EventsShow.latitudeCenter = <%=@event.place.latitude_center%>;
+    EventsShow.longitudeCenter = <%=@event.place.longitude_center%>;
+    EventsShow.zoom = <%=@event.place.zoom%>;
+    <%end%>
+</script>

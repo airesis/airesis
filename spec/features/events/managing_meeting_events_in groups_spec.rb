@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe "manage correctly meeting events", type: :feature, js: true, ci_ignore: true do
+describe "manage correctly meeting events", type: :feature, js: true do
 
   let!(:user) { create(:user) }
   let!(:group) { create(:group, current_user_id: user.id) }
@@ -18,14 +18,15 @@ describe "manage correctly meeting events", type: :feature, js: true, ci_ignore:
     #can manage his event
     login_as user2, scope: :user
     visit new_group_event_path(group)
-    page.execute_script("$('#create_event_dialog').foundation('reveal', 'open');")
+    #page.execute_script("$('#create_event_dialog').foundation('reveal', 'open');")
     expect(page).to have_content(I18n.t('pages.events.new.title_meeting'))
     title = Faker::Lorem.sentence
     description = Faker::Lorem.paragraph
     fill_in I18n.t('activerecord.attributes.event.title'), with: title
     fill_in I18n.t('activerecord.attributes.event.description'), with: description
     check I18n.t('activerecord.attributes.event.private')
-    click_button I18n.t('buttons.next')
+    #click_button I18n.t('buttons.next')
+    page.execute_script "$('#form-wizard-next').click()"
     fill_in I18n.t('activerecord.attributes.event.starttime'), with: (I18n.l Time.now, format: :datetimepicker)
     page.execute_script("$('#event_starttime').fdatetimepicker('hide');")
     fill_in I18n.t('activerecord.attributes.event.endtime'), with: (I18n.l Time.now + 1.day, format: :datetimepicker)

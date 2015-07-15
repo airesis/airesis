@@ -36,7 +36,6 @@ module StepsHelper
       else
         step
     end
-
   end
 
   #ritorna true se lo step è già stato fatto dall'utente e può essere saltato
@@ -44,23 +43,22 @@ module StepsHelper
     progress = TutorialProgress.find_by_step_id_and_user_id(step.id, user.id)
     return true unless (progress.status == TutorialProgress::TODO rescue false)
     case step.tutorial_id.to_i
-      when Tutorial.find_by_name("Welcome Tutorial").id
+      when Tutorial.find_by_name('Welcome Tutorial').id
         status = welcome_steps(step, user)
         if status
           progress.update_attribute(:status, TutorialProgress::DONE)
         end
         return status
-      when Tutorial.find_by_action_and_controller("show", "proposals").id
+      when Tutorial.find_by_action_and_controller('show', 'proposals').id
         status = show_proposal_steps(step, user)
         if status
           progress.update_attribute(:status, TutorialProgress::DONE)
         end
         return status
       else
-        logger.error "Impossibile trovare tutorial_id: " + step.tutorial_id.to_s
+        logger.error 'Impossibile trovare tutorial_id: ' + step.tutorial_id.to_s
         return false
     end
-
   end
 
   def show_proposal_steps(step, user)
@@ -83,7 +81,7 @@ module StepsHelper
       when 3
         return (user.proposals.count > 0)
       else
-        logger.error "Impossibile trovare tutorial_id: " + step.tutotial_id.to_s + ", step_index: " + step.index.to_s
+        logger.error 'Impossibile trovare tutorial_id: ' + step.tutotial_id.to_s + ', step_index: ' + step.index.to_s
         return false
     end
   end

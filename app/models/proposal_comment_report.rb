@@ -15,7 +15,7 @@ class ProposalCommentReport < ActiveRecord::Base
       proposal_comment.increment!(:soft_reports_count)
     else
       proposal_comment.increment!(:grave_reports_count)
-      ResqueMailer.delay.report_message(id)
+      ResqueMailer.report_message(id).deliver_later
     end
   end
 

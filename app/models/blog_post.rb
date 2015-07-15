@@ -13,8 +13,8 @@ class BlogPost < ActiveRecord::Base
   has_many :blog_post_tags, dependent: :destroy
   has_many :tags, through: :blog_post_tags, class_name: 'Tag'
 
-  has_many :publishings, class_name: "PostPublishing", dependent: :destroy
-  has_many :groups, through: :publishings, class_name: "Group"
+  has_many :publishings, class_name: 'PostPublishing', dependent: :destroy
+  has_many :groups, through: :publishings, class_name: 'Group'
 
   validates_presence_of :title
   validates_presence_of :body
@@ -23,7 +23,7 @@ class BlogPost < ActiveRecord::Base
   scope :drafts, -> { where(status: DRAFT).order('published_at DESC') }
 
   scope :viewable_by, ->(user) {
-    where("blog_posts.status = ? or (blog_posts.status = ? and group_participations.user_id = ?)",
+    where('blog_posts.status = ? or (blog_posts.status = ? and group_participations.user_id = ?)',
           PUBLISHED, RESERVED, user.id).
       joins(groups: [:group_participations]) }
 

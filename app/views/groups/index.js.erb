@@ -21,7 +21,7 @@ $('#more_groups_container').html("<%=j (render partial: 'more_groups')%>");
     });
 <%else%>
     window.history.pushState(null,"",'<%=j raw request.url + '&_ajax=true'%>');
-    everPushedSomething = 'pushed it real good';
+    GroupsIndex.everPushedSomething = 'pushed it real good';
 <%end%>
 
 if (window.innerWidth <= 1000) {

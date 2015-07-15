@@ -2,7 +2,7 @@ class ProposalSchulzeVote < ActiveRecord::Base
   belongs_to :proposal, class_name: 'Proposal', foreign_key: :proposal_id
 
   def description
-    desc = ""
+    desc = ''
     #ids is an array of two. each element with his previous delimiter
     solution_ids = self.proposal.solutions.pluck(:id)
     ids = self.preferences.scan(/(;|,|)(\d+)/).map { |d, n| [d, n.to_i] }.each do |d, n|

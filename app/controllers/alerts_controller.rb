@@ -10,13 +10,13 @@ class AlertsController < ApplicationController
       format.html do
         @user = current_user
         @page_title = 'All alerts'
-        @new_alerts = @alerts.includes(:notification).where(checked: false)
-        @old_alerts = @alerts.includes(:notification).where(checked: true)
+        @new_alerts = @alerts.where(checked: false)
+        @old_alerts = @alerts.where(checked: true)
       end
       format.json do
         unread = @alerts.where(checked: false, deleted: false).
           includes(:notification_type, :notification_category)
-        numunread = unread.count
+        numunread = unread.length
         if numunread < 10
           unread += @alerts.where(checked: true, deleted: false).
             includes(:notification_type, :notification_category).limit(10 - numunread)

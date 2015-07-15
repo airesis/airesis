@@ -72,8 +72,8 @@ class QuorumsController < ApplicationController
 
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-        page.replace_html "quorum_panel_container", partial: 'groups/quorums_panel'
+        page.replace_html 'flash_messages', partial: 'layouts/flash', locals: {flash: flash}
+        page.replace_html 'quorum_panel_container', partial: 'groups/quorums_panel'
       end
       }
     end
@@ -83,7 +83,7 @@ class QuorumsController < ApplicationController
     Quorum.transaction do
       quorum = @group.quorums.find_by_id(params[:id])
       if quorum
-        if params[:active] == "true" #devo togliere i permessi
+        if params[:active] == 'true' #devo togliere i permessi
           quorum.active = true
           flash[:notice] =t('info.quorums.quorum_activated')
         else #lo disattivo
@@ -104,7 +104,7 @@ class QuorumsController < ApplicationController
       @group = Group.find(params[:group_id])
       @quorums = @group.quorums.active
     else
-      @quorums = Quorum.public.active.all
+      @quorums = Quorum.visible.active.all
     end
     respond_to do |format|
       format.html
@@ -116,9 +116,9 @@ class QuorumsController < ApplicationController
   def dates
     starttime = (@quorum.minutes.minutes + DEBATE_VOTE_DIFFERENCE).from_now
     if @group
-      @dates = @group.events.private.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] } #TODO:I18n
+      @dates = @group.events.not_visible.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] } #TODO:I18n
     else
-      @dates = Event.public.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id] } #TODO:I18n
+      @dates = Event.visible.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id] } #TODO:I18n
     end
   end
 

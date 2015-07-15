@@ -1,8 +1,8 @@
 module UrlHelper
   def with_subdomain(options)
-    subdomain = (options.delete(:subdomain) || "")
-    subdomain += "." unless subdomain.empty?
-    subdomain += "www." if (!(defined? request) || !request || !request.subdomain.empty?) && (subdomain.empty?)
+    subdomain = (options.delete(:subdomain) || '')
+    subdomain += '.' unless subdomain.empty?
+    subdomain += 'www.' if (!(defined? request) || !request || !request.subdomain.empty?) && (subdomain.empty?)
     host = options[:host] || (((defined? request) && request) ? request.domain : Rails.application.config.action_mailer.default_url_options[:host])
     if Rails.env.test?
       options[:host] = '127.0.0.1'

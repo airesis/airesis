@@ -32,7 +32,7 @@ class Group < ActiveRecord::Base
 
   has_many :group_participations, class_name: 'GroupParticipation', dependent: :destroy
   has_many :participants, through: :group_participations, source: :user, class_name: 'User'
-  has_many :portavoce, -> { where(["group_participations.participation_role_id = ?", ParticipationRole.admin.id]) }, through: :group_participations, source: :user, class_name: 'User'
+  has_many :portavoce, -> { where(['group_participations.participation_role_id = ?', ParticipationRole.admin.id]) }, through: :group_participations, source: :user, class_name: 'User'
 
   has_many :followers, through: :group_follows, source: :user, class_name: 'User'
   has_many :blog_posts, through: :post_publishings, source: :blog_post
@@ -58,7 +58,7 @@ class Group < ActiveRecord::Base
   has_many :group_quorums, class_name: 'GroupQuorum', dependent: :destroy
   has_many :quorums, -> { order 'seq nulls last, quorums.id' }, through: :group_quorums, class_name: 'BestQuorum', source: :quorum
 
-  has_many :voters, -> { include(:participation_roles).where(["participation_roles.id = ?", ParticipationRole.admin.id]) }, through: :group_participations, source: :user, class_name: 'User'
+  has_many :voters, -> { include(:participation_roles).where(['participation_roles.id = ?', ParticipationRole.admin.id]) }, through: :group_participations, source: :user, class_name: 'User'
 
   has_many :group_areas, dependent: :destroy
 
@@ -85,11 +85,11 @@ class Group < ActiveRecord::Base
   # Check for paperclip
   has_attached_file :image,
                     styles: {
-                      thumb: "100x100#",
-                      medium: "300x300>",
-                      small: "150x150>"
+                      thumb: '100x100#',
+                      medium: '300x300>',
+                      small: '150x150>'
                     },
-                    path: "groups/:id/:style/:basename.:extension",
+                    path: 'groups/:id/:style/:basename.:extension',
                     default_url: '/img/gruppo-anonimo.png'
 
   validates_attachment_size :image, less_than: 2.megabytes
@@ -117,7 +117,7 @@ class Group < ActiveRecord::Base
     participation_requests.build(user_id: current_user_id, group_participation_request_status_id: 3)
     group_participations.build(user_id: current_user_id, participation_role: ParticipationRole.admin) #portavoce
 
-    BestQuorum.public.each do |quorum|
+    BestQuorum.visible.each do |quorum|
       copy = quorum.dup
       copy.public = false
       copy.save!
@@ -169,11 +169,11 @@ class Group < ActiveRecord::Base
   end
 
   def participant_tokens=(ids)
-    self.participant_ids = ids.split(",")
+    self.participant_ids = ids.split(',')
   end
 
   def interest_border_tkn
-    self.interest_border.territory_type + "-" + self.interest_border.territory_id.to_s if self.interest_border
+    self.interest_border.territory_type + '-' + self.interest_border.territory_id.to_s if self.interest_border
   end
 
   def interest_border_tkn=(tkn)
@@ -271,10 +271,10 @@ class Group < ActiveRecord::Base
   private
 
   def self.autocomplete(term)
-    where("lower(groups.name) LIKE :term", {term: "%#{term.downcase}%"}).
+    where('lower(groups.name) LIKE :term', {term: "%#{term.downcase}%"}).
       limit(10).
-      select("groups.name, groups.id, groups.image_id, groups.image_url, groups.image_file_name").
-      order("groups.name asc")
+      select('groups.name, groups.id, groups.image_id, groups.image_url, groups.image_file_name').
+      order('groups.name asc')
   end
 
   def create_folder

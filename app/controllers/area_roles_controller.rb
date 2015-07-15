@@ -8,11 +8,9 @@ class AreaRolesController < ApplicationController
   load_and_authorize_resource through: :group_area
 
   def new
-
   end
 
   def edit
-
   end
 
   def create
@@ -47,7 +45,7 @@ class AreaRolesController < ApplicationController
 
   def change
     AreaActionAbilitation.transaction do
-      if params[:block] == "true" #devo togliere i permessi
+      if params[:block] == 'true' #devo togliere i permessi
         abilitation = @area_role.area_action_abilitations.find_by(group_action_id: params[:action_id], group_area_id: params[:group_area_id])
         if abilitation
           abilitation.destroy

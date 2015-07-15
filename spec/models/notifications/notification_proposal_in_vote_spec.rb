@@ -25,7 +25,6 @@ describe NotificationProposalVoteStarts, type: :model, emails: true, notificatio
     proposal.reload
     expect(proposal.voting?).to be_truthy
 
-
     expect(described_class.jobs.size).to eq 1
     described_class.drain
     AlertsWorker.drain
@@ -39,7 +38,7 @@ describe NotificationProposalVoteStarts, type: :model, emails: true, notificatio
     receiver_emails = receivers.map(&:email)
     expect(emails).to match_array receiver_emails
 
-    expect(Alert.count).to eq 3
+    expect(Alert.unscoped.count).to eq 3
     expect(Alert.last(3).map { |a| a.user }).to match_array receivers
     expect(Alert.last(3).map { |a| a.notification_type.id }).to match_array [NotificationType::CHANGE_STATUS_MINE,
                                                                              NotificationType::CHANGE_STATUS,

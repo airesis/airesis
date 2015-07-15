@@ -7,7 +7,6 @@ module Frm
       before_filter :authorize_frm_admin
 
       def index
-
       end
 
       protected
