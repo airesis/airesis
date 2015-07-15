@@ -33,7 +33,6 @@ describe "manage correctly vote events", type: :feature, js: true do
     page.execute_script("$('#event_endtime').fdatetimepicker('hide');")
 
     click_button I18n.t('pages.events.new.submit')
-    wait_for_ajax
     expect(page.current_path).to eq(group_events_path(group))
     expect(page).to have_content(title)
     visit group_event_path(group, Event.last)
