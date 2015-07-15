@@ -7,10 +7,8 @@ require 'database_cleaner'
 require 'sidekiq/testing'
 require 'sunspot_test/rspec'
 
-DEBUG=false
-unless DEBUG
-  require 'capybara-screenshot/rspec'
-end
+
+require 'capybara-screenshot/rspec' unless env['DISABLE_SCREENSHOTS']
 
 #Sidekiq::Testing.inline!
 
@@ -63,10 +61,10 @@ RSpec.configure do |config|
   #  Capybara::Selenium::Driver.new(app, :browser => :firefox)
   #end
 
-  unless DEBUG
-    Capybara.javascript_driver = :webkit
-    Capybara::Screenshot.autosave_on_failure = true
-  end
+
+  Capybara.javascript_driver = :webkit
+
+  Capybara::Screenshot.autosave_on_failure = true unless env['DISABLE_SCREENSHOTS']
 end
 
 OmniAuth.config.test_mode = true
