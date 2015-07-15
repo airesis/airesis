@@ -16,7 +16,6 @@ before_script:
  - cp config/database.travis.yml config/database.yml
  - sed /AWS_HOST/d config/application.example.yml > config/application.yml
  - cp config/paypal.example.yml config/paypal.yml
- - cp config/secrets.ci.yml config/secrets.yml
  - mkdir -p private/elfinder
  - RAILS_ENV=test bundle exec rake db:setup
  - bundle exec sidekiq -d -L /tmp/sidekiq.log
