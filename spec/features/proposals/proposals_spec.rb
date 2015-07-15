@@ -65,7 +65,7 @@ describe "create a proposal in his group", type: :feature, js: true, ci_ignore: 
     expect(page).to have_content(new_content)
   end
 
-  it "can edit a proposal", ci_ignore: true do
+  it "can edit a proposal" do
     simple_editing
   end
 

@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'requests_helper'
 
-describe 'the oauth2 process', type: :feature, js: true, ci_ignore: true do
+describe 'the oauth2 process', type: :feature, js: true do
 
   describe 'Google oauth2' do
 
