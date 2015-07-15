@@ -68,6 +68,7 @@ group :development, :staging do
 end
 
 group :staging, :production do
+  gem 'therubyracer'
   gem 'newrelic_rpm'
   gem 'sentry-raven', github: 'getsentry/raven-ruby'
 end
