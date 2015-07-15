@@ -62,7 +62,7 @@ RSpec.configure do |config|
   #end
 
 
-  Capybara.javascript_driver = :webkit
+  Capybara.javascript_driver = :webkit_debug
 
   Capybara::Screenshot.autosave_on_failure = true unless ENV['DISABLE_SCREENSHOTS']
 end
