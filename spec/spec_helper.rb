@@ -8,7 +8,7 @@ require 'sidekiq/testing'
 require 'sunspot_test/rspec'
 
 
-require 'capybara-screenshot/rspec' unless env['DISABLE_SCREENSHOTS']
+require 'capybara-screenshot/rspec' unless ENV['DISABLE_SCREENSHOTS']
 
 #Sidekiq::Testing.inline!
 
@@ -64,7 +64,7 @@ RSpec.configure do |config|
 
   Capybara.javascript_driver = :webkit
 
-  Capybara::Screenshot.autosave_on_failure = true unless env['DISABLE_SCREENSHOTS']
+  Capybara::Screenshot.autosave_on_failure = true unless ENV['DISABLE_SCREENSHOTS']
 end
 
 OmniAuth.config.test_mode = true
