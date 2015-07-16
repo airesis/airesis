@@ -986,6 +986,9 @@ en:
     group_participations:
       index:
         title: "Participants List"
+    certifications:
+      index:
+        title: "Certified groups"
   pl:
     comments:
       zero: "no comments"

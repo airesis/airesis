@@ -24,6 +24,14 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.start
 
+    load_database
+  end
+
+  config.append_after(:each) do
+    DatabaseCleaner.clean
+  end
+
+  def load_database
     a1 = Continent.create(description: 'Europe')
     s1 = Country.create(description: 'Italy', continent_id: a1.id, sigla: 'IT', sigla_ext: 'ITA')
     r14 = Region.create(description: 'Emilia Romagna', country_id: s1.id, continent_id: a1.id)
@@ -44,9 +52,5 @@ RSpec.configure do |config|
       #ActiveRecord::Base.connection.execute('ALTER SEQUENCE participation_roles_id_seq RESTART WITH 3')
     end
     Configuration.find_by(name: 'recaptcha').update_column(:value, 0)
-  end
-
-  config.append_after(:each) do
-    DatabaseCleaner.clean
   end
 end

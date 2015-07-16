@@ -211,3 +211,10 @@ DEFAULT_AREA_ACTIONS: "6, 7, 8, 11, 12"
 #after this number of days, if the author has not chose a voting date, the users which have the right to choose a vote day, can do it
 OTHERS_CHOOSE_VOTE_DATE_DAYS: "5"
 
+### PAYPAL CONFIGURATION ###
+
+PAYPAL_MERCHANT: "X25TSHNPP9XXX"
+#test
+PAYPAL_URL: "https://www.sandbox.paypal.com/cgi-bin/webscr"
+#production:
+#PAYPAL_URL: "https://www.paypal.com/cgi-bin/webscr"

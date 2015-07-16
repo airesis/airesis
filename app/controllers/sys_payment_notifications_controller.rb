@@ -17,7 +17,7 @@ class SysPaymentNotificationsController < ApplicationController
   protected
 
   def validate_IPN_notification(raw)
-    uri = URI.parse("#{PAYPAL['paypal_url']}?cmd=_notify-validate")
+    uri = URI.parse("#{ENV['PAYPAL_URL']}?cmd=_notify-validate")
     http = Net::HTTP.new(uri.host, uri.port)
     http.open_timeout = 60
     http.read_timeout = 60

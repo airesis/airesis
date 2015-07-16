@@ -16,7 +16,6 @@ echo "If you press y or Y will be yes, if you press n, N or Enter will be no."
 echo "We suggest you to keep default configuration if that is your first configuration."
 echo "Press ENTER when you are ready to proceed"
 read
-cp config/paypal.example.yml config/paypal.yml
 cp config/application.example.yml config/application.yml
 cp config/database.example.yml config/database.yml
 mkdir -p private/elfinder
