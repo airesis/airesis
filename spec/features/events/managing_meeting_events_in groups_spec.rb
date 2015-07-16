@@ -59,7 +59,6 @@ describe "manage correctly meeting events", type: :feature, js: true do
   it "can delete events" do
     event = create(:meeting_event, user: user2)
     meeting_organization = create(:meeting_organization, event: event, group: group)
-    meeting = create(:meeting, event: event)
 
     expect(Ability.new(user2)).to be_able_to(:destroy, event)
 
