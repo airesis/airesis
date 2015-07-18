@@ -83,7 +83,7 @@ describe 'check if quorums are working correctly', type: :feature, js: true do
 
     logout :user
 
-    users = group.participants.sample(4)
+    users = group.participants.where.not(users: {id: user.id}).sample(4)
     expect(Ability.new(users[0])).to be_able_to(:vote, proposal)
     login_as users[0], scope: :user
     vote

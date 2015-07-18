@@ -149,11 +149,11 @@ describe 'posts', type: :feature, js: true do
         it "shows correct 'started by' and 'last post' information" do
           visit group_forum_path(group, forum)
           within('.topic .started-by') do
-            page.should have_content(user.name)
+            expect(page).to have_content(user.name)
           end
 
           within('.topic .latest-post') do
-            page.should have_content(@user.name)
+            expect(page).to have_content(@user.name)
           end
         end
 
