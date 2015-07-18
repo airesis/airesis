@@ -38,16 +38,18 @@ describe 'check if quorums are working correctly', type: :feature, js: true do
   end
 
   it 'they can vote in a simple way and the proposal get accepted' do
+    allow_any_instance_of(User).to receive(:assign_tutorials)
+
     #populate the group
-    49.times do
+    19.times do
       user2 = create(:user)
       create_participation(user2, group)
     end
     #we now have 50 users in the group which can participate into a proposal
 
-    expect(group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count).to be(50)
+    expect(group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count).to be(20)
     proposal #we create the proposal with the assigned quorum
-    expect(proposal.quorum.valutations).to be (5+1) #calculated is ()0.1*50) + 1
+    expect(proposal.quorum.valutations).to be (2+1) #calculated is ()0.1*20) + 1
     expect(proposal.quorum.good_score).to be 50 #copied
     expect(proposal.quorum.assigned).to be_truthy #copied
 
@@ -72,7 +74,7 @@ describe 'check if quorums are working correctly', type: :feature, js: true do
     proposal.reload
     expect(proposal.voting?).to be_truthy
 
-    expect(group.scoped_participants(GroupAction::PROPOSAL_VOTE).count).to be(50)
+    expect(group.scoped_participants(GroupAction::PROPOSAL_VOTE).count).to be(20)
 
     expect(Ability.new(user)).to be_able_to(:vote, proposal)
     login_as user, scope: :user
