@@ -16,4 +16,8 @@ Ckeditor.setup do |config|
 
   # Setup authorization to be run as a before filter
   config.authorize_with :cancan
+
+  # TODO: we can configure that to reduce the number of precompiled elements
+  # config.assets_languages = %w(ar de el en en-au en-gb es fr hu id it ja nl pt pt-br ro ru zh zh-cn)
+  # config.assets_plugins = %w(clipboardyoutube image smiley)
 end
