@@ -25,17 +25,16 @@ set :deploy_to, '~/airesis_capistrano'
 # set :linked_files, %w{config/database.yml}
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets solr private/elfinder public/ckeditor_assets }
 
-# Default value for default_env is {}
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+files = %w{config/application.yml config/database.yml config/private_pub.yml config/sunspot.yml .htaccess}
 
-# Default value for keep_releases is 5
-# set :keep_releases, 5
+set :linked_files, fetch(:linked_files, []).push(files)
+
+folders = %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets solr private/elfinder public/ckeditor_assets }
+
+set :linked_dirs, fetch(:linked_dirs, []).push(folders)
 
 set :rvm1_ruby_version, File.read('.ruby-version').strip
-
-set :linked_files, %w{config/application.yml config/database.yml config/private_pub.yml config/sunspot.yml .htaccess}
 
 set :sidekiq_config, "#{current_path}/config/sidekiq.yml"
 
