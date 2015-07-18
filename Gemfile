@@ -12,6 +12,8 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
 
+gem 'sprockets', '2.12.4' # FIXME: https://github.com/rails/sprockets/issues/59
+
 gem 'foundation-rails'
 
 gem 'pg'
