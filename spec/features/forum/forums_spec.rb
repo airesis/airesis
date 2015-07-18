@@ -79,7 +79,7 @@ describe 'the management of the forum', type: :feature, js: true do
 
     forum = @group.forums.sample
     topic = forum.topics.build
-    @ability.should_not be_able_to(:create, topic)
+    expect(@ability).not_to be_able_to(:create, topic)
 
 
 
@@ -89,7 +89,7 @@ describe 'the management of the forum', type: :feature, js: true do
     forum = @group2.forums.sample
     topic = forum.topics.build
 
-    @ability.should be_able_to(:create, topic)
+    expect(@ability).to be_able_to(:create, topic)
 
     visit new_group_forum_topic_path(@group2,forum)
     expect(page).to have_content(I18n.t('frm.topic.new'))
@@ -114,9 +114,9 @@ describe 'the management of the forum', type: :feature, js: true do
 
     forum = @group2.forums.sample
     topic = forum.topics.build
-    @ability.should be_able_to(:read, @group2)
-    @ability.should be_able_to(:read, forum)
-    @ability.should be_able_to(:new, topic)
+    expect(@ability).to be_able_to(:read, @group2)
+    expect(@ability).to be_able_to(:read, forum)
+    expect(@ability).to be_able_to(:new, topic)
     visit new_group_forum_topic_path(@group2,forum)
     expect(page).to have_content(I18n.t('frm.topic.new'))
   end
