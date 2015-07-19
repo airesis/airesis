@@ -6,6 +6,7 @@ describe 'the oauth2 process', type: :feature, js: true do
   describe 'Linkedin' do
 
     before :each do
+
       @oauth_data = {
         provider: 'linkedin',
         uid: Faker::Number.number(10),

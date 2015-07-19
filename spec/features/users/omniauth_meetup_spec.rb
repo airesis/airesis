@@ -128,7 +128,6 @@ describe 'the oauth2 process', type: :feature, js: true do
       expect(page).to have_content(/#{I18n.t('info.user.IP_disabled')}/i)
 
       logout :user
-      visit '/'
 
       user2 = create(:user)
       login user2, 'topolino'

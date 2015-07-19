@@ -3,6 +3,7 @@ require 'requests_helper'
 
 describe "the management of participation roles in a group", type: :feature, js: true do
   before :each do
+    load_database
     @user = create(:user)
     @ability = Ability.new(@user)
     @group = create(:group, current_user_id: @user.id)

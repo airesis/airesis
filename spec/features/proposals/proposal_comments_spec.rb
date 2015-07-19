@@ -3,6 +3,10 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 describe 'create proposal comments', type: :feature, js: true do
+  before(:each) do
+    load_database
+  end
+
   it 'creates comments if not logged in' do
     @luser = create(:user)
     @user = create(:user)
