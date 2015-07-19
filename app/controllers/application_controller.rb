@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   after_filter :discard_flash_if_xhr
 
+  before_filter :mini_profiler
+
   before_filter :store_location
 
   before_filter :set_current_domain
@@ -118,9 +120,7 @@ class ApplicationController < ActionController::Base
     @domain_locale = request.host.split('.').last
     params[:l] = SysLocale.find_by(key: params[:l]) ? params[:l] : nil
     @locale =
-      if Rails.env.staging?
-        params[:l] || I18n.default_locale
-      elsif Rails.env.test?
+      if Rails.env.test?
         params[:l] || I18n.default_locale
       else
         params[:l] || @domain_locale || I18n.default_locale
@@ -418,5 +418,9 @@ class ApplicationController < ActionController::Base
 
   def redirect_url(proposal)
     proposal.private? ? group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal)
+  end
+
+  def mini_profiler
+    Rack::MiniProfiler.authorize_request if current_user.try(:admin?)
   end
 end
