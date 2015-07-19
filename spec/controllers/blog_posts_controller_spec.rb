@@ -2,13 +2,12 @@ require 'spec_helper'
 require 'requests_helper'
 
 describe BlogPostsController, type: :controller, seeds: true do
-
   let!(:user) { create(:user) }
 
   describe 'GET index' do
     let(:group) { create(:group, current_user_id: user.id) }
     let(:blog) { create(:blog, user: user) }
-    let(:posts) { create_list(:blog_post, 5, blog: blog, user: user) }
+    let!(:posts) { create_list(:blog_post, 5, blog: blog, user: user) }
 
     it 'redirects to the group' do
       get :index, group_id: group.id
