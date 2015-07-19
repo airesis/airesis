@@ -7,16 +7,12 @@ module Frm
     end
 
     def new_since_last_view_text(topic)
-      if current_user
-        topic_view = topic.view_for(current_user)
-        forum_view = topic.forum.view_for(current_user)
-
-        if forum_view
-          if topic_view.nil? && topic.created_at > forum_view.past_viewed_at
-            content_tag :super, 'New'
-          end
-        end
-      end
+      return unless current_user
+      forum_view = topic.forum.view_for(current_user)
+      return unless forum_view
+      topic_view = topic.view_for(current_user)
+      return unless topic_view.nil? && topic.created_at > forum_view.past_viewed_at
+      content_tag :super, 'New'
     end
 
     def relevant_posts(topic)
@@ -30,27 +26,20 @@ module Frm
       end
     end
 
-
     def icon_classes(topic)
       classes = 'icon '
-      if topic.locked?
-        classes += ' lock '
-      end
-      if topic.pinned?
-        classes += ' pin '
-      end
-      if topic.hidden?
-        classes += ' hidden '
-      end
+      classes += ' lock ' if topic.locked?
+      classes += ' pin ' if topic.pinned?
+      classes += ' hidden ' if topic.hidden?
       if current_user
         topic_view = topic.view_for(current_user)
         forum_view = topic.forum.view_for(current_user)
-        if (topic_view && topic.posts.exists?(['created_at > ?', topic_view.updated_at])) || (forum_view && topic.created_at > forum_view.updated_at)
+        if (topic_view && topic.last_post_at > topic_view.updated_at) ||
+          (forum_view && topic.created_at > forum_view.updated_at)
           classes += ' new_posts '
         end
       end
       classes
     end
-
   end
 end

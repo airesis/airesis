@@ -9,6 +9,8 @@ set :repo_url, 'git@github.com:coorasse/airesis.git'
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '~/airesis_capistrano'
 
+set :rails_env, 'production'
+
 # Default value for :scm is :git
 # set :scm, :git
 
