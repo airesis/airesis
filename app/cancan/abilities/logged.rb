@@ -292,7 +292,7 @@ module Abilities
       # forum permissions
       can :read, Frm::Category, group: participate_in_group(user)
       can :read, Frm::Forum, group: participate_in_group(user)
-      can :read, Frm::Topic, {} do |topic|
+      can :read, Frm::Topic, '' do |topic|
         topic.forum.group.participants.include? user
       end
       can [:create, :update], Frm::Topic, forum: {group: admin_of_group?(user)}
