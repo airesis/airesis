@@ -295,7 +295,9 @@ module Abilities
       can :read, Frm::Topic, '' do |topic|
         topic.forum.group.participants.include? user
       end
-      can [:create, :update, :destroy], Frm::Topic, forum: {group: admin_of_group?(user)}
+      can [:create, :update, :destroy, :toggle_hide, :toggle_lock, :toggle_pin], Frm::Topic do |topic|
+        topic.forum.group.portavoce.include? user
+      end
 
       can :manage, Frm::Category, group: admin_of_group?(user)
       can :manage, Frm::Forum, group: admin_of_group?(user)
