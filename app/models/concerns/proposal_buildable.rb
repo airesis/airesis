@@ -104,12 +104,12 @@ module Concerns
       @solution_a = solutions.build(seq: 1)
       @solution_b = solutions.build(seq: 2)
       @solution_c = solutions.build(seq: 3)
-      self.proposal_type_id = ProposalType::POLL
-      self.proposal_votation_type_id = ProposalVotationType::SCHULZE
-
       @solution_a_section = @solution_a.sections.build(title: 'Opzione 1', seq: 1)
       @solution_b_section = @solution_b.sections.build(title: 'Opzione 2', seq: 1)
       @solution_c_section = @solution_c.sections.build(title: 'Opzione 3', seq: 1)
+
+      self.proposal_type_id = ProposalType::POLL
+      self.proposal_votation_type_id = ProposalVotationType::SCHULZE
     end
 
     def candidates_new
@@ -134,86 +134,60 @@ module Concerns
       solutions << solution
     end
 
-    def standard_create
+    def paragraphs_builder(model, paragraphs)
       seq = 1
-      %w(similar stakeholders requirements).each do |paragraph_name|
-        sections.build(title: I18n.t("pages.proposals.new.standard.paragraph.#{paragraph_name}"),
-                       question: I18n.t("pages.proposals.new.standard.question.paragraph.#{paragraph_name}"),
+      paragraphs.each do |paragraph_name|
+        sections.build(title: I18n.t("pages.proposals.new.#{model}.paragraph.#{paragraph_name}"),
+                       question: I18n.t("pages.proposals.new.#{model}.question.paragraph.#{paragraph_name}"),
                        seq: seq += 1).paragraphs.build(content: '', seq: 1)
       end
+    end
+
+    def standard_create
+      paragraphs_builder('standard', %w(similar stakeholders requirements))
       solution = standard_solution
       solution.seq = 1
       solutions << solution
     end
 
     def agenda_create
-      seq = 1
-      sections.build(title: I18n.t('pages.proposals.new.agenda.paragraph.date_time'),
-                     question: I18n.t('pages.proposals.new.agenda.question.paragraph.date_time'),
-                     seq: seq += 1).
-        paragraphs.build(content: '', seq: 1)
-      sections.build(title: I18n.t('pages.proposals.new.agenda.paragraph.place'),
-                     question: I18n.t('pages.proposals.new.agenda.question.paragraph.place'),
-                     seq: seq += 1).
-        paragraphs.build(content: '', seq: 1)
-
+      paragraphs_builder('agenda', %w(date_time place))
       solution = agenda_solution
       solution.seq = 1
       solutions << solution
     end
 
     def estimate_create
-      seq = 1
-      %w(technical_constrains temporal_constrains other_constrains budget recipient_budget).each do |paragraph_name|
-        sections.build(title: I18n.t("pages.proposals.new.estimate.paragraph.#{paragraph_name}"),
-                       question: I18n.t("pages.proposals.new.estimate.question.paragraph.#{paragraph_name}"),
-                       seq: seq += 1).paragraphs.build(content: '', seq: 1)
-      end
+      paragraphs_builder('estimate',
+                         %w(technical_constrains temporal_constrains other_constrains budget recipient_budget))
       solution = estimate_solution
       solution.seq = 1
       solutions << solution
     end
 
     def event_create
-      seq = 1
-      %w(similar_experiences stakeholders desired_characteristics).each do |paragraph_name|
-        sections.build(title: I18n.t("pages.proposals.new.event.paragraph.#{paragraph_name}"),
-                       question: I18n.t("pages.proposals.new.event.question.paragraph.#{paragraph_name}"),
-                       seq: seq += 1).paragraphs.build(content: '', seq: 1)
-      end
+      paragraphs_builder('event', %w(similar_experiences stakeholders desired_characteristics))
       solution = event_solution
       solution.seq = 1
       solutions << solution
     end
 
     def press_create
-      seq = 1
-      sections.build(title: I18n.t('pages.proposals.new.press.paragraph.target'),
-                     question: I18n.t('pages.proposals.new.press.question.paragraph.target'),
-                     seq: seq += 1).paragraphs.build(content: '', seq: 1)
-
+      paragraphs_builder('press', %w(target))
       solution = press_solution
       solution.seq = 1
       solutions << solution
     end
 
     def rule_book_create
-      seq = 1
-      %w(inspire stakeholders requirements).each do |paragraph_name|
-        sections.build(title: I18n.t("pages.proposals.new.rule_book.paragraph.#{paragraph_name}"),
-                       question: I18n.t("pages.proposals.new.rule_book.question.paragraph.#{paragraph_name}"),
-                       seq: seq += 1).paragraphs.build(content: '', seq: 1)
-      end
+      paragraphs_builder('rule_book', %w(inspire stakeholders requirements))
       solution = rule_book_solution
       solution.seq = 1
       solutions << solution
     end
 
     def candidates_create
-      seq = 1
-      sections.build(title: I18n.t('pages.proposals.new.candidates.paragraph.requirements'),
-                     question: I18n.t('pages.proposals.new.candidates.question.paragraph.requirements'),
-                     seq: seq + 1).paragraphs.build(content: '', seq: 1)
+      paragraphs_builder('candidates', %w(requirements))
       solution = candidates_solution
       solution.seq = 1
       solutions << solution
