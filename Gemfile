@@ -33,6 +33,8 @@ gem 'mustache'
 gem 'mustache-js-rails'
 gem 'slim-rails'
 
+gem 'rack-mini-profiler', require: false
+
 group :development do
   gem 'sunspot_solr'
   gem 'better_errors'
@@ -43,7 +45,6 @@ group :development do
   gem 'i18n-tasks'
   gem 'rubocop'
   gem 'bullet'
-  gem 'rack-mini-profiler', require: false
 end
 
 group :development, :test do
@@ -64,12 +65,12 @@ group :test do
   gem 'test-unit'
 end
 
-group :development, :staging do
+group :development do
   gem 'crowdin-api'
   gem 'rubyzip'
 end
 
-group :staging, :production do
+group :production do
   gem 'therubyracer'
   gem 'newrelic_rpm'
   gem 'sentry-raven', github: 'getsentry/raven-ruby'
