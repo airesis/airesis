@@ -3,14 +3,17 @@ require 'requests_helper'
 
 describe "the user can invite other participants in the group", type: :feature, js: true do
 
-  let!(:user) { create(:user) }
-  let!(:group) { create(:group, current_user_id: user.id) }
-  let!(:ability) { Ability.new(user) }
+  let(:user) { create(:user) }
+  let(:group) { create(:group, current_user_id: user.id) }
+  let(:ability) { Ability.new(user) }
 
   let(:acceptor) { create(:user) }
   let(:emails) { [Faker::Internet.email, Faker::Internet.email, acceptor.email] }
   let(:group_invitation) { create(:group_invitation, group: group, emails_list: emails.join(','), inviter_id: user.id) }
 
+  before(:each) do
+    load_database
+  end
 
   after :each do
     logout(:user)

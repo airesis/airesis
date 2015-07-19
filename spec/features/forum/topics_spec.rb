@@ -3,14 +3,17 @@ require 'requests_helper'
 
 describe 'topics', type: :feature, js: true do
 
-  let!(:user) { create(:user) }
-  let!(:group) { create(:group, current_user_id: user.id) }
-  let!(:free_category) { create(:frm_category, group: group, visible_outside: true) }
-  let!(:forum) { create(:frm_forum, group: group, category: free_category) }
-  let!(:topic) { create(:approved_topic, forum: forum, user: user) }
-  let!(:other_user) { create(:user) }
-  let!(:other_topic) { create(:approved_topic, subject: Faker::Lorem.sentence, user: other_user, forum: forum) }
+  let(:user) { create(:user) }
+  let(:group) { create(:group, current_user_id: user.id) }
+  let(:free_category) { create(:frm_category, group: group, visible_outside: true) }
+  let(:forum) { create(:frm_forum, group: group, category: free_category) }
+  let(:topic) { create(:approved_topic, forum: forum, user: user) }
+  let(:other_user) { create(:user) }
+  let(:other_topic) { create(:approved_topic, subject: Faker::Lorem.sentence, user: other_user, forum: forum) }
 
+  before(:each) do
+    load_database
+  end
   context 'not signed in' do
     it 'cannot create a new topic' do
       visit new_group_forum_topic_path(group, forum)

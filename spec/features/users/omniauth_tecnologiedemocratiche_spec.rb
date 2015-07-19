@@ -72,7 +72,7 @@ describe 'the oauth2 process', type: :feature, js: true do
 
     it 'permits the join with an existing account when already logged in' do
       user = create(:user)
-      login user, 'topolino'
+      login_as user, scope: :user
 
       visit '/users/auth/tecnologiedemocratiche/callback'
       expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: @oauth_data[:provider].capitalize)}/i)
@@ -89,7 +89,7 @@ describe 'the oauth2 process', type: :feature, js: true do
 
       user = create(:user)
       initial_data = { email: user.email, first_name: user.name, last_name: user.surname }
-      login user, 'topolino'
+      login_as user, scope: :user
 
       visit '/users/auth/tecnologiedemocratiche/callback'
       expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.certified_email_taken')}/i)
@@ -103,7 +103,7 @@ describe 'the oauth2 process', type: :feature, js: true do
 
     it 'permits to proceed with the join if TD email is already taken by the current user' do
       user = create(:user, email: @oauth_data[:email])
-      login user, 'topolino'
+      login_as user, scope: :user
 
       visit '/users/auth/tecnologiedemocratiche/callback'
       expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: @oauth_data[:provider].capitalize)}/i)
@@ -117,15 +117,14 @@ describe 'the oauth2 process', type: :feature, js: true do
 
     it "doesn't permit the join if TD account is already taken" do
       user = create(:user)
-      login user, 'topolino'
+      login_as user, scope: :user
       visit '/users/auth/tecnologiedemocratiche/callback'
       expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: @oauth_data[:provider].capitalize)}/i)
 
       logout :user
-      visit '/'
 
       user2 = create(:user)
-      login user2, 'topolino'
+      login_as user2, scope: :user
       visit '/users/auth/tecnologiedemocratiche/callback'
       expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_failure', provider: @oauth_data[:provider].capitalize)}/i)
     end
@@ -136,7 +135,7 @@ describe 'the oauth2 process', type: :feature, js: true do
 
       user = create(:user)
       initial_data = { email: user.email, first_name: user.name, last_name: user.surname }
-      login user, 'topolino'
+      login_as user, scope: :user
 
       visit '/users/auth/tecnologiedemocratiche/callback'
       expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.already_certified')}/i)
@@ -158,12 +157,11 @@ describe 'the oauth2 process', type: :feature, js: true do
 
     it "remembers TD account after joining" do
       user = create(:user)
-      login user, 'topolino'
+      login_as user, scope: :user
       visit '/users/auth/tecnologiedemocratiche/callback'
       expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: @oauth_data[:provider].capitalize)}/i)
 
       logout :user
-      visit '/'
 
       visit '/users/auth/tecnologiedemocratiche/callback'
       expect(page).to have_content(/#{I18n.t('devise.sessions.user.signed_in')}/i)

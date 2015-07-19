@@ -9,6 +9,7 @@ describe Proposal, type: :model do
 
   context 'group proposal' do
     before(:each) do
+      load_municipalities
       group_proposal
     end
 

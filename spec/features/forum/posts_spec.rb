@@ -3,12 +3,16 @@ require 'requests_helper'
 require "cancan/matchers"
 
 describe 'posts', type: :feature, js: true do
-  let!(:user) { create(:user) }
-  let!(:group) { create(:group, current_user_id: user.id) }
-  let!(:free_category) { create(:frm_category, group: group, visible_outside: true) }
-  let!(:forum) { create(:frm_forum, group: group, category: free_category) }
-  let!(:topic) { create(:approved_topic, forum: forum, user: user) }
+  let(:user) { create(:user) }
+  let(:group) { create(:group, current_user_id: user.id) }
+  let(:free_category) { create(:frm_category, group: group, visible_outside: true) }
+  let(:forum) { create(:frm_forum, group: group, category: free_category) }
+  let(:topic) { create(:approved_topic, forum: forum, user: user) }
 
+  before(:each) do
+    load_database
+    topic
+  end
   context 'not signed in users' do
     it 'cannot begin to post a reply' do
       visit new_group_forum_topic_post_path(group, topic.forum, topic)

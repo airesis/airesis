@@ -3,8 +3,8 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 describe 'create proposal solutions', type: :feature, js: true do
-
   it 'creates solutions in his public proposal' do
+    load_database
     @user = create(:user)
     @ability = Ability.new(@user)
     @public_proposal = create(:public_proposal, current_user_id: @user.id)
@@ -19,7 +19,5 @@ describe 'create proposal solutions', type: :feature, js: true do
 
     click_link I18n.t('pages.proposals.edit.add_solution.standard')
     expect(page).to have_content "Solution 2"
-
   end
-
 end

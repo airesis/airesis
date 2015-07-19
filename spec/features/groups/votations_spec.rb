@@ -3,11 +3,14 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 describe 'check if quorums are working correctly', type: :feature, js: true do
-
   let(:user) { create(:user) }
   let(:group) { create(:group, current_user_id: user.id) }
   let(:quorum) { create(:best_quorum, group_quorum: GroupQuorum.new(group: group)) } #min participants is 10% and good score is 50%. vote quorum 0, 50%+1
   let(:proposal) { create(:group_proposal, quorum: quorum, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], votation: {choise: 'new', start: 10.days.from_now, end: 14.days.from_now}) }
+
+  before(:each) do
+    load_database
+  end
 
   def vote(classe='votegreen')
     visit group_proposal_path(group,proposal)
@@ -38,8 +41,6 @@ describe 'check if quorums are working correctly', type: :feature, js: true do
   end
 
   it 'they can vote in a simple way and the proposal get accepted' do
-    allow_any_instance_of(User).to receive(:assign_tutorials)
-
     #populate the group
     19.times do
       user2 = create(:user)

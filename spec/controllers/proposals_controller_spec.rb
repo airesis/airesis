@@ -6,6 +6,10 @@ describe ProposalsController, type: :controller, search: :true do
   let(:user) { create(:user) }
   let(:proposal1) { create(:public_proposal, title: 'bella giornata', current_user_id: user.id) }
 
+  before(:each) do
+    load_database
+  end
+
   describe 'GET index' do
     it 'counts correctly debate proposals' do
       create(:public_proposal, current_user_id: user.id)

@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require "cancan/matchers"
 
-describe NotificationProposalCreate, type: :model, emails: true, notifications: true do
+describe NotificationProposalCreate, type: :model, emails: true, notifications: true, seeds: true do
   it " when a new proposal is created sends correctly an email to all people which can view proposals in the group" do
     user1 = create(:user)
     group = create(:group, current_user_id: user1.id)
