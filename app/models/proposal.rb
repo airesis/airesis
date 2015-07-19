@@ -812,25 +812,30 @@ class Proposal < ActiveRecord::Base
     end
   end
 
-  def save_history
-    something = false
-    seq = (proposal_revisions.maximum(:seq) || 0) + 1
-    revision = proposal_revisions.build(user_id: update_user_id, valutations: valutations_was, rank: rank_was, seq: seq)
-    sections.each do |section|
-      paragraph = section.paragraphs.first
-      paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
-      if paragraph.content_changed? || section.marked_for_destruction?
-        something = true
-        section_history = revision.section_histories.build(section_id: section.id,
-                                                           title: section.title,
-                                                           seq: section.seq,
-                                                           added: section.new_record?,
-                                                           removed: section.marked_for_destruction?)
-        section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: id)
-      end
-    end
-    solutions.each do |solution|
+  def save_section_history(revision, section)
+    paragraph = section.paragraphs.first
+    paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
+    return false unless paragraph.content_changed? || section.marked_for_destruction?
+    section_history = revision.section_histories.build(section_id: section.id,
+                                                       title: section.title,
+                                                       seq: section.seq,
+                                                       added: section.new_record?,
+                                                       removed: section.marked_for_destruction?)
+    section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: id)
+    true
+  end
 
+  def save_sections_history(revision)
+    something = false
+    sections.each do |section|
+      something = true if save_section_history(revision, section)
+    end
+    something
+  end
+
+  def save_solutions_history(revision)
+    something_solution = false
+    solutions.each do |solution|
       solution_history = revision.solution_histories.build(seq: solution.seq,
                                                            title: solution.title,
                                                            added: solution.new_record?,
@@ -840,7 +845,6 @@ class Proposal < ActiveRecord::Base
         paragraph = section.paragraphs.first
         paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
         if paragraph.content_changed? || section.marked_for_destruction? || solution.marked_for_destruction?
-          something = true
           something_solution = true
           section_history = solution_history.section_histories.build(section_id: section.id,
                                                                      title: section.title,
@@ -852,11 +856,20 @@ class Proposal < ActiveRecord::Base
         end
       end
       solution_history.destroy unless something_solution
-      something = true if something_solution
     end
+    something_solution
+  end
+
+  def save_history
+    something = false
+    seq = (proposal_revisions.maximum(:seq) || 0) + 1
+    revision = proposal_revisions.build(user_id: update_user_id, valutations: valutations_was, rank: rank_was, seq: seq)
+    something_sections = save_sections_history(revision)
+    something_solutions = save_solutions_history(revision)
+    something = something_sections || something_solutions
     if something
       comment_ids = ProposalComment.where(id: integrated_contributes_ids, parent_proposal_comment_id: nil).pluck(:id)
-      ProposalComment.where(id: comment_ids).update_all({integrated: true})
+      ProposalComment.where(id: comment_ids).update_all(integrated: true)
       revision.contribute_ids = comment_ids
       self.updated_at = Time.now
     else
@@ -907,9 +920,9 @@ class Proposal < ActiveRecord::Base
     # TODO: we must calculate it before votation because there can be new users in the meantime
     copy.vote_valutations = ((quorum.vote_percentage.to_f * base_vote_valutations) / 100).floor
 
-    # always add 1 and at least 1. todo max is useless
-    copy.valutations = [copy.valutations + 1, 1].max
-    copy.vote_valutations = [copy.vote_valutations + 1, 1].max
+    # always add 1 and at least 1.
+    copy.valutations = copy.valutations + 1
+    copy.vote_valutations = copy.vote_valutations + 1
 
     copy.public = false # assigned quorum are never public
     copy.assigned = true
