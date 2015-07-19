@@ -6,7 +6,6 @@ describe Event do
 
   context 'scope -> in_territory' do
     it 'works' do
-      allow_any_instance_of(User).to receive(:assign_tutorials)
       events
       expect(Event.in_territory(SysLocale.default.territory).count).to eq 3
     end

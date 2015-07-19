@@ -38,8 +38,6 @@ describe 'check if quorums are working correctly', type: :feature, js: true do
   end
 
   it 'they can vote in a simple way and the proposal get accepted' do
-    allow_any_instance_of(User).to receive(:assign_tutorials)
-
     #populate the group
     19.times do
       user2 = create(:user)
