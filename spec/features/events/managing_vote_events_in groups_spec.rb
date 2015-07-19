@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe "manage correctly vote events", type: :feature, js: true do
+describe "manage correctly vote events", type: :feature, js: true, seeds: true do
 
   let!(:user) { create(:user) }
   let!(:group) { create(:group, current_user_id: user.id) }

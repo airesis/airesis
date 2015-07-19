@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'requests_helper'
 
-describe "view proposal revisions", type: :feature, js: true do
+describe "view proposal revisions", type: :feature, js: true, seeds: true do
 
   let!(:user) { create(:user) }
   let!(:proposal) { create(:proposal, current_user_id: user.id) }

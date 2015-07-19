@@ -102,7 +102,7 @@ class User < ActiveRecord::Base
 
   before_create :init
 
-  after_create :assign_tutorials
+  after_create :assign_tutorials, :block_alerts
 
   validate :check_uncertified
 
@@ -172,12 +172,14 @@ class User < ActiveRecord::Base
     Tutorial.all.each do |tutorial|
       assign_tutorial(self, tutorial)
     end
+    GeocodeUser.perform_in(5.seconds, id)
+  end
+
+  def block_alerts
     blocked_alerts.create(notification_type_id: NotificationType::NEW_VALUTATION_MINE)
     blocked_alerts.create(notification_type_id: NotificationType::NEW_VALUTATION)
     blocked_alerts.create(notification_type_id: NotificationType::NEW_PUBLIC_EVENTS)
     blocked_alerts.create(notification_type_id: NotificationType::NEW_PUBLIC_PROPOSALS)
-
-    GeocodeUser.perform_in(5.seconds, self.id)
   end
 
   def init

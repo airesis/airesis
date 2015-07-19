@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'requests_helper'
 
-describe "the management of group areas", type: :feature, js: true do
+describe "the management of group areas", type: :feature, js: true, seeds: true do
   before :each do
     @user = create(:user)
     @ability = Ability.new(@user)

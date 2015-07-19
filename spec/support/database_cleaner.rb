@@ -28,6 +28,10 @@ RSpec.configure do |config|
     #load_database
   end
 
+  config.before(:each, seeds: true) do
+    load_database
+  end
+
   config.append_after(:each) do
     DatabaseCleaner.clean
   end

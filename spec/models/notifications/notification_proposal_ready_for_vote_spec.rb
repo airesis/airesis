@@ -2,8 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationProposalReadyForVote, type: :model, emails: true, notifications: true do
-
+describe NotificationProposalReadyForVote, type: :model, emails: true, notifications: true, seeds: true do
   it 'when a proposal is ready for vote sends correctly an email to all authors' do
     user1 = create(:user)
     proposal = create(:public_proposal, current_user_id: user1.id)

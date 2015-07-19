@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationProposalUpdate, type: :model, emails: true, notifications: true do
+describe NotificationProposalUpdate, type: :model, emails: true, notifications: true, seeds: true do
 
   let!(:event_class) { NotificationProposalUpdate }
   let!(:notification_type) { NotificationType.find_by(name: 'text_update') }

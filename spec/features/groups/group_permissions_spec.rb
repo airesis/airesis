@@ -3,6 +3,7 @@ require 'requests_helper'
 
 describe "check permissions are actually working inside groups", type: :feature do
   before :each do
+    load_database
     @user = create(:user)
     @ability = Ability.new(@user)
     @group = create(:group, current_user_id: @user.id)

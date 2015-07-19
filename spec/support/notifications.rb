@@ -14,7 +14,6 @@ end
 
 def cumulable_event_process_spec
   before(:each) do
-    load_database
     trigger_event
   end
 

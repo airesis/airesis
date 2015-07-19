@@ -5,6 +5,7 @@ describe Group do
 
   context 'when created' do
     before(:each) do
+      load_database
       group.save
     end
     it 'has one participant' do

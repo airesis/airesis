@@ -6,6 +6,7 @@ describe Event do
 
   context 'scope -> in_territory' do
     it 'works' do
+      load_municipalities
       events
       expect(Event.in_territory(SysLocale.default.territory).count).to eq 3
     end

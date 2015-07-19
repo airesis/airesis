@@ -1,17 +1,21 @@
 require 'spec_helper'
 require 'requests_helper'
 
-describe 'categories', type: :feature, js: true do
+describe 'categories', type: :feature, js: true, seeds: true do
 
-  let!(:user) { create(:user) }
+  let(:user) { create(:user) }
 
-  let!(:group) { create(:group, current_user_id: user.id) }
+  let(:group) { create(:group, current_user_id: user.id) }
 
-  let!(:category_1) { create(:frm_category, group: group) }
-  let!(:forum_1) { create(:frm_forum, category: category_1, group: group) }
+  let(:category_1) { create(:frm_category, group: group) }
+  let(:forum_1) { create(:frm_forum, category: category_1, group: group) }
 
-  let!(:category_2) { create(:frm_category, group: group) }
-  let!(:forum_2) { create(:frm_forum, :category => category_2, group: group) }
+  let(:category_2) { create(:frm_category, group: group) }
+  let(:forum_2) { create(:frm_forum, :category => category_2, group: group) }
+
+  before(:each) do
+    load_database
+  end
 
   it "sees categorized public forums" do
 

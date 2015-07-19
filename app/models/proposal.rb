@@ -855,7 +855,7 @@ class Proposal < ActiveRecord::Base
       something = true if something_solution
     end
     if something
-      comment_ids = ProposalComment.where({id: integrated_contributes_ids, parent_proposal_comment_id: nil}).pluck(:id)
+      comment_ids = ProposalComment.where(id: integrated_contributes_ids, parent_proposal_comment_id: nil).pluck(:id)
       ProposalComment.where(id: comment_ids).update_all({integrated: true})
       revision.contribute_ids = comment_ids
       self.updated_at = Time.now
