@@ -96,6 +96,9 @@ AWS_BUCKET: ""
 AWS_ACCESS_KEY_ID: ""
 AWS_SECRET_ACCESS_KEY: ""
 
+# assets on a cdn. remove it if you are not using a cdn
+ASSETS_HOST: ""
+
 # remove this variable if you are not using cloudfront. set it to cloudfront alias if you want to you it
 AWS_ALIAS: "static.yourwebsite.com"
 

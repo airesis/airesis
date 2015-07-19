@@ -49,24 +49,24 @@ module Airesis
     config.action_mailer.default_url_options = {host: ENV['MAILER_DEFAULT_HOST']}
 
     config.action_mailer.smtp_settings = {
-        enable_starttls_auto: true,
-        port: 587,
-        address: ENV['EMAIL_ADDRESS'],
-        user_name: ENV['EMAIL_USERNAME'],
-        password: ENV['EMAIL_PASSWORD'],
-        authentication: :plain
+      enable_starttls_auto: true,
+      port: 587,
+      address: ENV['EMAIL_ADDRESS'],
+      user_name: ENV['EMAIL_USERNAME'],
+      password: ENV['EMAIL_PASSWORD'],
+      authentication: :plain
     }
 
     if ENV['AWS_HOST'].present?
       options = {
-          storage: :s3,
-          s3_protocol: :https,
-          bucket: ENV['AWS_BUCKET'],
-          s3_credentials: {
-              access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-              secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
-          },
-          s3_host_name: ENV['AWS_HOST']
+        storage: :s3,
+        s3_protocol: :https,
+        bucket: ENV['AWS_BUCKET'],
+        s3_credentials: {
+          access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+          secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+        },
+        s3_host_name: ENV['AWS_HOST']
       }
 
       if ENV['AWS_ALIAS'].present?
@@ -74,6 +74,9 @@ module Airesis
                        url: ':s3_alias_url')
       end
 
+      if ENV['ASSETS_HOST'].present?
+        config.action_controller.asset_host = ENV['ASSETS_HOST']
+      end
       config.paperclip_defaults = options
     end
   end
