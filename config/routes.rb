@@ -2,7 +2,7 @@ require 'sidekiq/web'
 
 Airesis::Application.routes.draw do
 
-  resources :searches
+  resources :searches, only: [:index]
 
   resources :sys_payment_notifications, only: [:create]
 

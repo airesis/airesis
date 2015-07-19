@@ -54,7 +54,7 @@
                     <div id="edit_luogo">
                       <%= p.input :municipality_id,
                                   input_html: {style: 'width:100%',
-                                               'data-pre': {id: @event.place.municipality.id,
+                                               'data-pre' => {id: @event.place.municipality.id,
                                                             text: @event.place.municipality.description}.to_json} %>
                       <%= p.input :address %>
                       <%= p.hidden_field :latitude_original %>

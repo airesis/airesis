@@ -1,6 +1,5 @@
 class SearchesController < ApplicationController
   include GroupsHelper, UsersHelper
-  before_action :set_search, only: [:show, :edit, :update, :destroy]
 
   def index
     @search = Search.new
@@ -29,54 +28,5 @@ class SearchesController < ApplicationController
       end
     end
     render json: results
-  end
-
-  def show
-  end
-
-  def new
-    @search = Search.new
-  end
-
-  def edit
-  end
-
-  def create
-    @search = Search.new
-    @search.q = params[:term]
-    @search.user_id = current_user.id
-    @search.find
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def update
-    respond_to do |format|
-      if @search.update(search_params)
-        format.html { redirect_to @search, notice: 'Search was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @search.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def destroy
-    @search.destroy
-    respond_to do |format|
-      format.html { redirect_to searches_url }
-      format.json { head :no_content }
-    end
-  end
-
-  private
-  def set_search
-    @search = Search.find(params[:id])
-  end
-
-  def search_params
-    params.require(:search).permit(:q)
   end
 end
