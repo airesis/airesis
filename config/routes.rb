@@ -98,9 +98,7 @@ Airesis::Application.routes.draw do
       post :close_debate
       patch :regenerate
       get :geocode
-      get :facebook_share
       get :promote
-      post :facebook_send_message
       get :banner
       get :test_banner
     end

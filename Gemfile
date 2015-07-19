@@ -102,8 +102,6 @@ gem 'devise_traceable', github: 'coorasse/devise_traceable'
 
 gem 'koala'
 
-gem 'xmpp4r_facebook'
-
 gem 'sinatra', require: false
 
 gem 'sidekiq'
