@@ -440,7 +440,7 @@ class User < ActiveRecord::Base
       user = self
     end
 
-    if user.avatar.exists?
+    if user.avatar.file?
       user.avatar.url
     else
       # Gravatar

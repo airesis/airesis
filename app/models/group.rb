@@ -136,7 +136,7 @@ class Group < ActiveRecord::Base
     ids = self.default_role.action_abilitations.pluck(:id)
     ActionAbilitation.where(id: ids).update_all({group_id: self.id})
 
-    #create default forums
+    # create default forums
     private = categories.create(name: I18n.t('frm.admin.categories.default_private'), visible_outside: false)
     private_f = private.forums.build(name: I18n.t('frm.admin.forums.default_private'), description: I18n.t('frm.admin.forums.default_private_description'), visible_outside: false)
     private_f.group = self
