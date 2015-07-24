@@ -11,12 +11,7 @@ hu:
     firstDay: 0
     timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
   date:
-    order:
-      - :day
-      - :month
-      - :year
     formats:
-      default: '%d-%m-%Y'
       short: '%b %d'
       long: '%Y %B %d.'
     day_names:
@@ -36,19 +31,18 @@ hu:
       - Csü
       - Szombat
     month_names:
-      - nil
-      - január
-      - február
-      - március
-      - április
-      - május
-      - június
-      - Július
-      - Augusztus
-      - szeptember
-      - október
-      - november
-      - December
+      1: január
+      2: február
+      3: március
+      4: április
+      5: május
+      6: június
+      7: Július
+      8: Augusztus
+      9: szeptember
+      10: október
+      11: november
+      12: December
     abbr_month_names:
       - nulla
       - Jan
@@ -65,13 +59,13 @@ hu:
       - December
   time:
     formats:
-      default: '%Y %b %d %H:%M'
+      default: '</br>%Y %b %d %H:%M'
       long: '%A %d %B %y: %I:% M %p'
       long_date: '%Y %B %d (%A)'
       long_date_time: '%d %B %Y %B %d (%A) %H:%M'
       from_long_date_time: '%Y %B %d (%A) %H:%M -tól'
       until_long_date_time: '%Y %B %d (%A) %H:%M -ig'
-      short: '%Y %b %d.'
+      short: '%Y. %b. %d.'
       two_rows: '%Y %b %d <br/> %H:%M'
       weekday: '%a %H:%M'
       month: '%B'
@@ -80,7 +74,6 @@ hu:
       yesterday_at: 'tegnap %H:%M -kor'
       textfield: '%Y/%m/%d %H:%M'
       rich: '%Y-%m-%dT%H:%M'
-      datepicker: '%Y-%m-%d %H:%M'
     am: Délelött
     pm: Du.
     left:

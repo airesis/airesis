@@ -3,243 +3,240 @@ crowdin:
     proposals:
       edit:
         add_solution:
-          standard: "{crwdns6551:0}{crwdne6551:0}"
-          poll: "{crwdns6552:0}{crwdne6552:0}"
-          rule_book: "{crwdns6553:0}{crwdne6553:0}"
-          press: "{crwdns6554:0}{crwdne6554:0}"
-          event: "{crwdns6555:0}{crwdne6555:0}"
-          estimate: "{crwdns6556:0}{crwdne6556:0}"
-          agenda: "{crwdns6557:0}{crwdne6557:0}"
-          candidates: "{crwdns6558:0}{crwdne6558:0}"
-          simple: "{crwdns6559:0}{crwdne6559:0}"
+          standard: crwdns6551:0crwdne6551:0
+          poll: crwdns6552:0crwdne6552:0
+          rule_book: crwdns6553:0crwdne6553:0
+          press: crwdns6554:0crwdne6554:0
+          event: crwdns6555:0crwdne6555:0
+          estimate: crwdns6556:0crwdne6556:0
+          agenda: crwdns6557:0crwdne6557:0
+          candidates: crwdns6558:0crwdne6558:0
+          simple: crwdns6559:0crwdne6559:0
         solution_title:
-          standard: "{crwdns7985:0}{crwdne7985:0}"
-          poll: "{crwdns7986:0}{crwdne7986:0}"
-          rule_book: "{crwdns7987:0}{crwdne7987:0}"
-          press: "{crwdns7988:0}{crwdne7988:0}"
-          event: "{crwdns7989:0}{crwdne7989:0}"
-          estimate: "{crwdns7990:0}{crwdne7990:0}"
-          agenda: "{crwdns7991:0}{crwdne7991:0}"
-          candidates: "{crwdns7992:0}{crwdne7992:0}"
-          simple: "{crwdns7993:0}{crwdne7993:0}"
+          standard: crwdns7985:0crwdne7985:0
+          poll: crwdns7986:0crwdne7986:0
+          rule_book: crwdns7987:0crwdne7987:0
+          press: crwdns7988:0crwdne7988:0
+          event: crwdns7989:0crwdne7989:0
+          estimate: crwdns7990:0crwdne7990:0
+          agenda: crwdns7991:0crwdne7991:0
+          candidates: crwdns7992:0crwdne7992:0
+          simple: crwdns7993:0crwdne7993:0
         insert_title:
-          standard: "{crwdns7994:0}{crwdne7994:0}"
-          poll: "{crwdns7995:0}{crwdne7995:0}"
-          rule_book: "{crwdns7996:0}{crwdne7996:0}"
-          press: "{crwdns7997:0}{crwdne7997:0}"
-          event: "{crwdns7998:0}{crwdne7998:0}"
-          estimate: "{crwdns7999:0}{crwdne7999:0}"
-          agenda: "{crwdns8000:0}{crwdne8000:0}"
-          candidates: "{crwdns8001:0}{crwdne8001:0}"
-          simple: "{crwdns8002:0}{crwdne8002:0}"
+          standard: crwdns7994:0crwdne7994:0
+          poll: crwdns7995:0crwdne7995:0
+          rule_book: crwdns7996:0crwdne7996:0
+          press: crwdns7997:0crwdne7997:0
+          event: crwdns7998:0crwdne7998:0
+          estimate: crwdns7999:0crwdne7999:0
+          agenda: crwdns8000:0crwdne8000:0
+          candidates: crwdns8001:0crwdne8001:0
+          simple: crwdns8002:0crwdne8002:0
         new_solution_title:
-          standard: "{crwdns8003:0}%{num}{crwdne8003:0}"
-          poll: "{crwdns8004:0}%{num}{crwdne8004:0}"
-          rule_book: "{crwdns8005:0}%{num}{crwdne8005:0}"
-          press: "{crwdns8006:0}%{num}{crwdne8006:0}"
-          event: "{crwdns8007:0}%{num}{crwdne8007:0}"
-          estimate: "{crwdns8008:0}%{num}{crwdne8008:0}"
-          agenda: "{crwdns8009:0}%{num}{crwdne8009:0}"
-          candidates: "{crwdns8010:0}%{num}{crwdne8010:0}"
-          simple: "{crwdns8011:0}%{num}{crwdne8011:0}"
+          standard: 'crwdns8003:0%{num}crwdne8003:0'
+          poll: 'crwdns8004:0%{num}crwdne8004:0'
+          rule_book: 'crwdns8005:0%{num}crwdne8005:0'
+          press: 'crwdns8006:0%{num}crwdne8006:0'
+          event: 'crwdns8007:0%{num}crwdne8007:0'
+          estimate: 'crwdns8008:0%{num}crwdne8008:0'
+          agenda: 'crwdns8009:0%{num}crwdne8009:0'
+          candidates: 'crwdns8010:0%{num}crwdne8010:0'
+          simple: 'crwdns8011:0%{num}crwdne8011:0'
       new:
         standard:
-          problems_title: "{crwdns6560:0}{crwdne6560:0}"
-          problems_question: "{crwdns8012:0}{crwdne8012:0}"
-          problems_title_label: "{crwdns6561:0}{crwdne6561:0}"
-          objectives_title: "{crwdns6562:0}{crwdne6562:0}"
-          step_4_title: "{crwdns6563:0}{crwdne6563:0}"
+          problems_title: crwdns6560:0crwdne6560:0
+          problems_question: crwdns8012:0crwdne8012:0
+          problems_title_label: crwdns6561:0crwdne6561:0
+          objectives_title: crwdns6562:0crwdne6562:0
+          step_4_title: crwdns6563:0crwdne6563:0
           solution:
-            description: "{crwdns6564:0}{crwdne6564:0}"
-            time: "{crwdns6565:0}{crwdne6565:0}"
-            subject: "{crwdns6566:0}{crwdne6566:0}"
-            resources: "{crwdns6567:0}{crwdne6567:0}"
-            aspects: "{crwdns6568:0}{crwdne6568:0}"
-            documents: "{crwdns6569:0}{crwdne6569:0}"
-            pros: "{crwdns6570:0}{crwdne6570:0}"
-            cons: "{crwdns6571:0}{crwdne6571:0}"
-            title: "{crwdns6572:0}{crwdne6572:0}"
-          suggestion_html: "{crwdns6573:0}{crwdne6573:0}"
+            description: crwdns6564:0crwdne6564:0
+            time: crwdns6565:0crwdne6565:0
+            subject: crwdns6566:0crwdne6566:0
+            resources: crwdns6567:0crwdne6567:0
+            aspects: crwdns6568:0crwdne6568:0
+            documents: crwdns6569:0crwdne6569:0
+            pros: crwdns6570:0crwdne6570:0
+            cons: crwdns6571:0crwdne6571:0
+            title: crwdns6572:0crwdne6572:0
+          suggestion_html: crwdns6573:0crwdne6573:0
           paragraph:
-            similar: "{crwdns8013:0}{crwdne8013:0}"
-            stakeholders: "{crwdns8014:0}{crwdne8014:0}"
-            requirements: "{crwdns8015:0}{crwdne8015:0}"
+            similar: crwdns8013:0crwdne8013:0
+            stakeholders: crwdns8014:0crwdne8014:0
+            requirements: crwdns8015:0crwdne8015:0
           question:
             paragraph:
-              similar: "{crwdns8016:0}{crwdne8016:0}"
-              stakeholders: "{crwdns8017:0}{crwdne8017:0}"
-              requirements: "{crwdns8018:0}{crwdne8018:0}"
+              similar: crwdns8016:0crwdne8016:0
+              stakeholders: crwdns8017:0crwdne8017:0
+              requirements: crwdns8018:0crwdne8018:0
             solution:
-              description: "{crwdns8019:0}{crwdne8019:0}"
-              time: "{crwdns8020:0}{crwdne8020:0}"
-              subject: "{crwdns8021:0}{crwdne8021:0}"
-              resources: "{crwdns8022:0}{crwdne8022:0}"
-              aspects: "{crwdns8023:0}{crwdne8023:0}"
-              documents: "{crwdns8024:0}{crwdne8024:0}"
-              pros: "{crwdns8025:0}{crwdne8025:0}"
-              cons: "{crwdns8026:0}{crwdne8026:0}"
+              description: crwdns8019:0crwdne8019:0
+              time: crwdns8020:0crwdne8020:0
+              subject: crwdns8021:0crwdne8021:0
+              resources: crwdns8022:0crwdne8022:0
+              aspects: crwdns8023:0crwdne8023:0
+              documents: crwdns8024:0crwdne8024:0
+              pros: crwdns8025:0crwdne8025:0
+              cons: crwdns8026:0crwdne8026:0
         rule_book:
-          problems_title: "{crwdns6580:0}{crwdne6580:0}"
-          problems_title_label: "{crwdns6574:0}{crwdne6574:0}"
-          problems_question: "{crwdns8027:0}{crwdne8027:0}"
-          suggestion_html: "{crwdns6575:0}{crwdne6575:0}"
+          problems_title: crwdns6580:0crwdne6580:0
+          problems_title_label: crwdns6574:0crwdne6574:0
+          problems_question: crwdns8027:0crwdne8027:0
+          suggestion_html: crwdns6575:0crwdne6575:0
           solution:
-            title: "{crwdns6579:0}{crwdne6579:0}"
-            article: "{crwdns6576:0}%{num}{crwdne6576:0}"
-            pros: "{crwdns6577:0}{crwdne6577:0}"
-            cons: "{crwdns6578:0}{crwdne6578:0}"
+            title: crwdns6579:0crwdne6579:0
+            article: 'crwdns6576:0%{num}crwdne6576:0'
+            pros: crwdns6577:0crwdne6577:0
+            cons: crwdns6578:0crwdne6578:0
           paragraph:
-            inspire: "{crwdns6581:0}{crwdne6581:0}"
-            requirements: "{crwdns6582:0}{crwdne6582:0}"
-            stakeholders: "{crwdns8028:0}{crwdne8028:0}"
+            inspire: crwdns6581:0crwdne6581:0
+            requirements: crwdns6582:0crwdne6582:0
+            stakeholders: crwdns8028:0crwdne8028:0
           question:
             paragraph:
-              inspire: "{crwdns8029:0}{crwdne8029:0}"
-              requirements: "{crwdns8030:0}{crwdne8030:0}"
-              stakeholders: "{crwdns8031:0}{crwdne8031:0}"
+              inspire: crwdns8029:0crwdne8029:0
+              requirements: crwdns8030:0crwdne8030:0
+              stakeholders: crwdns8031:0crwdne8031:0
             solution:
-              article: "{crwdns8032:0}{crwdne8032:0}"
-              pros: "{crwdns8033:0}{crwdne8033:0}"
-              cons: "{crwdns8034:0}{crwdne8034:0}"
+              article: crwdns8032:0crwdne8032:0
+              pros: crwdns8033:0crwdne8033:0
+              cons: crwdns8034:0crwdne8034:0
         press:
-          problems_title_label: "{crwdns6584:0}{crwdne6584:0}"
-          problems_title: "{crwdns6585:0}{crwdne6585:0}"
-          problems_question: "{crwdns8035:0}{crwdne8035:0}"
-          suggestion_html: "{crwdns6586:0}{crwdne6586:0}"
+          problems_title_label: crwdns6584:0crwdne6584:0
+          problems_title: crwdns6585:0crwdne6585:0
+          problems_question: crwdns8035:0crwdne8035:0
+          suggestion_html: crwdns6586:0crwdne6586:0
           solution:
-            title: "{crwdns6592:0}{crwdne6592:0}"
-            maintitle: "{crwdns6593:0}{crwdne6593:0}"
-            subtitle: "{crwdns6587:0}{crwdne6587:0}"
-            incipit: "{crwdns6588:0}{crwdne6588:0}"
-            body: "{crwdns6589:0}{crwdne6589:0}"
-            conclusion: "{crwdns6590:0}{crwdne6590:0}"
-            deep: "{crwdns6591:0}{crwdne6591:0}"
+            title: crwdns6592:0crwdne6592:0
+            maintitle: crwdns6593:0crwdne6593:0
+            subtitle: crwdns6587:0crwdne6587:0
+            incipit: crwdns6588:0crwdne6588:0
+            body: crwdns6589:0crwdne6589:0
+            conclusion: crwdns6590:0crwdne6590:0
+            deep: crwdns6591:0crwdne6591:0
           paragraph:
-            target: "{crwdns6594:0}{crwdne6594:0}"
+            target: crwdns6594:0crwdne6594:0
           question:
             paragraph:
-              target: "{crwdns8036:0}{crwdne8036:0}"
+              target: crwdns8036:0crwdne8036:0
             solution:
-              maintitle: "{crwdns8037:0}{crwdne8037:0}"
-              subtitle: "{crwdns8038:0}{crwdne8038:0}"
-              incipit: "{crwdns8039:0}{crwdne8039:0}"
-              body: "{crwdns8040:0}{crwdne8040:0}"
-              conclusion: "{crwdns8041:0}{crwdne8041:0}"
-              deep: "{crwdns8042:0}{crwdne8042:0}"
+              maintitle: crwdns8037:0crwdne8037:0
+              subtitle: crwdns8038:0crwdne8038:0
+              incipit: crwdns8039:0crwdne8039:0
+              body: crwdns8040:0crwdne8040:0
+              conclusion: crwdns8041:0crwdne8041:0
+              deep: crwdns8042:0crwdne8042:0
         estimate:
-          problems_title_label: "{crwdns6595:0}{crwdne6595:0}"
-          problems_title: "{crwdns6596:0}{crwdne6596:0}"
-          problems_question: "{crwdns8043:0}{crwdne8043:0}"
-          suggestion_html: "{crwdns6597:0}{crwdne6597:0}"
+          problems_title_label: crwdns6595:0crwdne6595:0
+          problems_title: crwdns6596:0crwdne6596:0
+          problems_question: crwdns8043:0crwdne8043:0
+          suggestion_html: crwdns6597:0crwdne6597:0
           solution:
-            title: "{crwdns6598:0}{crwdne6598:0}"
-            cost: "{crwdns6599:0}{crwdne6599:0}"
-            problems: "{crwdns6600:0}{crwdne6600:0}"
-            dumentation: "{crwdns6601:0}{crwdne6601:0}"
+            title: crwdns6598:0crwdne6598:0
+            cost: crwdns6599:0crwdne6599:0
+            problems: crwdns6600:0crwdne6600:0
+            dumentation: crwdns6601:0crwdne6601:0
           paragraph:
-            technical_constrains: "{crwdns6602:0}{crwdne6602:0}"
-            temporal_constrains: "{crwdns6603:0}{crwdne6603:0}"
-            other_constrains: "{crwdns6604:0}{crwdne6604:0}"
-            budget: "{crwdns6605:0}{crwdne6605:0}"
-            recipient_budget: "{crwdns6606:0}{crwdne6606:0}"
+            technical_constrains: crwdns6602:0crwdne6602:0
+            temporal_constrains: crwdns6603:0crwdne6603:0
+            other_constrains: crwdns6604:0crwdne6604:0
+            budget: crwdns6605:0crwdne6605:0
+            recipient_budget: crwdns6606:0crwdne6606:0
           question:
             paragraph:
-              technical_constrains: Quali requisiti tecnici dovranno assicurare i beni ed i servizi da acquistare?
-              temporal_constrains: Con quali tempistica dovranno essere forniti il preventivo nonchè i beni o servizi da acquistare?
-              other_constrains: Quali requisiti ambientali ed etici dovranno assicurare i beni o i servizi da acquistare? Dovranno rispettare particolari norme di legge?
-              budget: Quale è la massima cifra destinabile all’acquisto?
-              recipient_budget: Quali soggetti saranno invitati a fornire un preventivo? Quali sono i loro contatti?
+              technical_constrains: crwdns8044:0crwdne8044:0
+              temporal_constrains: crwdns8045:0crwdne8045:0
+              other_constrains: crwdns8046:0crwdne8046:0
+              budget: crwdns8047:0crwdne8047:0
+              recipient_budget: crwdns8048:0crwdne8048:0
             solution:
-              cost: Qual è l’importo preventivato per la fornitura dei beni e dei servizi richiesti?
-              problems: Quali, tra i vincoli precedentemente individuati, non saranno rispettati? Il ricorso a questo preventivo comporta altre problematiche? (es. conflitto d’interesse, mancanza di assistenza...).
-              dumentation: Riportare, anche attraverso l’impiego di link ed allegati, ulteriore documentazione relativa a questo preventivo.
+              cost: crwdns8049:0crwdne8049:0
+              problems: crwdns8050:0crwdne8050:0
+              dumentation: crwdns8051:0crwdne8051:0
         agenda:
-          problems_title: "{crwdns6607:0}{crwdne6607:0}"
-          problems_question: Che tipo di incontro si desidera organizzare? Perchè lo si vuole organizzare?
-          suggestion_html: "{crwdns6608:0}{crwdne6608:0}"
+          problems_title: crwdns6607:0crwdne6607:0
+          problems_question: crwdns8052:0crwdne8052:0
+          suggestion_html: crwdns6608:0crwdne6608:0
           solution:
-            title: "{crwdns6609:0}{crwdne6609:0}"
-            priorities: "{crwdns6610:0}{crwdne6610:0}"
-            links: "{crwdns6611:0}{crwdne6611:0}"
-            description: "{crwdns6612:0}{crwdne6612:0}"
-            estimated_time: "{crwdns6613:0}{crwdne6613:0}"
+            title: crwdns6609:0crwdne6609:0
+            priorities: crwdns6610:0crwdne6610:0
+            links: crwdns6611:0crwdne6611:0
+            description: crwdns6612:0crwdne6612:0
+            estimated_time: crwdns6613:0crwdne6613:0
           paragraph:
-            date_time: "{crwdns6614:0}{crwdne6614:0}"
-            place: "{crwdns6615:0}{crwdne6615:0}"
+            date_time: crwdns6614:0crwdne6614:0
+            place: crwdns6615:0crwdne6615:0
           question:
             paragraph:
-              date_time: "Quando avrà luogo l’incontro? Si è accertata la disponibilità degli invitati? Si è accertato che l’evento non si sovrapponga con altri? "
-              place: Dove si svolgerà l’evento? Se l’evento ha luogo on-line, indicare l’indirizzo web al quale collegarsi per partecipare.
+              date_time: crwdns8053:0crwdne8053:0
+              place: crwdns8054:0crwdne8054:0
             solution:
-              description: "Indicare uno dei punti all'ordine del giorno."
-              links: Eventuali link a documenti o pagine web utili per la riunione o citati durante la stessa.
-              priorities: Indicare perchè si ritiene importante trattare questo punto e qual è la sua priorità.
-              estimated_time: Qual è il tempo previsto di discussione per questo punto?
+              description: crwdns8055:0crwdne8055:0
+              links: crwdns8056:0crwdne8056:0
+              priorities: crwdns8057:0crwdne8057:0
+              estimated_time: crwdns8058:0crwdne8058:0
         event:
-          problems_title: "{crwdns6616:0}{crwdne6616:0}"
-          problems_title_label: "{crwdns6617:0}{crwdne6617:0}"
-          problems_question: "{crwdns8059:0}{crwdne8059:0}"
-          suggestion_html: "{crwdns6618:0}{crwdne6618:0}"
+          problems_title: crwdns6616:0crwdne6616:0
+          problems_title_label: crwdns6617:0crwdne6617:0
+          problems_question: crwdns8059:0crwdne8059:0
+          suggestion_html: crwdns6618:0crwdne6618:0
           solution:
-            title: "{crwdns6619:0}{crwdne6619:0}"
-            maintitle: "{crwdns6620:0}{crwdne6620:0}"
-            description: "{crwdns6621:0}{crwdne6621:0}"
-            program: "{crwdns6622:0}{crwdne6622:0}"
-            body: "{crwdns6623:0}{crwdne6623:0}"
-            place: "{crwdns6624:0}{crwdne6624:0}"
-            organization: "{crwdns6625:0}{crwdne6625:0}"
-            resources: "{crwdns6626:0}{crwdne6626:0}"
-            pros: "{crwdns6627:0}{crwdne6627:0}"
-            cons: "{crwdns6628:0}{crwdne6628:0}"
+            title: crwdns6619:0crwdne6619:0
+            maintitle: crwdns6620:0crwdne6620:0
+            description: crwdns6621:0crwdne6621:0
+            program: crwdns6622:0crwdne6622:0
+            body: crwdns6623:0crwdne6623:0
+            place: crwdns6624:0crwdne6624:0
+            organization: crwdns6625:0crwdne6625:0
+            resources: crwdns6626:0crwdne6626:0
+            pros: crwdns6627:0crwdne6627:0
+            cons: crwdns6628:0crwdne6628:0
           paragraph:
-            similar_experiences: "{crwdns6629:0}{crwdne6629:0}"
-            stakeholders: "{crwdns6630:0}{crwdne6630:0}"
-            desired_characteristics: "{crwdns6631:0}{crwdne6631:0}"
+            similar_experiences: crwdns6629:0crwdne6629:0
+            stakeholders: crwdns6630:0crwdne6630:0
+            desired_characteristics: crwdns6631:0crwdne6631:0
           question:
             paragraph:
-              similar_experiences: Esistono esperienze a cui ispirarsi per organizzare l’evento? Tra le possibili iniziative già messe in atto, quali hanno raggiunto migliori risultati e quali peggiori? Perché?
-              stakeholders: Chi riceverà dei vantaggi e degli svantaggi dal raggiungimento dall’organizzazione dell’evento? Tali soggetti sono stati coinvolti nella discussione di questa proposta? In che modo?
-              desired_characteristics: Quali sono le caratteristiche che l’evento dovrebbe presentare? Possono essere indicati requisiti tecnici, principi etici, criteri organizzativi...
+              similar_experiences: crwdns8060:0crwdne8060:0
+              stakeholders: crwdns8061:0crwdne8061:0
+              desired_characteristics: crwdns8062:0crwdne8062:0
             solution:
-              description: Descrivere la soluzione che si propone di adottare per l’organizzazione dell’evento
-              program: Quando si svolgerà l’evento? Quale sarà il programma? Si è accertato che l’evento non si sovrapponga con altri? Si è accertata la disponibilità degli invitati?
-              place: Dove si svolgerà l’evento? Tale luogo dispone dei servizi necessari per l’evento (es. accesso disabili, bagni, fornitura elettrica)? Se no, come si pensa di rimediare alla lacuna?
-              organization: Quali saranno le diverse fasi/aree organizzative? Chii sarà incaricato dell’organizzazione delle diverse fasi/aree?
-              resources: Sono necessari fondi, volontari, strumenti, competenze specifiche per realizzare questa soluzione? Elencarli e quantificarli. Come saranno reperite tali risorse?
+              description: crwdns8063:0crwdne8063:0
+              program: crwdns8064:0crwdne8064:0
+              place: crwdns8065:0crwdne8065:0
+              organization: crwdns8066:0crwdne8066:0
+              resources: crwdns8067:0crwdne8067:0
         candidates:
-          suggestion_html: |
-            <div><b>Example:</b></div>
-            <div>Elect the new referent for the communication group.</div>
-            <div>The communication group has just been established and it is necessary to elect a referent. All the people that have been members of the group for at least 5 months can be nominated.</div>
+          suggestion_html: crwdns6632:0crwdne6632:0
           solution:
-            name: "{crwdns6633:0}{crwdne6633:0}"
-            data: "{crwdns6634:0}{crwdne6634:0}"
-            curriculum: "{crwdns6635:0}{crwdne6635:0}"
+            name: crwdns6633:0crwdne6633:0
+            data: crwdns6634:0crwdne6634:0
+            curriculum: crwdns6635:0crwdne6635:0
           paragraph:
-            election_type: "{crwdns6637:0}{crwdne6637:0}"
-            role: Ruolo o carica da ricoprire
-            requirements: Requisiti del candidato
+            election_type: crwdns6637:0crwdne6637:0
+            role: crwdns8068:0crwdne8068:0
+            requirements: crwdns8069:0crwdne8069:0
           question:
             paragraph:
-              role: "Quale è il ruolo per il quale è necessario selezionare un candidato? Quali saranno le sue mansioni?  Quali compiti dovrà portare a termine?"
-              requirements: Quali sono le caratteristiche ideali del candidato? Quali sono i requisiti minimi inderogabili?
+              role: crwdns8070:0crwdne8070:0
+              requirements: crwdns8071:0crwdne8071:0
             solution:
-              name: Indicare Nome e Cognome del candidato.
-              data: Indicare i dati anagrafici essenziali per consentire l’identificazione univoca del candidato.
-              curriculum: Qual’è in curriculum del candidato? Rispetta i requisiti precedentemente individuati? Il candidato pone limiti alla propria disponibilità a ricoprire la carica?
+              name: crwdns8072:0crwdne8072:0
+              data: crwdns8073:0crwdne8073:0
+              curriculum: crwdns8074:0crwdne8074:0
         simple:
-          problems_title: "{crwdns6638:0}{crwdne6638:0}"
-          problems_title_label: "{crwdns6641:0}{crwdne6641:0}"
-          problems_question: "{crwdns8075:0}{crwdne8075:0}"
+          problems_title: crwdns6638:0crwdne6638:0
+          problems_title_label: crwdns6641:0crwdne6641:0
+          problems_question: crwdns8075:0crwdne8075:0
           solution:
-            description: "{crwdns6639:0}{crwdne6639:0}"
-            title: "{crwdns6640:0}{crwdne6640:0}"
+            description: crwdns6639:0crwdne6639:0
+            title: crwdns6640:0crwdne6640:0
           question:
             solution:
-              description: Descrivere la soluzione da adottare per raggiungere l’obiettivo, indicando tempistiche, risorse necessarie per l’attuazione, eventuali problemi irrisolti.
+              description: crwdns8076:0crwdne8076:0
         petition:
           paragraph:
-            text: "{crwdns8077:0}{crwdne8077:0}"
+            text: crwdns8077:0crwdne8077:0
           question:
             paragraph:
-              text: "{crwdns8078:0}{crwdne8078:0}"
+              text: crwdns8078:0crwdne8078:0

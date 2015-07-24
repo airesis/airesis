@@ -1,4 +1,4 @@
-it-IT:
+it:
   unauthorized:
     default: "Non disponi dei permessi per eseguire l'azione"
     create:
@@ -18,6 +18,7 @@ it-IT:
       openid_login: Accedi tramite OpenID
       find_groups: Cerca gruppi
       parma_login: Accedi con Parma
+      tecnologiedemocratiche_login: Login con Tecnologie Democratiche
     user:
       notifications: Allarmi e notifiche
       privacy: Impostazioni Account e Privacy
@@ -55,7 +56,8 @@ it-IT:
         what_i_cant_do: Cosa NON posso fare?
         certified_from: Certificato dal
         group_level_permission_title: Permessi a livello di gruppo
-        admin_permissions: "Sei amministratore di questo gruppo e disponi di tutti i permessi"
+        admin_permissions: Sei amministratore di questo gruppo e disponi di tutti i permessi
+        certified_cannot_edit_info: 'Sei un utente certificato: non puoi modificare il tuo Nome, Cognome ed Email'
       send_message:
         subject_label: Oggetto
         body_label: Testo
@@ -199,7 +201,7 @@ it-IT:
         reject_request_button: Declina
         ask_participate_button: Richiedi di partecipare al gruppo
         remove_post: Rimuovi post dalla bacheca del gruppo
-        destroy_button: Elimina gruppo
+        destroy_button: Elimina
         confirm_destroy: STAI ELIMINANDO IL GRUPPO!!! Sei assolutamente di sicuro di quello che stai facendo?
         list_permissions:
           title: "Elenco dei tuoi permessi all'interno di questo gruppo"
@@ -215,6 +217,10 @@ it-IT:
           <p>I gruppi possono sostenere le proposte, crearne di interne, creare sondaggi e organizzare i membri secondo ruoli e permessi.</p>
           <p>É possibile cambiare le regole di questo gruppo tramite le <b>Impostazioni</b> del gruppo stesso.</p>
         short_url: Indirizzo breve
+        featured_post:
+          "true": Sblocca
+          "false": Blocca in alto
+        permissions_title: Tu ed il gruppo
       header:
         settings: IMPOSTAZIONI
         documents: DOCUMENTI
@@ -233,7 +239,7 @@ it-IT:
           advanced: Avanzato
           time_description: 'Il dibattito durerà almeno %{days}  %{hours}  %{minutes}'
           simple_percentage_description: 'Quindi la proposta passa in votazione se la maturità è superiore al %{good_score}%.'
-          advanced_participation_description: '(%{current_number} su %{total_number} che hanno diritto) <b>(valore medio: %{average})</b>'
+          advanced_participation_description: '%{participants_percentage}%+1 (%{current_number} su %{total_number} che hanno diritto) <b>(valore medio: %{average})</b>'
           advanced_percentage_description: 'Se invece la maturità è inferiore al %{bad_score}% la proposta viene abbandonata.'
           advanced_percentage_description3: La proposta resta in dibattito fintanto che la maturità è compresa fra le due soglie.
         active: Attivo
@@ -318,7 +324,7 @@ it-IT:
       accept_conditions: "Accetto le condizioni d'uso"
       register_button: Registrati
       identity_provviders_title: Entra subito tramite il tuo Identity Provider preferito
-      accept_privacy: "Accetta Condizione sulla Privacy"
+      accept_privacy: Accetta Condizione sulla Privacy
     proposals:
       index:
         title: Elenco proposte
@@ -473,7 +479,8 @@ it-IT:
           not_logged_in: "Non può partecipare a questa proposta perché non hai effettuato l'accesso. "
         read_contribute: VISUALIZZA CONTRIBUTI
         security_token: Token di sicurezza
-        you_can_choose_vote_dates: "La proposta è in attesa di data da oltre %{count} giorni, quindi ora puoi scegliere la data anche tu."
+        you_can_choose_vote_dates: 'La proposta è in attesa di data da oltre %{count} giorni, quindi ora puoi scegliere la data anche tu.'
+        no_contributes_yet: Nessun contributo ancora
       new:
         quorum_prompt: Seleziona una durata
         quorum_help: Assistenza
@@ -520,7 +527,6 @@ it-IT:
         votation_finished: 'Terminata<br/>%{time_ago}'
         no_votation: Non vi è stata alcuna votazione
         votation_finished_approved: 'Approvata<br/> %{date}'
-        no_votation: Non c'è stata alcuna votazione
         interest_borders: Confini di interesse
         authors: Redattori
         support_group: Gruppi in sostegno
@@ -772,7 +778,7 @@ it-IT:
         debate_end: termine del dibattito
     home:
       index:
-        whatis: "COS'E'"
+        whatis: "COS'È"
         partecipate: PARTECIPA AL PROGETTO
         videos: VIDEO GUIDE
         whowe: CHI SIAMO
@@ -816,6 +822,9 @@ it-IT:
         show_groups: Visualizza tutti i gruppi
         last_proposals: Ultime proposte
         from_blogs: Ultimi post dai blog
+        features: Features
+        donations: Donazioni
+        volunteers: Volontari
       show:
         your_proposals: Proposte a cui partecipi
         proposals:
@@ -961,8 +970,8 @@ it-IT:
     proposal_comments:
       title: Contributi
       noise:
-        title: "Elenco contributi inutili alla discussione"
-        no_contributes: "Nessun contributo è stato eliminato dalla discussione"
+        title: Elenco dei contributi rumorosi
+        no_contributes: Nessun contributo
     available_authors:
       index:
         explain_html: |
@@ -976,7 +985,6 @@ it-IT:
         title: Elenco partecipanti
   pl:
     comments:
-      zero: nessun commento
       one: un commento
       other: '%{count} commenti'
   activerecord:
@@ -1033,7 +1041,7 @@ it-IT:
         published_false: In bozza
         published_reserved: riservato
         group_ids: Pubblicato nei seguenti gruppi
-        published_at: Data pubblicazione
+        published_at: Pubblicato alle
       participation_role:
         name: Nome
         description: Breve descrizione
@@ -1110,7 +1118,7 @@ it-IT:
         blank: deve essere compilato
         too_long: è troppo lungo
         too_short: 'è troppo corto '
-        wrong_length: 'non è della lunghezza corretta (deve essere di %{count} caratteri)'
+        wrong_length: 'deve essere di %{count} caratteri'
         taken: è già stato preso
         not_a_number: non è un numero
         greater_than: 'deve essere maggiore di %{count}'
@@ -1197,10 +1205,10 @@ it-IT:
     authors_list_panel:
       dont_want_to_be_an_author: Non voglio più redigere la proposta
     left_panel:
-      promote_proposal: "Promuovi proposta"
-      share_with_friends: "Condividi con gli amici"
+      promote_proposal: Promuovi la proposta
+      share_with_friends: Condividi con i tuoi amici
     show_proposal:
-      vote_here: "Questa proposta è in votazione. Leggi le soluzioni proposte e %{link}."
+      vote_here: 'Questa proposta è in votazione. Leggi la/e soluzione/i e %{link}.'
   digit_tags: Digita i tag che vuoi inserire
   buttons:
     cancel: Annulla
@@ -1225,10 +1233,10 @@ it-IT:
     login: Login
     show: Mostra
     preview: Anteprima
-    new_newletter: Nuova newsletter
-    unlock: "Sblocca"
-    vote_here: "vota qui"
-    unintegrate: "Rimetti in dibattito"
+    new_newsletter: Crea newsletter
+    unlock: Sblocca
+    vote_here: vota qui
+    unintegrate: Rimetti in dibattito
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di maturità.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     random_stack_2: '<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente.'
@@ -1304,12 +1312,12 @@ it-IT:
       already_have: Spiacente. Disponi già di un blog
       comment_added: "Errore durante l'inserimento del commento"
     users:
-      join_accounts: "Errore durante l'unione dei due account. L'operazione non è possibile al momento"
+      join_accounts: "Errore durante l'unione account."
       join_accounts_password: Password errata
     group_participations:
       destroy: "Non puoi uscire da un gruppo del quale sei l'unico portavoce"
       already_member: Errore nella richiesta di partecipazione. Fai già parte di questo gruppo!
-      request_not_registered: Fai già parte di questo gruppo ma la tua richiesta non è mai stata registrata.
+      request_not_registered: Fai già parte di questo gruppo ma la tua richiesta non è mai stata registrata. Dati corretti
       request_sent: Errore nella richiesta di partecipazione
       request_not_found: "Richiesta non trovata. Errore durante l'operazione"
       error_saving: "Errore durante l'operazione. Impossibile procedere"
@@ -1345,8 +1353,8 @@ it-IT:
     area:
       update: "Errore durante l'aggiornamento dell'area"
     group_invitations:
-      code_expired: "Codice invito scaduto"
-      already_participant: "Fai giàparte di questo gruppo"
+      code_expired: Codice invito scaduto
+      already_participant: Fai giàparte di questo gruppo
   info:
     setting_preferences: Impostazioni cambiate correttamente
     blog_created: Il tuo post è stato creato correttamente
@@ -1404,6 +1412,9 @@ it-IT:
       search_participants: Ricerca eseguita. Risultati aggiornati
       post_removed: Il post è stato rimosso dalla bacheca del gruppo
       area_updated: Area aggiornata
+      post_featured:
+        "true": Post bloccato in alto
+        "false": Post sbloccato
     participation_roles:
       role_updated: Ruolo aggiornato correttamente
       permissions_updated: Permessi aggiornati
@@ -1457,12 +1468,13 @@ it-IT:
       destroy: "Utente rimosso dall'area"
     group_invitations:
       create:
-        zero: "Nessuna email inviata"
-        one: "Invito inviato correttamente a %{email_addresses}"
-        other: "%{count} inviti inviati correttamente a %{email_addresses}"
-      accept: "Invito accettato! Ora fai parte di questo gruppo."
-      reject: "Invito rifiutato."
-      anymore: "Invito rifiutato. Non riceverai più inviti."
+        one: 'Invito inviato correttamente a %{email_addresses}'
+        other: '%{count} inviti inviati correttamente a %{email_addresses}'
+      accept: Invito accettato! Ora fai parte di questo gruppo.
+      reject: Invito rifiutato.
+      anymore: Invito rifiutato. Non riceverai più inviti.
+    blog_comment:
+      destroyed: Il commento è stato eliminato
   interest_borders:
     hint: Digita alcuni caratteri per cercare un luogo
     no_place_found: Nessun luogo trovato
@@ -1565,20 +1577,20 @@ it-IT:
         Inserisci le tue credenziali su Airesis per unire le informazioni dei due account.<br />
         Se non possiedi la password di accesso, accedi con l'altro account e impostane una dalle preferenze.
     statistics:
-      title: "Statistiche utente"
-      last_login: "Ultimo accesso"
-      integrated_count: "Numero dei tuoi contributi integrati nelle proposte"
-      spam_count: "Numero dei tuoi contributi marcati come SPAM"
-      noisy_count: "Numero dei tuoi contributi marcati come \"rumore\""
-      total_count: "Numero totale dei tuoi contributi"
-      total_comments_count: "Numero totale dei tuoi commenti"
-      proposals_editor: "Numero di proposte di cui sei stato redattore"
-      proposals_voted: "Numero di tue proposte che sono state votate"
-      average_rank_voted_proposals: "Valutazione media delle tue proposte che sono state votate"
-      proposals_accepted_count: "Numero delle tue proposte che sono state accettate"
-      proposals_abandonend_count: "Numero delle tue proposte che sono state abbandonate"
-      good_writer: "Punteggio \"Buon scrittore di Contributi\""
-      good_proposals_writer: "Punteggio \"Buon redattore\""
+      title: Statistiche utente
+      last_login: Ultimo accesso
+      integrated_count: Numero dei tuoi contributi integrati nelle proposte
+      spam_count: Numero dei tuoi contributi marcati come SPAM
+      noisy_count: 'Numero dei tuoi contributi marcati come "rumore"'
+      total_count: Numero totale dei tuoi contributi
+      total_comments_count: Numero totale dei tuoi commenti
+      proposals_editor: Numero di proposte di cui sei stato redattore
+      proposals_voted: Numero di tue proposte che sono state votate
+      average_rank_voted_proposals: Valutazione media delle tue proposte che sono state votate
+      proposals_accepted_count: Numero delle tue proposte che sono state accettate
+      proposals_abandonend_count: Numero delle tue proposte che sono state abbandonate
+      good_writer: 'Punteggio "Buon scrittore di Contributi"'
+      good_proposals_writer: 'Punteggio "Buon redattore"'
   proposal_comments:
     manage_noise:
       title: Gestisci i contributi inutili alla discussione
@@ -1598,11 +1610,11 @@ it-IT:
   reserved_tooltip: Questo post è visibile solo ai partecipanti del gruppo
   placeholder:
     find: Cerca...
-  keep_reading: "continua a leggere"
-  feedback_subject: "%{time} - Nuova segnalazione"
-  delete_event_confirm: "Sei sicuro di voler eliminare questo evento?"
+  keep_reading: continua a leggere
+  feedback_subject: '%{time} - Nuova segnalazione'
+  delete_event_confirm: Sei sicuro di voler eliminare questo evento?
   groups:
     group:
-      delete_group_warning_html: "Puoi cancellare questo gruppo.<br>Tutti i dati ad esso associati verranno eliminati e non saranno più ripristinabili.<br>Fai attenzione!"
+      delete_group_warning_html: 'Puoi eliminare questo gruppo. Eliminando il gruppo distruggerai tutti i forum, proposte e documenti associati ad esso. <br/> I dati non possono essere ripristinati. <br/> Stai attento!'
   confirm:
-    unintegrate: "Stai rimettendo il tuo contributo in dibattito. Sei sicuro che non sia stato integrato correttamente?"
+    unintegrate: Sati per rimettere il tuo contributo in dibattito. Sei sicuro?

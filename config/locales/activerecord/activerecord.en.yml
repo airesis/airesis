@@ -7,12 +7,6 @@ en:
       blog_comment:
          body: 'Comment'
          created_at: "AntiSpam"
-      candidate:
-         user: 'Candidate'
-         election: 'Election'
-      election:
-        groups_end_time: 'Deadline date for group entry'
-        candidates_end_time: 'Deadline date for candidates entry'
       event:
         title: 'Event title'
         description: 'Description'
@@ -23,7 +17,6 @@ en:
         period: 'Repeat'
         frequency: 'Repeat every'
         private: 'Private'
-        candidates_end_time: 'Deadline date for candidates entry'
       event/meeting/place:
         address: "Address"
         municipality_id: "City"
@@ -129,11 +122,6 @@ en:
         description: "Description"
         default_role_name: "Default role name"
     errors:
-      template:
-        header:
-          one: 'an error prevented this %{model} from being saved'
-          other: '%{count} errors prevented this %{model} from being saved'
-        body: 'There were problems with the following fields'
       messages:
         inclusion: 'is not included in the list'
         exclusion: 'is reserved'

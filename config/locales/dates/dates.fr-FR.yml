@@ -8,7 +8,7 @@ fr:
     month: mois
     week: semaine
     day: Jour
-    firstDay: "0"
+    firstDay: 0
     timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
   date:
     order:
@@ -83,6 +83,9 @@ fr:
     am: am
     pm: pm
     left:
+      seconds:
+        one: 1 seconde
+        other: '%{count} secondes'
       minutes:
         one: 1 minute
         other: '%{count} minutes'

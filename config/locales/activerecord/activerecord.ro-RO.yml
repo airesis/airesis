@@ -1,4 +1,4 @@
-ro-RO:
+ro:
   activerecord:
     models:
       meeting: Întâlnire
@@ -6,13 +6,6 @@ ro-RO:
     attributes:
       blog_comment:
         body: Comentariu
-        created_at: AntiSpam
-      candidate:
-        user: Candidat
-        election: Alegeri
-      election:
-        groups_end_time: Data limită pentru intrare în grup
-        candidates_end_time: Data limită de intrare pentru candidaţi
       event:
         title: Titlul evenimentului
         description: Descriere
@@ -23,18 +16,12 @@ ro-RO:
         period: Repetă
         frequency: Repetaţi fiecare
         private: Privat
-        candidates_end_time: Data limită de intrare pentru candidaţi
-        meeting:
-          place:
-            address: Adresă
-            municipality_id: Localitate
       group:
         facebook_page_url: Adresa de pagina de Facebook
         name: Nume
         title_bar: Bara de titlu
         description: Descriere
         accept_requests: Cerere pentru participare
-        porta_id: Administrator
         interest_border_tkn: Loc geografic de interes
         interest_border_id: Loc geografic de interes
         image_url: Adresa de imagine
@@ -58,9 +45,6 @@ ro-RO:
         published: Stare
         published_true: Publicat
         published_false: Ciornă
-      participation_role:
-        name: Nume
-        description: Scurtă descriere
       group_invitation:
         emails_list: Adresele de poştă electronică
         testo: Mesaj text
@@ -90,17 +74,12 @@ ro-RO:
         days_m: Zile
         hours_m: ore
         minutes_m: Minute
-        percentage: Participanţi (procent)
         percentage_title: Numărul minim de participanţi la discuţie ca un procent din numărul de participanţi în grup
-        good_score: Cvorum (procent)
         good_score_title: Cotă realizată pentru a aduce propunerea la faza de vot
         bad_score: Cvorumul negativ (procent)
         bad_score_title: Cotă sub care propunerea va fi respinsă. Îți permite să continui discuția dacă nu sunt îndeplinite condițiile de timp sau de participanți
         condition: Condiţie
         condition_title: Trebuie să fie ambele condiții de timp și participanți depășite sau numai una dintre ele?
-      search_participant:
-        role_id: Rol
-        keywords: Numele sau prenumele
       sys_movement:
         sys_movement_type_id: Tip
         made_on: Făcut din
@@ -122,11 +101,6 @@ ro-RO:
         description: Descriere
         default_role_name: Numele de rol
     errors:
-      template:
-        header:
-          one: 'o eroare nu permite acestui %{model} să fie salvat'
-          other: '%{count} erori nu permit acestui %{model} să fie salvat'
-        body: Au existat probleme cu următoarele câmpuri
       messages:
         inclusion: nu este inclus în listă
         exclusion: este rezervat
@@ -137,7 +111,7 @@ ro-RO:
         blank: trebuie completate
         too_long: Textul este prea lung
         too_short: Textul este prea scurt
-        wrong_length: 'ar trebui să fie %{count} caractere) "'
+        wrong_length: 'ar trebui să fie %{count} caractere'
         taken: este deja luat
         not_a_number: nu este un număr
         greater_than: 'trebuie să fie mai mare de %{count}'
@@ -149,8 +123,6 @@ ro-RO:
         even: trebuie să fie impar
         record_invalid: 'Validare eșuată %{errors}'
         not_found: nu a fost găsit.
-      full_messages:
-        format: '%{attribute} %{message}'
       models:
         user:
           attributes:

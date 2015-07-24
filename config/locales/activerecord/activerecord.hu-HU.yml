@@ -7,12 +7,6 @@ hu:
       blog_comment:
         body: Hozzászólás
         created_at: AntiSpam
-      candidate:
-        user: Jelölt
-        election: Választás
-      election:
-        groups_end_time: Deadline date for group entry
-        candidates_end_time: Deadline date for candidates entry
       event:
         title: Esemény megnevezése
         description: Leírás
@@ -23,7 +17,6 @@ hu:
         period: Ismétlés
         frequency: Ismétlődik minden
         private: Személyes
-        candidates_end_time: Határidő a jelöltek jelentkezésére
       event/meeting/place:
         address: Cím
         municipality_id: Város
@@ -129,11 +122,6 @@ hu:
         description: Leírás
         default_role_name: Alapértelmezett szerepkör neve
     errors:
-      template:
-        header:
-          one: 'egy hiba akadályozza a  %{model} mentését'
-          other: '%{count} hiba akadályozza a %{model} mentésést'
-        body: Problémák merültek fel az alábbi mezőkkel
       messages:
         inclusion: nem szerepel a listában
         exclusion: foglalt
@@ -157,8 +145,6 @@ hu:
         record_invalid: 'Az ellenőrzés nem sikerült %{errors}'
         not_found: nem található.
         TOS: El kell fogadod a felhasználási feltételeket
-      full_messages:
-        format: '%{attribute} %{message}'
       models:
         user:
           attributes:

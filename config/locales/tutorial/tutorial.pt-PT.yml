@@ -1,4 +1,4 @@
-pt-PT:
+pt:
   tutorial:
     proposals_index:
       welcome_open_space: Bem-vindo ao espaço aberto do Airesis! O espaço aberto é um grupo muito particular em que participam todos os utilizadores. Aqui encontrá uma lista das propostas livremente adicionadas pelos utilizadores da aplicação e poderá até adicionar as suas próprias propostas
@@ -18,8 +18,8 @@ pt-PT:
       text_content: As primeiras linhas do problema ou solução
       timeline: Uma barra que exibe o estado do debate ou da votação
       timeleft: O tempo e/ou as avaliações necessárias para terminar o debate
-      rankDescription: A maturidade da proposta, que mostra se a proposta está pronta para ser votada, com base nas avaliações dos partecipantes
-      participants: O número de pessoas que participam desta proposta com as suas contribuições e avaliações
+      rankDescription: A maturidade da proposta, que mostra se a proposta está pronta para ser votada, com base nas avaliações dos participantes
+      participants: O número de pessoas que participam nesta proposta com as suas contribuições e avaliações
       contributes: O número de contribuições adicionadas
       end: Esta é a estrutura da lista de propostas. É a mesma em cada grupo que participa e irá ajudá-lo a orientar-se nas discussões do grupo
     proposals_show:
@@ -31,8 +31,8 @@ pt-PT:
       contributeButton: Usando estes botões pode visualizar as contribuições de outros utilizadores e adicionar as suas próprias. As contribuições são sempre referidas no parágrafo em que estão acessíveis
       newComment: Use para adicionar um contributo que não se refere a um parágrafo específico
       menu_left: Neste menu à esquerda pode encontrar toda a informação sobre a proposta
-      evaluations: O número de avaliações, expresso pelos partecipantes, que indica se a proposta está pronta para a votação ou se o debate deve continuar
-      ranking: A maturidade da proposta, que é a percentagem de partecipantes que acham que a proposta está pronta para votação
+      evaluations: O número de avaliações, expresso pelos participantes, que indica se a proposta está pronta para a votação ou se o debate deve continuar
+      ranking: A maturidade da proposta, que é a percentagem de participantes que acham que a proposta está pronta para votação
       status: O estado da proposta. Neste caso, esta encontra-se na fase de debate
       dates: Data da criação e da última atualização da proposta
       condition_left: Condições para finalizar o debate
@@ -40,5 +40,22 @@ pt-PT:
       authors: Os editores atuais da proposta
       category: A categoria desta proposta
       history: História da proposta, na qual você pode ver as suas modificações e a sua evolução
+    groups_edit:
+      welcome: Este é o painel de administrador para grupos. Explicar-lhe-emos cada uma das secções...
+      group_info: Aqui você pode alterar todas as informações sobre o grupo e a sua imagem. Por favor preencha as palavras-chave, se ainda não o fez. Elas são importantes para que o seu grupo seja encontrado.
+      group_roles: Aqui você pode gerir as funções disponíveis no grupo. Pode ainda gerir as suas permissões e a editar as que já existem.
+      group_users: Aqui pode gerir os participantes no seu grupo. Pode atribuir-lhes funções e enviar-lhes e-mails.
+      group_proposals: 'Esta é a página onde pode alterar tudo o que esteja relacionado com as propostas: quóruns e configurações.'
+      group_areas: As Áreas estão disponíveis se desejar activá-las. Elas permitir-lhe-ão dividir o seu grupo em grupos menores
+      group_forum: E finalmente, aqui encontra todas as configurações para o fórum.
+    users_alarm_preferences:
+      intro: Nesta página pode editar todas as configurações de alertas e notificações.
+      alerts: Você pode escolher quais os alertas que deseja receber na Airesis...
+      emails: ... por email ou ambos.
+      no_emails: 'Lembre-se: se você desactivar um alerta no Airesis, também não o receberá no Airesis.'
+    users_border_preferences:
+      intro: Se ainda não o tiver feito, defina as suas fronteiras de interesse geográfico. Airesis irá utilizá-las em breve para lhe mostrar conteúdos específicos.
+    welcome:
+      intro: 'Bem-vindo à Plataforma Airesis %{name}. Estes tutoriais guiá-lo-ão através da aplicação e explicar-lhe-ão como usar e onde encontrar as informações de que precisa.'
     next: Próxima
     back: Voltar

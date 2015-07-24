@@ -1,0 +1,173 @@
+sr:
+  calendar:
+    monthNames: |2
+      ['Јануар','Фебруар','Maрт','Април','Maј','Jун','Jуп','Август',Септембар'','Октобар,'Новембар','Децембар']
+       
+      
+    monthNamesShort: "['Јан','Феб','Мар','Апр','Maј','Jун','Jул','Авг','Сеп','Oкт','Нов','Дец']"
+    dayNames: "['Недеља','Понедељак','Уторак','Среда','Четвртак','Петак','Субота']"
+    dayNamesShort: "['Нед','Пон','Уто','Сре','Чет','Пет,'Суб']"
+    today: данас
+    month: месец
+    week: недеља
+    day: дан
+    firstDay: 0
+    timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
+  date:
+    formats:
+      short: '%b %d'
+      long: '%d %B %Y'
+    day_names:
+      - Недеља
+      - Понедељак
+      - Уторак
+      - Среда
+      - Четвртак
+      - Петак
+      - Субота
+    abbr_day_names:
+      - Нед
+      - Пон
+      - Уто
+      - Сре
+      - Пет
+      - Чет
+      - Суб
+    month_names:
+      1: Јануар
+      2: Фебруар
+      3: Март
+      4: Април
+      5: Maj
+      6: Јун
+      7: Јул
+      8: Август
+      9: Септембар
+      10: Октобар
+      11: Новембар
+      12: Децембар
+    abbr_month_names:
+      - нула
+      - Јан
+      - Феб
+      - Мар
+      - Апр
+      - Maj
+      - Јун
+      - Јул
+      - Авг
+      - Сеп
+      - Окт
+      - Нов
+      - Дец
+  time:
+    formats:
+      default: '%d %b %Y у %I:%M %p'
+      long: '%A %d %B %Y у %I:%M %p'
+      long_date: '%A %d %B %Y'
+      long_date_time: '%A %d %B %Y у %I:%M %p'
+      from_long_date_time: 'Од %A %d %B %Y у %I:%M %p'
+      until_long_date_time: 'Дo %A %d %B %Y у %I:%M %p'
+      short: '%d %b %Y'
+      two_rows: '%d %b %Y <br/> %I:%M %p'
+      weekday: '%a у %I:%M %p'
+      month: '%B'
+      dayandmonth: '%d/%m'
+      hour: '%I:%M %p'
+      yesterday_at: 'јуче у %I:%M %p'
+      textfield: '%d/%m/%Y %I:%M %p'
+      rich: '%Y-%m-%dT%H:%M'
+      datepicker: '%Y-%m-%d'
+      datetimepicker: '%Y-%m-%d %H:%M'
+    am: пре подне
+    pm: после подне
+    left:
+      seconds:
+        one: 1 секундa
+        few: '%{count} секунди'
+        many: '%{count} секунди'
+        other: '%{count} секунди'
+      minutes:
+        one: 1 минут
+        few: '%{count} минута'
+        many: '%{count} минута'
+        other: '%{count} минута'
+      hours:
+        one: 1 сат
+        few: '%{count} сати'
+        many: '%{count} сати'
+        other: '%{count} сати'
+      days:
+        one: 1 дан
+        few: '%{count} дана'
+        many: '%{count} дана'
+        other: '%{count} дана'
+      months:
+        one: 1 месец
+        few: '%{count} месеци'
+        many: '%{count} месеци'
+        other: '%{count} месеци'
+  datetime:
+    added_on: 'на %{date}'
+    distance_in_words:
+      about_x_hours:
+        one: отприлике пре 1 сат
+        few: 'отприлике пре %{count} сати'
+        many: 'отприлике пре %{count} сати'
+        other: 'отприлике пре %{count} сати'
+      about_x_months:
+        one: отприлике пре 1 месец
+        few: 'отприлике пре %{count} месеци'
+        many: 'отприлике пре %{count} месеци'
+        other: 'отприлике пре %{count} месеци'
+      about_x_years:
+        one: отприлике пре 1 године
+        few: 'отприлике пре %{count} година'
+        many: 'отприлике пре %{count} година'
+        other: 'отприлике пре %{count} година'
+      almost_x_years:
+        one: скоро пре 1 године
+        few: 'скоро пре %{count} година'
+        many: 'скоро пре %{count} година'
+        other: 'скоро пре %{count} година'
+      half_a_minute: пре пола минута
+      less_than_x_minutes:
+        one: пре мање од 1 минута
+        few: 'пре мање од %{count} минута'
+        many: 'пре мање од %{count} минута'
+        other: 'пре мање од %{count} минута'
+      less_than_x_seconds:
+        one: пре мање од 1 секунде
+        few: 'пре мање од %{count} секунди'
+        many: 'пре мање од %{count} секунди'
+        other: 'пре мање од %{count} секунди'
+      over_x_years:
+        one: пре више од 1 године
+        few: 'пре више од %{count} година'
+        many: 'пре више од %{count} година'
+        other: 'пре више од %{count} година'
+      x_days:
+        one: пре 1 дан
+        few: ! 'пре %{count} дана'
+        many: ! 'пре %{count} дана'
+        other: ! 'пре %{count} дана'
+      x_minutes:
+        one: пре 1 минут
+        few: ! 'пре %{count} минута'
+        many: ! 'пре %{count} минута'
+        other: ! 'пре %{count} минута'
+      x_months:
+        one: пре 1 месец
+        few: ! 'пре %{count} месеци'
+        many: ! 'пре %{count} месеци'
+        other: ! 'пре %{count} месеци'
+      x_seconds:
+        one: пре 1 секундe
+        few: ! 'пре %{count} секунди'
+        many: ! 'пре %{count} секунди'
+        other: ! 'пре %{count} секунди'
+  label:
+    from: од
+    to: до
+  countdown: '{m<}{mn} {ml} пре {m>} {s<}управо сада{s>}'
+  countdown2: '{y<}{yn} {yl}{y>} {o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>} {s<}неколико секунди{s>}'

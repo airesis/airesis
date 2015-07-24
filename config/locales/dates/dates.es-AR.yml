@@ -1,17 +1,22 @@
 es-AR:
   calendar:
-    monthNames: "['~', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']"
-    monthNamesShort: "['~', 'En', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sept', 'Oct', 'Nov', 'Dic']"
+    monthNames: "[' Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']"
+    monthNamesShort: "[ 'En', 'Feb', 'Mar', 'Abr', 'May',' Jun','Jul','Ago', Sept', 'Oct', 'Nov', 'Dic']"
     dayNames: "['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']"
     dayNamesShort: "['Dom', 'Lun', 'Mar', 'Miér', 'Jue', 'Vier', 'Sáb']"
     today: hoy
     month: mes
     week: semana
     day: día
-    firstDay: "0"
+    firstDay: 0
     timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
   date:
+    order:
+      - :day
+      - :month
+      - :year
     formats:
+      default: '%d-%m-%Y'
       short: '%b %d'
       long: '%d %B %Y'
     day_names:
@@ -31,7 +36,7 @@ es-AR:
       - Juev
       - Sab
     month_names:
-      - Nil
+      - nil
       - Enero
       - Febrero
       - Marzo
@@ -134,3 +139,4 @@ es-AR:
     from: Desde
     to: hacia
   countdown: '{m<}{mn} {ml} ago{m>} {s<}just now{s>}'
+  countdown2: '{y<}{yn} {yl}{y>} {o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>} {s<}pocos segundos{s>}'
