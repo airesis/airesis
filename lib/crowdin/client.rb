@@ -9,7 +9,7 @@ module Crowdin
       @extract_folder = params[:extract_folder] || 'tmp/crowdin'
       @download_folder = params[:download_folder] || 'tmp'
       @min_translation_percentage = params[:min_translation_percentage] || 20
-      @locales_mapping = {'crowdin' => 'en-GB'}
+      @locales_mapping = {'en-GB' => 'crowdin'}
       auth
     end
 
@@ -111,7 +111,8 @@ module Crowdin
                 tmp << l
               end
             }
-            FileUtils.mv(tmp.path, file_name)
+            FileUtils.rm(file_name)
+            FileUtils.mv(tmp.path, file_name.gsub(key,value))
           }
         }
       end
@@ -130,7 +131,8 @@ module Crowdin
       output_array.each do |lang|
         next if lang['translated_progress'] < @min_translation_percentage
         @lang_ready << lang['code']
-      end
+      end if false
+      @lang_ready << 'en-GB'
       puts "Available languages: #{@lang_ready}"
     end
   end

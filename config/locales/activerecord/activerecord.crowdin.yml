@@ -7,12 +7,6 @@ crowdin:
       blog_comment:
         body: crwdns5888:0crwdne5888:0
         created_at: crwdns5889:0crwdne5889:0
-      candidate:
-        user: crwdns5890:0crwdne5890:0
-        election: crwdns5891:0crwdne5891:0
-      election:
-        groups_end_time: crwdns5892:0crwdne5892:0
-        candidates_end_time: crwdns5893:0crwdne5893:0
       event:
         title: crwdns5894:0crwdne5894:0
         description: crwdns5895:0crwdne5895:0
@@ -23,7 +17,6 @@ crowdin:
         period: crwdns5900:0crwdne5900:0
         frequency: crwdns5901:0crwdne5901:0
         private: crwdns5902:0crwdne5902:0
-        candidates_end_time: crwdns5903:0crwdne5903:0
       event/meeting/place:
         address: crwdns8233:0crwdne8233:0
         municipality_id: crwdns8333:0crwdne8333:0
@@ -129,11 +122,6 @@ crowdin:
         description: crwdns5985:0crwdne5985:0
         default_role_name: crwdns5986:0crwdne5986:0
     errors:
-      template:
-        header:
-          one: 'crwdns8239:0%{model}crwdne8239:0'
-          other: 'crwdns8239:1%{count}crwdnd8239:1%{model}crwdne8239:1'
-        body: crwdns5988:0crwdne5988:0
       messages:
         inclusion: crwdns5989:0crwdne5989:0
         exclusion: crwdns5990:0crwdne5990:0
