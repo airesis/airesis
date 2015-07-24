@@ -6,7 +6,6 @@ crowdin:
       topic: crwdns6016:0crwdne6016:0
       posts: crwdns6017:0crwdne6017:0
       posts_count:
-        one: crwdns6018:0crwdne6018:0
         other: 'crwdns6018:1%{count}crwdne6018:1'
       flagged_for_spam: crwdns6019:0crwdne6019:0
       cannot_create_topic: crwdns6020:0crwdne6020:0
@@ -88,10 +87,8 @@ crowdin:
       new: crwdns6074:0crwdne6074:0
       edit: 'crwdns6075:0%{title}crwdne6075:0'
       topics_count:
-        one: crwdns6076:0crwdne6076:0
         other: 'crwdns6076:1%{count}crwdne6076:1'
       posts_count:
-        one: crwdns6077:0crwdne6077:0
         other: 'crwdns6077:1%{count}crwdne6077:1'
       moderator_tools: crwdns6078:0crwdne6078:0
       topic_tools: crwdns6079:0crwdne6079:0

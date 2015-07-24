@@ -6,10 +6,10 @@ module Crowdin
   class Client
 
     def initialize(params={})
-      @extract_folder = params[:extract_folder] || 'tmp/crowdin'
+      @extract_folder = params[:extract_folder] || '.'
       @download_folder = params[:download_folder] || 'tmp'
       @min_translation_percentage = params[:min_translation_percentage] || 20
-      @locales_mapping = {'en-GB' => 'crowdin'}
+      @locales_mapping = {'bo-BT' => 'crowdin'}
       auth
     end
 
@@ -76,7 +76,7 @@ module Crowdin
     # delete zip files at the end of extraction
     # reload translations from file (if there are new .yml files added we still need to restart the application!)
     def extract_zip
-      FileUtils.rmtree(@extract_folder)
+      #FileUtils.rmtree(@extract_folder)
       zip_files = Dir["#{@download_folder}/*.zip"]
 
       zip_files.each { |zip|
@@ -102,20 +102,27 @@ module Crowdin
       @locales_mapping.each do |key, value|
         puts "Converting '#{key}' into #{value}"
         files = Dir["#{@extract_folder}/config/locales/*/*.#{key}.yml"]
-        files.each { |file_name|
-          File.open('tmpfile', 'w') { |tmp|
-            File.open(file_name, 'r').each { |l|
-              if l.chomp == "#{key}:"
-                tmp << "#{value}:\n"
-              else
-                tmp << l
-              end
-            }
-            FileUtils.rm(file_name)
-            FileUtils.mv(tmp.path, file_name.gsub(key,value))
-          }
-        }
+        files.each { |file_name| change_locale(file_name, key, value) }
+        files = Dir["#{@extract_folder}/app/assets/**/*.#{key}.js"]
+        files.each { |file_name| FileUtils.mv(file_name, file_name.gsub(key,value)) }
       end
+    end
+
+    def change_locale(file_name, key, value)
+      File.open('tmpfile', 'w') { |tmp|
+        chomped = false
+        File.open(file_name, 'r').each { |l|
+          line = l.chomp
+          if (["#{key}:", "#{key.split('-')[0]}:"].include? line) && !chomped
+            tmp << "#{value}:\n"
+            chomped = true
+          else
+            tmp << l
+          end
+        }
+        FileUtils.rm(file_name)
+        FileUtils.mv(tmp.path, file_name.gsub(key,value))
+      }
     end
 
     def delete_zip(zip_file)
@@ -131,8 +138,8 @@ module Crowdin
       output_array.each do |lang|
         next if lang['translated_progress'] < @min_translation_percentage
         @lang_ready << lang['code']
-      end if false
-      @lang_ready << 'en-GB'
+      end
+      @lang_ready << 'bo-BT'
       puts "Available languages: #{@lang_ready}"
     end
   end

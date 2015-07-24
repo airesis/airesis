@@ -1,9 +1,47 @@
 crowdin:
   calendar:
-    monthNames: crwdns5771:0crwdne5771:0
-    monthNamesShort: crwdns5772:0crwdne5772:0
-    dayNames: crwdns5773:0crwdne5773:0
-    dayNamesShort: crwdns5774:0crwdne5774:0
+    monthNames:
+      - crwdns8411:0crwdne8411:0
+      - crwdns8412:0crwdne8412:0
+      - crwdns8413:0crwdne8413:0
+      - crwdns8414:0crwdne8414:0
+      - crwdns8415:0crwdne8415:0
+      - crwdns8416:0crwdne8416:0
+      - crwdns8417:0crwdne8417:0
+      - crwdns8418:0crwdne8418:0
+      - crwdns8419:0crwdne8419:0
+      - crwdns8420:0crwdne8420:0
+      - crwdns8421:0crwdne8421:0
+      - crwdns8422:0crwdne8422:0
+    monthNamesShort:
+      - crwdns8423:0crwdne8423:0
+      - crwdns8424:0crwdne8424:0
+      - crwdns8425:0crwdne8425:0
+      - crwdns8426:0crwdne8426:0
+      - crwdns8427:0crwdne8427:0
+      - crwdns8428:0crwdne8428:0
+      - crwdns8429:0crwdne8429:0
+      - crwdns8430:0crwdne8430:0
+      - crwdns8431:0crwdne8431:0
+      - crwdns8432:0crwdne8432:0
+      - crwdns8433:0crwdne8433:0
+      - crwdns8434:0crwdne8434:0
+    dayNames:
+      - crwdns8435:0crwdne8435:0
+      - crwdns8436:0crwdne8436:0
+      - crwdns8437:0crwdne8437:0
+      - crwdns8438:0crwdne8438:0
+      - crwdns8439:0crwdne8439:0
+      - crwdns8440:0crwdne8440:0
+      - crwdns8441:0crwdne8441:0
+    dayNamesShort:
+      - crwdns8442:0crwdne8442:0
+      - crwdns8443:0crwdne8443:0
+      - crwdns8444:0crwdne8444:0
+      - crwdns8445:0crwdne8445:0
+      - crwdns8446:0crwdne8446:0
+      - crwdns8447:0crwdne8447:0
+      - crwdns8448:0crwdne8448:0
     today: crwdns5775:0crwdne5775:0
     month: crwdns5776:0crwdne5776:0
     week: crwdns5777:0crwdne5777:0
@@ -19,50 +57,6 @@ crowdin:
       default: 'crwdns5784:0%dcrwdne5784:0'
       short: 'crwdns5785:0%bcrwdnd5785:0%dcrwdne5785:0'
       long: 'crwdns6440:0%dcrwdnd6440:0%Bcrwdne6440:0'
-    day_names:
-      - crwdns5786:0crwdne5786:0
-      - crwdns5787:0crwdne5787:0
-      - crwdns5788:0crwdne5788:0
-      - crwdns5789:0crwdne5789:0
-      - crwdns5790:0crwdne5790:0
-      - crwdns5791:0crwdne5791:0
-      - crwdns5792:0crwdne5792:0
-    abbr_day_names:
-      - crwdns5793:0crwdne5793:0
-      - crwdns5794:0crwdne5794:0
-      - crwdns5795:0crwdne5795:0
-      - crwdns5796:0crwdne5796:0
-      - crwdns5797:0crwdne5797:0
-      - crwdns5798:0crwdne5798:0
-      - crwdns5799:0crwdne5799:0
-    month_names:
-      - crwdns6548:0crwdne6548:0
-      - crwdns5800:0crwdne5800:0
-      - crwdns5801:0crwdne5801:0
-      - crwdns5802:0crwdne5802:0
-      - crwdns5803:0crwdne5803:0
-      - crwdns5804:0crwdne5804:0
-      - crwdns5805:0crwdne5805:0
-      - crwdns5806:0crwdne5806:0
-      - crwdns5807:0crwdne5807:0
-      - crwdns5808:0crwdne5808:0
-      - crwdns5809:0crwdne5809:0
-      - crwdns5810:0crwdne5810:0
-      - crwdns5811:0crwdne5811:0
-    abbr_month_names:
-      - crwdns6549:0crwdne6549:0
-      - crwdns5812:0crwdne5812:0
-      - crwdns5813:0crwdne5813:0
-      - crwdns5814:0crwdne5814:0
-      - crwdns5815:0crwdne5815:0
-      - crwdns5816:0crwdne5816:0
-      - crwdns5817:0crwdne5817:0
-      - crwdns5818:0crwdne5818:0
-      - crwdns5819:0crwdne5819:0
-      - crwdns5820:0crwdne5820:0
-      - crwdns5821:0crwdne5821:0
-      - crwdns5822:0crwdne5822:0
-      - crwdns5823:0crwdne5823:0
   time:
     formats:
       default: 'crwdns5824:0%dcrwdnd5824:0%bcrwdnd5824:0%Icrwdnd5824:0%pcrwdne5824:0'
@@ -79,63 +73,46 @@ crowdin:
       hour: 'crwdns5835:0%Icrwdnd5835:0%pcrwdne5835:0'
       yesterday_at: 'crwdns6442:0%Icrwdnd6442:0%pcrwdne6442:0'
       textfield: 'crwdns5836:0%dcrwdnd5836:0%Icrwdnd5836:0%pcrwdne5836:0'
-      rich: 'crwdns5837:0%dcrwdne5837:0'
       datepicker: 'crwdns8354:0%dcrwdne8354:0'
       datetimepicker: 'crwdns8355:0%dcrwdne8355:0'
     am: crwdns5838:0crwdne5838:0
     pm: crwdns5839:0crwdne5839:0
     left:
       seconds:
-        one: crwdns5840:0crwdne5840:0
         other: 'crwdns5840:1%{count}crwdne5840:1'
       minutes:
-        one: crwdns5841:0crwdne5841:0
         other: 'crwdns5841:1%{count}crwdne5841:1'
       hours:
-        one: crwdns5842:0crwdne5842:0
         other: 'crwdns5842:1%{count}crwdne5842:1'
       days:
-        one: crwdns5843:0crwdne5843:0
         other: 'crwdns5843:1%{count}crwdne5843:1'
       months:
-        one: crwdns5844:0crwdne5844:0
         other: 'crwdns5844:1%{count}crwdne5844:1'
   datetime:
     added_on: 'crwdns5845:0%{date}crwdne5845:0'
     distance_in_words:
       about_x_hours:
-        one: crwdns5846:0crwdne5846:0
         other: 'crwdns5846:1%{count}crwdne5846:1'
       about_x_months:
-        one: crwdns5847:0crwdne5847:0
         other: 'crwdns5847:1%{count}crwdne5847:1'
       about_x_years:
-        one: crwdns5848:0crwdne5848:0
         other: 'crwdns5848:1%{count}crwdne5848:1'
       almost_x_years:
-        one: crwdns5849:0crwdne5849:0
         other: 'crwdns5849:1%{count}crwdne5849:1'
       half_a_minute: crwdns5850:0crwdne5850:0
       less_than_x_minutes:
-        one: crwdns5851:0crwdne5851:0
         other: 'crwdns5851:1%{count}crwdne5851:1'
       less_than_x_seconds:
-        one: crwdns5852:0crwdne5852:0
         other: 'crwdns5852:1%{count}crwdne5852:1'
       over_x_years:
-        one: crwdns5853:0crwdne5853:0
         other: 'crwdns5853:1%{count}crwdne5853:1'
       x_days:
-        one: crwdns5854:0crwdne5854:0
         other: ! 'crwdns5854:1%{count}crwdne5854:1'
       x_minutes:
-        one: crwdns5855:0crwdne5855:0
         other: ! 'crwdns5855:1%{count}crwdne5855:1'
       x_months:
-        one: crwdns5856:0crwdne5856:0
         other: ! 'crwdns5856:1%{count}crwdne5856:1'
       x_seconds:
-        one: crwdns5857:0crwdne5857:0
         other: ! 'crwdns5857:1%{count}crwdne5857:1'
   label:
     from: crwdns6443:0crwdne6443:0

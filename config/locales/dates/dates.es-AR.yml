@@ -1,9 +1,47 @@
 es-AR:
   calendar:
-    monthNames: "[' Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']"
-    monthNamesShort: "[ 'En', 'Feb', 'Mar', 'Abr', 'May',' Jun','Jul','Ago', Sept', 'Oct', 'Nov', 'Dic']"
-    dayNames: "['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']"
-    dayNamesShort: "['Dom', 'Lun', 'Mar', 'Miér', 'Jue', 'Vier', 'Sáb']"
+    monthNames:
+      - Enero
+      - Febrero
+      - Marzo
+      - Abril
+      - Mayo
+      - Junio
+      - Julio
+      - Agosto
+      - Septiembre
+      - Octubre
+      - Noviembre
+      - Diciembre
+    monthNamesShort:
+      - Ene
+      - Feb
+      - Mar
+      - Abr
+      - May
+      - Jun
+      - Jul
+      - Ago
+      - Sep
+      - Oct
+      - Nov
+      - Dic
+    dayNames:
+      - Domingo
+      - Lunes
+      - Martes
+      - Miércoles
+      - Jueves
+      - Viernes
+      - Sábado
+    dayNamesShort:
+      - Dom
+      - Lun
+      - Mar
+      - Mié
+      - Jue
+      - Vie
+      - Sab
     today: hoy
     month: mes
     week: semana
@@ -19,50 +57,6 @@ es-AR:
       default: '%d-%m-%Y'
       short: '%b %d'
       long: '%d %B %Y'
-    day_names:
-      - Domingo
-      - Lunes
-      - Martes
-      - Miercoles
-      - Jueves
-      - Viernes
-      - Sabado
-    abbr_day_names:
-      - Dom
-      - Lun
-      - Mar
-      - Mier
-      - Vier
-      - Juev
-      - Sab
-    month_names:
-      - nil
-      - Enero
-      - Febrero
-      - Marzo
-      - Abril
-      - Mayo
-      - Junio
-      - Julio
-      - Agosto
-      - Septiembre
-      - Octubre
-      - Noviembre
-      - Diciembre
-    abbr_month_names:
-      - Nil
-      - Ene
-      - Feb
-      - Mar
-      - Abr
-      - Mayo
-      - Jun
-      - Jul
-      - Ago
-      - Sep
-      - Oct
-      - Nov
-      - Dic
   time:
     formats:
       default: '%d %b %Y at %I:%M %p'
@@ -79,7 +73,8 @@ es-AR:
       hour: '%I:%M %p'
       yesterday_at: 'yesterday at %I:%M %p'
       textfield: '%d/%m/%Y %I:%M %p'
-      rich: '%Y-%m-%dT%H:%M'
+      datepicker: '%Y-%m-%d'
+      datetimepicker: '%Y-%m-%d %H:%M'
     am: AM
     pm: PM
     left:

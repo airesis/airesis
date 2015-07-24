@@ -18,7 +18,7 @@
     .row
       .columns.medium-12.large-8
         - if params[:action] == 'by_year_and_month'
-          h2 = t('pages.groups.archives.page_title', year: params[:year], month: t('date.month_names')[params[:month].to_i])
+          h2 = t('pages.groups.archives.page_title', year: params[:year], month: t('calendar.monthNames')[params[:month].to_i - 1])
         - else
           .card = raw (@group.description)
         #posts_container

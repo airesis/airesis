@@ -1,4 +1,21 @@
 module ApplicationHelper
+
+
+  def to_momentjs(strftime_format)
+    moment_format = strftime_format
+    replacements = {
+      d: 'dd',
+      m: 'mm',
+      Y: 'yyyy',
+      H: 'hh',
+      M: 'ii'
+    }
+    replacements.each do |key, value|
+      moment_format = moment_format.gsub("%#{key}", value)
+    end
+    moment_format
+  end
+
   # ricarica i messaggi flash
   def reload_flash
     page.replace 'flash_messages', partial: 'layouts/flash', locals: {flash: flash}
@@ -39,7 +56,7 @@ module ApplicationHelper
         else
           ret = I18n.l(from_time, format: :weekday) # this week
         end
-      else       
+      else
         ret = I18n.l(from_time, format: :short) # another week
       end
     elsif diff > 1.hours

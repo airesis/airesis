@@ -1,33 +1,6 @@
 es-EC:
   calendar:
-    monthNames: "['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']"
-    monthNamesShort: "['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']"
-    dayNames: "['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado']"
-    dayNamesShort: "['Dom','Lun','Mar','Mié','Jue','Vie','Sáb']"
-    today: hoy
-    month: mes
-    week: semana
-    day: día
-    firstDay: 1
-  date:
-    day_names:
-      - Domingo
-      - Lunes
-      - Martes
-      - Miercoles
-      - Jueves
-      - Viernes
-      - Sábado
-    abbr_day_names:
-      - D
-      - L
-      - Ma
-      - Mi
-      - V
-      - J
-      - S
-    month_names:
-      - nil
+    monthNames:
       - Enero
       - Febrero
       - Marzo
@@ -40,12 +13,40 @@ es-EC:
       - Octubre
       - Noviembre
       - Diciembre
-    abbr_month_names:
-      0: nil
-      1: Ene
-      4: Abr
-      8: Ago
-      12: Dic
+    monthNamesShort:
+      - Ene
+      - Feb
+      - Mar
+      - Abr
+      - Mayo
+      - Jun
+      - Jul
+      - Ago
+      - Sep
+      - Oct
+      - Nov
+      - Dic
+    dayNames:
+      - Domingo
+      - Lunes
+      - Martes
+      - Miercoles
+      - Jueves
+      - Viernes
+      - Sábado
+    dayNamesShort:
+      - Dom
+      - Lun
+      - Mar
+      - Mie
+      - Jue
+      - Vie
+      - Sáb
+    today: hoy
+    month: mes
+    week: semana
+    day: día
+    firstDay: 1
   time:
     formats:
       default: '%d %b %Y a las %H:%M'

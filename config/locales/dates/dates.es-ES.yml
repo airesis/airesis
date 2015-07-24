@@ -1,67 +1,57 @@
-es-ES:
+es:
   calendar:
-    monthNames: '[~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]'
-    monthNamesShort: '[~, En, Feb, Mar, Abr, May, Jun, Jul, Ago, Sept, Oct, Nov, Dic]'
-    dayNames: "['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']"
-    dayNamesShort: '[D, L, M, M, J, V, S]'
+    monthNames:
+      - Enero
+      - Febrero
+      - Marzo
+      - Abril
+      - Mayo
+      - Junio
+      - Julio
+      - Agosto
+      - Septiembre
+      - Octubre
+      - Noviembre
+      - Diciembre
+    monthNamesShort:
+      - Ene
+      - Feb
+      - Mar
+      - Abr
+      - Mayo
+      - Jun
+      - Jul
+      - Ago
+      - Sep
+      - Oct
+      - Nov
+      - Dic
+    dayNames:
+      - Domingo
+      - Lunes
+      - Martes
+      - Miercoles
+      - Jueves
+      - Viernes
+      - Sabado
+    dayNamesShort:
+      - Dom
+      - Lun
+      - Mar
+      - Mié
+      - Jue
+      - Vie
+      - Sáb
     today: hoy
     month: mes
     week: semana
     day: día
-    firstDay: "0"
+    firstDay: 1
     timeFormat: 'h(:mm) t '
   date:
-    order:
-    - :day
-    - :month
-    - :year
     formats:
-      default: '%d-%m-%Y'
       short: '%b %d'
-    day_names:
-    - Domingo
-    - Lunes
-    - Martes
-    - Miercoles
-    - Jueves
-    - Viernes
-    - Sabado
-    abbr_day_names:
-    - D
-    - L
-    - Ma
-    - Mi
-    - V
-    - J
-    - S
-    month_names:
-    - [ ]
-    - Enero
-    - Febrero
-    - Marzo
-    - Abril
-    - Mayo
-    - Junio
-    - Julio
-    - Agosto
-    - Septiembre
-    - Octubre
-    - Noviembre
-    - Diciembre
-    abbr_month_names:
-    - [ ]
-    - Ene
-    - Feb
-    - Mar
-    - Abr
-    - May
-    - Jun
-    - Jul
-    - Ago
-    - Sep
-    - Oct
-    - Nov
-    - Dic
+      long: '%d %B %Y'
   time:
     formats:
       default: '%d %b %Y at %H:%M'
@@ -102,22 +92,13 @@ es-ES:
         other: 'más que %{count} años'
       x_days:
         one: hace un dia
-        other: "! 'hace %{count}  días'"
+        other: ! 'hace %{count}  días'
       x_minutes:
         one: hace un minuto
-        other: "! '%{count} minutos'"
+        other: ! '%{count} minutos'
       x_months:
         one: hace un mes
-        other: "! 'hace %{count} meses'"
+        other: ! 'hace %{count} meses'
       x_seconds:
         one: hace un segundo
-        other: "! '%{count} segundos hace'"
-  day:
-    one: '%{count} día'
-    other: '%{count} días'
-  hour:
-    one: '%{count} hora'
-    other: '%{count} horas'
-  minute:
-    one: '%{count} minuto'
-    other: '%{count} minutos'
+        other: ! '%{count} segundos hace'

@@ -1,37 +1,6 @@
 de:
   calendar:
-    monthNames: "['Januar','Februar','März','April','Mai','Juni','Juli','August','September','October','November','Dezember']"
-    monthNamesShort: "['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez']"
-    dayNames: "['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag',,'Freitag','Samstag']"
-    dayNamesShort: "['Son','Mon','Die','Mit','Don','Fre','Sam']"
-    today: Heute
-    month: Monat
-    week: Woche
-    day: Tag
-    firstDay: 0
-    timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
-  date:
-    formats:
-      short: '%b %d'
-      long: '%d %B %Y'
-    day_names:
-      - Sonntag
-      - Montag
-      - Dienstag
-      - Mittwoch
-      - Donnerstag
-      - Freitag
-      - Samstag
-    abbr_day_names:
-      - Son
-      - Mon
-      - Die
-      - Mit
-      - Fre
-      - Don
-      - Sam
-    month_names:
-      - nil
+    monthNames:
       - Januar
       - Februar
       - März
@@ -44,8 +13,7 @@ de:
       - Oktober
       - November
       - Dezember
-    abbr_month_names:
-      - nil
+    monthNamesShort:
       - Jan
       - Feb
       - Mär
@@ -58,6 +26,32 @@ de:
       - Okt
       - Nov
       - Dez
+    dayNames:
+      - Sonntag
+      - Montag
+      - Dienstag
+      - Mittwoch
+      - Donnerstag
+      - Freitag
+      - Samstag
+    dayNamesShort:
+      - Son
+      - Mon
+      - Die
+      - Mit
+      - Don
+      - Fre
+      - Sam
+    today: Heute
+    month: Monat
+    week: Woche
+    day: Tag
+    firstDay: 0
+    timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
+  date:
+    formats:
+      short: '%b %d'
+      long: '%d %B %Y'
   time:
     formats:
       default: '%d %b %Y at %I:%M %p'
@@ -74,7 +68,8 @@ de:
       hour: '%I:%M %p'
       yesterday_at: 'gestern um %I:%M:%p'
       textfield: '%d/%m/%Y %I:%M %p'
-      rich: '%Y-%m-%dT%H:%M'
+      datepicker: '%Y-%m-%d'
+      datetimepicker: '%Y-%m-%d %H:%M'
     am: am
     pm: pm
     left:

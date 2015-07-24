@@ -1,37 +1,6 @@
 es-CL:
   calendar:
-    monthNames: '[~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]'
-    monthNamesShort: '[~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sept, Oct, Nov, Dic]'
-    dayNames: "['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']"
-    dayNamesShort: '[Dom, Lun, Mar, Mie, Jue, Vie, Sáb]'
-    today: hoy
-    month: mes
-    week: semana
-    day: día
-    firstDay: 0
-    timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
-  date:
-    formats:
-      short: '%b %d'
-      long: '%d %B %Y'
-    day_names:
-      - Domingo
-      - Lunes
-      - Martes
-      - Miércoles
-      - Jueves
-      - Viernes
-      - Sábado
-    abbr_day_names:
-      - Dom
-      - Lun
-      - Mar
-      - Mie
-      - Vie
-      - Jue
-      - Sáb
-    month_names:
-      - nil
+    monthNames:
       - Enero
       - Febrero
       - Marzo
@@ -44,8 +13,7 @@ es-CL:
       - Octubre
       - Noviembre
       - Diciembre
-    abbr_month_names:
-      - nil
+    monthNamesShort:
       - Ene
       - Feb
       - Mar
@@ -58,6 +26,32 @@ es-CL:
       - Oct
       - Nov
       - Dic
+    dayNames:
+      - Domingo
+      - Lunes
+      - Martes
+      - Miércoles
+      - Jueves
+      - Viernes
+      - Sábado
+    dayNamesShort:
+      - Dom
+      - Lun
+      - Mar
+      - Mie
+      - Jue
+      - Vie
+      - Sáb
+    today: hoy
+    month: mes
+    week: semana
+    day: día
+    firstDay: 0
+    timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
+  date:
+    formats:
+      short: '%b %d'
+      long: '%d %B %Y'
   time:
     formats:
       default: '%d %b %Y at %I:%M %p'
@@ -74,7 +68,6 @@ es-CL:
       hour: '%I:%M %p'
       yesterday_at: 'ayer a las %I: %M %p'
       textfield: '%d/%m/%Y %I:%M %p'
-      rich: '%Y-%m-%dT%H:%M'
       datepicker: 'A %-%m-%d'
       datetimepicker: '%Y-m %-%d% H: %M'
     am: am

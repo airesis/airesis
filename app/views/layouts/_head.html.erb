@@ -5,7 +5,6 @@
 
 <%= stylesheet_link_tag 'application' %>
 <%= javascript_include_tag 'application' %>
-<%= javascript_include_tag "i18n/bootstrap-datetimepicker.#{I18n.locale}" %>
 <%= stylesheet_link_tag 'elfinder.min' %>
 <%= javascript_include_tag 'elfinder.full', 'elFinderSupportVer1' %>
 <%= javascript_include_tag "i18n/elfinder.#{I18n.locale}" %>
@@ -17,6 +16,8 @@
 <%= render 'layouts/favicons' %>
 
 <script type="text/javascript">
+
+
     Airesis.id = <%=current_user ? current_user.id : -1 %>;
     Airesis.fullName = '<%=j current_user ? current_user.fullname : ''%>';
     Airesis.signed_in = <%= signed_in? %>;
@@ -81,8 +82,37 @@
             queryOrPlace: '<%=j t('pages.groups.index.insert_query_or_place')%>',
             allWords: '<%=j t('pages.groups.index.switchButton.all_words')%>',
             oneWord: '<%=j t('pages.groups.index.switchButton.one_word')%>'
+        },
+        datepicker: {
+            datetimeformat: '<%=j to_momentjs t('time.formats.datetimepicker')%>',
+            dateformat: '<%=j to_momentjs t('time.formats.datepicker')%>',
+            days: <%= raw I18n.t('calendar.dayNames') + [I18n.t('calendar.dayNames')[0]]%>,
+            daysShort: <%= raw I18n.t('calendar.dayNamesShort') + [I18n.t('calendar.dayNamesShort')[0]]%>,
+            daysMin: <%= raw (I18n.t('calendar.dayNamesShort') + [I18n.t('calendar.dayNamesShort')[0]]).map{|dd| dd[0..1]}%>,
+            months: <%= raw I18n.t('calendar.monthNames')%>,
+            monthsShort: <%= raw I18n.t('calendar.monthNamesShort')%>,
+            today: '<%=j I18n.t('calendar.today').capitalize%>',
+            firstDay: <%= I18n.t('calendar.firstDay')%>
         }
     };
+
+    $.fn.fdatetimepicker.dates[Airesis.i18n.locale] = {
+        language: Airesis.i18n.locale,
+        days: Airesis.i18n.datepicker.days,
+        daysShort: Airesis.i18n.datepicker.daysShort,
+        daysMin: Airesis.i18n.datepicker.daysMin,
+        months: Airesis.i18n.datepicker.months,
+        monthsShort: Airesis.i18n.datepicker.monthsShort,
+        today: Airesis.i18n.datepicker.today,
+        suffix: [],
+        meridiem: [],
+        weekStart: Airesis.i18n.datepicker.firstDay,
+        format: Airesis.i18n.datepicker.datetimeformat,
+        dateFormat: Airesis.i18n.datepicker.dateformat,
+        autoclose: true
+    };
+
+    $.fn.fdatetimepicker.defaults = $.fn.fdatetimepicker.dates[Airesis.i18n.locale];
 </script>
 
 <% if I18n.locale.to_s == "crowdin" %>

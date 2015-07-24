@@ -80,32 +80,32 @@ it:
           </p>
       paragraph_6:
         title: Funzioni di base
-        content_html: |2
+        content_html: |
           <ul>
-            <li><strong>Iscrizione e accesso alla piattaforma</strong> <br>
-              da qualsiasi pagina o anche a seguito all'inserimento di un commento o di un contributo. E' possibile accedere con Facebook, Google +, Meetup, Twitter o Linkedin
-            </li>
-            <li><strong>Spazio pubblico e spazio privato per i gruppi</strong> (<a href="http://youtu.be/n_ZruAcNkVk" target="blank">Più informazioni in questo video-tutorial</a>) <br>
-              La registrazione consente di partecipare allo Spazio Comune, di iscriversi ad uno dei gruppi già presenti oppure di crearne uno nuovo.
-            </li>
-            <li><strong>Creazione di proposte e dibattito</strong> <br>
-              Sia nei gruppi che nello Spazio Comune è possibile pubblicare iniziative/proposte e raccogliere contributi,
-              commenti e valutazioni al fine di redigere una sintesi condivisa della proposta che possa raccogliere il più largo consenso.
-            </li>
-            <li><strong>Quorum e votazione proposte</strong> <br>
-              Ad ogni proposta è assegnato un quorum. La votazione avviene per preferenza in base al metodo Schultze.
-            </li>
-            <li><strong>Gestione eventi/calendario</strong> <br>
-              E' possibile inserire eventi riguardanti le riunioni, le votazioni, gli incontri e le elezioni dei candidati all'interno dei gruppi o nello Spazio Comune.
-            </li>
-            <li><strong>Newsletter</strong> su eventi e novità della piattaforma</li>
-            <li><strong>Messaggistica</strong> e servizio di <strong>notifiche</strong> via mail (personalizzabili dall'utente)
-            </li>
-            <li><strong>Upload e gestione di documenti</strong> e allegati alle proposte (funzione attualmente disabilitata)
-            </li>
-            <li><strong>Sondaggi</strong> sia interni che esterni con votazione Schulze</li>
-            <li><strong>App per mobile </strong></li>
-          </ul>
+                      <li><strong>Iscrizione e accesso alla piattaforma</strong> <br>
+                        da qualsiasi pagina o anche a seguito all'inserimento di un commento o di un contributo. E' possibile accedere con Facebook, Google +, Meetup, Twitter o Linkedin
+                      </li>
+                      <li><strong>Spazio pubblico e spazio privato per i gruppi</strong> (<a href="http://youtu.be/n_ZruAcNkVk" target="blank">Più informazioni in questo video-tutorial</a>) <br>
+                        La registrazione consente di partecipare allo Spazio Comune, di iscriversi ad uno dei gruppi già presenti oppure di crearne uno nuovo.
+                      </li>
+                      <li><strong>Creazione di proposte e dibattito</strong>
+                        Sia nei gruppi che nello Spazio Comune è possibile pubblicare iniziative/proposte e raccogliere contributi,
+                        commenti e valutazioni al fine di redigere una sintesi condivisa della proposta che possa raccogliere il più largo consenso.
+                      </li>
+                      <li><strong>Quorum e votazione proposte</strong> <br>
+                        Ad ogni proposta è assegnato un quorum. La votazione avviene per preferenza in base al metodo Schulze.
+                      </li>
+                      <li><strong>Gestione eventi/calendario</strong> <br>
+                        E' possibile inserire eventi riguardanti le riunioni, le votazioni, gli incontri e le elezioni dei candidati all'interno dei gruppi o nello Spazio Comune.
+                      </li>
+                      <li><strong>Newsletter</strong> su eventi e novità della piattaforma</li>
+                      <li><strong>Messaggistica</strong> e servizio di <strong>notifiche</strong> via mail (personalizzabili dall'utente)
+                      </li>
+                      <li><strong>Upload e gestione di documenti</strong> e allegati alle proposte (funzione attualmente disabilitata)
+                      </li>
+                      <li><strong>Sondaggi</strong> sia interni che esterni con votazione Schulze</li>
+                      <li><strong>App per mobile </strong></li>
+                    </ul>
       paragraph_7:
         title: Strumento proposte e dibattito
         content_html: |2
