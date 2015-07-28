@@ -1,9 +1,5 @@
 hu:
   calendar:
-    monthNames: "['Január','Február','Március','Április','Május','Június','Július','Augustus','Szeptember','Octóber','November','December']"
-    monthNamesShort: "['Jan','Febr','Márc','Ápr','Máj','Jún','Júl','Aug','Szept','Okt','Nov','Dec']"
-    dayNames: "['Vasárnap','Hétfő','Kedd','Szerda','Csütörtök','Péntek','Szombat']"
-    dayNamesShort: "['V','H','K','Sze','Cs','P','Szo']"
     today: ma
     month: hónap
     week: hét
@@ -14,49 +10,6 @@ hu:
     formats:
       short: '%b %d'
       long: '%Y %B %d.'
-    day_names:
-      - Vasárnap
-      - Hétfő
-      - Kedd
-      - Szerda
-      - Csütörtök
-      - Péntek
-      - Szombat
-    abbr_day_names:
-      - Vas
-      - Hét
-      - Ke
-      - Szerda
-      - Péntek
-      - Csü
-      - Szombat
-    month_names:
-      1: január
-      2: február
-      3: március
-      4: április
-      5: május
-      6: június
-      7: Július
-      8: Augusztus
-      9: szeptember
-      10: október
-      11: november
-      12: December
-    abbr_month_names:
-      - nulla
-      - Jan
-      - Febr
-      - Március
-      - Április
-      - Május
-      - Június
-      - Július
-      - Augusztus
-      - Szeptember
-      - okt.
-      - November
-      - December
   time:
     formats:
       default: '</br>%Y %b %d %H:%M'
@@ -73,7 +26,6 @@ hu:
       hour: '%H:%M'
       yesterday_at: 'tegnap %H:%M -kor'
       textfield: '%Y/%m/%d %H:%M'
-      rich: '%Y-%m-%dT%H:%M'
     am: Délelött
     pm: Du.
     left:

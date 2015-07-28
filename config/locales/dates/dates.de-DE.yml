@@ -1,4 +1,31 @@
 de:
+  countdowns:
+    labelsPlural:
+      - Jahre
+      - Monate
+      - Wochen
+      - Tage
+      - Stunden
+      - Minuten
+      - Sekunden
+    labelsSingular:
+      - Jahr
+      - Monat
+      - Woche
+      - Tag
+      - Stunde
+      - Minute
+      - Sekunde
+    compactLabelsPlural:
+      - j
+      - m
+      - w
+      - t
+    compactLabelsSingular:
+      - j
+      - m
+      - w
+      - t
   calendar:
     monthNames:
       - Januar

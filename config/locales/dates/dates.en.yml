@@ -1,4 +1,31 @@
 en:
+  countdowns:
+    labelsPlural:
+      - Years
+      - Months
+      - Weeks
+      - Days
+      - Hours
+      - Minutes
+      - Seconds
+    labelsSingular:
+      - Year
+      - Month
+      - Week
+      - Day
+      - Hour
+      - Minute
+      - Second
+    compactLabelsPlural:
+      - 'y'
+      - 'm'
+      - 'w'
+      - 'd'
+    compactLabelsSingular:
+      - 'y'
+      - 'm'
+      - 'w'
+      - 'd'
   calendar:
     monthNames:
       - January

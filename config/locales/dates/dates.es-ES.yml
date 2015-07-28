@@ -1,4 +1,31 @@
 es:
+  countdowns:
+    labelsPlural:
+      - Años
+      - Meses
+      - Semanas
+      - Días
+      - Horas
+      - Minutos
+      - Segundos
+    labelsSingular:
+      - Año
+      - Mes
+      - Semana
+      - Día
+      - Hora
+      - Minuto
+      - Segundo
+    compactLabelsPlural:
+      - a
+      - m
+      - s
+      - g
+    compactLabelsSingular:
+      - a
+      - m
+      - s
+      - g
   calendar:
     monthNames:
       - Enero

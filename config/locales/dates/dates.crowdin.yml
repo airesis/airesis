@@ -1,4 +1,31 @@
 crowdin:
+  countdowns:
+    labelsPlural:
+      - crwdns8449:0crwdne8449:0
+      - crwdns8450:0crwdne8450:0
+      - crwdns8451:0crwdne8451:0
+      - crwdns8452:0crwdne8452:0
+      - crwdns8453:0crwdne8453:0
+      - crwdns8454:0crwdne8454:0
+      - crwdns8455:0crwdne8455:0
+    labelsSingular:
+      - crwdns8456:0crwdne8456:0
+      - crwdns8457:0crwdne8457:0
+      - crwdns8458:0crwdne8458:0
+      - crwdns8459:0crwdne8459:0
+      - crwdns8460:0crwdne8460:0
+      - crwdns8461:0crwdne8461:0
+      - crwdns8462:0crwdne8462:0
+    compactLabelsPlural:
+      - crwdns8469:0crwdne8469:0
+      - crwdns8463:0crwdne8463:0
+      - crwdns8464:0crwdne8464:0
+      - crwdns8465:0crwdne8465:0
+    compactLabelsSingular:
+      - crwdns8470:0crwdne8470:0
+      - crwdns8466:0crwdne8466:0
+      - crwdns8467:0crwdne8467:0
+      - crwdns8468:0crwdne8468:0
   calendar:
     monthNames:
       - crwdns8411:0crwdne8411:0

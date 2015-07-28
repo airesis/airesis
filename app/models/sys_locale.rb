@@ -12,6 +12,10 @@ class SysLocale < ActiveRecord::Base
     url_
   end
 
+  def self.find_by_key(key)
+    find_by(key: key) || find_by(key: key[0..1])
+  end
+
   def self.default
     find_by(default: true)
   end

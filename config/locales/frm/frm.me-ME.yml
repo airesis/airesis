@@ -1,0 +1,103 @@
+me:
+  frm:
+    general:
+      forum: Forum
+      topics: Teme
+      topic: Tema
+      posts: Postovi
+      posts_count:
+        one: 1 post
+        few: '%{count} postova'
+        other: '%{count} postova'
+      flagged_for_spam: Vaš nalog je označen za neželjenu poštu.
+    admin:
+      back_to_admin: Nazad na administratora
+      back_to_forums: Nazad na forume
+      back_to_groups: Nazad na grupe
+      forum:
+        index: Upravljanje forumima
+      forums:
+        category: Kategorija
+        index:
+          moderators: Moderatori
+          no_category: (Nema kategorije)
+        default_private: Privatan forum
+      mods:
+        show:
+          add_member: Dodajte
+          add_a_new_member: Dodajte novog člana
+          current_members: Trenutni članovi
+        name: Ime
+      category:
+        edit: 'Uređivanje %{title} kategorije'
+        new_link: Nova kategorija foruma
+    errors:
+      access_denied: Pristup zabranjen.
+    forum:
+      header: 'Prikazivanje %{title}'
+      forums: Forumi
+      title: Novi forum
+    forums:
+      index:
+        title: Forum
+        forum: Forum
+        views: Prikazi
+    topic:
+      quote: Citirajte
+    posts:
+      post:
+        pending_review: Ovaj post trenutno čeka pregled. Samo korisnik koji ga je psotavio i moderatori ga mogu vidjeti.
+        in_reply_to: kao odgovor na
+    moderation:
+      index:
+        title: 'Alatke za moderaciju za %{forum}'
+  helpers:
+    submit:
+      frm_forum:
+        create: Kreiranje foruma
+        update: Ažuriranje foruma
+      topic:
+        create: Kreiranje teme
+        update: Ažuriranje teme
+      frm_mod:
+        create: Kreiranje grupe
+      frm_category:
+        create: Kreiranje kategorije
+        update: Ažuriranje kategorije
+  simple_form:
+    labels:
+      frm_forum:
+        category: Kagetorija
+        title: Naslov
+        description: Opis
+        moderators: Moderatori
+        visible_outside: Vidljivo izvan grupe
+      topic:
+        subject: Naslov
+        locked: Zaključano
+        pinned: Prikačeno
+        hidden: Sakriveno
+        posts:
+          text: Tekst
+      frm_category:
+        name: Ime
+      post:
+        text: Tekst
+      frm_mod:
+        name: Ime
+  time_ago_in_words: '%{time} prije'
+  ago: ' prije'
+  ago_by: ' prije'
+  by: od
+  started_by: 'Započeto od '
+  are_you_sure: Da li ste sigurni?
+  lst_post: Posljednji psot
+  last_post: Posljednja tema
+  back_to_forums: Nazad na forum
+  pages:
+    forum_groups:
+      index:
+        create_first: Još uvijek nema grupa moderatora. Kreirajte prvu!
+  info:
+    members:
+      ok_message: Korisnik uspješno dodat grupi

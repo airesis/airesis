@@ -1,0 +1,53 @@
+me:
+  home:
+    whowe:
+      title: O nama
+      description: Grupa volontera koji žele da poboljšaju svijet, građani poput vas.
+      intro:
+        title: Građani koji se raduju boljoj demokratiji
+        description_html: |
+          <p>Airesis je rezultat spajanja dva projekta: Agor&agrave 2.0 i DemocracyOnline, koji su se sklopili u udruženje <a href="http://www.tecnologiedemocratiche.it/" target="_blank">Tecnologie Democratiche</a>, s jednim od glavnih ciljeva razvoja inovativnog softvera otvorenog izvora za e-demokratiju.</p>
+          <p>Cilj tima, <strong>u potpunosti sačinjenog od volontera</strong> je da pruži građanima i grupama softversku platformu koja im omogućava da se uhvate u koštac s <strong>vjećinom problema</strong> našeg društva
+          omogućavajući im <strong>kreiranje</strong>, <strong>diskusija</strong>i <strong>glasanja</strong> o prijedlozima na <strong>transparentan</strong>, <strong>demokratski</strong>, <strong>konstruktivan</strong> i<strong>učestvujući</strong> način,
+          dozvoljavajući <strong>kolektivnoj inteligenciji</strong> da se pojavi.</p>
+          <p>Ako i vi dijelite naš cilj, možete <a href="/partecipa">nam se pridružiti</a> kontaktirajući naše volontere.</p>
+          <p>Molimo pogledajte <a href=%{story}>istorijat Airesisa</a>. Saznajte kako je nastao naš projekat i koji su naši budući željeni ciljevi.</p>
+      development_area: Razvojna oblast
+      other_voluteers: Drugi volonteri aktivni u projektu
+      contributors: Saradnici
+      contributors_desc: 'Oni su posvijetili svoje slobodno vrijeme projektu (po abecednom rijedu):'
+      special_thanks: Posebna zahvalnost
+      tilatti_marino:
+        title: Programer i koordinator
+        content_html: |
+          <p>
+          Tokom studiranja sam shvatio kakve velike mogućnosti internet pruža čovječanstvu. 
+          Kada sam diplomirao na Ekonomiji i poslovanju, odabrao sam da se posvjetim svojim interesovanjima i u roku od nekoliko godina sam osnovao nekoliko značajnih portala o životinjskom svijetu i luksuznim nekretninama, kao i aplikaciju o servis provajderu. Međutim, moj san je oduvijek bio da ostvarim alatku za odlučivanje koja će omogućiti implementaciju direktne demokratije, pa sam tako, čim sam čuo o ovom projektu, posvjetio se tome uprkos svojim drugim obavezama i svoje dvoje predivne djece. Vodim računa o vizuelnim aspektima i aspektima iskoristivosti, SEO i komunikacijskim pitanjima, i uz to i pitanjima podrške tehničke podrške u programiranju. 
+          </p>
+      rodi_alessandro:
+        title: Glavni programer i veb-master
+        content_html: |
+          <p>
+          Imam %{age} godina i živim u Cirihu gdje radim kao Java i Ruby on Rails programer. 
+          Već dugo godina jako volim programiranje, a 2009. sam završio studije Informatike i računarstva, i diplomirao u Bolonji.
+          Pošto sam imao strast prema politici i digitalnim tehnologijama, u julu 2011. sam pristupio  Ruby On Rails i počeo da postavljam temelje Airesis izvornog kôda, imajući na umu ambiciozan projekat: kreiranje softvera za participativnu demokratiju. Bio sam fasciniran činjenicom kako se politika promijenila tokom poslednjih godina i kako će se uskoro morati pozabaviti sa svjetskom mriježom, i shvatio sam kako takav instrument nikada nije bio dostupan građanima, i tako... sada sam ovdje! U projektu, radim na koordinisanju razvojnih aktivnosti i vodim računa o samom programiranju: pružam podršku drugim programerima i radim kao supervizor na kvalitetu izvornog kôda. Štaviše, pomažem u razvoju logike i definisanju vrijemenskih okvira i krajnjih rokova za njihov završetak. 
+          </p>
+      analysis_area: Oblast analize
+      giulietti_nicola:
+        title: Analitičar i koordinator
+      baiotto_marco:
+        title: Analitičar
+      graphic_area: Grafička oblast
+      kabora_marcello:
+        title: Grafički dizajner
+      i18n_area: Oblast internacionalizacije
+      tolja_jacopo:
+        title: Zadužen za zapošljavanje i koordinaciju prevodiocima
+      communication_area: Oblast komunikacije
+      curini_simone:
+        title: Širenje projekta i kontakti s Meetup
+      test_area: Oblast testiranja
+      mion_carlo:
+        title: Ispitivač i programer
+      zanellato_luca:
+        title: Ispitivač i analitičar

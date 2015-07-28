@@ -8,8 +8,6 @@
 <%= stylesheet_link_tag 'elfinder.min' %>
 <%= javascript_include_tag 'elfinder.full', 'elFinderSupportVer1' %>
 <%= javascript_include_tag "i18n/elfinder.#{I18n.locale}" %>
-
-<%= javascript_include_tag "i18n/jquery.countdown.#{I18n.locale}" %>
 <%= javascript_include_tag "vendor/modernizr" %>
 <%= csrf_meta_tag %>
 
@@ -93,6 +91,12 @@
             monthsShort: <%= raw I18n.t('calendar.monthNamesShort')%>,
             today: '<%=j I18n.t('calendar.today').capitalize%>',
             firstDay: <%= I18n.t('calendar.firstDay')%>
+        },
+        countdown: {
+            labels: <%= raw I18n.t('countdowns.labelsPlural')%>,
+            labels1: <%= raw I18n.t('countdowns.labelsSingular')%>,
+            compactLabels: <%= raw I18n.t('countdowns.compactLabelsPlural')%>,
+            compactLabels1: <%= raw I18n.t('countdowns.compactLabelsSingular')%>
         }
     };
 
@@ -113,6 +117,17 @@
     };
 
     $.fn.fdatetimepicker.defaults = $.fn.fdatetimepicker.dates[Airesis.i18n.locale];
+
+    $.countdown.regionalOptions[Airesis.i18n.locale] = {
+        labels: Airesis.i18n.countdown.labels,
+        labels1: Airesis.i18n.countdown.labels1,
+        compactLabels: Airesis.i18n.countdown.compactLabels,
+        compactLabels1: Airesis.i18n.countdown.compactLabels1,
+        whichLabels: null,
+        digits: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+        timeSeparator: ':', isRTL: false
+    };
+    $.countdown.setDefaults($.countdown.regionalOptions[Airesis.i18n.locale]);
 </script>
 
 <% if I18n.locale.to_s == "crowdin" %>

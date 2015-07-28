@@ -1,6 +1,17 @@
 class ApplicationController < ActionController::Base
   include ApplicationHelper, GroupsHelper, StepsHelper
   helper :all
+
+  unless Rails.application.config.consider_all_requests_local
+    rescue_from Exception, with: :render_error
+    rescue_from ActiveRecord::RecordNotFound, with: :render_404
+    rescue_from ActionController::RoutingError, with: :render_404
+    rescue_from ActionController::UnknownController, with: :render_404
+    rescue_from ::AbstractController::ActionNotFound, with: :render_404
+    rescue_from Errno::ECONNREFUSED, with: :solr_unavailable
+    rescue_from I18n::InvalidLocale, with: :invalid_locale
+  end
+
   protect_from_forgery
   after_filter :discard_flash_if_xhr
 
@@ -102,7 +113,7 @@ class ApplicationController < ActionController::Base
   def set_current_domain
     @domain_locale = request.host.split('.').last
     if params[:l].present?
-      @current_domain = SysLocale.find_by(key: params[:l])
+      @current_domain = SysLocale.find_by_key(params[:l])
     else
       @current_domain = SysLocale.find_by(host: request.host, lang: nil) || SysLocale.find_by(host: request.host)
     end
@@ -118,7 +129,6 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     @domain_locale = request.host.split('.').last
-    params[:l] = SysLocale.find_by(key: params[:l]) ? params[:l] : nil
     @locale =
       if Rails.env.test?
         params[:l] || I18n.default_locale
@@ -128,7 +138,7 @@ class ApplicationController < ActionController::Base
     @locale = 'en' if ['en', 'eu'].include? @locale
     @locale = 'en-US' if ['us'].include? @locale
     @locale = 'zh' if ['cn'].include? @locale
-    @locale = 'it-IT' if ['it', 'org', 'net'].include? @locale
+    @locale = 'it' if ['it', 'org', 'net'].include? @locale
     I18n.locale = @locale
   end
 
@@ -171,6 +181,19 @@ class ApplicationController < ActionController::Base
       }
       format.html {
         render template: '/errors/500.html.erb', status: 500, layout: 'application'
+      }
+    end
+  end
+
+  def invalid_locale(exception)
+    log_error(exception)
+    respond_to do |format|
+      format.js {
+        flash.now[:error] = 'You are asking for a locale which is not available, sorry'
+        render template: '/errors/invalid_locale.js.erb', status: 500, layout: 'application'
+      }
+      format.html {
+        render template: '/errors/invalid_locale.html.erb', status: 500, layout: 'application'
       }
     end
   end
@@ -360,14 +383,6 @@ class ApplicationController < ActionController::Base
     flash.discard if request.xhr?
   end
 
-  unless Rails.application.config.consider_all_requests_local
-    rescue_from Exception, with: :render_error
-    rescue_from ActiveRecord::RecordNotFound, with: :render_404
-    rescue_from ActionController::RoutingError, with: :render_404
-    rescue_from ActionController::UnknownController, with: :render_404
-    rescue_from ::AbstractController::ActionNotFound, with: :render_404
-    rescue_from Errno::ECONNREFUSED, with: :solr_unavailable
-  end
 
   rescue_from CanCan::AccessDenied do |exception|
     permissions_denied(exception)

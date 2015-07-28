@@ -1,6 +1,4 @@
 module ApplicationHelper
-
-
   def to_momentjs(strftime_format)
     moment_format = strftime_format
     replacements = {

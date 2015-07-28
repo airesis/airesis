@@ -1,0 +1,229 @@
+me:
+  home:
+    intro:
+      title: Prva društvena mreža za E-Demokratiju u svijetu
+      description: Instrument direktne demokratije stvoren da odlučuje i zajednički djeluje o prijedlozima i idejama koje proističu bilo gdje za bilo koju temu.
+      paragraph_1:
+        title: Društvena mreža za E-Demokratiju
+        content_html: |
+          <p>Airesis je <a href="http://en.wikipedia.org/wiki/Free_software">besplatna softverska platforma</a>, napravljena
+          od strane tima italijanskih programera i saradnika, smišljena sa ciljem da omogući zajednicama i grupama da se organizuju na produktivan način shodno principima <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank">direktne demokratije</a> i učešća.</p>
+          
+          <p>Da bi se postigao taj cilj, aplikacija je dizajnirana kao multifunkcionalan sistem koji spaja sve alatke koje mogu pomoći razvoju zajednice, naročito „društvene" i savjetodavne alatke.</p>
+          
+          <p>Od <strong>društvenih alatki</strong>, Airesis nudi blogove i sistem promocije događaja i sastanaka s graničnim organizovanjem.
+          Od <strong>savjetodavnih alatki</strong>, tu su takođe i oblasti prikupljanja i razmatranja prijedloga i incijativa, 
+          i sistem glasanja koji ima za cilj izbor kandidata. Platforma vam takođe omogućava da kreirate grupe s pristupom politici propisa i prilagođenim ovlašćenjima. 
+          Kako je cilj Аiresisa da stimuliše učestvovanje, velika pažnja je data maksimiziranju intuitivnosti cijele platforme. 
+          Filozofija razvoja je usredsređena na stalno poboljšanje, na način razvojnog procesa zasnovanog na povratnoj informaciji korisnika.
+          Razvojni tim je na raspolaganju da zadovolji potrijebe zajednica koje žele da koriste softver u duhu direktne demokratije. </p>
+      paragraph_3:
+        title: Principi i osnovne vrijednosti
+        content_html: |
+          <p>Аiresis je alatka otvorenog izvora za odlučivanje u e-demokratiji, 
+          snažno orijentisan na rješavanje problema i dizajniran da maksimizira ogromnu evolucionu moć <a heref="http://en.wikipedia.org/wiki/Collective_intelligence" target="_blank">kolektivne inteligencije</a>.</p>
+          <p>U potpunosti razvijen od strane volontera prema neprofitnim principima, Airesis je kreiran da donijese brže, zajedničke i učestvujuće odluke.<br/>
+          Zasnovan je na slijedećim principima:</p>
+          <ul>
+          <li><strong>Učešće</strong> <br/>
+          Uključivanje građana znači imati više energije i tačaka gledišta na raspolaganju. 
+          Samo kroz direktno učešće je moguće istražiti probleme i shvatiti šta ljudi zaista žele. Učešće je suština demokratskih odluka.
+          </li>
+          
+          <li><strong>Transparentnost i bezbjednost</strong><br/>
+          Bez transparentnosti, pravila se mogu zaobići a demokratija se može brzo izopačiti.
+          Transparentnost takođe znači otvorenost, sposobnost primanja: iz tog razloga Airesis dozvoljava i neregistrovanim korisnicima da vide sadržaj web sajta.  
+          Izvorni kôd softvera je takođe  „transparentan“ jer je potpuno otvorenog izvora.</li>
+          
+          <li><strong>Konstruktivni dijalog</strong><br/>
+          Niko ne posjeduje prave odgovore. Korišćenje odgovarajućih alatki, razmatranje ideja prijedloženih od strane mnogo ljudi može biti mnogo produktivnije nego kada to radite sami.</li>
+          
+          <li><strong>Jednake mogućnosti</strong><br/>
+          Da bi bio zamišljen kao način efikasne ravnopravnosti, u smislu ponuđenih mogućnosti, može da se sprovodi od strane sistema.
+          </li>
+          
+          <li><strong>Fleksibilnost</strong><br/>
+          Svaka grupa ima svoje sopstvene potrebe, svaki prijedlog je različit, svaki korisnik ima svoje sopstvene potrebe.</li>
+      paragraph_4:
+        title: 'Naš cilj: direktna i participativna demokratija'
+        content_html: |
+          <p>Strukturiran kao drušvena mreža, Airesis dozvoljava korisnicima da angažuju druge ljude u skladu s njihovim interesovanjima i da iskoriste kvalitete jedni drugih da bi sporazumno razmatrali bilo kakvu vrstu prijedloga. 
+          Konstrukcija i suštinske vrijednosti dozvoljavaju platformi da slijedi ciljeve društvene i konstruktivne debate po pitanjima koja mogu obuhvatati teritoriju, društveno unapređenje, sektorsku politiku, i sledstveno da proizvede najbolje ideje.</p>
+          <p>Airesis оbjezbeđuje alatke za:
+          <ul>
+          <li>Promovisanje ideja i iskustava pojedinačnih članova</li>
+          <li>Grupisanje inicijativa / prijedloga pojedinačnih korisnika i njihovo predstavljanje zajednici</li>
+          <li>Objezbeđivanje alatki za debatu o raznolikim inicijativama</li>
+          <li>Promovisanje zajedničkog uređivanja prijedloga</li>
+          <li>Upravljanje glasovima za različite inicijative i prijedloge</li>
+          <li>Promovisanje srodnih događaja ili sastanaka</li>
+          <li>Upravljanje molbama kandidata i graničnim operacijama glasanja</li>
+          <li>Upravljanje ograničenim subgrupama, određenim specifičnim pravilima i dozvolama, ali sa svim alatkama objezbeđenim platformom</li>
+          </ul>
+          </p>
+      paragraph_5:
+        title: Karakteristike i odlike
+        content_html: |
+          <p>Razvojni tim Airesisa stvara sve funkcije i alatke 
+          <strong>prema potrebama grupa</strong> koje imaju korist od platforme. 
+          Ista razvojna grupa je prisutna na Airesisu i odlučuje <strong>sporazumno</strong> o budućim implementacijama.</p>
+          <p>Stvarna struktura dozvoljava registrovanom korisniku da pripada <strong>otvorenom prostoru</strong>,
+          da se pridruži jednoj od <strong>grupa</strong> već prisutnih ili da ustanovi novu.
+          I unutar grupa i unutar otvorenog prostora je moguće objavljivati incijative / prijedloge, <strong>ocenjivati ih</strong>, zajednički uređivati <strong>rezime</strong>, a onda <strong>glasati</strong>. U istim kontekstima, možete kreirati događaje koji se tiču <strong>sastanaka</strong> i <strong>glasanja</strong>.
+          </p>
+      paragraph_6:
+        title: Osnovne odlike
+        content_html: |
+          <ul>
+          <li><strong>Registracija i prijavljivanje</strong> <br>
+          sa svake stranice ili čak nakon dodavanja komentara ili doprinosa. Moguće je prijaviti se i korišćenjem Facebook, Google +, Meetup, Twitter ili LinkedIn naloga
+          </li>
+          <li><strong>Javno područje ili privatno područje za grupe</strong> (<a href="http://youtu.be/n_ZruAcNkVk" target="blank">Više informacija u ovom videu-tutorijalu</a>) <br>
+          Prijavljivanje vam omogućava učešće u Open Space, da se pridružite jednoj od već postojećih grupa ili da kreirate novu.  
+          </li>
+          <li><strong>Kreiranje prijedloga i debata</strong>
+          I u grupama i u Open Space je moguće postaviti prijedloge/inicijative i dobiti doprinose, 
+          komentare i ocene za uređivanje zajedničkog rezimea koji može postići najveću moguću opštu saglasnost.  
+          </li>
+          <li><strong>Kvorum i glasanje za prijedloge</strong> <br>
+          Svaki prijedlog ima svoj kvorum. Glasanje nastaje po prioritetu, prema Šulcovoj metodi.  
+          </li>
+          <li><strong>Događaji\upravljanje kalendarom</strong> <br>
+          Moguće je planirati događaje u smislu sastanaka, glasanja, izbora kandidata unutar grupa ili u Open Space.
+          </li>
+          <li><strong>Bilten</strong> događaja i vijesti o platformi</li>
+          <li><strong>Servis poruka</strong> i <strong>obaveštenja e-mailom</strong> (prilagodljiv od strane korisnika)
+          </li>
+          <li><strong>Prebacivanje i upravljanje dokumentima</strong> i dodacima prijedloga (odlika trenutno onemogućena)
+          </li>
+          <li><strong>Ankete</strong> i unutrašnje i spoljašnje uz upotrebu Šulcove metode glasanja.</li>
+          <li><strong>Mobile App</strong></li>
+          </ul>
+      paragraph_7:
+        title: Instrument za prijedlog i debatu
+        content_html: |
+          <p>Suština softvera je fokusirana na <strong>savjetodavnu alatku</strong> koja vam omogućava da učestvujete u nacrtu prijedloga, da postavite zajednički cilj, da doprinesete u potrazi za alternativnim rešenjima i da dovedete do glasanja rezultat tog rada tako da prijedlog može primiti najveću moguću opštu saglasnost i da se najbolje i najzajedničkije rješenje može pojaviti.</p>
+          <p>Proces uključuje tri koraka:</p>
+          <ul>
+          <li><strong>Autor kreira prijedlog</strong> prateći čarobnjaka za podešavanje, nakon čega sistem objavljuje tekst u odeljku <strong>„U debati"</strong>.
+          Tokom ovog perioda, prijedlog može biti izmenjen od strane urednika na osnovu datih ocena i doprinosa od strane drugih korisnika.</li>
+          <li>Kada se <strong>postigne kvorum za debatu</strong> prijedlog ide u odeljak <strong>„Glasanje"</strong>. Tokom ovog vrijemena
+          tekst prijedloga ne može biti izmenjen, a urednik bira <strong>događaj glasanja</strong> (period glasanja)
+          između onih već isplaniranih ili može kreirati novi koristeći kalendar.<br>
+          Svi kvalifikovani korisnici (izabrani prema utvrđenim pravilima grupe) mogu  <strong>glasati</strong> tokom definisanog perioda.</li>
+          <li><strong>Na kraju glasanja</strong> sistem izračunava <strong>rezultate</strong> i stavlja prijedlog u <strong>odeljak „Izglasano"</strong></li>
+          <li>Ako se <strong>kvorum za debatu ne postigne</strong>, prijedlog ide u  <strong>odeljak „Odbačeno"</strong>, gde može biti <strong>vraćen u debatu</strong> da se ponovo započne novi ciklus.</li>
+          </ul>
+          <p>Naročito je interesantno usvajanje <strong>područja za diskusiju</strong> za svaki objavljeni prijedlog, koji dozvoljava samom prijedlogu da bude izmenjen od strane urednika (kao <a href="http://en.wikipedia.org/wiki/Wiki" target="blank">wiki</a>)
+          prema opštoj saglasnosti dobijenoj od pojedinačnih doprinosa. 
+          Područje za diskusiju je podeljeno na dva nivoa, prvi za prikupljanje doprinosa, drugi za lična razmatranja njih.
+          Prvi nivo izvršava mehanizam za povećanje zrelosti prijedloga <strong>pripajajući ga u najpriznatije doprinose</strong>.</p>
+          <p> <strong>Kvorum debate</strong>, neophodan za promovisanje prijedloga u fazu glasanja, sastoji se od tri različita parametra:</p>
+          <ul>
+          <li><strong>Učesnici</strong>: broj ljudi koji učestvuju u debati;
+          </li>
+          <li><strong>Vrijeme za diskusiju</strong>: vrijemenski period u kojem prijedlog ostaje u fazi debate (počevši od njegovog podnošenja);
+          </li>
+          <li><strong>Zrelost</strong>: procenat učesnika koji tvrde da je prijedlog spreman za glasanje;
+          </li>
+          </ul>
+          <p>Ocenjivanje "<strong>maturity</strong>" prijedloga je formalni čin članova zajednice
+          (urađen tokom perioda diskusije), kroz koji oni izražavaju <strong>podobnost</strong> teksta prijedloga za <strong>nastupajuću fazu glasanja</strong>.</p>
+          <p>Postoje <strong>različite vrste kvoruma</strong>: u zavisnosti od složenosti teme, parametri (učešće, vrijeme i zrelost) variraju.
+          Za prijedloge unutar Open Space, kvorumi su definisani od strane administratora sistema, dok <strong>kvorum prijedloga objavljen unutar grupa može biti slobodno izmenjen od strane administratora</strong>.
+          </p>
+          <p>Prijedlozi su <strong>organizovani</strong>, <strong>sortirani</strong> i <strong>laki za pretraživanje</strong> na različite načine:</p>
+          <ul>
+          <li>u zavisnosti od njihovog <strong>statusa</strong> („U debati", „U glasanju", „Izglasani", „Odbačeni")</li>
+          <li>prema unaprijed definisanim <strong>kategorijama</strong> ( „Rad",  „Zdravlje",  „Obrazovanje", itd.)</li>
+          <li>u zavisnosti od <strong>vrste</strong> prijedloga: standard, regulacija, procjena, izjava, tehnička odluka, itd...</li>
+          <li>korišćenjem <strong>besplatnih oznaka</strong> koje mogu biti unete u tekst prijedloga.</li>
+          </ul>
+      paragraph_8:
+        title: Šulcov metod glasanja i direktna demokratija
+      paragraph_9:
+        title: Promocija zajedničkih prijedloga i participativne demokratije
+      paragraph_11:
+        title: Upravljanje grupama i funkcijama korisnika
+    whatis:
+      title: Prva društvena mreža za e-demokratiju u svijetu
+      paragraph_2:
+        title: Osnujte svoju grupu
+      paragraph_3:
+        title: Organizujte učesnike
+    roadmap:
+      title: Razvoj Airesisa
+      description: Naš put ka stvaranju novog softvera, ideja koja je u stanju da razvije demokratiju, koja je realizovana zahvaljujući internetu.
+    helpus:
+      title: Pomozite nam kako želite, svako može da doprinese
+      description: Doprinesite ostvarenju alatke sposobne za razvoj e-demokratije
+      paragraph1:
+        title: Zašto tražimo da podržite Airesis?
+    engage:
+      nav:
+        participate: Učestvujte
+        banner: Baner
+      paragraph1:
+        title: Airesis je otvoren za svakoga
+      paragraph2:
+        title: Kako da doprinesete
+      developer:
+        description_html: |
+          <p>
+          Razvojni programer je osoba koja zapravo piše kôd Airesisa. <br/>
+          On prati specifikacije i smernice dogovorene od strane tima. 
+          Razvojni programer će napisati nove module u Ruby programskom jeziku kada budu postojale nove odlike za dodavanje, ili HTML stranice, takođe koristeći CSS i Javascript u slučaju UI funkcionalnosti.<br/>
+          Novi kandidati će biti pomognuti i vođeni od strane <a href="%{chisiamo}" target="_blank">glavnog programera</a> pri prvim koracima u tom poslu kako bi ga što lakše započeli.
+          </p>
+      analyst:
+        title: Analitičar
+        description_html: |
+          <p>
+          On je veza između korisnika i razvojnog tima. <br/>
+          On prikuplja informacije od grupa i građana, i daje razvojnom timu svu potrebnu dokumentaciju za razvoj novih funkcionalnosti i poboljšanje već postojećih.<br/>
+          On elaborira algoritme, kao i dobre i loše strane svake odlike i njihoivh mogućih neprikladnih upotreba.
+          </p>
+      first_lev_tester:
+        title: Ispitivač prvog nivoa
+        description_html: |
+          <p>
+          Ispitivač prvog nivoa je na raspolaganju da ispita sistem i ne mora nužno da obezbijedi bilo kakvu informaciju o kôdu.  
+          Ispitivač prvog nivoa mora obavezno znati kako da pokrene sistem i bude sposoban da koristi internet pretraživač ili sistem društvenih mreža, ali nije obavezno da zna bilo koji programski jezik.<br/>
+          Tako da će povratna informacija od ispitivača prvog nivoa biti o neočekivanim slučajevima iz sistema i grešaka u programu.
+          </p>
+      sec_lev_tester:
+        title: Ispitivač drugog nivoa
+        description_html: |
+          <p>
+          Dobro poznavanje programiranja je obavezno za ispitivače drugog nivoa. Od njih se traži da obavljaju zahtijevnije i detaljnije testove nego ispitivači prvog nivoa. Ispitivač drugog nivoa radi na složenim pitanjima, i mora biti sposoban da stavi cio sistem pod opterećenje da bi pronašao skrivene probleme.
+          </p>
+      graphic:
+        title: Grafički dizajner
+        description_html: |
+          <p>
+          Grafički dizajner radi na korisničkim interfejsima i daje ih razvojnom timu. 
+          On poboljšava upotrijebljivost i sveobuhvatnost tekstova u softveru (npr., priručnici...)
+          </p>
+      recruiter:
+        title: Pronalaženje osoblja
+        description_html: |
+          <p>
+          On je zadužen za traženje novih volontera koji žele da pomognu ovom projektu, ispitivača, kao i grupa koje žele da koriste softver za svoje potrebe. 
+          On angažuje grupe ljudi koje nisu predstavljene razvojnim grupama (žene, ljudi sa slabim informatičkim vještinama, itd...) tako da softver može biti, čak i prije svega, privlačan njima, zasnovan na njihovim povratnim informacijama.
+          </p>
+      communication:
+        title: Menadžer za komunikaciju
+        description_html: |
+          <p>
+          On upravlja kontaktima s medijima, promoviše softver u potrazi za novim korisnicima, tehničkim aspektima kao što su povratni link i SEO (Search Engine Optimization),
+          viralnim marketingom (npr., kreiranje zanimljivih prijedloga), videima i informativnom dokumentacijom.
+          On ažurira društvene mreže i medije, predstavlja spoljnog referenta-portparola.
+          </p>
+      i18n:
+        title: Internacionalizacija
+        description_html: |
+          <p>
+          On je zadužen za prevod softvera. Kontaktira i koordinira prevodiocima za strane jezike.
+          <br/>
+          (Napomjena: nije potrebno da posjeduje bilo kakvu programsku vještinu)
+          </p>

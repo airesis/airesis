@@ -1,4 +1,31 @@
 el:
+  countdowns:
+    labelsPlural:
+      - Χρόνια
+      - Μήνες
+      - Εβδομάδες
+      - Ημέρες
+      - Ώρες
+      - Λεπτά
+      - Δευτερόλεπτα
+    labelsSingular:
+      - Χρόνος
+      - Μήνας
+      - Εβδομάδα
+      - Ημέρα
+      - Ώρα
+      - Λεπτό
+      - Δευτερόλεπτο
+    compactLabelsPlural:
+      - χ
+      - μ
+      - ε
+      - η
+    compactLabelsSingular:
+      - χ
+      - μ
+      - ε
+      - η
   calendar:
     monthNames:
       - Ιανουαρίος

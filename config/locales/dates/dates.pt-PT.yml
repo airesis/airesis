@@ -1,9 +1,5 @@
 pt:
   calendar:
-    monthNames: "['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']"
-    monthNamesShort: "['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']"
-    dayNames: "['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado']"
-    dayNamesShort: "['Dom','Seg','Ter','Qua','Qui','Sex','Sáb']"
     today: hoje
     month: mês
     week: semana
@@ -14,50 +10,6 @@ pt:
     formats:
       short: '%b %d'
       long: '%d %B %Y'
-    day_names:
-      - Domingo
-      - Segunda-Feira
-      - Terça-Feira
-      - Quarta-Feira
-      - Quinta-Feira
-      - Sexta-Feira
-      - Sábado
-    abbr_day_names:
-      - Dom
-      - Seg
-      - Ter
-      - Qua
-      - Sex
-      - Qui
-      - Sáb
-    month_names:
-      - nil
-      - Janeiro
-      - Fevereiro
-      - Março
-      - Abril
-      - Maio
-      - Junho
-      - Julho
-      - Agosto
-      - Setembro
-      - Outubro
-      - Novembro
-      - Dezembro
-    abbr_month_names:
-      - nil
-      - Jan
-      - Fev
-      - Mar
-      - Abr
-      - Mai
-      - Jun
-      - Jul
-      - Ago
-      - Set
-      - Out
-      - Nov
-      - Dez
   time:
     formats:
       default: '%d %b %Y às %I:%M %p'
@@ -74,7 +26,6 @@ pt:
       hour: '%I:%M %p'
       yesterday_at: 'ontem a %I:%M %p'
       textfield: '%d/%m/%Y %I:%M %p'
-      rich: '%Y-%m-%dT%H:%M'
     am: am
     pm: pm
     left:
