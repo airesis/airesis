@@ -403,7 +403,7 @@ function disegnaCountdown() {
             since: new Date($(this).data('time')),
             significant: 1,
             format: 'ms',
-            layout: Airesis.i18n.countdown
+            layout: Airesis.i18n.countdown.layout1
         }, $.countdown.regionalOptions[Airesis.i18n.locale]));
     })
 }

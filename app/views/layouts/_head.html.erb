@@ -31,8 +31,6 @@
         alert_read: '<%=j raw t('pages.header.read')%>',
         alarm_settings: '<%=j raw t('pages.groups.header.alarm_settings')%>',
         no_alerts: '<%=j raw t('pages.header.no_alerts')%>',
-        countdown: '<%=j raw t('countdown')%>',
-        countdown2: '<%=j raw t('countdown2')%>',
         type_for_town: '<%=j raw t('pages.events.new.type_for_town')%>',
         locale: '<%=I18n.locale%>',
         feedback: {
@@ -96,7 +94,9 @@
             labels: <%= raw I18n.t('countdowns.labelsPlural')%>,
             labels1: <%= raw I18n.t('countdowns.labelsSingular')%>,
             compactLabels: <%= raw I18n.t('countdowns.compactLabelsPlural')%>,
-            compactLabels1: <%= raw I18n.t('countdowns.compactLabelsSingular')%>
+            compactLabels1: <%= raw I18n.t('countdowns.compactLabelsSingular')%>,
+            layout1: '<%=j raw t('countdown')%>',
+            layout2: '<%=j raw t('countdown2')%>'
         }
     };
 
