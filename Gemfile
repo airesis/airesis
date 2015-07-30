@@ -63,6 +63,7 @@ group :test do
   gem "codeclimate-test-reporter", require: nil
   gem 'ruby-prof'
   gem 'test-unit'
+  gem 'simplecov', require: false
 end
 
 group :development do

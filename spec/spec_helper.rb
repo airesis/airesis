@@ -5,12 +5,12 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'database_cleaner'
 require 'sidekiq/testing'
+require 'simplecov'
 require 'sunspot_test/rspec'
-
 
 require 'capybara-screenshot/rspec' unless ENV['DISABLE_SCREENSHOTS']
 
-#Sidekiq::Testing.inline!
+SimpleCov.start 'rails'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
@@ -55,12 +55,6 @@ RSpec.configure do |config|
   # loading seeds
   #config.include Rails.application.routes.url_helpers
   config.include Rails.application.routes.url_helpers
-
-  #Capybara.register_driver :selenium do |app|
-  #  Selenium::WebDriver::Firefox::Binary.path='/opt/homebrew-cask/Caskroom/firefox/latest/Firefox.app/Contents/MacOS/firefox-bin'
-  #  Capybara::Selenium::Driver.new(app, :browser => :firefox)
-  #end
-
 
   Capybara.javascript_driver = :webkit
 
