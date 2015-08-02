@@ -27,10 +27,9 @@ module ApplicationHelper
     "<div class=\"fb-like\" data-send=\"false\" data-layout=\"box_count\" data-width=\"100\" data-show-faces=\"false\"></div>"
   end
 
-  def calendar(*args)
+  def calendar(*_args)
     "<div id='calendar'></div>"
   end
-
 
   def resource_name
     :user
@@ -45,7 +44,7 @@ module ApplicationHelper
   end
 
   # return the time in words
-  def time_in_words(from_time, include_seconds = false)
+  def time_in_words(from_time, _include_seconds = false)
     diff = Time.now - from_time # difference of time from now
     if !from_time.today? # if it's not today
       if diff < 7.days && (from_time.wday <= Time.now.wday) # if time in this
@@ -79,9 +78,7 @@ module ApplicationHelper
     [controller_name.camelcase, action_name.camelcase].join if response.ok?
   end
 
-
-  def add_params(to_add={})
-    params.reject { |k, v| ['controller', 'action'].include? k }.merge to_add
+  def add_params(to_add = {})
+    params.reject { |k, _v| %w(controller action).include? k }.merge to_add
   end
-
 end

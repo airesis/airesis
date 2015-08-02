@@ -1,10 +1,9 @@
 module UsersHelper
-
   def link_to_ip(title, provider, css)
     link_to title, user_omniauth_authorize_path(provider), alt: title, title: title, class: "zocial icon #{css}"
   end
 
-  def link_to_user(user, options={})
+  def link_to_user(user, options = {})
     options.reverse_merge! content_method: :name, title_method: :login, class: :nickname
     if options[:full_name]
       content_text = "#{user.name} #{user.surname}"
@@ -16,13 +15,13 @@ module UsersHelper
     link_to h(content_text), user_path(user), options
   end
 
-  #show a small tag with the user image followed by the nickname
-  #if fullname is true the user name and surname is written instead of the nickname
-  #if a proposal is passed as argument are checked few things,
-  #if the proposal is_current? and the user has a nickname associated to it
-  #then the user real name and image are hidden and replaced by the proposal nickname ones.  
-  def user_tag(user, proposal = nil, full_name=true, show_rank=false, options={})
-    raise 'Invalid User' unless user
+  # show a small tag with the user image followed by the nickname
+  # if fullname is true the user name and surname is written instead of the nickname
+  # if a proposal is passed as argument are checked few things,
+  # if the proposal is_current? and the user has a nickname associated to it
+  # then the user real name and image are hidden and replaced by the proposal nickname ones.
+  def user_tag(user, proposal = nil, full_name = true, show_rank = false, options = {})
+    fail 'Invalid User' unless user
     if proposal && proposal.is_anonima?
       u_nick = user.proposal_nicknames.find_by(proposal_id: proposal.id)
     end
@@ -59,7 +58,7 @@ module UsersHelper
     ret.html_safe
   end
 
-  def user_valutation_image(user, proposal, options={})
+  def user_valutation_image(user, proposal, _options = {})
     val = if proposal.respond_to?(:ranking)
             proposal.ranking.to_i
           else
@@ -72,17 +71,15 @@ module UsersHelper
     end
   end
 
-  def avatar(user, params={})
-    size= params[:size] || 80
-    url= params[:url]
-    certification_logo= params[:cert].nil? ? true : params[:cert]
-    force_size= params[:force_size].nil? ? true : params[:force_size]
+  def avatar(user, params = {})
+    size = params[:size] || 80
+    url = params[:url]
+    certification_logo = params[:cert].nil? ? true : params[:cert]
+    force_size = params[:force_size].nil? ? true : params[:force_size]
 
-    if user.certified? && certification_logo && size < 60
-      size = size - 6
-    end
+    size -= 6 if user.certified? && certification_logo && size < 60
 
-    style= force_size ? "style=\"width:#{size}px;height:#{size}px;\"" : ''
+    style = force_size ? "style=\"width:#{size}px;height:#{size}px;\"" : ''
 
     ret = "<img src=\"#{user.user_image_url(size, params)}\" #{style} alt=\"\" itemprop=\"photo\" />"
 
@@ -91,7 +88,7 @@ module UsersHelper
         cert_img = "<img class=\"certification\" src=\"#{asset_path 'certification.png'}\"/>"
         ret = "<div class=\"user_certified\">#{ret}#{cert_img}</div>"
       else
-        ret = "<div class=\"user_certified_mini\"  style=\"width:#{size+6}px;height:#{size+6}px;\">#{ret}</div>"
+        ret = "<div class=\"user_certified_mini\"  style=\"width:#{size + 6}px;height:#{size + 6}px;\">#{ret}</div>"
       end
     end
     ret.html_safe
