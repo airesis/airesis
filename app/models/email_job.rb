@@ -3,8 +3,6 @@ class EmailJob < ActiveRecord::Base
   validates :alert_id, presence: true
   validates :jid, presence: true, uniqueness: true
 
-  #enum :status, [:scheduled, :running, :completed, :canceled]
-
   def canceled!
     update(status: 3)
   end

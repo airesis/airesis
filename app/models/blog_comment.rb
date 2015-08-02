@@ -14,11 +14,11 @@ class BlogComment < ActiveRecord::Base
   end
 
   def formatted_created_at
-    self.created_at.strftime('%m/%d/%Y alle %I:%M%p')
+    created_at.strftime('%m/%d/%Y alle %I:%M%p')
   end
 
   def parsed_body
-    self.body
+    body
   end
 
   def user_name

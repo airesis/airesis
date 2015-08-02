@@ -40,7 +40,6 @@ class Proposal < ActiveRecord::Base
   # confini di interesse
   has_many :interest_borders, through: :proposal_borders, class_name: 'InterestBorder'
 
-
   has_many :proposal_nicknames, class_name: 'ProposalNickname', dependent: :destroy
 
   has_many :group_proposals, class_name: 'GroupProposal', dependent: :delete_all
@@ -74,11 +73,11 @@ class Proposal < ActiveRecord::Base
   has_many :alerts, as: :trackable
 
   # validation
-  validates_presence_of :title, message: 'obbligatorio' # TODO:I18n
+  validates_presence_of :title, message: 'obbligatorio' # TODO: I18n
   validates_uniqueness_of :title
   validates_presence_of :proposal_category_id, message: 'obbligatorio'
 
-  validates_presence_of :quorum, unless: :is_petition? # todo bug in client_side_validation
+  validates_presence_of :quorum, unless: :is_petition? # TODO: bug in client_side_validation
 
   validates_with AtLeastOneValidator, associations: [:solutions], unless: :is_petition?
 
@@ -90,20 +89,23 @@ class Proposal < ActiveRecord::Base
   accepts_nested_attributes_for :solutions, allow_destroy: true
 
   # tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte
-  scope :current, -> { where(proposal_state_id: [ProposalState::VALUTATION,
-                                                 ProposalState::WAIT_DATE,
-                                                 ProposalState::WAIT,
-                                                 ProposalState::VOTING]) }
+  scope :current, lambda {
+    where(proposal_state_id: [ProposalState::VALUTATION,
+                              ProposalState::WAIT_DATE,
+                              ProposalState::WAIT,
+                              ProposalState::VOTING])
+  }
   # tutte le proposte in valutazione
   scope :in_valutation, -> { where(proposal_state_id: ProposalState::VALUTATION) }
   # tutte le proposte in attesa di votazione o attualmente in votazione
 
-
   # retrieve proposals in a state before votation, exclude petitions
   scope :before_votation,
-        -> { where(['proposal_state_id in (?) and proposal_type_id != ?', [ProposalState::VALUTATION,
-                                                                           ProposalState::WAIT_DATE,
-                                                                           ProposalState::WAIT], 11]) }
+        lambda {
+          where(['proposal_state_id in (?) and proposal_type_id != ?', [ProposalState::VALUTATION,
+                                                                        ProposalState::WAIT_DATE,
+                                                                        ProposalState::WAIT], 11])
+        }
 
   scope :in_votation,
         -> { where(proposal_state_id: [ProposalState::WAIT_DATE, ProposalState::WAIT, ProposalState::VOTING]) }
@@ -112,9 +114,11 @@ class Proposal < ActiveRecord::Base
   scope :waiting, -> { where(proposal_state_id: ProposalState::WAIT) }
   scope :voting, -> { where(arel_table[:proposal_state_id].eq(ProposalState::VOTING)) }
 
-  scope :not_voted_by, ->(user_id) { where('proposal_state_id = ? and
-                                            proposals.id not in (select proposal_id from user_votes where user_id = ?)',
-                                           ProposalState::VOTING, user_id) }
+  scope :not_voted_by, lambda { |user_id|
+    where('proposal_state_id = ? and
+                       proposals.id not in (select proposal_id from user_votes where user_id = ?)',
+          ProposalState::VOTING, user_id)
+  }
 
   # tutte le proposte accettate
   scope :accepted, -> { where(proposal_state_id: ProposalState::ACCEPTED) }
@@ -380,14 +384,14 @@ class Proposal < ActiveRecord::Base
 
   # return the group to which belongs the proposal
   # if is in the open space then nil is returned
-  # TODO if belongs to many groups returns the first. we actually have max 1 group
+  # TODO: if belongs to many groups returns the first. we actually have max 1 group
   def group
     groups.first
   end
 
   # return the group_area to which belongs the proposal
   # if is in the open space then nil is returned
-  # TODO if belongs to many group_areas returns the first. we actually have max 1 group area
+  # TODO: if belongs to many group_areas returns the first. we actually have max 1 group area
   def group_area
     presentation_areas.first
   end
@@ -402,26 +406,24 @@ class Proposal < ActiveRecord::Base
   end
 
   def truncate_words(text, length = 30, end_string = ' ...')
-    words = text.split()
-    words[0..(length-1)].join(' ') + (words.length > length ? end_string : '')
+    words = text.split
+    words[0..(length - 1)].join(' ') + (words.length > length ? end_string : '')
   end
 
   def short_content
-    begin
-      section = sections.first || solutions.first.sections.first
-      truncate_words(section.paragraphs.first.content.gsub(%r{</?[^>]+?>}, ''), 40)
-    rescue
-      nil
-    end
+    section = sections.first || solutions.first.sections.first
+    truncate_words(section.paragraphs.first.content.gsub(%r{</?[^>]+?>}, ''), 40)
+  rescue
+    nil
   end
 
   # retrieve the number of users that can vote this proposal
   def eligible_voters_count
     return User.confirmed.unblocked.count unless private?
     if presentation_areas.size > 0 # if we are in a working area
-      presentation_areas.first.scoped_participants(GroupAction::PROPOSAL_VOTE).count # todo more areas
+      presentation_areas.first.scoped_participants(GroupAction::PROPOSAL_VOTE).count # TODO: more areas
     else
-      groups.first.scoped_participants(GroupAction::PROPOSAL_VOTE).count # todo more groups
+      groups.first.scoped_participants(GroupAction::PROPOSAL_VOTE).count # TODO: more groups
     end
   end
 
@@ -447,11 +449,11 @@ class Proposal < ActiveRecord::Base
     c = (a | b)
     if private
       # all users that are part of the group of the proposal
-      d = supporting_groups.map { |group| group.participants }.flatten
-      e = groups.map { |group| group.participants }.flatten
+      d = supporting_groups.map(&:participants).flatten
+      e = groups.map(&:participants).flatten
       f = d | e
       # the participants are user that partecipated the proposal and are still in the group
-      c = c & f
+      c &= f
     end
     c
   end
@@ -482,7 +484,7 @@ class Proposal < ActiveRecord::Base
   end
 
   # restituisce la lista delle 10 proposte più vicine a questa
-  def closest(group_id=nil)
+  def closest(group_id = nil)
     sql_q = " SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.quorum_id, p.anonima,
               p.visible_outside, p.secret_vote, p.proposal_votation_type_id, p.content,
               p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
@@ -558,8 +560,11 @@ class Proposal < ActiveRecord::Base
     text :content, boost: 2
     text :paragraphs do
       (sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content.gsub!(/\p{Cc}/, '') } } +
-        solutions.map { |solution| solution.sections.map { |section|
-          section.paragraphs.map { |paragraph| paragraph.content.gsub!(/\p{Cc}/, '') } } }).flatten
+        solutions.map do |solution|
+          solution.sections.map do |section|
+            section.paragraphs.map { |paragraph| paragraph.content.gsub!(/\p{Cc}/, '') }
+          end
+        end).flatten
     end
     text :tags_list do
       tags.map(&:text).join(' ')
@@ -624,13 +629,11 @@ class Proposal < ActiveRecord::Base
       users.as_json(only: [:id], methods: [:fullname])
   end
 
-
   # check if we have to close the debate and pass to votation phase
   # accept a force parameter to close the debate in any case
-  def check_phase(force_end=false)
+  def check_phase(force_end = false)
     quorum.check_phase(force_end) if in_valutation? # if the proposal already passed this phase skip this check
   end
-
 
   def close_vote_phase
     quorum.close_vote_phase if voting?
@@ -679,7 +682,7 @@ class Proposal < ActiveRecord::Base
     # if the time is fixed we schedule notifications 24h and 1h before the end of debate
     if quorum.time_fixed?
       ProposalsWorker.perform_at(quorum.ends_at - 24.hours,
-                                 {action: ProposalsWorker::LEFT24, proposal_id: id}) if quorum.minutes > 1440
+                                 action: ProposalsWorker::LEFT24, proposal_id: id) if quorum.minutes > 1440
       ProposalsWorker.perform_at(quorum.ends_at - 1.hour,
                                  {action: ProposalsWorker::LEFT1, proposal_id: id}) if quorum.minutes > 60
     end
@@ -698,15 +701,15 @@ class Proposal < ActiveRecord::Base
 
     ProposalsWorker.
       perform_at(vote_period.endtime - 24.hours,
-                 {action: ProposalsWorker::LEFT24VOTE, proposal_id: id}) if (vote_period.duration/60) > 1440
+                 action: ProposalsWorker::LEFT24VOTE, proposal_id: id) if (vote_period.duration / 60) > 1440
     ProposalsWorker.
       perform_at(vote_period.endtime - 1.hour,
-                 {action: ProposalsWorker::LEFT1VOTE, proposal_id: id}) if (vote_period.duration/60) > 60
+                 {action: ProposalsWorker::LEFT1VOTE, proposal_id: id}) if (vote_period.duration / 60) > 60
   end
 
   def set_votation_date(vote_period_id)
     vote_period = Event.find(vote_period_id)
-    raise Exception unless vote_period.starttime > (5.seconds.from_now) # security check
+    fail Exception unless vote_period.starttime > (5.seconds.from_now) # security check
     self.vote_period_id = vote_period_id
     self.proposal_state_id = ProposalState::WAIT
     save!
@@ -787,22 +790,21 @@ class Proposal < ActiveRecord::Base
     # if the time is fixed we schedule notifications 24h and 1h before the end of debate
     if quorum.time_fixed?
       ProposalsWorker.perform_at(quorum.ends_at - 24.hours,
-                                 {action: ProposalsWorker::LEFT24, proposal_id: id}) if quorum.minutes > 1440
+                                 action: ProposalsWorker::LEFT24, proposal_id: id) if quorum.minutes > 1440
       ProposalsWorker.perform_at(quorum.ends_at - 1.hour,
                                  {action: ProposalsWorker::LEFT1, proposal_id: id}) if quorum.minutes > 60
     end
 
     # end of debate timer
-    ProposalsWorker.perform_at(quorum.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: id}) if quorum.minutes
+    ProposalsWorker.perform_at(quorum.ends_at, action: ProposalsWorker::ENDTIME, proposal_id: id) if quorum.minutes
 
     # alert users of the new proposal
     NotificationProposalCreate.perform_async(id)
   end
 
-
   def send_update_notifications
     if quorum_id_changed? # regenerated
-      ProposalsWorker.perform_at(quorum.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: id})
+      ProposalsWorker.perform_at(quorum.ends_at, action: ProposalsWorker::ENDTIME, proposal_id: id)
     elsif current_user_id # updated or set votation date
       if waiting? # someone chose votation date
         NotificationProposalWaitingForDate.perform_async(id, current_user_id)
@@ -814,7 +816,7 @@ class Proposal < ActiveRecord::Base
 
   def save_section_history(revision, section)
     paragraph = section.paragraphs.first
-    paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
+    paragraph.content = '' if paragraph.content == '<p></p>' && paragraph.content_was == ''
     return false unless paragraph.content_changed? || section.marked_for_destruction?
     section_history = revision.section_histories.build(section_id: section.id,
                                                        title: section.title,
@@ -843,7 +845,7 @@ class Proposal < ActiveRecord::Base
       something_solution = solution.title_changed? || solution.marked_for_destruction?
       solution.sections.each do |section|
         paragraph = section.paragraphs.first
-        paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
+        paragraph.content = '' if paragraph.content == '<p></p>' && paragraph.content_was == ''
         if paragraph.content_changed? || section.marked_for_destruction? || solution.marked_for_destruction?
           something_solution = true
           section_history = solution_history.section_histories.build(section_id: section.id,
@@ -904,7 +906,7 @@ class Proposal < ActiveRecord::Base
       copy.ends_at = endtime
     end
 
-    # todo move quorum build in quorum model
+    # TODO: move quorum build in quorum model
     base_valutations = 0
     base_vote_valutations = 0
     if group_area # we have to calculate the number of valutations based on group area participants
@@ -935,7 +937,7 @@ class Proposal < ActiveRecord::Base
     if votation && (votation[:later] != 'true')
       # if he took a vote period already existing
       if (votation[:choise] && (votation[:choise] == 'preset')) ||
-        (!votation[:choise] && votation[:vote_period_id].present?)
+          (!votation[:choise] && votation[:vote_period_id].present?)
         self.vote_event = Event.find(votation[:vote_period_id])
         # if the vote period start before the end of debate there is an error
         if vote_event.starttime < Time.now + copy.minutes.minutes + DEBATE_VOTE_DIFFERENCE
@@ -944,7 +946,7 @@ class Proposal < ActiveRecord::Base
       else # if he created a new period
         # look if he edited the starttime or not
         start = ((votation[:start_edited].present?) && votation[:start]) || (copy.ends_at + DEBATE_VOTE_DIFFERENCE)
-        raise Exception 'error' unless votation[:end].present?
+        fail Exception 'error' unless votation[:end].present?
         self.vote_starts_at = start
         self.vote_ends_at = votation[:end]
         if (vote_starts_at - copy.ends_at) < DEBATE_VOTE_DIFFERENCE

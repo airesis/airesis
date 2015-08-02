@@ -13,6 +13,6 @@ class MeetingParticipation < ActiveRecord::Base
   validates :comment, length: {maximum: 255}
 
   def will_come?
-    self.response == 'Y'
+    response == 'Y'
   end
 end

@@ -11,7 +11,6 @@ class UserSensitive < ActiveRecord::Base
                     url: ':user_sensitives/:id/documents/:basename.:extension',
                     path: ':user_sensitives/:id/documents/:basename.:extension'
 
-
   validates_presence_of :name, :surname, :user_id, :tax_code
 
   after_create :update_user
@@ -19,5 +18,4 @@ class UserSensitive < ActiveRecord::Base
   def update_user
     user.update_columns(name: name, surname: surname, user_type_id: UserType::CERTIFIED)
   end
-
 end

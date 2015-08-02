@@ -1,5 +1,4 @@
 class BlockedEmail < ActiveRecord::Base
-
   validates_uniqueness_of :user_id, scope: :notification_type_id, message: 'Notifica gia bloccata'
 
   belongs_to :user, class_name: 'User', foreign_key: :user_id

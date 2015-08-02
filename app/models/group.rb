@@ -71,7 +71,7 @@ class Group < ActiveRecord::Base
   has_many :group_invitations
   has_many :group_invitation_emails, through: :group_invitations
 
-  #forum
+  # forum
   has_many :forums, class_name: 'Frm::Forum', foreign_key: 'group_id', dependent: :destroy
   has_many :topics, through: :forums, class_name: 'Frm::Topic', source: :topics
 
@@ -113,9 +113,9 @@ class Group < ActiveRecord::Base
   end
 
   def pre_populate
-    #creator is also administrator
+    # creator is also administrator
     participation_requests.build(user_id: current_user_id, group_participation_request_status_id: 3)
-    group_participations.build(user_id: current_user_id, participation_role: ParticipationRole.admin) #portavoce
+    group_participations.build(user_id: current_user_id, participation_role: ParticipationRole.admin) # portavoce
 
     BestQuorum.visible.each do |quorum|
       copy = quorum.dup
@@ -132,9 +132,9 @@ class Group < ActiveRecord::Base
   end
 
   def after_populate
-    self.default_role.update_attribute(:group_id, self.id)
-    ids = self.default_role.action_abilitations.pluck(:id)
-    ActionAbilitation.where(id: ids).update_all({group_id: self.id})
+    default_role.update_attribute(:group_id, id)
+    ids = default_role.action_abilitations.pluck(:id)
+    ActionAbilitation.where(id: ids).update_all(group_id: id)
 
     # create default forums
     private = categories.create(name: I18n.t('frm.admin.categories.default_private'), visible_outside: false)
@@ -151,17 +151,17 @@ class Group < ActiveRecord::Base
   end
 
   def destroy
-    self.update_attribute(:participation_role_id, ParticipationRole.admin.id) && super
+    update_attribute(:participation_role_id, ParticipationRole.admin.id) && super
   end
 
   # return true if the group is private and do not show anything to non-participants
   def is_private?
-    self.private
+    private
   end
 
   # utenti che possono eseguire un'azione
   def scoped_participants(action_id)
-    self.participants.
+    participants.
       joins(" join participation_roles on group_participations.participation_role_id = participation_roles.id
             join action_abilitations on participation_roles.id = action_abilitations.participation_role_id").
       where(action_abilitations: {group_action_id: action_id}).
@@ -173,15 +173,15 @@ class Group < ActiveRecord::Base
   end
 
   def interest_border_tkn
-    self.interest_border.territory_type + '-' + self.interest_border.territory_id.to_s if self.interest_border
+    "#{interest_border.territory_type}-#{interest_border.territory_id}" if interest_border
   end
 
   def interest_border_tkn=(tkn)
     unless tkn.blank?
-      ftype = tkn[0, 1] #tipologia (primo carattere)
-      fid = tkn[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
+      ftype = tkn[0, 1] # tipologia (primo carattere)
+      fid = tkn[2..-1] # chiave primaria (dal terzo all'ultimo carattere)
       found = InterestBorder.table_element(tkn)
-      if found #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
+      if found # se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
         interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype], territory_id: fid)
         self.interest_border = interest_b
       end
@@ -214,7 +214,7 @@ class Group < ActiveRecord::Base
     else
       Group.search(include: [:next_events, interest_border: [:territory]]) do
         fulltext search, minimum_match: params[:minimum] if search
-        #retrieve all possible interest borders
+        # retrieve all possible interest borders
         if params[:interest_border_obj]
           border = params[:interest_border_obj]
           if params[:area]
@@ -228,7 +228,6 @@ class Group < ActiveRecord::Base
         order_by :created_at, :desc
 
         paginate page: page, per_page: limite
-
       end.results
     end
   end
@@ -271,14 +270,14 @@ class Group < ActiveRecord::Base
   private
 
   def self.autocomplete(term)
-    where('lower(groups.name) LIKE :term', {term: "%#{term.downcase}%"}).
+    where('lower(groups.name) LIKE :term', term: "%#{term.downcase}%").
       limit(10).
       select('groups.name, groups.id, groups.image_id, groups.image_url, groups.image_file_name').
       order('groups.name asc')
   end
 
   def create_folder
-    dir = "#{Rails.root}/private/elfinder/#{self.id}"
-    Dir.mkdir dir unless File.exists?(dir)
+    dir = "#{Rails.root}/private/elfinder/#{id}"
+    Dir.mkdir dir unless File.exist?(dir)
   end
 end

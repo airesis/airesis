@@ -3,12 +3,12 @@ class SysLocale < ActiveRecord::Base
   belongs_to :territory, polymorphic: true
 
   def description
-    I18n.t("db.#{self.class.class_name.tableize}.#{self.name}.description")
+    I18n.t("db.#{self.class.class_name.tableize}.#{name}.description")
   end
 
   def url
-    url_ = "http://#{self.host}"
-    url_ += "?l=#{self.lang}" if self.lang
+    url_ = "http://#{host}"
+    url_ += "?l=#{lang}" if lang
     url_
   end
 
