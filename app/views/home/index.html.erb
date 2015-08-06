@@ -116,7 +116,7 @@
 
     <ul id="nav" class="nav">
       <li><%= link_to t('pages.home.index.whatis'), edemocracy_path %></li>
-      <li><%=link_to t('pages.home.index.features'), '#features', class: 'smoothscroll'%></li>
+      <li><%= link_to t('pages.home.index.features'), '#features', class: 'smoothscroll' %></li>
       <li><%= link_to t('pages.home.index.donations'), sostienici_path %></li>
       <li><%= link_to t('pages.home.index.volunteers'), chisiamo_path %></li>
       <li><%= link_to t('pages.home.index.register'), new_user_registration_path %></li>
@@ -160,9 +160,19 @@
                     <%= f.password_field :password, placeholder: 'Password' %>
                   </div>
                   <div class="columns large-6 medium-5 medium-push-1 large-push-0  text-left">
-                    <div style="margin-top: 3px; font-size: 12px ">
-                      <%= f.check_box :remember_me, checked: true %>
-                      <%= t('pages.home.index.keep_connected') %>
+                    <div class="row">
+                      <div class="columns small-6 medium-12">
+                        <div style="margin-top: 3px; font-size: 12px ">
+                          <%= f.check_box :remember_me, checked: true %>
+                          <%= t('pages.home.index.keep_connected') %>
+                        </div>
+
+                      </div>
+                      <div class="columns small-6 medium-12">
+                        <div style="margin-top: 3px; font-size: 12px ">
+                          <%= link_to t('pages.home.index.forgot_password'), '#' %>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="column large-6 medium-5 medium-pull-1 large-pull-0 text-right">

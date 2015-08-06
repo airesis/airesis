@@ -20,7 +20,7 @@
 <script type="text/javascript">
     Airesis.id = <%=current_user ? current_user.id : -1 %>;
     Airesis.fullName = '<%=j current_user ? current_user.fullname : ''%>';
-    Airesis.email = '<%=j current_user.email ? current_user.email : ''%>';
+    Airesis.email = '<%=j (current_user && current_user.email) ? current_user.email : ''%>';
     Airesis.signed_in = <%= signed_in? %>;
     Airesis.environment = '<%= Rails.env %>';
     Airesis.new_user_session_path = '<%=j new_user_session_path %>';
