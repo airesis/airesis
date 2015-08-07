@@ -9,6 +9,7 @@
 <%= javascript_include_tag 'elfinder.full', 'elFinderSupportVer1' %>
 <%= javascript_include_tag "i18n/elfinder.#{I18n.locale}" %>
 <%= javascript_include_tag "vendor/modernizr" %>
+
 <%= csrf_meta_tag %>
 
 <%= render 'layouts/favicons' %>
@@ -18,6 +19,7 @@
 
     Airesis.id = <%=current_user ? current_user.id : -1 %>;
     Airesis.fullName = '<%=j current_user ? current_user.fullname : ''%>';
+    Airesis.email = '<%=j (current_user && current_user.email) ? current_user.email : ''%>';
     Airesis.signed_in = <%= signed_in? %>;
     Airesis.environment = '<%= Rails.env %>';
     Airesis.new_user_session_path = '<%=j new_user_session_path %>';
@@ -147,4 +149,22 @@
 
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false"></script>
 
+
+<% if Rails.env.production? %>
+    <script src="//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"></script>
+    <script>
+        Raven.config('https://<%=ENV['SENTRY_PUBLIC_KEY']%>@app.getsentry.com/<%=ENV['SENTRY_PORT']%>', {
+            release: '<%=AIRESIS_VERSION%>',
+
+            // we highly recommend restricting exceptions to a domain in order to filter out clutter
+            //whitelistUrls: ['example.com/scripts/']
+        }).install();
+        if (Airesis.signed_in) {
+            Raven.setUserContext({
+                email: Airesis.email,
+                id: Airesis.id
+            });
+        }
+    </script>
+<% end %>
 <%= yield :head %>
