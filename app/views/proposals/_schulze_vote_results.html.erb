@@ -16,7 +16,11 @@
         <% solution_ids = @proposal.solutions.pluck(:id) %>
         <% Solution.where(proposal_id: @proposal.id).order('schulze_score desc').each do |solution| %>
             <tr>
-              <td><%= raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}", num: solution_ids.index(solution.id)+1) %> <%= solution.title.to_s %></td>
+              <td>
+                <%= raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}",
+                          num: solution_ids.index(solution.id)+1) %>
+                <%= solution.title.to_s %>
+              </td>
               <td style="text-align: center"><%= solution.schulze_score %></td>
             </tr>
         <% end %>
