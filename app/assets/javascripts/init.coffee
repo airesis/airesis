@@ -11,9 +11,9 @@ $ ->
   ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible :input:enabled[data-validate]'
   $(document).foundation()
   Facebook.load()
-  if Airesis.env == 'production'
+  if Airesis.environment == 'production'
     GoogleAnalytics.load()
-  if Airesis.env == 'test'
+  if Airesis.environment == 'test'
     $.fx.off = true
   #polling alerts
   if Airesis.signed_in
