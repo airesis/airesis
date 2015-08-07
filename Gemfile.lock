@@ -1,20 +1,4 @@
 GIT
-  remote: git://github.com/DavyJonesLocker/client_side_validations-simple_form.git
-  revision: 8300550a72b3b055a622567065b55dfa808bfd38
-  specs:
-    client_side_validations-simple_form (3.1.0)
-      client_side_validations (~> 4.2.0)
-      simple_form (~> 3.1)
-
-GIT
-  remote: git://github.com/DavyJonesLocker/client_side_validations.git
-  revision: 4f43c922f2065054bba2cd56965270c81c4347be
-  specs:
-    client_side_validations (4.2.0)
-      jquery-rails (>= 3.1.2, < 5.0.0)
-      rails (>= 4.0.0, < 4.3.0)
-
-GIT
   remote: git://github.com/TecnologieDemocratiche/omniauth-tecnologiedemocratiche.git
   revision: 6992d85eca9a82405ce1d89f4a94898fd800a6e7
   specs:
@@ -619,8 +603,6 @@ DEPENDENCIES
   capybara-screenshot
   capybara-webkit
   ckeditor
-  client_side_validations!
-  client_side_validations-simple_form!
   codeclimate-test-reporter
   coffee-rails
   crowdin-api
@@ -708,3 +690,6 @@ DEPENDENCIES
   vote-schulze!
   wicked_pdf
   workflow
+
+BUNDLED WITH
+   1.10.5

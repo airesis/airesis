@@ -10,7 +10,15 @@
 
     <%= f.input :name, placeholder: t('activerecord.attributes.group.name_placeholder') %>
 
-    <%= f.input :description, as: :ckeditor, input_html: {row: 5, ckeditor: {toolbar: 'blog', language: I18n.locale, wordcount: {showCharCount: true, showWordCount: false, charLimit: 2000, countHTML: true}}}, required: true %>
+    <%= f.input :description, as: :ckeditor,
+                input_html: {row: 5,
+                             ckeditor: {toolbar: 'blog',
+                                        language: I18n.locale,
+                                        wordcount: {showCharCount: true,
+                                                    showWordCount: false,
+                                                    charLimit: 2000,
+                                                    countHTML: true}}},
+                required: true %>
 
     <% if ['edit', 'update'].include? action_name %>
         <%= f.label :rule_book %>
@@ -21,7 +29,11 @@
 
     <%= f.input :image, accept: "image/jpeg,image/png" %>
 
-    <%= f.input :interest_border_tkn, input_html: {data: {pre: ([@group.interest_border].to_json if @group.interest_border)}}, required: true %>
+    <%= f.input :interest_border_tkn,
+                collection: (@group.interest_border.present? ? [[@group.interest_border.text, @group.interest_border.key]] : [] ),
+                selected: (@group.interest_border.present? ? @group.interest_border.key : nil ),
+                as: :select,
+                required: true %>
 
     <% if ['new', 'create'].include? action_name %>
         <%= f.input :default_role_name, placeholder: t('activerecord.attributes.group.default_role_name_placeholder') %>
@@ -67,7 +79,7 @@
         <br>
         <% if can? :destroy, @group %>
             <div data-alert class="alert-box warning">
-              <%= t('.delete_group_warning_html')  %>
+              <%= t('.delete_group_warning_html') %>
               <%= link_to @group, method: :delete, data: {confirm: t('pages.groups.show.confirm_destroy')}, class: 'btn red' do %>
                   <i class="fa fa-trash-o"></i>
                   <%= t('pages.groups.show.destroy_button') %>
@@ -79,17 +91,40 @@
 
 <script type="text/javascript">
     $(function () {
-        $('#group_interest_border_tkn').tokenInput("<%=interest_borders_path(format: :json )%>", {
-            crossDomain: false,
-            prePopulate: $('#group_interest_border_tkn').data("pre"),
-            hintText: "<%=t('interest_borders.hint')%>",
-            noResultsText: "<%=t('interest_borders.no_place_found')%>",
-            searchingText: "<%=t('interest_borders.searching')%>",
-            preventDuplicates: true,
-            tokenLimit: 1,
-            allowTabOut: true
+        var description_editor = CKEDITOR.instances['group_description'];
+        description_editor.on('blur', function () {
+            description_editor.updateElement();
+            $('form').formValidation('revalidateField', 'group[description]');
         });
 
+        var input_interest_border = $('#group_interest_border_tkn');
+        //input_interest_border.append($('<option>hello</option>'));
+        input_interest_border.select2({
+            ajax: {
+                url: "<%=interest_borders_path%>",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term,
+                        l: Airesis.i18n.locale,
+                        pp: 'disable'
+                    };
+                },
+                processResults: function (data, page) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) {
+                return markup;
+            }, // let our custom formatter work
+            minimumInputLength: 1
+        }).on("select2:close", function () {
+            $('form').formValidation('revalidateField', 'group[interest_border_tkn]');
+        });
     });
 
 

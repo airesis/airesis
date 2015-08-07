@@ -2,6 +2,10 @@ require 'sidekiq/web'
 
 Airesis::Application.routes.draw do
 
+  get '/validators/uniqueness/group/', to: 'validators/uniqueness#group'
+  get '/validators/uniqueness/user/', to: 'validators/uniqueness#user'
+  get '/validators/uniqueness/proposal/', to: 'validators/uniqueness#proposal'
+
   resources :searches, only: [:index]
 
   resources :sys_payment_notifications, only: [:create]

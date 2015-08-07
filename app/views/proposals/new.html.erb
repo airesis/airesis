@@ -2,16 +2,3 @@
 <h1><%=@page_title%></h1>
 
 <%= render partial: @proposal, locals: { button_name: "Crea", remote: false } %>
-
-<script type="text/javascript">
-
-    $(function() {
-    window.ClientSideValidations.selectors = {
-        inputs: ':input:not(button):not([type="submit"])[name]:enabled',
-        validate_inputs: ':input:enabled:visible[data-validate]',
-        forms: 'form[data-validate]'
-    };
-    ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible ~ :input:enabled[data-validate]';
-    $('#new_proposal').enableClientSideValidations();
-    });
-</script>

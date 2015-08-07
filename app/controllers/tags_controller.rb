@@ -34,8 +34,8 @@ class TagsController < ApplicationController
   def index
     if params[:q]
       hint = params[:q] + '%'
-      @tags = Tag.where(['upper(text) like upper(?)', hint.strip]).
-        order('(blogs_count + blog_posts_count + proposals_count) desc').
+      @tags = Tag.joins(:tag_counters).where(['upper(text) like upper(?)', hint.strip]).
+        order('(groups_count + blog_posts_count + proposals_count) desc').
         limit(10).collect { |t| {id: t.id.to_s, name: t.text} }
 
       respond_to do |format|

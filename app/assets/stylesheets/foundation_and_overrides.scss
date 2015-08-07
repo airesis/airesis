@@ -2548,6 +2548,15 @@ input[type=file] {
 
 .cke.cke_chrome {
   margin: 0 0 $form-spacing 0;
+  .error & {
+    margin: 0;
+  }
+}
+
+.fv-has-success {
+  .fa.fv-control-feedback {
+    color: green;
+  }
 }
 
 .top-bar-section ul li {

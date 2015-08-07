@@ -1,7 +1,7 @@
-<h2><%=@title%></h2>
+<h2><%= @title %></h2>
 <div id="create_proposal">
-  <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, validate: true, remote: request.xhr? do |f| %>
-      <% if request.xhr?%>
+  <%= simple_form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, validate: true, remote: request.xhr? do |f| %>
+      <% if request.xhr? %>
           <div class="legend first">
             <div class="number">1</div>
             <div class="title">
@@ -39,10 +39,9 @@
       <div class="step root root">
         <h4><%= t('pages.proposals.new.step_1_title') %></h4>
 
-        <p>
-          <%= f.label :title, t('pages.proposals.new.title_synthetic') %>
-          <%= f.text_field :title, placeholder: t('pages.proposals.new.title_placeholder'), style: "width:100%" %>
-        </p>
+        <%= f.input :title,
+                    label: t('pages.proposals.new.title_synthetic'),
+                    placeholder: t('pages.proposals.new.title_placeholder') %>
 
         <% if @group && @group.enable_areas && @group.group_areas.count > 0 && action_name == "new" %>
             <% @available_areas = current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT) %>
@@ -58,7 +57,7 @@
 
         <p>
           <%= f.label :interest_borders_tkn %>
-          <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json , placeholder: t('pages.proposals.new.interest_borders_tkn_placeholder'), style: "width:100%" %>
+          <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json, placeholder: t('pages.proposals.new.interest_borders_tkn_placeholder'), style: "width:100%" %>
         </p>
 
         <p>
@@ -73,31 +72,37 @@
 
         <% if @proposal.change_advanced_options %>
             <fieldset>
-              <legend><%= t('pages.proposals.new.advanced_options')%></legend>
-                <%= f.label :anonima do %>
-                    <%= f.check_box :anonima %>
-                    <%= t('activerecord.attributes.proposal.anonima') %>
-                <% end %>
+              <legend><%= t('pages.proposals.new.advanced_options') %></legend>
+              <%= f.label :anonima do %>
+                  <%= f.check_box :anonima %>
+                  <%= t('activerecord.attributes.proposal.anonima') %>
+              <% end %>
 
-                <%= f.label :visible_outside do %>
-                    <%= f.check_box :visible_outside %>
-                    <%= t('activerecord.attributes.proposal.visible_outside') %>
-                <% end %>
+              <%= f.label :visible_outside do %>
+                  <%= f.check_box :visible_outside %>
+                  <%= t('activerecord.attributes.proposal.visible_outside') %>
+              <% end %>
 
-                <%= f.label :secret_vote do %>
-                    <%= f.check_box :secret_vote %>
-                    <%= t('activerecord.attributes.proposal.secret_vote') %>
-                <% end %>
+              <%= f.label :secret_vote do %>
+                  <%= f.check_box :secret_vote %>
+                  <%= t('activerecord.attributes.proposal.secret_vote') %>
+              <% end %>
             </fieldset>
         <% end %>
       </div>
 
       <div class="step">
         <% if ::Configuration.proposal_categories %>
-            <p>
+            <div class="inputs">
               <%= f.label :proposal_category_id %>
-              <%= f.select :proposal_category_id, options_for_select(ProposalCategory.all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}]}, @proposal.proposal_category_id),{include_blank: t('pages.proposals.new.category_prompt')}, {style: 'width:100%'} %>
-            </p>
+              <%= f.select :proposal_category_id,
+                           options_for_select(ProposalCategory.all.collect do |p|
+                                                [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}]
+                                              end,
+                                              @proposal.proposal_category_id),
+                           {include_blank: t('pages.proposals.new.category_prompt')},
+                           {required: true, style: 'width:100%'} %>
+            </div>
         <% end %>
 
         <% if ::Configuration::folksonomy %>
@@ -147,15 +152,16 @@
 
       <p>
         <%= link_to t('buttons.cancel'), :back, class: 'btn' unless request.xhr? %>
-        <%= f.submit t('pages.proposals.new.create_button'), class: 'btn blue disable', onclick: 'return validElement();', data:{disable_with: t('loading')} %>
+        <%= f.submit t('pages.proposals.new.create_button'), class: 'btn blue disable', onclick: 'return validElement();', data: {disable_with: t('loading')} %>
       </p>
   <% end %>
 
 
   <script type="text/javascript">
-      $(function() {
+      $(function () {
           var input = $('#proposal_interest_borders_tkn')
           input.tokenInput("<%=interest_borders_path(format: :json)%>", {
+              propertyToSearch: 'text',
               crossDomain: false,
               prePopulate: input.data("pre"),
               hintText: "<%=t('interest_borders.hint')%>",
@@ -184,7 +190,11 @@
               minimumResultsForSearch: -1,
               formatResult: formatCategory,
               formatSelection: formatCategory,
-              escapeMarkup: function(m) { return m; }
+              escapeMarkup: function (m) {
+                  return m;
+              }
+          }).on("select2:close", function () {
+              $('#new_proposal').formValidation('revalidateField', 'proposal[proposal_category_id]');
           });
       });
   </script>
