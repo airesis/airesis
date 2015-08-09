@@ -55,8 +55,8 @@ class GroupsController < ApplicationController
         @group_participations = @group.participants
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
         @archives = @group.blog_posts.select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').group(' MONTH, YEAR ').order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
-        @last_topics = @group.topics.accessible_by(Ability.new(current_user)).includes(:views, :forum).order('frm_topics.created_at desc').limit(10)
-        @next_events = @group.events.accessible_by(Ability.new(current_user)).next.order('starttime asc').limit(4)
+        @last_topics = @group.topics.accessible_by(Ability.new(current_user), false).includes(:views, :forum).order('frm_topics.created_at desc').limit(10)
+        @next_events = @group.events.accessible_by(Ability.new(current_user), false).next.order('starttime asc').limit(4)
       }
       format.js {
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
