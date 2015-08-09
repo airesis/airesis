@@ -5,7 +5,8 @@ class NotificationEventCreate < NotificationSender
     @trackable = event
     user = event.user
     organizer = event.groups.first
-    if organizer #if there is a group  #todo there are some problems with private and public events and their notifications (???)
+
+    if organizer # if there is a group
       data = {event_id: event.id,
               group: organizer.name,
               group_id: organizer.id,
@@ -13,14 +14,19 @@ class NotificationEventCreate < NotificationSender
               event: event.title}
       data[:subdomain] = organizer.subdomain if organizer.certified?
 
-      notification_a = Notification.create(notification_type_id: NotificationType::NEW_EVENTS, url: event_url(event), data: data)
+      notification_a = Notification.create(notification_type_id: NotificationType::NEW_EVENTS,
+                                           url: group_event_url(organizer, event),
+                                           data: data)
 
+      # send an alert to everybody except the one which created the event
       organizer.participants.each do |receiver|
-        send_notification_to_user(notification_a, receiver) unless receiver == user #send an alert to everybody except the one which created the event
+        send_notification_to_user(notification_a, receiver) unless receiver == user
       end
-    else
+    else  # public Airesis events
       data = {event_id: event.id, event: event.title, user_id: user.id}
-      notification_a = Notification.create(notification_type_id: NotificationType::NEW_PUBLIC_EVENTS, url: event_url(event), data: data)
+      notification_a = Notification.create(notification_type_id: NotificationType::NEW_PUBLIC_EVENTS,
+                                           url: event_url(event),
+                                           data: data)
       User.non_blocking_notification(NotificationType::NEW_PUBLIC_EVENTS).each do |receiver|
         send_notification_to_user(notification_a, user) unless receiver == user
       end
