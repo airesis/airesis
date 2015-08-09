@@ -1,15 +1,14 @@
 - @extend=true
-- @page_descr = CGI::escapeHTML(strip_tags @group.description)
+- @meta_description = CGI::escapeHTML(strip_tags @group.description)
 - javascript 'endless_page'
+
 = content_for :head do
   meta content="#{current_url}" property="og:url"
   meta content="#{ENV['APP_LONG_NAME']}" property="og:site_name"
   meta content="#{ENV['FACEBOOK_APP_ID']}" property="fb:app_id"
   meta content="#{@group.name}" property="og:title"
   meta content="airesis:group" property="og:type"
-  meta content="#{@page_descr}" name="description"
   meta content=("#{@group.image.exists? ? @group.image.url : asset_url('gruppo-anonimo.png')}") property="og:image"
-  meta content="#{@page_descr}" property="og:description"
   = auto_discovery_link_tag(:atom, group_url(@group, format: 'atom'))
 
 - if can? :view_data, @group
