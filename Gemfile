@@ -42,6 +42,9 @@ group :development do
   gem 'i18n-tasks', '~> 0.7.7'
   gem 'rubocop'
   gem 'rack-mini-profiler', require: false
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'awesome_print'
 end
 
 group :development, :test do
