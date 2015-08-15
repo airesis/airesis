@@ -285,6 +285,8 @@ GEM
       multi_json
     launchy (2.4.3)
       addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     libv8 (3.16.14.7)
     listen (2.10.0)
       celluloid (~> 0.16.0)
@@ -621,6 +623,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   koala (~> 1.8.0rc1)
+  letter_opener
   mailman
   maktoub
   mustache
