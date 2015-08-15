@@ -49,6 +49,7 @@ group :development do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'awesome_print'
+  gem 'letter_opener'
 end
 
 group :development, :test do
