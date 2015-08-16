@@ -2550,22 +2550,51 @@ input[type=file] {
   margin: 0 0 $form-spacing 0;
 }
 
-.top-bar-section ul li {
-  a.button {
-    background-color: transparent;
-    top: 0px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    &:hover {
-      background-color: #008cba;
-    }
+.top-bar.expanded {
+  background: #33b5e5;
+}
 
-    &.account {
-      line-height: 40px;
-      height: $topbar-height;
+.top-bar-section {
+  ul {
+    &.left {
+      width: auto;
+      li {
+        float: left;
+      }
+      .has-form {
+        float: left;
+        @media #{$small-only} {
+          padding: 0.44rem 1.02564rem;
+        }
+      }
     }
-    &#logo-but {
-      height: $topbar-height;
+    &.right {
+      width: auto;
+      li {
+        float: left;
+        a {
+          padding: 0 1.02564rem;
+        }
+      }
+    }
+    li {
+      a.button {
+        background-color: transparent;
+        top: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        &:hover {
+          background-color: #008cba;
+        }
+
+        &.account {
+          line-height: 40px;
+          height: $topbar-height;
+        }
+        &#logo-but {
+          height: $topbar-height;
+        }
+      }
     }
   }
 }
