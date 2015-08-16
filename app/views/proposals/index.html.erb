@@ -1,6 +1,6 @@
 <% @extend = true %>
-<%- @meta_description = CGI::escapeHTML(@group.description) %>
 <% if @group %>
+    <%- @meta_description = CGI::escapeHTML(@group.description) %>
     <%= content_for :head do %>
         <meta property="og:title" content="<%= @group.name %>"/>
         <meta property="og:type" content="airesis:group"/>
