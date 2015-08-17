@@ -1,6 +1,7 @@
 #main-copy {
-// TODO: with turbolinks  display: none;
+  // TODO: with turbolinks  display: none;
 }
+
 //temp for debug
 #flash_messages {
   font-size: 60px;
@@ -881,8 +882,11 @@ form.paypal-button {
   }
 }
 
-.button.fit-button {
-  line-height: 40px;
+.top-bar {
+  a.button.fit-button {
+    line-height: 40px;
+    height: 40px;
+  }
 }
 
 .fb_iframe_widget {

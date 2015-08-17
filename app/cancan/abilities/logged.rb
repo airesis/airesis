@@ -292,9 +292,7 @@ module Abilities
       # forum permissions
       can :read, Frm::Category, group: participate_in_group(user)
       can :read, Frm::Forum, group: participate_in_group(user)
-      can :read, Frm::Topic, '' do |topic|
-        topic.forum.group.participants.include? user
-      end
+      can :read, Frm::Topic, forum: {group: participate_in_group(user)}
       can [:create, :update, :destroy, :toggle_hide, :toggle_lock, :toggle_pin], Frm::Topic do |topic|
         topic.forum.group.portavoce.include? user
       end
