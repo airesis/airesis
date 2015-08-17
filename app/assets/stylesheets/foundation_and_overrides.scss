@@ -2593,6 +2593,9 @@ input[type=file] {
         }
         &#logo-but {
           height: $topbar-height;
+          span {
+            line-height:1.9rem;
+          }
         }
       }
     }
