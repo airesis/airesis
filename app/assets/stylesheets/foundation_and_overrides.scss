@@ -2226,7 +2226,7 @@ small.warning {
     font-size: 1.5em;
     line-height: 1.5em;
   }
-  h1 {
+  li {
     text-align: center;
   }
 }
@@ -2559,22 +2559,54 @@ input[type=file] {
   }
 }
 
-.top-bar-section ul li {
-  a.button {
-    background-color: transparent;
-    top: 0px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    &:hover {
-      background-color: #008cba;
-    }
+.top-bar.expanded {
+  background: #33b5e5;
+}
 
-    &.account {
-      line-height: 40px;
-      height: $topbar-height;
+.top-bar-section {
+  ul {
+    &.left {
+      width: auto;
+      li {
+        float: left;
+      }
+      .has-form {
+        float: left;
+        @media #{$small-only} {
+          padding: 0.44rem 1.02564rem;
+        }
+      }
     }
-    &#logo-but {
-      height: $topbar-height;
+    &.right {
+      width: auto;
+      li {
+        float: left;
+        a {
+          padding: 0 1.02564rem;
+        }
+      }
+    }
+    li {
+      a.button {
+        background-color: transparent;
+        top: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        &:hover {
+          background-color: #008cba;
+        }
+
+        &.account {
+          line-height: 40px;
+          height: $topbar-height;
+        }
+        &#logo-but {
+          height: $topbar-height;
+          span {
+            line-height:1.9rem;
+          }
+        }
+      }
     }
   }
 }
@@ -2916,7 +2948,6 @@ ul.social-network {
     }
   }
 }
-
 
 h1 .label {
   font-size: $h1-font-size;

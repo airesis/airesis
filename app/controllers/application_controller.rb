@@ -436,6 +436,6 @@ class ApplicationController < ActionController::Base
   end
 
   def mini_profiler
-    Rack::MiniProfiler.authorize_request if current_user.try(:admin?)
+    Rack::MiniProfiler.authorize_request if Rails.env.development? || current_user.try(:admin?)
   end
 end

@@ -1,9 +1,8 @@
 <div class="title">
   <%= t('pages.groups.show.next_events') %>
 </div>
-<% @c = @group.events.next.order('starttime asc').limit(4) %>
-<% unless @c.empty? %>
+<% unless @next_events.empty? %>
 <div class="scrollable">
-  <%= render partial: 'events/mini_event', collection: @c, as: 'event' %>
+  <%= render partial: 'events/mini_event', collection: @next_events, as: 'event' %>
 </div>
 <% end %>

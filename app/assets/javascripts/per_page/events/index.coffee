@@ -37,8 +37,8 @@ window.EventsIndex =
       events: EventsIndex.eventsUrl
       columnFormat:
         month: 'ddd'
-        week: 'ddd M/d'
-        day: 'dddd M/d'
+        week: 'ddd M/D'
+        day: 'dddd'
       axisFormat: 'H:mm'
       dragOpacity: '0.5'
       eventDrop: (event, delta, revertFunc, jsEvent, ui, view) ->

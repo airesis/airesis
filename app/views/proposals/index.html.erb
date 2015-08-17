@@ -1,11 +1,10 @@
 <% @extend = true %>
-
 <% if @group %>
+    <%- @meta_description = CGI::escapeHTML(@group.description) %>
     <%= content_for :head do %>
         <meta property="og:title" content="<%= @group.name %>"/>
         <meta property="og:type" content="airesis:group"/>
         <meta property="og:image" content="<%= @group.image.file? ? @group.image.url : asset_url('gruppo-anonimo.png') %>"/>
-        <meta property="og:description" content="<%= CGI::escapeHTML(@group.description) %>"/>
     <% end %>
 <% end %>
 
