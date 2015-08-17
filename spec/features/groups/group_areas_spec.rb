@@ -34,14 +34,12 @@ describe 'the management of group areas', type: :feature, js: true, seeds: true 
     end
     expect(page).to have_content role_name
     @group_area = GroupArea.order(created_at: :desc).first
-    expect(page.current_path).to eq(group_group_area_path(@group,@group_area))
-
+    expect(page.current_path).to eq(group_group_area_path(@group, @group_area))
   end
 
   it 'can manage users inside a group area' do
     @group.update_attributes(enable_areas: true)
-    group_area = create(:group_area,group: @group)
-
-    visit group_group_area_path(@group,group_area)
+    group_area = create(:group_area, group: @group)
+    visit group_group_area_path(@group, group_area)
   end
 end
