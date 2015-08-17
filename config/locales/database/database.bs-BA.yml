@@ -1,12 +1,12 @@
-me:
+bs:
   db:
     sys_locales:
       it-IT:
-        description: Italijanski
+        description: Talijanski
       en:
         description: Engleski
       en-US:
-        description: Engleski (SAD)
+        description: Engleski (US)
       fr:
         description: Francuski
       es-ES:
@@ -25,9 +25,9 @@ me:
       RULE_BOOK:
         description: Pravilnik
       PRESS:
-        description: Saopštenje za javnost
+        description: Saopćenje za javnost
       EVENT:
-        description: Organizacija događaja
+        description: Organizacija događanja
       ESTIMATE:
         description: Procjena troškova
       AGENDA:
@@ -51,27 +51,27 @@ me:
       STREAM_POST:
         description: Post na zidu grupe
       CREATE_EVENT:
-        description: Organizovanje neformalnih sastanaka
+        description: Kreiranje meetup događaja
       PROPOSAL:
-        description: Podrška prijedlozima u ime grupe
+        description: Podrška za prijedloge u ime grupe
       REQUEST_ACCEPT:
-        description: Dodavanje novih članova u grupu
+        description: Dodavanje novih članova u grupi
       SEND_CANDIDATES:
-        description: Nominovanje članova za izbor
+        description: Nominujte članove za izbor
       PROPOSAL_VIEW:
-        description: Vidite privatne prijedloge
+        description: Prikaz privatnih prijedloga
       PROPOSAL_PARTICIPATION:
-        description: Doprinesite prijedlozima
+        description: Doprinesite prijedlogu
       PROPOSAL_INSERT:
-        description: Ubacite nove prijedloge u grupu
+        description: Umetanje novih prijedloga u grupi
       DOCUMENT_VIEW:
-        description: Pogledajte dokumenta
+        description: Pregledavanje dokumenata
       DOCUMENT_MANAGE:
-        description: Upravljajte dokumentima
+        description: Upravljanje dokumentima
       PROPOSAL_VOTE:
         description: Glasajte za prijedloge
       PROPOSAL_DATE:
-        description: Kreiranje glasačkih događaja
+        description: Kreiranje događaja za glasanje
     notification_categories:
       MYPROP:
         description: Prijedlozi koje sam napisao/la
@@ -94,44 +94,44 @@ me:
         message: 'Novi događaj <b>%{event}</b> u grupi <b>%{group}</b>'
       new_posts_user_follow:
         description: Novi postovi od korisnika kojeg pratim
-        email_subject: Novi post
+        email_subject: Postoji novi post
         message: '%{user} je dodao/la novi post u svoj blog <b>%{blog}</b>'
       new_valutation_mine:
-        description: Novo ocjenjivanje mog prijedloga
-        email_subject: '%{title} - Novo ocjenjivanje'
-        message: 'Vaš prijedlog <b>%{title}</b> je dobio novo ocjenjivanje'
+        description: Nova ocjena mog prijedloga
+        email_subject: '%{title} - nova procjena'
+        message: 'Vaš prijedlog <b>%{title}</b> je dobio novu ocjenu'
       new_valutation:
-        description: Novo ocjenjivanje prijedloga u kojem učestvujem
-        email_subject: '%{title} - Novo ocjenjivanje'
-        message: 'Prijedlog <b>%{title}</b> je dobio novo ocjenjivanje'
+        description: Nova ocjena prijedloga u kojem učestvujem
+        email_subject: '%{title} - Nova procjena'
+        message: 'Prijedlog <b>%{title}</b> je dobio novu ocjenu'
       available_author:
-        description: Korisnik dostupan da postane urednik prijedloga
+        description: Korisnik je na raspolaganju da postane urednik prijedloga
         email_subject:
-          one: '%{title} - Novi urednik je dostupan'
-          other: '%{title} - %{count} novih urednika je dostupno'
+          one: '%{title} - novi urednik je dostupan'
+          other: '%{title} - %{count} novi urednici na raspolaganju'
         message:
-          one: '%{user} je dostupan/na da postane urednik prijedloga<b>%{title}</b>'
-          other: '%{count} korisnika su dostupni da postanu urednici prijedloga <b>%{title}</b>'
+          one: '%{user} je na raspolaganju da postane urednik prijedloga <b>%{title}</b>'
+          other: '%{count} korisnika su na raspolaganju da postanu urednici prijedloga <b>%{title}</b>'
       author_accepted:
         description: Prihvatanje kao urednika prijedloga
         email_subject: '%{title} - Vi ste sada urednik toga!'
-        message: 'Vi ste sada urednik prijedloga <b>%{title}</b>.<br/>Upamtite da, kao urednik, vi trebate da saslušate doprinose drugih korisnika i da ažurirate tekst u skladu s tim<br/>'
+        message: 'Sada ste vi urednik prijedloga <b>%{title}</b>.<br/>Upamtite da kao urednik vi trebate saslušati doprinose drugih korisnika i poboljšati tekst po tome<br/>'
       new_authors:
         description: Novi urednici prijedloga
         email_subject: '%{title} - Novi urednici'
         message: '<b>%{user}</b> je urednik prijedloga <b>%{title}</b>'
       unintegrated_contribute:
-        description: Doprinosi vraćeni u debatu
-        email_subject: '%{proposal} - Doprinos vraćen u debatu'
+        description: Doprinosi su vraćeni u debatu
+        email_subject: '%{proposal} - Doprinos je vraćen u debatu'
         message: 'Doprinos koji ste integrisali u prijedlog <b>%{proposal}</b> je vraćen u debatu'
       new_contributes:
         description: Novi doprinosi u prijedlozima u kojima učestvujem
         email_subject:
           one: '%{title} - Novi doprinos je umetnut'
-          other: '%{title} - Postoji %{count} novih doprinosa'
+          other: '%{title} - Ima %{count} novih doprinosa'
         message:
           one: '<b>%{name}</b> je dodao/la novi doprinos u prijedlog<b>%{title}</b>'
-          other: 'Postoji <b>%{count}</b> novih doprinosa za vaš prijedlog <b>%{title}</b>'
+          other: 'Ima <b>%{count}</b> novih doprinosa u prijedlogu<b>%{title}</b>'
       text_update:
         description: Ažuriranje teksta prijedloga u kojem imam učešće
         email_subject:
@@ -144,69 +144,69 @@ me:
         description: Novi doprinosi u mojim prijedlozima
         email_subject:
           one: '%{title} - Novi doprinos je umetnut'
-          other: '%{title} - Postoji %{count} novih doprinosa'
+          other: '%{title} - Ima %{count} novih doprinosa'
         message:
           zero: '<b>%{name}</b> je dodao/la novi doprinos u vaš prijedlog <b>%{title}</b>'
           one: '<b>%{name}</b> je dodao/la novi doprinos u vaš prijedlog <b>%{title}</b>'
-          other: 'Postoji <b>%{count}</b> novih doprinosa za vaš prijedlog <b>%{title}</b>'
+          other: 'Ima <b>%{count}</b> novih doprinosa u vašem prijedlogu<b>%{title}</b>'
       change_status:
-        description: Promjena u statusu prijedloga u kojem imam učešće
+        description: Promjena statusa prijedloga u kojem učestvujem
         email_subject:
-          wait: '%{title} - Izaberite datum glasanja'
-          waiting_date: '%{title} - Datum glasanja je izabran'
+          wait: '%{title} - Izaberite datum za glasanje'
+          waiting_date: '%{title} - Datum za glasanje je izabran'
           in_vote: '%{title} - DOĐITE I GLASAJTE!'
           abandoned: '%{title} nije prošao debatu'
           rejected: '%{title} je odbačen'
-          voted: '%{title} - Glasanje je prekinuto'
-          24_hours: 'Debata o %{title} se završava sjutra!'
-          1_hour: 'Debata o %{title} se završava za jedan sat!'
-          24_hours_vote: 'Glasanje o %{title} se završava sjutra!'
+          voted: '%{title} - Glasanje je završeno'
+          24_hours: 'Debata o %{title} se završava sutra!'
+          1_hour: 'Debata o %{title} završava za jedan sat!'
+          24_hours_vote: 'Glasanje o %{title} se završava sutra!'
           1_hour_vote: 'Glasanje o %{title} se završava za jedan sat!'
         message:
-          waiting_date: '%{name} je izabrao/la datum glasanja za prijedlog<b>%{title}</b>'
-          in_vote: 'Prijedlog <b>%{title}</b>je sada na glasanju!'
+          waiting_date: '%{name} je odabrao/la datum glasanja za prijedlog <b>%{title}</b>'
+          in_vote: 'Prijedlog <b>%{title}</b> je sada na glasanju!'
           abandoned: 'Prijedlog <b>%{title}</b> nije prošao debatu i odbačen je'
           rejected: 'Prijedlog <b>%{title}</b> je odbačen od strane učesnika'
-          voted: '%{title} - Glasanje završeno'
-          24_hours: 'Debata o <b>%{title}</b> se završava sjutra!'
+          voted: '%{title} - Glasanje je završeno'
+          24_hours: 'Debata o <b>%{title}</b> se završava sutra!'
           1_hour: 'Debata o <b>%{title}</b> se završava za jedan sat!'
-          24_hours_vote: 'Glasanje o <b>%{title}</b> se završava sjutra!'
+          24_hours_vote: 'Glasanje o <b>%{title}</b> se završava sutra!'
           1_hour_vote: 'Glasanje o <b>%{title}</b> se završava za jedan sat!'
       change_status_mine:
-        description: Promjena statusa mojih prijedloga
+        description: Promjena u statusu mojih prijedloga
         email_subject:
-          wait: '%{title} - Izaberite datum glasanja'
-          waiting_date: '%{title} - Datum glasanja je izabran'
+          wait: '%{title} - Izaberite datum za glasanje'
+          waiting_date: '%{title} - Datum za glasanje je izabran'
           in_vote: '%{title} - DOĐITE I GLASAJTE!'
           abandoned: '%{title} nije prošao debatu'
           rejected: '%{title} je odbačen'
-          voted: '%{title} - Glasanje završeno'
-          24_hours: 'Debata o %{title} se završava sjutra!'
-          1_hour: 'Debata o %{title} se završava za jedan sat!'
-          24_hours_vote: 'Glasanje o %{title} se završava sjutra!'
+          voted: '%{title} - Glasanje je završeno'
+          24_hours: 'Debata o %{title} se završava sutra!'
+          1_hour: 'Debata o %{title} završava za jedan sat!'
+          24_hours_vote: 'Glasanje o %{title} se završava sutra!'
           1_hour_vote: 'Glasanje o %{title} se završava za jedan sat!'
         message:
-          wait: 'Vaš prijedlog <b>%{title}</b> je prošao fazu diskusije i sada je na čekanju da vi odaberete kada će se glasati za njega'
+          wait: 'Vaš prijedlog <b>%{title}</b> je prošao fazu diskusije i sada je na čekanju da vi izaberete kada će se glasati za njega'
           waiting_date: '%{name} je odabrao/la datum glasanja za prijedlog <b>%{title}</b>'
           in_vote: 'Vaš prijedlog <b>%{title}</b> je sada na glasanju!'
-          abandoned: 'Žao nam je, vaš prijedlog <b>%{title}</b> nije prošao debatu i odbačen je'
-          rejected: 'Žao nam je, vaš prijedlog <b>%{title}</b> je odbačen od strane učesnika'
-          voted: '<b>%{title}</b> - Glasanje je prekinuto'
-          24_hours: 'Debata o <b>%{title}</b> se završava sjutra!'
+          abandoned: 'Vaš prijedlog <b>%{title}</b> nije prošao debatu i odbačen je. Žao nam je'
+          rejected: 'Vaš prijedlog <b>%{title}</b> je odbačen od strane učesnika. Žao nam je'
+          voted: '<b>%{title}</b> - Glasanje je završeno'
+          24_hours: 'Debata o <b>%{title}</b> se završava sutra!'
           1_hour: 'Debata o <b>%{title}</b> se završava za jedan sat!'
-          24_hours_vote: 'Glasanje o <b>%{title}</b> se završava sjutra!'
+          24_hours_vote: 'Glasanje o <b>%{title}</b> se završava sutra!'
           1_hour_vote: 'Glasanje o <b>%{title}</b> se završava za jedan sat!'
       proposal_phase_ending:
-        description: Debata ili glasanje o prijedlogu se završava uskoro
+        description: Debata ili glasanje o prijedlogu će se uskoro završiti
         email_subject:
-          24_hours: 'Debata o %{title} se završava sjutra!'
-          1_hour: 'Debata o %{title} se završava za jedan sat!'
-          24_hours_vote: 'Glasanje o %{title} se završava sjutra!'
+          24_hours: 'Debata o %{title} se završava sutra!'
+          1_hour: 'Debata o %{title} završava za jedan sat!'
+          24_hours_vote: 'Glasanje o %{title} se završava sutra!'
           1_hour_vote: 'Glasanje o %{title} se završava za jedan sat!'
         message:
-          24_hours: 'Debata o <b>%{title}</b> se završava sjutra!'
+          24_hours: 'Debata o <b>%{title}</b> se završava sutra!'
           1_hour: 'Debata o <b>%{title}</b> se završava za jedan sat!'
-          24_hours_vote: 'Glasanje o <b>%{title}</b> se završava sjutra!'
+          24_hours_vote: 'Glasanje o <b>%{title}</b> se završava sutra!'
           1_hour_vote: 'Glasanje o <b>%{title}</b> se završava za jedan sat!'
       new_posts_group_follow:
         description: Novi postovi na zidovima grupa koje pratim
@@ -214,43 +214,43 @@ me:
       new_posts_group:
         description: Novi postovi na zidovima grupa u kojima učestvujem
         email_subject: Novi post
-        message: '<b>%{user}</b> je dodao/la novi post u grupi <b>%{group}</b>'
+        message: '<b>%{user}</b> je dodao novi post u grupi <b>%{group}</b>'
       new_public_proposals:
         description: Novi prijedlozi dodati u Open Space
         email_subject: '%{proposal}'
         message: 'Novi prijedlog <b>%{proposal}</b> dodat u Open Space'
       new_proposals:
-        description: Novi prijedlozi unutar grupe
+        description: Novi prijedlozi u grupi
         email_subject: '%{proposal}'
-        message: 'Novi prijedlog <b>%{proposal}</b> kreiran u grupi <b>%{group}</b>'
+        message: 'Novi prijedlog <b>%{proposal}</b> je kreiran u grupi <b>%{group}</b>'
       new_participation_request:
-        description: Novi zahtjev za učešće
+        description: Novi zahtjev za sudjelovanje
         email_subject:
           one: Postoji novi zahtjev za učešće
-          other: 'Postoji %{count} novih zahtjeva za učešće'
+          other: 'Ima %{count} novih zahtjeva za učešće'
         message:
-          one: '<b>%{user}</b> je zatražio/la da učestvuje u grupi <b>%{group}</b>'
-          other: '<b>%{count} korisnici</b> upitani da učestvuju u grupi <b>%{group}</b>'
+          one: '<b>%{user}</b> je zatražio da učestvuje u grupi <b>%{group}</b>'
+          other: '<b>%{count} korisnici</b> pozvani da učestvuju u grupi <b>%{group}</b>'
       new_blog_comment:
-        description: Novi komentar u mom blogu
+        description: Novi komentar na mom blogu
         email_subject:
-          one: Novi komentar u vašem postu na blogu
-          other: '%{count} novih komentara u vašem postu na blogu'
+          one: Novi komentar u vašem blog postu
+          other: '%{count} novih komentara u vašem blog postu'
         message:
-          one: '<b>%{user}</b> јe komentarisao/la vaš post <b>%{title}</b>'
-          other: 'Postoji <b>%{count}</b> novih komentara na vaš post <b>%{title}</b>'
+          one: '<b>%{user}</b> je komentarisao/la vaš post <b>%{title}</b>'
+          other: 'Ima <b>%{count}</b> novih komentara u vašem postu <b>%{title}</b>'
       new_comments_mine:
-        description: Novi komentari u mojim prijedlozima
-        email_subject: Novi komentar u mom prijedlogu
-        message: '<b>%{name}</b> je dodao/la komentar na diskusiju vašeg prijedloga <b>%{title}</b>'
+        description: Novi komentari na moje prijedloge
+        email_subject: Novi komentar na moj prijedlog
+        message: '<b>%{name}</b> je dodao komentar u diskusiji na vaš prijedlog <b>%{title}</b>'
       new_comments:
         description: Novi komentari u diskusijama u kojima učestvujem
         email_subject: '%{title} - Novi komentar'
-        message: '<b>%{name}</b> je dodao/la komentar u diskusiju prijedloga u kojoj vi učestvujete <b>%{title}</b>'
+        message: '<b>%{name}</b> je dodao komentar u diskusiju prijedloga u kojoj učestvujete <b>%{title}</b>'
       contribute_update:
         description: Ažuriranje teksta već ocijenjenog doprinosa
-        email_subject: '%{title} - Doprinos koji ste prijethodno ocijenili se promijenio'
-        message: '<b>%{name}</b> je promijenio/la doprinos u <b>%{title}</b> koji ste vi prijethodno ocijenili. Provjerite da li želite promijeniti svoje mišljenje.'
+        email_subject: '%{title} - Doprinos koji ste ranije ocijenili se promijenio'
+        message: '<b>%{name}</b> je promijenio doprinos u <b>%{title}</b> koji ste vi ranije ocijenili. Provjerite da li želite promijeniti svoje mišljenje.'
     proposal_categories:
       no_category:
         description: Nekategorizovano
@@ -259,13 +259,13 @@ me:
       health:
         description: Zdravlje, higijena
       information:
-        description: Informacije, komunikacije
+        description: Informacija, komunikacija
       commerce:
         description: Trgovina, finansije, porezi
       work:
         description: Rad i samoostvarenje
       security:
-        description: Bezbjednost i pravosuđe
+        description: Sigurnost i pravda
       world:
         description: Svijet, migracija
       minorities:
@@ -279,13 +279,13 @@ me:
       entertainment:
         description: Društvo, sport, zabava
       organization:
-        description: Unutrašnja organizacija
+        description: Interna organizacija
       agricolture:
         description: Voda, hrana, poljoprivreda
       territory:
         description: Teritorija, priroda, životinje
       mobility:
-        description: Urbanizam, mobilnost, građevinarstvo
+        description: Urbanizam, mobilnost, gradnja
       energy:
         description: Energija, klima
       industry:

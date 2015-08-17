@@ -1,4 +1,31 @@
 fr:
+  countdowns:
+    labelsPlural:
+      - Années
+      - Mois
+      - Semaines
+      - Jours
+      - Heures
+      - Minutes
+      - Secondes
+    labelsSingular:
+      - Année
+      - Mois
+      - Semaine
+      - Jour
+      - Heure
+      - Minute
+      - Seconde
+    compactLabelsPlural:
+      - a
+      - m
+      - s
+      - j
+    compactLabelsSingular:
+      - a
+      - m
+      - s
+      - j
   calendar:
     monthNames:
       - Janvier

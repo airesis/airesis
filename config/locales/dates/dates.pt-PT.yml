@@ -1,4 +1,31 @@
 pt:
+  countdowns:
+    labelsPlural:
+      - Anos
+      - Meses
+      - Semanas
+      - Dias
+      - Horas
+      - Minutos
+      - Segundos
+    labelsSingular:
+      - Ano
+      - Mes
+      - Semana
+      - Dia
+      - Hora
+      - Minuto
+      - Segundo
+    compactLabelsPlural:
+      - a
+      - m
+      - s
+      - d
+    compactLabelsSingular:
+      - a
+      - m
+      - s
+      - d
   calendar:
     today: hoje
     month: mês

@@ -1,4 +1,21 @@
 hu:
+  countdowns:
+    labelsPlural:
+      - Évek
+      - Hónapok
+      - Hetek
+      - Napok
+      - Órák
+      - Percek
+      - Másodpercek
+    labelsSingular:
+      - Év
+      - Hónap
+      - Hét
+      - Nap
+      - Óra
+      - Perc
+      - Másodperc
   calendar:
     today: ma
     month: hónap

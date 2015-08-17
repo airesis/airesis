@@ -76,7 +76,7 @@ sr:
       MYPROP:
         description: Предлози које сам написао/ла
       PROP:
-        description: Прелози у којима сам учествовао/ла
+        description: Предлози у којима учествујем
       NEWPROP:
         description: Нови предлози
       NEWEVENT:
@@ -101,7 +101,7 @@ sr:
         email_subject: '%{title} - Ново оцењивање'
         message: 'Ваш предлог <b>%{title}</b> је добио ново оцењивање'
       new_valutation:
-        description: Ново оцењивање предлога у којем сам учествовао/ла
+        description: Ново оцењивање предлога у којем учествујем
         email_subject: '%{title} - Ново оцењивање'
         message: 'Предлог <b>%{title}</b> је добио ново оцењивање'
       available_author:
@@ -110,7 +110,7 @@ sr:
           one: '%{title} - Нови уредник је доступан'
           other: '%{title} - %{count} нових уредника је доступно'
         message:
-          one: '%{user} је доступан да постане уредник предлога <b>%{title}</b>'
+          one: '%{user} је доступан/на да постане уредник предлога <b>%{title}</b>'
           other: '%{count} корисника су доступни да постану уредници предлога <b>%{title}</b>'
       author_accepted:
         description: Прихватање као уредника предлога
@@ -125,7 +125,7 @@ sr:
         email_subject: '%{proposal} - Предложена идеја је враћена у дебату'
         message: 'Допринос који сте интегрисали у предлог <b>%{proposal}</b> је враћен у дебату'
       new_contributes:
-        description: Нови доприноси у предлозима у којима сам учествовао/ла
+        description: Нови доприноси у предлозима у којима учествујем
         email_subject:
           one: '%{title} - Нови допринос је уметнут'
           other: '%{title} - Постоји %{count} нових доприноса'
