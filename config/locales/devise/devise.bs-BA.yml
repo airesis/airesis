@@ -1,0 +1,22 @@
+bs:
+  errors:
+    messages:
+      not_found: nije pronađeno
+      already_confirmed: je već potvrđena, Molimo pokušajte se prijaviti
+  devise:
+    failure:
+      already_authenticated: Već ste registrovani
+    sessions:
+      signed_in: Uspješna prijava
+      user:
+        signed_out: 'Uspješno ste odjavljeni.  Zbogom'
+        signed_up: Uspješno ste završili registraciju. Dobrodošli!
+    passwords:
+      user:
+        updated: Lozinka ispravno ažurirana
+    mailer:
+      confirmation_instructions:
+        welcome: 'Dobro došli na %{app_name} %{user}!'
+      reset_password_instructions:
+        hi_user: 'Pozdrav %{user}!'
+        change_password: Promjena lozinke

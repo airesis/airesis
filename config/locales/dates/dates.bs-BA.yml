@@ -1,9 +1,9 @@
-me:
+bs:
   countdowns:
     labelsPlural:
-      - Godina
+      - Godine
       - Mjeseci
-      - Nedjelja
+      - Sedmice
       - Dana
       - Sati
       - Minuta
@@ -11,7 +11,7 @@ me:
     labelsSingular:
       - Godina
       - Mjesec
-      - Nedjelja
+      - Sedmica
       - Dan
       - Sat
       - Minut
@@ -19,12 +19,12 @@ me:
     compactLabelsPlural:
       - g
       - m
-      - 'n'
+      - s
       - d
     compactLabelsSingular:
       - g
       - m
-      - 'n'
+      - s
       - d
   calendar:
     monthNames:
@@ -33,9 +33,9 @@ me:
       - Mart
       - April
       - Maj
-      - Jun
-      - Jul
-      - Avgust
+      - Juni
+      - Juli
+      - August
       - Septembar
       - Oktobar
       - Novembar
@@ -48,7 +48,7 @@ me:
       - Maj
       - Jun
       - Jul
-      - Avg
+      - Aug
       - Sep
       - Okt
       - Nov
@@ -71,7 +71,7 @@ me:
       - Sub
     today: danas
     month: mjesec
-    week: nedjelja
+    week: sedmica
     day: dan
     firstDay: 0
     timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
@@ -97,8 +97,8 @@ me:
       textfield: '%d/%m/%Y %I:%M %p'
       datepicker: '%Y-%m-%d'
       datetimepicker: '%Y-%m-%d %H:%M'
-    am: prijepodne
-    pm: poslijepodne
+    am: prije podne
+    pm: popodne
     left:
       seconds:
         one: 1 sekunda
@@ -142,8 +142,8 @@ me:
       half_a_minute: prije pola minuta
       less_than_x_minutes:
         one: prije manje od 1 minuta
-        few: 'prije manje  od %{count} minuta'
-        other: 'prije manje  od %{count} minuta'
+        few: 'prije manje od %{count} minuta'
+        other: 'prije manje od %{count} minuta'
       less_than_x_seconds:
         one: prije manje od 1 sekunde
         few: 'prije manje od %{count} sekundi'
@@ -171,5 +171,5 @@ me:
   label:
     from: od
     to: do
-  countdown: '{m<}{mn} {ml} prije {m>} {s<}upravo sada{s>}'
-  countdown2: '{y<}{yn} {yl}{y>} {o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>} {s<}nekoliko sekundi{s>}'
+  countdown: '{m <}{mn} {ml} prije {m >} {s <} sada {s >}'
+  countdown2: '{y <}{yn} {yl} {y >} {o <}{on} {ol} {o >} {d <}{dn} {dl} {d >} {h <}{hn} {hl} {h >} {m <}{mn} {ml} {m >} {s <} nekoliko sekundi {s >}'

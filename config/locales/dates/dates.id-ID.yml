@@ -1,4 +1,31 @@
 id:
+  countdowns:
+    labelsPlural:
+      - tahun
+      - bulan
+      - minggu
+      - hari
+      - jam
+      - menit
+      - detik
+    labelsSingular:
+      - Tahun
+      - Bulan
+      - Minggu
+      - Hari
+      - Jam
+      - Menit
+      - Detik
+    compactLabelsPlural:
+      - t
+      - b
+      - m
+      - h
+    compactLabelsSingular:
+      - t
+      - b
+      - m
+      - h
   calendar:
     monthNames:
       - Januari

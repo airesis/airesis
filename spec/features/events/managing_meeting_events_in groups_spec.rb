@@ -69,5 +69,4 @@ describe "manage correctly meeting events", type: :feature, js: true, seeds: tru
     expect(MeetingOrganization.count).to eq 0
     expect(Place.count).to eq 0
   end
-
 end

@@ -1,0 +1,197 @@
+bs:
+  frm:
+    general:
+      forum: Forum
+      topics: Teme
+      topic: Tema
+      posts: Postovi
+      posts_count:
+        one: 1 post
+        few: '%{count} postova'
+        other: '%{count} postova'
+      flagged_for_spam: Vaš nalog je označen za spam.
+      cannot_create_topic: Ne možete kreirati novu temu u ovom trenutku.
+      cannot_create_post: U ovom trenutku ne možete kreirati novi post.
+    access_denied: Nije vam dozvoljeno da to uradite.
+    admin:
+      area: Admin područje
+      back_to_admin: Natrag na admina
+      back_to_forums: Natrag na forume
+      back_to_groups: Natrag na grupe
+      forum:
+        index: Upravljanje forumima
+        new: Stvaranje novih foruma
+        new_link: Novi forum
+        deleted: Odabrani forum je obrisan
+        created: Ovaj forum je kreiran.
+        not_created: Nije moguće kreirati ovaj forum
+        updated: Ovaj forum je ažuriran.
+        not_updated: Ovaj forum ne može biti ažuriran
+      forums:
+        edit: Urediti
+        delete: Izbrisati
+        category: Kategorija
+        delete_confirm: Da li ste sigurni da želite da izbrišete ovaj forum?
+        index:
+          last_post: Posljednji post
+          none: Nijedan
+          moderators: Moderatori
+          no_category: (Nema kategorije)
+        default_private: Privatni forum
+        default_public: Javni forum
+        default_private_description: Forum rezervisan za učesnike grupe
+        default_public_description: Forum vidljiv svim korisnicima Airesisa. Takođe i korisnicima koji nisu u grupi
+      mod:
+        index: Upravljanje grupama
+        new: Nova grupa
+        created: Grupa je uspješno kreirana
+        not_created: Grupa ne može biti kreirana
+        deleted: Izabrana grupa je izbrisana
+        members: 'Članovi u %{group}'
+      mods:
+        show:
+          add_member: Dodati
+          add_a_new_member: Dodati novog člana
+          current_members: Sadašnji članovi
+        edit: Izmjenite
+        delete: Izbrisati
+        name: Ime
+      category:
+        index: Upravljanje kategorijama foruma
+        new: Kreiranje nove kategorije foruma
+        edit: 'Uređivanje %{title} kategorije'
+        new_link: Nova kategorija foruma
+        deleted: Izabrana kategorija foruma je izbrisana
+        created: Ova kategorija foruma je kreirana
+        not_created: Ova kategorija foruma ne može biti kreirana
+        updated: Ova kategorija foruma je ažurirana
+        not_updated: Ova kategorija foruma ne može biti ažurirana
+      categories:
+        edit: Urediti
+        delete: Izbrisati
+        category: Kategorija
+        delete_confirm: Da li ste sigurni da želite da izbrišete ovu kategoriju foruma?
+        default_private: Privatan odjeljak
+        default_public: Javan odjeljak
+      group:
+        index: Upravljanje grupama moderatora
+        show:
+          title: Upravljanje moderatorima
+    common:
+      pages: Stranice
+    errors:
+      not_signed_in: Prvo se morate prijaviti
+      access_denied: Zabranjen pristup.
+    forum:
+      header: 'Prikazivanje %{title}'
+      forums: Forumi
+      new: Kreiranje novog foruma
+      edit: 'Uređivanje %{title} foruma'
+      topics_count:
+        one: 1 tema
+        few: '%{count} tema'
+        other: '%{count} tema'
+      posts_count:
+        one: 1 post
+        few: '%{count} postova'
+        other: '%{count} postova'
+      moderator_tools: Alati za moderaciju
+      topic_tools: Alati za temu
+    forums:
+      index:
+        title: Forum
+        forum: Forum
+        views: Pregledi
+    topic:
+      headings:
+        latest: Najnovije
+        posts: Postovi
+        views: Pregledi
+      reply: Odgovorite
+      delete: Izbrisati
+      new: Kreiranje nove teme
+      edit: Uređivanje teme
+      not_created: Ova tema ne može biti kreirana
+      deleted: Vaša tema je izbrisana
+      updated: Ova tema je ažurirana
+      not_updated: Nije moguće ažurirati ovu temu
+      links:
+        new: Nova tema
+        back_to_topics: Natrag na teme
+        edit: Uređivanje teme
+      not_found: Tema koju tražite nije pronađena
+      hidden:
+        "true": Ova tema je sada skrivena
+        "false": Ova tema je sada vidljiva
+      locked:
+        "true": Ova tema je sada zaključana
+        "false": Ova tema je sada otključana
+    topics:
+      show:
+        reply: Odgovorite
+        delete: Izbrisati
+        unsubscribe: Otkazivanje pretplate
+        reply_to_topic: Odgovor na temu
+        lock:
+          "true": Otključati ovu temu
+          "false": Zaključati ovu temu
+        related_proposals: Srodni prijedlozi
+    post:
+      deleted: Vaš post je izbrisan
+    posts:
+      moderation:
+        approve: Odobriti
+        spam: Spam
+    moderation:
+      index:
+        title: 'Alati za moderaciju za %{forum}'
+  helpers:
+    submit:
+      frm_forum:
+        create: Kreiranje foruma
+        update: Ažuriranje foruma
+      topic:
+        create: Kreiranje teme
+        update: Ažuriranje teme
+      frm_mod:
+        create: Kreiranje grupe
+      frm_category:
+        create: Kreiranje kategorije
+        update: Ažuriranje kategorije
+  simple_form:
+    labels:
+      frm_forum:
+        category: Kategorija
+        title: Naslov
+        description: Opis
+        moderators: Moderatori
+        visible_outside: Vidljivo van grupe
+      topic:
+        subject: Tema
+        locked: Zaključano
+        pinned: Prikačeno
+        hidden: Sakriveno
+        posts:
+          text: Tekst
+      frm_category:
+        name: Ime
+      post:
+        text: Tekst
+      frm_mod:
+        name: Ime
+  time_ago_in_words: '%{time} prije'
+  ago: ' prije'
+  ago_by: ' prije po'
+  by: po
+  started_by: 'Započeto od '
+  are_you_sure: Da li ste sigurni?
+  lst_post: Posljednji post
+  last_post: Posljednja tema
+  back_to_forums: Natrag na forum
+  pages:
+    forum_groups:
+      index:
+        create_first: Još nema grupa moderatora. Kreirajte prvu!
+  info:
+    members:
+      ok_message: Korisnik je uspješno dodat u grupu

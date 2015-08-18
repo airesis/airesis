@@ -69,7 +69,5 @@ describe "the creation of a group process", type: :feature, js: true do
     #forum administration
     visit group_frm_admin_root_path(@group)
     page_should_be_ok
-
   end
-
 end

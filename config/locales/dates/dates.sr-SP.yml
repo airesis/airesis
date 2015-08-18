@@ -1,4 +1,31 @@
 sr:
+  countdowns:
+    labelsPlural:
+      - Годинa
+      - Месеци
+      - Недеља
+      - Дана
+      - Сати
+      - Минута
+      - Секунди
+    labelsSingular:
+      - Година
+      - Месец
+      - Недеља
+      - Дан
+      - Сат
+      - Минут
+      - Секунда
+    compactLabelsPlural:
+      - г
+      - м
+      - н
+      - д
+    compactLabelsSingular:
+      - г
+      - м
+      - н
+      - д
   calendar:
     monthNames:
       - Јануар

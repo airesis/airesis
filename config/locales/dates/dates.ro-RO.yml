@@ -1,4 +1,31 @@
 ro:
+  countdowns:
+    labelsPlural:
+      - Ani
+      - Luni
+      - Saptamani
+      - Zile
+      - Ore
+      - Minute
+      - Secunde
+    labelsSingular:
+      - An
+      - Luna
+      - Saptamana
+      - Ziua
+      - Ora
+      - Minutul
+      - Secunda
+    compactLabelsPlural:
+      - a
+      - l
+      - s
+      - z
+    compactLabelsSingular:
+      - a
+      - l
+      - s
+      - z
   calendar:
     today: astăzi
     month: lună

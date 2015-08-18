@@ -20,16 +20,16 @@ module UrlHelper
       options = '/' if !request.subdomain.empty? && options.certified
       super
     elsif options.is_a?(Array) && (options[0].instance_of? Group)
-      unless ['', 'www'].include? request.subdomain.to_ s
-        options.shif t
-        super option s
-        els e
-        supe r
-    end
+      unless ['', 'www'].include? request.subdomain.to_s
+        options.shift
+        super options
+      else
+        super
+      end
     elsif options.is_a? String
       super
     else
       super
-  end
+    end
   end
 end

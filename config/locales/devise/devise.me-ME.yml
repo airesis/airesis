@@ -7,7 +7,7 @@ me:
       not_locked: nije zaključano
       not_saved:
         one: '1 greška je spriječila da se ovaj %{resource} sačuva:'
-        other: '%{count} grešaka su spriječile da se ovaj  %{resource} sačuva:'
+        other: '%{count} grešaka su spriječile da se ovaj %{resource} sačuva:'
   devise:
     failure:
       locked: Vaš nalog je zaključan
@@ -25,8 +25,8 @@ me:
       signed_out: Odjavljivanje uspješno
       user:
         signed_out: Uspješno ste odjavljeni. Zbogom
-        signed_in: Prijavili ste se . Dobro došli!
-        signed_up: Uspješno ste završili registraciju. Dobro došli!
+        signed_in: Prijavili ste se. Dobrodošli!
+        signed_up: Uspješno ste završili registraciju. Dobrodošli!
     passwords:
       send_instructions: Za nekoliko minuta ćete primiti e-mail sa uputstvima kako da resetujete lozinku
       updated: Vaša lozinka je uspješno promijenjena. Sada ste prijavljeni
@@ -36,8 +36,8 @@ me:
         updated: Lozinka ispravno ažurirana
         send_instructions: Uputstva su proslijeđena na vaš e-mail
     confirmations:
-      send_instructions: Za nekoliko minuta ćete dobiti e-mail sa upustvima kako da otključate vaš nalog
-      send_paranoid_instructions: Ako vaš e-mail postoji u našoj bazi, za nekoliko minuta ćete dobiti e-mail sa upustvima kako da potvrdite svoj nalog
+      send_instructions: Za nekoliko minuta ćete dobiti e-mail sa uputstvima kako da potvrdite vaš nalog
+      send_paranoid_instructions: Ako vaš e-mail postoji u našoj bazi, za nekoliko minuta ćete dobiti e-mail sa uputstvima kako da potvrdite svoj nalog
       confirmed: Vaš nalog je uspješno potvrđen. Sada ste prijavljeni
       user:
         confirmed: Vaše prijavljivanje je uspješno završeno
@@ -54,12 +54,12 @@ me:
         inactive_signed_up: Da dovršite registraciju, molimo kliknite na link koji ste dobili u e-mailu
         signed_up_but_unconfirmed: Kliknite na link koji vam je poslat u e-mailu da dovršite proces registracije
     unlocks:
-      send_instructions: Za nekoliko minuta ćete dobiti e-mail sa upustvima kako da otključate vaš nalog
+      send_instructions: Za nekoliko minuta ćete dobiti e-mail sa uputstvima kako da otključate vaš nalog
       unlocked: Vaš nalog je uspješno otključan. Molimo prijavite se da biste nastavili
       send_paranoid_instructions: Ako vaš nalog postoji, za nekoliko minuta ćete primiti e-mail sa uputstvima kako da ga otključate
     omniauth_callbacks:
       success: Vaša registracija je završena. Dobrodošli!
-      failure: 'Nismo vas mogli autorizovati iz %{kind} zbog %{reason}"'
+      failure: 'Nijesmo vas mogli autorizovati iz %{kind} zbog %{reason}"'
       creation_failure: 'Greška prilikom pristupanja preko %{provider}'
       join_success: 'Nalozi su uspješno objedinjeni. Čestitamo, sada se možete prijaviti preko %{provider}.'
       join_failure: 'Postoji još jedan %{provider} nalog. Funkcija za pridruživanje naloga će biti uskoro dostupna.'
@@ -76,9 +76,9 @@ me:
       reset_password_instructions:
         subject: Uputstva za resetovanje lozinke
         hi_user: 'Zdravo, %{user}!'
-        follow_link: 'Možete promjeniti lozinku tako što ćete kliknuti na slijedeći link:'
-        change_password: Promjenite lozinku
-        ignore: Ako niste zatražili promjenu lozinke, molimo ignorišite ovaj e-mail.
-        password_will_not_change: Vaša lozinka se neće promjeniti sve dok ne kliknete na prijethodni link.
+        follow_link: 'Možete promijeniti lozinku tako što ćete kliknuti na slijedeći link:'
+        change_password: Promijenite lozinku
+        ignore: Ako nijeste zatražili promjenu lozinke, molimo ignorišite ovaj e-mail.
+        password_will_not_change: Vaša lozinka se neće promijeniti sve dok ne kliknete na prijethodni link.
       unlock_instructions:
         subject: Uputstva za otključavanje
