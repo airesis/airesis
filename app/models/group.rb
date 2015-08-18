@@ -45,7 +45,7 @@ class Group < ActiveRecord::Base
   has_many :meeting_organizations, class_name: 'MeetingOrganization', foreign_key: 'group_id', dependent: :destroy
 
   has_many :events, through: :meeting_organizations, class_name: 'Event', source: :event
-  has_many :next_events, -> { where(['starttime > ?', Time.now]) }, through: :meeting_organizations, class_name: 'Event', source: :event
+  has_many :next_events, -> { where(['endtime > ?', Time.now]) }, through: :meeting_organizations, class_name: 'Event', source: :event
 
   has_many :proposal_supports, class_name: 'ProposalSupport', dependent: :destroy
   has_many :supported_proposals, through: :proposal_supports, class_name: 'Proposal'
