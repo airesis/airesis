@@ -45,6 +45,10 @@ group :development do
   gem 'i18n-tasks'
   gem 'rubocop'
   gem 'bullet'
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'awesome_print'
+  gem 'letter_opener'
 end
 
 group :development, :test do
@@ -178,4 +182,3 @@ gem 'truncate_html'
 gem 'sunspot-rails-http-basic-auth', github: 'jwachira/sunspot-rails-http-basic-auth'
 
 gem 'activerecord-session_store'
-
