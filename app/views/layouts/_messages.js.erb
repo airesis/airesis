@@ -3,11 +3,11 @@
 toastr.options = {tapToDismiss: false, extendedTimeOut: 0, timeOut: 0};
 <%end%>
 <% flash.each do |key,value| %>
-<%if (key == :info) %>
+<%if (key == 'info') %>
 toastr.info('<%=raw j value%>');
-<%elsif (key == :notice)%>
+<%elsif (key == 'notice')%>
 toastr.success('<%=raw j value%>');
-<%elsif  (key == :warn) %>
+<%elsif  (key == 'warn') %>
 toastr.warning('<%=raw j value%>');
 <%else%>
 toastr.error('<%=raw j value%>');

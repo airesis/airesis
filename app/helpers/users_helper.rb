@@ -22,7 +22,7 @@ module UsersHelper
   #if the proposal is_current? and the user has a nickname associated to it
   #then the user real name and image are hidden and replaced by the proposal nickname ones.  
   def user_tag(user, proposal = nil, full_name=true, show_rank=false, options={})
-    raise "Invalid User" unless user
+    raise 'Invalid User' unless user
     if proposal && proposal.is_anonima?
       u_nick = user.proposal_nicknames.find_by(proposal_id: proposal.id)
     end
@@ -55,7 +55,7 @@ module UsersHelper
     else
       ret += avatar(user, size: 20)
     end
-    ret += "</div>"
+    ret += '</div>'
     ret.html_safe
   end
 
@@ -82,7 +82,7 @@ module UsersHelper
       size = size - 6
     end
 
-    style= force_size ? "style=\"width:#{size}px;height:#{size}px;\"" : ""
+    style= force_size ? "style=\"width:#{size}px;height:#{size}px;\"" : ''
 
     ret = "<img src=\"#{user.user_image_url(size, params)}\" #{style} alt=\"\" itemprop=\"photo\" />"
 

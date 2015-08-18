@@ -1,7 +1,6 @@
 <h2><%= @title %></h2>
 <div id="create_event">
-  <%= simple_form_for (@group && !in_subdomain?) ? [@group, @event] : @event, remote: true, validate: true do |f| %>
-
+  <%= simple_form_for (@group && !in_subdomain?) ? [@group, @event] : @event, remote: request.xhr?, validate: true do |f| %>
       <div class="legend">
         <div class="number">1</div>
         <div class="title">
@@ -56,13 +55,17 @@
 
         <div class="row">
           <div class="large-6 columns">
-            <%= f.input :starttime, as: :datetimepicker, input_html: {value: (l @event.starttime, format: :datetimepicker)} %>
+            <%= f.input :starttime,
+                        as: :datetimepicker,
+                        input_html: {value: (l @event.starttime, format: :datetimepicker)} %>
           </div>
         </div>
 
         <div class="row">
           <div class="large-6 columns">
-            <%= f.input :endtime, as: :datetimepicker, input_html: {value: (l @event.endtime, format: :datetimepicker)} %>
+            <%= f.input :endtime,
+                        as: :datetimepicker,
+                        input_html: {value: (l @event.endtime, format: :datetimepicker)} %>
           </div>
         </div>
 
@@ -79,7 +82,10 @@
         <div class="row" style="display:none">
           <div class="large-4 columns">
             <%= f.label :period %>
-            <%= f.select :period, Event::REPEATS, {}, onchange: "showPeriodAndFrequency(this.value);", disabled: true, title: "Opzione non ancora disponibile" %>
+            <%= f.select :period,
+                         Event::REPEATS, {},
+                         onchange: "showPeriodAndFrequency(this.value);", disabled: true,
+                         title: "Opzione non ancora disponibile" %>
           </div>
         </div>
 
@@ -124,21 +130,25 @@
             <% end %>
           </div>
       <% end %>
-      <%= f.submit t('pages.events.new.submit'), class: 'btn blue disable', onclick: "return confirmEventData(this);", data: {disable_with: t('saving')} %>
+      <%= f.submit t('pages.events.new.submit'), class: 'btn blue disable', onclick: "return confirmEventData(this);",
+                   data: {disable_with: t('saving')} %>
   <% end %>
 </div>
 <a class="close-reveal-modal">&#215;</a>
 
-
 <script type="text/javascript">
-    $(function () {
+    EventsEdit.votation = <%= @event.is_votazione?%>;
 
-        select2town($("#event_meeting_attributes_place_attributes_municipality_id"));
-        $('#event_meeting_attributes_place_attributes_municipality_id').on('change', function () {
-            codeAddress('luogo');
+    function confirmEventData(el) {
+        var event_form = $(el).closest('form');
+        var valid = true;
+
+        $('[data-validate]:input:visible', event_form).each(function () {
+            var settings = window.ClientSideValidations.forms[this.form.id];
+            if (!$(this).isValid(settings.validators)) {
+                valid = false;
+            }
         });
-        $('#event_meeting_attributes_place_attributes_address').keyup(function () {
-            codeAddress('luogo');
-        });
-    });
+        return valid;
+    }
 </script>

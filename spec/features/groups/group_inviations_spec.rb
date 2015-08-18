@@ -3,14 +3,17 @@ require 'requests_helper'
 
 describe "the user can invite other participants in the group", type: :feature, js: true do
 
-  let!(:user) { create(:user) }
-  let!(:group) { create(:group, current_user_id: user.id) }
-  let!(:ability) { Ability.new(user) }
+  let(:user) { create(:user) }
+  let(:group) { create(:group, current_user_id: user.id) }
+  let(:ability) { Ability.new(user) }
 
   let(:acceptor) { create(:user) }
   let(:emails) { [Faker::Internet.email, Faker::Internet.email, acceptor.email] }
   let(:group_invitation) { create(:group_invitation, group: group, emails_list: emails.join(','), inviter_id: user.id) }
 
+  before(:each) do
+    load_database
+  end
 
   after :each do
     logout(:user)
@@ -40,8 +43,8 @@ describe "the user can invite other participants in the group", type: :feature, 
         click_button I18n.t('buttons.send')
       end
       expect(page).to have_content I18n.t('info.group_invitations.create',count: 3, email_addresses: emails.join(', '))
-      expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 3
-      Sidekiq::Extensions::DelayedMailer.drain
+      expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 3
+      ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
       first_deliveries = ActionMailer::Base.deliveries.first(3)
       expect(first_deliveries.map { |m| m.to[0] }).to match_array emails
       logout :user
@@ -57,8 +60,8 @@ describe "the user can invite other participants in the group", type: :feature, 
     it "can reject the invite" do
       emails = [Faker::Internet.email, Faker::Internet.email, Faker::Internet.email]
       create(:group_invitation, group: group, emails_list: emails.join(','), inviter_id: user.id)
-      expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 3
-      Sidekiq::Extensions::DelayedMailer.drain
+      expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 3
+      ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
       first_deliveries = ActionMailer::Base.deliveries.first(3)
       expect(first_deliveries.map { |m| m.to[0] }).to match_array emails
 

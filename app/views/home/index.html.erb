@@ -163,9 +163,19 @@
                     <%= f.password_field :password, placeholder: 'Password' %>
                   </div>
                   <div class="columns large-6 medium-5 medium-push-1 large-push-0  text-left">
-                    <div style="margin-top: 3px; font-size: 12px ">
-                      <%= f.check_box :remember_me, checked: true %>
-                      <%= t('pages.home.index.keep_connected') %>
+                    <div class="row">
+                      <div class="columns small-6 medium-12">
+                        <div style="margin-top: 3px; font-size: 12px ">
+                          <%= f.check_box :remember_me, checked: true %>
+                          <%= t('pages.home.index.keep_connected') %>
+                        </div>
+
+                      </div>
+                      <div class="columns small-6 medium-12">
+                        <div style="margin-top: 3px; font-size: 12px ">
+                          <%= link_to t('pages.home.index.forgot_password'), new_user_password_path %>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="column large-6 medium-5 medium-pull-1 large-pull-0 text-right">
@@ -645,7 +655,7 @@
         </a>
       </div>
       <p><a href="https://github.com/coorasse/Airesis" target="_blank"><%= t('pages.footer.for_edemocracy_html') %></a>
-        v.<%= VERSION %></p>
+        v.<%= AIRESIS_VERSION %></p>
 
       <p>Airesis is supported and promoted by the No-Profit Association 'Tecnologie Democratiche'. Many thanks to all
         the volunteers that help us to continue this important project.

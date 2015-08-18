@@ -1,7 +1,7 @@
 module ApplicationHelper
   # ricarica i messaggi flash
   def reload_flash
-    page.replace "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
+    page.replace 'flash_messages', partial: 'layouts/flash', locals: {flash: flash}
   end
 
   def javascript(*args)
@@ -62,6 +62,11 @@ module ApplicationHelper
 
   def body_page_name
     [controller_name.camelcase, action_name.camelcase].join if response.ok?
+  end
+
+
+  def add_params(to_add={})
+    params.reject { |k, v| ['controller', 'action'].include? k }.merge to_add
   end
 
 end

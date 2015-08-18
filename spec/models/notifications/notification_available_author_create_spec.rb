@@ -3,6 +3,9 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 describe NotificationAvailableAuthorCreate, type: :model, emails: true, notifications: true do
+  before(:each) do
+    load_database
+  end
 
   let!(:event_class) { NotificationAvailableAuthorCreate }
   let!(:notification_type) { NotificationType.find_by(name: 'available_author') }

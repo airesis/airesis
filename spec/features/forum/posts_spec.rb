@@ -2,13 +2,17 @@ require 'spec_helper'
 require 'requests_helper'
 require "cancan/matchers"
 
-describe 'posts', type: :feature, js: true, ci_ignore: true do
-  let!(:user) { create(:user) }
-  let!(:group) { create(:group, current_user_id: user.id) }
-  let!(:free_category) { create(:frm_category, group: group, visible_outside: true) }
-  let!(:forum) { create(:frm_forum, group: group, category: free_category) }
-  let!(:topic) { create(:approved_topic, forum: forum, user: user) }
+describe 'posts', type: :feature, js: true do
+  let(:user) { create(:user) }
+  let(:group) { create(:group, current_user_id: user.id) }
+  let(:free_category) { create(:frm_category, group: group, visible_outside: true) }
+  let(:forum) { create(:frm_forum, group: group, category: free_category) }
+  let(:topic) { create(:approved_topic, forum: forum, user: user) }
 
+  before(:each) do
+    load_database
+    topic
+  end
   context 'not signed in users' do
     it 'cannot begin to post a reply' do
       visit new_group_forum_topic_post_path(group, topic.forum, topic)
@@ -149,11 +153,11 @@ describe 'posts', type: :feature, js: true, ci_ignore: true do
         it "shows correct 'started by' and 'last post' information" do
           visit group_forum_path(group, forum)
           within('.topic .started-by') do
-            page.should have_content(user.name)
+            expect(page).to have_content(user.name)
           end
 
           within('.topic .latest-post') do
-            page.should have_content(@user.name)
+            expect(page).to have_content(@user.name)
           end
         end
 

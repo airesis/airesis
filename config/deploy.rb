@@ -1,7 +1,5 @@
-
 # config valid only for Capistrano 3.1
-lock '3.2.1'
-
+lock '3.4.0'
 
 set :repo_url, 'git@github.com:coorasse/airesis.git'
 
@@ -10,6 +8,8 @@ set :repo_url, 'git@github.com:coorasse/airesis.git'
 
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '~/airesis_capistrano'
+
+set :rails_env, 'production'
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -35,9 +35,9 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-set :rvm1_ruby_version, '2.1.0'
+set :rvm1_ruby_version, File.read('.ruby-version').strip
 
-set :linked_files, %w{config/application.yml config/database.yml config/paypal.yml config/private_pub.yml config/sidekiq.yml config/sunspot.yml .htaccess}
+set :linked_files, %w{config/application.yml config/database.yml config/private_pub.yml config/sunspot.yml .htaccess}
 
 set :sidekiq_config, "#{current_path}/config/sidekiq.yml"
 

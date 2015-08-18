@@ -2,7 +2,7 @@ require 'sidekiq/web'
 
 Airesis::Application.routes.draw do
 
-  resources :searches
+  resources :searches, only: [:index]
 
   resources :sys_payment_notifications, only: [:create]
 
@@ -98,9 +98,7 @@ Airesis::Application.routes.draw do
       post :close_debate
       patch :regenerate
       get :geocode
-      get :facebook_share
       get :promote
-      post :facebook_send_message
       get :banner
       get :test_banner
     end

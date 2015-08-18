@@ -1,9 +1,7 @@
-:concurrency: 15
+:concurrency: 30
 :pidfile: tmp/pids/sidekiq.pid
 test:
   :concurrency: 5
-staging:
-  :concurrency: 10
 production:
   :concurrency: 20
 :queues:
@@ -12,3 +10,4 @@ production:
   - [notifications,3]
   - [default,2]
   - [low_priority, 1]
+  - [mailers, 1]

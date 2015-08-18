@@ -22,9 +22,9 @@ class BlogComment < ActiveRecord::Base
   end
 
   def user_name
-    name = self.user ? self.user.name : self.name
-    if !self.site_url.blank?
-      "<a href=\"#{self.site_url}\">#{name}</a>"
+    name = user ? user.name : name
+    if !site_url.blank?
+      "<a href=\"#{site_url}\">#{name}</a>"
     else
       name
     end

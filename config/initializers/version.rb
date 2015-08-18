@@ -1,1 +1,1 @@
-VERSION = '4.2.2.2'
+AIRESIS_VERSION = '4.2.3'

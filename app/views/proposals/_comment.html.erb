@@ -17,7 +17,7 @@
   <% if params[:comment_id].present? && (comment.replies.include? ProposalComment.find(params[:comment_id])) %>
       <% @lastreplies = comment.replies.order('proposal_comments.created_at ASC') %>
   <% else %>
-      <% @lastreplies = comment.replies.where(["proposal_comments.created_at > ?", comment.updated_at || comment.created_at]).order('proposal_comments.created_at DESC').page(1).per(5).reverse! %>
+      <% @lastreplies = comment.replies.where(["proposal_comments.created_at > ?", comment.updated_at || comment.created_at]).order('proposal_comments.created_at DESC').page(1).per(5).to_a.reverse! %>
   <% end %>
   <% if countreplies > @lastreplies.length %>
       <div id="<%= comment.id %>_show" class="show_all_comments">

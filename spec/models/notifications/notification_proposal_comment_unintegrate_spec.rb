@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationProposalCommentUnintegrate, type: :model, emails: true, notifications: true do
+describe NotificationProposalCommentUnintegrate, type: :model, emails: true, notifications: true, seeds: true do
   let!(:notification_type) { NotificationType::UNINTEGRATED_CONTRIBUTE }
   let!(:user) { create(:user) }
 

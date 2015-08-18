@@ -29,7 +29,6 @@ class EventCommentLikesController < ApplicationController
 
   def load_event_comment_like
     @event_comment_like = @event_comment.likes.find(params[:event_comment_like_id])
-
   end
 
   def check_author

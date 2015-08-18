@@ -16,12 +16,10 @@
 //= require moment.min
 //= require fullcalendar
 //= require gcal
-//= require events
 //= require charCount
 //= require jquery.progressbar
 //= require jquery.dataTables.min
 //= require jquery.dataTables.columnFilter
-//= require rails.validations
 //= require jquery.quick-wizard
 //= require jquery.elastic
 //= require jquery.gbutton
@@ -54,6 +52,7 @@
 //= require init
 //= require rails.validations
 //= require rails.validations.simple_form
+//= require rails.validations.simple_form.foundation
 //= require facebook
 //= require google_analytics
 //= require twitter
@@ -62,3 +61,8 @@
 //= require_tree ./per_page
 //= require mustache
 
+//// require nprogress
+//// require nprogress-turbolinks
+//// require turbolinks
+//// require jquery.turbolinks
+//NProgress.configure({ parent: '#main-copy' });

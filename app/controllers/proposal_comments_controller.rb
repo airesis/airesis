@@ -11,8 +11,8 @@ class ProposalCommentsController < ApplicationController
   #retrieve contributes list
   def index
     respond_to do |format|
-      format.html { @proposal_comment_search  = ProposalCommentSearch.new({all: true, disable_limit: true}, @proposal)}
-      format.js { @proposal_comment_search = ProposalCommentSearch.new(params, @proposal, current_user)}
+      format.html { @proposal_comment_search = ProposalCommentSearch.new({all: true, disable_limit: true}, @proposal) }
+      format.js { @proposal_comment_search = ProposalCommentSearch.new(params, @proposal, current_user) }
     end
   end
 
@@ -64,7 +64,7 @@ class ProposalCommentsController < ApplicationController
 
   rescue Exception => e
     respond_to do |format|
-      flash[:error] = @proposal_comment.errors.messages.values.join(" e ")
+      flash[:error] = @proposal_comment.errors.messages.values.join(' e ')
       format.js { render 'layouts/error' }
       format.json {
         render json: @proposal_comment.try(:errors) || {error: true}, status: :unprocessable_entity
@@ -80,7 +80,7 @@ class ProposalCommentsController < ApplicationController
         format.html { redirect_to(@proposal) }
         format.js
       else
-        format.html { render action: "edit" }
+        format.html { render action: 'edit' }
       end
     end
   end
@@ -135,11 +135,9 @@ class ProposalCommentsController < ApplicationController
 
 
   def noise
-
   end
 
   def manage_noise
-
   end
 
   #the editor marked some contributes as unuseful
@@ -152,7 +150,7 @@ class ProposalCommentsController < ApplicationController
     active = active.split(/,\s*/)
     inactive = inactive.split(/,\s*/)
 
-    to_active = @proposal.contributes.where(["id in (?) and soft_reports_count >= ?", active, CONTRIBUTE_MARKS])
+    to_active = @proposal.contributes.where(['id in (?) and soft_reports_count >= ?', active, CONTRIBUTE_MARKS])
     to_inactive = @proposal.contributes.where(id: inactive)
 
     to_active.update_all(noise: false)
@@ -162,7 +160,6 @@ class ProposalCommentsController < ApplicationController
       format.html { redirect_to @proposal }
       format.js { render nothing: true }
     end
-
   end
 
 
@@ -224,7 +221,7 @@ class ProposalCommentsController < ApplicationController
   end
 
   def choose_layout
-    @group ? "groups" : "open_space"
+    @group ? 'groups' : 'open_space'
   end
 
 end

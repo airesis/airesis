@@ -1,8 +1,8 @@
 Airesis - The Social Network for eDemocracy
 ===========================================
-[![Build Status](https://travis-ci.org/coorasse/Airesis.svg?branch=staging)](https://travis-ci.org/coorasse/Airesis)
+[ ![Codeship Status for coorasse/Airesis](https://codeship.com/projects/3bc16c10-0d16-0133-b925-7aae0ba3591b/status?branch=master)](https://codeship.com/projects/91286)
 [![Dependency Status](https://gemnasium.com/coorasse/Airesis.svg)](https://gemnasium.com/coorasse/Airesis)
-[![Code Climate](https://codeclimate.com/repos/547c8dd16956804e660ee4a3/badges/40feae106fc5c88511e8/gpa.svg)](https://codeclimate.com/repos/547c8dd16956804e660ee4a3/feed)
+[![Code Climate](https://codeclimate.com/repos/5552681fe30ba02945000686/badges/2885e98c8c20799e22c8/gpa.svg)](https://codeclimate.com/repos/5552681fe30ba02945000686/feed)
 
 The first open source web application for eDemocracy
 

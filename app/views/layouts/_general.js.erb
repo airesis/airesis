@@ -2,8 +2,10 @@
     <%=render partial: 'layouts/messages', locals: {flash: flash}%>
     <%= yield :layout %>
 
-    execute_page_js('<%=body_page_name%>')
-
+    <% unless @disable_per_page %>
+    execute_page_js('<%=body_page_name%>');
+    <%end%>
+    <%= yield :after_page_js %>
 })();
 
 <%= yield :no_closure %>

@@ -106,7 +106,7 @@ describe 'the oauth2 process', type: :feature, js: true do
 
     it 'permits the join with an existing account when already logged in' do
       user = create(:user)
-      login user, 'topolino'
+      login_as user, scope: :user
 
       old_name = user.name
       old_surname = user.surname
@@ -123,27 +123,25 @@ describe 'the oauth2 process', type: :feature, js: true do
 
     it "doesn't permit the join if Google account is already taken" do
       user = create(:user)
-      login user, 'topolino'
+      login_as user, scope: :user
       visit '/users/auth/google_oauth2/callback'
       expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: @oauth_data[:provider].capitalize)}/i)
 
       logout :user
-      visit '/'
 
       user2 = create(:user)
-      login user2, 'topolino'
+      login_as user2, scope: :user
       visit '/users/auth/google_oauth2/callback'
       expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_failure', provider: @oauth_data[:provider].capitalize)}/i)
     end
 
     it "remembers Google account after joining" do
       user = create(:user)
-      login user, 'topolino'
+      login_as user, scope: :user
       visit '/users/auth/google_oauth2/callback'
       expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: @oauth_data[:provider].capitalize)}/i)
 
       logout :user
-      visit '/'
 
       visit '/users/auth/google_oauth2/callback'
       expect(page).to have_content(/#{I18n.t('devise.sessions.user.signed_in')}/i)
@@ -152,24 +150,19 @@ describe 'the oauth2 process', type: :feature, js: true do
 
     it 'permits to detach Google account' do
       user = create(:user)
-      login user, 'topolino'
-
-      visit '/users/auth/google_oauth2/callback'
-      expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: @oauth_data[:provider].capitalize)}/i)
+      create(:authentication, user: user, provider: 'google_oauth2')
+      login_as user, scope: :user
 
       visit privacy_preferences_users_path
       click_link 'Detach'
       expect(page).to have_content(/#{I18n.t('info.user.IP_disabled')}/i)
 
       logout :user
-      visit '/'
 
       user2 = create(:user)
-      login user2, 'topolino'
+      login_as user2, scope: :user
       visit '/users/auth/google_oauth2/callback'
       expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: @oauth_data[:provider].capitalize)}/i)
     end
   end
-
 end
-

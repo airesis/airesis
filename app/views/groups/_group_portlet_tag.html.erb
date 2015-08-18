@@ -38,11 +38,11 @@
       </div>
       <div class="groupDescription small-3 large-3 columns">
         <%= link_to (image_tag 'group_proposals.png'), group_proposals_url(group), title: t('pages.groups.index.proposals_number') %>
-        <span class="count"><%= group.proposals.count %></span>
+        <span class="count"><%= group.proposals_count %></span>
       </div>
       <div class="groupDescription small-3 large-3 columns">
         <%= link_to (image_tag 'group_events.png'), group_events_url(group), title: t('pages.groups.index.events_number') %>
-        <span class="count"><%= group.events.count %></span>
+        <span class="count"><%= group.meeting_organizations_count %></span>
       </div>
       <div class="territoryDescription small-3 large-3 columns">
         <%= link_to group.interest_border.territory.description, groups_url(interest_border: group.interest_border.as_json[:id]) %>

@@ -9,15 +9,15 @@ class SearchProposal < ActiveRecord::Base
 
   attr_accessor :order_id, :time_type, :order_dir, :page, :per_page, :text, :or, :proposal_id
 
-  ORDER_RANDOM="1"
-  ORDER_BY_DATE="2"
-  ORDER_BY_RANK="3"
-  ORDER_BY_VOTES="4" #order by number of valutations
-  ORDER_BY_END="5"
-  ORDER_BY_VOTATION_END="6"
-  ORDER_BY_VOTES_NUMBER="7" #orde by number of votes
-  ORDER_ASC="a"
-  ORDER_DESC="d"
+  ORDER_RANDOM='1'
+  ORDER_BY_DATE='2'
+  ORDER_BY_RANK='3'
+  ORDER_BY_VOTES='4' #order by number of valutations
+  ORDER_BY_END='5'
+  ORDER_BY_VOTATION_END='6'
+  ORDER_BY_VOTES_NUMBER='7' #orde by number of votes
+  ORDER_ASC='a'
+  ORDER_DESC='d'
 
   def results
     @search = Proposal.search(include: [:category, :quorum, {users: [:image]}, :vote_period, :groups, :supporting_groups, :interest_borders]) do
@@ -165,7 +165,7 @@ class SearchProposal < ActiveRecord::Base
   end
 
   def order
-    order_s = ""
+    order_s = ''
     dir = (self.order_dir == 'a') ? 'asc' : 'desc'
     if self.order_id == SearchProposal::ORDER_BY_RANK
       order_s << " proposals.rank #{dir}, proposals.created_at #{dir}"

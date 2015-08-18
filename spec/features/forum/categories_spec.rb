@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'requests_helper'
 
-describe 'categories', type: :feature, js: true do
+describe 'categories', type: :feature, js: true, seeds: true do
 
   let!(:user) { create(:user) }
 
@@ -13,7 +13,7 @@ describe 'categories', type: :feature, js: true do
   let!(:category_2) { create(:frm_category, group: group) }
   let!(:forum_2) { create(:frm_forum, :category => category_2, group: group) }
 
-  it "sees categorized public forums" do
+  it 'sees categorized public forums' do
 
     visit group_forums_path(group)
     within("#category_#{category_1.id}") do
@@ -37,19 +37,19 @@ describe 'categories', type: :feature, js: true do
     expect(page).to_not match(forum_2.title)
   end
 
-  context "admin of group" do
-    it "can create a category" do
+  context 'admin of group' do
+    it 'can create a category' do
       login_as user, scope: :user
       visit group_frm_admin_categories_path(group)
-      click_link I18n.t("frm.admin.category.new_link")
+      click_link I18n.t('frm.admin.category.new_link')
       name = Faker::Company.name
       fill_in I18n.t('simple_form.labels.frm_category.name'), with: name
       click_button I18n.t('helpers.submit.frm_category.create')
-      expect(page).to have_content(I18n.t("frm.admin.category.created"))
+      expect(page).to have_content(I18n.t('frm.admin.category.created'))
       expect(page).to have_content(name)
     end
 
-    it "can update a category" do
+    it 'can update a category' do
       login_as user, scope: :user
       visit group_frm_admin_categories_path(group)
       within page.first('table tbody tr') do
@@ -58,7 +58,7 @@ describe 'categories', type: :feature, js: true do
       name = Faker::Company.name
       fill_in I18n.t('simple_form.labels.frm_category.name'), with: name
       click_button I18n.t('helpers.submit.frm_category.update')
-      expect(page).to have_content(I18n.t("frm.admin.category.updated"))
+      expect(page).to have_content(I18n.t('frm.admin.category.updated'))
       expect(page).to have_content(name)
     end
   end

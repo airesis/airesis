@@ -77,7 +77,6 @@ window.ProposalsShow =
               votestring += ';'
           votestring += vote[v][0]
         $('#data_votes').val votestring
-        console.log votestring
         true
       $('.votebutton').on 'click', ->
         type = $(this).data('vote-type')

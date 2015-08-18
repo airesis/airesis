@@ -1,5 +1,3 @@
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false"></script>
-
 <% if @group ? (can? :create_event, @group) : is_admin? %>
     <style type="text/css">
         .fc-widget-content {
@@ -78,118 +76,27 @@
 <% end %>
 
 <script type="text/javascript">
-    $(function () {
-        $('.create_event').on('click', function () {
-            var create_event_ = $('#create_event_dialog');
-            create_event_.empty();
-            create_event_.append($('.choose_event_type').clone().show());
-
-            $('.event_model_option', create_event_).click(function () {
-                var create_event_inner_ = $('.choose_event_type', create_event_);
-                var type_id = $(this).data('id');
-                create_event_inner_.hide(1000, function () {
-                    create_event_inner_.remove();
-                    create_event_.append('<%=j render "fragments/loading"%>');
-                    $.ajax({
-                        url: '<%=j raw new_event_path(group_id: (@group.id if @group), models: true)%>',
-                        data: 'event_type_id=' + type_id,
-                        dataType: 'script'
-                    })
-                });
-
-
-            });
-
-            create_event_.foundation('reveal', 'open', {
-                closeOnBackgroundClick: false,
-                closeOnEsc: false
-            });
-            return false;
-        });
-
-        //$('.calendar_container').height($(window).height());
-        $(window).resize(function () {
-            $('#calendar').fullCalendar('option', 'height', $(window).height() - 170);
-        });
-        $('#calendar').fullCalendar({
-            editable: true,
-            height: $(window).height() - 185,
-            <%unless (@group ? (can? :create_event, @group) : is_admin?) %>
-            disableDragging: true,
-            disableResizing: true,
-            <%end%>
-            header: {
-                left: 'today prev,next',
-                center: 'title',
-                right: 'list,month,agendaWeek,agendaDay'
-            },
-            eventLimit: true, // for all non-agenda views
-            views: {
-                month: {
-                    eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
-                }
-            },
-            defaultView: 'month',
-            slotMinutes: 15,
-            firstDay: <%=t('calendar.firstDay')%>,
-            monthNames: <%=raw t('calendar.monthNames')%>,
-            monthNamesShort: <%=raw t('calendar.monthNamesShort')%>,
-            dayNames: <%=raw t('calendar.dayNames')%>,
-            dayNamesShort: <%=raw t('calendar.dayNamesShort')%>,
-            buttonText: {
-                prevYear: "<span class='fc-text-arrow'>&laquo;</span>",
-                nextYear: "<span class='fc-text-arrow'>&raquo;</span>",
-                today: '<%=t('calendar.today')%>',
-                month: '<%=t('calendar.month')%>',
-                week: '<%=t('calendar.week')%>',
-                day: '<%=t('calendar.day')%>'
-            },
-            events: '<%=@group ? group_events_url(@group) : events_url%>',
-            columnFormat: {
-                month: 'ddd',
-                week: 'ddd M/d',
-                day: 'dddd M/d'
-            },
-            axisFormat: 'H:mm',
-            dragOpacity: "0.5",
-            eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
-                moveEvent(event, delta, revertFunc, jsEvent, ui, view);
-            },
-
-            eventResize: function (event, delta, revertFunc, jsEvent, ui, view) {
-                resizeEvent(event, delta, revertFunc, jsEvent, ui, view);
-            },
-
-            eventClick: function (event, jsEvent, view) {
-                goEventPage(event);
-            },
-
-            eventRender: function (event, element) {
-                if (event.editable) {
-                    element.css('cursor', 'pointer');
-                }
-            },
-            dayClick: function (date, jsEvent, view) {
-                console.log(date);
-                <%if (@group ? (can? :create_event, @group) : is_admin?) %>
-                $.ajax({
-                    data: {
-                        starttime: date.valueOf(),
-                        has_time: date.hasTime(),
-                        event_type_id: <%=EventType::INCONTRO%>
-                    },
-                    url: '<%=j raw new_event_url(group_id: @group.try(:id)) %>',
-                    dataType: 'script'
-                });
-                <%end%>
-            }
-        });
-
-        <%if params[:new_event] == 'true' %>
-        $.ajax({
-            url: '<%=j raw new_event_url(group_id: @group.try(:id), event_type_id: params[:event_type_id]) %>',
-            dataType: 'script'
-        });
-        <%end%>
-    });
+    EventsIndex.newEventUrl = '<%=j raw new_event_url(group_id: @group.try(:id), models: true)%>';
+    EventsIndex.newEventUrlClick = '<%=j raw new_event_url(group_id: @group.try(:id)) %>';
+    EventsIndex.eventsUrl = '<%=@group ? group_events_url(@group) : events_url%>';
+    EventsIndex.autoOpen = <%= params[:new_event] == 'true' %>;
+    EventsIndex.autoOpenUrl = '<%=j raw new_event_url(group_id: @group.try(:id), event_type_id: params[:event_type_id]) %>';
+    EventsIndex.loadingFragment = '<%=j render "fragments/loading"%>';
+    EventsIndex.defaultEventType = <%= EventType::INCONTRO%>;
+    EventsIndex.calendarI18n = {
+        firstDay: <%=t('calendar.firstDay')%>,
+        monthNames: <%=raw t('calendar.monthNames')%>,
+        monthNamesShort: <%=raw t('calendar.monthNamesShort')%>,
+        dayNames: <%=raw t('calendar.dayNames')%>,
+        dayNamesShort: <%=raw t('calendar.dayNamesShort')%>,
+        buttonText: {
+            prevYear: "<span class='fc-text-arrow'>&laquo;</span>",
+            nextYear: "<span class='fc-text-arrow'>&raquo;</span>",
+            today: '<%=t('calendar.today')%>',
+            month: '<%=t('calendar.month')%>',
+            week: '<%=t('calendar.week')%>',
+            day: '<%=t('calendar.day')%>'
+        }
+    };
+    EventsIndex.createEvent = <%= @group ? (can? :create_event, @group) : is_admin? %>;
 </script>

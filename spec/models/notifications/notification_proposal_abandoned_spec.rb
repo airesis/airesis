@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationProposalAbandoned, type: :model, emails: true, notifications: true do
+describe NotificationProposalAbandoned, type: :model, emails: true, notifications: true, seeds: true do
 
   it 'when is abandoned sends correctly an email to authors and participants' do
     user = create(:user)
@@ -41,7 +41,7 @@ describe NotificationProposalAbandoned, type: :model, emails: true, notification
     receiver_emails = participants.map(&:email)
     expect(emails).to match_array receiver_emails
 
-    expect(Alert.count).to eq 3
+    expect(Alert.unscoped.count).to eq 3
     expect(Alert.first.user).to eq user
     expect(Alert.first.notification_type.id).to eq NotificationType::CHANGE_STATUS_MINE
 

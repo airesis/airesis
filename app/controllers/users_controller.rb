@@ -14,7 +14,6 @@ class UsersController < ApplicationController
 
   # joins two different account when logging in
   def join_accounts
-
     oauth_data = session['devise.omniauth_data']
     oauth_data_parser = OauthDataParser.new(oauth_data)
     raw_info = oauth_data_parser.raw_info
@@ -39,7 +38,6 @@ class UsersController < ApplicationController
       flash[:error] = t('error.users.join_accounts_password')
       redirect_to confirm_credentials_users_url
     end
-
   end
 
   def index
@@ -251,7 +249,7 @@ class UsersController < ApplicationController
   #invia un messaggio all'utente
   def send_message
     authorize! :send_message, @user
-    ResqueMailer.delay.user_message(params[:message][:subject], params[:message][:body], current_user.id, @user.id)
+    ResqueMailer.user_message(params[:message][:subject], params[:message][:body], current_user.id, @user.id).deliver_later
     flash[:notice] = t('info.message_sent')
     respond_to do |format|
       format.html { redirect_to @user }

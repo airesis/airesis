@@ -3,12 +3,12 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 describe "create a proposal in his group", type: :feature, js: true, ci_ignore: true  do
-
-  let!(:user) { create(:user) }
-  let!(:group) { create(:group, current_user_id: user.id) }
-  let!(:proposal) { create(:group_proposal, quorum: group.quorums.active.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)]) }
+  let(:user) { create(:user) }
+  let(:group) { create(:group, current_user_id: user.id) }
+  let(:proposal) { create(:group_proposal, quorum: group.quorums.active.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)]) }
 
   before :each do
+    load_database
     login_as user, scope: :user
   end
 
@@ -48,15 +48,12 @@ describe "create a proposal in his group", type: :feature, js: true, ci_ignore: 
       expect(page).to have_content(I18n.t('proposals.show.ready_for_vote'))
       expect(page).to have_content(I18n.t('proposals.show.keep_discuss'))
     end
-
   end
-
 
   def simple_editing
     visit edit_group_proposal_path(group, proposal)
     sleep 5
     new_content = Faker::Lorem.paragraph
-
     fill_in_ckeditor 'proposal_sections_attributes_0_paragraphs_attributes_0_content_dirty', with: new_content
 
     within_left_menu do
@@ -66,12 +63,11 @@ describe "create a proposal in his group", type: :feature, js: true, ci_ignore: 
     expect(page).to have_content(new_content)
   end
 
-  it "can edit a proposal", ci_ignore: true do
+  it "can edit a proposal" do
     simple_editing
   end
 
   it "evaluation of a proposal by the author and other users" do
-
     def vote_and_check
       pressed = I18n.t('proposals.show.ready_for_vote')
       other = I18n.t('proposals.show.keep_discuss')

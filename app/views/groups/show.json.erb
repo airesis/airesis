@@ -1,4 +1,0 @@
-{
-    "title": "<%=@group.name%>",
-    "posts":<%=raw @group_posts.to_json({only: [:id, :title, :created_at, :updated_at, :body], include: [user: {only: [:id], methods: [:fullname]}]})%>
-}

@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require "cancan/matchers"
 
-describe NotificationProposalPresentationCreate, type: :model, emails: true, notifications: true do
+describe NotificationProposalPresentationCreate, type: :model, emails: true, notifications: true, seeds: true do
 
   it "when new authors for a proposal are available sends correctly an email to all participants to the proposal" do
     user1 = create(:user)
@@ -29,6 +29,7 @@ describe NotificationProposalPresentationCreate, type: :model, emails: true, not
     described_class.drain
     AlertsWorker.drain
     EmailsWorker.drain
+
     delivery_to_user2 = ActionMailer::Base.deliveries.first
     last_deliveries = ActionMailer::Base.deliveries.last(5)
 

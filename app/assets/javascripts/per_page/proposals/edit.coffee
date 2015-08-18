@@ -90,6 +90,7 @@ window.ProposalsEdit =
       ProposalsEdit.addEditorEvents editor
 
     $('[data-clean-fields=true]').on 'click', =>
+      @updateSolutionSequences()
       @fillCleanFields()
 
     suggestion_right_ = $('.suggestion_right')

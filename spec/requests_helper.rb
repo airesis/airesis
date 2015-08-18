@@ -19,7 +19,6 @@ def fill_in_ckeditor(locator, opts)
     $('textarea##{locator}').text(#{content});
     console.log($('textarea##{locator}').text());
   SCRIPT
-  puts page.driver.console_messages # TODO: workaround to execute the script
 end
 
 def toastr_clear

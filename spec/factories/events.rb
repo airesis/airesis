@@ -8,11 +8,12 @@ FactoryGirl.define do
     private true
     association :user
     factory :meeting_event do
-      event_type_id { EventType::INCONTRO }
+      event_type { EventType.meeting }
+      association :meeting
     end
 
     factory :vote_event do
-      event_type_id { EventType::VOTAZIONE }
+      event_type { EventType.votation }
     end
   end
 end

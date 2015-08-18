@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   after_filter :discard_flash_if_xhr
 
+  before_filter :mini_profiler
+
   before_filter :store_location
 
   before_filter :set_current_domain
@@ -91,7 +93,7 @@ class ApplicationController < ActionController::Base
     @blog_posts = @blog.blog_posts.includes(:user, :blog, :tags).page(params[:page]).per(COMMENTS_PER_PAGE)
     @recent_comments = @blog.comments.includes(:blog_post, user: [:image, :user_type]).order('created_at DESC').limit(10)
     @recent_posts = @blog.blog_posts.published.limit(10)
-    @archives = @blog.blog_posts.select("COUNT(*) AS posts, extract(month from created_at) AS MONTH , extract(year from created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from created_at) desc")
+    @archives = @blog.blog_posts.select('COUNT(*) AS posts, extract(month from created_at) AS MONTH , extract(year from created_at) AS YEAR').group('MONTH, YEAR').order('YEAR desc, extract(month from created_at) desc')
   end
 
   def extract_locale_from_tld
@@ -112,16 +114,13 @@ class ApplicationController < ActionController::Base
   end
 
   def current_territory
-
   end
 
   def set_locale
     @domain_locale = request.host.split('.').last
     params[:l] = SysLocale.find_by(key: params[:l]) ? params[:l] : nil
     @locale =
-      if Rails.env.staging?
-        params[:l] || I18n.default_locale
-      elsif Rails.env.test?
+      if Rails.env.test?
         params[:l] || I18n.default_locale
       else
         params[:l] || @domain_locale || I18n.default_locale
@@ -168,13 +167,12 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.js {
         flash.now[:error] = "<b>#{t('error.error_500.title')}</b></br>#{t('error.error_500.description')}"
-        render template: "layouts/error", status: 500, layout: 'application'
+        render template: 'layouts/error', status: 500, layout: 'application'
       }
       format.html {
-        render template: "/errors/500.html.erb", status: 500, layout: 'application'
+        render template: '/errors/500.html.erb', status: 500, layout: 'application'
       }
     end
-
   end
 
   def solr_unavailable(exception)
@@ -182,10 +180,10 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.js {
         flash.now[:error] = 'Sorry. Service unavailable. Try again in few minutes.'
-        render template: "/errors/solr_unavailable.js.erb", status: 500, layout: 'application'
+        render template: '/errors/solr_unavailable.js.erb', status: 500, layout: 'application'
       }
       format.html {
-        render template: "/errors/solr_unavailable.html.erb", status: 500, layout: 'application'
+        render template: '/errors/solr_unavailable.html.erb', status: 500, layout: 'application'
       }
     end
   end
@@ -195,9 +193,9 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.js {
         flash.now[:error] = 'Page not available.'
-        render template: "/errors/solr_unavailable.js.erb", status: 404, layout: 'application'
+        render template: '/errors/solr_unavailable.js.erb', status: 404, layout: 'application'
       }
-      format.html { render "errors/404", status: 404, layout: 'application' }
+      format.html { render 'errors/404', status: 404, layout: 'application' }
     end
   end
 
@@ -237,7 +235,7 @@ class ApplicationController < ActionController::Base
   end
 
   def link_to_auth (text, link)
-    "<a>login</a>"
+    '<a>login</a>'
   end
 
   def title(ttl)
@@ -266,7 +264,7 @@ class ApplicationController < ActionController::Base
       format.html do #ritorna indietro oppure all'HomePage
         store_location
         flash[:error] = t('error.admin_required')
-        if request.env["HTTP_REFERER"]
+        if request.env['HTTP_REFERER']
           redirect_to :back
         else
           redirect_to proposals_path
@@ -276,7 +274,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_back(path)
-    redirect_to (request.env["HTTP_REFERER"] ? :back : path)
+    redirect_to (request.env['HTTP_REFERER'] ? :back : path)
   end
 
   # response if you do not have permissions to do an action
@@ -317,12 +315,12 @@ class ApplicationController < ActionController::Base
 
   def skip_store_location?
     request.xhr? || !params[:controller] || !request.get? ||
-      (params[:controller].starts_with? "devise/") ||
-      (params[:controller] == "passwords") ||
-      (params[:controller] == "sessions") ||
-      (params[:controller] == "users/omniauth_callbacks") ||
-      (params[:controller] == "alerts" && params[:action] == "index") ||
-      (params[:controller] == "users" && (["join_accounts", "confirm_credentials"].include? params[:action])) ||
+      (params[:controller].starts_with? 'devise/') ||
+      (params[:controller] == 'passwords') ||
+      (params[:controller] == 'sessions') ||
+      (params[:controller] == 'users/omniauth_callbacks') ||
+      (params[:controller] == 'alerts' && params[:action] == 'index') ||
+      (params[:controller] == 'users' && (['join_accounts', 'confirm_credentials'].include? params[:action])) ||
       (params[:action] == 'feedback')
   end
 
@@ -420,5 +418,9 @@ class ApplicationController < ActionController::Base
 
   def redirect_url(proposal)
     proposal.private? ? group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal)
+  end
+
+  def mini_profiler
+    Rack::MiniProfiler.authorize_request if Rails.env.development? || current_user.try(:admin?)
   end
 end

@@ -53,7 +53,7 @@ module Frm
 
     protected
     def create_successful
-      redirect_to group_forum_topic_url(@group, @forum, @topic), notice: t("frm.topic.created")
+      redirect_to group_forum_topic_url(@group, @forum, @topic), notice: t('frm.topic.created')
     end
 
     def create_unsuccessful
@@ -62,19 +62,19 @@ module Frm
     end
 
     def destroy_successful
-      flash[:notice] = t("frm.topic.deleted")
+      flash[:notice] = t('frm.topic.deleted')
 
       redirect_to group_forum_url(@group, @topic.forum)
     end
 
     def destroy_unsuccessful
-      flash.alert = t("frm.topic.cannot_delete")
+      flash.alert = t('frm.topic.cannot_delete')
 
       redirect_to group_forum_url(@group, @topic.forum)
     end
 
     def subscribe_successful
-      flash[:notice] = t("frm.topic.subscribed")
+      flash[:notice] = t('frm.topic.subscribed')
       respond_to do |format|
         format.html {
           redirect_to group_forum_topic_url(@group, @topic.forum, @topic)
@@ -83,11 +83,10 @@ module Frm
           render 'subscribe'
         }
       end
-
     end
 
     def unsubscribe_successful
-      flash[:notice] = t("frm.topic.unsubscribed")
+      flash[:notice] = t('frm.topic.unsubscribed')
       respond_to do |format|
         format.html {
           redirect_to group_forum_topic_url(@group, @topic.forum, @topic)
@@ -107,7 +106,7 @@ module Frm
     end
 
     def topic_params
-      params.require(:frm_topic).permit(:subject, :tags_list, posts_attributes: [:text] )
+      params.require(:frm_topic).permit(:subject, :tags_list, posts_attributes: [:text])
     end
 
 
@@ -124,7 +123,7 @@ module Frm
         @topic = forum_topics(@forum, current_user).friendly.find(params[:id])
         authorize! :read, @topic
       rescue ActiveRecord::RecordNotFound
-        flash.alert = t("frm.topic.not_found")
+        flash.alert = t('frm.topic.not_found')
         redirect_to group_forum_url(@group, @forum) and return
       end
     end

@@ -1,8 +1,3 @@
-<% content_for :head do %>
-    <%= stylesheet_link_tag 'elfinder.min' %>
-    <%= javascript_include_tag 'elfinder.full', 'elFinderSupportVer1' %>
-    <%= javascript_include_tag "i18n/elfinder.#{I18n.locale}" %>
-<% end %>
 
 <% @extend=true %>
 <% @page_title = t('pages.groups.documents.documents_archive') %>
@@ -61,12 +56,12 @@
                 type: 'get'
             });
         })
-        .bind('remove', function (event) {
-            $.ajax({
-                url: "<%=reload_storage_size_group_url(@group)%>",
-                dataType: 'script',
-                type: 'get'
-            });
-        });
+                .bind('remove', function (event) {
+                    $.ajax({
+                        url: "<%=reload_storage_size_group_url(@group)%>",
+                        dataType: 'script',
+                        type: 'get'
+                    });
+                });
     });
 </script>

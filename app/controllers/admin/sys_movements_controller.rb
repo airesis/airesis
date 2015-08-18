@@ -47,7 +47,7 @@ module Admin
     protected
 
     def sys_movement_params
-      params.require(:sys_movement).permit(:sys_currency_id, :sys_movement_type_id, :amount, :description, :made_on )
+      params.require(:sys_movement).permit(:sys_currency_id, :sys_movement_type_id, :amount, :description, :made_on)
     end
   end
 end

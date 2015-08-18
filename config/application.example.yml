@@ -1,9 +1,8 @@
-#####################
-#social networks and services keys
-#####################
-development:
-  a: ''
-  b: ''
+# remove it if you don't want to force ssl
+FORCE_SSL: 'true'
+
+SECRET_KEY_BASE: "08b7a7ae2d0446f1c434af0a57585d67c015a75ebff30118c720f1d59f04bfcf273a53a86dd44045e629fec9b2f556019c10485caa4e660d68b796b715de4a12"
+
 FACEBOOK_APP_ID: ""
 GOOGLE_APP_ID: ""
 TWITTER_APP_ID: ""
@@ -97,6 +96,9 @@ AWS_HOST: "s3-eu-west-1.amazonaws.com"
 AWS_BUCKET: ""
 AWS_ACCESS_KEY_ID: ""
 AWS_SECRET_ACCESS_KEY: ""
+
+# assets on a cdn. remove it if you are not using a cdn
+ASSETS_HOST: ""
 
 # remove this variable if you are not using cloudfront. set it to cloudfront alias if you want to you it
 AWS_ALIAS: "static.yourwebsite.com"
@@ -212,3 +214,11 @@ DEFAULT_AREA_ACTIONS: "6, 7, 8, 11, 12"
 
 #after this number of days, if the author has not chose a voting date, the users which have the right to choose a vote day, can do it
 OTHERS_CHOOSE_VOTE_DATE_DAYS: "5"
+
+### PAYPAL CONFIGURATION ###
+
+PAYPAL_MERCHANT: "X25TSHNPP9XXX"
+#test
+PAYPAL_URL: "https://www.sandbox.paypal.com/cgi-bin/webscr"
+#production:
+#PAYPAL_URL: "https://www.paypal.com/cgi-bin/webscr"

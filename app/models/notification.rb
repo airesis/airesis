@@ -1,7 +1,7 @@
 class Notification < ActiveRecord::Base
   belongs_to :notification_type
   has_many :alerts, dependent: :destroy
-  has_many :notification_data, class_name: "NotificationData", dependent: :destroy, foreign_key: :notification_id
+  has_many :notification_data, class_name: 'NotificationData', dependent: :destroy, foreign_key: :notification_id
 
   def data
     ret = self.properties.symbolize_keys

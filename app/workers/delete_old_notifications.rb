@@ -22,7 +22,7 @@ class DeleteOldNotifications
     msg +="Cancello " + read.count.to_s + " notifiche già lette più vecchie di 1 mese"
     puts read.count
     count += read.count
-    ResqueMailer.delay.admin_message(msg)
+    ResqueMailer.admin_message(msg).deliver_later
     count
   end
 

@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require "cancan/matchers"
 
-describe "check user permissions on proposals", type: :feature, js: true, search: true do
+describe "check user permissions on proposals", type: :feature, js: true, search: true, seeds: true do
 
   def create_proposal_in_area(visible_outside=true)
     user = create(:user)

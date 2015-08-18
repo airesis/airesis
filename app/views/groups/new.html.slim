@@ -1,0 +1,7 @@
+- @page_title = t('pages.groups.new.title')
+.card
+  h1 = t('pages.groups.new.new_group')
+  = render partial: @group, locals: { button_name: t('pages.groups.new.create_button')}
+
+= content_for :left_panel do
+  = render 'users/user_groups_panel'

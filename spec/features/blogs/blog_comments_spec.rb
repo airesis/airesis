@@ -15,6 +15,7 @@ describe 'the management of the blog posts', type: :feature, js: true do
   end
 
   before :each do
+    load_database
     @user = create(:user)
     @group = create(:group, current_user_id: @user.id)
     @blog = create(:blog, user: @user)

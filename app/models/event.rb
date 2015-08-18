@@ -22,8 +22,8 @@ class Event < ActiveRecord::Base
 
   accepts_nested_attributes_for :meeting
 
-  scope :public, -> { where(private: false) }
-  scope :private, -> { where(private: true) }
+  scope :visible, -> { where(private: false) }
+  scope :not_visible, -> { where(private: true) }
   scope :vote_period, ->(starttime=nil) { where(['event_type_id = ? AND starttime > ?', 2, starttime || Time.now]).order('starttime asc') }
 
   scope :next, -> { where(['starttime > ?', Time.now]) }
@@ -53,7 +53,7 @@ class Event < ActiveRecord::Base
     conditions = (event_t[:event_type_id].eq(EventType::INCONTRO).and(municipality_t[field].eq(territory.id))).
       or(event_t[:event_type_id].eq(EventType::VOTAZIONE))
 
-    includes(:event_type, place: :municipality).where(conditions)
+    joins(place: :municipality).includes(:event_type, place: :municipality).where(conditions)
   end
 
   after_destroy :remove_scheduled_tasks
@@ -68,7 +68,7 @@ class Event < ActiveRecord::Base
 
   def validate_start_time_end_time
     if starttime && endtime
-      errors.add(:starttime, "La data di inizio deve essere antecedente la data di fine") if endtime <= starttime
+      errors.add(:starttime, 'La data di inizio deve essere antecedente la data di fine') if endtime <= starttime
     end
   end
 
@@ -83,7 +83,6 @@ class Event < ActiveRecord::Base
   end
 
   def time_left
-
     amount = self.endtime - Time.now #left in seconds
     left = I18n.t('time.left.seconds', count: amount.to_i) #todo:i18n
     if amount >= 60 #if more or equal than 60 seconds left give me minutes
@@ -133,16 +132,16 @@ class Event < ActiveRecord::Base
   end
 
   def backgroundColor
-    event_type.color || "#DFEFFC"
+    event_type.color || '#DFEFFC'
   end
 
   def textColor
-    "#333333"
+    '#333333'
   end
 
   def validate
     if (starttime >= endtime) and !all_day
-      errors.add_to_base("Start Time must be less than End Time")
+      errors.add_to_base('Start Time must be less than End Time')
     end
   end
 
@@ -176,12 +175,12 @@ class Event < ActiveRecord::Base
 
   def to_ics
     event = Icalendar::Event.new
-    event.dtstart = starttime.strftime("%Y%m%dT%H%M%S")
-    event.dtend = endtime.strftime("%Y%m%dT%H%M%S")
+    event.dtstart = starttime.strftime('%Y%m%dT%H%M%S')
+    event.dtend = endtime.strftime('%Y%m%dT%H%M%S')
     event.summary = title
     event.description = description
-    event.created = created_at.strftime("%Y%m%dT%H%M%S")
-    event.last_modified = updated_at.strftime("%Y%m%dT%H%M%S")
+    event.created = created_at.strftime('%Y%m%dT%H%M%S')
+    event.last_modified = updated_at.strftime('%Y%m%dT%H%M%S')
     event.uid = "#{id}"
     event.url = "#{Maktoub.home_domain}/events/#{id}"
     event

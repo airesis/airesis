@@ -4,7 +4,7 @@ FactoryGirl.define do
     title { Faker::Lorem.sentence }
     tags_list ['tag1', 'tag2', 'tag3'].join(',')
     votation { {later: 'true'} }
-    quorum { BestQuorum.public.first }
+    quorum { BestQuorum.visible.first }
     factory :public_proposal do
 
     end

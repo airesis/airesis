@@ -3,8 +3,8 @@ class Proposal < ActiveRecord::Base
 
   belongs_to :state, class_name: 'ProposalState', foreign_key: :proposal_state_id
   belongs_to :category, class_name: 'ProposalCategory', foreign_key: :proposal_category_id
-  belongs_to :vote_period, class_name: 'Event', foreign_key: :vote_period_id #attached when is decided
-  belongs_to :vote_event, class_name: 'Event', foreign_key: :vote_event_id #attached when the proposal is created, only possible
+  belongs_to :vote_period, class_name: 'Event', foreign_key: :vote_period_id # attached when is decided
+  belongs_to :vote_event, class_name: 'Event', foreign_key: :vote_event_id # attached when the proposal is created
 
   # TODO: can't move tags before proposal_presentations because these are necessary when creating the tags
   # TODO: can't destroy the proposal because proposal presentations are destroyed before the tags
@@ -26,16 +26,18 @@ class Proposal < ActiveRecord::Base
   # all the comments related to the proposal
   has_many :proposal_comments, class_name: 'ProposalComment', dependent: :destroy
   # only the main contributes related to the proposal
-  has_many :contributes, -> { where(['parent_proposal_comment_id is null']) }, class_name: 'ProposalComment', dependent: :destroy
+  has_many :contributes, -> { where(parent_proposal_comment_id: nil) },
+           class_name: 'ProposalComment', dependent: :destroy
   has_many :rankings, class_name: 'ProposalRanking', dependent: :destroy
   has_many :positive_rankings, -> { where(['ranking_type_id = 1']) }, class_name: 'ProposalRanking'
 
-  has_many :proposal_lives, -> { order 'proposal_lives.created_at DESC' }, class_name: 'ProposalLife', dependent: :destroy
+  has_many :proposal_lives, -> { order 'proposal_lives.created_at DESC' },
+           class_name: 'ProposalLife', dependent: :destroy
   has_many :users, through: :proposal_presentations, class_name: 'User'
 
   has_many :proposal_supports, class_name: 'ProposalSupport', dependent: :destroy
   has_many :supporting_groups, through: :proposal_supports, class_name: 'Group', source: :group
-  #confini di interesse
+  # confini di interesse
   has_many :interest_borders, through: :proposal_borders, class_name: 'InterestBorder'
 
 
@@ -52,7 +54,7 @@ class Proposal < ActiveRecord::Base
 
   belongs_to :quorum, class_name: 'Quorum'
 
-  #eager_load :quorum
+  # eager_load :quorum
 
   has_many :proposal_sections, dependent: :destroy
   has_many :sections, -> { order :seq }, through: :proposal_sections
@@ -63,7 +65,7 @@ class Proposal < ActiveRecord::Base
 
   belongs_to :proposal_type, class_name: 'ProposalType'
 
-  #forum
+  # forum
   has_many :topic_proposals, class_name: 'Frm::TopicProposal', foreign_key: 'proposal_id'
   has_many :topics, class_name: 'Frm::Topic', through: :topic_proposals
 
@@ -71,56 +73,67 @@ class Proposal < ActiveRecord::Base
 
   has_many :alerts, as: :trackable
 
-  #validation
-  validates_presence_of :title, message: "obbligatorio" #TODO:I18n
+  # validation
+  validates_presence_of :title, message: 'obbligatorio' # TODO:I18n
   validates_uniqueness_of :title
-  validates_presence_of :proposal_category_id, message: "obbligatorio"
+  validates_presence_of :proposal_category_id, message: 'obbligatorio'
 
-  validates_presence_of :quorum, unless: :is_petition? #todo bug in client_side_validation
+  validates_presence_of :quorum, unless: :is_petition? # todo bug in client_side_validation
 
   validates_with AtLeastOneValidator, associations: [:solutions], unless: :is_petition?
 
-  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list, :topic_id, :votation, :petition_phase, :change_advanced_options, :current_user_id, :interest_borders_tkn
+  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids,
+                :integrated_contributes_ids_list, :topic_id, :votation, :petition_phase, :change_advanced_options,
+                :current_user_id, :interest_borders_tkn
 
   accepts_nested_attributes_for :sections, allow_destroy: true
   accepts_nested_attributes_for :solutions, allow_destroy: true
 
-  #tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte
-  scope :current, -> { where(proposal_state_id: [ProposalState::VALUTATION, ProposalState::WAIT_DATE, ProposalState::WAIT, ProposalState::VOTING]) }
-  #tutte le proposte in valutazione
+  # tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte
+  scope :current, -> { where(proposal_state_id: [ProposalState::VALUTATION,
+                                                 ProposalState::WAIT_DATE,
+                                                 ProposalState::WAIT,
+                                                 ProposalState::VOTING]) }
+  # tutte le proposte in valutazione
   scope :in_valutation, -> { where(proposal_state_id: ProposalState::VALUTATION) }
-  #tutte le proposte in attesa di votazione o attualmente in votazione
+  # tutte le proposte in attesa di votazione o attualmente in votazione
 
 
-  #retrieve proposals in a state before votation, exclude petitions
-  scope :before_votation, -> { where(['proposal_state_id in (?) and proposal_type_id != ?', [ProposalState::VALUTATION, ProposalState::WAIT_DATE, ProposalState::WAIT], 11]) }
+  # retrieve proposals in a state before votation, exclude petitions
+  scope :before_votation,
+        -> { where(['proposal_state_id in (?) and proposal_type_id != ?', [ProposalState::VALUTATION,
+                                                                           ProposalState::WAIT_DATE,
+                                                                           ProposalState::WAIT], 11]) }
 
-  scope :in_votation, -> { where(proposal_state_id: [ProposalState::WAIT_DATE, ProposalState::WAIT, ProposalState::VOTING]) }
+  scope :in_votation,
+        -> { where(proposal_state_id: [ProposalState::WAIT_DATE, ProposalState::WAIT, ProposalState::VOTING]) }
 
-  #waiting for the votation to start (already choosen)
+  # waiting for the votation to start (already choosen)
   scope :waiting, -> { where(proposal_state_id: ProposalState::WAIT) }
-  scope :voting, -> { where(proposal_state_id: ProposalState::VOTING) }
+  scope :voting, -> { where(arel_table[:proposal_state_id].eq(ProposalState::VOTING)) }
 
-  scope :not_voted_by, ->(user_id) { where('proposal_state_id = ? and proposals.id not in (select proposal_id from user_votes where user_id = ?)', ProposalState::VOTING, user_id) }
+  scope :not_voted_by, ->(user_id) { where('proposal_state_id = ? and
+                                            proposals.id not in (select proposal_id from user_votes where user_id = ?)',
+                                           ProposalState::VOTING, user_id) }
 
-  #tutte le proposte accettate
+  # tutte le proposte accettate
   scope :accepted, -> { where(proposal_state_id: ProposalState::ACCEPTED) }
-  #tutte le proposte respinte
+  # tutte le proposte respinte
   scope :rejected, -> { where(proposal_state_id: ProposalState::REJECTED) }
-  #tutte le proposte respinte
+  # tutte le proposte respinte
   scope :abandoned, -> { where(proposal_state_id: ProposalState::ABANDONED) }
 
   scope :voted, -> { where(proposal_state_id: [ProposalState::ACCEPTED, ProposalState::REJECTED]) }
 
-  #tutte le proposte entrate in fase di revisione e feedback
+  # tutte le proposte entrate in fase di revisione e feedback
   scope :revision, -> { where(proposal_state_id: ProposalState::ABANDONED) }
 
-  #all proposals visible to not logged users
-  scope :public, -> { where(['private = ? or visible_outside = ?', false, true]) }
+  # all proposals visible to not logged users
+  scope :visible, -> { where(['private = ? or visible_outside = ?', false, true]) }
 
-  scope :private, -> { where(private: true) } #proposte interne ai gruppi
+  scope :internal, -> { where(private: true) } # proposte interne ai gruppi
 
-  #inconsistent proposals
+  # inconsistent proposals
   scope :invalid_debate_phase, -> { in_valutation.joins(:quorum).where('current_timestamp > quorums.ends_at') }
   scope :invalid_waiting_phase, -> { waiting.joins(:vote_period).where('current_timestamp > events.starttime') }
   scope :invalid_vote_phase, -> { voting.joins(:vote_period).where('current_timestamp > events.endtime') }
@@ -140,13 +153,12 @@ class Proposal < ActiveRecord::Base
 
   def init
     self.quorum_id ||= Quorum::STANDARD
-    self.anonima = (self.is_petition? ? false : DEFAULT_ANONIMA) if self.anonima.nil?
-    self.visible_outside = true if self.visible_outside.nil?
-    self.secret_vote = true if self.secret_vote.nil?
-    self.change_advanced_options = DEFAULT_CHANGE_ADVANCED_OPTIONS if self.change_advanced_options.nil?
+    self.anonima = (self.is_petition? ? false : DEFAULT_ANONIMA) if anonima.nil?
+    self.visible_outside = true if visible_outside.nil?
+    self.secret_vote = true if secret_vote.nil?
+    self.change_advanced_options = DEFAULT_CHANGE_ADVANCED_OPTIONS if change_advanced_options.nil?
     self.proposal_votation_type_id ||= ProposalVotationType::STANDARD
   end
-
 
   def self.alerts_count_subquery(user_id)
     alerts = Alert.arel_table
@@ -168,7 +180,7 @@ class Proposal < ActiveRecord::Base
               and(proposal_rankings[:user_id].eq(user_id)))
   end
 
-  #retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
+  # retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
   def self.open_space_portlet(user = nil, current_territory = nil)
     user_id = user ? user.id : -1
     proposals = Proposal.arel_table
@@ -191,11 +203,11 @@ class Proposal < ActiveRecord::Base
     proposals = Proposal.
       select('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
       where(proposals[:id].in(ids)).order(updated_at: :desc)
-    ActiveRecord::Associations::Preloader.new(proposals, [:quorum, :groups, :supporting_groups]).run
+    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, :groups, :supporting_groups, :category])
     proposals
   end
 
-  #retrieve the list of proposals for the user with a count of the number of the notifications for each proposal
+  # retrieve the list of proposals for the user with a count of the number of the notifications for each proposal
   def self.home_portlet(user)
     proposals = Proposal.arel_table
     petition_id = ProposalType.find_by(name: ProposalType::PETITION).id
@@ -212,17 +224,18 @@ class Proposal < ActiveRecord::Base
       where(proposals[:proposal_type_id].not_eq(petition_id)).
       where(proposals[:id].in(list_c)).
       order(updated_at: :desc).to_a
-    ActiveRecord::Associations::Preloader.new(proposals, [:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category]).run
+    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, :category, {users: :image},
+                                                                  :proposal_type, :groups, :supporting_groups])
     proposals
   end
 
-  #retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
+  # retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
   def self.open_space_petitions_portlet(user)
     proposals = Proposal.arel_table
     petition_id = ProposalType.find_by(name: ProposalType::PETITION).id
     alerts_count = alerts_count_subquery(user.id)
 
-    Proposal.public.
+    Proposal.visible.
       select('distinct proposals.*', alerts_count.as('alerts_count')).
       where(proposals[:proposal_type_id].eq(petition_id)).
       order(updated_at: :desc).limit(10)
@@ -250,19 +263,22 @@ class Proposal < ActiveRecord::Base
                                       and(group_participations[:user_id].eq(user.id))).
       join(participation_roles).on(group_participations[:participation_role_id].eq(participation_roles[:id])).
       join(events).on(events[:id].eq(proposals[:vote_period_id])).
-      join(action_abilitations, Arel::OuterJoin).on(action_abilitations[:participation_role_id].eq(participation_roles[:id])).
-      join(user_votes, Arel::OuterJoin).on(user_votes[:proposal_id].eq(proposals[:id]).and(user_votes[:user_id].eq(user.id))).
+      join(action_abilitations, Arel::Nodes::OuterJoin).
+      on(action_abilitations[:participation_role_id].eq(participation_roles[:id])).
+      join(user_votes, Arel::Nodes::OuterJoin).
+      on(user_votes[:proposal_id].eq(proposals[:id]).and(user_votes[:user_id].eq(user.id))).
       where(proposals[:proposal_type_id].not_eq(petition_id)).
       where(user_votes[:id].eq(nil)).
       where(action_abilitations[:group_action_id].eq(GroupAction::PROPOSAL_VOTE).
               or(participation_roles[:id].eq(ParticipationRole.admin.id))).
       order('end_time asc').to_sql
     proposals = Proposal.find_by_sql(proposals_sql)
-    ActiveRecord::Associations::Preloader.new(proposals, [:quorum, {users: :image}, :proposal_type, :groups, :supporting_groups, :category]).run
+    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, {users: :image}, :proposal_type, :groups,
+                                                                  :supporting_groups, :category])
     proposals
   end
 
-  #retrieve the list of proposals for the group with a count of the number of the notifications for each proposal
+  # retrieve the list of proposals for the group with a count of the number of the notifications for each proposal
   def self.group_portlet(group, user)
     user_id = user.id
     proposals = Proposal.arel_table
@@ -276,31 +292,31 @@ class Proposal < ActiveRecord::Base
                            order(proposals[:created_at].desc).take(10).to_sql)
   end
 
-
   def count_notifications(user_id)
-    alerts = Alert.where(trackable: self, checked: false, user_id: user_id).count
+    Alert.unscoped.where(trackable: self, checked: false, user_id: user_id).count
   end
 
-  #after_find :calculate_percentage
+  # after_find :calculate_percentage
 
   def integrated_contributes_ids_list=(value)
     self.integrated_contributes_ids = value.split(/,\s*/)
   end
 
   def is_schulze?
-    self.solutions.count > 1
+    solutions.count > 1
   end
 
   def is_standard?
-    self.proposal_type.name == ProposalType::STANDARD
+    proposal_type.name == ProposalType::STANDARD
   end
 
   def is_polling?
-    self.proposal_type.name == ProposalType::POLL
+    proposal_type.name == ProposalType::POLL
   end
 
+  # TODO: remove jobs
   def remove_scheduled_tasks
-    #Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: self.id}) #TODO remove jobs
+    # Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: self.id})
   end
 
   # return true if the proposal is currently in debate
@@ -338,15 +354,18 @@ class Proposal < ActiveRecord::Base
   end
 
   def is_current?
-    [ProposalState::VALUTATION, ProposalState::WAIT_DATE, ProposalState::WAIT, ProposalState::VOTING].include? proposal_state_id
+    [ProposalState::VALUTATION,
+     ProposalState::WAIT_DATE,
+     ProposalState::WAIT,
+     ProposalState::VOTING].include? proposal_state_id
   end
 
-  #restituisce 'true' se la proposta è attualmente anonima, ovvero è stata definita come tale ed è in dibattito
+  # restituisce 'true' se la proposta è attualmente anonima, ovvero è stata definita come tale ed è in dibattito
   def is_anonima?
     is_current? && anonima
   end
 
-  #return true if the proposal is in a group
+  # return true if the proposal is in a group
   def in_group?
     private?
   end
@@ -359,16 +378,16 @@ class Proposal < ActiveRecord::Base
     proposal_type_id == 11
   end
 
-  #return the group to which belongs the proposal
-  #if is in the open space then nil is returned
-  #TODO if belongs to many groups returns the first. we actually have max 1 group
+  # return the group to which belongs the proposal
+  # if is in the open space then nil is returned
+  # TODO if belongs to many groups returns the first. we actually have max 1 group
   def group
     groups.first
   end
 
-  #return the group_area to which belongs the proposal
-  #if is in the open space then nil is returned
-  #TODO if belongs to many group_areas returns the first. we actually have max 1 group area
+  # return the group_area to which belongs the proposal
+  # if is in the open space then nil is returned
+  # TODO if belongs to many group_areas returns the first. we actually have max 1 group area
   def group_area
     presentation_areas.first
   end
@@ -399,10 +418,10 @@ class Proposal < ActiveRecord::Base
   # retrieve the number of users that can vote this proposal
   def eligible_voters_count
     return User.confirmed.unblocked.count unless private?
-    if self.presentation_areas.size > 0 #if we are in a working area
-      presentation_areas.first.scoped_participants(GroupAction::PROPOSAL_VOTE).count #todo more areas
+    if presentation_areas.size > 0 # if we are in a working area
+      presentation_areas.first.scoped_participants(GroupAction::PROPOSAL_VOTE).count # todo more areas
     else
-      groups.first.scoped_participants(GroupAction::PROPOSAL_VOTE).count #todo more groups
+      groups.first.scoped_participants(GroupAction::PROPOSAL_VOTE).count # todo more groups
     end
   end
 
@@ -439,44 +458,46 @@ class Proposal < ActiveRecord::Base
 
   # all users that will receive a notification that asks them to check or give their valutation to the proposal
   def notification_receivers
-    #will receive the notification the users that partecipated to the proposal and can change their valutation or they haven't give it yet
-    users = self.participants
+    # the users that partecipated to the proposal and can change their valutation or they haven't gave it yet
+    users = participants
     res = []
     users.each do |user|
       # user ranking to the proposal
       ranking = user.proposal_rankings.where(proposal_id: id).first
-      res << user if !ranking || (ranking && (ranking.updated_at < updated_at)) #if he ranked and can change it
+      res << user if !ranking || (ranking && (ranking.updated_at < updated_at)) # if he ranked and can change it
     end
     res
   end
 
   # all users that will receive a notification that asks them to vote the proposal
   def vote_notification_receivers
-    #will receive the notification the users that partecipated to the proposal and can change their valutation or they haven't give it yet
-    users = self.participants
+    # users that partecipated to the proposal and can change their valutation or they haven't give it yet
+    users = participants
     res = []
     users.each do |user|
-      #user ranking to the proposal
+      # user ranking to the proposal
       ranking = user.proposal_rankings.find_by(proposal_id: id)
-      res << user if !ranking || (ranking.updated_at < updated_at) #if he ranked and can change it
+      res << user if !ranking || (ranking.updated_at < updated_at) # if he ranked and can change it
     end
   end
 
   # restituisce la lista delle 10 proposte più vicine a questa
   def closest(group_id=nil)
-    sql_q = " SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.quorum_id, p.anonima, p.visible_outside, p.secret_vote, p.proposal_votation_type_id, p.content,
+    sql_q = " SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.quorum_id, p.anonima,
+              p.visible_outside, p.secret_vote, p.proposal_votation_type_id, p.content,
               p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
               p.rank, p.show_comment_authors, COUNT(*) AS closeness
               FROM proposal_tags pt join proposals p on pt.proposal_id = p.id "
 
-    sql_q += " left join group_proposals gp on gp.proposal_id = p.id " if group_id
+    sql_q += ' left join group_proposals gp on gp.proposal_id = p.id ' if group_id
     sql_q += " WHERE pt.tag_id IN (SELECT pti.tag_id
                                   FROM proposal_tags pti
-                                  WHERE pti.proposal_id = #{self.id})
-              AND pt.proposal_id != #{self.id} "
-    sql_q += " AND (p.private = false OR p.visible_outside = true "
-    sql_q += group_id ? " OR (p.private = true AND gp.group_id = #{group_id}))" : ")"
-    sql_q += " GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.quorum_id, p.anonima, p.visible_outside, p.secret_vote, p.proposal_votation_type_id, p.content,
+                                  WHERE pti.proposal_id = #{id})
+              AND pt.proposal_id != #{id} "
+    sql_q += ' AND (p.private = false OR p.visible_outside = true '
+    sql_q += group_id ? " OR (p.private = true AND gp.group_id = #{group_id}))" : ')'
+    sql_q += " GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.quorum_id, p.anonima,
+               p.visible_outside, p.secret_vote, p.proposal_votation_type_id, p.content,
                p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
                p.rank, p.show_comment_authors
                ORDER BY closeness DESC limit 10"
@@ -537,17 +558,18 @@ class Proposal < ActiveRecord::Base
     text :content, boost: 2
     text :paragraphs do
       (sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content.gsub!(/\p{Cc}/, '') } } +
-        solutions.map { |solution| solution.sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content.gsub!(/\p{Cc}/, '') } } }).flatten
+        solutions.map { |solution| solution.sections.map { |section|
+          section.paragraphs.map { |paragraph| paragraph.content.gsub!(/\p{Cc}/, '') } } }).flatten
     end
     text :tags_list do
-      self.tags.map(&:text).join(' ')
+      tags.map(&:text).join(' ')
     end
     boolean :visible_outside
     boolean :private
     integer :id
-    integer :supporting_group_ids, multiple: true #presentation groups
-    integer :group_ids, multiple: true #supporting groups
-    integer :presentation_area_ids, multiple: true #area
+    integer :supporting_group_ids, multiple: true # presentation groups
+    integer :group_ids, multiple: true # supporting groups
+    integer :presentation_area_ids, multiple: true # area
     integer :proposal_state_id
     integer :proposal_category_id
     integer :proposal_type_id
@@ -556,7 +578,7 @@ class Proposal < ActiveRecord::Base
     integer :valutations
     double :rank
     time :quorum_ends_at do
-      self.quorum.ends_at if self.quorum
+      quorum.ends_at if quorum
     end
 
     integer :continent_ids, multiple: true do
@@ -579,17 +601,17 @@ class Proposal < ActiveRecord::Base
     end
 
     integer :votes do
-      self.user_votes.count if voting? || voted?
+      user_votes.count if voting? || voted?
     end
     time :votation_ends_at do
-      self.vote_period.endtime if self.vote_period && (voting? || voted?)
+      vote_period.endtime if vote_period && (voting? || voted?)
     end
   end
 
-  #restituisce la percentuale di avanzamento della proposta in base al quorum assegnato
+  # restituisce la percentuale di avanzamento della proposta in base al quorum assegnato
   def calculate_percentage
-    return unless self.quorum
-    @percentage = self.quorum.debate_progress
+    return unless quorum
+    @percentage = quorum.debate_progress
   end
 
   def percentage
@@ -598,15 +620,15 @@ class Proposal < ActiveRecord::Base
 
   def users_j
     self.is_anonima? ?
-      self.proposal_nicknames.where(user_id: self.user_ids).as_json(only: [:nickname]) :
-      self.users.as_json(only: [:id], methods: [:fullname])
+      proposal_nicknames.where(user_id: user_ids).as_json(only: [:nickname]) :
+      users.as_json(only: [:id], methods: [:fullname])
   end
 
 
-  #check if we have to close the debate and pass to votation phase
-  #accept a force parameter to close the debate in any case
+  # check if we have to close the debate and pass to votation phase
+  # accept a force parameter to close the debate in any case
   def check_phase(force_end=false)
-    quorum.check_phase(force_end) if in_valutation? #if the proposal already passed this phase skip this check
+    quorum.check_phase(force_end) if in_valutation? # if the proposal already passed this phase skip this check
   end
 
 
@@ -618,27 +640,30 @@ class Proposal < ActiveRecord::Base
     return unless in_valutation?
     logger.info "Abandoning proposal #{id}"
     self.proposal_state_id = ProposalState::ABANDONED
-    life = proposal_lives.build(quorum_id: quorum_id, valutations: valutations, rank: rank, seq: ((proposal_lives.maximum(:seq) || 0) + 1))
-    #save old authors
+    life = proposal_lives.build(quorum_id: quorum_id,
+                                valutations: valutations,
+                                rank: rank,
+                                seq: ((proposal_lives.maximum(:seq) || 0) + 1))
+    # save old authors
     users.each do |user|
       life.users << user
     end
-    #delete old data
+    # delete old data
     self.valutations = 0
     self.rank = 0
 
     NotificationProposalAbandoned.perform_in(1.minute, id, participants.map(&:id))
-    #and authors
+    # and authors
     proposal_presentations.destroy_all
 
-    #and rankings
+    # and rankings
     rankings.destroy_all
 
     save
-    #remove the timer if is still there
-    #if self.minutes #todo remove jobs
+    # remove the timer if is still there
+    # if self.minutes #todo remove jobs
     #  Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id})
-    #end
+    # end
   end
 
   # put the proposal back in debate from abandoned
@@ -651,10 +676,12 @@ class Proposal < ActiveRecord::Base
 
     ProposalNickname.generate(user, self)
 
-    #if the time is fixed we schedule notifications 24h and 1h before the end of debate
+    # if the time is fixed we schedule notifications 24h and 1h before the end of debate
     if quorum.time_fixed?
-      ProposalsWorker.perform_at(quorum.ends_at - 24.hours, {action: ProposalsWorker::LEFT24, proposal_id: id}) if quorum.minutes > 1440
-      ProposalsWorker.perform_at(quorum.ends_at - 1.hour, {action: ProposalsWorker::LEFT1, proposal_id: id}) if quorum.minutes > 60
+      ProposalsWorker.perform_at(quorum.ends_at - 24.hours,
+                                 {action: ProposalsWorker::LEFT24, proposal_id: id}) if quorum.minutes > 1440
+      ProposalsWorker.perform_at(quorum.ends_at - 1.hour,
+                                 {action: ProposalsWorker::LEFT1, proposal_id: id}) if quorum.minutes > 60
     end
   end
 
@@ -662,15 +689,19 @@ class Proposal < ActiveRecord::Base
     return if voting?
     self.proposal_state_id = ProposalState::VOTING
     self.save!
-    unless vote #se non ha i dati per la votazione creali
+    unless vote # se non ha i dati per la votazione creali
       vote_data = ProposalVote.new(proposal_id: id, positive: 0, negative: 0, neutral: 0)
       vote_data.save!
     end
 
     NotificationProposalVoteStarts.perform_async(id, groups.first.try(:id), presentation_areas.first.try(:id))
 
-    ProposalsWorker.perform_at(vote_period.endtime - 24.hours, {action: ProposalsWorker::LEFT24VOTE, proposal_id: id}) if (vote_period.duration/60) > 1440
-    ProposalsWorker.perform_at(vote_period.endtime - 1.hour, {action: ProposalsWorker::LEFT1VOTE, proposal_id: id}) if (vote_period.duration/60) > 60
+    ProposalsWorker.
+      perform_at(vote_period.endtime - 24.hours,
+                 {action: ProposalsWorker::LEFT24VOTE, proposal_id: id}) if (vote_period.duration/60) > 1440
+    ProposalsWorker.
+      perform_at(vote_period.endtime - 1.hour,
+                 {action: ProposalsWorker::LEFT1VOTE, proposal_id: id}) if (vote_period.duration/60) > 60
   end
 
   def set_votation_date(vote_period_id)
@@ -719,7 +750,7 @@ class Proposal < ActiveRecord::Base
 
     current_user = User.find(current_user_id)
     proposal_presentations.build(user: current_user)
-    #per sicurezza reimposto questi parametri per far si che i cattivi hacker non cambino le impostazioni se non possono
+    # per sicurezza reimposto questi parametri
     if group
       unless group.change_advanced_options
         self.anonima = group.default_anonima
@@ -729,19 +760,19 @@ class Proposal < ActiveRecord::Base
       self.private = true
 
       group_area = GroupArea.find(group_area_id) if group_area_id.present?
-      if group_area #check user permissions for this group area
+      if group_area # check user permissions for this group area
         errors.add(:group_area_id, I18n.t('permissions_required')) if current_user.cannot? :insert_proposal, group_area
-        self.presentation_areas << group_area
+        presentation_areas << group_area
       end
 
       topic = group.topics.find(topic_id) if topic_id.present?
       topic_proposals.build(topic_id: topic.id, user_id: current_user_id) if topic
     end
 
-    #we don't use quorum for petitions
+    # we don't use quorum for petitions
     if self.is_petition?
-      self.proposal_state_id = (self.petition_phase == 'signatures') ? ProposalState::VOTING : ProposalState::VALUTATION
-      self.build_vote(positive: 0, negative: 0, neutral: 0)
+      self.proposal_state_id = (petition_phase == 'signatures') ? ProposalState::VOTING : ProposalState::VALUTATION
+      build_vote(positive: 0, negative: 0, neutral: 0)
     else
       assign_quorum
 
@@ -753,16 +784,18 @@ class Proposal < ActiveRecord::Base
   def send_notifications
     return if is_petition?
 
-    #if the time is fixed we schedule notifications 24h and 1h before the end of debate
+    # if the time is fixed we schedule notifications 24h and 1h before the end of debate
     if quorum.time_fixed?
-      ProposalsWorker.perform_at(quorum.ends_at - 24.hours, {action: ProposalsWorker::LEFT24, proposal_id: id}) if quorum.minutes > 1440
-      ProposalsWorker.perform_at(quorum.ends_at - 1.hour, {action: ProposalsWorker::LEFT1, proposal_id: id}) if quorum.minutes > 60
+      ProposalsWorker.perform_at(quorum.ends_at - 24.hours,
+                                 {action: ProposalsWorker::LEFT24, proposal_id: id}) if quorum.minutes > 1440
+      ProposalsWorker.perform_at(quorum.ends_at - 1.hour,
+                                 {action: ProposalsWorker::LEFT1, proposal_id: id}) if quorum.minutes > 60
     end
 
-    #end of debate timer
+    # end of debate timer
     ProposalsWorker.perform_at(quorum.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: id}) if quorum.minutes
 
-    #alert users of the new proposal
+    # alert users of the new proposal
     NotificationProposalCreate.perform_async(id)
   end
 
@@ -772,46 +805,71 @@ class Proposal < ActiveRecord::Base
       ProposalsWorker.perform_at(quorum.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: id})
     elsif current_user_id # updated or set votation date
       if waiting? # someone chose votation date
-        NotificationProposalWaitingForDate.perform_async(id, current_user.id)
+        NotificationProposalWaitingForDate.perform_async(id, current_user_id)
       else # standard update
         NotificationProposalUpdate.perform_async(current_user_id, id, groups.first.try(:id))
       end
     end
   end
 
-  def save_history
-    something = false
-    seq = (self.proposal_revisions.maximum(:seq) || 0) + 1
-    revision = self.proposal_revisions.build(user_id: update_user_id, valutations: valutations_was, rank: rank_was, seq: seq)
-    self.sections.each do |section|
-      paragraph = section.paragraphs.first
-      paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
-      if paragraph.content_changed? || section.marked_for_destruction?
-        something = true
-        section_history = revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq, added: section.new_record?, removed: section.marked_for_destruction?)
-        section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: self.id)
-      end
-    end
-    self.solutions.each do |solution|
+  def save_section_history(revision, section)
+    paragraph = section.paragraphs.first
+    paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
+    return false unless paragraph.content_changed? || section.marked_for_destruction?
+    section_history = revision.section_histories.build(section_id: section.id,
+                                                       title: section.title,
+                                                       seq: section.seq,
+                                                       added: section.new_record?,
+                                                       removed: section.marked_for_destruction?)
+    section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: id)
+    true
+  end
 
-      solution_history = revision.solution_histories.build(seq: solution.seq, title: solution.title, added: solution.new_record?, removed: solution.marked_for_destruction?)
+  def save_sections_history(revision)
+    something = false
+    sections.each do |section|
+      something = true if save_section_history(revision, section)
+    end
+    something
+  end
+
+  def save_solutions_history(revision)
+    something_solution = false
+    solutions.each do |solution|
+      solution_history = revision.solution_histories.build(seq: solution.seq,
+                                                           title: solution.title,
+                                                           added: solution.new_record?,
+                                                           removed: solution.marked_for_destruction?)
       something_solution = solution.title_changed? || solution.marked_for_destruction?
       solution.sections.each do |section|
         paragraph = section.paragraphs.first
         paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
         if paragraph.content_changed? || section.marked_for_destruction? || solution.marked_for_destruction?
-          something = true
           something_solution = true
-          section_history = solution_history.section_histories.build(section_id: section.id, title: section.title, seq: section.seq, added: section.new_record?, removed: (section.marked_for_destruction? || solution.marked_for_destruction?))
-          section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: self.id)
+          section_history = solution_history.section_histories.build(section_id: section.id,
+                                                                     title: section.title,
+                                                                     seq: section.seq,
+                                                                     added: section.new_record?,
+                                                                     removed: (section.marked_for_destruction? ||
+                                                                       solution.marked_for_destruction?))
+          section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: id)
         end
       end
       solution_history.destroy unless something_solution
-      something = true if something_solution
     end
+    something_solution
+  end
+
+  def save_history
+    something = false
+    seq = (proposal_revisions.maximum(:seq) || 0) + 1
+    revision = proposal_revisions.build(user_id: update_user_id, valutations: valutations_was, rank: rank_was, seq: seq)
+    something_sections = save_sections_history(revision)
+    something_solutions = save_solutions_history(revision)
+    something = something_sections || something_solutions
     if something
-      comment_ids = ProposalComment.where({id: integrated_contributes_ids, parent_proposal_comment_id: nil}).pluck(:id) #controllo di sicurezza
-      ProposalComment.where(id: comment_ids).update_all({integrated: true})
+      comment_ids = ProposalComment.where(id: integrated_contributes_ids, parent_proposal_comment_id: nil).pluck(:id)
+      ProposalComment.where(id: comment_ids).update_all(integrated: true)
       revision.contribute_ids = comment_ids
       self.updated_at = Time.now
     else
@@ -822,64 +880,70 @@ class Proposal < ActiveRecord::Base
   def update_borders
     proposal_borders.destroy_all
     interest_borders_tkn.to_s.split(',').each do |border| # l'identificativo è nella forma 'X-id'
-      ftype = border[0, 1] #tipologia (primo carattere)
-      fid = border[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
+      ftype = border[0, 1] # tipologia (primo carattere)
+      fid = border[2..-1] # chiave primaria (dal terzo all'ultimo carattere)
       found = InterestBorder.table_element(border)
-      if found #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
-        interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype], territory_id: fid)
+      # se ho trovato qualcosa, allora l'identificativo è corretto e posso creare il confine di interesse
+      if found
+        interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype],
+                                                      territory_id: fid)
         i = proposal_borders.build(interest_border_id: interest_b.id)
       end
     end
   end
 
   def assign_quorum
-    group = self.group_proposals.first.try(:group)
+    group = group_proposals.first.try(:group)
     group_area = GroupArea.find(group_area_id) if group_area_id.present?
-    copy = quorum.dup #make a copy of the assigned quorum and work on it
+    copy = quorum.dup # make a copy of the assigned quorum and work on it
     starttime = Time.now
-    #the quorum has minutes defined. calculate started_at and ends_at using these minutes
+    # the quorum has minutes defined. calculate started_at and ends_at using these minutes
     copy.started_at = starttime
     if quorum.minutes
       endtime = starttime + quorum.minutes.minutes
       copy.ends_at = endtime
     end
 
-    #todo move quorum build in quorum model
+    # todo move quorum build in quorum model
     base_valutations = 0
     base_vote_valutations = 0
-    if group_area #we have to calculate the number of valutations based on group area participants
+    if group_area # we have to calculate the number of valutations based on group area participants
       base_valutations = group_area.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count.to_f
       base_vote_valutations = group_area.scoped_participants(GroupAction::PROPOSAL_VOTE).count.to_f
-    elsif group #we have to calculate the number of valutations based on group participants
+    elsif group # we have to calculate the number of valutations based on group participants
       base_valutations = group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count.to_f
       base_vote_valutations = group.scoped_participants(GroupAction::PROPOSAL_VOTE).count.to_f
-    else #we calculate the number of valutations based on application users number
+    else # we calculate the number of valutations based on application users number
       base_vote_valutations = base_valutations = User.count_active
     end
     copy.valutations = ((quorum.percentage.to_f * base_valutations) / 100).floor
-    copy.vote_valutations = ((quorum.vote_percentage.to_f * base_vote_valutations) / 100).floor #todo we must calculate it before votation because there can be new users in the meantime
+    # TODO: we must calculate it before votation because there can be new users in the meantime
+    copy.vote_valutations = ((quorum.vote_percentage.to_f * base_vote_valutations) / 100).floor
 
-    #always add 1 and at least 1. todo max is useless
-    copy.valutations = [copy.valutations + 1, 1].max
-    copy.vote_valutations = [copy.vote_valutations + 1, 1].max
+    # always add 1 and at least 1.
+    copy.valutations = copy.valutations + 1
+    copy.vote_valutations = copy.vote_valutations + 1
 
-    copy.public = false #assigned quorum are never public
+    copy.public = false # assigned quorum are never public
     copy.assigned = true
     copy.save
-    self.quorum_id = copy.id #replace the quorum with the copy
+    self.quorum_id = copy.id # replace the quorum with the copy
 
-    #if is time fixed you can choose immediatly vote period
+    # if is time fixed you can choose immediatly vote period
     return unless copy.time_fixed?
-    #if the user chose it
+    # if the user chose it
     if votation && (votation[:later] != 'true')
-      #if he took a vote period already existing
-      if (votation[:choise] && (votation[:choise] == 'preset')) || (!votation[:choise] && votation[:vote_period_id].present?)
+      # if he took a vote period already existing
+      if (votation[:choise] && (votation[:choise] == 'preset')) ||
+        (!votation[:choise] && votation[:vote_period_id].present?)
         self.vote_event = Event.find(votation[:vote_period_id])
-        if vote_event.starttime < Time.now + copy.minutes.minutes + DEBATE_VOTE_DIFFERENCE #if the vote period start before the end of debate there is an error
+        # if the vote period start before the end of debate there is an error
+        if vote_event.starttime < Time.now + copy.minutes.minutes + DEBATE_VOTE_DIFFERENCE
           errors.add(:base, I18n.t('error.proposals.vote_period_incorrect'))
         end
-      else #if he created a new period
-        start = ((votation[:start_edited].present?) && votation[:start]) || (copy.ends_at + DEBATE_VOTE_DIFFERENCE) #look if he edited the starttime or not
+      else # if he created a new period
+        # look if he edited the starttime or not
+        start = ((votation[:start_edited].present?) && votation[:start]) || (copy.ends_at + DEBATE_VOTE_DIFFERENCE)
         raise Exception 'error' unless votation[:end].present?
         self.vote_starts_at = start
         self.vote_ends_at = votation[:end]
