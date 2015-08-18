@@ -1,14 +1,10 @@
 GIT
   remote: git://github.com/DavyJonesLocker/client_side_validations-simple_form.git
   revision: 8300550a72b3b055a622567065b55dfa808bfd38
-  remote: git://github.com/TecnologieDemocratiche/omniauth-tecnologiedemocratiche.git
-  revision: 6992d85eca9a82405ce1d89f4a94898fd800a6e7
   specs:
     client_side_validations-simple_form (3.1.0)
       client_side_validations (~> 4.2.0)
       simple_form (~> 3.1)
-    omniauth-tecnologiedemocratiche (1.3.4)
-      omniauth-oauth2 (~> 1.2)
 
 GIT
   remote: git://github.com/DavyJonesLocker/client_side_validations.git
