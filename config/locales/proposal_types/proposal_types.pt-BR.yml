@@ -1,0 +1,56 @@
+pt-BR:
+  pages:
+    proposals:
+      edit:
+        add_solution:
+          standard: Adicionar outra solução
+          poll: Adicionar outra opção
+          rule_book: Adicionar outra solução
+          press: Adicionar outra solução
+          event: Adicionar outra solução
+          estimate: Adicionar outra solução
+          agenda: Adicionar outro ponto
+          candidates: Adicionar outro candidato
+          simple: Adicionar outra solução
+      new:
+        standard:
+          problems_title: Problemas
+          problems_title_label: Qual é o problema a ser resolvido e/ou quais são os obstáculos a superar para alcançar o objetivo?
+          objectives_title: Objetivos
+          step_4_title: Você pode inserir um texto para a proposta ou escrevê-lo mais tarde baseado nas contribuições recebidas
+          solution:
+            description: Descrição da solução
+            time: Período
+            subject: Supervisor
+            resources: Recursos necessários e como obtê-los
+            aspects: Aspectos éticos, ambientais, sociais
+            documents: Documentação
+            pros: Prós
+            cons: Contras
+            title: Solução 1
+          suggestion_html: '<div><b>Exemplo:</b></div> <div>Reduzir o uso de água potável para irrigação.</div> <div>Usando água para regar os parques públicos e jardins privados é um desperdício e tem custos relevantes. Além disso, o aquífero que abastece o aqueduto está exaurindo.</div>'
+        rule_book:
+          problems_title: Problemas
+          problems_title_label: Quais são os problemas a serem resolvidos com a aplicação do presente regulamento. Quais são as questões a serem reguladas? Por que?
+          solution:
+            title: Solução 1
+            article: 'Artigo %{num}'
+            pros: Prós
+            cons: Contras
+          paragraph:
+            inspire: Regulamento de inspiração
+            requirements: Requisitos necessários
+        press:
+          problems_title_label: Qual é a mensagem que você deseja transmitir? Quais obstáculos são esperados para sua compreensão adequada? Existem artigos ou notícias recentes que você deseja replicar ou para os quais você deseja fornecer mais informações?
+          problems_title: Mensagem a transmitir
+          solution:
+            title: Solução 1
+            maintitle: Título
+            body: Corpo
+            conclusion: Conclusões
+        estimate:
+          problems_title: Problemas
+          solution:
+            title: Solução 1
+            cost: Valor
+            problems: Respeito de problemas e restrições

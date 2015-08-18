@@ -1,4 +1,4 @@
-ro-RO:
+ro:
   pages:
     proposals:
       new:
@@ -46,7 +46,6 @@ ro-RO:
           problems_title: Tip de întâlnire
           suggestion_html: '<div><b>Exemplu:</b></div> <div>Alege o ordine de zi pentru întâlnirea noastră.</div> <div>Întâlnire obișnuită, pentru coordonare și schimb de experienţă, cu referenţii comitetelor locale pentru agricultură biologică.</div>'
           solution:
-            points: Puncte de pe ordinea de zi
             priorities: Prioritatea punctelor
             links: link-uri către detalii
         event:
@@ -68,10 +67,8 @@ ro-RO:
           solution:
             name: Numele şi prenumele candidatului
             data: Datele cu caracter personal
-            curriculum: Curriculum
-            available: Disponibilitate pentru poziţia
         simple:
           problems_title: Problemă
+          problems_title_label: Care este problema ce trebuie rezolvată şi/sau care sunt obstacolele ce trebuiesc depăşite pentru a atinge obiectivul?
           solution:
             description: Descriere
-          problems_title_label: Care este problema ce trebuie rezolvată şi/sau care sunt obstacolele ce trebuiesc depăşite pentru a atinge obiectivul?

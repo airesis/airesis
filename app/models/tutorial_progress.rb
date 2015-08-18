@@ -1,5 +1,4 @@
 class TutorialProgress < ActiveRecord::Base
-
   TODO = 'N'
   DONE = 'Y'
   SKIPPED = 'S'

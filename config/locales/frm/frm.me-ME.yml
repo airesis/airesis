@@ -1,0 +1,242 @@
+me:
+  frm:
+    general:
+      forum: Forum
+      topics: Teme
+      topic: Tema
+      posts: Postovi
+      posts_count:
+        one: 1 post
+        few: '%{count} postova'
+        other: '%{count} postova'
+      flagged_for_spam: Vaš nalog je označen za spam.
+      cannot_create_topic: Ne možete kreirati novu temu u ovom trenutku.
+      cannot_create_post: Ne možete kreirati novi post u ovom trenutku.
+    access_denied: Nije vam dozvoljeno da to uradite.
+    admin:
+      area: Područje administratora
+      back_to_admin: Nazad na administratora
+      back_to_forums: Nazad na forume
+      back_to_groups: Nazad na grupe
+      forum:
+        moderator_groups: Urednik grupa
+        index: Upravljanje forumima
+        new: Kreiranje novog foruma
+        new_link: Novi forum
+        deleted: Izabrani forum je izbrisan
+        created: Ovaj forum je kreiran.
+        not_created: Ovaj forum ne može biti kreiran
+        updated: Ovaj forum je ažuriran.
+        not_updated: Ovaj forum ne može biti ažuriran
+      forums:
+        edit: Uredite
+        delete: Izbrišite
+        category: Kategorija
+        delete_confirm: Da li ste sigurni da želite da izbrišete ovaj forum?
+        index:
+          last_post: Poslednji post
+          none: Nijedan
+          moderators: Moderatori
+          no_category: (Nema kategorije)
+        default_private: Privatan forum
+        default_public: Javni forum
+        default_private_description: Forum rezervisan za učesnike grupe
+        default_public_description: Forum vidljiv svim korisnicima Airesisa, kao i korisnicima koji nijesu u grupi
+      mod:
+        index: Upravljanje grupama
+        new: Nova grupa
+        created: Grupa uspješno kreirana
+        not_created: Nije moguće kreirati grupu
+        deleted: Izabrana grupa je izbrisana
+        members: 'Članovi u %{group}'
+      mods:
+        show:
+          add_member: Dodajte
+          add_a_new_member: Dodajte novog člana
+          current_members: Trenutni članovi
+        edit: Uredite
+        delete: Izbrišite
+        name: Ime
+      category:
+        index: Upravljanje kategorijama foruma
+        new: Kreiranje nove kategorije foruma
+        edit: 'Uređivanje %{title} kategorije'
+        new_link: Nova kategorija foruma
+        deleted: Izabrana kategorija foruma je izbrisana
+        created: Ova kategorija foruma je kreirana
+        not_created: Nije moguće kreirati ovu kategoriju foruma
+        updated: Ova kategorija foruma je ažurirana
+        not_updated: Nije moguće ažurirati ovu kategoriju foruma
+      categories:
+        edit: Uredite
+        delete: Izbrišite
+        category: Kategorija
+        delete_confirm: Da li ste sigurni da želite da izbrišete ovu kategoriju foruma?
+        default_private: Privatni odjeljak
+        default_public: Javni odjeljak
+      group:
+        index: Upravljanje grupama moderatora
+        show:
+          title: Upravljanje moderatorima
+    common:
+      pages: Strane
+    errors:
+      not_signed_in: Morate se prvo prijaviti
+      access_denied: Pristup zabranjen.
+    forum:
+      header: 'Prikazivanje %{title}'
+      forums: Forumi
+      new: Kreiranje novog foruma
+      edit: 'Uređivanje %{title} foruma'
+      topics_count:
+        one: 1 tema
+        few: '%{count} tema'
+        other: '%{count} tema'
+      posts_count:
+        one: 1 post
+        few: '%{count} postova'
+        other: '%{count} postova'
+      moderator_tools: Alatke za moderaciju
+      topic_tools: Alatke za temu
+      admin_tools: Alatke za administraciju
+      title: Novi forum
+    forums:
+      index:
+        title: Forum
+        forum: Forum
+        views: Prikazi
+        last_post: 'Posljednji post:'
+        none: Nijedan
+    topic:
+      headings:
+        topic: Tema
+        latest: Najnovije
+        posts: Postovi
+        views: Prikazi
+      moderation:
+        success: Izabrana tema je moderirana
+        no_option_selected: Nijedna opcija za moderaciju nije izabrana
+      received_reply: Tema na koju ste se pretplatili je dobila odgovor
+      reply: Odgovorite
+      quote: Citirajte
+      delete: Izbrišite
+      created: Ova tema je kreirana
+      new: Kreiranje nove teme
+      edit: Uređivanje teme
+      not_created: Ova tema ne može biti kreirana
+      deleted: Vaša tema je izbrisana
+      cannot_delete: Ne možete izbrisati temu koja nije vaša
+      updated: Ova tema je ažurirana
+      not_updated: Ova tema ne može biti ažurirana
+      subscribed: Pretplatili ste se na ovu temu
+      unsubscribed: Odjavili ste se sa ove teme
+      none: Trenutno nema tema u ovom forumu
+      links:
+        new: Nova tema
+        back_to_topics: Nazad na teme
+        edit: Uredite temu
+      not_found: Tema koju tražite ne može biti nađena
+      hidden:
+        "true": Ova tema je sada sakrivena
+        "false": Ova tema je sada vidljiva
+      locked:
+        "true": Ova tema je sada zaključana
+        "false": Ova tema je sada otključana
+      pinned:
+        "true": Ova tema je sada prikačena
+        "false": Ova tema je sada uklonjena
+    topics:
+      show:
+        reply: Odgovorite
+        delete: Izbrišite
+        subscribe: Pretplatite se
+        unsubscribe: Odjavite pretplatu
+        reply_to_topic: Odgovorite na temu
+        pending_review: Ova tema trenutno čeka pregled. Samo korisnik koji je kreirao i moderatori je mogu vidjeti.
+        hide:
+          "true": Prikazivanje ove teme
+          "false": Sakrivanje ove teme
+        lock:
+          "true": Otključavanje ove teme
+          "false": Zaključavanje ove teme
+        pin:
+          "true": Uklanjanje ove teme
+          "false": Prikačinjanje ove teme
+        related_proposals: Povezani prijedlozi
+    post:
+      buttons:
+        reply: Odgovor
+        edit: Uredite
+      created: Vaš odgovor je poslat
+      new: Odgovor na
+      edit: Uredite
+      not_created: Vaš odgovor ne može biti poslat
+      not_created_topic_locked: Ne možete odgovarati na zaključanu temu
+      edited: Vaš post je uređen
+      not_edited: Vaš post ne može biti uređen
+      deleted: Vaš post je izbrisan
+      deleted_with_topic: Posljednji post u temi je izbrisan. Cijela tema je takođe izbrisana
+      cannot_delete: Ne možete izbrisati post koji nije vaš
+      cannot_quote_deleted_post: Post koji pokušavate da citirate ne postoji više.
+    posts:
+      moderation:
+        moderate: Uredite
+        approve: Odobrite
+        spam: Spam
+        success: Izabrani postovi su uređeni
+      post:
+        pending_review: Ovaj post trenutno čeka pregled. Samo korisnik koji ga je postavio i moderatori ga mogu vidjeti.
+        in_reply_to: kao odgovor na
+    moderation:
+      index:
+        title: 'Alatke za moderaciju za %{forum}'
+  helpers:
+    submit:
+      frm_forum:
+        create: Kreiranje foruma
+        update: Ažuriranje foruma
+      topic:
+        create: Kreiranje teme
+        update: Ažuriranje teme
+      frm_mod:
+        create: Kreiranje grupe
+      frm_category:
+        create: Kreiranje kategorije
+        update: Ažuriranje kategorije
+  simple_form:
+    labels:
+      frm_forum:
+        category: Kategorija
+        title: Naslov
+        description: Opis
+        moderators: Moderatori
+        visible_outside: Vidljivo izvan grupe
+      topic:
+        subject: Naslov
+        locked: Zaključano
+        pinned: Prikačeno
+        hidden: Sakriveno
+        posts:
+          text: Tekst
+      frm_category:
+        name: Ime
+      post:
+        text: Tekst
+      frm_mod:
+        name: Ime
+  time_ago_in_words: '%{time} prije'
+  ago: ' prije'
+  ago_by: ' prije'
+  by: od
+  started_by: 'Započeto od '
+  are_you_sure: Da li ste sigurni?
+  lst_post: Posljednji post
+  last_post: Posljednja tema
+  back_to_forums: Nazad na forum
+  pages:
+    forum_groups:
+      index:
+        create_first: Još uvijek nema grupa moderatora. Kreirajte prvu!
+  info:
+    members:
+      ok_message: Korisnik uspješno dodat grupi

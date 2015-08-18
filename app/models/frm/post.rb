@@ -22,8 +22,8 @@ module Frm
     belongs_to :reply_to, class_name: 'Post'
 
     has_many :replies, class_name: 'Post',
-             foreign_key: 'reply_to_id',
-             dependent: :nullify
+                       foreign_key: 'reply_to_id',
+                       dependent: :nullify
 
     validates :text, presence: true
 
@@ -39,10 +39,9 @@ module Frm
 
     after_save :approve_user, if: :approved?
     after_save :blacklist_user, if: :spam?
-    after_save :email_topic_subscribers, if: Proc.new { |p| p.approved? && !p.notified? }
+    after_save :email_topic_subscribers, if: proc { |p| p.approved? && !p.notified? }
 
     class << self
-
       def approved
         where(state: 'approved')
       end
@@ -50,8 +49,8 @@ module Frm
       def approved_or_pending_review_for(user)
         if user
           where arel_table[:state].eq('approved').or(
-                    arel_table[:state].eq('pending_review').and(arel_table[:user_id].eq(user.id))
-                )
+            arel_table[:state].eq('pending_review').and(arel_table[:user_id].eq(user.id))
+          )
         else
           approved
         end
@@ -95,7 +94,7 @@ module Frm
     end
 
     def owner_or_admin?(other_user)
-      user == other_user || other_user.forem_admin?(self.group)
+      user == other_user || other_user.forem_admin?(group)
     end
 
     def owner_or_moderator?(other_user)
@@ -105,9 +104,7 @@ module Frm
     protected
 
     def subscribe_replier
-      if topic && user
-        topic.subscribe_user(user.id)
-      end
+      topic.subscribe_user(user.id) if topic && user
     end
 
     def email_topic_subscribers
@@ -133,12 +130,11 @@ module Frm
     end
 
     def approve_user
-      #todo disattivato user.update_attribute(:forem_state, "approved") if user && user.forem_state != "approved"
+      # TODO: disattivato user.update_attribute(:forem_state, "approved") if user && user.forem_state != "approved"
     end
 
     def blacklist_user
       user.update_attribute(:forem_state, 'spam') if user
     end
-
   end
 end

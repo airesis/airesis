@@ -1,23 +1,21 @@
 class Tag < ActiveRecord::Base
-
   has_many :proposal_tags
   has_many :proposals, through: :proposal_tags
   has_many :blog_post_tags
   has_many :blog_posts, through: :blog_post_tags
   has_many :tag_counters
 
-  scope :most_used, ->(territory, limit=10) { very_used(territory, limit).order('random()') }
+  scope :most_used, ->(territory, limit = 10) { very_used(territory, limit).order('random()') }
 
-  scope :most_groups, ->(territory, limit=40) { used_in_groups(territory).limit(limit) }
+  scope :most_groups, ->(territory, limit = 40) { used_in_groups(territory).limit(limit) }
 
-  scope :most_blogs, ->(territory, limit=40) { used_in_blogs(territory).limit(limit) }
-
+  scope :most_blogs, ->(territory, limit = 40) { used_in_blogs(territory).limit(limit) }
 
   scope :for_twitter, -> { pluck(:text).map { |t| "##{t}" }.join(', ') }
 
   before_save :escape_text, on: :create
 
-  def as_json(options={})
+  def as_json(_options = {})
     {id: text, name: text}
   end
 
@@ -39,7 +37,6 @@ class Tag < ActiveRecord::Base
                 and tt3.text != ?", text, text])
     Tag.find_by_sql query
   end
-
 
   def self.territory_filter(territory)
     tag_counters_t = TagCounter.arel_table
@@ -80,5 +77,4 @@ class Tag < ActiveRecord::Base
   def escape_text
     self.text = text.strip.downcase.gsub('.', '').gsub("'", '').gsub('/', '')
   end
-
 end

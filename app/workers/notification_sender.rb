@@ -66,7 +66,7 @@ class NotificationSender
     end # no alerts in queue
     alert = search_for_unread_alert(user, notification.notification_type)
     if alert # we have an unread alert, already sent
-      alert.accumulate(1)
+      alert.accumulate
     else # last alert has been already checked. no email will be sent then (or has already been sent)...create a new alert
       build_alert(notification, user)
     end
@@ -87,32 +87,6 @@ class NotificationSender
 
   def search_alert_jobs(notification_type, user)
     AlertJob.where(notification_type: notification_type, user: user, trackable: @trackable)
-  end
-
-  ###
-
-  # delete previous notifications
-  # @param attribute [String] column to be checked
-  # @param attr_id [String] value for the column to be checked
-  # @return nil
-  # @param [Integer] user_id receiver of the alert
-  # @param [Integer] notification_type
-  # @deprecated
-  def another_delete(attribute, attr_id, user_id, notification_type)
-    another = Alert.another(attribute, attr_id, user_id, notification_type)
-    another.soft_delete_all
-  end
-
-  #increase previous notification
-  ## @deprecated
-  def another_increase_or_do(attribute, attr_id, user_id, notification_type, &block)
-    another = Alert.another_unread(attribute, attr_id, user_id, notification_type).first
-    if another
-      another.increase_count!
-      PrivatePub.publish_to("/notifications/#{user_id}", pull: 'hello') rescue nil #todo send specific alert to be included
-    else
-      block.call
-    end
   end
 
   def url_for_proposal

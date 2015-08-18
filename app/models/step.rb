@@ -3,6 +3,6 @@ class Step < ActiveRecord::Base
   has_many :tutorial_progresses, class_name: 'TutorialProgress', dependent: :destroy
 
   def is_html?
-    self.format == 'html'
+    format == 'html'
   end
 end

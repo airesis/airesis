@@ -1,42 +1,33 @@
 fr:
+  countdowns:
+    labelsPlural:
+      - Années
+      - Mois
+      - Semaines
+      - Jours
+      - Heures
+      - Minutes
+      - Secondes
+    labelsSingular:
+      - Année
+      - Mois
+      - Semaine
+      - Jour
+      - Heure
+      - Minute
+      - Seconde
+    compactLabelsPlural:
+      - a
+      - m
+      - s
+      - j
+    compactLabelsSingular:
+      - a
+      - m
+      - s
+      - j
   calendar:
-    monthNames: "['Janvier', 'Février', 'mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']"
-    monthNamesShort: "['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sept','Oct','Nov','Déc']"
-    dayNames: "['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi']"
-    dayNamesShort: "['Dim','Lun','Mar','Mer','Jeu','Ven','Sam']"
-    today: "aujourd'hui"
-    month: mois
-    week: semaine
-    day: Jour
-    firstDay: "0"
-    timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
-  date:
-    order:
-      - :day
-      - :month
-      - :year
-    formats:
-      default: '%d-%m-%Y'
-      short: '%b %d'
-      long: '%d %B %Y'
-    day_names:
-      - Dimanche
-      - Lundi
-      - Mardi
-      - Mercredi
-      - Jeudi
-      - Vendredi
-      - Samedi
-    abbr_day_names:
-      - Dim
-      - Lun
-      - Mar
-      - Mer
-      - Ven
-      - Jeu
-      - Sam
-    month_names:
-      - nil
+    monthNames:
       - Janvier
       - Février
       - Mars
@@ -49,20 +40,50 @@ fr:
       - Octobre
       - Novembre
       - Décembre
-    abbr_month_names:
-      - nil
+    monthNamesShort:
       - Jan
       - Fév
       - Mar
       - Avr
       - Mai
-      - Juin
-      - Juil
-      - Août
-      - Sept
+      - Jun
+      - Jul
+      - Aug
+      - Sep
       - Oct
       - Nov
       - Déc
+    dayNames:
+      - Dimanche
+      - Lundi
+      - Mardi
+      - Mercredi
+      - Jeudi
+      - Vendredi
+      - Samedi
+    dayNamesShort:
+      - Dim
+      - Lun
+      - Mar
+      - Mer
+      - Jeu
+      - Ven
+      - Sam
+    today: "aujourd'hui"
+    month: mois
+    week: semaine
+    day: Jour
+    firstDay: 0
+    timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
+  date:
+    order:
+      - :day
+      - :month
+      - :year
+    formats:
+      default: '%d-%m-%Y'
+      short: '%b %d'
+      long: '%d %B %Y'
   time:
     formats:
       default: '%d %b %Y à %I:%M %p'
@@ -79,10 +100,12 @@ fr:
       hour: '%I:%M %p'
       yesterday_at: 'hier à %I:%M %p'
       textfield: '%d/%m/%Y %I:%M %p'
-      rich: '%Y-%m-%dT%H:%M'
     am: am
     pm: pm
     left:
+      seconds:
+        one: 1 seconde
+        other: '%{count} secondes'
       minutes:
         one: 1 minute
         other: '%{count} minutes'

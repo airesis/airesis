@@ -12,18 +12,16 @@ module Frm
 
     validates :name, presence: true
 
-
     validate :visibility
 
     def to_s
       name
     end
 
-
     protected
 
     def visibility
-      self.errors.add(:visible_outside, 'Impossibile rendere la sezione privata. Contiene forum pubblici') if !visible_outside && forums.where(visible_outside: true).exists?
+      errors.add(:visible_outside, 'Impossibile rendere la sezione privata. Contiene forum pubblici') if !visible_outside && forums.where(visible_outside: true).exists?
     end
   end
 end

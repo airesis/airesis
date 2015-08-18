@@ -1,45 +1,45 @@
 crowdin:
   home:
     whowe:
-      title: "{crwdns7887:0}{crwdne7887:0}"
-      description: "{crwdns7888:0}{crwdne7888:0}"
+      title: crwdns7887:0crwdne7887:0
+      description: crwdns7888:0crwdne7888:0
       intro:
-        title: "{crwdns7889:0}{crwdne7889:0}"
-        description_html: "{crwdns7890:0}%{story}{crwdne7890:0}"
-      development_area: "{crwdns7891:0}{crwdne7891:0}"
-      other_voluteers: "{crwdns7892:0}{crwdne7892:0}"
-      contributors: "{crwdns7893:0}{crwdne7893:0}"
-      contributors_desc: "{crwdns7894:0}{crwdne7894:0}"
-      special_thanks: "{crwdns7895:0}{crwdne7895:0}"
+        title: crwdns7889:0crwdne7889:0
+        description_html: 'crwdns7890:0%{story}crwdne7890:0'
+      development_area: crwdns7891:0crwdne7891:0
+      other_voluteers: crwdns7892:0crwdne7892:0
+      contributors: crwdns7893:0crwdne7893:0
+      contributors_desc: crwdns7894:0crwdne7894:0
+      special_thanks: crwdns7895:0crwdne7895:0
       tilatti_marino:
-        title: "{crwdns7896:0}{crwdne7896:0}"
-        content_html: "{crwdns7897:0}{crwdne7897:0}"
+        title: crwdns7896:0crwdne7896:0
+        content_html: crwdns7897:0crwdne7897:0
       rodi_alessandro:
-        title: "{crwdns7898:0}{crwdne7898:0}"
-        content_html: "{crwdns7899:0}%{age}{crwdne7899:0}"
-      analysis_area: "{crwdns7900:0}{crwdne7900:0}"
+        title: crwdns7898:0crwdne7898:0
+        content_html: 'crwdns7899:0%{age}crwdne7899:0'
+      analysis_area: crwdns7900:0crwdne7900:0
       giulietti_nicola:
-        title: "{crwdns7901:0}{crwdne7901:0}"
-        content_html: "{crwdns7902:0}%{age}{crwdnd7902:0}%{volunteer}{crwdne7902:0}"
+        title: crwdns7901:0crwdne7901:0
+        content_html: 'crwdns7902:0%{age}crwdnd7902:0%{volunteer}crwdne7902:0'
       baiotto_marco:
-        title: "{crwdns7903:0}{crwdne7903:0}"
-        content_html: "{crwdns7904:0}{crwdne7904:0}"
-      graphic_area: "{crwdns7905:0}{crwdne7905:0}"
+        title: crwdns7903:0crwdne7903:0
+        content_html: crwdns7904:0crwdne7904:0
+      graphic_area: crwdns7905:0crwdne7905:0
       kabora_marcello:
-        title: "{crwdns7906:0}{crwdne7906:0}"
-        content_html: "{crwdns7907:0}{crwdne7907:0}"
-      i18n_area: "{crwdns7908:0}{crwdne7908:0}"
+        title: crwdns7906:0crwdne7906:0
+        content_html: crwdns7907:0crwdne7907:0
+      i18n_area: crwdns7908:0crwdne7908:0
       tolja_jacopo:
-        title: "{crwdns7909:0}{crwdne7909:0}"
-        content_html: "{crwdns7910:0}{crwdne7910:0}"
-      communication_area: "{crwdns7911:0}{crwdne7911:0}"
+        title: crwdns7909:0crwdne7909:0
+        content_html: 'crwdns7910:0%{age}crwdne7910:0'
+      communication_area: crwdns7911:0crwdne7911:0
       curini_simone:
-        title: "{crwdns7912:0}{crwdne7912:0}"
-        content_html: "{crwdns7913:0}%{age}{crwdnd7913:0}%{volunteers}{crwdne7913:0}"
-      test_area: "{crwdns7914:0}{crwdne7914:0}"
+        title: crwdns7912:0crwdne7912:0
+        content_html: 'crwdns7913:0%{age}crwdnd7913:0%{volunteers}crwdne7913:0'
+      test_area: crwdns7914:0crwdne7914:0
       mion_carlo:
-        title: "{crwdns7915:0}{crwdne7915:0}"
-        content_html: "{crwdns7916:0}{crwdne7916:0}"
+        title: crwdns7915:0crwdne7915:0
+        content_html: crwdns7916:0crwdne7916:0
       zanellato_luca:
-        title: "{crwdns7917:0}{crwdne7917:0}"
-        content_html: "{crwdns7918:0}{crwdne7918:0}"
+        title: crwdns7917:0crwdne7917:0
+        content_html: crwdns7918:0crwdne7918:0

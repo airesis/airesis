@@ -6,12 +6,9 @@
 
 <%= stylesheet_link_tag 'application' %>
 <%= javascript_include_tag 'application' %>
-<%= javascript_include_tag "i18n/bootstrap-datetimepicker.#{I18n.locale}" %>
 <%= stylesheet_link_tag 'elfinder.min' %>
 <%= javascript_include_tag 'elfinder.full', 'elFinderSupportVer1' %>
 <%= javascript_include_tag "i18n/elfinder.#{I18n.locale}" %>
-
-<%= javascript_include_tag "i18n/jquery.countdown.#{I18n.locale}" %>
 <%= javascript_include_tag "vendor/modernizr" %>
 
 <%= csrf_meta_tag %>
@@ -19,6 +16,8 @@
 <%= render 'layouts/favicons' %>
 
 <script type="text/javascript">
+
+
     Airesis.id = <%=current_user ? current_user.id : -1 %>;
     Airesis.fullName = '<%=j current_user ? current_user.fullname : ''%>';
     Airesis.email = '<%=j (current_user && current_user.email) ? current_user.email : ''%>';
@@ -36,8 +35,6 @@
         alert_read: '<%=j raw t('pages.header.read')%>',
         alarm_settings: '<%=j raw t('pages.groups.header.alarm_settings')%>',
         no_alerts: '<%=j raw t('pages.header.no_alerts')%>',
-        countdown: '<%=j raw t('countdown')%>',
-        countdown2: '<%=j raw t('countdown2')%>',
         type_for_town: '<%=j raw t('pages.events.new.type_for_town')%>',
         locale: '<%=I18n.locale%>',
         feedback: {
@@ -85,8 +82,56 @@
             queryOrPlace: '<%=j t('pages.groups.index.insert_query_or_place')%>',
             allWords: '<%=j t('pages.groups.index.switchButton.all_words')%>',
             oneWord: '<%=j t('pages.groups.index.switchButton.one_word')%>'
+        },
+        datepicker: {
+            datetimeformat: '<%=j to_momentjs t('time.formats.datetimepicker')%>',
+            dateformat: '<%=j to_momentjs t('time.formats.datepicker')%>',
+            days: <%= raw I18n.t('calendar.dayNames') + [I18n.t('calendar.dayNames')[0]]%>,
+            daysShort: <%= raw I18n.t('calendar.dayNamesShort') + [I18n.t('calendar.dayNamesShort')[0]]%>,
+            daysMin: <%= raw (I18n.t('calendar.dayNamesShort') + [I18n.t('calendar.dayNamesShort')[0]]).map{|dd| dd[0..1]}%>,
+            months: <%= raw I18n.t('calendar.monthNames')%>,
+            monthsShort: <%= raw I18n.t('calendar.monthNamesShort')%>,
+            today: '<%=j I18n.t('calendar.today').capitalize%>',
+            firstDay: <%= I18n.t('calendar.firstDay')%>
+        },
+        countdown: {
+            labels: <%= raw I18n.t('countdowns.labelsPlural')%>,
+            labels1: <%= raw I18n.t('countdowns.labelsSingular')%>,
+            compactLabels: <%= raw I18n.t('countdowns.compactLabelsPlural')%>,
+            compactLabels1: <%= raw I18n.t('countdowns.compactLabelsSingular')%>,
+            layout1: '<%=j raw t('countdown')%>',
+            layout2: '<%=j raw t('countdown2')%>'
         }
     };
+
+    $.fn.fdatetimepicker.dates[Airesis.i18n.locale] = {
+        language: Airesis.i18n.locale,
+        days: Airesis.i18n.datepicker.days,
+        daysShort: Airesis.i18n.datepicker.daysShort,
+        daysMin: Airesis.i18n.datepicker.daysMin,
+        months: Airesis.i18n.datepicker.months,
+        monthsShort: Airesis.i18n.datepicker.monthsShort,
+        today: Airesis.i18n.datepicker.today,
+        suffix: [],
+        meridiem: [],
+        weekStart: Airesis.i18n.datepicker.firstDay,
+        format: Airesis.i18n.datepicker.datetimeformat,
+        dateFormat: Airesis.i18n.datepicker.dateformat,
+        autoclose: true
+    };
+
+    $.fn.fdatetimepicker.defaults = $.fn.fdatetimepicker.dates[Airesis.i18n.locale];
+
+    $.countdown.regionalOptions[Airesis.i18n.locale] = {
+        labels: Airesis.i18n.countdown.labels,
+        labels1: Airesis.i18n.countdown.labels1,
+        compactLabels: Airesis.i18n.countdown.compactLabels,
+        compactLabels1: Airesis.i18n.countdown.compactLabels1,
+        whichLabels: null,
+        digits: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+        timeSeparator: ':', isRTL: false
+    };
+    $.countdown.setDefaults($.countdown.regionalOptions[Airesis.i18n.locale]);
 </script>
 
 <% if I18n.locale.to_s == "crowdin" %>

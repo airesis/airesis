@@ -37,7 +37,6 @@ def fill_tokeninput(locator, opts)
   end
 end
 
-
 def page_should_be_ok
   expect(page).to_not have_content(I18n.t('error.error_500.title'))
   expect(page).to_not have_content(I18n.t('error.error_302.title'))

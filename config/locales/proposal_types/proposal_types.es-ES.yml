@@ -1,9 +1,9 @@
-es-ES:
+es:
   pages:
     proposals:
       new:
         standard:
-          problems_title: Problems
+          problems_title: Problemas
           problems_title_label: What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?
           objectives_title: Objectives
           step_4_title: You can enter a text of the proposal or write it later based on the input received
@@ -61,7 +61,6 @@ es-ES:
             <div>Choose an agenda for our meeting.</div>
             <div>Ordinary co-ordination meeting to exchange experiences with the referents of the local committees for the biological agriculture of Italy.</div>
           solution:
-            points: Agenda items
             priorities: Items priorities
             links: Insights links
         event:
@@ -82,17 +81,12 @@ es-ES:
             pros: Pros
             cons: Cons
         candidates:
-          suggestion_html: |
-            <div><b>Example:</b></div>
-            <div>Elect the new referent for the communication group.</div>
-            <div>The communication group has just been established and it is necessary to elect a referent. All the people that have benn members of the group for at least 5 months can be nominated.</div>
           solution:
             name: Candidate Name and Surname
             data: Personal data
             curriculum: Curriculum
-            available: Availability for the position
         simple:
           problems_title: Problem
+          problems_title_label: What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?
           solution:
             description: Description
-          problems_title_label: What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?

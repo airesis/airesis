@@ -18,7 +18,7 @@ es-AR:
       text_content: Las primeras líneas de la solución o problema
       timeline: Un barra que muestran el estado de la discusión o la votación
       timeleft: El tiempo o las evaluaciones que se necesitan para poner fin al debate
-      rankDescription: La madurez de la propuesta, muestra si la propuesta está lista para ser votada, basado en las evaluaciones de los partecipantes
+      rankDescription: La madurez de la propuesta, muestra si la propuesta está lista para ser votada, basado en las evaluaciones de los participantes
       participants: El número de personas que participan en esta propuesta con sus contribuciones y evaluaciones
       contributes: El número de contribuciones añadido
       end: Esta es la estructura de la lista de propuestas. Es el mismo en cada grupo en que participa y le ayudará a orientarse en las discusiones del grupo
@@ -31,8 +31,8 @@ es-AR:
       contributeButton: Utilizando estos botones puede ver las contribuciones de otros usuarios y añadir tu propio. Las contribuciones se refieren siempre al párrafo en que se encuentran accesibles
       newComment: Utilice este campo para agregar una contribución que no se refiere a un párrafo específico
       menu_left: En este menú de la izquierda podrá encontrar toda la información acerca de la propuesta
-      evaluations: El número de evaluaciones expresadas por los partecipantes, que ha indicado que si la propuesta está lista para la votación o el debate debe continuar
-      ranking: La madurez de la propuesta, es el porcentaje de los partecipantes que creen que la propuesta esta lista para la votación
+      evaluations: El número de evaluaciones expresadas por los participantes, que ha indicado que si la propuesta está lista para la votación o el debate debe continuar
+      ranking: La madurez de la propuesta, es el porcentaje de los participantes que creen que la propuesta esta lista para la votación
       status: La situación de la propuesta. En este caso se encuentra en la fase de debate
       dates: Fecha de creación y última actualización de la propuesta
       condition_left: Condición para poner fin al debate
@@ -40,5 +40,22 @@ es-AR:
       authors: Los editores actuales de la propuesta
       category: La categoría de esta propuesta
       history: Historia de la propuesta, en el cual usted puede ver sus modificaciones y evolución
+    groups_edit:
+      welcome: Este es el panel de administrador para grupos. Vamos a explicar a usted las secciones individuales ...
+      group_info: Aquí puede cambiar todas las informaciones sobre el grupo y su imagen. Por favor, complete las palabras claves si no lo has hecho aún. Son importantes para el grupo para poder ser encontrado.
+      group_roles: Aquí puede gestionar las funciones disponibles en el grupo. Puede gestionar sus permisos y la edición de los ya existentes.
+      group_users: Aquí usted puede administrar a los participantes en su grupo. Puede asignarles roles y enviar correos electrónicos.
+      group_proposals: 'Esta es la página donde puede cambiar todo lo relacionado con propuestas: quorums y configuración.'
+      group_areas: Las áreas están disponibles si quieres activarlas. Permitirán dividir el grupo en grupos más pequeños
+      group_forum: Y por último aquí estan todos los ajustes para el foro.
+    users_alarm_preferences:
+      intro: En esta página puede modificar toda la configuración de alertas y notificaciones.
+      alerts: Usted puede elegir qué alertas recibir en Airesis...
+      emails: .. .por correo electrónico, o ambos.
+      no_emails: 'Recuerde: Si des-habilita una alerta sobre Airesis, usted no la recibirá en Airesis tampoco.'
+    users_border_preferences:
+      intro: Si no lo has hecho aún, establecer las fronteras geográficas de interés. AIRESIS pronto las usará para mostrar contenidos específicos.
+    welcome:
+      intro: 'Bienvenido a Airesis %{name}. Estos tutoriales te guiaran a través de la aplicación y explicaran a usted cómo usarlo y dónde encontrar la información que usted necesita.'
     next: Próxima
     back: Atrás

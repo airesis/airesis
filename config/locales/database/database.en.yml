@@ -56,8 +56,6 @@ en:
         description: Support proposals on behalf of the group
       REQUEST_ACCEPT:
         description: Add new members to the group
-      SEND_CANDIDATES:
-        description: Nominate members for election
       PROPOSAL_VIEW:
         description: View private proposals
       PROPOSAL_PARTICIPATION:

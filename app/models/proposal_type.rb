@@ -19,7 +19,6 @@ class ProposalType < ActiveRecord::Base
   scope :for_open_space, -> { where(open_space_available: true) }
 
   def description
-    I18n.t("db.#{self.class.class_name.tableize}.#{self.name}.description")
+    I18n.t("db.#{self.class.class_name.tableize}.#{name}.description")
   end
-
 end

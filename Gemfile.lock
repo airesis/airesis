@@ -684,6 +684,7 @@ DEPENDENCIES
   sidekiq-failures
   sidetiq
   simple_form
+  simplecov
   sinatra
   sitemap_generator
   slim-rails
