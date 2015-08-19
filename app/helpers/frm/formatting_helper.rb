@@ -10,7 +10,7 @@ module Frm
     end
 
     def as_sanitized_text(text)
-        sanitize(text, :tags=>%W(p, img), :attributes=>['src'])
+      sanitize(text, tags: %w(p, img), attributes: ['src'])
     end
   end
 end

@@ -7,7 +7,7 @@ class GroupParticipation < ActiveRecord::Base
 
   after_destroy :remove_user_data
 
-  PER_PAGE=12
+  PER_PAGE = 12
 
   def as_admin?
     self == ParticipationRole.admin
@@ -15,10 +15,10 @@ class GroupParticipation < ActiveRecord::Base
 
   protected
 
-  #remove also the participation request and area participations
+  # remove also the participation request and area participations
   def remove_user_data
-    group_participation_request = GroupParticipationRequest.find_by(user_id: self.user_id, group_id: self.group_id)
+    group_participation_request = GroupParticipationRequest.find_by(user_id: user_id, group_id: group_id)
     group_participation_request.destroy
-    AreaParticipation.joins(group_area: :group).where(['groups.id = ? AND area_participations.user_id = ?', self.group_id, self.user_id]).readonly(false).destroy_all
+    AreaParticipation.joins(group_area: :group).where(['groups.id = ? AND area_participations.user_id = ?', group_id, user_id]).readonly(false).destroy_all
   end
 end

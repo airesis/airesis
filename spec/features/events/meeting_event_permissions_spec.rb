@@ -3,7 +3,6 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 describe "check permissions on meeting events", type: :feature, seeds: true do
-
   let!(:user) { create(:user) }
   let!(:group) { create(:group, current_user_id: user.id) }
   let!(:event) { create(:meeting_event, user: user) }
@@ -64,6 +63,5 @@ describe "check permissions on meeting events", type: :feature, seeds: true do
     expect(Ability.new(user3)).to_not be_able_to(:edit, event2)
     expect(Ability.new(user3)).to_not be_able_to(:update, event2)
     expect(Ability.new(user3)).to_not be_able_to(:destroy, event2)
-
   end
 end

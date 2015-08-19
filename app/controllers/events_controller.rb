@@ -119,13 +119,13 @@ class EventsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to @group ? group_events_url(@group) : events_url}
+      format.html { redirect_to @group ? group_events_url(@group) : events_url }
       format.js
     end
 
   rescue ActiveRecord::ActiveRecordError => e
     respond_to do |format|
-      format.js { render 'layouts/active_record_error', locals: {object: (@event || @event_series)} }
+      format.js { render 'layouts/active_record_error', locals: {object: @event} }
     end
   end
 
@@ -152,20 +152,13 @@ class EventsController < ApplicationController
     else
       respond_to do |format|
         format.html { render :edit }
-        format.js { render 'layouts/active_record_error', locals: {object: @event || @event_series} }
+        format.js { render 'layouts/active_record_error', locals: {object: @event} }
       end
     end
   end
 
   def destroy
-    if params[:delete_all] == 'true'
-      @event.event_series.destroy
-    elsif params[:delete_all] == 'future'
-      @events = @event.event_series.events.where(["starttime > '#{@event.starttime.to_formatted_s(:db)}' "])
-      @event.event_series.events.delete(@events)
-    else
-      @event.destroy
-    end
+    @event.destroy
     flash[:notice] = t('info.events.event_deleted')
 
     respond_to do |format|

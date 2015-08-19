@@ -307,7 +307,7 @@ window.ProposalsShow =
       since: updateDate
       significant: 1
       format: 'YODHMS'
-      layout: Airesis.i18n.countdown2
+      layout: Airesis.i18n.countdown.layout2
     ,
       $.countdown.regionalOptions[Airesis.i18n.locale]
 

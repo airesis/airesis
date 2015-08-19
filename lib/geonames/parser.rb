@@ -3,15 +3,46 @@ require 'open-uri'
 require 'active_support/core_ext/hash/slice'
 require 'active_support/core_ext/hash/indifferent_access'
 
+# HOW TO
+# 1. Proceed to geonames.org
+# 2. search for the country you are interested in
+# 3. look for its id (http://www.geonames.org/3658394/ecuador.html) the id is 3658394
+# 4. fill continent_name, country_name, country_code (the id) and lang
+# 5. run!
+#
+# ---Ecuador
+# @continent_name = 'America'
+# @country_name = 'Ecuador'
+# @country_code = '3658394' #2635167
+# @lang = 'es-EC'
+#
+# ---Ireland
+# @continent_name = 'Europe'
+# @country_name = 'Ireland'
+# @country_code = '2963597'
+# @lang = 'en-IE'
+#
+# ---Serbia
+# @continent_name = 'Europe'
+# @country_name = 'Serbia'
+# @country_code = '6290252'
+# @lang = 'sr'
+#
+# ---Indonesia
+# @continent_name = 'Asia'
+# @country_name = 'Indonesia'
+# @country_code = '1643084'
+# @lang = 'id'
+
 module Geonames
   class Parser
-
     def initialize
       # correctly set these parameters
-      @continent_name = 'Europe'
-      @country_name = 'Portugal'
-      @country_code = '2264397' #2635167
-      @lang = 'pt-PT'
+      # ---Serbia
+      @continent_name = 'Asia'
+      @country_name = 'Indonesia'
+      @country_code = '1643084'
+      @lang = 'id'
 
       @username = 'coorasse'
 

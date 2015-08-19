@@ -1,0 +1,18 @@
+<% @extend=true %>
+<div class="row">
+  <div class="error_dialog card">
+    <div style="text-align: center;">
+      <h1>This locale (<%= params[:l] %>) is not available in Airesis, sorry</h1>
+
+      <p>You can use one of these:</p>
+      <ul>
+        <% I18n.available_locales.each do |locale| %>
+            <li>
+              <%= link_to locale, current_url(l: locale) %>
+            </li>
+        <% end %>
+      </ul>
+      <%= link_to t('buttons.go_back'), :back %>
+    </div>
+  </div>
+</div>

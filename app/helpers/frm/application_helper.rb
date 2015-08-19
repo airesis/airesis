@@ -2,7 +2,7 @@ module Frm
   module ApplicationHelper
     include FormattingHelper
     # processes text with installed markup formatter
-    def forem_format(text, *options)
+    def forem_format(text, *_options)
       text
     end
 
@@ -18,10 +18,8 @@ module Frm
       end
     end
 
-    def forem_paginate(collection, options={})
-        paginate collection, options
+    def forem_paginate(collection, options = {})
+      paginate collection, options
     end
-
-
   end
 end

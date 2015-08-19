@@ -6,13 +6,10 @@ de:
       already_confirmed: wurde bereits bestätigt. Versuchen Sie sich bitte einzuloggen
       not_locked: wurde nicht gesperrt
       not_saved:
-        one: "ein Fehler verhindert, dass diese %{resource} gespeichert werden kann:"
-        other: "%{count} Fehler verhindern, dass diese %{resource} gespeichert werden kann:"
+        one: 'ein Fehler verhindert, dass diese %{resource} gespeichert werden kann:'
+        other: '%{count} Fehler verhindern, dass diese %{resource} gespeichert werden kann:'
   devise:
     failure:
-      already_authenticated: Sie sind bereits angemeldet
-      unauthenticated: Um fortzufahren müssen Sie sich entweder anmelden oder registrieren
-      unconfirmed: Um fortzufahren musst Du Deinen Account bestätigen
       locked: Ihr Account ist gesperrt
       invalid: Email oder Passwort ungültig
       invalid_token: Identifizierungscode ungültig
@@ -39,27 +36,23 @@ de:
       update_needs_confirmation: Du hast Dein Account erfolgreich aktualisiert. Wir müssen allerdings Deine neue Emailadresse verifizieren. Bitte überprüfe deine Email und clicke auf den Bestätigungslink um die Bestätigung deiner Emailadresse abzuschließen
       destroyed: Ihr Account wurde erfolgreich gelöscht. Wir hoffen Sie bald wiederzusehen
     unlocks:
-      send_instructions: In wenigen Minuten werden Sie eine e-Mail mit Anweisungen erhalten, um Ihr Konto zu entsperren,
       unlocked: Ihr Konto wurde erfolgreich entsperrt. Um Fortzufahren, loggen Sie sich bitte ein
       send_paranoid_instructions: Wenn Ihr Konto existiert, erhalten Sie in wenigen Minuten eine e-Mmail mit Anweisungen, um es zu entsperren
     omniauth_callbacks:
-      success: "Erfolgreich vom %{kind}-Konto autorisiert"
       failure: 'Es war nicht möglich, Sie vom %{kind} zu autorisieren, weil "%{reason}"'
     mailer:
       confirmation_instructions:
         subject: Bestätigungsanweisungen
-        welcome: "Willkommen bei %{app_name} %{user}!"
-        follow_link: "Sie können Ihre E-mail-Adresse bestätigen, indem Sie auf den folgenden Link klicken:"
+        welcome: 'Willkommen bei %{app_name} %{user}!'
+        follow_link: 'Sie können Ihre E-mail-Adresse bestätigen, indem Sie auf den folgenden Link klicken:'
         confirm_account: Konto bestätigen
-        follow_link_2: "oder besuchen Sie die folgende Webseite:"
-        access_by_email: "Dann können Sie bei %{app_name} mit der bereitgestellten e-Mail und dem gewählten Passwort anmelden"
-        contact_assistance: "Wenn Sie ein Problem mit dem Vorgehen haben, wenden Sie sich an den Administrator: %{mail}"
+        follow_link_2: 'oder besuchen Sie die folgende Webseite:'
+        access_by_email: 'Dann können Sie bei %{app_name} mit der bereitgestellten e-Mail und dem gewählten Passwort anmelden'
+        contact_assistance: 'Wenn Sie ein Problem mit dem Vorgehen haben, wenden Sie sich an den Administrator: %{mail}'
       reset_password_instructions:
         subject: Passwort-Anweisungen zurücksetzen
-        hi_user: "Hallo %{user}!"
-        follow_link: "Sie können das Passwort ändern, indem Sie folgenden Link anklicken:"
+        hi_user: 'Hallo %{user}!'
         change_password: Passwort ändern
-        ignore: Wenn Sie Ihr Passwort nicht geändert haben, können Sie diese E-Mail ignorieren.
         password_will_not_change: Ihr Passwort wird erst geändert, wenn Sie auf den vorherigen Link klicken.
       unlock_instructions:
         subject: Anweisungen zum Entsperren

@@ -1,4 +1,4 @@
-pt-PT:
+pt:
   frm:
     general:
       forum: Fórum
@@ -7,11 +7,11 @@ pt-PT:
       posts: Submissões
       posts_count:
         one: 1 post
-        other: 1 post
-      flagged_for_spam: Sua conta foi sinalizada para spam.
+        other: '%{count} posts'
+      flagged_for_spam: A sua conta foi sinalizada como origem de spam.
       cannot_create_topic: Não é possível criar um novo tópico neste momento.
       cannot_create_post: Não é possível criar um novo tópico neste momento.
-    access_denied: Não podes fazer isso.
+    access_denied: Não pode fazer isso.
     admin:
       area: Área do administrador
       back_to_admin: Volta para Admin
@@ -22,7 +22,7 @@ pt-PT:
         index: Gerir fóruns
         new: Criando um novo fórum
         new_link: Novo fórum
-        deleted: O fórum selecionado foi excluído
+        deleted: O fórum seleccionado foi excluído
         created: Este fórum foi criado.
         not_created: Este fórum não pôde ser criado
         updated: Esse fórum foi atualizado.
@@ -39,27 +39,12 @@ pt-PT:
           no_category: (Sem categoria)
         default_private: Fórum privado
         default_public: Fórum público
-        default_private_description: Fórum reservado para os partecipantes do grupo
+        default_private_description: Fórum reservado para os participantes do grupo
         default_public_description: Fórum visível para todos os usuários de Airesis. Também os utilizadores que não estão no grupo
-      group:
-        index: Gerir grupos
-        new: Novo grupo
-        created: O grupo foi criado com sucesso
-        not_created: Grupo não pôde ser criado
-        deleted: O grupo selecionado foi excluído
-        members: "Membros em %{group}"
-      groups:
-        show:
-          add_member: Adicionar
-          add_a_new_member: Adicionar um novo membro
-          current_members: Membros Atuais
-        edit: Editar
-        delete: Excluir
-        name: Nome
       category:
         index: Gerir categorias de fórum
         new: Criando uma nova categoria do fórum
-        edit: "Edição da categoria %{title}"
+        edit: 'Edição da categoria %{title}'
         new_link: Nova categoria do fórum
         deleted: A categoria de Fórum selecionada foi excluída
         created: Esta categoria de fórum foi criada
@@ -76,19 +61,19 @@ pt-PT:
     common:
       pages: Páginas
     errors:
-      not_signed_in: Antes, deve fazer o Sign
+      not_signed_in: Antes, deve fazer o login
       access_denied: Acesso não permitido.
     forum:
-      header: "Visualizando %{title}"
+      header: 'Visualizando %{title}'
       forums: Fórums
       new: Criando um novo fórum
-      edit: "Edição do fórum %{title}"
+      edit: 'Edição do fórum %{title}'
       topics_count:
         one: 1 tópico
-        other: "%{count} tópicos"
+        other: '%{count} tópicos'
       posts_count:
         one: 1 post
-        other: "%{count} posts"
+        other: '%{count} posts'
       moderator_tools: Ferramentas de moderação
       topic_tools: Ferramentas do tópico
       admin_tools: Ferramentas de administração
@@ -96,8 +81,8 @@ pt-PT:
       index:
         title: Fórum
         forum: Fórum
-        views: Exibições
-        last_post: "Último Post:"
+        views: Visualizações
+        last_post: 'Último Post:'
         none: Nenhum
     topic:
       headings:
@@ -144,7 +129,7 @@ pt-PT:
         subscribe: Subscrever
         unsubscribe: Anular subscrição
         reply_to_topic: Responder no Tópico
-        pending_review: Este tópico está atualmente pendente de revisão. Somente o utilizador que o criou e moderadores pode visualizá-lo.
+        pending_review: Este tópico está atualmente pendente de revisão. Somente o utilizador que o criou e moderadores podem visualizá-lo.
         hide:
           "true": Mostrar este tópico
           "false": Esconder este tópico
@@ -159,15 +144,14 @@ pt-PT:
       buttons:
         reply: Postar resposta
         edit: Editar
-      created: Sua resposta foi postada
+      created: A sua resposta foi postada
       new: Postar resposta para
       edit: Editar
-      not_created: Sua resposta não poderia ser postada
+      not_created: A sua resposta não pôde ser postada
       not_created_topic_locked: Você não pode responder a um tópico bloqueado
       edited: O seu post foi editado
       not_edited: O seu post não pode ser editado
       deleted: O seu post foi excluído
-      deleted_with_topic: O único post no tópico foi excluído. Tópico também eliminado
       cannot_delete: Não é possível excluir um post que você não possui
     posts:
       moderation:
@@ -180,7 +164,7 @@ pt-PT:
         in_reply_to: em resposta a
     moderation:
       index:
-        title: "Ferramentas de moderação para %{forum}"
+        title: 'Ferramentas de moderação para %{forum}'
   helpers:
     submit:
       frm_forum:
@@ -189,8 +173,6 @@ pt-PT:
       topic:
         create: Criar tópico
         update: Tópico de atualização
-      frm_group:
-        create: Criar grupo
       frm_category:
         create: Criar categoria
   simple_form:
@@ -212,14 +194,12 @@ pt-PT:
         name: Nome
       post:
         text: Texto
-      frm_group:
-        name: Nome
-  time_ago_in_words: "%{time} atrás"
-  ago: " Há"
-  ago_by: " Há por"
+  time_ago_in_words: '%{time} atrás'
+  ago: ' Há'
+  ago_by: ' Há por'
   by: por
-  started_by: "Iniciado por "
-  are_you_sure: Tem certeza?
+  started_by: 'Iniciado por '
+  are_you_sure: Tem a certeza?
   lst_post: Último post
   last_post: Último tópico
   back_to_forums: Voltar para Fórum

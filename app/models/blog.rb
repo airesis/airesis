@@ -12,7 +12,7 @@ class Blog < ActiveRecord::Base
   validates :title, presence: true
 
   def last_post
-    self.blog_posts.order(created_at: :desc).first
+    blog_posts.order(created_at: :desc).first
   end
 
   def solr_country_id
@@ -29,10 +29,10 @@ class Blog < ActiveRecord::Base
     text :title, boost: 2
     time :created_at
     time :last_post_created_at do
-      self.last_post.try(:created_at)
+      last_post.try(:created_at)
     end
     text :fullname do
-      self.user.fullname
+      user.fullname
     end
 
     integer :continent_ids do
@@ -73,7 +73,6 @@ class Blog < ActiveRecord::Base
         order_by :created_at, :desc
 
         paginate page: page, per_page: limite
-
       end.results
     end
   end

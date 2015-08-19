@@ -7,7 +7,7 @@ es-CL:
       posts: Post
       posts_count:
         one: 1 post
-        other: "%{count} post"
+        other: '%{count} post'
       flagged_for_spam: Su cuenta ha sido marcada como spam.
       cannot_create_topic: No puede crear un nuevo tema en este momento.
       cannot_create_post: No puede crear un nuevo tema en este momento.
@@ -37,14 +37,18 @@ es-CL:
           none: Ninguno
           moderators: Moderadores
           no_category: (Sin categoría)
-      group:
+        default_private: Foro privado
+        default_public: Foro público
+        default_private_description: Foro reservado a los participantes del grupo
+        default_public_description: Foro visible para todos los usuarios Airesis. También los usuarios que no están en el grupo
+      mod:
         index: Administrar grupos
         new: Nuevo grupo
         created: El grupo fue creado con éxito
         not_created: No se pudo crear grupo
         deleted: El grupo seleccionado se ha eliminado
-        members: "Miembros en el %{group}"
-      groups:
+        members: 'Miembros en el %{group}'
+      mods:
         show:
           add_member: Añadir
           add_a_new_member: Añadir un nuevo miembro
@@ -55,7 +59,7 @@ es-CL:
       category:
         index: Administrar categorías Foro
         new: Crear una nueva categoría de foro
-        edit: "Editar la categoría %{title}"
+        edit: 'Editar la categoría %{title}'
         new_link: Nueva categoría de foro
         deleted: Se ha eliminado la categoría seleccionada Foro
         created: Se ha creado esta categoría Foro
@@ -67,31 +71,38 @@ es-CL:
         delete: Borrar
         category: Categoría
         delete_confirm: ¿Está seguro que desea eliminar esta categoría Foro?
+        default_private: Sección privada
+        default_public: Sección pública
+      group:
+        index: Administrar grupos de moderador
+        show:
+          title: Gestión de moderadores
     common:
       pages: Páginas
     errors:
       not_signed_in: Usted debe firmar primero
       access_denied: Acceso denegado.
     forum:
-      header: "Visualización %{title}"
+      header: 'Visualización %{title}'
       forums: Foros
       new: Crear un nuevo foro
-      edit: "Edición del Foro de %{title}"
+      edit: 'Edición del Foro de %{title}'
       topics_count:
-        one: "%{count} tema"
-        other: "%{count} tema"
+        one: '%{count} tema'
+        other: '%{count} tema'
       posts_count:
-        one: "%{count} post"
-        other: "%{count} post"
+        one: '%{count} post'
+        other: '%{count} post'
       moderator_tools: Herramientas de moderación
       topic_tools: Herramientas de Temas
       admin_tools: Herramientas de administración
+      title: Nuevo foro
     forums:
       index:
-        title: Foros
+        title: FORO
         forum: FORO
         views: Vistas
-        last_post: "Último Post:"
+        last_post: 'Último Post:'
         none: Ninguno
     topic:
       headings:
@@ -148,6 +159,7 @@ es-CL:
         pin:
           "true": Liberar este tema
           "false": Fija este tema
+        related_proposals: Propuestas relacionadas
     post:
       buttons:
         reply: Publicar respuesta
@@ -160,8 +172,9 @@ es-CL:
       edited: Tu post ha sido editado
       not_edited: No se puede editar tu post
       deleted: Su post ha sido borrado
-      deleted_with_topic: Sólo post en tema eliminado. Tema también eliminado
+      deleted_with_topic: Se ha eliminado el último post en el tema. Eliminado también el tema entero
       cannot_delete: No puede eliminar un tema que no es suyo
+      cannot_quote_deleted_post: El post que intentó citar ya no existe.
     posts:
       moderation:
         moderate: Moderada
@@ -169,11 +182,11 @@ es-CL:
         spam: Spam
         success: Los mensajes seleccionados han sido moderados
       post:
-        pending_review: "Este post está actualmente pendiente de revisión. Sólo el usuario que lo creó y sus  moderadores puede visualizarlo."
+        pending_review: 'Este post está actualmente pendiente de revisión. Sólo el usuario que lo creó y sus  moderadores puede visualizarlo.'
         in_reply_to: en respuesta a
     moderation:
       index:
-        title: "Herramientas de moderación %{forum}"
+        title: 'Herramientas de moderación %{forum}'
   helpers:
     submit:
       frm_forum:
@@ -182,10 +195,11 @@ es-CL:
       topic:
         create: Crear tema
         update: Actualizar tema
-      frm_group:
+      frm_mod:
         create: Crear grupo
       frm_category:
         create: Crear categoría
+        update: Actualizar Categoría
   simple_form:
     labels:
       frm_forum:
@@ -205,13 +219,13 @@ es-CL:
         name: Nombre
       post:
         text: Texto
-      frm_group:
+      frm_mod:
         name: Nombre
-  time_ago_in_words: "hace %{time} antes"
-  ago: " hace"
-  ago_by: " hace por"
+  time_ago_in_words: 'hace %{time} antes'
+  ago: ' hace'
+  ago_by: ' hace por'
   by: por
-  started_by: "Iniciado por "
+  started_by: 'Iniciado por '
   are_you_sure: ¿Estás seguro?
   lst_post: Último post
   last_post: Último tema

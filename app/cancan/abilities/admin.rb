@@ -20,7 +20,8 @@ module Abilities
     end
 
     def management
-      can :manage, [ProposalComment, Group, GroupArea, ParticipationRole, AreaRole, Blog, BlogPost, Quorum, Event]
+      can :manage, [ProposalComment, Group, GroupArea, ParticipationRole, AreaRole, Blog,
+                    BlogPost, BlogComment, Quorum, Event]
       can :manage, [Frm::Category, Frm::Forum, Frm::Topic, Frm::Post]
       can :manage, [Newsletter, SysLocale]
     end

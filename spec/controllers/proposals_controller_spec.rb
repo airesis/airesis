@@ -159,7 +159,6 @@ describe ProposalsController, type: :controller, search: :true do
   end
 
   describe 'GET similar' do
-
     before(:each) do
       proposal1
     end
