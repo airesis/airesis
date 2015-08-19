@@ -106,8 +106,12 @@ it:
         message: 'La proposta <b>%{title}</b> ha ricevuto una nuova valutazione'
       available_author:
         description: Utente disponibile a redigere la sintesi di una proposta
-        email_subject: '%{title} -  Nuovo redattore disponibile'
-        message: '%{user} si è offerto come redattore della proposta <b>%{title}</b>'
+        email_subject:
+          one: '%{title} - Un nuovo redattore è disponibile'
+          other: '%{title} %{count} nuovi redattori sono disponibili'
+        message:
+          one: '%{user} si è offerto come redattore della proposta <b>%{title}</b>'
+          other: '%{count} utenti si sono resi disponibili come redattori della proposta <b>%{title}</b>'
       author_accepted:
         description: Approvazione come redattore di una proposta
         email_subject: '%{title} - Ora ne sei redattore!'
@@ -122,18 +126,25 @@ it:
         message: 'Un contributo che avevi integrato nella proposta <b>%{proposal}</b> è stato rimesso in dibattito'
       new_contributes:
         description: Nuovi contributi alle proposte a cui partecipo
-        email_subject: '%{title} - Nuovo contributo'
+        email_subject:
+          one: '%{title} - Un nuovo contributo è stato inserito'
+          other: '%{title} - Ci sono %{count} nuovi contributi'
         message:
-          zero: '<b>%{name}</b> ha inserito un contributo alla proposta <b>%{title}</b>'
           one: '<b>%{name}</b> ha inserito un contributo alla proposta <b>%{title}</b>'
           other: 'Ci sono <b>%{count}</b> nuovi contributi nella proposta <b>%{title}</b>'
       text_update:
         description: Aggiornamento del testo di una proposta a cui partecipo
-        email_subject: '%{title} - Il testo è stato modificato'
-        message: 'La proposta <b>%{title}</b> è stata aggiornata'
+        email_subject:
+          one: '%{title} è stata aggiornata'
+          other: '%{title} è stata aggiornata %{count} volte'
+        message:
+          one: 'La proposta <b>%{title}</b> è stata aggiornata'
+          other: 'La proposta <b>%{title}</b> è stata aggiornata %{count} volte'
       new_contributes_mine:
         description: Nuovi contributi alle mie proposte
-        email_subject: '%{title} - Nuovo contributo'
+        email_subject:
+          one: '%{title} - Un nuovo contributo è stato inserito'
+          other: '%{title} - Ci sono %{count} nuovi contributi'
         message:
           zero: '<b>%{name}</b> ha inserito un contributo alla proposta <b>%{title}</b>'
           one: '<b>%{name}</b> ha inserito un contributo alla proposta <b>%{title}</b>'
@@ -214,13 +225,18 @@ it:
         message: 'Nuova proposta <b>%{proposal}</b> creata nel gruppo <b>%{group}</b>'
       new_participation_request:
         description: Nuova richiesta di partecipazione
-        email_subject: Nuova richiesta di partecipazione
-        message: '<b>%{user}</b> ha richiesto di partecipare al gruppo <b>%{group}</b>'
+        email_subject:
+          one: Nuova richiesta di partecipazione
+          other: 'Ci sono %{count} nuove richieste di partecipazione'
+        message:
+          one: '<b>%{user}</b> ha richiesto di partecipare al gruppo <b>%{group}</b>'
+          other: '<b>%{count} utenti</b> hanno richiesto di partecipare al gruppo <b>%{group}</b>'
       new_blog_comment:
         description: Nuovo commento nel mio blog
-        email_subject: "E' stato inserito un nuovo commento nel tuo blog"
+        email_subject:
+          one: Nuovo commento nel tuo blog
+          other: '%{count} nuovi commenti nel tuo blog'
         message:
-          zero: '<b>%{user}</b> ha commentato il tuo post <b>%{title}</b>'
           one: '<b>%{user}</b> ha commentato il tuo post <b>%{title}</b>'
           other: 'Ci sono <b>%{count}</b> nuovi commenti nel tuo post <b>%{title}</b>'
       new_comments_mine:

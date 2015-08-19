@@ -1,41 +1,6 @@
 es-EC:
   calendar:
-    monthNames: "['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']"
-    monthNamesShort: "['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']"
-    dayNames: "['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado']"
-    dayNamesShort: "['Dom','Lun','Mar','Mié','Jue','Vie','Sáb']"
-    today: hoy
-    month: mes
-    week: semana
-    day: día
-    firstDay: "1"
-    timeFormat: h(:mm)t 
-  date:
-    order:
-      - :día
-      - :mes
-      - :año
-    formats:
-      default: '%d-%m-%Y'
-      short: '%b %d'
-    day_names:
-      - Domingo
-      - Lunes
-      - Martes
-      - Miercoles
-      - Jueves
-      - Viernes
-      - Sábado
-    abbr_day_names:
-      - D
-      - L
-      - Ma
-      - Mi
-      - V
-      - J
-      - S
-    month_names:
-      - [ ]
+    monthNames:
       - Enero
       - Febrero
       - Marzo
@@ -48,13 +13,12 @@ es-EC:
       - Octubre
       - Noviembre
       - Diciembre
-    abbr_month_names:
-      - [ ]
+    monthNamesShort:
       - Ene
       - Feb
       - Mar
       - Abr
-      - May
+      - Mayo
       - Jun
       - Jul
       - Ago
@@ -62,20 +26,36 @@ es-EC:
       - Oct
       - Nov
       - Dic
+    dayNames:
+      - Domingo
+      - Lunes
+      - Martes
+      - Miercoles
+      - Jueves
+      - Viernes
+      - Sábado
+    dayNamesShort:
+      - Dom
+      - Lun
+      - Mar
+      - Mie
+      - Jue
+      - Vie
+      - Sáb
+    today: hoy
+    month: mes
+    week: semana
+    day: día
+    firstDay: 1
   time:
     formats:
       default: '%d %b %Y a las %H:%M'
       long: '%A %d %B %Y %H:%M'
-      long_date: '%A %d %B %Y'
       long_date_time: '%A %d %B %Y a las %H:%M'
       from_long_date_time: 'Desde %A %d %B %Y a las %H:%M'
       until_long_date_time: 'Hasta %A %d %B %Y a las %H:%M'
       weekday: '%A'
-      month: '%B'
-      dayandmonth: '%d/%m'
       textfield: '%d/%m/%Y %H:%M'
-    am: am
-    pm: pm
   datetime:
     distance_in_words:
       about_x_hours:
@@ -102,22 +82,13 @@ es-EC:
         other: 'hace más de %{count} años'
       x_days:
         one: hace un dia
-        other: "! 'hace %{count}  días'"
+        other: ! 'hace %{count}  días'
       x_minutes:
         one: hace un minuto
-        other: "! 'hace %{count} minutos'"
+        other: ! 'hace %{count} minutos'
       x_months:
         one: hace un mes
-        other: "! 'hace %{count} meses'"
+        other: ! 'hace %{count} meses'
       x_seconds:
         one: hace un segundo
-        other: "! 'hace %{count} segundos'"
-  day:
-    one: '%{count} día'
-    other: '%{count} días'
-  hour:
-    one: '%{count} hora'
-    other: '%{count} horas'
-  minute:
-    one: '%{count} minuto'
-    other: '%{count} minutos'
+        other: ! 'hace %{count} segundos'

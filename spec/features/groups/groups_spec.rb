@@ -32,7 +32,7 @@ describe "the creation of a group process", type: :feature, js: true do
     #the group name is certainly displayed somewhere
     expect(page.current_path).to eq(group_path(@group))
     #the user is a participant
-    page.should have_selector('.participants_container', text: /#{@user.name}/i)
+    expect(page).to have_selector('.participants_container', text: /#{@user.name}/i)
 
     visit group_proposals_path(@group)
     page_should_be_ok
@@ -69,7 +69,5 @@ describe "the creation of a group process", type: :feature, js: true do
     #forum administration
     visit group_frm_admin_root_path(@group)
     page_should_be_ok
-
   end
-
 end

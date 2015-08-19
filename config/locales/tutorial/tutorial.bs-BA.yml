@@ -1,0 +1,9 @@
+bs:
+  tutorial:
+    proposals_index:
+      category_icon: Odabrana kategorija
+    proposals_show:
+      authors: Stvarni urednici prijedloga
+      category: Kategorija ovog prijedloga
+    next: Sljedeće
+    back: Nazad

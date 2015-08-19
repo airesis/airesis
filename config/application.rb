@@ -23,8 +23,13 @@ module Airesis
     config.time_zone = 'Rome'
     config.i18n.default_locale = :en
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{yml}')]
-    config.i18n.fallbacks = [:en]
-    config.i18n.enforce_available_locales = false
+
+    config.i18n.fallbacks = true
+    config.i18n.available_locales = [:crowdin, :de, :el, :fr, :hu, :id, :it, :ro, :ru, :sr, :zh,
+                                     :pt, :'pt-BR',
+                                     :en, :'en-GB', :'en-IE', :'en-US', :'en-ZA', :'en-AU', :'en-NZ',
+                                     :es, :'es-AR', :'es-CL', :'es-EC']
+    config.i18n.enforce_available_locales = true
 
     config.to_prepare do
       Devise::Mailer.layout 'newsletters/default'
@@ -80,5 +85,3 @@ module Airesis
     end
   end
 end
-
-I18n.enforce_available_locales = false

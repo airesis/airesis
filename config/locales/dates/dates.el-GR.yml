@@ -1,0 +1,159 @@
+el:
+  countdowns:
+    labelsPlural:
+      - Χρόνια
+      - Μήνες
+      - Εβδομάδες
+      - Ημέρες
+      - Ώρες
+      - Λεπτά
+      - Δευτερόλεπτα
+    labelsSingular:
+      - Χρόνος
+      - Μήνας
+      - Εβδομάδα
+      - Ημέρα
+      - Ώρα
+      - Λεπτό
+      - Δευτερόλεπτο
+    compactLabelsPlural:
+      - χ
+      - μ
+      - ε
+      - η
+    compactLabelsSingular:
+      - χ
+      - μ
+      - ε
+      - η
+  calendar:
+    monthNames:
+      - Ιανουαρίος
+      - Φεβρουαρίος
+      - Μαρτίος
+      - Απριλίος
+      - Μάιος
+      - Ιούνιος
+      - Ιούλιος
+      - Αύγουστος
+      - Σεπτέμβριος
+      - Οκτώβριος
+      - Νοέμβριος
+      - Δεκέμβριος
+    monthNamesShort:
+      - Ιαν
+      - Φεβ
+      - Μαρ
+      - Απρ
+      - Μάιος
+      - Ιουν
+      - Ιουλ
+      - Αυγ
+      - Σεπ
+      - Οκτ
+      - Νοε
+      - Δεκ
+    dayNames:
+      - Κυριακή
+      - Δευτέρα
+      - Τρίτη
+      - Τετάρτη
+      - Πέμπτη
+      - Παρασκευή
+      - Σάββατο
+    dayNamesShort:
+      - Κυρ
+      - Δευτ
+      - Τρι
+      - Τετ
+      - Πεμ
+      - Παρ
+      - Σαβ
+    today: σήμερα
+    month: μήνας
+    week: εβδομάδα
+    day: ημέρα
+    firstDay: 0
+    timeFormat: 'ω:λλ TT{ - [ddd] [dd] h:mm TT}'
+  date:
+    formats:
+      short: '%b %d'
+      long: '%d %B %Y'
+  time:
+    formats:
+      default: '%d %b %Y στις %I:%M %p'
+      long: '%A %d %B %Y στις %I:%M %p'
+      long_date: '%A %d %B %Y'
+      long_date_time: '%A %d %B %Y σε %I:%M %p'
+      from_long_date_time: 'Από %A %d %B %Y σε %I:%M %p'
+      until_long_date_time: 'Την %A %d %B %Y στις %I:%M %p'
+      short: '%d %b %Y'
+      two_rows: '%d %b %Y <br/> %I:%M %p'
+      weekday: '%a στις %I:%M %p'
+      month: '%B'
+      dayandmonth: '%d/%m'
+      hour: '%I:%M %p'
+      yesterday_at: 'χθες στις %I: %M %p'
+      textfield: '%d/%m/%Y %I:%M %p'
+      datepicker: '%Y-%m-%d'
+      datetimepicker: '%Y-%m-%d %H:%M'
+    am: π.μ.
+    pm: μ.μ.
+    left:
+      seconds:
+        one: 1 δευτερόλεπτο
+        other: '%{count} δευτερόλεπτα'
+      minutes:
+        one: 1 λεπτό
+        other: '%{count} λεπτά'
+      hours:
+        one: 1 ώρα
+        other: '%{count} ώρες'
+      days:
+        one: 1 ημέρα
+        other: '%{count} ημέρες'
+      months:
+        one: 1 μήνας
+        other: '%{count} μήνες'
+  datetime:
+    added_on: 'στις %{date}'
+    distance_in_words:
+      about_x_hours:
+        one: περίπου 1 ώρα πριν
+        other: 'περίπου %{count} ώρες πριν'
+      about_x_months:
+        one: περίπου 1 μήνα πριν
+        other: 'περίπου %{count} μήνες πριν'
+      about_x_years:
+        one: περίπου 1 χρόνο πριν
+        other: 'περίπου %{count} χρόνια πριν'
+      almost_x_years:
+        one: σχεδόν πριν από 1 χρόνο
+        other: 'σχεδόν πριν από %{count} χρόνια'
+      half_a_minute: πριν μισό λεπτό
+      less_than_x_minutes:
+        one: λιγότερο από 1 λεπτό πριν
+        other: 'λιγότερο %{count} λεπτά πριν'
+      less_than_x_seconds:
+        one: πριν από λιγότερο από 1 δευτερόλεπτο
+        other: 'λιγότερο από %{count} δευτερόλεπτα πριν'
+      over_x_years:
+        one: περισσότερο από 1 χρόνο πριν
+        other: 'περισσότερο από %{count} χρόνια πριν'
+      x_days:
+        one: 1 ημέρα πριν
+        other: ! '%{count} ημέρες πριν'
+      x_minutes:
+        one: 1 λεπτό πριν
+        other: ! '%{count} λεπτά πριν'
+      x_months:
+        one: 1 μήνα πριν
+        other: ! '%{count} μήνες πριν'
+      x_seconds:
+        one: 1 δευτερόλεπτο πριν
+        other: ! '%{count} δευτερόλεπτα πριν'
+  label:
+    from: από
+    to: προς
+  countdown: '{m<}{mn} {ml} πριν{m>} {s<}μόλις τώρα{s>}'
+  countdown2: '{y<}{yn} {yl}{y>} {o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>} {s<}λίγα δευτερόλεπτα{s>}'

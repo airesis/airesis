@@ -1,14 +1,14 @@
-#todo to remove
+# TODO: to remove
 class Image < ActiveRecord::Base
   attr_accessor :random_id
 
   # Check for paperclip
   has_attached_file :image,
                     styles: {
-                        :thumb => '100x100#',
-                        :small => '150x150>'
+                      thumb: '100x100#',
+                      small: '150x150>'
                     },
-                    :url => '/assets/images/users/:id/:style/:basename.:extension',
+                    url: '/assets/images/users/:id/:style/:basename.:extension',
                     path: '/assets/images/users/:id/:style/:basename.:extension'
 
   validates_attachment_presence :image

@@ -1,0 +1,108 @@
+id:
+  home:
+    whowe:
+      title: Tentang Kami
+      description: Sekelompok Relawan yang Ingin Memperbaiki Dunia yang Kita Huni, Warga seperti Anda.
+      intro:
+        title: Warga yang Menantikan Demokrasi yang Lebih Baik
+        description_html: |
+          <p>Airesis merupakan hasil penggabungan dua proyek: Agor&agrave 2.0 dan DemocracyOnline, yang bersatu dalam asosiasi <a href="http://www.tecnologiedemocratiche.it/" target="_blank">Tecnologie Democratiche</a>, yang salah satu tujuan utamanya adalah mengembangkan perangkat lunak demokrasi virtual sumber terbuka yang inovatif.</p>
+          <p>Tujuan tim ini, <strong>yang sepenuhnya terdiri dari relawan</strong>, adalah memberi platform perangkat lunak kepada warga dan kelompok yang memungkinkan mereka untuk menangani <strong>sebagian besar masalah</strong> masyarakat kita dengan memungkinkan <strong>pembuatan</strong>, <strong>diskusi tentang</strong> dan <strong>voting</strong> proposal dengan cara yang <strong>transparan</strong>, <strong>demokratis</strong>, <strong>konstruktif</strong> dan <strong>partisipatif</strong>,
+          memungkinkan munculnya <strong>kecerdasan kolektif</strong>.</p>
+          <p>Jika Anda juga memiliki tujuan yang sama dengan kami, Anda dapat <a href="/partecipa">bergabung dengan kami</a> dengan menghubungi para relawan kami.</p>
+          <p>Silakan melihat <a href=%{story}>sejarah Airesis</a>. Cari tahu bagaimana proyek kami lahir dan apa tujuan masa depan kami.</p>
+      development_area: Area Pengembangan
+      other_voluteers: Relawan Lain yang Aktif dalam Proyek Ini
+      contributors: Kontributor
+      contributors_desc: 'Mereka mendedikasikan waktu luang untuk proyek ini (berdasarkan abjad):'
+      special_thanks: Terima Kasih kepada
+      tilatti_marino:
+        title: Pengembang dan Koordinator
+        content_html: |
+          <p>
+          Selama kuliah, saya menyadari peluang besar yang ditawarkan Internet kepada manusia.
+          Baru lulus dari jurusan Ekonomi dan Bisnis, saya memilih untuk mengabdikan diri ke hal-hal yang saya gemari dan dalam beberapa tahun, saya menghidupkan beberapa portal besar tentang dunia binatang dan properti mewah, serta beberapa Penyedia Layanan Aplikasi.
+          Namun impian saya adalah mewujudkan alat pengambil keputusan yang mampu menerapkan demokrasi langsung. Karena itulah, begitu saya mendengar tentang proyek ini, saya segera bergabung walaupun saya memiliki tanggung jawab lain dan dua anak. Saya mengurus aspek visual dan kegunaan, SEO dan masalah komunikasi, selain dukungan pemrograman teknis .
+          </p>
+      rodi_alessandro:
+        title: Kepala Pengembang dan Webmaster
+        content_html: |
+          <p>
+          Saya berusia %{age} tahun dan tinggal di Zurich tempat saya bekerja sebagai pengembang Java dan Ruby on Rails.
+          Saya memupuk kegemaran akan pemrograman selama bertahun-tahun dan pada tahun 2009, saya menyelesaikan kuliah Ilmu Komputer dan diwisuda di Bologna.
+          Gemar akan politik dan teknologi digital, pada bulan Juli 2011, saya mulai mendalami Ruby on Rails dan saya mulai membuat landasan kode sumber Airesis, dengan membayangkan sebuah proyek ambisius: terciptanya sebuah perangkat lunak untuk demokrasi partisipatoris.
+          Tertarik dengan perubahan politik selama beberapa tahun terakhir dan fakta bahwa politik akan harus segera menghadapi World Wide Web, saya menyadari bahwa perangkat seperti itu belum pernah tersedia untuk warga. Jadi... di sinilah saya!
+          Dalam proyek ini, saya mengoordinasi aktivitas pengembangan dan saya mengurus pemrograman itu sendiri; saya menawarkan dukungan kepada pemrogram lain dan bertindak sebagai pengawas kualitas kode sumbernya.
+          Selain itu, saya membantu pengembangan logika serta definisi jendela waktu dan tenggat waktu yang dibutuhkan untuk penyelesaiannya.
+          </p>
+      analysis_area: Area Analisis
+      giulietti_nicola:
+        title: Analis dan Koordinator
+        content_html: |
+          <p>
+          Saya berusia %{age} tahun dan sejak berusia %{volunteer} tahun, terlibat dalam sektor sukarela, tempat saya mengoordinasikan banyak kegiatan.
+          Saya kuliah di jurusan teknik lingkungan dan teknik energi.
+          Selamat kuliah, saya mengikuti beberapa proyek inovasi teknologi dan bekerja dalam bidang kesinambungan dan demokrasi partisipatoris.
+          Dalam proyek Agora 2.0 - Airesis, saya mengurus semuanya, selain pemrograman: studi logika aplikasi, koordinasi, grafik.
+          Tidak mudah dikeliling profesional dan lulusan Ilmu Komputer, namun saya akan bertahan sampai Airesis memungkinkan orang untuk mengatur diri secara efisien dan demokratis untuk menguasai dunia yang gila ini.
+          </p>
+      baiotto_marco:
+        title: Analis
+        content_html: |
+          <p>
+          Berperan sebagai Kepala Bagian IT untuk dua perusahaan manufaktur besar milik perusahaan induk internasional yang terjun dalam sektor otomotif. Selalu terbagi antara Ilmu Komputer dan kemanusiaan, dia adalah seorang jurnalis dan kritikus sastra. Kurator konten dari situs <a href="http://www.lordglenn.com" target="_blank">www.lordglenn.com</a> (sekaligus juri dalam kontes sastra homonim yang didedikasikan untuk binatang), telah menerbitkan di beberapa situs web dan majalah tentang berbagai budaya dan kemanusiaan (termasuk <a href="http://www.literary.it" target="_blank">www.literary.it</a>) serta antologi. Pencipta “Iperrelazionismo sensibile”, sebuah konsep filsafat yang sedang dalam pembuatan, merupakan penulis esai "Wide Democracy, Beyond Politics," perpaduan studi selama tiga tahun yang didedikasikan untuk membuat perangkat lunak bersertifikasi untuk demokrasi virtual dan urusan musyawarah online (masih dalam tahap purwarupa).
+          Tanpa sengaja terjun ke dalam proyek Airesis, dia telah ditaklukkan oleh filsafat dan konsep utamanya.
+          Dia memutuskan untuk menyumbangkan hasil penelitian dan waktu luangnya, berpartisipasi dalam kelompok pengembangan.
+          Kontribusinya berfokus pada analisis logika fungsional dan pengujian, namun tidak keberatan terhadap kritik etis dan implikasi filsafat yang muncul dari pilihan evolusioner jangka panjang yang dilakukan dalam kelompok.
+          </p>
+      graphic_area: Area Grafis
+      kabora_marcello:
+        title: Desainer Grafis
+        content_html: |
+          <p>
+          Saya seorang pria tangkas dan dinamis yang mencari pekerjaan yang memungkinkan saya untuk mengembangkan keahlian yang saya himpun dalam pekerjaan selama beberapa tahun terakhir, terutama, dalam pembuatan situs web, aplikasi, logo, katalog, dan brosur. Saya menggunakan banyak perangkat lunak grafis dan bahasa pemrograman, dan saya selalu mencoba mengikuti informasi terkini tentang pengembangan baru. Saya suka bekerja dalam tim, namun juga suka bekerja sendiri, jika diperlukan,
+          Saya sangat memperhatikan detail dan saya tahu cara memecahkan masalah melalui penelitian spesifik.
+          Saya sangat pandai menghadapi tekanan dan memiliki kemampuan berkomunikasi yang baik. Selama dua tahun terakhir, saya mengerjakan beberapa proyek dari jauh, menciptakan suasana komunikasi yang kuat dan selalu mencapai target yang disepakati dalam hal efektivitas dan pengaturan waktu.
+          Untuk melihat daftar riwayat hidup saya dan karya terkini saya, saya ingin mengundang Anda untuk mengunjungi situs web saya - <a href="http://www.marcellokabora.com" target="_blank"> www.marcellokabora.com</a>.
+          </p>
+      i18n_area: Area Internasionalisasi
+      tolja_jacopo:
+        title: Bertanggung Jawab Merekrut dan Mengoordinasi Penerjemah
+        content_html: |
+          <p>
+          Saya berusia 50 tahun, merupakan orang yang kecewa. Namun di Airesis, saya menemukan alasan untuk kembali berkiprah dan berharap dapat mengembangkan masyarakat yang lebih baik untuk saya, namun terutama untuk anak-anak saya dan juga untuk Anda sehingga Anda mencapai titik ini dan sedang membaca kalimat ini.
+          Saya melakukan segalanya selama hidup saya, bepergian, bertualang, mencoba mengeksploitasi, dan membawa pengalaman saya sebagai seorang warga dunia untuk memastikan Airesis digunakan oleh sebagian besar orang di setiap pelosok dunia.
+          Saya membantu mengoordinasikan <a href="https://crowdin.net/project/airesis" target="blank_">proses internasionalisasi dan lokalisasi Airesis</a> dan saya tertarik untuk mengembangkan antarmuka pengguna yang paling intuitif dan paling sederhana yang ada di web untuk situs web Airesis!
+          Saya memiliki satu kekurangan besar, saya tidak demokratis. Jadi, saya baik-baik saja di sini. Saya adalah pengecualian dalam peraturan!
+          Para anggota kelompok ini telah membuat saya merasa seperti itu dan lebih daripada dalam keluarga saya. Saya tahu saya dapat mengandalkan mereka seperti saya mengandalkan teman sejati.
+          </p>
+      communication_area: Area Komunikasi
+      curini_simone:
+        title: Penyebaran Proyek dan Kontak dengan Meetup
+        content_html: |
+          <p>
+          Saya berusia %{age} tahun dan selama %{volunteers} tahun, terlibat dalam gerakan sosial dan politik yang bernama “Five Star Movement” (MoVimento Cinque Stelle atau M5S) di Florence.
+          Saya kuliah di Ekonomi dan Bisnis (Pasar Keuangan), lalu saya menyadari saya harus menjadi siapa (atau apa) untuk menghargai studi saya, dan saya memilih bidang yang saya kenal.
+          Saya seorang kolektor barang antik dan waktu luang saya di luar pekerjaan ini digunakan untuk menyempurnakan pengetahuan tentang beberapa bahasa pemrograman, seperti PHP dan Java.
+          Dalam Agora 2.0 - Airesis, saya dilibatkan oleh Nicola pada tahun 2010 karena studi logika, karena adanya tempat virtual untuk perbandingan antara berbagai pemrogram, dan terakhir, karena presentasi dan promosinya.
+          Saat ini, saya sedang memelajari Ruby walaupun memiliki putri berusia delapan bulan yang menantang. Harapannya adalah mewujudkan impian bahwa kebijakan dibuat oleh rakyat, demi rakyat, untuk selalu mendapat solusi yang paling bersama, berbobot, dan dihargai.
+          </p>
+      test_area: Area Pengujian
+      mion_carlo:
+        title: Penguji dan Pengembang
+        content_html: |
+          <p>
+          Saya seorang mahasiswa di Universitas Trento. Saya menggemari Ilmu Komputer sejak kecil, jadi, saya memulai studi akademis saya untuk belajar lebih lanjut tentang ilmu ini. Ilmu ini menarik bagi saya karena telah mengubah hidup kita dan terus berkembang hari demi hari.<br/>
+          Selama SMA, saya mengetahui bahwa beberapa cendekiawan membuat teori tentang demokrasi yang memungkinkan untuk membuat keputusan bersama melalui partisipasi dari warga yang sama. Menurut saya, Airesis memungkinkan ini. Jadi, saya menyediakan waktu saya untuk membantu pengembangannya.<br/>
+          Saya merupakan anggota kelompok penguji, yang memiliki tujuan menguji kelayakan operasi Airesis. Saya juga menguji inovasi-inovasi terbaru yang diperkenalkan dalam platform tersebut sebelum mereka dirilis ke publik. Pada saat yang sama, saya membantu Tim Internasionalisasi, menyiapkan string dan kata yang ditulis dalam kode sumber Airesis agar mereka dapat diterjemahkan dengan mudah. Dengan melakukan ini, saya dapat lebih mengenal bahasa Ruby dan saya rasa ini akan sangat membantu karier saya di masa depan.
+          </p>
+      zanellato_luca:
+        title: Penguji dan Analis
+        content_html: |
+          <p>
+          Saya berusia 47 tahun dan saya seorang teknisi listrik.
+          Sebagai seorang warga, saya bertanya-tanya apakah ada cara lain untuk menjalani politik, atau yang lebih umum, berkolaborasi dengan orang lain.
+          Saya mendalami masalah demokrasi langsung dan partisipatoris, dan saya menemukan peluang jaringan dan demokrasi virtual.
+          Saya yakin bahwa memulai dari masalah ini, akan mungkin untuk mengembangkan bentuk kolaborasi baru, tidak terbatas pada aspek politik dan berhubungan dengan manajemen urusan publik, namun lebih secara umumnya, mengenai solusi masalah dengan cara diskusi dan dialog antara komunitas masyarakat, juga transversal.
+          Kelompok ini telah memberi saya peluang untuk berkolaborasi dalam sesuatu yang saya yakin akan menjadi salah satu sosiabilitas terdepan.
+          </p>

@@ -6,17 +6,18 @@ hu:
       paragraph_1:
         title: Az e-demokrácia közösségi hálózata
         content_html: |
-          <p>Az Airesis egy <a href="http://en.wikipedia.org/wiki/Free_software">szabad szoftver platform</a>, amelyet olasz fejlesztők és segítők építettek azért, hogy lehetővé tegyék csoportoknak és közösségeknek hogy produktív módon megszervezzék saját magukat a <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank">közvetlen demokrácia</a> és  részvétel alapelvei mentén.</p>
+          <p>Az Airesis egy <a href="http://en.wikipedia.org/wiki/Free_software">szabad szoftver</a> platform, melyet olasz fejlesztői és közreműködői csapat azért hozott létre, hogy a közösségek és csoportok produktív módon szerveződhessenek a <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank">közvetlen és részvételi demokrácia</a> elvei szerint.
+          </p>
           
-          <p>Ezeknek a céloknak az elérése érdekében az alkalmazást olyan többfunkciós rendszerként terveztük meg, amely egybegyűjti mindazokat az eszközöket, különösen a közösségi és döntéshozatali eszközöket, amelyek segíthetik a közösség építését.</p>
+          <p>Ezen a célok elérése érdekében az alkalmazást olyan többfunkciós rendszerként terveztük meg, amely egybegyűjti mindazokat az eszközöket, különösen a közösségi és döntéshozatali eszközöket, amelyek segíthetik a közösség építését.</p>
           
-          <p>A <strong>közösségi eszközök</strong>között, Airesis tartalmaz blogot, egy rendszert az események és találkozók hirdetésére, a hozzá tartozó időzítéssel.
-          A <strong>döntéshozatali eszközök</strong> között teret ad a javaslatok és kezdeményezések gyűjtésének és az azokról történő vitának, és egy szavazási rendszernek, amellyel választani lehet a jelentkezők közül. A platform lehetővé tesz csoportok alkotását megadható szabályokkal és jogosultságokkal. 
+          <p>A <strong>közösségi eszközök</strong> között, az Airesis tartalmaz blogot, egy rendszert az események és találkozók hirdetésére, a hozzá tartozó időzítéssel.
+          A <strong>döntéshozatali eszközök</strong> között teret ad az indítványok és kezdeményezések gyűjtésének, és az azokról történő vitának, és egy szavazási rendszernek, amellyel választani lehet a jelentkezők közül. A platform lehetővé teszi csoportok szerveződését, megadható szabályokkal és jogosultságokkal. 
           
-          Mivel azAiresis célja a részvétel elősegítése, nagy hangsúlyt helyeztünk a teljes platform intuitivitására.
+          Mivel az Airesis célja a részvétel elősegítése, nagy hangsúlyt helyeztünk a teljes platform intuitivitására.
           
           A fejlesztési filozófia a folytonos javításra koncentrál, ez egyfajta evolúciós folyamat amely a felhasználók visszajelzésére épül.
-          A fejlesztői csapat elérhető annak érdekében, hogy kielégítse az igényeit azoknak a közösségeknek amelyek használni akarják a szoftvert, a közvetlen demokrácia szellemében,</p>
+          A fejlesztői csapat elérhető annak érdekében, hogy kielégítse az igényeit azoknak a közösségeknek amelyek használni akarják a szoftvert, a közvetlen demokrácia szellemében.</p>
       paragraph_3:
         title: Alapelvek és alapértékek
         content_html: |
@@ -189,25 +190,28 @@ hu:
       description: A közvetlen demokrácia eszköze amely azért született, hogy bárhol, bármilyen témában született ötletekről és javaslatokról közösen döntsünk és azokat megvalósítsuk.
       paragraph_1:
         title: Az e-demokrácia közösségi hálózata
-        content_html: |
-          <p>Az Airesis egy <a href="http://en.wikipedia.org/wiki/Free_software">fszabad szoftver</a> platform, amelyet olasz fejlesztők építettek abból a célból, hogy közösségek és csoportok számára lehetővé tegyék, hogy saját magukat hatékonyan megszervezhessék, a  <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank">közvetlen demokrácia</a> és részvétel eszméi mentén.
+        content_html: |2
+          <p>Az Airesis egy <a href="http://en.wikipedia.org/wiki/Free_software">szabad szoftver</a> platform, melyet olasz fejlesztői és közreműködői csapat azért hozott létre, hogy a közösségek és csoportok produktív módon szerveződhessenek a közvetlen és részvételi demokrácia elvei szerint.
+          
+          
+           amelyet olasz fejlesztők építettek abból a célból, hogy közösségek és csoportok számára lehetővé tegyék, hogy saját magukat hatékonyan megszervezhessék, a  <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank">közvetlen demokrácia</a> és részvétel eszméi mentén.
           </p>
       paragraph_2:
         title: Építsd fel a csoportodat
         content_html: |
           <p>
           Ha egy szövetség, cég, iskola vagy párt vagy, Airesis mindenképpen megfelelő neked!<br/>
-          Csupán pár perc alatt hozd létre a csportodat és próbád ki az összes elérhető eszközt.<br/>
+          Csupán pár perc alatt hozd létre a coportodat, és próbáld ki az összes elérhető eszközt.<br/>
           Egy csoport létrehozása ingyenes, gyors és egyszerű, és már most %{groups} aktív csoport van.<br/>
-          Kérjük olvasd el a szabályzatunkat, hogy megtudd, hogyan tudod jobban szervezni és hogy felfedezd, milyen egyszerű az Airesis segítségével megszervezni a csoportodat, és az e-demokrácia eszközeit biztosítani számára!
+          Kérjük olvasd el a szabályzatunkat, hogy megtudd, hogyan tudod jobban szervezni és hogy felfedezd, milyen egyszerű az Airesis segítségével megszervezni a csoportodat, és az e-demokrácia eszközeit biztosítani csoportod számára!
           </p>
       paragraph_3:
         title: Szervezd meg a résztvevőket
         content_html: |
           <p>
-          A <strong> szerepkörök és jogosultságok </strong> kezelésének hathatós módja lehetővé teszi hogy a csoportodat az ízlésednek megfelelően formázd:
-          a felhasználóknak több vagy kevesebb engedélyt adhatsz, rendezheted a résztvevőket hierarchikusan, vagy adhatszmindenkinek ugyanolyan jogokat és szerepköröket. </br>
-          Ez az ami miatt az Airesis teljesen megfelelő akár egy <strong> Cég </strong>, akár egy <strong> Demokratikus Mozgalom </strong> vagy egy  <strong> Szövetség </strong> számára.
+          A <strong>szerepkörök és jogosultságok</strong> kezelésének hathatós módja lehetővé teszi, hogy a csoportodat az ízlésednek megfelelően formázd:
+          a felhasználóknak több, vagy kevesebb engedélyt adhatsz, rendezheted a résztvevőket hierarchikusan, vagy adhatsz mindenkinek ugyanolyan jogokat és szerepköröket. </br>
+          Ez az ami miatt az Airesis teljesen megfelelő akár egy <strong>Cég</strong>, akár egy <strong>Demokratikus Mozgalom</strong>, vagy egy  <strong>Szövetség</strong> számára.
           </p>
       paragraph_4:
         title: Javasolj és tanácskozz
@@ -230,8 +234,8 @@ hu:
         title: Megosztott dokumentumok archívuma
         content_html: |
           <p>
-          A csoportod egy nagyon hasznos és teljes dokumentum archívumot kap, amelyet mappákba és almappákba lehet rendezni annak érdekében hogy a résztvevők elérhessenek minden rendelkezésreálló anyagot. <br/>
-          Az Airesisben példátlanul egyszerű a dokumentumok használata: csupán a fájlok böngészőbe húzásával feltölthetsz a szerverre a számítógépedről. <br/>
+          A csoportod egy nagyon hasznos, és teljes dokumentum archívumot kap, amelyet mappákba és almappákba lehet rendezni annak érdekében, hogy a résztvevők elérhessenek minden rendelkezésre álló anyagot. <br/>
+          Az Airesisben példátlanul egyszerű a dokumentumok használata: csupán a fájlok böngészőbe húzásával feltöltheted a szerverre a számítógépedről. <br/>
           Csak néhány másodperc, és a feltöltés kész is! Kérdezd meg a csapatunkat, hogy hogyan tudod növelni a rendelkezésre álló tárterületet, és feltölthetsz akár 1GB-nyi dokumentumot.
           </p>
       paragraph_7:
@@ -266,7 +270,7 @@ hu:
           <p>Az elhatározásunknak köszönhetően, ami kezdetben a szabadság álmának tűnt, rátalált sok ember támogatására és programozók, elemzők, matematikusok, grafikusok és felelős állampolgárok segítségére.</p>
           <p>Jelenleg a szoftververziókat havi vagy kéthavi rendszerességgel tesszük közzé annak érdekében, hogy megfeleljen a felhasználói igényeknek, és a folytonos fejlődésnek.</p>
       paragraph2:
-        title: Airesis alakulása
+        title: Az Airesis fejlődése
         content_html: |
           <p>Az alábbi lista mutatja a Airesis változásait az életciklusa során.
           Szintén láthatja kiemelve a jövőben tervezett újításokat.

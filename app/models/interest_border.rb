@@ -23,7 +23,7 @@ class InterestBorder < ActiveRecord::Base
               COUNTRY => SHORT_COUNTRY,
               CONTINENT => SHORT_CONTINENT,
               GENERIC => SHORT_GENERIC}
-  I_TYPE_MAP =TYPE_MAP.invert
+  I_TYPE_MAP = TYPE_MAP.invert
 
   def district
     is_district? ? territory : nil
@@ -82,22 +82,22 @@ class InterestBorder < ActiveRecord::Base
   end
 
   def self.table_element(border)
-    ftype = border[0, 1] #tipologia (primo carattere)
-    fid = border[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
+    ftype = border[0, 1] # tipologia (primo carattere)
+    fid = border[2..-1] # chiave primaria (dal terzo all'ultimo carattere)
     found = false
     case ftype
-      when SHORT_MUNICIPALITY
-        found = Municipality.find_by_id(fid)
-      when SHORT_PROVINCE
-        found = Province.find_by_id(fid)
-      when SHORT_REGION
-        found = Region.find_by_id(fid)
-      when SHORT_COUNTRY
-        found = Country.find_by_id(fid)
-      when SHORT_CONTINENT
-        found = Continent.find_by_id(fid)
-      when SHORT_GENERIC
-        found = GenericBorder.find_by_id(fid)
+    when SHORT_MUNICIPALITY
+      found = Municipality.find_by_id(fid)
+    when SHORT_PROVINCE
+      found = Province.find_by_id(fid)
+    when SHORT_REGION
+      found = Region.find_by_id(fid)
+    when SHORT_COUNTRY
+      found = Country.find_by_id(fid)
+    when SHORT_CONTINENT
+      found = Continent.find_by_id(fid)
+    when SHORT_GENERIC
+      found = GenericBorder.find_by_id(fid)
     end
     found
   end
@@ -106,7 +106,7 @@ class InterestBorder < ActiveRecord::Base
     territory.solr_search_field
   end
 
-  def as_json(options={})
+  def as_json(_options = {})
     {id: "#{TYPE_MAP[territory_type]}-#{territory_id}", name: territory.name}
   end
 
@@ -116,5 +116,4 @@ class InterestBorder < ActiveRecord::Base
     fid = key[2..-1] # primary key (dal terzo all'ultimo carattere)
     find_or_create_by(territory_type: I_TYPE_MAP[ftype], territory_id: fid)
   end
-
 end

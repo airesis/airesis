@@ -1,8 +1,8 @@
-pt:
+pt-BR:
   tutorial:
     proposals_index:
       welcome_open_space: Bem-vindo no espaço aberto de Aires! O espaço aberto é um grupo muito particular em que participam todos os usuários. Aqui você encontra uma lista das propostas livremente adicionadas pelos usuários do aplicativo e você pode adicionar aqui as propostas de seu interesse
-      welcome_group: "Esta é a lista das propostas da grupo <b>%{group_name}</b>. Aqui você encontra uma lista das propostas adicionadas pelos membros do grupo e você podem até adicionar seus próprios queridos, sendo que você tem permissão para"
+      welcome_group: 'Esta é a lista das propostas da grupo <b>%{group_name}</b>. Aqui você encontra uma lista das propostas adicionadas pelos membros do grupo e você podem até adicionar seus próprios queridos, sendo que você tem permissão para'
       new_proposal: No menu lateral direita você encontra o botão para criar novas propostas...
       filters: ... e filtros diferentes para procurar as propostas que mais lhe interessam
       tabs: Em Aires as propostas percorrem um caminho definido por quatro status principais. Vamos agora descobri-los!

@@ -1,138 +1,138 @@
 crowdin:
   home:
     intro:
-      title: "{crwdns7798:0}{crwdne7798:0}"
-      description: "{crwdns7799:0}{crwdne7799:0}"
+      title: crwdns7798:0crwdne7798:0
+      description: crwdns7799:0crwdne7799:0
       paragraph_1:
-        title: "{crwdns7800:0}{crwdne7800:0}"
-        content_html: "{crwdns7801:0}{crwdne7801:0}"
+        title: crwdns7800:0crwdne7800:0
+        content_html: crwdns7801:0crwdne7801:0
       paragraph_3:
-        title: "{crwdns7802:0}{crwdne7802:0}"
-        content_html: "{crwdns7803:0}{crwdne7803:0}"
+        title: crwdns7802:0crwdne7802:0
+        content_html: crwdns7803:0crwdne7803:0
       paragraph_4:
-        title: "{crwdns7804:0}{crwdne7804:0}"
-        content_html: "{crwdns7805:0}{crwdne7805:0}"
+        title: crwdns7804:0crwdne7804:0
+        content_html: crwdns7805:0crwdne7805:0
       paragraph_5:
-        title: "{crwdns7806:0}{crwdne7806:0}"
-        content_html: "{crwdns7807:0}{crwdne7807:0}"
+        title: crwdns7806:0crwdne7806:0
+        content_html: crwdns7807:0crwdne7807:0
       paragraph_6:
-        title: "{crwdns7808:0}{crwdne7808:0}"
-        content_html: "{crwdns7809:0}{crwdne7809:0}"
+        title: crwdns7808:0crwdne7808:0
+        content_html: crwdns7809:0crwdne7809:0
       paragraph_7:
-        title: "{crwdns7810:0}{crwdne7810:0}"
-        content_html: "{crwdns7811:0}{crwdne7811:0}"
+        title: crwdns7810:0crwdne7810:0
+        content_html: crwdns7811:0crwdne7811:0
       paragraph_8:
-        title: "{crwdns7812:0}{crwdne7812:0}"
-        content_html: "{crwdns7813:0}{crwdne7813:0}"
+        title: crwdns7812:0crwdne7812:0
+        content_html: crwdns7813:0crwdne7813:0
       paragraph_9:
-        title: "{crwdns7814:0}{crwdne7814:0}"
-        content_html: "{crwdns7815:0}{crwdne7815:0}"
+        title: crwdns7814:0crwdne7814:0
+        content_html: crwdns7815:0crwdne7815:0
       paragraph_10:
-        title: "{crwdns7816:0}{crwdne7816:0}"
-        content_html: "{crwdns7817:0}{crwdne7817:0}"
+        title: crwdns7816:0crwdne7816:0
+        content_html: crwdns7817:0crwdne7817:0
       paragraph_11:
-        title: "{crwdns7818:0}{crwdne7818:0}"
+        title: crwdns7818:0crwdne7818:0
     whatis:
-      title: "{crwdns7819:0}{crwdne7819:0}"
-      description: "{crwdns7820:0}{crwdne7820:0}"
+      title: crwdns7819:0crwdne7819:0
+      description: crwdns7820:0crwdne7820:0
       paragraph_1:
-        title: "{crwdns7821:0}{crwdne7821:0}"
-        content_html: "{crwdns7822:0}{crwdne7822:0}"
+        title: crwdns7821:0crwdne7821:0
+        content_html: crwdns8184:0crwdne8184:0
       paragraph_2:
-        title: "{crwdns7823:0}{crwdne7823:0}"
-        content_html: "{crwdns7824:0}%{groups}{crwdne7824:0}"
+        title: crwdns7823:0crwdne7823:0
+        content_html: 'crwdns7824:0%{groups}crwdne7824:0'
       paragraph_3:
-        title: "{crwdns7825:0}{crwdne7825:0}"
-        content_html: "{crwdns7826:0}{crwdne7826:0}"
+        title: crwdns7825:0crwdne7825:0
+        content_html: crwdns7826:0crwdne7826:0
       paragraph_4:
-        title: "{crwdns7827:0}{crwdne7827:0}"
-        content_html: "{crwdns7828:0}%{users}{crwdnd7828:0}%{proposals}{crwdne7828:0}"
+        title: crwdns7827:0crwdne7827:0
+        content_html: 'crwdns7828:0%{users}crwdnd7828:0%{proposals}crwdne7828:0'
       paragraph_5:
-        title: "{crwdns7829:0}{crwdne7829:0}"
-        content_html: "{crwdns7830:0}{crwdne7830:0}"
+        title: crwdns7829:0crwdne7829:0
+        content_html: crwdns7830:0crwdne7830:0
       paragraph_6:
-        title: "{crwdns7831:0}{crwdne7831:0}"
-        content_html: "{crwdns7832:0}{crwdne7832:0}"
+        title: crwdns7831:0crwdne7831:0
+        content_html: crwdns7832:0crwdne7832:0
       paragraph_7:
-        title: "{crwdns7833:0}{crwdne7833:0}"
-        content_html: "{crwdns7834:0}%{topics}{crwdne7834:0}"
+        title: crwdns7833:0crwdne7833:0
+        content_html: 'crwdns7834:0%{topics}crwdne7834:0'
       paragraph_8:
-        title: "{crwdns7835:0}{crwdne7835:0}"
-        content_html: "{crwdns7836:0}%{intro_page}{crwdne7836:0}"
-        link: "{crwdns7837:0}{crwdne7837:0}"
+        title: crwdns7835:0crwdne7835:0
+        content_html: 'crwdns7836:0%{intro_page}crwdne7836:0'
+        link: crwdns7837:0crwdne7837:0
     press:
-      title: "{crwdns7838:0}{crwdne7838:0}"
+      title: crwdns7838:0crwdne7838:0
     roadmap:
       paragraph1:
-        title: "{crwdns7839:0}{crwdne7839:0}"
-        content_html: "{crwdns7840:0}{crwdne7840:0}"
+        title: crwdns7839:0crwdne7839:0
+        content_html: crwdns7840:0crwdne7840:0
       paragraph2:
-        title: "{crwdns7841:0}{crwdne7841:0}"
-        content_html: "{crwdns7842:0}{crwdne7842:0}"
-      title: "{crwdns7843:0}{crwdne7843:0}"
-      description: "{crwdns7844:0}{crwdne7844:0}"
+        title: crwdns7841:0crwdne7841:0
+        content_html: crwdns7842:0crwdne7842:0
+      title: crwdns7843:0crwdne7843:0
+      description: crwdns7844:0crwdne7844:0
     helpus:
-      title: "{crwdns7845:0}{crwdne7845:0}"
-      description: "{crwdns7846:0}{crwdne7846:0}"
+      title: crwdns7845:0crwdne7845:0
+      description: crwdns7846:0crwdne7846:0
       paragraph1:
-        title: "{crwdns7847:0}{crwdne7847:0}"
-        content_html: "{crwdns7848:0}{crwdne7848:0}"
+        title: crwdns7847:0crwdne7847:0
+        content_html: crwdns7848:0crwdne7848:0
       paragraph2:
-        title: "{crwdns7849:0}{crwdne7849:0}"
-        content_html: "{crwdns7850:0}%{link}{crwdne7850:0}"
+        title: crwdns7849:0crwdne7849:0
+        content_html: 'crwdns7850:0%{link}crwdne7850:0'
       paragraph3:
-        title: "{crwdns7851:0}{crwdne7851:0}"
-        content_html: "{crwdns7852:0}{crwdne7852:0}"
+        title: crwdns7851:0crwdne7851:0
+        content_html: crwdns7852:0crwdne7852:0
       paragraph4:
-        content_html: "{crwdns7853:0}%{mail}{crwdne7853:0}"
+        content_html: 'crwdns7853:0%{mail}crwdne7853:0'
       paragraph5:
-        title: "{crwdns7854:0}{crwdne7854:0}"
+        title: crwdns7854:0crwdne7854:0
     linkback:
       paragraph1:
-        title: "{crwdns7855:0}{crwdne7855:0}"
-        content_html: "{crwdns7856:0}{crwdne7856:0}"
+        title: crwdns7855:0crwdne7855:0
+        content_html: crwdns7856:0crwdne7856:0
       paragraph2:
-        title: "{crwdns7857:0}{crwdne7857:0}"
+        title: crwdns7857:0crwdne7857:0
       paragraph3:
-        title: "{crwdns7858:0}{crwdne7858:0}"
-        content_html: "{crwdns7859:0}{crwdne7859:0}"
+        title: crwdns7858:0crwdne7858:0
+        content_html: crwdns7859:0crwdne7859:0
     tags:
-      title: "{crwdns7860:0}{crwdne7860:0}"
-      description: "{crwdns7861:0}{crwdne7861:0}"
+      title: crwdns7860:0crwdne7860:0
+      description: crwdns7861:0crwdne7861:0
     engage:
-      title: "{crwdns7862:0}{crwdne7862:0}"
-      description: "{crwdns7863:0}{crwdne7863:0}"
+      title: crwdns7862:0crwdne7862:0
+      description: crwdns7863:0crwdne7863:0
       nav:
-        opensource: "{crwdns7864:0}{crwdne7864:0}"
-        participate: "{crwdns7865:0}{crwdne7865:0}"
-        banner: "{crwdns7866:0}{crwdne7866:0}"
+        opensource: crwdns7864:0crwdne7864:0
+        participate: crwdns7865:0crwdne7865:0
+        banner: crwdns7866:0crwdne7866:0
       paragraph1:
-        title: "{crwdns7867:0}{crwdne7867:0}"
-        description_html: "{crwdns7868:0}%{donations_path}{crwdne7868:0}"
+        title: crwdns7867:0crwdne7867:0
+        description_html: 'crwdns7868:0%{donations_path}crwdne7868:0'
       paragraph2:
-        title: "{crwdns7869:0}{crwdne7869:0}"
-        description_html: "{crwdns7870:0}%{chisiamo}{crwdnd7870:0}%{form}{crwdnd7870:0}%{email}{crwdnd7870:0}%{cell}{crwdne7870:0}"
+        title: crwdns7869:0crwdne7869:0
+        description_html: 'crwdns7870:0%{chisiamo}crwdnd7870:0%{form}crwdnd7870:0%{email}crwdnd7870:0%{cell}crwdne7870:0'
       developer:
-        title: "{crwdns7871:0}{crwdne7871:0}"
-        description_html: "{crwdns7872:0}%{chisiamo}{crwdne7872:0}"
+        title: crwdns7871:0crwdne7871:0
+        description_html: 'crwdns7872:0%{chisiamo}crwdne7872:0'
       analyst:
-        title: "{crwdns7873:0}{crwdne7873:0}"
-        description_html: "{crwdns7874:0}{crwdne7874:0}"
+        title: crwdns7873:0crwdne7873:0
+        description_html: crwdns7874:0crwdne7874:0
       first_lev_tester:
-        title: "{crwdns7875:0}{crwdne7875:0}"
-        description_html: "{crwdns7876:0}{crwdne7876:0}"
+        title: crwdns7875:0crwdne7875:0
+        description_html: crwdns7876:0crwdne7876:0
       sec_lev_tester:
-        title: "{crwdns7877:0}{crwdne7877:0}"
-        description_html: "{crwdns7878:0}{crwdne7878:0}"
+        title: crwdns7877:0crwdne7877:0
+        description_html: crwdns7878:0crwdne7878:0
       graphic:
-        title: "{crwdns7879:0}{crwdne7879:0}"
-        description_html: "{crwdns7880:0}{crwdne7880:0}"
+        title: crwdns7879:0crwdne7879:0
+        description_html: crwdns7880:0crwdne7880:0
       recruiter:
-        title: "{crwdns7881:0}{crwdne7881:0}"
-        description_html: "{crwdns7882:0}{crwdne7882:0}"
+        title: crwdns7881:0crwdne7881:0
+        description_html: crwdns7882:0crwdne7882:0
       communication:
-        title: "{crwdns7883:0}{crwdne7883:0}"
-        description_html: "{crwdns7884:0}{crwdne7884:0}"
+        title: crwdns7883:0crwdne7883:0
+        description_html: crwdns7884:0crwdne7884:0
       i18n:
-        title: "{crwdns7885:0}{crwdne7885:0}"
-        description_html: "{crwdns7886:0}{crwdne7886:0}"
+        title: crwdns7885:0crwdne7885:0
+        description_html: crwdns7886:0crwdne7886:0

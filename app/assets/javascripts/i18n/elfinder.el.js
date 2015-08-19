@@ -4,7 +4,7 @@
  * @version 2013-07-03
  */
 if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object') {
-	elFinder.prototype.i18.en = {
+	elFinder.prototype.i18.el = {
 		translator : 'Chris Taklis &lt;ctaklis@gmail.com&gt;',
 		language   : 'Greek',
 		direction  : 'ltr',

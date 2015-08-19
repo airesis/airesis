@@ -10,7 +10,7 @@
   <dl class="accordion show-for-medium-up" data-accordion>
     <div class="tabs-content">
       <div class="content active" id="panel1">
-        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">          
           <li><%= flag_for('Europe', 'en') %></li>
           <li><%= flag_for('France', 'fr') %></li>
           <li><%= flag_for('Hungary', 'hu') %></li>
@@ -21,6 +21,8 @@
           <li><%= flag_for('Portugal', 'pt-PT') %></li>
           <li><%= flag_for('Greece', 'el') %></li>
           <li><%= flag_for('United Kingdom', 'en-GB') %></li>
+          <li><%= flag_for('Ireland', 'en-IE') %></li>
+          <li><%= flag_for('Serbia', 'sr') %></li>
         </ul>
       </div>
       <div class="content" id="panel2">
@@ -33,6 +35,7 @@
       </div>
       <div class="content" id="panel3">
         <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+          <li><%= flag_for('Indonesia', 'id') %></li>
           <li><%= flag_for('Russia','ru') %></li>
           <li><%= flag_for('中国','zh') %></li>
         </ul>
@@ -68,16 +71,16 @@
         <div class="row panel">
           <div class="small-6 large-4 columns">
             <p><%= link_to (image_tag 'flags/en.png', alt: "Europe"), current_url(l: 'en'), title: "Europe" %></p>
-            <p><%= link_to (image_tag 'flags/it-IT.png', alt: "Italia"), current_url(l: 'it-IT'), title: "Italia" %></p>
+            <p><%= link_to (image_tag 'flags/it.png', alt: "Italia"), current_url(l: 'it-IT'), title: "Italia" %></p>
             <p><%= link_to (image_tag 'flags/fr.png', alt: "France"), current_url(l: 'fr'), title: "France" %></p>
           </div>
           <div class="small-6 large-4 columns">
             <p><%= link_to (image_tag 'flags/de.png', alt: "Deutschland"), current_url(l: 'de'), title: "Deutschland" %></p>
-            <p><%= link_to (image_tag 'flags/ro-RO.png', alt: "România"), current_url(l: 'ro-RO'), title: "România" %></p>
+            <p><%= link_to (image_tag 'flags/ro.png', alt: "România"), current_url(l: 'ro'), title: "România" %></p>
           </div>
           <div class="small-6 large-4 columns">
-            <p><%= link_to (image_tag 'flags/pt-PT.png', alt: "Portugal"), current_url(l: 'pt-PT'), title: "Portugal" %></p>
-            <p><%= link_to (image_tag 'flags/es-ES.png', alt: 'España'), current_url(l: 'pt-PT'), title: "España" %></p>
+            <p><%= link_to (image_tag 'flags/pt.png', alt: "Portugal"), current_url(l: 'pt'), title: "Portugal" %></p>
+            <p><%= link_to (image_tag 'flags/es.png', alt: 'España'), current_url(l: 'es'), title: "España" %></p>
           </div>
         </div>
       </div>

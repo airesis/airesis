@@ -4,7 +4,7 @@
  * @version 2013-05-07
  */
 if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object') {
-	elFinder.prototype.i18.zh_TW = {
+	elFinder.prototype.i18.zh = {
 		translator : 'Yuwei Chuang &lt;ywchuang.tw@gmail.com&gt;',
 		language   : '正體中文',
 		direction  : 'ltr',

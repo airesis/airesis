@@ -1,5 +1,5 @@
 module ProposalsHelper
-  def navigator_actions(args={})
+  def navigator_actions(args = {})
     classes = "action #{args[:classes]}"
     (link_to '#', onclick: 'return false', class: "#{classes} move_up" do
       '<i class="fa fa-arrow-up"></i>'.html_safe
@@ -22,18 +22,16 @@ module ProposalsHelper
     ret.html_safe
   end
 
-
   # return a parsed section
   def parsed_section(section)
     sanitize(section.paragraphs.first.content).gsub(/<.{1,3}>/, '').blank? ?
-      "<p><span class=\"fake_content\">#{ section.question || t('pages.proposals.show.generic_fake_content')}</span></p>".html_safe :
+      "<p><span class=\"fake_content\">#{section.question || t('pages.proposals.show.generic_fake_content')}</span></p>".html_safe :
       sanitize(section.paragraphs.first.content)
   end
 
-
-  def parsed_content(proposal_comment, anonimous=true)
-    scanned = CGI.escapeHTML(proposal_comment.content).gsub(/(@)\[\[(\d+):([\w\s\.\-]+):([\w\s@\.,-\/#!$%\^&\*;:{}=\-_`~()]+)\]\]/) do |match|
-      nick = ProposalNickname.find($2)
+  def parsed_content(proposal_comment, anonimous = true)
+    scanned = CGI.escapeHTML(proposal_comment.content).gsub(/(@)\[\[(\d+):([\w\s\.\-]+):([\w\s@\.,-\/#!$%\^&\*;:{}=\-_`~()]+)\]\]/) do |_match|
+      nick = ProposalNickname.find(Regexp.last_match(2))
       anonimous ?
         "<span class='cite nickname'>#{nick.nickname}</span>" :
         "<span class='cite nickname'>#{link_to nick.user.fullname, nick.user}</span>"
@@ -99,7 +97,7 @@ module ProposalsHelper
                  seq: solution.seq,
                  persisted: true,
                  title_placeholder: t(placeholder_interpolation),
-                 solution_title: t(title_interpolation, num: i+1),
+                 solution_title: t(title_interpolation, num: i + 1),
                  title: solution.title,
                  removeSolution: t('pages.proposals.edit.remove_solution'),
                  addParagraph: t('pages.proposals.edit.add_paragraph_to_solution'),
@@ -123,14 +121,14 @@ module ProposalsHelper
       solution: {id: i}}}
   end
 
-  def proposal_tag(proposal, options={})
+  def proposal_tag(proposal, _options = {})
     ret = "<div class='proposal_tag'>"
     ret += link_to_proposal(proposal)
     ret += '</div>'
     ret.html_safe
   end
 
-  def link_to_proposal(proposal, options={})
+  def link_to_proposal(proposal, options = {})
     group = proposal.groups.first
     link_to proposal.title,
             (group ?

@@ -1,0 +1,132 @@
+bs:
+  pages:
+    proposals:
+      edit:
+        add_solution:
+          standard: Dodajte drugo rješenje
+          poll: Dodajte drugu opciju
+          rule_book: Dodajte drugo rješenje
+          press: Dodajte drugo rješenje
+          event: Dodajte drugo rješenje
+          estimate: Dodajte drugo rješenje
+          agenda: Dodajte još jednu tačku
+          candidates: Dodajte još jednog kandidata
+          simple: Dodajte drugo rješenje
+        solution_title:
+          standard: Rješenje
+          poll: Opcija
+          rule_book: Rješenje
+          press: Rješenje
+          event: Rješenje
+          estimate: Rješenje
+          agenda: Tačka
+          candidates: Kandidat
+          simple: Rješenje
+        insert_title:
+          standard: Umetanje naslova
+          poll: Umetanje naslova
+          rule_book: Umetanje naslova
+          press: Umetanje naslova
+          event: Umetanje naslova
+          estimate: Umetanje naslova
+          agenda: Umetanje naslova
+          candidates: Umetnite ime i prezime
+          simple: Umetanje naslova
+        new_solution_title:
+          standard: 'Rješenje <span class="num">%{num}</span>:'
+          poll: 'Opcija <span class="num">%{num}</span>:'
+          rule_book: 'Rješenje <span class="num">%{num}</span>:'
+          press: 'Rješenje <span class="num">%{num}</span>:'
+          event: 'Rješenje <span class="num">%{num}</span>:'
+          estimate: 'Rješenje <span class="num">%{num}</span>:'
+          agenda: '<span class="num">%{num}</span> tačka:'
+          candidates: 'Kandidat <span class="num">%{num}</span>:'
+          simple: 'Rješenje <span class="num">%{num}</span>:'
+      new:
+        standard:
+          problems_title: Problemi
+          problems_question: Koji problem treba riješiti i/ili koje prepreke treba savladati kako bi se postigao cilj?
+          problems_title_label: Koji problem treba riješiti i/ili koje prepreke treba savladati kako bi se postigao cilj?
+          objectives_title: Ciljevi
+          step_4_title: Možete unijeti tekst prijedloga ili napisati ga kasnije na osnovu primljenog unosa
+          solution:
+            description: Opis rješenja
+            time: Puta
+            subject: Supervizor
+            resources: Neophodni resursi i kako ih dobiti
+            aspects: Etički, ekološki, društveni aspekti
+            documents: Dokumentacija
+            pros: Za
+            cons: Protiv
+            title: Rješenje 1
+          suggestion_html: |
+            <div><b>Primjer:</b></div>
+            <div>Smanjiti upotrebu pijaće vode za navodnjavanje.</div>
+            <div>Korištenje pijaće vode za zalivanje javnih parkova i privatnih vrtova je traćenje i veliki trošak. Povrh toga, vodonosnik koji snabdeva vodovod je na izmaku</div>
+          paragraph:
+            similar: Slična iskustva
+            stakeholders: Akteri
+            requirements: Uvjeti rješenja
+        rule_book:
+          problems_title: Problemi
+          solution:
+            title: Rješenje 1
+            article: 'Članak %{num}'
+            pros: Za
+            cons: Protiv
+          question:
+            solution:
+              pros: Popišite i rezimirajte glavne prednosti i dobre kvalitete ovog rješenja. Naznačite imaoce prednosti.
+              cons: Popišite i rezimirajte glavne probleme i nedostatke ovog rješenja. Naznačite imaoce nedostataka.
+        press:
+          problems_title_label: Koja je poruka koju želite prenijeti? Koje prepreke se očekuju u njenom pravilnom razumijevanju i tokovima? Postoje li članci ili nedavne vijesti koje želite da reprodukujete ili prilagodite?
+          problems_title: Poruka za prenijeti
+          problems_question: Koja je poruka koju želite prenijeti? Koje prepreke se očekuju u njenom pravilnom razumijevanju i tokovima? Postoje li članci ili nedavne vijesti koje želite da reprodukujete ili prilagodite?
+          solution:
+            title: Rješenje 1
+            maintitle: Naslov
+            subtitle: Podnaslov
+            conclusion: Zaključci
+        estimate:
+          problems_title: Problemi
+          solution:
+            title: Rješenje 1
+            cost: Iznos
+            dumentation: Dokumentacija
+        agenda:
+          paragraph:
+            date_time: Datum i vrijeme
+        event:
+          solution:
+            title: Rješenje 1
+            maintitle: Naslov
+            description: Opis rješenja
+            body: mjesto
+            place: Mjesto
+            organization: Organizacija događanja
+            resources: Neophodni resursi i kako ih dobiti
+            pros: Za
+            cons: Protiv
+          paragraph:
+            similar_experiences: Slična iskustva
+            desired_characteristics: Željene karakteristike
+        candidates:
+          solution:
+            name: Ime i prezime kandidata
+            data: Osobni podaci
+            curriculum: Program
+          paragraph:
+            election_type: 'Opis vrste izbora:'
+        simple:
+          problems_title: Problem
+          problems_title_label: Koji problem treba riješiti i/ili koje prepreke treba savladati kako bi se postigao cilj?
+          problems_question: Koji problem treba riješiti i/ili koje prepreke treba savladati kako bi se postigao cilj?
+          solution:
+            description: Opis
+            title: Rješenje 1
+        petition:
+          paragraph:
+            text: Tekst peticije
+          question:
+            paragraph:
+              text: Tekst peticije

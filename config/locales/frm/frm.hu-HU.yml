@@ -41,23 +41,6 @@ hu:
         default_public: Nyilvános fórum
         default_private_description: A fórum résztvevői számára fenntartott fórum
         default_public_description: A fórumto minden Airesis felhasználó látja. Azok a felhasználók is akik nem a csoport tagjai
-      group:
-        index: Csoportok kezelése
-        new: Új csoport
-        created: A csoport sikeresen létrehozva
-        not_created: Nem sikerült létrehozni a csoport
-        deleted: A kiválasztott csoport törölve lett
-        members: 'Tagok  a %{group}-ban'
-      groups:
-        show:
-          add_member: |
-            Új tag
-            
-          add_a_new_member: Új tag hozzáadása
-          current_members: Jelenlegi tagok
-        edit: Szerkesztés
-        delete: Tőrlés
-        name: Név
       category:
         index: Fórum kategóriák kezelése
         new: Új fórum kategória létrehozása
@@ -169,7 +152,6 @@ hu:
       edited: A hozzászólásod szerkesztve lett
       not_edited: A hozzászólásod nem szerkeszthető
       deleted: A hozzászólásod törölve lett
-      deleted_with_topic: A hozzászólás és a téma is törölve lett
       cannot_delete: Nem törölhetsz nem saját hozzászólást
     posts:
       moderation:
@@ -191,8 +173,6 @@ hu:
       topic:
         create: Téma létrehozása
         update: Változtatások mentése
-      frm_group:
-        create: Csoport létrehozása
       frm_category:
         create: Kategória létrehozása
   simple_form:
@@ -214,8 +194,6 @@ hu:
         name: Név
       post:
         text: Szöveg
-      frm_group:
-        name: Név
   time_ago_in_words: '%{time} óta'
   ago: ' óta'
   ago_by: ' ezelőtt'

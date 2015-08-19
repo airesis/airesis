@@ -98,7 +98,7 @@
             <% if @archives.length > 0 %>
                 <% @archives.each do |rec| %>
                     <div class="blog_comment">
-                      <%= link_to "#{t('date.month_names')[rec.month.to_i]} #{rec.year.to_i} (#{rec.posts})", posts_by_year_and_month_group_path(@group, month: rec.month.to_i, year: rec.year.to_i) %>
+                      <%= link_to "#{t('calendar.monthNames')[rec.month.to_i - 1]} #{rec.year.to_i} (#{rec.posts})", posts_by_year_and_month_group_path(@group, month: rec.month.to_i, year: rec.year.to_i) %>
                     </div>
                 <% end %>
             <% else %>
