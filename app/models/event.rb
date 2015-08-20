@@ -21,6 +21,8 @@ class Event < ActiveRecord::Base
 
   accepts_nested_attributes_for :meeting
 
+  before_validation :set_all_day_time
+
   scope :visible, -> { where(private: false) }
   scope :not_visible, -> { where(private: true) }
   scope :vote_period, ->(starttime = nil) { where(['event_type_id = ? AND starttime > ?', 2, starttime || Time.now]).order('starttime asc') }
@@ -192,6 +194,13 @@ class Event < ActiveRecord::Base
 
   def end_votation
     proposals.each(&:close_vote_phase)
+  end
+
+  def set_all_day_time
+    if all_day
+      self.starttime = self.starttime.beginning_of_day
+      self.endtime = self.endtime.end_of_day
+    end
   end
 
   protected

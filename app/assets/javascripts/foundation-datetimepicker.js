@@ -312,6 +312,30 @@
             });
         },
 
+        pickOnlyDate: function (e) {
+          this.minView = 2;
+          this.viewSelect = 2;
+          this.setFormat('yyyy-mm-dd');
+        },
+
+        pickDateAndTime: function (e) {
+          this.minView = 0;
+          this.viewSelect = 0;
+          this.setFormat('yyyy-mm-dd hh:ii');
+        },
+
+        setBeginOfDay: function (e) {
+          this.date.setUTCHours(0);
+          this.date.setUTCMinutes(0);
+          this._setDate(this.date);
+        },
+
+        setEndOfDay: function (e) {
+          this.date.setUTCHours(23);
+          this.date.setUTCMinutes(59);
+          this._setDate(this.date);
+        },
+
         remove: function () {
             this._detachEvents();
             this.picker.remove();
