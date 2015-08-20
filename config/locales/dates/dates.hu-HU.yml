@@ -35,6 +35,8 @@ hu:
       long_date_time: '%d %B %Y %B %d (%A) %H:%M'
       from_long_date_time: '%Y %B %d (%A) %H:%M -tól'
       until_long_date_time: '%Y %B %d (%A) %H:%M -ig'
+      from_long_date: '%Y %B %d (%A) -tól'
+      until_long_date: '%Y %B %d (%A) -ig'
       short: '%Y. %b. %d.'
       two_rows: '%Y %b %d <br/> %H:%M'
       weekday: '%a %H:%M'

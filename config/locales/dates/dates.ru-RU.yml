@@ -76,6 +76,8 @@ ru:
       long_date_time: '%A %d %B %Y at %I:%M %p'
       from_long_date_time: 'С %A %d %B %Y в %I:%M %p'
       until_long_date_time: 'По %A %d %B %Y в %I:%M %p'
+      from_long_date: 'С %A %d %B %Y'
+      until_long_date: 'По %A %d %B %Y'
       short: '%d %b %Y'
       two_rows: '%d %b %Y <br/> %I:%M %p'
       weekday: '%a at %I:%M %p'
