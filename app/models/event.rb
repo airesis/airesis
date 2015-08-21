@@ -202,8 +202,12 @@ class Event < ActiveRecord::Base
     self.endtime = endtime.end_of_day
   end
 
-  def datetime_format
+  def start_datetime_format
     all_day? ? :from_long_date : :from_long_date_time
+  end
+
+  def end_datetime_format
+    all_day? ? :until_long_date : :until_long_date_time
   end
 
   protected
