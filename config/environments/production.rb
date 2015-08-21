@@ -30,6 +30,7 @@ Airesis::Application.configure do
   config.force_ssl = (ENV['FORCE_SSL'].try(:downcase) == 'true')
 
   config.logger = Logger.new(Rails.root.join("log", Rails.env + ".log"), 50, 100.megabytes)
+  config.log_level = :info
 
   config.active_record.raise_in_transactional_callbacks = true
 end

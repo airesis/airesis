@@ -25,7 +25,7 @@ class Event < ActiveRecord::Base
   scope :not_visible, -> { where(private: true) }
   scope :vote_period, ->(starttime = nil) { where(['event_type_id = ? AND starttime > ?', 2, starttime || Time.now]).order('starttime asc') }
 
-  scope :next, -> { where(['starttime > ?', Time.now]) }
+  scope :next, -> { where(['endtime > ?', Time.now]) }
 
   scope :time_scoped, -> (starttime, endtime) do
     event_t = Event.arel_table

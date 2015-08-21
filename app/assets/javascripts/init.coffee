@@ -11,9 +11,9 @@ $ ->
   $(document).foundation()
   new AiresisFormValidation($('form'))
   Facebook.load()
-  if Airesis.env == 'production'
+  if Airesis.environment == 'production'
     GoogleAnalytics.load()
-  if Airesis.env == 'test'
+  if Airesis.environment == 'test'
     $.fx.off = true
   #polling alerts
   if Airesis.signed_in
