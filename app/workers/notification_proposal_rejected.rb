@@ -1,5 +1,4 @@
 class NotificationProposalRejected < NotificationSender
-
   def perform(proposal_id)
     @proposal = Proposal.find(proposal_id)
     @trackable = @proposal

@@ -1,5 +1,4 @@
 class NotificationBlogCommentCreate < NotificationSender
-
   # notify blog owner of new comments
   def perform(comment_id)
     blog_comment = BlogComment.find(comment_id)

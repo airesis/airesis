@@ -1,5 +1,4 @@
 class NotificationProposalWaitingForDate < NotificationSender
-
   def perform(proposal_id, user_id)
     @proposal = Proposal.find(proposal_id)
     @trackable = @proposal

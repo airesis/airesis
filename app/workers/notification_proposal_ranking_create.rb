@@ -1,6 +1,5 @@
 class NotificationProposalRankingCreate < NotificationSender
-
-  #send alerts when there is a new valuatation for the proposal #todo test
+  # send alerts when there is a new valuatation for the proposal #todo test
   def perform(proposal_ranking_id)
     proposal_ranking = ProposalRanking.find(proposal_ranking_id)
     @proposal = proposal_ranking.proposal

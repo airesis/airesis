@@ -1,5 +1,4 @@
 class NotificationProposalUpdate < NotificationSender
-
   def perform(current_user_id, proposal_id, group_id = nil)
     set_instance_variables(current_user_id, proposal_id, group_id)
     notification_a = build_notification_a
@@ -19,8 +18,8 @@ class NotificationProposalUpdate < NotificationSender
       data[:subdomain] = @group.subdomain if @group.certified?
     end
     Notification.create(notification_type_id: @notification_type_id,
-                                      url: url_for_proposal,
-                                      data: data)
+                        url: url_for_proposal,
+                        data: data)
   end
 
   def set_instance_variables(current_user_id, proposal_id, group_id)

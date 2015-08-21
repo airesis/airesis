@@ -1,5 +1,5 @@
 class NotificationEventCreate < NotificationSender
-  #new events
+  # new events
   def perform(event_id)
     event = Event.find(event_id)
     @trackable = event

@@ -1,6 +1,5 @@
 class NotificationProposalAbandoned < NotificationSender
-
-  #send alerts when a proposal is abandoned
+  # send alerts when a proposal is abandoned
   def perform(proposal_id, participant_ids = [])
     @proposal = Proposal.find(proposal_id)
     @trackable = @proposal

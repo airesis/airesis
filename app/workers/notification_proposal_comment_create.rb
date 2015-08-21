@@ -1,5 +1,4 @@
 class NotificationProposalCommentCreate < NotificationSender
-
   def perform(comment_id)
     comment = ProposalComment.find(comment_id)
     @proposal = comment.proposal
@@ -22,7 +21,6 @@ class NotificationProposalCommentCreate < NotificationSender
       group = @proposal.groups.first
       data[:group] = group.name
       data[:subdomain] = group.subdomain if group.certified?
-    else
     end
     url = url_for_proposal
 
@@ -31,7 +29,7 @@ class NotificationProposalCommentCreate < NotificationSender
         query[:section_id] = data[:section_id] = comment.paragraph.section_id
       end
 
-      @proposal.users.each do |user| #send emails to editors
+      @proposal.users.each do |user| # send emails to editors
         next if user == comment_user
         notification_a = Notification.create!(notification_type_id: NotificationType::NEW_CONTRIBUTES_MINE, url: url + "?#{query.to_query}", data: data)
         send_notification_for_proposal(notification_a, user)
@@ -39,10 +37,10 @@ class NotificationProposalCommentCreate < NotificationSender
 
       @proposal.participants.each do |user|
         next if (user == comment_user) || (@proposal.users.include? user)
-        notification_b = Notification.create!(notification_type_id: NotificationType::NEW_CONTRIBUTES, url: url +"?#{query.to_query}", data: data)
+        notification_b = Notification.create!(notification_type_id: NotificationType::NEW_CONTRIBUTES, url: url + "?#{query.to_query}", data: data)
         send_notification_for_proposal(notification_b, user)
       end
-    else #reply
+    else # reply
 
       if comment.contribute.paragraph
         query[:section_id] = data[:section_id] = comment.contribute.paragraph.section_id
@@ -51,7 +49,7 @@ class NotificationProposalCommentCreate < NotificationSender
       data[:parent_id] = comment.contribute.id
 
       notification_a = Notification.create(notification_type_id: NotificationType::NEW_COMMENTS,
-                                           url: url +"?#{query.to_query}", data: data)
+                                           url: url + "?#{query.to_query}", data: data)
 
       comment.contribute.participants.each do |user|
         next if user == comment_user
