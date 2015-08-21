@@ -6,6 +6,8 @@ window.EventsEdit =
     @initMapManager()
     if EventsEdit.votation
       @showPlace('2')
+    if $('#event_all_day').is(':checked')
+      fdatetimepicker_only_date $('#event_starttime'), $("#event_endtime")
   showPlace: (value)->
     switch value
       when '2'  #votazione

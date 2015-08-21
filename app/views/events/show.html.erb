@@ -32,12 +32,12 @@
           <div style="float:left;margin-top: 10px;">
             <meta itemprop="startDate" content="<%= l @event.starttime, format: '%Y-%m-%dT%H:%M' %>">
             <b>
-              <%= l @event.starttime, format: :from_long_date_time %>
+              <%= l @event.starttime, format: @event.datetime_format %>
             </b>
 
             <div style="margin-top:5px;"></div>
             <b>
-              <%= I18n.localize(@event.endtime, format: :until_long_date_time) %>
+              <%= I18n.localize(@event.endtime, format: @event.datetime_format) %>
             </b>
           </div>
           <div class="clearboth"></div>

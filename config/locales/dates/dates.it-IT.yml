@@ -87,6 +87,8 @@ it:
       long_date_time: '%A %d %B %Y ore %H:%M'
       from_long_date_time: 'Da %A %d %B %Y alle %H:%M'
       until_long_date_time: 'Fino a %A %d %B %Y alle %H:%M'
+      from_long_date: 'Da %A %d %B %Y'
+      until_long_date: 'Fino %A %d %B %Y'
       short: '%d %b %Y'
       two_rows: '%d %b %Y <br/> %H:%M'
       weekday: '%a alle %H:%M'
