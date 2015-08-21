@@ -93,6 +93,7 @@ en:
         rotp_confirm_disable: "Are you sure you want to disable the security token?"
         mail_language: "Language for e-mails"
         time_zone: "Time Zone"
+        join_accounts_forgot_password: "forgot_password?"
       border_preferences:
         updating: "Please wait while we update your preferences according to your border preferences"
         your_borders: "Your geographical borders of interest"
