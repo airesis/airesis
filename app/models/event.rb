@@ -197,10 +197,13 @@ class Event < ActiveRecord::Base
   end
 
   def set_all_day_time
-    if all_day
-      self.starttime = self.starttime.beginning_of_day
-      self.endtime = self.endtime.end_of_day
-    end
+    return unless all_day
+    self.starttime = starttime.beginning_of_day
+    self.endtime = endtime.end_of_day
+  end
+
+  def datetime_format
+    all_day? ? :from_long_date : :from_long_date_time
   end
 
   protected

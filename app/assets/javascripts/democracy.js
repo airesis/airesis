@@ -367,20 +367,14 @@ function start_end_fdatetimepicker(start, end, min_minutes, suggested_minutes) {
 
 function fdatetimepicker_only_date(start, end) {
   start.fdatetimepicker('pickOnlyDate');
+  start.fdatetimepicker('setBeginOfDay');
   end.fdatetimepicker('pickOnlyDate');
+  end.fdatetimepicker('setEndOfDay');
 }
 
 function fdatetimepicker_date_and_time(start, end) {
   start.fdatetimepicker('pickDateAndTime');
   end.fdatetimepicker('pickDateAndTime');
-}
-
-function fdatetimepicker_begin_of_day(e) {
-  e.fdatetimepicker('setBeginOfDay');
-}
-
-function fdatetimepicker_end_of_day(e) {
-  e.fdatetimepicker('setEndOfDay');
 }
 
 function select2town(element) {

@@ -315,13 +315,13 @@
         pickOnlyDate: function (e) {
           this.minView = 2;
           this.viewSelect = 2;
-          this.setFormat('yyyy-mm-dd');
+          this.setFormat(Airesis.i18n.datepicker.dateformat);
         },
 
         pickDateAndTime: function (e) {
           this.minView = 0;
           this.viewSelect = 0;
-          this.setFormat('yyyy-mm-dd hh:ii');
+          this.setFormat(Airesis.i18n.datepicker.datetimeformat);
         },
 
         setBeginOfDay: function (e) {

@@ -175,7 +175,5 @@ $ ->
   $(document).on 'change', '#event_all_day', ->
     if $(this).is(':checked')
       fdatetimepicker_only_date $('#event_starttime'), $("#event_endtime")
-      fdatetimepicker_begin_of_day $('#event_starttime')
-      fdatetimepicker_end_of_day $("#event_endtime")
     else
       fdatetimepicker_date_and_time $('#event_starttime'), $("#event_endtime")
