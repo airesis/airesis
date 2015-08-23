@@ -11,6 +11,8 @@ require 'sunspot_test/rspec'
 require 'capybara-screenshot/rspec' unless ENV['DISABLE_SCREENSHOTS']
 
 SimpleCov.start 'rails'
+SimpleCov.minimum_coverage 70
+SimpleCov.maximum_coverage_drop 0
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
