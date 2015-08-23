@@ -27,7 +27,11 @@
           <% groups = @blog_post.publishings.map(&:group) %>
           <p>
             <%= f.label :group_ids %>
-            <%= f.select :group_ids, Group.accessible_by(current_ability, :post_to).map { |group| [group.name, group.id, {'data-image' => group.image.url, selected: (groups.include? group)}] }, {}, multiple: '', style: 'width: 80%;' %>
+            <%= f.select :group_ids,
+                         Group.accessible_by(current_ability, :post_to).map { |group|
+                           [group.name, group.id, {'data-image' => group.image.url,
+                                                   selected: (groups.include? group)}] }, {},
+                         multiple: true %>
           </p>
       <% end %>
 
@@ -68,8 +72,9 @@
         });
 
         function format(state) {
+            if (!state.id) { return state.text; }
             var element_ = state.element;
-            return "<img src='" + $(element_).data('image') + "' style='width:20px;height:20px;margin-right:5px;'/>" + state.text;
+            return $('<span><img src="' + $(element_).data('image') + '" style="width:20px;height:20px;margin-right:5px;"/>' + state.text + '</span>');
         }
 
         $('#blog_post_group_ids').select2({
