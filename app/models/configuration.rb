@@ -55,6 +55,7 @@ class Configuration < ActiveRecord::Base
   end
 
   def self.config_active?(name)
-    !find_by(name: name).value.to_i.zero?
+    config = find_by(name: name)
+    config.present? && !config.value.to_i.zero?
   end
 end

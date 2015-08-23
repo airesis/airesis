@@ -15,8 +15,16 @@
 
 <%= render 'layouts/favicons' %>
 
+<script type="text/javascript" src="//cdn.ckeditor.com/4.5.3/standard/ckeditor.js"></script>
+
+
 <script type="text/javascript">
 
+    CKEDITOR.plugins.addExternal('youtube', '<%=asset_path 'ckeditor/plugins/youtube/plugin.js'%>');
+    CKEDITOR.plugins.addExternal('smiley', '<%=asset_path 'ckeditor/plugins/smiley/plugin.js'%>');
+    CKEDITOR.plugins.addExternal('lite', '<%=asset_path 'ckeditor/plugins/lite/plugin.js'%>');
+    CKEDITOR.plugins.addExternal('wordcount', '<%=asset_path 'ckeditor/plugins/wordcount/plugin.js'%>');
+    CKEDITOR.config.customConfig = '<%=asset_path 'ckeditor/config.js'%>';
 
     Airesis.id = <%=current_user ? current_user.id : -1 %>;
     Airesis.fullName = '<%=j current_user ? current_user.fullname : ''%>';
@@ -28,7 +36,11 @@
     Airesis.loadingImageTag = '<%=j image_tag 'ajax-loader.gif' %>';
     Airesis.assets = {
         group_participants: '<%=j asset_path 'group_participants.png'%>',
-        group_proposals: '<%=j asset_path 'group_proposals.png'%>'
+        group_proposals: '<%=j asset_path 'group_proposals.png'%>',
+        ckeditor: {
+            config: '<%=j asset_path 'ckeditor/config.js'%>',
+            config_lite: '<%=j asset_path 'ckeditor/config_lite.js'%>'
+        }
     };
     Airesis.i18n = {
         alerts_sign_has_read: '<%=j raw t('pages.header.menu.sign_has_read')%>',
