@@ -1,5 +1,19 @@
 class @AiresisFormValidation
   constructor: (form)->
+    ckeditorValidator =
+    {
+      excluded: false
+      validators:
+        callback:
+          message: Airesis.i18n.validationMessages.notEmpty.default
+          callback: (value, validator, $field)->
+            if value is ''
+              return false
+            else
+              div = $('<div/>').html(value).get(0)
+              text = div.textContent || div.innerText
+              return text.length > 0
+    }
     translations = {}
     translations[Airesis.i18n.locale] = Airesis.i18n.validationMessages
     FormValidation.I18n = $.extend true, FormValidation.I18n || {},
@@ -60,33 +74,12 @@ class @AiresisFormValidation
                   div  = $('<div/>').html(value).get(0)
                   text = div.textContent || div.innerText
                   return text.length > 0
-
         'group[interest_border_tkn]':
           excluded: false
-        'group[description]':
-          excluded: false
-          validators:
-            callback:
-              message: Airesis.i18n.validationMessages.notEmpty.default
-              callback: (value, validator, $field)->
-                if value is ''
-                  return false
-                else
-                  div  = $('<div/>').html(value).get(0)
-                  text = div.textContent || div.innerText
-                  return text.length > 0
-        'blog_post[body]':
-          excluded: false
-          validators:
-            callback:
-              message: Airesis.i18n.validationMessages.notEmpty.default
-              callback: (value, validator, $field)->
-                if value is ''
-                  return false
-                else
-                  div  = $('<div/>').html(value).get(0)
-                  text = div.textContent || div.innerText
-                  return text.length > 0
+        'group[description]': ckeditorValidator
+        'blog_post[body]': ckeditorValidator
+        'frm_post[text]': ckeditorValidator
+        'frm_topic[posts_attributes][0][text]': ckeditorValidator
     form.filter('[data-remote=true]').on 'success.form.fv', (e)->
       $form = $(e.target)
       if $form.data('remote')
