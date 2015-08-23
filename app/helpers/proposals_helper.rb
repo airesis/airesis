@@ -133,7 +133,7 @@ module ProposalsHelper
     link_to proposal.title,
             (group ?
               group_proposal_url(group, proposal) :
-              proposal_url(proposal, subdomain: false)),
+              proposal_url(proposal)),
             options
   end
 

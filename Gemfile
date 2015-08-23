@@ -49,6 +49,7 @@ group :development do
   gem 'pry-byebug'
   gem 'awesome_print'
   gem 'letter_opener'
+  gem 'foreman'
 end
 
 group :development, :test do

@@ -23,15 +23,15 @@ class User < ActiveRecord::Base
   has_many :proposal_presentations, class_name: 'ProposalPresentation'
   has_many :proposals, through: :proposal_presentations, class_name: 'Proposal'
   has_many :notifications, through: :alerts, class_name: 'Notification'
-  has_many :meeting_participations, class_name: 'MeetingParticipation'
-  has_one :blog, class_name: 'Blog'
-  has_many :blog_comments, class_name: 'BlogComment'
-  has_many :blog_posts, class_name: 'BlogPost'
-  has_many :blocked_alerts, class_name: 'BlockedAlert'
-  has_many :blocked_emails, class_name: 'BlockedEmail'
+  has_many :meeting_participations, dependent: :destroy
+  has_one :blog, dependent: :destroy
+  has_many :blog_comments, dependent: :destroy
+  has_many :blog_posts, dependent: :destroy
+  has_many :blocked_alerts, dependent: :destroy
+  has_many :blocked_emails, dependent: :destroy
 
-  has_many :event_comments, class_name: 'EventComment'
-  has_many :likes, class_name: 'EventCommentLike'
+  has_many :event_comments, dependent: :destroy
+  has_many :likes, class_name: 'EventCommentLike', dependent: :destroy
 
   has_many :group_participations, class_name: 'GroupParticipation'
   has_many :groups, through: :group_participations, class_name: 'Group'
@@ -77,8 +77,8 @@ class User < ActiveRecord::Base
   # tutti coloro che seguo
   has_many :followed, through: :followed_user_follow, class_name: 'User', source: :follower
 
-  has_many :tutorial_assignees, class_name: 'TutorialAssignee'
-  has_many :tutorial_progresses, class_name: 'TutorialProgress'
+  has_many :tutorial_assignees, dependent: :destroy
+  has_many :tutorial_progresses, dependent: :destroy
   has_many :todo_tutorial_assignees, -> { where('tutorial_assignees.completed = false') }, class_name: 'TutorialAssignee'
   # tutorial assegnati all'utente
   has_many :tutorials, through: :tutorial_assignees, class_name: 'Tutorial', source: :user
@@ -112,7 +112,8 @@ class User < ActiveRecord::Base
                       thumb: '100x100#',
                       small: '150x150>'
                     },
-                    path: 'avatars/:id/:style/:basename.:extension'
+                    path: (Paperclip::Attachment.default_options[:storage] == :s3) ?
+                      'avatars/:id/:style/:basename.:extension' : ':rails_root/public:url'
 
   validates_attachment_size :avatar, less_than: 2.megabytes
   validates_attachment_content_type :avatar, content_type: ['image/jpeg', 'image/png', 'image/gif', 'image/jpg']
