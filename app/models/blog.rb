@@ -6,9 +6,6 @@ class Blog < ActiveRecord::Base
   has_many :blog_posts, dependent: :destroy
   has_many :comments, through: :blog_posts, source: :blog_comments
 
-  has_many :blog_tags, dependent: :destroy
-  has_many :tags, through: :blog_tags, class_name: 'Tag'
-
   validates :title, length: {in: 1..100}
   validates :user, presence: true
 

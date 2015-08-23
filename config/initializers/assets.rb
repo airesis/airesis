@@ -12,5 +12,5 @@ Rails.application.config.assets.precompile += %w(endless_page.js paypal-button.m
 homepage.js jquery.js jquery.qtip.js ice/index.js html2canvas.js i18n/*.js
 proposals/show.js elfinder.full.js elFinderSupportVer1.js proposals/edit.js)
 Rails.application.config.assets.precompile += %w(back_enabled.png landing.css landing/all.css redmond/custom.css
-menu_left.css jquery.qtip.css foundation_and_overrides.css elfinder.min.css newsletters.css)
+menu_left.css jquery.qtip.css foundation_and_overrides.css elfinder.min.css newsletters.css ckeditor/*)
 
