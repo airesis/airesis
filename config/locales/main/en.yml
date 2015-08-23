@@ -1244,6 +1244,7 @@ en:
     unlock: "Unlock"
     vote_here: "vote here"
     unintegrate: "Put back in debate"
+    join_accounts: "Join accounts and login"
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>First, new contributions or the ones you haven't evaluated are shown, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent"
