@@ -1235,14 +1235,10 @@ $top-large: $topbar-height + $sectionbar-height-large;
   #menu-top a.show-for-small {
     display: inline !important;
   }
-  input#search_q {
-    width: 130px;
-  }
-
+  
   .top-bar-section .has-form {
-    padding: 0 0px;
+    padding: 0 0;
   }
-
 }
 
 .top-bar-section li:not(.has-form) a:not(.button) {
@@ -1677,12 +1673,17 @@ a.zocial:hover {
   a:hover {
     text-decoration: none;
   }
+  input {
+    @media #{$medium-up} {
+      top: 0;
+    }
+  }
 }
 
 $logo-width: 100px;
 
 .logo-wrapper {
-  @media #{$large-up} {
+  @media #{$medium-up} {
     position: relative;
     .logo {
       width: $logo-width;
@@ -1693,7 +1694,7 @@ $logo-width: 100px;
       margin-left: -($logo-width/2);
     }
   }
-  @media #{$medium-only} {
+  @media #{$small-only} {
     float: left;
   }
 }
@@ -2563,9 +2564,7 @@ input[type=file] {
       }
       .has-form {
         float: left;
-        @media #{$small-only} {
-          padding: 0.44rem 1.02564rem;
-        }
+        padding: 0.44rem 1.02564rem;
       }
     }
     &.right {
@@ -2594,7 +2593,7 @@ input[type=file] {
         &#logo-but {
           height: $topbar-height;
           span {
-            line-height:1.9rem;
+            line-height: 1.9rem;
           }
         }
       }
