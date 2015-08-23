@@ -2282,6 +2282,7 @@ small.warning {
   .btn {
     width: 100%;
     text-align: center;
+    box-sizing: border-box;
     &.little {
       width: 40%;
       margin-right: 10px;

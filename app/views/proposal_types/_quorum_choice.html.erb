@@ -34,8 +34,8 @@
         var quorum_ = $('#proposal_quorum_id');
         quorum_.select2({
             minimumResultsForSearch: -1,
-            formatResult: formatQuorum,
-            formatSelection: formatQuorum,
+            templateResult: formatQuorum,
+            templateSelection: formatQuorum,
             escapeMarkup: function (m) {
                 return m;
             }

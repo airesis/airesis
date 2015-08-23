@@ -8,8 +8,8 @@ window.ModsShow =
           {'term': term}
         results: (data, page)->
           {results: data}
-      formatResult: ModsShow.format,
-      formatSelection: ModsShow.format
+      templateResult: ModsShow.format,
+      templateSelection: ModsShow.format
   format: (state)->
     if !state.id
       return state.text

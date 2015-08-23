@@ -20,6 +20,11 @@ class @AiresisFormValidation
             remote:
               message: Airesis.i18n.validationMessages.alreadyTaken.default
               url: '/validators/uniqueness/proposal'
+              data: (validator, $field, value)->
+                {
+                'proposal[title]': value
+                'proposal[id]': $field.data('fv-remote-id')
+                }
               type: 'GET'
               delay: 1000
         'user[email]':
@@ -34,6 +39,11 @@ class @AiresisFormValidation
             remote:
               message: Airesis.i18n.validationMessages.alreadyTaken.default
               url: '/validators/uniqueness/group'
+              data: (validator, $field, value)->
+                {
+                  'group[name]': value
+                  'group[id]': $field.data('fv-remote-id')
+                }
               type: 'GET'
               delay: 1000
         'proposal[proposal_category_id]':

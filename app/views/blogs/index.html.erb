@@ -45,6 +45,7 @@
     }
 
     $('#interest_border').tokenInput("<%=interest_borders_path(format: :json )%>", {
+        propertyToSearch: 'text',
         crossDomain: false,
         prePopulate: $('#interest_border').data("pre"),
         hintText: "<%=t('interest_borders.hint')%>",

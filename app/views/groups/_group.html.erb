@@ -8,7 +8,8 @@
         </div>
     <% end %>
 
-    <%= f.input :name, placeholder: t('activerecord.attributes.group.name_placeholder') %>
+    <%= f.input :name, placeholder: t('activerecord.attributes.group.name_placeholder'),
+                input_html: {data: {fv_remote_id: @group.id}} %>
 
     <%= f.input :description, as: :ckeditor,
                 input_html: {row: 5,
@@ -30,8 +31,8 @@
     <%= f.input :image, accept: "image/jpeg,image/png" %>
 
     <%= f.input :interest_border_tkn,
-                collection: (@group.interest_border.present? ? [[@group.interest_border.text, @group.interest_border.key]] : [] ),
-                selected: (@group.interest_border.present? ? @group.interest_border.key : nil ),
+                collection: (@group.interest_border.present? ? [[@group.interest_border.text, @group.interest_border.key]] : []),
+                selected: (@group.interest_border.present? ? @group.interest_border.key : nil),
                 as: :select,
                 required: true %>
 

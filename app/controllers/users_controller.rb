@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     raw_info = oauth_data_parser.raw_info
     user_info = oauth_data_parser.user_info
 
-    if wrong_join_accounts_params?(user_info[:email])
+    if wrong_join_accounts_params?
       flash[:error] = t('error.users.join_accounts')
       return redirect_to confirm_credentials_users_url
     end
@@ -268,8 +268,8 @@ class UsersController < ApplicationController
 
   protected
 
-  def wrong_join_accounts_params?(user_email)
-    [params[:user][:email], params[:user][:password]].any? &:blank? || user_email != params[:user][:email]
+  def wrong_join_accounts_params?
+    params[:user][:password].empty?
   end
 
   def user_params

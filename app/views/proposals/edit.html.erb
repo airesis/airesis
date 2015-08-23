@@ -22,20 +22,18 @@
                 <%= t('pages.proposals.edit.no_participants') %>
             <% end %>
           </p>
-          <%= f.label :title %>
-          <%= f.text_field :title %>
+          <%= f.input :title, input_html: {data: {fv_remote_id: @proposal.id}} %>
 
-          <%= f.label :interest_borders_tkn %>
-          <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json %>
-
-
+          <div class="inputs">
+            <%= f.label :interest_borders_tkn %>
+            <%= f.text_field 'interest_borders_tkn', data: {pre: @proposal.interest_borders.to_json} %>
+          </div>
           <% if ::Configuration::folksonomy %>
-
-              <%= f.label :tags_list %>
-              <%= f.text_field :tags_list %>
-
+              <div class="inputs">
+                <%= f.label :tags_list %>
+                <%= f.text_field :tags_list %>
+              </div>
           <% end %>
-
 
           <% if @proposal.change_advanced_options %>
               <fieldset>
@@ -56,8 +54,6 @@
                 <% end %>
               </fieldset>
           <% end %>
-
-
         </div>
     <% end %>
 
@@ -65,8 +61,10 @@
     <div class="card">
       <div class="row">
         <div class="columns medium-12">
-          <%= f.label :proposal_category_id %>
-          <%= f.select :proposal_category_id, options_for_select(ProposalCategory.all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}] }, @proposal.proposal_category_id), {}, {style: 'width:100%'} %>
+          <div class="inputs">
+            <%= f.label :proposal_category_id %>
+            <%= f.select :proposal_category_id, options_for_select(ProposalCategory.all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}] }, @proposal.proposal_category_id), {}, {style: 'width:100%'} %>
+          </div>
         </div>
       </div>
       <% if @proposal.vote_defined %>
