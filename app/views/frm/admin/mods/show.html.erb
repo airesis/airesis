@@ -6,11 +6,11 @@
 
 <div class="card">
   <div class="row">
-    <label><%= t('.add_a_new_member') %></label>
     <%= form_tag add_group_frm_admin_mod_members_url(@group, @frm_mod), remote: true do %>
-        <p>
-          <%= text_field_tag "frm_user_id" %>
-        </p>
+        <div class="inputs">
+          <label><%= t('.add_a_new_member') %></label>
+          <%= select_tag 'frm_user_id' %>
+        </div>
 
         <p class="span1">
           <%= submit_tag t('.add_member'), class: "btn blue", data: {disable_with: t('loading')} %>

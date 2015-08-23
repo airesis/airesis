@@ -79,6 +79,10 @@ en:
         index: "Manage moderator groups"
         show:
           title: "Manage moderators"
+        new: "New Moderators Group"
+        created: "Succesfully created moderators group"
+        not_created: "Error creating the Moderators group"
+        deleted: "Succesfully deleted Moderators group"
     common:
       pages: Pages
     errors:
@@ -209,6 +213,7 @@ en:
       frm_forum:
         category: Category
         title: Title
+        name: Title
         description: Description
         moderators: Moderators
         visible_outside: Visible outside of the group

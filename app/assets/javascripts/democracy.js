@@ -765,7 +765,6 @@ function initTextAreaTag() {
 }
 
 function airesis_close_reveal() {
-    "use strict";
     $('.reveal-modal:visible').foundation('reveal', 'close');
 }
 
@@ -773,7 +772,7 @@ function airesis_reveal(element_, remove_on_close) {
     remove_on_close = typeof remove_on_close !== 'undefined' ? remove_on_close : true;
     element_.foundation().foundation('reveal', 'open');
     if (remove_on_close) {
-        $(document).on('closed', element_, function () {
+        $(document).on('closed.fndtn.reveal', element_, function () {
             element_.remove();
         });
     }

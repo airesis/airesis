@@ -1131,6 +1131,7 @@ it:
         record_invalid: 'Validazione fallita: %{errors}'
         not_found: ' non trovato.'
         TOS: "E' necessario accettare le condizioni d'uso"
+        forum_visibility: "Un forum non può essere visibile all'esterno se la sezione in cui è contenuto è privata"
       full_messages:
         format: '%{attribute} %{message}'
       models:

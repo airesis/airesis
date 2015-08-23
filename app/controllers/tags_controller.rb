@@ -6,7 +6,7 @@ class TagsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
 
   def show
-    @kt = Tag.find_by_text(params[:id])
+    @kt = Tag.find_by(text: params[:id])
     if @kt
       @page_title = "Elenco elementi con tag '" + params[:id] + "'"
       @tag = params[:id]
@@ -34,7 +34,7 @@ class TagsController < ApplicationController
   def index
     if params[:q]
       hint = params[:q] + '%'
-      @tags = Tag.joins(:tag_counters).where(['upper(text) like upper(?)', hint.strip]).
+      @tags = Tag.includes(:tag_counters).references(:tag_counters).where(['upper(text) like upper(?)', hint.strip]).
         order('(groups_count + blog_posts_count + proposals_count) desc').
         limit(10).collect { |t| {id: t.id.to_s, name: t.text} }
 

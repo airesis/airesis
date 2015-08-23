@@ -1138,6 +1138,7 @@ en:
         record_invalid: 'Validation failed %{errors}'
         not_found: 'not found.'
         TOS: "It is required to accept the TOS"
+        forum_visibility: "A forum can't be visible outside the group if the category is private"
       full_messages:
         format: "%{attribute} %{message}"
       models:
