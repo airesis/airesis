@@ -41,7 +41,7 @@ en:
         profile_info_unconfirmed: "(unconfirmed user)"
         send_message_button: "Send private message"
         name_label: "Name"
-        surname_label: "Surname"
+        surname_label: "Last Name"
         email_label: "Email"
         edit_image: "Edit image"
         to_be_confirmed: "to be confirmed"
@@ -58,7 +58,7 @@ en:
         certified_from: "Certified from"
         group_level_permission_title: "Group level permissions"
         admin_permissions: "You are administrator of this group and you have all permissions"
-        certified_cannot_edit_info: "You're a certified user: you can't edit your Name, Surname and Email"
+        certified_cannot_edit_info: "You're a certified user: you can't edit your Name, Last Name and Email"
       send_message:
         subject_label: "Subject"
         body_label: "Body"
@@ -292,7 +292,7 @@ en:
         anything: "All"
         operations_on_user: "Operations available on users"
         send_email: "Send email"
-        surname: "Surname"
+        surname: "Last Name"
         name: "Name"
         role: "Role"
         member_since: "Member since"
@@ -546,7 +546,7 @@ en:
         positive: "Favorable"
         negative: "Contrary"
         neutral: "Neutrals"
-        name_surname_column: "Name and surname"
+        name_surname_column: "First and Last name"
         date_time_column: "Vote date and time"
       report_contribute:
         mark_title: "Mark the contribution"
@@ -1088,7 +1088,7 @@ en:
         condition_title: 'The conditions of Time and Participants must be both overcome or just one of them?'
       search_participant:
         role_id: 'Role'
-        keywords: 'Name or surname'
+        keywords: 'First or last name'
       sys_movement:
         sys_movement_type_id: "Type"
         made_on: "Made on"
@@ -1097,7 +1097,7 @@ en:
       user:
         name: 'Name'
         email: 'Email address'
-        surname: 'Surname'
+        surname: 'Last Name'
         login: 'Username'
         password: 'Password'
         linkedinpageurl: 'Your page on LinkedIn'

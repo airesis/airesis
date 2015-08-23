@@ -4,8 +4,8 @@
 
       <%= f.input :title, style: 'width:80%' %>
 
-      <%= f.label :body %>
-      <%= f.cktext_area :body, ckeditor: {toolbar: 'blog', language: I18n.locale} %>
+      <%= f.input :body, as: :ckeditor, required: true,
+                  input_html: {ckeditor: {toolbar: 'blog', language: I18n.locale}} %>
 
       <%= f.input :tags_list, label: t('pages.groups.new.tags.title') %>
 
@@ -58,6 +58,12 @@
 <script type="text/javascript">
 
     $(function () {
+        var description_editor = CKEDITOR.instances['blog_post_body'];
+        description_editor.on('blur', function () {
+            description_editor.updateElement();
+            $('form').formValidation('revalidateField', 'blog_post[body]');
+        });
+
         $('#blog_post_tags_list').tokenInput("<%=tags_path(format: :json )%>", {
             theme: "facebook",
             crossDomain: false,
@@ -72,7 +78,9 @@
         });
 
         function format(state) {
-            if (!state.id) { return state.text; }
+            if (!state.id) {
+                return state.text;
+            }
             var element_ = state.element;
             return $('<span><img src="' + $(element_).data('image') + '" style="width:20px;height:20px;margin-right:5px;"/>' + state.text + '</span>');
         }

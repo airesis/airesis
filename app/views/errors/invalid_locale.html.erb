@@ -8,7 +8,7 @@
       <ul>
         <% I18n.available_locales.each do |locale| %>
             <li>
-              <%= link_to locale, current_url(l: locale) %>
+              <%= link_to t("db.sys_locales.#{locale}.description"), current_url(l: locale) %>
             </li>
         <% end %>
       </ul>

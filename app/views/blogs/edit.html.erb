@@ -11,7 +11,7 @@
       <div class="row">
         <div class="columns small-12">
           <%= f.error_notification %>
-          <%= f.input :title %>
+          <%= f.input :title, required: true %>
         </div>
           <div class="columns small-12">
             <%= link_to t('pages.blogs.edit.back_to_blog'), @blog, class: 'btn backButton' %>

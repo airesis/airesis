@@ -1,22 +1,44 @@
 en:
   db:
     sys_locales:
-      it-IT:
+      crowdin:
+        description: Crowdin (only for developers)
+      hu:
+        description: Hungarian
+      it:
         description: Italian
+      el:
+        description: Greek
       en:
         description: English
+      en-GB:
+        description: English (UK)
       en-US:
-        description: English (US)
+        description: English (USA)
+      en-ZA:
+        description: English (South Africa)
+      en-NZ:
+        description: English (New Zeland)
+      en-AU:
+        description: English (Australia)
       fr:
         description: French
-      es-ES:
+      es:
         description: Spanish
-      pt-PT:
+      es-EC:
+        description: Spanish (Ecuador)
+      es-CL:
+        description: Spanish (Chile)
+      pt:
         description: Portuguese
       pt-BR:
         description: Portuguese (Brasil)
       de:
         description: German
+      zh:
+        description: Chinese
+      ro:
+        description: Romanian
     proposal_types:
       STANDARD:
         description: Standard Proposal

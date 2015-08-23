@@ -75,3 +75,27 @@ class @AiresisFormValidation
                   div  = $('<div/>').html(value).get(0)
                   text = div.textContent || div.innerText
                   return text.length > 0
+        'blog_post[body]':
+          excluded: false
+          validators:
+            callback:
+              message: Airesis.i18n.validationMessages.notEmpty.default
+              callback: (value, validator, $field)->
+                if value is ''
+                  return false
+                else
+                  div  = $('<div/>').html(value).get(0)
+                  text = div.textContent || div.innerText
+                  return text.length > 0
+    form.filter('[data-remote=true]').on 'success.form.fv', (e)->
+      $form = $(e.target)
+      if $form.data('remote')
+        e.preventDefault()
+        return false
+    form.filter('[data-remote=true]').on 'submit', (e)->
+      $form = $(e.target)
+      if $form.data('remote')
+        numInvalidFields = $form.data('formValidation').getInvalidFields().length
+        if numInvalidFields
+          e.preventDefault()
+          return false

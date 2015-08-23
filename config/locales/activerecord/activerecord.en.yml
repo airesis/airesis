@@ -100,7 +100,7 @@ en:
         vote_good_score: 'Approval'
       search_participant:
         role_id: 'Role'
-        keywords: 'Name or surname'
+        keywords: 'First or last name'
       sys_movement:
         sys_movement_type_id: "Type"
         made_on: "Made on"
@@ -109,7 +109,7 @@ en:
       user:
         name: 'Name'
         email: 'Email address'
-        surname: 'Surname'
+        surname: 'Last Name'
         login: 'Username'
         password: 'Password'
         linkedinpageurl: 'Your page on LinkedIn'
