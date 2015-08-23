@@ -54,7 +54,7 @@ class Event < ActiveRecord::Base
     conditions = (event_t[:event_type_id].eq(EventType::INCONTRO).and(municipality_t[field].eq(territory.id))).
       or(event_t[:event_type_id].eq(EventType::VOTAZIONE))
 
-    includes(:event_type, place: :municipality).where(conditions)
+    includes(:event_type, place: :municipality).references(:event_type, place: :municipality).where(conditions)
   end
 
   after_destroy :remove_scheduled_tasks
