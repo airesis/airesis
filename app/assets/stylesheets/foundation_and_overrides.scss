@@ -1201,8 +1201,8 @@ $namespace: false;
 @import 'foundation';
 
 //airesis specific
-$page-min-width: rem-calc(320px);
-$left-menu-width: rem-calc(250px);
+$page-min-width: em-calc(320);
+$left-menu-width: rem-calc(250);
 
 $sectionbar-height-large: rem-calc(40px);
 $sectionbar-height-small: $sectionbar-height-large + rem-calc(20);
