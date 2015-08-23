@@ -130,21 +130,15 @@
         <div class="suggestion_box">
           <%= raw @proposal.sections.first.suggestion %>
         </div>
-
       </div>
 
       <div class="step">
         <h4><%= t('pages.proposals.new.step_4_title') if request.xhr? %></h4>
-
         <%= render partial: '/proposal_types/quorum_choice', locals: {f: f} %>
-
-
         <div class="suggestion_box">
           <%= t('pages.proposals.new.step_4_footer_html') %>
         </div>
-
       </div>
-
       <p>
         <%= link_to t('buttons.cancel'), :back, class: 'btn' unless request.xhr? %>
         <%= f.submit t('pages.proposals.new.create_button'), class: 'btn blue disable', onclick: 'return validElement();', data:{disable_with: t('loading')} %>

@@ -96,6 +96,7 @@ Airesis::Application.routes.draw do
       put :add_authors
       get :vote_results
       post :close_debate
+      post :start_votation
       patch :regenerate
       get :geocode
       get :promote
