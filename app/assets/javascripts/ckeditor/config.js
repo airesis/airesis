@@ -15,23 +15,10 @@ CKEDITOR.editorConfig = function( config )
         '/',
         { items: [ "Bold","Italic","Underline","Strike"] },
         { items: [ "NumberedList","BulletedList",'-',"Outdent","Indent",'-',"Blockquote",'-',"JustifyLeft","JustifyCenter","JustifyRight","JustifyBlock" ]},
-        '/',
         { items: [ "Styles","Format","Font","FontSize"]},
         { items: [ "TextColor","BGColor"]},
         { items: [ "Maximize" ]}
 
-    ];
-
-    config.toolbar_proposal = [
-        { items: ["Cut","Copy","Paste","PasteText","PasteFromWord","-","Undo","Redo"]},
-        { items: ["Link","Unlink","Anchor"]},
-        { items: ["Image","Youtube","Table"]},
-        { items: [ "Bold","Italic","Underline"]},
-        { items: [ "NumberedList","BulletedList",'-',"JustifyLeft","JustifyCenter","JustifyRight","JustifyBlock" ]},
-        { items: [ "FontSize"]},
-        { items: [ "TextColor","BGColor"]},
-        { items: [ "lite_ToggleShow" ]},
-        { items: [ "Maximize"]}
     ];
 
     config.toolbar_forum = [

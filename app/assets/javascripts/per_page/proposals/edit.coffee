@@ -135,7 +135,7 @@ window.ProposalsEdit =
     editor_ = CKEDITOR.replace(id,
       'toolbar': 'proposal'
       'language': Airesis.i18n.locale
-      'customConfig': 'config_lite.js')
+      'customConfig': Airesis.assets.ckeditor.config_lite)
     ProposalsEdit.ckedstoogle_[id] =
       first: true
     ProposalsEdit.addEditorEvents editor_

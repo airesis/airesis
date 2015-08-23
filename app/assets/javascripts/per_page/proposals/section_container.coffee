@@ -21,7 +21,7 @@ class Airesis.SectionContainer
     editor_ = CKEDITOR.replace(@editor.attr('id'),
       'toolbar': 'proposal'
       'language': Airesis.i18n.locale
-      'customConfig': 'config_lite.js')
+      'customConfig': Airesis.assets.ckeditor.config_lite)
     @addEditorEvents(editor_)
   addEditorEvents: (editor_)->
     editor_.on 'lite:init', (event) ->

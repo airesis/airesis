@@ -17,7 +17,6 @@
 //= require fullcalendar
 //= require gcal
 //= require charCount
-//= require jquery.progressbar
 //= require jquery.dataTables.min
 //= require jquery.dataTables.columnFilter
 //= require jquery.quick-wizard
@@ -39,7 +38,6 @@
 //= require jquery.switchbutton
 //= require intro.js
 //= require select2
-//= require ckeditor/init
 //= require underscore
 //= require jquery.textntags
 //= require paypal-button.min
