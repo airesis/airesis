@@ -1,6 +1,5 @@
 class NotificationProposalVoteStarts < NotificationSender
-
-  def perform(proposal_id, group_id=nil, group_area_id = nil)
+  def perform(proposal_id, group_id = nil, group_area_id = nil)
     @proposal = Proposal.find(proposal_id)
     @trackable = @proposal
     group = Group.find(group_id) if group_id

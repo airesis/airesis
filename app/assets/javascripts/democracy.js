@@ -156,15 +156,6 @@ function disegnaProgressBar() {
             }
         });
     });
-
-    $(function () {
-        $(".progress_bar").progressBar({
-            boxImage: '<%=asset_path "progressbar.gif"%>',
-            barImage: '<%=asset_path "progressbg_green.gif"%>',
-            showText: true,
-            textFormat: 'custom'
-        });
-    });
 }
 
 function hideDisableButton(button) {
@@ -365,6 +356,17 @@ function start_end_fdatetimepicker(start, end, min_minutes, suggested_minutes) {
         });
 }
 
+function fdatetimepicker_only_date(start, end) {
+  start.fdatetimepicker('pickOnlyDate');
+  start.fdatetimepicker('setBeginOfDay');
+  end.fdatetimepicker('pickOnlyDate');
+  end.fdatetimepicker('setEndOfDay');
+}
+
+function fdatetimepicker_date_and_time(start, end) {
+  start.fdatetimepicker('pickDateAndTime');
+  end.fdatetimepicker('pickDateAndTime');
+}
 
 function select2town(element) {
     element.select2({

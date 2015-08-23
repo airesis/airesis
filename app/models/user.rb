@@ -20,20 +20,20 @@ class User < ActiveRecord::Base
   validates_acceptance_of :accept_conditions, message: I18n.t('activerecord.errors.messages.TOS')
   validates_acceptance_of :accept_privacy, message: I18n.t('activerecord.errors.messages.privacy')
 
-  has_many :proposal_presentations, class_name: 'ProposalPresentation'
+  has_many :proposal_presentations, dependent: :destroy # TODO: replace with anonymous
   has_many :proposals, through: :proposal_presentations, class_name: 'Proposal'
   has_many :notifications, through: :alerts, class_name: 'Notification'
-  has_many :meeting_participations, class_name: 'MeetingParticipation'
-  has_one :blog, class_name: 'Blog'
-  has_many :blog_comments, class_name: 'BlogComment'
-  has_many :blog_posts, class_name: 'BlogPost'
-  has_many :blocked_alerts, class_name: 'BlockedAlert'
-  has_many :blocked_emails, class_name: 'BlockedEmail'
+  has_many :meeting_participations, dependent: :destroy
+  has_one :blog, dependent: :destroy
+  has_many :blog_comments, dependent: :destroy
+  has_many :blog_posts, dependent: :destroy
+  has_many :blocked_alerts, dependent: :destroy
+  has_many :blocked_emails, dependent: :destroy
 
-  has_many :event_comments, class_name: 'EventComment'
-  has_many :likes, class_name: 'EventCommentLike'
+  has_many :event_comments, dependent: :destroy
+  has_many :likes, class_name: 'EventCommentLike', dependent: :destroy
 
-  has_many :group_participations, class_name: 'GroupParticipation'
+  has_many :group_participations, dependent: :destroy
   has_many :groups, through: :group_participations, class_name: 'Group'
   has_many :portavoce_groups, -> { joins(' INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id').where("(participation_roles.name = 'amministratore')") }, through: :group_participations, class_name: 'Group', source: 'group'
 
@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
   has_many :blocked_notifications, through: :blocked_alerts, class_name: 'NotificationType', source: :notification_type
   has_many :blocked_email_notifications, through: :blocked_emails, class_name: 'NotificationType', source: :notification_type
 
-  has_many :group_participation_requests, class_name: 'GroupParticipationRequest'
+  has_many :group_participation_requests, dependent: :destroy
 
   # record di tutti coloro che mi seguono
   has_many :followers_user_follow, class_name: 'UserFollow', foreign_key: :followed_id
@@ -77,8 +77,8 @@ class User < ActiveRecord::Base
   # tutti coloro che seguo
   has_many :followed, through: :followed_user_follow, class_name: 'User', source: :follower
 
-  has_many :tutorial_assignees, class_name: 'TutorialAssignee'
-  has_many :tutorial_progresses, class_name: 'TutorialProgress'
+  has_many :tutorial_assignees, dependent: :destroy
+  has_many :tutorial_progresses, dependent: :destroy
   has_many :todo_tutorial_assignees, -> { where('tutorial_assignees.completed = false') }, class_name: 'TutorialAssignee'
   # tutorial assegnati all'utente
   has_many :tutorials, through: :tutorial_assignees, class_name: 'Tutorial', source: :user
@@ -89,7 +89,7 @@ class User < ActiveRecord::Base
 
   has_many :events
 
-  has_many :proposal_nicknames, class_name: 'ProposalNickname'
+  has_many :proposal_nicknames, dependent: :destroy
 
   has_one :certification, class_name: 'UserSensitive', foreign_key: :user_id, autosave: true
 
@@ -112,7 +112,8 @@ class User < ActiveRecord::Base
                       thumb: '100x100#',
                       small: '150x150>'
                     },
-                    path: 'avatars/:id/:style/:basename.:extension'
+                    path: (Paperclip::Attachment.default_options[:storage] == :s3) ?
+                      'avatars/:id/:style/:basename.:extension' : ':rails_root/public:url'
 
   validates_attachment_size :avatar, less_than: 2.megabytes
   validates_attachment_content_type :avatar, content_type: ['image/jpeg', 'image/png', 'image/gif', 'image/jpg']
@@ -124,7 +125,7 @@ class User < ActiveRecord::Base
   scope :confirmed, -> { where 'confirmed_at is not null' }
   scope :unconfirmed, -> { where 'confirmed_at is null' }
   scope :certified, -> { where(user_type_id: UserType::CERTIFIED) }
-  scope :count_active, -> { count.to_f * (ENV['ACTIVE_USERS_PERCENTAGE'].to_f / 100.0) }
+  scope :count_active, -> { unblocked.count.to_f * (ENV['ACTIVE_USERS_PERCENTAGE'].to_f / 100.0) }
 
   scope :autocomplete, ->(term) { where('lower(users.name) LIKE :term or lower(users.surname) LIKE :term', term: "%#{term.downcase}%").order('users.surname desc, users.name desc').limit(10) }
   scope :non_blocking_notification, ->(notification_type) { User.where.not(id: User.select('users.id').joins(:blocked_alerts).where(blocked_alerts: {notification_type_id: notification_type})) }

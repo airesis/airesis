@@ -1,4 +1,4 @@
-#TODO duplicated code, all that code is duplicated from notification helper. please fix it asap
+# TODO: duplicated code, all that code is duplicated from notification helper. please fix it asap
 class NotificationSender
   include Sidekiq::Worker, GroupsHelper, ProposalsHelper, Rails.application.routes.url_helpers
 
@@ -6,7 +6,7 @@ class NotificationSender
 
   protected
 
-  #send notifications to the authors of a proposal
+  # send notifications to the authors of a proposal
   def send_notification_to_authors(notification)
     @proposal.users.each do |user|
       send_notification_for_proposal(notification, user)
@@ -23,11 +23,11 @@ class NotificationSender
 
   # TODO: implement
   def check_destroyable(notification, user)
-    destroyable = notification.notification_type.destroyable #list of destroyable notification types
+    destroyable = notification.notification_type.destroyable # list of destroyable notification types
     destroyable.each do |notification_type|
       alert_jobs = search_alert_jobs(notification_type, user)
       alert_jobs.each do |alert_job|
-        if alert_job.completed? # TODO this doesn't exist
+        if alert_job.completed? # TODO: this doesn't exist
           alert_job.alert.soft_delete
           email_job = alert_job.alert.email_job
           email_job.canceled! unless email_job.completed?
@@ -45,7 +45,7 @@ class NotificationSender
   # send an alert to the user
   # if the user blocked the notificaiton type, then the alert is not sent
   def send_notification_to_user(notification, user)
-    return if user.blocked_notifications.include? notification.notification_type #se il tipo non è bloccato
+    return if user.blocked_notifications.include? notification.notification_type # se il tipo non è bloccato
     check_destroyable(notification, user)
     if notification.notification_type.cumulable?
       send_cumulable_alert_to_user(notification, user)
@@ -58,7 +58,7 @@ class NotificationSender
     alert_job = search_for_cumulable(notification.notification_type, user)
     if alert_job.present? # an alert is already in queue
       if alert_job.sidekiq_job.present?
-        accumulate(alert_job) #accumulate one notification on the previous one
+        accumulate(alert_job) # accumulate one notification on the previous one
         return
       else
         alert_job.destroy

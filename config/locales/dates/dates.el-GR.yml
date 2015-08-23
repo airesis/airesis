@@ -87,6 +87,8 @@ el:
       long_date_time: '%A %d %B %Y σε %I:%M %p'
       from_long_date_time: 'Από %A %d %B %Y σε %I:%M %p'
       until_long_date_time: 'Την %A %d %B %Y στις %I:%M %p'
+      from_long_date: 'Από %A %d %B %Y'
+      until_long_date: 'Την %A %d %B %Y'
       short: '%d %b %Y'
       two_rows: '%d %b %Y <br/> %I:%M %p'
       weekday: '%a στις %I:%M %p'

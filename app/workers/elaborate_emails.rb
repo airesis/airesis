@@ -2,13 +2,12 @@ class ElaborateEmails
   include Sidekiq::Worker
   include Sidetiq::Schedulable
 
-  recurrence { hourly } # todo: put back to minutely
+  recurrence { hourly } # TODO: put back to minutely
   sidekiq_options queue: :low_priority
 
-
-  def perform(*args)
+  def perform(*_args)
     ReceivedEmail.where(read: false).each do |email|
-      email.update_attribute(:read,true)
+      email.update_attribute(:read, true)
       @topic = Frm::Topic.find_by_token(email.token)
       unless @topic
         @post = Frm::Post.find_by_token(email.token)
@@ -26,5 +25,4 @@ class ElaborateEmails
       end
     end
   end
-
 end

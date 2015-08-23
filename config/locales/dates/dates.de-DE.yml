@@ -87,6 +87,8 @@ de:
       long_date_time: '%A %d %B %Y at %I:%M %p'
       from_long_date_time: 'Von %A %d %B %Y um %I:%M %p'
       until_long_date_time: 'Bis %A %d %B %Y um %I:%M %p'
+      from_long_date: 'Von %A %d %B %Y'
+      until_long_date: 'Bis %A %d %B %Y'
       short: '%d %b %Y'
       two_rows: '%d %b %Y <br/> %I:%M %p'
       weekday: '%a at %I:%M %p'

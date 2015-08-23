@@ -3,7 +3,7 @@ class InterestBordersController < ApplicationController
   def index
     hint = "#{params[:q]}%"
     map = []
-    territory = SysLocale.find_by_key(I18n.locale).territory #that is the territory of the current user. it can be a state or a continent
+    territory = current_domain.territory
 
     limit = 10 #hints limit
     results = []

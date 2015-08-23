@@ -1,6 +1,5 @@
 class NotificationProposalReadyForVote < NotificationSender
-
-  #send alerts when the debate is closed and the authors must choose a date for the votation
+  # send alerts when the debate is closed and the authors must choose a date for the votation
   def perform(proposal_id)
     @proposal = Proposal.find(proposal_id)
     @trackable = @proposal

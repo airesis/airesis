@@ -71,7 +71,7 @@ class OauthDataParser
       raw_info['pictureUrl'] || # Linkedin
       raw_info['profile_image_url'] || # Twitter
       raw_info['photo'].try(:[], 'photo_link') || # Meetup
-      data['info'].try(:[], 'image') # Facebook
+      "#{data['info'].try(:[], 'image')}?type=large" # Facebook
   end
 
   def user_certified?

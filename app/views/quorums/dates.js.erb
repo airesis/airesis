@@ -1,4 +1,4 @@
-<%if !@dates.empty? || (can? :create_date, @group)%>
+<%if !@group || (can? :create_date, @group)%>
 $('#choose_votation .content').html('<%=j render '/quorums/dates'%>');
 <%else%>
 $('#choose_votation .content').html('');

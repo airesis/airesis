@@ -168,3 +168,10 @@ $ ->
   #executes page specific js
   page = $('body').data('page')
   execute_page_js page
+
+  #select fdatetimepicker mode in according to All day checkbox
+  $(document).on 'change', '#event_all_day', ->
+    if $(this).is(':checked')
+      fdatetimepicker_only_date $('#event_starttime'), $("#event_endtime")
+    else
+      fdatetimepicker_date_and_time $('#event_starttime'), $("#event_endtime")

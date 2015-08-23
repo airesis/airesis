@@ -21,6 +21,8 @@ class Event < ActiveRecord::Base
 
   accepts_nested_attributes_for :meeting
 
+  before_validation :set_all_day_time
+
   scope :visible, -> { where(private: false) }
   scope :not_visible, -> { where(private: true) }
   scope :vote_period, ->(starttime = nil) { where(['event_type_id = ? AND starttime > ?', 2, starttime || Time.now]).order('starttime asc') }
@@ -52,7 +54,7 @@ class Event < ActiveRecord::Base
     conditions = (event_t[:event_type_id].eq(EventType::INCONTRO).and(municipality_t[field].eq(territory.id))).
       or(event_t[:event_type_id].eq(EventType::VOTAZIONE))
 
-    joins(place: :municipality).includes(:event_type, place: :municipality).where(conditions)
+    includes(:event_type, place: :municipality).references(:event_type, place: :municipality).where(conditions)
   end
 
   after_destroy :remove_scheduled_tasks
@@ -192,6 +194,16 @@ class Event < ActiveRecord::Base
 
   def end_votation
     proposals.each(&:close_vote_phase)
+  end
+
+  def set_all_day_time
+    return unless all_day
+    self.starttime = starttime.beginning_of_day
+    self.endtime = endtime.end_of_day
+  end
+
+  def datetime_format
+    all_day? ? :from_long_date : :from_long_date_time
   end
 
   protected
