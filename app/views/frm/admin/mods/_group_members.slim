@@ -1,0 +1,6 @@
+- if @frm_mod.members.any?
+  label = t('frm.admin.mods.show.current_members')
+  .row
+    ul#members
+      - @frm_mod.members.each do |member|
+        =user_tag member

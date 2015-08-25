@@ -16,7 +16,7 @@
 <%= render 'layouts/favicons' %>
 
 <script type="text/javascript" src="//cdn.ckeditor.com/4.5.3/standard/ckeditor.js"></script>
-<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet"/>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script>
 
 
@@ -131,6 +131,12 @@
                 'between': '<%= t('activerecord.errors.messages.invalid')%>',
                 'less': '<%= t('activerecord.errors.messages.invalid')%>',
                 'more': '<%= t('activerecord.errors.messages.invalid')%>'
+            },
+            greaterThan: {
+                'default': '<%= t('activerecord.errors.messages.invalid')%>'
+            },
+            lessThan: {
+                'default': '<%= t('activerecord.errors.messages.invalid')%>'
             },
             alreadyTaken: {
                 'default': '<%= t('activerecord.errors.messages.taken')%>'

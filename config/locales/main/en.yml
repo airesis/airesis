@@ -265,7 +265,7 @@ en:
           description: "Airesis lets you manage different work areas inside the group."
           description2: "With this feature you can better manage the participants and their roles."
           description3: "Be careful! This is an advanced feature, designed only for bigger groups and expert users."
-          enable: "Enable work areas!"
+          enable: "Enable work areas"
           description4: "Before activating work areas, check if you can manage groups members directly using "
         manage:
           new_area: "Create a work area"

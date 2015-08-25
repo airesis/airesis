@@ -17,7 +17,7 @@
                 <div class="row">
                   <div class="large-8 columns">
                     <%= f.label :role_id %>
-                    <%= f.select :role_id, options_from_collection_for_select([OpenStruct.new({id: ParticipationRole.admin.id, name: @group.admin_title || t('pages.groups.default_admin_title')})] + @group.participation_roles, :id, :name, (params[:search_participant][:role_id] if params[:search_participant])), include_blank: t('pages.groups.participations.anything') %>
+                    <%= f.select :role_id, options_from_collection_for_select([OpenStruct.new({ id: ParticipationRole.admin.id, name: @group.admin_title || t('pages.groups.default_admin_title') })] + @group.participation_roles, :id, :name, (params[:search_participant][:role_id] if params[:search_participant])), include_blank: t('pages.groups.participations.anything') %>
                   </div>
                 </div>
                 <div class="row">
@@ -27,7 +27,7 @@
                   </div>
                 </div>
 
-                <%= f.button :submit, t('pages.groups.participations.filter'), class: 'btn blue', data: {disable_with: t('loading')} %>
+                <%= f.button :submit, t('pages.groups.participations.filter'), class: 'btn blue', data: { disable_with: t('loading') } %>
             <% end %>
 
           </div>
@@ -36,29 +36,27 @@
             <div class="column small-12 large-6">
               <div class="card">
                 <h2><%= t('pages.groups.participations.operations_on_user') %></h2>
-                <%= link_to '#', class: 'btn invite-button', data: {'reveal-id' => 'email_panel'} do %>
+                <%= link_to '#', class: 'btn invite-button', data: { 'reveal-id' => 'email_panel' } do %>
                     <i class="fa fa-envelope-o"></i>
                     <%= t('pages.groups.participations.send_email') %>
                 <% end %>
 
                 <div id="email_panel" class="reveal-modal small" data-reveal>
                   <h2><%= t('pages.users.send_message.massive_email') %></h2>
-                  <%= simple_form_for 'message', url: send_email_group_group_participations_path(@group), remote: true, method: :post, class: 'disableForm' do |e| %>
+                  <%= simple_form_for 'message', url: send_email_group_group_participations_path(@group),
+                                      remote: true, method: :post do |e| %>
                       <%= e.input 'subject', label: t('pages.users.send_message.subject_label') %>
 
-
-                      <%= e.label t('pages.users.send_message.body_label') %>
-                      <%= e.text_area 'body', rows: 10 %>
+                      <%= e.input 'body', as: :text, label: t('pages.users.send_message.body_label'), input_html: { rows: 10 } %>
 
                       <%= e.hidden_field 'receiver_ids', value: @unscoped_group_participations.map { |p| p.user_id }.join(',') %>
 
-
                       <a href="#" class="btn" onclick="$('#email_panel').foundation('reveal','close');return false;"><%= t('buttons.cancel') %></a>
-                      <%= e.submit t('buttons.send'), class: 'btn blue', data: {disable_with: t('sending')} %>
+                      <%= e.submit t('buttons.send'), class: 'btn blue', data: { disable_with: t('sending') } %>
                   <% end %>
                   <a class="close-reveal-modal">&#215;</a>
                 </div>
-                <%= form_for 'destroy', url: destroy_all_group_group_participations_path(@group), remote: true, method: :post, html: {style: 'display:inline;'} do |e| %>
+                <%= form_for 'destroy', url: destroy_all_group_group_participations_path(@group), remote: true, method: :post, html: { style: 'display:inline;' } do |e| %>
 
                     <%= e.hidden_field 'ids', value: @unscoped_group_participations.map { |p| p.id }.join(',') %>
 

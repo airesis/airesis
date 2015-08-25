@@ -120,7 +120,7 @@ module GroupsHelper
     if group_in_subdomain? group
       group_areas_url(options)
     else
-      options[:subdomain] = false
+      options[:subdomain] = false unless defined? request
       super
     end
   end

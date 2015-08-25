@@ -76,6 +76,8 @@ class @AiresisFormValidation
                   return text.length > 0
         'group[interest_border_tkn]':
           excluded: false
+        'event[meeting_attributes][place_attributes][municipality_id]':
+          excluded: false
         'group[description]': ckeditorValidator
         'blog_post[body]': ckeditorValidator
         'frm_post[text]': ckeditorValidator

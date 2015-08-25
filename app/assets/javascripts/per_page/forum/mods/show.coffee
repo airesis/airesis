@@ -22,3 +22,4 @@ window.ModsShow =
       return state.text
     $('<span>' + state.image_path + state.identifier + '</span>')
 
+window.MembersAdd = window.ModsShow

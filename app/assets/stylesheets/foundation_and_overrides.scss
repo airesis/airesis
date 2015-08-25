@@ -2313,6 +2313,12 @@ small.warning {
   &.btn-participation {
     display: inline-block;
   }
+  &[disabled] {
+    background-color: #F3F3F3;
+    border-color: #D9D9D9;
+    color: #444;
+    opacity: 0.5;
+  }
 }
 
 .btn:hover {

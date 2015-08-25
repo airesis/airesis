@@ -1,0 +1,5 @@
+.card
+  = render(partial: 'quorums/form', locals: {button_name: t('buttons.create')})
+
+= content_for :left_panel do
+  = render 'groups/administration_panel'

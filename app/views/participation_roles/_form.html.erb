@@ -3,8 +3,8 @@
     <% unless @group.participation_role_id == @participation_role.id %>
         <%= f.input :description, as: :text %>
     <% end %>
-    <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>
-    <%= link_to t('buttons.go_back'), :back, class: 'btn', data: {back: ''} %>
+    <%= link_to t('buttons.cancel'), '#', class: 'btn', data: { 'reveal-close' => '' } %>
+    <%= link_to t('buttons.go_back'), :back, class: 'btn', data: { back: '' } %>
     <%= f.button :button, class: 'btn blue' do %>
         <i class="fa fa-save"></i>
         <%= button_name %>

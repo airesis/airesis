@@ -52,6 +52,8 @@ RSpec.configure do |config|
 
   config.include Capybara::Select2
 
+  config.infer_spec_type_from_file_location!
+
   Warden.test_mode!
 
   # loading seeds

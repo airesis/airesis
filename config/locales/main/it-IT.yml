@@ -264,7 +264,7 @@ it:
           description: "Airesis ti permette la gestione di differenti aree di lavoro all'interno del gruppo."
           description2: Con questa funzionalità potrai organizzare ancora meglio i partecipanti ed i ruoli a loro assegnati.
           description3: Attenzione! Si tratta di una funzionalità avanzata e pensata solo per i gruppi più ampi e gli utenti più esperti.
-          enable: Abilita le aree di lavoro!
+          enable: Abilita le aree di lavoro
           description4: 'Prima di attivare le aree di lavoro verifica se non puoi gestire i membri del gruppo mediante i '
         manage:
           new_area: "Crea un'area di lavoro"
