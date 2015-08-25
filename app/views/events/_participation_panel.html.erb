@@ -1,21 +1,3 @@
-<style type="text/css">
-    .mybox label {
-        display: block;
-        font-size: 14px;
-    }
-
-    .mybox textarea {
-        width: 190px;
-        height: 60px;
-        padding: 3px;
-        color: #333;
-    }
-
-    .mybox form div {
-        position: relative;
-        margin: 1em 0;
-    }
-</style>
 <% if user_signed_in? %>
     <% participation = @event.meeting.meeting_participations.find_by(user_id: current_user.id) %>
     <% if participation %>
@@ -33,30 +15,27 @@
             <h1><%= t('pages.events.show.no_answer') %></h1>
         <% else %>
             <h4><%= t('pages.events.show.will_be_in') %></h4>
-            <%= form_for [@event, MeetingParticipation.new], remote: true do |f| %>
-                <div>
-                  <div style="height:14px; position: relative;">
-                    <input type="radio"
-                           name="meeting_participation[response]"
-                           value="Y" checked="checked" id="yes_response"/>
-                    <label for="yes_response" style="display:inline"><%= t('buttons.yes_word') %></label>
+            <%= simple_form_for [@event, MeetingParticipation.new], remote: true do |f| %>
+                <div class="row collapse">
+                  <div class="columns small-4">
+                    <%= f.input :response,
+                                as: :radio_buttons,
+                                checked: 'Y',
+                                collection: [[t('buttons.yes_word'), 'Y'], [t('buttons.no_word'), 'N']],
+                                label: false %>
+                  </div>
+                  <div class="columns small-8">
                     <span id="guests_number">
                       <%= raw t('pages.events.show.with_guests',
-                                field: (f.text_field :guests,
-                                                     style: "width: 35px;display:inline;height:21px;padding: 0 8px;",
-                                                     maxlength: 2)) %>
+                                field: (f.input :guests, label: false,
+                                                input_html: { type: :number,
+                                                              style: "width: 35px;display:inline;height:21px;padding: 0",
+                                                              maxlength: 2 })) %>
                     </span>
-                    <br/>
                   </div>
-                  <div style="height:14px;">
-                    <input type="radio" name="meeting_participation[response]" value="N" id="no_response"/>
-                    <label for="no_response" style="display:inline"><%= t('buttons.no_word') %></label>
-                  </div>
-                  <br/>
                 </div>
-                <%= f.text_area :comment, rows: 4, cols: 10 %>
-                <%= f.submit t('pages.events.show.reply'), style: "margin-bottom: 15px;margin-top: 10px;",
-                             class: 'btn blue', data: {disable_with: t('sending')} %>
+                <%= f.input :comment, as: :text, input_html: { rows: 4, cols: 10 } %>
+                <%= f.submit t('pages.events.show.reply'), class: 'btn blue', data: { disable_with: t('sending') } %>
             <% end %>
             <script type="text/javascript">
                 $(function () {

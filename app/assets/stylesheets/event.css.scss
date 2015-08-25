@@ -1,4 +1,8 @@
-
+#guests_number {
+  .inputs {
+    display: inline;
+  }
+}
 .event_calendar {
   background: asset_url("calendar.png") no-repeat;
   width: 64px;
