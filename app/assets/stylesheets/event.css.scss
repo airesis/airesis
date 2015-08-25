@@ -1,44 +1,79 @@
-
-.event_calendar {
-  background: asset_url("calendar.png") no-repeat;
-  width: 64px;
-  height: 64px;
-  cursor: default;
+.event-date {
+  width: 6rem;
+  margin: 0 auto 0.6rem;
+  display: table-cell;
+  width: auto;
   float: left;
-  .day {
-    font-size: 11px;
-    margin: auto;
-    padding-top: 16px;
+  padding-right: 10px;
+
+  .event-month {
+    margin: 0;
+    background: #eee;
+    padding: 0.5rem 2rem;
     text-align: center;
   }
-  .number {
-    font-size: 22px;
-    font-weight: bold;
-    margin-top: -6px;
+
+  .event-day {
+    margin: 0;
+    border: 1px solid #eee;
+    padding: 0 2rem;
     text-align: center;
+    font-size: 2rem;
   }
 }
 
-.event_calendar_mini {
-  background: asset_url("calendar-32.png") no-repeat;
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
+.event_dates_text {
   float: left;
-  margin-top: -18px;
-  .day {
-    font-size: 10px;
-    margin: auto;
-    padding-top: 14px;
-    text-align: center;
+  margin-top: 17px;
+}
+
+.event-desc {
+  padding: 0 0 0 1rem;
+  text-align: left;
+  display: table-cell;
+  vertical-align: top;
+
+  .event-desc-header {
+    margin: 0 0 0.5rem 0;
+    padding: 0;
   }
-  .number {
-    font-size: 20px;
+
+  .event-desc-detail {
+    margin: 0 0 0.25rem;
+    padding: 0;
+  }
+
+  .event-desc-time {
     font-weight: bold;
-    margin-top: -5px;
-    text-align: center;
+  }
+
+  .rsvp.button {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin: 0;
   }
 }
+
+// .event_calendar_mini {
+//   background: asset_url("calendar-32.png") no-repeat;
+//   width: 32px;
+//   height: 32px;
+//   cursor: pointer;
+//   float: left;
+//   margin-top: -18px;
+//   .day {
+//     font-size: 10px;
+//     margin: auto;
+//     padding-top: 14px;
+//     text-align: center;
+//   }
+//   .number {
+//     font-size: 20px;
+//     font-weight: bold;
+//     margin-top: -5px;
+//     text-align: center;
+//   }
+// }
 
 .event-overview {
   background-color: white;
@@ -58,7 +93,7 @@
 
 .mini_event {
   border-bottom: 1px dotted #ccc;
-  margin-bottom: 2px;
+  margin-bottom: 6px;
   margin-top: 2px;
 }
 

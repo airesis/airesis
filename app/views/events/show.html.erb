@@ -29,7 +29,7 @@
         </div>
         <div class="event_content">
           <%= render partial: 'events/calendar_icon', locals: {time: @event.starttime} %>
-          <div style="float:left;margin-top: 10px;">
+          <div class="event_dates_text">
             <meta itemprop="startDate" content="<%= l @event.starttime, format: '%Y-%m-%dT%H:%M' %>">
             <b>
               <%= @event.formatted_starttime %>
