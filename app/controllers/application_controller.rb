@@ -115,9 +115,8 @@ class ApplicationController < ActionController::Base
     if params[:l].present?
       @current_domain = SysLocale.find_by_key(params[:l])
     else
-      @current_domain = SysLocale.find_by(host: request.host, lang: nil) || SysLocale.find_by(host: request.host)
+      @current_domain = SysLocale.find_by(host: request.host, lang: nil) || SysLocale.default
     end
-    @current_domain ||= SysLocale.default
   end
 
   def current_domain
