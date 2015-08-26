@@ -133,7 +133,7 @@ class ApplicationController < ActionController::Base
       if Rails.env.test? || Rails.env.development?
         params[:l] || I18n.default_locale
       else
-        params[:l] || @domain_locale || I18n.default_locale
+        params[:l] || current_domain.key || I18n.default_locale
       end
     #@locale = 'en-EU' if ['en', 'eu', 'org', 'net'].include? @locale
     #@locale = 'en-US' if ['us'].include? @locale
