@@ -1,16 +1,18 @@
 .event-date {
-  width: 6rem;
+  width: 7rem;
   margin: 0 auto 0.6rem;
   display: table-cell;
-  width: auto;
   float: left;
   padding-right: 10px;
 
   .event-month {
     margin: 0;
     background: #eee;
-    padding: 0.5rem 2rem;
+    padding: 0.5rem;
     text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .event-day {
@@ -25,70 +27,6 @@
 .event_dates_text {
   float: left;
   margin-top: 17px;
-}
-
-.event-desc {
-  padding: 0 0 0 1rem;
-  text-align: left;
-  display: table-cell;
-  vertical-align: top;
-
-  .event-desc-header {
-    margin: 0 0 0.5rem 0;
-    padding: 0;
-  }
-
-  .event-desc-detail {
-    margin: 0 0 0.25rem;
-    padding: 0;
-  }
-
-  .event-desc-time {
-    font-weight: bold;
-  }
-
-  .rsvp.button {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    margin: 0;
-  }
-}
-
-// .event_calendar_mini {
-//   background: asset_url("calendar-32.png") no-repeat;
-//   width: 32px;
-//   height: 32px;
-//   cursor: pointer;
-//   float: left;
-//   margin-top: -18px;
-//   .day {
-//     font-size: 10px;
-//     margin: auto;
-//     padding-top: 14px;
-//     text-align: center;
-//   }
-//   .number {
-//     font-size: 20px;
-//     font-weight: bold;
-//     margin-top: -5px;
-//     text-align: center;
-//   }
-// }
-
-.event-overview {
-  background-color: white;
-  border: 1px solid #CCCCCC;
-  color: #294145;
-  display: none;
-  height: 80px;
-  margin-bottom: 5px;
-  margin-left: -182px;
-  margin-top: -39px;
-  padding: 10px;
-  position: absolute;
-  text-align: left;
-  width: 158px;
-  z-index: 3;
 }
 
 .mini_event {
