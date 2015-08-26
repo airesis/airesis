@@ -54,16 +54,24 @@
     Se non desideri più utilizzare il tuo account, puoi disattivarlo o eliminarlo.
     <ol type="i">
       <b>Disattivazione</b>
-      Quando un account è disattivato, rimane in sospeso. Gli altri utenti non visualizzano più la tua pagina, ma Airesis non elimina nessuna delle tue informazioni.<br/>
-      Disattivare il tuo account equivale a chiedere ad Airesis di non eliminare nessuna informazione, in quanto potresti desiderare di riattivarlo in futuro.<br/>
-      Puoi disattivare il tuo account inviado una richiesta a <%=mail_to APP_EMAIL_ADDRESS, APP_EMAIL_ADDRESS, tabindex: -1 %>.
+      Quando un account è disattivato, rimane in sospeso. Gli altri utenti non visualizzano più la tua pagina, ma
+      Airesis non elimina nessuna delle tue informazioni.<br/>
+      Disattivare il tuo account equivale a chiedere ad Airesis di non eliminare nessuna informazione, in quanto
+      potresti desiderare di riattivarlo in futuro.<br/>
+      Puoi disattivare il tuo account inviado una richiesta
+      a <%= mail_to ENV['APP_EMAIL_ADDRESS'], ENV['APP_EMAIL_ADDRESS'], tabindex: -1 %>.
       <b>Eliminazione</b>
       Quando un account viene eliminato, è cancellato in modo permanente da Airesis.<br/>
-      Per l'eliminazione dell'account è solitamente necessario un mese, ma alcune informazioni potrebbero essere conservate in copie di backup e registri per un massimo di 90 giorni.<br/>
-      Elimina il tuo account solo se hai la certezza di non volerlo riattivare mai più. Puoi eliminare il tuo account inviado una richiesta a <%=mail_to APP_EMAIL_ADDRESS, APP_EMAIL_ADDRESS, tabindex: -1 %>.<br/>
-      Alcune informazioni sono necessarie per poterti fornire i servizi, perciò le eliminiamo solo quando elimini il tuo account.<br/>
-      Alcune delle cose che fai su Airesis non sono memorizzate nel tuo account, come i contributi alle proposte o i messaggi inviati ad altre persone.<br/>
-      Nel momento in cui inserisci contenuti nei blog degli altri utenti, nelle proposte o esprimi un voto queste divengono informazioni di pubblico dominio e non più associate direttamente al tuo account.<br/>
+      Per l'eliminazione dell'account è solitamente necessario un mese, ma alcune informazioni potrebbero essere
+      conservate in copie di backup e registri per un massimo di 90 giorni.<br/>
+      Elimina il tuo account solo se hai la certezza di non volerlo riattivare mai più. Puoi eliminare il tuo account
+      inviado una richiesta a <%= mail_to ENV['APP_EMAIL_ADDRESS'], ENV['APP_EMAIL_ADDRESS'], tabindex: -1 %>.<br/>
+      Alcune informazioni sono necessarie per poterti fornire i servizi, perciò le eliminiamo solo quando elimini il tuo
+      account.<br/>
+      Alcune delle cose che fai su Airesis non sono memorizzate nel tuo account, come i contributi alle proposte o i
+      messaggi inviati ad altre persone.<br/>
+      Nel momento in cui inserisci contenuti nei blog degli altri utenti, nelle proposte o esprimi un voto queste
+      divengono informazioni di pubblico dominio e non più associate direttamente al tuo account.<br/>
       Tali informazioni rimangono anche dopo l'eliminazione dell'account.
     </ol>
   </li>
