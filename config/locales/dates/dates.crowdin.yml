@@ -92,6 +92,8 @@ crowdin:
       long_date_time: 'crwdns5827:0%Acrwdnd5827:0%dcrwdnd5827:0%Bcrwdnd5827:0%Icrwdnd5827:0%pcrwdne5827:0'
       from_long_date_time: 'crwdns5828:0%Acrwdnd5828:0%dcrwdnd5828:0%Bcrwdnd5828:0%Icrwdnd5828:0%pcrwdne5828:0'
       until_long_date_time: 'crwdns5829:0%Acrwdnd5829:0%dcrwdnd5829:0%Bcrwdnd5829:0%Icrwdnd5829:0%pcrwdne5829:0'
+      from_long_date: 'crwdns9855:0%Acrwdnd9855:0%dcrwdnd9855:0%Bcrwdne9855:0'
+      until_long_date: 'crwdns9856:0%Acrwdnd9856:0%dcrwdnd9856:0%Bcrwdne9856:0'
       short: 'crwdns5830:0%dcrwdnd5830:0%bcrwdne5830:0'
       two_rows: 'crwdns5831:0%dcrwdnd5831:0%bcrwdnd5831:0%Icrwdnd5831:0%pcrwdne5831:0'
       weekday: 'crwdns6550:0%acrwdnd6550:0%Icrwdnd6550:0%pcrwdne6550:0'

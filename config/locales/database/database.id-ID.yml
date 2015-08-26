@@ -1,4 +1,4 @@
-id:
+id-ID:
   db:
     sys_locales:
       it-IT:
@@ -56,8 +56,6 @@ id:
         description: Dukung proposal atas nama grup
       REQUEST_ACCEPT:
         description: Tambahkan anggota baru ke grup
-      SEND_CANDIDATES:
-        description: Calonkan anggota untuk pemilihan
       PROPOSAL_VIEW:
         description: Lihat proposal tertutup
       PROPOSAL_PARTICIPATION:
@@ -226,7 +224,6 @@ id:
       new_participation_request:
         description: Permintaan partisipasi baru
         email_subject:
-          one: Ada satu permintaan partisipasi baru
           other: 'Ada %{count} permintaan partisipasi baru'
         message:
           one: '<b>%{user}</b> meminta untuk berpartisipasi dalam grup <b>%{group}</b>'

@@ -1,4 +1,4 @@
-bs:
+bs-BA:
   test: Test
   hello: Zdravo, svijete
   pages:
@@ -83,7 +83,6 @@ bs:
       edit_quorums:
         new_quorum:
           title: Novi kvorum
-          advanced_participation_description: '%{participants_percentage}% + 1 (%{current_number} iz %{total_number} koji imaju pravo) <b>(prosječna vrijednost: %{average})</b>'
         active: Aktivno
         name: Ime
         participants: Učesnici

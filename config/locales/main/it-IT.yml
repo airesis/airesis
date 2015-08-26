@@ -1,4 +1,4 @@
-it:
+it-IT:
   unauthorized:
     default: "Non disponi dei permessi per eseguire l'azione"
     create:
@@ -239,7 +239,6 @@ it:
           advanced: Avanzato
           time_description: 'Il dibattito durerà almeno %{days}  %{hours}  %{minutes}'
           simple_percentage_description: 'Quindi la proposta passa in votazione se la maturità è superiore al %{good_score}%.'
-          advanced_participation_description: '%{participants_percentage}%+1 (%{current_number} su %{total_number} che hanno diritto) <b>(valore medio: %{average})</b>'
           advanced_percentage_description: 'Se invece la maturità è inferiore al %{bad_score}% la proposta viene abbandonata.'
           advanced_percentage_description3: La proposta resta in dibattito fintanto che la maturità è compresa fra le due soglie.
         active: Attivo
@@ -1207,8 +1206,6 @@ it:
     left_panel:
       promote_proposal: Promuovi la proposta
       share_with_friends: Condividi con i tuoi amici
-    show_proposal:
-      vote_here: 'Questa proposta è in votazione. Leggi la/e soluzione/i e %{link}.'
   digit_tags: Digita i tag che vuoi inserire
   buttons:
     cancel: Annulla
@@ -1613,8 +1610,5 @@ it:
   keep_reading: continua a leggere
   feedback_subject: '%{time} - Nuova segnalazione'
   delete_event_confirm: Sei sicuro di voler eliminare questo evento?
-  groups:
-    group:
-      delete_group_warning_html: 'Puoi eliminare questo gruppo. Eliminando il gruppo distruggerai tutti i forum, proposte e documenti associati ad esso. <br/> I dati non possono essere ripristinati. <br/> Stai attento!'
   confirm:
     unintegrate: Sati per rimettere il tuo contributo in dibattito. Sei sicuro?

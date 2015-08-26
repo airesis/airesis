@@ -1,4 +1,4 @@
-id:
+id-ID:
   unauthorized:
     default: Anda tidak memiliki izin yang dibutuhkan untuk melakukan ini
     create:
@@ -239,7 +239,6 @@ id:
           advanced: Lanjutan
           time_description: 'Debat berlangsung %{days} %{hours} %{minutes}'
           simple_percentage_description: 'dan maturitas sama atau lebih besar dari %{good_score}%.'
-          advanced_participation_description: '%{participants_percentage}%+1 (%{current_number} dari %{total_number} yang memiliki hak) <b>(nilai rata-rata: %{average})</b>'
           advanced_percentage_description: 'Namun jika maturitas kurang dari %{bad_score}%, proposal akan ditinggalkan.'
           advanced_percentage_description3: Proposal tetap berada dalam debat jika maturitas berada di antara kedua batas ini.
         active: Aktif
@@ -1201,8 +1200,6 @@ id:
     left_panel:
       promote_proposal: Promosikan proposal
       share_with_friends: Bagi dengan teman
-    show_proposal:
-      vote_here: 'Proposal ini berada dalam tahap voting. Baca solusi dan %{link}.'
   digit_tags: Tulis label yang Anda ingin tambahkan
   buttons:
     cancel: Batalkan
@@ -1605,8 +1602,5 @@ id:
   keep_reading: teruskan membaca
   feedback_subject: '%{time} - Masukan baru'
   delete_event_confirm: Yakin Anda ingin menghapus komentar ini?
-  groups:
-    group:
-      delete_group_warning_html: 'Anda boleh menghapus grup ini. Dengan menghapus grup ini, Anda akan menghapus semua forum, proposal, dan dokumen yang berkaitan dengan grup ini.<br/>Datar tersebut tidak dapat dipulihkan.<br/>Hati-hati!'
   confirm:
     unintegrate: Anda akan mengembalikan kontribusi Anda ke diskusi. Anda yakin?

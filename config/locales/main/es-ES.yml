@@ -1,4 +1,4 @@
-es:
+es-ES:
   permissions_required: No está autorizado realizar esta operación
   test: Prueba
   open_space: Espacio libre
@@ -199,7 +199,6 @@ es:
           advanced: Avanzado
           time_description: For the proposal to go to the voting phase, it must remain in debate for at least
           simple_percentage_description: Then it goes to the voting phase if its rank (positive evaluations) is superior to
-          advanced_participation_description: it must be evaluated by almost
           advanced_percentage_description: If however the rank is inferior to
           advanced_percentage_description3: The proposal remains in debate until the rank is between the two thresholds.
         active: Activo

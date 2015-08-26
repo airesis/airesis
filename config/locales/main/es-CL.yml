@@ -238,7 +238,6 @@ es-CL:
           advanced: Avanzado
           time_description: 'El debate pasado %{days} %{hours} %{minutes}'
           simple_percentage_description: 'y un vencimiento igual o superior a %{good_score}%.'
-          advanced_participation_description: '%{participants_percentage}% + 1 (%{current_number} de %{total_number} que tienen derecho) <b>(valor medio: %{average})</b>'
           advanced_percentage_description: 'Si sin embargo la madurez es inferior a %{bad_score} % la propuesta es abandonada.'
           advanced_percentage_description3: La propuesta sigue en debate hasta la madurez entre los dos umbrales.
         active: Activo
@@ -1192,8 +1191,6 @@ es-CL:
     left_panel:
       promote_proposal: Promover la propuesta
       share_with_friends: Compartir con amigos
-    show_proposal:
-      vote_here: 'Esta propuesta está en votación. Lea la solución/es y %{link}.'
   digit_tags: Escriba las etiquetas que desee agregar
   buttons:
     cancel: Cancelar
@@ -1595,8 +1592,5 @@ es-CL:
   keep_reading: Sigue leyendo
   feedback_subject: '%{time} - nuevos comentarios'
   delete_event_confirm: ¿Estás seguro de eliminar este comentario?
-  groups:
-    group:
-      delete_group_warning_html: 'Se permite eliminar este grupo. Eliminar el grupo destruirá todos los foros, propuestas y documentos relacionados con el <br/> No se podrán recuperar los datos. <br/> ¡Ten cuidado!'
   confirm:
     unintegrate: Vas a poner tu aporte en la discusión. ¿Estás seguro?

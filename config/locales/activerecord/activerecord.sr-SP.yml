@@ -1,4 +1,4 @@
-sr:
+sr-SP:
   activerecord:
     models:
       meeting: Састанак

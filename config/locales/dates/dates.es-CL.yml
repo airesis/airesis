@@ -60,8 +60,6 @@ es-CL:
       long_date_time: '%A %d %B %Y at %I:%M %p'
       from_long_date_time: 'From %A %d %B %Y at %I:%M %p'
       until_long_date_time: 'To %A %d %B %Y a %I:%M %p'
-      from_long_date: 'From %A %d %B %Y'
-      until_long_date: 'To %A %d %B %Y'
       short: '%d %b %Y'
       two_rows: '%d %b %Y <br/> %I:%M %p'
       weekday: '%a en %I: %M %p'

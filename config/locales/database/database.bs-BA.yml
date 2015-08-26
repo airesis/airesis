@@ -1,4 +1,4 @@
-bs:
+bs-BA:
   db:
     sys_locales:
       it-IT:
@@ -56,8 +56,6 @@ bs:
         description: Podrška za prijedloge u ime grupe
       REQUEST_ACCEPT:
         description: Dodavanje novih članova u grupi
-      SEND_CANDIDATES:
-        description: Nominujte članove za izbor
       PROPOSAL_VIEW:
         description: Prikaz privatnih prijedloga
       PROPOSAL_PARTICIPATION:
@@ -226,7 +224,6 @@ bs:
       new_participation_request:
         description: Novi zahtjev za sudjelovanje
         email_subject:
-          one: Postoji novi zahtjev za učešće
           other: 'Ima %{count} novih zahtjeva za učešće'
         message:
           one: '<b>%{user}</b> je zatražio da učestvuje u grupi <b>%{group}</b>'

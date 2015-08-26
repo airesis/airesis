@@ -1,4 +1,4 @@
-es:
+es-ES:
   db:
     sys_locales:
       it-IT:
@@ -50,8 +50,6 @@ es:
         description: Apoya propuestas en nombre del grupo
       REQUEST_ACCEPT:
         description: Añadir a nuevos miembros al grupo
-      SEND_CANDIDATES:
-        description: Designar a los miembros para la elección
       PROPOSAL_VIEW:
         description: Ver propuestas privadas
       PROPOSAL_INSERT:

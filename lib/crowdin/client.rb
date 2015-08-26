@@ -17,26 +17,26 @@ module Crowdin
       @crowdin = Crowdin::API.new(api_key: ENV['CROWDIN_API'],
                                   project_id: ENV['CROWDIN_PROJECT_ID'],
                                   account_key: ENV['CROWDIN_ACCOUNT_KEY'])
-      #@crowdin.log = Logger.new $stderr
     end
 
     def upload_sources
-      source_files_path = Dir['config/locales/**/*.en.yml']
-
+      source_files_path = Dir['config/locales/**/*.en-EU.yml']
       files=[]
       source_files_path.each { |path|
-        files << {dest: "/#{File.basename(path)}",
+        files << {dest: "/#{File.basename(path).gsub('en-EU','en')}",
                   source: path,
-                  export_pattern: '/'+path.gsub('en.yml', '%locale%.yml')}
+                  export_pattern: '/'+path.gsub('en-EU.yml', '%locale%.yml')}
       }
-      @crowdin.add_file(files, :type => 'yaml')
+      puts "uploading #{source_files_path}"
+      @crowdin.add_file(files, type: 'yaml')
     end
 
     def upload_translations
       transl_files_path = Dir['config/locales/**/*.it-IT.yml']
       files = []
       transl_files_path.each { |path|
-        files << {dest: "/#{File.basename(path).gsub(/(?<=\.)(.*)(?=\.yml)/, 'en')}", source: path}
+        files << {dest: "/#{File.basename(path).gsub(/(?<=\.)(.*)(?=\.yml)/, 'en')}",
+                  source: path}
       }
 
       @crowdin.upload_translation(
@@ -48,13 +48,19 @@ module Crowdin
     #scan directory "locales", memorize the names of the directories inside it
     #passes the directories name to crowdin.update_files, that upload the english files inside each directory
     def update_sources
-      source_files_path = Dir['config/locales/**/*.en.yml']
-      files=[]
-
+      source_files_path = Dir['config/locales/**/*.en-EU.yml']
       source_files_path.each { |path|
-        files << {dest: "/#{File.basename(path)}", source: path}
+        puts "update #{path}"
+        @crowdin.update_file([{dest: "/#{File.basename(path).gsub('en-EU','en')}",
+                               source: path}])
       }
-      @crowdin.update_file(files)
+
+      source_files_path = Dir['config/locales/main/en-EU.yml']
+      source_files_path.each { |path|
+        puts "update #{path}"
+        @crowdin.update_file([{dest: "/main.en.yml",
+                               source: path}])
+      }
     end
 
 
@@ -103,8 +109,6 @@ module Crowdin
         puts "Converting '#{key}' into #{value}"
         files = Dir["#{@extract_folder}/config/locales/*/*.#{key}.yml"]
         files.each { |file_name| change_locale(file_name, key, value) }
-        files = Dir["#{@extract_folder}/app/assets/**/*.#{key}.js"]
-        files.each { |file_name| FileUtils.mv(file_name, file_name.gsub(key,value)) }
       end
     end
 

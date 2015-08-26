@@ -1,4 +1,4 @@
-fr:
+fr-FR:
   activerecord:
     models:
       meeting: Rendez-vous

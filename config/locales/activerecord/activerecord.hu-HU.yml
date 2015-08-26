@@ -1,4 +1,4 @@
-hu:
+hu-HU:
   activerecord:
     models:
       meeting: Találkozó

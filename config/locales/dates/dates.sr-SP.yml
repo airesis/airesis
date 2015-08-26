@@ -1,4 +1,4 @@
-sr:
+sr-SP:
   countdowns:
     labelsPlural:
       - Годинa
@@ -87,8 +87,6 @@ sr:
       long_date_time: '%A %d %B %Y у %I:%M %p'
       from_long_date_time: 'Од %A %d %B %Y у %I:%M %p'
       until_long_date_time: 'Дo %A %d %B %Y у %I:%M %p'
-      from_long_date: 'Од %A %d %B %Y'
-      until_long_date: 'Дo %A %d %B %Y'
       short: '%d %b %Y'
       two_rows: '%d %b %Y <br/> %I:%M %p'
       weekday: '%a у %I:%M %p'

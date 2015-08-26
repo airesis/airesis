@@ -1,4 +1,4 @@
-de:
+de-DE:
   unauthorized:
     default: Du hast nicht die erforderlichen Berechtigungen zum Ausführen dieses Vorgangs
     create:
@@ -227,7 +227,6 @@ de:
           advanced: Erweitert
           time_description: 'Die Debatte letzte %{days} %{hours} %{minutes}'
           simple_percentage_description: 'und einer Laufzeit gleich oder besser als %{good_score} %.'
-          advanced_participation_description: '%{participants_percentage} % + 1 (%{current_number} aus %{total_number}, die Recht haben) <b>(Mittelwert: %{average})</b>'
           advanced_percentage_description: 'Liegt die Reife  unter %{bad_score}% wird der Vorschlag aufgegeben.'
           advanced_percentage_description3: Der Vorschlag bleibt in der Debatte bis sich die Reife zwischen den beiden Schwellenwerten befindet.
         active: Aktiv

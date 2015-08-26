@@ -1,0 +1,44 @@
+sh-HR:
+  activerecord:
+    models:
+      meeting: Sastanak
+      places: Mjesto
+    attributes:
+      blog_comment:
+        body: Komentar
+        created_at: AntiSpam
+      event:
+        title: Naziv događaja
+        description: Opis
+        event_type_id: Tip događaja
+        starttime: Početni datum
+        endtime: Datum završetka
+        all_day: Cijeli dan
+        period: Ponoviti
+        frequency: Ponoviti svakih
+        private: Privatno
+      event/meeting/place:
+        address: Adresa
+        municipality_id: Grad
+      group:
+        name: Ime
+        porta_id: Administrator
+      blog:
+        title: Naslov
+      blog_post:
+        title: Naslov
+        body: Tekst
+      participation_role:
+        name: Ime
+      place:
+        address: Adresa
+      quorum:
+        minutes_m: Minuta
+      sys_movement:
+        amount: Iznos
+      user:
+        name: Ime
+        blocked: Greška
+      group_area:
+        name: Ime
+        description: Opis

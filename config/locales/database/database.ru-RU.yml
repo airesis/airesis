@@ -1,4 +1,4 @@
-ru:
+ru-RU:
   db:
     sys_locales:
       it-IT:
@@ -56,8 +56,6 @@ ru:
         description: Поддержать предложения от имени группы
       REQUEST_ACCEPT:
         description: Добавить новых участников в группу
-      SEND_CANDIDATES:
-        description: Номинировать участников для выборов
       PROPOSAL_VIEW:
         description: Просмотреть частные предложения
       PROPOSAL_PARTICIPATION:
@@ -226,7 +224,6 @@ ru:
       new_participation_request:
         description: Новый запрос на участие
         email_subject:
-          one: Новый запрос на участие
           other: 'Есть %{count} новых заявок на участие'
         message:
           one: '<b>%{user}</b> запрашивает участие в группе <b>%{group}</b>'

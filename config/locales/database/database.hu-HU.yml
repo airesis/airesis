@@ -1,4 +1,4 @@
-hu:
+hu-HU:
   db:
     sys_locales:
       it-IT:
@@ -56,8 +56,6 @@ hu:
         description: Támogassa az indítványokat a csoport nevében
       REQUEST_ACCEPT:
         description: Új tagok felvétele a csoportba
-      SEND_CANDIDATES:
-        description: Személyek jelölése választásra
       PROPOSAL_VIEW:
         description: Privát javaslatok megtekintése
       PROPOSAL_PARTICIPATION:

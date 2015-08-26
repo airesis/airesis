@@ -21,14 +21,34 @@ module Airesis
 
     config.autoload_paths << "#{Rails.root}/lib"
     config.time_zone = 'Rome'
-    config.i18n.default_locale = :en
+    config.i18n.default_locale = :'en-EU'
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{yml}')]
 
-    config.i18n.fallbacks = true
-    config.i18n.available_locales = [:crowdin, :de, :el, :fr, :hu, :id, :it, :ro, :ru, :sr, :zh,
-                                     :pt, :'pt-BR',
-                                     :en, :'en-GB', :'en-IE', :'en-US', :'en-ZA', :'en-AU', :'en-NZ',
-                                     :es, :'es-AR', :'es-CL', :'es-EC']
+    europe_eng_fallbacks = [:'en-GB', :'en-IE', :'en-US', :'en-ZA', :'en-AU', :'en-NZ',
+                            :'sr-CS', :'sr-SP', :'sh-HR', :'zh-TW', :'me-ME', :'bs-BA',
+                            :'ru-RU', :'ro-RO', :'it-IT', :'id-ID', :'hu-HU',
+                            :'es-ES', :'de-DE', :'el-GR', :'fr-FR', :'pt-PT']
+    portuguese_fallbacks = [:'pt-BR']
+    spanish_fallbacks = [:'es-EC', :'es-AR', :'es-CL']
+    fallbacks = {}
+    europe_eng_fallbacks.each do |key|
+      fallbacks[key] = :'en-EU'
+    end
+    portuguese_fallbacks.each do |key|
+      fallbacks[key] = :'pt-PT'
+    end
+    spanish_fallbacks.each do |key|
+      fallbacks[key] = :'es-ES'
+    end
+    config.i18n.fallbacks = fallbacks
+
+    config.i18n.available_locales = [:crowdin,
+                                     :'de-DE', :'el-GR', :'fr-FR', :'hu-HU', :'id-ID', :'it-IT', :'ro-RO',
+                                     :'ru-RU', :'sr-CS', :'sr-SP', :'sh-HR', :'zh-TW', :'me-ME', :'bs-BA',
+                                     :'pt-PT', :'pt-BR',
+                                     :'en-EU', :'en-GB', :'en-IE', :'en-US', :'en-ZA', :'en-AU', :'en-NZ',
+                                     :'es-ES', :'es-AR', :'es-CL', :'es-EC']
+
     config.i18n.enforce_available_locales = true
 
     config.to_prepare do
@@ -50,7 +70,7 @@ module Airesis
     config.action_mailer.delivery_method = :smtp
 
     config.action_mailer.raise_delivery_errors = true
-    config.action_mailer.default_url_options = {host: ENV['MAILER_DEFAULT_HOST']}
+    config.action_mailer.default_url_options = { host: ENV['MAILER_DEFAULT_HOST'] }
 
     config.action_mailer.smtp_settings = {
       enable_starttls_auto: true,

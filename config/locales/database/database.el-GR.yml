@@ -1,4 +1,4 @@
-el:
+el-GR:
   db:
     sys_locales:
       it-IT:
@@ -56,8 +56,6 @@ el:
         description: Υποστηρίξτε προτάσεις εκ μέρους της ομάδας
       REQUEST_ACCEPT:
         description: Προσθέστε νέα μέλη στην ομάδα
-      SEND_CANDIDATES:
-        description: Υποψήφια μελη για τις εκλογες
       PROPOSAL_VIEW:
         description: Προβολή ιδιωτικων προτάσεων
       PROPOSAL_PARTICIPATION:

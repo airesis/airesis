@@ -56,8 +56,6 @@ es-CL:
         description: Apoya propuestas en nombre del grupo
       REQUEST_ACCEPT:
         description: Añadir nuevos miembros al grupo
-      SEND_CANDIDATES:
-        description: Designar a los miembros para la elección
       PROPOSAL_VIEW:
         description: Ver propuestas privadas
       PROPOSAL_PARTICIPATION:
@@ -226,7 +224,6 @@ es-CL:
       new_participation_request:
         description: Nueva solicitud de participación
         email_subject:
-          one: Una nueva solicitud de participación está presente
           other: 'Hay nuevas peticiones de participación %{count}'
         message:
           one: '<b>%{user}</b> pidió participar en el grupo <b>%{group}</b>'

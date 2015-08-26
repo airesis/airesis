@@ -1,4 +1,4 @@
-ro:
+ro-RO:
   db:
     sys_locales:
       it-IT:
@@ -50,8 +50,6 @@ ro:
         description: Susține propuneri în numele grupului
       REQUEST_ACCEPT:
         description: Adaugă noi membri la grup
-      SEND_CANDIDATES:
-        description: Propune membri pentru alegere
       PROPOSAL_VIEW:
         description: Vizualizează propunerile private
       PROPOSAL_INSERT:

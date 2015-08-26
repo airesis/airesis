@@ -1,4 +1,4 @@
-me:
+me-ME:
   activerecord:
     models:
       meeting: Sastanak

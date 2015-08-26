@@ -56,8 +56,6 @@ crowdin:
         description: crwdns5166:0crwdne5166:0
       REQUEST_ACCEPT:
         description: crwdns5167:0crwdne5167:0
-      SEND_CANDIDATES:
-        description: crwdns5168:0crwdne5168:0
       PROPOSAL_VIEW:
         description: crwdns5169:0crwdne5169:0
       PROPOSAL_PARTICIPATION:
@@ -226,7 +224,7 @@ crowdin:
       new_participation_request:
         description: crwdns8201:0crwdne8201:0
         email_subject:
-          one: crwdns8348:0crwdne8348:0
+          one: crwdns9854:0crwdne9854:0
           other: 'crwdns8349:0%{count}crwdne8349:0'
         message:
           one: 'crwdns8350:0%{user}crwdnd8350:0%{group}crwdne8350:0'

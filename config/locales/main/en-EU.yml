@@ -1,4 +1,4 @@
-en:
+en-EU:
   unauthorized:
     default: "You don't have the required permissions to execute this action"
     create:

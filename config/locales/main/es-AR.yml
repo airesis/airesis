@@ -226,7 +226,6 @@ es-AR:
           advanced: Avanzado
           time_description: 'El pasado debate %{days} %{hours} %{minutes}'
           simple_percentage_description: 'y un vencimiento igual o superior a %{good_score}%.'
-          advanced_participation_description: '%{participants_percentage}% + 1 (%{current_number} de %{total_number} que tienen derecho) <b>(valor medio: %{average})</b>'
           advanced_percentage_description: 'Sin embargo si la madurez es inferior a %{bad_score}% la propuesta sera abandonada.'
           advanced_percentage_description3: La propuesta sigue en debate hasta la madurez entre los dos limites.
         active: Activo
