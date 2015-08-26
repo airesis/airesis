@@ -5,7 +5,7 @@
 //=require foundation
 //= require jquery.qtip
 //= require ../languages
-
+//= require cookies_eu
 $(function () {
     $(document).foundation();
 });

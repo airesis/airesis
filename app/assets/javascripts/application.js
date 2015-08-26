@@ -59,7 +59,7 @@
 //= require_tree ./per_page
 //= require mustache
 //= require languages
-
+//= require cookies_eu
 //// require nprogress
 //// require nprogress-turbolinks
 //// require turbolinks

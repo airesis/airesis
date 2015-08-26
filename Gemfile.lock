@@ -181,6 +181,9 @@ GEM
     columnize (0.9.0)
     connection_pool (2.2.0)
     cookiejar (0.3.2)
+    cookies_eu (1.2.0)
+      jquery-cookie-rails
+      jquery-rails
     crass (1.0.2)
     crowdin-api (0.3.0)
       rest-client
@@ -283,6 +286,8 @@ GEM
     jbuilder (2.3.1)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
+    jquery-cookie-rails (1.3.1.1)
+      railties (>= 3.2.0, < 5.0)
     jquery-rails (4.0.4)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
@@ -643,6 +648,7 @@ DEPENDENCIES
   client_side_validations-simple_form!
   codeclimate-test-reporter
   coffee-rails
+  cookies_eu
   crowdin-api
   database_cleaner
   devise

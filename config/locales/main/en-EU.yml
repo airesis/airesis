@@ -1630,3 +1630,4 @@ en-EU:
       delete_group_warning_html: "You are allowed to delete this group. By deleting this group, you will delete all forums, proposals and documents associated with it.<br/>The data cannot be restored.<br/>Be careful!"
   confirm:
     unintegrate: "You are going to put your contribution back into the discussion. Are you sure?"
+  cookie_policy: "Cookies"

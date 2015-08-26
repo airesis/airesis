@@ -19,9 +19,12 @@
     &nbsp-&nbsp
     <%= link_to t('privacy_policy'), privacy_path, class: 'privacy_link' %>
     &nbsp-&nbsp
+    <%= link_to t('cookie_policy'), cookie_law_path, class: 'privacy_link' %>
+    &nbsp-&nbsp
     <span class="feedback_space">
     </span>
   </div>
 </footer>
 
 <%= render 'layouts/languages' %>
+<%= render 'cookies_eu/consent_banner', link: cookie_law_path %>
