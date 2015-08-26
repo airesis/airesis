@@ -29,49 +29,6 @@
   margin-top: 17px;
 }
 
-.event-desc {
-  padding: 0 0 0 1rem;
-  text-align: left;
-  display: table-cell;
-  vertical-align: top;
-
-  .event-desc-header {
-    margin: 0 0 0.5rem 0;
-    padding: 0;
-  }
-
-  .event-desc-detail {
-    margin: 0 0 0.25rem;
-    padding: 0;
-  }
-
-  .event-desc-time {
-    font-weight: bold;
-  }
-
-  .rsvp.button {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    margin: 0;
-  }
-}
-
-.event-overview {
-  background-color: white;
-  border: 1px solid #CCCCCC;
-  color: #294145;
-  display: none;
-  height: 80px;
-  margin-bottom: 5px;
-  margin-left: -182px;
-  margin-top: -39px;
-  padding: 10px;
-  position: absolute;
-  text-align: left;
-  width: 158px;
-  z-index: 3;
-}
-
 .mini_event {
   border-bottom: 1px dotted #ccc;
   margin-bottom: 6px;
