@@ -29,7 +29,8 @@ RSpec.configure do |config|
     Proposal.remove_all_from_index!
   end
 
-  allowed_urls = %w(pbs.twimg.com syndication.twitter.com platform.twitter.com platform.twitter.com www.gravatar.com
+  allowed_urls = %w(external.xx.fbcdn.net abs.twimg.com pbs.twimg.com syndication.twitter.com platform.twitter.com
+                    platform.twitter.com www.gravatar.com
                     maps.googleapis.com apis.google.com oauth.googleusercontent.com ssl.gstatic.com maps.gstatic.com
                     www.google.com csi.gstatic.com mt0.googleapis.com mt1.googleapis.com mts0.googleapis.com
                     mts1.googleapis.com fonts.googleapis.com connect.facebook.net/en/sdk.js fbstatic-a.akamaihd.net
