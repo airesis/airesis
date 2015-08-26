@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :user do
     before(:create) do |user|
-      user.locale = user.original_locale = SysLocale.find_by_key('en')
+      user.locale = user.original_locale = SysLocale.default
       user.skip_confirmation!
     end
     password "topolino"
