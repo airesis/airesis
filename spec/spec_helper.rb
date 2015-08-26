@@ -25,7 +25,7 @@ RSpec.configure do |config|
   config.before(:each) do
     ActionMailer::Base.deliveries.clear
     Sidekiq::Worker.clear_all
-    I18n.locale = I18n.default_locale = :en
+    I18n.locale = I18n.default_locale = :'en-EU'
     Proposal.remove_all_from_index!
   end
 
