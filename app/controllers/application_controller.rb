@@ -134,10 +134,6 @@ class ApplicationController < ActionController::Base
       else
         params[:l] || current_domain.key || I18n.default_locale
       end
-    #@locale = 'en-EU' if ['en', 'eu', 'org', 'net'].include? @locale
-    #@locale = 'en-US' if ['us'].include? @locale
-    #@locale = 'zh-TW' if ['cn'].include? @locale
-    #@locale = 'it-IT' if ['it'].include? @locale
     I18n.locale = @locale
   end
 

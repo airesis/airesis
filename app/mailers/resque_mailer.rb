@@ -80,7 +80,7 @@ class ResqueMailer < ActionMailer::Base
     @body = body
     @from = User.find(from_id)
     @user = User.find(to_id)
-    I18n.locale = @user.locale.key || 'en'
+    I18n.locale = @user.locale.key || :'en-EU'
     mail(to: @user.email, from: ENV['NOREPLY_EMAIL'], reply_to: @from.email, subject: subject)
   end
 
@@ -98,7 +98,7 @@ class ResqueMailer < ActionMailer::Base
   def publish(newsletter_id, user_id)
     @user = User.find(user_id)
     @newsletter = Newsletter.find(newsletter_id)
-    I18n.locale = @user.locale.key || 'en'
+    I18n.locale = @user.locale.key || 'en-EU'
 
     mail(subject: @newsletter.subject, to: @user.email) do |format|
       format.html { render inline: @newsletter.body, layout: 'newsletters/default' }
