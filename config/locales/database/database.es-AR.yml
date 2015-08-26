@@ -56,8 +56,6 @@ es-AR:
         description: Apoya propuestas en nombre del grupo
       REQUEST_ACCEPT:
         description: 'Añadir  nuevos miembros al grupo'
-      SEND_CANDIDATES:
-        description: Designar miembros para la elección
       PROPOSAL_VIEW:
         description: Ver propuestas privadas
       PROPOSAL_PARTICIPATION:

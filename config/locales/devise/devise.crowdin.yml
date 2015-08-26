@@ -63,6 +63,8 @@ crowdin:
       creation_failure: 'crwdns8407:0%{provider}crwdne8407:0'
       join_success: 'crwdns8408:0%{provider}crwdne8408:0'
       join_failure: 'crwdns8409:0%{provider}crwdne8409:0'
+      certified_email_taken: crwdns9857:0crwdne9857:0
+      already_certified: crwdns9858:0crwdne9858:0
       account_not_verified: 'crwdns8410:0%{provider}crwdne8410:0'
     mailer:
       confirmation_instructions:

@@ -1,4 +1,4 @@
-hu:
+hu-HU:
   unauthorized:
     default: Ehhez nincs jogosultságod
     create:
@@ -232,7 +232,6 @@ hu:
           advanced: Speciális
           time_description: 'Az utolsó vita %{days} %{hours} %{minutes} ideje volt'
           simple_percentage_description: 'és a támogatottsága egyenlő vagy nagyobb, mint %{good_score}%.'
-          advanced_participation_description: '%{participants_percentage}% + 1 (%{total_number}-ből %{current_number}-nek van joga) <b>(átlag: %{average})</b>'
           advanced_percentage_description: 'Ha azonban a támogatottsága kisebb, mint %{bad_score}% az indítvány nem áll készen a szavazásra.'
           advanced_percentage_description3: Az indítvány továbbra is a vita fázisban marad, amíg a támogatottsága a két küszöbérték közé nem kerül.
         active: Aktív

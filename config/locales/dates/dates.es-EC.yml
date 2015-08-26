@@ -54,8 +54,6 @@ es-EC:
       long_date_time: '%A %d %B %Y a las %H:%M'
       from_long_date_time: 'Desde %A %d %B %Y a las %H:%M'
       until_long_date_time: 'Hasta %A %d %B %Y a las %H:%M'
-      from_long_date: 'Desde %A %d %B %Y'
-      until_long_date: 'Hasta %A %d %B %Y'
       weekday: '%A'
       textfield: '%d/%m/%Y %H:%M'
   datetime:

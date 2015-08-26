@@ -3,5 +3,5 @@
 *= require foundation
 *= require style
 *= require buttons
-*=require_tree .
+*= require_tree .
 */

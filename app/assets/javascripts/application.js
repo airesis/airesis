@@ -57,6 +57,7 @@
 //= require jquery.URI
 //= require_tree ./per_page
 //= require mustache
+//= require languages
 
 //// require nprogress
 //// require nprogress-turbolinks

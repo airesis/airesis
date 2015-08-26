@@ -1,4 +1,4 @@
-fr:
+fr-FR:
   db:
     sys_locales:
       it-IT:
@@ -56,8 +56,6 @@ fr:
         description: Soutenir les propositions au nom du groupe
       REQUEST_ACCEPT:
         description: Ajouter des nouveaux membres au groupe
-      SEND_CANDIDATES:
-        description: "Nommer des membres pour l'élection"
       PROPOSAL_VIEW:
         description: Voir les propositions privées
       PROPOSAL_PARTICIPATION:
@@ -226,7 +224,6 @@ fr:
       new_participation_request:
         description: Nouvelle demande de participation
         email_subject:
-          one: Une nouvelle demande de participation est présente
           other: 'Il y a %{count} nouvelles demandes de participation'
         message:
           one: '<b>%{user}</b> a demandé à participer au groupe <b>%{group}</b>'

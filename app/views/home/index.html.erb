@@ -126,6 +126,12 @@
     </ul>
   </nav>
 
+  <div class="language-button">
+    <a href="#" data-reveal-id="language">
+      <%= image_tag "flags/#{I18n.locale}.png", class: 'language', title: t('pages.home.index.change_language') %>
+    </a>
+  </div>
+
   <ul class="header-social">
     <li><a href="https://www.facebook.com/airesisit"><i class="fa fa-facebook"></i></a></li>
     <li><a href="https://twitter.com/democracyo"><i class="fa fa-twitter"></i></a></li>
@@ -586,7 +592,6 @@
                   <i class="fa fa-plus"></i>
                 </div>
             <% end %>
-
           </div>
         </li>
 
@@ -692,5 +697,8 @@
     </div>
   </div>
 </footer>
+
+<%= render 'layouts/languages' %>
+
 </body>
 </html>

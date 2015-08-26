@@ -38,8 +38,7 @@ RSpec.configure do |config|
 
   def load_countries
     a1 = Continent.create(description: 'Europe')
-
-    SysLocale.create(key: 'en', host: 'www.airesis.eu', territory: a1, default: true)
+    SysLocale.create(key: 'en-EU', host: 'www.airesis.eu', territory: a1, default: true)
   end
 
   def load_municipalities

@@ -1,4 +1,4 @@
-es:
+es-ES:
   countdowns:
     labelsPlural:
       - Años
@@ -87,8 +87,6 @@ es:
       long_date_time: '%A %d %B %Y at %H:%M'
       from_long_date_time: 'From %A %d %B %Y at %H:%M'
       until_long_date_time: 'Until %A %d %B %Y at %H:%M'
-      from_long_date: 'From %A %d %B %Y'
-      until_long_date: 'Until %A %d %B %Y'
       weekday: '%A'
       month: '%B'
       dayandmonth: '%d/%m'

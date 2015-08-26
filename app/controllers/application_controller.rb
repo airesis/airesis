@@ -115,9 +115,8 @@ class ApplicationController < ActionController::Base
     if params[:l].present?
       @current_domain = SysLocale.find_by_key(params[:l])
     else
-      @current_domain = SysLocale.find_by(host: request.host, lang: nil) || SysLocale.find_by(host: request.host)
+      @current_domain = SysLocale.find_by(host: request.host, lang: nil) || SysLocale.default
     end
-    @current_domain ||= SysLocale.default
   end
 
   def current_domain
@@ -133,12 +132,8 @@ class ApplicationController < ActionController::Base
       if Rails.env.test? || Rails.env.development?
         params[:l] || I18n.default_locale
       else
-        params[:l] || @domain_locale || I18n.default_locale
+        params[:l] || current_domain.key || I18n.default_locale
       end
-    @locale = 'en' if ['en', 'eu'].include? @locale
-    @locale = 'en-US' if ['us'].include? @locale
-    @locale = 'zh' if ['cn'].include? @locale
-    @locale = 'it' if ['it', 'org', 'net'].include? @locale
     I18n.locale = @locale
   end
 

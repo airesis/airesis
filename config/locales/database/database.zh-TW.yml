@@ -1,4 +1,4 @@
-zh:
+zh-TW:
   db:
     sys_locales:
       it-IT:
@@ -56,8 +56,6 @@ zh:
         description: 以群組的名義支持此議案
       REQUEST_ACCEPT:
         description: 在群組中增加新成員
-      SEND_CANDIDATES:
-        description: 提名成員來參與選舉
       PROPOSAL_VIEW:
         description: 檢視私人提案
       PROPOSAL_INSERT:

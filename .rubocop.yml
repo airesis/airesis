@@ -13,9 +13,6 @@ Style/MultilineOperationIndentation:
 Style/NonNilCheck:
   IncludeSemanticChanges: true
 
-Style/SpaceInsideHashLiteralBraces:
-  EnforcedStyle: no_space
-
 Style/DotPosition:
   EnforcedStyle: trailing
 

@@ -21,5 +21,15 @@ namespace :airesis do
     task status: :environment do
       Crowdin::Client.new.status
     end
+
+    desc 'Upload new sources to crowdin'
+    task upload: :environment do
+      Crowdin::Client.new.upload_sources
+    end
+
+    desc 'Update existing sources to crowdin'
+    task update: :environment do
+      Crowdin::Client.new.update_sources
+    end
   end
 end

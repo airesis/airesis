@@ -1,4 +1,4 @@
-en-GB:
+bo-BT:
   unauthorized:
     default: crwdns6647:0crwdne6647:0
     create:
@@ -19,6 +19,7 @@ en-GB:
       find_groups: crwdns6660:0crwdne6660:0
       parma_login: crwdns7924:0crwdne7924:0
       tecnologiedemocratiche_login: crwdns8377:0crwdne8377:0
+      tecnologiedemocratiche: crwdns9859:0crwdne9859:0
     user:
       notifications: crwdns6661:0crwdne6661:0
       privacy: crwdns6662:0crwdne6662:0
@@ -229,7 +230,7 @@ en-GB:
           advanced: crwdns6831:0crwdne6831:0
           time_description: 'crwdns8083:0%{days}crwdnd8083:0%{hours}crwdnd8083:0%{minutes}crwdne8083:0'
           simple_percentage_description: 'crwdns8084:0%{good_score}crwdne8084:0'
-          advanced_participation_description: 'crwdns8085:0%{participants_percentage}crwdnd8085:0%{current_number}crwdnd8085:0%{total_number}crwdnd8085:0%{average}crwdne8085:0'
+          advanced_participation_description: 'crwdns9860:0%{current_number}crwdnd9860:0%{total_number}crwdnd9860:0%{average}crwdne9860:0'
           advanced_percentage_description: 'crwdns6835:0%{bad_score}crwdne6835:0'
           advanced_percentage_description3: crwdns6836:0crwdne6836:0
         active: crwdns6837:0crwdne6837:0
@@ -286,7 +287,6 @@ en-GB:
         role: crwdns6882:0crwdne6882:0
         member_since: crwdns6883:0crwdne6883:0
         participants_html:
-          one: crwdns6884:0crwdne6884:0
           other: 'crwdns6884:1%{count}crwdne6884:1'
         added_by: crwdns6885:0crwdne6885:0
         remove_all: crwdns6886:0crwdne6886:0
@@ -471,6 +471,7 @@ en-GB:
         security_token: crwdns8249:0crwdne8249:0
         you_can_choose_vote_dates: 'crwdns8272:0%{count}crwdne8272:0'
         no_contributes_yet: crwdns8382:0crwdne8382:0
+        start_votation_proposal_confirmation: crwdns9861:0crwdne9861:0
       new:
         quorum_prompt: crwdns7041:0crwdne7041:0
         quorum_help: crwdns7042:0crwdne7042:0
@@ -582,7 +583,6 @@ en-GB:
         creation: 'crwdns7137:0%{time_ago}crwdnd7137:0%{date}crwdne7137:0'
         end: 'crwdns7138:0%{date}crwdne7138:0'
         valutations:
-          one: 'crwdns7139:0%{count}crwdne7139:0'
           other: 'crwdns7139:1%{count}crwdne7139:1'
         good_score: 'crwdns7140:0%{score}crwdne7140:0'
         bad_score: 'crwdns7141:0%{score}crwdne7141:0'
@@ -941,9 +941,11 @@ en-GB:
     group_participations:
       index:
         title: crwdns8121:0crwdne8121:0
+    certifications:
+      index:
+        title: crwdns9862:0crwdne9862:0
   pl:
     comments:
-      one: crwdns7402:0crwdne7402:0
       other: 'crwdns7402:1%{count}crwdne7402:1'
   activerecord:
     models:
@@ -1063,7 +1065,6 @@ en-GB:
     errors:
       template:
         header:
-          one: 'crwdns7504:0%{model}crwdne7504:0'
           other: 'crwdns7504:1%{count}crwdnd7504:1%{model}crwdne7504:1'
         body: crwdns7505:0crwdne7505:0
       messages:
@@ -1105,10 +1106,8 @@ en-GB:
       good_score_condition_past: 'crwdns7947:0%{good_score}crwdnd7947:0%{participants}crwdne7947:0'
     quorum:
       participants:
-        one: crwdns7531:0crwdne7531:0
         other: 'crwdns7531:1%{count}crwdne7531:1'
       participants_past:
-        one: crwdns7532:0crwdne7532:0
         other: 'crwdns7532:1%{count}crwdne7532:1'
       or_condition_1: 'crwdns7533:0%{time}crwdnd7533:0%{participants_num}crwdne7533:0'
       or_condition_1_past: 'crwdns7534:0%{time}crwdnd7534:0%{participants_num}crwdne7534:0'
@@ -1156,7 +1155,7 @@ en-GB:
       promote_proposal: crwdns8393:0crwdne8393:0
       share_with_friends: crwdns8394:0crwdne8394:0
     show_proposal:
-      vote_here: 'crwdns8395:0%{link}crwdne8395:0'
+      vote_here: 'crwdns9863:0%{link}crwdne9863:0'
   digit_tags: crwdns7560:0crwdne7560:0
   buttons:
     cancel: crwdns7561:0crwdne7561:0
@@ -1185,6 +1184,7 @@ en-GB:
     unlock: crwdns8396:0crwdne8396:0
     vote_here: crwdns8397:0crwdne8397:0
     unintegrate: crwdns8398:0crwdne8398:0
+    join_accounts: crwdns9864:0crwdne9864:0
   tooltips:
     random_stack_1: crwdns7577:0crwdne7577:0
     random_stack_2: crwdns7578:0crwdne7578:0
@@ -1397,7 +1397,6 @@ en-GB:
     blog_post_deleted: crwdns7738:0crwdne7738:0
     participation_request:
       multiple_request:
-        one: 'crwdns7739:0%{count}crwdne7739:0'
         other: 'crwdns7739:1%{count}crwdne7739:1'
     group_participations:
       destroy_ok_1: crwdns8153:0crwdne8153:0
@@ -1416,13 +1415,15 @@ en-GB:
       destroy: crwdns8160:0crwdne8160:0
     group_invitations:
       create:
-        one: 'crwdns8402:0%{email_addresses}crwdne8402:0'
         other: 'crwdns8402:1%{count}crwdnd8402:1%{email_addresses}crwdne8402:1'
       accept: crwdns8281:0crwdne8281:0
       reject: crwdns8282:0crwdne8282:0
       anymore: crwdns8283:0crwdne8283:0
     blog_comment:
       destroyed: crwdns8403:0crwdne8403:0
+    user_sensitive:
+      updated: crwdns9865:0crwdne9865:0
+      created: crwdns9866:0crwdne9866:0
   interest_borders:
     hint: crwdns7749:0crwdne7749:0
     no_place_found: crwdns7750:0crwdne7750:0
@@ -1446,7 +1447,6 @@ en-GB:
       view_proposal: 'crwdns7764:0%{click_here}crwdne7764:0'
     text_update:
       view_proposal:
-        one: 'crwdns8404:0%{proposal}crwdne8404:0'
         other: 'crwdns8404:1%{proposal}crwdnd8404:1%{count}crwdne8404:1'
       integrated_contributes: crwdns7766:0crwdne7766:0
       view_proposal_2: 'crwdns7767:0%{click_here}crwdne7767:0'
@@ -1560,6 +1560,6 @@ en-GB:
   delete_event_confirm: crwdns8300:0crwdne8300:0
   groups:
     group:
-      delete_group_warning_html: crwdns8405:0crwdne8405:0
+      delete_group_warning_html: crwdns9867:0crwdne9867:0
   confirm:
     unintegrate: crwdns8406:0crwdne8406:0

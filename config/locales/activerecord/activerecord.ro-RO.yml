@@ -1,4 +1,4 @@
-ro:
+ro-RO:
   activerecord:
     models:
       meeting: Întâlnire

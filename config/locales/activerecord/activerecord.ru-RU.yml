@@ -1,4 +1,4 @@
-ru:
+ru-RU:
   activerecord:
     models:
       meeting: Совещание

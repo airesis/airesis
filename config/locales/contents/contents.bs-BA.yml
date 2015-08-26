@@ -1,4 +1,4 @@
-bs:
+bs-BA:
   home:
     intro:
       title: Prva društvena mreža za E-demokratiju u svijetu
@@ -44,10 +44,14 @@ bs:
           
           <li><strong>Fleksibilnost</strong><br/>
           Svaka grupa ima svoje sopstvene potrebe, svaki prijedlog je različit, svaki korisnik ima svoje sopstvene potrebe.</li>
+      paragraph_4:
+        title: 'Naš cilj: direktna i participativna demokratija'
       paragraph_5:
         title: Karakteristike i svojstva
       paragraph_6:
         title: Osnovna svojstva
+      paragraph_7:
+        title: Alat za prijedlog i debatu
     whatis:
       paragraph_1:
         title: Društvena mreža za E-demokratiju

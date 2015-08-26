@@ -1,4 +1,4 @@
-fr:
+fr-FR:
   countdowns:
     labelsPlural:
       - Années
@@ -92,8 +92,6 @@ fr:
       long_date_time: '%A %d %B %Y à %I:%M %p'
       from_long_date_time: 'De %A %d %B %Y à %I:%M %p'
       until_long_date_time: 'Jusque %A %d %B %Y à %I:%M %p'
-      from_long_date: 'De %A %d %B %Y'
-      until_long_date: 'Jusque %A %d %B %Y'
       short: '%d %b %Y'
       two_rows: '%d %b %Y <br/> %I:%M %p'
       weekday: '%a à %I:%M %p'

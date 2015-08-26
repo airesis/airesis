@@ -29,7 +29,7 @@
   <div class="mycont">
     <%@archives.each do |rec|%>
         <div class="blog_comment">
-          <%=link_to "#{t('calendar.monthNames')[rec.month.to_i - 1]} #{rec.year.to_i} (#{rec.posts})", posts_by_year_and_month_blog_path(@blog, month: rec.month.to_i, year: rec.year.to_i) %>
+          <%=link_to "#{month_long(rec.month)} #{rec.year.to_i} (#{rec.posts})", posts_by_year_and_month_blog_path(@blog, month: rec.month.to_i, year: rec.year.to_i) %>
         </div>
     <%end%>
   </div>

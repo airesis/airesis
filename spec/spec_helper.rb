@@ -25,16 +25,17 @@ RSpec.configure do |config|
   config.before(:each) do
     ActionMailer::Base.deliveries.clear
     Sidekiq::Worker.clear_all
-    I18n.locale = I18n.default_locale = :en
+    I18n.locale = I18n.default_locale = :'en-EU'
     Proposal.remove_all_from_index!
   end
 
-  allowed_urls = %w(pbs.twimg.com syndication.twitter.com platform.twitter.com platform.twitter.com www.gravatar.com
+  allowed_urls = %w(external.xx.fbcdn.net abs.twimg.com pbs.twimg.com syndication.twitter.com platform.twitter.com
+                    platform.twitter.com www.gravatar.com
                     maps.googleapis.com apis.google.com oauth.googleusercontent.com ssl.gstatic.com maps.gstatic.com
                     www.google.com csi.gstatic.com mt0.googleapis.com mt1.googleapis.com mts0.googleapis.com
                     mts1.googleapis.com fonts.googleapis.com connect.facebook.net/en/sdk.js fbstatic-a.akamaihd.net
                     graph.facebook.com connect.facebook.net scontent.xx.fbcdn.net fbexternal-a.akamaihd.net
-                    fbcdn-profile-a.akamaihd.net)
+                    fbcdn-profile-a.akamaihd.net cdn.ckeditor.com)
 
   Capybara::Webkit.configure do |config|
     allowed_urls.each do |allowed_url|

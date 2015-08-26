@@ -1,4 +1,4 @@
-sr:
+sr-SP:
   unauthorized:
     default: Немате потребне дозволе да извршите ову активност
     create:
@@ -86,10 +86,10 @@ sr:
         join_meetup: Придружите ваш Meetup налог
         providers_list: Листа активираних провајдера
         options: Опције
-        rotp: Омогућите безбедoносну проверу
-        rotp_title: Безбедoносна провера
-        rotp_confirm_enable: Да ли сте сигурни да желите да омогућите безбедoносну проверу?
-        rotp_confirm_disable: Да ли сте сигурни да желите да онемогућите безбедoносну проверу?
+        rotp: Омогућите безбедносну проверу
+        rotp_title: Безбедносна провера
+        rotp_confirm_enable: Да ли сте сигурни да желите да омогућите безбедносну проверу?
+        rotp_confirm_disable: Да ли сте сигурни да желите да онемогућите безбедносну проверу?
         mail_language: Језик за е-поште
         time_zone: Временска зона
       border_preferences:
@@ -239,7 +239,6 @@ sr:
           advanced: Напредно
           time_description: 'Дебата траје %{days} %{hours} %{minutes}'
           simple_percentage_description: 'а зрелост је једнака или виша од %{good_score}%.'
-          advanced_participation_description: '%{participants_percentage}%+1 (%{current_number} од %{total_number} који имају право) <b>(просечна вредност: %{average})</b>'
           advanced_percentage_description: 'Ако је зрелост нижа од %{bad_score}% предлог се одбацује.'
           advanced_percentage_description3: Предлог остаје у дебати ако је зрелост између две граничне вредности.
         active: Активно
@@ -263,7 +262,7 @@ sr:
           not_enabled: Радна подручја нису омогућена
           description: Airesis вам дозвољава да управљате различитим радним подручјима унутар групе.
           description2: Са овом одликом можете боље управљати учесницима и њиховим функцијама.
-          description3: Будите опрезни! Ово је опционална функција дизајнирана само за веће групе и стручне кориснике.
+          description3: Будите опрезни! Ово је напредна одлика дизајнирана само за веће групе и стручне кориснике.
           enable: Омогућите радна подручја!
           description4: 'Пре активирања радног подручја, проверите да ли можете да управљате члановима групе директно помоћу '
         manage:
@@ -1219,8 +1218,6 @@ sr:
     left_panel:
       promote_proposal: Промовисање предлога
       share_with_friends: Делите с пријатељима
-    show_proposal:
-      vote_here: 'Овај предлог је у гласању. Прочитајте решење/решења и %{link}.'
   digit_tags: Укуцајте ознаке које желите да додате
   buttons:
     cancel: Откажите
@@ -1506,7 +1503,7 @@ sr:
     default:
       follow_twitter: пратите нас на Тwitter-у
       follow_facebook: пратите нас на Facebook-у
-      follow_google: Пратите нас на Google+
+      follow_google: пратите нас на Google+
       footer:
         registered_at: 'Примили сте ову е-пошту јер сте регистровани на %{url}.'
       edit_preferences: Поставке
@@ -1620,7 +1617,7 @@ sr:
       confirm: Глас исправно регистрован. Хвала вам!
   errors:
     messages:
-      invalid_token: Неважећи безбедоносни токен
+      invalid_token: Неважећи безбедносни токен
       votation: Жао нам је, али нешто је пошло наопако. Покушајте поново касније.
     votation:
       already_voted: Већ сте гласали за овај предлог
@@ -1633,8 +1630,5 @@ sr:
   keep_reading: наставите читање
   feedback_subject: '%{time} - Нова повратна информација'
   delete_event_confirm: Да ли сте сигурни да желите да избришете овај коментар?
-  groups:
-    group:
-      delete_group_warning_html: 'Није вам дозвољено да избришете ову групу. Брисањем групе ћете уништити све форуме, предлоге и документа повезана с групом.<br/>Подаци не могу бити повраћени.<br/>Будите опрезни!'
   confirm:
     unintegrate: Враћате свој допринос у дискусију. Да ли сте сигурни?

@@ -236,7 +236,7 @@ class User < ActiveRecord::Base
     super.tap do |user|
       user.last_sign_in_ip = session[:remote_ip]
       user.subdomain = session[:subdomain] if session[:subdomain] && !session[:subdomain].blank?
-      user.original_sys_locale_id = user.sys_locale_id = SysLocale.find_by(key: 'en').id
+      user.original_sys_locale_id = user.sys_locale_id = SysLocale.default.id
 
       oauth_data = session['devise.omniauth_data']
       user_info = OauthDataParser.new(oauth_data).user_info if oauth_data

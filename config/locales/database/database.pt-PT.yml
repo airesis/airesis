@@ -1,4 +1,4 @@
-pt:
+pt-PT:
   db:
     sys_locales:
       it-IT:
@@ -56,8 +56,6 @@ pt:
         description: Apoiar propostas em nome do grupo
       REQUEST_ACCEPT:
         description: Adicionar novos membros ao grupo
-      SEND_CANDIDATES:
-        description: Nomear membros para eleição
       PROPOSAL_VIEW:
         description: Ver propostas privadas
       PROPOSAL_PARTICIPATION:

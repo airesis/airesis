@@ -1,4 +1,4 @@
-sr:
+sr-SP:
   db:
     sys_locales:
       it-IT:
@@ -56,8 +56,6 @@ sr:
         description: Подршка предлозима у име групе
       REQUEST_ACCEPT:
         description: Додавање нових чланова у групу
-      SEND_CANDIDATES:
-        description: Номиновање чланова за избор
       PROPOSAL_VIEW:
         description: Видите приватне предлоге
       PROPOSAL_PARTICIPATION:
@@ -226,7 +224,6 @@ sr:
       new_participation_request:
         description: Нови захтев за учешће
         email_subject:
-          one: Постоји нови захтев за учешће
           other: 'Постоји %{count} нових захтева за учешће'
         message:
           one: '<b>%{user}</b> је затражио/ла да учествује у групи <b>%{group}</b>'

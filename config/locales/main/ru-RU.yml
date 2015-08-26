@@ -1,4 +1,4 @@
-ru:
+ru-RU:
   unauthorized:
     default: Вы не имеете разрешения для выполнения этого действия
     create:
@@ -239,7 +239,6 @@ ru:
           advanced: Продвинутый
           time_description: 'Обсуждение длится %{days} %{hours} %{minutes}'
           simple_percentage_description: 'и голосов "за" равно или превышает %{good_score}%.'
-          advanced_participation_description: '%{participants_percentage}%+1 (%{current_number} из %{total_number}, которые имеют право) <b>(average value: %{average})</b>'
           advanced_percentage_description: 'Однако, если голосов "за" меньше чем %{bad_score}%, предложение отклоняется.'
           advanced_percentage_description3: Обсуждение предложения продолжается, пока результат остаётся между двумя пороговыми значениями.
         active: Активное
@@ -1213,8 +1212,6 @@ ru:
     left_panel:
       promote_proposal: Продвижение предложения
       share_with_friends: Поделиться с друзьями
-    show_proposal:
-      vote_here: 'По этому предложению идёт голосование. Читайте решение/я и %{link}.'
   digit_tags: Введите теги, которые вы хотите добавить
   buttons:
     cancel: Отмена
@@ -1622,8 +1619,5 @@ ru:
   keep_reading: продолжать чтение
   feedback_subject: '%{time} — Новые отзывы'
   delete_event_confirm: Вы уверены, что хотите удалить этот комментарий?
-  groups:
-    group:
-      delete_group_warning_html: 'Вы можете удалить эту группу. Удалив эту группу, вы уничтожите все связанные с ней форумы, предложения и документы. <br/>Эти данные не могут быть восстановлены.<br/>Будьте осторожны!'
   confirm:
     unintegrate: Вы собираетесь вернуть ваш вклад на обсуждение. Вы уверены?

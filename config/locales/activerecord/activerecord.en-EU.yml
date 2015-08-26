@@ -1,4 +1,4 @@
-en:
+en-EU:
   activerecord:
     models:
       meeting: 'Meeting'     

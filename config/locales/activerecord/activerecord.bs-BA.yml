@@ -1,4 +1,4 @@
-bs:
+bs-BA:
   activerecord:
     models:
       meeting: Sastanak
