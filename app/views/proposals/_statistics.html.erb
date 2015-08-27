@@ -17,9 +17,10 @@
     	};
 		
 		 $.ajax({
-            url: "/proposal_statistics/rank_time?id=<%=proposal.id%>",
+            url: "/proposal_statistics/rank_time",
             method: 'GET',
             dataType: 'json',
+            data: {id: <%=proposal.id%>},
             success: function(series) {
             	 // let's add it to our current data
 	            if (!alreadyFetched[series.label]) {

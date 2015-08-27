@@ -55,7 +55,10 @@ window.fbAsyncInit = ->
     if likeable_type && likeable_id
       $.ajax
         headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
-        data: 'user_like[likeable_id]=' + likeable_id + '&user_like[likeable_type]=' + likeable_type,
+        data: {
+          'user_like[likeable_id]': likeable_id,
+          'user_like[likeable_type]': likeable_type
+        },
         url: $('#fb-root').data('user-like-url'),
         type: 'post'
 
@@ -65,6 +68,9 @@ window.fbAsyncInit = ->
     if (likeable_type && likeable_id)
       $.ajax
         headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
-        data: 'user_like[likeable_id]=' + likeable_id + '&user_like[likeable_type]=' + likeable_type,
+        data: {
+          'user_like[likeable_id]': likeable_id,
+          'user_like[likeable_type]': likeable_type
+        },
         url: $('#fb-root').data('user-like-url') + '/' + likeable_id,
         type: 'delete'

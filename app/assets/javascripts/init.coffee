@@ -15,6 +15,11 @@ $ ->
     GoogleAnalytics.load()
   if Airesis.environment == 'test'
     $.fx.off = true
+  # ajax requests
+  $.ajaxPrefilter (options, originalOptions, jqXHR)->
+    if Airesis.i18n.l isnt ''
+      options.data = $.param($.extend(originalOptions.data, { l: Airesis.i18n.l }))
+    return true
   #polling alerts
   if Airesis.signed_in
     PrivatePub.subscribe '/notifications/' + Airesis.id, (data, channel) ->
@@ -125,7 +130,8 @@ $ ->
         create_proposal_.append $('#loading-fragment').clone()
         $.ajax
           url: link.attr('href')
-          data: 'proposal_type_id=' + type_id
+          data:
+            proposal_type_id: type_id
           dataType: 'script'
     airesis_reveal create_proposal_
     false
@@ -177,3 +183,4 @@ $ ->
       fdatetimepicker_only_date $('#event_starttime'), $("#event_endtime")
     else
       fdatetimepicker_date_and_time $('#event_starttime'), $("#event_endtime")
+

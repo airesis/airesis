@@ -26,7 +26,6 @@ window.Airesis = {
             url: '/municipalities'
             data:
               q: query.term
-              l: Airesis.i18n.locale
             dataType: 'json'
             type: 'GET'
             success: (data) ->

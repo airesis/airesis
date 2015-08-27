@@ -176,7 +176,7 @@ gem 'faker'
 
 gem 'sshkit'
 
-gem 'cookies_eu'
+gem 'cookies_eu', github: 'coorasse/cookies_eu'
 
 gem 'font-awesome-rails'
 

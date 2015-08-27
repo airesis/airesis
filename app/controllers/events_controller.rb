@@ -69,7 +69,12 @@ class EventsController < ApplicationController
         authorize! :create_event, @group
       end
     else
-      return unless admin_required
+      if params[:proposal_id].present?
+        proposal = Proposal.find(params[:proposal_id])
+        return unless can?(:set_votation_date, proposal)
+      else
+        return unless admin_required
+      end
     end
 
     if event_type == EventType::VOTAZIONE.to_s
@@ -89,13 +94,7 @@ class EventsController < ApplicationController
     if params[:proposal_id]
       @event.proposal_id = params[:proposal_id]
     end
-    if @group
-      @event.private = true
-      respond_to do |format|
-        format.html
-        format.js
-      end
-    end
+    @event.private = @group.present?
   end
 
   def create
@@ -106,7 +105,12 @@ class EventsController < ApplicationController
         authorize! :create_event, @group
       end
     else
-      return unless admin_required
+      if @event.proposal_id.present?
+        proposal = Proposal.find(@event.proposal_id)
+        return unless can?(:set_votation_date, proposal)
+      else
+        return unless admin_required
+      end
     end
 
     Event.transaction do
@@ -125,7 +129,7 @@ class EventsController < ApplicationController
 
   rescue ActiveRecord::ActiveRecordError => e
     respond_to do |format|
-      format.js { render 'layouts/active_record_error', locals: {object: @event} }
+      format.js { render 'layouts/active_record_error', locals: { object: @event } }
     end
   end
 
@@ -152,7 +156,7 @@ class EventsController < ApplicationController
     else
       respond_to do |format|
         format.html { render :edit }
-        format.js { render 'layouts/active_record_error', locals: {object: @event} }
+        format.js { render 'layouts/active_record_error', locals: { object: @event } }
       end
     end
   end

@@ -383,7 +383,9 @@ function select2town(element) {
             } else {
                 $.ajax({
                     url: '/municipalities',
-                    data: {q: query.term, l: Airesis.i18n.locale},
+                    data: {
+                        q: query.term
+                    },
                     dataType: 'json',
                     type: 'GET',
                     success: function (data) {
@@ -534,10 +536,10 @@ function read_notifica(el) {
 
 function sign_all_as_read(id) {
     $.ajax({
-        data: 'id=' + id,
         url: '/alerts/check_all/',
         type: 'post',
         dataType: 'script',
+        data: {id: id},
         complete: function (data) {
             reset_alerts_number();
             $('.card.mess').each(function () {
@@ -734,6 +736,9 @@ function formatCategory(state) {
 function formatQuorum(state) {
     var element_ = state.element;
     if (!state.id) return state.text; // optgroup
+    console.log(state.text);
+    console.log($(element_));
+    console.log($(element_).data('description'));
     return "<div> <div class=\"quorum_title\">" + state.text + "</div> <div class=\"quorum_desc\">" + $(element_).data('description') + "</div></div>";
 }
 
@@ -797,7 +802,9 @@ function search_stuff() {
         if (query != null && query != "") {
             $.ajax({
                 url: '/searches',
-                data: 'search[q]=' + query,
+                data: {
+                    'search[q]': query
+                },
                 method: 'POST'
             });
         }

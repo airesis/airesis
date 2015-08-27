@@ -38,7 +38,10 @@
                     nurl += '&group_id=' + group;
                 if (order != null && order != 'null')
                     nurl += '&order=' + order;
-                $.ajax({ url: nurl + '&page=' + currentPage, type: 'get'});
+                $.ajax({
+                    url: nurl,
+                    data: {page: currentPage},
+                    type: 'get'});
             });
         })
     </script>

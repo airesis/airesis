@@ -16,7 +16,6 @@ window.QuorumsIndex =
     $.ajax
       data:
         active: active
-        l: Airesis.i18n.locale
       url: url
       dataType: 'script'
       type: 'post'
