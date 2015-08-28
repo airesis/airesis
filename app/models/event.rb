@@ -193,7 +193,7 @@ class Event < ActiveRecord::Base
      start: "#{starttime.iso8601}",
      end: "#{endtime.iso8601}",
      allDay: all_day,
-     recurring: event_series_id.present?,
+     recurring: false,
      backgroundColor: backgroundColor,
      textColor: textColor,
      borderColor: Colors::darken_color(backgroundColor),
