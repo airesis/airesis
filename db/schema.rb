@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150710073309) do
+ActiveRecord::Schema.define(version: 20150828065222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "action_abilitations", force: :cascade do |t|
     t.integer  "group_action_id"
@@ -301,36 +300,23 @@ ActiveRecord::Schema.define(version: 20150710073309) do
   add_index "event_comments", ["parent_event_comment_id"], name: "index_event_comments_on_parent_event_comment_id", using: :btree
   add_index "event_comments", ["user_id"], name: "index_event_comments_on_user_id", using: :btree
 
-  create_table "event_series", force: :cascade do |t|
-    t.integer  "frequency",              default: 1
-    t.string   "period",     limit: 255, default: "months"
-    t.datetime "starttime"
-    t.datetime "endtime"
-    t.boolean  "all_day",                default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "event_types", force: :cascade do |t|
     t.string "name",  limit: 255
     t.string "color", limit: 10
   end
 
   create_table "events", force: :cascade do |t|
-    t.string   "title",           limit: 255
+    t.string   "title",         limit: 255
     t.datetime "starttime"
     t.datetime "endtime"
-    t.boolean  "all_day",                     default: false
+    t.boolean  "all_day",                   default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
-    t.integer  "event_series_id"
-    t.integer  "event_type_id",                               null: false
-    t.boolean  "private",                     default: false, null: false
+    t.integer  "event_type_id",                             null: false
+    t.boolean  "private",                   default: false, null: false
     t.integer  "user_id"
   end
-
-  add_index "events", ["event_series_id"], name: "index_events_on_event_series_id", using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",           limit: 255, null: false
@@ -990,7 +976,7 @@ ActiveRecord::Schema.define(version: 20150710073309) do
   create_table "proposals", force: :cascade do |t|
     t.integer  "proposal_state_id"
     t.integer  "proposal_category_id",                    default: 5,     null: false
-    t.string   "title",                     limit: 200,                   null: false
+    t.string   "title",                     limit: 255,                   null: false
     t.string   "content",                   limit: 20000
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1151,7 +1137,7 @@ ActiveRecord::Schema.define(version: 20150710073309) do
   end
 
   create_table "sections", force: :cascade do |t|
-    t.string  "title",    limit: 100,   null: false
+    t.string  "title",    limit: 255,   null: false
     t.integer "seq",                    null: false
     t.string  "question", limit: 20000
   end
