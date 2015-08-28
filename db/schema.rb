@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150821203619) do
+ActiveRecord::Schema.define(version: 20150828065222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -977,7 +977,7 @@ ActiveRecord::Schema.define(version: 20150821203619) do
   create_table "proposals", force: :cascade do |t|
     t.integer  "proposal_state_id"
     t.integer  "proposal_category_id",                    default: 5,     null: false
-    t.string   "title",                     limit: 200,                   null: false
+    t.string   "title",                     limit: 255,                   null: false
     t.string   "content",                   limit: 20000
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1138,7 +1138,7 @@ ActiveRecord::Schema.define(version: 20150821203619) do
   end
 
   create_table "sections", force: :cascade do |t|
-    t.string  "title",    limit: 100,   null: false
+    t.string  "title",    limit: 255,   null: false
     t.integer "seq",                    null: false
     t.string  "question", limit: 20000
   end
