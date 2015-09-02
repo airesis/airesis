@@ -2,156 +2,202 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <%= wicked_pdf_stylesheet_link_tag 'application' %>
-
-  <style>
-    .proposalMainContainer .proposal_content {
-        font: 14px, arial;
-        letter-spacing: 0.6px;
-        word-wrap: normal;
-    }
-
-  </style>
+  <%= wicked_pdf_stylesheet_link_tag 'pdf/proposal' %>
 </head>
 <body>
-<div id="header" style="border-bottom: none;">
-  <div>
-    <%= params[:debug].present? ? image_tag('logo_head.png', style: 'width:22px;padding-top:2px;', align: 'left') : wicked_pdf_image_tag('logo_head.png', style: 'width:22px;padding-top:2px;', align: 'left') %>
-    <div class="headerTitle" lang="la">
-      <%= ENV['APP_LONG_NAME'] %>
+  <div class="dates">
+    <span class="title_grey">
+         <%= raw t('pages.proposals.show.created_at') %>
+    </span>
+    <br/>
+    <%= l @proposal.created_at %>
+    <br/>
+    <% if @proposal.updated_at != @proposal.created_at %>
+      <span class="title_grey">
+        <%= t('pages.proposals.show.updated_at') %>
+      </span>
+      <br/>
+      <%= l @proposal.updated_at %>
+    <% end %>
+  </div>
+
+  <div id="header">
+    <div>
+      <%= params[:debug].present? ? image_tag('logo_head.png', class: 'logo-image') : wicked_pdf_image_tag('logo_head.png', class: 'logo-image') %>
+      <div class="headerTitle">
+        <%= t('home.intro.title')%>
+      </div>
     </div>
   </div>
-  <hr/>
-</div>
-<div id="content">
-  <h1><%= @proposal.title %></h1>
-  <div id="wicked_left_panel" style="float:left;width:20%;border-right: 1px #ccc dotted;">
-    <% unless @proposal.is_polling? %>
-        <div id="rankleftpanel" class="rankleftpanel">
 
-          <p class="points">
-            <span class="littleText" id="valutazioni"><%= t('pages.proposals.show.score') %></span>
-            <span class="rightAlign"><%= @proposal.valutations %></span>
-          </p>
+  <div id="content">
+    <h1><%= @proposal.title %></h1>
 
-          <p class="ranking">
-            <span class="littleText" id="gradimento"><%= t('pages.proposals.show.rank') %></span>
-            <span class="rightAlign"><%= @proposal.rank %>%</span>
-          </p>
+    <div id="wicked_proposal_info">
+      <% unless @proposal.is_polling? %>
+          <div id="rankleftpanel" class="rankleftpanel">
+            <div class="points-ranking">
+              <p class="points">
+                <span class="littleText" id="valutazioni"><%= t('pages.proposals.show.score') %></span>
+                <span class="rightAlign"><%= @proposal.valutations %></span>
+              </p>
 
-          <span class="title_grey">
-               <%= raw t('pages.proposals.show.created_at') %>
-          </span><br/>
-          <%= l @proposal.created_at %>
-          <br/>
-          <% if @proposal.updated_at != @proposal.created_at %>
-    <span class="title_grey">
-      <%= t('pages.proposals.show.updated_at') %>
-      </span><br/>
-              <%= l @proposal.updated_at %>
-          <% end %>
+              <p class="ranking">
+                <span class="littleText" id="gradimento"><%= t('pages.proposals.show.rank') %></span>
+                <span class="rightAlign"><%= @proposal.rank %>%</span>
+              </p>
 
-        </div>
-    <% end %>
-
-
-    <h4><%= t('pages.proposals.show.editors_title') %></h4>
-
-    <div class="authors_list">
-
-      <% @proposal.users.each do |user| %>
-          <%= user.fullname %>
+              <div class="clear"></div>
+            </div>
+          </div>
       <% end %>
 
-      <div style="clear: both;"></div>
-    </div>
-    <br/>
+      <div class="properties-table">
+        <div class="authors-cell">
+          <h3><%= t('pages.proposals.show.editors_title') %></h3>
 
-    <% if ::Configuration.proposal_support %>
-        <div id="support_left_panel_container">
-          <h4><%= t('pages.proposals.show.supporting_group') %></h4>
-          <% @proposal.supporting_groups.each do |group| %>
-              <div class="pcontainer">
-                <div class="MoImg24">
-                  <%= group.group_image_tag 24 %>
-                </div>
-                <div class="Mo">
-                  <%= link_to group.name[0..20], group_path(group) %>
-                </div>
-                <div style="clear: both;"></div>
-              </div>
-          <% end %>
-          <%= t('pages.proposals.show.no_supporting_group') if @proposal.supporting_groups.empty? %>
-        </div>
-    <% end %>
-
-    <% unless @proposal.interest_borders.empty? %>
-        <h4><%= t('pages.proposals.show.geographic_boundaries_title') %></h4>
-        <% @proposal.interest_borders.each do |ib| %>
-            <div class="label"><%= ib.description %></div>
-        <% end %>
-    <% end %>
-
-    <% unless @proposal.tags.empty? || !::Configuration.folksonomy %>
-        <h4><%= t('pages.proposals.show.tags_title') %></h4>
-        <% @proposal.tags.each do |tag| %>
-            <div class="label"><a class="ui-state-highlight" href="<%= tag_path tag.text %>"><%= tag.text %></a>
-              x <%= tag.proposals_count %></div>
-        <% end %>
-    <% end %>
-
-
-    <% if ::Configuration.proposal_categories %>
-        <h4><%= t('pages.proposals.show.category_title') %></h4>
-        <table>
-          <tr>
-            <td style="vertical-align: middle;">
-              <%=params[:debug].present? ? image_tag("proposal_categories/"+@proposal.category.id.to_s + "_s.png", align: 'middle', style: "width:22px;padding-right:2px;") : wicked_pdf_image_tag("proposal_categories/"+@proposal.category.id.to_s + "-22.png", align: 'middle', style: "width:22px;padding-right:2px;") %>
-            </td>
-            <td>
-              <%= @proposal.category.description%>
-            </td>
-          </tr>
-        </table>
-    <% end %>
-  </div>
-  <div id="wicked_center_panel" style="float:left;width:77%;margin-left: 4px;">
-
-    <% @proposal.sections.each do |section| %>
-        <h3 style="float: left; " class="section_title">
-          <%= section.title %></h3>
-
-        <div class="proposalMainContainer proposal_main shadow-box">
-          <div class="proposal_content">
-            <%= sanitize(section.paragraphs.first.content) %>
+          <div class="authors_list">
+            <% @proposal.users.each do |user| %>
+                <%= user.fullname %>
+            <% end %>
+            <div class="clear"></div>
           </div>
         </div>
-    <% end %>
-
-    <% @proposal.solutions.includes(:sections).each do |solution| %>
-        <% solution.sections.each do |section| %>
-            <div class="solution_title">
-              <h3 style="float: left; " class="section_title">
-                <%= section.title %></h3>
-            </div>
-            <div id="proposal<%= @proposal.id %>" class="proposalMainContainer proposal_main shadow-box">
-              <div class="proposal_content">
-                <%= sanitize(section.paragraphs.first.content) %>
+        <div class="groups-cell">
+          <% if ::Configuration.proposal_support %>
+              <div id="support_left_panel_container">
+                <h3><%= t('pages.proposals.show.supporting_group') %></h3>
+                <% @proposal.supporting_groups.each do |group| %>
+                    <div class="pcontainer">
+                      <div class="MoImg24">
+                        <%= group.group_image_tag 24 %>
+                      </div>
+                      <div class="Mo">
+                        <%= link_to group.name[0..20], group_path(group) %>
+                      </div>
+                      <div style="clear: both;"></div>
+                    </div>
+                <% end %>
+                <%= t('pages.proposals.show.no_supporting_group') if @proposal.supporting_groups.empty? %>
               </div>
+          <% end %>
+        </div>
+        <div class="tags-cell">
+          <% unless @proposal.tags.empty? || !::Configuration.folksonomy %>
+              <h3><%= t('pages.proposals.show.tags_title') %></h3>
+              <% @proposal.tags.each do |tag| %>
+                <div class="tag">
+                  <%= tag.text %> x <%= tag.try(:proposals_count) %>
+                </div>
+              <% end %>
+          <% end %>
+        </div>
+        <div class="interest-borders-cell">
+          <% unless @proposal.interest_borders.empty? %>
+              <h3><%= t('pages.proposals.show.geographic_boundaries_title') %></h3>
+              <% @proposal.interest_borders.each do |ib| %>
+                  <div class="label"><%= ib.description %></div>
+              <% end %>
+          <% end %>
+        </div>
+        <div class="clear">
+        <div class="category-cell">
+          <% if ::Configuration.proposal_categories %>
+              <h3><%= t('pages.proposals.show.category_title') %></h3>
+              <table>
+                <tr>
+                  <td style="vertical-align: middle;">
+                    <%=params[:debug].present? ? image_tag("proposal_categories/"+@proposal.category.id.to_s + "_s.png", align: 'middle', style: "width:22px;padding-right:2px;") : wicked_pdf_image_tag("proposal_categories/"+@proposal.category.id.to_s + "-22.png", align: 'middle', style: "width:22px;padding-right:2px;") %>
+                  </td>
+                  <td>
+                    <%= @proposal.category.description%>
+                  </td>
+                </tr>
+              </table>
+          <% end %>
+        </div>
+        <div class="clear"></div>
+      </div>
+
+    </div>
+
+    <div id="wicked_center_panel" style="margin-left: 4px;">
+      <h2 class="section_title">Properties</h2>
+
+      <div class="proposalMainContainer proposal_main shadow-box">
+        <span class="title_grey">
+             <%= raw t('pages.proposals.show.debate_begin') %>
+        </span>
+        <div class="time-property">
+          <%= l @proposal.quorum.started_at %>
+        </div>
+        <br/>
+        <span class="title_grey">
+             <%= raw t('pages.proposals.show.debate_end') %>
+        </span>
+        <div class="time-property">
+          <%= l @proposal.quorum.ends_at %>
+        </div>
+        <br/>
+      </div>
+
+      <div class="proposalMainContainer proposal_main shadow-box">
+        <span class="title_grey">
+             <%= raw t('pages.proposals.show.vote_begin') %>
+        </span>
+        <div class="time-property">
+          <%= l @proposal.vote_starts_at %>
+        </div>
+        <br/>
+        <span class="title_grey">
+             <%= raw t('pages.proposals.show.vote_end') %>
+        </span>
+        <div class="time-property">
+          <%= l @proposal.vote_ends_at %>
+        </div>
+      </div>
+
+      <% if @proposal.vote.present? %>
+        <h2 class="section_title">Vote results</h2>
+        <div class="proposalMainContainer proposal_main shadow-box">
+          <!-- TODO: vote results -->
+          <div class="proposal_content">
+            <p>Will be something here</p>
+          </div>
+        </div>
+      <% end %>
+
+      <% @proposal.sections.each do |section| %>
+        <% unless section.paragraph.empty? %>
+          <h2 class="section_title"><%= section.title %></h2>
+          <div class="proposalMainContainer proposal_main shadow-box">
+            <div class="proposal_content">
+              <%= sanitize(section.paragraph.content) %>
             </div>
+          </div>
         <% end %>
-    <% end %>
+      <% end %>
 
+      <% @proposal.solutions.includes(:sections).each do |solution| %>
+          <h2 class="section_title solution_title"><%= solution.title_with_seq.html_safe %></h2>
+          <% solution.sections.each do |section| %>
+              <% unless section.paragraph.empty? %>
+                <h2 class="section_title"><%= section.title %></h2>
+                <div id="proposal<%= @proposal.id %>" class="proposalMainContainer proposal_main shadow-box">
+                  <div class="proposal_content">
+                    <%= sanitize(section.paragraph.content) %>
+                  </div>
+                </div>
+              <% end %>
+          <% end %>
+      <% end %>
 
-    <div id="proposal_histories_container">
+      <div id="proposal_histories_container">
+      </div>
+
+      <div id="proposalCommentsContainer">
+      </div>
     </div>
-
-
-    <div id="proposalCommentsContainer">
-
-    </div>
-
   </div>
-
-</div>
 </body>
 </html>

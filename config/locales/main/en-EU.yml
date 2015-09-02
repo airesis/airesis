@@ -482,6 +482,10 @@ en-EU:
         you_can_choose_vote_dates: "This proposal has been waiting for %{count} days for a voting date, so you are now allowed to choose one."
         no_contributes_yet: "No contributions here yet"
         start_votation_proposal_confirmation: "Are you sure you want to start immediatly the votation?"
+        debate_begin: "Begin of debate"
+        debate_end: "End of debate"
+        vote_begin: "Begin of voting"
+        vote_end: "End of voting"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "Help"
@@ -995,7 +999,7 @@ en-EU:
       other: "%{count} comments"
   activerecord:
     models:
-      meeting: 'Meeting'     
+      meeting: 'Meeting'
       places: 'Place'
     attributes:
       blog_comment:

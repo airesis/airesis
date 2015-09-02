@@ -24,4 +24,8 @@ class Paragraph < ActiveRecord::Base
     ed_content = '<p></p>' if ed_content.to_s == ''
     write_attribute(:content, ed_content)
   end
+
+  def empty?
+    content == "<p></p>"
+  end
 end
