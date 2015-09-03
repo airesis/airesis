@@ -4,20 +4,20 @@
     - if @new_alerts.any?
       - @new_alerts.each do |alert|
         li
-          = link_to alert.notification.url do
+          = link_to calculate_alert_path(alert) do
             = alert.created_at.strftime("%d/%m/%Y %H:%M")
             | - #{raw alert.message}
     - else
       b = t('pages.alerts.index.no_new')
   h1 = t('pages.alerts.index.old_not_read')
   ul
-    - @old_alerts.any?
+    - if @old_alerts.any?
       - @old_alerts.each do |alert|
         li
-          = link_to alert.notification.url do
+          = link_to calculate_alert_path(alert) do
             = alert.created_at.strftime("%d/%m/%Y %H:%M")
             | - #{raw alert.message}
-    else
+    - else
       b = t('pages.alerts.index.no_old')
 
 - content_for :left_panel do
@@ -26,6 +26,7 @@
 
 coffee:
   $.ajax
+    data: ''
     dataType: 'script'
     type: 'POST'
     url: "/alerts/check_all"

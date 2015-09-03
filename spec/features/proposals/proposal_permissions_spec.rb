@@ -236,9 +236,81 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         #todo test for participants in the area
       end
     end
+  end
 
+  context 'group participant' do
+    let(:admin) { create(:user) }
+    let(:group) { create(:group, current_user_id: admin.id) }
+    let(:participant) { create(:user) }
+    let(:ability) { Ability.new(participant) }
+    let(:area) { create(:group_area, group: group) }
 
+    before :each do
+      create_participation(participant, group)
+      login_as participant, scope: :user
+    end
 
+    context 'the proposal is in the group area and not visible outside' do
+      let!(:proposal) { create(:group_proposal, current_user_id: admin.id,
+                               group_proposals: [GroupProposal.new(group: group)],
+                               group_area_id: area.id, visible_outside: false) }
+      context 'does not participate in any area' do
+        context 'when is in debate' do
+          it 'cant participate to the proposal' do
+            expect(ability).to_not be_able_to(:participate, proposal)
+          end
+
+          it 'cant see the proposal' do
+            expect(ability).to_not be_able_to(:show, proposal)
+          end
+        end
+        context 'when is voting' do
+          before :each do
+            proposal.update_columns(proposal_state_id: ProposalState::VOTING)
+          end
+          it 'cant participate' do
+            expect(ability).to_not be_able_to(:participate, proposal)
+          end
+          it 'cant see' do
+            expect(ability).to_not be_able_to(:show, proposal)
+          end
+          it 'cant vote' do
+            expect(ability).to_not be_able_to(:vote, proposal)
+          end
+        end
+      end
+    end
+
+    context 'the proposal is in the group area and visible outside' do
+      let!(:proposal) { create(:group_proposal, current_user_id: admin.id,
+                               group_proposals: [GroupProposal.new(group: group)],
+                               group_area_id: area.id, visible_outside: true) }
+      context 'does not participate in any area' do
+        context 'when is in debate' do
+          it 'cant participate to the proposal' do
+            expect(ability).to_not be_able_to(:participate, proposal)
+          end
+
+          it 'can see the proposal' do
+            expect(ability).to be_able_to(:show, proposal)
+          end
+        end
+        context 'when is voting' do
+          before :each do
+            proposal.update_columns(proposal_state_id: ProposalState::VOTING)
+          end
+          it 'cant participate' do
+            expect(ability).to_not be_able_to(:participate, proposal)
+          end
+          it 'can see' do
+            expect(ability).to be_able_to(:show, proposal)
+          end
+          it 'cant vote' do
+            expect(ability).to_not be_able_to(:vote, proposal)
+          end
+        end
+      end
+    end
   end
 
   context "owner of the group permissions" do

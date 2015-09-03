@@ -57,9 +57,12 @@ module Abilities
                                  ProposalState::VOTING, ProposalState::REVISION, ProposalState::ABANDONED]
 
       can :vote, Proposal, private: false, proposal_state_id: ProposalState::VOTING
+
       can :vote, Proposal,
           proposal_state_id: ProposalState::VOTING,
-          group_proposals: {group: can_do_on_group(user, GroupAction::PROPOSAL_VOTE)}
+          group_proposals: {group: can_do_on_group(user, GroupAction::PROPOSAL_VOTE)},
+          presentation_areas: {id: nil}
+
       can :vote, Proposal,
           proposal_state_id: ProposalState::VOTING,
           presentation_areas: can_do_on_group_area(user, GroupAction::PROPOSAL_VOTE)
