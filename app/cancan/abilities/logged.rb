@@ -60,8 +60,11 @@ module Abilities
 
       can :vote, Proposal,
           proposal_state_id: ProposalState::VOTING,
-          group_proposals: {group: can_do_on_group(user, GroupAction::PROPOSAL_VOTE)},
-          presentation_areas: {id: nil}
+          group_proposals: {group: can_do_on_group(user, GroupAction::PROPOSAL_VOTE)}
+
+      cannot :vote, Proposal do |proposal|
+        proposal.presentation_areas.count > 0
+      end
 
       can :vote, Proposal,
           proposal_state_id: ProposalState::VOTING,

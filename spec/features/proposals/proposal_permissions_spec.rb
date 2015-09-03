@@ -22,7 +22,6 @@ describe "check user permissions on proposals", type: :feature, js: true, search
 
     before :each do
       @ability = Ability.new(user)
-
     end
 
     it "can't participate in group areas proposals" do
