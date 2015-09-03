@@ -4,8 +4,8 @@ FactoryGirl.define do
       user.locale = user.original_locale = SysLocale.find_by_key('en')
       user.skip_confirmation!
     end
-    password "topolino"
-    password_confirmation "topolino"
+    password { 'topolino' }
+    password_confirmation { 'topolino' }
     name { Faker::Name.first_name }
     surname { Faker::Name.last_name }
     confirmed_at { Time.now }
