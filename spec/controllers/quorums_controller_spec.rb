@@ -3,7 +3,7 @@ require 'requests_helper'
 
 describe QuorumsController, type: :controller do
   let!(:province) { create(:province) }
-  let(:user) { create(:user) }
+  let!(:user) { create(:user) }
   let(:group) { create(:group, current_user_id: user.id) }
   let(:quorum_params) do
     {
@@ -23,15 +23,16 @@ describe QuorumsController, type: :controller do
     }
   end
   describe 'POST create' do
-    it 'responds to js' do
+    before(:each) do
       sign_in user
+    end
 
+    it 'responds to js' do
       post :create, quorum_params.merge(format: :js)
       expect(response).to have_http_status 200
     end
 
     it 'responds to html' do
-      login_as user, scope: :user
       post :create, quorum_params
       expect(response).to have_http_status 302
     end
