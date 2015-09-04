@@ -323,7 +323,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  #salva l'url
+  # persist in session the last visited url
   def store_location
     return if skip_store_location?
     session[:proposal_id] = nil
