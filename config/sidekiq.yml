@@ -1,4 +1,4 @@
-:concurrency: 30
+:concurrency: 100
 :pidfile: tmp/pids/sidekiq.pid
 test:
   :concurrency: 5
