@@ -14,8 +14,6 @@ function switchText(button) {
 }
 
 function scrollToElement(element, callback) {
-    console.log('scroll bitch!');
-    console.log(Airesis.viewport);
     Airesis.viewport.animate({
         scrollTop: element.offset().top - 160
     }, 2000, 'swing', callback);
