@@ -6,7 +6,9 @@ describe 'check if quorums are working correctly', type: :feature, js: true do
   let(:user) { create(:user) }
   let(:group) { create(:group, current_user_id: user.id) }
   let(:quorum) { create(:best_quorum, group_quorum: GroupQuorum.new(group: group)) } #min participants is 10% and good score is 50%. vote quorum 0, 50%+1
-  let(:proposal) { create(:group_proposal, quorum: quorum, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], votation: {choise: 'new', start: 10.days.from_now, end: 14.days.from_now}) }
+  let(:proposal) { create(:group_proposal, quorum: quorum, current_user_id: user.id,
+                          group_proposals: [GroupProposal.new(group: group)],
+                          votation: {choise: 'new', start: 10.days.from_now, end: 14.days.from_now}) }
 
   before(:each) do
     load_database

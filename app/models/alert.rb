@@ -123,6 +123,6 @@ class Alert < ActiveRecord::Base
   end
 
   def complete_alert_job
-    alert_job.destroy
+    alert_job.destroy if alert_job
   end
 end

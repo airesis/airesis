@@ -14,7 +14,7 @@ class InterestBordersController < ApplicationController
     limit -= continents.size
     if limit > 0
       stati = Country.with_translations([I18n.locale, 'en']).
-        where(['upper(country_translations.description) like upper(?)', hint]).limit(limit)
+        where(['upper(country_translations.description) like upper(?)', hint]).uniq.limit(limit)
       results += stati.collect { |p| {id: "#{InterestBorder::SHORT_COUNTRY}-#{p.id}", text: p.name} }
       limit -= stati.size
       if limit > 0

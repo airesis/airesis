@@ -138,16 +138,17 @@
 </div>
 
 <script type="text/javascript">
-
     $('a[data-detach-disabled]').click(function () {
-        alert('<%=j t('alert_detach')%>');
+        alert('<%=j raw t('alert_detach')%>');
         return false;
     });
 
     function change_show_tooltips(el) {
         var active = (el.checked) ? "true" : "false";
         $.ajax({
-            data: "active=" + active + "&l=<%=I18n.locale%>",
+            data: {
+                active: active
+            },
             url: "/users/change_show_tooltips",
             dataType: 'script',
             type: 'post'
@@ -157,7 +158,9 @@
     function change_show_urls(el) {
         var active = (el.checked) ? "true" : "false";
         $.ajax({
-            data: "active=" + active + "&l=<%=I18n.locale%>",
+            data: {
+                active: active
+            },
             url: "/users/change_show_urls",
             dataType: 'script',
             type: 'post'
@@ -167,7 +170,9 @@
     function change_receive_messages(el) {
         var active = (el.checked) ? "true" : "false";
         $.ajax({
-            data: "active=" + active + "&l=<%=I18n.locale%>",
+            data: {
+                active: active
+            },
             url: "/users/change_receive_messages",
             dataType: 'script',
             type: 'post'
@@ -183,7 +188,9 @@
 
         var active = (el.checked) ? "true" : "false";
         $.ajax({
-            data: "active=" + active + "&l=<%=I18n.locale%>",
+            data: {
+                active: active
+            },
             url: "/users/change_rotp_enabled",
             dataType: 'script',
             type: 'post'
@@ -198,7 +205,9 @@
         var currentValue = $(this).val();
         var currentLabel = $('option:selected', $(this)).text();
         $.ajax({
-            data: "locale=" + currentValue + "&l=<%=I18n.locale%>",
+            data: {
+                locale: currentValue
+            },
             url: "/users/change_locale",
             dataType: 'script',
             type: 'post'
@@ -210,7 +219,9 @@
         var currentValue = $(this).val();
         var currentLabel = $('option:selected', $(this)).text();
         $.ajax({
-            data: "time_zone=" + currentValue + "&l=<%=I18n.locale%>",
+            data: {
+                time_zone: currentValue
+            },
             url: "/users/change_time_zone",
             dataType: 'script',
             type: 'post'

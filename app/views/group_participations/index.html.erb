@@ -133,7 +133,9 @@
                 $(this).data("prev-text", currentLabel);
                 select.disabled = true;
                 $.ajax({
-                    data: "participation_role_id=" + currentValue + "&l=<%=I18n.locale%>",
+                    data: {
+                        participation_role_id: currentValue
+                    },
                     url: "/groups/<%=@group.id%>/group_participations/" + group_participation_id + "/change_user_permission/",
                     dataType: 'script',
                     type: 'post'
@@ -200,7 +202,9 @@
             var checked_ = this.checked;
             if (checked_) {
                 $.ajax({
-                    data: "area_participation[user_id]=" + user_id,
+                    data: {
+                        "area_participation[user_id]": user_id
+                    },
                     url: "/groups/<%=@group.id%>/group_areas/" + group_area_id + "/area_participations",
                     dataType: 'script',
                     type: 'POST'
@@ -208,7 +212,9 @@
             }
             else {
                 $.ajax({
-                    data: "area_participation[user_id]=" + user_id,
+                    data: {
+                        "area_participation[user_id]": user_id
+                    },
                     url: "/groups/<%=@group.id%>/group_areas/" + group_area_id + "/area_participations/-1",
                     dataType: 'script',
                     type: 'DELETE'

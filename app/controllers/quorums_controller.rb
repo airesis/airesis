@@ -31,12 +31,13 @@ class QuorumsController < ApplicationController
       respond_to do |format|
         flash[:notice] = t('info.quorums.quorum_created')
         format.js
-        format.html { redirect_to group_best_quorums_path(@group) }
+        format.html { redirect_to group_quorums_url(@group) }
       end
     else
       respond_to do |format|
         flash[:error] = t('error.quorums.quorum_creation')
         format.js { render 'layouts/active_record_error', locals: { object: @quorum } }
+        format.html { render :new }
       end
     end
   end
@@ -54,7 +55,7 @@ class QuorumsController < ApplicationController
         flash[:notice] = t('info.quorums.quorum_updated')
         format.js
         format.html {
-          redirect_to group_quorum_url(@group)
+          redirect_to group_quorums_url(@group)
         }
       end
     else
@@ -117,7 +118,7 @@ class QuorumsController < ApplicationController
   def dates
     starttime = (@quorum.minutes.minutes + DEBATE_VOTE_DIFFERENCE).from_now
     if @group
-      @dates = @group.events.not_visible.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, { 'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title }] } #TODO:I18n
+      @dates = @group.events.not_visible.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, { 'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title }] } # TODO: I18n
     else
       @dates = Event.visible.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id] } #TODO:I18n
     end
@@ -130,7 +131,8 @@ class QuorumsController < ApplicationController
   end
 
   def quorum_params
-    params.require(:best_quorum).permit(:id, :name, :description, :percentage, :valutations, :days_m, :hours_m, :minutes_m, :minutes, :good_score, :vote_percentage, :vote_good_score)
+    params.require(:best_quorum).permit(:id, :name, :description, :percentage, :valutations, :days_m, :hours_m,
+                                        :minutes_m, :minutes, :good_score, :vote_percentage, :vote_good_score)
   end
 
   def choose_layout

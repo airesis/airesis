@@ -19,7 +19,6 @@ window.Airesis = {
         data: (params) ->
           {
           q: params.term
-          l: Airesis.i18n.locale
           }
         processResults: (data, page) ->
           {results: data}

@@ -1,5 +1,5 @@
 class NotificationProposalRankingCreate < NotificationSender
-  # send alerts when there is a new valuatation for the proposal #todo test
+  # send alerts when there is a new evaluatation for the proposal #todo test
   def perform(proposal_ranking_id)
     proposal_ranking = ProposalRanking.find(proposal_ranking_id)
     @proposal = proposal_ranking.proposal
@@ -9,14 +9,14 @@ class NotificationProposalRankingCreate < NotificationSender
     data = {proposal_id: @proposal.id, title: @proposal.title}
     notification_a = Notification.create(notification_type_id: NotificationType::NEW_VALUTATION_MINE,
                                          url: url_for_proposal, data: data)
-    @proposal.users.each do |user|
-      send_notification_for_proposal(notification_a, user) if user != proposal_ranking.user
+    @proposal.users.each do |author|
+      send_notification_for_proposal(notification_a, author) if author != proposal_ranking.user
     end
     notification_b = Notification.create(notification_type_id: NotificationType::NEW_VALUTATION,
                                          url: url_for_proposal, data: data)
-    @proposal.participants.each do |user|
-      if (user != proposal_ranking.user) && (!@proposal.users.include? user)
-        send_notification_for_proposal(notification_b, user)
+    @proposal.participants.each do |participant|
+      if (participant != proposal_ranking.user) && @proposal.users.exclude?(participant)
+        send_notification_for_proposal(notification_b, participant)
       end
     end
   end

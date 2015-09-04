@@ -35,7 +35,7 @@
         </div>
 
         <% if @event.is_votazione? %>
-            <%= f.hidden_field :private, value: true %>
+            <%= f.hidden_field :private %>
         <% else %>
             <div class="row">
               <div class="columns small-12">

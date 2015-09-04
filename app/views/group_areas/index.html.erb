@@ -69,7 +69,9 @@
             var checked_ = this.checked;
             if (checked_) {
                 $.ajax({
-                    data: "area_participation[user_id]=" + user_id,
+                    data: {
+                        "area_participation[user_id]": user_id
+                    },
                     url: "/groups/<%=@group.id%>/group_areas/" + group_area_id + "/area_participations",
                     dataType: 'script',
                     type: 'POST'
@@ -77,7 +79,9 @@
             }
             else {
                 $.ajax({
-                    data: "area_participation[user_id]=" + user_id,
+                    data: {
+                        "area_participation[user_id]": user_id
+                    },
                     url: "/groups/<%=@group.id%>/group_areas/" + group_area_id + "/area_participations/-1",
                     dataType: 'script',
                     type: 'DELETE'

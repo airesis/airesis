@@ -32,6 +32,7 @@ Airesis::Application.routes.draw do
   get 'press' => 'home#press'
   get 'privacy' => 'home#privacy'
   get 'terms' => 'home#terms'
+  get 'cookie_law' => 'home#cookie_law'
   post 'send_feedback' => 'home#feedback'
   get 'statistics' => 'home#statistics'
   get 'movements' => 'home#movements'
