@@ -7,7 +7,7 @@ window.ProposalsEdit =
   checkActive: false
   ckedstoogle_: {}
   init: ->
-    integrate_contributes = []
+    ProposalsEdit.integrated_contributes = []
     safe_exit = false
     window.onbeforeunload = @.check_before_exit
     $(document).on 'keyup', '.solution_main h3 .tit1 .tit2 input', ->

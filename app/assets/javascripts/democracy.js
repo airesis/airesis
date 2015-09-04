@@ -14,8 +14,6 @@ function switchText(button) {
 }
 
 function scrollToElement(element, callback) {
-    console.log('scroll bitch!');
-    console.log(Airesis.viewport);
     Airesis.viewport.animate({
         scrollTop: element.offset().top - 160
     }, 2000, 'swing', callback);
@@ -505,10 +503,10 @@ function read_notifica(el) {
 
 function sign_all_as_read(id) {
     $.ajax({
-        data: {id: id},
         url: '/alerts/check_all/',
         type: 'post',
         dataType: 'script',
+        data: {id: id},
         complete: function (data) {
             reset_alerts_number();
             $('.card.mess').each(function () {
@@ -767,7 +765,9 @@ function search_stuff() {
         if (query != null && query != "") {
             $.ajax({
                 url: '/searches',
-                data: {'search[q]': query},
+                data: {
+                    'search[q]': query
+                },
                 method: 'POST'
             });
         }
@@ -850,52 +850,6 @@ rails.handleRemote = function (element) {
         options = {
             type: method || 'GET', data: data, dataType: dataType, crossDomain: crossDomain,
             // stopping the "ajax:beforeSend" event will cancel the ajax request
-            beforeSend: function (xhr, settings) {
-                if (settings.dataType === undefined) {
-                    xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
-                }
-                return rails.fire(element, 'ajax:beforeSend', [xhr, settings]);
-            },
-            success: function (data, status, xhr) {
-                element.trigger('ajax:success', [data, status, xhr]);
-            },
-            complete: function (xhr, status) {
-                element.trigger('ajax:complete', [xhr, status]);
-            },
-            error: function (xhr, status, error) {
-                element.trigger('ajax:error', [xhr, status, error]);
-            }
-        };
-        // Only pass url to `ajax` options if not blank
-        if (url) {
-            options.url = url;
-        }
-        return rails.ajax(options);
-    } else {
-        return false;
-    }
-};
-
-
-function showOnField(field, text) {
-    var to_attach = $('<small class="warning">' + text + '</small>');
-    field.parent().after(to_attach);    //attach after parent label
-    field.addClass('warning');
-    setTimeout(function () {
-        field.removeClass('warning');
-        to_attach.slideUp();
-    }, 10000)
-}
-
-function close_all_dropdown() {
-    $('.f-dropdown').foundation('dropdown', 'close', $('.f-dropdown'));
-}
-
-function execute_page_js(page) {
-    if ("object" === typeof window[page])
-        window[page].init();
-}
-"ajax:beforeSend" event will cancel the ajax request
             beforeSend: function (xhr, settings) {
                 if (settings.dataType === undefined) {
                     xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);

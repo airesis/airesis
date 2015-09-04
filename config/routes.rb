@@ -367,7 +367,7 @@ Airesis::Application.routes.draw do
 
     resources :groups do
       member do
-        get :ask_for_participation
+        post :ask_for_participation
         put :participation_request_confirm
         put :participation_request_decline
         post :create_event

@@ -16,7 +16,7 @@ window.ProposalsShow =
   init: ->
     @currentView = if Airesis.signed_in then 1 else 3
     $('[data-scroll-to="vote_panel"]').on 'click', ->
-      @scroll_to_vote_panel()
+      ProposalsShow.scroll_to_vote_panel()
     $(document).on 'click', '[data-cancel-edit-comment]', ->
       ProposalsShow.cancel_edit_comment($(this).data('cancel-edit-comment'))
       return false
