@@ -27,7 +27,7 @@
     <% if @group.disable_participation_requests %>
         <%= eval "#{@group.subdomain}_participation_request" %>
     <% else %>
-        <%= link_to ask_for_participation_group_url(@group), class: "btn blue" do %>
+        <%= link_to ask_for_participation_group_url(@group), method: :post, class: "btn blue" do %>
             <i class="fa fa-pencil"></i>
             <%= t('pages.groups.show.ask_participate_button') %>
         <% end %>

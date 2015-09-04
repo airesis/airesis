@@ -110,7 +110,7 @@
                       <% end if can? :send_message, @group.portavoce.first %>
                   <% else %>
                       <%= t('pages.proposals.show.cant_participate.not_a_member') %>
-                      <%= link_to ask_for_participation_group_url(@group), class: "btn blue" do %>
+                      <%= link_to ask_for_participation_group_url(@group), method: :post, class: "btn blue" do %>
                           <i class="fa fa-pencil"></i>
                           <%= t('pages.groups.show.ask_participate_button') %>
                       <% end %>
