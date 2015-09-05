@@ -284,9 +284,10 @@ class ProposalsController < ApplicationController
 
   def update
     @proposal.current_user_id = current_user.id
+    puts 'update params:'
+    puts update_proposal_params
     if @proposal.update(update_proposal_params)
       PrivatePub.publish_to(proposal_path(@proposal), reload_message) rescue nil
-
       respond_to do |format|
         flash.now[:notice] = I18n.t('info.proposal.proposal_updated')
         format.html {
@@ -296,6 +297,9 @@ class ProposalsController < ApplicationController
             @proposal.reload
             render action: 'edit'
           end
+        }
+        format.js {
+          render 'layouts/success'
         }
       end
     else

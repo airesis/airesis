@@ -738,6 +738,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def before_update_populate
+    puts 'before update populate'
     self.update_user_id = current_user_id
     save_history
     update_borders
@@ -869,6 +870,7 @@ class Proposal < ActiveRecord::Base
     something_solutions = save_solutions_history(revision)
     something = something_sections || something_solutions
     if something
+      puts 'somethcing changed'
       comment_ids = ProposalComment.where(id: integrated_contributes_ids, parent_proposal_comment_id: nil).pluck(:id)
       ProposalComment.where(id: comment_ids).update_all(integrated: true)
       revision.contribute_ids = comment_ids

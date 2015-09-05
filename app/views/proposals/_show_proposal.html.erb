@@ -1,6 +1,6 @@
 <% if current_user %>
     <% @unread = @proposal.contributes.listable.unread(current_user.id, @proposal.id) %>
-    <% if false && @unread.count > 0 #TODO               %>
+    <% if false && @unread.count > 0 #TODO                      %>
         <%= link_to '#', class: 'read_contributes' do %>
             <div class="icon-bell medium"></div>
         <% end %>
@@ -64,7 +64,7 @@
           <i class="fa fa-close"></i>
           <%= t('pages.proposals.show.close_debate_button') %>
       <% end  if can? :close_debate, @proposal %>
-  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox           %>
+  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox                  %>
       <div id="wait_date_header_container">
         <%= render partial: 'proposals/wait_date_header' %>
       </div>
@@ -127,7 +127,7 @@
 <% end %>
 
 <% unless @proposal.is_petition? %>
-    <% if @proposal.waiting? #waiting for the vote period                     %>
+    <% if @proposal.waiting? #waiting for the vote period                            %>
         <%= link_to @group ? start_votation_group_proposal_url(@group, @proposal) : start_votation_proposal_url(@proposal), method: :post, data: { confirm: t('pages.proposals.show.start_votation_proposal_confirmation') }, class: 'btn' do %>
             <i class="fa fa-check-square-o"></i>
             <%= t('pages.proposals.show.start_votation_button') %>
@@ -173,9 +173,28 @@
           </div>
         </div>
 
-        <div class="proposal_content">
+        <div class="proposal_content" data-show-section="<%= section.id %>">
           <%= parsed_section(section) %>
         </div>
+        <% if can? :edit, @proposal %>
+            <%= link_to '#', data: { edit_paragraph: section.id } do %>
+                <i class="fa fa-edit"></i>
+            <% end %>
+        <% end %>
+        <div class="proposal_edit_content" data-edit-section="<%= section.id %>">
+          <%= simple_form_for @proposal, remote: true do |f| %>
+              <%= f.simple_fields_for :sections, section do |s| %>
+                  <%= s.simple_fields_for :paragraphs, section.paragraphs.first do |p| %>
+                      <%= p.input :content, as: :text %>
+                  <% end %>
+              <% end %>
+              <%= f.button :button, class: 'btn', data: { show_paragraph: section.id } do %>
+                  <i class="fa fa-eye"></i>
+              <% end %>
+          <% end %>
+
+        </div>
+
       </div>
   <% end %>
 </div>

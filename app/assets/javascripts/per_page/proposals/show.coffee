@@ -12,8 +12,10 @@ window.ProposalsShow =
   openShare: false
   contributeMaxLength: 0
   times: {},
-  firstCheck: false
+  firstCheck: false,
+  inlineEditor: null
   init: ->
+    ProposalsShow.inlineEditor = new ProposalInlineEditor()
     @currentView = if Airesis.signed_in then 1 else 3
     $('[data-scroll-to="vote_panel"]').on 'click', ->
       ProposalsShow.scroll_to_vote_panel()
