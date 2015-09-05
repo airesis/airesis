@@ -118,6 +118,8 @@ en-EU:
         accept_conditions: 'Terms of Use'
         receive_newsletter: 'Newsletter via Email'
         blocked: "Error"
+      user_sensitive:
+        name: 'First Name'
       group_area:
         name: "Name"
         description: "Description"
