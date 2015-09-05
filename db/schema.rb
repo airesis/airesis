@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150828065222) do
+ActiveRecord::Schema.define(version: 20150905111424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "action_abilitations", force: :cascade do |t|
     t.integer  "group_action_id"
