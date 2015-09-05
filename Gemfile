@@ -58,7 +58,7 @@ group :development, :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'selenium-webdriver'
-  gem 'poltergeist'
+  gem 'capybara-webkit'
   gem 'capybara-screenshot'
   gem 'spring'
   gem 'sunspot_test'

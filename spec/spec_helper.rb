@@ -7,7 +7,6 @@ require 'database_cleaner'
 require 'sidekiq/testing'
 require 'simplecov'
 require 'sunspot_test/rspec'
-require 'capybara/poltergeist'
 
 require 'capybara-screenshot/rspec' unless ENV['DISABLE_SCREENSHOTS']
 
@@ -39,11 +38,10 @@ RSpec.configure do |config|
                     fbcdn-profile-a.akamaihd.net cdn.ckeditor.com
                     platform.twitter.com www.gravatar.com cdnjs.cloudflare.com)
 
-  Capybara.register_driver :poltergeist do |app|
-    options = {
-      window_size: [1280, 1024]
-    }
-    Capybara::Poltergeist::Driver.new(app, options)
+  Capybara::Webkit.configure do |config|
+    allowed_urls.each do |allowed_url|
+      config.allow_url(allowed_url)
+    end
   end
 
   config.order = 'random'
@@ -64,7 +62,7 @@ RSpec.configure do |config|
   #config.include Rails.application.routes.url_helpers
   config.include Rails.application.routes.url_helpers
 
-  Capybara.javascript_driver = :poltergeist
+  Capybara.javascript_driver = :webkit
 
   Capybara::Screenshot.autosave_on_failure = true unless ENV['DISABLE_SCREENSHOTS']
 end
