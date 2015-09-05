@@ -17,11 +17,6 @@ en-EU:
         period: 'Repeat'
         frequency: 'Repeat every'
         private: 'Private'
-      event/meeting/place:
-        address: "Address"
-        municipality_id: "City"
-        latitude_original: Latitude
-        longitude_original: Longitude
       group:
         facebook_page_url: 'Facebook page address'
         name: 'Name'
@@ -52,6 +47,9 @@ en-EU:
         published: 'State'
         published_true: 'Published'
         published_false: 'Draft'
+        published_reserved: "Reserved"
+        group_ids: Published in the following groups
+        published_at: Published at
       participation_role:
          name: 'Name'
          description: 'Short description'
@@ -60,6 +58,9 @@ en-EU:
         testo: "Message text"
       place:
          address: 'Address'
+         municipality_id: 'City'
+         latitude_original: Latitude
+         longitude_original: Longitude
       proposal:
         group_area_id: "Work area"
         proposal_category_id: 'Category'
@@ -70,7 +71,7 @@ en-EU:
         content: 'Text'
         interest_borders_tkn: 'Geographical places of interest'
         tags_list: "Tags"
-        quorum_id: "Quorum"
+        quorum_id: "Debate duration"
         anonima: "Temporary anonymity"
         visible_outside: "Publicly visible"
         secret_vote: "Secret vote"
@@ -107,7 +108,7 @@ en-EU:
         amount: "Amount"
         sys_currency_id: "Currency"
       user:
-        name: 'Name'
+        name: 'First Name'
         email: 'Email address'
         surname: 'Last Name'
         login: 'Username'
@@ -117,13 +118,16 @@ en-EU:
         accept_conditions: 'Terms of Use'
         receive_newsletter: 'Newsletter via Email'
         blocked: "Error"
-      user_sensitive:
-        name: 'First Name'
       group_area:
         name: "Name"
         description: "Description"
         default_role_name: "Default role name"
     errors:
+      template:
+        header:
+          one: 'an error did not allow this %{model} from being saved'
+          other: '%{count} errors did not allow this %{model} from being saved'
+        body: 'There were problems with the following fields'
       messages:
         inclusion: 'is not included in the list'
         exclusion: 'is reserved'
@@ -148,6 +152,7 @@ en-EU:
         not_found: 'not found.'
         TOS: "It is required to accept the TOS"
         certified_cannot_edit: 'cannot be edited if you are a certified user'
+        forum_visibility: "A forum can't be visible outside the group if the category is private"
       full_messages:
         format: "%{attribute} %{message}"
       models:
@@ -157,4 +162,4 @@ en-EU:
               already_confirmed: 'This e-mail address is already registered'
         group:
           portavoce:
-            required: 'You must choose a spokesman'
+            required: 'You must choose an administrator'
