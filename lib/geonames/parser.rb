@@ -33,16 +33,40 @@ require 'active_support/core_ext/hash/indifferent_access'
 # @country_name = 'Indonesia'
 # @country_code = '1643084'
 # @lang = 'id'
+#
+# ---Bosnia and Herzegovina
+# @continent_name = 'Europe'
+# @country_name = 'Bosnia and Herzegovina'
+# @country_code = '3277605'
+# @lang = 'bs'
+#
+# ---Germany
+# @continent_name = 'Europe'
+# @country_name = 'Germany'
+# @country_code = '2921044'
+# @lang = 'de'
+#
+# ---Spain
+# @continent_name = 'Europe'
+# @country_name = 'Spain'
+# @country_code = '2510769'
+# @lang = 'es'
+#
+# ---France
+# @continent_name = 'Europe'
+# @country_name = 'France'
+# @country_code = '3017382'
+# @lang = 'fr'
 
 module Geonames
   class Parser
     def initialize
       # correctly set these parameters
       # ---Serbia
-      @continent_name = 'Asia'
-      @country_name = 'Indonesia'
-      @country_code = '1643084'
-      @lang = 'id'
+      @continent_name = 'Europe'
+      @country_name = 'France'
+      @country_code = '3017382'
+      @lang = 'fr'
 
       @username = 'coorasse'
 
@@ -78,7 +102,7 @@ module Geonames
     def extract
       country_json = fetch(@country_code)
 
-      output = File.open("#{@country_name.downcase}.rb", 'w') do |f|
+      output = File.open("#{@country_name.downcase.tr(' ', '_')}.rb", 'w') do |f|
         f.puts @continent_output
         f.puts @country_output
         regions = fetch_and_extract(@country_code)
