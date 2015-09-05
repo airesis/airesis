@@ -85,10 +85,10 @@ $small-only: "#{$screen} and (max-width: #{upper-bound($small-range)})";
 // We use this for close hover effect.
 // $alert-function-factor: -14%;
 
-$h1-font-size: rem-calc(36);
-$h2-font-size: rem-calc(29);
-$h3-font-size: rem-calc(19);
-$h4-font-size: rem-calc(15);
+//$h1-font-size: rem-calc(36);
+//$h2-font-size: rem-calc(29);
+//$h3-font-size: rem-calc(19);
+//$h4-font-size: rem-calc(15);
 // $alert-border-color: scale-color($primary-color, $lightness: $alert-function-factor);
 // $alert-bottom-margin: rem-calc(20);
 

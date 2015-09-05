@@ -1,0 +1,26 @@
+li
+  .groupListContainer data-id="#{group.id}"
+    .inner.card
+      .row
+        .groupUserImage.small-3.large-3.columns
+          = link_to (group.group_image_tag nil), group_url(group), title: group.name
+        .groupName.small-9.large-9.columns
+          h3
+            = link_to group.name, group_url(group), title: group.name
+            .title_fade
+          .group_tag_desc
+            = raw(group.description)
+            .fade_out
+      .group_bottom.row
+        .groupDescription.small-3.large-3.columns
+          = image_tag 'group_participants.png', title: t('pages.groups.index.participants_number'), data: {qtip: ''}
+          span.count = group.group_participations_count
+        .groupDescription.small-3.large-3.columns
+          = link_to (image_tag 'group_proposals.png'), group_proposals_url(group), title: t('pages.groups.index.proposals_number'), data: {qtip: ''}
+          span.count = group.proposals_count
+        .groupDescription.small-3.large-3.columns
+          = link_to (image_tag 'group_events.png'), group_events_url(group), title: t('pages.groups.index.events_number'), data: {qtip: ''}
+          span.count = group.next_events.size
+        .territoryDescription.small-3.large-3.columns
+          = link_to group.interest_border.territory.description, groups_url(interest_border: group.interest_border.as_json[:id])
+          .territory_fade
