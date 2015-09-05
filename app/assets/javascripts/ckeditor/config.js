@@ -32,6 +32,15 @@ CKEDITOR.editorConfig = function( config )
         { items: [ "Maximize"]}
     ];
 
+    config.toolbar_simple_proposal = [
+        { items: ["Link","Unlink"]},
+        { items: ["Image"]},
+        { items: [ "Bold","Italic","Underline"]},
+        { items: [ "NumberedList","BulletedList"]},
+        { items: [ "FontSize"]},
+        { items: [ "TextColor","BGColor"]}
+    ];
+
     config.toolbar_forum = [
         { items: ["Cut","Copy","Paste","PasteText","PasteFromWord","-","Undo","Redo"]},
         { items: ["Link","Unlink","Anchor"]},
