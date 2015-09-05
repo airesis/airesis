@@ -1,13 +1,11 @@
-<fieldset>
-  <legend><%= 'Certify a group' %></legend>
-  <%= form_for admin_certifications_path do |f| %>
-      <%= label_tag 'group_id', 'Group' %>   <br/>
-      <%= text_field_tag "group_id" %>           <br/>
-      <%= label_tag 'domain', 'Subdomain' %>   <br/>
-      <%= text_field_tag "domain", '', required: true %>  <br/>
-      <%= submit_tag 'Certify it!', class: 'btn blue' %>
+<div class="card">
+  <h2><%= 'Certify a group' %></h2>
+  <%= simple_form_for admin_certifications_path do |f| %>
+      <%= f.input "group_id" %>
+      <%= f.input "domain", required: true %>
+      <%= submit_tag 'Certify', class: 'btn blue' %>
   <% end %>
-</fieldset>
+</div>
 
 <script type="text/javascript">
     function format(state) {

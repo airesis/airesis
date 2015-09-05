@@ -1094,7 +1094,7 @@ en-EU:
         amount: "Amount"
         sys_currency_id: "Currency"
       user:
-        name: 'Name'
+        name: 'First Name'
         email: 'Email address'
         surname: 'Last Name'
         login: 'Username'

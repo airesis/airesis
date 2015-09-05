@@ -285,7 +285,6 @@
 
 function validElement(form) {
     //If the form is valid then go to next else dont
-    console.log('valid?');
     var fv = form.data('formValidation');
     var container = $('.form-wizard-active');
     fv.validateContainer(container);
@@ -301,10 +300,8 @@ function validElement(form) {
 
 
     var choise_ = $('[name="proposal[votation][choise]"]:checked').val();
-    console.log('choise: ' + choise_);
     if (choise_ == 'new') {
         var end_ = $('#proposal_votation_end').val();
-        console.log('end: ' + end_);
         if (end_ == '') {
             alert('Devi impostare la data fine votazione');
             e.preventDefault();

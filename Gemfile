@@ -58,7 +58,7 @@ group :development, :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'selenium-webdriver'
-  gem 'capybara-webkit'
+  gem 'poltergeist'
   gem 'capybara-screenshot'
   gem 'spring'
   gem 'sunspot_test'
@@ -130,9 +130,6 @@ gem 'nickname_generator'
 gem 'el_finder'
 
 gem 'recaptcha', require: 'recaptcha/rails'
-
-
-gem 'thin'
 
 gem 'globalize'
 

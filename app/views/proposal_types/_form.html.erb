@@ -33,7 +33,7 @@
             </div>
           </div>
       <% else %>
-          <%= render partial: 'fragments/error_messages', locals: {resource: @proposal} %>
+          <%= render partial: 'fragments/error_messages', locals: { resource: @proposal } %>
       <% end %>
 
       <div class="step root root">
@@ -43,12 +43,13 @@
                     label: t('pages.proposals.new.title_synthetic'),
                     placeholder: t('pages.proposals.new.title_placeholder') %>
 
-        <% if @group && @group.enable_areas && @group.group_areas.count > 0 && action_name == "new" %>
-            <% @available_areas = current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT) %>
+        <% if @group && @group.enable_areas && @group.group_areas.any? %>
+            <% available_areas = current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT) %>
             <p>
-              <%= f.label :group_area_id %>
-              <% if @available_areas.size > 0 %>
-                  <%= f.select :group_area_id, current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT).collect { |p| [p.name, p.id] }, {prompt: t('pages.proposals.new.no_work_area_selected')}, style: "width:100%" %>
+              <% if available_areas.any? %>
+                  <%= f.input :group_area_id, as: :select,
+                              collection: available_areas.collect { |p| [p.name, p.id] },
+                              prompt: t('pages.proposals.new.no_work_area_selected') %>
               <% else %>
                   <%= t('pages.proposals.new.cannot_add_proposal_in_work_area') %>
               <% end %>
@@ -56,8 +57,7 @@
         <% end %>
 
         <p>
-          <%= f.label :interest_borders_tkn %>
-          <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json, placeholder: t('pages.proposals.new.interest_borders_tkn_placeholder'), style: "width:100%" %>
+          <%= f.input 'interest_borders_tkn', input_html: { "data-pre" => @proposal.interest_borders.to_json, placeholder: t('pages.proposals.new.interest_borders_tkn_placeholder'), style: "width:100%" } %>
         </p>
 
         <p>
@@ -73,20 +73,9 @@
         <% if @proposal.change_advanced_options %>
             <fieldset>
               <legend><%= t('pages.proposals.new.advanced_options') %></legend>
-              <%= f.label :anonima do %>
-                  <%= f.check_box :anonima %>
-                  <%= t('activerecord.attributes.proposal.anonima') %>
-              <% end %>
-
-              <%= f.label :visible_outside do %>
-                  <%= f.check_box :visible_outside %>
-                  <%= t('activerecord.attributes.proposal.visible_outside') %>
-              <% end %>
-
-              <%= f.label :secret_vote do %>
-                  <%= f.check_box :secret_vote %>
-                  <%= t('activerecord.attributes.proposal.secret_vote') %>
-              <% end %>
+              <%= f.input :anonima %>
+              <%= f.input :visible_outside %>
+              <%= f.input :secret_vote %>
             </fieldset>
         <% end %>
       </div>
@@ -97,18 +86,17 @@
               <%= f.label :proposal_category_id %>
               <%= f.select :proposal_category_id,
                            options_for_select(ProposalCategory.all.collect do |p|
-                                                [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}]
+                                                [p.description, p.id, { 'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png") }]
                                               end,
                                               @proposal.proposal_category_id),
-                           {include_blank: t('pages.proposals.new.category_prompt')},
-                           {required: true, style: 'width:100%'} %>
+                           { include_blank: t('pages.proposals.new.category_prompt') },
+                           { required: true, style: 'width:100%' } %>
             </div>
         <% end %>
 
         <% if ::Configuration::folksonomy %>
             <p>
-              <%= f.label :tags_list %>
-              <%= f.text_field :tags_list, placeholder: t('pages.proposals.new.tags_list_placeholder'), style: "width:100%" %>
+              <%= f.input :tags_list, input_html: { placeholder: t('pages.proposals.new.tags_list_placeholder'), style: "width:100%" } %>
             </p>
         <% end %>
 
@@ -121,13 +109,14 @@
 
       <div class="step">
         <%= f.fields_for :sections, @proposal.sections.first do |s| %>
-            <%= s.hidden_field :title %>
-            <%= s.hidden_field :seq %>
+            <%= s.input :title, as: :hidden %>
+            <%= s.input :seq, as: :hidden %>
             <%= s.fields_for :paragraphs, @proposal.sections.first.paragraphs.build(seq: 1) do |p| %>
                 <p>
-                  <%= p.label :content, @proposal.sections.first.question %>
-                  <%= p.cktext_area :content, rows: 5, style: "width:98%;", ckeditor: {toolbar: 'proposal', language: I18n.locale} %>
-                  <%= p.hidden_field :seq %>
+                  <%= p.input :content, as: :ckeditor,
+                              label: @proposal.sections.first.question,
+                              input_html: { rows: 5, ckeditor: { toolbar: 'proposal', language: I18n.locale } } %>
+                  <%= p.input :seq, as: :hidden %>
                 </p>
             <% end %>
         <% end %>
@@ -139,14 +128,14 @@
 
       <div class="step">
         <h4><%= t('pages.proposals.new.step_4_title') if request.xhr? %></h4>
-        <%= render partial: '/proposal_types/quorum_choice', locals: {f: f} %>
+        <%= render partial: '/proposal_types/quorum_choice', locals: { f: f } %>
         <div class="suggestion_box">
           <%= t('pages.proposals.new.step_4_footer_html') %>
         </div>
       </div>
       <p>
         <%= link_to t('buttons.cancel'), :back, class: 'btn' unless request.xhr? %>
-        <%= f.submit t('pages.proposals.new.create_button'), class: 'btn blue disable', onclick: 'return validElement();', data: {disable_with: t('loading')} %>
+        <%= f.submit t('pages.proposals.new.create_button'), class: 'btn blue disable', onclick: "return validElement($('#create_proposal form'));", data: { disable_with: t('loading') } %>
       </p>
   <% end %>
 

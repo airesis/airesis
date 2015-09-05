@@ -328,9 +328,6 @@ describe 'check if quorums are working correctly', type: :feature, js: true do
 
     login_as user, scope: :user
     visit group_proposal_path(group,proposal)
-    within_left_menu do
-      click_link I18n.t('pages.proposals.show.votation_results')
-    end
 
     expect(page).to have_content I18n.t('pages.proposals.results.total', count: 10)
     expect(proposal.vote.number).to eq(10)

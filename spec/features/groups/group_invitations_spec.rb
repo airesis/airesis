@@ -28,6 +28,7 @@ describe "the user can invite other participants in the group", type: :feature, 
       check I18n.t('pages.registration.accept_conditions')
       check I18n.t('pages.registration.accept_privacy')
       click_button I18n.t('pages.registration.register_button')
+      sleep 2
     end
 
     it "can send inviations to an email address and can accept the invite" do
@@ -53,6 +54,7 @@ describe "the user can invite other participants in the group", type: :feature, 
       visit accept_group_group_invitation_group_invitation_email_path(group, group_invitation_email.group_invitation, group_invitation_email.token, email: group_invitation_email.email)
       expect(page.current_path).to eq new_user_registration_path
       fill_in_registration_form
+
       expect(page.current_path).to eq group_path(group)
       expect(page).to have_content(I18n.t('info.group_invitations.accept'))
     end

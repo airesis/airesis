@@ -144,7 +144,7 @@ $ ->
 
   $('[data-tag-cloud] a').tagcloud()
 
-  #proposals index, search by text field
+  # proposals index, search by text field
   $('.search-by-text').on 'click', ->
     field = $(this).prevAll('.field-by-text')
     condition = $(this).prevAll('.condition-for-text:checked')

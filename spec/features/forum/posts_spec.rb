@@ -81,14 +81,7 @@ describe 'posts', type: :feature, js: true do
 
       it 'cannot post a reply to a topic with blank text' do
         click_button 'Post Reply'
-        expect(page).to have_content('Your reply could not be posted')
-      end
-
-      it 'does not hold over failed post flash to next request' do
-        click_button 'Post Reply'
-        expect(page).to have_content('Your reply could not be posted')
-        visit root_path
-        expect(page).to_not have_content('Your reply could not be posted')
+        expect(page).to have_content('can not be blank')
       end
     end
 

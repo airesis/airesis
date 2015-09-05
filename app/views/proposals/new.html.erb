@@ -1,4 +1,7 @@
-<%@page_title = 'Inserisci una nuova proposta' %>
-<h1><%=@page_title%></h1>
+<div class="card">
+  <h2><%=@page_title%></h2>
+  <%= render partial: @proposal, locals: { button_name: "Crea", remote: false } %>
+</div>
 
-<%= render partial: @proposal, locals: { button_name: "Crea", remote: false } %>
+
+
