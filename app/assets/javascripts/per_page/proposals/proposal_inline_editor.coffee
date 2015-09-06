@@ -1,40 +1,61 @@
-class @ProposalInlineEditor
-  constructor: ->
-    edit_paragraph_button = $('[data-edit-paragraph]')
-    show_paragraph_button = $('[data-show-paragraph]')
-    edit_paragraph_button.on 'click', (event)=>
-      section_id = $(event.target).parent().data('edit-paragraph')
-      show_section = @getShowSection(section_id)
-      edit_section = @getEditSection(section_id)
-      edit_paragraph_button.hide()
-      textarea = edit_section.find('textarea')
-      ckeditor_id = textarea.attr('id')
-      @initCkEditor(ckeditor_id)
-      show_section.fadeOut 'slow', =>
-        edit_section.fadeIn('slow')
-      return false
-    show_paragraph_button.on 'click', (event)=>
-      section_id = $(event.target).parents('[data-edit-section]').data('edit-section')
-      show_section = @getShowSection(section_id)
-      edit_section = @getEditSection(section_id)
-      textarea = edit_section.find('textarea')
-      cleanarea = edit_section.find('[data-clean-text-area]')
-      form = edit_section.find('form')
-      ckeditor_id = textarea.attr('id')
-      cleancontent = @getCleanContent(ckeditor_id)
-      dirtycontent = @getDirtyContent(ckeditor_id)
-      cleanarea.val cleancontent
-      show_section.html(cleancontent)
-      textarea.val(dirtycontent)
-      form.submit()
-      edit_section.fadeOut 'slow', ->
-        show_section.fadeIn()
-        edit_paragraph_button.show()
-      return false
-  getShowSection: (id)->
-    $("[data-section_id=#{id}]").find('[data-show-section]')
-  getEditSection: (id)->
-    $("[data-section_id=#{id}]").find('[data-edit-section]')
+class @ProposalSectionEditor
+  constructor: (@sectionId)->
+    @integrator = new ProposalCommentsIntegrator();
+    @showSection = @getShowSection()
+    @editSection = @getEditSection()
+    @textarea = @editSection.find('textarea')
+    @textareaId = @textarea.attr('id')
+    @cleanarea = @editSection.find('[data-clean-text-area]')
+    @contributesNum = $("[data-contribute-button][data-section_id=#{@sectionId}]").data('contributes_num')
+    @form = @editSection.find('form')
+  showEditSection: =>
+    ProposalSectionEditor.editParagraphButtons().hide()
+    @initCkEditor(@textareaId)
+    @showSection.fadeOut 'slow', =>
+      @editSection.fadeIn('slow')
+  updateSection: =>
+    @updateContent()
+    console.log "this section has #{@contributesNum} contributes"
+    if @contributesNum > 0
+      @showIntegrateContributesPanel()
+    else
+      @submit()
+  submit: ->
+    @hideIntegratedContributes()
+    @form.submit()
+    @hideEditSection()
+  hideIntegratedContributes: ->
+    for id in @integrator.integrated_contributes
+      contribute = new ProposalContribute(id, @sectionId).integrate()
+  hideEditSection: ->
+    @editSection.fadeOut 'slow', =>
+      @showSection.fadeIn()
+      ProposalSectionEditor.editParagraphButtons().show()
+  updateContent: =>
+    cleancontent = @getCleanContent()
+    dirtycontent = @getDirtyContent()
+    @cleanarea.val cleancontent
+    @showSection.html(cleancontent)
+    @textarea.val(dirtycontent)
+  getShowSection: ->
+    $("[data-section_id=#{@sectionId}]").find('[data-show-section]')
+  getEditSection: ->
+    $("[data-section_id=#{@sectionId}]").find('[data-edit-section]')
+  showIntegrateContributesPanel: =>
+    $.ajax
+      url: ProposalsShow.integrateContributesUrl
+      data:
+        disable_limit: true
+        all: true
+        section_id: @sectionId
+      type: 'get'
+      dataType: 'script'
+      success: =>
+        container_ = $('#integrate_contributes_container')
+        $(document).unbind 'closed.fndtn.reveal'
+        $(document).on 'closed.fndtn.reveal', container_, =>
+          container_.remove()
+          @submit()
   initCkEditor: (id)->
     ckeditor = CKEDITOR.instances[id]
     unless ckeditor
@@ -49,9 +70,26 @@ class @ProposalInlineEditor
           id: Airesis.id
           name: Airesis.fullName
         return
-  getCleanContent: (editor_id) ->
-    editor = CKEDITOR.instances[editor_id]
+  getCleanContent: ->
+    editor = CKEDITOR.instances[@textareaId]
     editor.plugins.lite.findPlugin(editor)._tracker.getCleanContent()
-  getDirtyContent: (editor_id) ->
-    editor = CKEDITOR.instances[editor_id]
+  getDirtyContent: ->
+    editor = CKEDITOR.instances[@textareaId]
     editor.getData()
+  @editParagraphButtons: ->
+    $('[data-edit-paragraph]')
+  @showParagraphButtons: ->
+    $('[data-show-paragraph]')
+
+class @ProposalInlineEditor
+  constructor: ->
+    ProposalSectionEditor.editParagraphButtons().on 'click', (event)=>
+      section_id = $(event.target).parent().data('edit-paragraph')
+      sectionEditor = new ProposalSectionEditor(section_id)
+      sectionEditor.showEditSection()
+      return false
+    ProposalSectionEditor.showParagraphButtons().on 'click', (event)=>
+      section_id = $(event.target).parents('[data-edit-section]').data('edit-section')
+      sectionEditor = new ProposalSectionEditor(section_id)
+      sectionEditor.updateSection()
+      return false

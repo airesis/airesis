@@ -10,7 +10,7 @@ if (Airesis.id != <%=current_user.id%>) {
     contribute_button.attr('data-contributes_num',num_contributes-1);
 
     if (contribute_button.attr('data-status') != 1) {
-        $('.text', contribute_button).text('<%=j t('pages.proposals.show.give_contribute')%>').append(" (" + contribute_button.attr('data-unread_contributes_num') + "/" + contribute_button.attr('data-contributes_num') + ")");
+        $('.contribute-button-text', contribute_button).text('<%=j t('pages.proposals.show.give_contribute')%>').append(" (" + contribute_button.attr('data-unread_contributes_num') + "/" + contribute_button.attr('data-contributes_num') + ")");
     }
     <%end%>
     $('#comment<%=@proposal_comment.id.to_s%>').hide(600);

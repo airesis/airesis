@@ -36,7 +36,7 @@ module Abilities
       can :unintegrate, ProposalComment, user: { id: user.id }, integrated: true
 
       # TODO: better check for manage_noise and mark noise permissions
-      can [:index, :list, :edit_list, :left_list, :show_all_replies, :manage_noise, :mark_noise], ProposalComment
+      can [:index, :list, :edit_list, :integrate_list, :left_list, :show_all_replies, :manage_noise, :mark_noise], ProposalComment
       can [:show, :history, :report], ProposalComment, user_id: user.id
       can [:show, :history, :report], ProposalComment,
           proposal: { groups: can_do_on_group(user, GroupAction::PROPOSAL_VIEW) }

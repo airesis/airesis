@@ -73,6 +73,7 @@ Airesis::Application.routes.draw do
         get :list
         get :left_list
         get :edit_list
+        get :integrate_list
         post :report
         get :noise
         get :manage_noise

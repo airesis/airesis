@@ -8,7 +8,12 @@
           <% contributes_num = section.proposal_comments.listable.count %>
           <% unread = current_user ? section.proposal_comments.listable.unread(current_user.id, @proposal.id).count : contributes_num %>
           <div class="suggest">
-            <a href="#" class="btn green contribute-button contribute-section-button" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>" title="<%= (can? :participate, @proposal) ? t('pages.proposals.show.give_contribute') : t('pages.proposals.show.read_contribute') %>">
+            <a href="#" class="btn green contribute-button contribute-section-button" data-status="0"
+               data-contribute-button
+               data-section_id="<%= section.id %>"
+               data-contributes_num="<%= contributes_num %>"
+               data-unread_contributes_num="<%= unread %>"
+               title="<%= (can? :participate, @proposal) ? t('pages.proposals.show.give_contribute') : t('pages.proposals.show.read_contribute') %>">
               <i class="fa fa-pencil"></i>
               <span class="contribute-button-text show-for-medium-up"><%= (can? :participate, @proposal) ? t('pages.proposals.show.give_contribute') : t('pages.proposals.show.read_contribute') %></span>
               <span class="contribute-button-num"><%= "(#{unread}/#{contributes_num})" %></span>
@@ -40,8 +45,12 @@
                     <%= p.input :content, as: :hidden, input_html: { data: { clean_text_area: section.id } } %>
                 <% end %>
             <% end %>
+            <%= f.hidden_field :integrated_contributes_ids_list, data: {integrated_contributes_list: ''} %>
             <%= link_to '#', data: { show_paragraph: section.id } do %>
-                <i class="fa fa-eye"></i>
+                <i class="fa fa-floppy-o"></i>
+            <% end %>
+            <%= link_to '#', data: { undo_paragraph: section.id } do %>
+                <i class="fa fa-undo"></i>
             <% end %>
         <% end %>
       </div>

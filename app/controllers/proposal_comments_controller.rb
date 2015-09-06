@@ -28,6 +28,10 @@ class ProposalCommentsController < ApplicationController
     index
   end
 
+  def integrate_list
+    index
+  end
+
   def show
   end
 

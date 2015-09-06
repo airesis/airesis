@@ -1,5 +1,4 @@
 window.ProposalsEdit =
-  integrated_contributes: []
   safe_exit: false
   currentPage: 0
   currentView: 3
@@ -7,7 +6,7 @@ window.ProposalsEdit =
   checkActive: false
   ckedstoogle_: {}
   init: ->
-    ProposalsEdit.integrated_contributes = []
+    new ProposalCommentsIntegrator()
     safe_exit = false
     window.onbeforeunload = @.check_before_exit
     $(document).on 'keyup', '.solution_main h3 .tit1 .tit2 input', ->
@@ -83,7 +82,6 @@ window.ProposalsEdit =
       container = new Airesis.SectionContainer(@)
       container.initCkEditor()
 
-
     for name of CKEDITOR.instances
       ProposalsEdit.ckedstoogle_[name] =
         first: true
@@ -103,8 +101,6 @@ window.ProposalsEdit =
     #contributes
     @fetchContributes()
 
-    $(document).on 'click', '[data-integrate-contribute]', ->
-      ProposalsEdit.integrate_contribute(this)
     $(document).on 'click', '[data-close-edit-right-section]', =>
       @.hideContributes()
       false
@@ -164,34 +160,6 @@ window.ProposalsEdit =
     $('.update2').attr 'disabled', 'disabled'
     ProposalsEdit.safe_exit = true
     true
-  integrate_contribute: (el) ->
-    id = $(el).data('integrate-contribute')
-    comment_ = $('#comment' + id)
-    inside_ = comment_.find('.proposal_comment')
-    if $(el).is(':checked')
-      ProposalsEdit.integrated_contributes.push id
-      comment_.fadeTo 400, 0.3
-      inside_.attr 'data-height', inside_.outerHeight()
-      inside_.css 'overflow', 'hidden'
-      inside_.animate {height: '52px'}, 400
-      comment_.find('[id^=reply]').each ->
-        $(this).attr 'data-height', $(this).outerHeight()
-        $(this).css 'overflow', 'hidden'
-        $(this).animate {height: '0px'}, 400
-        return
-    else
-      ProposalsEdit.integrated_contributes.splice ProposalsEdit.integrated_contributes.indexOf(id), 1
-      comment_.fadeTo 400, 1
-      inside_.animate {height: inside_.attr('data-height')}, 400, 'swing', ->
-        inside_.css 'overflow', 'auto', ->
-        return
-      comment_.find('[id^=reply]').each ->
-        $(this).animate {height: $(this).attr('data-height')}, 400, 'swing', ->
-          $(this).css 'overflow', 'auto', ->
-          return
-        return
-    $('#proposal_integrated_contributes_ids_list').val ProposalsEdit.integrated_contributes
-    return
   fetchContributes: ->
     ProposalsEdit.currentPage++
     $.ajax

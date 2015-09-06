@@ -1,0 +1,4 @@
+var container_ = $('<div id="integrate_contributes_container" class="reveal-modal medium" data-reveal></div>');
+container_.html("<%= j render 'proposals/edit_comments'%>");
+$('body').append(container_);
+airesis_reveal(container_);

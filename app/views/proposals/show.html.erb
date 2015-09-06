@@ -83,6 +83,7 @@
     ProposalsShow.openShare = '<%=params[:share] %>';
     ProposalsShow.nicknames = <%=json_nicknames @proposal %>;
     ProposalsShow.contributeMaxLength = <%=CONTRIBUTE_MAX_LENGTH%>;
+    ProposalsShow.integrateContributesUrl = '<%=integrate_list_proposal_proposal_comments_url(@proposal)%>';
     ProposalsShow.times = {
         created_at: <%=@proposal.created_at.to_i%>,
         updated_at: <%=@proposal.updated_at.to_i%>,

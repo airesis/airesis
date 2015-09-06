@@ -1,7 +1,7 @@
 <% proposal_nickname = @proposal.proposal_nicknames.find_by_user_id(comment.user.id)
 %>
 
-<div id="comment<%= comment.id %>" class="proposalComment">
+<div id="comment<%= comment.id %>" class="proposalComment" data-contribute>
   <div class="blogUserImage" title="
     <% if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) %><%= proposal_nickname.nickname %>
     <% end %>">

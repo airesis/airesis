@@ -11,6 +11,7 @@ class ProposalComment < ActiveRecord::Base
   has_many :rankings, class_name: 'ProposalCommentRanking', dependent: :destroy
   has_many :rankers, through: :rankings, class_name: 'User', source: :user
   belongs_to :paragraph
+  has_one :section, through: :paragraph
 
   has_one :integrated_contribute, class_name: 'IntegratedContribute', dependent: :destroy
   has_many :proposal_revisions, class_name: 'ProposalRevision', through: :integrated_contributes
