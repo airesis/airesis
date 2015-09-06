@@ -9,6 +9,15 @@ CKEDITOR.editorConfig = function( config ) {
         { items: [ 'lite_ToggleShow' ]}
     ];
 
+    config.toolbar_simple_proposal = [
+        { items: ["Link","Unlink"]},
+        { items: ["Image"]},
+        { items: [ "Bold","Italic","Underline"]},
+        { items: [ "NumberedList","BulletedList"]},
+        { items: [ "FontSize"]},
+        { items: [ "TextColor","BGColor"]}
+    ];
+
     config.extraPlugins = 'youtube,smiley,lite' ;
 
     //var lite = config.lite|| {};

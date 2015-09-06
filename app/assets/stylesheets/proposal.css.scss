@@ -486,7 +486,7 @@
 .proposal_content {
   word-wrap: break-word;
   word-break: break-word;
-  padding: 10px;
+  padding-bottom: 10px;
   line-height: 1.6em;
   overflow: hidden;
   p {
@@ -603,14 +603,6 @@ ul.blogList li.blogListFirst {
 
 .solution_main .proposal_main {
   box-shadow: none;
-}
-
-.suggest {
-  color: gray;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  float: right;
 }
 
 h3 {
@@ -1178,32 +1170,38 @@ input.edit_label {
   width: 40%;
 }
 
-.suggest .tria {
-  position: absolute;
-  right: -24px;
-  margin-top: -40px;
-  height: 38px;
-  width: 20px;
-  display: none;
+.suggest {
+  color: gray;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  float: right;
+  .tria {
+    position: absolute;
+    right: -8px;
+    margin-top: -40px;
+    height: 38px;
+    width: 20px;
+    display: none;
+  }
 }
 
-.suggest_l .ui-icon {
-  position: absolute;
-}
-
-.suggest_l .ui-icon.bulb {
-  right: -22px;
-  top: 0px;
-}
-
-.suggest_l .ui-icon.clock {
-  right: -22px;
-  top: 15px;
-}
-
-.suggest_l .ui-icon.star {
-  right: -22px;
-  top: 30px;
+.suggest_l {
+  .ui-icon {
+    position: absolute;
+  }
+  .ui-icon.bulb {
+    right: -22px;
+    top: 0px;
+  }
+  .ui-icon.clock {
+    right: -22px;
+    top: 15px;
+  }
+  .ui-icon.star {
+    right: -22px;
+    top: 30px;
+  }
 }
 
 .change_nick {

@@ -284,8 +284,6 @@ class ProposalsController < ApplicationController
 
   def update
     @proposal.current_user_id = current_user.id
-    puts 'update params:'
-    puts update_proposal_params
     if @proposal.update(update_proposal_params)
       PrivatePub.publish_to(proposal_path(@proposal), reload_message) rescue nil
       respond_to do |format|
@@ -299,6 +297,7 @@ class ProposalsController < ApplicationController
           end
         }
         format.js {
+          @disable_per_page = true
           render 'layouts/success'
         }
       end

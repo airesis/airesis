@@ -73,8 +73,6 @@ module Admin
       ProposalsWorker.perform_at(15.seconds.from_now, proposal_id: 1)
       flash[:notice] = 'Test avviato'
       redirect_to admin_panel_path
-    rescue Exception => e
-      puts e.backtrace
     end
 
     def become
