@@ -18,6 +18,8 @@ gem 'foundation-rails'
 
 gem 'pg'
 
+gem 'rails_admin'
+
 gem 'sunspot_rails'
 gem 'sunspot-queue', github: 'gaffneyc/sunspot-queue'
 
