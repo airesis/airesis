@@ -24,9 +24,7 @@ $('#loading_results').hide();
 disegnaCountdown();
 
 <%if params[:comment_id] %>
-console.log('we have an id!');
 var comment_ = $('[data-comment-id=<%=params[:comment_id]%>]');
-console.log(comment_);
 scrollToElement(comment_, function () {
     comment_.effect('highlight', {}, 3000);
 });

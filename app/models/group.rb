@@ -14,9 +14,7 @@ class Group < ActiveRecord::Base
   STATUS_ACTIVE = 'active'
   STATUS_FEW_USERS_A = 'few_users_a'
 
-  validates_presence_of :name
-  validates_length_of :name, within: 3..60
-  validates_uniqueness_of :name
+  validates :name, presence: true, uniqueness: true, length: {within: 3..60}
 
   validates_presence_of :description
   validates_length_of :facebook_page_url, within: 10..255, allow_blank: true

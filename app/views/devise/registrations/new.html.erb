@@ -24,36 +24,50 @@
   <%= simple_form_for @user, url: user_registration_path, validate: true do |f| %>
       <%= f.error_notification %>
 
-      <%= f.input :email %>
+      <%= f.input :email, required: true %>
       <% if resource.email && params[:action] == 'new' %>
           <%= t('pages.registration.email_confirmed') %>
       <% end %>
 
-      <%= f.input :password_confirmation, label: t('pages.registration.choose_password'), id: "new_user_password_confirmation" %>
+      <%= f.input :password,
+                  required: true,
+                  label: t('pages.registration.choose_password'),
+                  input_html: {
+                          id: "new_user_password"
+                  } %>
 
-      <%= f.input :password, label: t('pages.registration.confirm_password'), id: "new_user_password" %>
+      <%= f.input :password_confirmation,
+                  required: true,
+                  label: t('pages.registration.confirm_password'),
+                  input_html: {
+                          data: {fv_identical_field: 'user[password]',
+                                 fv_identical: true},
+                          id: "new_user_password_confirmation"
+                  } %>
 
-      <%= f.input :name %>
+      <%= f.input :name, required: true %>
 
-      <%= f.input :surname %>
+      <%= f.input :surname, required: true %>
 
+      <div class="conditions">
+        <%= render 'devise/registrations/eula' %>
+      </div>
 
-      <%= f.label :accept_conditions do %>
-          <div class="conditions">
-            <%= render 'devise/registrations/eula' %>
-          </div>
-          <%= f.check_box :accept_conditions %>
-          <%= t('pages.registration.accept_conditions') %>
-      <% end %>
+      <%= f.input :accept_conditions,
+                  as: :boolean,
+                  label: t('pages.registration.accept_conditions'),
+                  required: true,
+                  input_html: {data: {row_selector: 'boolean'}} %>
 
-      <%= f.label :accept_privacy do %>
-          <div class="conditions">
-            <%= render 'devise/registrations/privacy' %>
-          </div>
-          <%= f.check_box :accept_privacy %>
-          <%= t('pages.registration.accept_privacy') %>
-      <% end %>
+      <div class="conditions">
+        <%= render 'devise/registrations/privacy' %>
+      </div>
 
+      <%= f.input :accept_privacy,
+                  as: :boolean,
+                  label: t('pages.registration.accept_privacy'),
+                  required: true,
+                  input_html: {data: {row_selector: 'boolean'}} %>
 
       <%= f.hidden_field :sys_locale_id %>
 

@@ -9,7 +9,7 @@
         <%= e.input :name %>
       </div>
       <div class="columns small-12">
-        <%= e.input :description, as: :text, rows: 2, style: "width:100%", class: "elastic" %>
+        <%= e.input :description, as: :text, input_html: { rows: 2, class: 'elastic' } %>
       </div>
     </div>
     <div class="row">
@@ -22,7 +22,7 @@
             <div class="small-4 columns">
               <div class="row collapse postfix-radius">
                 <div class="small-6 columns">
-                  <%= e.number_field(:days_m, class: "days", min: 0) %>
+                  <%= e.number_field :days_m, class: "days", min: 0, data: { fv_excluded: true } %>
                 </div>
                 <div class="small-6 columns">
                   <span class="postfix">
@@ -34,7 +34,7 @@
             <div class="small-4 columns">
               <div class="row collapse postfix-radius">
                 <div class="small-6 columns">
-                  <%= e.number_field(:hours_m, class: "hours", min: 0, max: 23) %>
+                  <%= e.number_field :hours_m, class: "hours", min: 0, max: 23, data: { fv_excluded: true } %>
                 </div>
                 <div class="small-6 columns">
                   <span class="postfix">
@@ -46,7 +46,7 @@
             <div class="small-4 columns">
               <div class="row collapse postfix-radius">
                 <div class="small-6 columns">
-                  <%= e.number_field(:minutes_m, class: "minutes", min: 0, max: 55, step: 5) %>
+                  <%= e.number_field :minutes_m, class: "minutes", min: 0, max: 55, step: 5, data: { fv_excluded: true } %>
                 </div>
                 <div class="small-6 columns">
                   <span class="postfix">
@@ -62,7 +62,9 @@
             <div class="small-12 columns">
               <div class="row collapse postfix-radius">
                 <div class="small-9 columns">
-                  <%= e.number_field :percentage, class: "percentage participants", title: t('activerecord.attributes.quorum.percentage_title'), min: 1, max: 100 %>
+                  <%= e.input :percentage, as: :string, label: false,
+                              input_html: { class: "percentage participants",
+                                            title: t('activerecord.attributes.quorum.percentage_title'), min: 0, max: 100 } %>
                 </div>
                 <div class="small-3 columns">
                   <span class="postfix">
@@ -75,7 +77,9 @@
           <div class="row">
             <div class="columns small-12">
               <%= raw t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
-                        current_number: "<span id=\"participants_number\">1</span>", total_number: @group_participations_count, average: (@group.statistic.valutations*100 / @group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count).round(2)) %>
+                        current_number: "<span id=\"participants_number\">1</span>",
+                        total_number: @group_participations_count,
+                        average: (@group.statistic.valutations*100 / @group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count).round(2)) %>
 
             </div>
           </div>
@@ -85,7 +89,11 @@
             <div class="small-12 columns">
               <div class="row collapse postfix-radius">
                 <div class="small-9 columns">
-                  <%= e.number_field :good_score, class: "percentage", validate: false, title: t('activerecord.attributes.quorum.good_score_title'), min: 1, max: 100 %>
+                  <%= e.input :good_score, as: :string, label: false,
+                              input_html: { type: :number,
+                                            class: "percentage",
+                                            title: t('activerecord.attributes.quorum.good_score_title'),
+                                            min: 1, max: 100 } %>
                 </div>
                 <div class="small-3 columns">
                   <span class="postfix">
@@ -124,7 +132,12 @@
             <div class="small-12 columns">
               <div class="row collapse postfix-radius">
                 <div class="small-9 columns">
-                  <%= e.number_field :vote_percentage, class: "percentage vote_participants", title: t('activerecord.attributes.quorum.percentage_title'), min: 1, max: 100 %>
+                  <%= e.input :vote_percentage, as: :string, label: false,
+                              input_html: {
+                                      type: :number,
+                                      class: "percentage vote_participants",
+                                      title: t('activerecord.attributes.quorum.percentage_title'),
+                                      min: 0, max: 100 } %>
                 </div>
                 <div class="small-3 columns">
                   <span class="postfix">
@@ -146,7 +159,11 @@
             <div class="small-12 columns">
               <div class="row collapse postfix-radius">
                 <div class="small-9 columns">
-                  <%= e.number_field :vote_good_score, class: "percentage", validate: false, title: t('activerecord.attributes.quorum.good_score_title'), min: 1, max: 100 %>
+                  <%= e.input :vote_good_score, as: :string, label: false,
+                              input_html: {
+                                      class: "percentage",
+                                      title: t('activerecord.attributes.quorum.good_score_title'),
+                                      min: 0, max: 100 } %>
                 </div>
                 <div class="small-3 columns">
                   <span class="postfix">
@@ -165,8 +182,8 @@
     </div>
     <div class="row">
       <div class="columns large-12">
-        <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>
-        <%= link_to t('buttons.go_back'), :back, class: 'btn', data: {back: ''} %>
+        <%= link_to t('buttons.cancel'), '#', class: 'btn', data: { 'reveal-close' => '' } %>
+        <%= link_to t('buttons.go_back'), :back, class: 'btn', data: { back: '' } %>
         <%= e.button :button, class: 'btn blue' do %>
             <i class="fa fa-save"></i>
             <%= button_name %>
@@ -205,9 +222,7 @@
         $('#quorum_container').foundation('reveal', 'close');
     }
     $(function () {
-        $("#new_best_quorum").validate();
         $('.advanced').hide();
-
         $(".elastic").elastic();
     });
 </script>

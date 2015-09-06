@@ -40,7 +40,6 @@ module Frm
         params.require(:frm_forum).permit(:category_id, :title, :name, :description, :visible_outside, :tags_list, mod_ids: [])
       end
 
-
       def create_successful
         flash[:notice] = t('frm.admin.forum.created')
         redirect_to group_frm_admin_forums_url(@group)
@@ -65,7 +64,6 @@ module Frm
         flash.now.alert = t('frm.admin.forum.not_updated')
         render action: 'edit'
       end
-
     end
   end
 end

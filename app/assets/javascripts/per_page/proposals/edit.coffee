@@ -22,8 +22,8 @@ window.ProposalsEdit =
     $('#menu-left, #centerpanelextended').addClass('editing')
     $('#proposal_proposal_category_id').select2
       minimumResultsForSearch: -1
-      formatResult: formatCategory
-      formatSelection: formatCategory
+      templateResult: formatCategory
+      templateSelection: formatCategory
       escapeMarkup: (m)->
         return m
 
@@ -39,6 +39,7 @@ window.ProposalsEdit =
     end_field.fdatetimepicker 'setStartDate', ProposalsEdit.voteEndsAt
     input = $('#proposal_interest_borders_tkn')
     input.tokenInput '/interest_borders.json',
+      propertyToSearch: 'text'
       crossDomain: false
       prePopulate: input.data('pre')
       hintText: Airesis.i18n.interestBorders.hintText

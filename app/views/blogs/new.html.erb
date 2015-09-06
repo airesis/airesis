@@ -2,7 +2,7 @@
   <h1><%= t('pages.blogs.new.title') %></h1>
   <%= simple_form_for @blog do |f| %>
       <%= f.error_notification %>
-      <%= f.input :title %>
+      <%= f.input :title, required: true %>
       <p>
         <%= link_to t('pages.blogs.new.cancel_button'), :back, class: 'btn' %>
         <%= f.submit t('pages.blogs.new.create_button'), class: 'btn blue' %>

@@ -30,19 +30,28 @@ window.ProposalsIndex =
       event.stopPropagation()
 
     input = $('.interest_borders')
-    input.tokenInput "/interest_borders.json",
-      crossDomain: false
-      prePopulate: input.data("pre")
-      hintText: Airesis.i18n.interestBorders.hintText
-      noResultsText: Airesis.i18n.interestBorders.noResultsText
-      searchingText: Airesis.i18n.interestBorders.searchingText
-      preventDuplicates: true
-      tokenLimit: 1
-      allowTabOut: true
-      onAdd: ->
-        @.closest('form').submit()
-      onDelete: ->
-        @.closest('form').submit()
+
+    input.select2
+      placeholder: Airesis.i18n.interestBorders.hintText
+      allowClear: true
+      ajax:
+        url: '/interest_borders'
+        dataType: 'json'
+        delay: 250
+        data: (params) ->
+          {
+          q: params.term
+          l: Airesis.i18n.locale
+          pp: 'disable'
+          }
+        processResults: (data, page) ->
+          { results: data }
+        cache: true
+      escapeMarkup: (markup) ->
+        markup
+      minimumInputLength: 1
+    .on "change", (e)->
+      @.closest('form').submit()
   active_tab: ->
     $('#proposals-tabs').find('.active')
   hash_tab_value: ->

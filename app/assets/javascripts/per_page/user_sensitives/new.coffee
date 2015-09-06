@@ -17,8 +17,8 @@ window.UserSensitivesNew =
         results: (data, page)->
           return results: data
       },
-      formatResult: @user_format,
-      formatSelection: @user_format
+      templateResult: @user_format,
+      templateSelection: @user_format
     })
     .on('change', (e)->
       el = e.added

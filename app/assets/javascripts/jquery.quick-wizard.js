@@ -7,7 +7,7 @@
             'nextButton': '<button id="form-wizard-next" type="button" class="btn blue"><i class="fa fa-arrow-right"></i>Next</button>',
             'activeClass': 'form-wizard-active',
             'element': 'div.step',
-            'submit': '[type = "submit"]',
+            'submit': '[type = "submit"]:not(.fv-hidden-submit)',
             'root': null,
             'prevArgs': [0],
             'nextArgs': [0],
@@ -31,9 +31,10 @@
             $.extend(settings, options);
         }
 
-        callback = callback || function () { };
+        callback = callback || function () {
+            };
 
-        function disablePrev(prevObj){
+        function disablePrev(prevObj) {
             if ($(prevObj).is(":button")) {
                 $(prevObj).attr('disabled', 'disabled');
             } else {
@@ -52,14 +53,14 @@
             var root;
             var breadCrumbList;
 
-            if(settings.root === null){
+            if (settings.root === null) {
                 root = children.first();
-            }else{
+            } else {
                 root = $(settings.root);
             }
 
             /* Set up container class */
-            if(settings.containerClass != ""){
+            if (settings.containerClass != "") {
                 container.addClass(settings.containerClass);
             }
 
@@ -144,7 +145,7 @@
 
                 /* Check to see if the forms are valid before moving on */
 
-                if (validElement()) {
+                if (validElement(container)) {
                     var nextSet = active.next(settings.element);
                     var afterNextSet = nextSet.next(settings.element);
                     if (nextSet.length) {
@@ -225,8 +226,8 @@
                 settings.prevCallback(prevSet);
             });
 
-            if(settings.breadCrumb && settings.clickableBreadCrumbs){
-                $('.' + settings.breadCrumbListClass).children().click(function(){
+            if (settings.breadCrumb && settings.clickableBreadCrumbs) {
+                $('.' + settings.breadCrumbListClass).children().click(function () {
                     var active = container.find(activeClassSelector);
                     var current = $(settings.element).eq($(this).index());
 
@@ -241,7 +242,9 @@
                     active.data('posiiton', active.css('position'));
 
                     /* Set our callback function */
-                    insertedNextCallback = function () { active.css('position', active.data('posiiton')); };
+                    insertedNextCallback = function () {
+                        active.css('position', active.data('posiiton'));
+                    };
 
                     /* Call show and hide with the user provided arguments */
                     active.css('position', 'absolute').hide.apply(active, settings.nextArgs);
@@ -250,7 +253,7 @@
                     breadCrumbList.find('.' + settings.breadCrumbActiveClass).removeClass(settings.breadCrumbActiveClass);
                     $(this).addClass(settings.breadCrumbActiveClass);
 
-                    if(prevSet.length){
+                    if (prevSet.length) {
                         $(next).show();
                         submitButton.hide();
                     }
@@ -280,19 +283,13 @@
 })(jQuery);
 
 
-function validElement() {
+function validElement(form) {
     //If the form is valid then go to next else dont
-    var valid = true;
-    console.log('valid?');
-    // this will cycle through all visible inputs and attempt to validate all of them.
-    // if validations fail 'valid' is set to false
-    $('[data-validate]:input:visible').each(function () {
-        var settings = window.ClientSideValidations.forms[this.form.id];
-        if (!$(this).isValid(settings.validators)) {
-            valid = false
-        }
-    });
-
+    var fv = form.data('formValidation');
+    var container = $('.form-wizard-active');
+    fv.validateContainer(container);
+    var valid = fv.isValidContainer(container);
+    valid = !(valid === false || valid === null);
     //var content_ = $('#proposal_sections_attributes_0_paragraphs_attributes_0_content_tbl');
     //if (content_.is(':visible')) {
     //    var escapedcontent_ = tinyMCE.get('proposal_sections_attributes_0_paragraphs_attributes_0_content').getContent().replace(/<p>&nbsp;<\/p>/g,'').replace(/\n/g,'').replace(/ /g,'');
@@ -303,17 +300,13 @@ function validElement() {
 
 
     var choise_ = $('[name="proposal[votation][choise]"]:checked').val();
-    console.log('choise: ' + choise_);
     if (choise_ == 'new') {
         var end_ = $('#proposal_votation_end').val();
-        console.log('end: ' + end_);
         if (end_ == '') {
             alert('Devi impostare la data fine votazione');
             e.preventDefault();
             valid = false;
         }
     }
-
-    // if any of the inputs are invalid we want to disrupt the click event
     return valid;
 }

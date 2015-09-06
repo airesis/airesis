@@ -118,7 +118,7 @@ class QuorumsController < ApplicationController
   def dates
     starttime = (@quorum.minutes.minutes + DEBATE_VOTE_DIFFERENCE).from_now
     if @group
-      @dates = @group.events.not_visible.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, { 'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title }] } #TODO:I18n
+      @dates = @group.events.not_visible.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, { 'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title }] } # TODO: I18n
     else
       @dates = Event.visible.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id] } #TODO:I18n
     end

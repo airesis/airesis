@@ -1,0 +1,40 @@
+<% if can? :update, @event %>
+    <div class="mybox">
+      <%= link_to (@group ? edit_group_event_path(@group, @event) : edit_event_path(@event)),
+                  remote: true, class: 'btn', data: {disable_with: t('loading')} do %>
+          <i class="fa fa-pencil"></i>
+          <%= t('buttons.edit') %>
+      <% end if can? :update, @event %>
+      <%= link_to @event, method: :delete, class: 'btn red',
+                  data: {confirm: t('delete_event_confirm'), disable_with: t('loading')} do %>
+          <i class="fa fa-trash-o"></i>
+          <%= t('buttons.delete') %>
+      <% end if can? :destroy, @event %>
+    </div>
+<% end %>
+
+<% if ::Configuration::socialnetwork_active %>
+    <div class="mybox">
+      <a href="https://twitter.com/share"
+         class="twitter-share-button"
+         data-lang="en"
+         data-count="vertical"
+         data-text="<%= t('twitter.share.event', app: ENV['APP_SHORT_NAME']) %>">Tweet</a>
+      <g:plusone size="tall"></g:plusone>
+      <div class="fb-like" data-send="false" data-layout="box_count" data-width="100"
+           data-show-faces="false" data-likeable_type="<%= @event.class.class_name %>"
+           data-likeable_id="<%= @event.id %>"></div>
+    </div>
+<% end %>
+
+<% if @event.meeting %>
+    <div class="mybox participation_panel_container">
+      <%= render partial: 'participation_panel' %>
+    </div>
+
+    <% if @event.meeting %>
+        <div class="participants_container">
+          <%= render partial: 'meeting_responses' %>
+        </div>
+    <% end %>
+<% end %>

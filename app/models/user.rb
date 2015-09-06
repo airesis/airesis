@@ -127,7 +127,7 @@ class User < ActiveRecord::Base
   scope :certified, -> { where(user_type_id: UserType::CERTIFIED) }
   scope :count_active, -> { unblocked.count.to_f * (ENV['ACTIVE_USERS_PERCENTAGE'].to_f / 100.0) }
 
-  scope :autocomplete, ->(term) { where('lower(users.name) LIKE :term or lower(users.surname) LIKE :term', term: "%#{term.downcase}%").order('users.surname desc, users.name desc').limit(10) }
+  scope :autocomplete, ->(term) { where('lower(users.name) LIKE :term or lower(users.surname) LIKE :term', term: "%#{term.to_s.downcase}%").order('users.surname desc, users.name desc').limit(10) }
   scope :non_blocking_notification, ->(notification_type) {
     User.where.not(id: User.select('users.id').
                      joins(:blocked_alerts).

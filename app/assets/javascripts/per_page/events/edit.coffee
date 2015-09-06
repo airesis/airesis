@@ -17,13 +17,12 @@ window.EventsEdit =
         $('#luogo').show()
         $('#create_map_canvas').show()
   initClientSideValidation: ->
-    window.ClientSideValidations.selectors =
-      inputs: ':input:not(button):not([type="submit"])[name]:enabled'
-      validate_inputs: ':input:enabled:visible[data-validate], .select2-container:visible ~ :input:enabled[data-validate]'
-      forms: 'form[data-validate]'
-    $('#edit_event_' + EventsEdit.eventId).enableClientSideValidations()
+    new AiresisFormValidation($('#edit_event_' + EventsEdit.eventId))
   initMunicipalityInput: ->
-    Airesis.select2town($('#event_meeting_attributes_place_attributes_municipality_id'))
+    input = $('#event_meeting_attributes_place_attributes_municipality_id')
+    Airesis.select2town(input)
+    input.change (e)->
+      $('#edit_event_' + EventsEdit.eventId).formValidation('revalidateField', input.attr('name'))
   initMapManager: =>
     if EventsEdit.placeDefined
       latlng = new (google.maps.LatLng)(EventsEdit.latitudeOriginal, EventsEdit.longitudeOriginal)

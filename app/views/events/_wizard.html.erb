@@ -1,6 +1,6 @@
 <h2><%= @title %></h2>
 <div id="create_event">
-  <%= simple_form_for (@group && !in_subdomain?) ? [@group, @event] : @event, remote: request.xhr?, validate: true do |f| %>
+  <%= simple_form_for (@group && !in_subdomain?) ? [@group, @event] : @event, remote: request.xhr? do |f| %>
       <div class="legend">
         <div class="number">1</div>
         <div class="title">
@@ -57,7 +57,7 @@
           <div class="large-6 columns">
             <%= f.input :starttime,
                         as: :datetimepicker,
-                        input_html: {value: (l @event.starttime, format: :datetimepicker)} %>
+                        input_html: { value: (l @event.starttime, format: :datetimepicker) } %>
           </div>
         </div>
 
@@ -65,7 +65,7 @@
           <div class="large-6 columns">
             <%= f.input :endtime,
                         as: :datetimepicker,
-                        input_html: {value: (l @event.endtime, format: :datetimepicker)} %>
+                        input_html: { value: (l @event.endtime, format: :datetimepicker) } %>
           </div>
         </div>
 
@@ -77,7 +77,6 @@
             <% end %>
           </div>
         </div>
-
 
         <div class="row" style="display:none">
           <div class="large-4 columns">
@@ -104,7 +103,9 @@
                     <div id="luogo">
                       <div class="row">
                         <div class="large-6 columns">
-                          <%= p.input :municipality_id, input_html: {data: {cities: ''}, style: 'width:100%'} %>
+                          <%= p.input :municipality_id,
+                                      as: :select,
+                                      input_html: { data: { cities: '' } } %>
                         </div>
                       </div>
                       <div class="row">
@@ -131,7 +132,7 @@
           </div>
       <% end %>
       <%= f.submit t('pages.events.new.submit'), class: 'btn blue disable', onclick: "return confirmEventData(this);",
-                   data: {disable_with: t('saving')} %>
+                   data: { disable_with: t('saving') } %>
   <% end %>
 </div>
 <a class="close-reveal-modal">&#215;</a>
@@ -141,14 +142,10 @@
 
     function confirmEventData(el) {
         var event_form = $(el).closest('form');
-        var valid = true;
-
-        $('[data-validate]:input:visible', event_form).each(function () {
-            var settings = window.ClientSideValidations.forms[this.form.id];
-            if (!$(this).isValid(settings.validators)) {
-                valid = false;
-            }
-        });
-        return valid;
+        var fv = event_form.data('formValidation');
+        var container = $('.form-wizard-active');
+        fv.validateContainer(container);
+        var valid = fv.isValidContainer(container);
+        return !(valid === false || valid === null);
     }
 </script>

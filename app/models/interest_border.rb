@@ -106,8 +106,16 @@ class InterestBorder < ActiveRecord::Base
     territory.solr_search_field
   end
 
+  def key
+    "#{TYPE_MAP[territory_type]}-#{territory_id}"
+  end
+
+  def text
+    territory.name
+  end
+
   def as_json(_options = {})
-    {id: "#{TYPE_MAP[territory_type]}-#{territory_id}", name: territory.name}
+    {id: key, text: text}
   end
 
   def self.find_or_create_by_key(key)

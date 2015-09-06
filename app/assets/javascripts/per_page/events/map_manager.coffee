@@ -53,7 +53,7 @@ class Airesis.MapManager
     return
   codeAddress: ->
     Airesis.delay (=>
-      comune = $('#event_meeting_attributes_place_attributes_municipality_id').select2('data')['text']
+      comune = $('#event_meeting_attributes_place_attributes_municipality_id').find(':selected').text()
       if comune != null
         address = comune + ', ' + @mapField('address').val()
         @putMarker address

@@ -50,17 +50,15 @@ class GroupInvitationEmailsController < ApplicationController
   end
 
   def authenticate_user_from_invite!
-    unless user_signed_in?
-      session[:user_return_to] = request.url
-      session[:user] = {}
-      session[:user][:email] = params[:email]
-      session[:invite] = {email: params[:email], token: params[:token], group_id: @group.id, return: request.url}
-      if User.where(email: params[:email]).exists?
-        redirect_to new_user_session_path(invite: params[:token], user: {login: params[:email]})
-      else
-        redirect_to new_user_registration_path(invite: params[:token])
-      end
-
+    return if user_signed_in?
+    session[:user_return_to] = request.url
+    session[:user] = {}
+    session[:user][:email] = params[:email]
+    session[:invite] = { email: params[:email], token: params[:token], group_id: @group.id, return: request.url }
+    if User.where(email: params[:email]).exists?
+      redirect_to new_user_session_path(invite: params[:token], user: { login: params[:email] })
+    else
+      redirect_to new_user_registration_path(invite: params[:token])
     end
   end
 end

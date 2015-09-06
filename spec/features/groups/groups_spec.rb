@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'requests_helper'
 
-describe "the creation of a group process", type: :feature, js: true do
+describe 'the creation of a group process', type: :feature, js: true do
   before :each do
     load_database
     @user = create(:user)
@@ -12,18 +12,18 @@ describe "the creation of a group process", type: :feature, js: true do
     logout(:user)
   end
 
-  it "creates a group correctly and view main administration pages" do
+  it 'creates a group correctly and view main administration pages' do
     visit new_group_path
     expect(page).to have_title I18n.t('pages.groups.new.title')
     expect(page).to have_content(I18n.t('pages.groups.new.new_group'))
     #fill form fields
     group_name = Faker::Company.name
-    within("#main-copy") do
-      sleep 2
+    within('#main-copy') do
       fill_in I18n.t('activerecord.attributes.group.name'), with: group_name
       fill_in_ckeditor 'group_description', with: Faker::Lorem.paragraph
       fill_tokeninput '#group_tags_list', with: ['tag1', 'tag2', 'tag3']
-      fill_tokeninput '#group_interest_border_tkn', with: ["P-#{Province.first.id}"]
+      select2ajax('#group_interest_border_tkn', Country.first.description)
+      screenshot_and_save_page
       fill_in I18n.t('activerecord.attributes.group.default_role_name'), with: Faker::Name.title
       click_button I18n.t('pages.groups.new.create_button')
     end

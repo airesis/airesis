@@ -131,9 +131,6 @@ gem 'el_finder'
 
 gem 'recaptcha', require: 'recaptcha/rails'
 
-
-gem 'thin'
-
 gem 'globalize'
 
 gem 'sanitize'
@@ -165,10 +162,6 @@ gem 'mailman', require: false
 gem 'email_reply_parser'
 
 gem 'paper_trail'
-
-gem 'client_side_validations', github: 'DavyJonesLocker/client_side_validations'
-
-gem 'client_side_validations-simple_form', github: 'DavyJonesLocker/client_side_validations-simple_form'
 
 gem 'figaro'
 

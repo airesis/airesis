@@ -1,26 +1,35 @@
 <div class="section_container" data-section_id="{{section.id}}" data-persisted="{{section.persisted}}">
 
-    <input id="proposal_sections_attributes_{{section.id}}_seq"
-           name="proposal[sections_attributes][{{section.id}}][seq]"
-           type="hidden" value="{{section.seq}}" data-section-seq>
-    <input name="proposal[sections_attributes][{{section.id}}][_destroy]"
-           type="hidden" value="0" data-section-destroy>
-    <input id="proposal_sections_attributes_{{section.id}}__destroy"
-           name="proposal[sections_attributes][{{section.id}}][_destroy]"
-           style="display:none" type="checkbox" value="1">
-
+    <div class="inputs">
+        <input id="proposal_sections_attributes_{{section.id}}_seq"
+               name="proposal[sections_attributes][{{section.id}}][seq]"
+               type="hidden" value="{{section.seq}}" data-section-seq>
+    </div>
+    <div class="inputs">
+        <input name="proposal[sections_attributes][{{section.id}}][_destroy]"
+               type="hidden" value="0" data-section-destroy>
+    </div>
+    <div class="inputs">
+        <input id="proposal_sections_attributes_{{section.id}}__destroy"
+               name="proposal[sections_attributes][{{section.id}}][_destroy]"
+               style="display:none" type="checkbox" value="1">
+    </div>
     <div class="clearboth"></div>
-    <input class="edit_label"
-           id="proposal_sections_attributes_{{section.id}}_title"
-           name="proposal[sections_attributes][{{section.id}}][title]"
-           type="text"
-           value="{{section.title}}"
-           data-validate="true">
+
+    <div class="inputs">
+        <input class="edit_label"
+               id="proposal_sections_attributes_{{section.id}}_title"
+               name="proposal[sections_attributes][{{section.id}}][title]"
+               type="text"
+               value="{{section.title}}"
+               data-validate="true">
+    </div>
+    <div class="inputs">
     <textarea id="proposal_sections_attributes_{{section.id}}_paragraphs_attributes_0_content_dirty"
               name="proposal[sections_attributes][{{section.id}}][paragraphs_attributes][0][content_dirty]"
               rows="5"
               style="width: 98%; height: 280px;visibility:hidden;">{{section.contentDirty}}</textarea>
-
+    </div>
     <input id="proposal_sections_attributes_{{section.id}}_paragraphs_attributes_0_id"
            name="proposal[sections_attributes][{{section.id}}][paragraphs_attributes][0][id]"
            type="hidden" value="{{section.paragraphId}}">

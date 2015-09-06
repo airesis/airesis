@@ -1,7 +1,4 @@
-<p>
-  <%= f.label :text%>
-  <%= f.cktext_area :text, ckeditor: {toolbar: 'forum', language: I18n.locale} %>
-  <% if params[:reply_to_id] %>
-      <%= f.hidden_field :reply_to_id, value: params[:reply_to_id] %>
-  <% end %>
-</p>
+<%= f.input :text, as: :ckeditor, input_html: {required: true, ckeditor: {toolbar: 'forum', language: I18n.locale}} %>
+<% if params[:reply_to_id] %>
+    <%= f.hidden_field :reply_to_id, value: params[:reply_to_id] %>
+<% end %>
