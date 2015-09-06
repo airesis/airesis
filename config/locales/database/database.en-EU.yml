@@ -118,12 +118,20 @@ en-EU:
         message: "%{user} added a new post in his blog <b>%{blog}</b>"
       new_valutation_mine:
         description: New evaluation for a proposal of mine
-        email_subject: "%{title} - New evaluation"
-        message: "Your proposal <b>%{title}</b> has received a new evaluation"
+        email_subject:
+          one: "%{title} has a new evaluation"
+          other: "%{title} has %{count} new evaluations"
+        message:
+          one: "Your proposal <b>%{title}</b> has received a new evaluation"
+          other: "Your proposal <b>%{title}</b> has received %{count} new evaluations"
       new_valutation:
         description: New evaluation for a proposal I participate in
-        email_subject: "%{title} - New evaluation"
-        message: "The proposal <b>%{title}</b> has received a new evaluation"
+        email_subject:
+          one: "%{title} has a new evaluation"
+          other: "%{title} has %{count} new evaluations"
+        message:
+          one: "The proposal <b>%{title}</b> has received a new evaluation"
+          other: "The proposal <b>%{title}</b> has received %{count} new evaluations"
       available_author:
         description: User available to become an editor of a proposal
         email_subject:
