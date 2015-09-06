@@ -1,0 +1,18 @@
+- unless @proposal.voting?
+  - contributes_num = section.proposal_comments.listable.count
+  - unread = current_user ? section.proposal_comments.listable.unread(current_user.id, @proposal.id).count : contributes_num
+  .suggest
+    a[href="#" class="btn green contribute-button contribute-section-button"
+      data-status="0"
+      data-contribute-button
+      data-section_id="#{section.id}"
+      data-contributes_num="#{contributes_num}"
+      data-unread_contributes_num="#{unread}"
+      title="#{(can? :participate, @proposal) ? t('pages.proposals.show.give_contribute') : t('pages.proposals.show.read_contribute')}"]
+      i.fa.fa-pencil
+      span.contribute-button-text.show-for-medium-up
+        = (can? :participate, @proposal) ? t('pages.proposals.show.give_contribute') : t('pages.proposals.show.read_contribute')
+      span.contribute-button-num
+        = " (#{unread}/#{contributes_num})"
+    .suggest_l style="display: none;"
+      = image_tag 'suggest.png', class: 'tria'

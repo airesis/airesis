@@ -1,0 +1,34 @@
+<div class="proposal_main" data-section_id="<%= section.id %>">
+  <div class="row">
+    <div class="columns small-7">
+      <h3> <%= section.title %></h3>
+    </div>
+    <div class="columns small-5">
+      <%= render 'proposals/contributes_button', section: section %>
+    </div>
+  </div>
+
+  <div class="proposal_content" data-id="<%= solution.id %>" data-show-section="<%= section.id %>">
+    <%= parsed_section(section) %>
+  </div>
+  <% if can? :edit, @proposal %>
+      <%= render 'proposals/edit_section_button', section: section %>
+  <% end %>
+  <% if can? :edit, @proposal %>
+      <div class="proposal_edit_content" data-edit-section="<%= section.id %>">
+        <%= simple_form_for @proposal, remote: true, html: { data: { no_fv_validation: '' } } do |f| %>
+            <%= f.simple_fields_for :solutions, solution do |sol| %>
+                <%= sol.simple_fields_for :sections, section do |s| %>
+                    <%= s.simple_fields_for :paragraphs, section.paragraphs.first do |p| %>
+                        <%= p.input :content_dirty, as: :text, label: false,
+                                    input_html: { id: "text_area_#{section.id}" } %>
+                        <%= p.input :content, as: :hidden, input_html: { data: { clean_text_area: section.id } } %>
+                    <% end %>
+                <% end %>
+                <%= f.hidden_field :integrated_contributes_ids_list, data: { integrated_contributes_list: '' } %>
+                <%= render 'proposals/edit_section_buttons', section: section %>
+            <% end %>
+        <% end %>
+      </div>
+  <% end %>
+</div>

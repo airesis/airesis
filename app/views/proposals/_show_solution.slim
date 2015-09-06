@@ -1,0 +1,10 @@
+.solution_main.card data-solution_id="#{solution.id}"
+  h3
+    .tit1.sol
+      .tit2
+        = raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}", num: i+1)
+        '
+        = solution.title
+  .sol_content
+    - solution.sections.each do |section|
+      = render 'proposals/show_solution_section', solution: solution, section: section, i: i

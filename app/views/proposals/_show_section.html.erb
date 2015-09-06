@@ -4,26 +4,7 @@
       <h3><%= section.title %></h3>
     </div>
     <div class="columns small-5">
-      <% unless @proposal.voting? %>
-          <% contributes_num = section.proposal_comments.listable.count %>
-          <% unread = current_user ? section.proposal_comments.listable.unread(current_user.id, @proposal.id).count : contributes_num %>
-          <div class="suggest">
-            <a href="#" class="btn green contribute-button contribute-section-button" data-status="0"
-               data-contribute-button
-               data-section_id="<%= section.id %>"
-               data-contributes_num="<%= contributes_num %>"
-               data-unread_contributes_num="<%= unread %>"
-               title="<%= (can? :participate, @proposal) ? t('pages.proposals.show.give_contribute') : t('pages.proposals.show.read_contribute') %>">
-              <i class="fa fa-pencil"></i>
-              <span class="contribute-button-text show-for-medium-up"><%= (can? :participate, @proposal) ? t('pages.proposals.show.give_contribute') : t('pages.proposals.show.read_contribute') %></span>
-              <span class="contribute-button-num"><%= "(#{unread}/#{contributes_num})" %></span>
-            </a>
-
-            <div class="suggest_l" style="display: none;">
-              <%= image_tag 'suggest.png', class: 'tria' %>
-            </div>
-          </div>
-      <% end %>
+      <%= render 'proposals/contributes_button', section: section %>
     </div>
   </div>
 
@@ -31,9 +12,7 @@
     <%= parsed_section(section) %>
   </div>
   <% if can? :edit, @proposal %>
-      <%= link_to '#', data: { edit_paragraph: section.id } do %>
-          <i class="fa fa-edit"></i>
-      <% end %>
+      <%= render 'proposals/edit_section_button', section: section %>
   <% end %>
   <% if can? :edit, @proposal %>
       <div class="proposal_edit_content" data-edit-section="<%= section.id %>">
@@ -46,12 +25,7 @@
                 <% end %>
             <% end %>
             <%= f.hidden_field :integrated_contributes_ids_list, data: {integrated_contributes_list: ''} %>
-            <%= link_to '#', data: { show_paragraph: section.id } do %>
-                <i class="fa fa-floppy-o"></i>
-            <% end %>
-            <%= link_to '#', data: { undo_paragraph: section.id } do %>
-                <i class="fa fa-undo"></i>
-            <% end %>
+            <%= render 'proposals/edit_section_buttons', section: section %>
         <% end %>
       </div>
   <% end %>
