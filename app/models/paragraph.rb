@@ -26,6 +26,6 @@ class Paragraph < ActiveRecord::Base
   end
 
   def empty?
-    content == "<p></p>"
+    (content == '<p></p>') || content.empty?
   end
 end
