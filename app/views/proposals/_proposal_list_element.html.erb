@@ -14,11 +14,19 @@
       </div>
     </div>
     <div class="right_cont">
-      <div style="position: relative">
+      <div class="alerts_and_vote">
+        <% if current_user %>
+            <% if can? :vote, proposal %>
+                <%= link_to t('pages.proposals.list.vote'), proposal.private ? group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal, subdomain: false), class: 'btn blue vote-button' %>
+            <% end %>
+            <% count = proposal.count_notifications(current_user.id) %>
+            <%= link_to count, proposal, class: "alert notify", data: { load: true, proposal_id: proposal.id } if count > 0 %>
+        <% end %>
+      </div>
+      <div style=" position: relative">
         <div class="maintitle <%= 'voteright' if can? :vote, proposal %>">
           <%= user_valutation_image(current_user, proposal) if current_user %>
           <%= link_to_proposal(proposal, style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: proposal.title) %>
-
         </div>
       </div>
 
@@ -28,9 +36,9 @@
         </p>
       </div>
       <% if proposal.voting? || proposal.voted? %>
-          <%= render partial: 'proposals/new_vote_bar', locals: {proposal: proposal} %>
+          <%= render partial: 'proposals/new_vote_bar', locals: { proposal: proposal } %>
       <% else %>
-          <%= render partial: 'proposals/new_rank_bar', locals: {proposal: proposal} %>
+          <%= render partial: 'proposals/new_rank_bar', locals: { proposal: proposal } %>
       <% end %>
 
       <div class="clearboth"></div>
@@ -69,7 +77,7 @@
               <div class="authors">
                 <%= t('pages.proposals.index.participants_number') %>
                 <div class="title"><%= t('pages.proposals.list.authors').upcase %></div>
-                <% if proposal.users.include? current_user  # if is an author can see other authors name %>
+                <% if proposal.users.include? current_user # if is an author can see other authors name   %>
                     <% proposal.users.each do |user| %>
                         <%= user_tag_mini(user) %>
                     <% end %>
@@ -94,16 +102,6 @@
               <span class="count"><%= proposal.interest_borders.first.territory.description %></span>
             </div>
         <% end %>
-
-        <div class="alerts_and_vote">
-          <% if current_user %>
-              <% if can? :vote, proposal %>
-                  <%= link_to t('pages.proposals.list.vote'), proposal.private ? group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal, subdomain: false), class: 'btn blue' %>
-              <% end %>
-              <% count = proposal.count_notifications(current_user.id) %>
-              <%= link_to count, proposal, class: "alert notify", data: {load: true, proposal_id: proposal.id} if count > 0 %>
-          <% end %>
-        </div>
         <div class="clearboth"></div>
       </div>
     </div>
