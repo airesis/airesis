@@ -1,4 +1,4 @@
-.proposalMainContainer .proposal_content {
+.proposal-main-container .proposal_content {
     font: 14px, arial;
     letter-spacing: 0.6px;
     word-wrap: normal;
@@ -126,4 +126,20 @@ h1 {
 
 .solution_title {
   text-align: center;
+}
+
+.tabs {
+  display: none;
+}
+
+.vote-properties {
+  margin-bottom: 20px;
+}
+
+.vote-results-title {
+  margin-bottom: 0;
+}
+
+.vote-results {
+  padding-top: 0;
 }
