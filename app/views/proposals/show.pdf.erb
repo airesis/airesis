@@ -126,14 +126,14 @@
 
       <div class="proposal-main-container proposal_main shadow-box">
         <span class="title_grey">
-             <%= raw t('pages.proposals.show.debate_begin') %>
+          <%= raw t('activerecord.attributes.proposal.debate_starts_at') %>
         </span>
         <div class="time-property">
           <%= l @proposal.quorum.started_at %>
         </div>
         <br/>
         <span class="title_grey">
-             <%= raw t('pages.proposals.show.debate_end') %>
+          <%= raw t('activerecord.attributes.proposal.debate_ends_at') %>
         </span>
         <div class="time-property">
           <%= l @proposal.quorum.ends_at %>
@@ -143,14 +143,14 @@
 
       <div class="proposal-main-container proposal_main shadow-box vote-properties">
         <span class="title_grey">
-             <%= raw t('pages.proposals.show.vote_begin') %>
+          <%= raw t('activerecord.attributes.proposal.vote_starts_at') %>
         </span>
         <div class="time-property">
           <%= l @proposal.vote_starts_at %>
         </div>
         <br/>
         <span class="title_grey">
-             <%= raw t('pages.proposals.show.vote_end') %>
+          <%= raw t('activerecord.attributes.proposal.vote_ends_at') %>
         </span>
         <div class="time-property">
           <%= l @proposal.vote_ends_at %>
