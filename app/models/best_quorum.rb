@@ -1,5 +1,5 @@
 class BestQuorum < Quorum
-  validates :minutes, numericality: {only_integer: true, greater_than_or_equal_to: 5}
+  validates :minutes, numericality: { only_integer: true, greater_than_or_equal_to: 5 }
   attr_accessor :vote_days_m, :vote_hours_m, :vote_minutes_m
 
   before_save :populate_vote
@@ -89,38 +89,38 @@ class BestQuorum < Quorum
   # show the total time of votation
   def vote_time
     case t_vote_minutes
-    when 'f'
-      'free' # TODO: I18n
-    when 's'
-      min = vote_minutes if vote_minutes
+      when 'f'
+        'free' # TODO: I18n
+      when 's'
+        min = vote_minutes if vote_minutes
 
-      if min && min > 0
-        if min > 59
-          hours = min / 60
-          min = min % 60
-          if hours > 23
-            days = hours / 24
-            hours = hours % 24
-            min = 0 if hours != 0
-            if days > 30
-              months = days / 30
-              days = days % 30
-              min = 0
+        if min && min > 0
+          if min > 59
+            hours = min / 60
+            min = min % 60
+            if hours > 23
+              days = hours / 24
+              hours = hours % 24
+              min = 0 if hours != 0
+              if days > 30
+                months = days / 30
+                days = days % 30
+                min = 0
+              end
             end
           end
+          ar = []
+          ar << I18n.t('time.left.months', count: months) if months && months > 0
+          ar << I18n.t('time.left.days', count: days) if days && days > 0
+          ar << I18n.t('time.left.hours', count: hours) if hours && hours > 0
+          ar << I18n.t('time.left.minutes', count: min) if min && min > 0
+          retstr = ar.join(" #{I18n.t('words.and')} ")
+        else
+          retstr = nil
         end
-        ar = []
-        ar << I18n.t('time.left.months', count: months) if months && months > 0
-        ar << I18n.t('time.left.days', count: days) if days && days > 0
-        ar << I18n.t('time.left.hours', count: hours) if hours && hours > 0
-        ar << I18n.t('time.left.minutes', count: min) if min && min > 0
-        retstr = ar.join(" #{I18n.t('words.and')} ")
-      else
-        retstr = nil
-      end
-      retstr
-    when 'r'
-      'ranged'
+        retstr
+      when 'r'
+        'ranged'
     end
   end
 
@@ -212,27 +212,23 @@ class BestQuorum < Quorum
   protected
 
   def min_participants_pop
-    return 1 unless percentage
-
-    count = 1
-    if group
-      count = (percentage.to_f * 0.01 * group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count) # TODO: group areas
-    else
-      count = (percentage.to_f * 0.001 * User.count)
-    end
-    [count, 1].max.floor + 1 # we always add +1 in new quora
+    percentage_f = percentage.to_f
+    count = if group
+              percentage_f * 0.01 * group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count # TODO: group areas
+            else
+              percentage_f * 0.001 * User.count
+            end
+    [count, 0].max.floor + 1 # we always add +1 in new quora
   end
 
   def min_vote_participants_pop
-    return 1 unless vote_percentage
-
-    count = 1
-    if group
-      count = (vote_percentage.to_f * 0.01 * group.scoped_participants(GroupAction::PROPOSAL_VOTE).count) # TODO: group areas
-    else
-      count = (vote_percentage.to_f * 0.001 * User.count)
-    end
-    [count, 1].max.floor + 1 # we always add +1 in new quora
+    vote_percentage_f = vote_percentage.to_f
+    count = if group
+              vote_percentage_f * 0.01 * group.scoped_participants(GroupAction::PROPOSAL_VOTE).count # TODO: group areas
+            else
+              vote_percentage_f * 0.001 * User.count
+            end
+    [count, 0].max.floor + 1 # we always add +1 in new quora
   end
 
   def explanation_pop
