@@ -1457,9 +1457,9 @@ body {
 
 .off-canvas-wrap {
   background-color: rgba(0, 0, 0, 0.1);
-  min-height: calc(100% - #{$footer-height-small});
+  height: calc(100% - #{$footer-height-small});
   @media #{$medium-up} {
-    min-height: calc(100% - #{$footer-height-large});
+    height: calc(100% - #{$footer-height-large});
   }
 }
 
@@ -1675,6 +1675,10 @@ $logo-width: 100px;
     text-align: center;
     .language.footer {
       max-width: 50%;
+    }
+    .columns {
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 }
@@ -2127,6 +2131,7 @@ small.warning {
   margin-bottom: 10px;
   font-size: 0.9em;
   position: relative;
+  box-sizing: border-box;
 
   &.socialnetwork {
     padding: 6px;
@@ -2149,7 +2154,6 @@ small.warning {
     border-top: 1px solid #bebebe;
     display: block;
   }
-
 }
 
 #create_proposal_container {
