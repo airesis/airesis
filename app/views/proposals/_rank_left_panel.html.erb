@@ -34,7 +34,7 @@
             <% end %>
             <br/><br/>
         <% end %>
-        <%= link_to proposal_path(@proposal, format: :pdf), target: '_blank', class: 'btn disable' do %>
+        <%= link_to url_for_proposal(@proposal, format: :pdf), target: '_blank', class: 'btn disable' do %>
             <i class="fa fa-file-pdf-o"></i>
             <%= t('pages.proposals.show.export_pdf') %>
         <% end %>

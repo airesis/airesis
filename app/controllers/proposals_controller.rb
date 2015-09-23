@@ -157,14 +157,14 @@ class ProposalsController < ApplicationController
       end
     end
 
-    flash.now[:info] = I18n.t('info.proposal.public_visible') if @proposal.visible_outside
-
     @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
-    @blocked_alerts = BlockedProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id) if current_user
-    register_view(@proposal, current_user)
+
     load_my_vote
     respond_to do |format|
       format.html {
+        flash.now[:info] = I18n.t('info.proposal.public_visible') if @proposal.visible_outside
+        register_view(@proposal, current_user)
+        @blocked_alerts = BlockedProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id) if current_user
         if @proposal.voting?
           flash.now[:info] = I18n.t('info.proposal.voting')
         end

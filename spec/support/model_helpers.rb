@@ -5,5 +5,5 @@ def expect_errors_on_model_field(model, field, count)
 end
 
 def to_slug_format(string)
-  string.downcase.gsub(' ', '-').gsub(',', '').gsub('.', '').gsub("'", '')
+  string.downcase.gsub(' ', '-').gsub(',', '').gsub('.', '').gsub("'", '-')
 end

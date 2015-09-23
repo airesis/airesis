@@ -12,7 +12,6 @@
             </span>
           </div>
 
-
           <% if can? :vote, @proposal %>
               <%= form_for 'data', url: votation_vote_path(proposal_id: @proposal.id), remote: true, method: :put do |f| %>
                   <%= f.text_area 'comment', placeholder: 'Share your thought' %>
