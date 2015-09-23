@@ -223,6 +223,9 @@ GEM
     em-socksify (0.3.0)
       eventmachine (>= 1.0.0.beta.4)
     email_reply_parser (0.5.8)
+    email_spec (1.6.0)
+      launchy (~> 2.1)
+      mail (~> 2.2)
     erubis (2.7.0)
     eventmachine (1.0.7)
     execjs (2.5.2)
@@ -660,6 +663,7 @@ DEPENDENCIES
   devise_traceable!
   el_finder
   email_reply_parser
+  email_spec
   factory_girl_rails
   faker
   figaro

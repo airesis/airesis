@@ -69,6 +69,7 @@ group :test do
   gem 'ruby-prof'
   gem 'test-unit'
   gem 'simplecov', require: false
+  gem 'email_spec'
 end
 
 group :development do

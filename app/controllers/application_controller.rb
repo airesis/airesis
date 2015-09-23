@@ -130,9 +130,9 @@ class ApplicationController < ActionController::Base
     @domain_locale = request.host.split('.').last
     @locale =
       if Rails.env.test? || Rails.env.development?
-        params[:l] || I18n.default_locale
+        params[:l].blank? ? I18n.default_locale : params[:l]
       else
-        params[:l] || current_domain.key || I18n.default_locale
+        params[:l].blank? ? (current_domain.key || I18n.default_locale) : params[:l]
       end
     I18n.locale = @locale
   end

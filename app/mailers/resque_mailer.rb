@@ -93,8 +93,6 @@ class ResqueMailer < ActionMailer::Base
     mail(bcc: @to.map { |u| u.email }, from: ENV['NOREPLY_EMAIL'], reply_to: @from.email, to: "test@airesis.it", subject: subject) #todo extract email
   end
 
-
-
   def publish(newsletter_id, user_id)
     @user = User.find(user_id)
     @newsletter = Newsletter.find(newsletter_id)
@@ -123,7 +121,6 @@ class ResqueMailer < ActionMailer::Base
     @user = User.find(subscriber_id)
     mail(from: "Airesis Forum <replytest+#{@post.token}@airesis.it>", to: @user.email, subject: "[#{@group.name}] #{@post.topic.subject}") #todo extract email
   end
-
 
   def test_mail
     mail(to: ENV['ADMIN_EMAIL'], subject: "Test Redis To Go")
