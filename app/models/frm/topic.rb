@@ -121,6 +121,10 @@ module Frm
       (posts.count.to_f / TOPICS_PER_PAGE.to_f).ceil
     end
 
+    def should_generate_new_friendly_id?
+      subject_changed?
+    end
+
     protected
 
     def set_first_post_user
