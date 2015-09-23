@@ -995,7 +995,7 @@ en-EU:
       other: "%{count} comments"
   activerecord:
     models:
-      meeting: 'Meeting'     
+      meeting: 'Meeting'
       places: 'Place'
     attributes:
       blog_comment:

@@ -1,0 +1,145 @@
+.proposal-main-container .proposal_content {
+    font: 14px, arial;
+    letter-spacing: 0.6px;
+    word-wrap: normal;
+}
+
+.wicked_center_panel {
+  text-align: justify;
+}
+
+.proposal_content > p > img {
+  height: inherit !important;
+  width: inherit !important;
+  display: block;
+  margin: 10px auto;
+}
+
+.proposal_content > table {
+  display: block;
+  margin: 10px auto;
+}
+
+.logo-image {
+  width: 22px;
+  margin-top: -7px;
+}
+
+.headerTitle {
+  padding-top: 0px;
+  display: inline-block;
+  padding-left: 5px;
+  padding-bottom: 0px;
+}
+
+#header {
+  margin-top: 10px;
+  margin-bottom: 50px;
+  border: none;
+  text-align: center;
+}
+
+.section_title {
+  font-weight: bold;
+}
+
+h3 {
+  font-weight: bold;
+}
+
+h1 {
+  text-align: center;
+  font-weight: bold;
+}
+
+.points {
+  margin: 0;
+  float: left;
+}
+
+.ranking {
+  margin: 0;
+  float: right;
+}
+
+.points-ranking {
+  text-align: center;
+  width: 35%;
+  margin: 0 auto;
+}
+
+.clear {
+  clear: both;
+}
+
+.dates {
+  position: absolute;
+  right: 0;
+}
+
+.properties-table {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.authors-cell {
+  float: left;
+  width: 49%;
+  margin-bottom: 10px;
+}
+
+.groups-cell {
+  float: right;
+  width: 49%;
+  margin-bottom: 10px;
+}
+
+.tags-cell {
+  float: left;
+  width: 49%;
+  margin-bottom: 10px;
+}
+
+.tags-cell .tag {
+  border: solid 1px black;
+  display: inline-block;
+  padding: 3px 7px;
+}
+
+.interest-borders-cell {
+  float: right;
+  width: 49%;
+  margin-bottom: 10px;
+}
+
+.category-cell {
+  width: 100%
+}
+
+.category-cell table {
+  margin: 0 auto;
+}
+
+.time-property {
+  float: right;
+}
+
+.solution_title {
+  text-align: center;
+}
+
+.tabs {
+  display: none;
+}
+
+.vote-properties {
+  margin-bottom: 20px;
+}
+
+.vote-results-title {
+  margin-bottom: 0;
+}
+
+.vote-results {
+  padding-top: 0;
+}

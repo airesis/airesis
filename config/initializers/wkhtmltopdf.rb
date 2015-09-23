@@ -1,1 +1,1 @@
-WickedPdf.config = { exe_path: '/home/coorasse/AiresisWorkspace/wkhtmltopdf9' }
+WickedPdf.config = { exe_path: `which wkhtmltopdf`.strip }
