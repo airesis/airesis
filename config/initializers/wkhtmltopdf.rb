@@ -1,1 +1,1 @@
-WickedPdf.config = { exe_path: `which wkhtmltopdf`.strip }
+WickedPdf.config = { exe_path: ENV['WKHTMLTOPDF_PATH'] || `which wkhtmltopdf`.strip }

@@ -222,3 +222,7 @@ PAYPAL_MERCHANT: "X25TSHNPP9XXX"
 PAYPAL_URL: "https://www.sandbox.paypal.com/cgi-bin/webscr"
 #production:
 #PAYPAL_URL: "https://www.paypal.com/cgi-bin/webscr"
+
+# path to wkhtmltopdf exacutable
+# if this variable is not set then the value of `which wkhtmltopdf` is taken.
+# WKHTMLTOPDF_PATH: '/usr/bin/wkhtmltopdf'
