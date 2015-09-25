@@ -385,7 +385,7 @@ Written by (David *)Frenkiel - https://github.com/imdfl
 		var	jQueryLoaded = (typeof(jQuery) == "function"),
 			self = this,
 			jQueryPath = liteConfig.jQueryPath || "js/jquery.min.js",
-			scripts = (liteConfig.includeType ? liteConfig["includes_" + liteConfig.includeType] : liteConfig.includes) || ["lite-includes.js"];
+			scripts = ["lite-includes.js"];
 		
 		scripts = scripts.slice(); // create a copy not referenced by the config
 		

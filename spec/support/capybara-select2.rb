@@ -16,5 +16,17 @@ module Capybara
         find(:xpath, "//body").find(".select2-drop li", text: value).click
       end
     end
+
+    def select2ajax(css_selector, value = nil)
+      page.execute_script(%Q|$('#{css_selector}').select2("open");|)
+      if value
+        page.execute_script(%Q|$('.select2-search__field').val('#{value[0, 2]}').trigger('keyup');|)
+      end
+      page.execute_script %Q|
+                            window.setTimeout( function() {
+                              $('.select2-results__option--highlighted').trigger('mouseup');
+                            }, 1000);|
+      sleep 1.5
+    end
   end
 end

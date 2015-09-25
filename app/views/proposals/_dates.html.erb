@@ -1,5 +1,5 @@
 <span class="label info width-80">
-  <h3 id="status"><%= @proposal.in_valutation? ? t('pages.proposals.show.during_debate') : @proposal.state.description %></h3><!--TODO:I18n-->
+  <h5 id="status"><%= @proposal.in_valutation? ? t('pages.proposals.show.during_debate') : @proposal.state.description %></h5><!--TODO:I18n-->
 </span>
 <% if @proposal.is_anonima? %>
     <span class="label info width-80"><i class="fa fa-user-secret nickname-panel"></i> <%= t('pages.proposals.show.anonimity_active') %></span>

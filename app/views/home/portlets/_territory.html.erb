@@ -24,6 +24,7 @@
         %>
 
         var interestBorderPlace = "<%=@place_string%>";
+        var geocoder;
         if (!geocoder) {
             geocoder = new google.maps.Geocoder();
         }

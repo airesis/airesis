@@ -1,0 +1,19 @@
+.card
+  h2 = t('pages.groups.edit_work_areas.index.not_enabled')
+  p
+    = t('pages.groups.edit_work_areas.index.description')
+    br
+    = t('pages.groups.edit_work_areas.index.description2')
+    br
+    = t('pages.groups.edit_work_areas.index.description3')
+    br
+    = t('pages.groups.edit_work_areas.index.description4')
+    = link_to t('pages.groups.administration_panel.permissions').downcase, group_participation_roles_path(@group)
+
+  div style="margin:auto; text-align: center;"
+    = link_to t('pages.groups.edit_work_areas.index.enable'),
+              enable_areas_group_url(@group), method: :put, class: 'btn blue',
+              style: 'margin:auto; font-size: 4em; padding: 30px 30px !important;'
+
+  = content_for :left_panel do
+    = render partial: 'groups/administration_panel'

@@ -1,7 +1,6 @@
 <h2><%= @page_title %></h2>
 
-<%= render partial: "form", locals: {remote: false} %>
-
+<%= render partial: 'form', locals: {remote: false} %>
 
 <%= content_for :left_panel do %>
     <%= render partial: 'groups/administration_panel' %>

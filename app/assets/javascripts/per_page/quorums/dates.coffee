@@ -15,8 +15,8 @@ window.QuorumsDates =
 
     $('#proposal_votation_vote_period_id').select2
       minimumResultsForSearch: -1,
-      formatResult: formatPeriod,
-      formatSelection: formatPeriod,
+      templateResult: formatPeriod,
+      templateSelection: formatPeriod,
       escapeMarkup: (m)->
         return m
 

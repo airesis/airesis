@@ -12,31 +12,19 @@ window.Airesis = {
     console.log args if Airesis.development()
   select2town: (element)->
     element.select2
-      cacheDataSource: []
       placeholder: Airesis.i18n.type_for_town
-      query: (query) ->
-        _self = this
-        key = query.term
-        cachedData = _self.cacheDataSource[key]
-        if cachedData
-          query.callback results: cachedData
-          return
-        else
-          $.ajax
-            url: '/municipalities'
-            data:
-              q: query.term
-            dataType: 'json'
-            type: 'GET'
-            success: (data) ->
-              _self.cacheDataSource[key] = data
-              query.callback results: data
-              return
-        return
+      ajax:
+        url: '/municipalities'
+        dataType: 'json'
+        data: (params) ->
+          {
+          q: params.term
+          }
+        processResults: (data, page) ->
+          {results: data}
+        cache: true
       escapeMarkup: (m) ->
         m
-    element.select2('data', element.data('pre'))
-    return
   delay: do ->
     timer = 0
     (callback, ms) ->

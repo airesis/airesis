@@ -1,1 +1,3 @@
-$('#create_event_dialog').html("<%= j render 'wizard'%>");
+var container_ = $('#create_event_dialog');
+container_.html("<%= j render 'wizard'%>");
+new AiresisFormValidation(container_.find('form'));

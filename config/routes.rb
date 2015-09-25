@@ -1,6 +1,9 @@
 require 'sidekiq/web'
 
 Airesis::Application.routes.draw do
+  get '/validators/uniqueness/group/', to: 'validators/uniqueness#group'
+  get '/validators/uniqueness/user/', to: 'validators/uniqueness#user'
+  get '/validators/uniqueness/proposal/', to: 'validators/uniqueness#proposal'
 
   resources :searches, only: [:index]
 
@@ -528,13 +531,13 @@ Airesis::Application.routes.draw do
 
     constraints admin_required do
       namespace :admin do
-        resources :sys_locales
         resources :newsletters do
           member do
             get :preview
             patch :publish
           end
         end
+        mount RailsAdmin::Engine => '/data', as: 'rails_admin'
         mount Sidekiq::Web => '/sidekiq'
         get '/', to: 'panel#show', as: 'panel'
         resource :panel, controller: 'panel' do
@@ -569,10 +572,6 @@ Airesis::Application.routes.draw do
             get :document
           end
         end
-        resources :sys_features
-        resources :sys_movements
-        resources :announcements
-        resources :sys_payment_notifications, only: [:index]
       end
       mount Maktoub::Engine => '/maktoub/'
     end

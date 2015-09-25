@@ -37,7 +37,6 @@
 //= require jquery.tagcloud
 //= require jquery.switchbutton
 //= require intro.js
-//= require select2
 //= require underscore
 //= require jquery.textntags
 //= require paypal-button.min
@@ -47,10 +46,10 @@
 //= require list
 //= require diff_match_patch
 //= require jquery.appear
+//= require formValidation
+//= require formValidation-foundation.min
+//= require formValidation-airesis
 //= require init
-//= require rails.validations
-//= require rails.validations.simple_form
-//= require rails.validations.simple_form.foundation
 //= require facebook
 //= require google_analytics
 //= require twitter

@@ -1,0 +1,6 @@
+= form_tag add_group_frm_admin_mod_members_url(@group, @frm_mod), remote: true do
+  .inputs
+    label = t('frm.admin.mods.show.add_a_new_member')
+    = select_tag 'frm_user_id'
+  p.span1
+    = submit_tag t('frm.admin.mods.show.add_member'), class: 'btn blue', data: {disable_with: t('loading')}

@@ -16,17 +16,16 @@ window.EventsNew =
         ), 1000
         return
       prevCallback: ->
-    window.ClientSideValidations.selectors =
-      inputs: ':input:not(button):not([type="submit"])[name]:enabled'
-      validate_inputs: ':input:enabled:visible[data-validate], .select2-container:visible ~ :input:enabled[data-validate]'
-      forms: 'form[data-validate]'
-    $('#new_event').enableClientSideValidations()
+    new AiresisFormValidation($('#new_event'))
     $('#create_event_dialog').foundation('reveal', 'open', {
       closeOnBackgroundClick: false,
       closeOnEsc: false
     })
   initMunicipalityInput: ->
-    Airesis.select2town($('#event_meeting_attributes_place_attributes_municipality_id'))
+    input = $('#event_meeting_attributes_place_attributes_municipality_id')
+    Airesis.select2town(input)
+    input.change (e)->
+      $('#new_event').formValidation('revalidateField', input.attr('name'))
   initMapManager: ->
     if !EventsEdit.votation
       EventsNew.mapManager = new Airesis.MapManager('create_map_canvas')

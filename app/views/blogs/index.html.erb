@@ -1,18 +1,16 @@
 <% @extend = true %>
 <h1><%= t('pages.blogs.index.find_blog_label') %></h1>
-<div class="row full-width">
-  <div class="row">
-    <div class="columns large-6" id="blog_search_form">
-      <div class="card">
-        <%= render 'blogs/search_form' %>
-      </div>
+<div class="row">
+  <div class="columns large-6" id="blog_search_form">
+    <div class="card">
+      <%= render 'blogs/search_form' %>
     </div>
-    <div class="columns large-6 show-for-large-up">
-      <div data-tag-cloud class="card">
-        <% @tags.each do |tag| %>
-            <%= link_to tag.text, blogs_url(tag: tag.text), remote: true, rel: tag.blog_posts_count, class: 'round label' %>
-        <% end %>
-      </div>
+  </div>
+  <div class="columns large-6 show-for-large-up">
+    <div data-tag-cloud class="card">
+      <% @tags.each do |tag| %>
+          <%= link_to tag.text, blogs_url(tag: tag.text), remote: true, rel: tag.blog_posts_count, class: 'round label' %>
+      <% end %>
     </div>
   </div>
 </div>
@@ -20,7 +18,7 @@
 <% if @blogs.count > 0 %>
     <ul id="blogs_list" class="small-block-grid-2 medium-block-grid-3 large-block-grid-4 xlarge-block-grid-5 xxlarge-block-grid-6">
       <% @blogs.each do |blog| %>
-          <%= render partial: "blog", locals: {blog: blog} %>
+          <%= render partial: "blog", locals: { blog: blog } %>
       <% end %>
     </ul>
 
@@ -45,6 +43,7 @@
     }
 
     $('#interest_border').tokenInput("<%=interest_borders_path(format: :json )%>", {
+        propertyToSearch: 'text',
         crossDomain: false,
         prePopulate: $('#interest_border').data("pre"),
         hintText: "<%=t('interest_borders.hint')%>",

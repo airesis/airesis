@@ -2,4 +2,4 @@ var container_ = $('<div id="area_role_container" class="reveal-modal" data-reve
 container_.html("<%=j render(partial: 'area_roles/form', locals: {button_name: t('buttons.create'), remote: true})%>");
 $('body').append(container_);
 airesis_reveal(container_);
-
+new AiresisFormValidation(container_.find('form'));
