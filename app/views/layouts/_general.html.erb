@@ -53,14 +53,12 @@
                 </div>
             <% end %>
             <div id="centerpanelextended" class="centerpanelextended <%= 'noleft' unless content_for?(:left_panel) %> <%= 'nomargin' if @nomargin %>">
-              <div class="row extended">
-                  <div class="centerfloat <%= 'extended' if @extend %>">
-                    <div id="flash_messages">
-                      <%= render partial: 'layouts/flash', locals: { flash: flash } %>
-                    </div>
-                    <%= render partial: 'layouts/tutorials' %>
-                    <%= yield :layout %>
-                  </div>
+              <div class="row centerfloat <%= 'extended' if @extend %>">
+                <div id="flash_messages">
+                  <%= render partial: 'layouts/flash', locals: { flash: flash } %>
+                </div>
+                <%= render partial: 'layouts/tutorials' %>
+                <%= yield :layout %>
               </div>
               <div class="clearboth"></div>
               <%= yield :absolute %>
