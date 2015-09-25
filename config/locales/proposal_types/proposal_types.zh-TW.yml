@@ -1,0 +1,117 @@
+zh-TW:
+  pages:
+    proposals:
+      edit:
+        add_solution:
+          standard: 增加另一個解決方案
+          poll: 增加另一個選項
+          rule_book: 增加另一個解決方案
+          press: 增加另一個解決方案
+          event: 增加另一個解決方案
+          estimate: 增加另一個解決方案
+          agenda: 增加另一個觀點
+          candidates: 增加另一個候選人
+          simple: 增加另一個解決方案
+      new:
+        standard:
+          problems_title: 問題
+          problems_title_label: 想要解決的問題是什麼？要達成目標前會遇到的挑戰、困難是什麼？
+          objectives_title: 目標
+          step_4_title: 你可以現在輸入，或稍後根據收到的討論來填寫
+          solution:
+            description: 解決方案
+            time: 時間
+            subject: 負責人
+            resources: 描述必要的資源以及如何取得
+            aspects: 倫理、環境與社會各方面
+            documents: 文件檔案
+            pros: 優點
+            cons: 缺點
+            title: 標題
+          suggestion_html: '<div><b>範例：</b></div><div>降低用於灌溉的飲用水。</div><div>使用飲用水來供水給公園和私人花園是一種浪費，也會增加相關的費用。除此之外，還會降低下水道的水量。</div>'
+        rule_book:
+          problems_title: 問題
+          problems_title_label: 這項規定要用來解決的問題是什麼？規定所管轄的議題有哪些？為什麼？
+          suggestion_html: '<div><b>範例：</b></div><div>規則書：預約聖彼得堂</div><div>Silverham 鎮有一間會議室，現今使用僅由市長與其"研究員"使用。是時候來訂定規則，開放讓所有公民和社會團體可以申請預訂的權利，來舉辦公開活動。</div>'
+          solution:
+            title: 標題
+            article: '文章數量 %{num}'
+            pros: 優點
+            cons: 缺點
+          paragraph:
+            inspire: 規則發想
+            requirements: 待滿足的需求
+        press:
+          problems_title_label: 你想傳達的主要訊息是什麼？理解和交流時可能會有的障礙是？有文章或最新消息的連結是你希望附加、或作為調整的依據？
+          problems_title: 傳遞的訊息
+          suggestion_html: '<div><b>範例：</b></div><div>宣傳 Airesis 新版本 3.5 的發佈.</div><div>我們需要為新版本的 Airesis 發佈進行宣傳，因為它有一個重要的新功能「公開管理員」。宣傳素材中需要解釋 Airesis 是什麼以及吸引媒體的注意，利用最近白宮裡在使用 Airesis 的傳言。</div>'
+          solution:
+            title: 標題
+            maintitle: 標題
+            subtitle: 副標
+            incipit: 緣起
+            body: 內文
+            conclusion: 結論
+            deep: 洞察分析
+          paragraph:
+            target: 收件者/對象
+        estimate:
+          problems_title_label: 為了解決這個問題，有任何需要購買或付費的物品？
+          problems_title: 問題
+          suggestion_html: '<div><b>範例：</b></div><div>更換協會總部的熱電廠。</div><div>由於舊鍋爐的故障，我們的總部無法度過冬季。考慮到它是不可能修復，我們需要一個新的、低耗能來取代。</div>'
+          solution:
+            title: 標題
+            cost: 數量
+            problems: 它的限制及問題
+            dumentation: 文件
+          paragraph:
+            technical_constrains: 技術限制
+            temporal_constrains: 時間限制
+            other_constrains: 環境、 道德、 法律限制
+            budget: 最大預算
+            recipient_budget: 詢價的收件者
+        agenda:
+          problems_title: 會議的類型
+          suggestion_html: '<div><b>範例：</b></div><div>為我們的會議選擇一個議程。</div><div>普通協調會議，交流經驗的地方委員會為義大利的生物農業的引用者。</div>'
+          solution:
+            title: 標題
+            priorities: 議程的重點
+            links: 洞察連結
+            description: 描述
+            estimated_time: 需要的討論的時間
+          paragraph:
+            date_time: '日期和時間 '
+            place: 地點
+        event:
+          problems_title: 活動範圍
+          problems_title_label: 請描述為何你想舉辦這個活動？目標是？
+          suggestion_html: '<div><b>範例：</b></div><div>籌備一個低成本的搖滾音樂會。</div><div>在我們的小鎮有許多年輕的樂隊，由於缺乏表演空間，無法展現和提升他們的才華。此外，由於缺乏資源，明年夏天市議會幾個活動需要宣傳。</div>'
+          solution:
+            title: 標題
+            maintitle: 標題
+            description: 描述活動方案
+            program: 日期、時間與計劃
+            body: 地點
+            place: 地點
+            organization: 主辦團體
+            resources: 描述必要的資源以及如何取得
+            pros: 優點
+            cons: 缺點
+          paragraph:
+            similar_experiences: 類似的經驗
+            stakeholders: Stakeholders（參與者）
+            desired_characteristics: 所需的特質
+        candidates:
+          suggestion_html: '<div><b>範例：</b></div><div>為通訊群組選出新的召集人。</div><div>通訊群組剛成立，有必要選出召集人。成為群組成員至少 5 個月以上的人，皆可被提名。</div>'
+          solution:
+            name: 姓名
+            data: 個人資訊
+            curriculum: 教學課程
+          paragraph:
+            election_type: 選舉的類型的說明：
+        simple:
+          problems_title: 問題
+          problems_title_label: 描述你想要解決的問題是什麼？達成目標前會遇到的挑戰、困難是什麼？
+          solution:
+            description: 描述
+            title: 解決方案 1

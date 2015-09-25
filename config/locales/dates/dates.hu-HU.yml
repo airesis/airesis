@@ -1,9 +1,22 @@
-hu:
+hu-HU:
+  countdowns:
+    labelsPlural:
+      - Évek
+      - Hónapok
+      - Hetek
+      - Napok
+      - Órák
+      - Percek
+      - Másodpercek
+    labelsSingular:
+      - Év
+      - Hónap
+      - Hét
+      - Nap
+      - Óra
+      - Perc
+      - Másodperc
   calendar:
-    monthNames: "['Január','Február','Március','Április','Május','Június','Július','Augustus','Szeptember','Octóber','November','December']"
-    monthNamesShort: "['Jan','Febr','Márc','Ápr','Máj','Jún','Júl','Aug','Szept','Okt','Nov','Dec']"
-    dayNames: "['Vasárnap','Hétfő','Kedd','Szerda','Csütörtök','Péntek','Szombat']"
-    dayNamesShort: "['V','H','K','Sze','Cs','P','Szo']"
     today: ma
     month: hónap
     week: hét
@@ -11,67 +24,18 @@ hu:
     firstDay: 0
     timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
   date:
-    order:
-      - :day
-      - :month
-      - :year
     formats:
-      default: '%d-%m-%Y'
       short: '%b %d'
       long: '%Y %B %d.'
-    day_names:
-      - Vasárnap
-      - Hétfő
-      - Kedd
-      - Szerda
-      - Csütörtök
-      - Péntek
-      - Szombat
-    abbr_day_names:
-      - Vas
-      - Hét
-      - Ke
-      - Szerda
-      - Péntek
-      - Csü
-      - Szombat
-    month_names:
-      - nil
-      - január
-      - február
-      - március
-      - április
-      - május
-      - június
-      - Július
-      - Augusztus
-      - szeptember
-      - október
-      - november
-      - December
-    abbr_month_names:
-      - nulla
-      - Jan
-      - Febr
-      - Március
-      - Április
-      - Május
-      - Június
-      - Július
-      - Augusztus
-      - Szeptember
-      - okt.
-      - November
-      - December
   time:
     formats:
-      default: '%Y %b %d %H:%M'
+      default: '</br>%Y %b %d %H:%M'
       long: '%A %d %B %y: %I:% M %p'
       long_date: '%Y %B %d (%A)'
       long_date_time: '%d %B %Y %B %d (%A) %H:%M'
       from_long_date_time: '%Y %B %d (%A) %H:%M -tól'
       until_long_date_time: '%Y %B %d (%A) %H:%M -ig'
-      short: '%Y %b %d.'
+      short: '%Y. %b. %d.'
       two_rows: '%Y %b %d <br/> %H:%M'
       weekday: '%a %H:%M'
       month: '%B'
@@ -79,8 +43,6 @@ hu:
       hour: '%H:%M'
       yesterday_at: 'tegnap %H:%M -kor'
       textfield: '%Y/%m/%d %H:%M'
-      rich: '%Y-%m-%dT%H:%M'
-      datepicker: '%Y-%m-%d %H:%M'
     am: Délelött
     pm: Du.
     left:

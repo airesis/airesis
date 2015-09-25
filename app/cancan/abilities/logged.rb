@@ -57,9 +57,15 @@ module Abilities
                                  ProposalState::VOTING, ProposalState::REVISION, ProposalState::ABANDONED]
 
       can :vote, Proposal, private: false, proposal_state_id: ProposalState::VOTING
+
       can :vote, Proposal,
           proposal_state_id: ProposalState::VOTING,
           group_proposals: {group: can_do_on_group(user, GroupAction::PROPOSAL_VOTE)}
+
+      cannot :vote, Proposal do |proposal|
+        proposal.presentation_areas.count > 0
+      end
+
       can :vote, Proposal,
           proposal_state_id: ProposalState::VOTING,
           presentation_areas: can_do_on_group_area(user, GroupAction::PROPOSAL_VOTE)
@@ -71,8 +77,9 @@ module Abilities
 
       can :set_votation_date, Proposal do |proposal| # return true if the user can put the proposal in votation
         (proposal.updated_at < (Time.now - OTHERS_CHOOSE_VOTE_DATE_DAYS.days)) &&
-          proposal.private? &&
-          can_do_on_group?(user, proposal.groups.first, GroupAction::PROPOSAL_DATE)
+          !proposal.private? ||
+          (proposal.private? &&
+            can_do_on_group?(user, proposal.groups.first, GroupAction::PROPOSAL_DATE))
       end
 
       can :regenerate, Proposal, proposal_state_id: ProposalState::ABANDONED, private: false

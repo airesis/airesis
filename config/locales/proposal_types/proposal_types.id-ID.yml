@@ -1,0 +1,214 @@
+id-ID:
+  pages:
+    proposals:
+      edit:
+        add_solution:
+          standard: Tambahkan solusi lain
+          poll: Tambahkan opsi lain
+          rule_book: Tambahkan solusi lain
+          press: Tambahkan solusi lain
+          event: Tambahkan solusi lain
+          estimate: Tambahkan solusi lain
+          agenda: Tambahkan poin lain
+          candidates: Tambahkan kandidat lain
+          simple: Tambahkan solusi lain
+        solution_title:
+          standard: Solusi
+          poll: Opsi
+          rule_book: Solusi
+          press: Solusi
+          event: Solusi
+          estimate: Solusi
+          agenda: Poin
+          candidates: Kandidat
+          simple: Solusi
+        insert_title:
+          standard: Masukkan judul
+          poll: Masukkan judul
+          rule_book: Masukkan judul
+          press: Masukkan judul
+          event: Masukkan judul
+          estimate: Masukkan judul
+          agenda: Masukkan judul
+          candidates: Masukkan nama dan nama keluarga
+          simple: Masukkan judul
+        new_solution_title:
+          standard: 'Solusi <span class="num">%{num}</span>:'
+          poll: 'Opsi <span class="num">%{num}</span>:'
+          rule_book: 'Solusi <span class="num">%{num}</span>:'
+          press: 'Solusi <span class="num">%{num}</span>:'
+          event: 'Solusi <span class="num">%{num}</span>:'
+          estimate: 'Solusi <span class="num">%{num}</span>:'
+          agenda: '<span class="num">%{num}</span> poin:'
+          candidates: 'Kandidat <span class="num">%{num}</span>:'
+          simple: 'Solusi <span class="num">%{num}</span>:'
+      new:
+        standard:
+          problems_title: Masalah
+          problems_question: Apa masalah yang harus diselesaikan dan/atau apa hambatan yang harus diatasi untuk mencapai tujuan itu?
+          problems_title_label: Apa masalah yang harus diselesaikan dan/atau apa hambatan yang harus diatasi untuk mencapai tujuan itu?
+          objectives_title: Tujuan
+          step_4_title: Anda dapat memasukkan teks proposal atau menulisnya nanti berdasarkan masukan yang diterima
+          solution:
+            description: Deskripsi solusi
+            time: Waktu
+            subject: Pengawas
+            resources: Sumber daya yang diperlukan dan cara untuk mendapatkannya
+            aspects: Aspek sosial, lingkungan, etika
+            documents: Dokumentasi
+            pros: Pro
+            cons: Kontra
+            title: Solusi 1
+          suggestion_html: |
+            <div><b>Contoh:</b></div>
+            <div>Mengurangi penggunaan air minum untuk irigasi.</div>
+            <div>Menggunakan air minum untuk menyirami taman-taman umum dan kebun-kebun pribadi adalah pemborosan dan memiliki biaya yang relevan. Selain itu, akuifer yang menyuplai akuaduk hampir habis</div>
+          paragraph:
+            similar: Pengalaman serupa
+            stakeholders: Pemangku kepentingan
+            requirements: Persyaratan solusi
+          question:
+            paragraph:
+              similar: Apakah ada pengalaman yang dapat menginspirasi untuk mencapai tujuan? Di antara kemungkinan solusi/inisiatif yang sudah ada, mana yang mendapat hasil terbaik dan mana yang terburuk? Kenapa?
+              stakeholders: Siapa yang akan menerima manfaat dan kekurangan dari pencapaian tujuan dan solusi yang diusulkan? Apakah subjek-subjek ini terlibat dalam diskusi proposal ini? Dengan cara apa?
+              requirements: Apakah karakteristik yang harus mematuhi solusi idealnya? Mungkin mengacu kepada persyaratan teknis dan prinsip yang harus dipatuhi.
+            solution:
+              description: Jelaskan solusi yang, dalam praktiknya, diusulkan untuk diambil untuk mencapai tujuan.
+              time: Kapan solusi ini akan diterapkan? Identifikasikan kemungkinan tahapan penerapannya.
+              subject: Siapa yang akan menerapkan atau mengatur untuk menerapkan solusi tersebut? Jika ada penerapan, bagaimana cara memantau dan memverifikasi hasil solusi tersebut?
+              resources: Apakah dana, relawan, perangkat, dan keahlian dibutuhkan untuk menerapkan solusi ini? Buat daftar dan hitung jumlahnya. Bagaimana sumber daya ini akan ditemukan?
+              aspects: Apakah solusi ini memenuhi persyaratan etika grup atau masyarakat yang ditujukan? Apakah dampak sosial dan lingkungannya?
+              documents: Apakah ada dokumentasi untuk solusi ini?
+              pros: Buat daftar dan rangkuman keuntungan dan kelebihan utama dari solusi ini. Tunjukkan pemangku kepentingan dari keuntungan tersebut.
+              cons: Buat daftar dan rangkuman masalah dan kerugian utama dari solusi ini. Tunjukkan pemangku kepentingan dari kerugian tersebut.
+        rule_book:
+          problems_title: Masalah
+          problems_title_label: Apakah masalah yang harus diselesaikan dengan penerapan peraturan ini? Apakah masalah yang harus diatur? Kenapa?
+          problems_question: Apakah masalah yang harus diselesaikan dengan penerapan peraturan ini? Apakah masalah yang harus diatur? Kenapa?
+          suggestion_html: |
+            <div><b>Contoh:</b></div>
+            <div>Buku aturan untuk memesan aula St. Peter</div>
+            <div>Kota Silverham memiliki ruang rapat yang dewasa ini hanya digunakan oleh "teman-teman" Walikota. Ini waktunya untuk memilih prosedur adil untuk memberi semua warga dan asosiasi publik hak untuk memesan ruang tersebut untuk kegiatan umum.</div>
+          solution:
+            title: Solusi 1
+            article: 'Artikel %{num}'
+            pros: Pro
+            cons: Kontra
+          paragraph:
+            inspire: Peraturan untuk menginspirasi
+            requirements: Persyaratan yang harus dipenuhi
+            stakeholders: Pemangku kepentingan (orang-orang yang terlibat)
+          question:
+            paragraph:
+              inspire: Apakah ada peraturan yang memberi inspirasi serupa? Di antara pengalaman aturan yang serupa, mana yang mendapat hasil terbaik dan mana yang terburuk? Kenapa?
+              requirements: Apakah kendala utama yang harus diperhitungkan peraturan itu? Apakah nilai-nilai dan prinsip-prinsip yang harus dipatuhi? Apakah harga penerapan peraturan itu? Apakah subjek yang akan diperintahkan untuk menerapkannya?
+              stakeholders: Siapa yang akan paling terpengaruh oleh penerapan peraturan itu? Siapa yang akan menanggung akibatnya? Apakah subjek-subjek ini terlibat dalam diskusi proposal ini? Dengan cara apa?
+            solution:
+              article: Masukkan teks artikel pertama, pastikan interpretasinya terlihat unik. Masukkan definisi istilah atau ungkapan yang mungkin akan disalahpahami.
+              pros: Buat daftar dan rangkuman keuntungan dan kelebihan utama dari solusi ini. Tunjukkan pemangku kepentingan dari keuntungan tersebut.
+              cons: Buat daftar dan rangkuman masalah dan kerugian utama dari solusi ini. Tunjukkan pemangku kepentingan dari kerugian tersebut.
+        press:
+          problems_title_label: Apakah pesan yang Anda ingin sampaikan? Apakah hambatan yang mungkin terjadi pada pemahaman dan alirannya? Apakah ada artikel atau berita terkini yang Anda ingin tiru atau sesuaikan?
+          problems_title: Pesan untuk disampaikan
+          problems_question: Apakah pesan yang Anda ingin sampaikan? Apakah hambatan yang mungkin terjadi pada pemahaman dan alirannya? Apakah ada artikel atau berita terkini yang Anda ingin tiru atau sesuaikan?
+          suggestion_html: |
+            <div><b>Contoh:</b></div>
+            <div>Iklankan perilisan Airesis versi 3.5.</div>
+            <div>Kita harus mengiklankan perilisan Airesis versi 3.5, yang memberi fitur-fitur penting untuk Administrasi Publik. Penting untuk menjelaskan tentang Airesis dan menarik perhatian pers, mengingat rumor terkini tentang penggunaan Airesis di Gedung Putih.</div>
+          solution:
+            title: Solusi 1
+            maintitle: Judul
+            subtitle: Subjudul
+            incipit: Pendahuluan
+            body: Isi
+            conclusion: Kesimpulan
+            deep: Pemahaman
+          paragraph:
+            target: Penerima/Sasaran
+          question:
+            paragraph:
+              target: Siapakah sasaran artikel/siaran pers ini? Aspek-aspek mana dari pesan yang Anda ingin sampaikan ini yang paling menarik bagi mereka?
+            solution:
+              maintitle: Bagaimana Anda dapat merangkum dalam beberapa beberapa kata tentang pesan artikel/siaran pers tersebut?
+              subtitle: Terangkan secara singkat tentang konsep utama artikel ini atau informasi tambahan untuk judulnya.
+              incipit: Terangkan dalam beberapa kata tentang siapa melakukan apa, kapan dia melakukannya, di mana, dan mengapa, dengan menyoroti alasan fakta tersebut sangat relevan.
+              body: Jelaskan faktanya dengan lebih detail, namun sintetis. Tulis kalimat pendek dan signifikan.
+              conclusion: Apakah ada proposal yang harus dibuat untuk pembaca? Apa kemungkinan pengembangan fakta atau implikasinya?
+              deep: Masukkan tautan, kontak atau informasi tambahan untuk mereka yang ingin memperdalam berita ini.
+        estimate:
+          problems_title_label: Apa barang atau jasa yang ingin Anda beli? Untuk memecahkan masalah yang mana?
+          problems_title: Masalah
+          problems_question: Apa barang atau jasa yang ingin Anda beli? Untuk memecahkan masalah yang mana?
+          suggestion_html: |
+            <div><b>Contoh:</b></div>
+            <div>Penggantian PLTP di kantor pusat Asosiasi.</div>
+            <div>Karena kerusakan ketel uap lama, kantor pusat kami tidak dapat beroperasi pada musim dingin. Karena tidak mungkin untuk diperbaiki, kami harus mengganti PLTP lama dengan yang baru, yang hemat energi.</div>
+          solution:
+            title: Solusi 1
+            cost: Jumlah
+            problems: Mengenai kendala dan masalah
+            dumentation: Dokumentasi
+          paragraph:
+            technical_constrains: Kendala teknis
+            temporal_constrains: Kendala temporer
+            other_constrains: Kendala peraturan, etika, lingkungan
+            budget: Anggaran maksimum
+            recipient_budget: Penerima permintaan penawaran
+        agenda:
+          problems_title: Jenis rapat
+          suggestion_html: |
+            <div><b>Contoh:</b></div>
+            <div>Pilih agenda untuk rapat.</div>
+            <div>Rapat koordinasi biasa untuk bertukar pengalaman dengan rujukan komite lokal untuk pertanian biologis di Italia.</div>
+          solution:
+            title: Hal
+            priorities: Prioritas hal
+            links: Tautan pemahaman
+            description: Keterangan
+            estimated_time: Waktu diskusi yang dibutuhkan
+          paragraph:
+            date_time: Tanggal dan waktu
+            place: Tempat
+        event:
+          problems_title: Lingkup kegiatan
+          problems_title_label: Kenapa Anda ingin menyelenggarakan sebuah kegiatan? Apakah tujuannya?
+          problems_question: Kenapa Anda ingin menyelenggarakan sebuah kegiatan? Apakah tujuannya?
+          suggestion_html: |
+            <div><b>Contoh:</b></div>
+            <div>Menyelenggarakan konser musik cadas murah.</div>
+            <div>Di kota kami, banyak grup band muda yang tidak dapat memamerkan dan meningkatkan bakat mereka karena kurangnya tempat. Selain itu, ada sedikit kegiatan yang dipromosikan pemerintah kota untuk musim panas mendatang karena kurangnya sumber daya.</div>
+          solution:
+            title: Solusi 1
+            maintitle: Judul
+            description: Deskripsi solusi
+            program: Tanggal, waktu, dan rencana
+            body: tempat
+            place: Tempat
+            organization: Perencanaan Kegiatan
+            resources: Sumber daya yang diperlukan dan cara untuk mendapatkannya
+            pros: Pro
+            cons: Kontra
+          paragraph:
+            similar_experiences: Pengalaman serupa
+            stakeholders: Pemangku kepentingan (orang-orang yang terlibat)
+            desired_characteristics: Karakteristik yang diinginkan
+        candidates:
+          solution:
+            name: Nama dan Nama Keluarga Kandidat
+            data: Data pribadi
+            curriculum: Kurikulum
+          paragraph:
+            election_type: 'Deskripsi jenis pemilihan:'
+        simple:
+          problems_title: Masalah
+          problems_title_label: Apa masalah yang harus diselesaikan dan/atau apa hambatan yang harus diatasi untuk mencapai tujuan itu?
+          problems_question: Apa masalah yang harus diselesaikan dan/atau apa hambatan yang harus diatasi untuk mencapai tujuan itu?
+          solution:
+            description: Keterangan
+            title: Solusi 1
+        petition:
+          paragraph:
+            text: Teks petisi
+          question:
+            paragraph:
+              text: Teks petisi

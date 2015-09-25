@@ -1,4 +1,4 @@
-hu:
+hu-HU:
   db:
     sys_locales:
       it-IT:
@@ -56,8 +56,6 @@ hu:
         description: Támogassa az indítványokat a csoport nevében
       REQUEST_ACCEPT:
         description: Új tagok felvétele a csoportba
-      SEND_CANDIDATES:
-        description: Személyek jelölése választásra
       PROPOSAL_VIEW:
         description: Privát javaslatok megtekintése
       PROPOSAL_PARTICIPATION:
@@ -106,8 +104,6 @@ hu:
         message: 'Az indítvány <b>%{title}</b> új értékelést kapott'
       available_author:
         description: Felhasználó elérhető, hogy egy indítvány szerkesztőjévé váljon
-        email_subject: '%{title} - Új szerkesztők elérhetőek'
-        message: '%{user} elérhető, hogy a(z) <b>%{title}</b> indítvány szerkesztőjévé váljon'
       author_accepted:
         description: Az indítvány szerkesztőjeként való elfogadása
         email_subject: '%{title} - Ön most a szerkesztője!'
@@ -121,19 +117,13 @@ hu:
         email_subject: '%{proposal} - hozzájárulás visszakerült a vitára'
         message: 'Az Ön által hozzáadott hozzájárulás a(z) <b>%{proposal}</b> indítványban visszakerült vitára'
       new_contributes:
-        description: Új hozzájárulások az indítványokban, amikben részt veszek
-        email_subject: '%{title} - Új hozzájárulás'
         message:
-          zero: '<b>%{name}</b> beadott egy új hozzájárulást a(z) <b>%{title}</b> indítványhoz'
           one: '<b>%{name}</b> beadott egy új hozzájárulást a(z) <b>%{title}</b> indítványhoz'
           other: '<b>%{count}</b> új hozzájárulás van a(z) <b>%{title}</b> indítványban'
       text_update:
         description: Indítvány szövegének frissítése, amiben részt veszek
-        email_subject: '%{title} - A szöveget módosították'
-        message: 'A(z) <b>%{title}</b> indítványt frissítették'
       new_contributes_mine:
         description: Új hozzájárulások az indítványaimban
-        email_subject: '%{title} - Új hozzájárulás'
         message:
           zero: '<b>%{name}</b> beadott egy új hozzájárulást a(z) <b>%{title}</b> indítványához'
           one: '<b>%{name}</b> beadott egy új hozzájárulást a(z) <b>%{title}</b> indítványához'
@@ -214,13 +204,9 @@ hu:
         message: '<b>%{proposal}</b> új indítvány jött létre a <b>%{group}</b> csoportban'
       new_participation_request:
         description: Új részvételi kérelem
-        email_subject: Új részvételi kérelem
-        message: '<b>%{user}</b>-t felkérték, hogy vegyen részt a <b>%{group}</b> csoportban'
       new_blog_comment:
         description: Új hozzászólás a blogomban
-        email_subject: Új hozzászólás a blogodban
         message:
-          zero: '<b>%{user}</b> hozzászólt a <b>%{title}</b> megosztásodhoz'
           one: '<b>%{user}</b> hozzászólt a <b>%{title}</b> megosztásodhoz'
           other: '<b>%{count}</b> új hozzászólás a <b>%{title}</b> megosztásodban'
       new_comments_mine:

@@ -7,7 +7,7 @@ window.ProposalsEdit =
   checkActive: false
   ckedstoogle_: {}
   init: ->
-    integrate_contributes = []
+    ProposalsEdit.integrated_contributes = []
     safe_exit = false
     window.onbeforeunload = @.check_before_exit
     $(document).on 'keyup', '.solution_main h3 .tit1 .tit2 input', ->
@@ -135,7 +135,7 @@ window.ProposalsEdit =
     editor_ = CKEDITOR.replace(id,
       'toolbar': 'proposal'
       'language': Airesis.i18n.locale
-      'customConfig': 'config_lite.js')
+      'customConfig': Airesis.assets.ckeditor.config_lite)
     ProposalsEdit.ckedstoogle_[id] =
       first: true
     ProposalsEdit.addEditorEvents editor_

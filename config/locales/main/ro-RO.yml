@@ -1,6 +1,5 @@
-ro:
+ro-RO:
   permissions_required: Nu ai voie să faci această operaţie
-  test: Test
   open_space: Spaţiu deschis
   hello: Bună ziua lume
   pages:
@@ -24,7 +23,6 @@ ro:
         role_column: Rolul
         get_out_of_group_button: Lăsaţi acest grup
         get_out_of_group_confermation: Sînteți sigur?
-        secret_vote: Secret
         votations_title: Voturi la care ați participat
         proposal_column: Propunere
         votation_date_column: Data
@@ -44,7 +42,7 @@ ro:
         username_label: Nume de utilizator
         registered_from: Înregistrat la
         load_image: Încărcaţi o imagine
-        max_file_size: "Dimensiune maximă: 2MB"
+        max_file_size: 'Dimensiune maximă: 2MB'
         what_can_i_do: Ce pot face?
         what_i_cant_do: Ce nu pot face?
       send_message:
@@ -58,7 +56,7 @@ ro:
         account_and_privacy: Cont şi confidenţialitate
         title: SETĂRILE ŞI PREFERINŢELE
       alarm_preferences:
-        receive_on_address: "Primeste newsletter-ul %{email}"
+        receive_on_address: 'Primeste newsletter-ul %{email}'
         alerts: Alertă
         emails: E-mailuri
       privacy_preferences:
@@ -66,7 +64,7 @@ ro:
         show_urls: Arată URL-urile Facebook, Google + şi LinkedIn ale utilizatorilor
         private_messages: Primeste mesaje private de la alţi utilizatori
         join_accounts: Alăturăte unui alt cont
-        join_accounts_description: "Pe Airesis ai capacitatea de a conecta toate reţea socială la un singur cont. <br/> Selectează furnizorul pentru a te conecta şi vei fi întotdeauna capabil de a accesa acelaşi cont de Facebook, Google, Twitter şi multe altelet!"
+        join_accounts_description: 'Pe Airesis ai capacitatea de a conecta toate reţea socială la un singur cont. <br/> Selectează furnizorul pentru a te conecta şi vei fi întotdeauna capabil de a accesa acelaşi cont de Facebook, Google, Twitter şi multe altelet!'
         joined_all: Deja ai alăturat toţi furnizorii disponibil. Vă mulţumesc!
         join_facebook: Adăugaţi-vă contul de Facebook
         join_google: Adăugaţi-vă contul Google
@@ -86,7 +84,6 @@ ro:
         your_borders: Graniţele geografice de interes
     groups:
       accept_requests:
-        portavoce: "Purtător de cuvânt: când un utilizator doreşte să se alăture grupului numai purtătorii de cuvânt ai grupului pot accepta cererea. Odata ce purtătorul de cuvânt a acceptat cererea, utilizatorul va deveni membru al grupului."
         unavailable_option: Opţiune încă nedisponibilă
       administration_panel:
         title: Panou de administrare
@@ -124,7 +121,7 @@ ro:
         groups_list: Grupuri în care participați
         groups_registration: Înregistrare grup
         groups_list_2: Listă de grupuri
-        no_groups_yet: "Nu participați la niciun %{name} încă"
+        no_groups_yet: 'Nu participați la niciun %{name} încă'
         open_space_title: Evenimente publice
         show_more: Arată mai multe grupuri
         search_mask: Instrument de căutare
@@ -133,7 +130,6 @@ ro:
         search_description: Utilizaţi instrumentul căutare sau faceţi clic pe o etichetă pentru a găsi grupuri de interes
         insert_query_or_place: Trebuie să introduceţi cel puţin trei caractere sau un chenar geografic
         tags: Tag-uri
-        participants_number: Numărul de participanţi
         proposals_number: Numărul de propuneri
         events_number: Numărul de evenimente
         no_results: Nici un grup de găsit
@@ -143,24 +139,22 @@ ro:
         create_button: Crează un grup!
         change_permissions_button: Doriţi să modificaţi permisiunile standard?
         change_permissions_title: Modifică permisiunile standard pentru noi utilizatori
-        change_permissions_description: "Acestea sunt acţiunile pe care noii utilizatori le pot efectua în cadrul grupului: Amintiţi-vă că puteţi întotdeauna să le modificați și să creați noi roluri!"
-        errors_title: "Ne pare rau, dar acest post nu se poate insera:"
+        change_permissions_description: 'Acestea sunt acţiunile pe care noii utilizatori le pot efectua în cadrul grupului: Amintiţi-vă că puteţi întotdeauna să le modificați și să creați noi roluri!'
+        errors_title: 'Ne pare rau, dar acest post nu se poate insera:'
         tags:
           title: Tag-uri (separate prin virgulă)
       edit:
         title: Editare setări de grup
         change_permissions: În setările pentru roluri şi permisiuni puteţi schimba întotdeauna permisiunile membrilor.
-        remove_user_confirm: "Sigur doriţi să-l eliminaţi pe %{name} din grup?"
+        remove_user_confirm: 'Sigur doriţi să-l eliminaţi pe %{name} din grup?'
         modify_group: Modifică grupul
       layout:
         proposals_button: PROPUNERI
-        calendar: CALENDAR
       show:
         rules_button: Reguli
         blog_button: Creează blog-ul meu
-        participants_list: "Lista de participanţi "
+        participants_list: 'Lista de participanţi '
         invite_button: Invită-ți prietenii!
-        show_all_participants: "Arată toate %{count}..."
         participants_full_list: Lista completă a membrilor grupului
         no_participants: Niciun utilizator nu participă la acest grup.
         no_blogs_yet: Nicio postare în acest grup, reveniți.
@@ -183,7 +177,6 @@ ro:
           <p> Regulile acestui grup pot fi schimbate folosind <b>Settings</b>.</p>
       header:
         settings: SETĂRI
-        elections: ALEGERI
         documents: DOCUMENTE
       documents:
         documents_archive: Arhivă documente
@@ -200,8 +193,7 @@ ro:
         participants: Participanţi
         condition: Condiţie
         bad_percentage: '% Respingere'
-        confirm_deletion: "Sunteţi sigur că doriţi să ştergeţi % cvorum {cvorum}?"
-        add_quorum: Adăugaţi un nou cvorum
+        confirm_deletion: 'Sunteţi sigur că doriţi să ştergeţi % cvorum {cvorum}?'
         edit_quorum: Modifică cvorum
         configure_proposal_parameters: Configurează parametrii propunerilor
         default_anonymous_proposal: Anonimatul temporar este activ
@@ -217,7 +209,7 @@ ro:
           description2: Cu această caracteristică, puteţi administra mai bine participanţii şi rolurile lor.
           description3: Ai grijă! Aceasta este o caracteristică avansată, proiectată numai pentru grupuri mai mari şi utilizatori experimentaţi.
           enable: Activaţi zonele de lucru!
-          description4: "Înainte de a activa zonele de lucru, verificaţi dacă puteţi gestiona direct membrii grupurilor, folosind "
+          description4: 'Înainte de a activa zonele de lucru, verificaţi dacă puteţi gestiona direct membrii grupurilor, folosind '
         manage:
           new_area: Creează o zonă de lucru
           switch_area_participants: Treci la gestionarea participanților
@@ -226,11 +218,10 @@ ro:
           list_participants: Lista membrilor grupului. Selectaţi pentru fiecare dintre ei zonele de lucru în care pot activa.
           switch_area_management: Treci la gestionarea zonei de lucru
           confirm_deletion: Sunteți sigur că doriți să ștergeți această zonă de lucru?
-          manage_roles_in_area: "Editare rolurilor şi a permisiunilor în zona de lucru %{area}"
+          manage_roles_in_area: 'Editare rolurilor şi a permisiunilor în zona de lucru %{area}'
         manage_group_areas: Gestionaţi utilizatorii în cadrul zonelor de lucru
         form:
           title: Zonă de lucru nouă
-      default_admin_title: Administrator
       invite_your_friends:
         type_email_addresses: Introduceţi adresele de e-mail, separate prin virgula
         email_not_valid: Adresa de e-mail nu este valabilă
@@ -247,11 +238,6 @@ ro:
         name: nume
         role: Rol
         member_since: Membru din
-        participants_html:
-          one: "<b>1</b> participant"
-          other: "Participanţii <b>%{count}</b>"
-    login:
-      title: Login
     confirmation:
       title: Retrimite confirmarea instrucțiunilor
       submit: Trimiteţi-mi instrucţiuni
@@ -267,7 +253,6 @@ ro:
       email_confirmed: Dacă vă înregistraţi cu acea adresa de email nu vi se va mai cere să confirmați adresa de e-mail.
       choose_password: Alegeţi o parolă
       confirm_password: Confirmă parola
-      accept_conditions: 'Accept termenii serviciului'
       register_button: Înscrie-te
       identity_provviders_title: Intră imediat în legătură cu contul dumneavoastră preferat
     proposals:
@@ -277,14 +262,13 @@ ro:
         most_popular: Cele mai populare
         most_valutated: Cele mai evaluate
         continue_reading: Continuaţi citirea propunerii
-        login_with: "sau conectează-te cu:"
         group_areas_title: Zonele de lucru
         no_group_areas: Nicio zonă
         all_areas: Toate zonele
         categories_title: CATEGORII
         all_categories: Toate categoriile
         loading_proposals: Se încarcă propunerile, vă rog, aşteptaţi...
-        title_with_category: "Propuneri în categoria %{category}"
+        title_with_category: 'Propuneri în categoria %{category}'
         all_categories_title: Propuneri în toate categoriile
         in_group_area_title: în zona de lucru
         last_title: Ultima introdusă (TODO)
@@ -309,7 +293,7 @@ ro:
         choose_votation_period_button: Am ales!
         create_votation_period: Nu este stabilită perioada de votare, vă rugăm alegeți o dată
         no_periods_contact_group: Nu este stabilită perioada de votare, vă rugăm contactați administratorii pentru a alege o dată.
-        no_periods_contact_admin: "Perioada de votare nu este încă disponibilă, Aceasta trebuie să fie stabilită. Contactați %{email} daca este nevoie"
+        no_periods_contact_admin: 'Perioada de votare nu este încă disponibilă, Aceasta trebuie să fie stabilită. Contactați %{email} daca este nevoie'
         choose_new_votation_period_button: Vă rugăm să selectaţi o nouă dată de votare
         loading_contributions: Se încarcă contribuțiile, vă rog, aşteptaţi...
         previos_contributes: Contribuţiile anterioare...
@@ -328,13 +312,13 @@ ro:
         edit_button: Editați
         delete_button: Ştergeţi
         delete_proposal_confirmation: Sunteți sigur că doriți să ștergeți această propunere?
-        votation_message: "Această propunere va fi votată de la %{from} până la %{to}"
+        votation_message: 'Această propunere va fi votată de la %{from} până la %{to}'
         editing_message_1: Această propunere va fi dezvoltată de către editori, mulțumită contribuţiilor primite
         editing_message_2: Pentru a fi votată, va trebui să ajungă la
         votation_page_button: Du-te la pagina de vot
         vote_button: Votează!
         send_contribute_button: Trimite
-        characters_left: "Număr de caractere rămase:"
+        characters_left: 'Număr de caractere rămase:'
         votation_results: Rezultate
         votation_results_title: Rezultatele votului
         in_votation_now: Se votează chiar acum!
@@ -345,12 +329,12 @@ ro:
         close_debate_proposal_confirmation: Închizi imediat dezbaterea şi mergi la următoarea etapă?
         during_debate: Dezbatere în desfășurare
         replies:
-          show_all: "Arată toate comentariile, în număr de %{count}..."
+          show_all: 'Arată toate comentariile, în număr de %{count}...'
           delete: Ştergeţi
         reply_button: Răspundeți
         reply_placeholder: Oferiți comentariul dvs.
         export_pdf: Imprimare PDF
-        manage_noise_folder: "Contribuţii eliminate (%{removable}/%{removed})"
+        manage_noise_folder: 'Contribuţii eliminate (%{removable}/%{removed})'
         noise_folder: Contribuţii eliminate
         what_nickname: Asta ce este?
         give_contribute: SCRIE ŞI ARATĂ CONTRIBUŢIILE
@@ -370,16 +354,13 @@ ro:
         add_contribution_no_paragraph: Niciun alineat menționat
       new:
         quorum_prompt: Selectaţi cvorum
-        step_similar: Propuneri similare
         step_3_title: Descrie exhaustiv problemele cu care vă confruntaţi şi obiectivele pe care propunerea doreşte să le realizeze
         create_button: Crează propunerea
         title: Propunere nouă
-        title_group: "%{name}:"
-        title_synthetic: (în rezumat)
         title_placeholder: 'ex. "Facilitarea transportului de biciclete în trenuri"'
         interest_borders_tkn_placeholder: Oraşe, regiuni sau state interesate de propunere
         tags_list_placeholder: Inserați câteva etichete pentru propunerea dumneavoastră
-        step_1_title: "Poți propune o problemă spre rezolvare, o idee spre îmbunătățire, o inițiativă de organizare... Important este să ai un scop precis: Aieris va media realizarea lui, cu ajutorul altor oameni, care vor lucra împreună la rezolvarea problemei."
+        step_1_title: 'Poți propune o problemă spre rezolvare, o idee spre îmbunătățire, o inițiativă de organizare... Important este să ai un scop precis: Aieris va media realizarea lui, cu ajutorul altor oameni, care vor lucra împreună la rezolvarea problemei.'
         step_4_title: 'Perfect! Alegeţi opţiunile şi faceţi clic pe "Crează propunerea" pentru a finaliza ghidul. Propunerea dumneavoastră va fi inclusă în Airesis şi veți avea posibilitatea să o completați ulterior cu mai multe informaţii.'
         category_prompt: --Alege o categorie--
         tags_separated_by_comma: (despărțite prin virgulă)
@@ -387,7 +368,6 @@ ro:
         no_work_area_selected: Nicio zonă de lucru
       tabs:
         last_inserted: Ultima actualizare
-        most_popular: Cele mai populare
       list:
         no_votation: Nu s-a înregistrat niciun vot
         interest_borders: Graniţele geografice
@@ -395,7 +375,7 @@ ro:
         no_proposals: Nicio propunere până acum
       delete_comment: Ştergeţi
       results:
-        total: "Numărul total de votanți: %{count}"
+        total: 'Numărul total de votanți: %{count}'
         vote_column: Votează
         number_column: Număr
         percentage_column: Procentaj
@@ -407,20 +387,20 @@ ro:
       report_contribute:
         mark_title: Marchează contribuția
         report_title: Raportează contribuția
-        report_description: "Puteți reclama webmasterului că această contribuţie încalcă legile aflate în prezent în vigoare. <br/> După ce se constată încălcarea, contribuţia va fi eliminată. Nu abuzaţi de acest instrument."
+        report_description: 'Puteți reclama webmasterului că această contribuţie încalcă legile aflate în prezent în vigoare. <br/> După ce se constată încălcarea, contribuţia va fi eliminată. Nu abuzaţi de acest instrument.'
       vote_panel:
         title: Votează!
         secret_vote: Votul dvs este secret şi odată exprimat, nu îl veți putea recupera sau schimba.
         clear_vote: Votul dvs. este înregistrat și, prin urmare, poate fi verificat ulterior.
         single_title: În această propunere este doar o singură soluţie. Exprimați-vă părerea!
-        results_time: "Aţi exprimat votul dumneavoastră la data de %{when}"
+        results_time: 'Aţi exprimat votul dumneavoastră la data de %{when}'
         hidden_vote: Votul a fost secret, astfel încât acesta nu poate fi afișat.
-        preferences_order: "Ordinea preferinţelor dvs. a fost:"
-        expressed_vote: "Aţi exprimat un vot %{vote}"
+        preferences_order: 'Ordinea preferinţelor dvs. a fost:'
+        expressed_vote: 'Aţi exprimat un vot %{vote}'
       edit:
         title: 'Editați propunerea "%{title}"'
         hurry_up: Grăbiți-vă!
-        last_minutes: "Vi se permite să editaţi aceste cîmpuri doar pentru %{minutes} minute."
+        last_minutes: 'Vi se permite să editaţi aceste cîmpuri doar pentru %{minutes} minute.'
         no_participants: Puteți edita aceste câmpuri, doar în cazul în care nimeni nu a participat!
         add_paragraph: Adauga un paragraf nou
         remove_solution: Elimină soluţia
@@ -450,7 +430,6 @@ ro:
       contribution_valuation_again: Te-ai răzgândit?
     events:
       index:
-        title: Calendar
         group_title: Evenimente din calendar
       new:
         private_tooltip: Numai membrii grupului pot vedea şi pot participa la eveniment
@@ -475,14 +454,9 @@ ro:
         no_partecipate: |
           |
                     Nu vei participa la eveniment
-        with_guests: "cu oaspeţii %{field}"
+        with_guests: 'cu oaspeţii %{field}'
         will_be_in: Participați la eveniment?
-        participants: Cine a participat?
         will_partecipate: Cine va participa?
-        no_participants: Nu a participat nimeni
-        no_participants_yet: Încă nu există participanţi
-        non_participants: Cine nu a participat?
-        will_non_participants: Cine nu va participa?
     votations:
       show:
         vote_positive: Evaluare pozitivă
@@ -495,30 +469,28 @@ ro:
     blog_posts:
       new:
         title: Adaugă un nou post
-        published_in_groups: "Postul va fi publicat în următoarele grupe:"
+        published_in_groups: 'Postul va fi publicat în următoarele grupe:'
       new_button: Adaugă un nou post
       drafts_button: Posturi nepublicate
       drafts:
-        title: "%{blog} - posturi nepublicate"
+        title: '%{blog} - posturi nepublicate'
       edit_button: Modifică
       delete_button: Şterge
       comment:
         delete_button: Şterge
         confirm_delete: Sunteţi sigur că doriţi să ştergeţi acest post?
       list_elements:
-        inserted: "Adăugat de %{name} la data de %{date}"
+        inserted: 'Adăugat de %{name} la data de %{date}'
       show:
         previous_comments: Comentariile anterioare...
-        tags_title: "Tag-uri:"
+        tags_title: 'Tag-uri:'
         edit_button: Editează
         delete_button: Ştergeţi
         delete_button_confirm: Sunteţi sigur că doriţi să ştergeţi acest post?
         comments_says: spune...
       published_button: Posturi publicate
       view:
-        comments: "Comentarii (%{count})"
-      index:
-        title: Bloguri
+        comments: 'Comentarii (%{count})'
     alerts:
       polling:
         show_all: Arată toate notificările
@@ -534,7 +506,6 @@ ro:
       groups:
         events: EVENIMENTE
         proposals: PROPUNERI
-      no_groups_yet: Tu încă nu faci parte din grupul meu
       menu:
         my_page: PAGINA MEA DE PORNIRE
         my_blog: BLOG-UL MEU
@@ -545,7 +516,6 @@ ro:
         become_user: Devino un utilizator
         become_user_button: Start!
         remember_me: Ţine-mă minte pe acest computer
-        login_button: Login
         registration_button: ALĂTURĂ-TE
         resend_email_button: Nu aţi primit un e-mail de confirmare?
         no_notifications: Nicio notificare
@@ -554,7 +524,6 @@ ro:
         profile: PROFILUL
       welcome: Bun venit
       groups_title: GRUPURI
-      login: LOGIN
       login_placeholder: E-mail sau nume de utilizator
       groups_list: Grupuri în care participați
       open_group: Începe un grup nou
@@ -583,7 +552,6 @@ ro:
         title: Toate cvorumurile disponibile
     home:
       index:
-        whatis: CE ESTE
         partecipate: IMPLICAŢI-VĂ
         videos: GHIDURI VIDEO
         whowe: DESPRE NOI
@@ -596,17 +564,16 @@ ro:
         cloud_6: DEZBATE
         cloud_7: IMPLICAT
         cloud_8: VOT
-        cloud_9: " ALEGE"
+        cloud_9: ' ALEGE'
         try_it: Încearcă-l
         register: Înscrie-te
-        login: Login
         forgot_password: Ai uitat parola?
         follw_on_twitter: Urmăriţi @democracyo pe Twitter
         field_1:
-          title: "<em>Propune</em> soluţii"
+          title: '<em>Propune</em> soluţii'
           content: Un loc în care se raportează probleme, se propun soluții, se discută alternative pentru a face un sumar în comun. Este un instrument important pentru a spori inteligența colectivă.
         field_2:
-          title: "<em>Implică-te</em> în e-democrație"
+          title: '<em>Implică-te</em> în e-democrație'
           content: Alăturaţi-vă grupuri, alegeţi cine vă reprezintă şi participa la evenimente în funcţie de interesele dvs. Împreună suntem mai puternici.
         field_3:
           title: Alege viitorul tău
@@ -616,7 +583,6 @@ ro:
           content: Împărtăşiţi-vă experienţele, îmbunătăţiţi propunerile altora. Descoperiţi noi prieteni care cred ca tine. Realizează ideile impreună cu alţii.
         keep_connected: Păstraţi sesiunea
         feedback: TRIMITEŢI FEEDBACK
-        FAQ: FAQ
         guide: GHID
         change_language: Schimbă limba
       show:
@@ -634,31 +600,14 @@ ro:
     open_space:
       layout:
         proposals_button: PROPUNERI
-        calendar_button: CALENDAR
         map_button: HARTĂ
     proposal_supports:
       new:
         panel_title: Confirma sustinerea propunerii
-        no_available_groups: "Nu iti este permis sa sustii aceasta propunere din partea niciunui grup "
+        no_available_groups: 'Nu iti este permis sa sustii aceasta propunere din partea niciunui grup '
       confirm_button: Confirmă
     calendar:
       create_event_button: Creaţi un eveniment nou
-    candidates:
-      new:
-        title: "%{name}: Noua candidatura"
-        description: Alege unul din grupul de participanţi şi propune-l drept candidat pentru una dintre propunerile valabile.
-        send_button: Trimite candidatura
-      index:
-        description: "Pe această pagină puteţi urmări candidaturile propuse de catre grup la alegeri. < br / > Inainte de a putea face o nominalizare, grupul trebuie să "
-        create_election: nu da drumul acestei alegeri
-        user_column: Utilizator
-        election_column: Alegeri
-        state_column: Stat
-        candidates_phase: utilizator candidaturi
-        voting_phase: faza de vot
-        terminated_phase: realizat
-        send_candidate_button: Propune un utilizator pentru a candida
-        create_election_button: Creaţi noi alegeri
     sessions:
       new:
         login_label: Numele de utilizator sau E-mail
@@ -671,7 +620,7 @@ ro:
       next: Continuă
       interest_borders:
         title: Începe să participi
-        description_html: "Setaţi-vă graniţele geografice de interes. < br / > Dacă Airesis stie care sunt teritoriile de care sunteţi interesat, atunci vă poate sugera grupurile pe care le puteţi urmări şi vă poate arăta noile propuneri legate de acele teritorii. < br / >"
+        description_html: 'Setaţi-vă graniţele geografice de interes. < br / > Dacă Airesis stie care sunt teritoriile de care sunteţi interesat, atunci vă poate sugera grupurile pe care le puteţi urmări şi vă poate arăta noile propuneri legate de acele teritorii. < br / >'
       rank_bar_explain:
         newdescription3: Culoare afişează dacă propunerea va putea să meargă in faza de vot, în timp ce lungimea afişează cât de mult timp a rămas înainte să se încheie dezbaterea.
         newdescription5: Dacă credeţi că dezbaterea ar trebui să continue, folosiţi acest buton
@@ -698,24 +647,21 @@ ro:
         back_to_proposal: Înapoi la propunere
       title: Revizia istoricului
       loading_revisions: Încărcarea reviziilor...
-      editor_name: "Autorul revizuirii:"
+      editor_name: 'Autorul revizuirii:'
       revision: Revizuirea
       date_and_time: Data şi ora
       present_life_cycle: Ciclul de viaţă prezent
       no_revision: Nici o revizuire
       life_cycle: Ciclul de viaţă
-      life_cycle_number: " Numarul ciclului de viaţă %{life}"
-      end_date: "Data de sfârşit:"
-      evaluation_reached: "Numărul de evaluări:"
-      quorum_used: "Cvorumuri utilizate:"
+      life_cycle_number: ' Numarul ciclului de viaţă %{life}'
+      end_date: 'Data de sfârşit:'
+      evaluation_reached: 'Numărul de evaluări:'
+      quorum_used: 'Cvorumuri utilizate:'
     tags:
       show:
         related_title: Tag-uri conexe
-      list_proposals_with_tag: "Propuneri cu tag-ul:"
       no_proposals_with_tag: Nu sunt propuneri cu această etichetă (acest tag) încă
-      list_posts_with_tag: "Posturi cu tag-ul:"
       no_posts_with_tag: Nu sunt postari cu acest tag
-      list_groups_with_tags: "Grupuri cu tag:"
       no_groups_with_tag: Nu sunt grupuri cu această etichetă (acest tag)
       proposals_tab: Propuneri
       posts_tab: Mesaje
@@ -732,23 +678,16 @@ ro:
       blocked_user_list: Lista de utilizatori blocati
       block: Deblocheză
     feedback:
-      send_feedback: Trimiteţi feedback
       add_details: Adaugă detalii
       view_preview: Previzualizaţi
       send_succes: Feedback-ul a fost trimis cu succes. Vă mulţumesc!
       send_error: Ne pare rău dar a apărut o eroare în timp ce feedback-ul a fost trimis.
-      describe_problem: "Scrieţi aici mesajul:"
+      describe_problem: 'Scrieţi aici mesajul:'
       highlight_or_blackout: Evidenţiaţi sau ascundeti informaţii importante
-      blackout: Blackout
       highlight: Evidențiază cu marcatorul
     passwords:
       edit:
         title: Schimbaţi-vă parola
-  pl:
-    comments:
-      zero: fără comentarii
-      one: un comentariu
-      other: "Comentarii %{count}"
   activerecord:
     models:
       meeting: Întâlnire
@@ -756,13 +695,6 @@ ro:
     attributes:
       blog_comment:
         body: Comentariu
-        created_at: AntiSpam
-      candidate:
-        user: Candidat
-        election: Alegeri
-      election:
-        groups_end_time: Data limită pentru intrare în grup
-        candidates_end_time: Data limită de intrare pentru candidaţi
       event:
         title: Titlul evenimentului
         description: Descriere
@@ -773,23 +705,20 @@ ro:
         period: Repetă
         frequency: Repetaţi fiecare
         private: Privat
-        candidates_end_time: Data limită de intrare pentru candidaţi
         meeting:
           place:
             address: Adresă
-            municipality_id: Localitate
       group:
         facebook_page_url: Adresa de pagina de Facebook
         name: Nume
         title_bar: Bara de titlu
         description: Descriere
         accept_requests: Cerere pentru participare
-        porta_id: Administrator
         interest_border_tkn: Loc geografic de interes
         interest_border_id: Loc geografic de interes
         image_url: Adresa de imagine
         default_role_name: Care este numele pentru utilizatorii noi?
-        default_role_name_placeholder: "Exemplu: Utilizatori, membri, activişti, pirați"
+        default_role_name_placeholder: 'Exemplu: Utilizatori, membri, activişti, pirați'
         name_placeholder: Alege un nume legat de identitatea grupului şi/sau locaţie.
         title_bar_placeholder: Titlul paginii de grup.
         description_placeholder: Acest mesaj va fi pe prima pagină a grupului
@@ -799,7 +728,7 @@ ro:
         private: Grup privat
         rule_book: Regulament
         image: Încărcă imaginea
-        admin_title_placeholder: "Nume de rol al administratorilor de grup (implicit: Administrator)"
+        admin_title_placeholder: 'Nume de rol al administratorilor de grup (implicit: Administrator)'
       blog:
         title: Titlu
       blog_post:
@@ -808,9 +737,6 @@ ro:
         published: Stare
         published_true: Publicat
         published_false: Ciornă
-      participation_role:
-        name: Nume
-        description: Scurtă descriere
       group_invitation:
         emails_list: Adresele de poştă electronică
         testo: Mesaj text
@@ -820,13 +746,9 @@ ro:
         group_area_id: Zona de lucru
         proposal_category_id: Categorie
         title: Titlu
-        subtitle: Subtitrare
-        problems: Probleme
-        objectives: Obiective
         content: Textul
         interest_borders_tkn: Puncte geografice de interes
         tags_list: Tag-uri
-        quorum_id: Cvorum
         anonima: Anonimat temporar
         visible_outside: Vizibil publicului
         secret_vote: Vot secret
@@ -848,9 +770,6 @@ ro:
         bad_score_title: Cotă sub care propunerea va fi respinsă. Îți permite să continui discuția dacă nu sunt îndeplinite condițiile de timp sau de participanți
         condition: Condiţie
         condition_title: Trebuie să fie ambele condiții de timp și participanți depășite sau numai una dintre ele?
-      search_participant:
-        role_id: Rol
-        keywords: Numele sau prenumele
       sys_movement:
         sys_movement_type_id: Tip
         made_on: Făcut din
@@ -873,9 +792,6 @@ ro:
         default_role_name: Numele de rol
     errors:
       template:
-        header:
-          one: "o eroare nu permite acestui %{model} să fie salvat"
-          other: "%{count} erori nu permit acestui %{model} să fie salvat"
         body: Au existat probleme cu următoarele câmpuri
       messages:
         inclusion: nu este inclus în listă
@@ -887,28 +803,24 @@ ro:
         blank: trebuie completate
         too_long: Textul este prea lung
         too_short: Textul este prea scurt
-        wrong_length: 'ar trebui să fie %{count} caractere) "'
         taken: este deja luat
         not_a_number: nu este un număr
-        greater_than: "trebuie să fie mai mare de %{count}"
-        greater_than_or_equal_to: "trebuie să fie mai mare sau egal cu %{count}"
-        equal_to: "trebuie să fie egal cu %{count}"
-        less_than: "trebuie să fie mai mic decât %{count}"
-        less_than_or_equal_to: "trebuie să fie mai mic sau egal cu %{count}"
+        greater_than: 'trebuie să fie mai mare de %{count}'
+        greater_than_or_equal_to: 'trebuie să fie mai mare sau egal cu %{count}'
+        equal_to: 'trebuie să fie egal cu %{count}'
+        less_than: 'trebuie să fie mai mic decât %{count}'
+        less_than_or_equal_to: 'trebuie să fie mai mic sau egal cu %{count}'
         odd: trebuie să fie întocmai
         even: trebuie să fie impar
-        record_invalid: "Validare eșuată %{errors}"
+        record_invalid: 'Validare eșuată %{errors}'
         not_found: nu a fost găsit.
       full_messages:
-        format: "% %{atribut} {mesaj}"
+        format: '% %{atribut} {mesaj}'
       models:
         user:
           attributes:
             email:
               already_confirmed: Această adresă de e-mail este deja înregistrată
-        group:
-          portavoce:
-            required: Trebuie să alegeţi un purtător de cuvânt
   proposals:
     create_button: Creaţi o propunere
     show:
@@ -929,18 +841,15 @@ ro:
     next: Următoarea
     go_back: întoarce-te
     chosen: Am ales!
-    ok: OK
   tooltips:
-    random_stack_1: "<strong>Cum funcționează?</strong><br/>În primul rînd sunt afișate contribuțiile noi sau cele care nu au fost evaluate apoi contrinuțiile pe care le-ai evaluat deja în ordinea popularității. <br/> <b>Note</b>: Cotarea ta va schimba această ordine!"
-    random_stack_2: "<strong>Cum funcționează?</strong><br/>Contribuțiile sunt arătate în ordine cronologică, începând cu cea mai recentă"
-    random_stack_3: "<strong>Cum funcțonează?</strong><br/>Contribuțiile sunt arătate în ordinea popularității. <br/> <b>Note</b>: Cotarea ta va schimba această ordine!"
-    miglioricontributi: "<strong>Cum pot ajuta?</strong> <br/> Contribuțiile nu ar trebui să exprime simpla apreciere ci trebuie să aducă modificări substanțiale textului: critici constructive, alternative sau îmbunătăţiri pentru propunere care vor ajuta scriitorul să dezvolte un rezumat partajat al textului. <br /> <br/> <b>Notă</b>: cea mai valoroasă contribuție este cea care face posibilă găsirea unei soluţii la propunere!"
+    random_stack_1: '<strong>Cum funcționează?</strong><br/>În primul rînd sunt afișate contribuțiile noi sau cele care nu au fost evaluate apoi contrinuțiile pe care le-ai evaluat deja în ordinea popularității. <br/> <b>Note</b>: Cotarea ta va schimba această ordine!'
+    random_stack_2: '<strong>Cum funcționează?</strong><br/>Contribuțiile sunt arătate în ordine cronologică, începând cu cea mai recentă'
+    random_stack_3: '<strong>Cum funcțonează?</strong><br/>Contribuțiile sunt arătate în ordinea popularității. <br/> <b>Note</b>: Cotarea ta va schimba această ordine!'
+    miglioricontributi: '<strong>Cum pot ajuta?</strong> <br/> Contribuțiile nu ar trebui să exprime simpla apreciere ci trebuie să aducă modificări substanțiale textului: critici constructive, alternative sau îmbunătăţiri pentru propunere care vor ajuta scriitorul să dezvolte un rezumat partajat al textului. <br /> <br/> <b>Notă</b>: cea mai valoroasă contribuție este cea care face posibilă găsirea unei soluţii la propunere!'
     voglioredigere: Cereți editorilor să vă permită să editaţi textul propunerii pe baza contribuțiilor utilizatorilor.
-    voteup: "<div class='votedup'></div> propunerea este suficient de matură şi puteţi merge la faza de vot (puteţi schimba evaluarea dumneavoastră atunci când textul propunerii este actualizat)"
-    votedown: "<div class='voteddown' style='margin: 0px 10px 10px 0px'></div> textul propunerii nu este încă dezvoltat deoarece contribuţiile utilizatorilor trebuie să fie integrate (puteţi schimba evaluarea dumneavoastră atunci când textul propunerii va fi actualizat)"
     valutazioni: Numărul total de evaluări primite
     gradimento: procentul de evaluări pozitive pe total
-    nickname: "<strong> În această propunere, am ales pentru să discutăm anonim </strong> < br /> în acest fel nu este posibil ca ceilalţi utilizatori să ştie cine eşti şi în acelaşi timp, nu este posibil pentru tine să ştii cine sunt ceilalţi. <br /> lucrând şi vorbind în acest fel veți putea lua decizii şi să evaluați propuneri numai pe baza conţinutului. <br/> <b>Notă</b>: când discuția s-a terminat şi propunerea va fi aprobată sau respinsă vei vedea numele reale ale utilizatorilor!"
+    nickname: '<strong> În această propunere, am ales pentru să discutăm anonim </strong> < br /> în acest fel nu este posibil ca ceilalţi utilizatori să ştie cine eşti şi în acelaşi timp, nu este posibil pentru tine să ştii cine sunt ceilalţi. <br /> lucrând şi vorbind în acest fel veți putea lua decizii şi să evaluați propuneri numai pe baza conţinutului. <br/> <b>Notă</b>: când discuția s-a terminat şi propunerea va fi aprobată sau respinsă vei vedea numele reale ale utilizatorilor!'
   group: grup
   saving: Salvare...
   sending: Trimitere...
@@ -994,10 +903,7 @@ ro:
       already_have: îmi pare rău. Aveţi deja un blog
       comment_added: Eroare la adăugarea comentariului
     users:
-      join_accounts: Eroare în aderarea conturilor. Această operaţiune nu este disponibilă în acest moment
       join_accounts_password: Parola gresită
-    group_participations:
-      destroy: Nu puteti părăsi un grup în care sunteţi unicul purtătorul de cuvânt
     error_404:
       proposals:
         title: Această propunere nu există
@@ -1080,7 +986,6 @@ ro:
     blog:
       blog_created: Blog-ul creat cu succes
       title_updated: Titlul blogului a fost actualizat cu succes
-      comment_added: Comentariu actualizat cu succes
     events:
       event_deleted: Eveniment ştears cu succes
       event_updated: Eveniment actualizat cu succes
@@ -1090,58 +995,50 @@ ro:
     locale_changed: Localizare schimbată cu succes
     blog_post_updated: Post-ul tău a fost actualizat cu succes
     blog_post_deleted: Postul tău a fost sters cu succes
-    participation_request:
-      multiple_request:
-        one: "Ai cerut să participi la noul grup de %{count}"
-        other: "Ai cerut să participi în %{count} grupuri noi"
-    group_participations:
-      destroy_ok_1: Ai părăsit grupul. În viitor poţi cere să participi din nou
   interest_borders:
     hint: Tastează câteva caractere pentru a căuta un loc
     no_place_found: Nici un loc găsit
     searching: Se caută, vă rog, aşteptaţi...
-    region: "%{name} (regiune)"
-    province: "%{name} (provincia)"
-    town: "%{name} (oraş)"
-    country: "%{name} (ţara)"
-    continent: "%{name} (Continent)"
+    region: '%{name} (regiune)'
+    province: '%{name} (provincia)'
+    town: '%{name} (oraş)'
+    country: '%{name} (ţara)'
+    continent: '%{name} (Continent)'
   mailer:
     default:
       follow_twitter: Urmărește-ne pe Twitter
       follow_facebook: Urmărește-ne pe Facebook
       follow_google: Urmărește-ne pe Google+
       footer:
-        registered_at: "Primiţi acest e-mail, pentru că v-aţi înregistrat pe %{url}."
-      edit_preferences: Editaţi preferinţele pentru alarme și notificări
+        registered_at: 'Primiţi acest e-mail, pentru că v-aţi înregistrat pe %{url}.'
       click_here: Faceţi clic aici
     new_contribute:
-      title: "%{user} introduce un nou %{comment} în propunerea"
-      view_proposal: "%{click_here} pentru a vedea propunerea."
+      title: '%{user} introduce un nou %{comment} în propunerea'
+      view_proposal: '%{click_here} pentru a vedea propunerea.'
     text_update:
-      view_proposal: "Propunerea <b>%{proposal}</b> a fost actualizată!"
-      integrated_contributes: "Felicitări! Următoarele contribuţii pe care le-ai introdus au fost integrate de către editori:"
-      view_proposal_2: "%{click_here} și verifică dacă noul text conţine sugestiile tale. <br/> Dacă nu sunteţi mulţumit puteţi pune întotdeauna contribuţiile dumneavoastră înapoi în dezbatere, trăgând-le din istorie."
-      connect: "Loghează-te %{name}"
+      integrated_contributes: 'Felicitări! Următoarele contribuţii pe care le-ai introdus au fost integrate de către editori:'
+      view_proposal_2: '%{click_here} și verifică dacă noul text conţine sugestiile tale. <br/> Dacă nu sunteţi mulţumit puteţi pune întotdeauna contribuţiile dumneavoastră înapoi în dezbatere, trăgând-le din istorie.'
+      connect: 'Loghează-te %{name}'
     unintegrated_contribute:
-      view_proposal: "O contribuţie care a fost integrată în propunerea <b>%{click_here}</b> a fost pusă înapoi în dezbatere de către autorul său."
-      view_proposal_2: "%{click_here} de ce autorul nu a considerat că contribuţia lui a fost integrată în mod corespunzător."
+      view_proposal: 'O contribuţie care a fost integrată în propunerea <b>%{click_here}</b> a fost pusă înapoi în dezbatere de către autorul său.'
+      view_proposal_2: '%{click_here} de ce autorul nu a considerat că contribuţia lui a fost integrată în mod corespunzător.'
       verify: Verifică
     user_message:
-      hi_user: "Salut %{user},"
-      user_sent_message: "%{user} ți-a trimis următorul mesaj:"
-      reply_to_user: "Îi poți răspunde lui %{user} răspunzând la acest e-mail."
+      hi_user: 'Salut %{user},'
+      user_sent_message: '%{user} ți-a trimis următorul mesaj:'
+      reply_to_user: 'Îi poți răspunde lui %{user} răspunzând la acest e-mail.'
     blocked:
-      hi_user: "Salut %{user},"
+      hi_user: 'Salut %{user},'
       deleted_correctly: vă informăm că contul dumneavoastră a fost şters cu succes din Airesis.
-      greetings: "Salutări, <br/> echipa Airesis"
+      greetings: 'Salutări, <br/> echipa Airesis'
     new_blog_comment:
-      title: "%{user} a adăugat un comentariu nou la postarea ta %{post}."
+      title: '%{user} a adăugat un comentariu nou la postarea ta %{post}.'
       click_here: Faceţi clic aici
-      view_post: "%{click_here} pentru a vizualiza postarea."
+      view_post: '%{click_here} pentru a vizualiza postarea.'
     invite:
       hi_user: Bună!
-      invitation: "%{user} te-a invitat să participi în grupul <b>%{group}</b> pe %{app_name}, platforma de e-democratie pentru democraţie directă şi participativă."
-      message_intro: "Aici este mesajul pe care l-ai trimis:"
+      invitation: '%{user} te-a invitat să participi în grupul <b>%{group}</b> pe %{app_name}, platforma de e-democratie pentru democraţie directă şi participativă.'
+      message_intro: 'Aici este mesajul pe care l-ai trimis:'
       accept_or_reject: 'Dacă accepți invitația fă click pe "Accept", altfel pe "Refuză".'
       no_more: 'Dacă nu vrei să primești invitații de la %{app_name} fă click pe "Nu mai doresc invitații".'
       accept: Acceptă

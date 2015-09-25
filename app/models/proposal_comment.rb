@@ -3,7 +3,6 @@ class ProposalComment < ActiveRecord::Base
 
   has_paper_trail class_name: 'ProposalCommentVersion', only: [:content], on: [:update, :destroy]
 
-
   belongs_to :user, class_name: 'User', foreign_key: :user_id
   belongs_to :contribute, class_name: 'ProposalComment', foreign_key: :parent_proposal_comment_id
   has_many :replies, class_name: 'ProposalComment', foreign_key: :parent_proposal_comment_id, dependent: :destroy
@@ -34,16 +33,16 @@ class ProposalComment < ActiveRecord::Base
 
   scope :noise, -> { where(noise: true) }
 
-  scope :listable, -> { where({integrated: false, noise: false}) }
+  scope :listable, -> { where(integrated: false, noise: false) }
 
-  scope :unread, lambda { |user_id, proposal_id| where(['proposal_comments.id not in (select p2.id from proposal_comments p2 join proposal_comment_rankings pr on p2.id = pr.proposal_comment_id where pr.user_id = ? and p2.proposal_id = ?) ', user_id, proposal_id]) }
+  scope :unread, ->(user_id, proposal_id) { where(['proposal_comments.id not in (select p2.id from proposal_comments p2 join proposal_comment_rankings pr on p2.id = pr.proposal_comment_id where pr.user_id = ? and p2.proposal_id = ?) ', user_id, proposal_id]) }
 
   scope :removable, -> { where(['soft_reports_count >= ? and noise = false', CONTRIBUTE_MARKS]) }
 
-  #a contribute marked more than three times as spam
+  # a contribute marked more than three times as spam
   scope :spam, -> { where(['grave_reports_count >= ?', CONTRIBUTE_MARKS]) }
 
-  #a contribute marked more than three times as noisy
+  # a contribute marked more than three times as noisy
   scope :noisy, -> { where(['soft_reports_count >= ?', CONTRIBUTE_MARKS]) }
 
   attr_accessor :section_id
@@ -55,11 +54,11 @@ class ProposalComment < ActiveRecord::Base
   after_commit :send_update_notifications, on: :update
 
   def is_contribute?
-    self.parent_proposal_comment_id.nil?
+    parent_proposal_comment_id.nil?
   end
 
   def set_paragraph_id
-    self.paragraph = Paragraph.where(section_id: self.section_id).first
+    self.paragraph = Paragraph.where(section_id: section_id).first
   end
 
   def set_collapsed
@@ -67,10 +66,10 @@ class ProposalComment < ActiveRecord::Base
   end
 
   def check_last_comment
-    comments = self.proposal.proposal_comments.where(user_id: self.user_id).order('created_at DESC')
+    comments = proposal.proposal_comments.where(user_id: user_id).order('created_at DESC')
     comment = comments.first
-    if LIMIT_COMMENTS and comment and ((Time.now - comment.created_at) < 30.seconds)
-      self.errors.add(:created_at, "devono passare almeno trenta secondi tra un commento e l'altro.")
+    if LIMIT_COMMENTS && comment && ((Time.now - comment.created_at) < 30.seconds)
+      errors.add(:created_at, "devono passare almeno trenta secondi tra un commento e l'altro.")
     end
   end
 
@@ -81,19 +80,19 @@ class ProposalComment < ActiveRecord::Base
     self.referrer = truncate(request.env['HTTP_REFERER'], length: 255)
   end
 
-  #retrieve all the participants to this discussion
+  # retrieve all the participants to this discussion
   def participants
-    self.repliers | [self.user]
+    repliers | [user]
   end
 
   def has_location?
-    !self.paragraph.nil?
+    !paragraph.nil?
   end
 
   def location
     ret = nil
-    unless self.paragraph.nil?
-      section = self.paragraph.section
+    unless paragraph.nil?
+      section = paragraph.section
       ret = "#{section.title}"
       unless section.solution.nil?
         ret = "#{section.solution.title_with_seq} > #{ret}"
@@ -106,7 +105,6 @@ class ProposalComment < ActiveRecord::Base
     NotificationProposalCommentCreate.perform_async(id)
   end
 
-
   def send_update_notifications
     if previous_changes.include?(:content) && previous_changes[:content].first != previous_changes[:content].last
       NotificationProposalCommentUpdate.perform_async(id)
@@ -118,7 +116,7 @@ class ProposalComment < ActiveRecord::Base
     self.nickname_generated = proposal_nickname.generated
   end
 
-  #unintegrate the comment if it was integrated somewhere
+  # unintegrate the comment if it was integrated somewhere
   def unintegrate
     integrated_contribute.destroy
     update(integrated: false)

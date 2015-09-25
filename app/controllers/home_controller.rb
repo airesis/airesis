@@ -68,6 +68,9 @@ class HomeController < ApplicationController
   def terms
   end
 
+  def cookie_law
+  end
+
   def movements
     @income = SysMovement.income
     @outcome = SysMovement.outcome

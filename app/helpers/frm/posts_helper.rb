@@ -2,10 +2,10 @@ module Frm
   module PostsHelper
     def forem_avatar(user, options = {})
       image = if Frm.avatar_user_method
-        # Try to use the user's custom avatar method
-        user.try Frm.avatar_user_method.to_sym
-      else
-        avatar_url user.try(:email), options
+                # Try to use the user's custom avatar method
+                user.try Frm.avatar_user_method.to_sym
+              else
+                avatar_url user.try(:email), options
       end
 
       image_tag image, alt: 'Avatar' if image.present?

@@ -20,20 +20,20 @@ class User < ActiveRecord::Base
   validates_acceptance_of :accept_conditions, message: I18n.t('activerecord.errors.messages.TOS')
   validates_acceptance_of :accept_privacy, message: I18n.t('activerecord.errors.messages.privacy')
 
-  has_many :proposal_presentations, class_name: 'ProposalPresentation'
+  has_many :proposal_presentations, dependent: :destroy # TODO: replace with anonymous
   has_many :proposals, through: :proposal_presentations, class_name: 'Proposal'
   has_many :notifications, through: :alerts, class_name: 'Notification'
-  has_many :meeting_participations, class_name: 'MeetingParticipation'
-  has_one :blog, class_name: 'Blog'
-  has_many :blog_comments, class_name: 'BlogComment'
-  has_many :blog_posts, class_name: 'BlogPost'
-  has_many :blocked_alerts, class_name: 'BlockedAlert'
-  has_many :blocked_emails, class_name: 'BlockedEmail'
+  has_many :meeting_participations, dependent: :destroy
+  has_one :blog, dependent: :destroy
+  has_many :blog_comments, dependent: :destroy
+  has_many :blog_posts, dependent: :destroy
+  has_many :blocked_alerts, dependent: :destroy
+  has_many :blocked_emails, dependent: :destroy
 
-  has_many :event_comments, class_name: 'EventComment'
-  has_many :likes, class_name: 'EventCommentLike'
+  has_many :event_comments, dependent: :destroy
+  has_many :likes, class_name: 'EventCommentLike', dependent: :destroy
 
-  has_many :group_participations, class_name: 'GroupParticipation'
+  has_many :group_participations, dependent: :destroy
   has_many :groups, through: :group_participations, class_name: 'Group'
   has_many :portavoce_groups, -> { joins(' INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id').where("(participation_roles.name = 'amministratore')") }, through: :group_participations, class_name: 'Group', source: 'group'
 
@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
 
   has_many :user_borders, class_name: 'UserBorder'
 
-  #confini di interesse
+  # confini di interesse
   has_many :interest_borders, through: :user_borders, class_name: 'InterestBorder'
 
   has_many :alerts, -> { order('alerts.created_at DESC') }, class_name: 'Alert'
@@ -65,22 +65,22 @@ class User < ActiveRecord::Base
   has_many :blocked_notifications, through: :blocked_alerts, class_name: 'NotificationType', source: :notification_type
   has_many :blocked_email_notifications, through: :blocked_emails, class_name: 'NotificationType', source: :notification_type
 
-  has_many :group_participation_requests, class_name: 'GroupParticipationRequest'
+  has_many :group_participation_requests, dependent: :destroy
 
-  #record di tutti coloro che mi seguono
+  # record di tutti coloro che mi seguono
   has_many :followers_user_follow, class_name: 'UserFollow', foreign_key: :followed_id
-  #tutti coloro che mi seguono
+  # tutti coloro che mi seguono
   has_many :followers, through: :followers_user_follow, class_name: 'User', source: :followed
 
-  #record di tutti coloro che seguo
+  # record di tutti coloro che seguo
   has_many :followed_user_follow, class_name: 'UserFollow', foreign_key: :follower_id
-  #tutti coloro che seguo
+  # tutti coloro che seguo
   has_many :followed, through: :followed_user_follow, class_name: 'User', source: :follower
 
-  has_many :tutorial_assignees, class_name: 'TutorialAssignee'
-  has_many :tutorial_progresses, class_name: 'TutorialProgress'
+  has_many :tutorial_assignees, dependent: :destroy
+  has_many :tutorial_progresses, dependent: :destroy
   has_many :todo_tutorial_assignees, -> { where('tutorial_assignees.completed = false') }, class_name: 'TutorialAssignee'
-  #tutorial assegnati all'utente
+  # tutorial assegnati all'utente
   has_many :tutorials, through: :tutorial_assignees, class_name: 'Tutorial', source: :user
   has_many :todo_tutorials, through: :todo_tutorial_assignees, class_name: 'Tutorial', source: :user
 
@@ -89,11 +89,11 @@ class User < ActiveRecord::Base
 
   has_many :events
 
-  has_many :proposal_nicknames, class_name: 'ProposalNickname'
+  has_many :proposal_nicknames, dependent: :destroy
 
   has_one :certification, class_name: 'UserSensitive', foreign_key: :user_id, autosave: true
 
-  #forum
+  # forum
   has_many :viewed, class_name: 'Frm::View'
   has_many :viewed_topics, class_name: 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
   has_many :unread_topics, -> { where 'frm_views.updated_at < frm_topics.last_post_at' }, class_name: 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
@@ -112,7 +112,8 @@ class User < ActiveRecord::Base
                       thumb: '100x100#',
                       small: '150x150>'
                     },
-                    path: 'avatars/:id/:style/:basename.:extension'
+                    path: (Paperclip::Attachment.default_options[:storage] == :s3) ?
+                      'avatars/:id/:style/:basename.:extension' : ':rails_root/public:url'
 
   validates_attachment_size :avatar, less_than: 2.megabytes
   validates_attachment_content_type :avatar, content_type: ['image/jpeg', 'image/png', 'image/gif', 'image/jpg']
@@ -124,50 +125,50 @@ class User < ActiveRecord::Base
   scope :confirmed, -> { where 'confirmed_at is not null' }
   scope :unconfirmed, -> { where 'confirmed_at is null' }
   scope :certified, -> { where(user_type_id: UserType::CERTIFIED) }
-  scope :count_active, -> { count.to_f * (ENV['ACTIVE_USERS_PERCENTAGE'].to_f / 100.0) }
+  scope :count_active, -> { unblocked.count.to_f * (ENV['ACTIVE_USERS_PERCENTAGE'].to_f / 100.0) }
 
-  scope :autocomplete, ->(term) { where('lower(users.name) LIKE :term or lower(users.surname) LIKE :term', {term: "%#{term.downcase}%"}).order('users.surname desc, users.name desc').limit(10) }
-  scope :non_blocking_notification, ->(notification_type) { User.where.not(id: User.select('users.id').joins(:blocked_alerts).where(blocked_alerts: {notification_type_id: notification_type})) }
+  scope :autocomplete, ->(term) { where('lower(users.name) LIKE :term or lower(users.surname) LIKE :term', term: "%#{term.downcase}%").order('users.surname desc, users.name desc').limit(10) }
+  scope :non_blocking_notification, ->(notification_type) {
+    User.where.not(id: User.select('users.id').
+                     joins(:blocked_alerts).
+                     where(blocked_alerts: {notification_type_id: notification_type}))
+  }
 
   validate :cannot_change_info_if_certified, on: :update
 
   def avatar_url=(url)
-    begin
-      file = URI.parse(url)
-      self.avatar = file
-    rescue
-      # ignored
-    end
+    file = URI.parse(url)
+    self.avatar = file
+  rescue
+    # ignored
   end
 
   def check_uncertified
     if certified?
       if self.name_changed? || self.surname_changed?
-        self.errors.add(:user_type_id, 'Non puoi modificare questi dati in quanto il tuo utente è certificato')
+        errors.add(:user_type_id, 'Non puoi modificare questi dati in quanto il tuo utente è certificato')
       end
     end
   end
 
-
   def suggested_groups
-    border = self.interest_borders.first
+    border = interest_borders.first
     params = {}
     params[:interest_border_obj] = border
     params[:limit] = 12
     Group.look(params)
   end
 
-
   def email_required?
     super && !has_oauth_provider_without_email
   end
 
   def last_proposal_comment
-    self.proposal_comments.order('created_at desc').first
+    proposal_comments.order('created_at desc').first
   end
 
-  #dopo aver creato un nuovo utente gli assegno il primo tutorial e
-  #disattivo le notifiche standard
+  # dopo aver creato un nuovo utente gli assegno il primo tutorial e
+  # disattivo le notifiche standard
   def assign_tutorials
     Tutorial.all.each do |tutorial|
       assign_tutorial(self, tutorial)
@@ -183,55 +184,54 @@ class User < ActiveRecord::Base
   end
 
   def init
-    self.rank ||= 0 #imposta il rank a zero se non è valorizzato
+    self.rank ||= 0 # imposta il rank a zero se non è valorizzato
     self.receive_messages = true
     self.receive_newsletter = true
   end
 
-
-  #geocode user setting his default time zone
+  # geocode user setting his default time zone
   def geocode
-    @search = Geocoder.search(self.last_sign_in_ip)
-    unless @search.empty? #continue only if we found latitude and longitude
+    @search = Geocoder.search(last_sign_in_ip)
+    unless @search.empty? # continue only if we found latitude and longitude
       @latlon = [@search[0].latitude, @search[0].longitude]
-      @zone = Timezone::Zone.new latlon: @latlon rescue nil #if we can't find the latitude and longitude zone just set zone to nil
-      self.update_attribute(:time_zone, @zone.active_support_time_zone) if @zone #update zone if found
+      @zone = Timezone::Zone.new latlon: @latlon rescue nil # if we can't find the latitude and longitude zone just set zone to nil
+      update_attribute(:time_zone, @zone.active_support_time_zone) if @zone # update zone if found
     end
   end
 
-  #restituisce l'elenco delle partecipazioni ai gruppi dell'utente
-  #all'interno dei quali possiede un determinato permesso
+  # restituisce l'elenco delle partecipazioni ai gruppi dell'utente
+  # all'interno dei quali possiede un determinato permesso
   def scoped_group_participations(abilitation)
-    self.group_participations.joins(' INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id'+
-                                      ' LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id '+
-                                      ' and action_abilitations.group_id = group_participations.group_id')
-      .where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ')')
+    group_participations.joins(' INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id'\
+                                      ' LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id '\
+                                      ' and action_abilitations.group_id = group_participations.group_id').
+      where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ')')
   end
 
-  #restituisce l'elenco dei gruppi dell'utente
-  #all'interno dei quali possiede un determinato permesso
-  def scoped_groups(abilitation, excluded_groups=nil)
-    ret = self.groups.joins(' INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id'+
-                              ' LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id '+
-                              ' and action_abilitations.group_id = group_participations.group_id')
-            .where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ')')
+  # restituisce l'elenco dei gruppi dell'utente
+  # all'interno dei quali possiede un determinato permesso
+  def scoped_groups(abilitation, excluded_groups = nil)
+    ret = groups.joins(' INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id'\
+                              ' LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id '\
+                              ' and action_abilitations.group_id = group_participations.group_id').
+      where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ')')
     excluded_groups ? ret - excluded_groups : ret
   end
 
-  #return all group area participations of a particular group where the user can do a particular action or all group areas of the user in a group if abilitation_id is null
-  def scoped_areas(group_id, abilitation_id=nil)
+  # return all group area participations of a particular group where the user can do a particular action or all group areas of the user in a group if abilitation_id is null
+  def scoped_areas(group_id, abilitation_id = nil)
     group = Group.find(group_id)
     ret = nil
     if group.portavoce.include? self
       ret = group.group_areas
     elsif abilitation_id
-      ret = group_areas.joins(area_roles: :area_action_abilitations)
-              .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_participations.area_role_id = area_roles.id', group_id, abilitation_id])
-              .uniq
+      ret = group_areas.joins(area_roles: :area_action_abilitations).
+        where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_participations.area_role_id = area_roles.id', group_id, abilitation_id]).
+        uniq
     else
-      ret = group_areas.joins(:area_roles)
-              .where(['group_areas.group_id = ?', group_id])
-              .uniq
+      ret = group_areas.joins(:area_roles).
+        where(['group_areas.group_id = ?', group_id]).
+        uniq
     end
     ret
   end
@@ -239,34 +239,31 @@ class User < ActiveRecord::Base
   def self.new_with_session(params, session)
     super.tap do |user|
       user.last_sign_in_ip = session[:remote_ip]
-      user.subdomain = session[:subdomain] if (session[:subdomain] && !session[:subdomain].blank?)
-      user.original_sys_locale_id =user.sys_locale_id = SysLocale.find_by(key: 'en').id
+      user.subdomain = session[:subdomain] if session[:subdomain] && !session[:subdomain].blank?
+      user.original_sys_locale_id = user.sys_locale_id = SysLocale.default.id
 
       oauth_data = session['devise.omniauth_data']
       user_info = OauthDataParser.new(oauth_data).user_info if oauth_data
 
       if user_info
         user.email = user_info[:email]
-      elsif (data = session[:user]) #what does it do? can't remember
+      elsif (data = session[:user]) # what does it do? can't remember
         user.email = session[:user][:email]
         user.login = session[:user][:email]
-        if invite = session[:invite] #if is by invitation
+        if invite = session[:invite] # if is by invitation
           group_invitation_email = GroupInvitationEmail.find_by(token: invite[:token])
-          if user.email == group_invitation_email.email
-            user.skip_confirmation!
-          end
+          user.skip_confirmation! if user.email == group_invitation_email.email
         end
       end
     end
   end
 
   def last_blog_comment
-    self.blog_comments
+    blog_comments
   end
 
-
   def encoded_id
-    Base64.encode64(self.id)
+    Base64.encode64(id)
   end
 
   def self.decode_id(id)
@@ -281,16 +278,16 @@ class User < ActiveRecord::Base
     write_attribute :login, (value.try(:downcase))
   end
 
-  #determina se un oggetto appartiene all'utente verificando che
-  #l'oggetto abbia un campo user_id corrispondente all'id dell'utente
-  #in caso contrario verifica se l'oggetto ha un elenco di utenti collegati
-  #e proprietari, in caso affermativo verifica di rientrare tra questi.
+  # determina se un oggetto appartiene all'utente verificando che
+  # l'oggetto abbia un campo user_id corrispondente all'id dell'utente
+  # in caso contrario verifica se l'oggetto ha un elenco di utenti collegati
+  # e proprietari, in caso affermativo verifica di rientrare tra questi.
   def is_mine?(object)
     if object
       if object.respond_to?('user_id')
-        return object.user_id == self.id
+        return object.user_id == id
       elsif object.respond_to?('users')
-        return object.users.find_by_id(self.id)
+        return object.users.find_by_id(id)
       else
         return false
       end
@@ -299,29 +296,29 @@ class User < ActiveRecord::Base
     end
   end
 
-  #questo metodo prende in input l'id di una proposta e verifica che l'utente ne sia l'autore
+  # questo metodo prende in input l'id di una proposta e verifica che l'utente ne sia l'autore
   def is_my_proposal?(proposal_id)
-    proposal = self.proposals.find_by_id(proposal_id) #cerca tra le mie proposte quella con id 'proposal_id'
-    if (proposal) #se l'ho trovata allora è mia
+    proposal = proposals.find_by_id(proposal_id) # cerca tra le mie proposte quella con id 'proposal_id'
+    if proposal # se l'ho trovata allora è mia
       true
     else
       false
     end
   end
 
-  #questo metodo prende in input l'id di una proposta e verifica che l'utente ne sia l'autore
+  # questo metodo prende in input l'id di una proposta e verifica che l'utente ne sia l'autore
   def is_my_blog_post?(blog_post_id)
-    blog_post = self.blog_posts.find_by_id(blog_post_id) #cerca tra le mie proposte quella con id 'proposal_id'
-    if (blog_post) #se l'ho trovata allora è mia
+    blog_post = blog_posts.find_by_id(blog_post_id) # cerca tra le mie proposte quella con id 'proposal_id'
+    if blog_post # se l'ho trovata allora è mia
       true
     else
       false
     end
   end
 
-  #questo metodo prende in input l'id di un blog e verifica che appartenga all'utente
+  # questo metodo prende in input l'id di un blog e verifica che appartenga all'utente
   def is_my_blog?(blog_id)
-    if (self.blog and self.blog.id == blog_id)
+    if blog && blog.id == blog_id
       true
     else
       false
@@ -339,16 +336,16 @@ class User < ActiveRecord::Base
     ranking.try(:ranking_type_id)
   end
 
-  #restituisce true se l'utente ha valutato un contributo
-  #ma è stato successivamente inserito un commento e può quindi valutarlo di nuovo oppure il contributo è stato modificato
+  # restituisce true se l'utente ha valutato un contributo
+  # ma è stato successivamente inserito un commento e può quindi valutarlo di nuovo oppure il contributo è stato modificato
   def can_rank_again_comment?(comment)
-    #return false unless comment.proposal.in_valutation? #can't change opinion if not in valutation anymore
-    ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(self.id, comment.id)
-    return true unless ranking #si, se non l'ho mai valutato
-    return true if ranking.updated_at < comment.updated_at #si, se è stato aggiornato dopo la mia valutazione
+    # return false unless comment.proposal.in_valutation? #can't change opinion if not in valutation anymore
+    ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(id, comment.id)
+    return true unless ranking # si, se non l'ho mai valutato
+    return true if ranking.updated_at < comment.updated_at # si, se è stato aggiornato dopo la mia valutazione
     last_suggest = comment.replies.order('created_at desc').first
-    return false unless last_suggest #no, se non vi è alcun commento
-    ranking.updated_at < last_suggest.created_at #si, se vi sono commenti dopo la mia valutazione
+    return false unless last_suggest # no, se non vi è alcun commento
+    ranking.updated_at < last_suggest.created_at # si, se vi sono commenti dopo la mia valutazione
   end
 
   def certified?
@@ -363,7 +360,7 @@ class User < ActiveRecord::Base
     user_type.short_name == 'mod' || admin?
   end
 
-  #restituisce la richiesta di partecipazione
+  # restituisce la richiesta di partecipazione
   def has_asked_for_participation?(group_id)
     group_participation_requests.find_by(group_id: group_id)
   end
@@ -391,31 +388,25 @@ class User < ActiveRecord::Base
     @ability ||= Ability.new(self)
   end
 
-
   def can_read_forem_category?(category)
     category.visible_outside || (category.group.participants.include? self)
   end
-
 
   def can_read_forem_forum?(forum)
     forum.visible_outside || (forum.group.participants.include? self)
   end
 
-
   def can_create_forem_topics?(forum)
     forum.group.participants.include? self
   end
-
 
   def can_reply_to_forem_topic?(topic)
     topic.forum.group.participants.include? self
   end
 
-
   def can_edit_forem_posts?(forum)
     forum.group.participants.include? self
   end
-
 
   def can_read_forem_topic?(topic)
     !topic.hidden? || forem_admin?(topic.forum.group) || (topic.user == self)
@@ -433,7 +424,7 @@ class User < ActiveRecord::Base
     fullname
   end
 
-  def user_image_url(size=80, params={})
+  def user_image_url(size = 80, _params = {})
     if self.respond_to?(:user)
       user = self.user
     else
@@ -456,7 +447,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  #authentication method
+  # authentication method
   def has_provider?(provider_name)
     authentications.find_by(provider: provider_name).present?
   end
@@ -464,7 +455,6 @@ class User < ActiveRecord::Base
   def from_identity_provider?
     authentications.any?
   end
-
 
   def build_authentication_provider(access_token)
     authentications.build(provider: access_token['provider'], uid: access_token['uid'], token: (access_token['credentials']['token'] rescue nil))
@@ -487,7 +477,7 @@ class User < ActiveRecord::Base
     uid = oauth_data_parser.uid
     user_info = oauth_data_parser.user_info
 
-    #se ho trovato l'id dell'utente prendi lui, altrimenti cercane uno con l'email uguale
+    # se ho trovato l'id dell'utente prendi lui, altrimenti cercane uno con l'email uguale
     auth = Authentication.find_by(provider: provider, uid: uid)
     if auth
       # return user, first_association, found_from_email
@@ -511,7 +501,7 @@ class User < ActiveRecord::Base
       if user_info[:certified]
         certify_with_info(user_info)
       else
-        self.email = user_info[:email] unless self.email
+        self.email = user_info[:email] unless email
         set_social_network_pages(provider, raw_info)
       end
 
@@ -526,7 +516,7 @@ class User < ActiveRecord::Base
   end
 
   def certify_with_info(user_info)
-    raise 'Not enough info for certification' if [user_info[:name], user_info[:surname], user_info[:email]].any? &:blank?
+    fail 'Not enough info for certification' if [user_info[:name], user_info[:surname], user_info[:email]].any? &:blank?
     User.transaction do
       skip_reconfirmation!
       update!(email: user_info[:email], name: user_info[:name], surname: user_info[:surname])
@@ -590,7 +580,7 @@ class User < ActiveRecord::Base
                                        group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED)
     participation_role = group.default_role
     if verified
-      #look for best role or fallback
+      # look for best role or fallback
       residente = ParticipationRole.where(['group_id = ? and lower(name) = ?', group.id, 'residente']).first
       participation_role = residente || participation_role
     end

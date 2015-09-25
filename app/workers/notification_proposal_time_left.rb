@@ -1,5 +1,4 @@
 class NotificationProposalTimeLeft < NotificationSender
-
   def perform(proposal_id, type)
     @proposal = Proposal.find(proposal_id)
     @trackable = @proposal

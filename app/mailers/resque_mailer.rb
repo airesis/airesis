@@ -35,7 +35,7 @@ class ResqueMailer < ActionMailer::Base
     @alert = Alert.find(alert_id)
     @user = @alert.user
     return if @alert.checked # do not send emails for already checked alerts
-    I18n.locale = @user.locale.key || 'en'
+    I18n.locale = @user.locale.key || :'en-EU'
     @data = @alert.data
     to_id = @data[:to_id]
     subject_id = @data[:subject]
@@ -80,7 +80,7 @@ class ResqueMailer < ActionMailer::Base
     @body = body
     @from = User.find(from_id)
     @user = User.find(to_id)
-    I18n.locale = @user.locale.key || 'en'
+    I18n.locale = @user.locale.key || :'en-EU'
     mail(to: @user.email, from: ENV['NOREPLY_EMAIL'], reply_to: @from.email, subject: subject)
   end
 
@@ -93,12 +93,10 @@ class ResqueMailer < ActionMailer::Base
     mail(bcc: @to.map { |u| u.email }, from: ENV['NOREPLY_EMAIL'], reply_to: @from.email, to: "test@airesis.it", subject: subject) #todo extract email
   end
 
-
-
   def publish(newsletter_id, user_id)
     @user = User.find(user_id)
     @newsletter = Newsletter.find(newsletter_id)
-    I18n.locale = @user.locale.key || 'en'
+    I18n.locale = @user.locale.key || 'en-EU'
 
     mail(subject: @newsletter.subject, to: @user.email) do |format|
       format.html { render inline: @newsletter.body, layout: 'newsletters/default' }
@@ -123,7 +121,6 @@ class ResqueMailer < ActionMailer::Base
     @user = User.find(subscriber_id)
     mail(from: "Airesis Forum <replytest+#{@post.token}@airesis.it>", to: @user.email, subject: "[#{@group.name}] #{@post.topic.subject}") #todo extract email
   end
-
 
   def test_mail
     mail(to: ENV['ADMIN_EMAIL'], subject: "Test Redis To Go")

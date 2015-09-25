@@ -1,7 +1,6 @@
 class ParticipationRole < ActiveRecord::Base
-
-  ADMINISTRATOR='amministratore'
-  #MEMBER=1
+  ADMINISTRATOR = 'amministratore'
+  # MEMBER=1
 
   has_many :group_participations
   has_many :users, through: :group_participations, class_name: 'User'
@@ -10,7 +9,7 @@ class ParticipationRole < ActiveRecord::Base
   belongs_to :participation_roles, class_name: 'ParticipationRole', foreign_key: :parent_participation_role_id
   belongs_to :group
 
-  #prendi il portavoce, member è deprecato
+  # prendi il portavoce, member è deprecato
   scope :common, -> { where(id: ParticipationRole.admin.id) }
 
   validates_uniqueness_of :name, scope: :group_id

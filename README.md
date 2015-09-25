@@ -49,7 +49,8 @@ Reference website
 [ http://www.airesis.fr ] ( http://www.airesis.fr )
 [ http://www.airesis.de ] ( http://www.airesis.de )
 [ http://www.airesis.cn ] ( http://www.airesis.cn )
-
+[ http://www.airesis.es ] ( http://www.airesis.es )
+[ http://www.airesis.pt ] ( http://www.airesis.pt )
 
 
 License to use
@@ -71,39 +72,42 @@ The application installs itself as any other RubyOnRails application.
 
 Download the project
 
-`git clone https://github.com/coorasse/Airesis.git`
-`cd airesis`
+    git clone https://github.com/coorasse/Airesis.git
+    cd airesis
 
 Install the libraries
 
-`bundle install`
+    bundle install
 
 Configure database, application and PayPal
 
-`cp config/database.example.yml config/database.yml`
-
-`cp config/application.example.yml config/application.yml`
-
-`cp config/paypal.example.yml config/paypal.yml`
+    cp config/database.example.yml config/database.yml`
+    cp config/application.example.yml config/application.yml`
 
 edit the files and set your custom values    
     
-`rake db:setup`
+    bundle exec rake db:setup
 
 run Airesis
 
-`rails s`
+    bundle exec rails s
 
 run SOLR
 
-`rake sunspot:solr:run`
+    bundle exec rake sunspot:solr:run
 
 run Sidekiq
 
-`sidekiq`
+    bundle exec sidekiq
 
 
 That's it!
+
+If you want to run them all you can use Foreman
+
+    bundle exec foreman start
+    
+and it will take care of running everything for you.
 
 
 Database
@@ -134,6 +138,8 @@ What else should I know? What are we working on right now?
 
 We are working hard trying to convert Airesis in a modular engine.
 
-We want to take out everything which is related to our installation and make it more easy to install.
+We want to take out everything which is related to our installation and make it easier to install.
 
 We are working mainly on the proposals and the layout.
+
+Our main goal is to make it even more simple and usable for everybody!

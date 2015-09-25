@@ -6,13 +6,11 @@ class Blog < ActiveRecord::Base
   has_many :blog_posts, dependent: :destroy
   has_many :comments, through: :blog_posts, source: :blog_comments
 
-  has_many :blog_tags, dependent: :destroy
-  has_many :tags, through: :blog_tags, class_name: 'Tag'
-
-  validates :title, presence: true
+  validates :title, length: {in: 1..100}
+  validates :user, presence: true
 
   def last_post
-    self.blog_posts.order(created_at: :desc).first
+    blog_posts.order(created_at: :desc).first
   end
 
   def solr_country_id
@@ -29,10 +27,10 @@ class Blog < ActiveRecord::Base
     text :title, boost: 2
     time :created_at
     time :last_post_created_at do
-      self.last_post.try(:created_at)
+      last_post.try(:created_at)
     end
     text :fullname do
-      self.user.fullname
+      user.fullname
     end
 
     integer :continent_ids do
@@ -73,8 +71,11 @@ class Blog < ActiveRecord::Base
         order_by :created_at, :desc
 
         paginate page: page, per_page: limite
-
       end.results
     end
+  end
+
+  def should_generate_new_friendly_id?
+    title_changed?
   end
 end

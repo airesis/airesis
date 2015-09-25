@@ -98,7 +98,7 @@
             <% if @archives.length > 0 %>
                 <% @archives.each do |rec| %>
                     <div class="blog_comment">
-                      <%= link_to "#{t('date.month_names')[rec.month.to_i]} #{rec.year.to_i} (#{rec.posts})", posts_by_year_and_month_group_path(@group, month: rec.month.to_i, year: rec.year.to_i) %>
+                      <%= link_to "#{t('calendar.monthNames')[rec.month.to_i - 1]} #{rec.year.to_i} (#{rec.posts})", posts_by_year_and_month_group_path(@group, month: rec.month.to_i, year: rec.year.to_i) %>
                     </div>
                 <% end %>
             <% else %>
@@ -109,7 +109,7 @@
     <% else %>
         <div class="mybox">
           <p>
-            <%= link_to ask_for_participation_group_url(@group), class: "btn blue" do %>
+            <%= link_to ask_for_participation_group_url(@group), method: :post, class: "btn blue" do %>
                 <i class="fa fa-pencil"></i>
                 <%= t('pages.groups.show.ask_participate_button') %>
             <% end %>

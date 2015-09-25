@@ -1,0 +1,71 @@
+zh-TW:
+  calendar:
+    today: 今天
+    month: 月
+    week: 週
+    day: 日
+    firstDay: 0
+    timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
+  date:
+    formats:
+      short: '%b %d'
+      long: '%d %B %Y'
+  time:
+    formats:
+      default: '%d %b %Y at %I:%M %p'
+      long: '%A %d %B %Y at %I:%M %p'
+      long_date: '%A %d %B %Y'
+      long_date_time: '%A %d %B %Y at %I:%M %p'
+      from_long_date_time: 'From %A %d %B %Y at %I:%M %p'
+      until_long_date_time: 'To %A %d %B %Y at %I:%M %p'
+      short: '%d %b %Y'
+      two_rows: '%d %b %Y <br/> %I:%M %p'
+      weekday: '%a at %I:%M %p'
+      month: '%B'
+      dayandmonth: '%d/%m'
+      hour: '%I:%M %p'
+      yesterday_at: '昨天 %I:%M %p'
+      textfield: '%d/%m/%Y %I:%M %p'
+    am: 上午
+    pm: 下午
+    left:
+      seconds:
+        other: '%{count} 秒'
+      minutes:
+        other: '%{count} 分'
+      hours:
+        other: '%{count} 小時'
+      days:
+        other: '%{count} 天'
+      months:
+        other: '%{count} 月'
+  datetime:
+    added_on: '於 %{date}'
+    distance_in_words:
+      about_x_hours:
+        other: '約 %{count} 個小時前'
+      about_x_months:
+        other: '約 %{count} 個月前'
+      about_x_years:
+        other: '約 %{count} 年前'
+      almost_x_years:
+        other: '將近 %{count} 年前'
+      half_a_minute: 半分鐘前
+      less_than_x_minutes:
+        other: '少於 %{count} 分鐘前'
+      less_than_x_seconds:
+        other: '少於 %{count} 秒前'
+      over_x_years:
+        other: '超過 %{count} 年前'
+      x_days:
+        other: ! '%{count} 天前'
+      x_minutes:
+        other: ! '%{count} 分鐘前'
+      x_months:
+        other: ! '%{count} 個月前'
+      x_seconds:
+        other: ! '%{count} 秒前'
+  label:
+    from: 從
+    to: 到
+  countdown: '{m<}{mn} {ml} 前{m>} {s<}剛剛{s>}'

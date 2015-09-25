@@ -18,9 +18,7 @@ module Concerns
       tags.map { |t| {id: t.text, name: t.text} }.to_json
     end
 
-    def tags_list=(tags_list)
-      @tags_list = tags_list
-    end
+    attr_writer :tags_list
 
     def tags_with_links
       tags.collect { |t| "<a href=\"/tags/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')

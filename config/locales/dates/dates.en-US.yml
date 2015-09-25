@@ -60,6 +60,8 @@ en-US:
       long_date_time: "%A %B %d %Y at %I:%M %p"
       from_long_date_time: "From %A %B %d %Y at %I:%M %p"
       until_long_date_time: "To %A %B %d %Y at %I:%M %p"
+      from_long_date: "From %A %B %d %Y"
+      until_long_date: "To %A %B %d %Y"
       two_rows: "%b %d, %Y <br/> %I:%M %p"
       weekday: "%A"
       month: "%B"

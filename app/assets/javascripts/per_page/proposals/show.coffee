@@ -16,7 +16,7 @@ window.ProposalsShow =
   init: ->
     @currentView = if Airesis.signed_in then 1 else 3
     $('[data-scroll-to="vote_panel"]').on 'click', ->
-      @scroll_to_vote_panel()
+      ProposalsShow.scroll_to_vote_panel()
     $(document).on 'click', '[data-cancel-edit-comment]', ->
       ProposalsShow.cancel_edit_comment($(this).data('cancel-edit-comment'))
       return false
@@ -307,7 +307,7 @@ window.ProposalsShow =
       since: updateDate
       significant: 1
       format: 'YODHMS'
-      layout: Airesis.i18n.countdown2
+      layout: Airesis.i18n.countdown.layout2
     ,
       $.countdown.regionalOptions[Airesis.i18n.locale]
 

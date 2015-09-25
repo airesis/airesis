@@ -3,5 +3,6 @@
 *= require foundation
 *= require style
 *= require buttons
-*=require_tree .
+*= require cookies_eu
+*= require_tree .
 */

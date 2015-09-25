@@ -6,18 +6,16 @@ it-IT:
       topic: Topic
       posts: Messaggi
       posts_count:
-        zero: Nessun messaggio
         one: 1 messaggio
-        other: "%{count} messaggi"
+        other: '%{count} messaggi'
       flagged_for_spam: Il tuo account è stato segnalato come spam.
       cannot_create_topic: Al momento non puoi creare un nuovo topic.
       cannot_create_post: Al momento non puoi creare un nuovo messaggio.
-
-    access_denied: "Non hai il permesso di farlo."
+    access_denied: Non hai il permesso di farlo.
     admin:
-      area: "Amministrazione forum"
+      area: Amministrazione forum
       back_to_admin: "Vai all'Area Amministratore"
-      back_to_forums: "Vai ai forum"
+      back_to_forums: Vai ai forum
       back_to_groups: "Vai all'elenco gruppi di moderatori"
       forum:
         moderator_groups: Gruppi di moderatori
@@ -39,29 +37,29 @@ it-IT:
           none: Nessuno
           moderators: Moderatori
           no_category: (Nessuna sezione)
-        default_private: "Forum privato"
-        default_public: "Forum pubblico"
-        default_private_description: "Forum riservato a coloro che appartengono al gruppo"
-        default_public_description: "Forum visualizzabile da tutti i partecipanti di Airesis. Anche a coloro che non appartengono al gruppo"
+        default_private: Forum privato
+        default_public: Forum pubblico
+        default_private_description: Forum riservato a coloro che appartengono al gruppo
+        default_public_description: Forum visualizzabile da tutti i partecipanti di Airesis. Anche a coloro che non appartengono al gruppo
       mod:
         index: Gestisci Gruppi di Moderatori
         new: Crea un nuovo Gruppo di moderatori
         created: Il gruppo di moderatori è stato creato
         not_created: Non è stato possibile creare il gruppo di moderatori
         deleted: Il gruppo di moderatori selezionato è stato eliminato
-        members: "Membri del gruppo %{group}"
+        members: 'Membri del gruppo %{group}'
       mods:
         show:
           add_member: Aggiungi
-          add_a_new_member: "Aggiungi un nuovo membro"
-          current_members: "Membri del gruppo"
+          add_a_new_member: Aggiungi un nuovo membro
+          current_members: Membri del gruppo
         edit: Modifica
-        delete: Elimina
+        delete: Cancella
         name: Nome
       category:
         index: Gestisci Sezioni Forum
         new: Crea una nuova Sezione Forum
-        edit: "Modifica sezione %{title}"
+        edit: 'Modifica sezione %{title}'
         new_link: Nuova Sezione Forum
         deleted: La sezione del forum selezionata è stata cancellata
         created: La sezione del forum è stata creata
@@ -73,29 +71,32 @@ it-IT:
         delete: Elimina
         category: Sezione
         delete_confirm: Sei sicuro di voler eliminare questa sezione del forum?
-        default_private: "Sezione privata"
-        default_public: "Sezione pubblica"
+        default_private: Sezione privata
+        default_public: Sezione pubblica
+      group:
+        index: Gestisci i gruppi di moderatori
+        show:
+          title: Gestisci i moderatori
     common:
       pages: Pagine
     errors:
       not_signed_in: Devi fare il login
       access_denied: Accesso negato.
     forum:
-      header: "Stai vedendo %{title}"
+      header: 'Stai vedendo %{title}'
       forums: Forums
       new: Crea un nuovo forum
-      edit: "Modifica del forum %{title}"
+      edit: 'Modifica del forum %{title}'
       topics_count:
-        zero: 0 topic
         one: 1 topic
-        other: "%{count} topic"
+        other: '%{count} topic'
       posts_count:
-        zero: 0 messaggi
         one: 1 messaggio
-        other: "%{count} messaggi"
-      moderator_tools: "Strumenti Moderazione"
-      topic_tools: "Strumenti Topic"
-      admin_tools: "Strumenti di amministrazione"
+        other: '%{count} messaggi'
+      moderator_tools: Strumenti Moderazione
+      topic_tools: Strumenti Topic
+      admin_tools: Strumenti di amministrazione
+      title: Nuovo forum
     forums:
       index:
         title: Forum
@@ -118,7 +119,7 @@ it-IT:
       delete: Elimina
       created: Il topic è stato creato
       new: Crea un nuovo topic
-      edit: Modifica topic %{subject}
+      edit: 'Modifica topic %{subject}'
       not_created: Non è stato possibile creare il topic
       deleted: Il tuo topic è stato eliminato
       cannot_delete: Non puoi eliminare topic che non ti appartengono
@@ -133,14 +134,14 @@ it-IT:
         edit: Modifica topic
       not_found: Non è stato possibile trovare il topic che stavi cercando
       hidden:
-        'true': Questo topic è ora nascosto
-        'false': Questo topic è ora visibile
+        "true": Questo topic è ora nascosto
+        "false": Questo topic è ora visibile
       locked:
-        'true': Questo topic è ora bloccato
-        'false': Questo topic non è più bloccato
+        "true": Questo topic è ora bloccato
+        "false": Questo topic non è più bloccato
       pinned:
-        'true': Questo topic è ora in evidenza
-        'false': Questo topic non è più in evidenza
+        "true": Questo topic è ora in evidenza
+        "false": Questo topic non è più in evidenza
     topics:
       show:
         reply: Rispondi
@@ -148,17 +149,17 @@ it-IT:
         subscribe: Segui
         unsubscribe: Non Seguire
         reply_to_topic: Rispondi a questo topic
-        pending_review: Questo topic sta aspettando revisione. Solo l'autore e i moderatori possono vederlo.
+        pending_review: "Questo topic sta aspettando revisione. Solo l'autore e i moderatori possono vederlo."
         hide:
-          'true': Mostra topic
-          'false': Nascondi topic
+          "true": Mostra topic
+          "false": Nascondi topic
         lock:
-          'true': Sblocca topic
-          'false': Blocca topic
+          "true": Sblocca topic
+          "false": Blocca topic
         pin:
-          'true': Rimuovi topic da evidenza
-          'false': Metti topic in evidenza
-        related_proposals: "Proposte collegate"
+          "true": Rimuovi topic da evidenza
+          "false": Metti topic in evidenza
+        related_proposals: Proposte collegate
     post:
       buttons:
         reply: Rispondi
@@ -171,8 +172,9 @@ it-IT:
       edited: Il tuo messaggio è stato modificato
       not_edited: Non è stato possibile modificare il tuo messaggio
       deleted: Il tuo messaggio è stato eliminato
-      deleted_with_topic: Unico messaggio nel topic eliminato. Anche il topic è stato eliminato
+      deleted_with_topic: "L'ultimo post nel topic è stato cancellato. Eliminato anche l'intero topic"
       cannot_delete: Non puoi eliminare un messaggio che non ti appartiene
+      cannot_quote_deleted_post: Il post che hai tentato di citare non esiste più.
     posts:
       moderation:
         moderate: Modera
@@ -180,11 +182,11 @@ it-IT:
         spam: Spam
         success: I messaggi selezionati sono stati moderati
       post:
-        pending_review: Questo messaggio sta aspettando revisione. Solo l'autore e i moderatori possono vederlo.
+        pending_review: "Questo messaggio sta aspettando revisione. Solo l'autore e i moderatori possono vederlo."
         in_reply_to: in risposta a
     moderation:
       index:
-        title: "Strumenti moderazione per %{forum}"
+        title: 'Strumenti moderazione per %{forum}'
   helpers:
     submit:
       frm_forum:
@@ -197,6 +199,7 @@ it-IT:
         create: Crea gruppo
       frm_category:
         create: Crea sezione
+        update: Aggiorna Categoria
   simple_form:
     labels:
       frm_forum:
@@ -218,17 +221,15 @@ it-IT:
         text: Testo
       frm_mod:
         name: Nome
-
-  # General stuff
-  time_ago_in_words: "%{time} fa"
-  ago: " fa"
-  ago_by: " fa da"
+  time_ago_in_words: '%{time} fa'
+  ago: ' fa'
+  ago_by: ' fa da'
   by: da
-  started_by: "Iniziato da "
+  started_by: 'Iniziato da '
   are_you_sure: Sei sicuro?
-  lst_post: "Ultimo messaggio"
-  last_post: "Ultimo topic"
-  back_to_forums: "Vai ai forum"
+  lst_post: Ultimo messaggio
+  last_post: Ultimo topic
+  back_to_forums: Vai ai forum
   pages:
     forum_groups:
       index:

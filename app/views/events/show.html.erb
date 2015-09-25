@@ -29,15 +29,15 @@
         </div>
         <div class="event_content">
           <%= render partial: 'events/calendar_icon', locals: {time: @event.starttime} %>
-          <div style="float:left;margin-top: 10px;">
-            <meta itemprop="startDate" content="<%= l @event.starttime, format: :rich %>">
+          <div class="event_dates_text">
+            <meta itemprop="startDate" content="<%= l @event.starttime, format: '%Y-%m-%dT%H:%M' %>">
             <b>
-              <%= l @event.starttime, format: :from_long_date_time %>
+              <%= @event.formatted_starttime %>
             </b>
 
             <div style="margin-top:5px;"></div>
             <b>
-              <%= I18n.localize(@event.endtime, format: :until_long_date_time) %>
+              <%= @event.formatted_endtime %>
             </b>
           </div>
           <div class="clearboth"></div>

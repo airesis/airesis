@@ -2,7 +2,6 @@ es-ES:
   permissions_required: No está autorizado realizar esta operación
   test: Prueba
   open_space: Espacio libre
-  guide: 'Guia FAQ - Preguntas más frecuentes'
   hello: ¡Hola Mundo
   pages:
     top_panel:
@@ -187,7 +186,6 @@ es-ES:
           <p>It is possible to change the rules of this group using through its <b>Settings</b>.</p>
       header:
         settings: CONFIGURACIÒN
-        elections: ELECCIONES
         documents: DOCUMENTOS
       documents:
         documents_archive: Archivo de documentos
@@ -201,13 +199,7 @@ es-ES:
           advanced: Avanzado
           time_description: For the proposal to go to the voting phase, it must remain in debate for at least
           simple_percentage_description: Then it goes to the voting phase if its rank (positive evaluations) is superior to
-          advanced_participation_description: it must be evaluated by almost
-          advanced_participation_description2: of the members that have the right to do so
-          advanced_participation_description3: '(that is '
-          advanced_participation_description4: out of
-          advanced_participation_description5: ' at the moment).'
           advanced_percentage_description: If however the rank is inferior to
-          advanced_percentage_description2: the proposal is rejected without going to the voting phase.
           advanced_percentage_description3: The proposal remains in debate until the rank is between the two thresholds.
         active: Activo
         name: Nombre
@@ -223,8 +215,6 @@ es-ES:
         default_private_proposal: Propuestas visibles fuera del grupo
         default_secret_vote: Voto secreto
         let_editor_change_settings: Los redactores pueden elegir libremente las opciones anteriores
-        condition_OR: o
-        condition_AND: 'y'
         time: Tiempo
         edit_quorum_warning: ¡ ADVERTENCIA! Modificaciones a este quórum no afectarán a las propuestas ya usarlo!
       edit_work_areas:
@@ -284,7 +274,7 @@ es-ES:
       email_confirmed: Si usted se inscribe con este correo electrónico no es necesario confirmar la quenta.
       choose_password: Elige una contraseña
       confirm_password: Confirmar contraseña
-      accept_conditions: 'Acepto los términos del servicio'
+      accept_conditions: Acepto los términos del servicio
       register_button: Regístrese
       identity_provviders_title: Entra inmediatamente con tu cuenta favorita
     proposals:
@@ -363,11 +353,8 @@ es-ES:
         characters_left: 'caractéres disponibles:'
         score: Puntuación
         rank: Rango
-        created_at: Propuesta creada en
-        updated_at: Última actualización de
         votation_results: Resultados
         votation_results_title: Resultados de la votación
-        in_votation: Votando
         in_votation_now: Votar ahora!
         anonimity_active: Anonimato temporal activo
         your_nickname_is: Su apodo es
@@ -479,11 +466,9 @@ es-ES:
         remove_solution: Remove solution
         press_to_compress: Click on the title to compress this solution
         add_paragraph_to_solution: Add a paragraph to the solution
-        add_solution: Add another solution
         you_know_what_you_do: Do you know what are you going to do?
         schulze_title: One or more solutions?
         inserted_contributes: Sign the contributions you have integrated in this revision
-        tooltip: "When you have finished editing, press button 'Update' to save your work"
         more_solutions_explained_html: |
           <b>Why do we ask you if you know what you are doing?</b><br/>
           Airesis lets you add one or more solutions in a proposal.<br/>
@@ -566,7 +551,7 @@ es-ES:
         edit_button: Edit
         delete_button: Delete
         delete_button_confirm: Are you sure you want to delete this post?
-        draft: 'Draft'
+        draft: Draft
         comments_says: says...
       published_button: Published posts
       view:
@@ -699,22 +684,6 @@ es-ES:
       confirm_button: Confirm
     calendar:
       create_event_button: Create new event
-    candidates:
-      new:
-        title: '%{name} : New candidature'
-        description: Choose one of the group participants and send him as candidate for one of the available elections.
-        send_button: Send the candidature
-      index:
-        description: 'On this page you can track the candidatures made ​​by the group in the elections. <br /> Before you can make a nomination, the group must '
-        create_election: hold an election
-        user_column: User
-        election_column: Election
-        state_column: State
-        candidates_phase: user candidatures
-        voting_phase: voting phase
-        terminated_phase: terminated
-        send_candidate_button: Candidate a user
-        create_election_button: Create a new election
     sessions:
       new:
         login_label: Username or Email
@@ -730,12 +699,6 @@ es-ES:
         description_html: |
           Set your geographical interest borders.<br />
           If Airesis know what are the territories you are interested in, it can suggest you the groups to follow and show the new proposals related to your territory.<br />
-      choose_image:
-        title: Profile image
-        gravatar: The image you see has been taken from the service Gravatar using the e-mail address you registered with.
-        edit_image: 'If you would like to change the image, hover your mouse on it and click on '
-        Identity_provider: The image you see has been taken from your Identity Provider.
-        Identity_provider2: It will be synced and every time you will change it on your social network, it will also change in Airesis.
       rank_bar_explain:
         title: The rank bar
         description_html: |
@@ -815,7 +778,6 @@ es-ES:
         title: Change your password
   pl:
     comments:
-      zero: no comment
       one: one comment
       other: '%{count} comments'
   activerecord:
@@ -826,12 +788,6 @@ es-ES:
       blog_comment:
         body: Comment
         created_at: AntiSpam
-      candidate:
-        user: Candidate
-        election: Election
-      election:
-        groups_end_time: Deadline date for group entry
-        candidates_end_time: Deadline date for candidates entry
       event:
         title: Event title
         description: Description
@@ -842,7 +798,6 @@ es-ES:
         period: Repeat
         frequency: Repeat every
         private: Private
-        candidates_end_time: Deadline date for candidates entry
         meeting:
           place:
             address: Address
@@ -889,9 +844,6 @@ es-ES:
         group_area_id: Work area
         proposal_category_id: Category
         title: Title
-        subtitle: Subtitle
-        problems: Problems
-        objectives: Objectives
         content: Text
         interest_borders_tkn: Geographical places of interest
         tags_list: Tags
@@ -985,10 +937,7 @@ es-ES:
       time_condition_1: 'The debate will last exactly %{time}.'
       participants_condition_1: 'The debate will continue until they have participated in the %{percentage}% of those eligible.'
       good_score_condition: 'It will go to the voting phase if it gets a rank of over %{good_score}%'
-      bad_score_condition: 'and will be abandoned if it gets a rank of under %{bad_score}%.'
       bad_score_explain: The debate will continue if the rank will remain between these two thresholds, regardless of time or the number of evaluations
-  terms_of_service: Terms of service
-  privacy_policy: Privacy Policy
   proposals:
     create_button: Create a proposal
     show:
@@ -1017,7 +966,7 @@ es-ES:
     random_stack_3: '<strong>How it works?</strong><br/>Contributions are shown in order of popularity. <br/> <b>Note</b>: Your rating will change this order!'
     miglioricontributi: '<strong> How can I help? </strong> <br/> Contributions should not express simple appreciation but substantial changes to the text: constructive criticism, alternatives or improvements to the proposal will help the writer to develop a shared summary of the text. <br /> <br/> <b>Note</b>: The most valuable contribution is what makes it possible to find a solution to the proposal!'
     voglioredigere: Ask the editors to allow you to edit the text of the proposal on the basis of the contributions of the users.
-    voteup: "The proposal is mature enough and can go to the voting phase (you can change your evaluation when the text of the proposal is updated)"
+    voteup: The proposal is mature enough and can go to the voting phase (you can change your evaluation when the text of the proposal is updated)
     votedown: "The text of the proposal is not mature yet, because the users' contributions has to be integrated (you can change your evaluation when the text of the proposal will be updated)"
     valutazioni: total number of evaluations received
     gradimento: percentage of positive evaluations on the total
@@ -1028,17 +977,6 @@ es-ES:
     quorum_valutations: 'until it will be rated good by <b>least %{valutations} people</b>'
     quorum_description: 'The proposal will be in debate %{conditions}. It will go to the voting phase if it obtains a <b>rank</b> (positive evaluations) grater than <b>%{good_score}%</b> of the total number of evaluations.'
   group: group
-  proposal_types:
-    problems_title: Problems
-    rule_book:
-      problems_title: Problems
-      sections:
-        inspire: Rules from which get example
-        stackeholders: Stakeholders
-        requisiti: Requirements to be met
-    candidates:
-      sections:
-        description: Description of the kind of election
   saving: Saving...
   sending: Sending...
   updating: Updating...
@@ -1207,7 +1145,6 @@ es-ES:
       title: '%{user} inserted a new %{comment} in the proposal'
       view_proposal: '%{click_here} to see the proposal.'
     text_update:
-      view_proposal: 'The proposal <b>%{proposal}</b> has been updated!'
       integrated_contributes: 'Congratulations! The following contributions that you had inserted have been integrated by the editors:'
       view_proposal_2: '%{click_here} and verify that the new text contains your suggestions. <br/> If you are not satisfied you can always put your contributions back in debate by pulling them from History.'
       connect: 'Log in %{name}'
@@ -1237,5 +1174,5 @@ es-ES:
       reject: Refuse
       greetings: Greetings!
       no_more_button: No further invitations
-  contribute: contribution
-  comment: comment
+  terms_of_service: Terms of service
+  privacy_policy: Privacy Policy

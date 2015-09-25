@@ -18,18 +18,16 @@ Airesis::Application.configure do
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
-
-  config.assets.precompile += %w(endless_page.js paypal-button.min.js landing/main.js landing/all.js homepage.js jquery.js jquery.qtip.js ice/index.js html2canvas.js i18n/*.js proposals/show.js elfinder.full.js elFinderSupportVer1.js proposals/edit.js)
-  config.assets.precompile += %w(back_enabled.png landing.css landing/all.css redmond/custom.css menu_left.css jquery.qtip.css foundation_and_overrides.css ckeditor/* elfinder.min.css newsletters.css)
+  config.assets.digest = true
 
   # Generate digests for assets URLs
-  config.assets.digest = true
 
   config.assets.version = '1.0'
 
   config.force_ssl = (ENV['FORCE_SSL'].try(:downcase) == 'true')
 
   config.logger = Logger.new(Rails.root.join("log", Rails.env + ".log"), 50, 100.megabytes)
+  config.log_level = :info
 
   config.active_record.raise_in_transactional_callbacks = true
 end

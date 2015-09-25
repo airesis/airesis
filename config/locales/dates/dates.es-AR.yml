@@ -1,37 +1,6 @@
 es-AR:
   calendar:
-    monthNames: "['~', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']"
-    monthNamesShort: "['~', 'En', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sept', 'Oct', 'Nov', 'Dic']"
-    dayNames: "['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']"
-    dayNamesShort: "['Dom', 'Lun', 'Mar', 'Miér', 'Jue', 'Vier', 'Sáb']"
-    today: hoy
-    month: mes
-    week: semana
-    day: día
-    firstDay: "0"
-    timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
-  date:
-    formats:
-      short: '%b %d'
-      long: '%d %B %Y'
-    day_names:
-      - Domingo
-      - Lunes
-      - Martes
-      - Miercoles
-      - Jueves
-      - Viernes
-      - Sabado
-    abbr_day_names:
-      - Dom
-      - Lun
-      - Mar
-      - Mier
-      - Vier
-      - Juev
-      - Sab
-    month_names:
-      - Nil
+    monthNames:
       - Enero
       - Febrero
       - Marzo
@@ -44,13 +13,12 @@ es-AR:
       - Octubre
       - Noviembre
       - Diciembre
-    abbr_month_names:
-      - Nil
+    monthNamesShort:
       - Ene
       - Feb
       - Mar
       - Abr
-      - Mayo
+      - May
       - Jun
       - Jul
       - Ago
@@ -58,6 +26,37 @@ es-AR:
       - Oct
       - Nov
       - Dic
+    dayNames:
+      - Domingo
+      - Lunes
+      - Martes
+      - Miércoles
+      - Jueves
+      - Viernes
+      - Sábado
+    dayNamesShort:
+      - Dom
+      - Lun
+      - Mar
+      - Mié
+      - Jue
+      - Vie
+      - Sab
+    today: hoy
+    month: mes
+    week: semana
+    day: día
+    firstDay: 0
+    timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
+  date:
+    order:
+      - :day
+      - :month
+      - :year
+    formats:
+      default: '%d-%m-%Y'
+      short: '%b %d'
+      long: '%d %B %Y'
   time:
     formats:
       default: '%d %b %Y at %I:%M %p'
@@ -74,7 +73,8 @@ es-AR:
       hour: '%I:%M %p'
       yesterday_at: 'yesterday at %I:%M %p'
       textfield: '%d/%m/%Y %I:%M %p'
-      rich: '%Y-%m-%dT%H:%M'
+      datepicker: '%Y-%m-%d'
+      datetimepicker: '%Y-%m-%d %H:%M'
     am: AM
     pm: PM
     left:
@@ -134,3 +134,4 @@ es-AR:
     from: Desde
     to: hacia
   countdown: '{m<}{mn} {ml} ago{m>} {s<}just now{s>}'
+  countdown2: '{y<}{yn} {yl}{y>} {o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>} {s<}pocos segundos{s>}'

@@ -25,8 +25,8 @@ describe 'create proposal comments', type: :feature, js: true do
 
     expect(page).to have_selector('form#new_user')
     within('form#new_user') do
-      fill_in 'user_login', :with => @luser.email
-      fill_in 'user_password', :with => 'topolino'
+      fill_in 'user_login', with: @luser.email
+      fill_in 'user_password', with: 'topolino'
       click_button 'Login'
     end
     expect(page).to have_content(comment)

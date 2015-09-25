@@ -6,15 +6,13 @@ class GroupAction < ActiveRecord::Base
   CREATE_EVENT = 2
 
   # support proposals on behalf of the group
-  #@deprecated
-  PROPOSAL = 3
   SUPPORT_PROPOSAL = 3
 
   # accept participation request
   REQUEST_ACCEPT = 4
 
   # semd candidates to elections
-  #@deprecated
+  # @deprecated
   SEND_CANDIDATES = 5
 
   # view group private proposals
@@ -26,20 +24,18 @@ class GroupAction < ActiveRecord::Base
   # insert new proposals
   PROPOSAL_INSERT = 8
 
-  DOCUMENTS_VIEW=9
+  DOCUMENTS_VIEW = 9
 
-  DOCUMENTS_MANAGE=10
+  DOCUMENTS_MANAGE = 10
 
-  #vote proposals
-  PROPOSAL_VOTE =11
+  # vote proposals
+  PROPOSAL_VOTE = 11
 
-  #choose date for proposals
-  PROPOSAL_DATE =12
-
+  # choose date for proposals
+  PROPOSAL_DATE = 12
 
   has_many :action_abilitations, class_name: 'ActionAbilitation', dependent: :destroy
   has_many :area_action_abilitations, class_name: 'AreaActionAbilitation', dependent: :destroy
-
 
   scope :for_group_areas, -> { where(id: DEFAULT_AREA_ACTIONS) }
   scope :excluding_ids, ->(ids) { where.not(id: ids) if ids.any? }

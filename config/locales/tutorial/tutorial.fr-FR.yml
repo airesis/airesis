@@ -1,4 +1,4 @@
-fr:
+fr-FR:
   tutorial:
     proposals_index:
       welcome_open_space: "Bienvenue dans l'espace ouvert de Airesis ! L'espace ouvert est un groupe très particulier auquel participent tous les utilisateurs. Vous trouverez une liste des propositions librement ajoutées par les utilisateurs de l'application et vous pouvez même ajouter les votre"
@@ -19,7 +19,7 @@ fr:
       timeline: "Une barre qui affichent l'état du débat ou le vote"
       timeleft: Le temps et/ou les évaluations nécessaires pour clore le débat
       rankDescription: La maturité de la proposition, qui montre si la proposition est prête à être votée, basé sur les évaluations des participants
-      participants: Le nombre de personnes qui participent à ce projet avec leurs contributions et évaluations
+      participants: Le nombre de personnes qui, par leur contributions et leurs évaluations, participent à cette proposition
       contributes: Le nombre de contributions ajoutées
       end: "Il s'agit de la structure de la liste des propositions. C'est la même dans chaque groupe auquel vous participez et elle vous aidera à vous orienter dans les discussions du groupe"
     proposals_show:

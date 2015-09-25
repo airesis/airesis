@@ -1,4 +1,4 @@
-ro:
+ro-RO:
   errors:
     messages:
       expired: a expirat, vă rugăm să solicitaţi una nouă
@@ -6,13 +6,10 @@ ro:
       already_confirmed: a fost deja confirmat, vă rugăm încercaţi să vă autentificați
       not_locked: nu a fost blocat
       not_saved:
-        one: "o eroare a împiedicat salvarea %{resource}:"
-        other: "%{count} erori au împiedicat salvarea %{resource}:"
+        one: 'o eroare a împiedicat salvarea %{resource}:'
+        other: '%{count} erori au împiedicat salvarea %{resource}:'
   devise:
     failure:
-      already_authenticated: Sunteţi deja autentificat(ă)
-      unauthenticated: Înainte de a continua, trebuie să vă conectaţi sau să vă înregistraţi
-      unconfirmed: Înainte de a continua, trebuie să confirmaţi crearea contului
       locked: Contul dvs. este blocat
       invalid: Adresă de e-mail sau parolă incorectă
       invalid_token: Semn de autentificare incorect
@@ -39,27 +36,23 @@ ro:
       update_needs_confirmation: Actualizarea contului dvs. a fost finalizată, dar trebuie sa verificăm noua adresă de email. Vă rugăm să verificaţi email-ul şi să faceţi clic pe linkul de confirmare pentru a finaliza confirmarea noii adrese de email
       destroyed: La revedere! Contul a fost anulat cu succes. Sperăm să te revedem curând
     unlocks:
-      send_instructions: Veţi primi în scurt timp un e-mail cu instrucţiunile privind confirmarea contului
       unlocked: Contul dvs. a fost deblocat. Pentru a continua, trebuie să vă conectaţi
       send_paranoid_instructions: În cazul în care contul dvs. există, veţi primi în scurt timp un e-mail cu instrucţiunile privind deblocarea acestuia
     omniauth_callbacks:
-      success: "Autorizat cu succes din contul %{kind}"
       failure: 'Nu te putem autoriza la %{kind} pentru că "%{reason}"'
     mailer:
       confirmation_instructions:
         subject: Instrucțiuni privind confirmarea
-        welcome: "Bine ați venit pe % %{app_name} {user}!"
-        follow_link: "Poți confirma adresa de e-mail făcând clic pe link-ul următor:"
+        welcome: 'Bine ați venit pe % %{app_name} {user}!'
+        follow_link: 'Poți confirma adresa de e-mail făcând clic pe link-ul următor:'
         confirm_account: Confirmaţi contul
-        follow_link_2: "sau vizitând următorul url:"
-        access_by_email: "Apoi vă puteţi conecta cu adresa de e-mail furnizată si parola aleasă %{app_name}"
-        contact_assistance: "Dacă aveţi orice problemă cu procedura, contactați un administrator: %{mail}"
+        follow_link_2: 'sau vizitând următorul url:'
+        access_by_email: 'Apoi vă puteţi conecta cu adresa de e-mail furnizată si parola aleasă %{app_name}'
+        contact_assistance: 'Dacă aveţi orice problemă cu procedura, contactați un administrator: %{mail}'
       reset_password_instructions:
         subject: Instrucţiuni de resetare a parolei
-        hi_user: "Bună ziua %{user}!"
-        follow_link: "Vă puteţi schimba parola, făcând clic pe link-ul următor:"
+        hi_user: 'Bună ziua %{user}!'
         change_password: Schimbare parolă
-        ignore: Dacă nu ai cerut schimbarea de parolă, ignoră acest mesaj email.
         password_will_not_change: Parola nu se va schimba înainte să faceţi clic pe link-ul anterior.
       unlock_instructions:
         subject: Instrucţiuni de deblocare

@@ -56,8 +56,6 @@ pt-PT:
         description: Apoiar propostas em nome do grupo
       REQUEST_ACCEPT:
         description: Adicionar novos membros ao grupo
-      SEND_CANDIDATES:
-        description: Nomear membros para eleição
       PROPOSAL_VIEW:
         description: Ver propostas privadas
       PROPOSAL_PARTICIPATION:
@@ -103,11 +101,9 @@ pt-PT:
       new_valutation:
         description: Nova avaliação para uma proposta em que eu participo
         email_subject: '%{title} - Nova Avaliação'
-        message: 'A sua proposta <b>%{title}</b> recebeu uma nova avaliação'
+        message: 'A proposta <b>%{title}</b> recebeu uma nova avaliação'
       available_author:
         description: Utilizador disponível para se tornar editor de uma proposta
-        email_subject: '%{title} - disponíveis novos editores'
-        message: '%{user} está disponível para tornar-se editor da proposta <b>%{title}</b>'
       author_accepted:
         description: Aceitação como editor de uma proposta
         email_subject: '%{title} - agora você é editor!'
@@ -121,17 +117,17 @@ pt-PT:
         email_subject: '%{proposal} - contribuição regressa a debate'
         message: 'Uma contribuição que integrou na proposta <b>%{proposal}</b> foi posta em debate novamente'
       new_contributes:
-        description: Novas contribuições nas propostas em que participo
-        email_subject: '%{title} - novo contributo'
-        message: '<b>%{name}</b> foi adicionada uma nova contribuição na proposta <b>%{title}</b>'
+        message:
+          one: '<b>%{name}</b>  deu um novo contributo à proposta  <b>%{title}</b>'
+          other: 'Existem <b>%{count}</b> novos contributos à proposta <b>%{title}</b>'
       text_update:
         description: Atualização do texto de uma proposta em que eu participo
-        email_subject: '%{title} - o texto foi modificado'
-        message: 'A proposta <b>%{title}</b> foi actualizada'
       new_contributes_mine:
         description: Novas contribuições nas minhas propostas
-        email_subject: '%{title} - nova contribuição'
-        message: '<b>%{name}</b> foi adicionada uma contribuição na sua proposta <b>%{title}</b>'
+        message:
+          zero: '<b>%{name}</b> adicionou um novo contributo à sua proposta <b>%{title}</b>'
+          one: '<b>%{name}</b> adicionou um novo contributo à sua proposta <b>%{title}</b>'
+          other: 'Existem <b>%{count}</b> novos contributos à proposta <b>%{title}</b>'
       change_status:
         description: Mudança no estado de uma proposta em que eu participo
         email_subject:
@@ -149,7 +145,7 @@ pt-PT:
           waiting_date: '%{name} foi escolhida a data da votação para a proposta <b>%{title}</b>'
           in_vote: 'A sua proposta <b>%{title}</b> está agora a ser votada!'
           abandoned: 'A proposta <b>%{title}</b> não passou o debate e foi abandonada'
-          rejected: 'A proposta <b>%{title}</b> foi rejeitada pelos partecipantes'
+          rejected: 'A proposta <b>%{title}</b> foi rejeitada pelos participantes'
           voted: '%{title} - votação terminada'
           24_hours: 'O debate sobre <b>%{title}</b> termina amanhã!'
           1_hour: 'O debate sobre <b>%{title}</b> termina numa hora!'
@@ -173,12 +169,24 @@ pt-PT:
           waiting_date: '%{name} escolheu a data de votação para a proposta <b>%{title}</b>'
           in_vote: 'A sua proposta <b>%{title}</b> está agora a ser votada!'
           abandoned: 'A sua proposta <b>%{title}</b> não passou na fase de debate e foi abandonada, desculpe!'
-          rejected: 'A sua proposta <b>%{title}</b> foi rejeitada pelos partecipantes, desculpe!'
+          rejected: 'A sua proposta <b>%{title}</b> foi rejeitada pelos participantes, desculpe!'
           voted: '<b>%{title}</b> - O voto foi finalizado'
           24_hours: 'O debate sobre <b>%{title}</b> termina amanhã!'
           1_hour: 'O debate sobre <b>%{title}</b> termina numa hora'
           24_hours_vote: 'O debate sobre <b>%{title}</b> termina amanhã'
           1_hour_vote: 'O debate sobre <b>%{title}</b> termina numa hora'
+      proposal_phase_ending:
+        description: Um debate de proposta ou votação vai terminar em breve
+        email_subject:
+          24_hours: 'O debate sobre %{title} termina amanhã!'
+          1_hour: 'O debate sobre %{title} termina numa hora!'
+          24_hours_vote: 'A votação sobre %{title} termina amanhã!'
+          1_hour_vote: 'A votação sobre %{title} termina numa hora!'
+        message:
+          24_hours: 'O debate sobre <b>%{title}</b> termina amanhã!'
+          1_hour: 'O debate sobre <b>%{title}</b> termina numa hora!'
+          24_hours_vote: 'A votação sobre <b>%{title}</b> termina amanhã!'
+          1_hour_vote: 'A votação sobre <b>%{title}</b> termina numa hora!'
       new_posts_group_follow:
         description: Novos posts nas paredes dos grupos que eu estou a seguir...
         email_subject: Novo post
@@ -196,12 +204,11 @@ pt-PT:
         message: 'Nova proposta <b>%{proposal}</b> criada no grupo <b>%{group}</b>'
       new_participation_request:
         description: Nova solicitação de participação
-        email_subject: Nova solicitação de participação
-        message: '<b>%{user}</b> pediu para participar do grupo <b>%{group}</b>'
       new_blog_comment:
         description: Novo comentário no meu blog
-        email_subject: Novo comentário no seu blog
-        message: '<b>%{user}</b> comentou o seu post <b>%{title}</b>'
+        message:
+          one: '<b>%{user}</b> comentou o seu post <b>%{title}</b>'
+          other: 'Existem <b>%{count}</b> novos comentários ao seu post <b>%{title}</b>'
       new_comments_mine:
         description: Novos comentários nas minhas propostas
         email_subject: Novo comentário à minha proposta

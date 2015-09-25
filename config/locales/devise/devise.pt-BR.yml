@@ -6,13 +6,10 @@ pt-BR:
       already_confirmed: foi já confirmado, por favor, tente entrar
       not_locked: não foi bloqueado
       not_saved:
-        one: "1 erro impediu de salvar esse %{resource}:"
-        other: "%{count} erros impediram de salvar este %{resource}:"
+        one: '1 erro impediu de salvar esse %{resource}:'
+        other: '%{count} erros impediram de salvar este %{resource}:'
   devise:
     failure:
-      already_authenticated: Você já está conectado
-      unauthenticated: Você precisa entrar ou registrar-se antes de continuar
-      unconfirmed: Você tem que confirmar sua conta antes de continuar
       locked: Sua conta está bloqueada
       invalid: E-mail ou senha inválidos
       invalid_token: Token de autenticação inválido
@@ -39,27 +36,23 @@ pt-BR:
       update_needs_confirmation: Você atualizou sua conta com sucesso, mas precisamos verificar seu novo endereço de email. Por favor verifique a sua caixa de entrada e clique no link de confirmação para finalizar a atualização do seu endereço de email
       destroyed: Tchau! Sua conta foi cancelada com sucesso. Esperamos vê-lo novamente em breve
     unlocks:
-      send_instructions: Você receberá um e-mail com instruções sobre como desbloquear sua conta em poucos minutos
       unlocked: Sua conta foi desbloqueada com sucesso. Entre para continuar
       send_paranoid_instructions: Se sua conta existir, você receberá um e-mail em poucos minutos com instruções sobre como desbloqueá-la
     omniauth_callbacks:
-      success: "Autorizado com sucesso da conta %{kind}"
       failure: 'Não foi possível autorizá-lo de %{kind} porque "%{reason}"'
     mailer:
       confirmation_instructions:
         subject: Instruções de confirmação
-        welcome: "Bem-vindo a %{app_name}, %{user}!"
-        follow_link: "Você pode confirmar o seu endereço de e-mail clicando no link a seguir:"
+        welcome: 'Bem-vindo a %{app_name}, %{user}!'
+        follow_link: 'Você pode confirmar o seu endereço de e-mail clicando no link a seguir:'
         confirm_account: Confirmar conta
-        follow_link_2: "ou visitando o seguinte link:"
-        access_by_email: "Em seguida você pode acessar %{app_name} com o e-mail e a senha usados na registração"
-        contact_assistance: "Se encontrar qualquer problema com o procedimento entre em contato com o administrador: %{mail}"
+        follow_link_2: 'ou visitando o seguinte link:'
+        access_by_email: 'Em seguida você pode acessar %{app_name} com o e-mail e a senha usados na registração'
+        contact_assistance: 'Se encontrar qualquer problema com o procedimento entre em contato com o administrador: %{mail}'
       reset_password_instructions:
         subject: Instruções para redefinir sua senha
-        hi_user: "Olá %{user}!"
-        follow_link: "Você pode alterar sua senha clicando no link a seguir:"
+        hi_user: 'Olá %{user}!'
         change_password: Alterar senha
-        ignore: Se você não pediu a mudança de sua senha, ignore este e-mail.
         password_will_not_change: Sua senha não mudará até você clicar no link anterior.
       unlock_instructions:
         subject: Instruções de desbloqueio

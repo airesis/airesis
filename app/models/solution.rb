@@ -5,10 +5,8 @@ class Solution < ActiveRecord::Base
 
   accepts_nested_attributes_for :sections, allow_destroy: true
 
-
   def title_with_seq
-    solution_ids = self.proposal.solutions.pluck(:id)
-    I18n.t("pages.proposals.edit.new_solution_title.#{self.proposal.proposal_type.name.downcase}", num: solution_ids.index(self.id)+1) + self.title.to_s
+    solution_ids = proposal.solutions.pluck(:id)
+    I18n.t("pages.proposals.edit.new_solution_title.#{proposal.proposal_type.name.downcase}", num: solution_ids.index(id) + 1) + title.to_s
   end
-
 end

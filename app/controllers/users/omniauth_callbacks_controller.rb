@@ -19,7 +19,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     uid = oauth_data_parser.uid
     user_info = oauth_data_parser.user_info
 
-    if user_info[:email] && !user_info[:email_verified]
+    if user_info[:email] && !user_info[:verified]
       flash[:error] = I18n.t('devise.omniauth_callbacks.account_not_verified', provider: provider.capitalize)
       return redirect_to new_user_registration_path
     end

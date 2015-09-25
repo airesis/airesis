@@ -1,0 +1,214 @@
+me-ME:
+  pages:
+    proposals:
+      edit:
+        add_solution:
+          standard: Dodajte drugo rješenje
+          poll: Dodajte drugu opciju
+          rule_book: Dodajte drugo rješenje
+          press: Dodajte drugo rješenje
+          event: Dodajte drugo rješenje
+          estimate: Dodajte drugo rješenje
+          agenda: Dodajte drugu procjenu
+          candidates: Dodajte drugog kandidata
+          simple: Dodajte drugo rješenje
+        solution_title:
+          standard: Rješenje
+          poll: Opcija
+          rule_book: Rješenje
+          press: Rješenje
+          event: Rješenje
+          estimate: Rješenje
+          agenda: Tačka
+          candidates: Kandidat
+          simple: Rješenje
+        insert_title:
+          standard: Umetnite naslov
+          poll: Umetnite naslov
+          rule_book: Umetnite naslov
+          press: Umetnite naslov
+          event: Umetnite naslov
+          estimate: Umetnite naslov
+          agenda: Umetnite naslov
+          candidates: Umetnite ime i prezime
+          simple: Umetnite naslov
+        new_solution_title:
+          standard: 'Rješenje <span class="num">%{num}</span>:'
+          poll: 'Opcija <span class="num">%{num}</span>:'
+          rule_book: 'Rješenje <span class="num">%{num}</span>:'
+          press: 'Rješenje <span class="num">%{num}</span>:'
+          event: 'Rješenje <span class="num">%{num}</span>:'
+          estimate: 'Rješenje <span class="num">%{num}</span>:'
+          agenda: '<span class="num">%{num}</span> svrha:'
+          candidates: 'Kandidat <span class="num">%{num}</span>:'
+          simple: 'Rješenje <span class="num">%{num}</span>:'
+      new:
+        standard:
+          problems_title: Problemi
+          problems_question: Koji problem treba riješiti i/ili koje prepreke treba savladati da bi se postigao cilj?
+          problems_title_label: Koji problem treba riješiti i/ili koje prepreke treba savladati da bi se postigao cilj?
+          objectives_title: Ciljevi
+          step_4_title: Možete unijeti tekst prijedloga ili ga napisati kasnije na osnovu primljenog unosa
+          solution:
+            description: Opis rješenja
+            time: Uslovi
+            subject: Supervizor
+            resources: Neophodna sredstva i kako ih dobiti
+            aspects: Etički, ekološki, socijalni aspekti
+            documents: Dokumentacija
+            pros: Za
+            cons: Protiv
+            title: Rješenje 1
+          suggestion_html: |
+            <div><b>Primjer:</b></div>
+            <div>Smanjenje upotrebe pijaće vode za navodnjavanje.</div>
+            <div>Korišćenje pijaće vode za zalivanje javnih parkova i privatnih vrtova je traćenje i popriličan trošak. Štaviše, vodonosnik koji snabdjeva vodu je na izmaku</div>
+          paragraph:
+            similar: Slična iskustva
+            stakeholders: Zainteresovane strane
+            requirements: Uslovi rješenja
+          question:
+            paragraph:
+              similar: Da li postoje inspirišuća iskustva za postizanje cilja? Među mogućim rješenjima / inicijativama, koje su postigle najbolje rezultate a koje najlošije? Zašto?
+              stakeholders: Ko će imati koristi i mane od postizanja cilja i predloženih rješenja? Da li su ti subjekti bili uključeni u diskusiju o prijedlogu? Na koji način?
+              requirements: Koje karakteristike treba da ima idealno rješenje? Može se odnositi na tehničke zahjteve i principe koje treba posmatrati.
+            solution:
+              description: Opišite rješenje koje je u praksi predloženo za postizanje cilja.
+              time: Kada će ovo rješenje biti implementirano? Ustanovite moguće faze implementacije.
+              subject: Ko će implementirati ili urediti implementaciju rješenja? U slučaju implementacije, kako će se pratiti i utvrditi rezultati rješenja?
+              resources: Da li su potrebna novčana sredstva, volonteri, alatke i vještine za implementaciju ovog rješenja? Navedite ih i odredite količinu. Kako će se pribaviti ova sredstva?
+              aspects: Da li ovo rješenje zadovoljava etičke zahtjeve grupe ili zajednice na koju je upućeno? Koji je društveni i ekološki uticaj?
+              documents: Da li je dokumentacija dostupna za rješenje?
+              pros: Navedite i sumirajte glavne prednosti i koristi ovog rješenja. Naznačite ko su zainteresovane strane tih prednosti.
+              cons: Navedite i sumirajte glavne probleme i nepovoljne okolnosti ovog rješenja. Naznačite ko su zainteresovane strane tih nepovoljnih okolnosti.
+        rule_book:
+          problems_title: Problemi
+          problems_title_label: Koje probleme treba rješiti primjenom ove odredbe? Koja pitanja treba regulisati? Zašto?
+          problems_question: Koje probleme treba rješiti primjenom ove odredbe? Koja pitanja treba regulisati? Zašto?
+          suggestion_html: |
+            <div><b>Primjer:</b></div>
+            <div>Pravilnik o rezervaciji dvorane Svetog Petra</div>
+            <div>Grad Silverhem ima konferencijsku salu koju u današnje vrijeme koriste samo gradonačelnikovi  „momci“. Vrijeme je da se odabere nepristrasna procedura da se odobri svim građanima i javnim udruženjima pravo da rezervišu salu za javne događaje.</div>
+          solution:
+            title: Rješenje 1
+            article: 'Članak %{num}'
+            pros: Za
+            cons: Protiv
+          paragraph:
+            inspire: Pretpostavke
+            requirements: Zahtjevi koje treba ispuniti
+            stakeholders: Zainteresovane strane (uključeni ljudi)
+          question:
+            paragraph:
+              inspire: Da li postoje propisi iz kojih se može uzeti inspiracija slična toj? Među iskustvima sličnih pravila, koja su ostvarila najbolje rezultate a koja najlošije? Zašto?
+              requirements: Koje su glavne prepreke koje propis treba uzeti u obzir? Koje vrijednosti i principe treba poštovati? Šta će biti troškovi primjene propisa? Kojim subjektima će biti naloženo da ga sprovedu?
+              stakeholders: Ko je najviše pogođen primjenom propisa? Ko će snositi posljedice? Da li su ti subjekti bili uključeni u raspravu o ovom prijedlogu? Kako?
+            solution:
+              article: Unesite tekst prvog članka, vodeći računa da njegovo obrazloženje izgleda jedinstveno. Umetnite definiciju uslova ili izraza koji mogu biti pogrešno razumevani.
+              pros: Navedite i sumirajte glavne prednosti i koristi ovog rješenja. Naznačite ko su zainteresovane strane tih prednosti.
+              cons: Navedite i sumirajte glavne probleme i nepovoljne okolnosti ovog rješenja. Naznačite ko su zainteresovane strane tih nepovoljnih okolnosti.
+        press:
+          problems_title_label: Koju poruku želite da prenesete? Koje prepreke su očekivane tokom njenog pravilnog razumijevanja i tokova? Ima li članaka ili najnovijih vijesti koje želite da reprodukujete ili prilagodite?
+          problems_title: Poruka za slanje
+          problems_question: Koju poruku želite da prenesete? Koje prepreke su očekivane tokom njenog pravilnog razumijevanja i tokova? Ima li članaka ili najnovijih vijesti koje želite da reprodukujete ili prilagodite?
+          suggestion_html: |
+            <div><b>Primjer:</b></div>
+            <div>Oglasite puštanje u rad verzije 3.5 Airesisа.</div>
+            <div>Oglašavamo puštanje u rad verzije 3.5 Airesisа, koja donosi važne odlike za javnu administraciju. Neophodno je objasniti šta je Airesis i privući pažnju medija, s obzirom na nedavne glasine o korišćenju Airesisa u Bijeloj kući.</div>
+          solution:
+            title: Rješenje 1
+            maintitle: Naslov
+            subtitle: Podnaslov
+            incipit: Uvod
+            body: Sadržaj
+            conclusion: Zaključci
+            deep: Uvidi
+          paragraph:
+            target: Primaoci/cilj
+          question:
+            paragraph:
+              target: Ko je ciljna grupa za članak / saopštenje za štampu? Koje zanimljivije aspekte vaše poruke želite da prenesete?
+            solution:
+              maintitle: Kako biste sumirali u nekoliko riječi poruku članka / saopštenja za javnost?
+              subtitle: Naznačite ukratko ključni koncept članka ili dodatne informacije sadržane u naslovu.
+              incipit: Naznačite u nekoliko riječi ko je šta uradio, kada je uradio, gdje i zašto, istaknite zašto je činjenica veoma bitna.
+              body: Opišite detaljno, ali ukratko, činjenicu. Napišite kratke i važne rečenice.
+              conclusion: Želite li da napravite ponudu čitaocu? Koje su moguće posljedice činjenice ili daljeg razvoja situacije?
+              deep: Umetnite linkove, kontakte ili dodatne informacije za one koji žele da saznaju više.
+        estimate:
+          problems_title_label: Koje robe ili usluge želite da pribavite? Da rješite koje probleme?
+          problems_title: Problemi
+          problems_question: Koje robe ili usluge želite da pribavite? Da rješite koje probleme?
+          suggestion_html: |
+            <div><b>Primjer:</b></div>
+            <div>Zamjena termoelektrane u sjedištu Udruženja.</div>
+            <div>Zbog kvara na starom kotlu, naše prostorije je nemoguće koristiti zimi. S obzirom da je nemoguće izvršiti popravku, moramo zamjeniti staru termoelektranu s novom koja ima malu energetsku potrošnju.</div>
+          solution:
+            title: Rješenje 1
+            cost: Iznos
+            problems: Uzimanje u obzir ograničenja i problema
+            dumentation: Dokumentacija
+          paragraph:
+            technical_constrains: Tehnička ograničenja
+            temporal_constrains: Privremena ograničenja
+            other_constrains: Ekološka, etička, regulatorna ograničenja
+            budget: Maksimalni budžet
+            recipient_budget: Primaoci zahtjeva za citiranje
+        agenda:
+          problems_title: Vrsta sastanka
+          suggestion_html: |
+            <div><b>Primjer:</b></div>
+            <div>Odaberite dnevni red za naš sastanak.</div>
+            <div>Običan koordinacijski sastanak da razmjenimo iskustva s referentima lokalnih odbora za biološku poljoprivredu Italije.</div>
+          solution:
+            title: Stavka
+            priorities: Prioritet stavke
+            links: Uvidi u linkove
+            description: Opis
+            estimated_time: Potrebno vrijeme za diskusiju
+          paragraph:
+            date_time: Datum i vrijeme
+            place: Mjesto
+        event:
+          problems_title: Obim događaja
+          problems_title_label: Zašto želite da organizujete događaj? Koji su ciljevi?
+          problems_question: Zašto želite da organizujete događaj? Koji su ciljevi?
+          suggestion_html: |
+            <div><b>Primjer:</b></div>
+            <div>Organizujte jeftin rok koncert.</div>
+            <div>U našem gradu ima mnogo mladih bendova koji se ne mogu pokazati i poboljšati svoj talenat zbog nedostatka prostora. Pored toga, postoji samo nekoliko manifestacija koje promoviše opština za sljedeće ljeto zbog nedostatka sredstava.</div>
+          solution:
+            title: Rješenje 1
+            maintitle: Naslov
+            description: Opis rješenja
+            program: Datum, vrijeme i plan
+            body: mjesto
+            place: Mjesto
+            organization: Organizacija događaja
+            resources: Neophodna sredstva i kako ih dobiti
+            pros: Za
+            cons: Protiv
+          paragraph:
+            similar_experiences: Slična iskustva
+            stakeholders: Zainteresovane strane (uključeni ljudi)
+            desired_characteristics: Željene karakteristike
+        candidates:
+          solution:
+            name: Kandidatovo ime i prezime
+            data: Lični podaci
+            curriculum: Kurikulum
+          paragraph:
+            election_type: 'Opis vrste izbora:'
+        simple:
+          problems_title: Problem
+          problems_title_label: Koji problem treba rješiti i/ili koje prepreke treba savladati da bi se postigao cilj?
+          problems_question: Koji problem treba rješiti i/ili koje prepreke treba savladati da bi se postigao cilj?
+          solution:
+            description: Opis
+            title: Rješenje 1
+        petition:
+          paragraph:
+            text: Tekst peticije
+          question:
+            paragraph:
+              text: Tekst peticije

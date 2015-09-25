@@ -1,4 +1,4 @@
-pt:
+pt-BR:
   frm:
     general:
       forum: Fórum
@@ -7,7 +7,7 @@ pt:
       posts: mensagem
       posts_count:
         one: 1 mensagem
-        other: "% {count} mensagens"
+        other: '% {count} mensagens'
       flagged_for_spam: Sua conta foi sinalizada por envio de spam.
       cannot_create_topic: Não é possível criar um novo tópico neste momento.
       cannot_create_post: Não é possível criar um nova mensagem neste momento.
@@ -37,25 +37,10 @@ pt:
           none: Nenhum
           moderators: Moderadores
           no_category: (Sem categoria)
-      group:
-        index: Gerenciar grupos
-        new: Novo grupo
-        created: O grupo foi criado com sucesso
-        not_created: Grupo não pôde ser criado
-        deleted: O grupo selecionado foi excluído
-        members: "Membros do % {group}"
-      groups:
-        show:
-          add_member: Adicionar
-          add_a_new_member: Adicionar um novo membro
-          current_members: Membros atuais
-        edit: Editar
-        delete: Deletar
-        name: Nome
       category:
         index: Gerenciar categorias de fórum
         new: Criando uma nova categoria do fórum
-        edit: "Editando a categoria %{title}"
+        edit: 'Editando a categoria %{title}'
         new_link: Nova categoria do Fórum
         deleted: A categoria do Fórum selecionada foi excluída
         created: A nova categoria do fórum foi criada
@@ -73,19 +58,18 @@ pt:
       not_signed_in: Você deve assinar
       access_denied: Acesso negado.
     forum:
-      header: "Visualizando %{title}"
+      header: 'Visualizando %{title}'
       forums: Fórum
       new: Criando um novo fórum
-      edit: "Editando o fórum % {title}"
+      edit: 'Editando o fórum % {title}'
       moderator_tools: Ferramentas de moderação
       topic_tools: Ferramentas do tópico
       admin_tools: Ferramentas de administração
     forums:
       index:
-        title: Fórum
         forum: Fórum
         views: Visualizações
-        last_post: "Última mensagem:"
+        last_post: 'Última mensagem:'
         none: Nenhum
     topic:
       headings:
@@ -164,7 +148,7 @@ pt:
         in_reply_to: em resposta a
     moderation:
       index:
-        title: "Atalhos de moderaçâo para %{forum}"
+        title: 'Atalhos de moderaçâo para %{forum}'
   helpers:
     submit:
       frm_forum:
@@ -173,8 +157,6 @@ pt:
       topic:
         create: Crear tópico
         update: Atualizar tópico
-      frm_group:
-        create: Crear grupo
       frm_category:
         create: Crear categoria
   simple_form:
@@ -196,12 +178,10 @@ pt:
         name: Nome
       post:
         text: Texto
-      frm_group:
-        name: Nome
-  time_ago_in_words: "% {time} atrás"
-  ago: " Há"
+  time_ago_in_words: '% {time} atrás'
+  ago: ' Há'
   by: por
-  started_by: "Iniciado por "
+  started_by: 'Iniciado por '
   are_you_sure: Tem certeza?
   lst_post: Última mensagem
   last_post: Último tópico

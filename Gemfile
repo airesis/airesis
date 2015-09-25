@@ -45,6 +45,11 @@ group :development do
   gem 'i18n-tasks'
   gem 'rubocop'
   gem 'bullet'
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'awesome_print'
+  gem 'letter_opener'
+  gem 'foreman'
 end
 
 group :development, :test do
@@ -63,6 +68,8 @@ group :test do
   gem "codeclimate-test-reporter", require: nil
   gem 'ruby-prof'
   gem 'test-unit'
+  gem 'simplecov', require: false
+  gem 'email_spec'
 end
 
 group :development do
@@ -170,6 +177,8 @@ gem 'faker'
 
 gem 'sshkit'
 
+gem 'cookies_eu', github: 'coorasse/cookies_eu'
+
 gem 'font-awesome-rails'
 
 gem 'truncate_html'
@@ -177,4 +186,3 @@ gem 'truncate_html'
 gem 'sunspot-rails-http-basic-auth', github: 'jwachira/sunspot-rails-http-basic-auth'
 
 gem 'activerecord-session_store'
-

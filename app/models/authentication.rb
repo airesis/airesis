@@ -11,12 +11,11 @@ class Authentication < ActiveRecord::Base
   TECNOLOGIEDEMOCRATICHE = 'tecnologiedemocratiche'
   belongs_to :user, class_name: 'User', foreign_key: :user_id
 
-  UNDETACHABLE_PROVIDERS = [ TECNOLOGIEDEMOCRATICHE ]
+  UNDETACHABLE_PROVIDERS = [TECNOLOGIEDEMOCRATICHE]
 
-protected
+  protected
 
   def can_be_destroyed?
     UNDETACHABLE_PROVIDERS.exclude? provider
   end
-
 end

@@ -9,7 +9,6 @@ class ProposalPresentation < ActiveRecord::Base
 
   protected
 
-
   def skip_notifications?
     acceptor.nil?
   end

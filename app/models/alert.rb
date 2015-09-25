@@ -6,23 +6,9 @@ class Alert < ActiveRecord::Base
 
   attr_accessor :jid
 
-  default_scope -> {
+  default_scope lambda {
     select('alerts.*, notifications.properties || alerts.properties as nproperties').
       joins(:notification)
-  }
-
-  scope :another, ->(attribute, attr_id, user_id, notification_type) {
-    joins([:notification, :user]).
-      where('(notifications.properties -> ?) = ? and notifications.notification_type_id in (?) and users.id = ?',
-            attribute,
-            attr_id.to_s,
-            notification_type,
-            user_id).
-      readonly(false)
-  }
-
-  scope :another_unread, ->(attribute, attr_id, user_id, notification_type) {
-    another(attribute, attr_id, user_id, notification_type).where(alerts: {checked: false})
   }
 
   has_one :notification_type, through: :notification
@@ -67,7 +53,7 @@ class Alert < ActiveRecord::Base
     update_all(checked: true, checked_at: Time.now)
   end
 
-  def accumulate(by = 1)
+  def accumulate
     increase_count! # increase the count in the alert
     if email_job.present? && email_job.sidekiq_job.present? # an email is in queue?
       email_job.accumulate # requeue it on new daly
@@ -137,6 +123,6 @@ class Alert < ActiveRecord::Base
   end
 
   def complete_alert_job
-    alert_job.destroy
+    alert_job.destroy if alert_job
   end
 end

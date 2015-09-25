@@ -1,7 +1,7 @@
-fr:
+fr-FR:
   home:
     intro:
-      title: Le premier social network pour la E-Démocracie
+      title: Le premier réseau social pour la E-Démocracie
       description: Un outil pour la démocratie directe et pour les actions collectives basée sur des propositions et des idées partout dans le monde et sur tous les sujets.
       paragraph_1:
         title: "Le réseau Social pour l'E-démocratie"
@@ -42,8 +42,9 @@ fr:
       description: Un outil pour la démocratie directe créé pour décider et agir collectivement sur des propositions et des idées partout dans le monde sur tous les sujets.
       paragraph_1:
         title: "Le Réseau Social pour l'E-démocratie"
-        content_html: |-
-          <p>Airesis est une <a href="http://en.wikipedia.org/wiki/Free_software"> plate-forme de logiciel libre</a>, créé par une équipe de développeurs Italiens et contributeurs, pour que les communautés et les groupes s'organisent d'une manière productive selon les principes de <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank"> la démocratie directe</a> et de la participation.</p> <p>Pour atteindre cet objectif, l'application a été conçue comme un système multifonctionnel, qui intègre tous les outils qui peuvent aider le développement d'une communauté à l'aspect social et délibérative.</p>
+        content_html: |
+          <p>Airesis est une <a href="http://en.wikipedia.org/wiki/Free_software">plateforme logicielle Libre</a>, réalisée par une équipe de développeurs et contributeurs Italiens, pour permettre aux communautés et aux groupes de s'organiser de manière productive selon les principes de la <a href="https://fr.wikipedia.org/wiki/D%C3%A9mocratie_directe" target="_blank">démocratie directe</a> et la participation.
+          </p>
       paragraph_2:
         title: Construire votre groupe
         content_html: "<p>Si vous êtes une association, une entreprise, une école ou un parti, Airesis est l'outil qui fait pour vous! <br/>   Créez en quelques minutes votre groupe et essayez tous les outils disponibles. <br/>   La création d'un groupe est gratuite, rapide et facile, de nombreux %{groups} sont déjà actifs. <br/>   Veuillez lire nos documents sur la politique afin de trouver une façon de mieux l'organiser et découvrez combien il est facile d'organiser votre groupe avec Airesis et de fournir des outils de e-démocratie ! </p>"

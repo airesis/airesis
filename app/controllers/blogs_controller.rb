@@ -34,7 +34,7 @@ class BlogsController < ApplicationController
   end
 
   def by_year_and_month
-    @page_title = t('pages.blog_posts.archives.title', year: params[:year], month: t('date.month_names')[params[:month].to_i])
+    @page_title = t('pages.blog_posts.archives.title', year: params[:year], month: t('calendar.monthNames')[params[:month].to_i - 1])
     @blog_posts = @blog_posts.published.where('extract(year from created_at) = ? AND extract(month from created_at) = ? ', params[:year], params[:month]).order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|

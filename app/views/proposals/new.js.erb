@@ -17,7 +17,9 @@ function showSimilarProposal(activeDiv) {
         $.ajax({
             url: '<%=similar_proposals_path group_id: params[:group_id]%>',
             dataType: 'script',
-            data: 'tags=' + $('#proposal_tags_list').val()
+            data: {
+                tags: $('#proposal_tags_list').val()
+            }
         })
     }
 

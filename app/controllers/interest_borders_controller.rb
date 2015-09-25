@@ -3,7 +3,7 @@ class InterestBordersController < ApplicationController
   def index
     hint = "#{params[:q]}%"
     map = []
-    territory = SysLocale.find_by_key(I18n.locale).territory #that is the territory of the current user. it can be a state or a continent
+    territory = current_domain.territory
 
     limit = 10 #hints limit
     results = []
@@ -14,7 +14,7 @@ class InterestBordersController < ApplicationController
     limit -= continents.size
     if limit > 0
       stati = Country.with_translations([I18n.locale, 'en']).
-        where(['upper(country_translations.description) like upper(?)', hint]).limit(limit)
+        where(['upper(country_translations.description) like upper(?)', hint]).uniq.limit(limit)
       results += stati.collect { |p| {id: "#{InterestBorder::SHORT_COUNTRY}-#{p.id}", name: p.name} }
       limit -= stati.size
       if limit > 0

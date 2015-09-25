@@ -1,4 +1,4 @@
-fr:
+fr-FR:
   unauthorized:
     default: "Vous n'avez pas les autorisations requises pour exécuter cette action"
     create:
@@ -95,7 +95,6 @@ fr:
       send_message_title: 'Envoyer un message à %{name}'
     groups:
       accept_requests:
-        portavoce: "Porte-parole : quand un utilisateur veut rejoindre le groupe, seuls les porte-paroles du groupe peuvent accepter la demande. Une fois que le porte-parole a accepté la demande, l'utilisateur sera un membre du groupe."
         unavailable_option: Option pas encore disponible
       administration_panel:
         title: "Panneau d'Administration"
@@ -146,7 +145,6 @@ fr:
         search_description: "Utilisez l'outil de recherche ou cliquez sur un mot-clé pour trouver les groupes qui vous intéressent"
         insert_query_or_place: Vous devez taper au moins trois caractères ou une limite géographique
         tags: Mots-clés
-        participants_number: Nombre de participants
         proposals_number: Nombre de propositions
         events_number: "Nombre d'événements"
         no_results: Aucun groupe trouvé
@@ -187,7 +185,6 @@ fr:
         blog_button: Créer mon Blog
         participants_list: 'Liste des participants '
         invite_button: Invitez vos amis !
-        show_all_participants: 'Tout afficher %{count} ...'
         participants_full_list: Liste complète des membres du groupe
         no_participants: Aucun utilisateurs ne participe à ce groupe pour le moment.
         no_blogs_yet: "Aucun message de blog dans ce groupe pour l'instant, revenez prochainement."
@@ -209,7 +206,6 @@ fr:
         short_url: Url courte
       header:
         settings: RÉGLAGES
-        elections: ÉLECTIONS
         documents: DOCUMENTS
         forums: FORUM
       documents:
@@ -223,9 +219,6 @@ fr:
           title: Nouveau quorum
           simple: Simple
           advanced: Avancé
-          time_description: 'Le débat durera au moins %{days} %{hours} %{minutes}'
-          simple_percentage_description: 'La proposition passe ensuite la phase de votation si la maturité est supérieure à %{good_score}.'
-          advanced_participation_description: "La proposition doit être évaluée par au moins %{participants_percentage} % des membres ayant le droit de le faire (c'est-à-dire %{current_number} de %{total_number} )."
           advanced_percentage_description: 'Si toutefois le résultat est inférieure à %{bad_score} % la proposition est abandonnée.'
           advanced_percentage_description3: La proposition reste en débat, tant que le résultat est entre les deux seuils.
         active: Actif
@@ -305,7 +298,6 @@ fr:
       email_confirmed: Si vous vous inscrivez avec ce courriel, il ne vous sera pas demandé de le confirmer.
       choose_password: Choisissez un mot de passe
       confirm_password: Confirmez le mot passe
-      accept_conditions: Accepter les Conditions d'utilisation
       register_button: Inscription
       identity_provviders_title: Entrez immédiatement avec votre compte préféré
     proposals:
@@ -323,7 +315,6 @@ fr:
         voting_title: 'En vote ⋅ %{count}'
         accepted_title: 'Votées ⋅ %{count}'
         revision_title: 'Abandonnées ⋅ %{count}'
-        login_with: 'ou connectez-vous avec :'
         group_areas_title: Espaces de Travail
         no_group_areas: Aucun espace
         all_areas: Tous les espaces
@@ -342,7 +333,6 @@ fr:
         search_title: Rechercher dans les propositions du groupe
         search_placeholder: Insérez au moins deux caractères pour rechercher
         search_words: "N'importe quel mot"
-        participants_number: PARTICIPANTS
         contributes_number: CONTRIBUTIONS
         rank: MATURITÉ
         voters: VOTANTS
@@ -463,7 +453,6 @@ fr:
         create_button: Créer la proposition
         title: Nouvelle proposition
         title_group: '%{name} :'
-        title_synthetic: (en résumé)
         title_placeholder: ex. « Faciliter le transport de vélo dans les trains »
         interest_borders_tkn_placeholder: Villes, régions ou États concernés par la proposition
         tags_list_placeholder: Insérer quelques mots-clés à votre proposition
@@ -479,11 +468,8 @@ fr:
         solution: Ordre du jour
         step_base_info: Information préliminaire
         advanced_options: Options avancées
-        wait: "Vous ne pouvez créer qu'une seule proposition toutes les deux minutes\nVeuillez attendre %{minutes} minutes %{seconds} secondes."
       tabs:
         last_inserted: Dernière mise à jour
-        most_popular: Les plus populaires
-        most_valutated: Meilleure maturité
         most_urgent: Plus urgents
       list:
         last_update: 'Mis à jour il y a<br/>%{time_ago}'
@@ -613,12 +599,7 @@ fr:
         no_partecipate: "Vous ne participerez pas à l'événement"
         with_guests: 'avec %{field} invité(s)'
         will_be_in: "Allez-vous assister à l'événement ?"
-        participants: Qui a assisté ?
         will_partecipate: Qui y assistera ?
-        no_participants: "Aucun participants n'y a assisté"
-        no_participants_yet: Toujours pas de participants
-        non_participants: "Qui n'y a pas assisté ?"
-        will_non_participants: "Qui n'y assistera pas ?"
         voting_proposals: Ces propositions seront votées au cours de ces jours
         no_voting_proposals: Aucune proposition votée durant ces jours
     votations:
@@ -657,8 +638,6 @@ fr:
       published_button: Messages publiés
       view:
         comments: 'Commentaires (%{count})'
-      index:
-        title: Blogs
       edit:
         title: Modifier le message
       archives:
@@ -678,7 +657,6 @@ fr:
       groups:
         events: ÉVÉNEMENTS
         proposals: PROPOSITIONS
-      no_groups_yet: Vous êtes dans aucun groupe actuellement
       menu:
         my_page: "MA PAGE D'ACCUEIL"
         my_blog: MON BLOG
@@ -734,7 +712,6 @@ fr:
         debate_end: fin du débat
     home:
       index:
-        whatis: "Qu'EST-CE QUE"
         partecipate: IMPLIQUEZ-VOUS
         videos: GUIDES VIDÉO
         whowe: QUI SOMMES NOUS
@@ -795,22 +772,6 @@ fr:
       confirm_button: Confirmer
     calendar:
       create_event_button: Créer un nouvel événement
-    candidates:
-      new:
-        title: '%{name} : Nouvelle candidature'
-        description: "Choisissez un des participants du groupe et proposez le comme candidat pour l'une des élections disponibles."
-        send_button: Envoyer la candidature
-      index:
-        description: 'Sur cette page, vous pouvez suivre les candidatures formulées par le groupe lors des élections. <br /> avant de pouvoir faire une nomination, le groupe doit '
-        create_election: tenir une élection
-        user_column: Utilisateur
-        election_column: Élection
-        state_column: État
-        candidates_phase: "candidatures d'utilisateur"
-        voting_phase: phase de votation
-        terminated_phase: clôturée
-        send_candidate_button: Nominer un utilisateur
-        create_election_button: Créer une nouvelle élection
     sessions:
       new:
         login_label: "Nom d'utilisateur ou courriel"
@@ -838,10 +799,6 @@ fr:
           Ce court tutoriel vous aidera dans les premiers choix à l'intérieur de la plate-forme. <br/> Il s'agit de votre bureau : vous y trouverez toutes les informations dont vous avez besoin pour rester en contact avec votre territoire. <br/> Vous pouvez gérer vos propositions et vos groupes, Découvrir les événements autour de vous, entrer en contact avec d'autres citoyens. <br/> Améliorer Airesis en envoyant un retour à <a href="mailto:info@airesis.it"> info@airesis.it</a>. <br/>
       choose_follow:
         description_html: "Voici les groupes les plus actifs dans les territoires de vos centres intérêt. <br /> choisissez ceux auxquels vous voulez participer, ainsi vous serez en mesure d'entrer en contact et de participer à leurs activités et propositions. <br /> un clic pour sélectionner, un autre pour le désélectionner. <br />"
-      first_proposal_html: |
-        <b>Votre première contribution <br /></b>
-        Il est temps de donner votre avis ! <br />
-        Ajouter une proposition, une idée ou une rétroaction du territoire. <br /> Contribuer à la discussion et laisser les autre utilisateurs vous connaître. <br/> Votre proposition sera ajoutée dans %{proposal} et peut être supportée par les groupes sur votre territoire !
     proposal_histories:
       index:
         title: '%{title} - Historique des Revisions'
@@ -869,11 +826,8 @@ fr:
     tags:
       show:
         related_title: Mots-clés associés
-      list_proposals_with_tag: 'Propositions avec Mot-Clé :'
       no_proposals_with_tag: "Il n'y a pas encore de propositions avec ce mot-clé"
-      list_posts_with_tag: 'Messages avec le mot-clé :'
       no_posts_with_tag: "Il n'y a pas de message avec ce mot-clé"
-      list_groups_with_tags: 'Groupes avec mot-clé :'
       no_groups_with_tag: "Il n'y a pas de groupes avec ce mot-clé"
       proposals_tab: Propositions
       posts_tab: Messages
@@ -890,7 +844,6 @@ fr:
       blocked_user_list: Liste des utilisateurs bloqués
       block: Débloquer
     feedback:
-      send_feedback: Envoyer un commentaire
       add_details: Ajouter les détails
       view_preview: Aperçu
       send_succes: Commentaire envoyé avec succès. Merci !
@@ -912,7 +865,6 @@ fr:
       title: Historique de contribution
   pl:
     comments:
-      zero: Aucun commentaire
       one: un commentaire
       other: '%{count} commentaires'
   activerecord:
@@ -923,12 +875,6 @@ fr:
       blog_comment:
         body: Commentaire
         created_at: AntiSpam
-      candidate:
-        user: Candidat
-        election: Élection
-      election:
-        groups_end_time: "Date limite d'inscription au groupe"
-        candidates_end_time: "Date limite d'inscription des candidats"
       event:
         title: "Titre de l'événement"
         description: Description
@@ -939,11 +885,9 @@ fr:
         period: Répéter
         frequency: Répéter chaque
         private: Privé
-        candidates_end_time: "Date limite d'inscription des candidats"
         meeting:
           place:
             address: Adresse
-            municipality_id: Ville
       group:
         facebook_page_url: Adresse de la page Facebook
         name: Nom
@@ -974,9 +918,6 @@ fr:
         published: État
         published_true: Publié
         published_false: Brouillon
-      participation_role:
-        name: Nom
-        description: Brève description
       group_invitation:
         emails_list: Adresses de courriel
         testo: Texte du message
@@ -986,9 +927,6 @@ fr:
         group_area_id: Espace de Travail
         proposal_category_id: Catégorie
         title: Titre
-        subtitle: Sous-titre
-        problems: Problèmes
-        objectives: Objectifs
         content: Texte
         interest_borders_tkn: "Lieux géographiques d'intérêt"
         tags_list: Mots-clés
@@ -1014,9 +952,6 @@ fr:
         bad_score_title: Rang en vertu duquel la proposition sera rejetée. Permet de poursuivre la discussion, si les conditions de temps ou de Participation ne sont pas remplies
         condition: Condition
         condition_title: "Les conditions de temps et de Participation doivent être toute deux remplies ou simplement l'une d'elle ?"
-      search_participant:
-        role_id: Rôle
-        keywords: Nom ou prénom
       sys_movement:
         sys_movement_type_id: Type
         made_on: Fait sur
@@ -1053,7 +988,6 @@ fr:
         blank: doit être rempli
         too_long: Le texte est trop long
         too_short: Le texte est trop court
-        wrong_length: "doit contenir %{count} caractères)'"
         taken: est déjà pris
         not_a_number: "n'est pas un nombre"
         greater_than: 'doit être supérieur à %{count}'
@@ -1073,9 +1007,6 @@ fr:
           attributes:
             email:
               already_confirmed: Cette adresse courriel est déjà enregistrée
-        group:
-          portavoce:
-            required: Vous devez choisir un porte-parole
   models:
     best_quorum:
       good_score_condition: "La proposition est mise en votation s'il a une maturité supérieure à <b>%{good_score}%</b> et %{participants}, sinon elle sera abandonnée"
@@ -1214,15 +1145,7 @@ fr:
       already_have: Désolé. Vous avez déjà un blog
       comment_added: "Erreur lors de l'ajout du commentaire"
     users:
-      join_accounts: "Erreur en associant les comptes. Cette opération n'est pas disponible pour le moment"
       join_accounts_password: Mot de passe incorrect
-    group_participations:
-      destroy: Vous ne pouvez pas quitter un groupe dont vous êtes le seul porte-parole
-      already_member: Erreur lors de la création de la demande de participation. Vous êtes déjà membre de ce groupe !
-      request_not_registered: "Vous êtes déjà membre de ce groupe, mais votre demande de participation n'a pas été enregistré. Données valides"
-      request_sent: Erreur lors de la création de la demande de participation
-      request_not_found: "Demande non trouvée. Erreur d'opération"
-      error_saving: Erreur dans la procédure. Impossibilité de continuer
     error_404:
       proposals:
         title: "Cette proposition n'existe pas"
@@ -1320,7 +1243,6 @@ fr:
     blog:
       blog_created: Blog créé avec succès
       title_updated: Le titre du blog a été mis à jour avec succès
-      comment_added: Commentaire mis à jour avec succès
     events:
       event_deleted: Événement supprimé avec succès
       event_updated: Événement mis à jour avec succès
@@ -1334,13 +1256,6 @@ fr:
       multiple_request:
         one: 'Vous avez demandé à participer à %{count} nouveau groupe'
         other: 'Vous avez demandé à participer à %{count} nouveaux groupes'
-    group_participations:
-      destroy_ok_1: "Vous avez quitté le groupe. À l'avenir, vous pouvez demander à y participer à nouveau"
-      request_sent: Demande de participation envoyé avec succès
-      request_alredy_sent: Vous avez déjà envoyé une demande de participation pour ce groupe
-      status_accepted: 'La demande de participation est maintenant : ACCEPTÉE'
-      status_voting: 'La demande de participation est maintenant : EN VOTATION'
-      status_declined: 'La demande de participation est maintenant : REFUSÉE'
     event:
       comment_added: Commentaire insérée avec succès
     topic:
@@ -1368,7 +1283,6 @@ fr:
       title: '%{user} a inséré un nouveau %{comment} dans la proposition'
       view_proposal: '%{click_here} pour voir la proposition.'
     text_update:
-      view_proposal: 'La proposition <b>%{proposal}</b> a été mise à jour !'
       integrated_contributes: 'Félicitations ! Les contributions suivantes que vous aviez inséré ont été intégrées par les éditeurs :'
       view_proposal_2: "%{click_here} et vérifiez que le nouveau texte contienne vos suggestions. <br/> Si vous n'êtes pas satisfait vous pouvez toujours mettre vos contributions au débat en les reprenant dans l'historique."
       connect: 'Connexion à %{name}'

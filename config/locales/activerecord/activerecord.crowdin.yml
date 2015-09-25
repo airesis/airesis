@@ -1,163 +1,158 @@
 crowdin:
   activerecord:
     models:
-      meeting: "{crwdns5886:0}{crwdne5886:0}"
-      places: "{crwdns5887:0}{crwdne5887:0}"
+      meeting: crwdns5886:0crwdne5886:0
+      places: crwdns5887:0crwdne5887:0
     attributes:
       blog_comment:
-        body: "{crwdns5888:0}{crwdne5888:0}"
-        created_at: "{crwdns5889:0}{crwdne5889:0}"
-      candidate:
-        user: "{crwdns5890:0}{crwdne5890:0}"
-        election: "{crwdns5891:0}{crwdne5891:0}"
-      election:
-        groups_end_time: "{crwdns5892:0}{crwdne5892:0}"
-        candidates_end_time: "{crwdns5893:0}{crwdne5893:0}"
+        body: crwdns5888:0crwdne5888:0
+        created_at: crwdns5889:0crwdne5889:0
       event:
-        title: "{crwdns5894:0}{crwdne5894:0}"
-        description: "{crwdns5895:0}{crwdne5895:0}"
-        event_type_id: "{crwdns5896:0}{crwdne5896:0}"
-        starttime: "{crwdns5897:0}{crwdne5897:0}"
-        endtime: "{crwdns5898:0}{crwdne5898:0}"
-        all_day: "{crwdns5899:0}{crwdne5899:0}"
-        period: "{crwdns5900:0}{crwdne5900:0}"
-        frequency: "{crwdns5901:0}{crwdne5901:0}"
-        private: "{crwdns5902:0}{crwdne5902:0}"
-        candidates_end_time: "{crwdns5903:0}{crwdne5903:0}"
-        meeting:
-          place:
-            address: "{crwdns5904:0}{crwdne5904:0}"
-            municipality_id: "{crwdns5905:0}{crwdne5905:0}"
+        title: crwdns5894:0crwdne5894:0
+        description: crwdns5895:0crwdne5895:0
+        event_type_id: crwdns5896:0crwdne5896:0
+        starttime: crwdns5897:0crwdne5897:0
+        endtime: crwdns5898:0crwdne5898:0
+        all_day: crwdns5899:0crwdne5899:0
+        period: crwdns5900:0crwdne5900:0
+        frequency: crwdns5901:0crwdne5901:0
+        private: crwdns5902:0crwdne5902:0
+      event/meeting/place:
+        address: crwdns8233:0crwdne8233:0
+        municipality_id: crwdns8333:0crwdne8333:0
+        latitude_original: crwdns8235:0crwdne8235:0
+        longitude_original: crwdns8236:0crwdne8236:0
       group:
-        facebook_page_url: "{crwdns5906:0}{crwdne5906:0}"
-        name: "{crwdns5907:0}{crwdne5907:0}"
-        title_bar: "{crwdns5908:0}{crwdne5908:0}"
-        description: "{crwdns5909:0}{crwdne5909:0}"
-        accept_requests: "{crwdns5910:0}{crwdne5910:0}"
-        porta_id: "{crwdns5911:0}{crwdne5911:0}"
-        interest_border_tkn: "{crwdns5912:0}{crwdne5912:0}"
-        interest_border_id: "{crwdns5913:0}{crwdne5913:0}"
-        image_url: "{crwdns5914:0}{crwdne5914:0}"
-        default_role_name: "{crwdns5915:0}{crwdne5915:0}"
-        default_role_name_placeholder: "{crwdns5916:0}{crwdne5916:0}"
-        name_placeholder: "{crwdns5917:0}{crwdne5917:0}"
-        title_bar_placeholder: "{crwdns5918:0}{crwdne5918:0}"
-        description_placeholder: "{crwdns5919:0}{crwdne5919:0}"
-        image_url_placeholder: "{crwdns5920:0}{crwdne5920:0}"
-        facebook_page_url_placeholder: "{crwdns5921:0}{crwdne5921:0}"
-        admin_title: "{crwdns5922:0}{crwdne5922:0}"
-        private: "{crwdns5923:0}{crwdne5923:0}"
-        rule_book: "{crwdns5924:0}{crwdne5924:0}"
-        image: "{crwdns5925:0}{crwdne5925:0}"
-        admin_title_placeholder: "{crwdns5926:0}{crwdne5926:0}"
+        facebook_page_url: crwdns5906:0crwdne5906:0
+        name: crwdns5907:0crwdne5907:0
+        title_bar: crwdns5908:0crwdne5908:0
+        description: crwdns5909:0crwdne5909:0
+        accept_requests: crwdns5910:0crwdne5910:0
+        porta_id: crwdns5911:0crwdne5911:0
+        interest_border_tkn: crwdns5912:0crwdne5912:0
+        interest_border_id: crwdns5913:0crwdne5913:0
+        image_url: crwdns5914:0crwdne5914:0
+        default_role_name: crwdns5915:0crwdne5915:0
+        default_role_name_placeholder: crwdns5916:0crwdne5916:0
+        name_placeholder: crwdns5917:0crwdne5917:0
+        title_bar_placeholder: crwdns5918:0crwdne5918:0
+        description_placeholder: crwdns5919:0crwdne5919:0
+        image_url_placeholder: crwdns5920:0crwdne5920:0
+        facebook_page_url_placeholder: crwdns5921:0crwdne5921:0
+        admin_title: crwdns5922:0crwdne5922:0
+        private: crwdns5923:0crwdne5923:0
+        rule_book: crwdns5924:0crwdne5924:0
+        image: crwdns5925:0crwdne5925:0
+        admin_title_placeholder: crwdns5926:0crwdne5926:0
       blog:
-        title: "{crwdns5927:0}{crwdne5927:0}"
+        title: crwdns5927:0crwdne5927:0
       blog_post:
-        title: "{crwdns5928:0}{crwdne5928:0}"
-        body: "{crwdns5929:0}{crwdne5929:0}"
-        published: "{crwdns5930:0}{crwdne5930:0}"
-        published_true: "{crwdns5931:0}{crwdne5931:0}"
-        published_false: "{crwdns5932:0}{crwdne5932:0}"
+        title: crwdns5928:0crwdne5928:0
+        body: crwdns5929:0crwdne5929:0
+        published: crwdns5930:0crwdne5930:0
+        published_true: crwdns5931:0crwdne5931:0
+        published_false: crwdns5932:0crwdne5932:0
       participation_role:
-        name: "{crwdns5933:0}{crwdne5933:0}"
-        description: "{crwdns5934:0}{crwdne5934:0}"
+        name: crwdns8180:0crwdne8180:0
+        description: crwdns8181:0crwdne8181:0
       group_invitation:
-        emails_list: "{crwdns5935:0}{crwdne5935:0}"
-        testo: "{crwdns5936:0}{crwdne5936:0}"
+        emails_list: crwdns5935:0crwdne5935:0
+        testo: crwdns5936:0crwdne5936:0
       place:
-        address: "{crwdns5937:0}{crwdne5937:0}"
+        address: crwdns5937:0crwdne5937:0
       proposal:
-        group_area_id: "{crwdns5938:0}{crwdne5938:0}"
-        proposal_category_id: "{crwdns5939:0}{crwdne5939:0}"
-        title: "{crwdns5940:0}{crwdne5940:0}"
-        content: "{crwdns5944:0}{crwdne5944:0}"
-        interest_borders_tkn: "{crwdns5945:0}{crwdne5945:0}"
-        tags_list: "{crwdns5946:0}{crwdne5946:0}"
-        quorum_id: "{crwdns5947:0}{crwdne5947:0}"
-        anonima: "{crwdns5948:0}{crwdne5948:0}"
-        visible_outside: "{crwdns5949:0}{crwdne5949:0}"
-        secret_vote: "{crwdns5950:0}{crwdne5950:0}"
+        group_area_id: crwdns5938:0crwdne5938:0
+        proposal_category_id: crwdns5939:0crwdne5939:0
+        title: crwdns5940:0crwdne5940:0
+        subtitle: crwdns5941:0crwdne5941:0
+        problems: crwdns5942:0crwdne5942:0
+        objectives: crwdns5943:0crwdne5943:0
+        content: crwdns5944:0crwdne5944:0
+        interest_borders_tkn: crwdns5945:0crwdne5945:0
+        tags_list: crwdns5946:0crwdne5946:0
+        quorum_id: crwdns5947:0crwdne5947:0
+        anonima: crwdns5948:0crwdne5948:0
+        visible_outside: crwdns5949:0crwdne5949:0
+        secret_vote: crwdns5950:0crwdne5950:0
+        vote_starts_at: crwdns8237:0crwdne8237:0
+        vote_ends_at: crwdns8238:0crwdne8238:0
       proposal_comment:
-        content: "{crwdns5951:0}{crwdne5951:0}"
+        content: crwdns5951:0crwdne5951:0
       quorum:
-        name: "{crwdns5952:0}{crwdne5952:0}"
-        name_title: "{crwdns5953:0}{crwdne5953:0}"
-        description: "{crwdns5954:0}{crwdne5954:0}"
-        description_title: "{crwdns5955:0}{crwdne5955:0}"
-        minutes: "{crwdns7952:0}{crwdne7952:0}"
-        days_m: "{crwdns5956:0}{crwdne5956:0}"
-        hours_m: "{crwdns5957:0}{crwdne5957:0}"
-        minutes_m: "{crwdns5958:0}{crwdne5958:0}"
-        percentage: "{crwdns7953:0}{crwdne7953:0}"
-        percentage_title: "{crwdns5960:0}{crwdne5960:0}"
-        good_score: "{crwdns7954:0}{crwdne7954:0}"
-        good_score_title: "{crwdns5962:0}{crwdne5962:0}"
-        bad_score: "{crwdns5963:0}{crwdne5963:0}"
-        bad_score_title: "{crwdns5964:0}{crwdne5964:0}"
-        condition: "{crwdns5965:0}{crwdne5965:0}"
-        condition_title: "{crwdns5966:0}{crwdne5966:0}"
-        vote_minutes: "{crwdns7955:0}{crwdne7955:0}"
-        vote_percentage: "{crwdns7956:0}{crwdne7956:0}"
-        vote_good_score: "{crwdns7957:0}{crwdne7957:0}"
+        name: crwdns5952:0crwdne5952:0
+        name_title: crwdns5953:0crwdne5953:0
+        description: crwdns5954:0crwdne5954:0
+        description_title: crwdns5955:0crwdne5955:0
+        minutes: crwdns7952:0crwdne7952:0
+        days_m: crwdns5956:0crwdne5956:0
+        hours_m: crwdns5957:0crwdne5957:0
+        minutes_m: crwdns5958:0crwdne5958:0
+        percentage: crwdns7953:0crwdne7953:0
+        percentage_title: crwdns5960:0crwdne5960:0
+        good_score: crwdns7954:0crwdne7954:0
+        good_score_title: crwdns5962:0crwdne5962:0
+        bad_score: crwdns5963:0crwdne5963:0
+        bad_score_title: crwdns5964:0crwdne5964:0
+        condition: crwdns5965:0crwdne5965:0
+        condition_title: crwdns5966:0crwdne5966:0
+        vote_minutes: crwdns7955:0crwdne7955:0
+        vote_percentage: crwdns7956:0crwdne7956:0
+        vote_good_score: crwdns7957:0crwdne7957:0
       search_participant:
-        role_id: "{crwdns5967:0}{crwdne5967:0}"
-        keywords: "{crwdns5968:0}{crwdne5968:0}"
+        role_id: crwdns8182:0crwdne8182:0
+        keywords: crwdns8183:0crwdne8183:0
       sys_movement:
-        sys_movement_type_id: "{crwdns5969:0}{crwdne5969:0}"
-        made_on: "{crwdns5970:0}{crwdne5970:0}"
-        amount: "{crwdns5971:0}{crwdne5971:0}"
-        sys_currency_id: "{crwdns5972:0}{crwdne5972:0}"
+        sys_movement_type_id: crwdns5969:0crwdne5969:0
+        made_on: crwdns5970:0crwdne5970:0
+        amount: crwdns5971:0crwdne5971:0
+        sys_currency_id: crwdns5972:0crwdne5972:0
       user:
-        name: "{crwdns5973:0}{crwdne5973:0}"
-        email: "{crwdns5974:0}{crwdne5974:0}"
-        surname: "{crwdns5975:0}{crwdne5975:0}"
-        login: "{crwdns5976:0}{crwdne5976:0}"
-        password: "{crwdns5977:0}{crwdne5977:0}"
-        linkedinpageurl: "{crwdns5978:0}{crwdne5978:0}"
-        facebookpageurl: "{crwdns5979:0}{crwdne5979:0}"
-        accept_conditions: "{crwdns5980:0}{crwdne5980:0}"
-        receive_newsletter: "{crwdns5981:0}{crwdne5981:0}"
-        blocked: "{crwdns5983:0}{crwdne5983:0}"
+        name: crwdns5973:0crwdne5973:0
+        email: crwdns5974:0crwdne5974:0
+        surname: crwdns5975:0crwdne5975:0
+        login: crwdns5976:0crwdne5976:0
+        password: crwdns5977:0crwdne5977:0
+        linkedinpageurl: crwdns5978:0crwdne5978:0
+        facebookpageurl: crwdns5979:0crwdne5979:0
+        accept_conditions: crwdns5980:0crwdne5980:0
+        receive_newsletter: crwdns5981:0crwdne5981:0
+        blocked: crwdns5983:0crwdne5983:0
       group_area:
-        name: "{crwdns5984:0}{crwdne5984:0}"
-        description: "{crwdns5985:0}{crwdne5985:0}"
-        default_role_name: "{crwdns5986:0}{crwdne5986:0}"
+        name: crwdns5984:0crwdne5984:0
+        description: crwdns5985:0crwdne5985:0
+        default_role_name: crwdns5986:0crwdne5986:0
     errors:
-      template:
-        header:
-          one: "{crwdns5987:0}%{model}{crwdne5987:0}"
-          other: "{crwdns5987:1}%{count}{crwdnd5987:1}%{model}{crwdne5987:1}"
-        body: "{crwdns5988:0}{crwdne5988:0}"
       messages:
-        inclusion: "{crwdns5989:0}{crwdne5989:0}"
-        exclusion: "{crwdns5990:0}{crwdne5990:0}"
-        invalid: "{crwdns5991:0}{crwdne5991:0}"
-        confirmation: "{crwdns5992:0}{crwdne5992:0}"
-        accepted: "{crwdns5993:0}{crwdne5993:0}"
-        empty: "{crwdns5994:0}{crwdne5994:0}"
-        blank: "{crwdns5995:0}{crwdne5995:0}"
-        too_long: "{crwdns5996:0}{crwdne5996:0}"
-        too_short: "{crwdns5997:0}{crwdne5997:0}"
-        wrong_length: "{crwdns5998:0}{count}{crwdne5998:0}"
-        taken: "{crwdns5999:0}{crwdne5999:0}"
-        not_a_number: "{crwdns6000:0}{crwdne6000:0}"
-        greater_than: "{crwdns6001:0}%{count}{crwdne6001:0}"
-        greater_than_or_equal_to: "{crwdns6002:0}%{count}{crwdne6002:0}"
-        equal_to: "{crwdns6003:0}%{count}{crwdne6003:0}"
-        less_than: "{crwdns6004:0}%{count}{crwdne6004:0}"
-        less_than_or_equal_to: "{crwdns6005:0}%{count}{crwdne6005:0}"
-        odd: "{crwdns6006:0}{crwdne6006:0}"
-        even: "{crwdns6007:0}{crwdne6007:0}"
-        record_invalid: "{crwdns6008:0}%{errors}{crwdne6008:0}"
-        not_found: "{crwdns6009:0}{crwdne6009:0}"
-        TOS: "{crwdns6010:0}{crwdne6010:0}"
+        inclusion: crwdns5989:0crwdne5989:0
+        exclusion: crwdns5990:0crwdne5990:0
+        invalid: crwdns5991:0crwdne5991:0
+        confirmation: crwdns5992:0crwdne5992:0
+        accepted: crwdns5993:0crwdne5993:0
+        empty: crwdns5994:0crwdne5994:0
+        blank: crwdns5995:0crwdne5995:0
+        too_long: crwdns5996:0crwdne5996:0
+        too_short: crwdns5997:0crwdne5997:0
+        wrong_length: 'crwdns5998:0%{count}crwdne5998:0'
+        taken: crwdns5999:0crwdne5999:0
+        not_a_number: crwdns6000:0crwdne6000:0
+        greater_than: 'crwdns6001:0%{count}crwdne6001:0'
+        greater_than_or_equal_to: 'crwdns6002:0%{count}crwdne6002:0'
+        equal_to: 'crwdns6003:0%{count}crwdne6003:0'
+        less_than: 'crwdns6004:0%{count}crwdne6004:0'
+        less_than_or_equal_to: 'crwdns6005:0%{count}crwdne6005:0'
+        odd: crwdns6006:0crwdne6006:0
+        even: crwdns6007:0crwdne6007:0
+        record_invalid: 'crwdns6008:0%{errors}crwdne6008:0'
+        not_found: crwdns6009:0crwdne6009:0
+        TOS: crwdns6010:0crwdne6010:0
+        certified_cannot_edit: crwdns8334:0crwdne8334:0
       full_messages:
-        format: "{crwdns6011:0}%{attribute}{crwdnd6011:0}%{message}{crwdne6011:0}"
+        format: 'crwdns6011:0%{attribute}crwdnd6011:0%{message}crwdne6011:0'
       models:
         user:
           attributes:
             email:
-              already_confirmed: "{crwdns6012:0}{crwdne6012:0}"
+              already_confirmed: crwdns6012:0crwdne6012:0
         group:
           portavoce:
-            required: "{crwdns6013:0}{crwdne6013:0}"
+            required: crwdns6013:0crwdne6013:0

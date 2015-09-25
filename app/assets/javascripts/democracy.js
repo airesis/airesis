@@ -14,8 +14,6 @@ function switchText(button) {
 }
 
 function scrollToElement(element, callback) {
-    console.log('scroll bitch!');
-    console.log(Airesis.viewport);
     Airesis.viewport.animate({
         scrollTop: element.offset().top - 160
     }, 2000, 'swing', callback);
@@ -154,15 +152,6 @@ function disegnaProgressBar() {
                     height: 5
                 }
             }
-        });
-    });
-
-    $(function () {
-        $(".progress_bar").progressBar({
-            boxImage: '<%=asset_path "progressbar.gif"%>',
-            barImage: '<%=asset_path "progressbg_green.gif"%>',
-            showText: true,
-            textFormat: 'custom'
         });
     });
 }
@@ -365,6 +354,17 @@ function start_end_fdatetimepicker(start, end, min_minutes, suggested_minutes) {
         });
 }
 
+function fdatetimepicker_only_date(start, end) {
+  start.fdatetimepicker('pickOnlyDate');
+  start.fdatetimepicker('setBeginOfDay');
+  end.fdatetimepicker('pickOnlyDate');
+  end.fdatetimepicker('setEndOfDay');
+}
+
+function fdatetimepicker_date_and_time(start, end) {
+  start.fdatetimepicker('pickDateAndTime');
+  end.fdatetimepicker('pickDateAndTime');
+}
 
 function select2town(element) {
     element.select2({
@@ -381,7 +381,9 @@ function select2town(element) {
             } else {
                 $.ajax({
                     url: '/municipalities',
-                    data: {q: query.term, l: Airesis.i18n.locale},
+                    data: {
+                        q: query.term
+                    },
                     dataType: 'json',
                     type: 'GET',
                     success: function (data) {
@@ -403,7 +405,7 @@ function disegnaCountdown() {
             since: new Date($(this).data('time')),
             significant: 1,
             format: 'ms',
-            layout: Airesis.i18n.countdown
+            layout: Airesis.i18n.countdown.layout1
         }, $.countdown.regionalOptions[Airesis.i18n.locale]));
     })
 }
@@ -532,10 +534,10 @@ function read_notifica(el) {
 
 function sign_all_as_read(id) {
     $.ajax({
-        data: 'id=' + id,
         url: '/alerts/check_all/',
         type: 'post',
         dataType: 'script',
+        data: {id: id},
         complete: function (data) {
             reset_alerts_number();
             $('.card.mess').each(function () {
@@ -732,6 +734,9 @@ function formatCategory(state) {
 function formatQuorum(state) {
     var element_ = state.element;
     if (!state.id) return state.text; // optgroup
+    console.log(state.text);
+    console.log($(element_));
+    console.log($(element_).data('description'));
     return "<div> <div class=\"quorum_title\">" + state.text + "</div> <div class=\"quorum_desc\">" + $(element_).data('description') + "</div></div>";
 }
 
@@ -771,7 +776,7 @@ function airesis_reveal(element_, remove_on_close) {
     remove_on_close = typeof remove_on_close !== 'undefined' ? remove_on_close : true;
     element_.foundation().foundation('reveal', 'open');
     if (remove_on_close) {
-        $(document).on('closed', element_, function () {
+        $(document).on('closed.fndtn.reveal', element_, function () {
             element_.remove();
         });
     }
@@ -795,7 +800,9 @@ function search_stuff() {
         if (query != null && query != "") {
             $.ajax({
                 url: '/searches',
-                data: 'search[q]=' + query,
+                data: {
+                    'search[q]': query
+                },
                 method: 'POST'
             });
         }
