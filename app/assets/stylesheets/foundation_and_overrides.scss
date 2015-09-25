@@ -1307,7 +1307,7 @@ ul, ol {
   height: $sectionbar-height-small;
   background-color: $sectionbar-bg-color;
   position: fixed;
-  left: 0px;
+  left: 0;
   width: 100%;
   z-index: 9;
   top: inherit;
@@ -1342,7 +1342,7 @@ ul, ol {
 
   @media #{$small-only} {
     .topmenu.noleft {
-      margin-left: 0px;
+      margin-left: 0;
     }
   }
 }
@@ -1395,7 +1395,7 @@ ul, ol {
       }
     }
     @media #{$medium-up} {
-      margin-left: 0px;
+      margin-left: 0;
       display: inline-block;
     }
   }
@@ -1530,7 +1530,7 @@ body {
 
 .mycont {
   .row {
-    margin: 4px 0px;
+    margin: 4px 0;
     .columns img {
       max-width: none;
     }
@@ -1656,9 +1656,9 @@ $logo-width: 100px;
 
 #footer, footer {
   position: absolute;
-  bottom: 0px;
-  right: 0px;
-  left: 0px;
+  bottom: 0;
+  right: 0;
+  left: 0;
   padding: 7px;
   background-color: #33b5e5;
   color: white;
@@ -1803,8 +1803,8 @@ $logo-width: 100px;
   }
   .centerpanelextended {
     &.contributes_shown {
-      margin-left: 0px;
-      padding-right: 0px;
+      margin-left: 0;
+      padding-right: 0;
     }
   }
 }
@@ -1813,7 +1813,7 @@ $logo-width: 100px;
   .centerpanelextended {
     &.contributes_shown {
       max-width: 40%;
-      padding-right: 0px;
+      padding-right: 0;
     }
   }
   .suggestion_right {
@@ -1852,7 +1852,7 @@ html, body {
 }
 
 #toast-container {
-  right: 0px;
+  right: 0;
   top: 100px;
   z-index: 10000 !important;
   &.sticky:hover {
@@ -1947,7 +1947,7 @@ small.warning {
   position: absolute;
   width: 20px;
   right: -3px;
-  top: 0px;
+  top: 0;
 }
 
 #tolr {
@@ -1972,7 +1972,7 @@ small.warning {
 #inlog {
   position: absolute;
   top: 37px;
-  right: 0px;
+  right: 0;
   width: 200px;
   color: white;
   font-size: 13px;
@@ -2021,7 +2021,7 @@ small.warning {
 
 #menu-right .box .logo {
   position: absolute;
-  right: 0px;
+  right: 0;
   width: 50px;
   height: 50px;
   margin: 10px;
@@ -2039,7 +2039,7 @@ small.warning {
   font-weight: bold;
   font-size: 10px;
   box-shadow: -1px 1px 1px #000;
-  border: 0px;
+  border: 0;
   z-index: 998;
   min-width: 18px;
   &:hover {
@@ -2069,7 +2069,7 @@ small.warning {
 
 .qtip.qtip-login {
   border-radius: 5px;
-  box-shadow: 0px 0px 5px #333;
+  box-shadow: 0 0 5px #333;
   color: black;
   background-color: rgba(255, 255, 255, 0.9);
   width: 400px;
@@ -2163,8 +2163,8 @@ small.warning {
 
 #create_proposal_container {
   h4 {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     margin: 5px;
     margin-bottom: 10px;
     color: #808080;
@@ -2312,7 +2312,7 @@ small.warning {
 .btn.blue:active {
   border-color: #2F5BB7 !important;
   background: #357ae8;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 1);
 }
 
 .btn.green {
@@ -2461,7 +2461,7 @@ small.warning {
 
 .btn img {
   height: 18px;
-  margin: 0px;
+  margin: 0;
   margin-bottom: -6px;
   margin-left: 5px;
   margin-right: -5px;
@@ -2530,9 +2530,9 @@ input[type=file] {
     li {
       a.button {
         background-color: transparent;
-        top: 0px;
-        padding-top: 0px;
-        padding-bottom: 0px;
+        top: 0;
+        padding-top: 0;
+        padding-bottom: 0;
         &:hover {
           background-color: #008cba;
         }
@@ -2845,7 +2845,7 @@ input[type=file] {
       font-weight: bold;
       white-space: nowrap;
       overflow-x: hidden;
-      margin: 5px 0px 5px 0px;
+      margin: 5px 0 5px 0;
     }
   }
   .bottom {
@@ -2867,7 +2867,7 @@ input[type=file] {
 }
 
 .introjs-helperNumberLayer {
-  padding: 0px;
+  padding: 0;
   font-size: 11px;
   line-height: 17px;
   border: 2px solid white;
