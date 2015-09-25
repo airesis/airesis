@@ -57,6 +57,8 @@ describe 'personal settings', type: :feature, js: true do
       within '#email_modal' do
         find(:css, '#user_email').set new_email
         click_button I18n.t('buttons.save')
+        sleep 2 # fix problem with client side validation in capybara-webkit
+        click_button I18n.t('buttons.save')
       end
       expect(page).to have_content(I18n.t('info.user.info_updated'))
       user.reload

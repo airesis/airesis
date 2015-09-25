@@ -23,19 +23,17 @@ describe NotificationProposalRankingCreate, type: :model, emails: true, notifica
         AlertsWorker.drain
         EmailsWorker.drain
 
-        deliveries = ActionMailer::Base.deliveries.last 3
+        last_delivery = ActionMailer::Base.deliveries.last
 
-        receivers = [user, user, user]
+        receiver = user
 
-        emails = deliveries.map { |m| m.to[0] }
-        receiver_emails = receivers.map(&:email)
-        expect(emails).to match_array receiver_emails
+        email = last_delivery.to[0]
+        receiver_email = receiver.email
+        expect(email).to eq receiver_email
 
-        expect(Alert.unscoped.count).to eq 3
-        expect(Alert.last(3).map { |a| a.user }).to match_array receivers
-        expect(Alert.last(3).map { |a| a.notification_type.id }).to match_array [NotificationType::NEW_VALUTATION_MINE,
-                                                                                 NotificationType::NEW_VALUTATION_MINE,
-                                                                                 NotificationType::NEW_VALUTATION_MINE]
+        expect(Alert.unscoped.count).to eq 1
+        expect(Alert.last.user).to eq receiver
+        expect(Alert.last.notification_type.id).to eq NotificationType::NEW_VALUTATION_MINE
       end
     end
   end
