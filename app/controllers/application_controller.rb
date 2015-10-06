@@ -111,11 +111,10 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_domain
-    @domain_locale = request.host.split('.').last
     if params[:l].present?
       @current_domain = SysLocale.find_by_key(params[:l])
     else
-      @current_domain = SysLocale.find_by(host: request.host, lang: nil) || SysLocale.default
+      @current_domain = SysLocale.find_by(host: request.domain, lang: nil) || SysLocale.default
     end
   end
 
