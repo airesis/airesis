@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'sitemap_generator'
 
-SitemapGenerator::Sitemap.default_host = 'http://www.airesis.it'
+SitemapGenerator::Sitemap.default_host = ENV['SITE']
 SitemapGenerator::Sitemap.create do
   add proposals_path, changefreq: 'always', priority: 1
   add groups_path, changefreq: 'daily', priority: 0.9

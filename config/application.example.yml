@@ -83,9 +83,11 @@ BUGTRACKING_PASSWORD: ""
 APP_SHORT_NAME: "Airesis"
 APP_LONG_NAME: "Airesis - Scegli di partecipare"
 APP_EMAIL_ADDRESS: "info@example.com"
-SITE: "http://www.airesis.eu"
 ADMIN_EMAIL: "youremail@example.com"
 ADMIN_PASSWORD: "password"
+
+# sitemap host
+SITE: "http://www.airesis.eu"
 
 DEVISE_SECRET_KEY: ""
 
