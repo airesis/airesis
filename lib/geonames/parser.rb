@@ -64,14 +64,20 @@ require 'active_support/core_ext/hash/indifferent_access'
 # @country_code = '2635167'
 # @lang = 'en'
 #
+# ---Croatia
+# @continent_name = 'Europe'
+# @country_name = 'Croatia'
+# @country_code = '3202326'
+# @lang = 'hr-HR'
+#
 module Geonames
   class Parser
     def initialize
 
       # correctly set these parameters
       @continent_name = 'Europe'
-      @country_name = 'United Kingdom'
-      @country_code = '2635167'
+      @country_name = 'Croatia'
+      @country_code = '3202326'
       @lang = 'en'
 
       @username = 'coorasse'
