@@ -1401,9 +1401,12 @@ ul, ol {
   }
 }
 
+.left-off-canvas-menu {
+  height: calc(100vh - #{$sectionbar-height-small} - 88px);
+}
+
 #main, .left-off-canvas-menu {
   margin-top: $sectionbar-height-small;
-  height: calc(100vh - #{$sectionbar-height-small} - 88px);
   @media #{$medium-up} {
     margin-top: $sectionbar-height-large;
   }
