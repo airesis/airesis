@@ -149,7 +149,7 @@ class ApplicationController < ActionController::Base
   end
 
   def log_error(exception)
-    if ENV['SENTRY_PRIVATE_KEY'] && !Rails.env.test? && !Rails.env.development?
+    if SENTRY_ACTIVE && !Rails.env.test? && !Rails.env.development?
       extra = {}
       extra[:current_user_id] = current_user.id if current_user
       if exception.instance_of? CanCan::AccessDenied

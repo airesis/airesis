@@ -197,12 +197,11 @@
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false"></script>
 
 
-<% if Rails.env.production? %>
+<% if Rails.env.production? && SENTRY_ACTIVE%>
     <script src="//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"></script>
     <script>
         Raven.config('https://<%=ENV['SENTRY_PUBLIC_KEY']%>@app.getsentry.com/<%=ENV['SENTRY_PORT']%>', {
-            release: '<%=AIRESIS_VERSION%>',
-
+            release: '<%=AIRESIS_VERSION%>'
             // we highly recommend restricting exceptions to a domain in order to filter out clutter
             //whitelistUrls: ['example.com/scripts/']
         }).install();
