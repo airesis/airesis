@@ -20,14 +20,14 @@ RailsAdmin.config do |config|
     dashboard # mandatory
     index # mandatory
     new do
-      except %w(SysPaymentNotification)
+      except %w(User SysPaymentNotification)
     end
     export
     #bulk_delete
     show
     edit
     delete do
-      except %w(SysPaymentNotification)
+      except %w(User SysPaymentNotification)
     end
     #show_in_app
 
@@ -36,13 +36,16 @@ RailsAdmin.config do |config|
     # history_show
   end
 
-  config.included_models = %w(Announcement NotificationType SysLocale SysFeature SysMovement
+  config.included_models = %w(User Announcement NotificationType SysLocale SysFeature SysMovement
                               SysPaymentNotification Configuration)
 
   config.model 'SysFeature' do
     exclude_fields %w(sys_payment_notifications)
   end
   config.model 'SysLocale' do
+    object_label_method do
+      :description
+    end
     field :key, :enum do
       enum { I18n.available_locales }
     end
@@ -53,5 +56,25 @@ RailsAdmin.config do |config|
     field :territory_type
     field :territory_id
     field :default
+  end
+
+  config.model 'User' do
+    edit do
+      field :name
+      field :surname
+      field :email
+      field :sex
+      field :login
+      field :receive_newsletter
+      field :facebook_page_url
+      field :google_page_url
+      field :linkedin_page_url
+      field :show_tooltips
+      field :show_urls
+      field :receive_messages
+      field :rotp_enabled
+      field :locale
+      field :original_locale
+    end
   end
 end

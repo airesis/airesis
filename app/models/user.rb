@@ -49,8 +49,6 @@ class User < ActiveRecord::Base
   has_many :proposal_comment_rankings, class_name: 'ProposalCommentRanking'
   has_many :proposal_rankings, class_name: 'ProposalRanking'
   belongs_to :user_type, class_name: 'UserType', foreign_key: :user_type_id
-  belongs_to :places, class_name: 'Place', foreign_key: :residenza_id
-  belongs_to :places, class_name: 'Place', foreign_key: :nascita_id
   belongs_to :image, class_name: 'Image', foreign_key: :image_id
   has_many :authentications, class_name: 'Authentication', dependent: :destroy
 
