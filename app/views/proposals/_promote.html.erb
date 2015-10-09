@@ -1,116 +1,114 @@
 <% j = 0 %>
-<div id="promote_container" class="reveal-modal" data-reveal>
-  <h2><%= '' %></h2>
+<h2><%= '' %></h2>
 
-  <div id="promote_steps">
-    <form id="promote_form">
-      <% if can? :vote, @proposal %>
-          <div class="legend">
-            <div class="number"><%= j+=1 %></div>
-            <div class="title">
-              <%= 'Sign' %>
-            </div>
+<div id="promote_steps">
+  <form id="promote_form">
+    <% if can? :vote, @proposal %>
+        <div class="legend">
+          <div class="number"><%= j+=1 %></div>
+          <div class="title">
+            <%= 'Sign' %>
           </div>
-      <% end %>
-      <div class="legend">
-        <div class="number"><%= j+=1 %></div>
-        <div class="title">
-          <%= 'Suggestions' %>
         </div>
+    <% end %>
+    <div class="legend">
+      <div class="number"><%= j+=1 %></div>
+      <div class="title">
+        <%= 'Suggestions' %>
       </div>
-      <div class="legend">
-        <div class="number"><%= j+=1 %></div>
-        <div class="title">
-          <%= 'Promote' %>
-        </div>
+    </div>
+    <div class="legend">
+      <div class="number"><%= j+=1 %></div>
+      <div class="title">
+        <%= 'Promote' %>
       </div>
-      <div class="legend">
-        <div class="number"><%= j+=1 %></div>
-        <div class="title">
-          <%= 'Share' %>
-        </div>
+    </div>
+    <div class="legend">
+      <div class="number"><%= j+=1 %></div>
+      <div class="title">
+        <%= 'Share' %>
       </div>
-      <div class="legend">
-        <div class="number"><%= j+=1 %></div>
-        <div class="title">
-          <%= 'Facebook' %>
-        </div>
+    </div>
+    <div class="legend">
+      <div class="number"><%= j+=1 %></div>
+      <div class="title">
+        <%= 'Facebook' %>
       </div>
-      <div class="legend">
-        <div class="number"><%= j+=1 %></div>
-        <div class="title">
-          <%= 'Become fan' %>
-        </div>
+    </div>
+    <div class="legend">
+      <div class="number"><%= j+=1 %></div>
+      <div class="title">
+        <%= 'Become fan' %>
       </div>
-      <div class="legend">
-        <div class="number"><%= j+=1 %></div>
-        <div class="title">
-          <%= 'Twitter' %>
-        </div>
+    </div>
+    <div class="legend">
+      <div class="number"><%= j+=1 %></div>
+      <div class="title">
+        <%= 'Twitter' %>
       </div>
-      <div class="legend">
-        <div class="number"><%= j+=1 %></div>
-        <div class="title">
-          <%= 'Donate' %>
-        </div>
+    </div>
+    <div class="legend">
+      <div class="number"><%= j+=1 %></div>
+      <div class="title">
+        <%= 'Donate' %>
       </div>
+    </div>
 
-      <% if can? :vote, @proposal %>
-          <div class="step root root">
-            <div class="panel callout">
-              <p><%= raw "Complimenti! La tua proposta è stata creata con successo!<br/>Inizia subito la raccolta firme!<br/>Tu sarai il primo firmatario della petizione. Aggiungi un commento e coinvolgi i tuoi amici per raccogliere altre firme e diffondere la petizione.<br/>Inserisci qui sotto il commento che verrà associato alla tua firma." %>
-              </p>
-            </div>
-
-            <textarea style="width:60%;margin:auto;"></textarea>
-            <input type="button" class="btn blue" value="Firma e commenta">
+    <% if can? :vote, @proposal %>
+        <div class="step root root">
+          <div class="panel callout">
+            <p><%= raw "Complimenti! La tua proposta è stata creata con successo!<br/>Inizia subito la raccolta firme!<br/>Tu sarai il primo firmatario della petizione. Aggiungi un commento e coinvolgi i tuoi amici per raccogliere altre firme e diffondere la petizione.<br/>Inserisci qui sotto il commento che verrà associato alla tua firma." %>
+            </p>
           </div>
-      <% end %>
-      <div class="step">
-        <%= t('proposals.promote.promote1_html')%>
-      </div>
-      <div class="step">
-        <%= t('proposals.promote.promote2_html')%>
-      </div>
-      <div class="step">
-        <%= t('proposals.promote.promote3_1_html')%>
-        <div style="margin:auto;width:800px;">
-          <%= render 'banner' %>
+
+          <textarea style="width:60%;margin:auto;"></textarea>
+          <input type="button" class="btn blue" value="Firma e commenta">
         </div>
-        <%= t('proposals.promote.promote3_2_html')%>
-        <textarea style="width:800px;height:120px;margin:auto;" onclick="this.select();">
+    <% end %>
+    <div class="step">
+      <%= t('proposals.promote.promote1_html') %>
+    </div>
+    <div class="step">
+      <%= t('proposals.promote.promote2_html') %>
+    </div>
+    <div class="step">
+      <%= t('proposals.promote.promote3_1_html') %>
+      <div style="margin:auto;width:800px;">
+        <%= render 'banner' %>
+      </div>
+      <%= t('proposals.promote.promote3_2_html') %>
+      <textarea style="width:800px;height:120px;margin:auto;" onclick="this.select();">
           <div id="airesis_p_<%= @proposal.id %>"></div>
           <script type="text/javascript" src="<%= banner_proposal_url(@proposal) %>"></script>
         </textarea>
 
-      </div>
-      <div class="step">
-        <%= t('proposals.promote.promote4_html')%>
-        <div class="fb-like" data-likeable_type="<%= @proposal.class.class_name %>" data-likeable_id="<%= @proposal.id %>" data-layout="standard" data-action="recommend" data-show-faces="true" data-share="false"></div>
+    </div>
+    <div class="step">
+      <%= t('proposals.promote.promote4_html') %>
+      <div class="fb-like" data-likeable_type="<%= @proposal.class.class_name %>" data-likeable_id="<%= @proposal.id %>" data-layout="standard" data-action="recommend" data-show-faces="true" data-share="false"></div>
 
-      </div>
-      <div class="step">
-        <%= t('proposals.promote.promote5_html')%>
-        <div class="fb-like" data-href="https://www.facebook.com/AiresisIt" data-layout="standard" data-action="recommend" data-show-faces="true" data-share="false"></div>
-      </div>
-      <div class="step">
-        <%= t('proposals.promote.promote6_html')%>
+    </div>
+    <div class="step">
+      <%= t('proposals.promote.promote5_html') %>
+      <div class="fb-like" data-href="https://www.facebook.com/AiresisIt" data-layout="standard" data-action="recommend" data-show-faces="true" data-share="false"></div>
+    </div>
+    <div class="step">
+      <%= t('proposals.promote.promote6_html') %>
 
-        <a href="https://twitter.com/share"
-           class="twitter-share-button"
-           data-lang="en"
-           data-count="vertical"
-           data-text="Guarda questa proposta su #<%= ENV['APP_SHORT_NAME'] %>">Tweet</a>
+      <a href="https://twitter.com/share"
+         class="twitter-share-button"
+         data-lang="en"
+         data-count="vertical"
+         data-text="Guarda questa proposta su #<%= ENV['APP_SHORT_NAME'] %>">Tweet</a>
 
-      </div>
-      <div class="step">
-        <%= t('proposals.promote.promote7_html')%>
+    </div>
+    <div class="step">
+      <%= t('proposals.promote.promote7_html') %>
 
-        <%=render 'home/donate_buttons'%>
-      </div>
+      <%= render 'home/donate_buttons' %>
+    </div>
 
-      <input class="wizard" type="submit" style="visibility: hidden;">
-    </form>
-  </div>
-  <a class="close-reveal-modal">&#215;</a>
+    <input class="wizard" type="submit" style="visibility: hidden;">
+  </form>
 </div>
+<a class="close-reveal-modal">&#215;</a>

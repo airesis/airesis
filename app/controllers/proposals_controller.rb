@@ -12,7 +12,7 @@ class ProposalsController < ApplicationController
   end
 
   load_and_authorize_resource through: [:group, :group_area], shallow: true, except: [:tab_list, :similar, :endless_index]
-  skip_authorize_resource only: :vote_results
+  skip_authorize_resource only: [:vote_results, :promote]
 
   layout :choose_layout
 
@@ -178,6 +178,10 @@ class ProposalsController < ApplicationController
                show_as_html: params[:debug].present?
       }
     end
+  end
+
+  def promote
+    authorize! :show, @proposal
   end
 
   def new
