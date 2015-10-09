@@ -17,11 +17,6 @@ bs-BA:
         period: Ponavljanje
         frequency: Ponavljanje svakih
         private: Privatno
-      event/meeting/place:
-        address: Adresa
-        municipality_id: Grad
-        latitude_original: Geografska širina
-        longitude_original: Geografska dužina
       group:
         facebook_page_url: Adresa Facebook stranice
         name: Ime
@@ -70,7 +65,6 @@ bs-BA:
         content: Tekst
         interest_borders_tkn: Geografska mjesta od interesa
         tags_list: Tagovi
-        quorum_id: Kvorum
         anonima: Privremena anonimnost
         visible_outside: Javno vidljivo
         secret_vote: Tajno glasanje
@@ -100,16 +94,13 @@ bs-BA:
         vote_good_score: Odobrenje
       search_participant:
         role_id: Funkcija
-        keywords: Ime ili prezime
       sys_movement:
         sys_movement_type_id: Tip
         made_on: Urađeno
         amount: Iznos
         sys_currency_id: Valuta
       user:
-        name: Ime
         email: E-mail
-        surname: Prezime
         login: Korisničko ime
         password: Lozinka
         linkedinpageurl: Vaša LinkedIn stranica
@@ -151,6 +142,3 @@ bs-BA:
           attributes:
             email:
               already_confirmed: Ova e-mail adresa je već registrovana
-        group:
-          portavoce:
-            required: Morate odabrati zastupnika

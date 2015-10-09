@@ -63,7 +63,7 @@ sr-SP:
       creation_failure: 'Грешка приликом приступања преко %{provider}'
       join_success: 'Налози су успешно обједињени. Честитамо, сада се можете пријавити преко %{provider}.'
       join_failure: 'Постоји још један %{provider} налог. Функција за придруживање налога ће бити доступна ускоро.'
-      account_not_verified: 'Налог %{provider} с непотврђеном е-поштом.'
+      certified_email_taken: Постоји други налог с вашом потврђеном е-поштом.
     mailer:
       confirmation_instructions:
         subject: Упутства за потврду

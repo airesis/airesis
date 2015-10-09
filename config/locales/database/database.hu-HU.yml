@@ -1,22 +1,12 @@
 hu-HU:
   db:
     sys_locales:
-      it-IT:
-        description: Olasz
-      en:
-        description: Angol
-      en-US:
-        description: Angol (amerikai)
-      fr:
-        description: Francia
       es-ES:
         description: Spanyol
-      pt-PT:
-        description: Portugál
+      it-IT:
+        description: Olasz
       pt-BR:
         description: Portugál (Brazília)
-      de:
-        description: Német
     proposal_types:
       STANDARD:
         description: Egyszerű indítvány
@@ -96,12 +86,8 @@ hu-HU:
         message: '%{user} új üzenet írt a blogján: <b>%{blog}</b>'
       new_valutation_mine:
         description: Új értékelés az indítványomhoz
-        email_subject: '%{title} - Új értékelés'
-        message: '<b>%{title}</b> indítványa új értékelést kapott'
       new_valutation:
         description: Új értékelés egy indítványhoz, amiben részt veszek
-        email_subject: '%{title} - Új értékelés'
-        message: 'Az indítvány <b>%{title}</b> új értékelést kapott'
       available_author:
         description: Felhasználó elérhető, hogy egy indítvány szerkesztőjévé váljon
       author_accepted:

@@ -20,6 +20,7 @@ crowdin:
       unconfirmed: crwdns7970:0crwdne7970:0
       user:
         invalid: crwdns7971:0crwdne7971:0
+        not_found_in_database: crwdns9923:0crwdne9923:0
     sessions:
       signed_in: crwdns4009:0crwdne4009:0
       signed_out: crwdns4010:0crwdne4010:0
@@ -65,7 +66,7 @@ crowdin:
       join_failure: 'crwdns8409:0%{provider}crwdne8409:0'
       certified_email_taken: crwdns9857:0crwdne9857:0
       already_certified: crwdns9858:0crwdne9858:0
-      account_not_verified: 'crwdns8410:0%{provider}crwdne8410:0'
+      account_not_verified: 'crwdns9924:0%{provider}crwdnd9924:0%{provider}crwdne9924:0'
     mailer:
       confirmation_instructions:
         subject: crwdns4030:0crwdne4030:0

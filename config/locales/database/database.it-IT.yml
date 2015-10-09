@@ -1,22 +1,66 @@
 it-IT:
   db:
     sys_locales:
-      it-IT:
-        description: Italiano
-      en:
-        description: Inglese
+      bs-BA:
+        description: Bosniaco
+      crowdin:
+        description: Crowdin (solo per sviluppatori)
+      de-DE:
+        description: Tedesco
+      el-GR:
+        description: Greco
+      en-AU:
+        description: Inglese (Australia)
+      en-EU:
+        description: Inglese (Europa)
+      en-GB:
+        description: Inglese (Inghilterra)
+      en-IE:
+        description: Inglese (Irlanda)
+      en-NZ:
+        description: Inglese (Nuova Zelanda)
       en-US:
-        description: Inglese (US)
-      fr:
-        description: Francese
+        description: Inglese (Stati Uniti)
+      en-ZA:
+        description: Inglese (Sud Africa)
+      es-AR:
+        description: Spagnolo (Argentina)
+      es-CL:
+        description: Spagnolo (Cile)
+      es-EC:
+        description: Spagnolo (Ecuador)
       es-ES:
         description: Spagnolo
-      pt-PT:
-        description: Portoghese
+      fr-FR:
+        description: Francese
+      hu-HU:
+        description: Ungherese
+      id-ID:
+        description: Indonesiano
+      it-IT:
+        description: Italiano
+      jp-JP:
+        description: Giapponese
+      me-ME:
+        description: Montenegrino
+      nl-NL:
+        description: Olandese
       pt-BR:
         description: Portoghese (Brasiliano)
-      de:
-        description: Tedesco
+      pt-PT:
+        description: Portoghese (Portogallo)
+      ro-RO:
+        description: Romeno
+      ru-RU:
+        description: Russo
+      sh-HR:
+        description: Serbo-Croato
+      sr-CS:
+        description: Serbo Latino
+      sr-SP:
+        description: Serbo Cirillico
+      zh-TW:
+        description: Cinese
     proposal_types:
       STANDARD:
         description: Proposta standard
@@ -96,12 +140,20 @@ it-IT:
         message: '%{user} ha inserito un nuovo post nel suo blog <b>%{blog}</b>'
       new_valutation_mine:
         description: Nuova valutazione ad una mia proposta
-        email_subject: '%{title} - Nuova valutazione'
-        message: 'La tua proposta <b>%{title}</b> ha ricevuto una nuova valutazione'
+        email_subject:
+          one: '%{title} ha una nuova valutazione'
+          other: '%{title} ha una %{count} nuove valutazioni'
+        message:
+          one: 'La tua proposta <b>%{title}</b> ha ricevuto una nuova valutazione'
+          other: 'La tua proposta <b>%{title}</b> ha ricevuto %{count} nuove valutazioni'
       new_valutation:
         description: Nuova valutazione ad una proposta a cui partecipo
-        email_subject: '%{title} - Nuova valutazione'
-        message: 'La proposta <b>%{title}</b> ha ricevuto una nuova valutazione'
+        email_subject:
+          one: '%{title} ha una nuova valutazione'
+          other: '%{title} ha %{count} nuove valutazioni'
+        message:
+          one: 'La proposta <b>%{title}</b> ha ricevuto una nuova valutazione'
+          other: 'La proposta <b>%{title}</b> ha ricevuto %{count} nuove valutazioni'
       available_author:
         description: Utente disponibile a redigere la sintesi di una proposta
         email_subject:
@@ -224,6 +276,7 @@ it-IT:
       new_participation_request:
         description: Nuova richiesta di partecipazione
         email_subject:
+          one: "C'è una nuova richiesta di partecipazione"
           other: 'Ci sono %{count} nuove richieste di partecipazione'
         message:
           one: '<b>%{user}</b> ha richiesto di partecipare al gruppo <b>%{group}</b>'

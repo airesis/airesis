@@ -1,20 +1,12 @@
 ro-RO:
   db:
     sys_locales:
-      it-IT:
-        description: Italiană
-      en:
-        description: Engleză
-      fr:
-        description: Franceză
       es-ES:
         description: Spaniolă
-      pt-PT:
-        description: Portugheză
+      it-IT:
+        description: Italiană
       pt-BR:
         description: Portugheză (Brazilia)
-      de:
-        description: Germană
     proposal_types:
       STANDARD:
         description: Propunere standard
@@ -84,11 +76,8 @@ ro-RO:
         message: '%{user} a adăugat un nou post în blogul său <b>%{blog}</b>'
       new_valutation_mine:
         description: O evaluare nouă a propunerii mele
-        email_subject: '% {title} - evaluare nouă'
-        message: 'Propunerea dumneavoastră <b>% {title}</b> a primit o nouă evaluare'
       new_valutation:
         description: O nouă evaluare a unei propuneri la care particip
-        email_subject: '%{title} - evaluare nouă'
       available_author:
         description: Utilizatorul disponibil pentru a deveni un editorul unei propuneri
       author_accepted:

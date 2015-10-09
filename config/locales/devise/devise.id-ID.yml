@@ -63,7 +63,6 @@ id-ID:
       creation_failure: 'Eror selagi mengakses melalui %{provider}'
       join_success: 'Akun berhasil digabungkan. Selamat, kini Anda dapat masuk melalui %{provider}.'
       join_failure: 'Ada akun %{provider} lain. Fitur untuk menggabungkan akun akan segera tersedia.'
-      account_not_verified: 'Akun %{provider} dengan surel yang belum diverifikasi.'
     mailer:
       confirmation_instructions:
         subject: Instruksi konfirmasi

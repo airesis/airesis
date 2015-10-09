@@ -1,20 +1,12 @@
 es-EC:
   db:
     sys_locales:
-      it-IT:
-        description: italiano
-      en:
-        description: inglés
-      fr:
-        description: Francés
       es-ES:
         description: Español
-      pt-PT:
-        description: Portugués
+      it-IT:
+        description: italiano
       pt-BR:
         description: Portugués (Brasil)
-      de:
-        description: Alemán
     proposal_types:
       STANDARD:
         description: Propuesta estándar
@@ -84,11 +76,8 @@ es-EC:
         message: '%{user} añadió una nueva publicación en su blog <b>%{blog}</b>'
       new_valutation_mine:
         description: Nueva evaluación de una de mis propuestas
-        email_subject: '%{title} - Nueva evaluación'
-        message: 'Su propuesta <b>%{title}</b> ha recibido una nueva evaluación'
       new_valutation:
         description: Nueva evaluación de una propuesta en la que participo
-        email_subject: '%{title} - Nueva evaluación'
       available_author:
         description: Usuario disponible para convertirse en editor de una propuesta
       author_accepted:

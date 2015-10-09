@@ -87,6 +87,8 @@ sh-HR:
       long_date_time: '%A %d %B %Y u %I:%M %p'
       from_long_date_time: 'Od %A %d %B %Y u %I:%M %p'
       until_long_date_time: 'Do %A %d %B %Y u %I:%M %p'
+      from_long_date: 'Od %A %d %B %Y'
+      until_long_date: 'Do %A %d %B %Y'
       short: '%d %b %Y'
       two_rows: '%d %b %Y <br/> %I:%M %p'
       weekday: '%a u %I:%M %p'

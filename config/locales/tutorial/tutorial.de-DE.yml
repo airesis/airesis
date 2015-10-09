@@ -1,0 +1,9 @@
+de-DE:
+  tutorial:
+    proposals_index:
+      welcome_group: 'Das ist die Liste mit Vorschlägen von der Gruppe <b>%{group_name}</b>. Hier findest du eine Liste von Vorschlägen, die von den Mitgliedern der Gruppe und dir. Du kannst sogar deine eigenen hinzufügen, angesichts der Tatsache, dass du berechtigt bist.'
+      category_icon: Die gewählte Kategorie
+      text_content: Die ersten Zeilen des Problems oder der Lösung
+      contributes: Die Anzahl der hunzugefügten Beiträge
+    proposals_show:
+      solution_main: Dies ist eine Lösung. Sogar die Lösung besteht aus verschiedenen Paragraphen. Redakteure schreiben einer oder mehrere Lösungen zur Behebung des Problems

@@ -31,7 +31,6 @@ ro-RO:
         profile_info_unconfirmed: (utilizator neconfirmat)
         send_message_button: Trimite mesaj privat
         name_label: nume
-        surname_label: Numele de familie
         email_label: E-mail
         edit_image: Editează imagine
         to_be_confirmed: pentru a fi confirmat
@@ -208,7 +207,6 @@ ro-RO:
           description: Airesis vă permite să gestionaţi zone diferite de lucru în interiorul grupului.
           description2: Cu această caracteristică, puteţi administra mai bine participanţii şi rolurile lor.
           description3: Ai grijă! Aceasta este o caracteristică avansată, proiectată numai pentru grupuri mai mari şi utilizatori experimentaţi.
-          enable: Activaţi zonele de lucru!
           description4: 'Înainte de a activa zonele de lucru, verificaţi dacă puteţi gestiona direct membrii grupurilor, folosind '
         manage:
           new_area: Creează o zonă de lucru
@@ -234,7 +232,6 @@ ro-RO:
         anything: Toate
         operations_on_user: Operațiuni disponibile utilizatorilor
         send_email: Trimite e-mail
-        surname: Numele de familie
         name: nume
         role: Rol
         member_since: Membru din
@@ -291,9 +288,7 @@ ro-RO:
         choose_votation_period: Alege o perioadă de votare
         choose_votation_period_alert: Eşti sigur că aceasta este perioada de vot? Nu se poate schimba mai târziu!
         choose_votation_period_button: Am ales!
-        create_votation_period: Nu este stabilită perioada de votare, vă rugăm alegeți o dată
         no_periods_contact_group: Nu este stabilită perioada de votare, vă rugăm contactați administratorii pentru a alege o dată.
-        no_periods_contact_admin: 'Perioada de votare nu este încă disponibilă, Aceasta trebuie să fie stabilită. Contactați %{email} daca este nevoie'
         choose_new_votation_period_button: Vă rugăm să selectaţi o nouă dată de votare
         loading_contributions: Se încarcă contribuțiile, vă rog, aşteptaţi...
         previos_contributes: Contribuţiile anterioare...
@@ -382,7 +377,6 @@ ro-RO:
         positive: Favorabil
         negative: Contrar
         neutral: Abtineri
-        name_surname_column: Numele şi prenumele
         date_time_column: Data și ora votului
       report_contribute:
         mark_title: Marchează contribuția
@@ -513,8 +507,6 @@ ro-RO:
         preferences: PREFERINŢE
         administration: ADMINISTRARE
         logout: DECONECTARE
-        become_user: Devino un utilizator
-        become_user_button: Start!
         remember_me: Ţine-mă minte pe acest computer
         registration_button: ALĂTURĂ-TE
         resend_email_button: Nu aţi primit un e-mail de confirmare?
@@ -688,139 +680,6 @@ ro-RO:
     passwords:
       edit:
         title: Schimbaţi-vă parola
-  activerecord:
-    models:
-      meeting: Întâlnire
-      places: Locul
-    attributes:
-      blog_comment:
-        body: Comentariu
-      event:
-        title: Titlul evenimentului
-        description: Descriere
-        event_type_id: Tipul evenimentului
-        starttime: Data de început
-        endtime: Data de sfârşit
-        all_day: Toata ziua
-        period: Repetă
-        frequency: Repetaţi fiecare
-        private: Privat
-        meeting:
-          place:
-            address: Adresă
-      group:
-        facebook_page_url: Adresa de pagina de Facebook
-        name: Nume
-        title_bar: Bara de titlu
-        description: Descriere
-        accept_requests: Cerere pentru participare
-        interest_border_tkn: Loc geografic de interes
-        interest_border_id: Loc geografic de interes
-        image_url: Adresa de imagine
-        default_role_name: Care este numele pentru utilizatorii noi?
-        default_role_name_placeholder: 'Exemplu: Utilizatori, membri, activişti, pirați'
-        name_placeholder: Alege un nume legat de identitatea grupului şi/sau locaţie.
-        title_bar_placeholder: Titlul paginii de grup.
-        description_placeholder: Acest mesaj va fi pe prima pagină a grupului
-        image_url_placeholder: URL-ul imaginii de grup
-        facebook_page_url_placeholder: Pagina de Facebook a grupului? Introduceţi link-ul aici.
-        admin_title: Cum se numesc administratori de grup?
-        private: Grup privat
-        rule_book: Regulament
-        image: Încărcă imaginea
-        admin_title_placeholder: 'Nume de rol al administratorilor de grup (implicit: Administrator)'
-      blog:
-        title: Titlu
-      blog_post:
-        title: Titlu
-        body: Textul
-        published: Stare
-        published_true: Publicat
-        published_false: Ciornă
-      group_invitation:
-        emails_list: Adresele de poştă electronică
-        testo: Mesaj text
-      place:
-        address: Adresă
-      proposal:
-        group_area_id: Zona de lucru
-        proposal_category_id: Categorie
-        title: Titlu
-        content: Textul
-        interest_borders_tkn: Puncte geografice de interes
-        tags_list: Tag-uri
-        anonima: Anonimat temporar
-        visible_outside: Vizibil publicului
-        secret_vote: Vot secret
-      proposal_comment:
-        content: Conţinut
-      quorum:
-        name: Numele cvorumului
-        name_title: Va rugam introduceti un titlu scurt, explicativ
-        description: Descriere / Scurtă explicaţie
-        description_title: O descriere pentru a înţelege scopul acestui cvorum
-        days_m: Zile
-        hours_m: ore
-        minutes_m: Minute
-        percentage: Participanţi (procent)
-        percentage_title: Numărul minim de participanţi la discuţie ca un procent din numărul de participanţi în grup
-        good_score: Cvorum (procent)
-        good_score_title: Cotă realizată pentru a aduce propunerea la faza de vot
-        bad_score: Cvorumul negativ (procent)
-        bad_score_title: Cotă sub care propunerea va fi respinsă. Îți permite să continui discuția dacă nu sunt îndeplinite condițiile de timp sau de participanți
-        condition: Condiţie
-        condition_title: Trebuie să fie ambele condiții de timp și participanți depășite sau numai una dintre ele?
-      sys_movement:
-        sys_movement_type_id: Tip
-        made_on: Făcut din
-        amount: Cantitate
-        sys_currency_id: Monedă
-      user:
-        name: Nume
-        email: Adresă de e-mail
-        surname: Numele de familie
-        login: Nume de utilizator
-        password: Parola
-        linkedinpageurl: Pagina ta pe LinkedIn
-        facebookpageurl: Pagina ta pe Facebook
-        accept_conditions: Termeni de utilizare
-        receive_newsletter: Newsletter prin E-mail
-        blocked: Eroare
-      group_area:
-        name: Nume
-        description: Descriere
-        default_role_name: Numele de rol
-    errors:
-      template:
-        body: Au existat probleme cu următoarele câmpuri
-      messages:
-        inclusion: nu este inclus în listă
-        exclusion: este rezervat
-        invalid: nu este valid
-        confirmation: nu se potriveşte cu confirmare
-        accepted: trebuie să fie acceptată
-        empty: nu poate fi necompletat
-        blank: trebuie completate
-        too_long: Textul este prea lung
-        too_short: Textul este prea scurt
-        taken: este deja luat
-        not_a_number: nu este un număr
-        greater_than: 'trebuie să fie mai mare de %{count}'
-        greater_than_or_equal_to: 'trebuie să fie mai mare sau egal cu %{count}'
-        equal_to: 'trebuie să fie egal cu %{count}'
-        less_than: 'trebuie să fie mai mic decât %{count}'
-        less_than_or_equal_to: 'trebuie să fie mai mic sau egal cu %{count}'
-        odd: trebuie să fie întocmai
-        even: trebuie să fie impar
-        record_invalid: 'Validare eșuată %{errors}'
-        not_found: nu a fost găsit.
-      full_messages:
-        format: '% %{atribut} {mesaj}'
-      models:
-        user:
-          attributes:
-            email:
-              already_confirmed: Această adresă de e-mail este deja înregistrată
   proposals:
     create_button: Creaţi o propunere
     show:

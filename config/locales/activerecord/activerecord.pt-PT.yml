@@ -17,11 +17,6 @@ pt-PT:
         period: Repetir
         frequency: Repetir cada
         private: Privado
-      event/meeting/place:
-        address: Endereço
-        municipality_id: Cidade
-        latitude_original: Latitude
-        longitude_original: Longitude
       group:
         facebook_page_url: Endereço da página de Facebook
         name: Nome
@@ -70,7 +65,6 @@ pt-PT:
         content: Texto
         interest_borders_tkn: Áreas geográficas de interesse
         tags_list: Etiquetas
-        quorum_id: Quórum
         anonima: Anonimidade temporária
         visible_outside: Publicamente visível
         secret_vote: Voto secreto
@@ -100,16 +94,13 @@ pt-PT:
         vote_good_score: Aprovação
       search_participant:
         role_id: Função
-        keywords: Nome ou Apelido
       sys_movement:
         sys_movement_type_id: Tipo
         made_on: Feito em
         amount: Quantia
         sys_currency_id: Moeda
       user:
-        name: Nome
         email: Endereço de e-mail
-        surname: Apelido
         login: Nome de utilizador
         password: Senha
         linkedinpageurl: A sua página no Linkedin
@@ -152,6 +143,3 @@ pt-PT:
           attributes:
             email:
               already_confirmed: Este endereço de e-mail já está registado
-        group:
-          portavoce:
-            required: Deve escolher um porta-voz

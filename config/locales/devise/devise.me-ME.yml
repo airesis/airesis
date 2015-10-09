@@ -63,7 +63,6 @@ me-ME:
       creation_failure: 'Greška prilikom pristupanja preko %{provider}'
       join_success: 'Nalozi su uspješno objedinjeni. Čestitamo, sada se možete prijaviti preko %{provider}.'
       join_failure: 'Postoji još jedan %{provider} nalog. Funkcija za pridruživanje naloga će biti uskoro dostupna.'
-      account_not_verified: 'Nalog %{provider} s nepotvrđenim e-mailom.'
     mailer:
       confirmation_instructions:
         subject: Uputstva za potvrdu

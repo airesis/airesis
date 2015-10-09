@@ -20,6 +20,7 @@ it-IT:
       unconfirmed: "L'account non è ancora stato confermato"
       user:
         invalid: Nome utente o password non validi
+        not_found_in_database: Nome utente o password non validi
     sessions:
       signed_in: Accesso effettuato con successo
       signed_out: Sei uscito correttamente
@@ -63,7 +64,9 @@ it-IT:
       creation_failure: "Errore durante l'accesso tramite %{provider}"
       join_success: 'Account uniti con successo. Congratulazioni, ora puoi effettuare il login attraverso %{provider}.'
       join_failure: 'Esiste un altro account collegato a %{provider}. La funzione di unione account sarà presto disponibile.'
-      account_not_verified: 'Account %{provider} con e-mail non confermata.'
+      certified_email_taken: Esiste un altro account con questo indirizzo di posta certificato.
+      already_certified: Un altro account è stato certificato con il tuo codice fiscale.
+      account_not_verified: 'Account%{provider} non verificato. Ti preghiamo di verificare il tuo account su %{provider}.'
     mailer:
       confirmation_instructions:
         subject: Istruzioni per la conferma

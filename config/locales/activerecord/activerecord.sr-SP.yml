@@ -17,11 +17,6 @@ sr-SP:
         period: Понављање
         frequency: Понављање сваких
         private: Приватно
-      event/meeting/place:
-        address: Адреса
-        municipality_id: Град
-        latitude_original: Географска ширина
-        longitude_original: Географска дужина
       group:
         facebook_page_url: Адреса Facebook странице
         name: Име
@@ -70,7 +65,6 @@ sr-SP:
         content: Текст
         interest_borders_tkn: Географска места интересовања
         tags_list: Ознаке
-        quorum_id: Kворум
         anonima: Привремена анонимност
         visible_outside: Јавно видљиво
         secret_vote: Тајно гласање
@@ -100,16 +94,13 @@ sr-SP:
         vote_good_score: Oдобрење
       search_participant:
         role_id: Функција
-        keywords: Име или презиме
       sys_movement:
         sys_movement_type_id: Врста
         made_on: Урађено
         amount: Износ
         sys_currency_id: Валута
       user:
-        name: Име
         email: E-пошта
-        surname: Презиме
         login: Корисничко име
         password: Лозинка
         linkedinpageurl: Ваша LinkedIn страница
@@ -151,6 +142,3 @@ sr-SP:
           attributes:
             email:
               already_confirmed: Oва адреса е-поште је већ регистрована
-        group:
-          portavoce:
-            required: Морате изабрати заступника
