@@ -1046,6 +1046,34 @@ en-EU:
     edit:
       expand_all: "Expand all"
       collapse_all: "Collapse all"
+    promote:
+      promote1_html: |
+        <p>How to increase the participation? It's easy!<br/>
+        On Airesis, public proposals with many participants are shown in the Home Page and this will allow this proposal to have more contributions.<br/>
+        Is very important that you involve other users from outside Airesis. How?</p>
+        <ol>
+        <li>Send an email to all your acquaintances which can be interested in participating</li>
+        <li>If you have  website or blog, write an article about this proposal</li>
+        <li>Get in touch with other websites or blogs which can be interested in the proposal and invite them to talk about it.</li>
+        <li>Report the proposal on Facebook groups and pages or ask admins to do it for you.</li>
+        <li>Word of mouth works always! Talk to your friends and collegues and let them know about this proposal</li>
+        <li>If the proposal is within a group, involve other participants directly</li>
+        </ol>
+        <p>Remember: The Participation is the most powerful instrument for the success of the proposal: more users will participate
+        and better solutions you will find.</p>
+      promote3_1_html: |
+        Publish and share a banner on Websites and blogs. Here is an example:
+      promote3_2_html: |
+        Copy this HTML code in your website:
+      promote4_html: |
+        <p>Click on 'Recommend' and share the proposal with your friends on Facebook.</p>
+      promote5_html: |
+        <p>Remember to click on 'Like' to follow Airesis Page on Facebook and be always up to date with all latest news.</p>
+      promote6_html: |
+        <p>Share the proposal on Twitter!</p>
+      promote7_html: |
+        Airesis offers to all the users the creation of groups and proposals totally free.<br/>
+        Tecnologie Democratiche is the No-Profit Association which fund the project. Make a donation or become a member!
     schulze_vote_results:
       results: "Results"
       votes: "Votes"
