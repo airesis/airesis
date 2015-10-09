@@ -1346,6 +1346,9 @@ en-EU:
       follow_google: "follow us on Google+"
       footer:
         registered_at: "You receive this email because you are registered on %{url}."
+        connect_with_us: "Connect With Us:"
+        contact_info: "Contact Info:"
+        email_label: "Email:"
       edit_preferences: "Preferences"
       click_here: "Click here"
     new_contribute:

@@ -1,39 +1,56 @@
 # remove it if you don't want to force ssl
 FORCE_SSL: 'true'
 
-SECRET_KEY_BASE: "08b7a7ae2d0446f1c434af0a57585d67c015a75ebff30118c720f1d59f04bfcf273a53a86dd44045e629fec9b2f556019c10485caa4e660d68b796b715de4a12"
+SECRET_KEY_BASE: "rake secret"
+DEVISE_SECRET_KEY: "rake secret"
 
+# if you want to allow the users to login via facebook fill these variables
 FACEBOOK_APP_ID: ""
-GOOGLE_APP_ID: ""
-TWITTER_APP_ID: ""
-MEETUP_APP_ID: ""
-LINKEDIN_APP_ID: ""
-PARMA_APP_ID: ""
-TECNOLOGIEDEMOCRATICHE_APP_ID: ''
-
-MAPS_API_KEY: ""
-
-GOOGLE_ANALYTICS_ID: "YOUR GOOGLE ANALYTICS ID"
-
 FACEBOOK_APP_SECRET: ""
-GOOGLE_APP_SECRET: ""
-TWITTER_APP_SECRET: ""
-MEETUP_APP_SECRET: ""
-LINKEDIN_APP_SECRET: ""
-PARMA_APP_SECRET: ""
-TECNOLOGIEDEMOCRATICHE_APP_SECRET: ''
 
+# if you want to allow the users to login via google fill these variables
+GOOGLE_APP_ID: ""
+GOOGLE_APP_SECRET: ""
+
+# if you want to allow the users to login via twitter fill these variables
+TWITTER_APP_ID: ""
+TWITTER_APP_SECRET: ""
+
+# if you want to allow the users to login via meetup fill these variables
+MEETUP_APP_ID: ""
+MEETUP_APP_SECRET: ""
+
+# if you want to allow the users to login via linkedin fill these variables
+LINKEDIN_APP_ID: ""
+LINKEDIN_APP_SECRET: ""
+
+# if you want to allow the users to login via Parma fill these variables
+PARMA_APP_ID: ""
+PARMA_APP_SECRET: ""
+
+# if you want to allow the users to login via Tecnologie Democratiche fill these variables
+# send an email to alessandro.rodi@airesis.it to ask for credentials
+TECNOLOGIEDEMOCRATICHE_APP_ID: ''
+TECNOLOGIEDEMOCRATICHE_APP_SECRET: ''
 TECNOLOGIEDEMOCRATICHE_APP_URL: "https://tecnologiedemocratiche.herokuapp.com/"
 
+# google maps api key. obtain one from google developers console
+# registering a new application and generating a new browser key
+MAPS_API_KEY: ""
+
+# if you are using google analytics put in here the ID
+GOOGLE_ANALYTICS_ID: "YOUR GOOGLE ANALYTICS ID"
+
+# do you want to protect registration via captcha? fill these variables!
 RECAPTCHA_PUBLIC: ""
 RECAPTCHA_PRIVATE: ""
 
+# go to geonames.org and obtain a username to put in here
 GEOSPATIAL_NAME: ""
 
 #####################
 #email service
 #####################
-
 EMAIL_ADDRESS: ""
 EMAIL_USERNAME: ""
 EMAIL_PASSWORD: ""
@@ -46,7 +63,6 @@ OVERRIDE_MAIL_RECIPIENT: ""
 #####################
 #newsletter parameters
 #####################
-
 NEWSLETTER_FROM_ADDRESS: ""
 NEWSLETTER_TWITTER_URL: ""
 NEWSLETTER_FACEBOOK_URL: ""
@@ -71,7 +87,6 @@ NOREPLY_EMAIL: "No Reply <noreply@example.com>"
 #####################
 #redmine integration (optional)
 #####################
-
 BUGTRACKING_URL: ""
 BUGTRACKING_USERNAME: ""
 BUGTRACKING_PASSWORD: ""
@@ -79,21 +94,24 @@ BUGTRACKING_PASSWORD: ""
 #####################
 #application parameters
 #####################
+APP_SHORT_NAME: "My App"
+APP_LONG_NAME: "My App - My short slogan"
 
-APP_SHORT_NAME: "Airesis"
-APP_LONG_NAME: "Airesis - Scegli di partecipare"
+# default reference email address for the website. is used in the app to tell the user which email address he
+# has to contact for information. it is also shown in the footer of the emails as main contact address.
 APP_EMAIL_ADDRESS: "info@example.com"
+
+# default administrator credentials
 ADMIN_EMAIL: "youremail@example.com"
 ADMIN_PASSWORD: "password"
 
 # sitemap host and email assets url (for images)
-SITE: "http://www.airesis.eu"
+SITE: "https://www.example.com"
 
-DEVISE_SECRET_KEY: ""
-
+# where is listening your redis installation?
 REDIS_URL: "redis://127.0.0.1:6379/12"
 
-# remove this variable if you are not using amazon s3
+# remove these variables if you are not using amazon s3
 AWS_HOST: "s3-eu-west-1.amazonaws.com"
 AWS_BUCKET: ""
 AWS_ACCESS_KEY_ID: ""
@@ -105,15 +123,13 @@ ASSETS_HOST: ""
 # remove this variable if you are not using cloudfront. set it to cloudfront alias if you want to you it
 AWS_ALIAS: "static.yourwebsite.com"
 
-
-# Newrelic
+# Newrelic configurations
 NEW_RELIC_LICENSE_KEY: 'FROM NEW RELCI'
 NEW_RELIC_APP_NAME: 'YOUR NEW RELIC APP NAME'
 
 #####################
 #crowdin integration (optional)
 #####################
-
 CROWDIN_API: ""
 CROWDIN_PROJECT_ID: ""
 CROWDIN_ACCOUNT_KEY: ""
@@ -121,7 +137,6 @@ CROWDIN_ACCOUNT_KEY: ""
 #####################
 #capistrano settings (optional)
 #####################
-
 CAP_STAGING_USER: ""
 CAP_STAGING_SERVER: ""
 
@@ -129,7 +144,6 @@ CAP_STAGING_SERVER: ""
 ##############
 #sentry settings. remove these keys to not use it (leaving them empty will throw an error)
 #############
-
 SENTRY_PUBLIC_KEY: ""
 SENTRY_PRIVATE_KEY: ""
 SENTRY_PORT: ""
@@ -224,7 +238,7 @@ OTHERS_CHOOSE_VOTE_DATE_DAYS: "5"
 
 ### PAYPAL CONFIGURATION ###
 
-PAYPAL_MERCHANT: "X25TSHNPP9XXX"
+PAYPAL_MERCHANT: "YOURMERCHANTID"
 #test
 PAYPAL_URL: "https://www.sandbox.paypal.com/cgi-bin/webscr"
 #production:
