@@ -1,22 +1,12 @@
 ru-RU:
   db:
     sys_locales:
-      it-IT:
-        description: итальянский
-      en:
-        description: английский
-      en-US:
-        description: Английский (США)
-      fr:
-        description: французский
       es-ES:
         description: испанский
-      pt-PT:
-        description: португальский
+      it-IT:
+        description: итальянский
       pt-BR:
         description: Португальский (Бразилия)
-      de:
-        description: немецкий
     proposal_types:
       STANDARD:
         description: Стандартное предложение
@@ -96,12 +86,8 @@ ru-RU:
         message: '%{user} добавил новое сообщение в своем блоге <b>%{blog}</b>'
       new_valutation_mine:
         description: Новые оценки моих предложений
-        email_subject: '%{title} - новые оценки'
-        message: 'Ваше предложение <b>%{title}</b> получило новый голос'
       new_valutation:
         description: Новые голоса по преложению, в ктором я принимаю участие
-        email_subject: '%{title} - новые оценки'
-        message: 'Новый голос для <b>%{title}</b>'
       available_author:
         description: Участник может стать редактором предложения
         email_subject:

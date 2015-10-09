@@ -1,22 +1,12 @@
 id-ID:
   db:
     sys_locales:
-      it-IT:
-        description: Italia
-      en:
-        description: Inggris
-      en-US:
-        description: Inggris (AS)
-      fr:
-        description: Prancis
       es-ES:
         description: Spanyol
-      pt-PT:
-        description: Portugis
+      it-IT:
+        description: Italia
       pt-BR:
         description: Portugis (Brasil)
-      de:
-        description: Jerman
     proposal_types:
       STANDARD:
         description: Proposal Standar
@@ -96,12 +86,8 @@ id-ID:
         message: '%{user} menambahkan tulisan baru ke dalam blog-nya <b>%{blog}</b>'
       new_valutation_mine:
         description: Evaluasi baru untuk proposal saya
-        email_subject: '%{title} - Evaluasi baru'
-        message: 'Proposal Anda, <b>%{title}</b>, telah menerima evaluasi baru'
       new_valutation:
         description: Evaluasi baru untuk proposal tempat saya berpartisipasi
-        email_subject: '%{title} - Evaluasi baru'
-        message: 'Proposal Anda, <b>%{title}</b>, telah menerima evaluasi baru'
       available_author:
         description: Ada pengguna untuk menjadi penyunting proposal
         email_subject:

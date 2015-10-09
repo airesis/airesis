@@ -8,7 +8,6 @@ sr-SP:
       posts_count:
         one: 1 објављена порука
         few: '%{count} објављених порука'
-        many: '%{count} објављених порука'
         other: '%{count} објављених порука'
       flagged_for_spam: Ваш налог је означен за нежељену пошту.
       cannot_create_topic: Не можете креирати нову тему у овом тренутку.
@@ -92,12 +91,10 @@ sr-SP:
       topics_count:
         one: 1 тема
         few: '%{count} тема'
-        many: '%{count} тема'
         other: '%{count} тема'
       posts_count:
         one: 1 објављена порука
         few: '%{count} објављених порука'
-        many: '%{count} објављених порука'
         other: '%{count} објављених порука'
       moderator_tools: Алатке за модерацију
       topic_tools: Алатке за тему

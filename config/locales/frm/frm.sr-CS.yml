@@ -8,7 +8,6 @@ sr-CS:
       posts_count:
         one: 1 objavljena poruka
         few: '%{count} objavljenih poruka'
-        many: '%{count} objavljenih poruka'
         other: '%{count} objavljenih poruka'
       flagged_for_spam: Vaš nalog je označen za neželjenu poštu.
       cannot_create_topic: Ne možete kreirati novu temu u ovom trenutku.
@@ -92,12 +91,10 @@ sr-CS:
       topics_count:
         one: 1 tema
         few: '%{count} tema'
-        many: '%{count} tema'
         other: '%{count} tema'
       posts_count:
         one: 1 objavljena poruka
         few: '%{count} objavljenih poruka'
-        many: '%{count} objavljenih poruka'
         other: '%{count} objavljenih poruka'
       moderator_tools: Alatke za moderaciju
       topic_tools: Alatke za temu

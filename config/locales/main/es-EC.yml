@@ -33,7 +33,6 @@ es-EC:
         profile_info_unconfirmed: (usuario no confirmado)
         send_message_button: Enviar mensaje privado
         name_label: Nombre
-        surname_label: Apellido
         email_label: Correo electrónico
         edit_image: Editar imagen
         to_be_confirmed: por confirmarse
@@ -205,7 +204,6 @@ es-EC:
           description: Airesis le permite administrar áreas de trabajo dentro del grupo.
           description2: Con esta función usted puede administrar mejor a los participantes y sus funciones.
           description3: ¡Ten cuidado! Esta es una característica avanzada, diseñada sólo para usuarios expertos y grupos más grandes.
-          enable: ¡Habilitar áreas de trabajo!
           description4: 'Antes de activar las áreas de trabajo, verifique si puede administrar a los miembros de los grupos usando directamente '
         manage:
           new_area: Crear un área de trabajo
@@ -232,7 +230,6 @@ es-EC:
         anything: Todos
         operations_on_user: Operaciones disponibles en los usuarios
         send_email: Enviar correo electrónico
-        surname: Apellido
         name: Nombre
         role: Rol
         member_since: Miembro desde
@@ -294,9 +291,7 @@ es-EC:
         choose_votation_period: Seleccione un periodo de votación
         choose_votation_period_alert: ¿Estás seguro sobre el periodo de votación? ¡No puedes cambiarlo más adelante!
         choose_votation_period_button: ¡Elegí!
-        create_votation_period: No se han establecido fechas de votación, por favor escoge una nueva fecha
         no_periods_contact_group: No hay fechas de votación establecidas, póngase en contacto con los administradores para elegir una fecha.
-        no_periods_contact_admin: 'Ninguna fecha de votación disponible por el momento. Tienen que establecerse. Contacta a %{email} si es necesario'
         choose_new_votation_period_button: Por favor, elija una nueva fecha de votación
         loading_contributions: Cargando las contribuciones, por favor espere...
         previos_contributes: Contribuciones anteriores...
@@ -385,7 +380,6 @@ es-EC:
         positive: Favorables
         negative: Contrarios
         neutral: Neutrales
-        name_surname_column: Nombre y apellido
         date_time_column: Fecha y hora de votación
       report_contribute:
         mark_title: Marca la contribución
@@ -508,8 +502,6 @@ es-EC:
         preferences: PREFERENCIAS
         administration: ADMINISTRACIÓN
         logout: CERRAR SESIÓN
-        become_user: Convertirse en un usuario
-        become_user_button: ¡Vamos!
         remember_me: Recordarme en este equipo
         login_button: Iniciar sesión
         registration_button: ÚNETE A NOSOTROS
@@ -683,140 +675,6 @@ es-EC:
     comments:
       one: un comentario
       other: '%{count} comentarios'
-  activerecord:
-    models:
-      meeting: Reunión
-      places: Lugar
-    attributes:
-      blog_comment:
-        body: Comentario
-      event:
-        title: Título del evento
-        description: Descripción
-        event_type_id: Tipo de evento
-        starttime: Fecha de inicio
-        endtime: Fecha de finalización
-        all_day: Todo el día
-        period: Repetir
-        frequency: Repetir cada
-        private: Privado
-        meeting:
-          place:
-            address: Dirección
-      group:
-        facebook_page_url: Dirección de la página de Facebook
-        name: Nombre
-        title_bar: Barra de título
-        description: Descripción
-        accept_requests: Solicitud de participación
-        porta_id: Administrador
-        interest_border_tkn: Lugar geográfico de interés
-        interest_border_id: Lugar geográfico de interés
-        image_url: URL de la imagen
-        default_role_name: ¿Cuál es el nombre para los nuevos usuarios?
-        default_role_name_placeholder: 'Por ejemplo: Usuarios, Miembros, Activistas, Ciudadanos'
-        name_placeholder: Elige un nombre relacionado con la identidad o ubicación del grupo.
-        title_bar_placeholder: Título de la página del grupo.
-        description_placeholder: Este mensaje estará en la primera página del grupo
-        image_url_placeholder: URL de la imagen del grupo
-        facebook_page_url_placeholder: ¿Grupo de Facebook? Introduzca el enlace aquí.
-        admin_title: ¿Cómo se llaman los administradores del grupo?
-        private: Grupo privado
-        rule_book: Libro de reglas
-        image: Subir la imagen
-        admin_title_placeholder: 'Función de los administradores del grupo (por defecto: administrador)'
-      blog:
-        title: Título
-      blog_post:
-        title: Título
-        body: Texto
-        published: Estado
-        published_true: Publicado
-        published_false: Proyecto
-      group_invitation:
-        emails_list: Direcciones de correo electrónico
-        testo: Texto del mensaje
-      place:
-        address: Dirección
-      proposal:
-        group_area_id: Área de trabajo
-        proposal_category_id: Categoría
-        title: Título
-        content: Texto
-        interest_borders_tkn: Lugares geográficos de interés
-        tags_list: Etiquetas
-        anonima: Anonimato temporal
-        visible_outside: Visible públicamente
-        secret_vote: Voto secreto
-      proposal_comment:
-        content: Contenido
-      quorum:
-        name: Nombre del Quórum
-        name_title: Introduce un título breve y explicativo
-        description: Descripción / breve explicación
-        description_title: Una descripción para entender el propósito de este quórum
-        days_m: Días
-        hours_m: horas
-        minutes_m: Minutos
-        percentage: Participantes (porcentaje)
-        percentage_title: Número mínimo de participantes en la discusión como un porcentaje del número de participantes en el grupo
-        good_score: Quórum (porcentaje)
-        good_score_title: Calificación que se debe conseguir para lograr llevar la propuesta a la fase de votación
-        bad_score: Mal Quórum (porcentaje)
-        bad_score_title: Calificación bajo la cual se rechazará la propuesta. Te permite continuar la discusión si no se cumplen las condiciones del Tiempo o de los Participantes
-        condition: Condición
-        condition_title: ¿Se deben superar tanto las condiciones de tiempo y de los participantes o sólo una de ellas?
-      sys_movement:
-        sys_movement_type_id: Tipo
-        made_on: Hecho en
-        amount: Cantidad
-        sys_currency_id: Moneda
-      user:
-        name: Nombre
-        email: Dirección de correo electrónico
-        surname: Apellido
-        login: Nombre de Usuario
-        password: Contraseña
-        linkedinpageurl: Tu página en LinkedIn
-        facebookpageurl: Tu página en Facebook
-        accept_conditions: Términos de uso
-        receive_newsletter: Boletín vía correo electrónico
-      group_area:
-        name: Nombre
-        description: Descripción
-        default_role_name: Denominación del rol predeterminado
-    errors:
-      template:
-        header:
-          one: 'un error no permitió que este %{model} se guardara'
-          other: '%{count} errores no permitieron que este %{model} se guardara'
-        body: Hubo problemas con los siguientes campos
-      messages:
-        inclusion: No está incluido en la lista
-        exclusion: está reservado
-        invalid: No es válido
-        confirmation: No coincide con la confirmación
-        accepted: debe ser aceptado
-        empty: No puede estar en blanco
-        blank: debe ser llenado
-        too_long: El texto es demasiado largo
-        too_short: El texto es muy corto
-        taken: ya está ocupado
-        not_a_number: no es un número
-        greater_than: 'debe ser mayor que %{count}'
-        greater_than_or_equal_to: 'debe ser mayor o igual a %{count}'
-        equal_to: 'debe ser igual a %{count}'
-        less_than: 'debe ser menor a %{count}'
-        less_than_or_equal_to: 'debe ser menor o igual a %{count}'
-        odd: debe ser par
-        even: debe ser impar
-        record_invalid: 'Validación fallida %{errors}'
-        not_found: no encontrado.
-      models:
-        user:
-          attributes:
-            email:
-              already_confirmed: Esta dirección de correo electrónico ya está registrada
   proposals:
     create_button: Crear una propuesta
     show:

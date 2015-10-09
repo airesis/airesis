@@ -1,22 +1,66 @@
 crowdin:
   db:
     sys_locales:
-      it-IT:
-        description: crwdns5750:0crwdne5750:0
-      en:
-        description: crwdns5512:0crwdne5512:0
+      bs-BA:
+        description: crwdns9888:0crwdne9888:0
+      crowdin:
+        description: crwdns9889:0crwdne9889:0
+      de-DE:
+        description: crwdns9890:0crwdne9890:0
+      el-GR:
+        description: crwdns9891:0crwdne9891:0
+      en-AU:
+        description: crwdns9892:0crwdne9892:0
+      en-EU:
+        description: crwdns9893:0crwdne9893:0
+      en-GB:
+        description: crwdns9894:0crwdne9894:0
+      en-IE:
+        description: crwdns9895:0crwdne9895:0
+      en-NZ:
+        description: crwdns9896:0crwdne9896:0
       en-US:
-        description: crwdns5858:0crwdne5858:0
-      fr:
-        description: crwdns5514:0crwdne5514:0
+        description: crwdns9897:0crwdne9897:0
+      en-ZA:
+        description: crwdns9898:0crwdne9898:0
+      es-AR:
+        description: crwdns9899:0crwdne9899:0
+      es-CL:
+        description: crwdns9900:0crwdne9900:0
+      es-EC:
+        description: crwdns9901:0crwdne9901:0
       es-ES:
         description: crwdns5752:0crwdne5752:0
-      pt-PT:
-        description: crwdns5753:0crwdne5753:0
+      fr-FR:
+        description: crwdns9902:0crwdne9902:0
+      hu-HU:
+        description: crwdns9903:0crwdne9903:0
+      id-ID:
+        description: crwdns9904:0crwdne9904:0
+      it-IT:
+        description: crwdns5750:0crwdne5750:0
+      jp-JP:
+        description: crwdns9905:0crwdne9905:0
+      me-ME:
+        description: crwdns9906:0crwdne9906:0
+      nl-NL:
+        description: crwdns9907:0crwdne9907:0
       pt-BR:
         description: crwdns5754:0crwdne5754:0
-      de:
-        description: crwdns5517:0crwdne5517:0
+      pt-PT:
+        description: crwdns9908:0crwdne9908:0
+      ro-RO:
+        description: crwdns9909:0crwdne9909:0
+      ru-RU:
+        description: crwdns9910:0crwdne9910:0
+      sh-HR:
+        description: crwdns9911:0crwdne9911:0
+      sr-CS:
+        description: crwdns9912:0crwdne9912:0
+      sr-SP:
+        description: crwdns9913:0crwdne9913:0
+      zh-TW:
+        description: crwdns9914:0crwdne9914:0
     proposal_types:
       STANDARD:
         description: crwdns5518:0crwdne5518:0
@@ -96,12 +140,20 @@ crowdin:
         message: 'crwdns5188:0%{user}crwdnd5188:0%{blog}crwdne5188:0'
       new_valutation_mine:
         description: crwdns5189:0crwdne5189:0
-        email_subject: 'crwdns5755:0%{title}crwdne5755:0'
-        message: 'crwdns5191:0%{title}crwdne5191:0'
+        email_subject:
+          one: 'crwdns9915:0%{title}crwdne9915:0'
+          other: 'crwdns9916:0%{title}crwdnd9916:0%{count}crwdne9916:0'
+        message:
+          one: 'crwdns9917:0%{title}crwdne9917:0'
+          other: 'crwdns9918:0%{title}crwdnd9918:0%{count}crwdne9918:0'
       new_valutation:
         description: crwdns5192:0crwdne5192:0
-        email_subject: 'crwdns5756:0%{title}crwdne5756:0'
-        message: 'crwdns8240:0%{title}crwdne8240:0'
+        email_subject:
+          one: 'crwdns9919:0%{title}crwdne9919:0'
+          other: 'crwdns9920:0%{title}crwdnd9920:0%{count}crwdne9920:0'
+        message:
+          one: 'crwdns9921:0%{title}crwdne9921:0'
+          other: 'crwdns9922:0%{title}crwdnd9922:0%{count}crwdne9922:0'
       available_author:
         description: crwdns5195:0crwdne5195:0
         email_subject:

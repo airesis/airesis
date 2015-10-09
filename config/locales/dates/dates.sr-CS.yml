@@ -103,27 +103,22 @@ sr-CS:
       seconds:
         one: 1 sekunda
         few: '%{count} sekundi'
-        many: '%{count} sekundi'
         other: '%{count} sekundi'
       minutes:
         one: 1 minut
         few: '%{count} minuta'
-        many: '%{count} minuta'
         other: '%{count} minuta'
       hours:
         one: 1 sat
         few: '%{count} sati'
-        many: '%{count} sati'
         other: '%{count} sati'
       days:
         one: 1 dan
         few: '%{count} dana'
-        many: '%{count} dana'
         other: '%{count} dana'
       months:
         one: 1 mesec
         few: '%{count} meseci'
-        many: '%{count} meseci'
         other: '%{count} meseci'
   datetime:
     added_on: 'na %{date}'
@@ -131,58 +126,47 @@ sr-CS:
       about_x_hours:
         one: otprilike pre 1 sat
         few: 'otprilike pre %{count} sati'
-        many: 'otprilike pre %{count} sati'
         other: 'otprilike pre %{count} sati'
       about_x_months:
         one: otprilike pre 1 mesec
         few: 'otprilike pre %{count} meseci'
-        many: 'otprilike pre %{count} meseci'
         other: 'otprilike pre %{count} meseci'
       about_x_years:
         one: otprilike pre 1 godine
         few: 'otprilike pre %{count} godina'
-        many: 'otprilike pre %{count} godina'
         other: 'otprilike pre %{count} godina'
       almost_x_years:
         one: skoro pre 1 godine
         few: 'skoro pre %{count} godina'
-        many: 'skoro pre %{count} godina'
         other: 'skoro pre %{count} godina'
       half_a_minute: pre pola minuta
       less_than_x_minutes:
         one: pre manje od 1 minuta
         few: 'pre manje od %{count} minuta'
-        many: 'pre manje od %{count} minuta'
         other: 'pre manje od %{count} minuta'
       less_than_x_seconds:
         one: pre manje od 1 sekunde
         few: 'pre manje od %{count} sekundi'
-        many: 'pre manje od %{count} sekundi'
         other: 'pre manje od %{count} sekundi'
       over_x_years:
         one: pre više od 1 godine
         few: 'pre više od %{count} godina'
-        many: 'pre više od %{count} godina'
         other: 'pre više od %{count} godina'
       x_days:
         one: pre 1 dan
         few: ! 'pre %{count} dana'
-        many: ! 'pre %{count} dana'
         other: ! 'pre %{count} dana'
       x_minutes:
         one: pre 1 minut
         few: ! 'pre %{count} minuta'
-        many: ! 'pre %{count} minuta'
         other: ! 'pre %{count} minuta'
       x_months:
         one: pre 1 mesec
         few: ! 'pre %{count} meseci'
-        many: ! 'pre %{count} meseci'
         other: ! 'pre %{count} meseci'
       x_seconds:
         one: pre 1 sekunde
         few: ! 'pre %{count} sekundi'
-        many: ! 'pre %{count} sekundi'
         other: ! 'pre %{count} sekundi'
   label:
     from: od

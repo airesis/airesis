@@ -17,11 +17,6 @@ fr-FR:
         period: Répéter
         frequency: Répéter chaque
         private: Privé
-      event/meeting/place:
-        address: Adresse
-        municipality_id: Ville
-        latitude_original: Latitude
-        longitude_original: Longitude 
       group:
         facebook_page_url: Adresse de la page Facebook
         name: Nom
@@ -70,7 +65,6 @@ fr-FR:
         content: Texte
         interest_borders_tkn: "Lieux géographiques d'intérêt"
         tags_list: Mots-clés
-        quorum_id: Quorum
         anonima: Anonymat temporaire
         visible_outside: Visible au public
         secret_vote: Vote secret
@@ -100,16 +94,13 @@ fr-FR:
         vote_good_score: Agrément
       search_participant:
         role_id: Rôle
-        keywords: Nom ou prénom
       sys_movement:
         sys_movement_type_id: Type
         made_on: Fait sur
         amount: Montant
         sys_currency_id: Devise
       user:
-        name: Nom
         email: Adresse de courriel
-        surname: Nom de famille
         login: "Nom d'utilisateur"
         password: Mot de passe
         linkedinpageurl: Votre page sur LinkedIn
@@ -153,6 +144,3 @@ fr-FR:
           attributes:
             email:
               already_confirmed: Cette adresse courriel est déjà enregistrée
-        group:
-          portavoce:
-            required: Vous devez choisir un porte-parole
