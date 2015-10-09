@@ -62,11 +62,6 @@ class ResqueMailer < ActionMailer::Base
     mail(to: ENV['ADMIN_EMAIL'], subject: ENV['APP_SHORT_NAME'] + " - Segnalazione Contributo")
   end
 
-
-  def info_message(msg)
-    mail(to: ENV['ADMIN_EMAIL'], subject: ENV['APP_SHORT_NAME'] + " - Messaggio di informazione")
-  end
-
   # send an invite to subscribe in the group
   def invite(group_invitation_email_id)
     @group_invitation_email = GroupInvitationEmail.find(group_invitation_email_id)

@@ -86,7 +86,7 @@ APP_EMAIL_ADDRESS: "info@example.com"
 ADMIN_EMAIL: "youremail@example.com"
 ADMIN_PASSWORD: "password"
 
-# sitemap host
+# sitemap host and email assets url (for images)
 SITE: "http://www.airesis.eu"
 
 DEVISE_SECRET_KEY: ""

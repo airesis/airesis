@@ -8,11 +8,11 @@
               <table class="twelve columns">
                 <tr>
                   <td class="six sub-columns">
-                    <img src="https://www.airesis.eu/favicons/logo_email.png" alt="Airesis"/>
+                    <img src="<%=ENV['SITE']%>/favicons/logo_email.png" alt="<%=ENV['APP_SHORT_NAME']%>"/>
                   </td>
                   <td class="six sub-columns last" style="text-align:right; vertical-align:middle;">
                             <span class="template-label">
-                              <%= Maktoub.app_name %>
+                              <%= ENV['APP_LONG_NAME'] %>
                             </span>
                   </td>
                   <td class="expander"></td>
