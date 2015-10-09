@@ -181,6 +181,11 @@ LIMIT_PROPOSALS: "false"
 #must be defined in seconds
 PROPOSALS_TIME_LIMIT: "60"
 
+# the number of minutes within you can destroy a proposal or edit some of the attributes
+# after that time (in minutes!) the users will not be able to destroy the proposal or edit some fields
+# if this variable is not set the default is 10 minutes
+EDIT_PROPOSAL_TIME_LIMIT: '10'
+
 #groups creation is limited?
 LIMIT_GROUPS: "true"
 
