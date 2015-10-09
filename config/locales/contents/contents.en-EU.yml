@@ -209,6 +209,57 @@ en-EU:
           </p>
       paragraph_11:
         title: "Managing groups and user roles"
+        content_html: |
+          <p>Airesis implements a flexible system to manage <strong>permissions</strong> which any member can
+            have within the group so that we can allocate the following <strong>roles</strong>: </p>
+          <ul>
+            <li>View private proposals</li>
+            <li>Contribute to proposals</li>
+            <li>Insert new proposals in the group</li>
+            <li>Publish in the Home Page of group</li>
+            <li>Create events and votes</li>
+            <li>Supporting proposals in name of group</li>
+            <li>Add participants in the group</li>
+            <li>Nominate members for election</li>
+          </ul>
+          <p> Airesis allows groups that use it to choose
+            <strong>settings that best suit their needs</strong> and their internal regulations. It is
+            possible, for example, allow access to certain functions only to
+            <strong>active users and/or certificates</strong>, or those that have a <strong>particular role</strong>.
+            There is also ample freedom on the management requirements that proposals must meet to access the vote.
+          </p>
+          <p>Another important feature is the <strong>division into areas/working groups</strong> that makes it
+            possible create areas within the groups and be entitled to hold each area of the participants who will
+            discuss the proposals regarding that particular area . Each participant will be assigned
+            <strong> particular roles for each area </strong> in order to make it even more flexible tool. </p>
+      paragraph_12:
+        title: "Groups"
+        content_html: |
+          Access to the "Groups" can be done either by pressing on 'seeking groups' from the top bar or from the left column of the home page staff.
+          <p> Clicking on the name of a group, opens its home page (presentation + news / blogs). In the area of
+            proposals
+            are displayed what the group has decided to make public, and to see the internal ones
+            (proposals and private events), you have to ask the local administrator admission to the group. </p>
+          <p> The area proposed is divided into four tabs ("In debate","In the vote","Vote","Left Behind"), which are
+            lists the proposals according to their status. Clicking on the title of a proposal, it opens,
+            displaying
+            the text and the area of contributions. Proposals can be further filtered by selecting the Categories or
+            Tag,
+            to display only the proposals of the topics that interest you.</p>
+          <p> Each member of the community can promote a new proposal: to do this just click on the button "Create New
+            proposal", and it will appear in the form to fill out.</p>
+          <p> By accessing inside a proposal under discussion, community members can interact with it in accordance
+            their skills, expertise and opinions.</p>
+          <h3 id="Spazio_comune">Open Space</h3>
+          <p> Clicking on "Open Space" to access the area intended for the management of the proposals that may be of
+            common interest.</p>
+          <p> The area of the proposals of the group looks similar to that of Groups; It is also present a "private
+            calendar" that displays all public events, most private ones related to the group.</p>
+          <p> In the Open Space is also a tab "calendar", which highlighted the events for the
+            entire
+            community (signaling events, meetings, voting). By clicking on a note, open the page on the event
+            and, depending on the type, you can interact with it (eg. by participating in a vote or signaling the willingness of
+            attend a meeting).</p>
     whatis:
       title: "The first Social network for e-democracy in the world"
       description: "An instrument of direct democracy born to decide and act collectively on proposals and ideas generated anywhere for any theme."
