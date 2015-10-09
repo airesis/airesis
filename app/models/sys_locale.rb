@@ -3,7 +3,7 @@ class SysLocale < ActiveRecord::Base
   belongs_to :territory, polymorphic: true
 
   def description
-    I18n.t("db.#{self.class.class_name.tableize}.#{name}.description")
+    I18n.t("db.#{self.class.class_name.tableize}.#{key}.description")
   end
 
   def url

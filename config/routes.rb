@@ -549,7 +549,6 @@ Airesis::Application.routes.draw do
           get :test_scheduler
           get :test_exceptions
           get :calculate_user_group_affinity
-          post :become
         end
         resource :crowdin, only: [] do
           get :upload_sources

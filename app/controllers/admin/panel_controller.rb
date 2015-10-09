@@ -77,11 +77,6 @@ module Admin
       puts e.backtrace
     end
 
-    def become
-      sign_in User.find(params[:user_id]), bypass: true
-      redirect_to root_url # or user_root_url
-    end
-
     def write_sitemap
       Rake::Task['sitemap:refresh'].invoke
       flash[:notice] = 'Sitemap aggiornata.'
