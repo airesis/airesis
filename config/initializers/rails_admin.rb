@@ -1,3 +1,5 @@
+Dir["#{Rails.root}/lib/rails_admin/*.rb"].each { |file| require file }
+
 RailsAdmin.config do |config|
 
   ### Popular gems integration
@@ -29,6 +31,9 @@ RailsAdmin.config do |config|
     delete do
       except %w(User SysPaymentNotification)
     end
+    login_as do
+      only ['User']
+    end
     #show_in_app
 
     ## With an audit adapter, you can add:
@@ -59,6 +64,10 @@ RailsAdmin.config do |config|
   end
 
   config.model 'User' do
+    list do
+      filters [:id, :name, :surname, :email]
+      sort_by :id
+    end
     edit do
       field :name
       field :surname

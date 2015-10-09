@@ -38,15 +38,6 @@
           <li>
             <%= link_to t('pages.header.menu.administration'), admin_panel_path %>
           </li>
-          <div class="sep"></div>
-
-          <%= form_tag become_admin_panel_path do %>
-              <%= label_tag t('pages.header.menu.become_user') %>
-              <br/>
-              <%= text_field_tag 'user_id' %> <br/>
-              <%= button_tag t('pages.header.menu.become_user_button'), class: 'btn' %>
-          <% end %>
-
       <% end %>
     </div>
   </div>
@@ -83,15 +74,6 @@
           <li>
             <%= link_to t('pages.header.menu.administration'), admin_panel_path %>
           </li>
-          <div class="sep"></div>
-
-          <%= form_tag "/admin/become/" do %>
-              <%= label_tag t('pages.header.menu.become_user') %>
-              <br/>
-              <%= text_field_tag 'user_id' %> <br/>
-              <%= button_tag t('pages.header.menu.become_user_button'), class: 'btn' %>
-          <% end %>
-
       <% end %>
     </div>
   </div>

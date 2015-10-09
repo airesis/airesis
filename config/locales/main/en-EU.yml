@@ -731,8 +731,6 @@ en-EU:
         preferences: "PREFERENCES"
         administration: "ADMINISTRATION"
         logout: "LOGOUT"
-        become_user: "Become a user"
-        become_user_button: "Go!"
         remember_me: "Remember me on this computer"
         login_button: "Login"
         registration_button: "JOIN US"
