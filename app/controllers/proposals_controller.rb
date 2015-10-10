@@ -268,7 +268,7 @@ class ProposalsController < ApplicationController
     authorize! :regenerate, @proposal
     @proposal.current_user_id = current_user.id
     @proposal.regenerate(regenerate_proposal_params)
-    flash[:notice] = I18n.t('info.proposal.back_in_debate')
+    flash[:notice] = t('info.proposal.back_in_debate')
     respond_to do |format|
       format.html {
         redirect_to redirect_url(@proposal)
