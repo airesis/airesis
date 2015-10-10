@@ -17,11 +17,6 @@ es-AR:
         period: Repetir
         frequency: Repetir cada
         private: Privado
-      event/meeting/place:
-        address: Dirección
-        municipality_id: Ciudad
-        latitude_original: Latitud
-        longitude_original: Longitud
       group:
         facebook_page_url: 'Dirección de la página  Facebook'
         name: Nombre
@@ -70,7 +65,6 @@ es-AR:
         content: Texto
         interest_borders_tkn: Lugar geográfico de interés
         tags_list: Etiquetas
-        quorum_id: Quórum
         anonima: Anonimato temporal
         visible_outside: Públicamente visible
         secret_vote: Voto secreto
@@ -100,16 +94,13 @@ es-AR:
         vote_good_score: Aprobación
       search_participant:
         role_id: Rol
-        keywords: Nombre o apellido
       sys_movement:
         sys_movement_type_id: Tipo
         made_on: Hecho en
         amount: Cantidad
         sys_currency_id: Moneda
       user:
-        name: Nombre
         email: Dirección de correo electrónico
-        surname: Apellido
         login: Nombre de Usuario
         password: Contraseña
         linkedinpageurl: Su página en LinkedIn
@@ -152,6 +143,3 @@ es-AR:
           attributes:
             email:
               already_confirmed: Esta dirección de correo electrónico ya está registrada
-        group:
-          portavoce:
-            required: Usted debe elegir un portavoz

@@ -17,11 +17,6 @@ ru-RU:
         period: Повторить
         frequency: Повторять каждые
         private: Приватно
-      event/meeting/place:
-        address: Адрес
-        municipality_id: Город
-        latitude_original: Широта
-        longitude_original: Долгота
       group:
         facebook_page_url: Адрес страницы Facebook
         name: Имя
@@ -70,7 +65,6 @@ ru-RU:
         content: Текст
         interest_borders_tkn: География интересов
         tags_list: Теги
-        quorum_id: Кворум
         anonima: Временная анонимность
         visible_outside: Публично видимое
         secret_vote: Тайное голосование
@@ -100,16 +94,13 @@ ru-RU:
         vote_good_score: Одобрение
       search_participant:
         role_id: Роль
-        keywords: Имя или фамилия
       sys_movement:
         sys_movement_type_id: Тип
         made_on: Готово
         amount: Количество
         sys_currency_id: Валюта
       user:
-        name: Имя
         email: Адрес электронной почты
-        surname: Фамилия
         login: Имя пользователя
         password: Пароль
         linkedinpageurl: Ваша страница в LinkedIn
@@ -151,6 +142,3 @@ ru-RU:
           attributes:
             email:
               already_confirmed: Этот адрес электронной почты уже зарегистрирован
-        group:
-          portavoce:
-            required: Вы должны выбрать представителя

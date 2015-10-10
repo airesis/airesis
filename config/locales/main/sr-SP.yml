@@ -19,6 +19,7 @@ sr-SP:
       find_groups: Претрага група
       parma_login: Пријављивање преко Parma
       tecnologiedemocratiche_login: Пријављивање преко Tecnologie Democratiche
+      tecnologiedemocratiche: Tecnologie Democratiche
     user:
       notifications: Упозорења и обавештења
       privacy: Налог и приватност
@@ -40,7 +41,6 @@ sr-SP:
         profile_info_unconfirmed: (непотврђен корисник)
         send_message_button: Пошаљите приватну поруку
         name_label: Име
-        surname_label: Презиме
         email_label: E-пошта
         edit_image: Уређивање слике
         to_be_confirmed: да се потврди
@@ -57,7 +57,6 @@ sr-SP:
         certified_from: Потврђен из
         group_level_permission_title: Дозволе нивоа групе
         admin_permissions: Ви сте администратор ове групе и имате све дозволе
-        certified_cannot_edit_info: 'Ви сте потврђен корисник: не можете уређивати своје име, презиме и е-пошту'
       send_message:
         subject_label: Наслов
         body_label: Садржај
@@ -239,6 +238,7 @@ sr-SP:
           advanced: Напредно
           time_description: 'Дебата траје %{days} %{hours} %{minutes}'
           simple_percentage_description: 'а зрелост је једнака или виша од %{good_score}%.'
+          advanced_participation_description: '(%{current_number} од %{total_number} који имају право) <b>(просечна вредност: %{average})</b>'
           advanced_percentage_description: 'Ако је зрелост нижа од %{bad_score}% предлог се одбацује.'
           advanced_percentage_description3: Предлог остаје у дебати ако је зрелост између две граничне вредности.
         active: Активно
@@ -263,7 +263,6 @@ sr-SP:
           description: Airesis вам дозвољава да управљате различитим радним подручјима унутар групе.
           description2: Са овом одликом можете боље управљати учесницима и њиховим функцијама.
           description3: Будите опрезни! Ово је напредна одлика дизајнирана само за веће групе и стручне кориснике.
-          enable: Омогућите радна подручја!
           description4: 'Пре активирања радног подручја, проверите да ли можете да управљате члановима групе директно помоћу '
         manage:
           new_area: Креирање радног подручја
@@ -290,14 +289,12 @@ sr-SP:
         anything: Сви
         operations_on_user: Доступне операције на корисницима
         send_email: Пошаљите е-пошту
-        surname: Презиме
         name: Име
         role: Функција
         member_since: Члан од
         participants_html:
           one: '<b>1</b> учесник'
           few: '<b>%{count}</b> учесници'
-          many: '<b>%{count}</b> учесници'
           other: '<b>%{count}</b> учесници'
         added_by: Додат од стране
         remove_all: Уклоните све
@@ -384,9 +381,7 @@ sr-SP:
         choose_votation_period: Изаберите период гласања
         choose_votation_period_alert: Да ли сте сигурни у вези периода гласања? Касније га нећете моћи променити!
         choose_votation_period_button: Бирам!
-        create_votation_period: Датуми за гласање нису подешени, молимо подесите нови датум
         no_periods_contact_group: Датуми за гласање нису подешени, молимо обратите се администратору да изаберете датум.
-        no_periods_contact_admin: 'Тренутно не постоји доступан датум гласања. Треба бити подешен. Контактирајте %{email} ако желите'
         choose_new_votation_period_button: Молимо изаберите нови датум гласања
         loading_contributions: 'Учитавање предложених идеја - доприноса, молимо сачекајте...'
         previos_contributes: 'Претходне предложене идеје - доприноси...'
@@ -479,9 +474,10 @@ sr-SP:
           not_a_member: Не можете да учествујете у овом предлогу јер нисте члан ове групе.
           not_logged_in: 'Не можете да учествујете у овом предлогу јер тренутно нисте пријављени. '
         read_contribute: 'ПРИКАЗИВАЊЕ ПРЕДЛОЖЕНИХ ИДЕЈА - ДОПРИНОСА'
-        security_token: Безбедoносна провера
+        security_token: Безбедносна провера
         you_can_choose_vote_dates: 'Овај предлог је на чекању од %{count} дана за датум гласања, тако да вам није дозвољено да изаберете нови.'
         no_contributes_yet: Још увек нема доприноса овде
+        start_votation_proposal_confirmation: Да ли сте сигурни да желите одмах да почнете гласање?
       new:
         quorum_prompt: Изаберите кворум
         quorum_help: Помоћ
@@ -544,7 +540,6 @@ sr-SP:
         positive: За
         negative: Против
         neutral: Уздржани
-        name_surname_column: Име и презиме
         date_time_column: Датум и време гласања
       report_contribute:
         mark_title: 'Обележите предложену идеју - допринос'
@@ -607,7 +602,6 @@ sr-SP:
         valutations:
           one: '%{count} ОЦЕЊИВАЊЕ'
           few: '%{count} ОЦЕЊИВАЊА'
-          many: '%{count} ОЦЕЊИВАЊА'
           other: '%{count} ОЦЕЊИВАЊА'
         good_score: 'ДОВОЉАН КВОРУМ %{score}%'
         bad_score: 'НЕДОВОЉАН КВОРУМ  %{score}%'
@@ -732,8 +726,6 @@ sr-SP:
         preferences: ЖЕЉЕНЕ ПОСТАВКЕ
         administration: АДМИНИСТРАЦИЈА
         logout: ОДЈАВЉИВАЊЕ
-        become_user: Постаните корисник
-        become_user_button: Идите!
         remember_me: Упамти ме на овом рачунару
         login_button: Пријављивање
         registration_button: ПРИДРУЖИТЕ НАМ СЕ
@@ -986,168 +978,14 @@ sr-SP:
     group_participations:
       index:
         title: Листа учесника
+    certifications:
+      index:
+        title: Потврђене групе
   pl:
     comments:
       one: један коментар
       few: '%{count} коментара'
-      many: '%{count} коментара'
       other: '%{count} коментара'
-  activerecord:
-    models:
-      meeting: Састанак
-      places: Место
-    attributes:
-      blog_comment:
-        body: Коментар
-        created_at: Заштита од нежељене поште
-      event:
-        title: Назив догађаја
-        description: Опис
-        event_type_id: Врста догађаја
-        starttime: Почетни датум
-        endtime: Завршни датум
-        all_day: Цео дан
-        period: Поновите
-        frequency: Поновити сваких
-        private: Приватно
-        meeting:
-          place:
-            address: Адреса
-            municipality_id: Град
-      group:
-        facebook_page_url: Адреса Facebook странице
-        name: Име
-        title_bar: Насловна линија
-        description: Опис
-        accept_requests: Захтев за учешће
-        porta_id: Администратор
-        interest_border_tkn: Географско место интересовања
-        interest_border_id: Географско место интересовања
-        image_url: Слика странице
-        default_role_name: Који је назив за нове кориснике?
-        default_role_name_placeholder: 'Нпр.: корисници, чланови, активисти, пирати'
-        name_placeholder: Изаберите име које се односи на групни идентитет и/или локацију.
-        title_bar_placeholder: Назив странице групе.
-        description_placeholder: Ова порука ће бити на првој страници групе
-        image_url_placeholder: URL слике групе
-        facebook_page_url_placeholder: Група на Facebook страници? Унесите линк овде.
-        admin_title: Како се зову администратори групе?
-        private: Приватна група
-        rule_book: Правилник
-        image: Учитајте слику
-        admin_title_placeholder: 'Назив функције администратора групе (уобичајено: Администратор)'
-      blog:
-        title: Наслов
-      blog_post:
-        title: Наслов
-        body: Текст
-        published: Статус
-        published_true: Објављено
-        published_false: Нацрт
-        published_reserved: Резервисано
-        group_ids: Објављено у следећим групама
-        published_at: Објављено у
-      participation_role:
-        name: Име
-        description: Кратак опис
-      group_invitation:
-        emails_list: Адресе е-поште
-        testo: Текст поруке
-      place:
-        address: Адреса
-      proposal:
-        group_area_id: Радно подручје
-        proposal_category_id: Категорија
-        title: Наслов
-        content: Текст
-        interest_borders_tkn: Географска места интересовања
-        tags_list: Ознаке
-        quorum_id: Трајање дебате
-        anonima: Привремена анонимност
-        visible_outside: Јавно видљиво
-        secret_vote: Тајно гласање
-      proposal_comment:
-        content: Садржај
-      quorum:
-        name: Назив кворума
-        name_title: Молимо унесите кратак, образложавајући наслов
-        description: Опис / Кратко објашњење
-        description_title: Опис за разумевање сврхе овог кворума
-        days_m: Дана
-        hours_m: сати
-        minutes_m: Минута
-        percentage: Учесници (проценат)
-        percentage_title: Минималан број учесника у дискусији као проценат броја учесника у групи
-        good_score: Кворум (проценат)
-        good_score_title: Рејтинг који треба остварити да се предлог доведе до фазе гласања
-        bad_score: Недовољан кворум (проценат)
-        bad_score_title: Рејтинг испод којег ће предлог бити одбачен. Дозвољава вам да наставите дискусију ако постоји довољно учесника и времена
-        condition: Услов
-        condition_title: Да ли оба услова времена и учесника морају преовладати или само један од њих?
-      search_participant:
-        role_id: Функција
-        keywords: Име или презиме
-      sys_movement:
-        sys_movement_type_id: Врста
-        made_on: Урађено
-        amount: Износ
-        sys_currency_id: Валута
-      user:
-        name: Име
-        email: E-пошта
-        surname: Презиме
-        login: Корисничко име
-        password: Лозинка
-        linkedinpageurl: Ваша LinkedIn страница
-        facebookpageurl: Ваша Facebook страница
-        accept_conditions: Услови коришћења
-        receive_newsletter: Билтен путем е-поште
-        blocked: Грешка
-      group_area:
-        name: Име
-        description: Опис
-        default_role_name: Уобичајена функција
-    errors:
-      template:
-        header:
-          one: 'грешка није дозволила да се овај %{model} сачува'
-          few: '%{count} грешака нису дозволиле да се овај %{model} сачува'
-          many: '%{count} грешака нису дозволиле да се овај %{model} сачува'
-          other: '%{count} грешака нису дозволиле да се овај %{model} сачува'
-        body: Било је проблема са следећим областима
-      messages:
-        inclusion: није укључено у списак
-        exclusion: је резервисано
-        invalid: је неважеће
-        confirmation: не поклапа се с потврдом
-        accepted: мора бити прихваћено
-        empty: не може бити празно
-        blank: мора бити попуњено
-        too_long: Текст је предуг
-        too_short: Текст је прекратак
-        wrong_length: 'треба бити %{count} знакова'
-        taken: је већ заузето
-        not_a_number: није број
-        greater_than: 'мора бити веће од  %{count}'
-        greater_than_or_equal_to: 'мора бити веће од или једнако %{count}'
-        equal_to: 'мора бити једнако %{count}'
-        less_than: 'мора бити мање од %{count}'
-        less_than_or_equal_to: 'мора бити мање од или једнако %{count}'
-        odd: мора бити парно
-        even: мора бити непарно
-        record_invalid: 'Потврђивање није успело %{errors}'
-        not_found: није пронађено.
-        TOS: Обавезно је прихватити Услове коришћења
-      full_messages:
-        format: '%{attribute} %{message}'
-      models:
-        user:
-          attributes:
-            email:
-              already_confirmed: Oва адреса е-поште је већ регистрована
-        group:
-          portavoce:
-            required: Морате одабрати администратора
   models:
     best_quorum:
       good_score_condition: 'Предлог ће ићи на гласање ако има ниво зрелости већи од <b>%{good_score}%</b> и %{participants}, а ако не, биће одбачен'
@@ -1156,12 +994,10 @@ sr-SP:
       participants:
         one: '<b>особа</b>ће учествовати'
         few: 'учествовало <b>%{count}</b>људи'
-        many: 'учествовало <b>%{count}</b>људи'
         other: 'учествовало <b>%{count}</b>људи'
       participants_past:
         one: '<b>особа</b>учествовало'
         few: 'учествовало у<b>%{count}</b> људи'
-        many: 'учествовало у<b>%{count}</b> људи'
         other: 'учествовало у<b>%{count}</b> људи'
       or_condition_1: 'Дебата ће се завршити у %{time} или када %{participants_num}.'
       or_condition_1_past: 'Дебата је трајала %{time} или када %{participants_num}.'
@@ -1218,6 +1054,8 @@ sr-SP:
     left_panel:
       promote_proposal: Промовисање предлога
       share_with_friends: Делите с пријатељима
+    show_proposal:
+      vote_here: 'Овај предлог је у фази гласања. Прочитајте решење/решења и %{link}.'
   digit_tags: Укуцајте ознаке које желите да додате
   buttons:
     cancel: Откажите
@@ -1246,6 +1084,7 @@ sr-SP:
     unlock: Откључајте
     vote_here: гласајте овде
     unintegrate: Враћање у дебату
+    join_accounts: Придружите налоге и пријавите се
   tooltips:
     random_stack_1: |
       <strong>Како то функционише?</strong><br/>Прво су приказани нови доприноси или они које нисте оценили, а онда они доприноси које сте већ оценили по реду популарности. <br/>
@@ -1462,7 +1301,6 @@ sr-SP:
       multiple_request:
         one: 'Затражили сте да учествујете у %{count} новој групи'
         few: 'Затражили сте да учествујете у %{count} новим групама'
-        many: 'Затражили сте да учествујете у %{count} новим групама'
         other: 'Затражили сте да учествујете у %{count} новим групама'
     group_participations:
       destroy_ok_1: Напустили сте групу. Моћи ћете да поново затражите да учествујете у њој
@@ -1483,7 +1321,6 @@ sr-SP:
       create:
         one: 'Позив исправно послат на %{email_addresses}'
         few: '%{count} позива исправно послатих на %{email_addresses}'
-        many: '%{count} позива исправно послатих на %{email_addresses}'
         other: '%{count} позива исправно послатих на %{email_addresses}'
       accept: Позив је прихваћен! Сада сте члан ове групе.
       reject: Позив је одбијен.
@@ -1515,7 +1352,6 @@ sr-SP:
       view_proposal:
         one: 'Предлог <b>%{proposal}</b> је ажуриран.'
         few: 'Предлог <b>%{proposal}</b> је ажуриран %{count} пута.'
-        many: 'Предлог <b>%{proposal}</b> је ажуриран %{count} пута.'
         other: 'Предлог <b>%{proposal}</b> је ажуриран %{count} пута.'
       integrated_contributes: 'Честитамо! Следећи доприноси које сте уметнули су интегрисани од стране уредника:'
       view_proposal_2: '%{click_here} и верификујте да нови текст садржи ваше сугестије. <br/> Ако нисте задовољни, увек можете да вратите ваше доприносе у дебату повлачењем из Историје.'

@@ -99,6 +99,11 @@ sh-HR:
             requirements: Zahtjevi koje treba ispuniti
             stakeholders: Interesna grupa (uključeni ljudi)
         press:
+          solution:
+            title: Rješenje 1
+            maintitle: Naslov
+            subtitle: Podnaslov
+            body: Glavni dio
           question:
             solution:
               deep: Umetnite veze, kontakte ili dodatne informacije za one koji žele saznati više.

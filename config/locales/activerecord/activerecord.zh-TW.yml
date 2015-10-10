@@ -62,7 +62,6 @@ zh-TW:
         content: 內文
         interest_borders_tkn: 你主要關心的地區
         tags_list: 標籤
-        quorum_id: 門檻
         anonima: 暫時匿名
         visible_outside: 公開檢視
         secret_vote: 秘密投票
@@ -94,9 +93,7 @@ zh-TW:
         amount: 數量
         sys_currency_id: 貨幣
       user:
-        name: 名稱
         email: E-mail 位置
-        surname: 姓氏
         login: 使用者名
         password: 密碼
         linkedinpageurl: 你在 Linkedin 的個人頁面
@@ -139,6 +136,3 @@ zh-TW:
           attributes:
             email:
               already_confirmed: 這個 E-mail 已經註冊過了。
-        group:
-          portavoce:
-            required: 你必須選擇群組的發言人

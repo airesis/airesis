@@ -56,7 +56,7 @@ module Airesis
 
     config.action_view.sanitized_allowed_tags = %w(del dd h3 address big sub tt a ul h4 cite dfn h5 small kbd code,
                                                    b ins img h6 sup pre strong blockquote acronym dt br p div samp,
-                                                   li ol var em h1 i abbr h2 span hr iframe table tr td th)
+                                                   li ol var em h1 i abbr h2 span hr iframe table tr td th u s)
     config.action_view.sanitized_allowed_attributes = %w(name href cite class title src xml:lang height datetime alt
                                                          abbr width id class style data-cke-realelement cellspacing
                                                          cellpadding border target)

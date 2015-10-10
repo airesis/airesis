@@ -19,6 +19,7 @@ it-IT:
       find_groups: Cerca gruppi
       parma_login: Accedi con Parma
       tecnologiedemocratiche_login: Login con Tecnologie Democratiche
+      tecnologiedemocratiche: Tecnologie Democratiche
     user:
       notifications: Allarmi e notifiche
       privacy: Impostazioni Account e Privacy
@@ -239,6 +240,7 @@ it-IT:
           advanced: Avanzato
           time_description: 'Il dibattito durerà almeno %{days}  %{hours}  %{minutes}'
           simple_percentage_description: 'Quindi la proposta passa in votazione se la maturità è superiore al %{good_score}%.'
+          advanced_participation_description: '(%{current_number} su %{total_number} che hanno il diritto) <b>(valore medio: %{average})</b>'
           advanced_percentage_description: 'Se invece la maturità è inferiore al %{bad_score}% la proposta viene abbandonata.'
           advanced_percentage_description3: La proposta resta in dibattito fintanto che la maturità è compresa fra le due soglie.
         active: Attivo
@@ -382,9 +384,8 @@ it-IT:
         choose_votation_period: Durata votazione
         choose_votation_period_alert: Sei sicuro di voler votare la tua proposta in questo periodo? Non sarà possibile sceglierlo nuovamente!
         choose_votation_period_button: Ho scelto!
-        create_votation_period: Non vi sono date disponibili per la votazione
+        create_votation_period: Non vi sono date disponibili per la votazione. Imposta una nuova data
         no_periods_contact_group: Questa proposta è in attesa che venga stabilita la data di votazione. Solo gli utenti autorizzati possono scegliere tale data
-        no_periods_contact_admin: "Non vi sono date disponibili per la votazione al momento. E' necessario attendere che vengano create. Contattare %{email} in caso di necessità"
         choose_new_votation_period_button: Crea una nuova data per la votazione
         loading_contributions: Caricamento contributi...
         previos_contributes: Commenti precedenti...
@@ -480,6 +481,7 @@ it-IT:
         security_token: Token di sicurezza
         you_can_choose_vote_dates: 'La proposta è in attesa di data da oltre %{count} giorni, quindi ora puoi scegliere la data anche tu.'
         no_contributes_yet: Nessun contributo ancora
+        start_votation_proposal_confirmation: Sei sicuro di voler avviare immediatamente la votazione?
       new:
         quorum_prompt: Seleziona una durata
         quorum_help: Assistenza
@@ -728,8 +730,6 @@ it-IT:
         preferences: PREFERENZE
         administration: AMMINISTRAZIONE
         logout: LOGOUT
-        become_user: Diventa utente
-        become_user_button: Vai!
         remember_me: Ricordami su questo computer
         login_button: Login
         registration_button: REGISTRATI
@@ -982,165 +982,13 @@ it-IT:
     group_participations:
       index:
         title: Elenco partecipanti
+    certifications:
+      index:
+        title: Gruppi certificati
   pl:
     comments:
       one: un commento
       other: '%{count} commenti'
-  activerecord:
-    models:
-      meeting: Incontro
-      places: Luogo
-    attributes:
-      blog_comment:
-        body: Commento
-        created_at: AntiSpam
-      event:
-        title: "Titolo dell'evento"
-        description: Descrizione
-        event_type_id: Tipo di evento
-        starttime: Data di inizio
-        endtime: Data di fine
-        all_day: Tutto il giorno
-        period: Ripeti
-        frequency: Ripeti ogni
-        private: Privato
-        meeting:
-          place:
-            address: Indirizzo
-            municipality_id: Comune
-      group:
-        facebook_page_url: Indirizzo pagina Facebook
-        name: Nome
-        title_bar: Barra del titolo
-        description: Descrizione
-        accept_requests: Richieste di partecipazione
-        porta_id: Portavoce
-        interest_border_tkn: Confine geografico di interesse
-        interest_border_id: Confine geografico di interesse
-        image_url: Indirizzo immagine
-        default_role_name: Come verranno chiamati gli utenti appena iscritti?
-        default_role_name_placeholder: 'Esempio: Iscritti, Membri, Attivisti, Pirati'
-        name_placeholder: Scrivi un nome dal quale si capisca di cosa si occupa il gruppo e dove si trova.
-        title_bar_placeholder: Il titolo che apparirà in testa alla pagina del gruppo.
-        description_placeholder: Questo messaggio apparirà nella prima pagina del gruppo
-        image_url_placeholder: "URL dell'immagine del gruppo"
-        facebook_page_url_placeholder: "Se il gruppo ha una pagina Facebook, inserisci qui l'indirizzo."
-        admin_title: Come vengono denominati gli amministratori del gruppo?
-        private: Gruppo chiuso
-        rule_book: Regolamento
-        image: Carica immagine
-        admin_title_placeholder: 'Nome ruolo amministratori del gruppo (default: Amministratore)'
-      blog:
-        title: Titolo
-      blog_post:
-        title: Titolo
-        body: Testo
-        published: Stato
-        published_true: Pubblicato
-        published_false: In bozza
-        published_reserved: riservato
-        group_ids: Pubblicato nei seguenti gruppi
-        published_at: Pubblicato alle
-      participation_role:
-        name: Nome
-        description: Breve descrizione
-      group_invitation:
-        emails_list: Indirizzi email
-        testo: "Testo dell'invito"
-      place:
-        address: Indirizzo
-      proposal:
-        group_area_id: Area di lavoro
-        proposal_category_id: Categoria
-        title: Obiettivo
-        content: Testo
-        interest_borders_tkn: Luogo
-        tags_list: Parole chiave
-        quorum_id: Durata dibattito
-        anonima: Anonimato temporaneo
-        visible_outside: Visibile pubblicamente
-        secret_vote: Voto segreto
-      proposal_comment:
-        content: Contenuto
-      quorum:
-        name: Nome del quorum
-        name_title: Inserire un titolo conciso, esplicativo
-        description: Descrizione / Breve spiegazione
-        description_title: Una descrizione per far comprendere le finalità di questo quorum
-        days_m: Giorni
-        hours_m: Ore
-        minutes_m: Minuti
-        percentage: Partecipanti (percentuale)
-        percentage_title: Numero minimo di partecipanti alla discussione in percentuale rispetto al numero di partecipanti al gruppo
-        good_score: Quorum (percentuale)
-        good_score_title: Maturità da raggiungere per portare in votazione la proposta
-        bad_score: Quorum negativo (percentuale)
-        bad_score_title: Maturità al di sotto della quale la proposta verrà bocciata. Permette di continuare la discussione se non viene raggiunto il quorum
-        condition: Condizione
-        condition_title: Le condizioni di Tempo e Partecipanti devono essere superate entrambe o è sufficiente una delle due?
-      search_participant:
-        role_id: Ruolo
-        keywords: Nome o Cognome
-      sys_movement:
-        sys_movement_type_id: Tipo
-        made_on: Effettuato il
-        amount: Ammontare
-        sys_currency_id: Valuta
-      user:
-        name: Nome
-        email: Indirizzo Email
-        surname: Cognome
-        login: Username
-        password: Password
-        linkedinpageurl: La tua pagina su Linkedin
-        facebookpageurl: La tua pagina su Facebook
-        accept_conditions: "Condizioni d'uso"
-        receive_newsletter: Newsletter tramite email
-        blocked: Errore
-      group_area:
-        name: Nome
-        description: Descrizione
-        default_role_name: Nome ruolo di default
-    errors:
-      template:
-        header:
-          one: "un errore non ha consentito questo %{model} dall'essere salvato"
-          other: '%{count} errori non hanno consentito questo %{model} di essere salvato'
-        body: 'Ci sono stati problemi con i seguenti campi:'
-      messages:
-        inclusion: non è incluso nella lista
-        exclusion: è riservato
-        invalid: non è valido
-        confirmation: non coincide con la conferma
-        accepted: deve essere accettato
-        empty: non può essere vuoto
-        blank: deve essere compilato
-        too_long: è troppo lungo
-        too_short: 'è troppo corto '
-        wrong_length: 'deve essere di %{count} caratteri'
-        taken: è già stato preso
-        not_a_number: non è un numero
-        greater_than: 'deve essere maggiore di %{count}'
-        greater_than_or_equal_to: 'deve essere maggiore o uguale di %{count}'
-        equal_to: 'deve essere uguale a %{count}'
-        less_than: 'deve essere inferiore di %{count}'
-        less_than_or_equal_to: 'deve essere inferiore o uguale di %{count}'
-        odd: deve essere pari
-        even: deve essere dispari
-        record_invalid: 'Validazione fallita: %{errors}'
-        not_found: ' non trovato.'
-        TOS: "E' necessario accettare le condizioni d'uso"
-        forum_visibility: "Un forum non può essere visibile all'esterno se la sezione in cui è contenuto è privata"
-      full_messages:
-        format: '%{attribute} %{message}'
-      models:
-        user:
-          attributes:
-            email:
-              already_confirmed: Questo indirizzo email è già registrato correttamente.
-        group:
-          portavoce:
-            required: Devi scegliere un portavoce
   models:
     best_quorum:
       good_score_condition: 'La proposta andrà in votazione se avrà una maturità superiore al <b>%{good_score}%</b> e %{participants}, altrimenti verrà abbandonata'
@@ -1207,6 +1055,8 @@ it-IT:
     left_panel:
       promote_proposal: Promuovi la proposta
       share_with_friends: Condividi con i tuoi amici
+    show_proposal:
+      vote_here: 'Questa proposta è in fase di votazione. Leggi le soluzioni e %{link}.'
   digit_tags: Digita i tag che vuoi inserire
   buttons:
     cancel: Annulla
@@ -1235,6 +1085,7 @@ it-IT:
     unlock: Sblocca
     vote_here: vota qui
     unintegrate: Rimetti in dibattito
+    join_accounts: "Unisci gli account ed effettua l'accesso"
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di maturità.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     random_stack_2: '<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente.'
@@ -1473,6 +1324,9 @@ it-IT:
       anymore: Invito rifiutato. Non riceverai più inviti.
     blog_comment:
       destroyed: Il commento è stato eliminato
+    user_sensitive:
+      updated: I dati sono stati aggiornati.
+      created: I dati sono stati creati.
   interest_borders:
     hint: Digita alcuni caratteri per cercare un luogo
     no_place_found: Nessun luogo trovato
@@ -1611,5 +1465,9 @@ it-IT:
   keep_reading: continua a leggere
   feedback_subject: '%{time} - Nuova segnalazione'
   delete_event_confirm: Sei sicuro di voler eliminare questo evento?
+  groups:
+    group:
+      delete_group_warning_html: 'Puoi eliminare questo gruppo. Eliminando il gruppo distruggerai tutti i forum, proposte e documenti associati ad esso. <br/> I dati non possono essere ripristinati. <br/> Stai attento!'
   confirm:
     unintegrate: Sati per rimettere il tuo contributo in dibattito. Sei sicuro?
+  cookie_policy: Cookies

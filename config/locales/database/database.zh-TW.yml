@@ -1,22 +1,12 @@
 zh-TW:
   db:
     sys_locales:
-      it-IT:
-        description: 義大利文
-      en:
-        description: 英文
-      en-US:
-        description: 英語 （美國）
-      fr:
-        description: 法文
       es-ES:
         description: 西班牙文
-      pt-PT:
-        description: 葡萄牙文
+      it-IT:
+        description: 義大利文
       pt-BR:
         description: 葡萄牙文 （巴西）
-      de:
-        description: 德文
     proposal_types:
       STANDARD:
         description: 標準的議案
@@ -94,11 +84,8 @@ zh-TW:
         message: '%{user} 在他的 blog <b>%{blog}</b> 新增了一篇新文章'
       new_valutation_mine:
         description: 我的提案的新評價
-        email_subject: '%{title} - 新的評價'
-        message: '你的提案 <b>%{title}</b> 收到了一個新的評價'
       new_valutation:
         description: 我參加的一項提案有了新評價
-        email_subject: '%{title} - 新的評價'
       available_author:
         description: 使用者現在可以成為一個提案的編輯
       author_accepted:

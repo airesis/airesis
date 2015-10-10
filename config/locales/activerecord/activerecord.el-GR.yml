@@ -17,11 +17,6 @@ el-GR:
         period: Επανάληψη
         frequency: Επανάληψη κάθε
         private: Προσωπικό
-      event/meeting/place:
-        address: Διεύθυνση
-        municipality_id: Πόλη
-        latitude_original: Γεωγραφικό πλάτος
-        longitude_original: Γεωγραφικό μήκος
       group:
         facebook_page_url: Διεύθυνση σελίδας Facebook
         name: Όνομα
@@ -70,7 +65,6 @@ el-GR:
         content: Κείμενο
         interest_borders_tkn: Γεωγραφική θέση ενδιαφέροντος
         tags_list: Ετικέτες
-        quorum_id: Απαρτία
         anonima: Προσωρινή ανωνυμία
         visible_outside: Δημόσια ορατό
         secret_vote: Μυστική ψηφοφορία
@@ -100,16 +94,13 @@ el-GR:
         vote_good_score: Έγκριση
       search_participant:
         role_id: Ρόλος
-        keywords: Όνομα ή επώνυμο
       sys_movement:
         sys_movement_type_id: Τύπος
         made_on: Έγινε από
         amount: Ποσό
         sys_currency_id: Nόμισμα
       user:
-        name: Όνομα
         email: Διεύθυνση ηλεκτρονικού ταχυδρομείου
-        surname: Επώνυμο
         login: Όνομα χρήστη
         password: Κωδικός
         linkedinpageurl: Η σελίδα σας στο LinkedIn
@@ -150,6 +141,3 @@ el-GR:
           attributes:
             email:
               already_confirmed: Αυτή η διεύθυνση ηλεκτρονικού ταχυδρομείου έχει ήδη καταχωρηθεί
-        group:
-          portavoce:
-            required: Πρέπει να επιλέξετε έναν εκπρόσωπο

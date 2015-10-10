@@ -18,7 +18,6 @@ bs-BA:
         votation_date_column: Datum
         send_message_button: Pošaljite privatnu poruku
         name_label: Ime
-        surname_label: Prezime
         edit_image: Uređivanje slike
         password_label: Lozinka
         facebook_url_label: Facebook URL
@@ -94,7 +93,6 @@ bs-BA:
       participations:
         filter: Filter
         anything: Sve
-        surname: Prezime
         name: Ime
         member_since: Član od
       archives:
@@ -185,7 +183,6 @@ bs-BA:
         comments_says: kaže...
     header:
       menu:
-        become_user: Postanite korisnik
         registration_button: PRIDRUŽITE NAM SE
       new_group: Pronađite grupe
       support_us: PODRŽITE NAS
@@ -217,33 +214,6 @@ bs-BA:
       groups_tab: Grupe
     feedback:
       view_preview: Pregled
-  activerecord:
-    models:
-      places: Mjesto
-    attributes:
-      blog_comment:
-        body: Komentar
-      event:
-        all_day: Cijeli dan
-      blog:
-        title: Naslov
-      blog_post:
-        title: Naslov
-        body: Tekst
-        published_true: Objavljeno
-        published_false: Nacrt
-      proposal:
-        proposal_category_id: Kategorija
-        title: Naslov
-        content: Tekst
-      proposal_comment:
-        content: Sadržaj
-      quorum:
-        days_m: Dana
-        hours_m: sati
-      group_area:
-        name: Ime
-        description: Opis
   models:
     quorum:
       help_content:

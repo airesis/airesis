@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151008144624) do
+ActiveRecord::Schema.define(version: 20151009093838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1412,8 +1412,6 @@ ActiveRecord::Schema.define(version: 20151008144624) do
 
   create_table "users", force: :cascade do |t|
     t.integer  "user_type_id",                           default: 3,      null: false
-    t.integer  "residenza_id"
-    t.integer  "nascita_id"
     t.string   "name",                      limit: 100
     t.string   "surname",                   limit: 100
     t.string   "email",                     limit: 100
@@ -1429,8 +1427,6 @@ ActiveRecord::Schema.define(version: 20151008144624) do
     t.text     "state"
     t.string   "reset_password_token",      limit: 255
     t.string   "encrypted_password",        limit: 128,                   null: false
-    t.boolean  "activist",                               default: false,  null: false
-    t.boolean  "elected",                                default: false,  null: false
     t.string   "blog_image_url",            limit: 1000
     t.integer  "image_id"
     t.integer  "rank"

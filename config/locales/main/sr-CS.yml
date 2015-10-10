@@ -40,7 +40,6 @@ sr-CS:
         profile_info_unconfirmed: (nepotvrđen korisnik)
         send_message_button: Pošaljite privatnu poruku
         name_label: Ime
-        surname_label: Prezime
         email_label: E-pošta
         edit_image: Uređivanje slike
         to_be_confirmed: da se potvrdi
@@ -57,7 +56,6 @@ sr-CS:
         certified_from: Potvrđen iz
         group_level_permission_title: Dozvole nivoa grupe
         admin_permissions: Vi ste administrator ove grupe i imate sve dozvole
-        certified_cannot_edit_info: 'Vi ste potvrđen korisnik: ne možete uređivati svoje ime, prezime i e-poštu'
       send_message:
         subject_label: Naslov
         body_label: Sadržaj
@@ -263,7 +261,6 @@ sr-CS:
           description: Airesis vam dozvoljava da upravljate različitim radnim područjima unutar grupe.
           description2: Sa ovom odlikom možete bolje upravljati učesnicima i njihovim funkcijama.
           description3: Budite oprezni! Ovo je napredna odlika dizajnirana samo za veće grupe i stručne korisnike.
-          enable: Omogućite radna područja!
           description4: 'Pre aktiviranja radnog područja, proverite da li možete da upravljate članovima grupe direktno pomoću '
         manage:
           new_area: Kreiranje radnog područja
@@ -290,14 +287,12 @@ sr-CS:
         anything: Svi
         operations_on_user: Dostupne operacije na korisnicima
         send_email: Pošaljite e-poštu
-        surname: Prezime
         name: Ime
         role: Funkcija
         member_since: Član od
         participants_html:
           one: '<b>1</b> učesnik'
           few: '<b>%{count}</b> učesnici'
-          many: '<b>%{count}</b> učesnici'
           other: '<b>%{count}</b> učesnici'
         added_by: Dodat od strane
         remove_all: Uklonite sve
@@ -384,9 +379,7 @@ sr-CS:
         choose_votation_period: Izaberite period glasanja
         choose_votation_period_alert: Da li ste sigurni u vezi perioda glasanja? Kasnije ga nećete moći promeniti!
         choose_votation_period_button: Biram!
-        create_votation_period: Datumi za glasanje nisu podešeni, molimo podesite novi datum
         no_periods_contact_group: Datumi za glasanje nisu podešeni, molimo obratite se administratoru da izaberete datum.
-        no_periods_contact_admin: 'Trenutno ne postoji dostupan datum glasanja. Treba biti podešen. Kontaktirajte %{email} ako želite'
         choose_new_votation_period_button: Molimo izaberite novi datum glasanja
         loading_contributions: 'Učitavanje predloženih ideja - doprinosa, molimo sačekajte...'
         previos_contributes: 'Prethodne predložene ideje - doprinosi...'
@@ -542,7 +535,6 @@ sr-CS:
         positive: Za
         negative: Protiv
         neutral: Uzdržani
-        name_surname_column: Ime i prezime
         date_time_column: Datum i vreme glasanja
       report_contribute:
         mark_title: 'Obeležite predloženu ideju - doprinos'
@@ -605,7 +597,6 @@ sr-CS:
         valutations:
           one: '%{count} OCENJIVANJE'
           few: '%{count} OCENJIVANJA'
-          many: '%{count} OCENJIVANJA'
           other: '%{count} OCENJIVANJA'
         good_score: 'DOVOLJAN KVORUM %{score}%'
         bad_score: 'NEDOVOLJAN KVORUM %{score}%'
@@ -730,8 +721,6 @@ sr-CS:
         preferences: ŽELJENE POSTAVKE
         administration: ADMINISTRACIJA
         logout: ODJAVLJIVANJE
-        become_user: Postanite korisnik
-        become_user_button: Idite!
         remember_me: Upamti me na ovom računaru
         login_button: Prijavljivanje
         registration_button: PRIDRUŽITE NAM SE
@@ -988,164 +977,7 @@ sr-CS:
     comments:
       one: jedan komentar
       few: '%{count} komentara'
-      many: '%{count} komentara'
       other: '%{count} komentara'
-  activerecord:
-    models:
-      meeting: Sastanak
-      places: Mesto
-    attributes:
-      blog_comment:
-        body: Komentar
-        created_at: Zaštita od neželjene pošte
-      event:
-        title: Naziv događaja
-        description: Opis
-        event_type_id: Vrsta događaja
-        starttime: Početni datum
-        endtime: Krajnji datum
-        all_day: Ceo dan
-        period: Ponavljanje
-        frequency: Ponoviti svakih
-        private: Privatno
-        meeting:
-          place:
-            address: Adresa
-            municipality_id: Grad
-      group:
-        facebook_page_url: Adresa Facebook stranice
-        name: Ime
-        title_bar: Naslovna linija
-        description: Opis
-        accept_requests: Zahtev za učešće
-        porta_id: Administrator
-        interest_border_tkn: Geografsko mesto interesovanja
-        interest_border_id: Geografsko mesto interesovanja
-        image_url: Slika stranice
-        default_role_name: Koji je naziv za nove korisnike?
-        default_role_name_placeholder: 'Npr.: korisnici, članovi, aktivisti, pirati'
-        name_placeholder: Izaberite ime koje se odnosi na grupni identitet i/ili lokaciju.
-        title_bar_placeholder: Naziv stranice grupe.
-        description_placeholder: Ova poruka će biti na prvoj stranici grupe
-        image_url_placeholder: URL slike grupe
-        facebook_page_url_placeholder: Grupa na Facebook stranici? Unesite link ovde.
-        admin_title: Kako se zovu administratori grupe?
-        private: Privatna grupa
-        rule_book: Pravilnik
-        image: Učitavanje slike
-        admin_title_placeholder: 'Naziv funkcije administratora grupe (uobičajeno: Administrator)'
-      blog:
-        title: Naslov
-      blog_post:
-        title: Naslov
-        body: Tekst
-        published: Status
-        published_true: Objavljeno
-        published_false: Nacrt
-        published_reserved: Rezervisano
-        group_ids: Objavljeno u sledećim grupama
-        published_at: Objavljeno u
-      participation_role:
-        name: Ime
-        description: Kratak opis
-      group_invitation:
-        emails_list: Adrese e-pošte
-        testo: Tekst poruke
-      place:
-        address: Adresa
-      proposal:
-        group_area_id: Radno područje
-        proposal_category_id: Kategorija
-        title: Naslov
-        content: Tekst
-        interest_borders_tkn: Geografska mesta interesovanja
-        tags_list: Oznake
-        quorum_id: Trajanje debate
-        anonima: Privremena anonimnost
-        visible_outside: Javno vidljivo
-        secret_vote: Tajno glasanje
-      proposal_comment:
-        content: Sadržaj
-      quorum:
-        name: Naziv kvoruma
-        name_title: Molimo unesite kratak, obrazložavajući naslov
-        description: Opis / Kratko objašnjenje
-        description_title: Opis za razumevanje svrhe ovog kvoruma
-        days_m: Dana
-        hours_m: sati
-        minutes_m: Minuta
-        percentage: Učesnici (procenat)
-        percentage_title: Minimalan broj učesnika u diskusiji kao procenat broja učesnika u grupi
-        good_score: Kvorum (procenat)
-        good_score_title: Rejting koji treba ostvariti da se predlog dovede do faze glasanja
-        bad_score: Nedovoljan kvorum (procenat)
-        bad_score_title: Rejting ispod kojeg će predlog biti odbačen. Dozvoljava vam da nastavite diskusiju ako postoji dovoljno učesnika i vremena
-        condition: Uslov
-        condition_title: Da li oba uslova vremena i učesnika moraju preovladati ili samo jedan od njih?
-      search_participant:
-        role_id: Funkcija
-        keywords: Ime ili prezime
-      sys_movement:
-        sys_movement_type_id: Vrsta
-        made_on: Urađeno
-        amount: Iznos
-        sys_currency_id: Valuta
-      user:
-        name: Ime
-        email: E-pošta
-        surname: Prezime
-        login: Korisničko ime
-        password: Lozinka
-        linkedinpageurl: Vaša LinkedIn stranica
-        facebookpageurl: Vaša Facebook stranica
-        accept_conditions: Uslovi korišćenja
-        receive_newsletter: Bilten putem e-pošte
-        blocked: Greška
-      group_area:
-        name: Ime
-        description: Opis
-        default_role_name: Uobičajena funkcija
-    errors:
-      template:
-        header:
-          one: 'greška nije dozvolila da se ovaj %{model} sačuva'
-          few: '%{count} grešaka nisu dozvolile da se ovaj %{model} sačuva'
-          many: '%{count} grešaka nisu dozvolile da se ovaj %{model} sačuva'
-          other: '%{count} grešaka nisu dozvolile da se ovaj %{model} sačuva'
-        body: Bilo je problema sa sledećim oblastima
-      messages:
-        inclusion: nije uključeno u spisak
-        exclusion: je rezervisano
-        invalid: je nevažeće
-        confirmation: ne poklapa se s potvrdom
-        accepted: mora biti prihvaćeno
-        empty: ne može biti prazno
-        blank: mora biti popunjeno
-        too_long: Tekst je predug
-        too_short: Tekst je prekratak
-        wrong_length: 'treba biti %{count} znakova'
-        taken: je već zauzeto
-        not_a_number: nije broj
-        greater_than: 'mora biti veće od %{count}'
-        greater_than_or_equal_to: 'mora biti veće od ili jednako %{count}'
-        equal_to: 'mora biti jednako %{count}'
-        less_than: 'mora biti manje od %{count}'
-        less_than_or_equal_to: 'mora biti manje od ili jednako %{count}'
-        odd: mora biti parno
-        even: mora biti neparno
-        record_invalid: 'Potvrđivanje nije uspelo %{errors}'
-        not_found: nije pronađeno.
-        TOS: Obavezno je prihvatiti Uslove korišćenja
-      full_messages:
-        format: '%{attribute} %{message}'
-      models:
-        user:
-          attributes:
-            email:
-              already_confirmed: Ova adresa e-pošte je već registrovana
-        group:
-          portavoce:
-            required: Morate odabrati administratora
   models:
     best_quorum:
       good_score_condition: 'Predlog će ići na glasanje ako ima nivo zrelosti veći od <b>%{good_score}%</b> i %{participants}, a ako ne, biće odbačen'
@@ -1154,12 +986,10 @@ sr-CS:
       participants:
         one: '<b>osoba</b>će učestvovati'
         few: 'učestvovalo <b>%{count}</b>ljudi'
-        many: 'učestvovalo <b>%{count}</b>ljudi'
         other: 'učestvovalo <b>%{count}</b>ljudi'
       participants_past:
         one: '<b>osoba</b>učestvovalo'
         few: 'učestvovalo u<b>%{count}</b> ljudi'
-        many: 'učestvovalo u<b>%{count}</b> ljudi'
         other: 'učestvovalo u<b>%{count}</b> ljudi'
       or_condition_1: 'Debata će se završiti u %{time} ili kada %{participants_num}.'
       or_condition_1_past: 'Debata je trajala %{time} ili kada %{participants_num}.'
@@ -1460,7 +1290,6 @@ sr-CS:
       multiple_request:
         one: 'Zatražili ste da učestvujete u %{count} novoj grupi'
         few: 'Zatražili ste da učestvujete u %{count} novim grupama'
-        many: 'Zatražili ste da učestvujete u %{count} novim grupama'
         other: 'Zatražili ste da učestvujete u %{count} novim grupama'
     group_participations:
       destroy_ok_1: Napustili ste grupu. Moći ćete da ponovo zatražite da učestvujete u njoj
@@ -1481,7 +1310,6 @@ sr-CS:
       create:
         one: 'Poziv ispravno poslat na %{email_addresses}'
         few: '%{count} poziva ispravno poslatih na %{email_addresses}'
-        many: '%{count} poziva ispravno poslatih na %{email_addresses}'
         other: '%{count} poziva ispravno poslatih na %{email_addresses}'
       accept: Poziv je prihvaćen! Sada ste član ove grupe.
       reject: Poziv je odbijen.
@@ -1513,7 +1341,6 @@ sr-CS:
       view_proposal:
         one: 'Predlog <b>%{proposal}</b> je ažuriran.'
         few: 'Predlog <b>%{proposal}</b> je ažuriran %{count} puta.'
-        many: 'Predlog <b>%{proposal}</b> je ažuriran %{count} puta.'
         other: 'Predlog <b>%{proposal}</b> je ažuriran %{count} puta.'
       integrated_contributes: 'Čestitamo! Sledeći doprinosi koje ste umetnuli su integrisani od strane urednika:'
       view_proposal_2: '%{click_here} i verifikujte da novi tekst sadrži vaše sugestije. <br/> Ako niste zadovoljni, uvek možete da vratite vaše doprinose u debatu povlačenjem iz Istorije.'

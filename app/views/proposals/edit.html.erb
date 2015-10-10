@@ -11,7 +11,7 @@
     <% if can? :destroy, @proposal %>
         <div class="panel callout">
           <p>
-            <% last = (10.minutes - (Time.now - @proposal.created_at)) / 60 %>
+            <% last = (EDIT_PROPOSAL_TIME_LIMIT - (Time.now - @proposal.created_at)) / 60 %>
 
             <% if last < 2 %>
                 <%= t('pages.proposals.edit.hurry_up') %>

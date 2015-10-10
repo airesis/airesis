@@ -63,7 +63,6 @@ es-CL:
       creation_failure: 'Error al acceder a través de %{provider}'
       join_success: 'Las cuentas se fusionaron exitosamente. Felicitaciones, ahora usted puede acceder a través de %{provider}.'
       join_failure: 'Existe otra cuenta de %{provider}. La función de unir las cuentas estarán disponible pronto.'
-      account_not_verified: '%{provider} cuenta con el correo electrónico sin confirmar.'
     mailer:
       confirmation_instructions:
         subject: Instrucciones de confirmación
