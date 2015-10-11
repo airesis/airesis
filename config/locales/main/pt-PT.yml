@@ -991,7 +991,6 @@ pt-PT:
     yes_word: SIM
     no_word: NÃO
     mark: Marcar
-    update_and_continue: Gravar e continuar
     detach: Desanexar
   tooltips:
     random_stack_1: '<strong>Como funciona?</strong> <br/>Em primeiro lugar, são mostradas as novas contribuições ou as que você ainda não avaliou, de seguida, as contribuições já avaliadas por ordem de popularidade. <br/> <b>Nota</b>: A classificação vai mudar esta ordem!'

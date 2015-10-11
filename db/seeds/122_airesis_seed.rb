@@ -1,7 +1,0 @@
-Municipality.create(description: "Arenillas", province_id: 123, region_id:  1, country_id: 53, continent_id: 2 , population: 17346)
-Municipality.create(description: "El Guabo", province_id: 123, region_id:  1, country_id: 53, continent_id: 2 , population: 22172)
-Municipality.create(description: "Huaquillas", province_id: 123, region_id:  1, country_id: 53, continent_id: 2 , population: 47706)
-Municipality.create(description: "Machala", province_id: 123, region_id:  1, country_id: 53, continent_id: 2 , population: 231260)
-Municipality.create(description: "Pasaje", province_id: 123, region_id:  1, country_id: 53, continent_id: 2 , population: 52673)
-Municipality.create(description: "Piñas", province_id: 123, region_id:  1, country_id: 53, continent_id: 2 , population: 15517)
-Municipality.create(description: "Santa Rosa", province_id: 123, region_id:  1, country_id: 53, continent_id: 2 , population: 48929)

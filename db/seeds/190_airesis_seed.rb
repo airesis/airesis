@@ -1,6 +1,0 @@
-Municipality.create(description: "Zapallar", province_id: 191, region_id:  43, country_id: 90, continent_id: 2 , population: 5659)
-Municipality.create(description: "Petorca", province_id: 191, region_id:  43, country_id: 90, continent_id: 2 , population: 9440)
-Municipality.create(description: "Papudo", province_id: 191, region_id:  43, country_id: 90, continent_id: 2 , population: 4608)
-Municipality.create(description: "La Ligua", province_id: 191, region_id:  43, country_id: 90, continent_id: 2 , population: 31987)
-Municipality.create(description: "Juan Fernández", province_id: 191, region_id:  43, country_id: 90, continent_id: 2 , population: 633)
-Municipality.create(description: "Cabildo", province_id: 191, region_id:  43, country_id: 90, continent_id: 2 , population: 18916)

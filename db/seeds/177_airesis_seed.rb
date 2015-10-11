@@ -1,5 +1,0 @@
-Municipality.create(description: "Pozo Almonte", province_id: 178, region_id:  39, country_id: 90, continent_id: 2 , population: 10830)
-Municipality.create(description: "Pica", province_id: 178, region_id:  39, country_id: 90, continent_id: 2 , population: 6178)
-Municipality.create(description: "Huara", province_id: 178, region_id:  39, country_id: 90, continent_id: 2 , population: 2599)
-Municipality.create(description: "Colchane", province_id: 178, region_id:  39, country_id: 90, continent_id: 2 , population: 1649)
-Municipality.create(description: "Camiña", province_id: 178, region_id:  39, country_id: 90, continent_id: 2 , population: 1275)

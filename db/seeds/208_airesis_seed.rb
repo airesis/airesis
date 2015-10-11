@@ -1,7 +1,0 @@
-Municipality.create(description: "Tirúa", province_id: 209, region_id:  47, country_id: 90, continent_id: 2 , population: 9664)
-Municipality.create(description: "Los Álamos", province_id: 209, region_id:  47, country_id: 90, continent_id: 2 , population: 18632)
-Municipality.create(description: "Lebu", province_id: 209, region_id:  47, country_id: 90, continent_id: 2 , population: 25035)
-Municipality.create(description: "Curanilahue", province_id: 209, region_id:  47, country_id: 90, continent_id: 2 , population: 31943)
-Municipality.create(description: "Contulmo", province_id: 209, region_id:  47, country_id: 90, continent_id: 2 , population: 5838)
-Municipality.create(description: "Cañete", province_id: 209, region_id:  47, country_id: 90, continent_id: 2 , population: 31270)
-Municipality.create(description: "Arauco", province_id: 209, region_id:  47, country_id: 90, continent_id: 2 , population: 34873)

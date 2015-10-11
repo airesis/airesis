@@ -8,7 +8,7 @@
 
           <div class="progress success">
             <span class="meter" style="width:<%=[(@proposal.vote.number.to_f / @proposal.signatures.to_f) * 100, 100].min%>%">
-                <%=@proposal.vote.number %>/<%= @proposal.signatures%>
+                <%= @proposal.vote.number %>/<%= @proposal.signatures %>
             </span>
           </div>
 
@@ -22,13 +22,38 @@
           <% end %>
         </div>
     <% end %>
-<% else #not a petition%>
+<% else #not a petition %>
     <div id="rankleftpanel" class="rankleftpanel mybox">
       <div class="points">
         <%= render partial: 'proposals/points_left_panel' %>
       </div>
       <div class="rank">
         <%= render partial: 'proposals/rank_left_panel' %>
+      </div>
+      <div>
+        <% if signed_in? %>
+            <% if @proposal.proposal_revisions.count > 0 || @proposal.abandoned? %>
+                <%= link_to proposal_proposal_revisions_url(@proposal), remote: true, class: 'btn', data: { disable_with: t('loading') }, id: "history" do %>
+                    <i class="fa fa-file-text-o"></i>
+                    <%= t('pages.proposals.show.history_button') %>
+                <% end %>
+            <% end %>
+            <% if params[:action] == 'show' %>
+                <% if @proposal.vote %>
+                    <!--todo wrong url-->
+                    <%= link_to vote_results_proposal_url(@proposal), remote: true, class: 'btn disable results-button' do %>
+                        <%= t('pages.proposals.show.votation_results') %>
+                    <% end %>
+                    <br/><br/>
+                <% end %>
+                <%= link_to url_for_proposal(@proposal, format: :pdf), target: '_blank', class: 'btn disable' do %>
+                    <i class="fa fa-file-pdf-o"></i>
+                    <%= t('pages.proposals.show.export_pdf') %>
+                <% end %>
+            <% else %>
+                <%= link_to t('pages.proposal_histories.index.back_to_proposal'), @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal), class: 'btn blue' %>
+            <% end %>
+        <% end %>
       </div>
 
       <div class="block-alerts">
@@ -56,7 +81,7 @@
          data-text="Guarda questa proposta su #<%= ENV['APP_SHORT_NAME'] %>">Tweet</a>
       <g:plusone size="tall"></g:plusone>
       <div class="fb-like" data-send="false" data-layout="box_count" data-width="100" data-show-faces="false" data-likeable_type="<%= @proposal.class.class_name %>" data-likeable_id="<%= @proposal.id %>"></div>
-      <%= link_to t('.promote_proposal'), promote_proposal_url(@proposal, group_id: @group.try(:id)), remote: true, data: {disable_with: t('loading')}, class: 'btn blue', id: 'promote_proposal' %>
+      <%= link_to t('.promote_proposal'), promote_proposal_url(@proposal, group_id: @group.try(:id)), remote: true, data: { disable_with: t('loading') }, class: 'btn blue', id: 'promote_proposal' %>
     </div>
 <% end %>
 
@@ -96,7 +121,7 @@
 
 
 <% if ::Configuration.proposal_support && !@proposal.private %>
-    <div id="support_left_panel_container">
+    <div class="support_left_panel_container">
       <%= render partial: 'proposals/support_left_panel' %>
     </div>
 <% end %>
@@ -126,10 +151,10 @@
       <div class="mycont">
         <div class="row">
           <div class="columns large-2">
-            <%= link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "_s.png", align: 'middle', alt: @proposal.category.description, style: "width:22px;padding-right:2px;"), @group ? group_proposals_url(@group, {category: @proposal.category.id}) : proposals_url(category: @proposal.category.id) %>
+            <%= link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "_s.png", align: 'middle', alt: @proposal.category.description, style: "width:22px;padding-right:2px;"), @group ? group_proposals_url(@group, { category: @proposal.category.id }) : proposals_url(category: @proposal.category.id) %>
           </div>
           <div class="columns large-10">
-            <%= link_to @proposal.category.description, @group ? group_proposals_url(@group, {category: @proposal.category.id}) : proposals_url(category: @proposal.category.id) %>
+            <%= link_to @proposal.category.description, @group ? group_proposals_url(@group, { category: @proposal.category.id }) : proposals_url(category: @proposal.category.id) %>
           </div>
         </div>
       </div>
@@ -141,10 +166,10 @@
   <div class="mycont">
     <div class="row">
       <div class="columns large-2">
-        <%= link_to image_tag("proposal_types/#{@proposal.proposal_type.name.downcase}_ico.png", align: 'middle', alt: @proposal.proposal_type.description, title: @proposal.proposal_type.description, style: "width:22px;padding-right:2px;"), @group ? group_proposals_url(@group, {type: @proposal.proposal_type.id}) : proposals_url(type: @proposal.proposal_type.id) %>
+        <%= link_to image_tag("proposal_types/#{@proposal.proposal_type.name.downcase}_ico.png", align: 'middle', alt: @proposal.proposal_type.description, title: @proposal.proposal_type.description, style: "width:22px;padding-right:2px;"), @group ? group_proposals_url(@group, { type: @proposal.proposal_type.id }) : proposals_url(type: @proposal.proposal_type.id) %>
       </div>
       <div class="columns large-10">
-        <%= link_to @proposal.proposal_type.description, @group ? group_proposals_url(@group, {type: @proposal.proposal_type.id}) : proposals_url(type: @proposal.proposal_type.id) %>
+        <%= link_to @proposal.proposal_type.description, @group ? group_proposals_url(@group, { type: @proposal.proposal_type.id }) : proposals_url(type: @proposal.proposal_type.id) %>
 
       </div>
     </div>
@@ -156,7 +181,7 @@
       <h4><%= t('pages.proposals.show.group_area') %></h4>
 
       <div class="mycont">
-        <%= link_to @proposal.presentation_areas.first.name, group_proposals_url(@group, {group_area_id: @proposal.presentation_areas.first.id}) %>
+        <%= link_to @proposal.presentation_areas.first.name, group_proposals_url(@group, { group_area_id: @proposal.presentation_areas.first.id }) %>
       </div>
     </div>
 <% end %>

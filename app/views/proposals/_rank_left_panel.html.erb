@@ -18,27 +18,3 @@
     </div>
     <div style="clear: both;"></div>
 <% end %>
-
-<% if signed_in? %>
-    <% if @proposal.proposal_revisions.count > 0 || @proposal.abandoned? %>
-        <%= link_to proposal_proposal_revisions_url(@proposal), remote: true, class: 'btn', data: {disable_with: t('loading')}, id: "history" do %>
-            <i class="fa fa-file-text-o"></i>
-            <%= t('pages.proposals.show.history_button') %>
-        <% end %>
-    <% end %>
-    <% if params[:action] == 'show' %>
-        <% if @proposal.vote %>
-            <!--todo wrong url-->
-            <%= link_to vote_results_proposal_url(@proposal), remote: true, class: 'btn disable results-button' do %>
-                <%= t('pages.proposals.show.votation_results') %>
-            <% end %>
-            <br/><br/>
-        <% end %>
-        <%= link_to url_for_proposal(@proposal, format: :pdf), target: '_blank', class: 'btn disable' do %>
-            <i class="fa fa-file-pdf-o"></i>
-            <%= t('pages.proposals.show.export_pdf') %>
-        <% end %>
-    <% else %>
-        <%= link_to t('pages.proposal_histories.index.back_to_proposal'), @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal), class: 'btn blue' %>
-    <% end %>
-<% end %>

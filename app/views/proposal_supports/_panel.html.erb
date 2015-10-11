@@ -7,14 +7,15 @@
       <%= form_for [@proposal, @proposal_support], remote: true do |f| %>
           <% @available_groups.each do |group| %>
               <%= f.label group.name do %>
-                  <%= check_box_tag "proposal[supporting_group_ids][]", group.id, ProposalSupport.where({supporting_group_id: group.id, proposal_id: @proposal.id}).exists? %>
+                  <%= check_box_tag "proposal[supporting_group_ids][]", group.id,
+                                    ProposalSupport.where(group_id: group.id, proposal_id: @proposal.id).exists? %>
                   <%= group.name %>
                   <%= group.group_image_tag 20 %>
-              <%end%>
+              <% end %>
               <br/>
           <% end %>
           <a href="#" class="btn" onclick="$('#proposal_support').foundation('reveal','close');$('#proposal_support').remove();"><%= t('buttons.cancel') %></a>
-          <%= f.submit t('pages.proposal_supports.confirm_button'), class: 'btn blue', data:{disable_with: t('loading')} %>
+          <%= f.submit t('pages.proposal_supports.confirm_button'), class: 'btn blue', data: { disable_with: t('loading') } %>
       <% end %>
   <% end %>
   <a class="close-reveal-modal">&#215;</a>

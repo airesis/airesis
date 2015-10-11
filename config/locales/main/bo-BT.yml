@@ -1019,7 +1019,6 @@ bo-BT:
     yes_word: crwdns7575:0crwdne7575:0
     no_word: crwdns7576:0crwdne7576:0
     mark: crwdns7948:0crwdne7948:0
-    update_and_continue: crwdns8139:0crwdne8139:0
     detach: crwdns8140:0crwdne8140:0
     login: crwdns8273:0crwdne8273:0
     show: crwdns8274:0crwdne8274:0
@@ -1029,6 +1028,7 @@ bo-BT:
     vote_here: crwdns8397:0crwdne8397:0
     unintegrate: crwdns8398:0crwdne8398:0
     join_accounts: crwdns9864:0crwdne9864:0
+    save_and_exit: crwdns9937:0crwdne9937:0
   tooltips:
     random_stack_1: crwdns7577:0crwdne7577:0
     random_stack_2: crwdns7578:0crwdne7578:0
@@ -1284,6 +1284,9 @@ bo-BT:
       follow_google: crwdns7759:0crwdne7759:0
       footer:
         registered_at: 'crwdns7760:0%{url}crwdne7760:0'
+        connect_with_us: crwdns9938:0crwdne9938:0
+        contact_info: crwdns9939:0crwdne9939:0
+        email_label: crwdns9940:0crwdne9940:0
       edit_preferences: crwdns7949:0crwdne7949:0
       click_here: crwdns7762:0crwdne7762:0
     new_contribute:
