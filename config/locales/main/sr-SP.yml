@@ -1075,7 +1075,6 @@ sr-SP:
     yes_word: ДА
     no_word: НЕ
     mark: Означите
-    update_and_continue: Сачувајте и наставите
     detach: Одвојено
     login: Пријављивање
     show: Приказивање

@@ -52,6 +52,7 @@ group :development do
   gem 'awesome_print'
   gem 'letter_opener'
   gem 'foreman'
+  gem 'thin', require: false
 end
 
 group :development, :test do

@@ -1048,7 +1048,6 @@ hu-HU:
     yes_word: IGEN
     no_word: NEM
     mark: Megjelöl
-    update_and_continue: Mentés és folytatás
     detach: Leválasztás
   tooltips:
     random_stack_1: |

@@ -1076,7 +1076,6 @@ it-IT:
     yes_word: SI
     no_word: 'NO'
     mark: Marca
-    update_and_continue: Salva e continua
     detach: Scollega
     login: Login
     show: Mostra
@@ -1086,6 +1085,7 @@ it-IT:
     vote_here: vota qui
     unintegrate: Rimetti in dibattito
     join_accounts: "Unisci gli account ed effettua l'accesso"
+    save_and_exit: Salva ed esci
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di maturità.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     random_stack_2: '<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente.'
@@ -1343,6 +1343,9 @@ it-IT:
       follow_google: seguici su Google+
       footer:
         registered_at: 'Ricevi questa email in quanto sei registrato al sito %{url}.'
+        connect_with_us: 'Connettiti con noi:'
+        contact_info: 'Contatti:'
+        email_label: 'Email:'
       edit_preferences: Preferenze
       click_here: Clicca qui
     new_contribute:
