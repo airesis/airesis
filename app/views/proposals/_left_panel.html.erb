@@ -81,6 +81,7 @@
          data-text="Guarda questa proposta su #<%= ENV['APP_SHORT_NAME'] %>">Tweet</a>
       <g:plusone size="tall"></g:plusone>
       <div class="fb-like" data-send="false" data-layout="box_count" data-width="100" data-show-faces="false" data-likeable_type="<%= @proposal.class.class_name %>" data-likeable_id="<%= @proposal.id %>"></div>
+      <%= link_to t('.promote_proposal'), promote_proposal_url(@proposal, group_id: @group.try(:id)), remote: true, data: { disable_with: t('loading') }, class: 'btn blue', id: 'promote_proposal' %>
     </div>
 <% end %>
 
