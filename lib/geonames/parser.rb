@@ -99,15 +99,40 @@ require 'active_support/core_ext/hash/indifferent_access'
 # @country_name = 'Italy'
 # @country_code = '3175395'
 # @lang = 'it-IT'
+#
+# ---Chile
+# @continent_name = 'America'
+# @country_name = 'Chile'
+# @country_code = '3895114'
+# @lang = 'es-CL'
+#
+# ---Argentina
+# @continent_name = 'America'
+# @country_name = 'Argentina'
+# @country_code = '3865483'
+# @lang = 'es-AR'
+#
+# ---Brasil
+# @continent_name = 'Europe'
+# @country_name = 'Brazil'
+# @country_code = '3469034'
+# @lang = 'pt-BR'
+#
+# ---Russia
+# @continent_name = 'Europe'
+# @country_name = 'Russian Federation'
+# @country_code = '2017370'
+# @lang = 'ru'
 
 module Geonames
   class Parser
     def initialize
 
+
       @continent_name = 'Europe'
-      @country_name = 'Italy'
-      @country_code = '3175395'
-      @lang = 'it-IT'
+      @country_name = 'Russian Federation'
+      @country_code = '2017370'
+      @lang = 'en'
 
       @username = 'coorasse'
 
