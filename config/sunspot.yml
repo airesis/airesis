@@ -1,18 +1,20 @@
 production:
   solr:
-    hostname: localhost
+    hostname: 46.101.242.225
     port: 8983
     log_level: WARNING
-    path: /solr/production
-  auto_index_callback: after_commit
-  auto_remove_callback: after_commit
+    path: '/solr/collection1'
+    user: admin
+    password: airesis
 
 development:
   solr:
-    hostname: localhost
-    port: 8982
-    log_level: INFO
-    path: /solr/development
+    hostname: 46.101.242.225
+    port: 8983
+    log_level: WARNING
+    path: '/solr/collection1'
+    user: admin
+    password: airesis
 
 test:
   solr:

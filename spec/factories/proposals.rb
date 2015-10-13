@@ -3,10 +3,10 @@ FactoryGirl.define do
     proposal_category_id ProposalCategory::NO_CATEGORY
     title { Faker::Lorem.sentence }
     tags_list ['tag1', 'tag2', 'tag3'].join(',')
-    votation { {later: 'true'} }
+    votation { { later: 'true' } }
     quorum { BestQuorum.visible.first }
+    current_user_id { create(:user).id }
     factory :public_proposal do
-
     end
 
     factory :group_proposal do

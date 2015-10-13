@@ -144,7 +144,7 @@ Airesis::Application.routes.draw do
   get 'elfinder' => 'elfinder#elfinder'
   post 'elfinder' => 'elfinder#elfinder'
 
-  devise_for :users, controllers: {omniauth_callbacks: 'users/omniauth_callbacks', sessions: 'sessions', registrations: 'registrations', passwords: 'passwords', confirmations: 'confirmations'} do
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', sessions: 'sessions', registrations: 'registrations', passwords: 'passwords', confirmations: 'confirmations' } do
     get '/users/sign_in', to: 'devise/sessions#new'
     get '/users/sign_out', to: 'devise/sessions#destroy'
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
@@ -359,6 +359,11 @@ Airesis::Application.routes.draw do
 
     root to: 'home#index'
 
+    namespace :api do
+      namespace :v1 do
+        resources :proposals, only: [:index]
+      end
+    end
 
     resources :proposal_categories do
       get :index, scope: :collection
