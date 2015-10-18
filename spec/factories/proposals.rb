@@ -10,8 +10,16 @@ FactoryGirl.define do
     end
 
     factory :group_proposal do
-      association :group_proposals
       visible_outside true
+      transient do
+        groups []
+      end
+
+      after(:build) do |proposal, evaluator|
+        evaluator.groups.each do |group|
+          proposal.group_proposals << GroupProposal.new(group: group)
+        end
+      end
     end
 
     after(:build) do |proposal|

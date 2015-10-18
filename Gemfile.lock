@@ -547,6 +547,10 @@ GEM
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
+    simple_token_authentication (1.10.0)
+      actionmailer (>= 3.2.6, < 5)
+      actionpack (>= 3.2.6, < 5)
+      devise (~> 3.2)
     simplecov (0.10.0)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -730,6 +734,7 @@ DEPENDENCIES
   sidekiq-failures
   sidetiq
   simple_form
+  simple_token_authentication
   simplecov
   sinatra
   sitemap_generator
