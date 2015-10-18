@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012155210) do
+ActiveRecord::Schema.define(version: 20151018124339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -999,6 +999,7 @@ ActiveRecord::Schema.define(version: 20151012155210) do
     t.integer  "vote_event_id"
     t.integer  "signatures"
     t.integer  "views_count",                             default: 0,     null: false
+    t.boolean  "area_private",                            default: false, null: false
   end
 
   add_index "proposals", ["proposal_category_id"], name: "_idx_proposals_proposal_category_id", using: :btree

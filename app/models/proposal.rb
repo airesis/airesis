@@ -764,6 +764,7 @@ class Proposal < ActiveRecord::Base
       group_area = GroupArea.find(group_area_id) if group_area_id.present?
       if group_area # check user permissions for this group area
         errors.add(:group_area_id, I18n.t('permissions_required')) if current_user.cannot? :insert_proposal, group_area
+        self.area_private = true
         presentation_areas << group_area
       end
 
