@@ -47,44 +47,39 @@ class ProposalsController < ApplicationController
     @search.proposal_state_id = ProposalState::TAB_REVISION
     @revision_count = @search.results.total_entries
 
-    respond_to do |format|
-      format.html {
-        @page_head = ''
+    @page_head = ''
 
-        if params[:category]
-          @page_head += t('pages.proposals.index.title_with_category', category: ProposalCategory.find(params[:category]).description)
-        else
-          @page_head += t('pages.proposals.index.title')
-        end
-
-        if params[:type]
-          @page_head += " #{t('pages.propsoals.index.type', type: ProposalType.find(params[:type]).description)}"
-        end
-
-        if params[:time]
-          if params[:time][:type] == 'f'
-            @page_head += " #{t('pages.proposals.index.date_range', start: params[:time][:start_w], end: params[:time][:end_w])}"
-          elsif params[:time][:type] == '1h'
-            @page_head += " #{t('pages.proposals.index.last_1h')}"
-          elsif params[:time][:type] == '24h'
-            @page_head += " #{t('pages.proposals.index.last_24h')}"
-          elsif params[:time][:type] == '7d'
-            @page_head += " #{t('pages.proposals.index.last_7d')}"
-          elsif params[:time][:type] == '1m'
-            @page_head += " #{t('pages.proposals.index.last_1m')}"
-          elsif params[:time][:type] == '1y'
-            @page_head += " #{t('pages.proposals.index.last_1y')}"
-          end
-        end
-        if params[:search]
-          @page_head += " #{t('pages.proposals.index.with_text', text: params[:search])}"
-        end
-        @page_head += " #{t('pages.proposals.index.in_group_area_title')} '#{@group_area.name}'" if @group_area
-
-        @page_title = @page_head
-      }
-      format.json
+    if params[:category]
+      @page_head += t('pages.proposals.index.title_with_category', category: ProposalCategory.find(params[:category]).description)
+    else
+      @page_head += t('pages.proposals.index.title')
     end
+
+    if params[:type]
+      @page_head += " #{t('pages.propsoals.index.type', type: ProposalType.find(params[:type]).description)}"
+    end
+
+    if params[:time]
+      if params[:time][:type] == 'f'
+        @page_head += " #{t('pages.proposals.index.date_range', start: params[:time][:start_w], end: params[:time][:end_w])}"
+      elsif params[:time][:type] == '1h'
+        @page_head += " #{t('pages.proposals.index.last_1h')}"
+      elsif params[:time][:type] == '24h'
+        @page_head += " #{t('pages.proposals.index.last_24h')}"
+      elsif params[:time][:type] == '7d'
+        @page_head += " #{t('pages.proposals.index.last_7d')}"
+      elsif params[:time][:type] == '1m'
+        @page_head += " #{t('pages.proposals.index.last_1m')}"
+      elsif params[:time][:type] == '1y'
+        @page_head += " #{t('pages.proposals.index.last_1y')}"
+      end
+    end
+    if params[:search]
+      @page_head += " #{t('pages.proposals.index.with_text', text: params[:search])}"
+    end
+    @page_head += " #{t('pages.proposals.index.in_group_area_title')} '#{@group_area.name}'" if @group_area
+
+    @page_title = @page_head
   end
 
   #list all proposals in a state
@@ -97,7 +92,6 @@ class ProposalsController < ApplicationController
         render 'tab_list', layout: false
       }
       format.js
-      format.json
     end
   end
 
@@ -146,7 +140,7 @@ class ProposalsController < ApplicationController
               redirect_to group_proposals_path(@group)
             }
             format.json {
-              render json: {error: flash[:error]}, status: 401
+              render json: { error: flash[:error] }, status: 401
               return
             }
           end
@@ -172,7 +166,6 @@ class ProposalsController < ApplicationController
       format.js {
         render nothing: true
       }
-      format.json
       format.pdf {
         render pdf: 'show.pdf.erb',
                show_as_html: params[:debug].present?
@@ -332,7 +325,7 @@ class ProposalsController < ApplicationController
       format.html
       format.js do
         render :update do |page|
-          page.replace_html 'statistics_panel', partial: 'statistics', locals: {proposal: @proposal}
+          page.replace_html 'statistics_panel', partial: 'statistics', locals: { proposal: @proposal }
         end
       end
     end
@@ -377,7 +370,7 @@ class ProposalsController < ApplicationController
   def add_authors
     available_ids = params['user_ids']
     Proposal.transaction do
-      users = @proposal.available_user_authors.where(users: {id: available_ids.map(&:to_i)})
+      users = @proposal.available_user_authors.where(users: { id: available_ids.map(&:to_i) })
       @proposal.available_user_authors -= users
       users.each do |user|
         @proposal.proposal_presentations.build(user: user, acceptor: current_user)

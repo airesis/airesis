@@ -49,6 +49,9 @@ gem 'omniauth-meetup'
 gem 'omniauth-linkedin'
 gem 'omniauth-tecnologiedemocratiche', github: 'TecnologieDemocratiche/omniauth-tecnologiedemocratiche'
 
+# json apis
+gem 'rack-cors', :require => 'rack/cors'
+gem 'jbuilder'
 
 gem 'aws-sdk', '< 2.0'
 gem 'paperclip'
@@ -61,7 +64,6 @@ gem 'sanitize'
 gem 'sitemap_generator'
 gem 'jquery-rails'
 gem 'turbolinks'
-gem 'jbuilder'
 gem 'friendly_id'
 gem 'simple_form'
 gem 'gemoji'

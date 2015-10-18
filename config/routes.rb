@@ -361,7 +361,7 @@ Airesis::Application.routes.draw do
 
     namespace :api do
       namespace :v1 do
-        resources :proposals, only: [:index]
+        resources :proposals, only: [:show, :index]
       end
     end
 
