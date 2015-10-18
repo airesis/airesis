@@ -7,7 +7,7 @@ class ResqueMailer < ActionMailer::Base
   def url_options
     options = {}
     if @user
-      options.merge!(host: @user.locale.host)
+      options.merge!(host: @user.locale.host, protocol: DEFAULT_EMAIL_PROTOCOL)
       options.merge!(l: @user.locale.lang) unless @user.locale.lang.blank?
     end
     options
