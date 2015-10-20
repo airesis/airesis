@@ -7,7 +7,7 @@ class ResqueMailer < ActionMailer::Base
   def url_options
     options = {}
     if @user
-      options.merge!(host: @user.locale.host)
+      options.merge!(host: @user.locale.host, protocol: DEFAULT_EMAIL_PROTOCOL)
       options.merge!(l: @user.locale.lang) unless @user.locale.lang.blank?
     end
     options
@@ -62,11 +62,6 @@ class ResqueMailer < ActionMailer::Base
     mail(to: ENV['ADMIN_EMAIL'], subject: ENV['APP_SHORT_NAME'] + " - Segnalazione Contributo")
   end
 
-
-  def info_message(msg)
-    mail(to: ENV['ADMIN_EMAIL'], subject: ENV['APP_SHORT_NAME'] + " - Messaggio di informazione")
-  end
-
   # send an invite to subscribe in the group
   def invite(group_invitation_email_id)
     @group_invitation_email = GroupInvitationEmail.find(group_invitation_email_id)
@@ -96,8 +91,6 @@ class ResqueMailer < ActionMailer::Base
     mail(bcc: @to.map { |u| u.email }, from: ENV['NOREPLY_EMAIL'], reply_to: @from.email, to: "test@airesis.it", subject: subject) #todo extract email
   end
 
-
-
   def publish(newsletter_id, user_id)
     @user = User.find(user_id)
     @newsletter = Newsletter.find(newsletter_id)
@@ -126,7 +119,6 @@ class ResqueMailer < ActionMailer::Base
     @user = User.find(subscriber_id)
     mail(from: "Airesis Forum <replytest+#{@post.token}@airesis.it>", to: @user.email, subject: "[#{@group.name}] #{@post.topic.subject}") #todo extract email
   end
-
 
   def test_mail
     mail(to: ENV['ADMIN_EMAIL'], subject: "Test Redis To Go")

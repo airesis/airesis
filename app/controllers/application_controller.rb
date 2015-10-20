@@ -111,11 +111,10 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_domain
-    @domain_locale = request.host.split('.').last
     if params[:l].present?
       @current_domain = SysLocale.find_by_key(params[:l])
     else
-      @current_domain = SysLocale.find_by(host: request.host, lang: nil) || SysLocale.default
+      @current_domain = SysLocale.find_by(host: request.domain, lang: nil) || SysLocale.default
     end
   end
 
@@ -130,9 +129,9 @@ class ApplicationController < ActionController::Base
     @domain_locale = request.host.split('.').last
     @locale =
       if Rails.env.test? || Rails.env.development?
-        params[:l] || I18n.default_locale
+        params[:l].blank? ? I18n.default_locale : params[:l]
       else
-        params[:l] || current_domain.key || I18n.default_locale
+        params[:l].blank? ? (current_domain.key || I18n.default_locale) : params[:l]
       end
     I18n.locale = @locale
   end
@@ -150,7 +149,7 @@ class ApplicationController < ActionController::Base
   end
 
   def log_error(exception)
-    if ENV['SENTRY_PRIVATE_KEY'] && !Rails.env.test? && !Rails.env.development?
+    if SENTRY_ACTIVE && !Rails.env.test? && !Rails.env.development?
       extra = {}
       extra[:current_user_id] = current_user.id if current_user
       if exception.instance_of? CanCan::AccessDenied

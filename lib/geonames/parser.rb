@@ -57,16 +57,82 @@ require 'active_support/core_ext/hash/indifferent_access'
 # @country_name = 'France'
 # @country_code = '3017382'
 # @lang = 'fr'
+#
+# ---United kingdom
+# @continent_name = 'Europe'
+# @country_name = 'United Kingdom'
+# @country_code = '2635167'
+# @lang = 'en'
+#
+# ---Croatia
+# @continent_name = 'Europe'
+# @country_name = 'Croatia'
+# @country_code = '3202326'
+# @lang = 'hr-HR'
+#
+# ---Montenegro
+# @continent_name = 'Europe'
+# @country_name = 'Montenegro'
+# @country_code = '3194884'
+# @lang = 'en'
+#
+# ---Hungary
+# @continent_name = 'Europe'
+# @country_name = 'Hungary'
+# @country_code = '719819'
+# @lang = 'hu-HU'
+#
+# ---Romania
+# @continent_name = 'Europe'
+# @country_name = 'Romania'
+# @country_code = '798549'
+# @lang = 'ro'
+#
+# ---China
+# @continent_name = 'Asia'
+# @country_name = 'China'
+# @country_code = '1814991'
+# @lang = 'zh-CN'
+#
+# ---Italy
+# @continent_name = 'Europe'
+# @country_name = 'Italy'
+# @country_code = '3175395'
+# @lang = 'it-IT'
+#
+# ---Chile
+# @continent_name = 'America'
+# @country_name = 'Chile'
+# @country_code = '3895114'
+# @lang = 'es-CL'
+#
+# ---Argentina
+# @continent_name = 'America'
+# @country_name = 'Argentina'
+# @country_code = '3865483'
+# @lang = 'es-AR'
+#
+# ---Brasil
+# @continent_name = 'Europe'
+# @country_name = 'Brazil'
+# @country_code = '3469034'
+# @lang = 'pt-BR'
+#
+# ---Russia
+# @continent_name = 'Europe'
+# @country_name = 'Russian Federation'
+# @country_code = '2017370'
+# @lang = 'ru'
 
 module Geonames
   class Parser
     def initialize
-      # correctly set these parameters
-      # ---Serbia
+
+
       @continent_name = 'Europe'
-      @country_name = 'France'
-      @country_code = '3017382'
-      @lang = 'fr'
+      @country_name = 'Russian Federation'
+      @country_code = '2017370'
+      @lang = 'en'
 
       @username = 'coorasse'
 

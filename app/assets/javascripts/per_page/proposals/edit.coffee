@@ -88,9 +88,10 @@ window.ProposalsEdit =
       editor = CKEDITOR.instances[name]
       ProposalsEdit.addEditorEvents editor
 
-    $('[data-clean-fields=true]').on 'click', =>
+    $('[data-clean-fields=true]').on 'click', (event)=>
       @updateSolutionSequences()
       @fillCleanFields()
+      @setSubaction(event)
 
     suggestion_right_ = $('.suggestion_right')
     fitRightMenu(suggestion_right_)
@@ -137,6 +138,8 @@ window.ProposalsEdit =
       first: true
     ProposalsEdit.addEditorEvents editor_
     return
+  setSubaction: (event)->
+    $('[name="subaction"]').val($(event.target).data('type'))
   fillCleanFields: ->
     integrated_ = $('#proposal_integrated_contributes_ids_list').val()
     if ProposalsEdit.contributesCount > 0

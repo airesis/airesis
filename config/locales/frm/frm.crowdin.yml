@@ -76,6 +76,10 @@ crowdin:
         index: crwdns8372:0crwdne8372:0
         show:
           title: crwdns8373:0crwdne8373:0
+        new: crwdns9925:0crwdne9925:0
+        created: crwdns9926:0crwdne9926:0
+        not_created: crwdns9927:0crwdne9927:0
+        deleted: crwdns9928:0crwdne9928:0
     common:
       pages: crwdns6069:0crwdne6069:0
     errors:
@@ -202,6 +206,7 @@ crowdin:
       frm_forum:
         category: crwdns6154:0crwdne6154:0
         title: crwdns6155:0crwdne6155:0
+        name: crwdns9929:0crwdne9929:0
         description: crwdns6156:0crwdne6156:0
         moderators: crwdns6157:0crwdne6157:0
         visible_outside: crwdns6158:0crwdne6158:0

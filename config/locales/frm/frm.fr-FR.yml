@@ -73,6 +73,10 @@ fr-FR:
         delete_confirm: Êtes-vous certain de vouloir supprimer cette catégorie de forum?
         default_private: Section Privée
         default_public: Section Publique
+      group:
+        index: Gérer les groupes de modérateurs
+        show:
+          title: Gérer les modérateurs
     common:
       pages: Pages
     errors:
@@ -92,6 +96,7 @@ fr-FR:
       moderator_tools: Outils de modération
       topic_tools: Outils de Sujets
       admin_tools: "Outils d'administration"
+      title: Nouveau forum
     forums:
       index:
         title: Forum
@@ -167,7 +172,9 @@ fr-FR:
       edited: Votre message a été modifié.
       not_edited: "Votre message n'a pas pu être modifié."
       deleted: Votre message a été supprimé.
+      deleted_with_topic: Le dernier message de la rubrique a été supprimé. Le sujet entier a été également supprimé
       cannot_delete: "Vous ne pouvez pas supprimer un message dont vous n'êtes pas l'auteur."
+      cannot_quote_deleted_post: "Le message que vous recherchez n'existe plus."
     posts:
       moderation:
         moderate: Modérer

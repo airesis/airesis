@@ -129,12 +129,11 @@ module ProposalsHelper
   end
 
   def link_to_proposal(proposal, options = {})
-    group = proposal.groups.first
-    link_to proposal.title,
-            (group ?
-              group_proposal_url(group, proposal) :
-              proposal_url(proposal)),
-            options
+    link_to proposal.title, url_for_proposal(proposal), options
+  end
+
+  def url_for_proposal(proposal, options = {})
+    proposal.group ? group_proposal_url(proposal.group, proposal, options) : proposal_url(proposal, options)
   end
 
   # return an array of nicknames for the proposal, in json format

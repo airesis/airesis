@@ -18,6 +18,8 @@ gem 'foundation-rails'
 
 gem 'pg'
 
+gem 'rails_admin'
+
 gem 'sunspot_rails'
 gem 'sunspot-queue', github: 'gaffneyc/sunspot-queue'
 
@@ -50,6 +52,7 @@ group :development do
   gem 'awesome_print'
   gem 'letter_opener'
   gem 'foreman'
+  gem 'thin', require: false
 end
 
 group :development, :test do
@@ -69,6 +72,7 @@ group :test do
   gem 'ruby-prof'
   gem 'test-unit'
   gem 'simplecov', require: false
+  gem 'email_spec'
 end
 
 group :development do

@@ -11,7 +11,7 @@
     <% if can? :destroy, @proposal %>
         <div class="panel callout">
           <p>
-            <% last = (10.minutes - (Time.now - @proposal.created_at)) / 60 %>
+            <% last = (EDIT_PROPOSAL_TIME_LIMIT - (Time.now - @proposal.created_at)) / 60 %>
 
             <% if last < 2 %>
                 <%= t('pages.proposals.edit.hurry_up') %>
@@ -132,10 +132,11 @@
         </div>
     <% end %>
     <p>
+      <%= hidden_field_tag :subaction, 'save' %>
       <%= f.hidden_field :integrated_contributes_ids_list, data: {integrated_contributes_list: ''} %>
 
-      <%= f.submit t('buttons.update'), class: 'btn blue', data: {disable_with: t('updating'), type: 'save', clean_fields: true} %>
-      <%= f.submit t('buttons.update_and_continue'), class: 'btn blue', data: {disable_with: t('updating'), type: 'continue', clean_fields: true} %>
+      <%= f.submit t('buttons.save_and_exit'), class: 'btn blue', data: {disable_with: t('updating'), type: 'save', clean_fields: true} %>
+      <%= f.submit t('buttons.save'), class: 'btn blue', data: {disable_with: t('updating'), type: 'continue', clean_fields: true} %>
 
     </p>
 <% end %>
@@ -205,8 +206,8 @@
 <% content_for :left_panel do %>
     <div class="edit_proposal_panel">
       <div class="mybox">
-        <%= link_to t('buttons.update'), '#', data: {update_and_exit_proposal: ''}, class: 'update2 btn blue' %>
-        <%= link_to t('buttons.update_and_continue'), '#', data: {update_proposal: ''}, class: 'update3 btn blue' %>
+        <%= link_to t('buttons.save_and_exit'), '#', data: {update_and_exit_proposal: ''}, class: 'update2 btn blue' %>
+        <%= link_to t('buttons.save'), '#', data: {update_proposal: ''}, class: 'update3 btn blue' %>
         <%= link_to t('pages.proposals.edit.hide_contributes'), '#', data: {other: t('pages.proposals.edit.show_contributes'), close_edit_right_section: ''}, class: 'contributes btn' %>
         <%= link_to t('buttons.cancel'), @proposal.private ? group_proposal_url(@proposal.groups.first, @proposal) : proposal_url(@proposal, subdomain: false), class: 'btn' %>
       </div>

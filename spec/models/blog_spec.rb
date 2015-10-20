@@ -31,40 +31,64 @@ describe Blog do
     expect(blog.last_post).to eq BlogPost.last
   end
 
-  context 'retrieves territoriers correctly' do
-    let(:sys_locale) { create(:sys_locale, territory: territory) }
+  context 'when created' do
     let(:user) { create(:user) }
     let(:blog) { create(:blog, user: user) }
 
-    context 'when user has a country attached as original locale' do
-      let(:territory) { create(:country) }
+    it 'has a slug' do
+      expect(blog.slug).to eq to_slug_format(blog.title)
+    end
 
+    context 'when title changes' do
+      let(:new_title) {Faker::Company.name}
       before(:each) do
-        user.update(original_locale: sys_locale)
+        blog.update(title: new_title)
       end
 
-      it 'retrieves it' do
-        expect(blog.solr_country_id).to eq territory.id
+      it 'updates the slug' do
+        expect(blog.slug).to eq to_slug_format(new_title)
       end
 
-      it 'retrieves the continent as well' do
-        expect(blog.solr_continent_id).to eq territory.continent_id
+      it 'keeps the old slug' do
+        expect(blog.slugs.count).to eq 2
       end
     end
-    context 'when user has a continent attached as original locale' do
-      let(:territory) { create(:continent) }
 
-      before(:each) do
-        user.update(original_locale: sys_locale)
+    context 'retrieves territories correctly' do
+      let(:sys_locale) { create(:sys_locale, territory: territory) }
+
+      context 'when user has a country attached as original locale' do
+        let(:territory) { create(:country) }
+
+        before(:each) do
+          user.update(original_locale: sys_locale)
+        end
+
+        it 'retrieves it' do
+          expect(blog.solr_country_id).to eq territory.id
+        end
+
+        it 'retrieves the continent as well' do
+          expect(blog.solr_continent_id).to eq territory.continent_id
+        end
       end
+      context 'when user has a continent attached as original locale' do
+        let(:territory) { create(:continent) }
 
-      it 'retrieves the continent' do
-        expect(blog.solr_continent_id).to eq territory.id
-      end
+        before(:each) do
+          user.update(original_locale: sys_locale)
+        end
 
-      it 'does not retrieve the country' do
-        expect(blog.solr_country_id).to be_nil
+        it 'retrieves the continent' do
+          expect(blog.solr_continent_id).to eq territory.id
+        end
+
+        it 'does not retrieve the country' do
+          expect(blog.solr_country_id).to be_nil
+        end
       end
     end
   end
+
+
 end

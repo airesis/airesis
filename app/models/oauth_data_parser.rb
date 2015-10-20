@@ -25,7 +25,7 @@ class OauthDataParser
       info[:name] = user_name
       info[:surname] = user_surname
       info[:sex] = user_sex
-      info[:email_verified] = user_email_verified?
+      info[:verified] = verified?
       info[:avatar_url] = user_avatar_url
       info[:certified] = user_certified?
       info[:tax_code] = user_tax_code
@@ -83,12 +83,12 @@ class OauthDataParser
     @user_tax_code ||= raw_info['tax_code'] # TD
   end
 
-  # !!! TODO: verificare che gli indirizzi email ricevuti dagli altri provider siano verificati !!!
-  def user_email_verified?
+  def verified?
     case provider
-    when Authentication::FACEBOOK then raw_info['verified']
-    when Authentication::GOOGLE then true
-    else true
+    when Authentication::FACEBOOK then
+      raw_info['verified']
+    else
+      true
     end
   end
 

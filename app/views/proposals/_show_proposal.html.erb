@@ -1,6 +1,6 @@
 <% if current_user %>
     <% @unread = @proposal.contributes.listable.unread(current_user.id, @proposal.id) %>
-    <% if false && @unread.count > 0 #TODO                        %>
+    <% if false && @unread.count > 0 #TODO               %>
         <%= link_to '#', class: 'read_contributes' do %>
             <div class="icon-bell medium"></div>
         <% end %>
@@ -25,7 +25,7 @@
   <span itemprop="name"><%= h @proposal.title %></span>
 </h1>
 <div>
-  <% if @proposal.contributes.count>1 %>
+  <% if @proposal.contributes.count > 1 %>
       <% @removable_count = @proposal.contributes.unintegrated.removable.count %>
       <% @removed_count = @proposal.contributes.noise.count %>
       <% if ((is_proprietary? @proposal) || is_admin?) && (@removable_count + @removed_count > 0) %>
@@ -37,26 +37,24 @@
       <% end %>
 
   <% end %>
-  <% if can? :update, @proposal %>
-      <% if @group %>
-          <%= link_to edit_group_proposal_url(@group, @proposal), class: 'btn' do %>
-              <i class="fa fa-pencil"></i>
-              <%= t('pages.proposals.show.edit_button') %>
-          <% end if can? :update, @proposal %>
-          <%= link_to group_proposal_url(@group, @proposal), method: :delete, data: { confirm: t('pages.proposals.show.delete_proposal_confirmation') }, class: 'btn' do %>
-              <i class="fa fa-trash-o"></i>
-              <%= t('pages.proposals.show.delete_button') %>
-          <% end if can? :destroy, @proposal %>
-      <% else %>
-          <%= link_to edit_proposal_path(@proposal), class: 'btn' do %>
-              <i class="fa fa-pencil"></i>
-              <%= t('pages.proposals.show.edit_button') %>
-          <% end if can? :update, @proposal %>
-          <%= link_to @proposal, method: :delete, data: { confirm: t('pages.proposals.show.delete_proposal_confirmation') }, class: 'btn' do %>
-              <i class="fa fa-trash-o"></i>
-              <%= t('pages.proposals.show.delete_button') %>
-          <% end if can? :destroy, @proposal %>
-      <% end %>
+  <% if @group %>
+      <%= link_to edit_group_proposal_url(@group, @proposal), class: 'btn' do %>
+          <i class="fa fa-pencil"></i>
+          <%= t('pages.proposals.show.edit_button') %>
+      <% end if can? :update, @proposal %>
+      <%= link_to group_proposal_url(@group, @proposal), method: :delete, data: { confirm: t('pages.proposals.show.delete_proposal_confirmation') }, class: 'btn' do %>
+          <i class="fa fa-trash-o"></i>
+          <%= t('pages.proposals.show.delete_button') %>
+      <% end if can? :destroy, @proposal %>
+  <% else %>
+      <%= link_to edit_proposal_path(@proposal), class: 'btn' do %>
+          <i class="fa fa-pencil"></i>
+          <%= t('pages.proposals.show.edit_button') %>
+      <% end if can? :update, @proposal %>
+      <%= link_to @proposal, method: :delete, data: { confirm: t('pages.proposals.show.delete_proposal_confirmation') }, class: 'btn' do %>
+          <i class="fa fa-trash-o"></i>
+          <%= t('pages.proposals.show.delete_button') %>
+      <% end if can? :destroy, @proposal %>
   <% end %>
 
   <% if @proposal.in_valutation? %>
@@ -64,7 +62,7 @@
           <i class="fa fa-close"></i>
           <%= t('pages.proposals.show.close_debate_button') %>
       <% end  if can? :close_debate, @proposal %>
-  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox                    %>
+  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox %>
       <div id="wait_date_header_container">
         <%= render partial: 'proposals/wait_date_header' %>
       </div>
@@ -91,8 +89,6 @@
 </div>
 
 <div style="clear: both;"></div>
-
-
 <% unless can? :participate, @proposal %>
     <% if @proposal.in_valutation? %>
         <div data-alert class="alert-box info radius">
@@ -127,7 +123,7 @@
 <% end %>
 
 <% unless @proposal.is_petition? %>
-    <% if @proposal.waiting? #waiting for the vote period                              %>
+    <% if @proposal.waiting? #waiting for the vote period                     %>
         <%= link_to @group ? start_votation_group_proposal_url(@group, @proposal) : start_votation_proposal_url(@proposal), method: :post, data: { confirm: t('pages.proposals.show.start_votation_proposal_confirmation') }, class: 'btn' do %>
             <i class="fa fa-check-square-o"></i>
             <%= t('pages.proposals.show.start_votation_button') %>

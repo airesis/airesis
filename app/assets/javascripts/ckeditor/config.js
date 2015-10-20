@@ -47,7 +47,7 @@ CKEDITOR.editorConfig = function( config )
 
     ];
 
-    config.extraPlugins = 'youtube,smiley,wordcount' ;
+    config.extraPlugins = 'justify,font,colorbutton,youtube,smiley,wordcount' ;
 
 
     /* Filebrowser routes */

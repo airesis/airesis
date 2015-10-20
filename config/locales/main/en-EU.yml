@@ -731,8 +731,6 @@ en-EU:
         preferences: "PREFERENCES"
         administration: "ADMINISTRATION"
         logout: "LOGOUT"
-        become_user: "Become a user"
-        become_user_button: "Go!"
         remember_me: "Remember me on this computer"
         login_button: "Login"
         registration_button: "JOIN US"
@@ -1080,7 +1078,6 @@ en-EU:
     yes_word: 'YES'
     no_word: 'NO'
     mark: "Mark"
-    update_and_continue: "Save and continue"
     detach: "Detach"
     login: "Login"
     show: "Show"
@@ -1090,6 +1087,7 @@ en-EU:
     vote_here: "vote here"
     unintegrate: "Put back in debate"
     join_accounts: "Join accounts and login"
+    save_and_exit: "Save and exit"
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>First, new contributions or the ones you haven't evaluated are shown, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent"
@@ -1348,6 +1346,9 @@ en-EU:
       follow_google: "follow us on Google+"
       footer:
         registered_at: "You receive this email because you are registered on %{url}."
+        connect_with_us: "Connect With Us:"
+        contact_info: "Contact Info:"
+        email_label: "Email:"
       edit_preferences: "Preferences"
       click_here: "Click here"
     new_contribute:

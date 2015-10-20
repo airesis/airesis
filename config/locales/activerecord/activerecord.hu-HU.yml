@@ -17,11 +17,6 @@ hu-HU:
         period: Ismétlés
         frequency: Ismétlődik minden
         private: Személyes
-      event/meeting/place:
-        address: Cím
-        municipality_id: Város
-        latitude_original: Szélesség
-        longitude_original: Hosszúság
       group:
         facebook_page_url: Facebook oldal címe
         name: Név
@@ -70,7 +65,6 @@ hu-HU:
         content: Szöveg
         interest_borders_tkn: Földrajzi érdeklődési kör
         tags_list: Cimkék
-        quorum_id: Határozatképesség
         anonima: Ideiglenes anonimitás
         visible_outside: Nyilvánosan látható
         secret_vote: Titkos szavazás
@@ -100,16 +94,13 @@ hu-HU:
         vote_good_score: Jóváhagyás
       search_participant:
         role_id: Szerepkör
-        keywords: Családnév vagy vezetéknév
       sys_movement:
         sys_movement_type_id: Típus
         made_on: Készült
         amount: Mennyiség
         sys_currency_id: Pénznem
       user:
-        name: Név
         email: E-mail cím
-        surname: Vezetéknév
         login: Felhasználó név
         password: jelszó
         linkedinpageurl: Linkedin oldalad
@@ -150,6 +141,3 @@ hu-HU:
           attributes:
             email:
               already_confirmed: Ez az e-mail cím már regisztrálva van
-        group:
-          portavoce:
-            required: Ki kell választanod egy szóvivőt

@@ -26,6 +26,10 @@
     CKEDITOR.plugins.addExternal('smiley', '<%=asset_path 'ckeditor/plugins/smiley/plugin.js'%>');
     CKEDITOR.plugins.addExternal('lite', '<%=asset_path 'ckeditor/plugins/lite/plugin.js'%>');
     CKEDITOR.plugins.addExternal('wordcount', '<%=asset_path 'ckeditor/plugins/wordcount/plugin.js'%>');
+    CKEDITOR.plugins.addExternal('justify', '<%=asset_path 'ckeditor/plugins/justify/plugin.js'%>');
+    CKEDITOR.plugins.addExternal('font', '<%=asset_path 'ckeditor/plugins/font/plugin.js'%>');
+    CKEDITOR.plugins.addExternal('colorbutton', '<%=asset_path 'ckeditor/plugins/colorbutton/plugin.js'%>');
+    CKEDITOR.plugins.addExternal('panelbutton', '<%=asset_path 'ckeditor/plugins/panelbutton/plugin.js'%>');
     CKEDITOR.config.customConfig = '<%=asset_path 'ckeditor/config.js'%>';
 
     Airesis.id = <%=current_user ? current_user.id : -1 %>;
@@ -193,12 +197,11 @@
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false"></script>
 
 
-<% if Rails.env.production? %>
+<% if Rails.env.production? && SENTRY_ACTIVE%>
     <script src="//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"></script>
     <script>
         Raven.config('https://<%=ENV['SENTRY_PUBLIC_KEY']%>@app.getsentry.com/<%=ENV['SENTRY_PORT']%>', {
-            release: '<%=AIRESIS_VERSION%>',
-
+            release: '<%=AIRESIS_VERSION%>'
             // we highly recommend restricting exceptions to a domain in order to filter out clutter
             //whitelistUrls: ['example.com/scripts/']
         }).install();

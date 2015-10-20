@@ -1,22 +1,12 @@
 sh-HR:
   db:
     sys_locales:
-      it-IT:
-        description: Talijanski
-      en:
-        description: Engleski
-      en-US:
-        description: Engleski (SAD)
-      fr:
-        description: Francuski
       es-ES:
         description: Španjolski
-      pt-PT:
-        description: Portugalski
+      it-IT:
+        description: Talijanski
       pt-BR:
         description: Portugalski (Brazil)
-      de:
-        description: Njemački
     proposal_types:
       STANDARD:
         description: Standardni prijedlog
@@ -96,9 +86,5 @@ sh-HR:
         message: '%{user} je dodao/la novi post u svoj blog <b>%{blog}</b>'
       new_valutation_mine:
         description: Nova ocjena mog prijedloga
-        email_subject: '%{title} - Nova ocjena'
-        message: 'Vaš prijedlog <b>%{title}</b> je dobio novu ocjenu'
       new_valutation:
         description: Nova ocjena prijedloga u kojem učestvujem
-        email_subject: '%{title} - Nova ocjena'
-        message: 'Prijedlog <b>%{title}</b> je dobio novu ocjenu'

@@ -357,15 +357,15 @@ function start_end_fdatetimepicker(start, end, min_minutes, suggested_minutes) {
 }
 
 function fdatetimepicker_only_date(start, end) {
-  start.fdatetimepicker('pickOnlyDate');
-  start.fdatetimepicker('setBeginOfDay');
-  end.fdatetimepicker('pickOnlyDate');
-  end.fdatetimepicker('setEndOfDay');
+    start.fdatetimepicker('pickOnlyDate');
+    start.fdatetimepicker('setBeginOfDay');
+    end.fdatetimepicker('pickOnlyDate');
+    end.fdatetimepicker('setEndOfDay');
 }
 
 function fdatetimepicker_date_and_time(start, end) {
-  start.fdatetimepicker('pickDateAndTime');
-  end.fdatetimepicker('pickDateAndTime');
+    start.fdatetimepicker('pickDateAndTime');
+    end.fdatetimepicker('pickDateAndTime');
 }
 
 function disegnaCountdown() {
@@ -704,6 +704,12 @@ function formatQuorum(state) {
     var element_ = state.element;
     if (!state.id) return state.text; // optgroup
     return "<div> <div class=\"quorum_title\">" + state.text + "</div> <div class=\"quorum_desc\">" + $(element_).data('description') + "</div></div>";
+}
+
+function formatQuorumSelection(state) {
+    var element_ = state.element;
+    if (!state.id) return state.text; // optgroup
+    return "<div><div class=\"quorum_title\">" + state.text + "</div></div>";
 }
 
 //custom formatter for vote period in select2 dropdown

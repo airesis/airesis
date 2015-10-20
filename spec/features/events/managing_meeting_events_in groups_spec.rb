@@ -30,9 +30,8 @@ describe 'manage correctly meeting events', type: :feature, js: true, seeds: tru
     fill_in I18n.t('activerecord.attributes.event.endtime'), with: (I18n.l Time.now + 1.day, format: :datetimepicker)
     page.execute_script("$('#event_endtime').fdatetimepicker('hide');")
     click_button I18n.t('buttons.next')
-    puts Continent.first.municipalities.where(['lower_unaccent(description) like lower_unaccent(?)', 'Bo' + '%']).order('population desc nulls last').count
     select2ajax('#event_meeting_attributes_place_attributes_municipality_id', 'Bologna')
-    fill_in I18n.t('activerecord.attributes.event.meeting.place.address'), with: 'Via Rizzoli 2'
+    fill_in I18n.t('activerecord.attributes.place.address'), with: 'Via Rizzoli 2'
     page.execute_script("$('#event_meeting_attributes_place_attributes_latitude_original').val(#{Faker::Address.latitude});")
     page.execute_script("$('#event_meeting_attributes_place_attributes_longitude_original').val(#{Faker::Address.longitude});")
     #find(:xpath, "//input[@id='event_meeting_attributes_place_attributes_longitude_original']").set Faker::Address.longitude

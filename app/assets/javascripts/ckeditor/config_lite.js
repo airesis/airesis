@@ -3,10 +3,12 @@ CKEDITOR.editorConfig = function( config ) {
         { items: ["Cut","Copy","Paste","PasteText","PasteFromWord","-","Undo","Redo"]},
         { items: ["Link","Unlink","Anchor"]},
         { items: ["Image","Youtube","Table"]},
-        { items: [ "NumberedList","BulletedList"]},
+        { items: [ "Bold","Italic","Underline"]},
+        { items: [ "NumberedList","BulletedList","-","JustifyLeft","JustifyCenter","JustifyRight","JustifyBlock" ]},
         { items: [ "FontSize"]},
         { items: [ "TextColor","BGColor"]},
-        { items: [ 'lite_ToggleShow' ]}
+        { items: [ "lite_ToggleShow" ]},
+        { items: [ "Maximize"]}
     ];
 
     config.toolbar_simple_proposal = [
@@ -18,7 +20,7 @@ CKEDITOR.editorConfig = function( config ) {
         { items: [ "TextColor","BGColor"]}
     ];
 
-    config.extraPlugins = 'youtube,smiley,lite' ;
+    config.extraPlugins = 'justify,font,colorbutton,youtube,smiley,lite';
 
     //var lite = config.lite|| {};
     //config.lite = lite;

@@ -157,14 +157,14 @@ class ProposalsController < ApplicationController
       end
     end
 
-    flash.now[:info] = I18n.t('info.proposal.public_visible') if @proposal.visible_outside
-
     @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
-    @blocked_alerts = BlockedProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id) if current_user
-    register_view(@proposal, current_user)
+
     load_my_vote
     respond_to do |format|
       format.html {
+        flash.now[:info] = I18n.t('info.proposal.public_visible') if @proposal.visible_outside
+        register_view(@proposal, current_user)
+        @blocked_alerts = BlockedProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id) if current_user
         if @proposal.voting?
           flash.now[:info] = I18n.t('info.proposal.voting')
         end
@@ -174,13 +174,8 @@ class ProposalsController < ApplicationController
       }
       format.json
       format.pdf {
-        if @proposal.voted?
-          render pdf: 'show.pdf.erb',
-                 show_as_html: params[:debug].present?
-        else
-          flash[:error] = "E' possibile esportare in pdf solo le proposte terminate"
-          redirect_to @proposal, format: :html
-        end
+        render pdf: 'show.pdf.erb',
+               show_as_html: params[:debug].present?
       }
     end
   end
@@ -273,7 +268,7 @@ class ProposalsController < ApplicationController
     authorize! :regenerate, @proposal
     @proposal.current_user_id = current_user.id
     @proposal.regenerate(regenerate_proposal_params)
-    flash[:notice] = I18n.t('info.proposal.back_in_debate')
+    flash[:notice] = t('info.proposal.back_in_debate')
     respond_to do |format|
       format.html {
         redirect_to redirect_url(@proposal)
@@ -289,7 +284,7 @@ class ProposalsController < ApplicationController
       respond_to do |format|
         flash.now[:notice] = I18n.t('info.proposal.proposal_updated')
         format.html {
-          if params[:commit] == t('buttons.update')
+          if params[:subaction] == 'save'
             redirect_to @group ? group_proposal_url(@group, @proposal) : @proposal
           else
             @proposal.reload

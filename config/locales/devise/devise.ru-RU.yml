@@ -63,7 +63,6 @@ ru-RU:
       creation_failure: 'Ошибка при доступе через %{provider}'
       join_success: 'Аккаунты успешно объединены. Поздравления, теперь вы можете войти через %{provider}.'
       join_failure: 'Существует ещё один %{provider} аккаунт. Возможность соединить аккаунты будет скоро доступна.'
-      account_not_verified: 'Аккаунт %{provider} с неподтверждённым адресом электронной почты.'
     mailer:
       confirmation_instructions:
         subject: Инструкции по подтверждению

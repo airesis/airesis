@@ -1,5 +1,0 @@
-Municipality.create(description: "Quillota", province_id: 192, region_id:  43, country_id: 90, continent_id: 2 , population: 75916)
-Municipality.create(description: "Nogales", province_id: 192, region_id:  43, country_id: 90, continent_id: 2 , population: 21633)
-Municipality.create(description: "La Cruz", province_id: 192, region_id:  43, country_id: 90, continent_id: 2 , population: 12851)
-Municipality.create(description: "La Calera", province_id: 192, region_id:  43, country_id: 90, continent_id: 2 , population: 49503)
-Municipality.create(description: "Hijuelas", province_id: 192, region_id:  43, country_id: 90, continent_id: 2 , population: 16014)

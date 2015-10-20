@@ -1,7 +1,7 @@
 en-EU:
   activerecord:
     models:
-      meeting: 'Meeting'     
+      meeting: 'Meeting'
       places: 'Place'
     attributes:
       blog_comment:
@@ -77,6 +77,8 @@ en-EU:
         secret_vote: "Secret vote"
         vote_starts_at: "Vote starts at"
         vote_ends_at: "Vote ends at"
+        debate_starts_at: "Debate starts at"
+        debate_ends_at: "Debate ends at"
       proposal_comment:
          content: 'Content'
       quorum:
@@ -118,6 +120,8 @@ en-EU:
         accept_conditions: 'Terms of Use'
         receive_newsletter: 'Newsletter via Email'
         blocked: "Error"
+      user_sensitive:
+        name: 'First Name'
       group_area:
         name: "Name"
         description: "Description"

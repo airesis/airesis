@@ -1,19 +1,19 @@
-<% @host = @resource.original_locale.host %>
-<% @subdomain = @resource.subdomain %>
-<% if @subdomain %>
-    <% @host = [@subdomain, @host.gsub('www', '')].join %>
-<% end %>
-<% @url = user_confirmation_url(confirmation_token: @token, host: @host, l: @resource.original_locale.lang) %>
+<% host = @resource.original_locale.host %>
+<% url_params = {confirmation_token: @token, host: host, protocol: DEFAULT_EMAIL_PROTOCOL} %>
+<% subdomain = @resource.subdomain %>
+<% url_params[:subdomain] = subdomain if subdomain%>
+<% url_params[:l] = @resource.original_locale.lang unless @resource.original_locale.lang.blank? %>
+<% url = user_confirmation_url(url_params) %>
 
 <p><%= t('devise.mailer.confirmation_instructions.welcome', {app_name: ENV['APP_SHORT_NAME'], user: @resource.fullname}) %></p>
 
 <p><%= t('devise.mailer.confirmation_instructions.follow_link') %></p>
 
-<p><%= link_to t('devise.mailer.confirmation_instructions.confirm_account'), @url %></p>
+<p><%= link_to t('devise.mailer.confirmation_instructions.confirm_account'), url %></p>
 
 <p><%= t('devise.mailer.confirmation_instructions.follow_link_2') %></p>
 
-<p><%= link_to @url, @url %></p>
+<p><%= link_to url, url %></p>
 
 <p><%= t('devise.mailer.confirmation_instructions.access_by_email', {app_name: ENV['APP_SHORT_NAME']}) %></p>
 

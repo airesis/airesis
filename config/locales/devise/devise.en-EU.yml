@@ -20,6 +20,7 @@ en-EU:
       unconfirmed: "Account has not been confirmed yet"
       user:
         invalid: 'Invalid username or password'
+        not_found_in_database: 'Invalid username or password'
     sessions:
       signed_in: 'Signed in successfully'
       signed_out: 'Signed out successfully'
@@ -65,7 +66,7 @@ en-EU:
       join_failure: "Another %{provider} account exists. The feature to join accounts will be available soon."
       certified_email_taken: "Another account with your certified email exists."
       already_certified: "Another account has been certified with your tax code."
-      account_not_verified: "Account %{provider} with unconfirmed email."
+      account_not_verified: "Account %{provider} not verified. Please verify your account on %{provider}."
     mailer:
       confirmation_instructions:
         subject: 'Confirmation instructions'

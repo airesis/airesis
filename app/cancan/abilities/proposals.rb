@@ -153,7 +153,7 @@ module Abilities
 
       can :destroy, Proposal do |proposal|
         (proposal.users.include? user) &&
-          !(((Time.now - proposal.created_at) > 10.minutes) &&
+          !(((Time.now - proposal.created_at) > EDIT_PROPOSAL_TIME_LIMIT) &&
             (proposal.valutations > 0 || proposal.contributes.count > 0)) && proposal.in_valutation?
       end
     end

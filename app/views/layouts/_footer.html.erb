@@ -1,30 +1,32 @@
 <footer class="row full-width">
-  <div class="large-6 medium-6 columns">
-    <a href="https://github.com/coorasse/Airesis" target="_blank"><%= t('pages.footer.for_edemocracy_html') %></a> v.<%= AIRESIS_VERSION %>
+  <div class="large-6 medium-5 columns">
+    <a href="https://github.com/coorasse/Airesis" target="_blank"><%= t('pages.footer.for_edemocracy_html') %></a>
+    v.<%= AIRESIS_VERSION %>
     <% if in_subdomain? %>
         <%= link_to t('pages.footer.go_to_main_site'), root_url(subdomain: false), target: '_blank' %>
     <% end %>
 
   </div>
 
-  <div class="large-6 medium-6 columns text-right-medium-up">
+  <div class="large-6 medium-7 columns text-right-medium-up">
 
     <a href="#" data-reveal-id="language">
       <%= image_tag "flags/#{I18n.locale}.png", class: 'language footer', title: t('pages.home.index.change_language') %>
     </a>
-    &nbsp-&nbsp
+    &nbsp|&nbsp
     <%= link_to t('pages.home.index.support'), sostienici_path %>
-    &nbsp-&nbsp
+    &nbsp|&nbsp
     <%= link_to t('terms_of_service'), terms_path, class: 'terms_link' %>
-    &nbsp-&nbsp
+    &nbsp|&nbsp
     <%= link_to t('privacy_policy'), privacy_path, class: 'privacy_link' %>
-    &nbsp-&nbsp
+    &nbsp|&nbsp
     <%= link_to t('cookie_policy'), cookie_law_path, class: 'privacy_link' %>
-    &nbsp-&nbsp
-    <span class="feedback_space">
+    <span class="show-for-medium-up">
+        &nbsp|&nbsp
+        <span class="feedback_space"></span>
     </span>
   </div>
 </footer>
 
 <%= render 'layouts/languages' %>
-<%= render 'cookies_eu/consent_banner', link: cookie_law_path unless Rails.env.test?%>
+<%= render 'cookies_eu/consent_banner', link: cookie_law_path unless Rails.env.test? %>

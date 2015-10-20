@@ -4,7 +4,7 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the email address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
-  config.mailer_sender = "Airesis <info@airesis.it>"
+  config.mailer_sender = ENV['DEFAULT_FROM']
   # Configure the class responsible to send emails.
   # config.mailer = "Devise::Mailer"
   config.mailer.class_eval do

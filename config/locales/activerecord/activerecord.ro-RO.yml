@@ -60,7 +60,6 @@ ro-RO:
         content: Textul
         interest_borders_tkn: Puncte geografice de interes
         tags_list: Tag-uri
-        quorum_id: Cvorum
         anonima: Anonimat temporar
         visible_outside: Vizibil publicului
         secret_vote: Vot secret
@@ -86,9 +85,7 @@ ro-RO:
         amount: Cantitate
         sys_currency_id: Monedă
       user:
-        name: Nume
         email: Adresă de e-mail
-        surname: Numele de familie
         login: Nume de utilizator
         password: Parola
         linkedinpageurl: Pagina ta pe LinkedIn
@@ -128,6 +125,3 @@ ro-RO:
           attributes:
             email:
               already_confirmed: Această adresă de e-mail este deja înregistrată
-        group:
-          portavoce:
-            required: Trebuie să alegeţi un purtător de cuvânt
