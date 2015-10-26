@@ -67,10 +67,10 @@ class ResqueMailer < ActionMailer::Base
     @group_invitation_email = GroupInvitationEmail.find(group_invitation_email_id)
     @group_invitation = @group_invitation_email.group_invitation
     @group = @group_invitation.group
-    @user = @group_invitation.inviter # sender
+    @inviter = @group_invitation.inviter # sender
     @unregistered = true
 
-    I18n.locale = @user.locale.key
+    I18n.locale = @inviter.locale.key
     mail(to: @group_invitation_email.email, subject: t('mailer.invite.subject', group_name: @group.name))
   end
 
