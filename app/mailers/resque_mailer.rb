@@ -8,6 +8,7 @@ class ResqueMailer < ActionMailer::Base
     options = {}
     if @user
       options.merge!(host: @user.locale.host, protocol: DEFAULT_EMAIL_PROTOCOL)
+      options.merge!(subdomain: @user.subdomain) if @user.subdomain
       options.merge!(l: @user.locale.lang) unless @user.locale.lang.blank?
     end
     options
@@ -67,10 +68,10 @@ class ResqueMailer < ActionMailer::Base
     @group_invitation_email = GroupInvitationEmail.find(group_invitation_email_id)
     @group_invitation = @group_invitation_email.group_invitation
     @group = @group_invitation.group
-    @inviter = @group_invitation.inviter # sender
+    @user = @group_invitation.inviter # sender
     @unregistered = true
 
-    I18n.locale = @inviter.locale.key
+    I18n.locale = @user.locale.key
     mail(to: @group_invitation_email.email, subject: t('mailer.invite.subject', group_name: @group.name))
   end
 
