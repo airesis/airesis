@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   include TutorialAssigneesHelper
 
-  attr_accessor :image_url, :accept_conditions, :subdomain, :accept_privacy
+  attr_accessor :image_url, :accept_conditions, :accept_privacy
 
   validates_presence_of :name
   validates_format_of :name, with: AuthenticationModule.name_regex, allow_nil: true
@@ -237,7 +237,7 @@ class User < ActiveRecord::Base
   def self.new_with_session(params, session)
     super.tap do |user|
       user.last_sign_in_ip = session[:remote_ip]
-      user.subdomain = session[:subdomain] if session[:subdomain] && !session[:subdomain].blank?
+      user.subdomain = session[:subdomain] if session[:subdomain].present?
       user.original_sys_locale_id = user.sys_locale_id = SysLocale.default.id
 
       oauth_data = session['devise.omniauth_data']
