@@ -87,7 +87,8 @@ class Group < ActiveRecord::Base
                       medium: '300x300>',
                       small: '150x150>'
                     },
-                    path: 'groups/:id/:style/:basename.:extension',
+                    path: (Paperclip::Attachment.default_options[:storage] == :s3) ?
+                      'groups/:id/:style/:basename.:extension' : ':rails_root/public:url',
                     default_url: '/img/gruppo-anonimo.png'
 
   validates_attachment_size :image, less_than: 2.megabytes
