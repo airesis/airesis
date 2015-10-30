@@ -1,5 +1,6 @@
 class ProposalSupportsController < ApplicationController
   #load_and_authorize_resource
+  layout 'open_space'
 
   before_filter :load_proposal
 
@@ -40,7 +41,9 @@ class ProposalSupportsController < ApplicationController
     flash[:notice] = 'Sostegno alla proposta salvato correttamente'
 
     respond_to do |format|
-      format.html
+      format.html {
+        redirect_to @proposal
+      }
       format.js
     end
 
