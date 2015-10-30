@@ -2,8 +2,10 @@
 .card
   h2 = @page_title
 
-  = simple_form_for(@user, url: user_confirmation_path, html: {method: :post}) do |f|
-      = render partial: 'fragments/error_messages', locals: {resource: @user}
-      = f.input :login, required: true, label: t('activerecord.attributes.user.email')
-      = f.button :button, t("pages.confirmation.submit"), class: 'btn blue'
+  = simple_form_for(@user, url: user_confirmation_path, html: { method: :post }) do |f|
+    = render partial: 'fragments/error_messages', locals: { resource: @user }
+    = f.input :email,
+              required: true,
+              label: t('activerecord.attributes.user.email')
+    = f.button :button, t("pages.confirmation.submit"), class: 'btn blue'
   = render partial: "devise/shared/links"

@@ -44,6 +44,7 @@ class @AiresisFormValidation
         'user[email]':
           validators:
             remote:
+              enabled: false
               message: Airesis.i18n.validationMessages.alreadyTaken.default
               url: '/validators/uniqueness/user'
               type: 'GET'

@@ -11,7 +11,7 @@ class Newsletter < ActiveRecord::Base
                when 'not_confirmed'
                  User.unconfirmed.pluck(:id)
                when 'admin'
-                 User.where(login: 'admin').pluck(:id)
+                 User.where(user_type_id: UserType::ADMINISTRATOR).pluck(:id)
                else
                  [User.last.id]
     end

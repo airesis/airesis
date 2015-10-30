@@ -115,10 +115,6 @@ namespace :airesis do
         SysMovementType.all.each do |currency|
           f.puts("SysMovementType.create(description: \"#{currency.description}\")")
         end
-
-
-        #f.puts("@u = User.create(user_type_id: 1, name: 'Administrator', surname: 'Admin', email: \"#{APP_EMAIL_ADDRESS}\", login: 'admin', confirmed_at: Time.now)")
-
       end
     end
   end

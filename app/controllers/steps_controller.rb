@@ -78,7 +78,6 @@ class StepsController < ApplicationController
     @step = @tutorial.steps.find(params[:id])
     assignee = current_user.tutorial_progresses.find_by_step_id(@step.id)
     assignee.update_attribute(:status, TutorialProgress::DONE)
-    logger.info "User #{current_user.login} has completed fragment #{@step.fragment}"
     respond_to do |format|
       format.html { redirect_to :back }
       format.js { render nothing: true }

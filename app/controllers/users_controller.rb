@@ -273,7 +273,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:login, :name, :email, :surname, :password, :password_confirmation, :sex, :remember_me, :accept_conditions, :receive_newsletter, :sys_locale_id, :time_zone, :avatar)
+    params.require(:user).permit(:name, :email, :surname, :password, :password_confirmation, :sex, :remember_me, :accept_conditions, :receive_newsletter, :sys_locale_id, :time_zone, :avatar)
   end
 
   def choose_layout

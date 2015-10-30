@@ -93,7 +93,6 @@ describe "the user can invite other participants in the group", type: :feature, 
     end
 
     it "can accept the invite" do
-
       group_invitation_email = group_invitation.group_invitation_emails.find_by(email: acceptor.email)
       visit accept_group_group_invitation_group_invitation_email_path(group, group_invitation_email.group_invitation, group_invitation_email.token, email: group_invitation_email.email)
       expect(page.current_path).to eq new_user_session_path

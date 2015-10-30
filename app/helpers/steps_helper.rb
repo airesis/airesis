@@ -84,6 +84,5 @@ module StepsHelper
 
   # segna come completato uno step del tutorial
   def complete_step(step, user)
-    logger.info "User #{user.login} has completed fragment #{step.fragment}"
   end
 end

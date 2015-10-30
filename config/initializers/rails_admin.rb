@@ -73,7 +73,6 @@ RailsAdmin.config do |config|
       field :surname
       field :email
       field :sex
-      field :login
       field :receive_newsletter
       field :facebook_page_url
       field :google_page_url
