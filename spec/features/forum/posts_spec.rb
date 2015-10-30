@@ -64,7 +64,7 @@ describe 'posts', type: :feature, js: true do
           fill_in_ckeditor 'frm_post_text', with: text
           click_button 'Post Reply'
           expect(page).to have_content('Your reply has been posted')
-          expect(page).to have_content("in reply to #{topic.posts.first.user.full_name}")
+          expect(page).to have_content("in reply to #{topic.posts.first.user.name}")
         end
       end
 
