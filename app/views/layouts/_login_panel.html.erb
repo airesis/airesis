@@ -27,8 +27,7 @@
               <%= f.check_box :remember_me %>
               <%= t('pages.header.menu.remember_me') %>
           <% end %>
-
-          <%= f.button :submit, class: "btn blue" do %>
+          <%= button_tag(type: 'submit', class: 'btn blue') do %>
               <i class="fa fa-key"></i>
               <%= t('pages.header.menu.login_button') %>
           <% end %>

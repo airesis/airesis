@@ -33,8 +33,8 @@ describe 'the management of the blog posts', type: :feature, js: true do
     comment = fill_and_submit(page)
     expect(page).to have_selector('form#login_user')
     within('form#login_user') do
-      fill_in 'user_email', :with => @user.email
-      fill_in 'user_password', :with => 'topolino'
+      fill_in 'user_email', with: @user.email
+      fill_in 'user_password', with: 'topolino'
       click_button 'Login'
     end
     expect(page).to have_content(comment)
