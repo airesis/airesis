@@ -247,7 +247,6 @@ class User < ActiveRecord::Base
         user.email = user_info[:email]
       elsif (data = session[:user]) # what does it do? can't remember
         user.email = session[:user][:email]
-        user.login = session[:user][:email]
         if invite = session[:invite] # if is by invitation
           group_invitation_email = GroupInvitationEmail.find_by(token: invite[:token])
           user.skip_confirmation! if user.email == group_invitation_email.email
@@ -270,10 +269,6 @@ class User < ActiveRecord::Base
 
   def image_url
     avatar.url
-  end
-
-  def login=(value)
-    write_attribute :login, (value.try(:downcase))
   end
 
   # determina se un oggetto appartiene all'utente verificando che
@@ -369,15 +364,6 @@ class User < ActiveRecord::Base
 
   def to_param
     "#{id}-#{fullname.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
-  end
-
-  def self.find_first_by_auth_conditions(warden_conditions)
-    conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
-      where(conditions).where(['lower(login) = :value OR lower(email) = :value', {value: login.downcase}]).first
-    else
-      where(conditions).first
-    end
   end
 
   delegate :can?, :cannot?, to: :ability

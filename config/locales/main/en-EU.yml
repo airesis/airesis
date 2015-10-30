@@ -743,7 +743,7 @@ en-EU:
       welcome: "Welcome"
       groups_title: "GROUPS"
       login: "LOGIN"
-      login_placeholder: "Email or username"
+      login_placeholder: "Email"
       groups_list: "Groups you participate in"
       open_group: "Start a new group"
       new_group: "Find groups"
@@ -856,7 +856,7 @@ en-EU:
       create_event_button: "Create new event"
     sessions:
       new:
-        login_label: "Username or Email"
+        login_label: "Email"
         remember_me_label: "Remember me"
       links:
         register: "Not registered yet? Sign up!"

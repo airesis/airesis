@@ -113,7 +113,6 @@ en-EU:
         name: 'First Name'
         email: 'Email address'
         surname: 'Last Name'
-        login: 'Username'
         password: 'Password'
         linkedinpageurl: 'Your page on LinkedIn'
         facebookpageurl: 'Your page on Facebook'
