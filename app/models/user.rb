@@ -1,7 +1,7 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :registerable, :confirmable, :omniauthable, #:reconfirmable,
+  devise :database_authenticatable, :registerable, :confirmable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable, :blockable, :traceable
 
   include TutorialAssigneesHelper
