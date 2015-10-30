@@ -1,0 +1,11 @@
+.card
+  h2
+    = @page_title = t('pages.proposal_histories.index.title', title: @proposal.title)
+  = render partial: 'panel_content'
+  .clearboth
+
+- content_for :left_panel do
+  = link_to t('pages.proposal_histories.index.back_to_proposal'),
+            @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal), class: 'btn blue'
+  .mybox
+    = render partial: 'panel_menu'
