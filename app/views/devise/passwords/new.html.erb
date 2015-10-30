@@ -1,9 +1,0 @@
-<% @page_title = t("pages.password.title") %>
-
-<div class="card">
-  <h2><%= @page_title %></h2>
-  <%= simple_form_for(@user, url: user_password_path, html: {method: :post}) do |f| %>
-      <%= f.input :login, label: t('activerecord.attributes.user.email') %>
-      <%= f.button :button, t("pages.password.submit"), class: 'btn blue' %>
-  <% end %>
-</div>

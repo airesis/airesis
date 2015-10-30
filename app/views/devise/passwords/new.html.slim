@@ -1,0 +1,8 @@
+- @page_title = t("pages.password.title")
+
+.card
+  h2 = @page_title
+  = simple_form_for(@user, url: user_password_path, html: { method: :post }) do |f|
+      = f.input :login, as: :email, required: true, label: t('activerecord.attributes.user.email')
+      = f.button :button, t("pages.password.submit"), class: 'btn blue'
+  = render partial: 'devise/shared/links'
