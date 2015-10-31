@@ -52,11 +52,8 @@ class GroupsController < ApplicationController
           return
         end
         @page_title = @group.name
-        @group_participations = @group.participants
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
-        @archives = @group.blog_posts.select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').group(' MONTH, YEAR ').order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
-        @last_topics = @group.topics.accessible_by(Ability.new(current_user), :index, false).includes(:views, :forum).order('frm_topics.created_at desc').limit(10)
-        @next_events = @group.events.accessible_by(Ability.new(current_user), :index, false).next.order('starttime asc').limit(4)
+        load_page_data
       }
       format.js {
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
@@ -78,9 +75,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       format.html {
         @page_title = t('pages.groups.archives.title', group: @group.name, year: params[:year], month: t('calendar.monthNames')[params[:month].to_i - 1])
-        @group_participations = @group.participants
-        @archives = @group.blog_posts.select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').group(' MONTH, YEAR ').order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
-        @last_topics = @group.topics.accessible_by(Ability.new(current_user)).includes(:views, :forum).order('frm_topics.created_at desc').limit(10)
+        load_page_data
         render 'show'
       }
       format.js {
@@ -88,6 +83,13 @@ class GroupsController < ApplicationController
       }
       format.json { render 'show' }
     end
+  end
+
+  def load_page_data
+    @group_participations = @group.participants
+    @archives = @group.blog_posts.select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').group(' MONTH, YEAR ').order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
+    @last_topics = @group.topics.accessible_by(Ability.new(current_user), :index, false).includes(:views, :forum).order('frm_topics.created_at desc').limit(10)
+    @next_events = @group.events.accessible_by(Ability.new(current_user), :index, false).next.order('starttime asc').limit(4)
   end
 
   def new

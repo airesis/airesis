@@ -65,6 +65,7 @@ group :development, :test do
   gem 'capybara-screenshot'
   gem 'spring'
   gem 'sunspot_test'
+  gem 'timecop'
 end
 
 group :test do
