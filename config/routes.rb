@@ -17,7 +17,7 @@ Airesis::Application.routes.draw do
 
   get 'home' => 'home#show'
   get 'landing' => 'home#landing'
-  get 'public' => 'home#public'
+  get 'public' => 'home#public', as: :open_space
   get 'partecipa' => 'home#engage'
   get 'chisiamo' => 'home#whowe'
   get 'roadmap' => 'home#roadmap'

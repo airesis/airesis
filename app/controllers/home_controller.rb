@@ -9,8 +9,9 @@ class HomeController < ApplicationController
   def index
     @page_title = 'Home'
     if current_user
-      load_open_space_resources
-      render 'open_space'
+      @user = current_user
+      @page_title = @user.fullname
+      render 'show'
     end
   end
 
@@ -138,7 +139,7 @@ class HomeController < ApplicationController
     if ['landing'].include? action_name
       false
     elsif ['index'].include? action_name
-      current_user ? 'open_space' : false
+      current_user ? 'users' : false
     elsif ['show'].include? action_name
       'users'
     elsif ['public'].include? action_name
