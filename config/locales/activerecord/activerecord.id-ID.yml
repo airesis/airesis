@@ -101,7 +101,6 @@ id-ID:
         sys_currency_id: Mata Uang
       user:
         email: Alamat surel
-        login: Nama Pengguna
         password: Kata sandi
         linkedinpageurl: Akun Anda di LinkedIn
         facebookpageurl: Laman Anda di Facebook

@@ -3,7 +3,6 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 describe NotificationProposalRankingCreate, type: :model, emails: true, notifications: true, seeds: true do
-
   context 'when the proposal receives a new evaluation during debate phase' do
     let(:user) { create(:user) }
     let(:proposal) { create(:public_proposal, current_user_id: user.id) }

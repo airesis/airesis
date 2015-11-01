@@ -702,7 +702,6 @@ pt-PT:
       welcome: Bem-vindo
       groups_title: GRUPOS
       login: LOGIN
-      login_placeholder: E-mail ou username
       groups_list: Participa nos grupos
       open_group: Iniciar um novo grupo
       new_group: Encontrar grupos
@@ -811,7 +810,6 @@ pt-PT:
       create_event_button: Criar novo evento
     sessions:
       new:
-        login_label: Nome de utilizador ou E-mail
         remember_me_label: Recorde-me
       links:
         register: Ainda não está registado? Inscrição!

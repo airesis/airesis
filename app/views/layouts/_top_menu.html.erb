@@ -6,8 +6,6 @@
           <%= link_to (image_tag 'logo_completo_white_mini.png', class: "logo1", data: ({dropdown: "airesis_panel", options: "is_hover:false;align:center;"} unless true)), root_path, tabindex: 1 %>
         </div>
       </div>
-
-
       <ul class="left">
         <% unless in_subdomain? %>
             <li>
@@ -32,6 +30,10 @@
       </ul>
 
       <ul class="right">
+        <li >
+          <%= link_to open_space_path, class: 'cur globe', title: t('open_space') do %>
+              <i class="fa fa-globe medium"></i>
+          <% end %></li>
         <li class="hide-for-small"><%= link_to sostienici_path, class: 'cur love', title: t('pages.header.support_us') do %>
               <i class="fa fa-heart medium"></i>
           <% end %></li>
@@ -131,6 +133,7 @@
           <% else %>
               <%= render partial: 'groups/group_menu_item', collection: current_user.groups, as: :group %>
           <% end %>
+          <%= render 'groups/open_space_menu_item' %>
       <% end %>
       <div class="group-item">
         <%= link_to new_group_url(subdomain: false), class: 'btn blue' do %>

@@ -1,7 +1,7 @@
 class QuorumsController < ApplicationController
   layout :choose_layout
 
-  #security controls
+  # security controls
   before_filter :authenticate_user!
 
   before_filter :load_group, except: :help
@@ -15,7 +15,7 @@ class QuorumsController < ApplicationController
   end
 
   def new
-    @page_title= t('pages.groups.edit_quorums.new_quorum.title')
+    @page_title = t('pages.groups.edit_quorums.new_quorum.title')
     @quorum.attributes = { percentage: 0, good_score: 20, vote_percentage: 0, vote_good_score: 50 }
     @group_participations_count = @group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count
     @vote_participants_count = @group.scoped_participants(GroupAction::PROPOSAL_VOTE).count
@@ -48,15 +48,14 @@ class QuorumsController < ApplicationController
     @vote_participants_count = @group.scoped_participants(GroupAction::PROPOSAL_VOTE).count
   end
 
-
   def update
     if @quorum.update(best_quorum_params)
       respond_to do |format|
         flash[:notice] = t('info.quorums.quorum_updated')
         format.js
-        format.html {
+        format.html do
           redirect_to group_quorums_url(@group)
-        }
+        end
       end
     else
       respond_to do |format|
@@ -66,18 +65,18 @@ class QuorumsController < ApplicationController
     end
   end
 
-
   def destroy
     @quorum = @group.quorums.find_by_id(params[:id])
     @quorum.destroy
     flash[:notice] = t('info.quorums.quorum_deleted')
 
     respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html 'flash_messages', partial: 'layouts/flash', locals: { flash: flash }
-        page.replace_html 'quorum_panel_container', partial: 'groups/quorums_panel'
+      format.js do
+        render :update do |page|
+          page.replace_html 'flash_messages', partial: 'layouts/flash', locals: { flash: flash }
+          page.replace_html 'quorum_panel_container', partial: 'groups/quorums_panel'
+        end
       end
-      }
     end
   end
 
@@ -85,12 +84,12 @@ class QuorumsController < ApplicationController
     Quorum.transaction do
       quorum = @group.quorums.find_by_id(params[:id])
       if quorum
-        if params[:active] == 'true' #devo togliere i permessi
+        if params[:active] == 'true' # devo togliere i permessi
           quorum.active = true
-          flash[:notice] =t('info.quorums.quorum_activated')
-        else #lo disattivo
+          flash[:notice] = t('info.quorums.quorum_activated')
+        else # lo disattivo
           quorum.active = false
-          flash[:notice] =t('info.quorums.quorum_deactivated')
+          flash[:notice] = t('info.quorums.quorum_deactivated')
         end
         quorum.save!
       end
@@ -114,13 +113,13 @@ class QuorumsController < ApplicationController
     end
   end
 
-  #retrieve a list of votation dates compatibles with that quorum
+  # retrieve a list of votation dates compatibles with that quorum
   def dates
     starttime = (@quorum.minutes.minutes + DEBATE_VOTE_DIFFERENCE).from_now
     if @group
       @dates = @group.events.not_visible.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, { 'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title }] } # TODO: I18n
     else
-      @dates = Event.visible.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id] } #TODO:I18n
+      @dates = Event.visible.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id] } # TODO: I18n
     end
   end
 

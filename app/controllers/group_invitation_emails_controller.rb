@@ -1,6 +1,5 @@
 # manage invitations responses
 class GroupInvitationEmailsController < ApplicationController
-
   load_and_authorize_resource :group
   load_and_authorize_resource :group_invitation, through: :group
   load_and_authorize_resource through: :group_invitation, id_param: :token, find_by: :token
@@ -56,7 +55,7 @@ class GroupInvitationEmailsController < ApplicationController
     session[:user][:email] = params[:email]
     session[:invite] = { email: params[:email], token: params[:token], group_id: @group.id, return: request.url }
     if User.where(email: params[:email]).exists?
-      redirect_to new_user_session_path(invite: params[:token], user: { login: params[:email] })
+      redirect_to new_user_session_path(invite: params[:token], user: { email: params[:email] })
     else
       redirect_to new_user_registration_path(invite: params[:token])
     end

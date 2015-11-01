@@ -227,7 +227,7 @@ class Proposal < ActiveRecord::Base
       where(proposals[:proposal_type_id].not_eq(petition_id)).
       where(proposals[:id].in(list_c)).
       order(updated_at: :desc).to_a
-    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, :category, {users: :image},
+    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, :category, { users: :image },
                                                                   :proposal_type, :groups, :supporting_groups])
     proposals
   end
@@ -276,7 +276,7 @@ class Proposal < ActiveRecord::Base
               or(participation_roles[:id].eq(ParticipationRole.admin.id))).
       order('end_time asc').to_sql
     proposals = Proposal.find_by_sql(proposals_sql)
-    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, {users: :image}, :proposal_type, :groups,
+    ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, { users: :image }, :proposal_type, :groups,
                                                                   :supporting_groups, :category])
     proposals
   end
@@ -442,9 +442,9 @@ class Proposal < ActiveRecord::Base
   # retrieve all the participants to the proposals that are still part of the group
   def participants
     # all users who ranked the proposal
-    a = User.joins(proposal_rankings: :proposal).where(proposals: {id: id}).load
+    a = User.joins(proposal_rankings: :proposal).where(proposals: { id: id }).load
     # all users who contributed to the proposal
-    b = User.joins(proposal_comments: :proposal).where(proposals: {id: id}).load
+    b = User.joins(proposal_comments: :proposal).where(proposals: { id: id }).load
     c = (a | b)
     if private
       # all users that are part of the group of the proposal
@@ -683,7 +683,7 @@ class Proposal < ActiveRecord::Base
       ProposalsWorker.perform_at(quorum.ends_at - 24.hours,
                                  action: ProposalsWorker::LEFT24, proposal_id: id) if quorum.minutes > 1440
       ProposalsWorker.perform_at(quorum.ends_at - 1.hour,
-                                 {action: ProposalsWorker::LEFT1, proposal_id: id}) if quorum.minutes > 60
+                                 action: ProposalsWorker::LEFT1, proposal_id: id) if quorum.minutes > 60
     end
   end
 
@@ -703,7 +703,7 @@ class Proposal < ActiveRecord::Base
                  action: ProposalsWorker::LEFT24VOTE, proposal_id: id) if (vote_period.duration / 60) > 1440
     ProposalsWorker.
       perform_at(vote_period.endtime - 1.hour,
-                 {action: ProposalsWorker::LEFT1VOTE, proposal_id: id}) if (vote_period.duration / 60) > 60
+                 action: ProposalsWorker::LEFT1VOTE, proposal_id: id) if (vote_period.duration / 60) > 60
   end
 
   def set_votation_date(vote_period_id)
@@ -792,7 +792,7 @@ class Proposal < ActiveRecord::Base
       ProposalsWorker.perform_at(quorum.ends_at - 24.hours,
                                  action: ProposalsWorker::LEFT24, proposal_id: id) if quorum.minutes > 1440
       ProposalsWorker.perform_at(quorum.ends_at - 1.hour,
-                                 {action: ProposalsWorker::LEFT1, proposal_id: id}) if quorum.minutes > 60
+                                 action: ProposalsWorker::LEFT1, proposal_id: id) if quorum.minutes > 60
     end
 
     # end of debate timer

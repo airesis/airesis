@@ -9,7 +9,7 @@ class NotificationAvailableAuthorCreate < NotificationSender
   end
 
   def build_notification
-    data = {proposal_id: @proposal.id.to_s, user: @user.fullname, user_id: @user.id, title: @proposal.title}
+    data = { proposal_id: @proposal.id.to_s, user: @user.fullname, user_id: @user.id, title: @proposal.title }
     Notification.create(notification_type_id: @notification_type_id, url: url_for_proposal, data: data)
   end
 

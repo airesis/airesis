@@ -94,7 +94,6 @@ zh-TW:
         sys_currency_id: 貨幣
       user:
         email: E-mail 位置
-        login: 使用者名
         password: 密碼
         linkedinpageurl: 你在 Linkedin 的個人頁面
         facebookpageurl: 你在 Facebook 的個人頁面

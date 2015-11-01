@@ -101,7 +101,6 @@ el-GR:
         sys_currency_id: Nόμισμα
       user:
         email: Διεύθυνση ηλεκτρονικού ταχυδρομείου
-        login: Όνομα χρήστη
         password: Κωδικός
         linkedinpageurl: Η σελίδα σας στο LinkedIn
         facebookpageurl: Η σελίδα σας στο Facebook

@@ -8,11 +8,9 @@ class Frm::ApplicationController < ApplicationController
   authorize_resource :group
 
   protected
+
   def load_group
     super
-    if @group.disable_forums
-      head :forbidden
-    end
+    head :forbidden if @group.disable_forums
   end
-
 end

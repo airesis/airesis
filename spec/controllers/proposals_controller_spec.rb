@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'requests_helper'
 
 describe ProposalsController, type: :controller, search: :true do
-
   let(:user) { create(:user) }
   let(:proposal1) { create(:public_proposal, title: 'bella giornata', current_user_id: user.id) }
 
@@ -83,42 +82,42 @@ describe ProposalsController, type: :controller, search: :true do
     end
 
     it 'retrieves public proposals waiting for date in votation tab' do
-      proposal1.update({proposal_state_id: ProposalState::WAIT_DATE})
+      proposal1.update(proposal_state_id: ProposalState::WAIT_DATE)
       Proposal.reindex
       get :tab_list, state: ProposalState::TAB_VOTATION
       expect(assigns(:proposals)).to eq([proposal1])
     end
 
     it 'retrieves public proposals waiting in votation tab' do
-      proposal1.update({proposal_state_id: ProposalState::WAIT})
+      proposal1.update(proposal_state_id: ProposalState::WAIT)
       Proposal.reindex
       get :tab_list, state: ProposalState::TAB_VOTATION
       expect(assigns(:proposals)).to eq([proposal1])
     end
 
     it 'retrieves public proposals in votation, in votation tab' do
-      proposal1.update({proposal_state_id: ProposalState::VOTING})
+      proposal1.update(proposal_state_id: ProposalState::VOTING)
       Proposal.reindex
       get :tab_list, state: ProposalState::TAB_VOTATION
       expect(assigns(:proposals)).to eq([proposal1])
     end
 
     it 'retrieves public proposals accepted, in voted tab' do
-      proposal1.update({proposal_state_id: ProposalState::ACCEPTED})
+      proposal1.update(proposal_state_id: ProposalState::ACCEPTED)
       Proposal.reindex
       get :tab_list, state: ProposalState::TAB_VOTED
       expect(assigns(:proposals)).to eq([proposal1])
     end
 
     it 'retrieves public proposals rejected, in voted tab' do
-      proposal1.update({proposal_state_id: ProposalState::REJECTED})
+      proposal1.update(proposal_state_id: ProposalState::REJECTED)
       Proposal.reindex
       get :tab_list, state: ProposalState::TAB_VOTED
       expect(assigns(:proposals)).to eq([proposal1])
     end
 
     it 'retrieves public proposals abandoned in abandoned tab' do
-      proposal1.update({proposal_state_id: ProposalState::ABANDONED})
+      proposal1.update(proposal_state_id: ProposalState::ABANDONED)
       Proposal.reindex
       get :tab_list, state: ProposalState::TAB_REVISION
       expect(assigns(:proposals)).to eq([proposal1])
@@ -152,7 +151,7 @@ describe ProposalsController, type: :controller, search: :true do
       @request.env['devise.mapping'] = Devise.mappings[:user]
       sign_in user
 
-      #repeat same request
+      # repeat same request
       get :tab_list, state: ProposalState::TAB_DEBATE, group_id: group.id
       expect(assigns(:proposals)).to eq([proposal3])
     end
@@ -220,7 +219,7 @@ describe ProposalsController, type: :controller, search: :true do
       expect(assigns(:proposals)).to eq([proposal2, proposal1])
     end
 
-    it "does not retrieve anything with a wrong title" do
+    it 'does not retrieve anything with a wrong title' do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
       xhr :get, :similar, title: 'rappresentative', format: :js
       expect(assigns(:proposals)).to eq([])
@@ -255,7 +254,7 @@ describe ProposalsController, type: :controller, search: :true do
       @request.env['devise.mapping'] = Devise.mappings[:user]
       sign_in user
 
-      #repeat same request
+      # repeat same request
       xhr :get, :similar, title: 'inferno', group_id: group.id, format: :js
       expect(assigns(:proposals)).to eq([proposal3])
     end
@@ -268,7 +267,7 @@ describe ProposalsController, type: :controller, search: :true do
       @request.env['devise.mapping'] = Devise.mappings[:user]
       sign_in user
 
-      #repeat same request
+      # repeat same request
       xhr :get, :similar, title: 'inferno', format: :js
       expect(assigns(:proposals)).to eq([proposal3, proposal2])
     end

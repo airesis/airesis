@@ -113,7 +113,6 @@ it-IT:
         name: Nome
         email: Indirizzo Email
         surname: Cognome
-        login: Username
         password: Password
         linkedinpageurl: La tua pagina su Linkedin
         facebookpageurl: La tua pagina su Facebook

@@ -101,7 +101,6 @@ pt-PT:
         sys_currency_id: Moeda
       user:
         email: Endereço de e-mail
-        login: Nome de utilizador
         password: Senha
         linkedinpageurl: A sua página no Linkedin
         facebookpageurl: A sua página no Facebook

@@ -4,8 +4,6 @@ ruby File.read('.ruby-version').strip
 
 gem 'rails', '~> 4.2.0'
 
-gem 'maktoub'
-
 gem 'turnout'
 
 gem 'sass-rails'
@@ -142,6 +140,7 @@ group :development, :test do
   gem 'capybara-screenshot'
   gem 'spring'
   gem 'sunspot_test'
+  gem 'timecop'
 end
 
 group :test do

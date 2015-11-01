@@ -40,8 +40,8 @@
                   required: true,
                   label: t('pages.registration.confirm_password'),
                   input_html: {
-                          data: {fv_identical_field: 'user[password]',
-                                 fv_identical: true},
+                          data: { fv_identical_field: 'user[password]',
+                                  fv_identical: true },
                           id: "new_user_password_confirmation"
                   } %>
 
@@ -57,7 +57,7 @@
                   as: :boolean,
                   label: t('pages.registration.accept_conditions'),
                   required: true,
-                  input_html: {data: {row_selector: 'boolean'}} %>
+                  input_html: { data: { row_selector: 'boolean' } } %>
 
       <div class="conditions">
         <%= render 'devise/registrations/privacy' %>
@@ -67,12 +67,12 @@
                   as: :boolean,
                   label: t('pages.registration.accept_privacy'),
                   required: true,
-                  input_html: {data: {row_selector: 'boolean'}} %>
+                  input_html: { data: { row_selector: 'boolean' } } %>
 
       <%= f.hidden_field :sys_locale_id %>
 
       <% if ::Configuration.recaptcha %>
-          <%= recaptcha_tags display: {'theme' => 'clean'} %>
+          <%= recaptcha_tags display: { 'theme' => 'clean' } %>
       <% end %>
 
       <div><%= f.submit t('pages.registration.register_button'), class: 'btn blue' %></div>
@@ -90,3 +90,9 @@
     <%= render partial: 'devise/registrations/privacy' %>
   </p>
 </div>
+
+<script type="application/javascript">
+    $(function () {
+        $('#new_user').formValidation('enableFieldValidators', 'user[email]', true, 'remote')
+    });
+</script>

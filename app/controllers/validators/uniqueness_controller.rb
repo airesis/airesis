@@ -20,7 +20,7 @@ module Validators
       fparams = params.require(model).permit(attribute, :id)
       already_exists = model.to_s.classify.constantize.where(attribute => fparams[attribute].strip)
       already_exists = already_exists.where.not(id: fparams[:id]) unless fparams[:id].blank?
-      render json: {valid: !already_exists.exists?}
+      render json: { valid: !already_exists.exists? }
     end
   end
 end

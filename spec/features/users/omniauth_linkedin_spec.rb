@@ -2,11 +2,8 @@ require 'spec_helper'
 require 'requests_helper'
 
 describe 'the oauth2 process', type: :feature, js: true do
-
   describe 'Linkedin' do
-
     before :each do
-
       @oauth_data = {
         provider: 'linkedin',
         uid: Faker::Number.number(10),
@@ -15,55 +12,53 @@ describe 'the oauth2 process', type: :feature, js: true do
         last_name: Faker::Name.last_name
       }
 
-      OmniAuth.config.mock_auth[:linkedin] = OmniAuth::AuthHash.new({
-        "provider" => @oauth_data[:provider],
-        "uid" => @oauth_data[:uid],
-        "info" => {
-          "name" => "#{@oauth_data[:first_name]} #{@oauth_data[:last_name]}",
-          "email" => @oauth_data[:email],
-          "nickname" => "John Doe",
-          "first_name" => @oauth_data[:first_name],
-          "last_name" => @oauth_data[:last_name],
-          "location" => "Greater Boston Area, US",
-          "description" => "Senior Developer, Hammertech",
-          "image" =>  "http://m.c.lnkd.licdn.com/mpr/mprx/0_aBcD...",
-          "phone" => "null",
-          "headline" =>  "Senior Developer, Hammertech",
-          "industry" => "Internet",
-          "urls" => {
-            "public_profile" => "http://www.linkedin.com/in/johndoe"
-          }
-        },
-        "credentials" =>  {
-          "token" => "12312...",
-          "secret" => "aBc..."
-        },
-        "extra" => 
+      OmniAuth.config.mock_auth[:linkedin] = OmniAuth::AuthHash.new('provider' => @oauth_data[:provider],
+                                                                    'uid' => @oauth_data[:uid],
+                                                                    'info' => {
+                                                                      'name' => "#{@oauth_data[:first_name]} #{@oauth_data[:last_name]}",
+                                                                      'email' => @oauth_data[:email],
+                                                                      'nickname' => 'John Doe',
+                                                                      'first_name' => @oauth_data[:first_name],
+                                                                      'last_name' => @oauth_data[:last_name],
+                                                                      'location' => 'Greater Boston Area, US',
+                                                                      'description' => 'Senior Developer, Hammertech',
+                                                                      'image' =>  'http://m.c.lnkd.licdn.com/mpr/mprx/0_aBcD...',
+                                                                      'phone' => 'null',
+                                                                      'headline' =>  'Senior Developer, Hammertech',
+                                                                      'industry' => 'Internet',
+                                                                      'urls' => {
+                                                                        'public_profile' => 'http://www.linkedin.com/in/johndoe'
+                                                                      }
+                                                                    },
+                                                                    'credentials' =>  {
+                                                                      'token' => '12312...',
+                                                                      'secret' => 'aBc...'
+                                                                    },
+                                                                    'extra' =>
         {
-          "access_token" =>  {
-            "token" => "12312...",
-            "secret" => "aBc...",
-            "consumer" => nil, #<OAuth::Consumer>
-            "params" =>  {
-              :oauth_token => "12312...",
-              :oauth_token_secret => "aBc...",
-              :oauth_expires_in => "5183999",
-              :oauth_authorization_expires_in => "5183999",
+          'access_token' =>  {
+            'token' => '12312...',
+            'secret' => 'aBc...',
+            'consumer' => nil, # <OAuth::Consumer>
+            'params' =>  {
+              oauth_token: '12312...',
+              oauth_token_secret: 'aBc...',
+              oauth_expires_in: '5183999',
+              oauth_authorization_expires_in: '5183999'
             },
-            "response" => nil #<Net::HTTPResponse>
+            'response' => nil # <Net::HTTPResponse>
           },
-         "raw_info" =>  {
-           "firstName" => @oauth_data[:first_name],
-           "headline" => "Senior Developer, Hammertech",
-           "id" => "AbC123",
-           "industry" => "Internet",
-           "lastName" => @oauth_data[:last_name],
-           "location" =>  {"country" => {"code" => "us"}, "name" => "Greater Boston Area"},
-           "pictureUrl" =>  "http://m.c.lnkd.licdn.com/mpr/mprx/0_aBcD...",
-           "publicProfileUrl" => "http://www.linkedin.com/in/johndoe"
+          'raw_info' =>  {
+            'firstName' => @oauth_data[:first_name],
+            'headline' => 'Senior Developer, Hammertech',
+            'id' => 'AbC123',
+            'industry' => 'Internet',
+            'lastName' => @oauth_data[:last_name],
+            'location' =>  { 'country' => { 'code' => 'us' }, 'name' => 'Greater Boston Area' },
+            'pictureUrl' =>  'http://m.c.lnkd.licdn.com/mpr/mprx/0_aBcD...',
+            'publicProfileUrl' => 'http://www.linkedin.com/in/johndoe'
           }
-        }
-      })
+        })
 
       Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
       Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:linkedin]
@@ -115,7 +110,7 @@ describe 'the oauth2 process', type: :feature, js: true do
       expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_failure', provider: @oauth_data[:provider].capitalize)}/i)
     end
 
-    it "remembers Linkedin account after joining" do
+    it 'remembers Linkedin account after joining' do
       user = create(:user)
       login_as user, scope: :user
       visit '/users/auth/linkedin/callback'

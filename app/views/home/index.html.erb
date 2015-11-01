@@ -165,7 +165,7 @@
                     </ul>
                   </div>
                   <div class="columns large-12 medium-10 medium-push-1 large-push-0">
-                    <%= f.text_field :login, placeholder: 'Email' %>
+                    <%= f.email_field :email, placeholder: 'Email' %>
                     <%= f.password_field :password, placeholder: 'Password' %>
                   </div>
                   <div class="columns large-6 medium-5 medium-push-1 large-push-0  text-left">
@@ -205,7 +205,7 @@
                     <%= link_to t('pages.home.index.register'), new_user_registration_path, class: 'button trial alert' %>
                   </div>
                   <div class="columns medium-6">
-                    <%= link_to t('pages.home.index.try_it'), public_path, class: 'button' %>
+                    <%= link_to t('pages.home.index.try_it'), open_space_path, class: 'button' %>
                   </div>
                 </div>
               </div>
@@ -213,7 +213,6 @@
           </div>
         </div>
       </div>
-
       <div class="hero-image">
         <%= image_tag 'landing/hero-airesis.png' %>
       </div>

@@ -1,6 +1,5 @@
-#todo clean that controller
+# TODO: clean that controller
 class TutorialsController < ApplicationController
-
   before_filter :authenticate_user!
   before_filter :admin_required
 

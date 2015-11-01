@@ -101,7 +101,6 @@ ru-RU:
         sys_currency_id: Валюта
       user:
         email: Адрес электронной почты
-        login: Имя пользователя
         password: Пароль
         linkedinpageurl: Ваша страница в LinkedIn
         facebookpageurl: Ваша страница в Facebook

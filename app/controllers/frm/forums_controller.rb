@@ -1,6 +1,5 @@
 module Frm
   class ForumsController < Frm::ApplicationController
-
     load_and_authorize_resource class: 'Frm::Forum', through: :group
 
     helper 'frm/topics'
@@ -31,9 +30,9 @@ module Frm
 
     private
 
-    #def check_permissions
+    # def check_permissions
     #  raise CanCan::AccessDenied unless @group.participants.include? current_user
-    #end
+    # end
 
     def register_view
       @forum.register_view_by(current_user)

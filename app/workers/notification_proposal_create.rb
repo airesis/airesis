@@ -5,7 +5,7 @@ class NotificationProposalCreate < NotificationSender
     current_user = @proposal.users.first
     group = @proposal.group
     group_area = @proposal.group_area
-    data = {proposal_id: @proposal.id, proposal: @proposal.title, user_id: current_user.id}
+    data = { proposal_id: @proposal.id, proposal: @proposal.title, user_id: current_user.id }
     host = current_user.locale.host # TODO: not correct. l'host dovrebbe essere quello di chi riceve la mail ma allora dobbiamo spostare l'url nell'alert. da fare nella 5.0
     if group # if it's a group proposal
       data[:group_id] = group.id.to_s

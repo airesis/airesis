@@ -1,10 +1,9 @@
 require 'spec_helper'
 require 'requests_helper'
-require "cancan/matchers"
+require 'cancan/matchers'
 
-describe "check user permissions on proposals", type: :feature, js: true, search: true, seeds: true do
-
-  def create_proposal_in_area(visible_outside=true)
+describe 'check user permissions on proposals', type: :feature, js: true, search: true, seeds: true do
+  def create_proposal_in_area(visible_outside = true)
     user = create(:user)
     group = create(:group, current_user_id: user.id)
     group.enable_areas = true
@@ -14,9 +13,9 @@ describe "check user permissions on proposals", type: :feature, js: true, search
     create(:group_proposal, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], group_area_id: area.id, visible_outside: visible_outside)
   end
 
-  context "proposals in lists" do
-    context "a visible_outside proposal" do
-      it "is displayed in the open space list and in the group list" do
+  context 'proposals in lists' do
+    context 'a visible_outside proposal' do
+      it 'is displayed in the open space list and in the group list' do
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         proposal = create(:group_proposal, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)])
@@ -27,7 +26,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         expect(page).to have_content proposal.title
       end
 
-      it "is displayed in the open space list, group list and group area list" do
+      it 'is displayed in the open space list, group list and group area list' do
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         area = create(:group_area, group: group)
@@ -43,7 +42,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         expect(page).to have_content proposal.title
       end
 
-      it "is not displayed in another group area list of the same group" do
+      it 'is not displayed in another group area list of the same group' do
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         area = create(:group_area, group: group)
@@ -54,7 +53,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         expect(page).to_not have_content proposal.title
       end
 
-      it "is not displayed in another group (group area) list" do
+      it 'is not displayed in another group (group area) list' do
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         area = create(:group_area, group: group)
@@ -68,14 +67,14 @@ describe "check user permissions on proposals", type: :feature, js: true, search
       end
     end
 
-    context "a public proposal" do
-      it "is displayed in the open space list" do
+    context 'a public proposal' do
+      it 'is displayed in the open space list' do
         public_proposal = create(:public_proposal, current_user_id: create(:user).id)
         visit proposals_path
         expect(page).to have_content public_proposal.title
       end
 
-      it "is not displayed in a group list" do
+      it 'is not displayed in a group list' do
         proposal = create(:public_proposal, current_user_id: create(:user).id)
         user = create(:user)
         group = create(:group, current_user_id: user.id)
@@ -84,7 +83,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         expect(page).to_not have_content proposal.title
       end
 
-      it "is not displayed in a group area list" do
+      it 'is not displayed in a group area list' do
         proposal = create(:public_proposal, current_user_id: create(:user).id)
         user = create(:user)
         group = create(:group, current_user_id: user.id)
@@ -95,8 +94,8 @@ describe "check user permissions on proposals", type: :feature, js: true, search
       end
     end
 
-    context "a private proposal in a group" do
-      it "is not displayed in the open space list" do
+    context 'a private proposal in a group' do
+      it 'is not displayed in the open space list' do
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         proposal = create(:group_proposal, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
@@ -111,7 +110,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         logout user
       end
 
-      it "is displayed in the group list only if you are logged in" do
+      it 'is displayed in the group list only if you are logged in' do
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         proposal = create(:group_proposal, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
@@ -126,7 +125,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         logout user
       end
 
-      it "is not displayed in a group area list" do
+      it 'is not displayed in a group area list' do
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         area = create(:group_area, group: group)
@@ -144,8 +143,8 @@ describe "check user permissions on proposals", type: :feature, js: true, search
       end
     end
 
-    context "a private proposal in a group area" do
-      it "is not displayed in the open space list" do
+    context 'a private proposal in a group area' do
+      it 'is not displayed in the open space list' do
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         area = create(:group_area, group: group)
@@ -154,10 +153,10 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         visit proposals_path
         expect(page).to_not have_content proposal.title
 
-        #todo test for participants in the area
+        # TODO: test for participants in the area
       end
 
-      it "is displayed in the group list only if you are logged in and have the permission to see it" do
+      it 'is displayed in the group list only if you are logged in and have the permission to see it' do
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         area = create(:group_area, group: group)
@@ -174,7 +173,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         logout user
       end
 
-      it "is displayed in the group list if you are logged in as group admin and have the permission to see it" do
+      it 'is displayed in the group list if you are logged in as group admin and have the permission to see it' do
         user = create(:user)
         participant = create(:user)
         group = create(:group, current_user_id: user.id)
@@ -194,7 +193,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
         logout user
       end
 
-      it "is displayed in the group area list only if you are logged in and have the permission to see it" do
+      it 'is displayed in the group area list only if you are logged in and have the permission to see it' do
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         area = create(:group_area, group: group)
@@ -210,7 +209,7 @@ describe "check user permissions on proposals", type: :feature, js: true, search
 
         logout user
 
-        #todo test for participants in the area
+        # TODO: test for participants in the area
       end
     end
   end

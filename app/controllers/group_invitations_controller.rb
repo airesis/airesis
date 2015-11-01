@@ -1,6 +1,5 @@
 # invite other users in the group
 class GroupInvitationsController < ApplicationController
-
   layout 'groups'
 
   load_and_authorize_resource :group
@@ -8,9 +7,9 @@ class GroupInvitationsController < ApplicationController
 
   def new
     respond_to do |format|
-      format.html {
+      format.html do
         @page_title = t('pages.groups.invite_your_friends.title')
-      }
+      end
       format.js
     end
   end
@@ -24,7 +23,7 @@ class GroupInvitationsController < ApplicationController
                          count: @group_invitation.group_invitation_emails.count,
                          email_addresses: @group_invitation.group_invitation_emails.pluck(:email).join(', '))
       format.js
-      format.html { redirect_to @group}
+      format.html { redirect_to @group }
     end
   end
 

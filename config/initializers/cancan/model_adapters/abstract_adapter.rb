@@ -2,9 +2,9 @@
 module CanCan
   module ModelAdapters
     class AbstractAdapter
-      def database_records(eager_load)
+      def database_records(_eager_load)
         # This should be overridden in a subclass to return records which match @rules
-        raise NotImplemented, "This model adapter does not support fetching records from the database."
+        fail NotImplemented, 'This model adapter does not support fetching records from the database.'
       end
     end
   end

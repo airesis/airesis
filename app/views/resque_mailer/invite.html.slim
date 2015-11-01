@@ -11,7 +11,7 @@ table.row
                   = raw t('mailer.invite.invitation',
                           { user: @user.fullname,
                             group: (link_to @group.name, group_url(@group)),
-                            app_name: (link_to ENV['APP_LONG_NAME'], Maktoub.home_domain) })
+                            app_name: (link_to ENV['APP_LONG_NAME'], NEWSLETTER_HOME_URL) })
                 p = t('mailer.invite.message_intro')
 table.row.callout
   tbody

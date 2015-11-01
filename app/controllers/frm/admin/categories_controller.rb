@@ -1,7 +1,6 @@
 module Frm
   module Admin
     class CategoriesController < BaseController
-
       load_and_authorize_resource class: 'Frm::Category', through: :group
 
       def index
@@ -45,9 +44,9 @@ module Frm
       def create_successful
         flash[:notice] = t('frm.admin.category.created')
         respond_to do |format|
-          format.html {
+          format.html do
             redirect_to group_frm_admin_categories_url(@group)
-          }
+          end
           format.js
         end
       end
@@ -60,9 +59,9 @@ module Frm
       def destroy_successful
         flash[:notice] = t('frm.admin.category.deleted')
         respond_to do |format|
-          format.html {
+          format.html do
             redirect_to group_frm_admin_categories_url(@group)
-          }
+          end
           format.js
         end
       end
@@ -70,9 +69,9 @@ module Frm
       def update_successful
         flash[:notice] = t('frm.admin.category.updated')
         respond_to do |format|
-          format.html {
+          format.html do
             redirect_to group_frm_admin_categories_url(@group)
-          }
+          end
           format.js
         end
       end
@@ -80,17 +79,16 @@ module Frm
       def update_failed
         flash.now.alert = t('frm.admin.category.not_updated')
         respond_to do |format|
-          format.html {
+          format.html do
             render action: :edit
-          }
-          format.js {
+          end
+          format.js do
             render :update do |page|
-              page.replace_html 'category_container', partial: 'edit', locals: {remote: true}
+              page.replace_html 'category_container', partial: 'edit', locals: { remote: true }
             end
-          }
+          end
         end
       end
-
     end
   end
 end

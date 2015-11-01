@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :load_tutorial
 
-  skip_before_filter :verify_authenticity_token, if: Proc.new { |c| c.request.format == 'application/json' }
+  skip_before_filter :verify_authenticity_token, if: proc { |c| c.request.format == 'application/json' }
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
@@ -35,16 +35,16 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :name, :surname, :accept_conditions, :sys_locale_id, :password) }
   end
 
-  #redirect all'ultima pagina in cui ero
+  # redirect all'ultima pagina in cui ero
   def after_sign_in_path_for(resource)
-    #se in sessione ho memorizzato un contributo, inseriscilo e mandami alla pagina della proposta
+    # se in sessione ho memorizzato un contributo, inseriscilo e mandami alla pagina della proposta
     if session[:proposal_comment] && session[:proposal_id]
       @proposal = Proposal.find(session[:proposal_id])
       params[:proposal_comment] = session[:proposal_comment].permit(:content, :parent_proposal_comment_id, :section_id)
       session[:proposal_id] = nil
       session[:proposal_comment] = nil
       @proposal_comment = @proposal.proposal_comments.build(params[:proposal_comment])
-      post_contribute #rescue nil
+      post_contribute # rescue nil
       proposal_path(@proposal)
     elsif session[:blog_comment] && session[:blog_post_id] && session[:blog_id]
       blog = Blog.friendly.find(session[:blog_id])
@@ -73,19 +73,19 @@ class ApplicationController < ActionController::Base
     blog_comment.save
   end
 
-  #redirect alla pagina delle proposte
-  def after_sign_up_path_for(resource)
+  # redirect alla pagina delle proposte
+  def after_sign_up_path_for(_resource)
     proposals_path
   end
 
   protected
 
   def load_tutorial
-    @step = get_next_step(current_user) if (current_user && !Rails.env.test?)
+    @step = get_next_step(current_user) if current_user && !Rails.env.test?
   end
 
   def ckeditor_filebrowser_scope(options = {})
-    options = {assetable_id: current_user.id, assetable_type: 'User'}.merge(options)
+    options = { assetable_id: current_user.id, assetable_type: 'User' }.merge(options)
     super
   end
 
@@ -118,9 +118,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def current_domain
-    @current_domain
-  end
+  attr_reader :current_domain
 
   def current_territory
   end
@@ -140,12 +138,12 @@ class ApplicationController < ActionController::Base
     Time.use_zone(current_user.time_zone, &block)
   end
 
-  def default_url_options(options={})
-    (!params[:l] || (params[:l] == @domain_locale)) ? {} : {l: I18n.locale}
+  def default_url_options(_options = {})
+    (!params[:l] || (params[:l] == @domain_locale)) ? {} : { l: I18n.locale }
   end
 
-  def self.default_url_options(options={})
-    {l: I18n.locale}
+  def self.default_url_options(_options = {})
+    { l: I18n.locale }
   end
 
   def log_error(exception)
@@ -156,9 +154,7 @@ class ApplicationController < ActionController::Base
         extra[:action] = exception.action.to_s
         extra[:subject] = exception.subject.class.class_name.to_s rescue nil
       end
-      Raven.capture_exception(exception, {
-                                         extra: extra
-                                       })
+      Raven.capture_exception(exception, extra: extra)
     else
       message = "\n#{exception.class} (#{exception.message}):\n"
       Rails.logger.error(message)
@@ -169,73 +165,73 @@ class ApplicationController < ActionController::Base
   def render_error(exception)
     log_error(exception)
     respond_to do |format|
-      format.js {
+      format.js do
         flash.now[:error] = "<b>#{t('error.error_500.title')}</b></br>#{t('error.error_500.description')}"
         render template: 'layouts/error', status: 500, layout: 'application'
-      }
-      format.html {
+      end
+      format.html do
         render template: '/errors/500.html.erb', status: 500, layout: 'application'
-      }
+      end
     end
   end
 
   def invalid_locale(exception)
     log_error(exception)
     respond_to do |format|
-      format.js {
+      format.js do
         flash.now[:error] = 'You are asking for a locale which is not available, sorry'
         render template: '/errors/invalid_locale.js.erb', status: 500, layout: 'application'
-      }
-      format.html {
+      end
+      format.html do
         render template: '/errors/invalid_locale.html.erb', status: 500, layout: 'application'
-      }
+      end
     end
   end
 
   def solr_unavailable(exception)
     log_error(exception)
     respond_to do |format|
-      format.js {
+      format.js do
         flash.now[:error] = 'Sorry. Service unavailable. Try again in few minutes.'
         render template: '/errors/solr_unavailable.js.erb', status: 500, layout: 'application'
-      }
-      format.html {
+      end
+      format.html do
         render template: '/errors/solr_unavailable.html.erb', status: 500, layout: 'application'
-      }
+      end
     end
   end
 
-  def render_404(exception=nil)
+  def render_404(exception = nil)
     log_error(exception) if exception
     respond_to do |format|
-      format.js {
+      format.js do
         flash.now[:error] = 'Page not available.'
         render template: '/errors/solr_unavailable.js.erb', status: 404, layout: 'application'
-      }
+      end
       format.html { render 'errors/404', status: 404, layout: 'application' }
     end
   end
 
-  def current_url(overwrite={})
+  def current_url(overwrite = {})
     url_for params.merge(overwrite).merge(only_path: false)
   end
 
-  #helper method per determinare se l'utente attualmente collegato è amministratore di sistema
+  # helper method per determinare se l'utente attualmente collegato è amministratore di sistema
   def is_admin?
     user_signed_in? && current_user.admin?
   end
 
-  #helper method per determinare se l'utente attualmente collegato è amministratore di gruppo
+  # helper method per determinare se l'utente attualmente collegato è amministratore di gruppo
   def is_group_admin?(group)
     (current_user && (group.portavoce.include? current_user)) || is_admin?
   end
 
-  #helper method per determinare se l'utente attualmente collegato è amministratore di sistema
+  # helper method per determinare se l'utente attualmente collegato è amministratore di sistema
   def is_moderator?
     user_signed_in? && current_user.moderator?
   end
 
-  #helper method per determinare se l'utente attualmente collegato è il proprietario di un determinato oggetto
+  # helper method per determinare se l'utente attualmente collegato è il proprietario di un determinato oggetto
   def is_proprietary?(object)
     current_user && current_user.is_mine?(object)
   end
@@ -244,14 +240,13 @@ class ApplicationController < ActionController::Base
     today = Date.today
     # Difference in years, less one if you have not had a birthday this year.
     a = today.year - birthdate.year
-    a = a - 1 if (
-    birthdate.month > today.month or
-      (birthdate.month >= today.month and birthdate.day > today.day)
-    )
+    a -= 1 if birthdate.month > today.month ||
+      (birthdate.month >= today.month && birthdate.day > today.day)
+
     a
   end
 
-  def link_to_auth (text, link)
+  def link_to_auth(_text, _link)
     '<a>login</a>'
   end
 
@@ -264,21 +259,21 @@ class ApplicationController < ActionController::Base
   end
 
   def moderator_required
-    is_admin? ||is_moderator? || admin_denied
+    is_admin? || is_moderator? || admin_denied
   end
 
   def in_subdomain?
     request.subdomain.present? && request.subdomain != 'www'
   end
 
-  #response if you must be an administrator
+  # response if you must be an administrator
   def admin_denied
     respond_to do |format|
-      format.js do #se era una chiamata ajax, mostra il messaggio
+      format.js do # se era una chiamata ajax, mostra il messaggio
         flash.now[:error] = t('error.admin_required')
         render 'layouts/error'
       end
-      format.html do #ritorna indietro oppure all'HomePage
+      format.html do # ritorna indietro oppure all'HomePage
         store_location
         flash[:error] = t('error.admin_required')
         if request.env['HTTP_REFERER']
@@ -297,7 +292,7 @@ class ApplicationController < ActionController::Base
   # response if you do not have permissions to do an action
   def permissions_denied(exception = nil)
     respond_to do |format|
-      format.js do #se era una chiamata ajax, mostra il messaggio
+      format.js do # se era una chiamata ajax, mostra il messaggio
         if current_user
           log_error(exception)
           flash.now[:error] = exception.message
@@ -306,7 +301,7 @@ class ApplicationController < ActionController::Base
           render 'layouts/authenticate'
         end
       end
-      format.html do #ritorna indietro oppure all'HomePage
+      format.html do # ritorna indietro oppure all'HomePage
         if current_user
           log_error(exception)
           flash[:error] = exception.message
@@ -337,7 +332,7 @@ class ApplicationController < ActionController::Base
       (params[:controller] == 'sessions') ||
       (params[:controller] == 'users/omniauth_callbacks') ||
       (params[:controller] == 'alerts' && params[:action] == 'index') ||
-      (params[:controller] == 'users' && (['join_accounts', 'confirm_credentials'].include? params[:action])) ||
+      (params[:controller] == 'users' && (%w(join_accounts confirm_credentials).include? params[:action])) ||
       (params[:action] == 'feedback')
   end
 
@@ -355,13 +350,13 @@ class ApplicationController < ActionController::Base
       @generated_nickname = @proposal_comment.nickname_generated
 
       if @proposal_comment.is_contribute?
-        #if it's lateral show a message, else show show another message
+        # if it's lateral show a message, else show show another message
         if @proposal_comment.paragraph
           @section = @proposal_comment.paragraph.section
           if params[:right]
             flash[:notice] = t('info.proposal.contribute_added')
           else
-            flash[:notice] = t('info.proposal.contribute_added_right', {section: @section.title})
+            flash[:notice] = t('info.proposal.contribute_added_right', section: @section.title)
           end
         else
           flash[:notice] = t('info.proposal.contribute_added')
@@ -369,7 +364,6 @@ class ApplicationController < ActionController::Base
       else
         flash[:notice] = t('info.proposal.comment_added')
       end
-
     end
   end
 
@@ -377,37 +371,33 @@ class ApplicationController < ActionController::Base
     flash.discard if request.xhr?
   end
 
-
   rescue_from CanCan::AccessDenied do |exception|
     permissions_denied(exception)
   end
 
-  #check as rode all the alerts of the page.
-  #it's a generic method but with a per-page solution
-  #call it in an after_filter
+  # check as rode all the alerts of the page.
+  # it's a generic method but with a per-page solution
+  # call it in an after_filter
   def check_page_alerts
     return unless current_user
     case params[:controller]
       when 'proposals'
         case params[:action]
           when 'show'
-            #mark as checked all user alerts about this proposal
+            # mark as checked all user alerts about this proposal
             @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'proposal_id') = ? and alerts.checked = ?", @proposal.id.to_s, false])
             if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
               flash[:info] = t('info.proposal.available_authors')
             end
             @unread.check_all
-          else
         end
       when 'blog_posts'
         case params[:action]
           when 'show'
-            #mark as checked all user alerts about this proposal
+            # mark as checked all user alerts about this proposal
             @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'blog_post_id') = ? and alerts.checked = ?", @blog_post.id.to_s, false])
             @unread.check_all
-          else
         end
-      else
     end
   end
 

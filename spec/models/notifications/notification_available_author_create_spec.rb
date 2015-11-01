@@ -27,5 +27,4 @@ describe NotificationAvailableAuthorCreate, type: :model, emails: true, notifica
   end
 
   cumulable_event_process_spec
-
 end

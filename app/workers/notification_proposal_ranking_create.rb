@@ -6,7 +6,7 @@ class NotificationProposalRankingCreate < NotificationSender
     @trackable = @proposal
     group = @proposal.groups.first if @proposal.in_group?
 
-    data = {proposal_id: @proposal.id, title: @proposal.title}
+    data = { proposal_id: @proposal.id, title: @proposal.title }
     notification_a = Notification.create(notification_type_id: NotificationType::NEW_VALUTATION_MINE,
                                          url: url_for_proposal, data: data)
     @proposal.users.each do |author|

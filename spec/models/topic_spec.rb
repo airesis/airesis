@@ -13,7 +13,7 @@ describe Frm::Topic do
     end
 
     context 'when subject changes' do
-      let(:new_name) {Faker::Company.name}
+      let(:new_name) { Faker::Company.name }
       before(:each) do
         topic.update(subject: new_name)
       end

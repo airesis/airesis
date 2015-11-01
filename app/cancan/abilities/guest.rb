@@ -27,9 +27,8 @@ module Abilities
     end
 
     def visible_groups_stuff
-      alias_action :by_year_and_month, to: :read
       can [:index, :show, :read], [Blog, Group, GroupArea]
-      can :view_data, Group, private: false
+      can [:view_data, :by_year_and_month], Group, private: false
       can :ask_for_participation, Group
       can :ask_for_multiple_follow, Group
       can :read, GroupInvitation

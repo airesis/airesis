@@ -661,7 +661,6 @@ pt-BR:
       create_event_button: Criar novo evento
     sessions:
       new:
-        login_label: Nome de usuário ou E-mail
         remember_me_label: Lembre-me
       links:
         register: Ainda não está registado? Inscriva-se jà!

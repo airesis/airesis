@@ -570,7 +570,6 @@ zh-TW:
       welcome: 歡迎
       groups_title: 群組
       login: 登入
-      login_placeholder: E-mail 或使用者名稱
       groups_list: 你的群組
       open_group: 建立一個群組
       new_group: 尋找群組
@@ -655,7 +654,6 @@ zh-TW:
       create_event_button: 建立新的活動
     sessions:
       new:
-        login_label: 使用者名稱或 E-mail
         remember_me_label: 記住我
       links:
         register: 沒有帳號？現在就註冊一個！

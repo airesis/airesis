@@ -1,10 +1,9 @@
 require 'spec_helper'
 require 'requests_helper'
-require "cancan/matchers"
+require 'cancan/matchers'
 
 describe NotificationProposalPresentationCreate, type: :model, emails: true, notifications: true, seeds: true do
-
-  it "when new authors for a proposal are available sends correctly an email to all participants to the proposal" do
+  it 'when new authors for a proposal are available sends correctly an email to all participants to the proposal' do
     user1 = create(:user)
     proposal = create(:public_proposal, current_user_id: user1.id)
     participants = []
@@ -33,7 +32,7 @@ describe NotificationProposalPresentationCreate, type: :model, emails: true, not
     delivery_to_user2 = ActionMailer::Base.deliveries.first
     last_deliveries = ActionMailer::Base.deliveries.last(5)
 
-    expect(last_deliveries.map{|e| e.to[0]}).to match_array participants.map(&:email)
+    expect(last_deliveries.map { |e| e.to[0] }).to match_array participants.map(&:email)
     expect(Alert.last(5).map(&:user)).to match_array participants
     expect(Alert.last.notification_type.id).to eq NotificationType::NEW_AUTHORS
 

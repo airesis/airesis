@@ -735,7 +735,6 @@ ru-RU:
       welcome: Добро пожаловать
       groups_title: ГРУППЫ
       login: ВХОД
-      login_placeholder: Адрес электронной почты или имя пользователя
       groups_list: Группы, в которых вы участвуете
       open_group: Создать группу
       new_group: Найти группу
@@ -848,7 +847,6 @@ ru-RU:
       create_event_button: Создать новое событие
     sessions:
       new:
-        login_label: Имя пользователя или Email
         remember_me_label: Запомнить меня
       links:
         register: Ещё не зарегистрированы? Зарегистрируйтесь!

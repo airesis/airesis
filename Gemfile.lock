@@ -317,10 +317,6 @@ GEM
       listen (~> 2.2)
       mail (>= 2.0.3)
       maildir (>= 0.5.0)
-    maktoub (0.5.2)
-      nokogiri
-      premailer-rails
-      rails (>= 4.0.0)
     method_source (0.8.2)
     mime-types (2.6.1)
     mimemagic (0.3.0)
@@ -614,6 +610,7 @@ GEM
     thread (0.2.0)
     thread_safe (0.3.5)
     tilt (1.4.1)
+    timecop (0.8.0)
     timers (4.0.1)
       hitimes
     tins (1.5.4)
@@ -694,7 +691,6 @@ DEPENDENCIES
   koala
   letter_opener
   mailman
-  maktoub
   mustache
   mustache-js-rails
   newrelic_rpm
@@ -752,6 +748,7 @@ DEPENDENCIES
   test-unit
   therubyracer
   thin
+  timecop
   timezone!
   truncate_html
   turbolinks

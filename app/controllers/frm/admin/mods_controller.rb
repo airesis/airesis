@@ -1,7 +1,6 @@
 module Frm
   module Admin
     class ModsController < BaseController
-
       before_filter :load_frm_mod, only: [:show, :destroy]
       authorize_resource class: 'Frm::Mod'
 
@@ -25,9 +24,9 @@ module Frm
         if @frm_mod.save
           flash[:notice] = t('frm.admin.group.created')
           respond_to do |format|
-            format.html {
+            format.html do
               redirect_to group_frm_admin_frm_mod_url(@group, @frm_mod)
-            }
+            end
             format.js
           end
         else

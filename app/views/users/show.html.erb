@@ -5,7 +5,7 @@
 
 <% content_for :head do %>
     <meta itemprop="name" content="<%= @user.fullname %>"/>
-    <meta itemprop="nickname" content="<%= @user.login %>"/>
+    <meta itemprop="nickname" content="<%= @user.fullname %>"/>
     <meta itemprop="url" content="<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>"/>
 <% end %>
 

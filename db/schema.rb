@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151018124339) do
+ActiveRecord::Schema.define(version: 20151030113611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1419,7 +1419,6 @@ ActiveRecord::Schema.define(version: 20151018124339) do
     t.string   "sex",                       limit: 1
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "login",                     limit: 40
     t.string   "password_salt",             limit: 40
     t.datetime "remember_token_expires_at"
     t.string   "confirmation_token",        limit: 255
@@ -1464,10 +1463,10 @@ ActiveRecord::Schema.define(version: 20151018124339) do
     t.string   "avatar_content_type",       limit: 255
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "subdomain"
   end
 
   add_index "users", ["email"], name: "uniqueemail", unique: true, using: :btree
-  add_index "users", ["login"], name: "uniquelogin", unique: true, using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",  limit: 255, null: false

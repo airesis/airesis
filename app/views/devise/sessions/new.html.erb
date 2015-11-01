@@ -4,7 +4,7 @@
 <div class="card">
   <h2><%= t('pages.login.title') %></h2>
   <%= simple_form_for @user, url: user_session_path do |f| %>
-      <%= f.input :login, label: t('pages.sessions.new.login_label'), required: true %>
+      <%= f.input :email, required: true %>
       <%= f.input :password, required: true %>
 
       <div class="row">

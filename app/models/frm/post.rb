@@ -72,12 +72,12 @@ module Frm
         if user
           joins(:topic).where('frm_topics.hidden = false or frm_topics.user_id = ?', user.id)
         else
-          joins(:topic).where(frm_topics: {hidden: false})
+          joins(:topic).where(frm_topics: { hidden: false })
         end
       end
 
       def topic_not_pending_review
-        joins(:topic).where(frm_topics: {state: 'approved'})
+        joins(:topic).where(frm_topics: { state: 'approved' })
       end
 
       def moderate!(posts)
