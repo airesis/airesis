@@ -1,9 +1,8 @@
 require 'spec_helper'
 require 'requests_helper'
-require "cancan/matchers"
+require 'cancan/matchers'
 
 describe 'the management of the blog posts', type: :feature, js: true do
-
   def fill_and_submit(page)
     expect(page).to have_content(I18n.t('pages.proposals.show.add_comment'))
     comment = Faker::Lorem.sentence
@@ -26,8 +25,8 @@ describe 'the management of the blog posts', type: :feature, js: true do
     logout(:user)
   end
 
-  it "can create blog comments if not logged in" do
-    visit blog_blog_post_path(@blog,@blog_post)
+  it 'can create blog comments if not logged in' do
+    visit blog_blog_post_path(@blog, @blog_post)
 
     expect(page).to have_content(@blog_post.title)
     comment = fill_and_submit(page)
@@ -40,9 +39,9 @@ describe 'the management of the blog posts', type: :feature, js: true do
     expect(page).to have_content(comment)
   end
 
-  it "can create blog comments if logged in" do
+  it 'can create blog comments if logged in' do
     login_as @user, scope: :user
-    visit blog_blog_post_path(@blog,@blog_post)
+    visit blog_blog_post_path(@blog, @blog_post)
 
     expect(page).to have_content(@blog_post.title)
     comment = fill_and_submit(page)
@@ -52,7 +51,7 @@ describe 'the management of the blog posts', type: :feature, js: true do
   it "can create blog comments in reserved post if it's his post" do
     login_as @user, scope: :user
     @blog_post.update_attributes(status: BlogPost::RESERVED)
-    visit blog_blog_post_path(@blog,@blog_post)
+    visit blog_blog_post_path(@blog, @blog_post)
 
     expect(page).to have_content(@blog_post.title)
     comment = fill_and_submit(page)
@@ -62,7 +61,7 @@ describe 'the management of the blog posts', type: :feature, js: true do
   it "can create blog comments in draft post if it's his post" do
     login_as @user, scope: :user
     @blog_post.update_attributes(status: BlogPost::DRAFT)
-    visit blog_blog_post_path(@blog,@blog_post)
+    visit blog_blog_post_path(@blog, @blog_post)
 
     expect(page).to have_content(@blog_post.title)
     comment = fill_and_submit(page)
@@ -74,17 +73,17 @@ describe 'the management of the blog posts', type: :feature, js: true do
     @blog_post.status = BlogPost::RESERVED
     @blog_post.save
     @user2 = create(:user)
-    create_participation(@user2,@group)
+    create_participation(@user2, @group)
 
     login_as @user2, scope: :user
 
-    visit blog_blog_post_path(@blog,@blog_post)
+    visit blog_blog_post_path(@blog, @blog_post)
 
     expect(page).to have_content(@blog_post.title)
 
     comment = fill_and_submit(page)
     expect(page).to have_content(comment)
-    visit group_blog_post_path(@group,@blog_post)
+    visit group_blog_post_path(@group, @blog_post)
 
     expect(page).to have_content(@blog_post.title)
     comment = fill_and_submit(page)

@@ -7,7 +7,6 @@ describe 'groups#by_year_and_month', type: :feature, js: true, seeds: true do
 
   before :each do
     login_as user, scope: :user
-
   end
 
   after :each do

@@ -1,8 +1,7 @@
 require 'spec_helper'
 require 'requests_helper'
 
-describe "can list proposals and filter them", type: :feature, js: true, search: true do
-
+describe 'can list proposals and filter them', type: :feature, js: true, search: true do
   def search_and_check(text, list)
     within_left_menu do
       find(:css, '#search').set text
@@ -14,7 +13,7 @@ describe "can list proposals and filter them", type: :feature, js: true, search:
     end
   end
 
-  it "can search by text" do
+  it 'can search by text' do
     load_database
     user = create(:user)
     group = create(:group, current_user_id: user.id)

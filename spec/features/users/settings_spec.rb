@@ -3,7 +3,6 @@ require 'requests_helper'
 require 'email_spec'
 
 describe 'personal settings', type: :feature, js: true do
-
   let!(:user) { create(:user) }
 
   before :each do

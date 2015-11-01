@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   layout :choose_layout
 
-  #l'utente deve aver fatto login
+  # l'utente deve aver fatto login
   before_filter :authenticate_user!, only: [:show]
 
   before_filter :initialize_roadmap, only: [:bugtracking]
@@ -33,7 +33,7 @@ class HomeController < ApplicationController
 
   def donations
     @features = SysFeature.all
-    @colors = ['red', 'yellow', 'blue', 'violet', 'green']
+    @colors = %w(red yellow blue violet green)
   end
 
   def press
@@ -87,10 +87,9 @@ class HomeController < ApplicationController
 
   def feedback
     respond_to do |format|
-
-      format.js {
+      format.js do
         feedback = JSON.parse(params[:data])
-        data = feedback[1][22..-1] if feedback[1] #get the feedback image data
+        data = feedback[1][22..-1] if feedback[1] # get the feedback image data
 
         stack = ''
         if current_user
@@ -100,7 +99,7 @@ class HomeController < ApplicationController
         end
         feedback = SentFeedback.new(message: feedback[0]['message'], stack: stack)
 
-        feedback.email = current_user.email if current_user #save user email if is logged in
+        feedback.email = current_user.email if current_user # save user email if is logged in
 
         if data
           temp_file = Tempfile.new(['tmp', '.png'], encoding: 'ascii-8bit')
@@ -116,7 +115,7 @@ class HomeController < ApplicationController
 
         ResqueMailer.feedback(feedback.id).deliver_later
         render nothing: true
-      }
+      end
       format.html { render nothing: true }
     end
   end

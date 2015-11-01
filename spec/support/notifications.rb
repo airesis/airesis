@@ -22,7 +22,6 @@ def cumulable_event_process_spec
   end
 
   context 'event chain running' do
-
     before(:each) do
       event_class.drain
     end
@@ -173,7 +172,6 @@ def cumulable_event_process_spec
   end
 end
 
-
 def event_process_spec
   before(:each) do
     trigger_event
@@ -199,7 +197,7 @@ def event_process_spec
 
       it 'sent alerts correctly' do
         expect(Alert.unscoped.count).to eq expected_alerts
-        expect(Alert.last(3).map { |a| a.user }).to match_array receivers
+        expect(Alert.last(3).map(&:user)).to match_array receivers
         expect(Alert.last.notification_type.id).to eq notification_type
       end
 

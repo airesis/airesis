@@ -1,4 +1,4 @@
-require "codeclimate-test-reporter"
+require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
 
 require File.expand_path('../../config/environment', __FILE__)
@@ -19,7 +19,6 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
-
   config.use_transactional_fixtures = false
 
   config.before(:each) do
@@ -59,7 +58,7 @@ RSpec.configure do |config|
   Warden.test_mode!
 
   # loading seeds
-  #config.include Rails.application.routes.url_helpers
+  # config.include Rails.application.routes.url_helpers
   config.include Rails.application.routes.url_helpers
 
   Capybara.javascript_driver = :webkit

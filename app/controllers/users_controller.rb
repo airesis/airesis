@@ -24,13 +24,13 @@ class UsersController < ApplicationController
       return redirect_to confirm_credentials_users_url
     end
 
-    user = User.find_by(email: user_info[:email]) #trova l'utente del portale con email e password indicati
+    user = User.find_by(email: user_info[:email]) # trova l'utente del portale con email e password indicati
     unless user
       flash[:error] = t('error.users.join_accounts')
       return redirect_to confirm_credentials_users_url
     end
 
-    if user.valid_password?(params[:user][:password]) #se la password fornita è corretta
+    if user.valid_password?(params[:user][:password]) # se la password fornita è corretta
       user.oauth_join(oauth_data)
       flash[:notice] = t('info.user.account_joined')
       sign_in_and_redirect user, event: :authentication
@@ -56,7 +56,6 @@ class UsersController < ApplicationController
       format.html # show.html.erb
     end
   end
-
 
   def alarm_preferences
     @user = current_user
@@ -140,13 +139,12 @@ class UsersController < ApplicationController
     end
   end
 
-  #change default user locale
+  # change default user locale
   def change_locale
     current_user.locale = SysLocale.find(params[:locale])
     current_user.save!
 
     flash[:notice] = t('info.locale_changed')
-
 
     respond_to do |format|
       format.js { render partial: 'layouts/messages' }
@@ -165,7 +163,6 @@ class UsersController < ApplicationController
 
     flash[:notice] = t('info.user.time_zone_changed')
 
-
     respond_to do |format|
       format.js { render partial: 'layouts/messages' }
     end
@@ -177,7 +174,7 @@ class UsersController < ApplicationController
     end
   end
 
-  #enable or disable rotp feature
+  # enable or disable rotp feature
   def change_rotp_enabled
     authorize! :change_rotp_enabled, current_user
     current_user.rotp_enabled = params[:active]
@@ -200,13 +197,11 @@ class UsersController < ApplicationController
     end
   end
 
-  #aggiorni i confini di interesse dell'utente
+  # aggiorni i confini di interesse dell'utente
   def set_interest_borders
     borders = params[:token][:interest_borders]
-    #cancella i vecchi confini di interesse
-    current_user.user_borders.each do |border|
-      border.destroy
-    end
+    # cancella i vecchi confini di interesse
+    current_user.user_borders.each(&:destroy)
     update_borders(borders)
     flash[:notice] = t('info.user.update_border')
     redirect_to :back
@@ -218,35 +213,35 @@ class UsersController < ApplicationController
         flash[:notice] = t('info.user.info_updated')
         flash[:notice] += t('info.user.confirm_email') if params[:user][:email] && @user.email != params[:user][:email]
         format.js
-        format.html {
+        format.html do
           if params[:back] == 'home'
             redirect_to home_url
           else
             redirect_to @user
           end
-        }
+        end
       else
         @user.errors.full_messages.each do |msg|
           flash[:error] = msg
         end
-        format.html {
+        format.html do
           if params[:back] == 'home'
             redirect_to home_url
           else
             render action: 'show'
           end
-        }
+        end
         format.js { render 'layouts/error' }
       end
     end
   end
 
-  #mostra la form di invio messaggio all'utente
+  # mostra la form di invio messaggio all'utente
   def show_message
     authorize! :send_message, @user
   end
 
-  #invia un messaggio all'utente
+  # invia un messaggio all'utente
   def send_message
     authorize! :send_message, @user
     ResqueMailer.user_message(params[:message][:subject], params[:message][:body], current_user.id, @user.id).deliver_later
@@ -261,7 +256,7 @@ class UsersController < ApplicationController
     @group = Group.friendly.find(params[:group_id])
     users = @group.participants.autocomplete(params[:term])
     users = users.map do |u|
-      {id: u.id, identifier: "#{u.surname} #{u.name}", image_path: "#{avatar(u, size: 20)}"}
+      { id: u.id, identifier: "#{u.surname} #{u.name}", image_path: "#{avatar(u, size: 20)}" }
     end
     render json: users
   end
@@ -291,15 +286,15 @@ class UsersController < ApplicationController
   end
 
   def update_borders(borders)
-    #confini di interesse, scorrili
-    borders.split(',').each do |border| #l'identificativo è nella forma 'X-id'
-      ftype = border[0, 1] #tipologia (primo carattere)
-      fid = border[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
+    # confini di interesse, scorrili
+    borders.split(',').each do |border| # l'identificativo è nella forma 'X-id'
+      ftype = border[0, 1] # tipologia (primo carattere)
+      fid = border[2..-1] # chiave primaria (dal terzo all'ultimo carattere)
       found = InterestBorder.table_element(border)
 
-      if found #if I found something so the ID is correct and I can proceed with geographic border creation
+      if found # if I found something so the ID is correct and I can proceed with geographic border creation
         interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype], territory_id: fid)
-        i = current_user.user_borders.build({interest_border_id: interest_b.id})
+        i = current_user.user_borders.build(interest_border_id: interest_b.id)
         i.save
       end
     end

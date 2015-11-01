@@ -7,13 +7,12 @@ class TutorialAssigneesController < ApplicationController
 
   before_filter :load_tutorial
 
-
   def index
     @tutorial_assignees = @tutorial.assignees.all
 
     respond_to do |format|
       format.html # index.html.erb
-      #format.json { render json: @tutorial_assignees }
+      # format.json { render json: @tutorial_assignees }
     end
   end
 
@@ -82,7 +81,6 @@ class TutorialAssigneesController < ApplicationController
       #  format.json { head :ok }
     end
   end
-
 
   protected
 

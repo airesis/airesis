@@ -26,6 +26,6 @@ class ProposalNickname < ActiveRecord::Base
   end
 
   def to_json
-    {name: nickname, id: id, avatar: avatar(16), type: 'nickname'}
+    { name: nickname, id: id, avatar: avatar(16), type: 'nickname' }
   end
 end

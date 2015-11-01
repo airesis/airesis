@@ -31,8 +31,8 @@ class ProposalCommentSearch
     return @evaluated_ids if @evaluated_ids
     if @current_user
       @evaluated_ids = ProposalComment.joins(:rankings).
-        where(proposal_comment_rankings: {user_id: @current_user.id},
-              proposal_comments: {proposal_id: @proposal.id}).uniq.pluck(:id)
+        where(proposal_comment_rankings: { user_id: @current_user.id },
+              proposal_comments: { proposal_id: @proposal.id }).uniq.pluck(:id)
     else
       @evaluated_ids = []
     end

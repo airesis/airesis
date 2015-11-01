@@ -127,8 +127,6 @@ require 'active_support/core_ext/hash/indifferent_access'
 module Geonames
   class Parser
     def initialize
-
-
       @continent_name = 'Europe'
       @country_name = 'Russian Federation'
       @country_code = '2017370'
@@ -145,11 +143,11 @@ module Geonames
     end
 
     def extract_features(geoname)
-      {name: geoname[:name],
-       longitude: geoname[:lng],
-       latitude: geoname[:lat],
-       population: geoname[:population],
-       geoname_id: geoname[:geonameId]}
+      { name: geoname[:name],
+        longitude: geoname[:lng],
+        latitude: geoname[:lat],
+        population: geoname[:population],
+        geoname_id: geoname[:geonameId] }
     end
 
     def geoname_url(code)

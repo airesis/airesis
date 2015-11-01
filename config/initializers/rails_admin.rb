@@ -1,7 +1,6 @@
 Dir["#{Rails.root}/lib/rails_admin/*.rb"].each { |file| require file }
 
 RailsAdmin.config do |config|
-
   ### Popular gems integration
 
   ## == Devise ==
@@ -25,7 +24,7 @@ RailsAdmin.config do |config|
       except %w(User SysPaymentNotification)
     end
     export
-    #bulk_delete
+    # bulk_delete
     show
     edit
     delete do
@@ -34,7 +33,7 @@ RailsAdmin.config do |config|
     login_as do
       only ['User']
     end
-    #show_in_app
+    # show_in_app
 
     ## With an audit adapter, you can add:
     # history_index

@@ -27,7 +27,7 @@ set :rails_env, 'production'
 # set :linked_files, %w{config/database.yml}
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets solr private/elfinder public/ckeditor_assets }
+set :linked_dirs, %w(bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets solr private/elfinder public/ckeditor_assets)
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -37,16 +37,15 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 
 set :rvm1_ruby_version, File.read('.ruby-version').strip
 
-set :linked_files, %w{config/application.yml config/database.yml config/private_pub.yml config/sunspot.yml .htaccess}
+set :linked_files, %w(config/application.yml config/database.yml config/private_pub.yml config/sunspot.yml .htaccess)
 
 set :sidekiq_config, "#{current_path}/config/sidekiq.yml"
 
 set :passenger_restart_with_touch, true
 
-set :passenger_environment_variables, {path: '$HOME/passenger-4.0.26/bin:$PATH'}
+set :passenger_environment_variables, path: '$HOME/passenger-4.0.26/bin:$PATH'
 
 namespace :deploy do
-
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
@@ -65,5 +64,4 @@ namespace :deploy do
       # end
     end
   end
-
 end

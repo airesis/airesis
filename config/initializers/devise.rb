@@ -29,30 +29,30 @@ Devise.setup do |config|
 
   config.sign_out_via = :delete
 
-  require "omniauth-facebook"
+  require 'omniauth-facebook'
   config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'],
                   scope: 'email',
                   client_options: { ssl: { verify: false, ca_path: '/etc/ssl/certs' } },
                   secure_image_url: true
 
-  require "omniauth-google-oauth2"
+  require 'omniauth-google-oauth2'
   config.omniauth :google_oauth2, ENV['GOOGLE_APP_ID'], ENV['GOOGLE_APP_SECRET'], {}
 
-  require "omniauth-twitter"
+  require 'omniauth-twitter'
   config.omniauth :twitter, ENV['TWITTER_APP_ID'], ENV['TWITTER_APP_SECRET']
 
-  require "omniauth-meetup"
+  require 'omniauth-meetup'
   config.omniauth :meetup, ENV['MEETUP_APP_ID'], ENV['MEETUP_APP_SECRET']
 
-  require "omniauth-linkedin"
+  require 'omniauth-linkedin'
   config.omniauth :linkedin, ENV['LINKEDIN_APP_ID'], ENV['LINKEDIN_APP_SECRET']
 
-  require "omniauth-parma"
-  config.omniauth :parma, ENV['PARMA_APP_ID'], ENV['PARMA_APP_SECRET'], {scope: 'email basic'}
+  require 'omniauth-parma'
+  config.omniauth :parma, ENV['PARMA_APP_ID'], ENV['PARMA_APP_SECRET'], scope: 'email basic'
 
-  require "omniauth/strategies/tecnologiedemocratiche"
+  require 'omniauth/strategies/tecnologiedemocratiche'
   config.omniauth :tecnologiedemocratiche,
                   ENV['TECNOLOGIEDEMOCRATICHE_APP_ID'],
                   ENV['TECNOLOGIEDEMOCRATICHE_APP_SECRET'],
-                  client_options: {site: ENV['TECNOLOGIEDEMOCRATICHE_APP_URL']}
+                  client_options: { site: ENV['TECNOLOGIEDEMOCRATICHE_APP_URL'] }
 end

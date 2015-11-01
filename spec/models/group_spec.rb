@@ -18,7 +18,7 @@ describe Group do
     end
 
     context 'when title changes' do
-      let(:new_name) {Faker::Company.name}
+      let(:new_name) { Faker::Company.name }
       before(:each) do
         group.update(name: new_name)
       end

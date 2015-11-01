@@ -12,20 +12,19 @@ role :app, "#{user_str}@#{server_str}"
 role :web, "#{user_str}@#{server_str}"
 role :db,  "#{user_str}@#{server_str}"
 
-
 # Extended Server Syntax
 # ======================
 # This can be used to drop a more detailed server definition into the
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server server_str, user: user_str, roles: %w{web app}
+server server_str, user: user_str, roles: %w(web app)
 
-set :branch, "develop"
+set :branch, 'develop'
 
-set :default_env, { rvm_bin_path: '~/.rvm/bin' }
+set :default_env, rvm_bin_path: '~/.rvm/bin'
 
-set :default_shell, "bash -l"
+set :default_shell, 'bash -l'
 
 set :bundle_flags, '--deployment'
 
@@ -33,7 +32,7 @@ set :deploy_to, '/home/airesistest/airesis_capistrano'
 
 before 'deploy', 'rvm1:install:ruby'
 
-#set :rvm_type, :user
+# set :rvm_type, :user
 
 # Custom SSH Options
 # ==================

@@ -25,13 +25,13 @@ describe NotificationProposalCommentUnintegrate, type: :model, emails: true, not
     section = proposal.sections.first
     paragraph = section.paragraphs.first
     content = Faker::Lorem.paragraph
-    params = {sections_attributes: {
-      '0' => {id: section.id,
-              paragraphs_attributes: {
-                '0' => {id: paragraph.id,
-                        content: content,
-                        content_dirty: content}}}},
-              integrated_contributes_ids_list: "#{comment.id}"}
+    params = { sections_attributes: {
+      '0' => { id: section.id,
+               paragraphs_attributes: {
+                 '0' => { id: paragraph.id,
+                          content: content,
+                          content_dirty: content } } } },
+               integrated_contributes_ids_list: "#{comment.id}" }
 
     proposal.current_user_id = user.id
     saved = proposal.update(params)

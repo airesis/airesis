@@ -4,12 +4,10 @@ class SysPaymentNotificationsController < ApplicationController
   def create
     response = validate_IPN_notification(request.raw_post)
     case response
-      when 'VERIFIED'
-        SysPaymentNotification.create!(params: params, payable_id: (params[:item_number].to_i rescue nil), payable_type: (Object.const_defined?(params[:atype]) ? params[:atype] : nil), status: params[:payment_status], transaction_id: params[:txn_id], payment_fee: params[:mc_fee], payment_gross: params[:mc_gross], first_name: params[:first_name], last_name: params[:last_name])
-      when 'INVALID'
-        log_error Exception.new('invalid ipn received')
-      else
-        # error
+    when 'VERIFIED'
+      SysPaymentNotification.create!(params: params, payable_id: (params[:item_number].to_i rescue nil), payable_type: (Object.const_defined?(params[:atype]) ? params[:atype] : nil), status: params[:payment_status], transaction_id: params[:txn_id], payment_fee: params[:mc_fee], payment_gross: params[:mc_gross], first_name: params[:first_name], last_name: params[:last_name])
+    when 'INVALID'
+      log_error Exception.new('invalid ipn received')
     end
     render nothing: true
   end
@@ -26,6 +24,6 @@ class SysPaymentNotificationsController < ApplicationController
     response = http.post(uri.request_uri, raw,
                          'Content-Length' => "#{raw.size}",
                          'User-Agent' => 'My custom user agent'
-    ).body
+                        ).body
   end
 end

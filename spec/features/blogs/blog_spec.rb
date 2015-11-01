@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'requests_helper'
 
-describe "the blogs process", type: :feature, js: true do
+describe 'the blogs process', type: :feature, js: true do
   before :each do
     @user = create(:user)
     login_as @user, scope: :user
@@ -9,17 +9,16 @@ describe "the blogs process", type: :feature, js: true do
     visit new_blog_path
     expect(page).to have_content I18n.t('pages.blogs.new.title')
 
-    #fill form fields
+    # fill form fields
     blog_name = Faker::Company.name
-    within("#main-copy") do
+    within('#main-copy') do
       fill_in I18n.t('activerecord.attributes.blog.title'), with: blog_name
       click_button I18n.t('pages.blogs.new.create_button')
     end
-    #success message!
+    # success message!
     expect(page).to have_content(I18n.t('info.blog.blog_created'))
-    #the blog name is certainly displayed somewhere
+    # the blog name is certainly displayed somewhere
     expect(page).to have_content blog_name
-
   end
 
   after :each do
@@ -31,7 +30,7 @@ describe "the blogs process", type: :feature, js: true do
     expect(page).to have_content(I18n.t('error.error_302.title'))
   end
 
-  it "can manage his blog" do
+  it 'can manage his blog' do
     @blog = Blog.order(created_at: :desc).first
     visit blog_path(@blog)
     expect(page).to have_content(I18n.t('pages.blog_posts.new_button'))
@@ -49,16 +48,16 @@ describe "the blogs process", type: :feature, js: true do
       click_link I18n.t('pages.blogs.show.edit_button')
     end
 
-    #fill form fields
+    # fill form fields
     blog_name = Faker::Company.name
-    within("#main-copy") do
+    within('#main-copy') do
       fill_in I18n.t('activerecord.attributes.blog.title'), with: blog_name
 
       click_button I18n.t('buttons.update')
     end
-    #success message!
+    # success message!
     expect(page).to have_content(I18n.t('info.blog.title_updated'))
-    #the new blog name is certainly displayed somewhere
+    # the new blog name is certainly displayed somewhere
     expect(page).to have_content blog_name
     within_left_menu do
       click_link I18n.t('pages.blog_posts.new_button')

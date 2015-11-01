@@ -1,5 +1,4 @@
 class StepsController < ApplicationController
-
   before_filter :admin_required, except: [:complete, :skip]
 
   before_filter :load_tutorial
@@ -73,7 +72,7 @@ class StepsController < ApplicationController
     end
   end
 
-  #segna come completato uno step del tutorial
+  # segna come completato uno step del tutorial
   def complete
     @step = @tutorial.steps.find(params[:id])
     assignee = current_user.tutorial_progresses.find_by_step_id(@step.id)
@@ -84,7 +83,7 @@ class StepsController < ApplicationController
     end
   end
 
-  #segna come 'skipped' uno step del tutorial
+  # segna come 'skipped' uno step del tutorial
   def skip
   end
 

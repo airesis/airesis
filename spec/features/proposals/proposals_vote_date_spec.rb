@@ -3,7 +3,6 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 describe 'decide the votation date for a proposal', type: :feature, js: true, seeds: true do
-
   let!(:user) { create(:user) }
   let!(:group) { create(:group, current_user_id: user.id) }
 
@@ -39,7 +38,6 @@ describe 'decide the votation date for a proposal', type: :feature, js: true, se
       page.execute_script("$('#event_endtime').fdatetimepicker('hide');")
 
       click_button I18n.t('pages.events.new.submit')
-
     end
     wait_for_ajax
     expect(page.current_path).to eq(group_proposal_path(group, proposal))

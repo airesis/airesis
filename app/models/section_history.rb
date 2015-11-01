@@ -5,5 +5,5 @@ class SectionHistory < ActiveRecord::Base
   has_one :proposal, through: :proposal_revision
   has_one :solution, through: :solution_section_history, class_name: 'SolutionHistory'
   has_many :paragraphs, class_name: 'ParagraphHistory', dependent: :destroy
-  validates :title, length: {in: 1..100}
+  validates :title, length: { in: 1..100 }
 end

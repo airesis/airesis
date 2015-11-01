@@ -16,7 +16,7 @@ class ProposalsController < ApplicationController
 
   layout :choose_layout
 
-  #la proposta deve essere in stato 'IN VALUTAZIONE'
+  # la proposta deve essere in stato 'IN VALUTAZIONE'
   before_filter :valutation_state_required, only: [:rankup, :rankdown, :available_author, :add_authors, :geocode]
 
   before_filter :check_page_alerts, only: :show
@@ -28,12 +28,12 @@ class ProposalsController < ApplicationController
       authorize! :view_data, @group
 
       unless can? :view_proposal, @group
-        flash.now[:warn] = 'Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo.' #TODO:I18n
+        flash.now[:warn] = 'Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo.' # TODO: I18n
       end
 
       if params[:group_area_id]
         unless can? :view_proposal, @group_area
-          flash.now[:warn] = 'Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo.' #TODO:I18n
+          flash.now[:warn] = 'Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo.' # TODO: I18n
         end
       end
     end
@@ -48,7 +48,7 @@ class ProposalsController < ApplicationController
     @revision_count = @search.results.total_entries
 
     respond_to do |format|
-      format.html {
+      format.html do
         @page_head = ''
 
         if params[:category]
@@ -82,20 +82,19 @@ class ProposalsController < ApplicationController
         @page_head += " #{t('pages.proposals.index.in_group_area_title')} '#{@group_area.name}'" if @group_area
 
         @page_title = @page_head
-      }
+      end
       format.json
     end
   end
 
-  #list all proposals in a state
+  # list all proposals in a state
   def tab_list
     authorize! :index, Proposal
     query_index
     respond_to do |format|
-
-      format.html {
+      format.html do
         render 'tab_list', layout: false
-      }
+      end
       format.js
       format.json
     end
@@ -127,28 +126,28 @@ class ProposalsController < ApplicationController
   def show
     return redirect_to redirect_url(@proposal) if wrong_url?
 
-    @proposal.check_phase #todo checks only the state during the debate. this is a security check, so if the background job didn't run we can always fix it/ we should check also for waiting and vote inconsistent phase.
+    @proposal.check_phase # TODO: checks only the state during the debate. this is a security check, so if the background job didn't run we can always fix it/ we should check also for waiting and vote inconsistent phase.
     @proposal.reload
-    if @proposal.private #la proposta è interna ad un gruppo
-      if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio
+    if @proposal.private # la proposta è interna ad un gruppo
+      if @proposal.visible_outside # se è visibile dall'esterno mostra solo un messaggio
         if !current_user
           flash[:info] = I18n.t('info.proposal.ask_participation')
         elsif !(can? :participate, @proposal) && @proposal.in_valutation?
           flash[:info] = I18n.t('error.proposals.participate')
         end
-      else #se è bloccata alla visione di utenti esterni
-        if !current_user #se l'utente non è loggato richiedi l'autenticazione
+      else # se è bloccata alla visione di utenti esterni
+        if !current_user # se l'utente non è loggato richiedi l'autenticazione
           authenticate_user!
-        elsif !(can? :show, @proposal) #se è loggato ma non ha i permessi caccialo fuori
+        elsif !(can? :show, @proposal) # se è loggato ma non ha i permessi caccialo fuori
           respond_to do |format|
             flash[:error] = I18n.t('error.proposals.view_proposal')
-            format.html {
+            format.html do
               redirect_to group_proposals_path(@group)
-            }
-            format.json {
-              render json: {error: flash[:error]}, status: 401
+            end
+            format.json do
+              render json: { error: flash[:error] }, status: 401
               return
-            }
+            end
           end
         end
         if !(can? :participate, @proposal) && @proposal.in_valutation?
@@ -161,22 +160,20 @@ class ProposalsController < ApplicationController
 
     load_my_vote
     respond_to do |format|
-      format.html {
+      format.html do
         flash.now[:info] = I18n.t('info.proposal.public_visible') if @proposal.visible_outside
         register_view(@proposal, current_user)
         @blocked_alerts = BlockedProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id) if current_user
-        if @proposal.voting?
-          flash.now[:info] = I18n.t('info.proposal.voting')
-        end
-      }
-      format.js {
+        flash.now[:info] = I18n.t('info.proposal.voting') if @proposal.voting?
+      end
+      format.js do
         render nothing: true
-      }
+      end
       format.json
-      format.pdf {
+      format.pdf do
         render pdf: 'show.pdf.erb',
                show_as_html: params[:debug].present?
-      }
+      end
     end
   end
 
@@ -199,9 +196,7 @@ class ProposalsController < ApplicationController
       @proposal.visible_outside = @group.default_visible_outside
       @proposal.change_advanced_options = @group.change_advanced_options
 
-      if params[:group_area_id]
-        @proposal.group_area_id = params[:group_area_id]
-      end
+      @proposal.group_area_id = params[:group_area_id] if params[:group_area_id]
 
       if params[:topic_id]
         @topic = @group.topics.find(params[:topic_id])
@@ -216,7 +211,7 @@ class ProposalsController < ApplicationController
     @proposal.build_sections
 
     @title = ''
-    @title += I18n.t('pages.proposals.new.title_group', name: @group.name)+ ' ' if @group
+    @title += I18n.t('pages.proposals.new.title_group', name: @group.name) + ' ' if @group
     @title += @proposal.proposal_type.description
   end
 
@@ -226,26 +221,25 @@ class ProposalsController < ApplicationController
       DEFAULT_CHANGE_ADVANCED_OPTIONS
   end
 
-
   def geocode
   end
 
   def create
     max = current_user.proposals.maximum(:created_at) || Time.now - (PROPOSALS_TIME_LIMIT + 1.seconds)
-    raise Exception if LIMIT_PROPOSALS && ((Time.now - max) < PROPOSALS_TIME_LIMIT)
+    fail Exception if LIMIT_PROPOSALS && ((Time.now - max) < PROPOSALS_TIME_LIMIT)
 
     @proposal.current_user_id = current_user.id
     if @proposal.save
       respond_to do |format|
         flash[:notice] = I18n.t('info.proposal.proposal_created')
         format.js
-        format.html {
+        format.html do
           if request.env['HTTP_REFERER']['back=home']
             redirect_to home_url
           else
             redirect_to @group ? edit_group_proposal_url(@group, @proposal) : edit_proposal_path(@proposal)
           end
-        }
+        end
       end
     else
       if @proposal.errors[:title].present?
@@ -263,16 +257,16 @@ class ProposalsController < ApplicationController
     end
   end
 
-  #put back in debate a proposal
+  # put back in debate a proposal
   def regenerate
     authorize! :regenerate, @proposal
     @proposal.current_user_id = current_user.id
     @proposal.regenerate(regenerate_proposal_params)
     flash[:notice] = t('info.proposal.back_in_debate')
     respond_to do |format|
-      format.html {
+      format.html do
         redirect_to redirect_url(@proposal)
-      }
+      end
       format.js
     end
   end
@@ -283,17 +277,17 @@ class ProposalsController < ApplicationController
       PrivatePub.publish_to(proposal_path(@proposal), reload_message) rescue nil
       respond_to do |format|
         flash.now[:notice] = I18n.t('info.proposal.proposal_updated')
-        format.html {
+        format.html do
           if params[:subaction] == 'save'
             redirect_to @group ? group_proposal_url(@group, @proposal) : @proposal
           else
             @proposal.reload
             render action: 'edit'
           end
-        }
+        end
       end
     else
-      flash[:error] = @proposal.errors.map { |e, msg| msg }[0].to_s
+      flash[:error] = @proposal.errors.map { |_e, msg| msg }[0].to_s
       respond_to do |format|
         format.html { render action: 'edit' }
       end
@@ -310,7 +304,6 @@ class ProposalsController < ApplicationController
     redirect_to @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal)
   end
 
-
   def destroy
     authorize! :destroy, @proposal
     @proposal.destroy
@@ -326,24 +319,23 @@ class ProposalsController < ApplicationController
     rank 3
   end
 
-
   def statistics
     respond_to do |format|
       format.html
       format.js do
         render :update do |page|
-          page.replace_html 'statistics_panel', partial: 'statistics', locals: {proposal: @proposal}
+          page.replace_html 'statistics_panel', partial: 'statistics', locals: { proposal: @proposal }
         end
       end
     end
   end
 
-  #restituisce una lista di tutte le proposte simili a quella
-  #passata come parametro
-  #se è indicato un group_id cerca anche tra quelle interne a quel gruppo
+  # restituisce una lista di tutte le proposte simili a quella
+  # passata come parametro
+  # se è indicato un group_id cerca anche tra quelle interne a quel gruppo
   def similar
     authorize! :index, Proposal
-    tags = params[:tags].downcase.gsub('.', '').gsub("'", '').split(',').map { |t| t.strip }.join(' ').html_safe if params[:tags]
+    tags = params[:tags].downcase.gsub('.', '').gsub("'", '').split(',').map(&:strip).join(' ').html_safe if params[:tags]
     search_q = "#{params[:title]} #{tags}"
 
     search = SearchProposal.new(text: search_q)
@@ -358,14 +350,14 @@ class ProposalsController < ApplicationController
     end
   end
 
-  #questo metodo permette all'utente corrente di mettersi a disposizione per redigere la sintesi della proposta
+  # questo metodo permette all'utente corrente di mettersi a disposizione per redigere la sintesi della proposta
   def available_author
     @proposal.available_user_authors << current_user
     @proposal.save!
     flash[:notice] = I18n.t('info.proposal.offered_editor')
   end
 
-  #restituisce la lista degli utenti disponibili a redigere la sintesi della proposta
+  # restituisce la lista degli utenti disponibili a redigere la sintesi della proposta
   def available_authors_list
     @available_authors = @proposal.available_user_authors
     respond_to do |format|
@@ -373,11 +365,11 @@ class ProposalsController < ApplicationController
     end
   end
 
-  #add available authors as authors to the proposal
+  # add available authors as authors to the proposal
   def add_authors
     available_ids = params['user_ids']
     Proposal.transaction do
-      users = @proposal.available_user_authors.where(users: {id: available_ids.map(&:to_i)})
+      users = @proposal.available_user_authors.where(users: { id: available_ids.map(&:to_i) })
       @proposal.available_user_authors -= users
       users.each do |user|
         @proposal.proposal_presentations.build(user: user, acceptor: current_user)
@@ -390,7 +382,6 @@ class ProposalsController < ApplicationController
     flash[:error] = t('errors.proposal.authors_added')
     render 'layouts/error'
   end
-
 
   def vote_results
     return redirect_to vote_results_group_proposal_path(@proposal.group, @proposal) if wrong_url?
@@ -412,10 +403,9 @@ class ProposalsController < ApplicationController
 
   protected
 
-
-  #the url is wrong if you try to access a private proposal without indicating the group
-  #we redirect you to the corret url
-  #todo when there will be more groups we cannot do that anymore
+  # the url is wrong if you try to access a private proposal without indicating the group
+  # we redirect you to the corret url
+  # TODO: when there will be more groups we cannot do that anymore
   def wrong_url?
     @proposal.private? && !@group
   end
@@ -424,8 +414,7 @@ class ProposalsController < ApplicationController
     @group ? 'groups' : 'open_space'
   end
 
-
-  #query per la ricerca delle proposte
+  # query per la ricerca delle proposte
   def query_index
     populate_search
     if params[:state] == ProposalState::TAB_VOTATION.to_s
@@ -441,8 +430,7 @@ class ProposalsController < ApplicationController
     @proposals = @search.results
   end
 
-
-  #valuta una proposta
+  # valuta una proposta
   def rank(rank_type)
     ProposalRanking.transaction do
       ranking = @proposal.rankings.find_or_create_by(user_id: current_user.id)
@@ -466,12 +454,12 @@ class ProposalsController < ApplicationController
     end
   end
 
-  #carica l'area di lavoro
+  # carica l'area di lavoro
   def load_group_area
     @group_area = @group.group_areas.find(params[:group_area_id]) if @group && params[:group_area_id]
   end
 
-  #fill @my_vote and @can_vote_again variables
+  # fill @my_vote and @can_vote_again variables
   def load_my_vote
     return unless @proposal.in_valutation?
     ranking = ProposalRanking.find_by(user_id: current_user.id, proposal_id: @proposal.id) if current_user
@@ -479,7 +467,7 @@ class ProposalsController < ApplicationController
 
     if @my_vote
       if ranking.updated_at < @proposal.updated_at
-        flash.now[:info] = I18n.t('info.proposal.can_change_valutation') if ['show', 'update'].include? params[:action]
+        flash.now[:info] = I18n.t('info.proposal.can_change_valutation') if %w(show update).include? params[:action]
         @can_vote_again = true
       end
     else
@@ -501,9 +489,7 @@ class ProposalsController < ApplicationController
     @search.order_id = params[:view]
     @search.order_dir = params[:order]
 
-    if current_user
-      @search.user_id = current_user.id
-    end
+    @search.user_id = current_user.id if current_user
 
     @search.proposal_type_id = params[:type]
 
@@ -527,8 +513,8 @@ class ProposalsController < ApplicationController
     end
 
     if params[:time]
-      @search.created_at_from = Time.at(params[:time][:start].to_i/1000) if params[:time][:start]
-      @search.created_at_to = Time.at(params[:time][:end].to_i/1000) if params[:time][:end]
+      @search.created_at_from = Time.at(params[:time][:start].to_i / 1000) if params[:time][:start]
+      @search.created_at_to = Time.at(params[:time][:end].to_i / 1000) if params[:time][:end]
       @search.time_type = params[:time][:type]
     end
     @search.text = params[:search]
@@ -565,7 +551,7 @@ class ProposalsController < ApplicationController
     params.require(:proposal).permit(:quorum_id)
   end
 
-  def render_404(exception=nil)
+  def render_404(exception = nil)
     log_error(exception) if exception
     respond_to do |format|
       @title = I18n.t('error.error_404.proposals.title')
