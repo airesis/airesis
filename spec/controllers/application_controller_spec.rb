@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'requests_helper'
 
 describe ApplicationController, type: :controller do
-
   describe 'set_current_domain' do
     let(:host) { 'airesis.it' }
     let!(:sys_locale) { create(:sys_locale, host: host) }
@@ -43,7 +42,7 @@ describe ApplicationController, type: :controller do
 
       context 'host not found' do
         before(:each) do
-          @request.host = "hello.com"
+          @request.host = 'hello.com'
         end
 
         it 'fallbacks to default locale' do

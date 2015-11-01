@@ -107,8 +107,7 @@ module Abilities
         (can? :create_date, group) && (can? :create_event, group)
       end
 
-      can :view_data, Group, private: false
-      can [:view_data, :permissions_list], Group, group_participations: { user_id: user.id }
+      can [:view_data, :by_year_and_month, :permissions_list], Group, group_participations: { user_id: user.id }
     end
   end
 end

@@ -1,5 +1,4 @@
 class ProposalCommentsController < ApplicationController
-
   before_filter :save_post_and_authenticate_user, only: [:create]
 
   load_and_authorize_resource :proposal
@@ -8,10 +7,10 @@ class ProposalCommentsController < ApplicationController
 
   layout :choose_layout
 
-  #retrieve contributes list
+  # retrieve contributes list
   def index
     respond_to do |format|
-      format.html { @proposal_comment_search = ProposalCommentSearch.new({all: true, disable_limit: true}, @proposal) }
+      format.html { @proposal_comment_search = ProposalCommentSearch.new({ all: true, disable_limit: true }, @proposal) }
       format.js { @proposal_comment_search = ProposalCommentSearch.new(params, @proposal, current_user) }
     end
   end
@@ -38,24 +37,22 @@ class ProposalCommentsController < ApplicationController
   def history
   end
 
-  #mostra tutti i commenti dati ad un contributo
+  # mostra tutti i commenti dati ad un contributo
   def show_all_replies
     @proposal_comment = ProposalComment.find_by_id(params[:id])
-    @replies = ProposalComment.where('parent_proposal_comment_id=?', params[:id]).order('created_at ASC')[0..-(params[:showed].to_i+1)]
+    @replies = ProposalComment.where('parent_proposal_comment_id=?', params[:id]).order('created_at ASC')[0..-(params[:showed].to_i + 1)]
   end
 
   def new
     @proposal_comment = @proposal.proposal_comments.build
   end
 
-
   def edit
   end
 
-
   def create
     parent_id = params[:proposal_comment][:parent_proposal_comment_id]
-    @is_reply = parent_id != nil
+    @is_reply = parent_id
     post_contribute
 
     respond_to do |format|
@@ -70,12 +67,11 @@ class ProposalCommentsController < ApplicationController
     respond_to do |format|
       flash[:error] = @proposal_comment.errors.messages.values.join(' e ')
       format.js { render 'layouts/error' }
-      format.json {
-        render json: @proposal_comment.try(:errors) || {error: true}, status: :unprocessable_entity
-      }
+      format.json do
+        render json: @proposal_comment.try(:errors) || { error: true }, status: :unprocessable_entity
+      end
     end
   end
-
 
   def update
     respond_to do |format|
@@ -101,7 +97,7 @@ class ProposalCommentsController < ApplicationController
     end
   end
 
-  #allow a user to tell the proposal author that his contribute has not been integrated well
+  # allow a user to tell the proposal author that his contribute has not been integrated well
   def unintegrate
     authorize! :unintegrate, @proposal_comment
     @proposal_comment.unintegrate
@@ -125,18 +121,16 @@ class ProposalCommentsController < ApplicationController
       report = @proposal_comment.reports.find_by_user_id(current_user.id)
       report.destroy if report
       report = @proposal_comment.reports.create(user_id: current_user.id, proposal_comment_report_type_id: params[:reason])
-
     end
     flash[:notice] = t('info.proposal.contribute_reported')
 
   rescue Exception => e
-    #log_error(e)
+    # log_error(e)
     respond_to do |format|
       flash[:error] = t('error.proposals.contribute_report')
       format.js { render 'layouts/error' }
     end
   end
-
 
   def noise
   end
@@ -144,7 +138,7 @@ class ProposalCommentsController < ApplicationController
   def manage_noise
   end
 
-  #the editor marked some contributes as unuseful
+  # the editor marked some contributes as unuseful
   def mark_noise
     return unless current_user.is_my_proposal? @proposal
 
@@ -166,7 +160,6 @@ class ProposalCommentsController < ApplicationController
     end
   end
 
-
   protected
 
   def proposal_comment_update_params
@@ -183,7 +176,6 @@ class ProposalCommentsController < ApplicationController
     session[:proposal_id] = params[:proposal_id]
     flash[:info] = t('info.proposal.login_to_contribute')
   end
-
 
   def rank(rank_type)
     @my_ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(current_user.id, @proposal_comment.id)
@@ -210,22 +202,20 @@ class ProposalCommentsController < ApplicationController
     end
   end
 
-
-  #check if the user can valutate again a contribute. that can happen only if the contribute received a suggestion after the previous valutation
+  # check if the user can valutate again a contribute. that can happen only if the contribute received a suggestion after the previous valutation
   def already_ranked
     return true if current_user.can_rank_again_comment?(@proposal_comment)
 
     flash[:notice] = t('info.proposal.comment_already_ranked')
     respond_to do |format|
       format.js { render 'layouts/error' }
-      format.html {
+      format.html do
         redirect_to proposal_path(params[:proposal_id])
-      }
+      end
     end
   end
 
   def choose_layout
     @group ? 'groups' : 'open_space'
   end
-
 end

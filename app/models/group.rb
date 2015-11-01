@@ -14,7 +14,7 @@ class Group < ActiveRecord::Base
   STATUS_ACTIVE = 'active'
   STATUS_FEW_USERS_A = 'few_users_a'
 
-  validates :name, presence: true, uniqueness: true, length: {within: 3..60}
+  validates :name, presence: true, uniqueness: true, length: { within: 3..60 }
 
   validates_presence_of :description
   validates_length_of :facebook_page_url, within: 10..255, allow_blank: true
@@ -87,7 +87,8 @@ class Group < ActiveRecord::Base
                       medium: '300x300>',
                       small: '150x150>'
                     },
-                    path: 'groups/:id/:style/:basename.:extension',
+                    path: (Paperclip::Attachment.default_options[:storage] == :s3) ?
+                      'groups/:id/:style/:basename.:extension' : ':rails_root/public:url',
                     default_url: '/img/gruppo-anonimo.png'
 
   validates_attachment_size :image, less_than: 2.megabytes
@@ -162,7 +163,7 @@ class Group < ActiveRecord::Base
     participants.
       joins(" join participation_roles on group_participations.participation_role_id = participation_roles.id
             join action_abilitations on participation_roles.id = action_abilitations.participation_role_id").
-      where(action_abilitations: {group_action_id: action_id}).
+      where(action_abilitations: { group_action_id: action_id }).
       uniq
   end
 
@@ -208,7 +209,7 @@ class Group < ActiveRecord::Base
     limite = params[:limit] || 30
 
     if tag
-      Group.joins(:tags).where(tags: {text: tag}).order('group_participations_count desc, created_at desc').page(page).per(limite)
+      Group.joins(:tags).where(tags: { text: tag }).order('group_participations_count desc, created_at desc').page(page).per(limite)
     else
       Group.search(include: [:next_events, interest_border: [:territory]]) do
         fulltext search, minimum_match: params[:minimum] if search
@@ -231,7 +232,7 @@ class Group < ActiveRecord::Base
   end
 
   def self.most_active(territory = nil)
-    Group.search(include: {interest_border: [:territory]}) do
+    Group.search(include: { interest_border: [:territory] }) do
       with(territory.solr_search_field, territory.id) if territory.present?
       order_by :group_participations_count, :desc
       paginate page: 1, per_page: 5

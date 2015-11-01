@@ -7,16 +7,16 @@ class NotificationProposalCommentCreate < NotificationSender
     nickname = ProposalNickname.find_by(user_id: comment_user.id, proposal_id: @proposal.id)
     name = (nickname && @proposal.is_anonima?) ? nickname.nickname : comment_user.fullname # send nickname if proposal is anonymous
     host = comment_user.locale.host
-    data = {comment_id: comment.id.to_s,
-            proposal_id: @proposal.id.to_s,
-            to_id: "proposal_c_#{@proposal.id}",
-            username: name,
-            user_id: comment_user.id,
-            name: name,
-            title: @proposal.title,
-            count: 1}
+    data = { comment_id: comment.id.to_s,
+             proposal_id: @proposal.id.to_s,
+             to_id: "proposal_c_#{@proposal.id}",
+             username: name,
+             user_id: comment_user.id,
+             name: name,
+             title: @proposal.title,
+             count: 1 }
 
-    query = {comment_id: comment.id.to_s}
+    query = { comment_id: comment.id.to_s }
     if @proposal.private?
       group = @proposal.groups.first
       data[:group] = group.name

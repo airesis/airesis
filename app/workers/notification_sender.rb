@@ -78,7 +78,7 @@ class NotificationSender
 
   def search_for_unread_alert(user, notification_type)
     Alert.joins(:notification).
-      find_by(checked: false, user: user, trackable: @trackable, notifications: {notification_type_id: notification_type.id})
+      find_by(checked: false, user: user, trackable: @trackable, notifications: { notification_type_id: notification_type.id })
   end
 
   def search_for_cumulable(notification_type, user)

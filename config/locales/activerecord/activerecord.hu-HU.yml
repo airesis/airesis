@@ -101,7 +101,6 @@ hu-HU:
         sys_currency_id: Pénznem
       user:
         email: E-mail cím
-        login: Felhasználó név
         password: jelszó
         linkedinpageurl: Linkedin oldalad
         facebookpageurl: Facebook oldalad

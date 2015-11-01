@@ -152,22 +152,22 @@ class Event < ActiveRecord::Base
     event.created = created_at.strftime('%Y%m%dT%H%M%S')
     event.last_modified = updated_at.strftime('%Y%m%dT%H%M%S')
     event.uid = "#{id}"
-    event.url = "#{Maktoub.home_domain}/events/#{id}"
+    event.url = "#{ENV['SITE']}/events/#{id}"
     event
   end
 
   def to_fc # fullcalendar format
-    {id: id,
-     title: title,
-     description: description || 'Some cool description here...',
-     start: "#{starttime.iso8601}",
-     end: "#{endtime.iso8601}",
-     allDay: all_day,
-     recurring: false,
-     backgroundColor: backgroundColor,
-     textColor: textColor,
-     borderColor: Colors.darken_color(backgroundColor),
-     editable: !is_votazione?
+    { id: id,
+      title: title,
+      description: description || 'Some cool description here...',
+      start: "#{starttime.iso8601}",
+      end: "#{endtime.iso8601}",
+      allDay: all_day,
+      recurring: false,
+      backgroundColor: backgroundColor,
+      textColor: textColor,
+      borderColor: Colors.darken_color(backgroundColor),
+      editable: !is_votazione?
     }
   end
 
@@ -203,11 +203,11 @@ class Event < ActiveRecord::Base
   end
 
   def formatted_starttime
-     I18n.l starttime, format: all_day? ? :from_long_date : :from_long_date_time
+    I18n.l starttime, format: all_day? ? :from_long_date : :from_long_date_time
   end
 
   def formatted_endtime
-     I18n.l endtime, format: all_day? ? :until_long_date : :until_long_date_time
+    I18n.l endtime, format: all_day? ? :until_long_date : :until_long_date_time
   end
 
   protected
@@ -218,7 +218,7 @@ class Event < ActiveRecord::Base
     # timers for start and endtime
     if is_votazione?
       EventsWorker.perform_at(starttime, action: EventsWorker::STARTVOTATION, event_id: id)
-      EventsWorker.perform_at(endtime, {action: EventsWorker::ENDVOTATION, event_id: id})
+      EventsWorker.perform_at(endtime, action: EventsWorker::ENDVOTATION, event_id: id)
     end
   end
 end

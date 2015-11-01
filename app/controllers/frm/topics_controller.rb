@@ -52,6 +52,7 @@ module Frm
     end
 
     protected
+
     def create_successful
       redirect_to group_forum_topic_url(@group, @forum, @topic), notice: t('frm.topic.created')
     end
@@ -76,30 +77,28 @@ module Frm
     def subscribe_successful
       flash[:notice] = t('frm.topic.subscribed')
       respond_to do |format|
-        format.html {
+        format.html do
           redirect_to group_forum_topic_url(@group, @topic.forum, @topic)
-        }
-        format.js {
+        end
+        format.js do
           render 'subscribe'
-        }
+        end
       end
     end
 
     def unsubscribe_successful
       flash[:notice] = t('frm.topic.unsubscribed')
       respond_to do |format|
-        format.html {
+        format.html do
           redirect_to group_forum_topic_url(@group, @topic.forum, @topic)
-        }
-        format.js {
+        end
+        format.js do
           render 'subscribe'
-        }
+        end
       end
     end
 
-
     protected
-
 
     def load_forum
       @forum = @group.forums.friendly.find(params[:forum_id])
@@ -108,7 +107,6 @@ module Frm
     def topic_params
       params.require(:frm_topic).permit(:subject, :tags_list, posts_attributes: [:text])
     end
-
 
     def find_posts(topic)
       posts = topic.posts
@@ -119,13 +117,11 @@ module Frm
     end
 
     def find_topic
-      begin
-        @topic = forum_topics(@forum, current_user).friendly.find(params[:id])
-        authorize! :read, @topic
-      rescue ActiveRecord::RecordNotFound
-        flash.alert = t('frm.topic.not_found')
-        redirect_to group_forum_url(@group, @forum) and return
-      end
+      @topic = forum_topics(@forum, current_user).friendly.find(params[:id])
+      authorize! :read, @topic
+    rescue ActiveRecord::RecordNotFound
+      flash.alert = t('frm.topic.not_found')
+      redirect_to(group_forum_url(@group, @forum)) && return
     end
 
     def register_view(topic, user)

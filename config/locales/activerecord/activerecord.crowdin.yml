@@ -113,7 +113,6 @@ crowdin:
         name: crwdns9878:0crwdne9878:0
         email: crwdns5974:0crwdne5974:0
         surname: crwdns9879:0crwdne9879:0
-        login: crwdns5976:0crwdne5976:0
         password: crwdns5977:0crwdne5977:0
         linkedinpageurl: crwdns5978:0crwdne5978:0
         facebookpageurl: crwdns5979:0crwdne5979:0
@@ -144,6 +143,7 @@ crowdin:
         wrong_length: 'crwdns5998:0%{count}crwdne5998:0'
         taken: crwdns5999:0crwdne5999:0
         not_a_number: crwdns6000:0crwdne6000:0
+        not_an_email: crwdns9941:0crwdne9941:0
         greater_than: 'crwdns6001:0%{count}crwdne6001:0'
         greater_than_or_equal_to: 'crwdns6002:0%{count}crwdne6002:0'
         equal_to: 'crwdns6003:0%{count}crwdne6003:0'

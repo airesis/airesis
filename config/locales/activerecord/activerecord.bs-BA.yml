@@ -101,7 +101,6 @@ bs-BA:
         sys_currency_id: Valuta
       user:
         email: E-mail
-        login: Korisničko ime
         password: Lozinka
         linkedinpageurl: Vaša LinkedIn stranica
         facebookpageurl: Vaša Facebook stranica

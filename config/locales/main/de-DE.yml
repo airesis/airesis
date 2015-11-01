@@ -686,7 +686,6 @@ de-DE:
       welcome: Willkommen
       groups_title: GRUPPEN
       login: LOGIN
-      login_placeholder: E-Mail oder Benutzername
       groups_list: Gruppen, an denen Sie beteiligt sind
       open_group: Erstellen Sie eine neue Gruppe
       new_group: Gruppen suchen
@@ -779,7 +778,6 @@ de-DE:
       create_event_button: Neues Ereignis erstellen
     sessions:
       new:
-        login_label: Benutzername oder E-Mail
         remember_me_label: Auf diesem Computer speichern
       links:
         register: Noch nicht registriert? Anmelden!

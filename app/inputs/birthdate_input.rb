@@ -2,7 +2,7 @@ class BirthdateInput < SimpleForm::Inputs::StringInput
   def input(wrapper_options)
     @input_html_options[:data] ||= {}
     @input_html_options[:data][:start_view] ||= 4
-    @input_html_options[:data][:min_view] ||=  2
+    @input_html_options[:data][:min_view] ||= 2
     @input_html_options[:data][:date_startdate] ||= (I18n.l 100.years.ago, format: :datepicker)
     @input_html_options[:data][:date_enddate] ||= (I18n.l 5.years.ago, format: :datepicker)
     @input_html_options[:data][:date] ||= (I18n.l 25.years.ago, format: :datepicker)

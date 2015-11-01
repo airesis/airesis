@@ -1,5 +1,4 @@
 class EventCommentsController < ApplicationController
-
   load_and_authorize_resource :event
   load_and_authorize_resource through: :event
 
@@ -25,9 +24,9 @@ class EventCommentsController < ApplicationController
     @event_comment.destroy
     flash[:notice] = 'The comment has been deleted'
     respond_to do |format|
-      format.js {
+      format.js do
         @event_comments = @event.event_comments.order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
-      }
+      end
     end
   end
 
@@ -40,7 +39,6 @@ class EventCommentsController < ApplicationController
       format.js { render 'layouts/success' }
     end
   end
-
 
   protected
 

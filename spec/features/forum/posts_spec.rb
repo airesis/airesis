@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'requests_helper'
-require "cancan/matchers"
+require 'cancan/matchers'
 
 describe 'posts', type: :feature, js: true do
   let(:user) { create(:user) }
@@ -64,7 +64,7 @@ describe 'posts', type: :feature, js: true do
           fill_in_ckeditor 'frm_post_text', with: text
           click_button 'Post Reply'
           expect(page).to have_content('Your reply has been posted')
-          expect(page).to have_content("in reply to #{topic.posts.first.user.login}")
+          expect(page).to have_content("in reply to #{topic.posts.first.user.name}")
         end
       end
 

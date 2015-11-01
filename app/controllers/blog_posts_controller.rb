@@ -67,9 +67,9 @@ class BlogPostsController < ApplicationController
     respond_to do |format|
       if @blog_post.save
         flash[:notice] = t('info.blog_created')
-        format.html {
+        format.html do
           redirect_to @group ? group_url(@group) : @blog
-        }
+        end
       else
         @user = @blog.user
         format.html { render action: :new }
@@ -113,7 +113,7 @@ class BlogPostsController < ApplicationController
 
   private
 
-  def render_404(exception=nil)
+  def render_404(exception = nil)
     log_error(exception) if exception
     respond_to do |format|
       @title = t('error.error_404.blog_posts.title')

@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'requests_helper'
 
 describe 'topics', type: :feature, js: true do
-
   let(:user) { create(:user) }
   let(:group) { create(:group, current_user_id: user.id) }
   let(:free_category) { create(:frm_category, group: group, visible_outside: true) }
@@ -28,7 +27,6 @@ describe 'topics', type: :feature, js: true do
     end
 
     context 'creating a topic' do
-
       it 'is valid with subject and post text' do
         topic_name = Faker::Lorem.sentence
         post_content = Faker::Lorem.paragraph
@@ -132,12 +130,12 @@ describe 'topics', type: :feature, js: true do
       it 'can pin/unpin a topic' do
         visit group_forum_topic_path(group, forum, topic)
         within_left_menu do
-          click_link I18n.t("frm.topics.show.pin.false")
+          click_link I18n.t('frm.topics.show.pin.false')
         end
         page_should_be_ok
         expect(page).to have_content(I18n.t('frm.topic.pinned.true'))
         within_left_menu do
-          click_link I18n.t("frm.topics.show.pin.true")
+          click_link I18n.t('frm.topics.show.pin.true')
         end
         page_should_be_ok
         expect(page).to have_content(I18n.t('frm.topic.pinned.false'))
@@ -145,7 +143,7 @@ describe 'topics', type: :feature, js: true do
     end
   end
 
-  #todo private forum should not be visible
+  # TODO: private forum should not be visible
   context 'viewing a topic' do
     it 'is free for all' do
       visit group_forum_topic_path(group, forum, topic)

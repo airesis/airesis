@@ -18,6 +18,6 @@ describe 'create proposal solutions', type: :feature, js: true do
     expect(@ability).to be_able_to(:participate, @public_proposal)
 
     click_link I18n.t('pages.proposals.edit.add_solution.standard')
-    expect(page).to have_content "Solution 2"
+    expect(page).to have_content 'Solution 2'
   end
 end

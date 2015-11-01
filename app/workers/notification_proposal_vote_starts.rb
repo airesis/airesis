@@ -5,7 +5,7 @@ class NotificationProposalVoteStarts < NotificationSender
     group = Group.find(group_id) if group_id
     group_area = GroupArea.find(group_area_id) if group_area_id
 
-    data = {proposal_id: @proposal.id, title: @proposal.title, extension: 'in_vote'}
+    data = { proposal_id: @proposal.id, title: @proposal.title, extension: 'in_vote' }
     notification_a = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS_MINE,
                                          url: url_for_proposal, data: data)
 

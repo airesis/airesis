@@ -1,8 +1,7 @@
 class TagsController < ApplicationController
-
   layout 'open_space'
 
-  #l'utente deve aver fatto login
+  # l'utente deve aver fatto login
   before_filter :authenticate_user!, except: [:index, :show]
 
   def show
@@ -36,7 +35,7 @@ class TagsController < ApplicationController
       hint = params[:q] + '%'
       @tags = Tag.includes(:tag_counters).references(:tag_counters).where(['upper(text) like upper(?)', hint.strip]).
         order('(groups_count + blog_posts_count + proposals_count) desc').
-        limit(10).collect { |t| {id: t.id.to_s, name: t.text} }
+        limit(10).collect { |t| { id: t.id.to_s, name: t.text } }
 
       respond_to do |format|
         format.json { render json: @tags }
@@ -49,5 +48,4 @@ class TagsController < ApplicationController
       end
     end
   end
-
 end

@@ -13,7 +13,7 @@ describe Frm::Category do
     end
 
     context 'when name changes' do
-      let(:new_name) {Faker::Company.name}
+      let(:new_name) { Faker::Company.name }
       before(:each) do
         category.update(name: new_name)
       end

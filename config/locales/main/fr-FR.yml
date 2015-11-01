@@ -712,7 +712,6 @@ fr-FR:
       welcome: Bienvenue
       groups_title: GROUPES
       login: CONNEXION
-      login_placeholder: "Courriel ou nom d'utilisateur"
       groups_list: Groupes auxquels vous participez
       open_group: Démarrer un nouveau groupe
       new_group: Trouver des groupes
@@ -825,7 +824,6 @@ fr-FR:
       create_event_button: Créer un nouvel événement
     sessions:
       new:
-        login_label: "Nom d'utilisateur ou courriel"
         remember_me_label: Se souvenir de moi
       links:
         register: Pas encore enregistré ? Inscrivez-vous !

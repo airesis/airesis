@@ -1,5 +1,6 @@
 class ProposalSupportsController < ApplicationController
-  #load_and_authorize_resource
+  # load_and_authorize_resource
+  layout 'open_space'
 
   before_filter :load_proposal
 
@@ -22,14 +23,14 @@ class ProposalSupportsController < ApplicationController
     # the user must have the correct permissions on each group
 
     # required groups
-    groups = params[:proposal][:supporting_group_ids].collect { |i| i.to_i } rescue []
+    groups = params[:proposal][:supporting_group_ids].collect(&:to_i) rescue []
     # his groups
     user_groups = current_user.scoped_group_participations(GroupAction::SUPPORT_PROPOSAL).pluck('group_participations.group_id')
 
     # allowed groups
     diff = groups - user_groups
 
-    raise ActiveRecord::ActiveRecordError.new unless diff.empty?
+    fail ActiveRecord::ActiveRecordError.new unless diff.empty?
 
     no_supp = user_groups - groups # id of user groups not supported
 
@@ -40,7 +41,9 @@ class ProposalSupportsController < ApplicationController
     flash[:notice] = 'Sostegno alla proposta salvato correttamente'
 
     respond_to do |format|
-      format.html
+      format.html do
+        redirect_to @proposal
+      end
       format.js
     end
 
@@ -60,7 +63,6 @@ class ProposalSupportsController < ApplicationController
 
   def update
   end
-
 
   def destroy
   end

@@ -4,7 +4,7 @@ module UsersHelper
   end
 
   def link_to_user(user, options = {})
-    options.reverse_merge! content_method: :name, title_method: :login, class: :nickname
+    options.reverse_merge! content_method: :name, title_method: :email, class: :nickname
     if options[:full_name]
       content_text = "#{user.name} #{user.surname}"
       options[:title] ||= content_text
@@ -48,7 +48,7 @@ module UsersHelper
     if proposal && proposal.is_anonima? && (user != current_user)
       u_nick = user.proposal_nicknames.find_by(proposal_id: proposal.id)
     end
-    ret = "<div class=\"blogUserImage\" title=\"#{u_nick ? u_nick.nickname : user.login}\">"
+    ret = "<div class=\"blogUserImage\" title=\"#{u_nick ? u_nick.nickname : user.email}\">"
     if u_nick
       ret += "<img src=\"https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(u_nick.nickname)}?s=24&d=identicon&r=PG\"/>"
     else

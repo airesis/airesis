@@ -1,9 +1,8 @@
 class RegistrationsController < Devise::RegistrationsController
-
   def create
     session[:subdomain] = request.subdomain
     session[:remote_ip] = request.remote_ip
-    if session[:omniauth] == nil
+    if session[:omniauth].nil?
       if !::Configuration.recaptcha || verify_recaptcha
         super
         session[:omniauth] = nil unless @user.new_record?
@@ -15,13 +14,13 @@ class RegistrationsController < Devise::RegistrationsController
       end
     else
       super
-      session[:omniauth] = nil unless @user.new_record? #OmniAuth
+      session[:omniauth] = nil unless @user.new_record? # OmniAuth
     end
   end
 
   protected
 
-  def after_sign_up_path_for(resource)
+  def after_sign_up_path_for(_resource)
     if session[:invite]
       session[:invite][:return]
     else
@@ -29,8 +28,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def after_inactive_sign_up_path_for(resource)
+  def after_inactive_sign_up_path_for(_resource)
     new_user_session_path
   end
-
 end

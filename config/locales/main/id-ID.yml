@@ -731,7 +731,6 @@ id-ID:
       welcome: Selamat Datang
       groups_title: GRUP
       login: MASUK
-      login_placeholder: Surel atau nama pengguna
       groups_list: Grup yang Anda ikuti
       open_group: Mulai grup baru
       new_group: Cari grup
@@ -844,7 +843,6 @@ id-ID:
       create_event_button: Buat kegiatan baru
     sessions:
       new:
-        login_label: Nama pengguna atau Surel
         remember_me_label: Ingat saya
       links:
         register: Belum terdaftar? Mendaftarlah!

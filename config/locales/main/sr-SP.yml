@@ -738,7 +738,6 @@ sr-SP:
       welcome: Добро дошли
       groups_title: ГРУПЕ
       login: ПРИЈАВЉИВАЊЕ
-      login_placeholder: Е-пошта или корисничко име
       groups_list: Групе у којима учествујете
       open_group: Оснујте нову групу
       new_group: Пронађите групе
@@ -851,7 +850,6 @@ sr-SP:
       create_event_button: Креирајте нови догађај
     sessions:
       new:
-        login_label: Корисничко име или е-пошта
         remember_me_label: Запамти ме
       links:
         register: Још се нисте регистровали? Пријавите се!

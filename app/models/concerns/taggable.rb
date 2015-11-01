@@ -15,7 +15,7 @@ module Concerns
     end
 
     def tags_data
-      tags.map { |t| {id: t.text, name: t.text} }.to_json
+      tags.map { |t| { id: t.text, name: t.text } }.to_json
     end
 
     attr_writer :tags_list

@@ -59,36 +59,47 @@
   <% end %>
 
   <% if @user.show_urls && ::Configuration::socialnetwork_active %>
+      <% if @user.has_provider?(Authentication::FACEBOOK) %>
       <div id="facebook_profile" class="profile_element_no_click">
         <h2 class="label_profile"><%= t('pages.users.show.facebook_url_label') %>: </h2>
 
         <div class="info_profile">
-          <%= link_to @user.facebook_page_url, @user.facebook_page_url, target: "_blank" if @user.has_provider?(Authentication::FACEBOOK) && @user.facebook_page_url.present? %>
+          <%= link_to @user.facebook_page_url, @user.facebook_page_url, target: '_blank' if @user.facebook_page_url.present? %>
         </div>
       </div>
-      <div id="google_profile" class="profile_element_no_click">
-        <h2 class="label_profile"><%= t('pages.users.show.googleplus_url_label') %>: </h2>
-
-        <div class="info_profile">
-          <%= link_to(@user.google_page_url, @user.google_page_url, target: "_blank", rel: 'author') if @user.has_provider?(Authentication::GOOGLE) && @user.google_page_url.present? %>
-        </div>
-      </div>
-      <div id="linkedin_profile" class="profile_element_no_click">
-        <h2 class="label_profile"><%= t('pages.users.show.linkedin_url') %>: </h2>
-
-        <div class="info_profile">
-          <%= link_to @user.linkedin_page_url, @user.linkedin_page_url, target: "_blank" if @user.has_provider?(Authentication::LINKEDIN) && @user.linkedin_page_url.present? %>
-        </div>
-      </div>
-  <% end %>
-  <% if @user.login %>
-      <div id="username_profile" class="profile_element_no_click">
-        <h2 class="label_profile"><%= t('pages.users.show.username_label') %>: </h2>
-
-        <div class="info_profile">
-          <%= h @user.login %>
-        </div>
-      </div>
+      <% end %>
+      <% if @user.has_provider?(Authentication::GOOGLE) %>
+          <div id="google_profile" class="profile_element_no_click">
+            <h2 class="label_profile"><%= t('pages.users.show.googleplus_url_label') %>: </h2>
+            <div class="info_profile">
+              <%= link_to(@user.google_page_url, @user.google_page_url, target: '_blank', rel: 'author') if @user.google_page_url.present? %>
+            </div>
+          </div>
+      <% end %>
+      <% if @user.has_provider?(Authentication::TWITTER) %>
+          <div id="twitter_profile" class="profile_element_no_click">
+            <h2 class="label_profile"><%= t('pages.users.show.twitter_url') %>: </h2>
+            <div class="info_profile">
+              <%= link_to @user.twitter_page_url, @user.twitter_page_url, target: '_blank' %>
+            </div>
+          </div>
+      <% end %>
+      <% if @user.has_provider?(Authentication::LINKEDIN) %>
+          <div id="linkedin_profile" class="profile_element_no_click">
+            <h2 class="label_profile"><%= t('pages.users.show.linkedin_url') %>: </h2>
+            <div class="info_profile">
+              <%= link_to @user.linkedin_page_url, @user.linkedin_page_url, target: '_blank' if @user.linkedin_page_url.present? %>
+            </div>
+          </div>
+      <% end %>
+      <% if @user.has_provider?(Authentication::MEETUP) %>
+          <div id="meetup_profile" class="profile_element_no_click">
+            <h2 class="label_profile"><%= t('pages.users.show.meetup_url') %>: </h2>
+            <div class="info_profile">
+              <%= link_to @user.meetup_page_url, @user.meetup_page_url, target: '_blank' if @user.meetup_page_url.present? %>
+            </div>
+          </div>
+      <% end %>
   <% end %>
   <div id="confirmed_at_profile" class="profile_element_no_click">
     <h2 class="label_profile"><%= t('pages.users.show.registered_from') %>: </h2>

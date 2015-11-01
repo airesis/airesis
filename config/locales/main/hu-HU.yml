@@ -729,7 +729,6 @@ hu-HU:
       welcome: Üdvözöljük
       groups_title: CSOPORTOK
       login: BEJELENTKEZÉS
-      login_placeholder: Email cím vagy felhasználónév
       groups_list: Csoportok, melyekben részt vesz
       open_group: Új csoport indítása
       new_group: Csoportok keresése
@@ -838,7 +837,6 @@ hu-HU:
       create_event_button: Új esemény létrehozása
     sessions:
       new:
-        login_label: Felhasználónév vagy e-mail cím
         remember_me_label: Emlékezz rám
       links:
         register: Még nem regisztrált? Regisztráljon most!

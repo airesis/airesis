@@ -16,7 +16,7 @@ class Tag < ActiveRecord::Base
   before_save :escape_text, on: :create
 
   def as_json(_options = {})
-    {id: text, name: text}
+    { id: text, name: text }
   end
 
   def nearest

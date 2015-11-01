@@ -718,7 +718,7 @@ bo-BT:
       welcome: crwdns7245:0crwdne7245:0
       groups_title: crwdns7246:0crwdne7246:0
       login: crwdns7247:0crwdne7247:0
-      login_placeholder: crwdns7248:0crwdne7248:0
+      login_placeholder: crwdns9954:0crwdne9954:0
       groups_list: crwdns7249:0crwdne7249:0
       open_group: crwdns7250:0crwdne7250:0
       new_group: crwdns7251:0crwdne7251:0
@@ -831,7 +831,7 @@ bo-BT:
       create_event_button: crwdns7319:0crwdne7319:0
     sessions:
       new:
-        login_label: crwdns7333:0crwdne7333:0
+        login_label: crwdns9955:0crwdne9955:0
         remember_me_label: crwdns7334:0crwdne7334:0
       links:
         register: crwdns7335:0crwdne7335:0

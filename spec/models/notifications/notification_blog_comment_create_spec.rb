@@ -12,8 +12,8 @@ describe NotificationBlogCommentCreate, type: :model, emails: true, notification
   let!(:expected_alerts) { 1 }
 
   let!(:user) { create(:user) }
-  let!(:blog) {create(:blog, user: user)}
-  let!(:blog_post) {create(:blog_post, blog: blog, user: user)}
+  let!(:blog) { create(:blog, user: user) }
+  let!(:blog_post) { create(:blog_post, blog: blog, user: user) }
 
   def trigger_event
     create(:blog_comment, blog_post: blog_post)

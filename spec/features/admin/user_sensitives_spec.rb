@@ -3,7 +3,6 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 describe 'the management of user sensitives', type: :feature, js: true do
-
   let!(:admin) { create(:admin) }
   let(:user_sensitives) { create_list(:user_sensitive, 5) }
   let(:user_sensitive) { create(:user_sensitive) }

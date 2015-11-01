@@ -25,8 +25,8 @@ describe NotificationBlogPostCreate, type: :model, emails: true, notifications: 
 
   let(:post_publishing) { create(:post_publishing, blog_post: blog_post, group: group) }
 
-  let(:trigger_event) {post_publishing}
-  let(:receivers) {group_users}
+  let(:trigger_event) { post_publishing }
+  let(:receivers) { group_users }
 
   event_process_spec
 end

@@ -14,7 +14,7 @@ class UserLikesController < ApplicationController
   end
 
   def destroy
-    @user_like = UserLike.find_by({likeable_id: params[:user_like][:likeable_id], likeable_type: params[:user_like][:likeable_type]})
+    @user_like = UserLike.find_by(likeable_id: params[:user_like][:likeable_id], likeable_type: params[:user_like][:likeable_type])
     @user_like.destroy
 
     respond_to do |format|

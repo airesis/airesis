@@ -742,7 +742,7 @@ it-IT:
       welcome: Benvenuto
       groups_title: GRUPPI
       login: ACCEDI
-      login_placeholder: Email o username
+      login_placeholder: Email
       groups_list: Gruppi a cui partecipi
       open_group: Apri un nuovo gruppo
       new_group: Cerca gruppi
@@ -855,7 +855,7 @@ it-IT:
       create_event_button: Crea un evento
     sessions:
       new:
-        login_label: Username o Email
+        login_label: Email
         remember_me_label: Ricordami su questo computer
       links:
         register: Non sei ancora registrato? Registrati!

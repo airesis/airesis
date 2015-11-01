@@ -77,7 +77,6 @@ pt-BR:
         sys_currency_id: Moeda
       user:
         email: Endereço de e-mail
-        login: Usùario
         password: Senha
         linkedinpageurl: Sua pagina em Linkedin
         facebookpageurl: Sua pagina no Facebook

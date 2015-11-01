@@ -8,9 +8,9 @@ module Frm
           group.members << user
         end
         respond_to do |format|
-          format.html {
+          format.html do
             redirect_to group_frm_admin_mod_url(@group, group)
-          }
+          end
           format.js
         end
       end

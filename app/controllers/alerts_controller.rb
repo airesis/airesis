@@ -25,7 +25,6 @@ class AlertsController < ApplicationController
         end
 
         alerts = unread.map do |alert|
-
           { id: alert.id,
             path: calculate_alert_path(alert),
             created_at: (time_in_words alert.created_at),
