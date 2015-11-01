@@ -152,7 +152,7 @@ class Event < ActiveRecord::Base
     event.created = created_at.strftime('%Y%m%dT%H%M%S')
     event.last_modified = updated_at.strftime('%Y%m%dT%H%M%S')
     event.uid = "#{id}"
-    event.url = "#{Maktoub.home_domain}/events/#{id}"
+    event.url = "#{ENV['SITE']}/events/#{id}"
     event
   end
 

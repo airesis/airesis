@@ -317,10 +317,6 @@ GEM
       listen (~> 2.2)
       mail (>= 2.0.3)
       maildir (>= 0.5.0)
-    maktoub (0.5.2)
-      nokogiri
-      premailer-rails
-      rails (>= 4.0.0)
     method_source (0.8.2)
     mime-types (2.6.1)
     mimemagic (0.3.0)
@@ -690,7 +686,6 @@ DEPENDENCIES
   koala
   letter_opener
   mailman
-  maktoub
   mustache
   mustache-js-rails
   newrelic_rpm

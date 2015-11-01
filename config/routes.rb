@@ -555,7 +555,6 @@ Airesis::Application.routes.draw do
           end
         end
       end
-      mount Maktoub::Engine => '/maktoub/'
     end
 
     resources :tokens, only: [:create, :destroy]
