@@ -53,7 +53,7 @@ en-EU:
       alerts: "You can choose which alerts to receive on Airesis..."
       emails: "...by e-mail, or both."
       no_emails: "Remember: if you disable an alert on Airesis, you will not receive it on Airesis either."
-      desktop: "This is your <b>Desk</b>:<br/> here you can manage <b>your proposals</b> and <b>Groups</b>, view the <b>Events</ b> and get in touch with other citizens. Your desktop contains several panels that will populate their content to keep you updated about your activities within Airesis"
+      desktop: "This is your <b>Desk</b>:<br/> here you can manage <b>your proposals</b> and <b>Groups</b>, view the <b>Events</b> and get in touch with other citizens. Your desktop contains several panels that will populate their content to keep you updated about your activities within Airesis"
       proposals_portlet: "In this box you view see all the proposals in debate and you can keep an eye on their progress."
       vote_portlet: "In this box you will find all the proposals that you can vote and where you have not expressed your vote yet"
       topics: "Here you see the status of all the topics you participated and you can immediately see if there are new messages"
