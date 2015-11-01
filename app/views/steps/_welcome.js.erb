@@ -19,61 +19,49 @@
     },
     {
         element: portlets[1],
-        intro: "<%=j t('tutorial.users_alarm_preferences.vote_portlet')%>",
+        intro: "<%=j raw t('tutorial.users_alarm_preferences.vote_portlet')%>",
         position: 'left'
 
     },
     {
         element: portlets[2],
-        intro: "<%=j t('tutorial.users_alarm_preferences.topics')%>",
+        intro: "<%=j raw t('tutorial.users_alarm_preferences.topics')%>",
         position: 'left'
 
     },
     {
         element: '.homecont',
-        intro: "<%=t('tutorial.users_alarm_preferences.explore')%>",
+        intro: "<%=j raw t('tutorial.users_alarm_preferences.explore')%>",
         position: 'left'
 
     },
     {
-        element: '#logo-airesis img',
-        intro: "Clicca sul logo di Airesis per tornare sempre a questa pagina",
+        element: '.top-bar .logo',
+        intro: "<%= j raw t('tutorial.users_alarm_preferences.click_logo')%>",
         position: 'bottom'
 
     },
     {
         element: '#logo-but',
-        intro: "Clicca sul menu gruppi per accedere velocemente allo spazio comune, ai gruppi a cui partecipi, o per aprire un nuovo gruppo",
+        intro: "<%= j raw t('tutorial.users_alarm_preferences.click_groups')%>",
         position: 'bottom'
 
     },
     {
-        element: '#account',
-        intro: "Attraverso la tua icona potrai accedere alla tua HomePage, al tuo Blog o alle Impostazioni Personali",
+        element: '.top-bar .button.account',
+        intro: "<%= j raw t('tutorial.users_alarm_preferences.click_personal')%>",
         position: 'left'
 
     },
     {
-        element: '#menu-right .cont',
-        intro: "A destra ti appariranno tutte le notifiche inviate dal sistema che richiedono la tua attenzione, suddivise per gruppi.",
+        element: '.top-bar .cur.info',
+        intro: "<%= j raw t('tutorial.users_alarm_preferences.click_info')%>",
         position: 'left'
 
     },
     {
-        element: '#tolr .cur.info',
-        intro: "Qui troverai una guida all'utilizzo di Airesis e tante altre informazioni utili",
-        position: 'left'
-
-    },
-    {
-        element: '#tolr .cur.love',
-        intro: "E non scordarti di fare una donazione! Airesis è portato avanti da volontari e ogni piccolo contributo ci aiuterà a proseguire nel nostro progetto.",
-        position: 'left'
-
-    },
-    {
-        element: '.homecont',
-        intro: "Ti consigliamo di continuare il tour per avere una panoramica sulle altre sezioni del sito. La prossima sezione è <%= j link_to 'lo spazio comune', proposals_path, class: 'btn blue' %>",
+        element: '.top-bar .cur.love',
+        intro: "<%= j raw t('tutorial.users_alarm_preferences.click_donation')%>",
         position: 'left'
 
     }

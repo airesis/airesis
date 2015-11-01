@@ -2,9 +2,11 @@ class HomeController < ApplicationController
   layout :choose_layout
 
   # l'utente deve aver fatto login
-  before_filter :authenticate_user!, only: [:show]
+  before_action :authenticate_user!, only: [:show]
 
-  before_filter :initialize_roadmap, only: [:bugtracking]
+  before_action :initialize_roadmap, only: [:bugtracking]
+
+  prepend_before_action :load_tutorial, :set_tutorial_parameters, only: :index
 
   def index
     @page_title = 'Home'
@@ -122,6 +124,10 @@ class HomeController < ApplicationController
   end
 
   protected
+
+  def set_tutorial_parameters
+    @tutorial_action = 'show'
+  end
 
   def load_open_space_resources
     @blog_posts = BlogPost.open_space(current_user, current_domain)
