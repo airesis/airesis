@@ -149,7 +149,7 @@ class ApplicationController < ActionController::Base
   end
 
   def log_error(exception)
-    if ENV['SENTRY_PRIVATE_KEY'] && !Rails.env.test? && !Rails.env.development?
+    if SENTRY_ACTIVE && !Rails.env.test? && !Rails.env.development?
       extra = {}
       extra[:current_user_id] = current_user.id if current_user
       if exception.instance_of? CanCan::AccessDenied
@@ -322,7 +322,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  #salva l'url
+  # persist in session the last visited url
   def store_location
     return if skip_store_location?
     session[:proposal_id] = nil

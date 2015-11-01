@@ -42,6 +42,7 @@ window.GroupsIndex =
   initInterestBorder: ->
     input = $('#interest_border')
     input.tokenInput "/interest_borders.json",
+      propertyToSearch: 'text'
       crossDomain: false
       prePopulate: input.data("pre")
       hintText: Airesis.i18n.interestBorders.hintText

@@ -77,6 +77,10 @@ it-IT:
         index: Gestisci i gruppi di moderatori
         show:
           title: Gestisci i moderatori
+        new: Nuovo gruppo di moderatori
+        created: Gruppo di moderatori creato con successo
+        not_created: Errore durante la creazione del Gruppo di Moderatori
+        deleted: Gruppo di Moderatori rimosso correttamente
     common:
       pages: Pagine
     errors:
@@ -205,6 +209,7 @@ it-IT:
       frm_forum:
         category: Sezione
         title: Titolo
+        name: Titolo
         description: Descrizione
         moderators: Moderatori
         visible_outside: Visibile da parte di chi non partecipa al gruppo

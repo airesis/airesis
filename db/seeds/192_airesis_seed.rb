@@ -1,6 +1,0 @@
-Municipality.create(description: "Santo Domingo", province_id: 193, region_id:  43, country_id: 90, continent_id: 2 , population: 7418)
-Municipality.create(description: "San Antonio", province_id: 193, region_id:  43, country_id: 90, continent_id: 2 , population: 87205)
-Municipality.create(description: "El Tabo", province_id: 193, region_id:  43, country_id: 90, continent_id: 2 , population: 7028)
-Municipality.create(description: "El Quisco", province_id: 193, region_id:  43, country_id: 90, continent_id: 2 , population: 9467)
-Municipality.create(description: "Cartagena", province_id: 193, region_id:  43, country_id: 90, continent_id: 2 , population: 16875)
-Municipality.create(description: "Algarrobo", province_id: 193, region_id:  43, country_id: 90, continent_id: 2 , population: 8601)

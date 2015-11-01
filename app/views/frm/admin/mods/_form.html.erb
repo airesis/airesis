@@ -1,7 +1,6 @@
 <h2><%= @page_title %></h2>
 <%= simple_form_for @frm_mod, url: group_frm_admin_mods_url(@group), remote: remote do |f| %>
     <%= f.input :name %>
-
     <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>
     <%= link_to t('buttons.go_back'), :back, class: 'btn', data: {back: ''} %>
     <%= f.submit class: "btn blue", data: {disable_with: t('loading')} %>

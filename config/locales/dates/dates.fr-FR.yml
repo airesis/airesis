@@ -92,6 +92,8 @@ fr-FR:
       long_date_time: '%A %d %B %Y à %I:%M %p'
       from_long_date_time: 'De %A %d %B %Y à %I:%M %p'
       until_long_date_time: 'Jusque %A %d %B %Y à %I:%M %p'
+      from_long_date: 'De %A %d %B %Y'
+      until_long_date: 'A %A %d %B %Y'
       short: '%d %b %Y'
       two_rows: '%d %b %Y <br/> %I:%M %p'
       weekday: '%a à %I:%M %p'
@@ -100,6 +102,7 @@ fr-FR:
       hour: '%I:%M %p'
       yesterday_at: 'hier à %I:%M %p'
       textfield: '%d/%m/%Y %I:%M %p'
+      datepicker: '%d/%m/%Y'
     am: am
     pm: pm
     left:
@@ -159,3 +162,4 @@ fr-FR:
     from: De
     to: À
   countdown: '{m<}il y a{mn} {ml} {m>} {s<}maintenant{s>}'
+  countdown2: '{y <}{yn} {yl} {y >} {o <}{on} {ol} {o >} {d <}{dn} {dl} {d >} {h <}{hn} {hl} {h >} {m <}{mn} {ml} {m >} {s <} secondes {s >}'

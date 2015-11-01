@@ -1,11 +1,13 @@
+require 'simple_form/components/minlength'
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   config.wrappers :foundation, class: :inputs, hint_class: :field_with_hint, error_class: :error do |b|
     b.use :html5
     b.use :placeholder
-    b.optional :maxlength
+    b.use :maxlength
+    b.use :minlength
     b.optional :pattern
-    b.optional :min_max
+    b.use :min_max
     b.optional :readonly
     b.use :label_input
     b.use :error, wrap_with: { tag: :small, class: :error }

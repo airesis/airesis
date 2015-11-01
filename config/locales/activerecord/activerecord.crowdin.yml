@@ -17,11 +17,6 @@ crowdin:
         period: crwdns5900:0crwdne5900:0
         frequency: crwdns5901:0crwdne5901:0
         private: crwdns5902:0crwdne5902:0
-      event/meeting/place:
-        address: crwdns8233:0crwdne8233:0
-        municipality_id: crwdns8333:0crwdne8333:0
-        latitude_original: crwdns8235:0crwdne8235:0
-        longitude_original: crwdns8236:0crwdne8236:0
       group:
         facebook_page_url: crwdns5906:0crwdne5906:0
         name: crwdns5907:0crwdne5907:0
@@ -52,6 +47,9 @@ crowdin:
         published: crwdns5930:0crwdne5930:0
         published_true: crwdns5931:0crwdne5931:0
         published_false: crwdns5932:0crwdne5932:0
+        published_reserved: crwdns9868:0crwdne9868:0
+        group_ids: crwdns9869:0crwdne9869:0
+        published_at: crwdns9870:0crwdne9870:0
       participation_role:
         name: crwdns8180:0crwdne8180:0
         description: crwdns8181:0crwdne8181:0
@@ -60,6 +58,9 @@ crowdin:
         testo: crwdns5936:0crwdne5936:0
       place:
         address: crwdns5937:0crwdne5937:0
+        municipality_id: crwdns9871:0crwdne9871:0
+        latitude_original: crwdns9872:0crwdne9872:0
+        longitude_original: crwdns9873:0crwdne9873:0
       proposal:
         group_area_id: crwdns5938:0crwdne5938:0
         proposal_category_id: crwdns5939:0crwdne5939:0
@@ -70,12 +71,14 @@ crowdin:
         content: crwdns5944:0crwdne5944:0
         interest_borders_tkn: crwdns5945:0crwdne5945:0
         tags_list: crwdns5946:0crwdne5946:0
-        quorum_id: crwdns5947:0crwdne5947:0
+        quorum_id: crwdns9874:0crwdne9874:0
         anonima: crwdns5948:0crwdne5948:0
         visible_outside: crwdns5949:0crwdne5949:0
         secret_vote: crwdns5950:0crwdne5950:0
         vote_starts_at: crwdns8237:0crwdne8237:0
         vote_ends_at: crwdns8238:0crwdne8238:0
+        debate_starts_at: crwdns9875:0crwdne9875:0
+        debate_ends_at: crwdns9876:0crwdne9876:0
       proposal_comment:
         content: crwdns5951:0crwdne5951:0
       quorum:
@@ -100,16 +103,16 @@ crowdin:
         vote_good_score: crwdns7957:0crwdne7957:0
       search_participant:
         role_id: crwdns8182:0crwdne8182:0
-        keywords: crwdns8183:0crwdne8183:0
+        keywords: crwdns9877:0crwdne9877:0
       sys_movement:
         sys_movement_type_id: crwdns5969:0crwdne5969:0
         made_on: crwdns5970:0crwdne5970:0
         amount: crwdns5971:0crwdne5971:0
         sys_currency_id: crwdns5972:0crwdne5972:0
       user:
-        name: crwdns5973:0crwdne5973:0
+        name: crwdns9878:0crwdne9878:0
         email: crwdns5974:0crwdne5974:0
-        surname: crwdns5975:0crwdne5975:0
+        surname: crwdns9879:0crwdne9879:0
         login: crwdns5976:0crwdne5976:0
         password: crwdns5977:0crwdne5977:0
         linkedinpageurl: crwdns5978:0crwdne5978:0
@@ -117,11 +120,17 @@ crowdin:
         accept_conditions: crwdns5980:0crwdne5980:0
         receive_newsletter: crwdns5981:0crwdne5981:0
         blocked: crwdns5983:0crwdne5983:0
+      user_sensitive:
+        name: crwdns9880:0crwdne9880:0
       group_area:
         name: crwdns5984:0crwdne5984:0
         description: crwdns5985:0crwdne5985:0
         default_role_name: crwdns5986:0crwdne5986:0
     errors:
+      template:
+        header:
+          other: 'crwdns9881:1%{count}crwdnd9881:1%{model}crwdne9881:1'
+        body: crwdns9882:0crwdne9882:0
       messages:
         inclusion: crwdns5989:0crwdne5989:0
         exclusion: crwdns5990:0crwdne5990:0
@@ -146,6 +155,7 @@ crowdin:
         not_found: crwdns6009:0crwdne6009:0
         TOS: crwdns6010:0crwdne6010:0
         certified_cannot_edit: crwdns8334:0crwdne8334:0
+        forum_visibility: crwdns9883:0crwdne9883:0
       full_messages:
         format: 'crwdns6011:0%{attribute}crwdnd6011:0%{message}crwdne6011:0'
       models:
@@ -155,4 +165,4 @@ crowdin:
               already_confirmed: crwdns6012:0crwdne6012:0
         group:
           portavoce:
-            required: crwdns6013:0crwdne6013:0
+            required: crwdns9884:0crwdne9884:0

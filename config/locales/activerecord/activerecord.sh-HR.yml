@@ -17,12 +17,15 @@ sh-HR:
         period: Ponoviti
         frequency: Ponoviti svakih
         private: Privatno
-      event/meeting/place:
-        address: Adresa
-        municipality_id: Grad
       group:
+        facebook_page_url: Adresa Facebook stranice
         name: Ime
+        title_bar: Naslovna linija
+        description: Opis
+        accept_requests: Zahtjev za učešće
         porta_id: Administrator
+        interest_border_tkn: Geografsko mjesto interesa
+        interest_border_id: Geografsko mjesto interesa
       blog:
         title: Naslov
       blog_post:
@@ -37,7 +40,6 @@ sh-HR:
       sys_movement:
         amount: Iznos
       user:
-        name: Ime
         blocked: Greška
       group_area:
         name: Ime

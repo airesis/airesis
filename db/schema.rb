@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150928155343) do
+ActiveRecord::Schema.define(version: 20151030113611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -999,6 +999,7 @@ ActiveRecord::Schema.define(version: 20150928155343) do
     t.integer  "vote_event_id"
     t.integer  "signatures"
     t.integer  "views_count",                             default: 0,     null: false
+    t.boolean  "area_private",                            default: false, null: false
   end
 
   add_index "proposals", ["proposal_category_id"], name: "_idx_proposals_proposal_category_id", using: :btree
@@ -1412,15 +1413,12 @@ ActiveRecord::Schema.define(version: 20150928155343) do
 
   create_table "users", force: :cascade do |t|
     t.integer  "user_type_id",                           default: 3,      null: false
-    t.integer  "residenza_id"
-    t.integer  "nascita_id"
     t.string   "name",                      limit: 100
     t.string   "surname",                   limit: 100
     t.string   "email",                     limit: 100
     t.string   "sex",                       limit: 1
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "login",                     limit: 40
     t.string   "password_salt",             limit: 40
     t.datetime "remember_token_expires_at"
     t.string   "confirmation_token",        limit: 255
@@ -1429,8 +1427,6 @@ ActiveRecord::Schema.define(version: 20150928155343) do
     t.text     "state"
     t.string   "reset_password_token",      limit: 255
     t.string   "encrypted_password",        limit: 128,                   null: false
-    t.boolean  "activist",                               default: false,  null: false
-    t.boolean  "elected",                                default: false,  null: false
     t.string   "blog_image_url",            limit: 1000
     t.integer  "image_id"
     t.integer  "rank"
@@ -1467,10 +1463,10 @@ ActiveRecord::Schema.define(version: 20150928155343) do
     t.string   "avatar_content_type",       limit: 255
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "subdomain"
   end
 
   add_index "users", ["email"], name: "uniqueemail", unique: true, using: :btree
-  add_index "users", ["login"], name: "uniquelogin", unique: true, using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",  limit: 255, null: false

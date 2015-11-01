@@ -3,10 +3,10 @@ $('body').append(container_);
 
 container_.foundation().foundation('reveal', 'open');
 container_.css('max-height', $('html').height() - 110 + 'px').css('overflow-y','auto');
-$(document).on('opened', '[data-reveal]', function () {
+$(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
     $('html').css('overflow', 'hidden');
 });
 
-$(document).on('closed', '[data-reveal]', function () {
+$(document).on('closed.fndtn.reveal', '[data-reveal]', function () {
     $('html').css('overflow', '');
 });

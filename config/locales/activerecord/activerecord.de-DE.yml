@@ -17,11 +17,6 @@ de-DE:
         period: Wiederholen
         frequency: Wiederholen Sie alle
         private: Privat
-      event/meeting/place:
-        address: Adresse
-        municipality_id: Ort
-        latitude_original: Breitengrad
-        longitude_original: Längengrad
       group:
         facebook_page_url: Adresse der Facebook-Seite
         name: Name
@@ -70,7 +65,6 @@ de-DE:
         content: Text
         interest_borders_tkn: Geographischer Ort von Interesse
         tags_list: Schlagwörter
-        quorum_id: Quorum
         anonima: Temporäre Anonymität
         visible_outside: Öffentlich sichtbar
         secret_vote: Geheime Abstimmung
@@ -100,16 +94,13 @@ de-DE:
         vote_good_score: Zustimmung
       search_participant:
         role_id: Rolle
-        keywords: Vorname oder Name
       sys_movement:
         sys_movement_type_id: Typ
         made_on: Gemacht auf
         amount: Betrag
         sys_currency_id: Währung
       user:
-        name: Name
         email: E-Mail-Adresse
-        surname: Familienname
         login: Benutzername
         password: Passwort
         linkedinpageurl: Ihre Seite auf LinkedIn
@@ -152,6 +143,3 @@ de-DE:
           attributes:
             email:
               already_confirmed: Diese E-mail-Adresse ist bereits registriert
-        group:
-          portavoce:
-            required: Du musst einen Sprecher wählen

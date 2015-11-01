@@ -81,15 +81,6 @@
         </div>
       </div>
   <% end %>
-  <% if @user.login %>
-      <div id="username_profile" class="profile_element_no_click">
-        <h2 class="label_profile"><%= t('pages.users.show.username_label') %>: </h2>
-
-        <div class="info_profile">
-          <%= h @user.login %>
-        </div>
-      </div>
-  <% end %>
   <div id="confirmed_at_profile" class="profile_element_no_click">
     <h2 class="label_profile"><%= t('pages.users.show.registered_from') %>: </h2>
 

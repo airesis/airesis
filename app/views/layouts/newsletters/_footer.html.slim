@@ -1,0 +1,48 @@
+table.row.footer
+  tr
+    td.wrapper
+      table.six.columns
+        tr
+          td.left-text-pad
+            h5 = t('mailer.default.footer.connect_with_us')
+            table.tiny-button.facebook
+              tr
+                td
+                  = link_to 'Facebook', Maktoub.facebook_url, target: '_blank'
+            br
+            table.tiny-button.twitter
+              tr
+                td
+                  = link_to 'Twitter', Maktoub.twitter_url, target: '_blank'
+            br
+            table.tiny-button.google-plus
+              tr
+                td
+                  = link_to 'Google +', Maktoub.google_plus_url, target: '_blank'
+          td.expander
+    td.wrapper.last
+      table.six.columns
+        tr
+          td.last.right-text-pad
+            h5 = t('mailer.default.footer.contact_info')
+            = t('mailer.default.footer.email_label')
+            '
+            = mail_to ENV['APP_EMAIL_ADDRESS']
+          td.expander
+table.row
+  tr
+    td.wrapper.last
+      table.twelve.columns
+        tr
+          td align="center"
+            center
+              p style="text-align:center;"
+                = link_to t('mailer.default.terms'), terms_url(host: @user.original_locale.host, l: @user.original_locale.lang), target: '_blank'
+                '  |
+                = link_to t('mailer.default.privacy'), privacy_url(host: @user.original_locale.host, l: @user.original_locale.lang), target: '_blank'
+                '  |
+                - if @unregistered
+                  = link_to t('mailer.invite.no_more_button'), anymore_group_group_invitation_group_invitation_email_url(@group, @group_invitation, @group_invitation_email.token, email: @group_invitation_email.email)
+                - else
+                  = link_to t('mailer.default.edit_preferences'), alarm_preferences_users_url(host: @user.original_locale.host, l: @user.original_locale.lang), target: '_blank'
+          td.expander

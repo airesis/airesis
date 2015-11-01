@@ -1,7 +1,0 @@
-Municipality.create(description: "Babahoyo", province_id: 128, region_id:  1, country_id: 53, continent_id: 2 , population: 90191)
-Municipality.create(description: "Buena Fé (San Jacinto de Buena Fé)", province_id: 128, region_id:  1, country_id: 53, continent_id: 2 , population: 38263)
-Municipality.create(description: "Montalvo", province_id: 128, region_id:  1, country_id: 53, continent_id: 2 , population: 12734)
-Municipality.create(description: "Quevedo", province_id: 128, region_id:  1, country_id: 53, continent_id: 2 , population: 150827)
-Municipality.create(description: "Valencia", province_id: 128, region_id:  1, country_id: 53, continent_id: 2 , population: 16983)
-Municipality.create(description: "Ventanas", province_id: 128, region_id:  1, country_id: 53, continent_id: 2 , population: 38168)
-Municipality.create(description: "Vinces", province_id: 128, region_id:  1, country_id: 53, continent_id: 2 , population: 30248)

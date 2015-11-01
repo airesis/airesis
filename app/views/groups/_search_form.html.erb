@@ -1,4 +1,4 @@
-<%= form_for groups_path, html: {class: "disableForm"}, method: 'get', remote: true do |f| %>
+<%= form_for groups_path, method: 'get', remote: true do |f| %>
     <div class="row">
       <div class="columns">
         <%= f.label t('buttons.search'), t('pages.groups.index.search_with_query') %>

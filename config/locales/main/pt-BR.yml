@@ -38,7 +38,6 @@ pt-BR:
         profile_info_unconfirmed: (usuário não confirmado)
         send_message_button: Enviar mensagem privada
         name_label: Nome
-        surname_label: Sobrenome
         email_label: Email
         edit_image: Editar imagem
         to_be_confirmed: para ser confirmado
@@ -231,7 +230,6 @@ pt-BR:
           description: Aires permite gerenciar áreas de trabalho diferentes dentro do grupo.
           description2: Com esse recurso permite gerenciar os participantes e suas funções.
           description3: Tenha cuidado! Este é um recurso avançado, projetado somente para grandes grupos e usuários experientes.
-          enable: Ativar áreas de trabalho!
           description4: 'Antes de ativar áreas de trabalho, verifique se você pode gerenciar os membros de grupos diretamente usando '
         manage:
           new_area: Criar uma área de trabalho
@@ -258,7 +256,6 @@ pt-BR:
         anything: Todos
         operations_on_user: Operações disponíveis sobre os usuários
         send_email: Enviar email
-        surname: Sobrenome
         name: Nome
         role: Função
         member_since: Membro desde
@@ -464,7 +461,6 @@ pt-BR:
         positive: A favor
         negative: Contra
         neutral: Indiferente
-        name_surname_column: Nome e sobrenome
         date_time_column: Data e hora do voto
       report_contribute:
         mark_title: Marcar a contribuição
@@ -588,8 +584,6 @@ pt-BR:
         preferences: PREFERÊNCIAS
         administration: ADMINISTRADOR
         logout: SAIR
-        become_user: Tornar-se usuário
-        become_user_button: Vá!
         remember_me: Lembrar-me neste computador
         login_button: Entrar
         registration_button: JUNTE-SE A NÓS
@@ -708,67 +702,6 @@ pt-BR:
     comments:
       one: um comentário
       other: '%{count} comentários'
-  activerecord:
-    models:
-      meeting: Reunião
-      places: Lugar
-    attributes:
-      blog_comment:
-        body: Comentário
-        created_at: AntiSpam
-      event:
-        period: Repetir
-        frequency: Repetir a cada
-        private: Privado
-        meeting:
-          place:
-            address: Endereço
-      group:
-        facebook_page_url: Endereço da página Facebook
-        name: Nome
-        title_bar: Barra de título
-        image: Carregar imagem
-      blog:
-        title: Título
-      blog_post:
-        title: Título
-        body: Texto
-        published: Estado
-        published_true: Publicado
-        published_false: Rascunho
-      group_invitation:
-        emails_list: Endereços de email
-        testo: Messagem de texto
-      place:
-        address: Endereço
-      proposal:
-        group_area_id: Área de trabalho
-        proposal_category_id: Categoria
-        title: Título
-        content: Texto
-        interest_borders_tkn: Locais geográficos de interesse
-        tags_list: Tags
-        anonima: Anonimato temporário
-        visible_outside: Publicamente visível
-        secret_vote: Voto secreto
-      proposal_comment:
-        content: Conteúdo
-      quorum:
-        name: Nome do quórum
-        name_title: Por favor, insira um título curto, explicativo
-        description: Descrição / Breve explicação
-        description_title: Uma descrição para explicar a finalidade deste quórum
-        days_m: Dias
-        hours_m: horas
-        minutes_m: Minutos
-        percentage: Participantes (percentagem)
-      sys_movement:
-        sys_movement_type_id: Tipo
-        amount: Valor
-        sys_currency_id: Moeda
-      user:
-        name: Nome
-        email: Endereço de e-mail
   models:
     quorum:
       until_date: '(até %{date})'

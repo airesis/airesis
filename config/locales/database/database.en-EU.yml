@@ -1,22 +1,66 @@
 en-EU:
   db:
     sys_locales:
-      it-IT:
-        description: Italian
-      en:
-        description: English
+      bs-BA:
+        description: Bosnian
+      crowdin:
+        description: Crowdin (only for developers)
+      de-DE:
+        description: German
+      el-GR:
+        description: Greek
+      en-AU:
+        description: English (Australia)
+      en-EU:
+        description: English (Europe)
+      en-GB:
+        description: English (UK)
+      en-IE:
+        description: English (Ireland)
+      en-NZ:
+        description: English (New Zeland)
       en-US:
-        description: English (US)
-      fr:
-        description: French
+        description: English (USA)
+      en-ZA:
+        description: English (South Africa)
+      es-AR:
+        description: Spanish (Argentina)
+      es-CL:
+        description: Spanish (Chile)
+      es-EC:
+        description: Spanish (Ecuador)
       es-ES:
         description: Spanish
-      pt-PT:
-        description: Portuguese
+      fr-FR:
+        description: French
+      hu-HU:
+        description: Hungarian
+      id-ID:
+        description: Indonesian
+      it-IT:
+        description: Italian
+      jp-JP:
+        description: Japanese
+      me-ME:
+        description: Montenegrin
+      nl-NL:
+        description: Netherland
       pt-BR:
         description: Portuguese (Brasil)
-      de:
-        description: German
+      pt-PT:
+        description: Portuguese (Portugal)
+      ro-RO:
+        description: Romanian
+      ru-RU:
+        description: Russian
+      sh-HR:
+        description: Serbo-Croatian
+      sr-CS:
+        description: Serbia (Latin)
+      sr-SP:
+        description: Serbia (Cyrillic)
+      zh-TW:
+        description: Chinese
     proposal_types:
       STANDARD:
         description: Standard Proposal
@@ -96,12 +140,20 @@ en-EU:
         message: "%{user} added a new post in his blog <b>%{blog}</b>"
       new_valutation_mine:
         description: New evaluation for a proposal of mine
-        email_subject: "%{title} - New evaluation"
-        message: "Your proposal <b>%{title}</b> has received a new evaluation"
+        email_subject:
+          one: "%{title} has a new evaluation"
+          other: "%{title} has %{count} new evaluations"
+        message:
+          one: "Your proposal <b>%{title}</b> has received a new evaluation"
+          other: "Your proposal <b>%{title}</b> has received %{count} new evaluations"
       new_valutation:
         description: New evaluation for a proposal I participate in
-        email_subject: "%{title} - New evaluation"
-        message: "The proposal <b>%{title}</b> has received a new evaluation"
+        email_subject:
+          one: "%{title} has a new evaluation"
+          other: "%{title} has %{count} new evaluations"
+        message:
+          one: "The proposal <b>%{title}</b> has received a new evaluation"
+          other: "The proposal <b>%{title}</b> has received %{count} new evaluations"
       available_author:
         description: User available to become an editor of a proposal
         email_subject:

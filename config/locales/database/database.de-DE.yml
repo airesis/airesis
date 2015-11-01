@@ -1,22 +1,12 @@
 de-DE:
   db:
     sys_locales:
-      it-IT:
-        description: Italienisch
-      en:
-        description: Englisch
-      en-US:
-        description: Englisch (US)
-      fr:
-        description: Französisch
       es-ES:
         description: Spanisch
-      pt-PT:
-        description: Portugiesisch
+      it-IT:
+        description: Italienisch
       pt-BR:
         description: Portugiesisch (Brasilien)
-      de:
-        description: Deutsch
     proposal_types:
       STANDARD:
         description: Standardvorschläge
@@ -92,11 +82,8 @@ de-DE:
         message: '%{user} hat einen neuen Post in seinem Blog hinzugefügt <b>%{blog}</b>'
       new_valutation_mine:
         description: Neue Bewertung für einen meiner Vorschläge
-        email_subject: '%{title} - Neue Evaluation'
-        message: 'Ihr Vorschlag <b>%{title}</b> hat eine neue Bewertung erhalten'
       new_valutation:
         description: Neue Bewertung für einen Vorschlag in den ich involviert bin
-        email_subject: '%{title} - Neue Evaluation'
       available_author:
         description: Benutzer verfügbar als Redakteur eines Vorschlags
       author_accepted:

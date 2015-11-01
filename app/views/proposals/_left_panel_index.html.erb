@@ -36,15 +36,20 @@
         </div>
       </div>
     </div>
-<% else # all public proposals      %>
+<% else # all public proposals       %>
     <div class="mybox">
       <h4><%= t('pages.proposals.index.territory') %></h4>
 
       <div class="mycont">
         <%= form_tag current_url, method: :get do %>
-            <%= text_field_tag :interest_border, params[:interest_border],
-                               title: t('buttons.search'), class: 'interest_borders',
-                               data: {pre: ([@search.interest_border].to_json if @search.interest_border)} %>
+            <% if @search.interest_border %>
+                <%= select_tag :interest_border,
+                               options_for_select([[@search.interest_border.text, @search.interest_border.key]],
+                                                  @search.interest_border.key),
+                               title: t('buttons.search'), class: 'interest_borders' %>
+            <% else %>
+                <%= select_tag :interest_border, [], title: t('buttons.search'), class: 'interest_borders' %>
+            <% end %>
         <% end %>
       </div>
     </div>

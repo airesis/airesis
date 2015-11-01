@@ -55,7 +55,7 @@
   <div class="proposal_comment_reply" style="display:none">
     <div class="baloon-triangle"></div>
     <div id="<%= comment.id %>_reply_area_msg"></div>
-    <%= form_for [@proposal, ProposalComment.new], html: {class: "disableForm"}, remote: true do |f| %>
+    <%= form_for [@proposal, ProposalComment.new], remote: true do |f| %>
         <div class="reply_area">
           <%= f.hidden_field :parent_proposal_comment_id, value: comment.id %>
           <%= f.text_area :content, class: 'reply_textarea', data: {id: comment.id}, id: "#{comment.id}_reply_text_area", placeholder: t('pages.proposals.show.reply_placeholder') %>

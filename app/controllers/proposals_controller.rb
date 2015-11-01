@@ -268,7 +268,7 @@ class ProposalsController < ApplicationController
     authorize! :regenerate, @proposal
     @proposal.current_user_id = current_user.id
     @proposal.regenerate(regenerate_proposal_params)
-    flash[:notice] = I18n.t('info.proposal.back_in_debate')
+    flash[:notice] = t('info.proposal.back_in_debate')
     respond_to do |format|
       format.html {
         redirect_to redirect_url(@proposal)
@@ -281,11 +281,10 @@ class ProposalsController < ApplicationController
     @proposal.current_user_id = current_user.id
     if @proposal.update(update_proposal_params)
       PrivatePub.publish_to(proposal_path(@proposal), reload_message) rescue nil
-
       respond_to do |format|
         flash.now[:notice] = I18n.t('info.proposal.proposal_updated')
         format.html {
-          if params[:commit] == t('buttons.update')
+          if params[:subaction] == 'save'
             redirect_to @group ? group_proposal_url(@group, @proposal) : @proposal
           else
             @proposal.reload

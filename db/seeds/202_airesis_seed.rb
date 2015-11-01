@@ -1,6 +1,0 @@
-Municipality.create(description: "Pichilemu", province_id: 203, region_id:  45, country_id: 90, continent_id: 2 , population: 12392)
-Municipality.create(description: "Paredones", province_id: 203, region_id:  45, country_id: 90, continent_id: 2 , population: 6695)
-Municipality.create(description: "Navidad", province_id: 203, region_id:  45, country_id: 90, continent_id: 2 , population: 5422)
-Municipality.create(description: "Marchihue", province_id: 203, region_id:  45, country_id: 90, continent_id: 2 , population: 6904)
-Municipality.create(description: "Litueche", province_id: 203, region_id:  45, country_id: 90, continent_id: 2 , population: 5526)
-Municipality.create(description: "La Estrella", province_id: 203, region_id:  45, country_id: 90, continent_id: 2 , population: 4221)

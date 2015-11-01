@@ -62,9 +62,9 @@ describe 'personal settings', type: :feature, js: true do
       user.reload
       expect(user.unconfirmed_email).to eq new_email
 
-      delivery = ActionMailer::Base.deliveries.first
+      delivery = ActionMailer::Base.deliveries.last
       expect(delivery.to[0]).to eq new_email
-      open_email(new_email)
+      open_last_email_for(new_email)
       click_first_link_in_email
       expect(page).to have_content(I18n.t('devise.confirmations.user.confirmed'))
     end

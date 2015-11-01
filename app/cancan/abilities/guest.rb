@@ -20,7 +20,7 @@ module Abilities
     def visible_proposals_stuff
       can [:read, :new, :report, :history, :list, :left_list, :show_all_replies],
           ProposalComment,
-          proposal: {private: false}
+          proposal: { private: false }
       can :index, Proposal
       can [:list, :left_list, :index], ProposalComment
       can :show, Proposal, private: false
@@ -28,9 +28,8 @@ module Abilities
     end
 
     def visible_groups_stuff
-      alias_action :by_year_and_month, to: :read
       can [:index, :show, :read], [Blog, Group, GroupArea]
-      can :view_data, Group, private: false
+      can [:view_data, :by_year_and_month], Group, private: false
       can :ask_for_participation, Group
       can :ask_for_multiple_follow, Group
       can :read, GroupInvitation
@@ -38,7 +37,7 @@ module Abilities
     end
 
     def visible_blogs_stuff
-      r_blog_post_is_public = {status: BlogPost::PUBLISHED}
+      r_blog_post_is_public = { status: BlogPost::PUBLISHED }
       can :read, BlogPost, r_blog_post_is_public
       can :read, PostPublishing, blog_post: r_blog_post_is_public
       can :new, BlogComment, blog_post: r_blog_post_is_public
@@ -46,10 +45,10 @@ module Abilities
     end
 
     def visible_forum_stuff
-      r_category_is_public = {visible_outside: true}
+      r_category_is_public = { visible_outside: true }
       can :read, Frm::Category, r_category_is_public
       can :read, Frm::Forum, visible_outside: true, category: r_category_is_public
-      can :read, Frm::Topic, forum: {visible_outside: true, category: r_category_is_public}
+      can :read, Frm::Topic, forum: { visible_outside: true, category: r_category_is_public }
     end
   end
 end

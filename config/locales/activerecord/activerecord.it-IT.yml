@@ -17,11 +17,6 @@ it-IT:
         period: Ripeti
         frequency: Ripeti ogni
         private: Privato
-      event/meeting/place:
-        address: Indirizzo
-        municipality_id: Comune
-        latitude_original: Latitudine
-        longitude_original: Longitudine
       group:
         facebook_page_url: Indirizzo pagina Facebook
         name: Nome
@@ -52,6 +47,9 @@ it-IT:
         published: Stato
         published_true: Pubblicato
         published_false: In bozza
+        published_reserved: Riservato
+        group_ids: Pubblicato nei seguenti gruppi
+        published_at: Pubblicato alle
       participation_role:
         name: Nome
         description: Breve descrizione
@@ -60,6 +58,9 @@ it-IT:
         testo: "Testo dell'invito"
       place:
         address: Indirizzo
+        municipality_id: Città
+        latitude_original: Latitudine
+        longitude_original: Longitudine
       proposal:
         group_area_id: Area di lavoro
         proposal_category_id: Categoria
@@ -76,6 +77,8 @@ it-IT:
         secret_vote: Voto segreto
         vote_starts_at: Votazione inizia il
         vote_ends_at: Votazione termina il
+        debate_starts_at: Il dibattito inizia alle
+        debate_ends_at: Il dibattitto finisce alle
       proposal_comment:
         content: Contenuto
       quorum:
@@ -100,7 +103,7 @@ it-IT:
         vote_good_score: Gradimento
       search_participant:
         role_id: Ruolo
-        keywords: Nome o Cognome
+        keywords: Nome o cognome
       sys_movement:
         sys_movement_type_id: Tipo
         made_on: Effettuato il
@@ -117,11 +120,15 @@ it-IT:
         accept_conditions: "Condizioni d'uso"
         receive_newsletter: Newsletter tramite email
         blocked: Errore
+      user_sensitive:
+        name: Nome
       group_area:
         name: Nome
         description: Descrizione
         default_role_name: Nome ruolo di default
     errors:
+      template:
+        body: Ci sono stati problemi con i seguenti campi
       messages:
         inclusion: non è incluso nella lista
         exclusion: è riservato
@@ -146,6 +153,7 @@ it-IT:
         not_found: ' non trovato.'
         TOS: "E' necessario accettare le condizioni d'uso"
         certified_cannot_edit: Non possono essere modificati se sei un utente certificato
+        forum_visibility: "Un forum non può essere visibile all'esterno del gruppo se la categoria è privata"
       full_messages:
         format: '%{attribute} %{message}'
       models:
@@ -155,4 +163,4 @@ it-IT:
               already_confirmed: Questo indirizzo email è già registrato correttamente.
         group:
           portavoce:
-            required: Devi scegliere un portavoce
+            required: Devi scegliere un amministratore

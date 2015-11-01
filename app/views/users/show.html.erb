@@ -1,20 +1,17 @@
+<% @page_title = @user.fullname %>
 <% content_for :html_options do %>
     itemscope itemtype="http://data-vocabulary.org/Person"
 <% end %>
 
 <% content_for :head do %>
     <meta itemprop="name" content="<%= @user.fullname %>"/>
-    <meta itemprop="nickname" content="<%= @user.login %>"/>
+    <meta itemprop="nickname" content="<%= @user.fullname %>"/>
     <meta itemprop="url" content="<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>"/>
 <% end %>
-
-
-<% @page_title = @user.fullname %>
 
 <div id="user_profile_container">
   <%= render partial: 'user_profile' %>
 </div>
-
 
 <% if @user == current_user && @user.group_participations.count > 0 %>
     <div class="card">
@@ -66,11 +63,10 @@
 
 <% if current_user == @user %>
     <div id="name_modal" class="reveal-modal medium" data-reveal>
-      <%= form_for @user, remote: true do |f| %>
+      <%= simple_form_for @user, remote: true do |f| %>
           <div class="row">
             <div class="columns large-6">
-              <h2><%= t('pages.users.show.name_label') %></h2>
-              <%= f.text_field :name, size: 20 %>
+              <%= f.input :name, size: 20, required: true %>
               <input type="button" value="<%= t('buttons.cancel') %>" onclick="$('#name_modal').foundation('reveal','close');" class="btn"/>
               <%= f.submit t('buttons.save'), class: 'btn blue' %>
             </div>
@@ -79,10 +75,8 @@
       <a class="close-reveal-modal">&#215;</a>
     </div>
     <div id="surname_modal" class="reveal-modal medium" data-reveal>
-      <%= form_for @user, remote: true do |f| %>
-          <h2><%= t('pages.users.show.surname_label') %></h2>
-
-          <%= f.text_field :surname, size: 20 %>
+      <%= simple_form_for @user, remote: true do |f| %>
+          <%= f.input :surname, size: 20, required: true %>
           <input type="button" value="<%= t('buttons.cancel') %>" onclick="$('#surname_modal').foundation('reveal','close');" class="btn"/>
           <%= f.submit t('buttons.save'), class: 'btn blue' %>
       <% end %>
@@ -90,11 +84,15 @@
     </div>
 
     <div id="password_modal" class="reveal-modal medium" data-reveal>
-      <%= form_for @user, remote: true do |f| %>
-          <h2><%= t('pages.users.show.password_label') %></h2>
-
-          <%= f.text_field :password, type: :password, size: 20, style: "margin-bottom:5px;", placeholder: 'Nuova password' %>
-          <%= f.text_field :password_confirmation, type: :password, size: 20, placeholder: 'Conferma nuova password' %>
+      <%= simple_form_for @user, remote: true do |f| %>
+          <%= f.input :password, required: true, type: :password,
+                      label: t('pages.password.edit.new_password'), size: 20 %>
+          <%= f.input :password_confirmation,
+                      required: true,
+                      type: :password,
+                      size: 20,
+                      label: t('pages.registration.confirm_password'),
+                      input_html: { data: {fv_identical_field: 'user[password]', fv_identical: true}} %>
           <input type="button" value="<%= t('buttons.cancel') %>" onclick="$('#password_modal').foundation('reveal','close');" class="btn"/>
           <%= f.submit t('buttons.save'), class: 'btn blue' %>
       <% end %>
@@ -102,10 +100,8 @@
     </div>
 
     <div id="email_modal" class="reveal-modal medium" data-reveal>
-      <%= form_for @user, remote: true do |f| %>
-          <h2><%= t('pages.users.show.email_label') %></h2>
-
-          <%= f.text_field :email, size: 25 %>
+      <%= simple_form_for @user, remote: true do |f| %>
+          <%= f.input :email, label: t('pages.users.show.email_label'), size: 25, required: true %>
           <input type="button" value="<%= t('buttons.cancel') %>" onclick="$('#email_modal').foundation('reveal','close');" class="btn"/>
           <%= f.submit t('buttons.save'), class: 'btn blue' %>
       <% end %>

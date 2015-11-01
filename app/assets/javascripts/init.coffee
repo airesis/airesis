@@ -8,8 +8,8 @@ $ ->
       button.attr 'disabled', 'disabled'
       false
 
-  ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible :input:enabled[data-validate]'
   $(document).foundation()
+  new AiresisFormValidation($('form'))
   Facebook.load()
   if Airesis.environment == 'production'
     GoogleAnalytics.load()
@@ -63,8 +63,6 @@ $ ->
     ])
   #remove attributes for introjs from aside hidden menu. so they can work correctly
   $('aside [data-ijs]').removeAttr 'data-ijs'
-
-  ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible ~ :input:enabled[data-validate]'
 
   $.fn.qtip.defaults = $.extend(true, {}, $.fn.qtip.defaults, style: classes: 'qtip-light qtip-shadow')
 
@@ -146,7 +144,7 @@ $ ->
 
   $('[data-tag-cloud] a').tagcloud()
 
-  #proposals index, search by text field
+  # proposals index, search by text field
   $('.search-by-text').on 'click', ->
     field = $(this).prevAll('.field-by-text')
     condition = $(this).prevAll('.condition-for-text:checked')

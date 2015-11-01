@@ -3,7 +3,7 @@
        <%= link_to 'X',current_url(search: nil) %>
     <%end%>
     <p>
-      <%= text_field_tag :search, params[:search], placeholder: t('pages.proposals.index.search_placeholder'), size: 30, onkeyup: 'checkCharacters();', class: 'field-by-text' %>
+      <%= text_field_tag :search, params[:search], placeholder: t('pages.proposals.index.search_placeholder'), size: 30, class: 'field-by-text' %>
       <%= check_box_tag :or, 'or', params[:or].to_s != '', class: 'condition-for-text' %> <%= t('pages.proposals.index.search_words') %><br/>
       <%= link_to t('buttons.search'), current_url, class: 'btn search-by-text' %>
     </p>

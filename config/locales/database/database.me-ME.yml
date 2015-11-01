@@ -1,22 +1,12 @@
 me-ME:
   db:
     sys_locales:
-      it-IT:
-        description: Italijanski
-      en:
-        description: Engleski
-      en-US:
-        description: Engleski (SAD)
-      fr:
-        description: Francuski
       es-ES:
         description: Španski
-      pt-PT:
-        description: Portugalski
+      it-IT:
+        description: Italijanski
       pt-BR:
         description: Portugalski (Brazil)
-      de:
-        description: Njemački
     proposal_types:
       STANDARD:
         description: Standardni prijedlog
@@ -96,12 +86,8 @@ me-ME:
         message: '%{user} je dodao/la novi post u svoj blog <b>%{blog}</b>'
       new_valutation_mine:
         description: Novo ocjenjivanje mog prijedloga
-        email_subject: '%{title} - Novo ocjenjivanje'
-        message: 'Vaš prijedlog <b>%{title}</b> je dobio novo ocjenjivanje'
       new_valutation:
         description: Novo ocjenjivanje prijedloga u kojem učestvujem
-        email_subject: '%{title} - Novo ocjenjivanje'
-        message: 'Prijedlog <b>%{title}</b> je dobio novo ocjenjivanje'
       available_author:
         description: Korisnik dostupan da postane urednik prijedloga
         email_subject:

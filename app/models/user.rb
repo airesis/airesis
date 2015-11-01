@@ -1,12 +1,12 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :registerable, :confirmable, :omniauthable, #:reconfirmable,
+  devise :database_authenticatable, :registerable, :confirmable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable, :blockable, :traceable
 
   include TutorialAssigneesHelper
 
-  attr_accessor :image_url, :accept_conditions, :subdomain, :accept_privacy
+  attr_accessor :image_url, :accept_conditions, :accept_privacy
 
   validates_presence_of :name
   validates_format_of :name, with: AuthenticationModule.name_regex, allow_nil: true
@@ -49,8 +49,6 @@ class User < ActiveRecord::Base
   has_many :proposal_comment_rankings, class_name: 'ProposalCommentRanking'
   has_many :proposal_rankings, class_name: 'ProposalRanking'
   belongs_to :user_type, class_name: 'UserType', foreign_key: :user_type_id
-  belongs_to :places, class_name: 'Place', foreign_key: :residenza_id
-  belongs_to :places, class_name: 'Place', foreign_key: :nascita_id
   belongs_to :image, class_name: 'Image', foreign_key: :image_id
   has_many :authentications, class_name: 'Authentication', dependent: :destroy
 
@@ -127,7 +125,7 @@ class User < ActiveRecord::Base
   scope :certified, -> { where(user_type_id: UserType::CERTIFIED) }
   scope :count_active, -> { unblocked.count.to_f * (ENV['ACTIVE_USERS_PERCENTAGE'].to_f / 100.0) }
 
-  scope :autocomplete, ->(term) { where('lower(users.name) LIKE :term or lower(users.surname) LIKE :term', term: "%#{term.downcase}%").order('users.surname desc, users.name desc').limit(10) }
+  scope :autocomplete, ->(term) { where('lower(users.name) LIKE :term or lower(users.surname) LIKE :term', term: "%#{term.to_s.downcase}%").order('users.surname desc, users.name desc').limit(10) }
   scope :non_blocking_notification, ->(notification_type) {
     User.where.not(id: User.select('users.id').
                      joins(:blocked_alerts).
@@ -239,7 +237,7 @@ class User < ActiveRecord::Base
   def self.new_with_session(params, session)
     super.tap do |user|
       user.last_sign_in_ip = session[:remote_ip]
-      user.subdomain = session[:subdomain] if session[:subdomain] && !session[:subdomain].blank?
+      user.subdomain = session[:subdomain] if session[:subdomain].present?
       user.original_sys_locale_id = user.sys_locale_id = SysLocale.default.id
 
       oauth_data = session['devise.omniauth_data']
@@ -249,7 +247,6 @@ class User < ActiveRecord::Base
         user.email = user_info[:email]
       elsif (data = session[:user]) # what does it do? can't remember
         user.email = session[:user][:email]
-        user.login = session[:user][:email]
         if invite = session[:invite] # if is by invitation
           group_invitation_email = GroupInvitationEmail.find_by(token: invite[:token])
           user.skip_confirmation! if user.email == group_invitation_email.email
@@ -272,10 +269,6 @@ class User < ActiveRecord::Base
 
   def image_url
     avatar.url
-  end
-
-  def login=(value)
-    write_attribute :login, (value.try(:downcase))
   end
 
   # determina se un oggetto appartiene all'utente verificando che
@@ -371,15 +364,6 @@ class User < ActiveRecord::Base
 
   def to_param
     "#{id}-#{fullname.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
-  end
-
-  def self.find_first_by_auth_conditions(warden_conditions)
-    conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
-      where(conditions).where(['lower(login) = :value OR lower(email) = :value', {value: login.downcase}]).first
-    else
-      where(conditions).first
-    end
   end
 
   delegate :can?, :cannot?, to: :ability

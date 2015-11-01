@@ -1,22 +1,12 @@
 sr-CS:
   db:
     sys_locales:
-      it-IT:
-        description: Italijanski
-      en:
-        description: Engleski
-      en-US:
-        description: Engleski (USA)
-      fr:
-        description: Francuski
       es-ES:
         description: Španski
-      pt-PT:
-        description: Portugalski
+      it-IT:
+        description: Italijanski
       pt-BR:
         description: Portugalski (Brazil)
-      de:
-        description: Nemački
     proposal_types:
       STANDARD:
         description: Standardni predlog
@@ -96,12 +86,8 @@ sr-CS:
         message: '%{user} je dodao/la novu poruku u svoj blog <b>%{blog}</b>'
       new_valutation_mine:
         description: Novo ocenjivanje mog predloga
-        email_subject: '%{title} - Novo ocenjivanje'
-        message: 'Vaš predlog <b>%{title}</b> je dobio novo ocenjivanje'
       new_valutation:
         description: Novo ocenjivanje predloga u kojem učestvujem
-        email_subject: '%{title} - Novo ocenjivanje'
-        message: 'Predlog <b>%{title}</b> je dobio novo ocenjivanje'
       available_author:
         description: Korisnik dostupan da postane urednik predloga
         email_subject:

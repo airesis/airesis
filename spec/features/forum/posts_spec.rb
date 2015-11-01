@@ -64,7 +64,7 @@ describe 'posts', type: :feature, js: true do
           fill_in_ckeditor 'frm_post_text', with: text
           click_button 'Post Reply'
           expect(page).to have_content('Your reply has been posted')
-          expect(page).to have_content("in reply to #{topic.posts.first.user.login}")
+          expect(page).to have_content("in reply to #{topic.posts.first.user.name}")
         end
       end
 
@@ -81,14 +81,7 @@ describe 'posts', type: :feature, js: true do
 
       it 'cannot post a reply to a topic with blank text' do
         click_button 'Post Reply'
-        expect(page).to have_content('Your reply could not be posted')
-      end
-
-      it 'does not hold over failed post flash to next request' do
-        click_button 'Post Reply'
-        expect(page).to have_content('Your reply could not be posted')
-        visit root_path
-        expect(page).to_not have_content('Your reply could not be posted')
+        expect(page).to have_content('can not be blank')
       end
     end
 

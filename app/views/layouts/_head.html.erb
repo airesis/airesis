@@ -16,6 +16,8 @@
 <%= render 'layouts/favicons' %>
 
 <script type="text/javascript" src="//cdn.ckeditor.com/4.5.3/standard/ckeditor.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script>
 
 
 <script type="text/javascript">
@@ -118,6 +120,32 @@
             compactLabels1: <%= raw I18n.t('countdowns.compactLabelsSingular')%>,
             layout1: '<%=j raw t('countdown')%>',
             layout2: '<%=j raw t('countdown2')%>'
+        },
+        validationMessages: {
+            notEmpty: {
+                'default': '<%= t('activerecord.errors.messages.empty')%>'
+            },
+            identical: {
+                'default': '<%= t('activerecord.errors.messages.confirmation')%>'
+            },
+            emailAddress: {
+                'default': '<%= t('activerecord.errors.messages.not_an_email')%>'
+            },
+            stringLength: {
+                'default': '<%= t('activerecord.errors.messages.invalid')%>',
+                'between': '<%= t('activerecord.errors.messages.invalid')%>',
+                'less': '<%= t('activerecord.errors.messages.invalid')%>',
+                'more': '<%= t('activerecord.errors.messages.invalid')%>'
+            },
+            greaterThan: {
+                'default': '<%= t('activerecord.errors.messages.invalid')%>'
+            },
+            lessThan: {
+                'default': '<%= t('activerecord.errors.messages.invalid')%>'
+            },
+            alreadyTaken: {
+                'default': '<%= t('activerecord.errors.messages.taken')%>'
+            }
         }
     };
 
@@ -169,12 +197,11 @@
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false"></script>
 
 
-<% if Rails.env.production? %>
+<% if Rails.env.production? && SENTRY_ACTIVE%>
     <script src="//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"></script>
     <script>
         Raven.config('https://<%=ENV['SENTRY_PUBLIC_KEY']%>@app.getsentry.com/<%=ENV['SENTRY_PORT']%>', {
-            release: '<%=AIRESIS_VERSION%>',
-
+            release: '<%=AIRESIS_VERSION%>'
             // we highly recommend restricting exceptions to a domain in order to filter out clutter
             //whitelistUrls: ['example.com/scripts/']
         }).install();

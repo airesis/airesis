@@ -85,10 +85,10 @@ $screen: "only screen";
 // We use this for close hover effect.
 // $alert-function-factor: -14%;
 
-$h1-font-size: rem-calc(36);
-$h2-font-size: rem-calc(29);
-$h3-font-size: rem-calc(19);
-$h4-font-size: rem-calc(15);
+//$h1-font-size: rem-calc(36);
+//$h2-font-size: rem-calc(29);
+//$h3-font-size: rem-calc(19);
+//$h4-font-size: rem-calc(15);
 // $alert-border-color: scale-color($primary-color, $lightness: $alert-function-factor);
 // $alert-bottom-margin: rem-calc(20);
 
@@ -2236,6 +2236,7 @@ small.warning {
   .btn {
     width: 100%;
     text-align: center;
+    box-sizing: border-box;
     &.little {
       width: 40%;
       margin-right: 10px;
@@ -2265,6 +2266,12 @@ small.warning {
   position: relative;
   &.btn-participation {
     display: inline-block;
+  }
+  &[disabled] {
+    background-color: #F3F3F3;
+    border-color: #D9D9D9;
+    color: #444;
+    opacity: 0.5;
   }
 }
 
@@ -2503,6 +2510,15 @@ input[type=file] {
 
 .cke.cke_chrome {
   margin: 0 0 $form-spacing 0;
+  .error & {
+    margin: 0;
+  }
+}
+
+.fv-has-success {
+  .fa.fv-control-feedback {
+    color: green;
+  }
 }
 
 .top-bar.expanded {

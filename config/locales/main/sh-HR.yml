@@ -19,6 +19,7 @@ sh-HR:
       find_groups: Pretraživanje grupa
       parma_login: Prijava s Parma
       tecnologiedemocratiche_login: Prijava s Tecnologie Democratiche
+      tecnologiedemocratiche: Tecnologie Democratiche
     user:
       notifications: Alarmi i obavjesti
       privacy: Nalog i privatnost
@@ -40,7 +41,6 @@ sh-HR:
         profile_info_unconfirmed: (nepotvrđen korisnik)
         send_message_button: Pošalji privatnu poruku
         name_label: Ime
-        surname_label: Prezime
         email_label: Elektronička pošta
         edit_image: Uređivanje slike
         to_be_confirmed: da se potvrdi
@@ -57,7 +57,6 @@ sh-HR:
         certified_from: Potvrđen iz
         group_level_permission_title: Dozvole nivoa grupe
         admin_permissions: Vi ste administrator ove grupe i imate sve dozvole
-        certified_cannot_edit_info: 'Vi ste certificirani korisnik: ne možete uređivati vaše ime, prezime i elektroničku poštu'
       send_message:
         subject_label: Naslov
         body_label: Glavni dio
@@ -239,6 +238,7 @@ sh-HR:
           advanced: Napredno
           time_description: 'Rasprava traje %{days} %{hours} %{minutes}'
           simple_percentage_description: 'a zrelost je jednaka ili viša od %{good_score}%.'
+          advanced_participation_description: '(%{current_number} od %{total_number} koji imaju pravo) <b>(prosječna vrijednost: %{average})</b>'
           advanced_percentage_description: 'Ako je zrelost niža od %{bad_score}%, prijedlog se odbacuje.'
           advanced_percentage_description3: Prijedlog ostaje u raspravi, ako je zrelost između dva granične vrijednosti.
         active: Aktivan
@@ -263,7 +263,6 @@ sh-HR:
           description: Airesis vam omogućuje upravljanje različitim područjima rada unutar grupe.
           description2: S ovom odlikom možete bolje upravljati učesnicima i njihovim funkcijama.
           description3: Budite oprezni! Ovo je napredna odlika, dizajnirana samo za veće grupe i stručne korisnike.
-          enable: Omogućiti područja rada!
           description4: 'Prije aktiviranja područja rada, provjerite ako možete upravljati članovima grupe izravno koristeći '
         manage:
           new_area: Kreirajte područje rada
@@ -290,7 +289,6 @@ sh-HR:
         anything: Svi
         operations_on_user: Operacije dostupne na korisnicima
         send_email: Pošalji elektroničku poštu
-        surname: Prezime
         name: Ime
         role: Funkcija
         member_since: Član od
@@ -339,13 +337,61 @@ sh-HR:
         continue_reading: Nastavite čitati prijedlog
         debate_title: 'U raspravi - %{count}'
         voting_title: 'Glasovanje - %{count}'
+        accepted_title: 'Glasano - %{count}'
+        revision_title: 'Odbačeno - %{count}'
+        login_with: 'prijava sa:'
+        group_areas_title: Područja rada
+        no_group_areas: Nema područja
+        all_areas: Sva područja
+        categories_title: KATEGORIJE
+        all_categories: Sve kategorije
+        loading_proposals: Učitavanje prijedloga, molimo sačekajte...
+        title_with_category: 'Prijedlozi u kategoriji %{category}'
+        all_categories_title: Prijedlozi u svim kategorijama
+        in_group_area_title: u području rada
+        last_title: Posljednje umetnuto (TODO)
+        most_popular_title: Najpopularnije (TODO)
+        most_voted_title: Najbolje rangirano (TODO)
+        show_more: Prikazati više prijedloga...
+        loading_alt: Učitavanje
+        choose_model: Odaberati model prijedloga
+        search_title: Pretraga u prijedlozima grupe
+        search_placeholder: Umetnite najmanje dva znaka za pretraživanje
+        search_words: Bilo koje riječi
+        participants_number: UČESNICI
+        contributes_number: DOPRINOSI
+        rank: ZRELOST
+        voters: GLASAČI
+        date_range: 'kreirano između %{start} i %{end}'
         proposal_types_title: MODELI
         all_proposal_types: Svi modeli
         with_text: "sadrži '%{text}'"
         last_24h: kreirano u u posljednja 24 sata
         last_1h: kreirano u posljednjih sat vremena
         last_7d: kreirano u zadnjih tjedan dana
+        last_1m: kreirano u prošlom mjesecu
+        last_1y: kreirano u prošloj godini
       show:
+        voteup: Slažem se
+        votenil: Ne znam / ne razumijem
+        votedown: Ne slažem se
+        random_stack: Pametno sortiranje
+        most_recent: Najnovije
+        most_ranked: Najbolje ocjenjeno
+        history_button: Povijest
+        choose_votation_period: Odaberite period glasovanja
+        choose_votation_period_alert: Jeste li sigurni za period glasovanja? Ne možete ga promijeniti kasnije!
+        choose_votation_period_button: Biram!
+        no_periods_contact_group: Datumi glasovanja nisu podešeni, molimo kontaktirajte administratore da bi odabrali datum.
+        choose_new_votation_period_button: Molimo izaberite novi datum za glasovanje
+        loading_contributions: Učitavanje doprinosa, molimo pričekajte...
+        previos_contributes: Prijašni doprinosi...
+        delete_contribute_confirmation: Jeste li sigurni da želite izbrisati ovaj doprinos?
+        delete_suggestion_confirmation: Jeste li sigurni da želite izbrisati ovaj komentar?
+        offered_as_editor_message: Ponudili ste da budete urednik ovog prijedloga
+        offer_as_editor_button: Želim biti urednik ovog prijedloga!
+        available_editors_button: Dostupni urednici
+        confirm_editors_button: Želite li ponuditi da budete urednik ovog prijedloga?
         editors_list_title: Popis dostupnih urednika za ovaj prijedlog
         attached_documents: Priložena dokumenta
         no_document_attached: Nema priloženih dokumenata
@@ -397,7 +443,42 @@ sh-HR:
         no_contributes: Tijekom glasovanja doprinosi nisu prikazani
         new_valutation_message: Prijedlog je dobio novo ocjenjivanje
         old_editors_title: Stari urednici
+        back_debate_button: Vraćanje u raspravu
+        new_quorum_title: Odaberite novi kvorum
+        enable_alerts: Omogućiti upozorenja
+        disable_alerts: Onemogućiti upozorenja
+        close_contribute: ZATVORITI DOPRINOSE
+        contributes_list: "Popis doprinosa u '%{section}'"
+        add_comment: Dodaj komentar
+        add_contribute: Dajte svoje ideje! Predložite izmjene teksta i pomozite uredniku poboljšati prijedlog
+        login_to_comment: Prijavite se da dodate komentar
+        regenerate_nickname: Regenerirati nadimak
+        add_contribution_no_paragraph: Nijedna stavka nije određena
+        debate_ends_html: Završetak rasprave u
+        debate_ends_valutations_or: ili sa
+        debate_ends_valutations_and: i sa
+        debate_ends_valutations: Završetak rasprave sa
+        error_loading_paragraph: Ova stavka je uklonjen. Ponovo učitajte stranicu za pregled ažuriranog prijedloga
+        generic_fake_content: Ovaj dio još nije sastavljen. Pomozite uredniku umetanjem doprinosa!
+        model_title: Šablon
+        created_events: Već kreirani događaji
+        create_new_votation_period: Kreiranje novog događaja na kraju rasprave
+        choose_later: Ne hvala. Odabraću kasnije
+        choose_now: Želim izabrati sada
+        group_area: Područje rada
+        nickname_assigned: "Dodijeljen vam je nadimak '%{nickname}'. Ako vam se ne sviđa, možete ga promijeniti iz lijevog izbornika u roku od 10 minuta"
+        cant_participate:
+          no_permissions: Ne možete učestvovati u ovom prijedlogu jer iako ste član grupe, ali nemate dopuštenje za učestvovanje.
+          ask_permissions: Pitajte administratora za dozvole, šaljući mu poruku.
+          request_pending: Ne možete učestvovati u ovom prijedlogu, jer iako ste zatražili da budete član ove grupe, vaš zahtjev još nije prihvaćen.
+          send_message: Želite li poslati poruku administratoru grupe?
+          not_a_member: Ne možete učestvovati u ovom prijedlogu jer niste član ove grupe.
+          not_logged_in: 'Ne možete učestvovati u ovom prijedlogu, jer trenutno niste prijavljeni. '
+        read_contribute: PRIKAŽI DOPRINOSE
       new:
+        step_similar: Slični prijedlozi
+        title: Novi prijedlog
+        title_group: '%{name}:'
         step_1_title: 'Možete predstavljati problem koji treba riješiti, ideju koju treba poboljšati, inicijativu za organiziranje ... Važno je imati jasan cilj: Airesis će vam pomoći to postići uz pomoć drugih ljudi, kroz proces zajedničkog rješavanja problema.'
         step_2_title: 'Možda je netko već kreirao sličan prijedlog: Provjerite u nastavku i eventualno zaustavite kreiranje kako bi se izbjeglo dupliciranje. Udruživanje snaga ojačava vaše ideje! Klikom na naslov prijedlozi će se otvoriti u novoj kartici.'
         category_prompt: --Odaberite kategoriju--
@@ -440,7 +521,6 @@ sh-HR:
         positive: Povoljno
         negative: Nepovoljno
         neutral: Uzdržano
-        name_surname_column: Ime i prezime
         date_time_column: Datum i vrijeme glasovanja
       report_contribute:
         mark_title: Obilježite doprinos
@@ -495,37 +575,12 @@ sh-HR:
       groups_tab: Grupe
     feedback:
       send_feedback: Povratna informacija
-  activerecord:
-    attributes:
-      event:
-        description: Opis
-        event_type_id: Tip događaja
-        starttime: Početni datum
-        endtime: Datum završetka
-        all_day: Cijeli dan
-        period: Ponoviti
-        frequency: Ponoviti svakih
-        private: Privatno
-        meeting:
-          place:
-            address: Adresa
-            municipality_id: Grad
-      group:
-        name: Ime
-        description: Opis
-        porta_id: Administrator
-      blog:
-        title: Naslov
-      blog_post:
-        title: Naslov
-        body: Tekst
-      participation_role:
-        name: Ime
-      place:
-        address: Adresa
-      proposal:
-        proposal_category_id: Kategorija
-        title: Naslov
-        content: Tekst
+  errors:
+    proposal:
+      authors_added: Greška prilikom dodavanja novih autora
   draft_tooltip: Ovaj post je vidljiv samo vama
+  reserved_tooltip: Ovaj post je vidljiv samo učesnicima grupe
   feedback_subject: '%{time} - Nova povratna informacija'
+  delete_event_confirm: Jeste li sigurni da želite izbrisati ovaj komentar?
+  confirm:
+    unintegrate: Vraćate doprinos u raspravu. Jeste li sigurni?

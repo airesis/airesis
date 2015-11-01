@@ -14,7 +14,7 @@ Airesis::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 
   # Raise an error on page load if there are pending migrations
-  #config.active_record.migration_error = :page_load
+  config.active_record.migration_error = :page_load
 
   # Expands the lines which load the assets
   config.assets.debug = true

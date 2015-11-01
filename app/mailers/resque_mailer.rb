@@ -6,7 +6,11 @@ class ResqueMailer < ActionMailer::Base
 
   def url_options
     options = {}
-    options.merge!(host: @user.locale.host, l: @user.locale.lang, protocol: DEFAULT_EMAIL_PROTOCOL) if @user
+    if @user
+      options.merge!(host: @user.locale.host, protocol: DEFAULT_EMAIL_PROTOCOL)
+      options.merge!(subdomain: @user.subdomain) if @user.subdomain
+      options.merge!(l: @user.locale.lang) unless @user.locale.lang.blank?
+    end
     options
   end
 
@@ -57,11 +61,6 @@ class ResqueMailer < ActionMailer::Base
     @report = ProposalCommentReport.find(report_id)
 
     mail(to: ENV['ADMIN_EMAIL'], subject: ENV['APP_SHORT_NAME'] + " - Segnalazione Contributo")
-  end
-
-
-  def info_message(msg)
-    mail(to: ENV['ADMIN_EMAIL'], subject: ENV['APP_SHORT_NAME'] + " - Messaggio di informazione")
   end
 
   # send an invite to subscribe in the group

@@ -28,7 +28,7 @@ describe 'the management of user sensitives', type: :feature, js: true do
     user_sensitive
     visit edit_admin_user_sensitive_path(user_sensitive)
     new_name = Faker::Name.name
-    fill_in I18n.t('activerecord.attributes.user.name'), with: new_name
+    fill_in I18n.t('activerecord.attributes.user_sensitive.name'), with: new_name
     click_button 'Update User sensitive'
     expect(page).to have_content I18n.t('info.user_sensitive.updated')
     expect(page).to have_content new_name

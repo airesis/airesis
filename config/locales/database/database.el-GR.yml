@@ -1,22 +1,12 @@
 el-GR:
   db:
     sys_locales:
-      it-IT:
-        description: Ιταλικά
-      en:
-        description: Αγγλικά
-      en-US:
-        description: Αγγλικά (ΗΠΑ)
-      fr:
-        description: Γαλλικά
       es-ES:
         description: Ισπανικά
-      pt-PT:
-        description: Πορτογαλικά
+      it-IT:
+        description: Ιταλικά
       pt-BR:
         description: Πορτογαλικά (Βραζιλίας)
-      de:
-        description: Γερμανικά
     proposal_types:
       STANDARD:
         description: Τυπική πρόταση
@@ -96,12 +86,8 @@ el-GR:
         message: 'Ο/Η %{user} πρόσθεσε ένα νέο δημοσίευμα στο ιστολόγιο του <b>%{blog}</b>'
       new_valutation_mine:
         description: Νέα αξιολόγηση για μια πρόταση μου
-        email_subject: '%{title} - Νέα αξιολόγηση'
-        message: 'Η πρόταση σας <b>%{title}</b> έχει λάβει νέα αξιολόγηση'
       new_valutation:
         description: Νέα αξιολόγηση για μια πρόταση που συμμετέχω
-        email_subject: '%{title} - Νέα αξιολόγηση'
-        message: 'Η πρόταση <b>%{title}</b> έχει λάβει νέα αξιολόγηση'
       available_author:
         description: Ο χρήστης είναι διαθέσιμος για να γίνει συντάκτης μιας πρότασης
       author_accepted:

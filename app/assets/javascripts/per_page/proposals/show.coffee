@@ -331,7 +331,7 @@ window.ProposalsShow =
   initVotePeriodSelect: ->
     $('#proposal_vote_period_id').select2
       minimumResultsForSearch: -1,
-      formatResult: formatPeriod,
-      formatSelection: formatPeriod,
+      templateResult: formatPeriod,
+      templateSelection: formatPeriod,
       escapeMarkup: (m)->
         m

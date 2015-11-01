@@ -6,6 +6,6 @@ FactoryGirl.define do
     interest_border_tkn { "P-#{Province.all.sample.id}" }
     default_role_name { Faker::Name.title }
     default_role_actions DEFAULT_GROUP_ACTIONS
-    current_user_id nil
+    current_user_id { create(:user).id }
   end
 end

@@ -73,8 +73,7 @@ class Proposal < ActiveRecord::Base
   has_many :alerts, as: :trackable
 
   # validation
-  validates_presence_of :title, message: 'obbligatorio' # TODO: I18n
-  validates_uniqueness_of :title
+  validates :title, presence: true, uniqueness: true
   validates_presence_of :proposal_category_id, message: 'obbligatorio'
 
   validates_presence_of :quorum, unless: :is_petition? # TODO: bug in client_side_validation

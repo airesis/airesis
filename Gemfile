@@ -18,6 +18,8 @@ gem 'foundation-rails'
 
 gem 'pg'
 
+gem 'rails_admin'
+
 gem 'sunspot_rails'
 gem 'sunspot-queue', github: 'gaffneyc/sunspot-queue'
 
@@ -50,6 +52,7 @@ group :development do
   gem 'awesome_print'
   gem 'letter_opener'
   gem 'foreman'
+  gem 'thin', require: false
 end
 
 group :development, :test do
@@ -62,6 +65,7 @@ group :development, :test do
   gem 'capybara-screenshot'
   gem 'spring'
   gem 'sunspot_test'
+  gem 'timecop'
 end
 
 group :test do
@@ -132,9 +136,6 @@ gem 'el_finder'
 
 gem 'recaptcha', require: 'recaptcha/rails'
 
-
-gem 'thin'
-
 gem 'globalize'
 
 gem 'sanitize'
@@ -166,10 +167,6 @@ gem 'mailman', require: false
 gem 'email_reply_parser'
 
 gem 'paper_trail'
-
-gem 'client_side_validations', github: 'DavyJonesLocker/client_side_validations'
-
-gem 'client_side_validations-simple_form', github: 'DavyJonesLocker/client_side_validations-simple_form'
 
 gem 'figaro'
 

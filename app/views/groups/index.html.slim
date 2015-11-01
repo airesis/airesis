@@ -1,15 +1,14 @@
 - @extend=true
 - @page_title = t('pages.groups.index.title')
 h1 = t('pages.groups.index.find_group_label')
-.row.full-width
-  .row
-    #group_search_form.columns.large-6
-      .card
-        = render 'groups/search_form'
-    .columns.large-6.show-for-large-up
-      .card data-tag-cloud="" 
-        - @tags.each do |tag|
-          = link_to tag.text, groups_url(tag: tag.text), remote: true, rel: tag.groups_count, class: 'round label'
+.row
+  #group_search_form.columns.large-6
+    .card
+      = render 'groups/search_form'
+  .columns.large-6.show-for-large-up
+    .card data-tag-cloud=""
+      - @tags.each do |tag|
+        = link_to tag.text, groups_url(tag: tag.text), remote: true, rel: tag.groups_count, class: 'round label'
 - if @groups.any?
   ul#groups_list.small-block-grid-1.large-block-grid-2.xlarge-block-grid-3.xxlarge-block-grid-4
     = render partial: "group_tag", collection: @groups, as: :group

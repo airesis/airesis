@@ -332,9 +332,10 @@ function start_end_fdatetimepicker(start, end, min_minutes, suggested_minutes) {
 
     start.fdatetimepicker()
         .on('hide', function (event) {
-            var settings = window.ClientSideValidations.forms[event.currentTarget.form.id];
-            $(event.currentTarget).isValid(settings.validators);
-            var eventStartTime_ = $(event.currentTarget).fdatetimepicker('getDate');
+            $field = $(event.currentTarget);
+            var fv = $field.parent('form').data('formValidation');
+            $field.parent('form').formValidation('revalidateField', $field.attr('id'));
+            var eventStartTime_ = $field.fdatetimepicker('getDate');
             var minStartTime = addMinutes(eventStartTime_, min_minutes);
             var eventEndTime_ = end.fdatetimepicker("getDate");
             end.fdatetimepicker("setStartDate", minStartTime);
@@ -349,54 +350,22 @@ function start_end_fdatetimepicker(start, end, min_minutes, suggested_minutes) {
     var minTime_ = start.fdatetimepicker('getDate');
     end.fdatetimepicker({startDate: minTime_})
         .on('hide', function (event) {
-            var settings = window.ClientSideValidations.forms[event.currentTarget.form.id];
-            $(event.currentTarget).isValid(settings.validators);
+            $field = $(event.currentTarget);
+            var fv = $field.parent('form').data('formValidation');
+            $field.parent('form').formValidation('revalidateField', $field.attr('id'));
         });
 }
 
 function fdatetimepicker_only_date(start, end) {
-  start.fdatetimepicker('pickOnlyDate');
-  start.fdatetimepicker('setBeginOfDay');
-  end.fdatetimepicker('pickOnlyDate');
-  end.fdatetimepicker('setEndOfDay');
+    start.fdatetimepicker('pickOnlyDate');
+    start.fdatetimepicker('setBeginOfDay');
+    end.fdatetimepicker('pickOnlyDate');
+    end.fdatetimepicker('setEndOfDay');
 }
 
 function fdatetimepicker_date_and_time(start, end) {
-  start.fdatetimepicker('pickDateAndTime');
-  end.fdatetimepicker('pickDateAndTime');
-}
-
-function select2town(element) {
-    element.select2({
-        cacheDataSource: [],
-        placeholder: Airesis.i18n.type_for_town,
-        query: function (query) {
-            self = this;
-            var key = query.term;
-            var cachedData = self.cacheDataSource[key];
-
-            if (cachedData) {
-                query.callback({results: cachedData});
-                return;
-            } else {
-                $.ajax({
-                    url: '/municipalities',
-                    data: {
-                        q: query.term
-                    },
-                    dataType: 'json',
-                    type: 'GET',
-                    success: function (data) {
-                        self.cacheDataSource[key] = data;
-                        query.callback({results: data});
-                    }
-                })
-            }
-        },
-        escapeMarkup: function (m) {
-            return m;
-        }
-    });
+    start.fdatetimepicker('pickDateAndTime');
+    end.fdatetimepicker('pickDateAndTime');
 }
 
 function disegnaCountdown() {
@@ -734,10 +703,13 @@ function formatCategory(state) {
 function formatQuorum(state) {
     var element_ = state.element;
     if (!state.id) return state.text; // optgroup
-    console.log(state.text);
-    console.log($(element_));
-    console.log($(element_).data('description'));
     return "<div> <div class=\"quorum_title\">" + state.text + "</div> <div class=\"quorum_desc\">" + $(element_).data('description') + "</div></div>";
+}
+
+function formatQuorumSelection(state) {
+    var element_ = state.element;
+    if (!state.id) return state.text; // optgroup
+    return "<div><div class=\"quorum_title\">" + state.text + "</div></div>";
 }
 
 //custom formatter for vote period in select2 dropdown
@@ -768,7 +740,6 @@ function initTextAreaTag() {
 }
 
 function airesis_close_reveal() {
-    "use strict";
     $('.reveal-modal:visible').foundation('reveal', 'close');
 }
 

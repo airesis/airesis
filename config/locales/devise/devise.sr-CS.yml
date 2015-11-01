@@ -63,7 +63,6 @@ sr-CS:
       creation_failure: 'Greška prilikom pristupanja preko %{provider}'
       join_success: 'Nalozi su uspešno objedinjeni. Čestitamo, sada se možete prijaviti preko %{provider}.'
       join_failure: 'Postoji još jedan %{provider} nalog. Funkcija za pridruživanje naloga će biti dostupna uskoro.'
-      account_not_verified: 'Nalog %{provider} s nepotvrđenom e-poštom.'
     mailer:
       confirmation_instructions:
         subject: Uputstva za potvrdu

@@ -1,13 +1,6 @@
 module AuthenticationModule
-  mattr_accessor :login_regex, :bad_login_message, 
-    :name_regex, :bad_name_message, :url_regex,
+  mattr_accessor :name_regex, :bad_name_message, :url_regex,
     :email_name_regex, :domain_head_regex, :domain_tld_regex, :email_regex, :bad_email_message
-
-  self.login_regex       = /\A\w[\w\.\-_@]+\z/                     # ASCII, strict
-  # self.login_regex       = /\A[[:alnum:]][[:alnum:]\.\-_@]+\z/     # Unicode, strict
-  # self.login_regex       = /\A[^[:cntrl:]\\<>\/&]*\z/              # Unicode, permissive
-
-  self.bad_login_message = "puoi utilizzare solo lettere, numeri e .-_@".freeze
 
   self.name_regex        = /\A[a-zA-Z\u00C0-\u00F6\u00F8-\u00FF][a-zA-Z\s\-\u00C0-\u00F6\u00F8-\u00FF' ]*[a-zA-Z\u00C0-\u00F6\u00F8-\u00FF]\z/
   self.url_regex        = /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?\z/ix

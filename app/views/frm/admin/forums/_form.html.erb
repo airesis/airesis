@@ -1,7 +1,6 @@
-<label><%=t('frm.admin.forums.category') %><br/></label>
-<%= f.select :category_id, @group.categories.all.map { |r| [r.name, r.id, { 'data-tags' => r.tags_data}] } %>
+<%= f.input :category_id, collection: @group.categories.all.map { |r| [r.name, r.id, { 'data-tags' => r.tags_data}] } %>
 
-<%= f.input :title %>
+<%= f.input :name %>
 <%= f.input :description, as: :text %>
 
 <%= f.input :tags_list %>

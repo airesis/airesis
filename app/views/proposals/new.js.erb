@@ -11,7 +11,6 @@ function skipIfNecessary(activeDiv) {
  * Show similar proposals
  */
 function showSimilarProposal(activeDiv) {
-    $('#new_proposal').enableClientSideValidations();
     $(':input', activeDiv).first().focus();
     if (activeDiv.attr('id') == 'suggestions') {
         $.ajax({
@@ -24,12 +23,6 @@ function showSimilarProposal(activeDiv) {
     }
 
 }
-
-window.ClientSideValidations.selectors = {
-    inputs: ':input:not(button):not([type="submit"])[name]:enabled',
-    validate_inputs: ':input:enabled:visible[data-validate]',
-    forms: 'form[data-validate]'
-};
 
 <%if params[:models] %>
 var container_ = $('.reveal-modal:visible');
@@ -56,4 +49,4 @@ $("#new_proposal").quickWizard({
     prevCallback: skipIfNecessary
 });
 
-$('#new_proposal').enableClientSideValidations();
+new AiresisFormValidation($('#new_proposal'));

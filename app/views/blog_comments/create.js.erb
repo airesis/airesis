@@ -1,6 +1,7 @@
 $('#blogPostCommentsContainer').prepend('<%=j render partial: 'blog_posts/comment', locals: {comment: @blog_comment} %>');
 $('#blogNewComment').html('<%=j render partial: 'blog_comments/new_blog_comment', locals: {blog_comment: @blog_post.blog_comments.new}%>');
 $('[data-collapsed]').show(600);
+new AiresisFormValidation($('#new_blog_comment'));
 
 <% publish_to blog_blog_post_path(@blog_post.blog,@blog_post) do %>
 if (Airesis.id != <%=current_user.id%>) {
@@ -10,4 +11,3 @@ if (Airesis.id != <%=current_user.id%>) {
     });
 }
 <% end rescue nil%>
-

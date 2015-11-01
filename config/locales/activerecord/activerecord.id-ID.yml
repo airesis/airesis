@@ -17,11 +17,6 @@ id-ID:
         period: Ulang
         frequency: Ulangi setiap
         private: Tertutup
-      event/meeting/place:
-        address: Alamat
-        municipality_id: Kota
-        latitude_original: Garis Lintang
-        longitude_original: Garis Bujur
       group:
         facebook_page_url: Alamat laman Facebook
         name: Nama
@@ -70,7 +65,6 @@ id-ID:
         content: Teks
         interest_borders_tkn: Tempat geografis yang diminati
         tags_list: Label
-        quorum_id: Kuorum
         anonima: Anonimitas sementara
         visible_outside: Dapat dilihat oleh umum
         secret_vote: Vote rahasia
@@ -100,16 +94,13 @@ id-ID:
         vote_good_score: Persetujuan
       search_participant:
         role_id: Peran
-        keywords: Nama atau nama keluarga
       sys_movement:
         sys_movement_type_id: Jenis
         made_on: Dibuat pada
         amount: Jumlah
         sys_currency_id: Mata Uang
       user:
-        name: Nama
         email: Alamat surel
-        surname: Nama keluarga
         login: Nama Pengguna
         password: Kata sandi
         linkedinpageurl: Akun Anda di LinkedIn
@@ -151,6 +142,3 @@ id-ID:
           attributes:
             email:
               already_confirmed: Alamat surel ini sudah pernah terdaftar
-        group:
-          portavoce:
-            required: Anda harus memilih seorang juru bicara

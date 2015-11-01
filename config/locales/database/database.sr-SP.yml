@@ -1,22 +1,12 @@
 sr-SP:
   db:
     sys_locales:
-      it-IT:
-        description: Италијански
-      en:
-        description: Енглески
-      en-US:
-        description: Енглески (САД)
-      fr:
-        description: Француски
       es-ES:
         description: Шпански
-      pt-PT:
-        description: Португалски
+      it-IT:
+        description: Италијански
       pt-BR:
         description: Португалски (Бразил)
-      de:
-        description: Немачки
     proposal_types:
       STANDARD:
         description: Стандардни предлог
@@ -96,12 +86,8 @@ sr-SP:
         message: '%{user} је додао/ла нову поруку у свој блог <b>%{blog}</b>'
       new_valutation_mine:
         description: Ново оцењивање мог предлога
-        email_subject: '%{title} - Ново оцењивање'
-        message: 'Ваш предлог <b>%{title}</b> је добио ново оцењивање'
       new_valutation:
         description: Ново оцењивање предлога у којем учествујем
-        email_subject: '%{title} - Ново оцењивање'
-        message: 'Предлог <b>%{title}</b> је добио ново оцењивање'
       available_author:
         description: Корисник доступан да постане уредник предлога
         email_subject:
@@ -224,6 +210,7 @@ sr-SP:
       new_participation_request:
         description: Нови захтев за учешће
         email_subject:
+          one: Постоји нови захтев за учешће
           other: 'Постоји %{count} нових захтева за учешће'
         message:
           one: '<b>%{user}</b> је затражио/ла да учествује у групи <b>%{group}</b>'

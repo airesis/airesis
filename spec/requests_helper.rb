@@ -1,8 +1,8 @@
 def login(user, password)
   visit '/users/sign_in'
   within("#main-copy") do
-    fill_in 'user_login', :with => user.email
-    fill_in 'user_password', :with => password
+    fill_in 'user_email', with: user.email
+    fill_in 'user_password', with: password
     click_button 'Login'
   end
   expect(page.current_path).to eq('/')

@@ -35,8 +35,8 @@ RSpec.configure do |config|
                     www.google.com csi.gstatic.com mt0.googleapis.com mt1.googleapis.com mts0.googleapis.com
                     mts1.googleapis.com fonts.googleapis.com connect.facebook.net/en/sdk.js fbstatic-a.akamaihd.net
                     graph.facebook.com connect.facebook.net fbexternal-a.akamaihd.net
-                    fbcdn-profile-a.akamaihd.net cdn.ckeditor.com
-                    platform.twitter.com www.gravatar.com )
+                    fbcdn-profile-a.akamaihd.net cdn.ckeditor.com fbcdn-photos-e-a.akamaihd.net
+                    platform.twitter.com www.gravatar.com cdnjs.cloudflare.com)
 
   Capybara::Webkit.configure do |config|
     allowed_urls.each do |allowed_url|
@@ -53,6 +53,8 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers
 
   config.include Capybara::Select2
+
+  config.infer_spec_type_from_file_location!
 
   Warden.test_mode!
 

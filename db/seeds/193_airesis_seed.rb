@@ -1,6 +1,0 @@
-Municipality.create(description: "Santa María", province_id: 194, region_id:  43, country_id: 90, continent_id: 2 , population: 12813)
-Municipality.create(description: "San Felipe", province_id: 194, region_id:  43, country_id: 90, continent_id: 2 , population: 64126)
-Municipality.create(description: "Putaendo", province_id: 194, region_id:  43, country_id: 90, continent_id: 2 , population: 14649)
-Municipality.create(description: "Panquehue", province_id: 194, region_id:  43, country_id: 90, continent_id: 2 , population: 6567)
-Municipality.create(description: "Llaillay", province_id: 194, region_id:  43, country_id: 90, continent_id: 2 , population: 21644)
-Municipality.create(description: "Catemu", province_id: 194, region_id:  43, country_id: 90, continent_id: 2 , population: 12112)

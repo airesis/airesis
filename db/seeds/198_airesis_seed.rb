@@ -1,5 +1,0 @@
-Municipality.create(description: "San Pedro", province_id: 199, region_id:  44, country_id: 90, continent_id: 2 , population: 7549)
-Municipality.create(description: "Melipilla", province_id: 199, region_id:  44, country_id: 90, continent_id: 2 , population: 94540)
-Municipality.create(description: "María Pinto", province_id: 199, region_id:  44, country_id: 90, continent_id: 2 , population: 10343)
-Municipality.create(description: "Curacaví", province_id: 199, region_id:  44, country_id: 90, continent_id: 2 , population: 24298)
-Municipality.create(description: "Alhué", province_id: 199, region_id:  44, country_id: 90, continent_id: 2 , population: 4435)

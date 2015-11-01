@@ -20,6 +20,7 @@
     $(function () {
         input = $('#token_interest_borders')
         input.tokenInput("/interest_borders.json", {
+            propertyToSearch: 'text',
             crossDomain: false,
             prePopulate: $('#token_interest_borders').data("pre"),
             hintText: "<%=t('interest_borders.hint')%>",
