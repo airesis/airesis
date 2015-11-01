@@ -13,7 +13,7 @@ describe Blog do
     end
 
     it 'must be maximum 100 character' do
-      blog = build(:blog, title: 'hello'*100)
+      blog = build(:blog, title: 'hello' * 100)
       expect_errors_on_model_field(blog, :title, 1)
     end
   end
@@ -40,7 +40,7 @@ describe Blog do
     end
 
     context 'when title changes' do
-      let(:new_title) {Faker::Company.name}
+      let(:new_title) { Faker::Company.name }
       before(:each) do
         blog.update(title: new_title)
       end
@@ -89,6 +89,4 @@ describe Blog do
       end
     end
   end
-
-
 end

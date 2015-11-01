@@ -4,7 +4,7 @@ class NotificationProposalVoteClosed < NotificationSender
     @trackable = @proposal
     group = @proposal.group
     group_area = @proposal.group_area
-    data = {proposal_id: @proposal.id, title: @proposal.title}
+    data = { proposal_id: @proposal.id, title: @proposal.title }
     data[:extension] = @proposal.accepted? ? 'voted' : 'rejected'
     if group
       data[:group] = group.name

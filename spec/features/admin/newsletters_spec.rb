@@ -3,7 +3,6 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 describe 'the management of the newsletters', type: :feature do
-
   let!(:admin) { create(:admin) }
   let(:newsletters) { create_list(:newsletter, 5) }
   let(:newsletter) { create(:newsletter) }

@@ -1,12 +1,10 @@
 class ProposalPresentationsController < ApplicationController
-
-
-  #carica la proposta
+  # carica la proposta
   before_filter :load_proposal
-  #carica la proposta
+  # carica la proposta
   before_filter :load_proposal_presentation
 
-  #l'utente deve aver fatto login
+  # l'utente deve aver fatto login
   before_filter :authenticate_user!
 
   def destroy
@@ -25,5 +23,4 @@ class ProposalPresentationsController < ApplicationController
   def load_proposal_presentation
     @proposal_presentation = ProposalPresentation.find(params[:id])
   end
-
 end

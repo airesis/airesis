@@ -31,7 +31,7 @@ describe NotificationProposalReadyForVote, type: :model, emails: true, notificat
     expect(emails).to match_array receiver_emails
 
     expect(Alert.unscoped.count).to eq 3
-    expect(Alert.last(3).map { |a| a.user }).to match_array receivers
+    expect(Alert.last(3).map(&:user)).to match_array receivers
     expect(Alert.last(3).map { |a| a.notification_type.id }).to match_array Array.new(3, NotificationType::CHANGE_STATUS_MINE)
   end
 end

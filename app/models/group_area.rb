@@ -10,8 +10,8 @@ class GroupArea < ActiveRecord::Base
 
   has_many :area_roles, -> { order 'id DESC' }, class_name: 'AreaRole', dependent: :destroy
 
-  validates :name, length: {within: 3..200}, uniqueness: {scope: :group_id, message: 'Nome area già presente'}
-  validates :description, length: {within: 1..2000}, allow_nil: true
+  validates :name, length: { within: 3..200 }, uniqueness: { scope: :group_id, message: 'Nome area già presente' }
+  validates :description, length: { within: 1..2000 }, allow_nil: true
   validates :group_id, presence: true
   validates :default_role_name, presence: true, on: :create
 
@@ -43,7 +43,7 @@ class GroupArea < ActiveRecord::Base
     participants.
       joins(" join area_roles on area_participations.area_role_id = area_roles.id
             join area_action_abilitations on area_roles.id = area_action_abilitations.area_role_id").
-      where(area_action_abilitations: {group_action_id: action_id, group_area_id: id}).
+      where(area_action_abilitations: { group_action_id: action_id, group_area_id: id }).
       uniq
   end
 

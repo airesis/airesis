@@ -17,7 +17,7 @@ Airesis::Application.routes.draw do
 
   get 'home' => 'home#show'
   get 'landing' => 'home#landing'
-  get 'public' => 'home#public'
+  get 'public' => 'home#public', as: :open_space
   get 'partecipa' => 'home#engage'
   get 'chisiamo' => 'home#whowe'
   get 'roadmap' => 'home#roadmap'
@@ -38,8 +38,7 @@ Airesis::Application.routes.draw do
   get 'school' => 'home#school'
   get 'municipality' => 'home#municipality'
 
-
-  #common routes both for main app and subdomains
+  # common routes both for main app and subdomains
 
   resources :quorums do
     collection do
@@ -129,7 +128,7 @@ Airesis::Application.routes.draw do
   resources :alerts do
     member do
       get :check
-      get :check_alert #todo remove in one year from 08-05-2014
+      get :check_alert # TODO: remove in one year from 08-05-2014
     end
 
     collection do
@@ -144,19 +143,18 @@ Airesis::Application.routes.draw do
   get 'elfinder' => 'elfinder#elfinder'
   post 'elfinder' => 'elfinder#elfinder'
 
-  devise_for :users, controllers: {omniauth_callbacks: 'users/omniauth_callbacks', sessions: 'sessions', registrations: 'registrations', passwords: 'passwords', confirmations: 'confirmations'} do
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', sessions: 'sessions', registrations: 'registrations', passwords: 'passwords', confirmations: 'confirmations' } do
     get '/users/sign_in', to: 'devise/sessions#new'
     get '/users/sign_out', to: 'devise/sessions#destroy'
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
 
-
   resources :users do
     collection do
       get :confirm_credentials
-      get :alarm_preferences #preferenze allarmi utente
-      get :border_preferences #preferenze confini di interesse utente
-      post :set_interest_borders #cambia i confini di interesse
+      get :alarm_preferences # preferenze allarmi utente
+      get :border_preferences # preferenze confini di interesse utente
+      post :set_interest_borders # cambia i confini di interesse
       post :join_accounts
       get :privacy_preferences
       get :statistics
@@ -197,7 +195,6 @@ Airesis::Application.routes.draw do
     concerns :blog_posts
     get '/:year/:month' => 'blogs#by_year_and_month', as: :posts_by_year_and_month, on: :member
   end
-
 
   resources :tags
 
@@ -265,7 +262,6 @@ Airesis::Application.routes.draw do
       end
     end
 
-
     resources :best_quorums, controller: 'quorums'
     resources :old_quorums, controller: 'quorums'
 
@@ -307,12 +303,9 @@ Airesis::Application.routes.draw do
         end
       end
 
-
       resources :topics, controller: 'frm/topics', only: [:new, :create, :index, :show, :destroy] do
         resources :posts, controller: 'frm/posts'
       end
-
-
     end
 
     namespace :frm do
@@ -344,21 +337,17 @@ Airesis::Application.routes.draw do
         end
 
         resources :categories
-
       end
     end
 
     get '/:action', controller: 'groups'
     put '/:action', controller: 'groups'
     post '/:action', controller: 'groups'
-
   end
 
   # routes available only on main site
   constraints NoSubdomain do
-
     root to: 'home#index'
-
 
     resources :proposal_categories do
       get :index, scope: :collection
@@ -386,7 +375,6 @@ Airesis::Application.routes.draw do
         get :autocomplete
       end
 
-
       resources :forums, controller: 'frm/forums', only: [:index, :show] do
         resources :topics, controller: 'frm/topics' do
           member do
@@ -395,12 +383,9 @@ Airesis::Application.routes.draw do
           end
         end
 
-
         resources :topics, controller: 'frm/topics', only: [:new, :create, :index, :show, :destroy] do
           resources :posts, controller: 'frm/posts'
         end
-
-
       end
 
       namespace :frm do
@@ -432,7 +417,6 @@ Airesis::Application.routes.draw do
           end
 
           resources :categories
-
         end
       end
 
@@ -480,7 +464,6 @@ Airesis::Application.routes.draw do
         end
       end
 
-
       resources :best_quorums, controller: 'quorums'
       resources :old_quorums, controller: 'quorums'
 
@@ -518,11 +501,11 @@ Airesis::Application.routes.draw do
     end
 
     admin_required = lambda do |request|
-      request.env['warden'].authenticate? and request.env['warden'].user.admin?
+      request.env['warden'].authenticate? && request.env['warden'].user.admin?
     end
 
     moderator_required = lambda do |request|
-      request.env['warden'].authenticate? and request.env['warden'].user.moderator?
+      request.env['warden'].authenticate? && request.env['warden'].user.moderator?
     end
 
     constraints moderator_required do

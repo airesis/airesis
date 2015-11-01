@@ -13,7 +13,7 @@ describe Frm::Forum do
     end
 
     context 'when name changes' do
-      let(:new_name) {Faker::Company.name}
+      let(:new_name) { Faker::Company.name }
       before(:each) do
         forum.update(name: new_name)
       end

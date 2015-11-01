@@ -1,5 +1,4 @@
 class ProposalCategoriesController < ApplicationController
-
   def index
     @proposalcategories = ProposalCategory.all(order: 'id desc')
 
@@ -7,5 +6,4 @@ class ProposalCategoriesController < ApplicationController
       format.json { render json: @proposalcategories, only: [:id, :description] }
     end
   end
-
 end

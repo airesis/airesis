@@ -83,6 +83,6 @@ module StepsHelper
   end
 
   # segna come completato uno step del tutorial
-  def complete_step(step, user)
+  def complete_step(_step, _user)
   end
 end

@@ -36,9 +36,8 @@ module Frm
 
     def ensure_moderator_or_admin
       unless forem_admin?(@group) || forum.moderator?(current_user)
-        raise CanCan::AccessDenied
+        fail CanCan::AccessDenied
       end
     end
-
   end
 end

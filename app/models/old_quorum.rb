@@ -1,6 +1,6 @@
 class OldQuorum < Quorum
   validate :minutes_or_percentage
-  validates :condition, inclusion: {in: %w(OR AND)}
+  validates :condition, inclusion: { in: %w(OR AND) }
 
   def minutes_or_percentage
     if days_m.blank? && hours_m.blank? && minutes_m.blank? && !percentage && !minutes

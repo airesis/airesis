@@ -2,9 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 
 describe 'the oauth2 process', type: :feature, js: true do
-
   describe 'Tecnologie Democratiche' do
-
     before :each do
       @oauth_data = {
         provider: 'tecnologiedemocratiche',
@@ -15,19 +13,17 @@ describe 'the oauth2 process', type: :feature, js: true do
         tax_code: 'XXXXXXXXXXXXXXXX'
       }
 
-      OmniAuth.config.mock_auth[:tecnologiedemocratiche] = OmniAuth::AuthHash.new({
-        provider: @oauth_data[:provider],
-        credentials: {
-          token: 'TDtoken'
-        },
-        uid: @oauth_data[:uid],
-        info: {
-          email: @oauth_data[:email],
-          name: @oauth_data[:first_name],
-          last_name: @oauth_data[:last_name],
-          tax_code: @oauth_data[:tax_code]
-        }
-      })
+      OmniAuth.config.mock_auth[:tecnologiedemocratiche] = OmniAuth::AuthHash.new(provider: @oauth_data[:provider],
+                                                                                  credentials: {
+                                                                                    token: 'TDtoken'
+                                                                                  },
+                                                                                  uid: @oauth_data[:uid],
+                                                                                  info: {
+                                                                                    email: @oauth_data[:email],
+                                                                                    name: @oauth_data[:first_name],
+                                                                                    last_name: @oauth_data[:last_name],
+                                                                                    tax_code: @oauth_data[:tax_code]
+                                                                                  })
       Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
       Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:tecnologiedemocratiche]
     end
@@ -155,7 +151,7 @@ describe 'the oauth2 process', type: :feature, js: true do
       expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.already_certified')}/i)
     end
 
-    it "remembers TD account after joining" do
+    it 'remembers TD account after joining' do
       user = create(:user)
       login_as user, scope: :user
       visit '/users/auth/tecnologiedemocratiche/callback'
@@ -167,5 +163,4 @@ describe 'the oauth2 process', type: :feature, js: true do
       expect(page).to have_content(/#{I18n.t('devise.sessions.user.signed_in')}/i)
     end
   end
-
 end

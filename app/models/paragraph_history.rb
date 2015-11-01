@@ -12,7 +12,7 @@ class ParagraphHistory < ActiveRecord::Base
       ret = content
       users.each do |user|
         fullname = user.fullname
-        nickname = ProposalNickname.where({proposal_id: proposal_id, user_id: user.id}).first.nickname
+        nickname = ProposalNickname.where(proposal_id: proposal_id, user_id: user.id).first.nickname
         ret = ret.gsub(fullname, nickname)
       end
       return ret

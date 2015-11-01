@@ -1,5 +1,4 @@
 class DocumentsController < ApplicationController
-
   layout 'groups'
 
   before_filter :load_group, except: [:view]

@@ -58,7 +58,6 @@ class EventsController < ApplicationController
     end
   end
 
-
   def new
     event_type = params[:event_type_id] || EventType::INCONTRO
     @title = @group ? "#{@group.name}" : ''
@@ -91,9 +90,7 @@ class EventsController < ApplicationController
     @meeting = @event.build_meeting
     @place = @meeting.build_place
 
-    if params[:proposal_id]
-      @event.proposal_id = params[:proposal_id]
-    end
+    @event.proposal_id = params[:proposal_id] if params[:proposal_id]
     @event.private = @group.present?
   end
 
@@ -166,10 +163,10 @@ class EventsController < ApplicationController
     flash[:notice] = t('info.events.event_deleted')
 
     respond_to do |format|
-      format.html {
+      format.html do
         @group = @event.groups.first if @event.groups.count > 0
         redirect_to @group ? group_events_path(@group) : events_path
-      }
+      end
     end
   end
 
@@ -201,7 +198,7 @@ class EventsController < ApplicationController
 
   private
 
-  def render_404(exception=nil)
+  def render_404(exception = nil)
     log_error(exception) if exception
     respond_to do |format|
       @title = t('error.error_404.events.title')

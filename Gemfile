@@ -69,7 +69,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "codeclimate-test-reporter", require: nil
+  gem 'codeclimate-test-reporter', require: nil
   gem 'ruby-prof'
   gem 'test-unit'
   gem 'simplecov', require: false

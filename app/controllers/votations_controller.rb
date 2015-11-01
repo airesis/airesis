@@ -42,55 +42,51 @@ class VotationsController < ApplicationController
     end
   end
 
-
-  #un utente invia il voto in formato schulze
+  # un utente invia il voto in formato schulze
   def vote_schulze
-    begin
-      Proposal.transaction do
-        @proposal = Proposal.find(params[:proposal_id])
-        authorize! :vote, @proposal
+    Proposal.transaction do
+      @proposal = Proposal.find(params[:proposal_id])
+      authorize! :vote, @proposal
 
-        return unless validate_security_token
+      return unless validate_security_token
 
-        votestring = params[:data][:votes]
-        solutions = votestring.split(/;|,/).map { |a| a.to_i }.sort #lista degli id delle soluzioni
-        p_sol = @proposal.solutions.pluck(:id).sort
-        raise Exception unless (p_sol <=> solutions) == 0 #se c'è discrepanza tra gli id delle soluzioni e quelli inviati dal client solleva un'eccezione
+      votestring = params[:data][:votes]
+      solutions = votestring.split(/;|,/).map(&:to_i).sort # lista degli id delle soluzioni
+      p_sol = @proposal.solutions.pluck(:id).sort
+      fail Exception unless (p_sol <=> solutions) == 0 # se c'è discrepanza tra gli id delle soluzioni e quelli inviati dal client solleva un'eccezione
 
-        #salva la votazione dell'utente
-        schulz = @proposal.schulze_votes.find_by(preferences: votestring)
-        if schulz
-          schulz.count += 1
-          schulz.save!
-        else
-          schulz = @proposal.schulze_votes.build(preferences: votestring, count: 1)
-        end
-        #memorizza che l'utente ha effettuato la votazione
-        vote = @proposal.user_votes.build(user_id: current_user.id)
-        vote.vote_schulze = votestring unless @proposal.secret_vote
-        @proposal.save!
+      # salva la votazione dell'utente
+      schulz = @proposal.schulze_votes.find_by(preferences: votestring)
+      if schulz
+        schulz.count += 1
+        schulz.save!
+      else
+        schulz = @proposal.schulze_votes.build(preferences: votestring, count: 1)
       end
-      respond_to do |format|
-        flash[:notice] = t('votations.create.confirm')
-        format.html { render action: :show }
-        format.js { render 'votations/vote_schulze' }
-      end
+      # memorizza che l'utente ha effettuato la votazione
+      vote = @proposal.user_votes.build(user_id: current_user.id)
+      vote.vote_schulze = votestring unless @proposal.secret_vote
+      @proposal.save!
+    end
+    respond_to do |format|
+      flash[:notice] = t('votations.create.confirm')
+      format.html { render action: :show }
+      format.js { render 'votations/vote_schulze' }
+    end
 
-    rescue Exception => e
-      respond_to do |format|
-        #magari ha provato a votare due volte!
-        flash[:error] = t('errors.messages.votation')
-        format.html { redirect_to @proposal }
-        format.js { render 'votations/errors/vote_error' }
-      end
+  rescue Exception => e
+    respond_to do |format|
+      # magari ha provato a votare due volte!
+      flash[:error] = t('errors.messages.votation')
+      format.html { redirect_to @proposal }
+      format.js { render 'votations/errors/vote_error' }
     end
   end
-
 
   protected
 
   def validate_security_token
-    return true unless (current_user.rotp_enabled && ::Configuration.rotp)
+    return true unless current_user.rotp_enabled && ::Configuration.rotp
     return true if check_token(current_user, params[:data][:token])
     flash[:error] = t('errors.messages.invalid_token')
     respond_to do |format|

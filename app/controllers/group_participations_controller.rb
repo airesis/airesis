@@ -32,8 +32,8 @@ class GroupParticipationsController < ApplicationController
     end
   end
 
-  #changes the role of a user
-  #todo move from here and put in group_participations#update
+  # changes the role of a user
+  # TODO: move from here and put in group_participations#update
   def change_user_permission
     @group_participation = @group.group_participations.find(params[:id])
     @group_participation.participation_role = ParticipationRole.find(params[:participation_role_id])
@@ -45,9 +45,8 @@ class GroupParticipationsController < ApplicationController
     end
   end
 
-
-  #send a massive email to all users
-  #todo protect
+  # send a massive email to all users
+  # TODO: protect
   def send_email
     ids = params[:message][:receiver_ids]
     subject = params[:message][:subject]
@@ -56,8 +55,8 @@ class GroupParticipationsController < ApplicationController
     flash[:notice] = t('info.message_sent')
   end
 
-  #destroy all selected participations
-  #todo check permissions
+  # destroy all selected participations
+  # TODO: check permissions
   def destroy_all
     ids = params[:destroy][:ids].split(',')
     GroupParticipation.transaction do
@@ -78,12 +77,13 @@ class GroupParticipationsController < ApplicationController
   rescue Exception => e
     flash[:notice] = t('error.participations_destroyed')
     respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html 'flash_messages', partial: 'layouts/flash', locals: {flash: flash}
-      end }
+      format.js do
+        render :update do |page|
+          page.replace_html 'flash_messages', partial: 'layouts/flash', locals: { flash: flash }
+        end
+      end
     end
   end
-
 
   def destroy
     @group_participation.destroy
@@ -95,9 +95,7 @@ class GroupParticipationsController < ApplicationController
     redirect_to :back
   end
 
-
   protected
-
 
   def search_participant_params
     params[:search_participant] ? params.require(:search_participant).permit(:keywords, :role_id, :status_id) : {}

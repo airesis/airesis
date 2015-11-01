@@ -3,7 +3,7 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 describe 'permissions on proposals', type: :model, js: true, search: true, seeds: true do
-  def create_proposal_in_area(visible_outside=true)
+  def create_proposal_in_area(visible_outside = true)
     user = create(:user)
     group = create(:group, current_user_id: user.id)
     group.enable_areas = true
@@ -45,9 +45,11 @@ describe 'permissions on proposals', type: :model, js: true, search: true, seeds
     end
 
     context 'the proposal is in the group area and not visible outside' do
-      let!(:proposal) { create(:group_proposal, current_user_id: admin.id,
-                               group_proposals: [GroupProposal.new(group: group)],
-                               group_area_id: area.id, visible_outside: false) }
+      let!(:proposal) do
+        create(:group_proposal, current_user_id: admin.id,
+                                group_proposals: [GroupProposal.new(group: group)],
+                                group_area_id: area.id, visible_outside: false)
+      end
       context 'does not participate in any area' do
         context 'when is in debate' do
           it 'cant participate to the proposal' do
@@ -76,9 +78,11 @@ describe 'permissions on proposals', type: :model, js: true, search: true, seeds
     end
 
     context 'the proposal is in the group area and visible outside' do
-      let!(:proposal) { create(:group_proposal, current_user_id: admin.id,
-                               group_proposals: [GroupProposal.new(group: group)],
-                               group_area_id: area.id, visible_outside: true) }
+      let!(:proposal) do
+        create(:group_proposal, current_user_id: admin.id,
+                                group_proposals: [GroupProposal.new(group: group)],
+                                group_area_id: area.id, visible_outside: true)
+      end
       context 'does not participate in any area' do
         context 'when is in debate' do
           it 'cant participate to the proposal' do
@@ -143,7 +147,6 @@ describe 'permissions on proposals', type: :model, js: true, search: true, seeds
       expect(@ability).not_to be_able_to(:show, @proposal)
     end
 
-
     it "can view public proposals in others group areas but can't participate" do
       @proposal = create_proposal_in_area
       @second_group = @proposal.groups.first
@@ -157,7 +160,6 @@ describe 'permissions on proposals', type: :model, js: true, search: true, seeds
       expect(@ability).not_to be_able_to(:show, @proposal)
       expect(@ability).not_to be_able_to(:participate, @proposal)
     end
-
 
     it "can't view private proposals in group areas in which does not participate even if he belongs to the group" do
       @proposal = create_proposal_in_area(false)
@@ -174,15 +176,19 @@ describe 'permissions on proposals', type: :model, js: true, search: true, seeds
     let(:participant) { create(:user) }
     let(:ability) { Ability.new(admin) }
     let(:area) { create(:group_area, group: group) }
-    let!(:proposal) { create(:group_proposal, current_user_id: participant.id,
-                             group_proposals: [GroupProposal.new(group: group)]) }
+    let!(:proposal) do
+      create(:group_proposal, current_user_id: participant.id,
+                              group_proposals: [GroupProposal.new(group: group)])
+    end
     before :each do
       create_participation(participant, group)
     end
 
     context 'on his group' do
-      let!(:proposal) { create(:group_proposal, current_user_id: participant.id,
-                               group_proposals: [GroupProposal.new(group: group)]) }
+      let!(:proposal) do
+        create(:group_proposal, current_user_id: participant.id,
+                                group_proposals: [GroupProposal.new(group: group)])
+      end
 
       it 'can delete proposals' do
         expect(ability).to be_able_to(:destroy, proposal)
@@ -198,8 +204,10 @@ describe 'permissions on proposals', type: :model, js: true, search: true, seeds
     end
 
     context 'in other groups' do
-      let!(:proposal) { create(:group_proposal, current_user_id: participant.id,
-                               group_proposals: [GroupProposal.new(group: create(:group, current_user_id: create(:user).id))]) }
+      let!(:proposal) do
+        create(:group_proposal, current_user_id: participant.id,
+                                group_proposals: [GroupProposal.new(group: create(:group, current_user_id: create(:user).id))])
+      end
 
       it 'cannot delete proposals' do
         expect(ability).not_to be_able_to(:destroy, proposal)

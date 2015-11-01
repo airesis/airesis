@@ -2,11 +2,12 @@
   <div class="row" data-equalizer>
     <div class="columns large-6 gray show-for-large-up"  data-equalizer-watch>
       <% @groups = current_user.groups %>
-      <% unless @groups.empty?%>
+      <% if @groups.any?%>
           <% @groups.each do |group| %>
               <%= render 'groups/group_menu_item', group: group %>
           <% end %>
       <% end %>
+      <%= render 'groups/open_space_menu_item' %>
     </div>
     <div class="columns large-6 text-right" data-equalizer-watch>
       <h2><%= link_to current_user.fullname, home_url %></h2>

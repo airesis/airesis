@@ -32,7 +32,7 @@ module RailsAdmin
         register_instance_option :controller do
           proc do
             puts "sign in as #{@object.inspect}"
-            sign_in :user, @object, { bypass: true }
+            sign_in :user, @object, bypass: true
             redirect_to '/'
           end
         end

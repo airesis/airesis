@@ -9,10 +9,10 @@ class NotificationProposalUpdate < NotificationSender
   end
 
   def build_notification_a
-    data = {proposal_id: @proposal.id,
-            user_id: @current_user.id,
-            revision_id: (@proposal.proposal_revisions.last.id),
-            title: @proposal.title}
+    data = { proposal_id: @proposal.id,
+             user_id: @current_user.id,
+             revision_id: (@proposal.proposal_revisions.last.id),
+             title: @proposal.title }
     if @group.present?
       data[:group] = @group.name
       data[:subdomain] = @group.subdomain if @group.certified?

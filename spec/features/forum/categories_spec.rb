@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'requests_helper'
 
 describe 'categories', type: :feature, js: true, seeds: true do
-
   let!(:user) { create(:user) }
 
   let!(:group) { create(:group, current_user_id: user.id) }
@@ -11,10 +10,9 @@ describe 'categories', type: :feature, js: true, seeds: true do
   let!(:forum_1) { create(:frm_forum, category: category_1, group: group) }
 
   let!(:category_2) { create(:frm_category, group: group) }
-  let!(:forum_2) { create(:frm_forum, :category => category_2, group: group) }
+  let!(:forum_2) { create(:frm_forum, category: category_2, group: group) }
 
   it 'sees categorized public forums' do
-
     visit group_forums_path(group)
     within("#category_#{category_1.id}") do
       expect(page).to have_content(forum_1.title)
@@ -62,5 +60,4 @@ describe 'categories', type: :feature, js: true, seeds: true do
       expect(page).to have_content(name)
     end
   end
-
 end

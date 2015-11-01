@@ -6,7 +6,7 @@ class NotificationProposalWaitingForDate < NotificationSender
     current_user = User.find(user_id)
     nickname = ProposalNickname.find_by(user_id: current_user.id, proposal_id: @proposal.id)
     name = (@proposal.is_anonima? && nickname) ? nickname.nickname : current_user.fullname
-    data = {proposal_id: @proposal.id, name: name, title: @proposal.title, extension: 'waiting_date'}
+    data = { proposal_id: @proposal.id, name: name, title: @proposal.title, extension: 'waiting_date' }
     if group
       data['group'] = group.name
       data['subdomain'] = group.subdomain if group.certified?
