@@ -499,6 +499,14 @@ class User < ActiveRecord::Base
     self.facebook_page_url = raw_info['link'] if provider == Authentication::FACEBOOK
   end
 
+  def twitter_page_url
+    "https://twitter.com/intent/user?user_id=#{authentications.where(provider: Authentication::TWITTER).uid}"
+  end
+
+  def meetup_page_url
+    "http://www.meetup.com/members/#{authentications.where(provider: Authentication::MEETUP).uid}"
+  end
+
   def certify_with_info(user_info)
     fail 'Not enough info for certification' if [user_info[:name], user_info[:surname], user_info[:email]].any? &:blank?
     User.transaction do
