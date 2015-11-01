@@ -101,7 +101,6 @@ fr-FR:
         sys_currency_id: Devise
       user:
         email: Adresse de courriel
-        login: "Nom d'utilisateur"
         password: Mot de passe
         linkedinpageurl: Votre page sur LinkedIn
         facebookpageurl: Votre page sur Facebook

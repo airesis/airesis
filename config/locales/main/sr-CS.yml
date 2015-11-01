@@ -733,7 +733,6 @@ sr-CS:
       welcome: Dobro došli
       groups_title: GRUPE
       login: PRIJAVLJIVANJE
-      login_placeholder: E-pošta ili korisničko ime
       groups_list: Grupe u kojima učestvujete
       open_group: Osnujte novu grupu
       new_group: Pronađite grupe
@@ -846,7 +845,6 @@ sr-CS:
       create_event_button: Kreirajte novi događaj
     sessions:
       new:
-        login_label: Korisničko ime ili e-pošta
         remember_me_label: Zapamti me
       links:
         register: Još se niste registrovali? Prijavite se!

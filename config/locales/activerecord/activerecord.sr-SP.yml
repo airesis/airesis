@@ -101,7 +101,6 @@ sr-SP:
         sys_currency_id: Валута
       user:
         email: E-пошта
-        login: Корисничко име
         password: Лозинка
         linkedinpageurl: Ваша LinkedIn страница
         facebookpageurl: Ваша Facebook страница

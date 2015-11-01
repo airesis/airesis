@@ -720,7 +720,6 @@ el-GR:
       welcome: Καλώς ορίσατε
       groups_title: ΟΜΑΔΕΣ
       login: ΣΥΝΔΕΣΗ
-      login_placeholder: Ηλεκτρονικό ταχυδρομείο ή όνομα χρήστη
       groups_list: Ομάδες που συμμετέχετε
       open_group: Ξεκινήστε μια νέα ομάδα
       new_group: Βρείτε ομάδες
@@ -829,7 +828,6 @@ el-GR:
       create_event_button: Δημιουργία νέας εκδήλωσης
     sessions:
       new:
-        login_label: Όνομα χρήστη ή ηλεκτρονικό ταχυδρομείο
         remember_me_label: Θυμήσου με
       links:
         register: Δεν έχετε εγγραφεί ήδη; Εγγραφή!

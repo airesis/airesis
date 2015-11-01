@@ -516,7 +516,6 @@ ro-RO:
         profile: PROFILUL
       welcome: Bun venit
       groups_title: GRUPURI
-      login_placeholder: E-mail sau nume de utilizator
       groups_list: Grupuri în care participați
       open_group: Începe un grup nou
       new_group: Găseşte grupuri
@@ -602,7 +601,6 @@ ro-RO:
       create_event_button: Creaţi un eveniment nou
     sessions:
       new:
-        login_label: Numele de utilizator sau E-mail
         remember_me_label: Ţine-mă minte
       links:
         register: Nu esti înregistrat încă? Inregistrează-te!

@@ -720,7 +720,6 @@ es-CL:
       welcome: Bienvenido
       groups_title: GRUPOS
       login: INICIO DE SESIÓN
-      login_placeholder: Correo electrónico o nombre de usuario
       groups_list: Grupos a que pertenece
       open_group: Empieza un nuevo grupo
       new_group: Encontrar grupos
@@ -833,7 +832,6 @@ es-CL:
       create_event_button: Crear nuevo evento
     sessions:
       new:
-        login_label: Nombre de usuario o correo electrónico
         remember_me_label: Recordarme
       links:
         register: ¿Todavía no está registrado? ¡Únete!

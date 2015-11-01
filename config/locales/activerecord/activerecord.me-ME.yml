@@ -101,7 +101,6 @@ me-ME:
         sys_currency_id: Valuta
       user:
         email: E-mail adresa
-        login: Korisničko ime
         password: Lozinka
         linkedinpageurl: Vaša LinkedIn stranica
         facebookpageurl: Vaša Facebook stranica

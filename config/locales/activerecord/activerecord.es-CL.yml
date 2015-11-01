@@ -101,7 +101,6 @@ es-CL:
         sys_currency_id: Moneda
       user:
         email: Dirección de correo electrónico
-        login: Nombre de usuario
         password: Contraseña
         linkedinpageurl: Su página en LinkedIn
         facebookpageurl: Su página en Facebook
