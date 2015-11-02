@@ -500,11 +500,11 @@ class User < ActiveRecord::Base
   end
 
   def twitter_page_url
-    "https://twitter.com/intent/user?user_id=#{authentications.where(provider: Authentication::TWITTER).uid}"
+    "https://twitter.com/intent/user?user_id=#{authentications.find_by(provider: Authentication::TWITTER).uid}"
   end
 
   def meetup_page_url
-    "http://www.meetup.com/members/#{authentications.where(provider: Authentication::MEETUP).uid}"
+    "http://www.meetup.com/members/#{authentications.find_by(provider: Authentication::MEETUP).uid}"
   end
 
   def certify_with_info(user_info)
