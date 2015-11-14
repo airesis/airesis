@@ -93,9 +93,12 @@
 <script type="text/javascript">
     $(function () {
         var description_editor = CKEDITOR.instances['group_description'];
-        description_editor.on('blur', function () {
+        description_editor.on('change', function (event) {
             description_editor.updateElement();
             $('form').formValidation('revalidateField', 'group[description]');
+            console.log('returning true');
+            console.log('event target is', event.relatedTarget);
+            return true;
         });
 
         var input_interest_border = $('#group_interest_border_tkn');
@@ -148,7 +151,7 @@
     <%end%>
 
     $(function () {
-        var input = $('#group_tags_list')
+        var input = $('#group_tags_list');
         if (input != null) {
             input.tokenInput("<%=tags_path(format: :json )%>", {
                 theme: "facebook",
