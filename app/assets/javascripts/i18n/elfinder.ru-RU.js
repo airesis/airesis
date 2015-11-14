@@ -4,7 +4,7 @@
  * @version 2011-07-15
  */
 if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object') {
-	elFinder.prototype.i18.ru = {
+	elFinder.prototype.i18.ru_RU = {
 		translator : 'Dmitry "dio" Levashov &lt;dio@std42.ru&gt;',
 		language   : 'Русский язык',
 		direction  : 'ltr',

@@ -4,7 +4,7 @@
  * @version 2014-12-19
  */
 if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object') {
-    elFinder.prototype.i18.sr = {
+    elFinder.prototype.i18.sr_CS = {
         translator : 'Momčilo m0k1 Mićanović &lt;moki.forum@gmail.com&gt;',
         language   : 'Srpski',
         direction  : 'ltr',

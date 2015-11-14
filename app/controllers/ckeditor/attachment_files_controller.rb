@@ -1,4 +1,5 @@
 class Ckeditor::AttachmentFilesController < Ckeditor::ApplicationController
+  respond_to :html
 
   def index
     @attachments = Ckeditor.attachment_file_adapter.find_all(ckeditor_attachment_files_scope(assetable_id: ckeditor_current_user))
