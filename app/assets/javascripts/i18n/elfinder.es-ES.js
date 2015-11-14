@@ -5,7 +5,7 @@
  * @version 2013-05-08
  */
 if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object') {
-	elFinder.prototype.i18.es = {
+	elFinder.prototype.i18.es_ES = {
 		translator : 'Julián Torres &lt;julian.torres@pabernosmatao.com&gt;',
 		language   : 'Español internacional',
 		direction  : 'ltr',
