@@ -4,7 +4,7 @@
  * @version 2012-05-09
  */
 if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object') {
-	elFinder.prototype.i18.it = {
+	elFinder.prototype.i18.it_IT = {
 		translator : 'Alberto Tocci (alberto.tocci@gmail.com)',
 		language   : 'Italiano',
 		direction  : 'ltr',

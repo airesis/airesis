@@ -59,7 +59,7 @@
 
     $(function () {
         var description_editor = CKEDITOR.instances['blog_post_body'];
-        description_editor.on('blur', function () {
+        description_editor.on('change', function () {
             description_editor.updateElement();
             $('form').formValidation('revalidateField', 'blog_post[body]');
         });
