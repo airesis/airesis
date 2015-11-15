@@ -1,8 +1,8 @@
 class PasswordsController < Devise::PasswordsController
   def create
     if params[:user] && params[:user][:email]
-      user = User.where(email: params[:user][:email], blocked: false).first
-      if user
+      user = User.find_first_by_auth_conditions(params[:user])
+      if user && !user.blocked?
         super
       else
         @user = User.new
