@@ -1,0 +1,12 @@
+<div class="vote timeline">
+    <div class="cur start" title="{{{texts.vote_bar.start}}}"></div>
+    <div class="cur stop" title="{{{texts.vote_bar.end}}}"></div>
+
+    <div class="time" data-percentage="{{proposal.vote_percentage}}">
+        {{^proposal.voted?}}
+            <div class="cur now" title="{{now}}"></div>
+        {{/proposal.voted?}}
+        <div class="good" data-percentage="{{proposal.voters_percentage}}">
+        </div>
+    </div>
+</div>

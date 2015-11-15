@@ -92,7 +92,6 @@ Airesis::Application.routes.draw do
     member do
       get :rankup
       get :rankdown
-      get :statistics
       patch :set_votation_date
       post :available_author
       get :available_authors_list

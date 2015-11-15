@@ -1,0 +1,58 @@
+<div class="proposal_bottom">
+  {{#proposal.in_valutation?}}
+      <div class="timeDescription timeleft" style="float:left" title="{{texts.conditions_left}}">
+          {{{images.time_description}}}
+        <span class="count">
+      {{proposal.time_left}}
+        </span>
+      </div>
+  {{/proposal.in_valutation?}}
+  {{#proposal.voting?}}
+      <div class="timeDescription timeleft" style="float:left" title="{{texts.time_left}}">
+          {{{images.time_description}}}
+        <span class="count">
+        {{proposal.vote_time_left}}</span>
+      </div>
+  {{/proposal.voting?}}
+
+  {{#proposal.voting_or_voted?}}
+      <div class="proposalDescription votersDescription" style="float:left" title="{{texts.voters}}">
+          {{{images.group_participants}}}
+          <span class="count">{{proposal.voters}}</span>
+      </div>
+  {{/proposal.voting_or_voted?}}
+  {{^proposal.voting_or_voted?}}
+      <div class="proposalDescription rankDescription" style="float:left" title="{{texts.rank}}">
+          {{{images.rank}}}
+          <span class="count">{{proposal.rank}}%</span>
+      </div>
+      <div class="proposalDescription participants" style="float:left" title="{{texts.participants_number}}">
+          {{{images.group_participants}}}
+          <span class="count">{{proposal.participants}}</span>
+          <div class="authors">
+              {{texts.participants}}
+              <div class="title">{{texts.authors}}</div>
+              {{#current_user.is_author?}}
+                  {{{proposal.user_tags}}}
+              {{/current_user.is_author?}}
+              {{^current_user.is_author?}}
+                  {{{proposal.anonymous_user_tags}}}
+              {{/current_user.is_author?}}
+              <div style="clear:both;"></div>
+          </div>
+      </div>
+  {{/proposal.voting_or_voted?}}
+
+  <div class="proposalDescription contributes" style="float:left" title="{{texts.contributes_number}}">
+      {{{images.group_proposals}}}
+    <span class="count">{{proposal.contributes_count}}</span>
+  </div>
+  {{#proposal.has_interest_borders?}}
+      <div class="territoryDescription" style="float:left">
+          {{{images.place}}}
+          <span class="count">
+              {{proposal.interest_border}}</span>
+      </div>
+  {{/proposal.has_interest_borders?}}
+  <div class="clearboth"></div>
+</div>

@@ -319,17 +319,6 @@ class ProposalsController < ApplicationController
     rank 3
   end
 
-  def statistics
-    respond_to do |format|
-      format.html
-      format.js do
-        render :update do |page|
-          page.replace_html 'statistics_panel', partial: 'statistics', locals: { proposal: @proposal }
-        end
-      end
-    end
-  end
-
   # restituisce una lista di tutte le proposte simili a quella
   # passata come parametro
   # se è indicato un group_id cerca anche tra quelle interne a quel gruppo
