@@ -19,7 +19,7 @@ class Proposal < ActiveRecord::Base
 
   has_one :vote, class_name: 'ProposalVote', dependent: :destroy
 
-  has_many :user_votes, class_name: 'UserVote'
+  has_many :user_votes
 
   has_many :schulze_votes, class_name: 'ProposalSchulzeVote', dependent: :destroy
 
@@ -605,7 +605,7 @@ class Proposal < ActiveRecord::Base
     end
 
     integer :votes do
-      user_votes.count if voting? || voted?
+      user_votes_count if voting? || voted?
     end
     time :votation_ends_at do
       vote_period.endtime if vote_period && (voting? || voted?)

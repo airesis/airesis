@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115144307) do
+ActiveRecord::Schema.define(version: 20151117180844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "action_abilitations", force: :cascade do |t|
     t.integer  "group_action_id"
@@ -999,6 +998,8 @@ ActiveRecord::Schema.define(version: 20151115144307) do
     t.integer  "vote_event_id"
     t.integer  "signatures"
     t.integer  "views_count",                             default: 0,     null: false
+    t.boolean  "area_private",                            default: false, null: false
+    t.integer  "user_votes_count"
   end
 
   add_index "proposals", ["proposal_category_id"], name: "_idx_proposals_proposal_category_id", using: :btree

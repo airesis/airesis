@@ -47,6 +47,7 @@ class ProposalsController < ApplicationController
     @search.proposal_state_id = ProposalState::TAB_REVISION
     @revision_count = @search.results.total_entries
 
+    query_index
     respond_to do |format|
       format.html do
         @page_head = ''

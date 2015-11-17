@@ -20,7 +20,7 @@ class SearchProposal < ActiveRecord::Base
   ORDER_DESC = 'd'
 
   def results
-    @search = Proposal.search(include: [:category, :quorum, { users: [:image] }, :vote_period, :groups, :supporting_groups, :interest_borders]) do
+    @search = Proposal.search(include: [:proposal_type, :user_votes, :category, :quorum, { users: [:image] }, :vote_period, :groups, :supporting_groups, :interest_borders]) do
       fulltext text, minimum_match: self.or if text
       all_of do
         if proposal_state_id
