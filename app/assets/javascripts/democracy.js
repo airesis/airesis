@@ -135,25 +135,6 @@ function disegnaProgressBar() {
             }
         });
     });
-
-
-    $('.proposal_bottom .participants').each(function () {
-        $(this).qtip({
-            content: $('.authors', this),
-            position: {
-                at: 'bottom center',
-                my: 'top center'
-            },
-            style: {
-                classes: 'qtip-light qtip-shadow',
-                tip: {
-                    corner: true,
-                    width: 5,
-                    height: 5
-                }
-            }
-        });
-    });
 }
 
 function hideDisableButton(button) {

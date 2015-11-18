@@ -29,17 +29,6 @@
       <div class="proposalDescription participants" style="float:left" title="{{texts.participants_number}}">
           {{{images.group_participants}}}
           <span class="count">{{proposal.participants}}</span>
-          <div class="authors">
-              {{texts.participants}}
-              <div class="title">{{texts.authors}}</div>
-              {{#current_user.is_author?}}
-                  {{{proposal.user_tags}}}
-              {{/current_user.is_author?}}
-              {{^current_user.is_author?}}
-                  {{{proposal.anonymous_user_tags}}}
-              {{/current_user.is_author?}}
-              <div style="clear:both;"></div>
-          </div>
       </div>
   {{/proposal.voting_or_voted?}}
 

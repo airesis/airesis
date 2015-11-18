@@ -94,8 +94,6 @@ module ProposalsHelper
           participants: proposal.participants_count,
           rank: proposal.rank,
           percentage: proposal.percentage,
-          user_tags: proposal.users.map { |user| user_tag_mini(user) }.join,
-          anonymous_user_tags: proposal.users.map { |user| user_tag_mini(user, proposal) }.join,
           contributes_count: proposal.contributes.count,
           'has_interest_borders?' => proposal.interest_borders.any?,
           interest_border: (proposal.interest_borders.first.territory.description if proposal.interest_borders.any?),
@@ -116,8 +114,6 @@ module ProposalsHelper
           place: (image_tag 'place.png')
         },
         texts: {
-          participants: t('pages.proposals.index.participants_number'),
-          authors: t('pages.proposals.list.authors').upcase,
           conditions_left: t('pages.proposals.list.condition_left').upcase,
           time_left: t('pages.proposals.list.time_left').upcase,
           voters: t('pages.proposals.index.voters'),
@@ -134,7 +130,6 @@ module ProposalsHelper
         },
         current_user: {
           'signed_in?' => signed_in?,
-          'is_author?' => proposal.users.include?(current_user),
           'can_vote?' => (can? :vote, proposal),
           notifications: proposal.count_notifications(current_user.id),
           'show_alerts?' => (proposal.count_notifications(current_user.id) > 0),
