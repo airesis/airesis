@@ -154,6 +154,9 @@ class Proposal < ActiveRecord::Base
 
   after_destroy :remove_scheduled_tasks
 
+  # updates the content of the short_content field which is displayed in the lists
+  after_validation :update_short_content
+
   def init
     self.quorum_id ||= Quorum::STANDARD
     self.anonima = (self.is_petition? ? false : DEFAULT_ANONIMA) if anonima.nil?
@@ -402,18 +405,6 @@ class Proposal < ActiveRecord::Base
   # restituisce il primo autore della proposta
   def user
     @first_user ||= proposal_presentations.first.user
-  end
-
-  def truncate_words(text, length = 30, end_string = ' ...')
-    words = text.split
-    words[0..(length - 1)].join(' ') + (words.length > length ? end_string : '')
-  end
-
-  def short_content
-    section = sections.first || solutions.first.sections.first
-    truncate_words(section.paragraphs.first.content.gsub(%r{</?[^>]+?>}, ''), 40)
-  rescue
-    nil
   end
 
   # retrieve the number of users that can vote this proposal
@@ -727,7 +718,23 @@ class Proposal < ActiveRecord::Base
     end
   end
 
+  def generate_short_content
+    section = sections.first || solutions.first.sections.first
+    truncate_words(section.paragraphs.first.content.gsub(%r{</?[^>]+?>}, ''), 40)
+  rescue
+    nil
+  end
+
   private
+
+  def update_short_content
+    self.short_content = generate_short_content
+  end
+
+  def truncate_words(text, length = 30, end_string = ' ...')
+    words = text.split
+    words[0..(length - 1)].join(' ') + (words.length > length ? end_string : '')
+  end
 
   def join_users_table(table)
     users = User.arel_table

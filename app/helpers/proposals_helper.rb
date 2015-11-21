@@ -77,6 +77,39 @@ module ProposalsHelper
     end
   end
 
+  def proposal_for_mustache(proposal)
+    ret = {
+      mustache: {
+        now: (l Time.now),
+        proposal: {
+          good_score: (proposal.quorum.good_score),
+          'voted?' => proposal.voted?,
+          'voting_or_voted?' => proposal.voting? || proposal.voted?,
+          rank: proposal.rank,
+          percentage: proposal.percentage,
+          'show_rank_bar?' => (proposal.percentage >= 1),
+          'show_current_cursor?' => (proposal.percentage <= 98),
+        },
+        texts: {
+          rank_bar: {
+            creation: t('pages.proposals.new_rank_bar.creation', time_ago: time_ago_in_words(proposal.created_at).upcase, date: (l proposal.created_at, format: :long).upcase),
+            end: t('pages.proposals.new_rank_bar.end', date: proposal.quorum.end_desc.upcase),
+            now: t('pages.proposals.new_rank_bar.now', left: proposal.quorum.time_left).upcase,
+            good_score: t('pages.proposals.new_rank_bar.good_score', score: proposal.quorum.good_score)
+          }
+        }
+      }
+    }
+    if proposal.voting? || proposal.voted?
+      ret[:mustache][:texts][:vote_bar]= {
+        start: "INIZIO VOTAZIONE:<br/>#{(l proposal.vote_period.starttime).upcase}",
+        end: "TERMINE VOTAZIONE:<br/>#{proposal.vote_period.endtime}".upcase
+      }
+      ret[:mustache][:proposal][:vote_percentage] = [((Time.now - proposal.vote_period.starttime)/proposal.vote_period.duration.to_f)*100, 100].min
+      ret[:mustache][:proposal][:voters_percentage] = (proposal.user_votes_count.to_f/proposal.eligible_voters_count.to_f)*100
+    end
+    ret
+  end
   def proposal_list_element_for_mustache(proposal)
     ret = {
       mustache: {
@@ -94,7 +127,7 @@ module ProposalsHelper
           participants: proposal.participants_count,
           rank: proposal.rank,
           percentage: proposal.percentage,
-          contributes_count: proposal.contributes.count,
+          contributes_count: proposal.proposal_contributes_count,
           'has_interest_borders?' => proposal.interest_borders.any?,
           interest_border: (proposal.interest_borders.first.territory.description if proposal.interest_borders.any?),
           'show_rank_bar?' => (proposal.percentage >= 1),
@@ -131,8 +164,8 @@ module ProposalsHelper
         current_user: {
           'signed_in?' => signed_in?,
           'can_vote?' => (can? :vote, proposal),
-          notifications: proposal.count_notifications(current_user.id),
-          'show_alerts?' => (proposal.count_notifications(current_user.id) > 0),
+          notifications: proposal.alerts_count,
+          'show_alerts?' => (proposal.alerts_count > 0),
           valutation_image: (user_valutation_image(current_user, proposal) if current_user)
         }
       }

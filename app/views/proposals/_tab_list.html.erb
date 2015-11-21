@@ -5,7 +5,7 @@
 <ul id="proposalsListContainer<%= params[:state] || params[:view] %>" class="small-block-grid-1 xlarge-block-grid-2">
   <%= render partial: 'list', locals: {proposals: @proposals} %>
 </ul>
-<% unless @proposals.last_page? %>
+<% unless @search.hits.last_page? %>
     <div id="loading_proposals<%= params[:state] || params[:view] %>" class="loading_proposals card">
       <span><%= t('pages.proposals.index.show_more') %></span>
     </div>
@@ -24,8 +24,8 @@
                 currentPage++;
                 var cat = <%=params[:category] || 'null'%>;
                 var view = <%=params[:view] || 'null'%>;
-                var state = <%=params[:state] || 'null'%>;
-                var group = <%=params[:group_id] || 'null'%>;
+                var state = <%=raw "'#{@search.proposal_state_tab}'" || 'null'%>;
+                var group = <%=@search.group_id || 'null'%>;
                 var order = '<%=params[:order] || 'null'%>';
                 var nurl = '/proposals/endless_index?scroll=true';
                 if (cat != null && cat != 'null')

@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117180844) do
+ActiveRecord::Schema.define(version: 20151121080638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "action_abilitations", force: :cascade do |t|
     t.integer  "group_action_id"
@@ -975,31 +976,32 @@ ActiveRecord::Schema.define(version: 20151117180844) do
 
   create_table "proposals", force: :cascade do |t|
     t.integer  "proposal_state_id"
-    t.integer  "proposal_category_id",                    default: 5,     null: false
-    t.string   "title",                     limit: 255,                   null: false
-    t.string   "content",                   limit: 20000
+    t.integer  "proposal_category_id",                     default: 5,     null: false
+    t.string   "title",                      limit: 255,                   null: false
+    t.string   "content",                    limit: 20000
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "valutations",                             default: 0
+    t.integer  "valutations",                              default: 0
     t.integer  "vote_period_id"
-    t.integer  "proposal_comments_count",                 default: 0
-    t.integer  "rank",                                    default: 0,     null: false
-    t.boolean  "show_comment_authors",                    default: true,  null: false
-    t.boolean  "private",                                 default: false, null: false
+    t.integer  "proposal_comments_count",                  default: 0
+    t.integer  "rank",                                     default: 0,     null: false
+    t.boolean  "show_comment_authors",                     default: true,  null: false
+    t.boolean  "private",                                  default: false, null: false
     t.integer  "quorum_id"
-    t.boolean  "anonima",                                 default: true,  null: false
-    t.boolean  "visible_outside",                         default: false, null: false
-    t.boolean  "secret_vote",                             default: true,  null: false
-    t.integer  "proposal_type_id",                        default: 1,     null: false
-    t.integer  "proposal_votation_type_id",               default: 1,     null: false
-    t.boolean  "vote_defined",                            default: false
+    t.boolean  "anonima",                                  default: true,  null: false
+    t.boolean  "visible_outside",                          default: false, null: false
+    t.boolean  "secret_vote",                              default: true,  null: false
+    t.integer  "proposal_type_id",                         default: 1,     null: false
+    t.integer  "proposal_votation_type_id",                default: 1,     null: false
+    t.boolean  "vote_defined",                             default: false
     t.datetime "vote_starts_at"
     t.datetime "vote_ends_at"
     t.integer  "vote_event_id"
     t.integer  "signatures"
-    t.integer  "views_count",                             default: 0,     null: false
-    t.boolean  "area_private",                            default: false, null: false
+    t.integer  "views_count",                              default: 0,     null: false
     t.integer  "user_votes_count"
+    t.text     "short_content"
+    t.integer  "proposal_contributes_count",               default: 0,     null: false
   end
 
   add_index "proposals", ["proposal_category_id"], name: "_idx_proposals_proposal_category_id", using: :btree

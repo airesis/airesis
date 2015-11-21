@@ -13,20 +13,19 @@
 <% end %>
 
 <div style="clear:both"></div>
-
 <ul class="button-group even-4">
-  <li><a href="?state=1" class="button"
-         <% if params[:state] == ProposalState::TAB_DEBATE.to_s %>disabled
-         <% end %>><%= t('pages.proposals.index.debate_title', count: @in_valutation_count) %></a></li>
-  <li><a href="?state=2" class="button"
-         <% if params[:state] == ProposalState::TAB_VOTATION.to_s %>disabled
-         <% end %>><%= t('pages.proposals.index.voting_title', count: @in_votation_count) %></a></li>
-  <li><a href="?state=3" class="button"
-         <% if params[:state] == ProposalState::TAB_VOTED.to_s %>disabled
-         <% end %>><%= t('pages.proposals.index.accepted_title', count: @accepted_count) %></a></li>
-  <li><a href="?state=4" class="button"
-         <% if params[:state] == ProposalState::TAB_REVISION.to_s %>disabled
-         <% end %>><%= t('pages.proposals.index.revision_title', count: @revision_count) %></a></li>
+  <li><a href="?state=<%= ProposalState::TAB_DEBATE %>" class="button"
+         <%= 'disabled' if @search.proposal_state_tab == ProposalState::TAB_DEBATE %>>
+    <%= t('pages.proposals.index.debate_title', count: @in_valutation_count) %></a></li>
+  <li><a href="?state=<%= ProposalState::TAB_VOTATION %>" class="button"
+         <%= 'disabled' if @search.proposal_state_tab == ProposalState::TAB_VOTATION %>>
+    <%= t('pages.proposals.index.voting_title', count: @in_votation_count) %></a></li>
+  <li><a href="?state=<%= ProposalState::TAB_VOTED %>" class="button"
+         <%= 'disabled' if @search.proposal_state_tab == ProposalState::TAB_VOTED %>>
+    <%= t('pages.proposals.index.accepted_title', count: @accepted_count) %></a></li>
+  <li><a href="?state=<%= ProposalState::TAB_REVISION %>" class="button"
+         <%= 'disabled' if @search.proposal_state_tab == ProposalState::TAB_REVISION %>>
+    <%= t('pages.proposals.index.revision_title', count: @revision_count) %></a></li>
 </ul>
 
 <div class="content">
