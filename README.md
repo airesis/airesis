@@ -109,6 +109,15 @@ If you want to run them all you can use Foreman
     
 and it will take care of running everything for you.
 
+Data
+----
+
+You'll probably need some fake data in your development environment to test stuff.
+These scripts are available:
+
+    bundle exec rake airesis:seed:more:public_proposals[number]
+
+Will generate `number` fake proposals in public open space and `number` new users (one for each proposal)
 
 Database
 --------
