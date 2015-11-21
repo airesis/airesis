@@ -17,7 +17,6 @@
                   <%= t('pages.proposals.index.all_areas') %>
               <% end %>
             </div>
-
           </div>
 
           <% @group.group_areas.each do |area| %>
@@ -29,10 +28,8 @@
                       <%= link_to area.name, current_url(group_area_id: area.id) %>
                   <% end %>
                 </div>
-
               </div>
           <% end %>
-
         </div>
       </div>
     </div>
@@ -55,7 +52,6 @@
     </div>
 <% end %>
 <% if ::Configuration.proposal_categories %>
-
     <div id="categories">
       <div class="mybox">
         <% if params[:category] %>
@@ -78,41 +74,29 @@
           </div>
 
           <%
-             conditions = "1 = 1"
-             joins = "left join proposals on proposals.proposal_category_id = proposal_categories.id"
-             if @group
-               joins += " left join proposal_supports on proposals.id = proposal_supports.proposal_id  left join group_proposals on proposals.id = group_proposals.proposal_id"
-               conditions += " AND ((proposal_supports.group_id = #{@group.id} and proposals.private = 'f') or (group_proposals.group_id = #{@group.id} and proposals.private = 't'))"
-             end
-             categories = ProposalCategory.joins(joins).where(conditions).order("proposal_categories.seq desc").group(ProposalCategory.column_names.map { |col| "#{ProposalCategory.table_name}.#{col}" }.join(','))
-
-             #categories = ProposalCategory.all
+             categories = ProposalCategory.for_menu(@group)
              categories.each do |category| %>
               <div class="row">
+                <% cat_image = image_tag("proposal_categories/#{category.id}_s.png",
+                                         align: 'middle',
+                                         alt: category.description,
+                                         title: category.description,
+                                         style: "width:22px;padding-right:2px;") %>
                 <% if params[:category] == category.id.to_s %>
                     <div class="columns large-2">
-                      <%= image_tag("proposal_categories/#{category.id}_s.png",
-                                    align: 'middle', alt: category.description,
-                                    title: category.description,
-                                    style: "width:22px;padding-right:2px;") %>
+                      <%= cat_image %>
                     </div>
                     <div class="columns large-10"><%= category.description %></div>
                 <% else %>
                     <div class="columns large-2">
-                      <%= link_to image_tag("proposal_categories/#{category.id}_s.png",
-                                            align: 'middle',
-                                            alt: category.description,
-                                            style: "width:22px;padding-right:2px;"),
-                                  current_url(category: category.id) %>
+                      <%= link_to cat_image, current_url(category: category.id) %>
                     </div>
                     <div class="columns large-10">
                       <%= link_to category.description, current_url(category: category.id) %>
                     </div>
                 <% end %>
-
               </div>
           <% end %>
-
         </div>
       </div>
     </div>
@@ -142,10 +126,7 @@
           </div>
 
           <%
-             joins = "join proposals on proposals.proposal_type_id = proposal_types.id
-                            join group_proposals on proposals.id = group_proposals.proposal_id"
-             conditions = " group_proposals.group_id = #{@group.id} and proposals.private = 't'"
-             types = ProposalType.joins(joins).where(conditions).group(ProposalType.column_names.map { |col| "#{ProposalType.table_name}.#{col}" }.join(','))
+             types = ProposalType.for_menu(@group.id)
              types.each do |type| %>
               <div class="row">
 
