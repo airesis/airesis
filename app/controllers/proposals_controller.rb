@@ -22,7 +22,7 @@ class ProposalsController < ApplicationController
   before_filter :check_page_alerts, only: :show
 
   def index
-    populate_search
+
 
     if @group
       authorize! :view_data, @group
@@ -37,16 +37,15 @@ class ProposalsController < ApplicationController
         end
       end
     end
+    populate_search
+    @search.proposal_state_tab = nil
+    counters = @search.counters
+    @in_valutation_count = counters[ProposalState::TAB_DEBATE]
+    @in_votation_count = counters[ProposalState::TAB_VOTATION]
+    @accepted_count = counters[ProposalState::TAB_VOTED]
+    @revision_count = counters[ProposalState::TAB_REVISION]
 
-    @search.proposal_state_id = ProposalState::TAB_DEBATE
-    @in_valutation_count = @search.results.total_entries
-    @search.proposal_state_id = ProposalState::TAB_VOTATION
-    @in_votation_count = @search.results.total_entries
-    @search.proposal_state_id = ProposalState::TAB_VOTED
-    @accepted_count = @search.results.total_entries
-    @search.proposal_state_id = ProposalState::TAB_REVISION
-    @revision_count = @search.results.total_entries
-
+    query_index
     respond_to do |format|
       format.html do
         @page_head = ''
@@ -319,17 +318,6 @@ class ProposalsController < ApplicationController
     rank 3
   end
 
-  def statistics
-    respond_to do |format|
-      format.html
-      format.js do
-        render :update do |page|
-          page.replace_html 'statistics_panel', partial: 'statistics', locals: { proposal: @proposal }
-        end
-      end
-    end
-  end
-
   # restituisce una lista di tutte le proposte simili a quella
   # passata come parametro
   # se è indicato un group_id cerca anche tra quelle interne a quel gruppo
@@ -493,7 +481,7 @@ class ProposalsController < ApplicationController
 
     @search.proposal_type_id = params[:type]
 
-    @search.proposal_state_id = params[:state]
+    @search.proposal_state_tab = (params[:state] || ProposalState::TAB_DEBATE)
 
     @search.proposal_category_id = params[:category]
 
@@ -534,11 +522,11 @@ class ProposalsController < ApplicationController
                                      votation: [:later, :start, :start_edited, :end],
                                      sections_attributes:
                                        [:id, :seq, :_destroy, :title, paragraphs_attributes:
-                                             [:id, :seq, :content, :content_dirty]],
+                                         [:id, :seq, :content, :content_dirty]],
                                      solutions_attributes:
                                        [:id, :seq, :_destroy, :title, sections_attributes:
-                                             [:id, :seq, :_destroy, :title, paragraphs_attributes:
-                                                   [:id, :seq, :content, :content_dirty]]])
+                                         [:id, :seq, :_destroy, :title, paragraphs_attributes:
+                                           [:id, :seq, :content, :content_dirty]]])
   end
 
   def update_proposal_params
