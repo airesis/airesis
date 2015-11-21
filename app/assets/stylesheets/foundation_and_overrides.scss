@@ -2911,14 +2911,7 @@ ul.social-network {
 }
 
 @media #{$small-only} {
-  #proposals-tabs {
-    dd {
-      width: 50%;
-    }
-  }
-
-  .tabs dd {
-    float: none;
+  .button-group.stack-for-small > li {
     width: 100%;
   }
 }
