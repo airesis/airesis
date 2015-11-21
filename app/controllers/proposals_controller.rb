@@ -22,8 +22,6 @@ class ProposalsController < ApplicationController
   before_filter :check_page_alerts, only: :show
 
   def index
-
-
     if @group
       authorize! :view_data, @group
 
@@ -405,16 +403,6 @@ class ProposalsController < ApplicationController
   # query per la ricerca delle proposte
   def query_index
     populate_search
-    if params[:state] == ProposalState::TAB_VOTATION.to_s
-      @replace_id = 'votation'
-    elsif params[:state] == ProposalState::TAB_VOTED.to_s
-      @replace_id = 'accepted'
-    elsif params[:state] == ProposalState::TAB_REVISION.to_s
-      @replace_id = 'revision'
-    else
-      @replace_id = 'debate'
-    end
-
     @proposals = @search.results
   end
 

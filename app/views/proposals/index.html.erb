@@ -28,7 +28,7 @@
     <%= t('pages.proposals.index.revision_title', count: @revision_count) %></a></li>
 </ul>
 
-<div class="content">
+<div class="content" data-proposals-list>
   <%= render partial: 'tab_list', locals: { proposals: @proposals } %>
 </div>
 

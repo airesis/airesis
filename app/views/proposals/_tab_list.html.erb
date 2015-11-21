@@ -1,9 +1,9 @@
 <% unless @proposals.empty? || !::Configuration.phases_active %>
-    <%= render partial: '/proposals/orders/order_bar' %>
+    <%= render '/proposals/orders/order_bar' %>
 <% end %>
 
 <ul id="proposalsListContainer<%= params[:state] || params[:view] %>" class="small-block-grid-1 xlarge-block-grid-2">
-  <%= render partial: 'list', locals: {proposals: @proposals} %>
+  <%= render 'list', proposals: @proposals %>
 </ul>
 <% unless @search.hits.last_page? %>
     <div id="loading_proposals<%= params[:state] || params[:view] %>" class="loading_proposals card">
