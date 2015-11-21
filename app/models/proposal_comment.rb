@@ -142,6 +142,6 @@ class ProposalComment < ActiveRecord::Base
   end
 
   def add_to_contributes_counter(num)
-    proposal.update(proposal_contributes_count: proposal.proposal_contributes_count + num)
+    proposal.update_columns(proposal_contributes_count: proposal.proposal_contributes_count + num)
   end
 end
