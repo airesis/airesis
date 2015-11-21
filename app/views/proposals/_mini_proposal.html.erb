@@ -17,7 +17,7 @@
       </div>
       <% if proposal.is_petition? %>
       <% else %>
-          <% mustache_proposal = proposal_for_mustache(@proposal) %>
+          <% mustache_proposal = proposal_for_mustache(proposal) %>
           <% if mustache_proposal['voting_or_voted?'] %>
               <%= render 'proposals/new_vote_bar', mustache_proposal %>
           <% else %>
