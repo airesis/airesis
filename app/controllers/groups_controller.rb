@@ -64,7 +64,7 @@ class GroupsController < ApplicationController
 
   def by_year_and_month
     @group_posts = @group.post_publishings.
-      viewable_by(current_user).
+      accessible_by(Ability.new(current_user)).
       where(' extract(year from blog_posts.created_at) = ? AND extract(month from blog_posts.created_at) = ? ', params[:year], params[:month]).
       order('post_publishings.featured desc, published_at DESC').
       select('post_publishings.*, published_at').
@@ -86,9 +86,17 @@ class GroupsController < ApplicationController
 
   def load_page_data
     @group_participations = @group.participants
-    @archives = @group.blog_posts.select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').group(' MONTH, YEAR ').order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
-    @last_topics = @group.topics.accessible_by(Ability.new(current_user), :index, false).includes(:views, :forum).order('frm_topics.created_at desc').limit(10)
-    @next_events = @group.events.accessible_by(Ability.new(current_user), :index, false).next.order('starttime asc').limit(4)
+    @archives = @group.blog_posts.
+      viewable_by(current_user).
+      select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').
+      group(' MONTH, YEAR ').
+      order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
+    @last_topics = @group.topics.
+      accessible_by(Ability.new(current_user), :index, false).
+      includes(:views, :forum).order('frm_topics.created_at desc').limit(10)
+    @next_events = @group.events.
+      accessible_by(Ability.new(current_user), :index, false).next.
+      order('starttime asc').limit(4)
   end
 
   def new
