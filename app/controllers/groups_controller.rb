@@ -378,7 +378,6 @@ class GroupsController < ApplicationController
   end
 
   def feature_post
-    fail Exception unless can? :remove_post, @group
     publishing = @group.post_publishings.find_by(blog_post_id: params[:post_id])
     publishing.update(featured: !publishing.featured)
     flash[:notice] = t("info.groups.post_featured.#{publishing.featured}")
