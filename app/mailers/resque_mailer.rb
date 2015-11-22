@@ -20,19 +20,20 @@ class ResqueMailer < ActionMailer::Base
   end
   # specific templates for notification types
   TEMPLATES = {
-    NotificationType::NEW_CONTRIBUTES => 'new_contribute',
-    NotificationType::NEW_CONTRIBUTES_MINE => 'new_contribute',
-    NotificationType::NEW_COMMENTS_MINE => 'new_contribute',
-    NotificationType::NEW_COMMENTS => 'new_contribute',
-    NotificationType::TEXT_UPDATE => 'text_update',
-    NotificationType::NEW_PUBLIC_PROPOSALS => 'new_proposal',
-    NotificationType::NEW_PROPOSALS => 'new_proposal',
+    NotificationType::NEW_CONTRIBUTES => 'notifications/new_contribute',
+    NotificationType::NEW_CONTRIBUTES_MINE => 'notifications/new_contribute',
+    NotificationType::NEW_COMMENTS_MINE => 'notifications/new_contribute',
+    NotificationType::NEW_COMMENTS => 'notifications/new_contribute',
+    NotificationType::TEXT_UPDATE => 'notifications/text_update',
+    NotificationType::NEW_PUBLIC_PROPOSALS => 'notifications/new_proposal',
+    NotificationType::NEW_PROPOSALS => 'notifications/new_proposal',
     NotificationType::NEW_PUBLIC_EVENTS => 'notifications/new_event',
     NotificationType::NEW_EVENTS => 'notifications/new_event',
     NotificationType::AVAILABLE_AUTHOR => 'notifications/available_author',
-    NotificationType::UNINTEGRATED_CONTRIBUTE => 'unintegrated_contribute',
-    NotificationType::NEW_BLOG_COMMENT => 'new_blog_comment',
-    NotificationType::CONTRIBUTE_UPDATE => 'notifications/update_contribute'
+    NotificationType::UNINTEGRATED_CONTRIBUTE => 'notifications/unintegrated_contribute',
+    NotificationType::NEW_BLOG_COMMENT => 'notifications/new_blog_comment',
+    NotificationType::CONTRIBUTE_UPDATE => 'notifications/update_contribute',
+    NotificationType.find_by(name: NotificationType::NEW_FORUM_TOPIC).id => 'notifications/new_forum_topic'
   }
 
   def notification(alert_id)
