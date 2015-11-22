@@ -60,11 +60,12 @@ module Abilities
       can :update, GroupArea do |area|
         area.group.portavoce.include? user
       end
-      can :destroy, GroupArea do |area|
-        (area.group.portavoce.include? user) && area.proposals.empty?
-      end
 
       can :manage, GroupArea, group: admin_of_group?(user).merge(enable_areas: true)
+
+      cannot :destroy, GroupArea do |area|
+        area.proposals.any?
+      end
     end
 
     def group_permissions(user)
