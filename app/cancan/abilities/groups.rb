@@ -85,7 +85,7 @@ module Abilities
         (group.portavoce.include? user) && (group.participants.count < 2)
       end
 
-      can :remove_post, Group, admin_of_group?(user)
+      can [:remove_post, :feature_post], Group, admin_of_group?(user)
 
       can [:view_documents, :reload_storage_size], Group, can_do_on_group(user, GroupAction::DOCUMENTS_VIEW)
       can :manage_documents, Group, can_do_on_group(user, GroupAction::DOCUMENTS_MANAGE)
