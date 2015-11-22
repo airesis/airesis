@@ -59,6 +59,8 @@ bo-BT:
         group_level_permission_title: crwdns6693:0crwdne6693:0
         admin_permissions: crwdns8270:0crwdne8270:0
         certified_cannot_edit_info: crwdns9931:0crwdne9931:0
+        twitter_url: crwdns9959:0crwdne9959:0
+        meetup_url: crwdns9960:0crwdne9960:0
       send_message:
         subject_label: crwdns6694:0crwdne6694:0
         body_label: crwdns6695:0crwdne6695:0

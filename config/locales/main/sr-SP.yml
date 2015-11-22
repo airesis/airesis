@@ -41,6 +41,7 @@ sr-SP:
         profile_info_unconfirmed: (непотврђен корисник)
         send_message_button: Пошаљите приватну поруку
         name_label: Име
+        surname_label: Презиме
         email_label: E-пошта
         edit_image: Уређивање слике
         to_be_confirmed: да се потврди
@@ -57,6 +58,7 @@ sr-SP:
         certified_from: Потврђен из
         group_level_permission_title: Дозволе нивоа групе
         admin_permissions: Ви сте администратор ове групе и имате све дозволе
+        certified_cannot_edit_info: 'Ви сте потврђен корисник: не можете уређивати своје име, презиме и е-пошту'
       send_message:
         subject_label: Наслов
         body_label: Садржај
@@ -263,6 +265,7 @@ sr-SP:
           description: Airesis вам дозвољава да управљате различитим радним подручјима унутар групе.
           description2: Са овом одликом можете боље управљати учесницима и њиховим функцијама.
           description3: Будите опрезни! Ово је напредна одлика дизајнирана само за веће групе и стручне кориснике.
+          enable: Омогућите радна подручја
           description4: 'Пре активирања радног подручја, проверите да ли можете да управљате члановима групе директно помоћу '
         manage:
           new_area: Креирање радног подручја
@@ -289,6 +292,7 @@ sr-SP:
         anything: Сви
         operations_on_user: Доступне операције на корисницима
         send_email: Пошаљите е-пошту
+        surname: Презиме
         name: Име
         role: Функција
         member_since: Члан од
@@ -381,6 +385,7 @@ sr-SP:
         choose_votation_period: Изаберите период гласања
         choose_votation_period_alert: Да ли сте сигурни у вези периода гласања? Касније га нећете моћи променити!
         choose_votation_period_button: Бирам!
+        create_votation_period: Датуми за гласање нису подешени, молимо подесите нови датум
         no_periods_contact_group: Датуми за гласање нису подешени, молимо обратите се администратору да изаберете датум.
         choose_new_votation_period_button: Молимо изаберите нови датум гласања
         loading_contributions: 'Учитавање предложених идеја - доприноса, молимо сачекајте...'
@@ -540,6 +545,7 @@ sr-SP:
         positive: За
         negative: Против
         neutral: Уздржани
+        name_surname_column: Име и презиме
         date_time_column: Датум и време гласања
       report_contribute:
         mark_title: 'Обележите предложену идеју - допринос'
@@ -738,6 +744,7 @@ sr-SP:
       welcome: Добро дошли
       groups_title: ГРУПЕ
       login: ПРИЈАВЉИВАЊЕ
+      login_placeholder: E-пошта
       groups_list: Групе у којима учествујете
       open_group: Оснујте нову групу
       new_group: Пронађите групе
@@ -850,6 +857,7 @@ sr-SP:
       create_event_button: Креирајте нови догађај
     sessions:
       new:
+        login_label: E-пошта
         remember_me_label: Запамти ме
       links:
         register: Још се нисте регистровали? Пријавите се!
@@ -1082,6 +1090,7 @@ sr-SP:
     vote_here: гласајте овде
     unintegrate: Враћање у дебату
     join_accounts: Придружите налоге и пријавите се
+    save_and_exit: Сачувајте и изађите
   tooltips:
     random_stack_1: |
       <strong>Како то функционише?</strong><br/>Прво су приказани нови доприноси или они које нисте оценили, а онда они доприноси које сте већ оценили по реду популарности. <br/>
@@ -1340,6 +1349,9 @@ sr-SP:
       follow_google: пратите нас на Google+
       footer:
         registered_at: 'Примили сте ову е-пошту јер сте регистровани на %{url}.'
+        connect_with_us: 'Повежите се с нама:'
+        contact_info: 'Контакт информације:'
+        email_label: 'E-пошта:'
       edit_preferences: Поставке
       click_here: Кликните овде
     new_contribute:
@@ -1463,5 +1475,9 @@ sr-SP:
   keep_reading: наставите читање
   feedback_subject: '%{time} - Нова повратна информација'
   delete_event_confirm: Да ли сте сигурни да желите да избришете овај коментар?
+  groups:
+    group:
+      delete_group_warning_html: 'Није вам дозвољено да избришете ову групу. Брисањем групе ћете уништити све форуме, предлоге и документа повезана с групом.<br/>Подаци не могу бити повраћени.<br/>Будите опрезни!'
   confirm:
     unintegrate: Враћате свој допринос у дискусију. Да ли сте сигурни?
+  cookie_policy: Колачићи

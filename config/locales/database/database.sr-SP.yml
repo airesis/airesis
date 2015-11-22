@@ -1,12 +1,34 @@
 sr-SP:
   db:
     sys_locales:
+      bs-BA:
+        description: Босански
+      de-DE:
+        description: Немачки
+      el-GR:
+        description: Грчки
       es-ES:
         description: Шпански
+      fr-FR:
+        description: Француски
+      hu-HU:
+        description: Мађарски
+      id-ID:
+        description: Индонежански
       it-IT:
         description: Италијански
+      jp-JP:
+        description: Јапански
+      me-ME:
+        description: Црногорски
       pt-BR:
         description: Португалски (Бразил)
+      ro-RO:
+        description: Румунски
+      ru-RU:
+        description: Руски
+      zh-TW:
+        description: Кинески
     proposal_types:
       STANDARD:
         description: Стандардни предлог

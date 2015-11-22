@@ -322,7 +322,7 @@ function start_end_fdatetimepicker(start, end, min_minutes, suggested_minutes) {
             end.fdatetimepicker("setStartDate", minStartTime);
             if (eventEndTime_ < minStartTime) {
                 end.fdatetimepicker("setDate", addMinutes(eventStartTime_, suggested_minutes));
-                showOnField(end, 'Changed!');
+                showOnField(end, Airesis.i18n.datepicker.changed);
             }
 
         });

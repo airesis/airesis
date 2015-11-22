@@ -484,6 +484,7 @@ en-EU:
         you_can_choose_vote_dates: "This proposal has been waiting for %{count} days for a voting date, so you are now allowed to choose one."
         no_contributes_yet: "No contributions here yet"
         start_votation_proposal_confirmation: "Are you sure you want to start immediatly the votation?"
+        abandoned_message: "Abandoned #{ago}"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "Help"

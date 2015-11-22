@@ -32,9 +32,6 @@ me-ME:
       updated: Vaša lozinka je uspješno promijenjena. Sada ste prijavljeni
       updated_not_active: Vaša lozinka je uspješno promijenjena
       send_paranoid_instructions: Ako vaš e-mail postoji u našoj bazi, dobićete link za oporavak lozinke u vaš inboks
-      user:
-        updated: Lozinka ispravno ažurirana
-        send_instructions: Uputstva su proslijeđena na vaš e-mail
     confirmations:
       send_instructions: Za nekoliko minuta ćete dobiti e-mail sa uputstvima kako da potvrdite vaš nalog
       send_paranoid_instructions: Ako vaš e-mail postoji u našoj bazi, za nekoliko minuta ćete dobiti e-mail sa uputstvima kako da potvrdite svoj nalog

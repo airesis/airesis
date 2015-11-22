@@ -445,7 +445,7 @@ ro-RO:
         yes_partecipated: Ai participat la eveniment
         no_partecipated: Nu ai participat la eveniment
         yes_partecipate: Vei participa la eveniment
-        no_partecipate: |
+        no_partecipate: |2
           |
                     Nu vei participa la eveniment
         with_guests: 'cu oaspeţii %{field}'
@@ -626,7 +626,7 @@ ro-RO:
           Puteţi gestiona propunerile dumneavoastră şi grupurilor dumneavoastră , puteţi vedea evenimentele din jur puteţi fi in legatura cu alţi cetăţeni.
           Îmbunătăţi Airesis prin trimiterea unui feedback la "mailto:info@airesis.it"> info@airesis.it</a>. <br/>
       choose_follow:
-        description_html: |
+        description_html: |2
           |
                     Aici sunt grupurile cele mai active în teritoriile din interiorul frontierelor tale de interes.
                     Alege pe cele pe care doriţi să participe, astfel încât ve-ţi fi capabil de a lua legătura cu ei şi de a participa la evenimentele şi propunerile lor.
