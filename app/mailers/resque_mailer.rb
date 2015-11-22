@@ -54,13 +54,13 @@ class ResqueMailer < ActionMailer::Base
 
   def admin_message(msg)
     @msg = msg
-    mail(to: ENV['ADMIN_EMAIL'], subject: ENV['APP_SHORT_NAME'] + ' - Messaggio di amministrazione')
+    mail(to: ENV['ADMIN_EMAIL'], subject: "#{APP_SHORT_NAME} - Messaggio di amministrazione")
   end
 
   def report_message(report_id)
     @report = ProposalCommentReport.find(report_id)
 
-    mail(to: ENV['ADMIN_EMAIL'], subject: ENV['APP_SHORT_NAME'] + ' - Segnalazione Contributo')
+    mail(to: ENV['ADMIN_EMAIL'], subject: "#{APP_SHORT_NAME} - Segnalazione Contributo")
   end
 
   # send an invite to subscribe in the group

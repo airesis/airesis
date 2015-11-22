@@ -3,7 +3,7 @@
       <%= image_tag 'single_small.png', width: 40, alt: ENV['APP_LONG_NAME'] %>
     </div>
     <div class="topmenu <%= 'noleft' unless content_for? :left_panel %>">
-      <span class="tit"><%= link_to "#{ENV['APP_SHORT_NAME']} - #{t('open_space')}", root_path %></span>
+      <span class="tit"><%= link_to "#{APP_SHORT_NAME} - #{t('open_space')}", root_path %></span>
 
       <div class="submenu">
         <%= link_to(proposals_path, class: ((['proposals', 'proposal_revisions'].include? controller_name) ? 'sel' : '')) do %>

@@ -73,7 +73,6 @@ zh-TW:
         show_urls: 公開 Facebook, Google+ 和 Linkedin 的個人頁面位置
         private_messages: 別的使用者可以寄發站內訊息給我
         join_accounts: 連結其它帳號
-        join_accounts_description: 在 Airesis 上，你可以連結各種社群網站的帳號到同一個 Airesis 帳號上，諸如 Facebook, Google, Twitter 甚至更多！
         joined_all: 你已加入所有可連結的社群帳號，感謝！
         join_facebook: 連結你的 Facebook 帳號
         join_google: 連結你的 Google 帳號
@@ -232,7 +231,6 @@ zh-TW:
       edit_work_areas:
         index:
           not_enabled: 工作小組沒有開放。
-          description: Airesis 讓你在群組中管理不同的工作小組。
           description2: 如此一來，你可以更方便管理所有參與成員與他們的角色權限。
           description3: 但請注意這是進階功能，適合比較龐大的群組或熟悉操作的使用者進行設定。
           description4: 在啟動工作小組前，確定你是否能夠直接管理群組成員的使用權限
@@ -431,8 +429,6 @@ zh-TW:
         title_placeholder: '例如："攜帶腳踏車上火車"'
         interest_borders_tkn_placeholder: 與這個提案有關的地區、城市或國家
         tags_list_placeholder: 在你的提案中輸入些文字吧
-        step_1_title: 你可以提出一個待解決的問題、一個更好的想法或一個行動。最重要的是必須要有清楚的目標：Airesis 幫助你解決問題的方法，就是透過開放討論與共同參與的過程。
-        step_4_title: 太好了！填寫選項並按下「建立提案」來完成。你的提案將被儲存，並且你能隨時繼續增加、修改提案的內容與資訊。
         category_prompt: 選鑿分類
       tabs:
         last_inserted: 最後更新

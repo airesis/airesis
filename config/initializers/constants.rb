@@ -32,6 +32,7 @@ NEWSLETTER_PREFERENCES_URL = ENV['NEWSLETTER_PREFERENCES_URL'] # subscribers man
 NEWSLETTER_LOGO_PATH =  'logo120.png' # path to your logo asset
 
 NEWSLETTER_HOME_URL = ENV['NEWSLETTER_HOME_URL'] # TODO: to remove and replace with SITE
+APP_SHORT_NAME = ENV['APP_SHORT_NAME'] # your app name
 APP_LONG_NAME = ENV['APP_LONG_NAME'] # your app name
 
 UPLOAD_LIMIT_GROUPS = (ENV['UPLOAD_LIMIT_GROUPS'] || 50).to_i * 1024 * 1024

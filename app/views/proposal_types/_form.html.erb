@@ -37,7 +37,7 @@
       <% end %>
 
       <div class="step root root">
-        <h4><%= t('pages.proposals.new.step_1_title') %></h4>
+        <h4><%= t('pages.proposals.new.step_1_title', app_short_name: APP_SHORT_NAME) %></h4>
 
         <%= f.input :title,
                     label: t('pages.proposals.new.title_synthetic'),
@@ -127,10 +127,10 @@
       </div>
 
       <div class="step">
-        <h4><%= t('pages.proposals.new.step_4_title') if request.xhr? %></h4>
+        <h4><%= t('pages.proposals.new.step_4_title', app_short_name: APP_SHORT_NAME) if request.xhr? %></h4>
         <%= render partial: '/proposal_types/quorum_choice', locals: { f: f } %>
         <div class="suggestion_box">
-          <%= t('pages.proposals.new.step_4_footer_html') %>
+          <%= t('pages.proposals.new.step_4_footer_html', app_short_name: APP_SHORT_NAME) %>
         </div>
       </div>
       <p>
