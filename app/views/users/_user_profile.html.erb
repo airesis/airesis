@@ -68,16 +68,16 @@
             </div>
           </div>
       <% end %>
-      <% if @user.has_provider?(Authentication::GOOGLE) %>
+      <% if @user.has_provider?(Authentication::GOOGLE) && @user.google_page_url.present?%>
           <div id="google_profile" class="profile_element_no_click">
             <h2 class="label_profile"><%= t('pages.users.show.googleplus_url_label') %>: </h2>
 
             <div class="info_profile">
-              <%= link_to(@user.google_page_url, @user.google_page_url, target: '_blank', rel: 'author') if @user.google_page_url.present? %>
+              <%= link_to(@user.google_page_url, @user.google_page_url, target: '_blank', rel: 'author') %>
             </div>
           </div>
       <% end %>
-      <% if @user.has_provider?(Authentication::TWITTER) %>
+      <% if @user.has_provider?(Authentication::TWITTER) && @user.twitter_page_url.present? %>
           <div id="twitter_profile" class="profile_element_no_click">
             <h2 class="label_profile"><%= t('pages.users.show.twitter_url') %>: </h2>
 
@@ -86,21 +86,21 @@
             </div>
           </div>
       <% end %>
-      <% if @user.has_provider?(Authentication::LINKEDIN) %>
+      <% if @user.has_provider?(Authentication::LINKEDIN) && @user.linkedin_page_url.present?%>
           <div id="linkedin_profile" class="profile_element_no_click">
             <h2 class="label_profile"><%= t('pages.users.show.linkedin_url') %>: </h2>
 
             <div class="info_profile">
-              <%= link_to @user.linkedin_page_url, @user.linkedin_page_url, target: '_blank' if @user.linkedin_page_url.present? %>
+              <%= link_to @user.linkedin_page_url, @user.linkedin_page_url, target: '_blank' %>
             </div>
           </div>
       <% end %>
-      <% if @user.has_provider?(Authentication::MEETUP) %>
+      <% if @user.has_provider?(Authentication::MEETUP) && @user.meetup_page_url.present? %>
           <div id="meetup_profile" class="profile_element_no_click">
             <h2 class="label_profile"><%= t('pages.users.show.meetup_url') %>: </h2>
 
             <div class="info_profile">
-              <%= link_to @user.meetup_page_url, @user.meetup_page_url, target: '_blank' if @user.meetup_page_url.present? %>
+              <%= link_to @user.meetup_page_url, @user.meetup_page_url, target: '_blank' %>
             </div>
           </div>
       <% end %>
