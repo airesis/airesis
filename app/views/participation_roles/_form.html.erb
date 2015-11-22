@@ -1,8 +1,6 @@
 <%= simple_form_for(((@group && !in_subdomain?) ? [@group, @participation_role] : @participation_role), remote: request.xhr?) do |f| %>
     <%= f.input :name %>
-    <% unless @group.participation_role_id == @participation_role.id %>
-        <%= f.input :description, as: :text %>
-    <% end %>
+    <%= f.input :description, as: :text %>
     <%= link_to t('buttons.cancel'), '#', class: 'btn', data: { 'reveal-close' => '' } %>
     <%= link_to t('buttons.go_back'), :back, class: 'btn', data: { back: '' } %>
     <%= f.button :button, class: 'btn blue' do %>
