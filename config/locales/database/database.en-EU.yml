@@ -291,7 +291,7 @@ en-EU:
           other: "There are <b>%{count}</b> new comments in your post <b>%{title}</b>"
       new_forum_topic:
         description: New topics in forums
-        email_subject: "A topic '%{topic_subject}'has been created in %{group_name}"
+        email_subject: "A topic '%{topic_subject}' has been created in %{group_name}"
       new_comments_mine:
         description: New comments in my proposals
         email_subject: New comment in my proposal

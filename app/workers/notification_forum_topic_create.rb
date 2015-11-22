@@ -10,7 +10,7 @@ class NotificationForumTopicCreate < NotificationSender
     notification_type = NotificationType.find_by(name: NotificationType::NEW_FORUM_TOPIC)
     @trackable = frm_topic
 
-    data = { topic_subject: frm_topic.subject, group_name: group.name }
+    data = { topic_id: frm_topic.id, topic_subject: frm_topic.subject, group_name: group.name }
     notification = Notification.create(notification_type: notification_type, url: group_forum_topic_url(forum.group, forum, frm_topic), data: data)
     data[:subdomain] = group.subdomain if group.certified?
 

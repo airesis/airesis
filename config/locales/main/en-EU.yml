@@ -1394,6 +1394,8 @@ en-EU:
     update_contribute:
       title: "%{user} changed his contribution"
       view_proposal: "%{click_here} to see the contribution and change your evaluation"
+    new_forum_topic:
+      view: "to view the topic on %{app_short_name}."
   words:
     contribute: "contribution"
     comment: "comment"
