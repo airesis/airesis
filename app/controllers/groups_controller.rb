@@ -64,7 +64,7 @@ class GroupsController < ApplicationController
 
   def by_year_and_month
     @group_posts = @group.post_publishings.
-      accessible_by(Ability.new(current_user)).
+      accessible_by(current_ability).
       where(' extract(year from blog_posts.created_at) = ? AND extract(month from blog_posts.created_at) = ? ', params[:year], params[:month]).
       order('post_publishings.featured desc, published_at DESC').
       select('post_publishings.*, published_at').
@@ -87,7 +87,7 @@ class GroupsController < ApplicationController
   def load_page_data
     @group_participations = @group.participants
     @archives = @group.blog_posts.
-      viewable_by(current_user).
+      accessible_by(current_ability).
       select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').
       group(' MONTH, YEAR ').
       order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
