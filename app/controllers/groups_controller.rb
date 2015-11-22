@@ -87,7 +87,7 @@ class GroupsController < ApplicationController
   def load_page_data
     @group_participations = @group.participants
     @archives = @group.blog_posts.
-      accessible_by(current_ability).
+      accessible_by(current_ability, false).
       select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').
       group(' MONTH, YEAR ').
       order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
