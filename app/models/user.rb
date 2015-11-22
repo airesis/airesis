@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
                     path: (Paperclip::Attachment.default_options[:storage] == :s3) ?
                       'avatars/:id/:style/:basename.:extension' : ':rails_root/public:url'
 
-  validates_attachment_size :avatar, less_than: 2.megabytes
+  validates_attachment_size :avatar, less_than: UPLOAD_LIMIT_IMAGES.bytes
   validates_attachment_content_type :avatar, content_type: ['image/jpeg', 'image/png', 'image/gif', 'image/jpg']
 
   scope :all_except, ->(user) { where.not(id: user) }

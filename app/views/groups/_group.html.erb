@@ -31,7 +31,7 @@
 
     <%= f.input :image, input_html: { accept: "image/jpeg,image/png", data: { fv_trigger: 'change',
                                                                               fv_file: true,
-                                                                              fv_file_maxsize: 2097152 } } %>
+                                                                              fv_file_maxsize: UPLOAD_LIMIT_IMAGES } } %>
 
     <%= f.input :interest_border_tkn,
                 collection: (@group.interest_border.present? ? [[@group.interest_border.text, @group.interest_border.key]] : []),

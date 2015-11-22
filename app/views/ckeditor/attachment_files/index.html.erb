@@ -16,6 +16,6 @@
   <% end -%>
 
   <script type="text/javascript">
-    <%= Ckeditor::Utils.js_fileuploader('attachments', sizeLimit: 5_242_880) %>
+    <%= Ckeditor::Utils.js_fileuploader('attachments', sizeLimit: UPLOAD_LIMIT_ATTACHMENTS) %>
   </script>
 </div>

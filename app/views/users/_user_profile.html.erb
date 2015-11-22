@@ -138,7 +138,7 @@
               <%= f.input :avatar, required: true, input_html: { accepted: 'image/jpeg,image/png',
                                                                  data: { fv_trigger: 'change',
                                                                          fv_file: true,
-                                                                         fv_file_maxsize: 2_097_152 } } %>
+                                                                         fv_file_maxsize: UPLOAD_LIMIT_IMAGES } } %>
               <%= link_to t('buttons.cancel'), '#', class: 'btn', data: { 'reveal-close' => '' } %>
               <%= f.submit t('buttons.save'), class: 'btn blue' %>
             </div>
