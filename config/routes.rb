@@ -508,7 +508,7 @@ Airesis::Application.routes.draw do
     end
 
     constraints moderator_required do
-      get 'moderator_panel', to: 'moderator#show', as: 'moderator/panel'
+      get 'moderator_panel', to: 'admin/moderator#show', as: 'moderator/panel'
     end
 
     constraints admin_required do
