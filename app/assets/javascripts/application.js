@@ -20,6 +20,7 @@
 //= require jquery.dataTables.min
 //= require jquery.dataTables.columnFilter
 //= require jquery.quick-wizard
+//= require jquery.steps.min
 //= require jquery.elastic
 //= require jquery.gbutton
 //= require jqlplot/jquery.jqplot
