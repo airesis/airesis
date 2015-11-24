@@ -33,11 +33,7 @@ form.steps({
     fv.validateContainer($container);
 
     var isValidStep = fv.isValidContainer($container);
-    if (isValidStep === false || isValidStep === null) {
-      return false;
-    }
-
-    return true;
+    return !(isValidStep === false || isValidStep === null);
   },
   onStepChanged: function (event, currentIndex, priorIndex) {
     if (currentIndex === 2) {
@@ -74,10 +70,7 @@ form.steps({
     fv.validateContainer($container);
 
     var isValidStep = fv.isValidContainer($container);
-    if (isValidStep === false || isValidStep === null) {
-      return false;
-    }
-    return true;
+    return !(isValidStep === false || isValidStep === null);
   },
   onFinished: function (e, currentIndex) {
     form.formValidation('defaultSubmit');

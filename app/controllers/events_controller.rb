@@ -60,7 +60,7 @@ class EventsController < ApplicationController
 
   def new
     event_type = params[:event_type_id] || EventType::INCONTRO
-    @title = @group ? "#{@group.name}" : ''
+
     if @group
       if event_type == EventType::VOTAZIONE.to_s
         authorize! :create_date, @group
@@ -76,10 +76,11 @@ class EventsController < ApplicationController
       end
     end
 
+    @page_title = @group ? "#{@group.name}" : ''
     if event_type == EventType::VOTAZIONE.to_s
-      @title += "- #{t('pages.events.new.title_event')}"
+      @page_title += "- #{t('pages.events.new.title_event')}"
     else
-      @title += "- #{t('pages.events.new.title_meeting')}"
+      @page_title += "- #{t('pages.events.new.title_meeting')}"
     end
 
     @starttime = calculate_starttime
