@@ -518,8 +518,11 @@ function poll() {
             n_container.empty();
             var read_container = $('<div class="read_all">');
             read_container.append($('<a href="#" onclick="sign_all_as_read(' + data.id + ');return false;">' + Airesis.i18n.alerts_sign_has_read + '</a>'));
-            read_container.append(' · ')
-            read_container.append($('<a href="/users/alarm_preferences">' + Airesis.i18n.alarm_settings + '</a>'));
+            read_container.append(' · ');
+            var url = '/users/alarm_preferences';
+            if (Airesis.i18n.l !== '')
+                url += '?l='+Airesis.i18n.l;
+            read_container.append($('<a href="'+url+'">' + Airesis.i18n.alarm_settings + '</a>'));
             var sub_container = $('<div class="cont1">');
             n_container.append(read_container).append(sub_container);
             for (var j = 0; j < data.alerts.length; j++) {
