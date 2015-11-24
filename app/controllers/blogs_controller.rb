@@ -50,10 +50,7 @@ class BlogsController < ApplicationController
     else
       @user = current_user
       @blog.user = current_user
-
-      respond_to do |format|
-        format.html # new.html.erb
-      end
+      @page_title = t('pages.blogs.new.title')
     end
   end
 
