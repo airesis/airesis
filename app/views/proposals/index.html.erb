@@ -8,55 +8,28 @@
     <% end %>
 <% end %>
 
-<%= render layout: "layouts/page_title", locals: {title: @page_head} do %>
+<%= render layout: "layouts/page_title", locals: { title: @page_head } do %>
 
 <% end %>
 
 <div style="clear:both"></div>
+<ul class="stack-for-small button-group even-4">
+  <li><a href="?state=<%= ProposalState::TAB_DEBATE %>" class="button proposal_tab"
+         <%= 'disabled' if @search.proposal_state_tab == ProposalState::TAB_DEBATE %>>
+    <%= t('pages.proposals.index.debate_title', count: @in_valutation_count) %></a></li>
+  <li><a href="?state=<%= ProposalState::TAB_VOTATION %>" class="button proposal_tab"
+         <%= 'disabled' if @search.proposal_state_tab == ProposalState::TAB_VOTATION %>>
+    <%= t('pages.proposals.index.voting_title', count: @in_votation_count) %></a></li>
+  <li><a href="?state=<%= ProposalState::TAB_VOTED %>" class="button proposal_tab"
+         <%= 'disabled' if @search.proposal_state_tab == ProposalState::TAB_VOTED %>>
+    <%= t('pages.proposals.index.accepted_title', count: @accepted_count) %></a></li>
+  <li><a href="?state=<%= ProposalState::TAB_REVISION %>" class="button proposal_tab"
+         <%= 'disabled' if @search.proposal_state_tab == ProposalState::TAB_REVISION %>>
+    <%= t('pages.proposals.index.revision_title', count: @revision_count) %></a></li>
+</ul>
 
-<dl class="tabs" data-tab id="proposals-tabs">
-  <dd data-href="debate">
-    <a href="#debate" data-href="<%= tab_list_proposals_path(add_params(scroll: true, state: ProposalState::TAB_DEBATE, group_id: (@group.id if @group), group_area_id: (@group_area.id if @group_area))) %>"><%= t('pages.proposals.index.debate_title', count: @in_valutation_count) %></a>
-  </dd>
-  <dd data-href="votation">
-    <a href="#votation" data-href="<%= tab_list_proposals_path(add_params(scroll: true, state: ProposalState::TAB_VOTATION, group_id: (@group.id if @group), group_area_id: (@group_area.id if @group_area))) %>"><%= t('pages.proposals.index.voting_title', count: @in_votation_count) %></a>
-  </dd>
-  <dd data-href="accepted">
-    <a href="#accepted" data-href="<%= tab_list_proposals_path(add_params({scroll: true, state: ProposalState::TAB_VOTED, group_id: (@group.id if @group), group_area_id: (@group_area.id if @group_area)})) %>"><%= t('pages.proposals.index.accepted_title', count: @accepted_count) %></a>
-  </dd>
-  <dd data-href="revision">
-    <a href="#revision" data-href="<%= tab_list_proposals_path(add_params({scroll: true, state: ProposalState::TAB_REVISION, group_id: (@group.id if @group), group_area_id: (@group_area.id if @group_area)})) %>"><%= t('pages.proposals.index.revision_title', count: @revision_count) %></a>
-  </dd>
-</dl>
-<div class="tabs-content" id="proposals-content">
-  <div class="content active" data-content id="debate" data-state="<%= ProposalState::TAB_DEBATE %>">
-    <div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
-      <%= image_tag 'ajax-loader.gif', alt: t('pages.proposals.index.loading_alt') %>
-      <br/>
-      <b><%= t('pages.proposals.index.loading_proposals') %></b>
-    </div>
-  </div>
-  <div class="content" id="votation" data-content data-state="<%= ProposalState::TAB_VOTATION %>">
-    <div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
-      <%= image_tag 'ajax-loader.gif', alt: t('pages.proposals.index.loading_alt') %>
-      <br/>
-      <b><%= t('pages.proposals.index.loading_proposals') %></b>
-    </div>
-  </div>
-  <div class="content" id="accepted" data-content data-state="<%= ProposalState::TAB_VOTED %>">
-    <div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
-      <%= image_tag 'ajax-loader.gif', alt: t('pages.proposals.index.loading_alt') %>
-      <br/>
-      <b><%= t('pages.proposals.index.loading_proposals') %></b>
-    </div>
-  </div>
-  <div class="content" id="revision" data-content data-state="<%= ProposalState::TAB_REVISION %>">
-    <div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
-      <%= image_tag 'ajax-loader.gif', alt: t('pages.proposals.index.loading_alt') %>
-      <br/>
-      <b><%= t('pages.proposals.index.loading_proposals') %></b>
-    </div>
-  </div>
+<div class="content" data-proposals-list>
+  <%= render partial: 'tab_list', locals: { proposals: @proposals } %>
 </div>
 
 <% content_for :left_panel do %>
@@ -65,6 +38,6 @@
 
 <% if params[:time] %>
     <script type="application/javascript">
-        ProposalsIndex.timeFilter = <%=raw params[:time].to_json %>;
+      ProposalsIndex.timeFilter = <%=raw params[:time].to_json %>;
     </script>
 <% end %>

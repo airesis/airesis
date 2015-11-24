@@ -137,7 +137,7 @@
         </div>
     <% elsif @proposal.abandoned? %>
         <div class="status_description card">
-          <%= "Abandoned #{time_ago_in_words(@proposal.updated_at)}: <b>#{l @proposal.updated_at}</b>".html_safe %>
+          <%= "#{t('pages.proposals.show.abandoned_message', ago: time_ago_in_words(@proposal.updated_at))}: <b>#{l @proposal.updated_at}</b>".html_safe %>
         </div>
     <% end %>
 <% end %>

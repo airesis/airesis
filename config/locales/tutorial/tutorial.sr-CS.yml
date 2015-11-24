@@ -61,3 +61,5 @@ sr-CS:
       intro: 'Dobro došli na Airesis %{name}. Ovi tutorijali će vas voditi kroz aplikaciju, i objasniti vam kako da je koristite, i gde da pronađete potrebne informacije.'
     next: Sledeće
     back: Nazad
+    done_label: Gotovo
+    skip_label: X

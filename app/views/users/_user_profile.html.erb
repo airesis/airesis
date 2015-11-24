@@ -60,43 +60,47 @@
 
   <% if @user.show_urls && ::Configuration::socialnetwork_active %>
       <% if @user.has_provider?(Authentication::FACEBOOK) %>
-      <div id="facebook_profile" class="profile_element_no_click">
-        <h2 class="label_profile"><%= t('pages.users.show.facebook_url_label') %>: </h2>
+          <div id="facebook_profile" class="profile_element_no_click">
+            <h2 class="label_profile"><%= t('pages.users.show.facebook_url_label') %>: </h2>
 
-        <div class="info_profile">
-          <%= link_to @user.facebook_page_url, @user.facebook_page_url, target: '_blank' if @user.facebook_page_url.present? %>
-        </div>
-      </div>
-      <% end %>
-      <% if @user.has_provider?(Authentication::GOOGLE) %>
-          <div id="google_profile" class="profile_element_no_click">
-            <h2 class="label_profile"><%= t('pages.users.show.googleplus_url_label') %>: </h2>
             <div class="info_profile">
-              <%= link_to(@user.google_page_url, @user.google_page_url, target: '_blank', rel: 'author') if @user.google_page_url.present? %>
+              <%= link_to @user.facebook_page_url, @user.facebook_page_url, target: '_blank' if @user.facebook_page_url.present? %>
             </div>
           </div>
       <% end %>
-      <% if @user.has_provider?(Authentication::TWITTER) %>
+      <% if @user.has_provider?(Authentication::GOOGLE) && @user.google_page_url.present?%>
+          <div id="google_profile" class="profile_element_no_click">
+            <h2 class="label_profile"><%= t('pages.users.show.googleplus_url_label') %>: </h2>
+
+            <div class="info_profile">
+              <%= link_to(@user.google_page_url, @user.google_page_url, target: '_blank', rel: 'author') %>
+            </div>
+          </div>
+      <% end %>
+      <% if @user.has_provider?(Authentication::TWITTER) && @user.twitter_page_url.present? %>
           <div id="twitter_profile" class="profile_element_no_click">
             <h2 class="label_profile"><%= t('pages.users.show.twitter_url') %>: </h2>
+
             <div class="info_profile">
               <%= link_to @user.twitter_page_url, @user.twitter_page_url, target: '_blank' %>
             </div>
           </div>
       <% end %>
-      <% if @user.has_provider?(Authentication::LINKEDIN) %>
+      <% if @user.has_provider?(Authentication::LINKEDIN) && @user.linkedin_page_url.present?%>
           <div id="linkedin_profile" class="profile_element_no_click">
             <h2 class="label_profile"><%= t('pages.users.show.linkedin_url') %>: </h2>
+
             <div class="info_profile">
-              <%= link_to @user.linkedin_page_url, @user.linkedin_page_url, target: '_blank' if @user.linkedin_page_url.present? %>
+              <%= link_to @user.linkedin_page_url, @user.linkedin_page_url, target: '_blank' %>
             </div>
           </div>
       <% end %>
-      <% if @user.has_provider?(Authentication::MEETUP) %>
+      <% if @user.has_provider?(Authentication::MEETUP) && @user.meetup_page_url.present? %>
           <div id="meetup_profile" class="profile_element_no_click">
             <h2 class="label_profile"><%= t('pages.users.show.meetup_url') %>: </h2>
+
             <div class="info_profile">
-              <%= link_to @user.meetup_page_url, @user.meetup_page_url, target: '_blank' if @user.meetup_page_url.present? %>
+              <%= link_to @user.meetup_page_url, @user.meetup_page_url, target: '_blank' %>
             </div>
           </div>
       <% end %>
@@ -131,7 +135,10 @@
                   <%= t('pages.users.show.max_file_size') %>
                 </p>
               </div>
-              <%= f.input :avatar, required: true, html_input: { accepted: 'image/jpeg,image/png' } %>
+              <%= f.input :avatar, required: true, input_html: { accepted: 'image/jpeg,image/png',
+                                                                 data: { fv_trigger: 'change',
+                                                                         fv_file: true,
+                                                                         fv_file_maxsize: UPLOAD_LIMIT_IMAGES } } %>
               <%= link_to t('buttons.cancel'), '#', class: 'btn', data: { 'reveal-close' => '' } %>
               <%= f.submit t('buttons.save'), class: 'btn blue' %>
             </div>
@@ -140,38 +147,38 @@
       <a class="close-reveal-modal">&#215;</a>
     </div>
     <script type="text/javascript">
-        $(function () {
-            $('#name_profile').click(function () {
-                $("#name_modal").foundation('reveal', 'open');
-            });
-
-            $('#surname_profile').click(function () {
-                $("#surname_modal").foundation('reveal', 'open');
-            });
-
-            $('#email_profile').click(function () {
-                $("#email_modal").foundation('reveal', 'open');
-            });
-            <%if params[:insert_email]%>
-            $('#email_profile').click();
-            <%end%>
-
-            $('#password_profile').click(function () {
-                $("#password_modal").foundation('reveal', 'open');
-            });
-
-            $('.image-container div a').click(function () {
-                $("#img_modal").foundation('reveal', 'open');
-            });
-
-            $('.profile_element').css('cursor', 'pointer');
-
+      $(function () {
+        $('#name_profile').click(function () {
+          $("#name_modal").foundation('reveal', 'open');
         });
+
+        $('#surname_profile').click(function () {
+          $("#surname_modal").foundation('reveal', 'open');
+        });
+
+        $('#email_profile').click(function () {
+          $("#email_modal").foundation('reveal', 'open');
+        });
+        <%if params[:insert_email]%>
+        $('#email_profile').click();
+        <%end%>
+
+        $('#password_profile').click(function () {
+          $("#password_modal").foundation('reveal', 'open');
+        });
+
+        $('.image-container div a').click(function () {
+          $("#img_modal").foundation('reveal', 'open');
+        });
+
+        $('.profile_element').css('cursor', 'pointer');
+
+      });
     </script>
 <% else %>
     <script type="text/javascript">
-        $(function () {
-            $('.profile_element').addClass('profile_element_no_click').removeClass('profile_element');
-        });
+      $(function () {
+        $('.profile_element').addClass('profile_element_no_click').removeClass('profile_element');
+      });
     </script>
 <% end %>

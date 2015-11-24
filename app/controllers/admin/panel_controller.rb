@@ -85,7 +85,7 @@ module Admin
         proposal = Proposal.find(proposal_id)
         { proposal_id: proposal_id,
           solutions_count: count,
-          votes_count: proposal.user_votes.count,
+          votes_count: proposal.user_votes_count,
           solutions: proposal.solutions.map(&:id).join(','),
           preferences: proposal.schulze_votes.map { |vote| { count: vote.count, data: vote.preferences } } }
       end

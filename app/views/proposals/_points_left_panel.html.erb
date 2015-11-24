@@ -3,10 +3,12 @@
   <span class="rightAlign"><%= @proposal.valutations %></span>
 </p>
 <p class="ranking">
-  <span class="littleText" id="gradimento"><%= t('pages.proposals.show.rank') %></span> <span class="rightAlign"><%= @proposal.rank %>%</span>
+  <span class="littleText" id="gradimento"><%= t('pages.proposals.show.rank') %></span>
+  <span class="rightAlign"><%= @proposal.rank %>%</span>
 </p>
-<%if @proposal.voted? || @proposal.voting?%>
-    <%= render partial: 'proposals/new_vote_bar', locals: {proposal: @proposal} %>
-<%else%>
-    <%= render partial: 'proposals/new_rank_bar', locals: {proposal: @proposal} %>
-<%end%>
+<% mustache_proposal = proposal_for_mustache(@proposal) %>
+<% if mustache_proposal['voting_or_voted?'] %>
+    <%= render 'proposals/new_vote_bar', mustache_proposal %>
+<% else %>
+    <%= render 'proposals/new_rank_bar', mustache_proposal %>
+<% end %>

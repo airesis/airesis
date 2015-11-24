@@ -91,7 +91,7 @@ class Group < ActiveRecord::Base
                       'groups/:id/:style/:basename.:extension' : ':rails_root/public:url',
                     default_url: '/img/gruppo-anonimo.png'
 
-  validates_attachment_size :image, less_than: 2.megabytes
+  validates_attachment_size :image, less_than: UPLOAD_LIMIT_IMAGES.bytes
   validates_attachment_content_type :image, content_type: ['image/jpeg', 'image/png', 'image/gif']
 
   before_create :pre_populate
@@ -128,6 +128,7 @@ class Group < ActiveRecord::Base
     end if default_role_actions
     role.save!
     self.participation_role_id = role.id
+    self.max_storage_size = UPLOAD_LIMIT_GROUPS / 1024
   end
 
   def after_populate

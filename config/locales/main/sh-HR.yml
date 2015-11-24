@@ -76,7 +76,6 @@ sh-HR:
         show_urls: Prikaži Facebook, Google+ i LinkedIn URL-ove korisnicima
         private_messages: Primati privatne poruke od drugih korisnika
         join_accounts: Pridružiti još jedan nalog
-        join_accounts_description: 'Na Airesisu imate mogućnost da spojite sve svoje društvene mreže u jedinstveni nalog. <br/> Odaberite davatelja za povezivanje i uvijek ćete biti u mogućnosti pristupiti na isti Facebook, Google, Twitter nalog i još mnogo toga!'
         joined_all: Već ste pristupili svim dostupnim davataljima. Hvala!
         join_facebook: Pridružite vaš Facebook nalog
         join_google: Pridružite vaš Google nalog
@@ -260,7 +259,6 @@ sh-HR:
       edit_work_areas:
         index:
           not_enabled: Područja rada nisu omogućena
-          description: Airesis vam omogućuje upravljanje različitim područjima rada unutar grupe.
           description2: S ovom odlikom možete bolje upravljati učesnicima i njihovim funkcijama.
           description3: Budite oprezni! Ovo je napredna odlika, dizajnirana samo za veće grupe i stručne korisnike.
           description4: 'Prije aktiviranja područja rada, provjerite ako možete upravljati članovima grupe izravno koristeći '
@@ -479,7 +477,6 @@ sh-HR:
         step_similar: Slični prijedlozi
         title: Novi prijedlog
         title_group: '%{name}:'
-        step_1_title: 'Možete predstavljati problem koji treba riješiti, ideju koju treba poboljšati, inicijativu za organiziranje ... Važno je imati jasan cilj: Airesis će vam pomoći to postići uz pomoć drugih ljudi, kroz proces zajedničkog rješavanja problema.'
         step_2_title: 'Možda je netko već kreirao sličan prijedlog: Provjerite u nastavku i eventualno zaustavite kreiranje kako bi se izbjeglo dupliciranje. Udruživanje snaga ojačava vaše ideje! Klikom na naslov prijedlozi će se otvoriti u novoj kartici.'
         category_prompt: --Odaberite kategoriju--
         tags_separated_by_comma: (odvojeno zarezima)

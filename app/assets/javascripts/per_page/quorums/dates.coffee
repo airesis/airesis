@@ -29,7 +29,7 @@ window.QuorumsDates =
       eventStartTime_ = event.date
       $('#proposal_votation_end').fdatetimepicker("setStartDate", eventStartTime_)
       $('#proposal_votation_end').fdatetimepicker("setDate", addMinutes(eventStartTime_, 2880))
-      showOnField($('#proposal_votation_end'), 'Changed!')
+      showOnField($('#proposal_votation_end'), Airesis.i18n.datepicker.changed)
       $('#proposal_votation_choise_new').click()
 
     $('#choose_votation .cancel_action').click ->

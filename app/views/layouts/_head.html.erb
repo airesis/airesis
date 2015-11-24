@@ -21,196 +21,198 @@
 
 
 <script type="text/javascript">
+  CKEDITOR.plugins.addExternal('youtube', '<%=asset_path 'ckeditor/plugins/youtube/plugin.js'%>');
+  CKEDITOR.plugins.addExternal('smiley', '<%=asset_path 'ckeditor/plugins/smiley/plugin.js'%>');
+  CKEDITOR.plugins.addExternal('lite', '<%=asset_path 'ckeditor/plugins/lite/plugin.js'%>');
+  CKEDITOR.plugins.addExternal('wordcount', '<%=asset_path 'ckeditor/plugins/wordcount/plugin.js'%>');
+  CKEDITOR.plugins.addExternal('justify', '<%=asset_path 'ckeditor/plugins/justify/plugin.js'%>');
+  CKEDITOR.plugins.addExternal('font', '<%=asset_path 'ckeditor/plugins/font/plugin.js'%>');
+  CKEDITOR.plugins.addExternal('colorbutton', '<%=asset_path 'ckeditor/plugins/colorbutton/plugin.js'%>');
+  CKEDITOR.plugins.addExternal('panelbutton', '<%=asset_path 'ckeditor/plugins/panelbutton/plugin.js'%>');
+  CKEDITOR.config.customConfig = '<%=asset_path 'ckeditor/config.js'%>';
+  Airesis.id = <%=current_user ? current_user.id : -1 %>;
+  Airesis.fullName = '<%=j current_user ? current_user.fullname : ''%>';
+  Airesis.email = '<%=j (current_user && current_user.email) ? current_user.email : ''%>';
+  Airesis.signed_in = <%= signed_in? %>;
 
-    CKEDITOR.plugins.addExternal('youtube', '<%=asset_path 'ckeditor/plugins/youtube/plugin.js'%>');
-    CKEDITOR.plugins.addExternal('smiley', '<%=asset_path 'ckeditor/plugins/smiley/plugin.js'%>');
-    CKEDITOR.plugins.addExternal('lite', '<%=asset_path 'ckeditor/plugins/lite/plugin.js'%>');
-    CKEDITOR.plugins.addExternal('wordcount', '<%=asset_path 'ckeditor/plugins/wordcount/plugin.js'%>');
-    CKEDITOR.plugins.addExternal('justify', '<%=asset_path 'ckeditor/plugins/justify/plugin.js'%>');
-    CKEDITOR.plugins.addExternal('font', '<%=asset_path 'ckeditor/plugins/font/plugin.js'%>');
-    CKEDITOR.plugins.addExternal('colorbutton', '<%=asset_path 'ckeditor/plugins/colorbutton/plugin.js'%>');
-    CKEDITOR.plugins.addExternal('panelbutton', '<%=asset_path 'ckeditor/plugins/panelbutton/plugin.js'%>');
-    CKEDITOR.config.customConfig = '<%=asset_path 'ckeditor/config.js'%>';
-
-    Airesis.id = <%=current_user ? current_user.id : -1 %>;
-    Airesis.fullName = '<%=j current_user ? current_user.fullname : ''%>';
-    Airesis.email = '<%=j (current_user && current_user.email) ? current_user.email : ''%>';
-    Airesis.signed_in = <%= signed_in? %>;
+  <% cache("head_variables_#{I18n.locale}_#{params[:l]}") do %>
     Airesis.environment = '<%= Rails.env %>';
     Airesis.googleAnalyticsId = '<%="#{ENV['GOOGLE_ANALYTICS_ID']}"%>';
     Airesis.new_user_session_path = '<%=j new_user_session_path %>';
     Airesis.loadingImageTag = '<%=j image_tag 'ajax-loader.gif' %>';
     Airesis.assets = {
-        group_participants: '<%=j asset_path 'group_participants.png'%>',
-        group_proposals: '<%=j asset_path 'group_proposals.png'%>',
-        ckeditor: {
-            config: '<%=j asset_path 'ckeditor/config.js'%>',
-            config_lite: '<%=j asset_path 'ckeditor/config_lite.js'%>'
-        }
+      group_participants: '<%=j asset_path 'group_participants.png'%>',
+      group_proposals: '<%=j asset_path 'group_proposals.png'%>',
+      ckeditor: {
+        config: '<%=j asset_path 'ckeditor/config.js'%>',
+        config_lite: '<%=j asset_path 'ckeditor/config_lite.js'%>'
+      }
     };
     Airesis.i18n = {
-        alerts_sign_has_read: '<%=j raw t('pages.header.menu.sign_has_read')%>',
-        alert_read: '<%=j raw t('pages.header.read')%>',
-        alarm_settings: '<%=j raw t('pages.groups.header.alarm_settings')%>',
-        no_alerts: '<%=j raw t('pages.header.no_alerts')%>',
-        type_for_town: '<%=j raw t('pages.events.new.type_for_town')%>',
-        locale: '<%=I18n.locale%>',
-        l: '<%=params[:l]%>',
-        feedback: {
-            h2cPath: '<%= javascript_path 'html2canvas'%>',
-            label: '<%=j t('pages.feedback.send_feedback')%>',
-            header: '<%=j t('pages.feedback.send_feedback')%>',
-            nextLabel: '<%=j t('pages.feedback.add_details')%>',
-            reviewLabel: '<%=j t('pages.feedback.view_preview')%>',
-            sendLabel: '<%=j t('buttons.send')%>',
-            closeLabel: '<%=j t('buttons.close')%>',
-            messageSuccess: '<%=j t('pages.feedback.send_succes')%>',
-            messageError: '<%=j raw t('pages.feedback.send_error')%>',
-            describeProblem: "<%=I18n.t('pages.feedback.describe_problem')%>",
-            blackoutButtonMessage: "<%=j t('pages.feedback.blackout')%>",
-            highlightButtonMessage: "<%=j t('pages.feedback.highlight')%>",
-            highlightOrBlackout: "<%=j t('pages.feedback.highlight_or_blackout')%>"
-        },
-        interestBorders: {
-            hintText: '<%=j t('interest_borders.hint')%>',
-            noResultsText: '<%=j t('interest_borders.no_place_found')%>',
-            searchingText: '<%=j t('interest_borders.searching')%>'
-        },
-        tags: {
-            hintText: '<%=j t('digit_tags')%>',
-            searchingText: '<%=j t('digit_tags')%>'
-        },
-        proposals: {
-            edit: {
-                updateConfirm: '<%=j t('pages.proposals.edit.update_confirm')%>',
-                paragraph: '<%=j t('pages.proposals.edit.paragraph')%>',
-                removeSection: '<%=j t('pages.proposals.edit.remove_section') %>',
-                removeSectionConfirm: '<%=j t('pages.proposals.edit.confirm_paragraph_deletion')%>',
-                removeSolutionConfirm: '<%=j t('pages.proposals.edit.confirm_solution_deletion')%>',
-                removeSolution: '<%=j t('pages.proposals.edit.remove_solution')%>',
-                addParagraph: '<%=j t('pages.proposals.edit.add_paragraph_to_solution')%>'
-            }
-        },
-        buttons: {
-            goBack: '<%=j t('buttons.go_back')%>',
-            next: '<%=j t('buttons.next')%>'
-        },
-        groups: {
-            exactBorder: '<%=j t('pages.groups.index.switchButton.exact_border')%>',
-            areaBorder: '<%=j t('pages.groups.index.switchButton.area_border')%>',
-            queryOrPlace: '<%=j t('pages.groups.index.insert_query_or_place')%>',
-            allWords: '<%=j t('pages.groups.index.switchButton.all_words')%>',
-            oneWord: '<%=j t('pages.groups.index.switchButton.one_word')%>'
-        },
-        datepicker: {
-            datetimeformat: '<%=j to_momentjs t('time.formats.datetimepicker')%>',
-            dateformat: '<%=j to_momentjs t('time.formats.datepicker')%>',
-            days: <%= raw I18n.t('calendar.dayNames') + [I18n.t('calendar.dayNames')[0]]%>,
-            daysShort: <%= raw I18n.t('calendar.dayNamesShort') + [I18n.t('calendar.dayNamesShort')[0]]%>,
-            daysMin: <%= raw (I18n.t('calendar.dayNamesShort') + [I18n.t('calendar.dayNamesShort')[0]]).map{|dd| dd[0..1]}%>,
-            months: <%= raw I18n.t('calendar.monthNames')%>,
-            monthsShort: <%= raw I18n.t('calendar.monthNamesShort')%>,
-            today: '<%=j I18n.t('calendar.today').capitalize%>',
-            firstDay: <%= I18n.t('calendar.firstDay')%>
-        },
-        countdown: {
-            labels: <%= raw I18n.t('countdowns.labelsPlural')%>,
-            labels1: <%= raw I18n.t('countdowns.labelsSingular')%>,
-            compactLabels: <%= raw I18n.t('countdowns.compactLabelsPlural')%>,
-            compactLabels1: <%= raw I18n.t('countdowns.compactLabelsSingular')%>,
-            layout1: '<%=j raw t('countdown')%>',
-            layout2: '<%=j raw t('countdown2')%>'
-        },
-        validationMessages: {
-            notEmpty: {
-                'default': '<%= t('activerecord.errors.messages.empty')%>'
-            },
-            identical: {
-                'default': '<%= t('activerecord.errors.messages.confirmation')%>'
-            },
-            emailAddress: {
-                'default': '<%= t('activerecord.errors.messages.not_an_email')%>'
-            },
-            stringLength: {
-                'default': '<%= t('activerecord.errors.messages.invalid')%>',
-                'between': '<%= t('activerecord.errors.messages.invalid')%>',
-                'less': '<%= t('activerecord.errors.messages.invalid')%>',
-                'more': '<%= t('activerecord.errors.messages.invalid')%>'
-            },
-            greaterThan: {
-                'default': '<%= t('activerecord.errors.messages.invalid')%>'
-            },
-            lessThan: {
-                'default': '<%= t('activerecord.errors.messages.invalid')%>'
-            },
-            alreadyTaken: {
-                'default': '<%= t('activerecord.errors.messages.taken')%>'
-            }
+      alerts_sign_has_read: '<%=j raw t('pages.header.menu.sign_has_read')%>',
+      alert_read: '<%=j raw t('pages.header.read')%>',
+      alarm_settings: '<%=j raw t('pages.groups.header.alarm_settings')%>',
+      no_alerts: '<%=j raw t('pages.header.no_alerts')%>',
+      type_for_town: '<%=j raw t('pages.events.new.type_for_town')%>',
+      locale: '<%=I18n.locale%>',
+      l: '<%=params[:l]%>',
+      feedback: {
+        h2cPath: '<%= javascript_path 'html2canvas'%>',
+        label: '<%=j t('pages.feedback.send_feedback')%>',
+        header: '<%=j t('pages.feedback.send_feedback')%>',
+        nextLabel: '<%=j t('pages.feedback.add_details')%>',
+        reviewLabel: '<%=j t('pages.feedback.view_preview')%>',
+        sendLabel: '<%=j t('buttons.send')%>',
+        closeLabel: '<%=j t('buttons.close')%>',
+        messageSuccess: '<%=j t('pages.feedback.send_succes')%>',
+        messageError: '<%=j raw t('pages.feedback.send_error')%>',
+        describeProblem: "<%=I18n.t('pages.feedback.describe_problem')%>",
+        blackoutButtonMessage: "<%=j t('pages.feedback.blackout')%>",
+        highlightButtonMessage: "<%=j t('pages.feedback.highlight')%>",
+        highlightOrBlackout: "<%=j t('pages.feedback.highlight_or_blackout')%>"
+      },
+      interestBorders: {
+        hintText: '<%=j t('interest_borders.hint')%>',
+        noResultsText: '<%=j t('interest_borders.no_place_found')%>',
+        searchingText: '<%=j t('interest_borders.searching')%>'
+      },
+      tags: {
+        hintText: '<%=j t('digit_tags')%>',
+        searchingText: '<%=j t('digit_tags')%>'
+      },
+      proposals: {
+        edit: {
+          updateConfirm: '<%=j t('pages.proposals.edit.update_confirm')%>',
+          paragraph: '<%=j t('pages.proposals.edit.paragraph')%>',
+          removeSection: '<%=j t('pages.proposals.edit.remove_section') %>',
+          removeSectionConfirm: '<%=j t('pages.proposals.edit.confirm_paragraph_deletion')%>',
+          removeSolutionConfirm: '<%=j t('pages.proposals.edit.confirm_solution_deletion')%>',
+          removeSolution: '<%=j t('pages.proposals.edit.remove_solution')%>',
+          addParagraph: '<%=j t('pages.proposals.edit.add_paragraph_to_solution')%>'
         }
+      },
+      buttons: {
+        goBack: '<%=j t('buttons.go_back')%>',
+        next: '<%=j t('buttons.next')%>'
+      },
+      groups: {
+        exactBorder: '<%=j t('pages.groups.index.switchButton.exact_border')%>',
+        areaBorder: '<%=j t('pages.groups.index.switchButton.area_border')%>',
+        queryOrPlace: '<%=j t('pages.groups.index.insert_query_or_place')%>',
+        allWords: '<%=j t('pages.groups.index.switchButton.all_words')%>',
+        oneWord: '<%=j t('pages.groups.index.switchButton.one_word')%>'
+      },
+      datepicker: {
+        datetimeformat: '<%=j to_momentjs t('time.formats.datetimepicker')%>',
+        dateformat: '<%=j to_momentjs t('time.formats.datepicker')%>',
+        days: <%= raw I18n.t('calendar.dayNames') + [I18n.t('calendar.dayNames')[0]]%>,
+        daysShort: <%= raw I18n.t('calendar.dayNamesShort') + [I18n.t('calendar.dayNamesShort')[0]]%>,
+        daysMin: <%= raw (I18n.t('calendar.dayNamesShort') + [I18n.t('calendar.dayNamesShort')[0]]).map{|dd| dd[0..1]}%>,
+        months: <%= raw I18n.t('calendar.monthNames')%>,
+        monthsShort: <%= raw I18n.t('calendar.monthNamesShort')%>,
+        today: '<%=j I18n.t('calendar.today').capitalize%>',
+        firstDay: <%= I18n.t('calendar.firstDay')%>,
+        changed: '<%= I18n.t('calendar.changed') %>'
+      },
+      countdown: {
+        labels: <%= raw I18n.t('countdowns.labelsPlural')%>,
+        labels1: <%= raw I18n.t('countdowns.labelsSingular')%>,
+        compactLabels: <%= raw I18n.t('countdowns.compactLabelsPlural')%>,
+        compactLabels1: <%= raw I18n.t('countdowns.compactLabelsSingular')%>,
+        layout1: '<%=j raw t('countdown')%>',
+        layout2: '<%=j raw t('countdown2')%>'
+      },
+      validationMessages: {
+        notEmpty: {
+          'default': '<%= t('activerecord.errors.messages.empty')%>'
+        },
+        identical: {
+          'default': '<%= t('activerecord.errors.messages.confirmation')%>'
+        },
+        emailAddress: {
+          'default': '<%= t('activerecord.errors.messages.not_an_email')%>'
+        },
+        stringLength: {
+          'default': '<%= t('activerecord.errors.messages.invalid')%>',
+          'between': '<%= t('activerecord.errors.messages.invalid')%>',
+          'less': '<%= t('activerecord.errors.messages.invalid')%>',
+          'more': '<%= t('activerecord.errors.messages.invalid')%>'
+        },
+        greaterThan: {
+          'default': '<%= t('activerecord.errors.messages.invalid')%>'
+        },
+        lessThan: {
+          'default': '<%= t('activerecord.errors.messages.invalid')%>'
+        },
+        alreadyTaken: {
+          'default': '<%= t('activerecord.errors.messages.taken')%>'
+        }
+      }
     };
 
     $.fn.fdatetimepicker.dates[Airesis.i18n.locale] = {
-        language: Airesis.i18n.locale,
-        days: Airesis.i18n.datepicker.days,
-        daysShort: Airesis.i18n.datepicker.daysShort,
-        daysMin: Airesis.i18n.datepicker.daysMin,
-        months: Airesis.i18n.datepicker.months,
-        monthsShort: Airesis.i18n.datepicker.monthsShort,
-        today: Airesis.i18n.datepicker.today,
-        suffix: [],
-        meridiem: [],
-        weekStart: Airesis.i18n.datepicker.firstDay,
-        format: Airesis.i18n.datepicker.datetimeformat,
-        dateFormat: Airesis.i18n.datepicker.dateformat,
-        autoclose: true
+      language: Airesis.i18n.locale,
+      days: Airesis.i18n.datepicker.days,
+      daysShort: Airesis.i18n.datepicker.daysShort,
+      daysMin: Airesis.i18n.datepicker.daysMin,
+      months: Airesis.i18n.datepicker.months,
+      monthsShort: Airesis.i18n.datepicker.monthsShort,
+      today: Airesis.i18n.datepicker.today,
+      suffix: [],
+      meridiem: [],
+      weekStart: Airesis.i18n.datepicker.firstDay,
+      format: Airesis.i18n.datepicker.datetimeformat,
+      dateFormat: Airesis.i18n.datepicker.dateformat,
+      autoclose: true
     };
 
     $.fn.fdatetimepicker.defaults = $.fn.fdatetimepicker.dates[Airesis.i18n.locale];
 
     $.countdown.regionalOptions[Airesis.i18n.locale] = {
-        labels: Airesis.i18n.countdown.labels,
-        labels1: Airesis.i18n.countdown.labels1,
-        compactLabels: Airesis.i18n.countdown.compactLabels,
-        compactLabels1: Airesis.i18n.countdown.compactLabels1,
-        whichLabels: null,
-        digits: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
-        timeSeparator: ':', isRTL: false
+      labels: Airesis.i18n.countdown.labels,
+      labels1: Airesis.i18n.countdown.labels1,
+      compactLabels: Airesis.i18n.countdown.compactLabels,
+      compactLabels1: Airesis.i18n.countdown.compactLabels1,
+      whichLabels: null,
+      digits: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+      timeSeparator: ':', isRTL: false
     };
     $.countdown.setDefaults($.countdown.regionalOptions[Airesis.i18n.locale]);
+  <%end%>
 </script>
 
 <% if I18n.locale.to_s == "crowdin" %>
     <script type="text/javascript">
-        var _jipt = [];
-        _jipt.push(['project', 'airesis']);
+      var _jipt = [];
+      _jipt.push(['project', 'airesis']);
     </script>
     <script type="text/javascript" src="//cdn.crowdin.net/jipt/jipt.js">
     </script>
 <% end %>
 
 <script src="https://apis.google.com/js/platform.js" async defer>
-    {
-        lang: '<%=I18n.locale%>'
-    }
+  {
+    lang: '<%=I18n.locale%>'
+  }
 </script>
 
-<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false"></script>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>"></script>
 
 
-<% if Rails.env.production? && SENTRY_ACTIVE%>
+<% if Rails.env.production? && SENTRY_ACTIVE %>
     <script src="//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"></script>
     <script>
-        Raven.config('https://<%=ENV['SENTRY_PUBLIC_KEY']%>@app.getsentry.com/<%=ENV['SENTRY_PORT']%>', {
-            release: '<%=AIRESIS_VERSION%>'
-            // we highly recommend restricting exceptions to a domain in order to filter out clutter
-            //whitelistUrls: ['example.com/scripts/']
-        }).install();
-        if (Airesis.signed_in) {
-            Raven.setUserContext({
-                email: Airesis.email,
-                id: Airesis.id
-            });
-        }
+      Raven.config('https://<%=ENV['SENTRY_PUBLIC_KEY']%>@app.getsentry.com/<%=ENV['SENTRY_PORT']%>', {
+        release: '<%=AIRESIS_VERSION%>'
+        // we highly recommend restricting exceptions to a domain in order to filter out clutter
+        //whitelistUrls: ['example.com/scripts/']
+      }).install();
+      if (Airesis.signed_in) {
+        Raven.setUserContext({
+          email: Airesis.email,
+          id: Airesis.id
+        });
+      }
     </script>
 <% end %>
 <%= yield :head %>

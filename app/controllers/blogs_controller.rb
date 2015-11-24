@@ -50,10 +50,7 @@ class BlogsController < ApplicationController
     else
       @user = current_user
       @blog.user = current_user
-
-      respond_to do |format|
-        format.html # new.html.erb
-      end
+      @page_title = t('pages.blogs.new.title')
     end
   end
 
@@ -88,7 +85,8 @@ class BlogsController < ApplicationController
   def destroy
     @blog = Blog.friendly.find(params[:id])
     @blog.destroy
-    redirect_to blogs_url
+    flash[:notice] = t('info.blog.destroyed')
+    redirect_to root_path
   end
 
   protected

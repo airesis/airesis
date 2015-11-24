@@ -22,7 +22,7 @@ class BlogPostsController < ApplicationController
       redirect_to (@blog || @group)
     else
       @blog_posts = @blog_posts.published.order(published_at: :desc).page(params[:page]).per(COMMENTS_PER_PAGE)
-      @page_title = t('pages.blog_posts.index.title')
+      @page_title = t('pages.blog_posts.index.title', app_short_name: APP_SHORT_NAME)
       respond_to do |format|
         format.html
         format.js

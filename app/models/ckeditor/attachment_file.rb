@@ -4,7 +4,7 @@ module Ckeditor
                              'ckeditor_assets/attachments/:id/:filename' : ':rails_root/public:url'
 
     validates_attachment_presence :data
-    validates_attachment_size :data, less_than: 100.megabytes
+    validates_attachment_size :data, less_than: UPLOAD_LIMIT_ATTACHMENTS.bytes
     do_not_validate_attachment_file_type :data
 
     def url_thumb

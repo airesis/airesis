@@ -1,0 +1,16 @@
+<div class="timeline">
+    <div class="cur start" title="{{{texts.rank_bar.creation}}}">
+    </div>
+    <div class="cur stop" title="{{{texts.rank_bar.end}}}"></div>
+    {{#proposal.show_rank_bar?}}
+        <div class="time" data-percentage="{{proposal.percentage}}">
+            {{#proposal.show_current_cursor?}}
+                <div class="cur now" title="{{{texts.rank_bar.now}}}"></div>
+            {{/proposal.show_current_cursor?}}
+            <div class="cur quorum" title="{{{texts.rank_bar.good_score}}}"
+                 data-percentage="{{proposal.good_score}}"></div>
+            <div class="good" data-percentage="{{proposal.rank}}">
+            </div>
+        </div>
+    {{/proposal.show_rank_bar?}}
+</div>

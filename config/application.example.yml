@@ -215,6 +215,15 @@ LIMIT_GROUPS: "true"
 #must be specified in hours
 GROUPS_TIME_LIMIT: "24"
 
+# default maximum space available for group's documents (in MB)
+UPLOAD_LIMIT_GROUPS: '50'
+
+# default maximum size for images (in MB)
+UPLOAD_LIMIT_IMAGES: '2'
+
+# default maximum size for attachments (in MB)
+UPLOAD_LIMIT_ATTACHMENTS: '5'
+
 #if you are using tokens for voting yoy may need to set a drift for token creation.
 #must be specified in seconds
 ROTP_DRIFT: "20"

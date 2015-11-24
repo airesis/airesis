@@ -47,6 +47,9 @@ sr-SP:
         published: Статус
         published_true: Објављено
         published_false: Нацрт
+        published_reserved: Резервисано
+        group_ids: Објављено у следећим групама
+        published_at: Објављено у
       participation_role:
         name: Име
         description: Кратак опис
@@ -55,6 +58,8 @@ sr-SP:
         testo: Текст поруке
       place:
         address: Адреса
+        municipality_id: Град
+        longitude_original: Географска дужина
       proposal:
         group_area_id: Радно подручје
         proposal_category_id: Категорија
@@ -65,6 +70,7 @@ sr-SP:
         content: Текст
         interest_borders_tkn: Географска места интересовања
         tags_list: Ознаке
+        quorum_id: Трајање дебате
         anonima: Привремена анонимност
         visible_outside: Јавно видљиво
         secret_vote: Тајно гласање
@@ -94,6 +100,7 @@ sr-SP:
         vote_good_score: Oдобрење
       search_participant:
         role_id: Функција
+        keywords: Име или презиме
       sys_movement:
         sys_movement_type_id: Врста
         made_on: Урађено
@@ -101,17 +108,22 @@ sr-SP:
         sys_currency_id: Валута
       user:
         email: E-пошта
+        surname: Презиме
         password: Лозинка
         linkedinpageurl: Ваша LinkedIn страница
         facebookpageurl: Ваша Facebook страница
         accept_conditions: Услови коришћења
         receive_newsletter: Билтен путем е-поште
         blocked: Грешка
+      user_sensitive:
+        name: Име
       group_area:
         name: Име
         description: Опис
         default_role_name: Уобичајена функција
     errors:
+      template:
+        body: Било је проблема са следећим областима
       messages:
         inclusion: није укључено у списак
         exclusion: је резервисано
@@ -141,3 +153,6 @@ sr-SP:
           attributes:
             email:
               already_confirmed: Oва адреса е-поште је већ регистрована
+        group:
+          portavoce:
+            required: Морате одабрати администратора

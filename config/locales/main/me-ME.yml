@@ -75,7 +75,6 @@ me-ME:
         show_urls: Prikazivanje Facebook, Google+ i LinkedIn URL-ova korisnicima
         private_messages: Primanje privatnih poruka od drugih korisnika
         join_accounts: Pridruživanje drugog naloga
-        join_accounts_description: 'Na Airesisu imate mogućnost da povežete sve svoje društvene mreže u jedan nalog. <br/> Izaberite provajdera da se povežete i uvijek ćete biti u mogućnosti da pristupite istom Facebook, Google, Twitter nalogu i mnogo više!'
         joined_all: Već ste pristupili svim raspoloživim provajderima. Hvala vam!
         join_facebook: Pridružite vaš Facebook nalog
         join_google: Pridružite vaš Google nalog
@@ -258,7 +257,6 @@ me-ME:
       edit_work_areas:
         index:
           not_enabled: Radna područja nisu omogućena
-          description: Airesis vam dozvoljava da upravljate različitim radnim područjima unutar grupe.
           description2: Sa ovom odlikom možete bolje upravljati učesnicima i njihovim funkcijama.
           description3: Budite oprezni! Ovo je naprijedna odlika dizajnirana samo za veće grupe i stručne korisnike.
           description4: 'Prije aktiviranja radnog područja, provjerite da li možete da upravljate članovima grupe direktno pomoću '
@@ -490,13 +488,7 @@ me-ME:
         title_placeholder: npr. „Olakšavanje prijevoza bicikala u vozovima“
         interest_borders_tkn_placeholder: Gradovi, regioni ili države zainteresovani za prijedlog
         tags_list_placeholder: Unesite nekoliko tagova za vaš prijedlog
-        step_1_title: 'Možete predstaviti problem koji treba rješiti, ideju koju treba poboljšati, inicijativu koju treba organizovati... Ono što je važno je da imate jasan cilj: Airesis će vam pomoći da ostvarite taj cilj uz pomoć drugih ljudi, kroz proces zajedničkog rješavanja problema.'
         step_2_title: 'Možda je neko već kreirao sličan prijedlog: provjerite ispod i eventualno zaustavite kreiranje kako bi se izbjeglo dupliranje. Udruživanje snaga ojačava vaše ideje! Klikom na zaglavlje prijedloga će on biti otvoren u novom prozoru.'
-        step_4_title: Odlično! Izaberite svoje opcije i kliknite na „Kreiranje prijedloga“ za završetak ovog vodiča. Vaš prijedlog će biti uključen u Airesis i možete, kad god želite, popuniti ga s dodatnim informacijama.
-        step_4_footer_html: |
-          Airesis će vam pomoći da postignete svoj cilj kroz zajedničko rješavanje problema: korisnici će predlagati izmjene i ideje za vaš tekst a <b>na vama je</b> da stavite one koje vam se najviše dopadaju.<br/>
-          Ako to ne uradite, vaš prijedlog neće otići do faze glasanja.<br/>
-          Srećno i ne brinite: drugi ljudi će vam pomoći u tom zadatku.
         category_prompt: --Odaberite kategoriju--
         tags_separated_by_comma: (odvojeno zarezima)
         cannot_add_proposal_in_work_area: Nemate potrebne dozvole da dodate prijedlog u bilo koje područje
@@ -565,14 +557,6 @@ me-ME:
         you_know_what_you_do: Da li znate šta ćete uraditi?
         schulze_title: Jedno ili više rješenja?
         inserted_contributes: Obilježite doprinose koje ste integrisali u ovu ispravku
-        more_solutions_explained_html: |
-          <b>Zašto vas pitamo da li znate šta radite?</b><br/>
-          Airesis vam dozvoljava da dodate jedno ili više rješenja u prijedlog.<br/>
-          Ako će biti samo jedno rješenje, učesnici će tokom faze glasanja imati opciju da odobre ili odbiju nacrt teksta.<br/>
-          Ako će biti više od jednog rješenja, glasanje će biti drugačije i svaki učesnik će moći da glasa koristeći Šulcov metod.<br/>
-          Ako pokušavate da napravite nacrt rezimea problema i želite da podijelite tekst <b>nemojte kreirati alternativna rješenja</b>!<br/>
-          Nasuprot tome, ako pretražujete anketu i želite alternativu koja nije integrisana u prvo rješenje, onda nastavite.<br/>
-          Upamtite da, prije nego što se debata završi, moći ćete da dodajete ili uklanjate rješenja, mijenjajući korišćeni metod glasanja.
         paragraph: Stavka
         confirm_paragraph_deletion: Da li ste sigurni da želite da izbrišete ovu stavku?
         confirm_solution_deletion: Da li ste sigurni da želite da izbrišete ovo rješenje?
@@ -691,8 +675,6 @@ me-ME:
       published_button: Objavljeni postovi
       view:
         comments: 'Komentari (%{count})'
-      index:
-        title: Posljednji postovi na Airesisu
       edit:
         title: Uredite post
       archives:
@@ -871,7 +853,6 @@ me-ME:
         newdescription5: Ako mislite da debata treba da se nastavi, koristite ovaj taster
         newdescription6: Kada tekst prijedloga bude ažuriran, bićete u mogućnosti da promijenite svoju ocjenu
       welcome:
-        title_html: '<b>Dobrodošli na Airesis, %{user}</b><br/>'
         description_html: |
           Ovaj kratak tutorijal će vam pomoći u prvim izborima unutar platforme.<br/>
           Ovo je vaša radna površina: ovdje ćete pronaći sve informacije koje trebate da ostanete u kontaktu sa svojom teritorijom.<br/>

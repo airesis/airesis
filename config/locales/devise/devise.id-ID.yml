@@ -32,9 +32,6 @@ id-ID:
       updated: Kata sandi berhasil diubah. Kini Anda telah masuk
       updated_not_active: Kata sandi Anda berhasil diubah
       send_paranoid_instructions: Jika surel Anda ada di basis data kami, Anda akan menerima tautan untuk pemulihan kata sandi di kotak masuk Anda
-      user:
-        updated: Kata sandi telah diperbarui dengan benar
-        send_instructions: Instruksi telah dikirim ke alamat surel Anda
     confirmations:
       send_instructions: Anda akan menerima surel berisi instruksi tentang cara mengonfimasi akun Anda beberapa menit lagi
       send_paranoid_instructions: Jika surel Anda ada di basis data kami, Anda akan menerima surel dengan instruksi tentang cara mengonfirmasi akun Anda beberapa menit lagi

@@ -73,7 +73,6 @@ hu-HU:
         show_urls: Mutasd a Facebook, Google+ és a LinkedIn URL-eket a felhasználóknak
         private_messages: Kaphatok privát üzeneteket más felhasználóktól
         join_accounts: Összekapcsolás másik fiókkal
-        join_accounts_description: 'Az Airesisen megvan a lehetőséged, hogy hozzákösd az összes közösségi hálós profilodat egyetlen felhasználóhoz. <br/> Kérlek válaszd ki a listából, hogy mely szolgáltatókat szeretnéd csatlakoztatni a fiókodhoz! Facebook, Google, Twitter, stb...'
         joined_all: Már csatlakoztál az összes általunk támogatott közösségi háló szolgáltatójának profiljával. Köszönjük!
         join_facebook: Csatlakozás a Facebook profiloddal
         join_google: Csatlakozás a Google profiloddal
@@ -252,7 +251,6 @@ hu-HU:
       edit_work_areas:
         index:
           not_enabled: Munkaterületek nincsenek engedélyezve
-          description: Airesis segítségével kezelhet több különböző munkaterületet a csoporton belül.
           description2: Ezzel a funkcióval kezelhetőbbek a résztvevők és szerepköreik.
           description3: Légyen óvatos! Ez egy speciális funkció, nagyobb csoportoknak és gyakorlott felhasználóknak lett kifejlesztve.
           description4: Mielőtt aktiválna munkaterületeket, ellenőrizze, hogy tudja-e kezelni az azt közvetlenül használó csoportok tagjait
@@ -480,13 +478,7 @@ hu-HU:
         title_placeholder: "pl.: 'Kerékpár vonaton való szállításának elősegítése'"
         interest_borders_tkn_placeholder: Az indítvány által érdekelt városok, régiók vagy megyék
         tags_list_placeholder: Adjon hozzá pár címkét az indítványához
-        step_1_title: Felvethetsz egy problémát megoldás céljából, egy ötlet feljavítását, egy kezdeményezés szervezését ... nagyon fontos, hogy legyen egy jól megfogalmazott, világos célkitűzés. Az Airesis segít ezt elérni más emberek segítségével, a közös probléma megoldási folyamaton keresztül.
         step_2_title: 'Talán valaki már létrehozott egy hasonló indítványt: ellenőrizze lentebb. Ha így van, ne hozzon létre még egyet, kerülendő az idő és erőforrás pazarlás. Az összefogás ad erőt ötleteinek! A javaslatok címére kattintva nyithatja meg egy új fülön.'
-        step_4_title: 'Tökéletes! Válassza ki a beállításait és kattintson az "Indítvány létrehozása"-ra a segédlet befejezéséhez. Az indítvány bekerül az Airesis rendszerébe, ahol később további információval bővítheti, ha szükséges.'
-        step_4_footer_html: |
-          Airesis segíteni fog, hogy elérje célját a közös problémamegoldáson keresztül: a felhasználók javasolni fognak módosításokat a szöveges részhez, és <b>az Önön múlik,</b> hogy integrálja a legkedveltebb javaslatokat.<br>
-          Ha ezt nem teszi meg, a javaslat nem fog eljutni a szavazási fázisig.<br>
-          Sok szerencsét és ne ijedjen meg: mások segíthetnek az indítvánnyal kapcsolatos munkában.
         category_prompt: --Válasszon egy kategóriát--
         tags_separated_by_comma: (vesszővel elválasztva)
         cannot_add_proposal_in_work_area: Nem rendelkezik megfelelő jogosultsággal, hogy hozzáadja az indítványt bármely területhez
@@ -562,14 +554,6 @@ hu-HU:
         you_know_what_you_do: Tudod, mit fogsz csinálni?
         schulze_title: Egy vagy több megoldás?
         inserted_contributes: Jelöld meg a hozzájárulásokat, amiket te építettél be ebbe a verzióba
-        more_solutions_explained_html: |
-          <b>Miért faggatunk annyit, ha úgyis udod, mit csinálsz?</b><br/>
-          Airesis lehetőséget ad egy vagy több megoldási javaslat hozzáadására.<br/>
-          Ha csak egyetlen megoldás lesz, a szavazásnál a résztvevők elfogadhatják, vagy elutasíthatják a piszkozat szövegét.<br/>
-          Ha több megoldás is lesz, a szavazás eltérő lesz, és minden résztvevő a Schulze-módszer segítségével szavazhat.<br/>
-          Ha próbálja összefoglalni a problémát és szeretne egy közösen készített szöveget, akkor <b>ne készítsen alternatív megoldásokat</b>!<br/>
-          Ha ennek az ellenkezőjét szeretné, szavazást szeretne, vagy alternatívát, mely nem építhető be az első megoldásba, akkor folytassa.<br/>
-          Emlékeztetőül, még a vita vége előtt hozzáadhat, vagy eltávolíthat megoldásokat, módosítva ezzel a szavazási módszert.
         paragraph: Bekezdés
         confirm_paragraph_deletion: Biztosan törli ezt a bekezdést?
         confirm_solution_deletion: Biztosan törli ezt a megoldást?
@@ -687,8 +671,6 @@ hu-HU:
       published_button: Közzétett hírek
       view:
         comments: 'Hozzászólások (%{count})'
-      index:
-        title: Utolsó hírek az Airesis rendszeren
       edit:
         title: Hír szerkesztése
       archives:
@@ -863,7 +845,6 @@ hu-HU:
         newdescription5: Ha úgy gondolja, hogy további vitára van szükség, használhatja ezt a gombot
         newdescription6: Ha frissül az indítvány szövege, lehetősége nyílik megváltoztatni a hozzá kapcsolódó értékelését
       welcome:
-        title_html: '<b>Üdvözöljük az Airesis, %{user}</b> <br/>'
         description_html: |
           Ez a rövid bemutató segít az első választásoknál a platformon belül.<br/>
           Ez az Ön asztala: itt talál minden szükséges információt, hogy kapcsolatban maradhasson a területével.<br/>

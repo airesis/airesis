@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
                     path: (Paperclip::Attachment.default_options[:storage] == :s3) ?
                       'avatars/:id/:style/:basename.:extension' : ':rails_root/public:url'
 
-  validates_attachment_size :avatar, less_than: 2.megabytes
+  validates_attachment_size :avatar, less_than: UPLOAD_LIMIT_IMAGES.bytes
   validates_attachment_content_type :avatar, content_type: ['image/jpeg', 'image/png', 'image/gif', 'image/jpg']
 
   scope :all_except, ->(user) { where.not(id: user) }
@@ -179,6 +179,7 @@ class User < ActiveRecord::Base
     blocked_alerts.create(notification_type_id: NotificationType::NEW_VALUTATION)
     blocked_alerts.create(notification_type_id: NotificationType::NEW_PUBLIC_EVENTS)
     blocked_alerts.create(notification_type_id: NotificationType::NEW_PUBLIC_PROPOSALS)
+    blocked_alerts.create(notification_type: NotificationType.find_by(name: NotificationType::NEW_FORUM_TOPIC))
   end
 
   def init
@@ -500,11 +501,11 @@ class User < ActiveRecord::Base
   end
 
   def twitter_page_url
-    "https://twitter.com/intent/user?user_id=#{authentications.where(provider: Authentication::TWITTER).uid}"
+    "https://twitter.com/intent/user?user_id=#{authentications.find_by(provider: Authentication::TWITTER).uid}"
   end
 
   def meetup_page_url
-    "http://www.meetup.com/members/#{authentications.where(provider: Authentication::MEETUP).uid}"
+    "http://www.meetup.com/members/#{authentications.find_by(provider: Authentication::MEETUP).uid}"
   end
 
   def certify_with_info(user_info)

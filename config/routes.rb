@@ -93,7 +93,6 @@ Airesis::Application.routes.draw do
     member do
       get :rankup
       get :rankdown
-      get :statistics
       patch :set_votation_date
       post :available_author
       get :available_authors_list
@@ -510,7 +509,7 @@ Airesis::Application.routes.draw do
     end
 
     constraints moderator_required do
-      get 'moderator_panel', to: 'moderator#show', as: 'moderator/panel'
+      get 'moderator_panel', to: 'admin/moderator#show', as: 'moderator/panel'
     end
 
     constraints admin_required do

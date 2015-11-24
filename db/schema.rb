@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151030113611) do
+ActiveRecord::Schema.define(version: 20151122184726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -976,29 +976,33 @@ ActiveRecord::Schema.define(version: 20151030113611) do
 
   create_table "proposals", force: :cascade do |t|
     t.integer  "proposal_state_id"
-    t.integer  "proposal_category_id",                    default: 5,     null: false
-    t.string   "title",                     limit: 255,                   null: false
-    t.string   "content",                   limit: 20000
+    t.integer  "proposal_category_id",                     default: 5,     null: false
+    t.string   "title",                      limit: 255,                   null: false
+    t.string   "content",                    limit: 20000
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "valutations",                             default: 0
+    t.integer  "valutations",                              default: 0
     t.integer  "vote_period_id"
-    t.integer  "proposal_comments_count",                 default: 0
-    t.integer  "rank",                                    default: 0,     null: false
-    t.boolean  "show_comment_authors",                    default: true,  null: false
-    t.boolean  "private",                                 default: false, null: false
+    t.integer  "proposal_comments_count",                  default: 0
+    t.integer  "rank",                                     default: 0,     null: false
+    t.boolean  "show_comment_authors",                     default: true,  null: false
+    t.boolean  "private",                                  default: false, null: false
     t.integer  "quorum_id"
-    t.boolean  "anonima",                                 default: true,  null: false
-    t.boolean  "visible_outside",                         default: false, null: false
-    t.boolean  "secret_vote",                             default: true,  null: false
-    t.integer  "proposal_type_id",                        default: 1,     null: false
-    t.integer  "proposal_votation_type_id",               default: 1,     null: false
-    t.boolean  "vote_defined",                            default: false
+    t.boolean  "anonima",                                  default: true,  null: false
+    t.boolean  "visible_outside",                          default: false, null: false
+    t.boolean  "secret_vote",                              default: true,  null: false
+    t.integer  "proposal_type_id",                         default: 1,     null: false
+    t.integer  "proposal_votation_type_id",                default: 1,     null: false
+    t.boolean  "vote_defined",                             default: false
     t.datetime "vote_starts_at"
     t.datetime "vote_ends_at"
     t.integer  "vote_event_id"
     t.integer  "signatures"
-    t.integer  "views_count",                             default: 0,     null: false
+    t.integer  "views_count",                              default: 0,     null: false
+    t.boolean  "area_private",                             default: false, null: false
+    t.integer  "user_votes_count"
+    t.text     "short_content"
+    t.integer  "proposal_contributes_count",               default: 0,     null: false
   end
 
   add_index "proposals", ["proposal_category_id"], name: "_idx_proposals_proposal_category_id", using: :btree
@@ -1483,7 +1487,6 @@ ActiveRecord::Schema.define(version: 20151030113611) do
   end
 
   add_foreign_key "action_abilitations", "group_actions", name: "action_abilitations_group_action_id_fk"
-  add_foreign_key "action_abilitations", "groups", name: "action_abilitations_group_id_fk", on_update: :cascade
   add_foreign_key "action_abilitations", "participation_roles", name: "action_abilitations_partecipation_role_id_fk"
   add_foreign_key "alerts", "notifications", name: "user_alerts_notification_id_fk"
   add_foreign_key "alerts", "users", name: "user_alerts_user_id_fk"
@@ -1567,7 +1570,6 @@ ActiveRecord::Schema.define(version: 20151030113611) do
   add_foreign_key "old_proposal_presentations", "users", name: "old_proposal_presentations_user_id_fk"
   add_foreign_key "paragraph_histories", "proposals", name: "paragraph_histories_proposal_id_fk"
   add_foreign_key "paragraphs", "sections", name: "paragraphs_section_id_fk"
-  add_foreign_key "participation_roles", "groups", name: "partecipation_roles_group_id_fk", on_update: :cascade
   add_foreign_key "participation_roles", "participation_roles", column: "parent_participation_role_id", name: "partecipation_roles_parent_partecipation_role_id_fk"
   add_foreign_key "post_publishings", "blog_posts", name: "post_publishings_blog_post_id_fk"
   add_foreign_key "post_publishings", "groups", name: "post_publishings_group_id_fk", on_update: :cascade

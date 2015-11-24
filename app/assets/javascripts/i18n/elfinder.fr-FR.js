@@ -4,7 +4,7 @@
  * @version 2012-08-11
  */
 if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object') {
-	elFinder.prototype.i18.fr = {
+	elFinder.prototype.i18.fr_FR = {
 		translator : 'Régis Guyomarch &lt;regisg@gmail.com&gt;Benoit Delachaux &lt;benorde33@gmail.com&gt;',
 		language   : 'française',
 		direction  : 'ltr',
