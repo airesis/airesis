@@ -1209,6 +1209,7 @@ en-EU:
     group_invitations:
       code_expired: "The Invitation Code has expired"
       already_participant: "You are already a participant of this group"
+      create: "No email sent"
   info:
     setting_preferences: "Settings changed successfully"
     blog_created: "Post successfully created"
@@ -1323,7 +1324,6 @@ en-EU:
       destroy: "User removed from the area"
     group_invitations:
       create:
-        zero: "No email sent"
         one: "Invite sent correctly to %{email_addresses}"
         other: "%{count} invites sent correctly to %{email_addresses}"
       accept: "Invite accepted! You are now a member of this group."

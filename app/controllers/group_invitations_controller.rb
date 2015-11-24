@@ -19,9 +19,13 @@ class GroupInvitationsController < ApplicationController
     @group_invitation.save
 
     respond_to do |format|
-      flash[:notice] = t('info.group_invitations.create',
-                         count: @group_invitation.group_invitation_emails.count,
-                         email_addresses: @group_invitation.group_invitation_emails.pluck(:email).join(', '))
+      if @group_invitation.group_invitation_emails.any?
+        flash[:notice] = t('info.group_invitations.create',
+                           count: @group_invitation.group_invitation_emails.count,
+                           email_addresses: @group_invitation.group_invitation_emails.pluck(:email).join(', '))
+      else
+        flash[:error] = t('error.group_invitations.create')
+      end
       format.js
       format.html { redirect_to @group }
     end
