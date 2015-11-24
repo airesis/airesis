@@ -1292,6 +1292,7 @@ en-EU:
       blog_created: "Blog successfully created"
       title_updated: "The title of the blog has been successfully updated"
       comment_added: "Comment successfully created"
+      destroyed: "Blog destroyed successfully"
     events:
       event_deleted: "Event successfully deleted"
       event_updated: "Event successfully updated"
@@ -1482,3 +1483,6 @@ en-EU:
   confirm:
     unintegrate: "You are going to put your contribution back into the discussion. Are you sure?"
   cookie_policy: "Cookies"
+  blog:
+    delete:
+      confirm_message: "Are you sure you want to delete your blog? %{count} posts will be deleted as well."

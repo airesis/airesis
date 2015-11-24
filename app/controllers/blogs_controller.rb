@@ -85,7 +85,8 @@ class BlogsController < ApplicationController
   def destroy
     @blog = Blog.friendly.find(params[:id])
     @blog.destroy
-    redirect_to blogs_url
+    flash[:notice] = t('info.blog.destroyed')
+    redirect_to root_path
   end
 
   protected
