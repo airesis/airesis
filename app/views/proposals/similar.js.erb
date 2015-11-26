@@ -1,9 +1,9 @@
 $('#suggestions').empty();
 
 <%if @proposals.empty?%>
-  var skippedSuggestionStep = true
-  $('#form-wizard-next').click()
+  ProposalsNew.skippedSuggestionStep = true;
+  $('#new_proposal').steps('next');
 <%else%>
-  var skippedSuggestionStep = false
+  ProposalsNew.skippedSuggestionStep = false;
   $('#suggestions').html("<%= j render 'similar'%>");
 <%end%>
