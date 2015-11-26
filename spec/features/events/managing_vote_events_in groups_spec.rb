@@ -24,14 +24,14 @@ describe 'manage correctly vote events', type: :feature, js: true, seeds: true d
     fill_in I18n.t('activerecord.attributes.event.title'), with: title
     fill_in I18n.t('activerecord.attributes.event.description'), with: description
 
-    click_button I18n.t('buttons.next')
+    click_link I18n.t('buttons.next')
 
     fill_in I18n.t('activerecord.attributes.event.starttime'), with: (I18n.l Time.now, format: :datetimepicker)
     page.execute_script("$('#event_starttime').fdatetimepicker('hide');")
     fill_in I18n.t('activerecord.attributes.event.endtime'), with: (I18n.l Time.now + 1.day, format: :datetimepicker)
     page.execute_script("$('#event_endtime').fdatetimepicker('hide');")
 
-    click_button I18n.t('pages.events.new.submit')
+    click_link I18n.t('pages.events.new.submit')
     expect(page.current_path).to eq(group_events_path(group))
     expect(page).to have_content(title)
     visit group_event_path(group, Event.last)
