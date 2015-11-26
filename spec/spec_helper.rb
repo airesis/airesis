@@ -35,7 +35,7 @@ RSpec.configure do |config|
                     mts1.googleapis.com fonts.googleapis.com connect.facebook.net/en/sdk.js fbstatic-a.akamaihd.net
                     graph.facebook.com connect.facebook.net fbexternal-a.akamaihd.net
                     fbcdn-profile-a.akamaihd.net cdn.ckeditor.com fbcdn-photos-e-a.akamaihd.net
-                    platform.twitter.com www.gravatar.com cdnjs.cloudflare.com)
+                    platform.twitter.com www.gravatar.com cdnjs.cloudflare.com calendar.google.com)
 
   Capybara::Webkit.configure do |config|
     allowed_urls.each do |allowed_url|
