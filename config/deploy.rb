@@ -52,4 +52,3 @@ set :default_shell, 'bash -l'
 set :bundle_flags, '--deployment'
 
 before 'deploy', 'rvm1:install:ruby'
-after 'deploy:update', 'deploy:cleanup'
