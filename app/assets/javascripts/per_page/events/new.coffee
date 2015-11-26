@@ -7,7 +7,6 @@ window.EventsNew =
     form.steps
       headerTag: ".legend"
       bodyTag: ".step"
-      transitionEffect: "slideLeft"
       autoFocus: true
       labels: {
         previous: '<i class="fa fa-arrow-left"></i>' + Airesis.i18n.buttons.goBack
