@@ -11,6 +11,7 @@ window.EventsNew =
       labels: {
         previous: '<i class="fa fa-arrow-left"></i>' + Airesis.i18n.buttons.goBack
         next: '<i class="fa fa-arrow-right"></i>' + Airesis.i18n.buttons.next
+        finish: Airesis.i18n.buttons.eventsFinish
       }
       onStepChanging: (e, currentIndex, newIndex)->
         fv = form.data('formValidation')
