@@ -36,7 +36,7 @@ module Proposals
 
     def proposal_list_element_for_mustache(proposal)
       ret = proposal_for_mustache(proposal)
-      ret[:mustahce][:proposal].merge!(id: proposal.id,
+      ret[:mustache][:proposal].merge!(id: proposal.id,
                                        time_left: (proposal.quorum.time_left.upcase if proposal.in_valutation?),
                                        vote_time_left: (proposal.vote_period.time_left.upcase if proposal.voting?),
                                        'in_valutation?' => proposal.in_valutation?,
