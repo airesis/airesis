@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'devise/passwords#create', type: :feature, js: true do
-  let!(:user) {create(:user)}
+  let!(:user) { create(:user) }
 
   it 'can retrieve his password correctly' do
     visit new_user_password_path

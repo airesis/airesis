@@ -1,5 +1,4 @@
 class NotificationForumTopicCreate < NotificationSender
-
   # new forum topic created
   # we send alerts to the group members
   def perform(frm_topic_id)

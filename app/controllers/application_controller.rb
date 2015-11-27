@@ -241,7 +241,7 @@ class ApplicationController < ActionController::Base
     # Difference in years, less one if you have not had a birthday this year.
     a = today.year - birthdate.year
     a -= 1 if birthdate.month > today.month ||
-      (birthdate.month >= today.month && birthdate.day > today.day)
+        (birthdate.month >= today.month && birthdate.day > today.day)
 
     a
   end
@@ -381,23 +381,23 @@ class ApplicationController < ActionController::Base
   def check_page_alerts
     return unless current_user
     case params[:controller]
-      when 'proposals'
-        case params[:action]
-          when 'show'
-            # mark as checked all user alerts about this proposal
-            @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'proposal_id') = ? and alerts.checked = ?", @proposal.id.to_s, false])
-            if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
-              flash[:info] = t('info.proposal.available_authors')
-            end
-            @unread.check_all
+    when 'proposals'
+      case params[:action]
+      when 'show'
+        # mark as checked all user alerts about this proposal
+        @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'proposal_id') = ? and alerts.checked = ?", @proposal.id.to_s, false])
+        if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
+          flash[:info] = t('info.proposal.available_authors')
         end
-      when 'blog_posts'
-        case params[:action]
-          when 'show'
-            # mark as checked all user alerts about this proposal
-            @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'blog_post_id') = ? and alerts.checked = ?", @blog_post.id.to_s, false])
-            @unread.check_all
-        end
+        @unread.check_all
+      end
+    when 'blog_posts'
+      case params[:action]
+      when 'show'
+        # mark as checked all user alerts about this proposal
+        @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'blog_post_id') = ? and alerts.checked = ?", @blog_post.id.to_s, false])
+        @unread.check_all
+      end
     end
   end
 

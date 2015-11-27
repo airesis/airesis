@@ -19,7 +19,6 @@ class SearchProposal < ActiveRecord::Base
   ORDER_ASC = 'a'
   ORDER_DESC = 'd'
 
-
   def counters
     ret = { ProposalState::TAB_VOTATION => 0,
             ProposalState::TAB_VOTED => 0,
