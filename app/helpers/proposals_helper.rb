@@ -77,7 +77,6 @@ module ProposalsHelper
     end
   end
 
-
   def proposal_tag(proposal, _options = {})
     ret = "<div class='proposal_tag'>"
     ret += link_to_proposal(proposal)

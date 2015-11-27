@@ -151,6 +151,5 @@ module Frm
     def send_notifications
       NotificationForumTopicCreate.perform_async(id) if approved?
     end
-
   end
 end

@@ -24,7 +24,7 @@ describe 'manage correctly meeting events', type: :feature, js: true, seeds: tru
     fill_in I18n.t('activerecord.attributes.event.description'), with: description
     check I18n.t('activerecord.attributes.event.private')
     click_link I18n.t('buttons.next')
-    #page.execute_script "$('#form-wizard-next').click()"
+    # page.execute_script "$('#form-wizard-next').click()"
     fill_in I18n.t('activerecord.attributes.event.starttime'), with: (I18n.l Time.now, format: :datetimepicker)
     page.execute_script("$('#event_starttime').fdatetimepicker('hide');")
     fill_in I18n.t('activerecord.attributes.event.endtime'), with: (I18n.l Time.now + 1.day, format: :datetimepicker)
