@@ -35,73 +35,46 @@ module Proposals
     end
 
     def proposal_list_element_for_mustache(proposal)
-      ret = {
-        mustache: {
-          now: (l Time.now),
-          proposal: {
-            id: proposal.id,
-            time_left: (proposal.quorum.time_left.upcase if proposal.in_valutation?),
-            good_score: (proposal.quorum.good_score),
-            vote_time_left: (proposal.vote_period.time_left.upcase if proposal.voting?),
-            'in_valutation?' => proposal.in_valutation?,
-            'voting?' => proposal.voting?,
-            'voted?' => proposal.voted?,
-            'voting_or_voted?' => proposal.voting? || proposal.voted?,
-            voters: "#{proposal.user_votes_count}/#{proposal.eligible_voters_count}",
-            participants: proposal.participants_count,
-            rank: proposal.rank,
-            percentage: proposal.percentage,
-            contributes_count: proposal.proposal_contributes_count,
-            'has_interest_borders?' => proposal.interest_borders.any?,
-            interest_border: (proposal.interest_borders.first.territory.description if proposal.interest_borders.any?),
-            'show_rank_bar?' => (proposal.percentage >= 1),
-            'show_current_cursor?' => (proposal.percentage <= 98),
-            type_description: proposal.proposal_type.description.upcase,
-            group_image_tag: proposal_group_image_tag(proposal),
-            status: proposal_status(proposal),
-            short_content: proposal.short_content,
-            vote_url: (proposal.private ? group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal, subdomain: false)),
-            title_link: link_to_proposal(proposal, style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: proposal.title)
-          },
-          images: {
-            time_description: (image_tag 'plist/stopwatch.png'),
-            group_participants: (image_tag 'group_participants.png'),
-            group_proposals: (image_tag 'group_proposals.png'),
-            rank: (image_tag 'plist/gradimento.png'),
-            place: (image_tag 'place.png')
-          },
-          texts: {
-            conditions_left: t('pages.proposals.list.condition_left').upcase,
-            time_left: t('pages.proposals.list.time_left').upcase,
-            voters: t('pages.proposals.index.voters'),
-            rank: t('pages.proposals.index.rank'),
-            participants_number: t('pages.proposals.index.participants_number'),
-            contributes_number: t('pages.proposals.index.contributes_number'),
-            rank_bar: {
-              creation: t('pages.proposals.new_rank_bar.creation', time_ago: time_ago_in_words(proposal.created_at).upcase, date: (l proposal.created_at, format: :long).upcase),
-              end: t('pages.proposals.new_rank_bar.end', date: proposal.quorum.end_desc.upcase),
-              now: t('pages.proposals.new_rank_bar.now', left: proposal.quorum.time_left).upcase,
-              good_score: t('pages.proposals.new_rank_bar.good_score', score: proposal.quorum.good_score)
-            },
-            vote: t('pages.proposals.list.vote')
-          },
-          current_user: {
-            'signed_in?' => signed_in?,
-            'can_vote?' => (can? :vote, proposal),
-            notifications: proposal.alerts_count,
-            'show_alerts?' => (proposal.alerts_count > 0),
-            valutation_image: (user_valutation_image(current_user, proposal) if current_user)
-          }
-        }
+      ret = proposal_for_mustache(proposal)
+      ret[:mustahce][:proposal].merge!(id: proposal.id,
+                                       time_left: (proposal.quorum.time_left.upcase if proposal.in_valutation?),
+                                       vote_time_left: (proposal.vote_period.time_left.upcase if proposal.voting?),
+                                       'in_valutation?' => proposal.in_valutation?,
+                                       'voting?' => proposal.voting?,
+                                       voters: "#{proposal.user_votes_count}/#{proposal.eligible_voters_count}",
+                                       participants: proposal.participants_count,
+                                       contributes_count: proposal.proposal_contributes_count,
+                                       'has_interest_borders?' => proposal.interest_borders.any?,
+                                       interest_border: (proposal.interest_borders.first.territory.description if proposal.interest_borders.any?),
+                                       type_description: proposal.proposal_type.description.upcase,
+                                       group_image_tag: proposal_group_image_tag(proposal),
+                                       status: proposal_status(proposal),
+                                       short_content: proposal.short_content,
+                                       vote_url: (proposal.private ? group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal, subdomain: false)),
+                                       title_link: link_to_proposal(proposal, style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: proposal.title))
+      ret[:mustache][:images] = {
+        time_description: (image_tag 'plist/stopwatch.png'),
+        group_participants: (image_tag 'group_participants.png'),
+        group_proposals: (image_tag 'group_proposals.png'),
+        rank: (image_tag 'plist/gradimento.png'),
+        place: (image_tag 'place.png')
       }
-      if proposal.voting? || proposal.voted?
-        ret[:mustache][:texts][:vote_bar]= {
-          start: "INIZIO VOTAZIONE:<br/>#{(l proposal.vote_period.starttime).upcase}",
-          end: "TERMINE VOTAZIONE:<br/>#{proposal.vote_period.endtime}".upcase
-        }
-        ret[:mustache][:proposal][:vote_percentage] = [((Time.now - proposal.vote_period.starttime)/proposal.vote_period.duration.to_f)*100, 100].min
-        ret[:mustache][:proposal][:voters_percentage] = (proposal.user_votes_count.to_f/proposal.eligible_voters_count.to_f)*100
-      end
+      ret[:mustache][:texts].merge!(
+        conditions_left: t('pages.proposals.list.condition_left').upcase,
+        time_left: t('pages.proposals.list.time_left').upcase,
+        voters: t('pages.proposals.index.voters'),
+        rank: t('pages.proposals.index.rank'),
+        participants_number: t('pages.proposals.index.participants_number'),
+        contributes_number: t('pages.proposals.index.contributes_number'),
+        vote: t('pages.proposals.list.vote')
+      )
+      ret[:mustache][:current_user] = {
+        'signed_in?' => signed_in?,
+        'can_vote?' => (can? :vote, proposal),
+        notifications: proposal.alerts_count,
+        'show_alerts?' => (proposal.alerts_count > 0),
+        valutation_image: (user_valutation_image(current_user, proposal) if current_user)
+      }
       ret
     end
 
