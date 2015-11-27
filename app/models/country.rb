@@ -9,6 +9,11 @@ class Country < ActiveRecord::Base
 
   belongs_to :continent
 
+  scope :by_hint, lambda { |hint|
+    with_translations(I18n.locale, 'en').
+      where('lower_unaccent(country_translations.description) like lower_unaccent(?)', hint).uniq
+  }
+
   def parent
     continent
   end
