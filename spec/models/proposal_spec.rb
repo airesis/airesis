@@ -19,7 +19,12 @@ describe Proposal, type: :model do
   end
 
   context 'public proposal' do
-    # pending('to be implemented')
-    it 'can be destroyed when public'
+    before(:each) do
+      load_database
+      public_proposal
+    end
+    it 'can be destroyed when public' do
+      expect(public_proposal.destroy).to be_truthy
+    end
   end
 end

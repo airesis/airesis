@@ -6,9 +6,9 @@ class Proposal < ActiveRecord::Base
   belongs_to :vote_period, class_name: 'Event', foreign_key: :vote_period_id # attached when is decided
   belongs_to :vote_event, class_name: 'Event', foreign_key: :vote_event_id # attached when the proposal is created
 
-  # TODO: can't move tags before proposal_presentations because these are necessary when creating the tags
-  # TODO: can't destroy the proposal because proposal presentations are destroyed before the tags
-  has_many :proposal_presentations, -> { order 'id DESC' }, class_name: 'ProposalPresentation', dependent: :destroy
+  # can't move tags before proposal_presentations because these are necessary when creating the tags
+  # can't add dependent_destroy to presentations because tags must be destroyed before
+  has_many :proposal_presentations, -> { order 'id DESC' }, class_name: 'ProposalPresentation'
   has_many :proposal_tags, class_name: 'ProposalTag', dependent: :destroy
   has_many :tags, through: :proposal_tags, class_name: 'Tag'
 
@@ -132,7 +132,7 @@ class Proposal < ActiveRecord::Base
   scope :revision, -> { where(proposal_state_id: ProposalState::ABANDONED) }
 
   # all proposals visible to not logged users
-  scope :visible, -> { where(['private = ? or visible_outside = ?', false, true]) }
+  scope :visible, -> { where('private = ? or visible_outside = ?', false, true) }
 
   scope :internal, -> { where(private: true) } # proposte interne ai gruppi
 
@@ -152,10 +152,15 @@ class Proposal < ActiveRecord::Base
 
   before_update :before_update_populate
 
+  # fix to delete relations properly
+  before_destroy :destroy_presentations
+  
   after_destroy :remove_scheduled_tasks
 
   # updates the content of the short_content field which is displayed in the lists
   after_validation :update_short_content
+
+
 
   def init
     self.quorum_id ||= Quorum::STANDARD
@@ -725,7 +730,12 @@ class Proposal < ActiveRecord::Base
     nil
   end
 
+
   private
+
+  def destroy_presentations
+    proposal_presentations.destroy_all
+  end
 
   def update_short_content
     self.short_content = generate_short_content
