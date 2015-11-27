@@ -1,5 +1,5 @@
 module Proposals
-  class MustacheHelper
+  module MustacheHelper
     def proposal_for_mustache(proposal)
       ret = {
         mustache: {
