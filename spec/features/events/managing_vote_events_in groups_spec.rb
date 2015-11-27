@@ -17,7 +17,7 @@ describe 'manage correctly vote events', type: :feature, js: true, seeds: true d
   it 'participants can create vote events' do
     # can manage his event
     login_as user2, scope: :user
-    visit new_group_event_path(group, event_type_id: EventType::VOTAZIONE)
+    visit new_group_event_path(group, event_type_id: EventType::VOTATION)
     expect(page).to have_content(I18n.t('pages.events.new.title_event'))
     title = Faker::Lorem.sentence
     description = Faker::Lorem.paragraph

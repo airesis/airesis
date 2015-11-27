@@ -59,10 +59,10 @@ class EventsController < ApplicationController
   end
 
   def new
-    event_type = params[:event_type_id] || EventType::INCONTRO
+    event_type = params[:event_type_id] || EventType::MEETING
 
     if @group
-      if event_type == EventType::VOTAZIONE.to_s
+      if event_type == EventType::VOTATION.to_s
         authorize! :create_date, @group
       else
         authorize! :create_event, @group
@@ -77,7 +77,7 @@ class EventsController < ApplicationController
     end
 
     @page_title = @group ? "#{@group.name}" : ''
-    if event_type == EventType::VOTAZIONE.to_s
+    if event_type == EventType::VOTATION.to_s
       @page_title += "- #{t('pages.events.new.title_event')}"
     else
       @page_title += "- #{t('pages.events.new.title_meeting')}"
@@ -97,7 +97,7 @@ class EventsController < ApplicationController
 
   def create
     if @group
-      if event_params[:event_type_id] == EventType::VOTAZIONE.to_s
+      if event_params[:event_type_id] == EventType::VOTATION.to_s
         authorize! :create_date, @group
       else
         authorize! :create_event, @group
@@ -184,7 +184,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params[:event].delete(:meeting_attributes) if params[:event][:event_type_id] == EventType::VOTAZIONE.to_s
+    params[:event].delete(:meeting_attributes) if params[:event][:event_type_id] == EventType::VOTATION.to_s
     params.require(:event).permit(:id, :title, :starttime, :endtime, :frequency, :all_day, :description,
                                   :event_type_id, :private, :proposal_id,
                                   meeting_attributes: [:id,

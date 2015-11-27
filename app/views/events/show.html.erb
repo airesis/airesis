@@ -69,7 +69,7 @@
         </div>
     <% end %>
 
-    <% if @event.is_votazione? %>
+    <% if @event.votation? %>
         <div class="columns large-6">
           <div class="event_main">
             <h3>
@@ -97,7 +97,7 @@
   </div>
 </div>
 
-<% if @event.is_incontro? %>
+<% if @event.meeting? %>
     <div class="row full-width">
       <div class="columns large-6">
         <%= render partial: 'event_comments/new_event_comment', locals: {event_comment: @event_comment} %>
@@ -119,7 +119,7 @@
 <script type="text/javascript">
     var pageURL = "<%= event_event_comments_url(@event) %>";
 
-    EventsShow.votation = <%=@event.is_votazione?%>;
+    EventsShow.votation = <%=@event.votation?%>;
     <%if @event.place%>
     EventsShow.latitudeOriginal = <%=@event.place.latitude_original%>;
     EventsShow.longitudeOriginal = <%=@event.place.longitude_original%>;

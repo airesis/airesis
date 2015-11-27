@@ -25,7 +25,7 @@ class Event < ActiveRecord::Base
 
   scope :visible, -> { where(private: false) }
   scope :not_visible, -> { where(private: true) }
-  scope :vote_period, ->(starttime = nil) { where(['event_type_id = ? AND starttime > ?', 2, starttime || Time.now]).order('starttime asc') }
+  scope :vote_period, ->(starttime = nil) { where(['event_type_id = ? AND starttime > ?', EventType::VOTATION, starttime || Time.now]).order('starttime asc') }
 
   scope :next, -> { where(['endtime > ?', Time.now]) }
 
@@ -51,8 +51,8 @@ class Event < ActiveRecord::Base
             else # comune
               :id
             end
-    conditions = (event_t[:event_type_id].eq(EventType::INCONTRO).and(municipality_t[field].eq(territory.id))).
-      or(event_t[:event_type_id].eq(EventType::VOTAZIONE))
+    conditions = (event_t[:event_type_id].eq(EventType::MEETING).and(municipality_t[field].eq(territory.id))).
+      or(event_t[:event_type_id].eq(EventType::VOTATION))
 
     includes(:event_type, place: :municipality).references(:event_type, place: :municipality).where(conditions)
   end
@@ -121,12 +121,12 @@ class Event < ActiveRecord::Base
     Time.now < starttime
   end
 
-  def is_votazione?
-    event_type_id == EventType::VOTAZIONE
+  def votation?
+    event_type_id == EventType::VOTATION
   end
 
-  def is_incontro?
-    event_type_id == EventType::INCONTRO
+  def meeting?
+    event_type_id == EventType::MEETING
   end
 
   def backgroundColor
@@ -167,7 +167,7 @@ class Event < ActiveRecord::Base
       backgroundColor: backgroundColor,
       textColor: textColor,
       borderColor: Colors.darken_color(backgroundColor),
-      editable: !is_votazione?
+      editable: !votation?
     }
   end
 
@@ -198,8 +198,8 @@ class Event < ActiveRecord::Base
 
   def set_all_day_time
     return unless all_day
-    self.starttime = starttime.beginning_of_day
-    self.endtime = endtime.end_of_day
+    self.starttime = starttime.beginning_of_day if starttime
+    self.endtime = endtime.end_of_day if endtime
   end
 
   def formatted_starttime
@@ -216,7 +216,7 @@ class Event < ActiveRecord::Base
     NotificationEventCreate.perform_async(id)
 
     # timers for start and endtime
-    if is_votazione?
+    if votation?
       EventsWorker.perform_at(starttime, action: EventsWorker::STARTVOTATION, event_id: id)
       EventsWorker.perform_at(endtime, action: EventsWorker::ENDVOTATION, event_id: id)
     end

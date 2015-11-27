@@ -19,7 +19,7 @@
           </div>
         </div>
 
-        <% if @event.is_votazione? %>
+        <% if @event.votation? %>
             <%= f.hidden_field :private %>
         <% else %>
             <div class="row">
@@ -88,7 +88,7 @@
         </div>
       </div>
 
-      <% unless @event.is_votazione? %>
+      <% unless @event.votation? %>
           <div class="legend last">
             <div class="title">
               <%= t('pages.events.new.step_4') %>
@@ -134,5 +134,5 @@
 <a class="close-reveal-modal">&#215;</a>
 
 <script type="text/javascript">
-  EventsEdit.votation = <%= @event.is_votazione?%>;
+  EventsEdit.votation = <%= @event.votation?%>;
 </script>
