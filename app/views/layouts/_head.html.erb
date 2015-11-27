@@ -48,6 +48,17 @@
         config_lite: '<%=j asset_path 'ckeditor/config_lite.js'%>'
       }
     };
+    Airesis.paths = {
+      interest_borders: {
+        index: '<%=interest_borders_path(format: :json)%>'
+      },
+      tags: {
+        index: '<%=tags_path(format: :json )%>'
+      },
+      quorums: {
+        dates: '<%=dates_quorums_url%>'
+      }
+    };
     Airesis.i18n = {
       alerts_sign_has_read: '<%=j raw t('pages.header.menu.sign_has_read')%>',
       alert_read: '<%=j raw t('pages.header.read')%>',
@@ -89,11 +100,15 @@
           removeSolutionConfirm: '<%=j t('pages.proposals.edit.confirm_solution_deletion')%>',
           removeSolution: '<%=j t('pages.proposals.edit.remove_solution')%>',
           addParagraph: '<%=j t('pages.proposals.edit.add_paragraph_to_solution')%>'
+        },
+        debate: {
+          end: '<%=j t('pages.quorums.index.debate_end')%>'
         }
       },
       buttons: {
         goBack: '<%=j t('buttons.go_back')%>',
-        next: '<%=j t('buttons.next')%>'
+        next: '<%=j t('buttons.next')%>',
+        eventsFinish: '<%=j I18n.t('pages.events.new.submit') %>'
       },
       groups: {
         exactBorder: '<%=j t('pages.groups.index.switchButton.exact_border')%>',

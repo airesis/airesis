@@ -45,23 +45,10 @@ set :passenger_restart_with_touch, true
 
 set :passenger_environment_variables, path: '$HOME/passenger-4.0.26/bin:$PATH'
 
-namespace :deploy do
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      # Your restart mechanism here, for example:
-      # execute :touch, release_path.join('tmp/restart.txt')
-    end
-  end
+set :default_env, rvm_bin_path: '~/.rvm/bin'
 
-  after :publishing, :restart
+set :default_shell, 'bash -l'
 
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
-    end
-  end
-end
+set :bundle_flags, '--deployment'
+
+before 'deploy', 'rvm1:install:ruby'

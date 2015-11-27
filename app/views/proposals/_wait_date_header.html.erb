@@ -26,8 +26,8 @@
       <% end %>
 
       <%= link_to @group ?
-                          new_group_event_url(@group, event_type_id: EventType::VOTAZIONE, proposal_id: @proposal.id) :
-                          new_event_url(event_type_id: EventType::VOTAZIONE, proposal_id: @proposal.id),
+                          new_group_event_url(@group, event_type_id: EventType::VOTATION, proposal_id: @proposal.id) :
+                          new_event_url(event_type_id: EventType::VOTATION, proposal_id: @proposal.id),
                   remote: true, class: 'btn disable' do %>
           <i class="fa fa-plus"></i>
           <%= t('pages.proposals.show.choose_new_votation_period_button') %>

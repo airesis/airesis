@@ -179,7 +179,6 @@ class User < ActiveRecord::Base
     blocked_alerts.create(notification_type_id: NotificationType::NEW_VALUTATION)
     blocked_alerts.create(notification_type_id: NotificationType::NEW_PUBLIC_EVENTS)
     blocked_alerts.create(notification_type_id: NotificationType::NEW_PUBLIC_PROPOSALS)
-    blocked_alerts.create(notification_type: NotificationType.find_by(name: NotificationType::NEW_FORUM_TOPIC))
   end
 
   def init

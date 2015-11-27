@@ -23,13 +23,13 @@ describe 'manage correctly meeting events', type: :feature, js: true, seeds: tru
     fill_in I18n.t('activerecord.attributes.event.title'), with: title
     fill_in I18n.t('activerecord.attributes.event.description'), with: description
     check I18n.t('activerecord.attributes.event.private')
-    # click_button I18n.t('buttons.next')
-    page.execute_script "$('#form-wizard-next').click()"
+    click_link I18n.t('buttons.next')
+    #page.execute_script "$('#form-wizard-next').click()"
     fill_in I18n.t('activerecord.attributes.event.starttime'), with: (I18n.l Time.now, format: :datetimepicker)
     page.execute_script("$('#event_starttime').fdatetimepicker('hide');")
     fill_in I18n.t('activerecord.attributes.event.endtime'), with: (I18n.l Time.now + 1.day, format: :datetimepicker)
     page.execute_script("$('#event_endtime').fdatetimepicker('hide');")
-    click_button I18n.t('buttons.next')
+    click_link I18n.t('buttons.next')
     select2ajax('#event_meeting_attributes_place_attributes_municipality_id', 'Bologna')
     fill_in I18n.t('activerecord.attributes.place.address'), with: 'Via Rizzoli 2'
     page.execute_script("$('#event_meeting_attributes_place_attributes_latitude_original').val(#{Faker::Address.latitude});")
@@ -38,7 +38,7 @@ describe 'manage correctly meeting events', type: :feature, js: true, seeds: tru
     # find(:xpath, "//input[@id='event_meeting_attributes_place_attributes_latitude_center']").set Faker::Address.latitude
     # find(:xpath, "//input[@id='event_meeting_attributes_place_attributes_longitude_center']").set Faker::Address.longitude
 
-    click_button I18n.t('pages.events.new.submit')
+    click_link I18n.t('pages.events.new.submit')
     wait_for_ajax
     expect(page.current_path).to eq(group_events_path(group))
     expect(page).to have_content(title)
