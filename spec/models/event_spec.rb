@@ -74,12 +74,11 @@ describe Event do
 
   context 'scopes' do
     before(:each) do
-      load_municipalities
       events
     end
     context 'in_territory' do
       it 'works' do
-        expect(Event.in_territory(SysLocale.default.territory).count).to eq 3
+        expect(Event.in_territory(Municipality.first.country).count).to eq 1
       end
     end
 

@@ -38,10 +38,11 @@ class Event < ActiveRecord::Base
              'Ogni anno']
 
   def valid_dates?
-    starttime && endtime && starttime < endtime
+     starttime < endtime
   end
 
   def validate_start_time_end_time
+    return unless starttime && endtime
     errors.add(:starttime, 'La data di inizio deve essere antecedente la data di fine') unless valid_dates?
   end
 
