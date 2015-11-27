@@ -200,6 +200,7 @@ class EventsController < ApplicationController
       event_obj[:group_url] = group_url(group)
     end
     event_obj[:url] = @group ? group_event_url(@group, event) : event_url(event)
+    event_obj
   end
 
   def render_404(exception = nil)
