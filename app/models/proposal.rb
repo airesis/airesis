@@ -154,13 +154,11 @@ class Proposal < ActiveRecord::Base
 
   # fix to delete relations properly
   before_destroy :destroy_presentations
-  
+
   after_destroy :remove_scheduled_tasks
 
   # updates the content of the short_content field which is displayed in the lists
   after_validation :update_short_content
-
-
 
   def init
     self.quorum_id ||= Quorum::STANDARD

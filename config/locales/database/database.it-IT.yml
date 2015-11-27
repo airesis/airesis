@@ -289,6 +289,9 @@ it-IT:
         message:
           one: '<b>%{user}</b> ha commentato il tuo post <b>%{title}</b>'
           other: 'Ci sono <b>%{count}</b> nuovi commenti nel tuo post <b>%{title}</b>'
+      new_forum_topic:
+        description: Nuovi topic nel forum
+        email_subject: "Un topic '%{topic_subject}' è stato creato in %{group_name}"
       new_comments_mine:
         description: Nuovi commenti alle mie proposte
         email_subject: Nuovo commento ad una mia proposta

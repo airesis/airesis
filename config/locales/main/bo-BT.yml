@@ -1233,6 +1233,7 @@ bo-BT:
       blog_created: crwdns7729:0crwdne7729:0
       title_updated: crwdns7730:0crwdne7730:0
       comment_added: crwdns8152:0crwdne8152:0
+      destroyed: crwdns9973:0crwdne9973:0
     events:
       event_deleted: crwdns7732:0crwdne7732:0
       event_updated: crwdns7733:0crwdne7733:0
@@ -1331,6 +1332,8 @@ bo-BT:
     update_contribute:
       title: 'crwdns7950:0%{user}crwdne7950:0'
       view_proposal: 'crwdns7951:0%{click_here}crwdne7951:0'
+    new_forum_topic:
+      view: 'crwdns9974:0%{app_short_name}crwdne9974:0'
   words:
     contribute: crwdns7791:0crwdne7791:0
     comment: crwdns7792:0crwdne7792:0
@@ -1414,3 +1417,6 @@ bo-BT:
   confirm:
     unintegrate: crwdns8406:0crwdne8406:0
   cookie_policy: crwdns9936:0crwdne9936:0
+  blog:
+    delete:
+      confirm_message: 'crwdns9975:0%{count}crwdne9975:0'

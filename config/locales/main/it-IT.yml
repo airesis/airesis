@@ -1290,6 +1290,7 @@ it-IT:
       blog_created: Blog creato con successo
       title_updated: Il titolo del blog è stato aggiornato correttamente
       comment_added: Commento inserito correttamente
+      destroyed: Blog eliminato correttamente
     events:
       event_deleted: Evento eliminato correttamente
       event_updated: Evento aggiornato correttamente
@@ -1391,6 +1392,8 @@ it-IT:
     update_contribute:
       title: '%{user} ha modificato il suo contributo'
       view_proposal: '%{click_here} per vedere il contributo e cambiare la tua valutazione'
+    new_forum_topic:
+      view: 'per visualizzare il topic su %{app_short_name}.'
   words:
     contribute: contributo
     comment: commento
@@ -1477,3 +1480,6 @@ it-IT:
   confirm:
     unintegrate: Sati per rimettere il tuo contributo in dibattito. Sei sicuro?
   cookie_policy: Cookies
+  blog:
+    delete:
+      confirm_message: 'Sei sicuro di che voler eliminare il tuo blog? Verranno eliminati anche %{count} messaggi.'
