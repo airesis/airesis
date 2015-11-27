@@ -41,7 +41,7 @@ module Proposals
                                        vote_time_left: (proposal.vote_period.time_left.upcase if proposal.voting?),
                                        'in_valutation?' => proposal.in_valutation?,
                                        'voting?' => proposal.voting?,
-                                       voters: "#{proposal.user_votes_count}/#{proposal.eligible_voters_count}",
+                                       voters: "#{proposal.user_votes_count}/#{proposal.quorum.min_vote_participants}/#{proposal.eligible_voters_count}",
                                        participants: proposal.participants_count,
                                        contributes_count: proposal.proposal_contributes_count,
                                        'has_interest_borders?' => proposal.interest_borders.any?,
