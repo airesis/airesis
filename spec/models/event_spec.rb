@@ -10,7 +10,6 @@ describe Event do
     let(:description) do
       Timecop.freeze(now) do
         event.time_left
-
       end
     end
 
@@ -70,7 +69,6 @@ describe Event do
       end
     end
   end
-
 
   context 'scopes' do
     before(:each) do
@@ -144,7 +142,6 @@ describe Event do
       expect_errors_on_model_field(event, :user, 1)
     end
   end
-
 
   context 'ics format' do
     let(:event) { create(:meeting_event) }

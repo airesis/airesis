@@ -36,12 +36,13 @@ class ProposalComment < ActiveRecord::Base
 
   scope :listable, -> { where(integrated: false, noise: false) }
 
-  scope :unread, ->(user_id, proposal_id) {
+  scope :unread, lambda { |user_id, proposal_id|
     where('proposal_comments.id not in (select p2.id
                                         from proposal_comments p2
                                         join proposal_comment_rankings pr on p2.id = pr.proposal_comment_id
                                         where pr.user_id = ? and p2.proposal_id = ?)',
-          user_id, proposal_id) }
+          user_id, proposal_id)
+  }
 
   scope :removable, -> { noisy.where(noise: false) }
 

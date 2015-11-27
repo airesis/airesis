@@ -38,7 +38,7 @@ class Event < ActiveRecord::Base
              'Ogni anno']
 
   def valid_dates?
-     starttime < endtime
+    starttime < endtime
   end
 
   def validate_start_time_end_time
