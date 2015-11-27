@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :place do
-    municipality { Municipality.all.sample }
+    association :municipality
     address { Faker::Address.street_name }
     civic_number { Faker::Address.building_number }
     cap { '12345' }

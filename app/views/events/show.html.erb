@@ -25,7 +25,7 @@
 
       <div class="card">
         <div class="card-title">
-          <%= @event.is_past? ? t('pages.events.show.when_past') : t('pages.events.show.when') %>
+          <%= @event.past? ? t('pages.events.show.when_past') : t('pages.events.show.when') %>
         </div>
         <div class="event_content">
           <%= render partial: 'events/calendar_icon', locals: {time: @event.starttime} %>
@@ -48,7 +48,7 @@
         <div class="columns large-6">
           <div class="card">
             <div class="card-title">
-              <%= @event.is_past? ? t('pages.events.show.where_past') : t('pages.events.show.where') %>
+              <%= @event.past? ? t('pages.events.show.where_past') : t('pages.events.show.where') %>
             </div>
             <div class="event_content" itemprop="location" itemscope itemtype="http://schema.org/Place">
               <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
