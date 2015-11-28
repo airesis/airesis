@@ -5,6 +5,9 @@ FactoryGirl.define do
     tags_list %w(tag1 tag2 tag3).join(',')
     votation { { later: 'true' } }
     quorum { BestQuorum.visible.first }
+    transient do
+      num_solutions { 1 }
+    end
     factory :public_proposal do
     end
 
@@ -17,8 +20,30 @@ FactoryGirl.define do
       proposal.build_sections
     end
 
-    after(:create) do
+    after(:create) do |proposal, evaluator|
+      (evaluator.num_solutions - 1).times do |i|
+        proposal.solutions.create(seq: i+2)
+      end
       Sunspot.commit
+    end
+
+    factory :in_vote_public_proposal do
+      transient do
+        debate_duration { 2 }
+        vote_duration { 5 }
+      end
+      num_solutions 2
+      quorum { create(:best_quorum, percentage: 0, days_m: debate_duration) }
+      current_user_id { create(:user).id }
+      votation { { choise: 'new', end: vote_duration.days.from_now } }
+      after(:create) do |proposal, evaluator|
+        proposal.rankings.create(user: proposal.users.first, ranking_type_id: RankingType::POSITIVE)
+        Timecop.travel(evaluator.debate_duration.days.from_now) do
+          proposal.check_phase(true)
+          proposal.reload
+          proposal.vote_period.start_votation
+        end
+      end
     end
   end
 end

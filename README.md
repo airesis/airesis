@@ -119,6 +119,16 @@ These scripts are available:
 
 Will generate `number` fake proposals in public open space and `number` new users (one for each proposal)
 
+    bundle exec rake airesis:seed:more:votable_proposals[number]
+
+Will generate `number` fake proposals in public open space in vote for the next three days and `number` new users (one for each proposal)
+
+    bundle exec rake airesis:seed:more:clear_proposals
+
+Destroy all the proposals in the database
+
+To generate other fake data look at `spec/factories` folder.
+
 Database
 --------
 
