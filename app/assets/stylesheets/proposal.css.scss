@@ -73,7 +73,7 @@
   .proposal_main {
     margin-bottom: 0;
   }
-  h3 .tit1{
+  h3 .tit1 {
     margin: -16px -14px 0px -13px;
   }
 }
@@ -1462,5 +1462,24 @@ ul.friends_list {
   width: 17px;
   .blogPost & {
     float: right;
+  }
+}
+
+.vote-items-external {
+  border: 1px solid #ccc;
+  margin: 0.5rem 0;
+  .vote-items {
+    min-height: 3rem;
+    .sortable-ghost {
+      opacity: .2;
+    }
+    .sortable-chosen {
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    }
+    .vote-item {
+      background-color: white;
+      padding: 1rem;
+      cursor: move;
+    }
   }
 }

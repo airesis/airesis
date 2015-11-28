@@ -49,33 +49,22 @@ window.ProposalsShow =
         window.location.replace(Airesis.new_user_session_path)
 
     if @voting
+      @initSortable()
       $('.vote_solution_title').each ->
         $(this).on 'click', ->
-          scrollToElement $('.solution_main[data-solution_id=' + $(this).data('id') + ']')
+          scrollToElement $('.solution_main[data-solution_id=' + $(this).parent().data('id') + ']')
           false
-        $(this).qtip content: $('.proposal_content[data-id=' + $(this).data('id') + ']').clone()
-      $('#schulze-submit').on 'click', ->
-        vote = []
+        $(this).qtip content: $('.proposal_content[data-id=' + $(this).parent().data('id') + ']').clone()
+      $('#schulze-submit').on 'click', =>
         votestring = ''
-        $('[data-slider-input]').each ->
-          val = $(this).val()
-          id = $(this).data('slider-input')
-          if !val or val == ''
-            val = '0'
-          vote.push [
-            id
-            val
-          ]
-          return
-        vote.sort (a, b) ->
-          parseInt(b[1]) - parseInt(a[1])
-        for v of vote
-          if v != '0'
-            if vote[v][1] == vote[v - 1][1]
+        $('.vote-items').each (c_id, cont)->
+          items = $(cont).find('.vote-item')
+          return true unless items.length
+          votestring += ';' unless votestring is ''
+          items.each (item_id, item)->
+            if (item_id isnt 0)
               votestring += ','
-            else
-              votestring += ';'
-          votestring += vote[v][0]
+            votestring += $(item).data('id')
         $('#data_votes').val votestring
         true
       $('.votebutton').on 'click', ->
@@ -335,3 +324,9 @@ window.ProposalsShow =
       templateSelection: formatPeriod,
       escapeMarkup: (m)->
         m
+  initSortable: ->
+    $('.vote-items').each (id, el)->
+      sortable = Sortable.create el,
+        group: 'vote'
+        animation: 150
+
