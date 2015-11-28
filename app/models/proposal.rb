@@ -685,7 +685,7 @@ class Proposal < ActiveRecord::Base
     return if voting?
     self.proposal_state_id = ProposalState::VOTING
     self.save!
-    unless vote # se non ha i dati per la votazione creali
+    unless vote # TODO: non è possibile che esistano già
       vote_data = ProposalVote.new(proposal_id: id, positive: 0, negative: 0, neutral: 0)
       vote_data.save!
     end
