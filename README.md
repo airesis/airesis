@@ -109,6 +109,15 @@ If you want to run them all you can use Foreman
     
 and it will take care of running everything for you.
 
+Mailman
+-------
+
+Users can reply into the forum by email. Run
+
+    ruby script/mailman_server.rb
+    
+in background to receive emails.    
+
 Data
 ----
 
