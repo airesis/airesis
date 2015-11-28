@@ -16,24 +16,8 @@ namespace :airesis do
         require 'factory_girl'
         number = (args[:number] || 1).to_i
 
-        quorum = FactoryGirl.create(:best_quorum, percentage: 0, days_m: 2) # min participants is 10% and good score is 50%. vote quorum 0, 50%+1
-        user = FactoryGirl.create(:user)
-        proposals = Timecop.travel(2.days.ago) do
-          FactoryGirl.create_list(:public_proposal, number,
-                                  quorum: quorum,
-                                  current_user_id: user.id, votation: { choise: 'new',
-                                                                        end: 5.days.from_now })
-        end
-        Timecop.travel(1.day.ago) do
-          proposals.each do |proposal|
-            proposal.solutions.create(seq: 2)
-            proposal.rankings.create(user: user, ranking_type_id: RankingType::POSITIVE)
-          end
-        end
-        proposals.each do |proposal|
-          proposal.check_phase(true)
-          proposal.reload
-          proposal.vote_period.start_votation
+        Timecop.travel(2.days.ago) do
+          FactoryGirl.create_list(:in_vote_public_proposal, number)
         end
       end
 
