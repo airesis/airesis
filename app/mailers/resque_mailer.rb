@@ -119,7 +119,13 @@ class ResqueMailer < ActionMailer::Base
     @post = Frm::Post.find(post_id)
     @group = @post.forum.group
     @user = User.find(subscriber_id)
-    mail(from: "Airesis Forum <replytest+#{@post.token}@airesis.it>", to: @user.email, subject: "[#{@group.name}] #{@post.topic.subject}") # TODO: extract email
+    from_address = if ENV['MAILMAN_EMAIL'].present?
+      composed_email = ENV['MAILMAN_EMAIL'].gsub(/%.*%/, @post.token)
+      "#{ENV['MAILMAN_SENDER']} <#{composed_email}>"
+    else
+      ENV['DEFAULT_FROM']
+    end
+    mail(from: from_address, to: @user.email, subject: "[#{@group.name}] #{@post.topic.subject}")
   end
 
   def test_mail
