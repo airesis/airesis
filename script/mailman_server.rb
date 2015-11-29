@@ -20,7 +20,6 @@ Mailman::Application.run do
                             token: params[:token])
 
     rescue Exception => e
-
       Mailman.logger.error "Exception occurred while receiving message:\n#{message}"
       Mailman.logger.error [e, *e.backtrace].join("\n")
     end
