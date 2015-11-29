@@ -27,7 +27,7 @@ RailsAdmin.config do |config|
     # bulk_delete
     show
     edit do
-      expect %w(ReceivedEmail)
+      except %w(ReceivedEmail)
     end
     delete do
       except %w(User SysPaymentNotification)
