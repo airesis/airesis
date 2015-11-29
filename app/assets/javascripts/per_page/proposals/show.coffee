@@ -325,8 +325,55 @@ window.ProposalsShow =
       escapeMarkup: (m)->
         m
   initSortable: ->
-    $('.vote-items').each (id, el)->
-      sortable = Sortable.create el,
-        group: 'vote'
-        animation: 150
-
+    $('.vote-items').each (id, el)=>
+      @checkBoxSiblings($(el).parent())
+      @initSortableBox(el)
+  buildBox: ->
+    extBox = $('<div>').attr('class', 'vote-items-external')
+    extBox.append('<span class="label primary">')
+    box = $('<div>').attr('class', 'vote-items')
+    extBox.append(box)
+    extBox
+  destroyBoxes: (boxes)->
+    firstBox = true
+    boxes.each (id, box)->
+      items = $(box).find('.vote-items').find('.vote-item')
+      if items.length
+        firstBox = true
+      else
+        if firstBox
+          firstBox = false
+          return true
+        else
+          $(box).remove()
+  countBoxes: ->
+    boxes = $('.vote-items-external')
+    top = $(boxes.get(-1)).find('.label').html('-')
+    boxes.splice(boxes.length-1,1)
+    bottom = $(boxes.get(0)).find('.label').html('+')
+    boxes.splice(0,1)
+    boxes.each (id, box)->
+      $(box).find('.label').html(id+1)
+  checkBoxSiblings: (to)->
+    next_box = to.nextAll('.vote-items-external')
+    prev_box = to.prevAll('.vote-items-external')
+    if next_box.length
+      @destroyBoxes(next_box)
+    else
+      box = @buildBox()
+      to.after(box)
+      @initSortableBox(box.find('.vote-items')[0])
+    if prev_box.length
+      @destroyBoxes(prev_box)
+    else
+      box = @buildBox()
+      to.before(box)
+      @initSortableBox(box.find('.vote-items')[0])
+    @countBoxes()
+  initSortableBox: (el)->
+    sortable = Sortable.create el,
+      group: 'vote'
+      animation: 150
+      onAdd: (event)=>
+        to = $(event.to).parent()
+        #@checkBoxSiblings(to)

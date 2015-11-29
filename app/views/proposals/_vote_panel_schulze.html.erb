@@ -7,16 +7,8 @@
 
 <% empty_range = (range/2) %>
 <div id="solutions_table">
-  <% empty_range.times do |i| %>
-      <div class="vote-items-external">
-        <span class="label success"><%= i+1 %></span>
-
-        <div class="vote-items">
-        </div>
-      </div>
-  <% end %>
   <div class="vote-items-external">
-    <span class="label secondary"><%= (range/2)+1 %></span>
+    <span class="label primary">1</span>
 
     <div class="vote-items">
       <% @proposal.solutions.each_with_index do |solution, j| %>
@@ -30,14 +22,6 @@
       <% end %>
     </div>
   </div>
-  <% empty_range.times do |i| %>
-      <div class="vote-items-external">
-        <span class="label alert"><%= (range/2)+1+i+1 %></span>
-
-        <div class="vote-items">
-        </div>
-      </div>
-  <% end %>
 </div>
 
 <%= form_for 'data', url: { action: "vote_schulze", controller: "votations", proposal_id: @proposal.id },
