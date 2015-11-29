@@ -661,6 +661,7 @@ DEPENDENCIES
   coffee-rails
   cookies_eu!
   crowdin-api
+  daemons
   database_cleaner
   devise
   devise_traceable!

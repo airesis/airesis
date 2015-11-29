@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'bundler/setup'
+require 'daemons'
+
+pwd = Dir.pwd
+FileUtils.mkdir_p('tmp/pids/script')
+Daemons.run_proc 'script/mailman_server', { dir: 'tmp/pids' } do
+  Dir.chdir(pwd)
+  exec "script/mailman_server"
+end

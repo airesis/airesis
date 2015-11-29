@@ -26,3 +26,22 @@ set :default_shell, 'bash -l'
 set :bundle_flags, '--deployment'
 
 before 'deploy', 'rvm1:install:ruby'
+
+namespace :mailman do
+  %w[start stop status].each do |command|
+    desc "mailman #{command}"
+    task command do
+      on roles(:app) do
+        execute "script/mailman_daemon #{command}"
+      end
+    end
+  end
+
+  desc "mailman restart"
+  task :restart do
+    on roles(:app) do
+      send('mailman').stop
+      send('mailman').start
+    end
+  end
+end

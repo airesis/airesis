@@ -1,2 +1,2 @@
 require 'mailman'
-Mailman.config.poll_interval = 1
+Mailman.config.poll_interval = 10
