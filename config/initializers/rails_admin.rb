@@ -21,12 +21,14 @@ RailsAdmin.config do |config|
     dashboard # mandatory
     index # mandatory
     new do
-      except %w(User SysPaymentNotification)
+      except %w(User SysPaymentNotification ReceivedEmail)
     end
-    export
+    #export
     # bulk_delete
     show
-    edit
+    edit do
+      except %w(ReceivedEmail)
+    end
     delete do
       except %w(User SysPaymentNotification)
     end
@@ -41,7 +43,7 @@ RailsAdmin.config do |config|
   end
 
   config.included_models = %w(User Announcement NotificationType SysLocale SysFeature SysMovement
-                              SysPaymentNotification Configuration)
+                              SysPaymentNotification Configuration ReceivedEmail)
 
   config.model 'SysFeature' do
     exclude_fields %w(sys_payment_notifications)

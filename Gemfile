@@ -35,6 +35,8 @@ gem 'slim-rails'
 
 gem 'rack-mini-profiler', require: false
 
+gem 'daemons'
+
 group :development do
   gem 'sunspot_solr'
   gem 'better_errors'

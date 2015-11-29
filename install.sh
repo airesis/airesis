@@ -27,7 +27,7 @@ echo "Press ENTER"
 read
 bundle install
 echo "We will now create the database with initial data inside it. We'll delete all the data that are already present in the database."
-echo "Please wait, it will take some time...and if you are wondering, NO. IT'S NOT STUCKED!"
+echo "Please wait, it will take some time...and if you are wondering, NO. IT'S NOT STUCK!"
 echo "Press ENTER when you are ready to proceed and take a coffee"
 read
 bundle exec rake db:drop db:setup

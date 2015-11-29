@@ -264,3 +264,13 @@ PAYPAL_URL: "https://www.sandbox.paypal.com/cgi-bin/webscr"
 # path to wkhtmltopdf exacutable
 # if this variable is not set then the value of `which wkhtmltopdf` is taken.
 # WKHTMLTOPDF_PATH: '/usr/bin/wkhtmltopdf'
+
+# mailman configuration to be able to reply to messages in forums
+# if variables are not set then emails are sent from standard address and is not possible to reply in forums by email
+# read the documentation to know how to configure the application to receive emails
+MAILMAN_SERVER: 'pop.server.com'
+MAILMAN_USERNAME: 'email_username'
+MAILMAN_PASSWORD: 'email_password'
+# there must be a %token%
+MAILMAN_EMAIL: 'replytest+%token%@airesis.it'
+MAILMAN_SENDER: 'Airesis Forum'
