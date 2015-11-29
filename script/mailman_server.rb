@@ -1,6 +1,4 @@
-#!/usr/bin/env ruby
 require 'mailman'
-
 
 Mailman.config.logger = Logger.new('log/mailman.log')
 Mailman.config.ignore_stdin = true

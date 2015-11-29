@@ -1,3 +1,4 @@
+# TODO: doesn't work on capistrano
 #!/usr/bin/env ruby
 require 'rubygems'
 require 'bundler/setup'
