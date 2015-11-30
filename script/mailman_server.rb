@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+require 'rubygems'
+require 'bundler/setup'
 require 'mailman'
 
 Mailman.config.logger = Logger.new('log/mailman.log')
