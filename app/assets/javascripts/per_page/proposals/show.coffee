@@ -376,4 +376,4 @@ window.ProposalsShow =
       animation: 150
       onAdd: (event)=>
         to = $(event.to).parent()
-        #@checkBoxSiblings(to)
+        @checkBoxSiblings(to)
