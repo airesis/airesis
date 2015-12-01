@@ -137,8 +137,3 @@
   <% end %>
 </div>
 <a class="close-reveal-modal">&#215;</a>
-
-<script type="text/javascript">
-  ProposalsNew.groupId = <%= @group.try(:id) || 'null'%>;
-  ProposalsNew.debateVoteDifference = <%= DEBATE_VOTE_DIFFERENCE.to_i / 60%>;
-</script>

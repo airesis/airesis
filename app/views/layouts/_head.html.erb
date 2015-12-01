@@ -34,12 +34,14 @@
   Airesis.fullName = '<%=j current_user ? current_user.fullname : ''%>';
   Airesis.email = '<%=j (current_user && current_user.email) ? current_user.email : ''%>';
   Airesis.signed_in = <%= signed_in? %>;
+  Airesis.groupId = <%= @group.try(:id) || 'null'%>;
 
   <% cache("head_variables_#{I18n.locale}_#{params[:l]}") do %>
     Airesis.environment = '<%= Rails.env %>';
     Airesis.googleAnalyticsId = '<%="#{ENV['GOOGLE_ANALYTICS_ID']}"%>';
     Airesis.new_user_session_path = '<%=j new_user_session_path %>';
     Airesis.loadingImageTag = '<%=j image_tag 'ajax-loader.gif' %>';
+    Airesis.debateVoteDifference = <%= DEBATE_VOTE_DIFFERENCE.to_i / 60%>;
     Airesis.assets = {
       group_participants: '<%=j asset_path 'group_participants.png'%>',
       group_proposals: '<%=j asset_path 'group_proposals.png'%>',
@@ -92,6 +94,11 @@
         searchingText: '<%=j t('digit_tags')%>'
       },
       proposals: {
+        closeContributes: '<%=j t('pages.proposals.show.close_contribute')%>',
+        showGiveContributes: '<%=j t('pages.proposals.show.give_contribute')%>',
+        charactersLeft: '<%=j t('pages.proposals.show.characters_left')%>',
+        loadingContributes: '<%=j t('pages.proposals.show.loading_contributions') %>',
+        errorLoadingParagraph: '<%=j t('pages.proposals.show.error_loading_paragraph')%>',
         edit: {
           updateConfirm: '<%=j t('pages.proposals.edit.update_confirm')%>',
           paragraph: '<%=j t('pages.proposals.edit.paragraph')%>',

@@ -21,6 +21,17 @@ namespace :airesis do
         end
       end
 
+      desc 'Create more abadoned proposals'
+      task :abandoned_proposals, [:number] => :environment do |task, args|
+        require 'faker'
+        require 'factory_girl'
+        number = (args[:number] || 1).to_i
+
+        Timecop.travel(10.days.ago) do
+          FactoryGirl.create_list(:abadoned_public_proposal, number)
+        end
+      end
+
       desc 'clear all the proposals'
       task clear_proposals: :environment do
         Proposal.destroy_all
