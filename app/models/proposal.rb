@@ -477,6 +477,7 @@ class Proposal < ActiveRecord::Base
   end
 
   # restituisce la lista delle 10 proposte più vicine a questa
+  # TODO: rewrite using arel
   def closest(group_id = nil)
     sql_q = " SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.quorum_id, p.anonima,
               p.visible_outside, p.secret_vote, p.proposal_votation_type_id, p.content,
