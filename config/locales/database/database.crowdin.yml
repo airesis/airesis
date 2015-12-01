@@ -290,6 +290,9 @@ crowdin:
           one: 'crwdns8205:0%{user}crwdnd8205:0%{title}crwdne8205:0'
           other: 'crwdns8206:0%{count}crwdnd8206:0%{title}crwdne8206:0'
       new_forum_topic:
+        message:
+          one: 'crwdns9976:0%{topic_subject}crwdnd9976:0%{group_name}crwdne9976:0'
+          other: 'crwdns9977:0%{count}crwdnd9977:0%{group_name}crwdne9977:0'
         description: crwdns9971:0crwdne9971:0
         email_subject: 'crwdns9972:0%{topic_subject}crwdnd9972:0%{group_name}crwdne9972:0'
       new_comments_mine:

@@ -27,21 +27,36 @@ FactoryGirl.define do
       Sunspot.commit
     end
 
-    factory :in_vote_public_proposal do
+    factory :in_debate_public_proposal do
       transient do
         debate_duration { 2 }
-        vote_duration { 5 }
       end
       num_solutions 2
       quorum { create(:best_quorum, percentage: 0, days_m: debate_duration) }
       current_user_id { create(:user).id }
-      votation { { choise: 'new', end: vote_duration.days.from_now } }
-      after(:create) do |proposal, evaluator|
-        proposal.rankings.create(user: proposal.users.first, ranking_type_id: RankingType::POSITIVE)
-        Timecop.travel(evaluator.debate_duration.days.from_now) do
-          proposal.check_phase(true)
-          proposal.reload
-          proposal.vote_period.start_votation
+
+      factory :in_vote_public_proposal do
+        transient do
+          vote_duration { 5 }
+        end
+        votation { { choise: 'new', end: vote_duration.days.from_now } }
+        after(:create) do |proposal, evaluator|
+          proposal.rankings.create(user: proposal.users.first, ranking_type_id: RankingType::POSITIVE)
+          Timecop.travel(evaluator.debate_duration.days.from_now) do
+            proposal.check_phase(true)
+            proposal.reload
+            proposal.vote_period.start_votation
+          end
+        end
+      end
+
+      factory :abadoned_public_proposal do
+        after(:create) do |proposal, evaluator|
+          proposal.rankings.create(user: proposal.users.first, ranking_type_id: RankingType::NEGATIVE)
+          Timecop.travel(evaluator.debate_duration.days.from_now) do
+            proposal.check_phase(true)
+            proposal.reload
+          end
         end
       end
     end

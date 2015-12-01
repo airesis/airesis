@@ -1,5 +1,6 @@
 window.ProposalsShow =
   voting: false
+  abandoned: false
   contributesUrl: ''
   rightlistUrl: ''
   clicked: null
@@ -104,7 +105,8 @@ window.ProposalsShow =
     @init_contributes_button()
     @init_countdowns()
     @initVotePeriodSelect()
-
+    if @abandoned
+      new Airesis.QuorumSelector()
     #open the contribute if it's a link from an email
     if Airesis.show_section_id
       $(".contribute-button[data-section_id=#{Airesis.show_section_id}]").trigger('click', [Airesis.show_comment_id])

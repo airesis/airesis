@@ -11,7 +11,11 @@ class TagsController < ApplicationController
       @tag = params[:id]
       @blog_posts_ids = BlogPost.published.joins(:tags).where('tags.text = ?', @tag).pluck('blog_posts.id')
       @blog_posts = BlogPost.where(id: @blog_posts_ids).includes(:blog, :tags, :user).order('created_at desc')
-      @proposals = Proposal.joins(:tags).includes(:category, :quorum, :users, :vote_period, :proposal_type).where('tags.text = ?', @tag)
+      @proposals = Proposal.joins(:tags).
+        select('proposals.*',
+               Proposal.alerts_count_subquery(current_user.try(:id)).as('alerts_count'),
+               Proposal.ranking_subquery(current_user.try(:id)).as('ranking')).
+        includes(:interest_borders, :user_votes, :presentation_areas, :groups, :category, :quorum, :vote_period, :proposal_type).where(tags: { text: @tag })
       @groups = Group.joins(:tags).where('tags.text = ?', @tag)
 
       @similars = Tag.find_by_text(@tag).nearest

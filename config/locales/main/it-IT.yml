@@ -1196,7 +1196,7 @@ it-IT:
     participations_destroyed: "Errore durante l'operazione"
     error_indexer:
       title: Servizio non disponibile
-      description: Stiamo avendo problemi con sistemi interni. Prova nuovamente tra qualche minuto.
+      description: Stiamo avendo problemi con i sistemi interni. Prova nuovamente tra qualche minuto.
     error_302:
       title: Accesso non autorizzato
       description: Mi dispiace. Non disponi delle autorizzazioni per accedere a questa risorsa.
@@ -1206,7 +1206,7 @@ it-IT:
       update: "Errore durante l'aggiornamento dell'area"
     group_invitations:
       code_expired: Codice invito scaduto
-      already_participant: Fai giàparte di questo gruppo
+      already_participant: Fai già parte di questo gruppo
   info:
     setting_preferences: Impostazioni cambiate correttamente
     blog_created: Il tuo post è stato creato correttamente
@@ -1478,7 +1478,7 @@ it-IT:
     group:
       delete_group_warning_html: 'Puoi eliminare questo gruppo. Eliminando il gruppo distruggerai tutti i forum, proposte e documenti associati ad esso. <br/> I dati non possono essere ripristinati. <br/> Stai attento!'
   confirm:
-    unintegrate: Sati per rimettere il tuo contributo in dibattito. Sei sicuro?
+    unintegrate: Stai per rimettere il tuo contributo in dibattito. Sei sicuro?
   cookie_policy: Cookies
   blog:
     delete:

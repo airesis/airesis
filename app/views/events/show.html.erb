@@ -87,7 +87,7 @@
             <div class="event_content">
               <% @event.proposals.each do |proposal| %>
                   <% if can? :show, proposal %>
-                      <%= render partial: 'proposals/proposal_list_element', locals: {proposal: proposal} %>
+                      <%= render 'proposals/proposal_list_element', proposal_list_element_for_mustache(proposal) %>
                   <% end %>
               <% end %>
             </div>

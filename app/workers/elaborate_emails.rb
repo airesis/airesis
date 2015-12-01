@@ -7,7 +7,7 @@ class ElaborateEmails
 
   def perform(*_args)
     ReceivedEmail.where(read: false).each do |email|
-      email.update!(read, true)
+      email.update!(read: true)
       topic = Frm::Topic.find_by(token: email.token)
       unless topic
         post = Frm::Post.find_by(token: email.token)
