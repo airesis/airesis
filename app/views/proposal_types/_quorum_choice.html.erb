@@ -12,7 +12,7 @@
                                                                             'data-explanation' => p.explanation,
                                                                             'data-time_fixed' => p.time_fixed?,
                                                                             'data-minutes' => p.minutes }] },
-              prompt: t('pages.proposals.new.quorum_prompt'), input_html: { style: 'width: 100%' } %>
+              include_blank: t('pages.proposals.new.quorum_prompt'), input_html: { style: 'width: 100%' } %>
 
   <div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
   </div>
