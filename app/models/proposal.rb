@@ -729,7 +729,6 @@ class Proposal < ActiveRecord::Base
     nil
   end
 
-
   private
 
   def destroy_presentations

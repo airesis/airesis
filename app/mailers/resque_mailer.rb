@@ -120,10 +120,10 @@ class ResqueMailer < ActionMailer::Base
     @group = @post.forum.group
     @user = User.find(subscriber_id)
     from_address = if ENV['MAILMAN_EMAIL'].present?
-      composed_email = ENV['MAILMAN_EMAIL'].gsub(/%.*%/, @post.token)
-      "#{ENV['MAILMAN_SENDER']} <#{composed_email}>"
-    else
-      ENV['DEFAULT_FROM']
+                     composed_email = ENV['MAILMAN_EMAIL'].gsub(/%.*%/, @post.token)
+                     "#{ENV['MAILMAN_SENDER']} <#{composed_email}>"
+                   else
+                     ENV['DEFAULT_FROM']
     end
     mail(from: from_address, to: @user.email, subject: "[#{@group.name}] #{@post.topic.subject}")
   end

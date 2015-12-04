@@ -105,7 +105,7 @@ module Frm
     def page
       ids = topic.posts.pluck(:id)
       position = ids.index(id)
-      (position.to_f/TOPICS_PER_PAGE).ceil
+      (position.to_f / TOPICS_PER_PAGE).ceil
     end
 
     protected

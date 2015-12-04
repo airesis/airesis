@@ -23,7 +23,7 @@ RailsAdmin.config do |config|
     new do
       except %w(User SysPaymentNotification ReceivedEmail)
     end
-    #export
+    # export
     # bulk_delete
     show
     edit do

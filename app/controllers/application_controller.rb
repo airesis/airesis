@@ -190,13 +190,13 @@ class ApplicationController < ActionController::Base
     else
       log_error(exception)
       respond_to do |format|
-        format.js {
+        format.js do
           flash.now[:error] = 'You are asking for a locale which is not available, sorry'
           render template: '/errors/invalid_locale.js.erb', status: 500, layout: 'application'
-        }
-        format.html {
+        end
+        format.html do
           render template: '/errors/invalid_locale.html.erb', status: 500, layout: 'application'
-        }
+        end
         log_error(exception)
         respond_to do |format|
           format.js do
@@ -261,7 +261,7 @@ class ApplicationController < ActionController::Base
     # Difference in years, less one if you have not had a birthday this year.
     a = today.year - birthdate.year
     a -= 1 if birthdate.month > today.month ||
-      (birthdate.month >= today.month && birthdate.day > today.day)
+        (birthdate.month >= today.month && birthdate.day > today.day)
 
     a
   end
@@ -421,7 +421,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  priva
   private
 
   def forem_admin?(group)

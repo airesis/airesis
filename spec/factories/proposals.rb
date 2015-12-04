@@ -22,7 +22,7 @@ FactoryGirl.define do
 
     after(:create) do |proposal, evaluator|
       (evaluator.num_solutions - 1).times do |i|
-        proposal.solutions.create(seq: i+2)
+        proposal.solutions.create(seq: i + 2)
       end
       Sunspot.commit
     end
