@@ -1,3 +1,5 @@
+AIRESIS_VERSION = '4.2.5.6'
+
 if Rails.env.production? && SENTRY_ACTIVE
   require 'raven'
   Raven.configure do |config|
