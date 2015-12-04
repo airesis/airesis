@@ -30,6 +30,7 @@ class @AiresisFormValidation
         selector: '.inputs'
       fields:
         'proposal[title]':
+          trigger: 'change'
           validators:
             remote:
               message: Airesis.i18n.validationMessages.alreadyTaken.default
@@ -40,7 +41,7 @@ class @AiresisFormValidation
                 'proposal[id]': $field.data('fv-remote-id')
                 }
               type: 'GET'
-              delay: 1000
+              delay: 2000
         'user[email]':
           validators:
             remote:

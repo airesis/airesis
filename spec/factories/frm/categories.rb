@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :frm_category, class: Frm::Category do
     name { Faker::Company.name }
-    group { create(:group, current_user_id: create(:user).id) }
+    group { create(:group_with_province) }
     visible_outside true
   end
 end
