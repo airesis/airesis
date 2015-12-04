@@ -1,9 +1,6 @@
 window.EventsNew =
   init: ->
-
     form = $('#new_event')
-    form.data('formValidation').destroy()
-
     form.steps
       headerTag: ".legend"
       bodyTag: ".step"
@@ -33,7 +30,7 @@ window.EventsNew =
       onFinished: (e, currentIndex)->
         form.formValidation('defaultSubmit')
 
-    $('#create_event_dialog').foundation('reveal', 'open', {
+    $('#create_event_dialog:not(".open")').foundation('reveal', 'open', {
       closeOnBackgroundClick: false,
       closeOnEsc: false
     })
