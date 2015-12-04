@@ -14,7 +14,7 @@ class Colors
   end
 
   def self.color_procedure(hex_color)
-    hex_color = hex_color.gsub('#', '')
+    hex_color = hex_color.delete('#')
     rgb = hex_color.scan(/../).map(&:hex)
     (0..2).each do |i|
       rgb[i] = yield rgb[i]

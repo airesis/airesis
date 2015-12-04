@@ -67,7 +67,7 @@ class Event < ActiveRecord::Base
   end
 
   def organizer_id
-    meeting_organizations.first.group_id rescue nil
+    meeting_organizations.try(:first).try(:group_id)
   end
 
   def past?

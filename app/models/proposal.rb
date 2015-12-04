@@ -860,16 +860,15 @@ class Proposal < ActiveRecord::Base
       solution.sections.each do |section|
         paragraph = section.paragraphs.first
         paragraph.content = '' if paragraph.content == '<p></p>' && paragraph.content_was == ''
-        if paragraph.content_changed? || section.marked_for_destruction? || solution.marked_for_destruction?
-          something_solution = true
-          section_history = solution_history.section_histories.build(section_id: section.id,
-                                                                     title: section.title,
-                                                                     seq: section.seq,
-                                                                     added: section.new_record?,
-                                                                     removed: (section.marked_for_destruction? ||
-                                                                       solution.marked_for_destruction?))
-          section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: id)
-        end
+        next unless paragraph.content_changed? || section.marked_for_destruction? || solution.marked_for_destruction?
+        something_solution = true
+        section_history = solution_history.section_histories.build(section_id: section.id,
+                                                                   title: section.title,
+                                                                   seq: section.seq,
+                                                                   added: section.new_record?,
+                                                                   removed: (section.marked_for_destruction? ||
+                                                                     solution.marked_for_destruction?))
+        section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: id)
       end
       solution_history.destroy unless something_solution
     end
@@ -900,11 +899,10 @@ class Proposal < ActiveRecord::Base
       fid = border[2..-1] # chiave primaria (dal terzo all'ultimo carattere)
       found = InterestBorder.table_element(border)
       # se ho trovato qualcosa, allora l'identificativo è corretto e posso creare il confine di interesse
-      if found
-        interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype],
-                                                      territory_id: fid)
-        i = proposal_borders.build(interest_border_id: interest_b.id)
-      end
+      next unless found
+      interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype],
+                                                    territory_id: fid)
+      i = proposal_borders.build(interest_border_id: interest_b.id)
     end
   end
 

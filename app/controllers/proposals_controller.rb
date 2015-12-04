@@ -321,7 +321,7 @@ class ProposalsController < ApplicationController
   # se è indicato un group_id cerca anche tra quelle interne a quel gruppo
   def similar
     authorize! :index, Proposal
-    tags = params[:tags].downcase.gsub('.', '').gsub("'", '').split(',').map(&:strip).join(' ').html_safe if params[:tags]
+    tags = params[:tags].downcase.delete('.').delete("'").split(',').map(&:strip).join(' ').html_safe if params[:tags]
     search_q = "#{params[:title]} #{tags}"
 
     search = SearchProposal.new(text: search_q)

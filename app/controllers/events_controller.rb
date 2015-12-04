@@ -156,7 +156,7 @@ class EventsController < ApplicationController
   def calculate_starttime
     return 10.minutes.from_now unless params[:starttime]
     ret = Time.at(params[:starttime].to_i / 1000)
-    ret = ret.change(hour: Time.now.hour, min: Time.now.min) unless (params[:has_time] == 'true')
+    ret = ret.change(hour: Time.now.hour, min: Time.now.min) unless params[:has_time] == 'true'
     ret
   end
 

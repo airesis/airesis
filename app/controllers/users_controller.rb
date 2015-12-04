@@ -52,7 +52,7 @@ class UsersController < ApplicationController
 
   def show
     respond_to do |format|
-      flash.now[:info] = t('info.user.click_to_change') if (current_user == @user)
+      flash.now[:info] = t('info.user.click_to_change') if current_user == @user
       format.html # show.html.erb
     end
   end
@@ -60,7 +60,7 @@ class UsersController < ApplicationController
   def alarm_preferences
     @user = current_user
     respond_to do |format|
-      flash.now[:info] = t('info.user.click_to_change') if (current_user == @user)
+      flash.now[:info] = t('info.user.click_to_change') if current_user == @user
       format.html # show.html.erb
     end
   end
@@ -293,11 +293,10 @@ class UsersController < ApplicationController
       fid = border[2..-1] # chiave primaria (dal terzo all'ultimo carattere)
       found = InterestBorder.table_element(border)
 
-      if found # if I found something so the ID is correct and I can proceed with geographic border creation
-        interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype], territory_id: fid)
-        i = current_user.user_borders.build(interest_border_id: interest_b.id)
-        i.save
-      end
+      next unless found
+      interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype], territory_id: fid)
+      i = current_user.user_borders.build(interest_border_id: interest_b.id)
+      i.save
     end
   end
 end
