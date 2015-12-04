@@ -85,7 +85,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ckeditor_filebrowser_scope(options = {})
-    options = {assetable_id: current_user.id, assetable_type: 'User'}.merge(options)
+    options = { assetable_id: current_user.id, assetable_type: 'User' }.merge(options)
     super
   end
 
@@ -141,11 +141,11 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options(options={})
-    (!params[:l] || (params[:l] == @domain_locale)) ? {} : {l: I18n.locale}
+    (!params[:l] || (params[:l] == @domain_locale)) ? {} : { l: I18n.locale }
   end
 
   def self.default_url_options(options={})
-    {l: I18n.locale}
+    { l: I18n.locale }
   end
 
   def log_error(exception)
@@ -157,8 +157,8 @@ class ApplicationController < ActionController::Base
         extra[:subject] = exception.subject.class.class_name.to_s rescue nil
       end
       Raven.capture_exception(exception, {
-                                         extra: extra
-                                       })
+        extra: extra
+      })
     else
       message = "\n#{exception.class} (#{exception.message}):\n"
       Rails.logger.error(message)
@@ -180,15 +180,28 @@ class ApplicationController < ActionController::Base
   end
 
   def invalid_locale(exception)
-    log_error(exception)
-    respond_to do |format|
-      format.js {
-        flash.now[:error] = 'You are asking for a locale which is not available, sorry'
-        render template: '/errors/invalid_locale.js.erb', status: 500, layout: 'application'
-      }
-      format.html {
-        render template: '/errors/invalid_locale.html.erb', status: 500, layout: 'application'
-      }
+    locales_replacement = { en: :'en-EU',
+                            zh: :'zh-TW',
+                            ru: :'ru-RU',
+                            fr: :'fr-FR',
+                            hu: :'hu-HU',
+                            el: :'el-GR',
+                            de: :'de-DE' }.with_indifferent_access
+    required_locale = params[:l]
+    replacement_locale = locales_replacement[required_locale]
+    if replacement_locale
+      redirect_to url_for(params.merge(l: replacement_locale).merge(only_path: true)), status: :moved_permanently
+    else
+      log_error(exception)
+      respond_to do |format|
+        format.js {
+          flash.now[:error] = 'You are asking for a locale which is not available, sorry'
+          render template: '/errors/invalid_locale.js.erb', status: 500, layout: 'application'
+        }
+        format.html {
+          render template: '/errors/invalid_locale.html.erb', status: 500, layout: 'application'
+        }
+      end
     end
   end
 
@@ -361,7 +374,7 @@ class ApplicationController < ActionController::Base
           if params[:right]
             flash[:notice] = t('info.proposal.contribute_added')
           else
-            flash[:notice] = t('info.proposal.contribute_added_right', {section: @section.title})
+            flash[:notice] = t('info.proposal.contribute_added_right', { section: @section.title })
           end
         else
           flash[:notice] = t('info.proposal.contribute_added')
@@ -388,26 +401,26 @@ class ApplicationController < ActionController::Base
   def check_page_alerts
     return unless current_user
     case params[:controller]
-      when 'proposals'
-        case params[:action]
-          when 'show'
-            #mark as checked all user alerts about this proposal
-            @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'proposal_id') = ? and alerts.checked = ?", @proposal.id.to_s, false])
-            if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
-              flash[:info] = t('info.proposal.available_authors')
-            end
-            @unread.check_all
-          else
+    when 'proposals'
+      case params[:action]
+      when 'show'
+        #mark as checked all user alerts about this proposal
+        @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'proposal_id') = ? and alerts.checked = ?", @proposal.id.to_s, false])
+        if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
+          flash[:info] = t('info.proposal.available_authors')
         end
-      when 'blog_posts'
-        case params[:action]
-          when 'show'
-            #mark as checked all user alerts about this proposal
-            @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'blog_post_id') = ? and alerts.checked = ?", @blog_post.id.to_s, false])
-            @unread.check_all
-          else
-        end
+        @unread.check_all
       else
+      end
+    when 'blog_posts'
+      case params[:action]
+      when 'show'
+        #mark as checked all user alerts about this proposal
+        @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'blog_post_id') = ? and alerts.checked = ?", @blog_post.id.to_s, false])
+        @unread.check_all
+      else
+      end
+    else
     end
   end
 
