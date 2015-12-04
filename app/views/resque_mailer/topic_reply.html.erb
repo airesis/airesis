@@ -1,6 +1,6 @@
 <p>
   <%= I18n.t('received_reply', scope: 'frm.topic') %>.
-  <%= link_to I18n.t('click_here_to_view', app_short_name: APP_SHORT_NAME), group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic) %>
+  <%= link_to I18n.t('click_here_to_view', app_short_name: APP_SHORT_NAME), group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic, page: @post.page) %>
 </p>
 
 <div style="float:left;margin: 0px 5px 5px 0px;">
