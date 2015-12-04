@@ -1,7 +1,3 @@
-/*
-    Common
-*/
-
 .wizard,
 .tabcontrol {
   display: block;
@@ -212,36 +208,11 @@
   margin: 0 0 0 1em;
 }
 
-.wizard > .actions a,
-.wizard > .actions a:hover,
-.wizard > .actions a:active {
-  background: #2184be;
-  color: #fff;
-  display: block;
-  padding: 0.5em 1em;
-  text-decoration: none;
-
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-}
-
-.wizard > .actions .disabled a,
-.wizard > .actions .disabled a:hover,
-.wizard > .actions .disabled a:active {
-  background: #eee;
-  color: #aaa;
-}
-
 .wizard > .loading {
 }
 
 .wizard > .loading .spinner {
 }
-
-/*
-    Tabcontrol
-*/
 
 .tabcontrol > .steps {
   position: relative;

@@ -29,6 +29,8 @@ window.EventsNew =
         !(isValidStep is false || isValidStep is null)
       onFinished: (e, currentIndex)->
         form.formValidation('defaultSubmit')
+      onInit: (e, currentIndex)->
+        form.find('[role="menuitem"]').addClass('btn').addClass('blue')
 
     $('#create_event_dialog:not(".open")').foundation('reveal', 'open', {
       closeOnBackgroundClick: false,

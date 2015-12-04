@@ -34,7 +34,9 @@ class @AiresisFormValidation
           validators:
             remote:
               message: Airesis.i18n.validationMessages.alreadyTaken.default
-              url: '/validators/uniqueness/proposal'
+              url: ->
+                $('a[href="#next"]').addClass('disabled')
+                '/validators/uniqueness/proposal'
               data: (validator, $field, value)->
                 {
                 'proposal[title]': value
@@ -84,6 +86,9 @@ class @AiresisFormValidation
         'blog_post[body]': ckeditorValidator
         'frm_post[text]': ckeditorValidator
         'frm_topic[posts_attributes][0][text]': ckeditorValidator
+    .on 'success.validator.fv', (e, data)=>
+      if (data.field is 'proposal[title]' && data.validator is 'remote')
+        $('a[href="#next"]').removeClass('disabled')
     form.filter('[data-remote=true]').on 'success.form.fv', (e)->
       $form = $(e.target)
       if $form.data('remote')
