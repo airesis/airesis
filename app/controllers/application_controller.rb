@@ -176,14 +176,34 @@ class ApplicationController < ActionController::Base
   end
 
   def invalid_locale(exception)
-    log_error(exception)
-    respond_to do |format|
-      format.js do
-        flash.now[:error] = 'You are asking for a locale which is not available, sorry'
-        render template: '/errors/invalid_locale.js.erb', status: 500, layout: 'application'
-      end
-      format.html do
-        render template: '/errors/invalid_locale.html.erb', status: 500, layout: 'application'
+    locales_replacement = { en: :'en-EU',
+                            zh: :'zh-TW',
+                            ru: :'ru-RU',
+                            fr: :'fr-FR',
+                            hu: :'hu-HU',
+                            el: :'el-GR',
+                            de: :'de-DE' }.with_indifferent_access
+    required_locale = params[:l]
+    replacement_locale = locales_replacement[required_locale]
+    if replacement_locale
+      redirect_to url_for(params.merge(l: replacement_locale).merge(only_path: true)), status: :moved_permanently
+    else
+      log_error(exception)
+      respond_to do |format|
+        format.js {
+          flash.now[:error] = 'You are asking for a locale which is not available, sorry'
+          render template: '/errors/invalid_locale.js.erb', status: 500, layout: 'application'
+        }
+        format.html {
+          render template: '/errors/invalid_locale.html.erb', status: 500, layout: 'application'
+        }
+        log_error(exception)
+        respond_to do |format|
+          format.js do
+          end
+          format.html do
+          end
+        end
       end
     end
   end
@@ -241,7 +261,7 @@ class ApplicationController < ActionController::Base
     # Difference in years, less one if you have not had a birthday this year.
     a = today.year - birthdate.year
     a -= 1 if birthdate.month > today.month ||
-        (birthdate.month >= today.month && birthdate.day > today.day)
+      (birthdate.month >= today.month && birthdate.day > today.day)
 
     a
   end
@@ -401,6 +421,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  priva
   private
 
   def forem_admin?(group)
