@@ -119,6 +119,7 @@ class ResqueMailer < ActionMailer::Base
     @post = Frm::Post.find(post_id)
     @group = @post.forum.group
     @user = User.find(subscriber_id)
+    I18n.locale = @user.locale.key || :'en-EU'
     from_address = if ENV['MAILMAN_EMAIL'].present?
                      composed_email = ENV['MAILMAN_EMAIL'].gsub(/%.*%/, @post.token)
                      "#{ENV['MAILMAN_SENDER']} <#{composed_email}>"
