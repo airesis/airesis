@@ -35,7 +35,7 @@ class ProposalsController < ApplicationController
         end
       end
     end
-    populate_search
+    @search = populate_search
     @search.proposal_state_tab = nil
     counters = @search.counters
     @in_valutation_count = counters[ProposalState::TAB_DEBATE]
@@ -44,6 +44,7 @@ class ProposalsController < ApplicationController
     @revision_count = counters[ProposalState::TAB_REVISION]
 
     query_index
+
     respond_to do |format|
       format.html do
         @page_head = ''
@@ -402,7 +403,7 @@ class ProposalsController < ApplicationController
 
   # query per la ricerca delle proposte
   def query_index
-    populate_search
+    @search = populate_search
     @proposals = @search.results
   end
 
@@ -461,19 +462,19 @@ class ProposalsController < ApplicationController
   end
 
   def populate_search
-    @search = SearchProposal.new
-    @search.order_id = params[:view]
-    @search.order_dir = params[:order]
+    search = SearchProposal.new
+    search.order_id = params[:view]
+    search.order_dir = params[:order]
 
-    @search.user_id = current_user.id if current_user
+    search.user_id = current_user.id if current_user
 
-    @search.proposal_type_id = params[:type]
+    search.proposal_type_id = params[:type]
 
-    @search.proposal_state_tab = (params[:state] || ProposalState::TAB_DEBATE)
+    search.proposal_state_tab = (params[:state] || ProposalState::TAB_DEBATE)
 
-    @search.proposal_category_id = params[:category]
+    search.proposal_category_id = params[:category]
 
-    @search.interest_border = if params[:interest_border].nil?
+    search.interest_border = if params[:interest_border].nil?
                                 InterestBorder.find_or_create_by(territory: current_domain.territory)
                               else
                                 InterestBorder.find_or_create_by_key(params[:interest_border])
@@ -481,23 +482,24 @@ class ProposalsController < ApplicationController
 
     # apply filter for the group
     if @group
-      @search.group_id = @group.id
+      search.group_id = @group.id
       if params[:group_area_id]
         @group_area = GroupArea.find(params[:group_area_id])
-        @search.group_area_id = params[:group_area_id]
+        search.group_area_id = params[:group_area_id]
       end
     end
 
     if params[:time]
-      @search.created_at_from = Time.at(params[:time][:start].to_i / 1000) if params[:time][:start]
-      @search.created_at_to = Time.at(params[:time][:end].to_i / 1000) if params[:time][:end]
-      @search.time_type = params[:time][:type]
+      search.created_at_from = Time.at(params[:time][:start].to_i / 1000) if params[:time][:start]
+      search.created_at_to = Time.at(params[:time][:end].to_i / 1000) if params[:time][:end]
+      search.time_type = params[:time][:type]
     end
-    @search.text = params[:search]
-    @search.or = params[:or]
+    search.text = params[:search]
+    search.or = params[:or]
 
-    @search.page = params[:page] || 1
-    @search.per_page = PROPOSALS_PER_PAGE
+    search.page = params[:page] || 1
+    search.per_page = PROPOSALS_PER_PAGE
+    search
   end
 
   private
