@@ -6,7 +6,7 @@
   <% else %>
       <% @quorum_collection = Quorum.visible.order('seq nulls last') %>
   <% end %>
-
+  <%= @proposal.quorum_id %>
   <%= f.input :quorum_id, as: :select,
               collection: @quorum_collection.collect { |p| [p.name, p.id, { 'data-description' => p.description,
                                                                             'data-explanation' => p.explanation,
@@ -28,8 +28,7 @@
   <legend>2. <%= t('pages.proposals.show.choose_votation_period') %></legend>
   <div class="content">
     <div>
-      <%= image_tag 'ajax-loader.gif', style: "height: 26px;" %>
-      <b><%= 'Select debate duration' %></b>
+      <%= I18n.t('select_debate_duration') %>
     </div>
   </div>
 </fieldset>

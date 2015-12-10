@@ -60,6 +60,10 @@ form.steps({
         })
       }
     }
+    if (priorIndex === 3) {
+      var id = 'proposal_sections_attributes_0_paragraphs_attributes_0_content';
+      $('#'+id).val(CKEDITOR.instances[id].getData());
+    }
   },
   onFinishing: function (e, currentIndex) {
     var fv = form.data('formValidation'),

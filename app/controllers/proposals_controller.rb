@@ -207,7 +207,6 @@ class ProposalsController < ApplicationController
     @proposal.proposal_type = ProposalType.find_by(name: (params[:proposal_type_id] || ProposalType::SIMPLE))
 
     @proposal.build_sections
-
     @title = ''
     @title += I18n.t('pages.proposals.new.title_group', name: @group.name) + ' ' if @group
     @title += @proposal.proposal_type.description

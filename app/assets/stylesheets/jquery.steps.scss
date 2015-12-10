@@ -202,6 +202,9 @@
 
 .wizard > .actions > ul > li {
   margin: 0 0.5em;
+  &.disabled a.btn {
+    display: none;
+  }
 }
 
 .wizard.vertical > .actions > ul > li {

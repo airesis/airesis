@@ -161,7 +161,6 @@ class Proposal < ActiveRecord::Base
   after_validation :update_short_content
 
   def init
-    self.quorum_id ||= Quorum::STANDARD
     self.anonima = (self.is_petition? ? false : DEFAULT_ANONIMA) if anonima.nil?
     self.visible_outside = true if visible_outside.nil?
     self.secret_vote = true if secret_vote.nil?
