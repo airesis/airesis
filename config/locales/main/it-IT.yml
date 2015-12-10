@@ -1215,7 +1215,7 @@ it-IT:
     group_invitations:
       code_expired: Codice invito scaduto
       already_participant: Fai già parte di questo gruppo
-      create: Nessun email inviata
+      create: Nessuna email inviata
   info:
     setting_preferences: Impostazioni cambiate correttamente
     blog_created: Il tuo post è stato creato correttamente
