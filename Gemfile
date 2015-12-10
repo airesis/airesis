@@ -126,7 +126,7 @@ gem 'sitemap_generator'
 
 gem 'geocoder'
 
-gem 'vote-schulze', github: 'coorasse/vote-schulze'
+gem 'schulze-vote'
 
 gem 'rails_autolink'
 
