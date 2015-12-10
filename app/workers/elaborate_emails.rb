@@ -18,7 +18,7 @@ class ElaborateEmails
       next unless user.can_reply_to_forem_topic?(topic)
       new_post = topic.posts.build
       new_post.user = user
-      new_post.text = EmailReplyParser.parse_reply(email.body)
+      new_post.text = EmailReplyParser.parse_reply(email.body).gsub(/\d\d\d\d-\d\d-\d\d \d\d:\d\d.*>:/,'')
       new_post.reply_to_id = post.id if post
       new_post.save!
     end
