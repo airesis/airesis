@@ -138,7 +138,7 @@ class SearchProposal < ActiveRecord::Base
              Proposal.alerts_count_subquery(user_id).as('alerts_count'),
              Proposal.ranking_subquery(user_id).as('ranking')).
       where(id: ids).
-      order("idx(array#{ids}, proposals.id)")
+      order("idx(array#{ids}::integer[], proposals.id)")
   end
 
   def similar
