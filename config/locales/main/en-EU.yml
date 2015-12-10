@@ -774,6 +774,10 @@ en-EU:
       index:
         blog_subtitle: "%{posts} posts, %{comments} comments"
         find_blog_label: "Find a blog you may be interested in"
+        search_description: "Use the search tool or click on a tag to find blogs of your interest"
+        search_with_query: "using a personalized query"
+        find_title: "Search in the blog title or author name"
+        search_with_place: "or geographic border"
     quorums:
       index:
         title: "All available quorums"
@@ -931,6 +935,8 @@ en-EU:
     tags:
       show:
         related_title: "Related tags"
+        not_found: "Tag '%{tag}' not found"
+        title: "List of elements with tag '%{tag}'"
       list_proposals_with_tag: "Proposals"
       no_proposals_with_tag: "There are no proposals with this tag yet"
       list_posts_with_tag: "Posts"
@@ -942,6 +948,8 @@ en-EU:
       groups_tab: "Groups"
       not_found:
         subtitle: "These are the most used keywords on Airesis"
+      index:
+        title: "List of most used tag"
     footer:
       for_edemocracy: "for e-democracy"
       go_to_main_site: "Go to main site"
