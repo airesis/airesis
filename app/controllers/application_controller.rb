@@ -180,6 +180,7 @@ class ApplicationController < ActionController::Base
                             zh: :'zh-TW',
                             ru: :'ru-RU',
                             fr: :'fr-FR',
+                            pt: :'pt-PT',
                             hu: :'hu-HU',
                             el: :'el-GR',
                             de: :'de-DE' }.with_indifferent_access
