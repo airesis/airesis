@@ -63,7 +63,6 @@ ro-RO:
         show_urls: Arată URL-urile Facebook, Google + şi LinkedIn ale utilizatorilor
         private_messages: Primeste mesaje private de la alţi utilizatori
         join_accounts: Alăturăte unui alt cont
-        join_accounts_description: 'Pe Airesis ai capacitatea de a conecta toate reţea socială la un singur cont. <br/> Selectează furnizorul pentru a te conecta şi vei fi întotdeauna capabil de a accesa acelaşi cont de Facebook, Google, Twitter şi multe altelet!'
         joined_all: Deja ai alăturat toţi furnizorii disponibil. Vă mulţumesc!
         join_facebook: Adăugaţi-vă contul de Facebook
         join_google: Adăugaţi-vă contul Google
@@ -204,7 +203,6 @@ ro-RO:
       edit_work_areas:
         index:
           not_enabled: Zonele de lucru nu sunt activate
-          description: Airesis vă permite să gestionaţi zone diferite de lucru în interiorul grupului.
           description2: Cu această caracteristică, puteţi administra mai bine participanţii şi rolurile lor.
           description3: Ai grijă! Aceasta este o caracteristică avansată, proiectată numai pentru grupuri mai mari şi utilizatori experimentaţi.
           description4: 'Înainte de a activa zonele de lucru, verificaţi dacă puteţi gestiona direct membrii grupurilor, folosind '
@@ -355,8 +353,6 @@ ro-RO:
         title_placeholder: 'ex. "Facilitarea transportului de biciclete în trenuri"'
         interest_borders_tkn_placeholder: Oraşe, regiuni sau state interesate de propunere
         tags_list_placeholder: Inserați câteva etichete pentru propunerea dumneavoastră
-        step_1_title: 'Poți propune o problemă spre rezolvare, o idee spre îmbunătățire, o inițiativă de organizare... Important este să ai un scop precis: Aieris va media realizarea lui, cu ajutorul altor oameni, care vor lucra împreună la rezolvarea problemei.'
-        step_4_title: 'Perfect! Alegeţi opţiunile şi faceţi clic pe "Crează propunerea" pentru a finaliza ghidul. Propunerea dumneavoastră va fi inclusă în Airesis şi veți avea posibilitatea să o completați ulterior cu mai multe informaţii.'
         category_prompt: --Alege o categorie--
         tags_separated_by_comma: (despărțite prin virgulă)
         cannot_add_proposal_in_work_area: Nu aveți drepturile necesare pentru a adăuga propunerea în orice zonă
@@ -403,14 +399,6 @@ ro-RO:
         you_know_what_you_do: Știi ce ai de gând să faci?
         schulze_title: Una sau mai multe soluţii?
         inserted_contributes: Semnează contribuţiile pe care le-ai integrat în această revizuire
-        more_solutions_explained_html: |
-          <b>Ce să te întrebăm dacă ştii ce faci?</b><br/>
-          Airesis vă permite să adăugaţi unul sau mai multe soluţii într-o propunere.<br/>
-          Dacă va fi doar o soluţie, la etapa votării participanţii vor avea opţiunea să aprobe sau să refuze textul care a fost redactat.<br/>
-          Dacă vor fi mai multe soluţii, votul va fi diferit si fiecare participant va putea să voteze folosind metoda Schulze.<br/>
-          Dacă încercați să redactați rezumatul unei probleme şi doriţi să puneți textul la comun <b>nu creați soluţii alternative</b>! <br/>
-          În cazul în care, dimpotrivă, sunteţi în căutarea pentru un sondaj de opinie sau vreți o alternativă care nu este integrabilă în prima solutie apoi procedaţi.<br/>
-          Amintiţi-vă că, înainte ca dezbaterea să se termine, veţi putea să adăugaţi sau să eliminaţi soluţii, modificând metoda de vot utilizată.
         paragraph: Paragraf
         confirm_paragraph_deletion: Sigur doriţi să ştergeţi acest paragraf?
         confirm_solution_deletion: Sigur ștergeți această soluție?
@@ -445,7 +433,7 @@ ro-RO:
         yes_partecipated: Ai participat la eveniment
         no_partecipated: Nu ai participat la eveniment
         yes_partecipate: Vei participa la eveniment
-        no_partecipate: |
+        no_partecipate: |2
           |
                     Nu vei participa la eveniment
         with_guests: 'cu oaspeţii %{field}'
@@ -516,7 +504,6 @@ ro-RO:
         profile: PROFILUL
       welcome: Bun venit
       groups_title: GRUPURI
-      login_placeholder: E-mail sau nume de utilizator
       groups_list: Grupuri în care participați
       open_group: Începe un grup nou
       new_group: Găseşte grupuri
@@ -602,7 +589,6 @@ ro-RO:
       create_event_button: Creaţi un eveniment nou
     sessions:
       new:
-        login_label: Numele de utilizator sau E-mail
         remember_me_label: Ţine-mă minte
       links:
         register: Nu esti înregistrat încă? Inregistrează-te!
@@ -618,17 +604,13 @@ ro-RO:
         newdescription5: Dacă credeţi că dezbaterea ar trebui să continue, folosiţi acest buton
         newdescription6: Atunci când textul propunerii va fi actualizat, ve-ţi fi capabil de a schimba evaluarea
       welcome:
-        title_html: |
-          Bine ati venit pe Airesis,
-          {utilizator}
-          <parola>
         description_html: |
           Acest scurt tutorial vă va ajuta în primele alegeri în interiorul platformei.
           Acest lucru este desktop-ul: aici veţi găsi toate informaţiile de care aveţi nevoie pentru a păstra legătura cu teritoriul dumneavoastră.
           Puteţi gestiona propunerile dumneavoastră şi grupurilor dumneavoastră , puteţi vedea evenimentele din jur puteţi fi in legatura cu alţi cetăţeni.
           Îmbunătăţi Airesis prin trimiterea unui feedback la "mailto:info@airesis.it"> info@airesis.it</a>. <br/>
       choose_follow:
-        description_html: |
+        description_html: |2
           |
                     Aici sunt grupurile cele mai active în teritoriile din interiorul frontierelor tale de interes.
                     Alege pe cele pe care doriţi să participe, astfel încât ve-ţi fi capabil de a lua legătura cu ei şi de a participa la evenimentele şi propunerile lor.

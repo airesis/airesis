@@ -31,8 +31,6 @@ bs-BA:
       send_instructions: Za nekoliko minuta ćete primiti e-mail sa instrukcijama o tome kako resetujete lozinku
       updated: Vaša lozinka je uspješno promijenjena. Sada ste prijavljeni
       updated_not_active: Vaša lozinka je uspješno promijenjena
-      user:
-        updated: Lozinka ispravno ažurirana
     mailer:
       confirmation_instructions:
         welcome: 'Dobro došli na %{app_name} %{user}!'

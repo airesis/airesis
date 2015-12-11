@@ -3,7 +3,7 @@ module Devise
     module Blockable
       extend ActiveSupport::Concern
       def active_for_authentication?
-        super && !self.blocked
+        super && !blocked
       end
     end
   end

@@ -2,7 +2,7 @@ module SimpleForm
   module Components
     # Needs to be enabled in order to do automatic lookups.
     module Minlength
-      def minlength(wrapper_options = nil)
+      def minlength(_wrapper_options = nil)
         input_html_options[:minlength] ||= minimum_length_from_validation
         nil
       end

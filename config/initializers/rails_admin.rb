@@ -1,7 +1,6 @@
 Dir["#{Rails.root}/lib/rails_admin/*.rb"].each { |file| require file }
 
 RailsAdmin.config do |config|
-
   ### Popular gems integration
 
   ## == Devise ==
@@ -22,19 +21,21 @@ RailsAdmin.config do |config|
     dashboard # mandatory
     index # mandatory
     new do
-      except %w(User SysPaymentNotification)
+      except %w(User SysPaymentNotification ReceivedEmail)
     end
-    export
-    #bulk_delete
+    # export
+    # bulk_delete
     show
-    edit
+    edit do
+      except %w(ReceivedEmail)
+    end
     delete do
       except %w(User SysPaymentNotification)
     end
     login_as do
       only ['User']
     end
-    #show_in_app
+    # show_in_app
 
     ## With an audit adapter, you can add:
     # history_index
@@ -42,7 +43,7 @@ RailsAdmin.config do |config|
   end
 
   config.included_models = %w(User Announcement NotificationType SysLocale SysFeature SysMovement
-                              SysPaymentNotification Configuration)
+                              SysPaymentNotification Configuration ReceivedEmail)
 
   config.model 'SysFeature' do
     exclude_fields %w(sys_payment_notifications)

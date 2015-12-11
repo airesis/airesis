@@ -25,10 +25,10 @@
 
       <div class="card">
         <div class="card-title">
-          <%= @event.is_past? ? t('pages.events.show.when_past') : t('pages.events.show.when') %>
+          <%= @event.past? ? t('pages.events.show.when_past') : t('pages.events.show.when') %>
         </div>
         <div class="event_content">
-          <%= render partial: 'events/calendar_icon', locals: {time: @event.starttime} %>
+          <%= render partial: 'events/calendar_icon', locals: { time: @event.starttime } %>
           <div class="event_dates_text">
             <meta itemprop="startDate" content="<%= l @event.starttime, format: '%Y-%m-%dT%H:%M' %>">
             <b>
@@ -48,7 +48,7 @@
         <div class="columns large-6">
           <div class="card">
             <div class="card-title">
-              <%= @event.is_past? ? t('pages.events.show.where_past') : t('pages.events.show.where') %>
+              <%= @event.past? ? t('pages.events.show.where_past') : t('pages.events.show.where') %>
             </div>
             <div class="event_content" itemprop="location" itemscope itemtype="http://schema.org/Place">
               <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
@@ -69,7 +69,7 @@
         </div>
     <% end %>
 
-    <% if @event.is_votazione? %>
+    <% if @event.votation? %>
         <div class="columns large-6">
           <div class="event_main">
             <h3>
@@ -85,9 +85,9 @@
             </h3>
 
             <div class="event_content">
-              <% @event.proposals.each do |proposal| %>
+              <% @proposals.each do |proposal| %>
                   <% if can? :show, proposal %>
-                      <%= render partial: 'proposals/proposal_list_element', locals: {proposal: proposal} %>
+                      <%= render 'proposals/proposal_list_element', proposal_list_element_for_mustache(proposal) %>
                   <% end %>
               <% end %>
             </div>
@@ -97,10 +97,10 @@
   </div>
 </div>
 
-<% if @event.is_incontro? %>
+<% if @event.meeting? %>
     <div class="row full-width">
       <div class="columns large-6">
-        <%= render partial: 'event_comments/new_event_comment', locals: {event_comment: @event_comment} %>
+        <%= render partial: 'event_comments/new_event_comment', locals: { event_comment: @event_comment } %>
 
         <div id="eventCommentsContainer">
           <%= render partial: 'events/comments' %>
@@ -117,14 +117,14 @@
 <% end %>
 
 <script type="text/javascript">
-    var pageURL = "<%= event_event_comments_url(@event) %>";
+  var pageURL = "<%= event_event_comments_url(@event) %>";
 
-    EventsShow.votation = <%=@event.is_votazione?%>;
-    <%if @event.place%>
-    EventsShow.latitudeOriginal = <%=@event.place.latitude_original%>;
-    EventsShow.longitudeOriginal = <%=@event.place.longitude_original%>;
-    EventsShow.latitudeCenter = <%=@event.place.latitude_center%>;
-    EventsShow.longitudeCenter = <%=@event.place.longitude_center%>;
-    EventsShow.zoom = <%=@event.place.zoom%>;
-    <%end%>
+  EventsShow.votation = <%=@event.votation?%>;
+  <%if @event.place%>
+  EventsShow.latitudeOriginal = <%=@event.place.latitude_original%>;
+  EventsShow.longitudeOriginal = <%=@event.place.longitude_original%>;
+  EventsShow.latitudeCenter = <%=@event.place.latitude_center%>;
+  EventsShow.longitudeCenter = <%=@event.place.longitude_center%>;
+  EventsShow.zoom = <%=@event.place.zoom%>;
+  <%end%>
 </script>

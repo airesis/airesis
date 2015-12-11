@@ -185,14 +185,6 @@
   }
 }
 
-.authors {
-  .title {
-    border-top: 1px dotted #ccc;
-    padding-top: 5px;
-    margin-top: 5px;
-  }
-}
-
 .proposal_list {
   position: relative;
   width: 100%;
@@ -905,6 +897,11 @@ input.edit_label {
   input[type="text"] {
     margin-bottom: 2px;
   }
+}
+
+.button.proposal_tab {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 //TODO old button to remove stuff

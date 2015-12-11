@@ -59,6 +59,8 @@ en-EU:
         group_level_permission_title: "Group level permissions"
         admin_permissions: "You are administrator of this group and you have all permissions"
         certified_cannot_edit_info: "You're a certified user: you can't edit your Name, Last Name and Email"
+        twitter_url: "Twitter URL"
+        meetup_url: "Meetup URL"
       send_message:
         subject_label: "Subject"
         body_label: "Body"
@@ -78,7 +80,7 @@ en-EU:
         show_urls: "Show Facebook, Google+ and LinkedIn URLs to users"
         private_messages: "Receive private messages from other users"
         join_accounts: "Join another account"
-        join_accounts_description: "On Airesis you have the ability to connect all your Social Network to a single account. <br/> Select the provider to connect and you will always be able to access the same account from Facebook, Google, Twitter and many more!"
+        join_accounts_description: "On %{app_short_name} you have the ability to connect all your Social Network to a single account. <br/> Select the provider to connect and you will always be able to access the same account from Facebook, Google, Twitter and many more!"
         joined_all: "You already joined all available providers. Thank you!"
         join_facebook: "Join your Facebook account"
         join_google: "Join your Google account"
@@ -262,7 +264,7 @@ en-EU:
       edit_work_areas:
         index:
           not_enabled: "Work areas not enabled"
-          description: "Airesis lets you manage different work areas inside the group."
+          description: "%{app_short_name} lets you manage different work areas inside the group."
           description2: "With this feature you can better manage the participants and their roles."
           description3: "Be careful! This is an advanced feature, designed only for bigger groups and expert users."
           enable: "Enable work areas"
@@ -482,6 +484,7 @@ en-EU:
         you_can_choose_vote_dates: "This proposal has been waiting for %{count} days for a voting date, so you are now allowed to choose one."
         no_contributes_yet: "No contributions here yet"
         start_votation_proposal_confirmation: "Are you sure you want to start immediatly the votation?"
+        abandoned_message: "Abandoned %{ago}"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "Help"
@@ -497,11 +500,11 @@ en-EU:
         title_placeholder: "ex. 'Facilitate bike transport on trains'"
         interest_borders_tkn_placeholder: "Cities, Regions or States interested by the proposal"
         tags_list_placeholder: "Insert some tags for your proposal"
-        step_1_title: "You can pose a problem to solve, an idea to improve, an initiative to organize ... The important thing is to have a clear goal: Airesis will help you achieve it with the help of other people, through a process of shared problem solving."
+        step_1_title: "You can pose a problem to solve, an idea to improve, an initiative to organize ... The important thing is to have a clear goal: %{app_short_name} will help you achieve it with the help of other people, through a process of shared problem solving."
         step_2_title: "Maybe someone has already created a similar proposal: check below and eventually stop your creation to avoid duplication. Joining forces gives strength to your ideas! Clicking on the title the proposals will be opened in a new tab."
-        step_4_title: "Perfect! Choose your options and click 'Create the proposal' to complete the guide. Your proposal will be included in Airesis and you will be able to add more information whenever you want with more information."
+        step_4_title: "Perfect! Choose your options and click 'Create the proposal' to complete the guide. Your proposal will be included in %{app_short_name} and you will be able to add more information whenever you want with more information."
         step_4_footer_html: |
-          Airesis will help you to reach your goal through shared problem solving: users will suggest modifications and contributions to your text and <b>it is up to you</b> to integrate the most liked.<br/>
+          %{app_short_name} will help you to reach your goal through shared problem solving: users will suggest modifications and contributions to your text and <b>it is up to you</b> to integrate the most liked.<br/>
           If you don't do it, your proposal won't go to the voting phase.<br/>
           Good luck and don't get scared: you can be helped by other people in your task.
         category_prompt: "--Choose a category--"
@@ -578,7 +581,7 @@ en-EU:
         inserted_contributes: "Sign the contributions you have integrated in this revision"
         more_solutions_explained_html: |
           <b>Why do we ask you if you know what you are doing?</b><br/>
-          Airesis lets you add one or more solutions in a proposal.<br/>
+          %{app_short_name} lets you add one or more solutions in a proposal.<br/>
           If there will be only a solution, in the voting phase participants will have the option to approve or refuse the text that has been drafted.<br/>
           If there will be more than a solution, the vote will be different and each participant will be able to vote using Schulze method.<br/>
           If you are trying to draft the summary of a problem and you want a shared text <b>don't create alternative solutions</b>!<br/>
@@ -702,7 +705,7 @@ en-EU:
       view:
         comments: "Comments (%{count})"
       index:
-        title: "Last posts on Airesis"
+        title: "Last posts on %{app_short_name}"
       edit:
         title: "Edit the post"
       archives:
@@ -771,6 +774,10 @@ en-EU:
       index:
         blog_subtitle: "%{posts} posts, %{comments} comments"
         find_blog_label: "Find a blog you may be interested in"
+        search_description: "Use the search tool or click on a tag to find blogs of your interest"
+        search_with_query: "using a personalized query"
+        find_title: "Search in the blog title or author name"
+        search_with_place: "or geographic border"
     quorums:
       index:
         title: "All available quorums"
@@ -883,7 +890,7 @@ en-EU:
         newdescription5: "If you think that the debate should continue, use this button"
         newdescription6: "When the text of the proposal will be updated, you will be able to change your evaluation"
       welcome:
-        title_html: <b>Welcome on Airesis, %{user}</b><br/>
+        title_html: <b>Welcome on %{app_short_name}, %{user}</b><br/>
         description_html: |
           This short tutorial will help you in the first choices inside the platform.<br/>
           This is your desktop: here you will find all the information you need to keep in touch with your territory.<br/>
@@ -928,6 +935,8 @@ en-EU:
     tags:
       show:
         related_title: "Related tags"
+        not_found: "Tag '%{tag}' not found"
+        title: "List of elements with tag '%{tag}'"
       list_proposals_with_tag: "Proposals"
       no_proposals_with_tag: "There are no proposals with this tag yet"
       list_posts_with_tag: "Posts"
@@ -939,6 +948,8 @@ en-EU:
       groups_tab: "Groups"
       not_found:
         subtitle: "These are the most used keywords on Airesis"
+      index:
+        title: "List of most used tag"
     footer:
       for_edemocracy: "for e-democracy"
       go_to_main_site: "Go to main site"
@@ -1206,6 +1217,7 @@ en-EU:
     group_invitations:
       code_expired: "The Invitation Code has expired"
       already_participant: "You are already a participant of this group"
+      create: "No email sent"
   info:
     setting_preferences: "Settings changed successfully"
     blog_created: "Post successfully created"
@@ -1289,6 +1301,7 @@ en-EU:
       blog_created: "Blog successfully created"
       title_updated: "The title of the blog has been successfully updated"
       comment_added: "Comment successfully created"
+      destroyed: "Blog destroyed successfully"
     events:
       event_deleted: "Event successfully deleted"
       event_updated: "Event successfully updated"
@@ -1319,7 +1332,6 @@ en-EU:
       destroy: "User removed from the area"
     group_invitations:
       create:
-        zero: "No email sent"
         one: "Invite sent correctly to %{email_addresses}"
         other: "%{count} invites sent correctly to %{email_addresses}"
       accept: "Invite accepted! You are now a member of this group."
@@ -1391,6 +1403,8 @@ en-EU:
     update_contribute:
       title: "%{user} changed his contribution"
       view_proposal: "%{click_here} to see the contribution and change your evaluation"
+    new_forum_topic:
+      view: "to view the topic on %{app_short_name}."
   words:
     contribute: "contribution"
     comment: "comment"
@@ -1477,3 +1491,9 @@ en-EU:
   confirm:
     unintegrate: "You are going to put your contribution back into the discussion. Are you sure?"
   cookie_policy: "Cookies"
+  blog:
+    delete:
+      confirm_message: "Are you sure you want to delete your blog? %{count} posts will be deleted as well."
+  click_here_to_view: "Click here to view it on %{app_short_name}."
+  unsubscribe_from_topic: "To unsubscribe from this topic, %{click_here}"
+  select_debate_duration: "Select first a debate duration"

@@ -3,7 +3,6 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 describe NotificationProposalUpdate, type: :model, emails: true, notifications: true, seeds: true do
-
   let!(:event_class) { NotificationProposalUpdate }
   let!(:notification_type) { NotificationType.find_by(name: 'text_update') }
   let!(:expected_alerts) { 3 }
@@ -25,9 +24,9 @@ describe NotificationProposalUpdate, type: :model, emails: true, notifications: 
     content = Faker::Lorem.paragraph
     section = proposal.sections.first
     paragraph = section.paragraphs.first
-    update_proposal_params = {sections_attributes:
-                                {'0' => {id: section.id, paragraphs_attributes:
-                                  {'0' => {id: paragraph.id, content: content, content_dirty: content}}}}}
+    update_proposal_params = { sections_attributes:
+                                { '0' => { id: section.id, paragraphs_attributes:
+                                  { '0' => { id: paragraph.id, content: content, content_dirty: content } } } } }
     proposal.update(update_proposal_params)
   end
 

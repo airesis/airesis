@@ -6,25 +6,25 @@ class Akismetor
   # Does a key-check on Akismet so you know you can actually use a specific key.
   # Returns "valid" or "invalid" depending on response.
   def self.valid_key?(attributes)
-    self.new(attributes).execute('verify-key')
+    new(attributes).execute('verify-key')
   end
 
   # Does a comment-check on Akismet with the submitted hash.
   # Returns true or false depending on response.
   def self.spam?(attributes)
-    self.new(attributes).execute('comment-check') != "false"
+    new(attributes).execute('comment-check') != 'false'
   end
 
   # Does a submit-spam on Akismet with the submitted hash.
   # Use this when Akismet incorrectly approves a spam comment.
   def self.submit_spam(attributes)
-    self.new(attributes).execute('submit-spam')
+    new(attributes).execute('submit-spam')
   end
 
   # Does a submit-ham on Akismet with the submitted hash.
   # Use this for a false positive, when Akismet incorrectly rejects a normal comment.
   def self.submit_ham(attributes)
-    self.new(attributes).execute('submit-ham')
+    new(attributes).execute('submit-ham')
   end
 
   def initialize(attributes)

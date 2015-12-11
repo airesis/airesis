@@ -15,7 +15,7 @@ module Concerns
     end
 
     def tags_data
-      tags.map { |t| {id: t.text, name: t.text} }.to_json
+      tags.map { |t| { id: t.text, name: t.text } }.to_json
     end
 
     attr_writer :tags_list
@@ -28,7 +28,7 @@ module Concerns
       return unless @tags_list
       tids = []
       @tags_list.split(/,/).each do |tag|
-        stripped = tag.strip.downcase.gsub('.', '')
+        stripped = tag.strip.downcase.delete('.')
         t = Tag.find_or_create_by(text: stripped)
         tids << t.id
       end

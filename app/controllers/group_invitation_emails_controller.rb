@@ -1,6 +1,5 @@
 # manage invitations responses
 class GroupInvitationEmailsController < ApplicationController
-
   load_and_authorize_resource :group
   load_and_authorize_resource :group_invitation, through: :group
   load_and_authorize_resource through: :group_invitation, id_param: :token, find_by: :token

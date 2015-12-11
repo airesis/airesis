@@ -16,7 +16,7 @@ module ApplicationHelper
 
   # ricarica i messaggi flash
   def reload_flash
-    page.replace 'flash_messages', partial: 'layouts/flash', locals: {flash: flash}
+    page.replace 'flash_messages', partial: 'layouts/flash', locals: { flash: flash }
   end
 
   def javascript(*args)

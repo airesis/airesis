@@ -1,6 +1,6 @@
 def login(user, password)
   visit '/users/sign_in'
-  within("#main-copy") do
+  within('#main-copy') do
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: password
     click_button 'Login'
@@ -27,7 +27,6 @@ def toastr_clear
   SCRIPT
 end
 
-
 def fill_tokeninput(locator, opts)
   content = opts.fetch(:with)
   content.each do |tag|
@@ -43,13 +42,13 @@ def page_should_be_ok
   expect(page).to_not have_content(I18n.t('error.error_404.title'))
 end
 
-def create_participation(user, group, participation_role_id=nil)
+def create_participation(user, group, participation_role_id = nil)
   group.participation_requests.build(user: user, group_participation_request_status_id: 3)
   group.group_participations.build(user: user, participation_role_id: (participation_role_id || group.participation_role_id))
   group.save
 end
 
-def create_simple_vote(user, proposal, vote_type=VoteType::POSITIVE)
+def create_simple_vote(user, proposal, vote_type = VoteType::POSITIVE)
   vote = UserVote.new(user: user, proposal: proposal)
   vote.vote_type_id = vote_type unless proposal.secret_vote
   vote.save
@@ -99,7 +98,6 @@ def expect_forbidden_page
   expect(page).to have_content(I18n.t('error.error_302.title'))
 end
 
-
 def add_solution(proposal)
   solution = proposal.build_solution
   solution.seq = 2
@@ -107,8 +105,7 @@ def add_solution(proposal)
   proposal.save
 end
 
-
-def expect_notifications(number=1)
+def expect_notifications(number = 1)
   expect(page.title).to have_content "(#{number})"
 end
 

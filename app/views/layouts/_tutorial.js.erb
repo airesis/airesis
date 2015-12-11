@@ -4,7 +4,8 @@ if ($(window).width() > 768) {
         var portlets = $('.portlet_panel');
         intro.setOptions({
             steps: <%= yield %>,
-            skipLabel: 'X',
+            doneLabel: '<%=j t('tutorial.done_label')%>',
+            skipLabel: '<%=j t('tutorial.skip_label')%>',
             nextLabel: '<%=t('tutorial.next')%> &rarr;',
             prevLabel: '&larr; <%=t('tutorial.back')%>',
             exitOnOverlayClick: false

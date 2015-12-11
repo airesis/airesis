@@ -16,7 +16,9 @@
         </div>
     <% else %>
         <ul class="small-block-grid-1 xlarge-block-grid-2">
-          <%= render collection: @proposals, partial: 'proposals/proposal_list_element', as: 'proposal' %>
+          <% @proposals.each do |proposal| %>
+              <%= render 'proposals/proposal_list_element', proposal_list_element_for_mustache(proposal) %>
+          <%end%>
         </ul>
     <% end %>
   </div>

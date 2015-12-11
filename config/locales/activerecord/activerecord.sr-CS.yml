@@ -47,6 +47,9 @@ sr-CS:
         published: Status
         published_true: Objavljeno
         published_false: Nacrt
+        published_reserved: Rezervisano
+        group_ids: Objavljeno u sledećim grupama
+        published_at: Objavljeno u
       participation_role:
         name: Ime
         description: Kratak opis
@@ -55,6 +58,9 @@ sr-CS:
         testo: Tekst poruke
       place:
         address: Adresa
+        municipality_id: Grad
+        latitude_original: Geografska širina
+        longitude_original: Geografska dužina
       proposal:
         group_area_id: Radno područje
         proposal_category_id: Kategorija
@@ -65,6 +71,7 @@ sr-CS:
         content: Tekst
         interest_borders_tkn: Geografska mesta interesovanja
         tags_list: Oznake
+        quorum_id: Trajanje debate
         anonima: Privremena anonimnost
         visible_outside: Javno vidljivo
         secret_vote: Tajno glasanje
@@ -94,20 +101,24 @@ sr-CS:
         vote_good_score: Odobrenje
       search_participant:
         role_id: Funkcija
+        keywords: Ime ili prezime
       sys_movement:
         sys_movement_type_id: Vrsta
         made_on: Urađeno
         amount: Iznos
         sys_currency_id: Valuta
       user:
+        name: Ime
         email: E-pošta
-        login: Korisničko ime
+        surname: Prezime
         password: Lozinka
         linkedinpageurl: Vaša LinkedIn stranica
         facebookpageurl: Vaša Facebook stranica
         accept_conditions: Uslovi korišćenja
         receive_newsletter: Bilten putem e-pošte
         blocked: Greška
+      user_sensitive:
+        name: Ime
       group_area:
         name: Ime
         description: Opis

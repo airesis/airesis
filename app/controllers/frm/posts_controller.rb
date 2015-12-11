@@ -1,7 +1,6 @@
-#todo refactor and use cancan
+# TODO: refactor and use cancan
 module Frm
   class PostsController < Frm::ApplicationController
-
     load_and_authorize_resource :forum, class: 'Frm::Forum', through: :group
     load_and_authorize_resource :topic, class: 'Frm::Topic', through: :forum
     load_and_authorize_resource through: :topic
@@ -47,7 +46,6 @@ module Frm
       @post.destroy
       destroy_successful
     end
-
 
     protected
 
@@ -99,7 +97,7 @@ module Frm
     def reject_locked_topic!
       if @topic.locked?
         flash.alert = t('frm.post.not_created_topic_locked')
-        redirect_to group_forum_topic_url(@group, @topic.forum, @topic) and return
+        redirect_to(group_forum_topic_url(@group, @topic.forum, @topic)) && return
       end
     end
 

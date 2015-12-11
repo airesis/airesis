@@ -109,6 +109,34 @@ If you want to run them all you can use Foreman
     
 and it will take care of running everything for you.
 
+Mailman
+-------
+
+Users can reply into the forum by email. Run
+
+    ruby script/mailman_server.rb
+    
+in background to receive emails.    
+
+Data
+----
+
+You'll probably need some fake data in your development environment to test stuff.
+These scripts are available:
+
+    bundle exec rake airesis:seed:more:public_proposals[number]
+
+Will generate `number` fake proposals in public open space and `number` new users (one for each proposal)
+
+    bundle exec rake airesis:seed:more:votable_proposals[number]
+
+Will generate `number` fake proposals in public open space in vote for the next three days and `number` new users (one for each proposal)
+
+    bundle exec rake airesis:seed:more:clear_proposals
+
+Destroy all the proposals in the database
+
+To generate other fake data look at `spec/factories` folder.
 
 Database
 --------

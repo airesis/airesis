@@ -72,12 +72,12 @@ module Frm
         if user
           joins(:topic).where('frm_topics.hidden = false or frm_topics.user_id = ?', user.id)
         else
-          joins(:topic).where(frm_topics: {hidden: false})
+          joins(:topic).where(frm_topics: { hidden: false })
         end
       end
 
       def topic_not_pending_review
-        joins(:topic).where(frm_topics: {state: 'approved'})
+        joins(:topic).where(frm_topics: { state: 'approved' })
       end
 
       def moderate!(posts)
@@ -99,6 +99,13 @@ module Frm
 
     def owner_or_moderator?(other_user)
       user == other_user || other_user.can_moderate_forem_forum?(forum) || other_user.forem_admin?(group)
+    end
+
+    # returns the number of his page in case of pagination on the topic
+    def page
+      ids = topic.posts.pluck(:id)
+      position = ids.index(id)
+      (position.to_f / TOPICS_PER_PAGE).ceil
     end
 
     protected

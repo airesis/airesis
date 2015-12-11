@@ -97,9 +97,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     arel (6.0.0)
-    ast (2.0.0)
-    astrolabe (1.3.0)
-      parser (>= 2.2.0.pre.3, < 3.0)
+    ast (2.1.0)
+    astrolabe (1.3.1)
+      parser (~> 2.2)
     awesome_print (1.6.1)
     aws-sdk (1.64.0)
       aws-sdk-v1 (= 1.64.0)
@@ -257,7 +257,7 @@ GEM
     hashie (3.4.2)
     highline (1.7.2)
     hike (1.2.3)
-    hitimes (1.2.2)
+    hitimes (1.2.3)
     htmlentities (4.3.4)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
@@ -317,15 +317,11 @@ GEM
       listen (~> 2.2)
       mail (>= 2.0.3)
       maildir (>= 0.5.0)
-    maktoub (0.5.2)
-      nokogiri
-      premailer-rails
-      rails (>= 4.0.0)
     method_source (0.8.2)
-    mime-types (2.6.1)
+    mime-types (2.99)
     mimemagic (0.3.0)
     mini_portile (0.6.2)
-    minitest (5.7.0)
+    minitest (5.8.3)
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -382,7 +378,7 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
-    parser (2.3.0.pre.2)
+    parser (2.2.3.0)
       ast (>= 1.1, < 3.0)
     pg (0.18.2)
     power_assert (0.2.3)
@@ -461,7 +457,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.0.0)
     rake (10.4.2)
-    rb-fsevent (0.9.5)
+    rb-fsevent (0.9.6)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
     rdoc (4.2.0)
@@ -498,12 +494,13 @@ GEM
       rspec-mocks (~> 3.3.0)
       rspec-support (~> 3.3.0)
     rspec-support (3.3.0)
-    rubocop (0.32.1)
+    rubocop (0.35.1)
       astrolabe (~> 1.3)
-      parser (>= 2.2.2.5, < 3.0)
+      parser (>= 2.2.3.0, < 3.0)
       powerpack (~> 0.1)
       rainbow (>= 1.99.1, < 3.0)
-      ruby-progressbar (~> 1.4)
+      ruby-progressbar (~> 1.7)
+      tins (<= 1.6.0)
     ruby-prof (0.15.8)
     ruby-progressbar (1.7.5)
     rubyzip (1.1.7)
@@ -610,7 +607,7 @@ GEM
     thread_safe (0.3.5)
     tilt (1.4.1)
     timecop (0.8.0)
-    timers (4.0.1)
+    timers (4.0.4)
       hitimes
     tins (1.5.4)
     truncate_html (0.9.3)
@@ -665,6 +662,7 @@ DEPENDENCIES
   coffee-rails
   cookies_eu!
   crowdin-api
+  daemons
   database_cleaner
   devise
   devise_traceable!
@@ -690,7 +688,6 @@ DEPENDENCIES
   koala
   letter_opener
   mailman
-  maktoub
   mustache
   mustache-js-rails
   newrelic_rpm

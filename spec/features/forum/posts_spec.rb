@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'requests_helper'
-require "cancan/matchers"
+require 'cancan/matchers'
 
 describe 'posts', type: :feature, js: true do
   let(:user) { create(:user) }

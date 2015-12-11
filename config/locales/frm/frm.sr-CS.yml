@@ -208,6 +208,7 @@ sr-CS:
       frm_forum:
         category: Kategorija
         title: Naslov
+        name: Naslov
         description: Opis
         moderators: Moderatori
         visible_outside: Vidljivo izvan grupe

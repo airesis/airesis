@@ -3,7 +3,12 @@ module StepsHelper
   # the tutorials are assigned to a controller and an action
   # eventualmente, lo step da mostrare
   def get_next_step(_user = current_user)
-    tutorial_assignee = current_user.todo_tutorial_assignees.joins(:tutorial).where("tutorials.action = '#{params[:action]}' and tutorials.controller = '#{params[:controller]}'").readonly(false).first
+    @tutorial_controller ||= params[:controller]
+    @tutorial_action ||= params[:action]
+    tutorial_assignee = current_user.todo_tutorial_assignees.
+      joins(:tutorial).
+      where("tutorials.action = '#{@tutorial_action}' and tutorials.controller = '#{@tutorial_controller}'").
+      readonly(false).first
     check_tutorial_status(tutorial_assignee) if tutorial_assignee
   end
 
@@ -83,6 +88,6 @@ module StepsHelper
   end
 
   # segna come completato uno step del tutorial
-  def complete_step(step, user)
+  def complete_step(_step, _user)
   end
 end

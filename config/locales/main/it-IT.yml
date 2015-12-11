@@ -59,6 +59,8 @@ it-IT:
         group_level_permission_title: Permessi a livello di gruppo
         admin_permissions: Sei amministratore di questo gruppo e disponi di tutti i permessi
         certified_cannot_edit_info: 'Sei un utente certificato: non puoi modificare il tuo Nome, Cognome ed Email'
+        twitter_url: URL Twitter
+        meetup_url: URL Meetup
       send_message:
         subject_label: Oggetto
         body_label: Testo
@@ -78,7 +80,7 @@ it-IT:
         show_urls: Mostra URL Facebook, Google+ e LinkedIn agli altri utenti
         private_messages: Ricevi messaggi privati dagli altri utenti
         join_accounts: Collega un altro account
-        join_accounts_description: "Su Airesis hai la possibilità di collegare tutti i tuoi Social Network ad un'unico account.<br/>       Seleziona i provider da collegare e avrai la possibilità di accedere sempre allo stesso account da Facebook, Google, Twitter e molti altri!"
+        join_accounts_description: 'Su %{app_short_name} hai la possibilità di collegare tutti i tuoi Social Network ad un unico account.<br/> Seleziona i provider da collegare e avrai la possibilità di accedere sempre allo stesso account da Facebook, Google, Twitter e molti altri!'
         joined_all: Hai già collegato tutti i provider disponibili. Complimenti!
         join_facebook: Collega il tuo account Facebook
         join_google: Collega il tuo account Google
@@ -262,7 +264,7 @@ it-IT:
       edit_work_areas:
         index:
           not_enabled: Aree di lavoro non abilitate
-          description: "Airesis ti permette la gestione di differenti aree di lavoro all'interno del gruppo."
+          description: "%{app_short_name} ti permette di gestire diverse aree di lavoro all'interno del gruppo."
           description2: Con questa funzionalità potrai organizzare ancora meglio i partecipanti ed i ruoli a loro assegnati.
           description3: Attenzione! Si tratta di una funzionalità avanzata e pensata solo per i gruppi più ampi e gli utenti più esperti.
           enable: Abilita le aree di lavoro
@@ -482,6 +484,7 @@ it-IT:
         you_can_choose_vote_dates: 'La proposta è in attesa di data da oltre %{count} giorni, quindi ora puoi scegliere la data anche tu.'
         no_contributes_yet: Nessun contributo ancora
         start_votation_proposal_confirmation: Sei sicuro di voler avviare immediatamente la votazione?
+        abandoned_message: 'Abbandonata %{ago}'
       new:
         quorum_prompt: Seleziona una durata
         quorum_help: Assistenza
@@ -497,11 +500,11 @@ it-IT:
         title_placeholder: 'es. "Facilitare il trasporto bici sui treni" o "Organizzare una festa per Luca"'
         interest_borders_tkn_placeholder: Comuni, province o regioni interessate dalla proposta
         tags_list_placeholder: Inserisci delle parole attinenti alla tua proposta
-        step_1_title: "Puoi proporre un problema da risolvere, un'idea da perfezionare, un'iniziativa da organizzare… L’importante è aver chiaro un obiettivo: Airesis ti aiuterà a raggiungerlo con l'aiuto degli altri utenti, attraverso un processo di problem solving condiviso."
+        step_1_title: "Puoi proporre un problema da risolvere, un'idea da perfezionare, un'iniziativa da organizzare… L’importante è aver chiaro un obiettivo: %{app_short_name} ti aiuterà a raggiungerlo con l'aiuto degli altri utenti, attraverso un processo di problem solving condiviso."
         step_2_title: 'Forse qualcuno ha già inserito una proposta simile alla tua: controlla sotto ed eventualmente interrompi la creazione per evitare duplicazioni. Unire le forze, dà forza alle tue idee! Facendo click sul titolo le proposte saranno aperte in una nuova scheda.'
-        step_4_title: "Ci siamo quasi...scegli la durata del dibattito e quella della votazione e fai clic su 'Crea la proposta'. La tua proposta sarà inserita in Airesis e potrai completarla quando vorrai con ulteriori informazioni."
+        step_4_title: "Ci siamo quasi...scegli la durata del dibattito e quella della votazione e fai clic su 'Crea la proposta'. La tua proposta sarà inserita in %{app_short_name} e potrai completarla quando vorrai con ulteriori informazioni."
         step_4_footer_html: |
-          Airesis ti aiuterà a raggiungere il tuo obiettivo attraverso un processo di problem solving condiviso: gli utenti suggeriranno modifiche ed contributi al tuo testo e <b>spetterà a te</b> integrare quelle più gradite.<br/>
+          %{app_short_name} ti aiuterà a raggiungere il tuo obiettivo attraverso un processo di problem solving condiviso: gli utenti suggeriranno modifiche ed contributi al tuo testo e <b>spetterà a te</b> integrare quelle più gradite.<br/>
           Se non lo farai la tua proposta non andrà in votazione.<br/>
           Buona fortuna e non spaventarti: potrai farti aiutare da altre persone nel tuo compito.
         category_prompt: --Seleziona una categoria--
@@ -577,7 +580,7 @@ it-IT:
         inserted_contributes: Indica quali contributi hai integrato con questa modifica della proposta
         more_solutions_explained_html: |
           <b>Come mai ti chiediamo se sai quello che fai?</b> <br/>
-          Airesis permette di inserire una o più soluzioni ad una proposta.<br/>
+          %{app_short_name} permette di inserire una o più soluzioni ad una proposta.<br/>
           Se la soluzione sarà una, al momento della votazione i partecipanti dovranno semplicemente scegliere se approvare o meno il testo che è stato redatto.<br/>
           Se le soluzioni sono più di una la votazione avverrà in maniera differente e ciascun utente potrà esprimere la propria votazione su ciascuna soluzione mediante il metodo Schulze.<br/>
           Se stai cercando di redigere la sintesi ad un problema e vuoi costruire un testo condiviso <b>non generare soluzioni alternative</b>!<br/>
@@ -701,7 +704,7 @@ it-IT:
       view:
         comments: 'Commenti (%{count})'
       index:
-        title: Ultimi post su Airesis
+        title: 'Ultimi post su %{app_short_name}'
       edit:
         title: Modifica il post
       archives:
@@ -742,7 +745,7 @@ it-IT:
       welcome: Benvenuto
       groups_title: GRUPPI
       login: ACCEDI
-      login_placeholder: Email o username
+      login_placeholder: Email
       groups_list: Gruppi a cui partecipi
       open_group: Apri un nuovo gruppo
       new_group: Cerca gruppi
@@ -770,6 +773,10 @@ it-IT:
       index:
         blog_subtitle: '%{posts} post, %{comments} commenti'
         find_blog_label: Trova un blog che potrebbe interessarti
+        search_description: Utilizza la maschera di ricerca o seleziona una delle parole chiave per trovare un blog di tuo interesse
+        search_with_query: tramite testo libero
+        find_title: "Cerca nel titolo del blog o nel nome dell'autore"
+        search_with_place: o confine geografico
     quorums:
       index:
         title: Elenco durate disponibili
@@ -855,7 +862,7 @@ it-IT:
       create_event_button: Crea un evento
     sessions:
       new:
-        login_label: Username o Email
+        login_label: Email
         remember_me_label: Ricordami su questo computer
       links:
         register: Non sei ancora registrato? Registrati!
@@ -882,7 +889,7 @@ it-IT:
         newdescription5: Se ritieni che il dibattito debba proseguire allora utilizza questo pulsante
         newdescription6: Quando il testo della proposta cambia ti verrà data la possibilità di modificare la tua valutazione
       welcome:
-        title_html: '<b>Benvenuto su Airesis, %{user}</b><br/>'
+        title_html: '<b>Benvenuto su %{app_short_name}, %{user}</b> <br/>'
         description_html: |
           Questo breve tutorial ti aiuterà nelle prime scelte all'interno della piattaforma.<br/>
           Questa che vedi è la tua scrivania: qui troverai tutte le informazioni che ti servono per restare in contatto con il tuo territorio.<br/>
@@ -927,6 +934,8 @@ it-IT:
     tags:
       show:
         related_title: Tag correlati
+        not_found: "Tag '%{tag}' non trovato"
+        title: "Elenco elementi con tag '%{tag}'"
       list_proposals_with_tag: Elenco proposte
       no_proposals_with_tag: Non vi sono ancora proposte con questo tag
       list_posts_with_tag: Elenco post
@@ -938,6 +947,8 @@ it-IT:
       groups_tab: Gruppi
       not_found:
         subtitle: Ecco le parole chiave maggiormente utilizzate su Airesis
+      index:
+        title: Elenco dei tag più utilizzati
     footer:
       for_edemocracy: "per l'e-democracy"
       go_to_main_site: Vai al sito principale
@@ -1193,7 +1204,7 @@ it-IT:
     participations_destroyed: "Errore durante l'operazione"
     error_indexer:
       title: Servizio non disponibile
-      description: Stiamo avendo problemi con sistemi interni. Prova nuovamente tra qualche minuto.
+      description: Stiamo avendo problemi con i sistemi interni. Prova nuovamente tra qualche minuto.
     error_302:
       title: Accesso non autorizzato
       description: Mi dispiace. Non disponi delle autorizzazioni per accedere a questa risorsa.
@@ -1203,7 +1214,8 @@ it-IT:
       update: "Errore durante l'aggiornamento dell'area"
     group_invitations:
       code_expired: Codice invito scaduto
-      already_participant: Fai giàparte di questo gruppo
+      already_participant: Fai già parte di questo gruppo
+      create: Nessuna email inviata
   info:
     setting_preferences: Impostazioni cambiate correttamente
     blog_created: Il tuo post è stato creato correttamente
@@ -1287,6 +1299,7 @@ it-IT:
       blog_created: Blog creato con successo
       title_updated: Il titolo del blog è stato aggiornato correttamente
       comment_added: Commento inserito correttamente
+      destroyed: Blog eliminato correttamente
     events:
       event_deleted: Evento eliminato correttamente
       event_updated: Evento aggiornato correttamente
@@ -1388,6 +1401,8 @@ it-IT:
     update_contribute:
       title: '%{user} ha modificato il suo contributo'
       view_proposal: '%{click_here} per vedere il contributo e cambiare la tua valutazione'
+    new_forum_topic:
+      view: 'per visualizzare il topic su %{app_short_name}.'
   words:
     contribute: contributo
     comment: commento
@@ -1472,5 +1487,11 @@ it-IT:
     group:
       delete_group_warning_html: 'Puoi eliminare questo gruppo. Eliminando il gruppo distruggerai tutti i forum, proposte e documenti associati ad esso. <br/> I dati non possono essere ripristinati. <br/> Stai attento!'
   confirm:
-    unintegrate: Sati per rimettere il tuo contributo in dibattito. Sei sicuro?
+    unintegrate: Stai per rimettere il tuo contributo in dibattito. Sei sicuro?
   cookie_policy: Cookies
+  blog:
+    delete:
+      confirm_message: 'Sei sicuro di che voler eliminare il tuo blog? Verranno eliminati anche %{count} messaggi.'
+  click_here_to_view: 'Clicca qui per vederlo su %{app_short_name}.'
+  unsubscribe_from_topic: 'Per non ricevere più notifiche da questo topic, %{click_here}'
+  select_debate_duration: Selezionare prima una durata di dibattito

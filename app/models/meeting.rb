@@ -3,10 +3,10 @@ class Meeting < ActiveRecord::Base
   has_many :meeting_organizations
   has_many :meeting_participations, dependent: :destroy
   has_many :yes_participations,
-           -> { where(meeting_participations: {response: 'Y'}) }, class_name: 'MeetingParticipation'
+           -> { where(meeting_participations: { response: 'Y' }) }, class_name: 'MeetingParticipation'
   has_many :no_participations,
-           -> { where(meeting_participations: {response: 'N'}) }, class_name: 'MeetingParticipation'
-  has_many :participants, -> { where(meeting_participations: {response: 'Y'}) },
+           -> { where(meeting_participations: { response: 'N' }) }, class_name: 'MeetingParticipation'
+  has_many :participants, -> { where(meeting_participations: { response: 'Y' }) },
            through: :meeting_participations, class_name: 'User', source: :user
 
   belongs_to :event

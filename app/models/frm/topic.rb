@@ -45,6 +45,7 @@ module Frm
     after_save :approve_user_and_posts, if: :approved?
     after_create :subscribe_poster
     after_create :skip_pending_review
+    after_commit :send_notifications, on: :create
 
     class << self
       def visible(user = nil)
@@ -145,6 +146,10 @@ module Frm
 
       first_post = posts.by_created_at.first
       first_post.approve! unless first_post.approved?
+    end
+
+    def send_notifications
+      NotificationForumTopicCreate.perform_async(id) if approved?
     end
   end
 end

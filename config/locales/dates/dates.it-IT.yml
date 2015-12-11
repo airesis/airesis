@@ -75,6 +75,8 @@ it-IT:
     day: giorno
     firstDay: 1
     timeFormat: 'H:mm{ - H:mm} '
+    changed: Modificato!
+    eventsFormat: H(:mm)
   date:
     formats:
       short: '%b %d'

@@ -3,13 +3,8 @@
 </div>
 <div id="territory_map" style="width:97%;height:340px;margin:5px auto;">
 </div>
-
-<script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&sensor=false">
-</script>
 <script type="text/javascript">
     $(function () {
-
         <%
             @ib = current_user.interest_borders.first
             if !@ib

@@ -12,43 +12,41 @@ describe 'the oauth2 process', type: :feature, js: true do
         last_name: Faker::Name.last_name
       }
 
-      OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
-        provider: @oauth_data[:provider],
-        uid: @oauth_data[:uid],
-        info: {
-          nickname: 'jbloggs',
-          email: 'joe@bloggs.com',
-          name: 'Joe Bloggs',
-          first_name: @oauth_data[:first_name],
-          last_name: @oauth_data[:last_name],
-          image: 'http://graph.facebook.com/1234567/picture?type=square',
-          urls: { facebook: 'http://www.facebook.com/jbloggs' },
-          location: 'Palo Alto, California',
-          verified: true
-        },
-        credentials: {
-          token: 'ABCDEF...', # OAuth 2.0 access_token, which you may wish to store
-          expires_at: 1321747205, # when the access token expires (it always will)
-          expires: true # this will always be true
-        },
-        extra: {
-          raw_info: {
-            id: '1234567',
-            name: "#{@oauth_data[:first_name]} #{@oauth_data[:last_name]}",
-            first_name: @oauth_data[:first_name],
-            last_name: @oauth_data[:last_name],
-            link: 'http://www.facebook.com/jbloggs',
-            username: 'jbloggs',
-            location: { id: '123456789', name: 'Palo Alto, California' },
-            gender: 'male',
-            email: @oauth_data[:email],
-            timezone: -8,
-            locale: 'en_US',
-            verified: true,
-            updated_time: '2011-11-11T06:21:03+0000'
-          }
-        }
-      })
+      OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new(provider: @oauth_data[:provider],
+                                                                    uid: @oauth_data[:uid],
+                                                                    info: {
+                                                                      nickname: 'jbloggs',
+                                                                      email: 'joe@bloggs.com',
+                                                                      name: 'Joe Bloggs',
+                                                                      first_name: @oauth_data[:first_name],
+                                                                      last_name: @oauth_data[:last_name],
+                                                                      image: 'http://graph.facebook.com/1234567/picture?type=square',
+                                                                      urls: { facebook: 'http://www.facebook.com/jbloggs' },
+                                                                      location: 'Palo Alto, California',
+                                                                      verified: true
+                                                                    },
+                                                                    credentials: {
+                                                                      token: 'ABCDEF...', # OAuth 2.0 access_token, which you may wish to store
+                                                                      expires_at: 1_321_747_205, # when the access token expires (it always will)
+                                                                      expires: true # this will always be true
+                                                                    },
+                                                                    extra: {
+                                                                      raw_info: {
+                                                                        id: '1234567',
+                                                                        name: "#{@oauth_data[:first_name]} #{@oauth_data[:last_name]}",
+                                                                        first_name: @oauth_data[:first_name],
+                                                                        last_name: @oauth_data[:last_name],
+                                                                        link: 'http://www.facebook.com/jbloggs',
+                                                                        username: 'jbloggs',
+                                                                        location: { id: '123456789', name: 'Palo Alto, California' },
+                                                                        gender: 'male',
+                                                                        email: @oauth_data[:email],
+                                                                        timezone: -8,
+                                                                        locale: 'en_US',
+                                                                        verified: true,
+                                                                        updated_time: '2011-11-11T06:21:03+0000'
+                                                                      }
+                                                                    })
       Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
       Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:facebook]
     end
@@ -131,7 +129,7 @@ describe 'the oauth2 process', type: :feature, js: true do
       expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_failure', provider: @oauth_data[:provider].capitalize)}/i)
     end
 
-    it "remembers FB account after joining" do
+    it 'remembers FB account after joining' do
       user = create(:user)
       login user, 'topolino'
       visit '/users/auth/facebook/callback'
@@ -148,15 +146,15 @@ describe 'the oauth2 process', type: :feature, js: true do
       authentication = create(:authentication, user: user)
       login_as user, scope: :user
 
-      #visit '/users/auth/facebook/callback'
-      #expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: @oauth_data[:provider].capitalize)}/i)
+      # visit '/users/auth/facebook/callback'
+      # expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: @oauth_data[:provider].capitalize)}/i)
 
       visit privacy_preferences_users_path
       click_link 'Detach'
       expect(page).to have_content(/#{I18n.t('info.user.IP_disabled')}/i)
 
       logout :user
-      #visit '/'
+      # visit '/'
 
       user2 = create(:user)
       login_as user2, scope: :user

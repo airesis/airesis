@@ -141,9 +141,9 @@ module Abilities
 
       can :set_votation_date, Proposal do |proposal| # return true if the user can put the proposal in votation
         (proposal.updated_at < (Time.now - OTHERS_CHOOSE_VOTE_DATE_DAYS.days)) &&
-          !proposal.private? ||
+          (!proposal.private? ||
           (proposal.private? &&
-            can_do_on_group?(user, proposal.groups.first, GroupAction::PROPOSAL_DATE))
+            can_do_on_group?(user, proposal.groups.first, GroupAction::PROPOSAL_DATE)))
       end
 
       can :regenerate, Proposal, proposal_state_id: ProposalState::ABANDONED, private: false
@@ -154,7 +154,7 @@ module Abilities
       can :destroy, Proposal do |proposal|
         (proposal.users.include? user) &&
           !(((Time.now - proposal.created_at) > EDIT_PROPOSAL_TIME_LIMIT) &&
-            (proposal.valutations > 0 || proposal.contributes.count > 0)) && proposal.in_valutation?
+            (proposal.valutations > 0 || proposal.proposal_contributes_count > 0)) && proposal.in_valutation?
       end
     end
   end

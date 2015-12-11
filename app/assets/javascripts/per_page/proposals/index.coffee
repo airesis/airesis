@@ -1,9 +1,5 @@
 window.ProposalsIndex =
   init: ->
-    $("[data-href=#{@hash_tab_value()}]").addClass('active')
-    @mytabCallback()
-    $('#proposals-tabs').on 'toggled', (event, tab)=>
-      @mytabCallback()
     $('[name="time[start_w]"],[name="time[end_w]"]').fdatetimepicker
       format: $.fn.fdatetimepicker.defaults.dateFormat
     $('.creation_date').each ->
@@ -52,21 +48,3 @@ window.ProposalsIndex =
       minimumInputLength: 1
     .on "change", (e)->
       @.closest('form').submit()
-  active_tab: ->
-    $('#proposals-tabs').find('.active')
-  hash_tab_value: ->
-    uri = new URI()
-    if uri.fragment() then uri.fragment().replace('_', '') else 'debate'
-  mytabCallback: ->
-    obj = ProposalsIndex.active_tab()
-    active_ = $('#proposals-content .content.active')
-    if !obj.data('ititialized')
-      url_ = obj.find('a').attr('data-href')
-      $.ajax
-        dataType: 'html'
-        url: url_
-        complete: (data)->
-          target = active_
-          target.html(data.responseText)
-          obj.data('ititialized', true)
-    window.location.hash = obj.find('a').attr('href').replace('#', '_')

@@ -1,5 +1,4 @@
 class SearchParticipantsController < ApplicationController
-
   before_filter :load_group
 
   authorize_resource :group
@@ -20,5 +19,4 @@ class SearchParticipantsController < ApplicationController
   def search_participant_params
     params.require(:search_participant).permit(:keywords, :role_id, :status_id)
   end
-
 end

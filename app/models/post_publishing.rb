@@ -3,7 +3,7 @@ class PostPublishing < ActiveRecord::Base
   belongs_to :group, class_name: 'Group', foreign_key: :group_id, inverse_of: :post_publishings
 
   scope :viewable_by, ->(user) do
-    joins(blog_post: {groups: :group_participations}).
+    joins(blog_post: { groups: :group_participations }).
       where("blog_posts.status = 'P' or (blog_posts.status = 'R' and group_participations.user_id = ?)",
             user.try(:id) || -1)
   end

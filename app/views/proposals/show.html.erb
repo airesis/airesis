@@ -54,13 +54,6 @@
 <script type="text/javascript">
     Airesis.show_comment_id = <%= params[:comment_id] || 'null'%>;
     Airesis.show_section_id = <%= params[:section_id] || 'null'%>;
-    Airesis.i18n.proposals = {
-        closeContributes: '<%=j t('pages.proposals.show.close_contribute')%>',
-        showGiveContributes: '<%=j t('pages.proposals.show.give_contribute')%>',
-        charactersLeft: '<%=j t('pages.proposals.show.characters_left')%>',
-        loadingContributes: '<%=j t('pages.proposals.show.loading_contributions') %>',
-        errorLoadingParagraph: '<%=j t('pages.proposals.show.error_loading_paragraph')%>'
-    };
     Airesis.i18n.proposals.vote = {
         positive: <%=VoteType::POSITIVE%>,
         neutral: <%=VoteType::NEUTRAL%>,
@@ -69,7 +62,6 @@
         confirm_neutral: '<%=j raw t('pages.votations.show.confirm_neutral', name: @proposal.title) %>',
         confirm_negative: '<%=j raw t('pages.votations.show.confirm_negative', name: @proposal.title) %>'
     };
-
     Airesis.can_participate = <%=can? :participate, @proposal%>;
     <%if signed_in? %>
     Airesis.image_tag = $('<%=j avatar(current_user, size: 32)%>');
@@ -78,6 +70,7 @@
 
     ProposalsShow.voting = <%= @proposal.voting?%>;
     ProposalsShow.voted = <%= @proposal.voted?%>;
+    ProposalsShow.abandoned = <%= @proposal.abandoned?%>;
     ProposalsShow.contributesUrl = '<%=j list_proposal_proposal_comments_url(@proposal) %>';
     ProposalsShow.rightListUrl = '<%=j left_list_proposal_proposal_comments_url(@proposal) %>';
     ProposalsShow.proposalId = <%=@proposal.id %>;

@@ -1,7 +1,6 @@
 module Frm
   module Admin
     class ForumsController < BaseController
-
       load_and_authorize_resource class: 'Frm::Forum', through: :group
 
       def index

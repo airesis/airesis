@@ -101,7 +101,6 @@ de-DE:
         sys_currency_id: Währung
       user:
         email: E-Mail-Adresse
-        login: Benutzername
         password: Passwort
         linkedinpageurl: Ihre Seite auf LinkedIn
         facebookpageurl: Ihre Seite auf Facebook

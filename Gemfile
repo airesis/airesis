@@ -4,8 +4,6 @@ ruby File.read('.ruby-version').strip
 
 gem 'rails', '~> 4.2.0'
 
-gem 'maktoub'
-
 gem 'turnout'
 
 gem 'sass-rails'
@@ -36,6 +34,8 @@ gem 'mustache-js-rails'
 gem 'slim-rails'
 
 gem 'rack-mini-profiler', require: false
+
+gem 'daemons'
 
 group :development do
   gem 'sunspot_solr'
@@ -69,7 +69,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "codeclimate-test-reporter", require: nil
+  gem 'codeclimate-test-reporter', require: nil
   gem 'ruby-prof'
   gem 'test-unit'
   gem 'simplecov', require: false

@@ -3,7 +3,6 @@ module Resque
   module Failure
     # Send an email to the developer, so we know something went foul.
     class Notifier2 < Base
-
       class << self
         attr_accessor :smtp, :sender, :recipients
       end

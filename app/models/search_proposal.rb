@@ -7,7 +7,7 @@ class SearchProposal < ActiveRecord::Base
   belongs_to :tag
   belongs_to :interest_border
 
-  attr_accessor :order_id, :time_type, :order_dir, :page, :per_page, :text, :or, :proposal_id
+  attr_accessor :order_id, :time_type, :order_dir, :page, :per_page, :text, :or, :proposal_id, :proposal_state_tab
 
   ORDER_RANDOM = '1'
   ORDER_BY_DATE = '2'
@@ -19,16 +19,36 @@ class SearchProposal < ActiveRecord::Base
   ORDER_ASC = 'a'
   ORDER_DESC = 'd'
 
-  def results
-    @search = Proposal.search(include: [:category, :quorum, {users: [:image]}, :vote_period, :groups, :supporting_groups, :interest_borders]) do
+  def counters
+    ret = { ProposalState::TAB_VOTATION => 0,
+            ProposalState::TAB_VOTED => 0,
+            ProposalState::TAB_REVISION => 0,
+            ProposalState::TAB_DEBATE => 0 }
+    search.facet(:proposal_state_id).rows.each do |facet|
+      if [ProposalState::WAIT, ProposalState::WAIT_DATE, ProposalState::VOTING].include? facet.value
+        ret[ProposalState::TAB_VOTATION] += facet.count
+      elsif [ProposalState::ACCEPTED, ProposalState::REJECTED].include? facet.value
+        ret[ProposalState::TAB_VOTED] += facet.count
+      elsif [ProposalState::ABANDONED].include? facet.value
+        ret[ProposalState::TAB_REVISION] += facet.count
+      else
+        ret[ProposalState::TAB_DEBATE] += facet.count
+      end
+    end
+    ret
+  end
+
+  def search
+    Proposal.search do
       fulltext text, minimum_match: self.or if text
+      facet :proposal_state_id
       all_of do
-        if proposal_state_id
-          if proposal_state_id == ProposalState::TAB_VOTATION
+        if proposal_state_tab
+          if proposal_state_tab == ProposalState::TAB_VOTATION
             @states = [ProposalState::WAIT, ProposalState::WAIT_DATE, ProposalState::VOTING]
-          elsif proposal_state_id == ProposalState::TAB_VOTED
+          elsif proposal_state_tab == ProposalState::TAB_VOTED
             @states = [ProposalState::ACCEPTED, ProposalState::REJECTED]
-          elsif proposal_state_id == ProposalState::TAB_REVISION
+          elsif proposal_state_tab == ProposalState::TAB_REVISION
             @states = [ProposalState::ABANDONED]
           else
             @states = [ProposalState::VALUTATION]
@@ -104,7 +124,21 @@ class SearchProposal < ActiveRecord::Base
       end
       paginate page: page, per_page: per_page if page && per_page
     end
-    @proposals = @search.results
+  end
+
+  def hits
+    @hits ||= search.hits
+  end
+
+  def results
+    ids = hits.map { |hit| hit.primary_key.to_i }
+    Proposal.
+      includes(:proposal_type, :user_votes, :category, :quorum, :groups, :interest_borders).
+      select('proposals.*',
+             Proposal.alerts_count_subquery(user_id).as('alerts_count'),
+             Proposal.ranking_subquery(user_id).as('ranking')).
+      where(id: ids).
+      order("idx(array#{ids}::integer[], proposals.id)")
   end
 
   def similar

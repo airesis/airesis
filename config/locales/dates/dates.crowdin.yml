@@ -75,6 +75,8 @@ crowdin:
     day: crwdns5778:0crwdne5778:0
     firstDay: 0
     timeFormat: 'crwdns7923:0[ddd]crwdnd7923:0[dd]crwdne7923:0'
+    changed: crwdns9957:0crwdne9957:0
+    eventsFormat: crwdns9958:0crwdne9958:0
   date:
     order:
       - crwdns5781:0crwdne5781:0

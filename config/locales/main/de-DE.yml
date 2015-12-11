@@ -74,7 +74,6 @@ de-DE:
         show_urls: Facebook-, Google+-und Linkedin-Urls den Benutzern anzeigen
         private_messages: Erhalte private Nachrichten von anderen Benutzern
         join_accounts: Einem anderen Account beitreten
-        join_accounts_description: 'Mit Airesis hast Du die Möglichkeit alle Deine sozialen Netzwerke in einem einzigen Account zu verbinden. <br/> Wähle den Provider aus um dich anzumelden, so kannst Du Dich jederzeit über Facebook, Google, Twitter und vielen weiteren sozialen Netzwerken einloggen.'
         joined_all: Danke! Du bist bereits allen verfügbaren Providern beigetreten!
         join_facebook: Logge dich mit Facebook ein
         join_google: Logge dich mit deinem Google-Account ein
@@ -247,7 +246,6 @@ de-DE:
       edit_work_areas:
         index:
           not_enabled: Arbeitsbereiche nicht aktiviert
-          description: Bei Airesis können Sie unterschiedliche Arbeitsbereiche innerhalb der Gruppe zu verwalten.
           description2: Mit dieser Funktion können Sie die Teilnehmer und ihre Rollen besser verwalten.
           description3: Vorsicht! Das ist eine Funktion für Fortgeschrittene. Nur für größere Gruppen und Experten gedacht.
           description4: Bevor du den Arbeitsraum aktivierst, kläre ob du Gruppenmitglieder direkt verwalten kannst, mit der Benutzung von
@@ -464,10 +462,7 @@ de-DE:
         title_placeholder: 'Beisp. "Bike-Transport in den Zügen erleichtern"'
         interest_borders_tkn_placeholder: Städte, Regionen oder Länder, die der Vorschlag interessiert
         tags_list_placeholder: Füge Tags für deinen Vorschlag hinzu
-        step_1_title: 'Sie können zu lösendes Problem, eine Verbesserungsvorschlag zu einer Idee, eine zu organisierende Initiative präsentieren ... Das wichtigte ist, dass Sie ein klares Ziel haben: Airesis hilft Ihnen, es mit Hilfe von anderen Menschen, durch einen Prozess der gemeinsamen Problemlösung zu erreichen.'
         step_2_title: 'Möglicherweise hat jemand bereits einen ähnlichen Vorschlag erstellt: Um Doppelarbeit zu vermeiden, überprüfen Sie hier unten ob das der Fall ist und brechen Sie evnt. Ihre Erstellung des Vorschlags ab. Gemeinsam sind Ihre Ideen stärker! Wenn Sie auf den Titel klicken, werden die Vorschläge in einem neuen Tab geöffnet.'
-        step_4_title: "Perfekt! Wählen Sie Ihre Optionen und Klicken Sie auf 'Vorschlag erstellen' um die Bedienungshilfe zu vervollständigen. Ihr Vorschlag wird in Airesis aufgenommen und Sie können ihn dann jederzeit mit mehr Informationen ergänzen."
-        step_4_footer_html: 'Airesis wird Ihnen helfen, Ihr Ziel durch gemeinsame Problemlösung zu erreichen: Benutzer werden Änderungen und Beiträge zu Ihrer Text vorschlagen und <b>es liegt an Ihnen</b>, die am meisten beliebten zu integrieren. <br/> Wenn Sie es nicht tun, wird Ihr Vorschlag nicht zur Abstimmungsphase gehen. <br/> Viel Glück und nicht erschrecken: es kann Ihnen von anderen Menschen bei Ihrer Aufgabe geholfen werden.'
         category_prompt: --Wählen Sie eine Kategorie aus--
         tags_separated_by_comma: (durch Komma getrennt)
         cannot_add_proposal_in_work_area: Sie haben nicht die erforderlichen Berechtigungen zum Hinzufügen des Vorschlags in allen Bereichen
@@ -531,7 +526,6 @@ de-DE:
         you_know_what_you_do: Weißt du was du tun wirst?
         schulze_title: Eine oder mehrere Lösungen?
         inserted_contributes: Markiere die Beiträge, die du in dieser Überarbeitung hinzugefügt hast
-        more_solutions_explained_html: '<b>Warum fragen wir Sie, ob Sie wissen, was Sie tun?</b> <br/> Airesis erlaubt Ihnen eine oder mehrere Lösungen einem Vorschlag hinzufügen. <br/> Wenn es nur eine Lösung gibt, haben die Teilnehmer in der Abstimmungsphase die Möglichkeit den  ausgearbeiteten Text anzunehmen oder abzulehnen.<br/> Wenn es mehr als eine Lösung gibt, die Abstimmung läuft anders ab und jedem Teilnehmer kann seine Stimmen anhand der Schulze-Methode abgeben.<br/> Wenn Sie versuchen die Zusammenfassung eines Problems zu erarbeiten und einen gemeinsamen Text wollen <b>erstellen Sie keine Alternativlösungen </b>! <br/> Wenn Sie im Gegenteil auf der Suche nach einer Umfrage sind oder eine Alternative wollen, die nicht in der ersten Lösung integriert ist dann gehen Sie weiter. <br/> Denken Sie daran, dass Sie dem Ende der Debatte Lösungen hinzufügen und entfernen können, sowie die Methode der verwendeten Abstimmung ändern können.'
         paragraph: Absatz
         confirm_paragraph_deletion: Wollen Sie diesen Paragraph wirklich löschen?
         confirm_solution_deletion: Wollen Sie diese Lösung wirklich löschen?
@@ -686,7 +680,6 @@ de-DE:
       welcome: Willkommen
       groups_title: GRUPPEN
       login: LOGIN
-      login_placeholder: E-Mail oder Benutzername
       groups_list: Gruppen, an denen Sie beteiligt sind
       open_group: Erstellen Sie eine neue Gruppe
       new_group: Gruppen suchen
@@ -779,7 +772,6 @@ de-DE:
       create_event_button: Neues Ereignis erstellen
     sessions:
       new:
-        login_label: Benutzername oder E-Mail
         remember_me_label: Auf diesem Computer speichern
       links:
         register: Noch nicht registriert? Anmelden!
@@ -801,7 +793,6 @@ de-DE:
         newdescription5: Wenn Sie denken, dass die Debatte fortgesetzt werden sollte, verwenden Sie diese Schaltfläche
         newdescription6: Wenn der Text des Vorschlags aktualisiert wird, kannst Du Deine Bewertung ändern
       welcome:
-        title_html: '<b>Willkommen auf Airesis, %{user}</b><br/>'
         description_html: 'Diese kurze Anleitung hilft Dir bei der ersten Auswahl innerhalb der Plattform. <br/>Dies ist Dein Arbeitsplatz: Hier findest Du alle notwendigen Informationen um in Kontakt mit Deinem Territorium zu bleiben. <br/> Du kannst Deine Vorschläge und Gruppen managen, über die Ereignisse in Deiner Umgebung kommst Du mit anderen Bürgern in Kontakt. <br/> Verbessere Airesis durch das Senden eines Feedbacks an <a href="mailto:info@airesis.it">info@airesis.it</a>.<br/>'
       choose_follow:
         description_html: 'Hier sind Sie die aktivsten Gruppen in den Gebieten innerhalb Deiner Interessensgrenzen. <br /> Wähle jene, an welcher Du Dich beteiligen möchtes, dadurch kommst Du in die Lage, Kontakt mit ihnen aufzunehmen und an deren Veranstaltungen und Vorschlägen teilzunehmen.<br />Ein Klick um auszuwählen, ein zweiter um abzuwählen.<br />'

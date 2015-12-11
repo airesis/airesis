@@ -6,13 +6,13 @@
   <% else %>
       <% @quorum_collection = Quorum.visible.order('seq nulls last') %>
   <% end %>
-
+  <%= @proposal.quorum_id %>
   <%= f.input :quorum_id, as: :select,
               collection: @quorum_collection.collect { |p| [p.name, p.id, { 'data-description' => p.description,
                                                                             'data-explanation' => p.explanation,
                                                                             'data-time_fixed' => p.time_fixed?,
                                                                             'data-minutes' => p.minutes }] },
-              prompt: t('pages.proposals.new.quorum_prompt'), input_html: { style: 'width: 100%' } %>
+              include_blank: t('pages.proposals.new.quorum_prompt'), input_html: { style: 'width: 100%' } %>
 
   <div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
   </div>
@@ -28,67 +28,7 @@
   <legend>2. <%= t('pages.proposals.show.choose_votation_period') %></legend>
   <div class="content">
     <div>
-      <%= image_tag 'ajax-loader.gif', style: "height: 26px;" %>
-      <b><%= 'Select debate duration' %></b>
+      <%= I18n.t('select_debate_duration') %>
     </div>
   </div>
 </fieldset>
-
-<script type="text/javascript">
-    $(function () {
-        var quorum_ = $('#proposal_quorum_id');
-        quorum_.select2({
-            minimumResultsForSearch: -1,
-            templateResult: formatQuorum,
-            templateSelection: formatQuorumSelection,
-            escapeMarkup: function (m) {
-                return m;
-            }
-        });
-
-        quorum_.on("change", function (e) {
-            var selected_ = quorum_.find('option:selected');
-            var exlanation_ = selected_.data('explanation');
-            var timefixed_ = selected_.data('time_fixed');
-            var minutes_ = selected_.data('minutes');
-            var id_ = selected_.val();
-            if (exlanation_) {
-                $('#quorum_explanation').html(exlanation_).show();
-            }
-            else {
-                $('#quorum_explanation').hide();
-            }
-            var choose_vote = $('#choose_votation');
-            if (timefixed_) {
-                $.ajax({
-                    url: '<%=dates_quorums_url%>',
-                    data: {id: id_, group_id: <%=@group.try(:id) || 'null'%>},
-                    success: function () {
-                        choose_vote.show();
-                        var now_ = new Date();
-                        var end_ = addMinutes(now_, (parseInt(minutes_) + <%=DEBATE_VOTE_DIFFERENCE.to_i / 60%>));
-
-                        //votation start time
-                        var upperend_ = upperMinutes(end_, 5);
-                        //votation end time
-                        var min_votation_end_ = addMinutes(upperend_, 10);
-                        var votation_end_ = addMinutes(upperend_, 2880);
-
-                        var start_field = $("#proposal_votation_start");
-                        var end_field = $("#proposal_votation_end");
-
-                        choose_vote.find('.start_vot').html('<%=t('pages.quorums.index.debate_end')%>' + ' (' + dateToString(upperend_) + ')');
-                        start_field.fdatetimepicker("setStartDate", upperend_);
-                        start_field.fdatetimepicker("setDate", upperend_);
-                        end_field.fdatetimepicker("setStartDate", min_votation_end_);
-                        end_field.fdatetimepicker("setDate", votation_end_);
-                    }
-                });
-
-            }
-            else {
-                choose_vote.hide();
-            }
-        });
-    })
-</script>

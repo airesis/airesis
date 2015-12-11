@@ -86,7 +86,6 @@ ro-RO:
         sys_currency_id: Monedă
       user:
         email: Adresă de e-mail
-        login: Nume de utilizator
         password: Parola
         linkedinpageurl: Pagina ta pe LinkedIn
         facebookpageurl: Pagina ta pe Facebook

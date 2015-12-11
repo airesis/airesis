@@ -1,14 +1,12 @@
 class ProposalLivesController < ApplicationController
-
-  #load_and_authorize_resource
-  #carica la proposta
+  # load_and_authorize_resource
+  # carica la proposta
   before_filter :load_proposal
 
-  ###SICUREZZA###
+  # ##SICUREZZA###
 
-  #l'utente deve aver fatto login
+  # l'utente deve aver fatto login
   before_filter :authenticate_user!
-
 
   def show
     @life = @proposal.proposal_lives.find(params[:id])
@@ -20,5 +18,4 @@ class ProposalLivesController < ApplicationController
     @proposal = Proposal.find(params[:proposal_id])
     @group = @proposal.groups.first if @proposal.private
   end
-
 end

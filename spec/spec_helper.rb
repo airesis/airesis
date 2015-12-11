@@ -1,4 +1,4 @@
-require "codeclimate-test-reporter"
+require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
 
 require File.expand_path('../../config/environment', __FILE__)
@@ -19,7 +19,6 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
-
   config.use_transactional_fixtures = false
 
   config.before(:each) do
@@ -36,7 +35,7 @@ RSpec.configure do |config|
                     mts1.googleapis.com fonts.googleapis.com connect.facebook.net/en/sdk.js fbstatic-a.akamaihd.net
                     graph.facebook.com connect.facebook.net fbexternal-a.akamaihd.net
                     fbcdn-profile-a.akamaihd.net cdn.ckeditor.com fbcdn-photos-e-a.akamaihd.net
-                    platform.twitter.com www.gravatar.com cdnjs.cloudflare.com)
+                    platform.twitter.com www.gravatar.com cdnjs.cloudflare.com calendar.google.com)
 
   Capybara::Webkit.configure do |config|
     allowed_urls.each do |allowed_url|
@@ -59,12 +58,13 @@ RSpec.configure do |config|
   Warden.test_mode!
 
   # loading seeds
-  #config.include Rails.application.routes.url_helpers
+  # config.include Rails.application.routes.url_helpers
   config.include Rails.application.routes.url_helpers
 
   Capybara.javascript_driver = :webkit
 
-  Capybara::Screenshot.autosave_on_failure = true unless ENV['DISABLE_SCREENSHOTS']
+  Capybara::Screenshot.autosave_on_failure = true
+  Capybara::Screenshot.append_timestamp = true
 end
 
 OmniAuth.config.test_mode = true

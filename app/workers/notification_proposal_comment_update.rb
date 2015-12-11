@@ -14,8 +14,8 @@ class NotificationProposalCommentUpdate < NotificationSender
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(comment_user.id, @proposal.id)
     name = (nickname && @proposal.is_anonima?) ? nickname.nickname : comment_user.fullname # send nickname if proposal is anonymous
 
-    data = {comment_id: comment.id.to_s, proposal_id: @proposal.id, to_id: "proposal_c_#{@proposal.id}", username: name, user_id: comment_user.id, name: name, title: @proposal.title}
-    query = {comment_id: comment.id.to_s}
+    data = { comment_id: comment.id.to_s, proposal_id: @proposal.id, to_id: "proposal_c_#{@proposal.id}", username: name, user_id: comment_user.id, name: name, title: @proposal.title }
+    query = { comment_id: comment.id.to_s }
     if @proposal.private?
       group = @proposal.groups.first
       data[:group] = group.name

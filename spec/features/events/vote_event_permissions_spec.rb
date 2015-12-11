@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe "check permissions on vote events", type: :feature, seeds: true do
+describe 'check permissions on vote events', type: :feature, seeds: true do
   let!(:user) { create(:user) }
   let!(:group) { create(:group, current_user_id: user.id) }
   let!(:event) { create(:vote_event, user: user) }
@@ -10,14 +10,14 @@ describe "check permissions on vote events", type: :feature, seeds: true do
   let!(:ability) { Ability.new(user) }
   let!(:user2) { create(:user) }
   let!(:user3) { create(:user) }
-  let!(:group2) { create(:group, current_user_id: user2.id)}
+  let!(:group2) { create(:group, current_user_id: user2.id) }
 
   before :each do
     create_participation(user2, group)
     create_participation(user3, group)
   end
 
-  it "manage correctly the permissions on vote events" do
+  it 'manage correctly the permissions on vote events' do
     # can manage his event
     expect(ability).to be_able_to(:read, event)
     expect(ability).to be_able_to(:edit, event)

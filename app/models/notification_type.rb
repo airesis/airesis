@@ -22,6 +22,8 @@ class NotificationType < ActiveRecord::Base
   CONTRIBUTE_UPDATE = 29
   PHASE_ENDING = 30
 
+  NEW_FORUM_TOPIC = 'new_forum_topic'
+
   belongs_to :notification_category
   has_many :blocked_alerts
   has_many :notifications

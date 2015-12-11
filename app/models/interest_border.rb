@@ -17,12 +17,12 @@ class InterestBorder < ActiveRecord::Base
   SHORT_COUNTRY = 'S'
   SHORT_CONTINENT = 'K'
   SHORT_GENERIC = 'G'
-  TYPE_MAP = {MUNICIPALITY => SHORT_MUNICIPALITY,
-              REGION => SHORT_REGION,
-              PROVINCE => SHORT_PROVINCE,
-              COUNTRY => SHORT_COUNTRY,
-              CONTINENT => SHORT_CONTINENT,
-              GENERIC => SHORT_GENERIC}
+  TYPE_MAP = { MUNICIPALITY => SHORT_MUNICIPALITY,
+               REGION => SHORT_REGION,
+               PROVINCE => SHORT_PROVINCE,
+               COUNTRY => SHORT_COUNTRY,
+               CONTINENT => SHORT_CONTINENT,
+               GENERIC => SHORT_GENERIC }
   I_TYPE_MAP = TYPE_MAP.invert
 
   def district
@@ -115,7 +115,7 @@ class InterestBorder < ActiveRecord::Base
   end
 
   def as_json(_options = {})
-    {id: key, text: text}
+    { id: key, text: text }
   end
 
   def self.find_or_create_by_key(key)

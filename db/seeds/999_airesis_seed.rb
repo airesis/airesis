@@ -47,6 +47,7 @@ NotificationType.create(name: 'new_posts_group', notification_category_id: nc10.
 NotificationType.create(name: 'new_participation_request', notification_category_id: nc10.id, email_delay: 2, alert_delay: 1, cumulable: true) { |c| c.id = 12 }.save
 NotificationType.create(name: 'new_posts_user_follow', notification_category_id: nc10.id, email_delay: 2, alert_delay: 1) { |c| c.id = 15 }.save
 NotificationType.create(name: 'new_blog_comment', notification_category_id: nc10.id, email_delay: 2, alert_delay: 1, cumulable: true) { |c| c.id = 26 }.save
+NotificationType.create(name: 'new_forum_topic', notification_category: nc10, email_delay: 2, alert_delay: 1, cumulable: false) { |c| c.id = 31 }.save
 ProposalCategory.create(name: 'no_category', seq: 20) { |c| c.id = 5 }.save
 ProposalCategory.create(name: 'education', seq: 9) { |c| c.id = 7 }.save
 ProposalCategory.create(name: 'health', seq: 6) { |c| c.id = 8 }.save
@@ -200,3 +201,13 @@ connection.execute "CREATE OR REPLACE FUNCTION lower_unaccent(text)
     , '123aaaaaaaaaaaaaaaaaaacccccccddeeeeeeeeeeeeeeeeeeeeggiiiiiiiiiiiiiiiiiillnnnnnnooooooooooooooooooorrrsssssssuuuuuuuuuuuuuuuuyyyyzzzzzz'
     ));
     $$ IMMUTABLE STRICT LANGUAGE SQL"
+
+connection.execute 'CREATE OR REPLACE FUNCTION idx(anyarray, anyelement)
+  RETURNS INT AS
+$$
+  SELECT i FROM (
+     SELECT generate_series(array_lower($1,1),array_upper($1,1))
+  ) g(i)
+  WHERE $1[i] = $2
+  LIMIT 1;
+$$ LANGUAGE SQL IMMUTABLE;'

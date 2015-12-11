@@ -53,9 +53,21 @@ crowdin:
       alerts: crwdns8217:0crwdne8217:0
       emails: crwdns8218:0crwdne8218:0
       no_emails: crwdns8219:0crwdne8219:0
+      desktop: crwdns9956:0crwdne9956:0
+      proposals_portlet: crwdns9943:0crwdne9943:0
+      vote_portlet: crwdns9944:0crwdne9944:0
+      topics: crwdns9945:0crwdne9945:0
+      explore: crwdns9946:0crwdne9946:0
+      click_logo: crwdns9947:0crwdne9947:0
+      click_groups: crwdns9948:0crwdne9948:0
+      click_personal: crwdns9949:0crwdne9949:0
+      click_info: crwdns9950:0crwdne9950:0
+      click_donation: crwdns9951:0crwdne9951:0
     users_border_preferences:
       intro: crwdns8220:0crwdne8220:0
     welcome:
       intro: 'crwdns8221:0%{name}crwdne8221:0'
     next: crwdns7958:0crwdne7958:0
     back: crwdns7959:0crwdne7959:0
+    done_label: crwdns9952:0crwdne9952:0
+    skip_label: crwdns9953:0crwdne9953:0

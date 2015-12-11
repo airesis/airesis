@@ -19,6 +19,7 @@ sr-CS:
       find_groups: Pretraga grupa
       parma_login: Prijavljivanje preko Parma
       tecnologiedemocratiche_login: Prijavljivanje preko Tecnologie Democratiche
+      tecnologiedemocratiche: Tecnologie Democratiche
     user:
       notifications: Upozorenja i obaveštenja
       privacy: Nalog i privatnost
@@ -40,6 +41,7 @@ sr-CS:
         profile_info_unconfirmed: (nepotvrđen korisnik)
         send_message_button: Pošaljite privatnu poruku
         name_label: Ime
+        surname_label: Prezime
         email_label: E-pošta
         edit_image: Uređivanje slike
         to_be_confirmed: da se potvrdi
@@ -56,6 +58,7 @@ sr-CS:
         certified_from: Potvrđen iz
         group_level_permission_title: Dozvole nivoa grupe
         admin_permissions: Vi ste administrator ove grupe i imate sve dozvole
+        certified_cannot_edit_info: 'Vi ste potvrđen korisnik: ne možete uređivati svoje ime, prezime i e-poštu'
       send_message:
         subject_label: Naslov
         body_label: Sadržaj
@@ -75,7 +78,6 @@ sr-CS:
         show_urls: Prikazivanje Facebook, Google+ i LinkedIn URL-ova korisnicima
         private_messages: Primanje privatnih poruka od drugih korisnika
         join_accounts: Pridruživanje drugog naloga
-        join_accounts_description: 'Na Airesisu imate mogućnost da povežete sve svoje društvene mreže u jedan nalog. <br/> Izaberite provajdera da se povežete, i uvek ćete biti u mogućnosti da pristupite istom Facebook, Google, Twitter nalogu i mnogo više!'
         joined_all: Već ste pristupili svim raspoloživim provajderima. Hvala vam!
         join_facebook: Pridružite vaš Facebook nalog
         join_google: Pridružite vaš Google nalog
@@ -237,6 +239,7 @@ sr-CS:
           advanced: Napredno
           time_description: 'Debata traje %{days} %{hours} %{minutes}'
           simple_percentage_description: 'a zrelost je jednaka ili viša od %{good_score}%.'
+          advanced_participation_description: '(%{current_number} od %{total_number} koji imaju pravo) <b>(prosečna vrednost: %{average})</b>'
           advanced_percentage_description: 'Ako je zrelost niža od %{bad_score}% predlog se odbacuje.'
           advanced_percentage_description3: Predlog ostaje u debati ako je zrelost između dve granične vrednosti.
         active: Aktivno
@@ -258,9 +261,9 @@ sr-CS:
       edit_work_areas:
         index:
           not_enabled: Radna područja nisu omogućena
-          description: Airesis vam dozvoljava da upravljate različitim radnim područjima unutar grupe.
           description2: Sa ovom odlikom možete bolje upravljati učesnicima i njihovim funkcijama.
           description3: Budite oprezni! Ovo je napredna odlika dizajnirana samo za veće grupe i stručne korisnike.
+          enable: Omogućite radna područja
           description4: 'Pre aktiviranja radnog područja, proverite da li možete da upravljate članovima grupe direktno pomoću '
         manage:
           new_area: Kreiranje radnog područja
@@ -287,6 +290,7 @@ sr-CS:
         anything: Svi
         operations_on_user: Dostupne operacije na korisnicima
         send_email: Pošaljite e-poštu
+        surname: Prezime
         name: Ime
         role: Funkcija
         member_since: Član od
@@ -379,6 +383,7 @@ sr-CS:
         choose_votation_period: Izaberite period glasanja
         choose_votation_period_alert: Da li ste sigurni u vezi perioda glasanja? Kasnije ga nećete moći promeniti!
         choose_votation_period_button: Biram!
+        create_votation_period: Datumi za glasanje nisu podešeni, molimo podesite novi datum
         no_periods_contact_group: Datumi za glasanje nisu podešeni, molimo obratite se administratoru da izaberete datum.
         choose_new_votation_period_button: Molimo izaberite novi datum glasanja
         loading_contributions: 'Učitavanje predloženih ideja - doprinosa, molimo sačekajte...'
@@ -490,13 +495,7 @@ sr-CS:
         title_placeholder: npr. „Olakšavanje prevoza bicikala u vozovima“
         interest_borders_tkn_placeholder: Gradovi, regioni ili države zainteresovani za predlog
         tags_list_placeholder: Unesite nekoliko oznaka za vaš predlog
-        step_1_title: 'Možete predstaviti problem koji treba rešiti, ideju koju treba poboljšati, inicijativu koju treba organizovati... Ono što je važno je da imate jasan cilj: Airesis će vam pomoći da ostvarite taj cilj uz pomoć drugih ljudi, kroz proces zajedničkog rešavanja problema.'
         step_2_title: 'Možda je neko već kreirao sličan predlog: proverite ispod i eventualno zaustavite kreiranje kako bi se izbeglo dupliranje. Udruživanje snaga ojačava vaše ideje! Klikom na zaglavlje predloga će on biti otvoren u novom prozoru.'
-        step_4_title: Odlično! Izaberite svoje opcije i kliknite na „Kreiranje predloga“ za završetak ovog vodiča. Vaš predlog će biti uključen u Airesis i možete, kad god želite, popuniti ga s dodatnim informacijama.
-        step_4_footer_html: |
-          Airesis će vam pomoći da postignete svoj cilj kroz zajedničko rešavanje problema: korisnici će predlagati izmene i ideje za vaš tekst a <b>na vama je</b> da stavite one koje vam se najviše dopadaju.<br/>
-          Ako to ne uradite, vaš predlog neće otići do faze glasanja.<br/>
-          Srećno i ne brinite: drugi ljudi će vam pomoći u tom zadatku.
         category_prompt: --Odaberite kategoriju--
         tags_separated_by_comma: (odvojeno zarezima)
         cannot_add_proposal_in_work_area: Nemate potrebne dozvole da dodate predlog u bilo koje područje
@@ -565,14 +564,6 @@ sr-CS:
         you_know_what_you_do: Da li znate šta ćete uraditi?
         schulze_title: Jedno ili više rešenja?
         inserted_contributes: 'Obeležite predložene ideje - doprinose koje ste integrislai u ovu ispravku'
-        more_solutions_explained_html: |
-          <b>Zašto vas pitamo da li znate šta radite?</b><br/>
-          Airesis vam dozvoljava da dodate jedno ili više rešenja u predlog.<br/>
-          Ako će biti samo jedno rešenje, učesnici će tokom faze glasanja imati opciju da odobre ili odbiju nacrt teksta.<br/>
-          Ako će biti više od jednog rešenja, glasanje će biti drugačije i svaki učesnik će moći da glasa koristeći Šulcov metod.<br/>
-          Ako pokušavate da napravite nacrt rezimea problema i želite da podelite tekst <b>nemojte kreirati alternativna rešenja</b>!<br/>
-          Nasuprot tome, ako pretražujete anketu i želite alternativu koja nije integrisana u prvo rešenje, onda nastavite.<br/>
-          Upamtite da, pre nego što se debata završi, moći ćete da dodajete ili uklanjate rešenja, menjajući korišćeni metod glasanja.
         paragraph: Stavka
         confirm_paragraph_deletion: Da li ste sigurni da želite da izbrišete ovu stavku?
         confirm_solution_deletion: Da li ste sigurni da želite da izbrišete ovo rešenje?
@@ -691,8 +682,6 @@ sr-CS:
       published_button: Objavljene poruke
       view:
         comments: 'Komentari (%{count})'
-      index:
-        title: Poslednje poruke na Airesisu
       edit:
         title: Uredite poruku
       archives:
@@ -733,7 +722,7 @@ sr-CS:
       welcome: Dobro došli
       groups_title: GRUPE
       login: PRIJAVLJIVANJE
-      login_placeholder: E-pošta ili korisničko ime
+      login_placeholder: E-pošta
       groups_list: Grupe u kojima učestvujete
       open_group: Osnujte novu grupu
       new_group: Pronađite grupe
@@ -846,7 +835,7 @@ sr-CS:
       create_event_button: Kreirajte novi događaj
     sessions:
       new:
-        login_label: Korisničko ime ili e-pošta
+        login_label: E-pošta
         remember_me_label: Zapamti me
       links:
         register: Još se niste registrovali? Prijavite se!
@@ -873,7 +862,6 @@ sr-CS:
         newdescription5: Ako mislite da debata treba da se nastavi, koristite ovaj taster
         newdescription6: Kada tekst predloga bude ažuriran, bićete u mogućnosti da promenite svoju ocenu
       welcome:
-        title_html: '<b>Dobro došli na Airesis, %{user}</b><br/>'
         description_html: |
           Ovaj kratak tutorijal će vam pomoći u prvim izborima unutar platforme.<br/>
           Ovo je vaša radna površina: ovde ćete pronaći sve informacije koje trebate da ostanete u kontaktu sa svojom teritorijom.<br/>
@@ -1331,6 +1319,7 @@ sr-CS:
       follow_google: pratite nas na Google+
       footer:
         registered_at: 'Primili ste ovu e-poštu jer ste registrovani na %{url}.'
+        email_label: 'E-pošta:'
       edit_preferences: Postavke
       click_here: Kliknite ovde
     new_contribute:
@@ -1454,5 +1443,8 @@ sr-CS:
   keep_reading: nastavite čitanje
   feedback_subject: '%{time} - Nova povratna informacija'
   delete_event_confirm: Da li ste sigurni da želite da izbrišete ovaj komentar?
+  groups:
+    group:
+      delete_group_warning_html: 'Nije vam dozvoljeno da izbrišete ovu grupu. Brisanjem grupe ćete uništiti sve forume, predloge i dokumenta povezana s grupom.<br/>Podaci ne mogu biti povraćeni.<br/>Budite oprezni!'
   confirm:
     unintegrate: Vraćate svoj doprinos u diskusiju. Da li ste sigurni?

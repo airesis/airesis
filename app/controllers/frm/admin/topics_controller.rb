@@ -1,7 +1,6 @@
 module Frm
   module Admin
     class TopicsController < BaseController
-
       load_and_authorize_resource :forum, class: 'Frm::Forum', through: :group
       load_and_authorize_resource class: 'Frm::Topic', through: :forum
 
@@ -45,7 +44,6 @@ module Frm
       def topic_params
         params.require(:frm_topic).permit(:subject, :posts_attributes, :tags_list, :pinned, :locked, :hidden, :forum_id, as: :admin)
       end
-
     end
   end
 end

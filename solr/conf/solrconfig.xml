@@ -138,12 +138,12 @@
     </updateLog>
 
      <autoCommit> 
-       <maxTime>15000</maxTime> 
+       <maxTime>500</maxTime>
        <openSearcher>false</openSearcher> 
      </autoCommit>
 
      <autoSoftCommit> 
-       <maxTime>5000</maxTime> 
+       <maxTime>500</maxTime>
      </autoSoftCommit>
   </updateHandler>
 
