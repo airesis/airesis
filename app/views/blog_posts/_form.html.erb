@@ -58,10 +58,11 @@
 <script type="text/javascript">
 
     $(function () {
+        var form = $('#new_blog_post');
         var description_editor = CKEDITOR.instances['blog_post_body'];
         description_editor.on('change', function () {
             description_editor.updateElement();
-            $('form').formValidation('revalidateField', 'blog_post[body]');
+            form.formValidation('revalidateField', 'blog_post[body]');
         });
 
         $('#blog_post_tags_list').tokenInput("<%=tags_path(format: :json )%>", {
