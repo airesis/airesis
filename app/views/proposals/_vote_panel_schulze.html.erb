@@ -28,7 +28,6 @@
              method: :put, remote: true do |f| %>
     <%= f.hidden_field 'votes' %>
 
-    <%= render partial: 'fragments/how_schulze_works' %>
     <% if current_user.rotp_enabled && ::Configuration.rotp %>
         <%= f.label t('pages.proposals.show.security_token') %>
         <%= f.text_field 'token', maxlength: 6 %>

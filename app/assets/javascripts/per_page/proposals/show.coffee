@@ -48,36 +48,8 @@ window.ProposalsShow =
     $(document).ajaxError (e, XHR, options)->
       if XHR.status == 401
         window.location.replace(Airesis.new_user_session_path)
-
     if @voting
-      @initSortable()
-      $('.vote_solution_title').each ->
-        $(this).on 'click', ->
-          scrollToElement $('.solution_main[data-solution_id=' + $(this).parent().data('id') + ']')
-          false
-        $(this).qtip content: $('.proposal_content[data-id=' + $(this).parent().data('id') + ']').clone()
-      $('#schulze-submit').on 'click', =>
-        votestring = ''
-        $('.vote-items').each (c_id, cont)->
-          items = $(cont).find('.vote-item')
-          return true unless items.length
-          votestring += ';' unless votestring is ''
-          items.each (item_id, item)->
-            if (item_id isnt 0)
-              votestring += ','
-            votestring += $(item).data('id')
-        $('#data_votes').val votestring
-        true
-      $('.votebutton').on 'click', ->
-        type = $(this).data('vote-type')
-        message = if type == Airesis.i18n.proposals.vote.positive then Airesis.i18n.proposals.vote.confirm_positive else if type == Airesis.i18n.proposals.vote.neutral then Airesis.i18n.proposals.vote.confirm_neutral else Airesis.i18n.proposals.vote.confirm_negative
-        if confirm(message)
-          $('#data_vote_type').val type
-          $('.votebutton').fadeOut()
-          $('.vote_panel form').fadeOut()
-          $('.loading_vote').show()
-          $('.vote_panel form').submit()
-        false
+      new Airesis.ProposalVotationManager()
     else
       @currentPage++;
       $.ajax
@@ -326,56 +298,3 @@ window.ProposalsShow =
       templateSelection: formatPeriod,
       escapeMarkup: (m)->
         m
-  initSortable: ->
-    $('.vote-items').each (id, el)=>
-      @checkBoxSiblings($(el).parent())
-      @initSortableBox(el)
-  buildBox: ->
-    extBox = $('<div>').attr('class', 'vote-items-external')
-    extBox.append('<span class="label primary">')
-    box = $('<div>').attr('class', 'vote-items')
-    extBox.append(box)
-    extBox
-  destroyBoxes: (boxes)->
-    firstBox = true
-    boxes.each (id, box)->
-      items = $(box).find('.vote-items').find('.vote-item')
-      if items.length
-        firstBox = true
-      else
-        if firstBox
-          firstBox = false
-          return true
-        else
-          $(box).remove()
-  countBoxes: ->
-    boxes = $('.vote-items-external')
-    top = $(boxes.get(-1)).find('.label').html('-')
-    boxes.splice(boxes.length-1,1)
-    bottom = $(boxes.get(0)).find('.label').html('+')
-    boxes.splice(0,1)
-    boxes.each (id, box)->
-      $(box).find('.label').html(id+1)
-  checkBoxSiblings: (to)->
-    next_box = to.nextAll('.vote-items-external')
-    prev_box = to.prevAll('.vote-items-external')
-    if next_box.length
-      @destroyBoxes(next_box)
-    else
-      box = @buildBox()
-      to.after(box)
-      @initSortableBox(box.find('.vote-items')[0])
-    if prev_box.length
-      @destroyBoxes(prev_box)
-    else
-      box = @buildBox()
-      to.before(box)
-      @initSortableBox(box.find('.vote-items')[0])
-    @countBoxes()
-  initSortableBox: (el)->
-    sortable = Sortable.create el,
-      group: 'vote'
-      animation: 150
-      onAdd: (event)=>
-        to = $(event.to).parent()
-        @checkBoxSiblings(to)
