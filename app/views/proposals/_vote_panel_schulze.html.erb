@@ -1,11 +1,9 @@
 <% range = @proposal.solutions.count %>
 <% range += 1 if range.even? %>
-<% range = [5, range].min %>
 
-<p><%= raw t('pages.proposals.vote_panel.schulze_title', max: range) %></p>
+<p><%= raw t('pages.proposals.vote_panel.schulze_title') %></p>
 <h5><%= @proposal.secret_vote ? t('pages.proposals.vote_panel.secret_vote') : t('pages.proposals.vote_panel.clear_vote') %></h5>
 
-<% empty_range = (range/2) %>
 <div id="solutions_table">
   <div class="vote-items-external">
     <span class="label primary">1</span>
