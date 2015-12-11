@@ -1468,8 +1468,16 @@ ul.friends_list {
 .vote-items-external {
   border: 1px solid #ccc;
   margin: 0.5rem 0;
+
+  &:first-child,  &:last-child {
+    border: 1px dotted #ccc;
+    .label {
+      opacity: 0.5;
+    }
+  }
+
   .vote-items {
-    min-height: 3rem;
+    min-height: 1rem;
     .sortable-ghost {
       opacity: .2;
     }
@@ -1480,6 +1488,7 @@ ul.friends_list {
       background-color: white;
       padding: 1rem;
       cursor: move;
+      display: inline-block;
     }
   }
 }
