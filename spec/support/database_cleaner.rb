@@ -52,19 +52,18 @@ RSpec.configure do |config|
   def load_database
     load_municipalities
     admin = ParticipationRole.create(name: 'amministratore', description: 'Amministratore')
-    if BestQuorum.count == 0
-      base_attrs = { percentage: nil, minutes_m: 0, hours_m: 0, good_score: 50, bad_score: 50, vote_percentage: 0,
-                     vote_minutes: nil, vote_good_score: 50, t_percentage: 's', t_minutes: 's', t_good_score: 's',
-                     t_vote_percentage: 's', t_vote_minutes: 'f', t_vote_good_score: 's', public: true }
-      BestQuorum.create([base_attrs.merge(name: '1 giorno', days_m: 1, seq: 1),
-                         base_attrs.merge(name: '3 giorni', days_m: 3, seq: 2),
-                         base_attrs.merge(name: '7 giorni', days_m: 7, seq: 3),
-                         base_attrs.merge(name: '15 giorni', days_m: 15, seq: 4),
-                         base_attrs.merge(name: '30 giorni', days_m: 30, seq: 5)])
-      GroupAction.all.each do |group_action|
-        ActionAbilitation.create(group_action: group_action, participation_role: admin)
-      end
-      # ActiveRecord::Base.connection.execute('ALTER SEQUENCE participation_roles_id_seq RESTART WITH 3')
+    return unless BestQuorum.count == 0
+    base_attrs = { percentage: nil, minutes_m: 0, hours_m: 0, good_score: 50, bad_score: 50, vote_percentage: 0,
+                   vote_minutes: nil, vote_good_score: 50, t_percentage: 's', t_minutes: 's', t_good_score: 's',
+                   t_vote_percentage: 's', t_vote_minutes: 'f', t_vote_good_score: 's', public: true }
+    BestQuorum.create([base_attrs.merge(name: '1 giorno', days_m: 1, seq: 1),
+                       base_attrs.merge(name: '3 giorni', days_m: 3, seq: 2),
+                       base_attrs.merge(name: '7 giorni', days_m: 7, seq: 3),
+                       base_attrs.merge(name: '15 giorni', days_m: 15, seq: 4),
+                       base_attrs.merge(name: '30 giorni', days_m: 30, seq: 5)])
+    GroupAction.all.each do |group_action|
+      ActionAbilitation.create(group_action: group_action, participation_role: admin)
     end
+    # ActiveRecord::Base.connection.execute('ALTER SEQUENCE participation_roles_id_seq RESTART WITH 3')
   end
 end

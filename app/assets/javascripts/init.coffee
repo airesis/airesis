@@ -9,7 +9,7 @@ $ ->
       false
 
   $(document).foundation()
-  new AiresisFormValidation($('form'))
+  new AiresisFormValidation($('form:not("[data-disable-form-validator]")'))
   Facebook.load()
   if Airesis.environment == 'production'
     GoogleAnalytics.load()

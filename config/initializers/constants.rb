@@ -29,7 +29,7 @@ NEWSLETTER_TWITTER_URL = ENV['NEWSLETTER_TWITTER_URL'] # your twitter page
 NEWSLETTER_FACEBOOK_URL = ENV['NEWSLETTER_FACEBOOK_URL'] # your facebook oage
 NEWSLETTER_GOOGLEPLUS_URL = ENV['NEWSLETTER_GOOGLEPLUS_URL'] # your facebook oage
 NEWSLETTER_PREFERENCES_URL = ENV['NEWSLETTER_PREFERENCES_URL'] # subscribers management url
-NEWSLETTER_LOGO_PATH =  'logo120.png' # path to your logo asset
+NEWSLETTER_LOGO_PATH = 'logo120.png' # path to your logo asset
 
 NEWSLETTER_HOME_URL = ENV['NEWSLETTER_HOME_URL'] # TODO: to remove and replace with SITE
 APP_SHORT_NAME = ENV['APP_SHORT_NAME'] # your app name

@@ -141,6 +141,18 @@ class Proposal < ActiveRecord::Base
   scope :invalid_waiting_phase, -> { waiting.joins(:vote_period).where('current_timestamp > events.starttime') }
   scope :invalid_vote_phase, -> { voting.joins(:vote_period).where('current_timestamp > events.endtime') }
 
+  scope :select_alerts_and_rankings, ->(user_id) do
+    select('proposals.*',
+           Proposal.alerts_count_subquery(user_id).as('alerts_count'),
+           Proposal.ranking_subquery(user_id).as('ranking'))
+  end
+
+  scope :for_list, ->(user_id = nil) do
+    select_alerts_and_rankings(user_id).
+      includes(:interest_borders, :user_votes, :presentation_areas, :groups,
+               :category, :quorum, :vote_period, :proposal_type)
+  end
+
   after_initialize :init
 
   before_validation :before_create_populate, on: :create
@@ -161,7 +173,6 @@ class Proposal < ActiveRecord::Base
   after_validation :update_short_content
 
   def init
-    self.quorum_id ||= Quorum::STANDARD
     self.anonima = (self.is_petition? ? false : DEFAULT_ANONIMA) if anonima.nil?
     self.visible_outside = true if visible_outside.nil?
     self.secret_vote = true if secret_vote.nil?
@@ -175,9 +186,9 @@ class Proposal < ActiveRecord::Base
     alerts_count = alerts.
       project('count(*)').
       where(alerts[:trackable_id].eq(proposals[:id]).
-              and(alerts[:trackable_type].eq('Proposal')).
-              and(alerts[:user_id].eq(user_id)).
-              and(alerts[:checked].eq(false)))
+        and(alerts[:trackable_type].eq('Proposal')).
+        and(alerts[:user_id].eq(user_id)).
+        and(alerts[:checked].eq(false)))
   end
 
   def self.ranking_subquery(user_id)
@@ -186,7 +197,7 @@ class Proposal < ActiveRecord::Base
     ranking = proposal_rankings.
       project(proposal_rankings[:ranking_type_id]).
       where(proposal_rankings[:proposal_id].eq(proposals[:id]).
-              and(proposal_rankings[:user_id].eq(user_id)))
+        and(proposal_rankings[:user_id].eq(user_id)))
   end
 
   # retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
@@ -269,7 +280,7 @@ class Proposal < ActiveRecord::Base
       join(group_proposals).on(group_proposals[:proposal_id].eq(proposals[:id])).
       join(groups).on(groups[:id].eq(group_proposals[:group_id])).
       join(group_participations).on(groups[:id].eq(group_participations[:group_id]).
-                                      and(group_participations[:user_id].eq(user.id))).
+      and(group_participations[:user_id].eq(user.id))).
       join(participation_roles).on(group_participations[:participation_role_id].eq(participation_roles[:id])).
       join(events).on(events[:id].eq(proposals[:vote_period_id])).
       join(action_abilitations, Arel::Nodes::OuterJoin).
@@ -279,7 +290,7 @@ class Proposal < ActiveRecord::Base
       where(proposals[:proposal_type_id].not_eq(petition_id)).
       where(user_votes[:id].eq(nil)).
       where(action_abilitations[:group_action_id].eq(GroupAction::PROPOSAL_VOTE).
-              or(participation_roles[:id].eq(ParticipationRole.admin.id))).
+        or(participation_roles[:id].eq(ParticipationRole.admin.id))).
       order('end_time asc').to_sql
     proposals = Proposal.find_by_sql(proposals_sql)
     ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, { users: :image }, :proposal_type, :groups,
@@ -295,10 +306,10 @@ class Proposal < ActiveRecord::Base
     alerts_count = alerts_count_subquery(user_id)
     ranking = ranking_subquery(user_id)
     Proposal.find_by_sql(proposals.
-                           project('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
-                           join(group_proposals).on(proposals[:id].eq(group_proposals[:proposal_id])).
-                           where(group_proposals[:group_id].eq(group.id)).
-                           order(proposals[:created_at].desc).take(10).to_sql)
+      project('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
+      join(group_proposals).on(proposals[:id].eq(group_proposals[:proposal_id])).
+      where(group_proposals[:group_id].eq(group.id)).
+      order(proposals[:created_at].desc).take(10).to_sql)
   end
 
   def count_notifications(user_id)
@@ -477,6 +488,7 @@ class Proposal < ActiveRecord::Base
   end
 
   # restituisce la lista delle 10 proposte più vicine a questa
+  # TODO: rewrite using arel
   def closest(group_id = nil)
     sql_q = " SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.quorum_id, p.anonima,
               p.visible_outside, p.secret_vote, p.proposal_votation_type_id, p.content,
@@ -728,7 +740,6 @@ class Proposal < ActiveRecord::Base
     nil
   end
 
-
   private
 
   def destroy_presentations
@@ -860,16 +871,15 @@ class Proposal < ActiveRecord::Base
       solution.sections.each do |section|
         paragraph = section.paragraphs.first
         paragraph.content = '' if paragraph.content == '<p></p>' && paragraph.content_was == ''
-        if paragraph.content_changed? || section.marked_for_destruction? || solution.marked_for_destruction?
-          something_solution = true
-          section_history = solution_history.section_histories.build(section_id: section.id,
-                                                                     title: section.title,
-                                                                     seq: section.seq,
-                                                                     added: section.new_record?,
-                                                                     removed: (section.marked_for_destruction? ||
-                                                                       solution.marked_for_destruction?))
-          section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: id)
-        end
+        next unless paragraph.content_changed? || section.marked_for_destruction? || solution.marked_for_destruction?
+        something_solution = true
+        section_history = solution_history.section_histories.build(section_id: section.id,
+                                                                   title: section.title,
+                                                                   seq: section.seq,
+                                                                   added: section.new_record?,
+                                                                   removed: (section.marked_for_destruction? ||
+                                                                     solution.marked_for_destruction?))
+        section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: id)
       end
       solution_history.destroy unless something_solution
     end
@@ -900,11 +910,10 @@ class Proposal < ActiveRecord::Base
       fid = border[2..-1] # chiave primaria (dal terzo all'ultimo carattere)
       found = InterestBorder.table_element(border)
       # se ho trovato qualcosa, allora l'identificativo è corretto e posso creare il confine di interesse
-      if found
-        interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype],
-                                                      territory_id: fid)
-        i = proposal_borders.build(interest_border_id: interest_b.id)
-      end
+      next unless found
+      interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype],
+                                                    territory_id: fid)
+      i = proposal_borders.build(interest_border_id: interest_b.id)
     end
   end
 
@@ -951,7 +960,7 @@ class Proposal < ActiveRecord::Base
     if votation && (votation[:later] != 'true')
       # if he took a vote period already existing
       if (votation[:choise] && (votation[:choise] == 'preset')) ||
-          (!votation[:choise] && votation[:vote_period_id].present?)
+        (!votation[:choise] && votation[:vote_period_id].present?)
         self.vote_event = Event.find(votation[:vote_period_id])
         # if the vote period start before the end of debate there is an error
         if vote_event.starttime < Time.now + copy.minutes.minutes + DEBATE_VOTE_DIFFERENCE

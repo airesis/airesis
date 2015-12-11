@@ -206,7 +206,7 @@ describe 'permissions on proposals', type: :model, js: true, search: true, seeds
     context 'in other groups' do
       let!(:proposal) do
         create(:group_proposal, current_user_id: participant.id,
-                                group_proposals: [GroupProposal.new(group: create(:group, current_user_id: create(:user).id))])
+                                group_proposals: [GroupProposal.new(group: create(:group))])
       end
 
       it 'cannot delete proposals' do

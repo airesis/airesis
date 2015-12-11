@@ -95,7 +95,7 @@ module ProposalsHelper
   # return an array of nicknames for the proposal, in json format
   def json_nicknames(proposal)
     if proposal.is_anonima?
-      proposal.proposal_nicknames.collect(&:to_json).to_json.gsub('"', '\'')
+      proposal.proposal_nicknames.collect(&:to_json).to_json.tr('"', '\'')
     else
       '[]'
     end.html_safe

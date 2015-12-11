@@ -14,15 +14,13 @@ class ElaborateEmails
         topic = post.topic if post
       end
       user = User.find_by(email: email.from)
-      if topic && user
-        if user.can_reply_to_forem_topic?(topic)
-          new_post = topic.posts.build
-          new_post.user = user
-          new_post.text = EmailReplyParser.parse_reply(email.body)
-          new_post.reply_to_id = post.id if post
-          new_post.save!
-        end
-      end
+      next unless topic && user
+      next unless user.can_reply_to_forem_topic?(topic)
+      new_post = topic.posts.build
+      new_post.user = user
+      new_post.text = EmailReplyParser.parse_reply(email.body).gsub(/\d\d\d\d-\d\d-\d\d \d\d:\d\d.*>:/,'')
+      new_post.reply_to_id = post.id if post
+      new_post.save!
     end
   end
 end

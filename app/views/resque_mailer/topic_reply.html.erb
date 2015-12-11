@@ -1,10 +1,8 @@
 <p>
-  <%= I18n.t('received_reply', scope: 'frm.topic') %>. You can view it here:
-
-  <%= link_to group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic), group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic) %>
+  <%= I18n.t('received_reply', scope: 'frm.topic') %>.
+  <%= link_to I18n.t('click_here_to_view', app_short_name: APP_SHORT_NAME), group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic, page: @post.page) %>
 </p>
 
-<p>
 <div style="float:left;margin: 0px 5px 5px 0px;">
   <%= raw avatar(@post.user, size: 40, url: true) %>
 </div>
@@ -12,9 +10,7 @@
   <%= sanitize @post.text %>
 </div>
 <div style="clear:both;"></div>
-</p>
 
 <p>
-  To unsubscribe from this topic, use the following link:
-  <%= link_to unsubscribe_group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic), unsubscribe_group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic) %>
+  <%=raw I18n.t('unsubscribe_from_topic', click_here: (link_to t('mailer.default.click_here'), unsubscribe_group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic))) %>
 </p>

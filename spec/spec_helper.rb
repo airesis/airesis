@@ -64,9 +64,6 @@ RSpec.configure do |config|
   Capybara.javascript_driver = :webkit
 
   Capybara::Screenshot.autosave_on_failure = true
-  Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
-    "screenshot_#{example.description.tr(' ', '-').gsub(%r{^.*\/spec\/}, '')}"
-  end
   Capybara::Screenshot.append_timestamp = true
 end
 

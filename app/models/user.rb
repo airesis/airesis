@@ -128,8 +128,8 @@ class User < ActiveRecord::Base
   scope :autocomplete, ->(term) { where('lower(users.name) LIKE :term or lower(users.surname) LIKE :term', term: "%#{term.to_s.downcase}%").order('users.surname desc, users.name desc').limit(10) }
   scope :non_blocking_notification, lambda { |notification_type|
     User.where.not(id: User.select('users.id').
-                     joins(:blocked_alerts).
-                     where(blocked_alerts: { notification_type_id: notification_type }))
+      joins(:blocked_alerts).
+      where(blocked_alerts: { notification_type_id: notification_type }))
   }
 
   validate :cannot_change_info_if_certified, on: :update

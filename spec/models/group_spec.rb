@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'paperclip/matchers'
 
 describe Group do
-  let(:group) { build(:group, current_user_id: create(:user).id) }
+  let(:group) { build(:group) }
 
   context 'validations' do
     include Paperclip::Shoulda::Matchers

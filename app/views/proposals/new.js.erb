@@ -16,14 +16,13 @@ airesis_reveal(container_);
 
 var form = $('#new_proposal');
 
-
 form.steps({
   headerTag: ".legend",
   bodyTag: ".step",
   autoFocus: true,
   labels: {
-    previous: '<i class="fa fa-arrow-left"></i><%=j t('buttons.go_back')%>',
-    next: '<i class="fa fa-arrow-right"></i><%=j t('buttons.next')%>'
+    previous: '<i class="fa fa-arrow-left"></i>' + Airesis.i18n.buttons.goBack,
+    next: '<i class="fa fa-arrow-right"></i>' + Airesis.i18n.buttons.next
   },
   onStepChanging: function (e, currentIndex, newIndex) {
     var fv = form.data('formValidation'),
@@ -61,6 +60,10 @@ form.steps({
         })
       }
     }
+    if (priorIndex === 3) {
+      var id = 'proposal_sections_attributes_0_paragraphs_attributes_0_content';
+      $('#'+id).val(CKEDITOR.instances[id].getData());
+    }
   },
   onFinishing: function (e, currentIndex) {
     var fv = form.data('formValidation'),
@@ -73,6 +76,9 @@ form.steps({
   },
   onFinished: function (e, currentIndex) {
     form.formValidation('defaultSubmit');
+  },
+  onInit: function (e, currentIndex) {
+    form.find('[role="menuitem"]').addClass('btn').addClass('blue')
   }
 });
 new AiresisFormValidation(form);

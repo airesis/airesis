@@ -131,12 +131,14 @@ class SearchProposal < ActiveRecord::Base
   end
 
   def results
+    ids = hits.map { |hit| hit.primary_key.to_i }
     Proposal.
       includes(:proposal_type, :user_votes, :category, :quorum, :groups, :interest_borders).
       select('proposals.*',
              Proposal.alerts_count_subquery(user_id).as('alerts_count'),
              Proposal.ranking_subquery(user_id).as('ranking')).
-      where(id: hits.map(&:primary_key))
+      where(id: ids).
+      order("idx(array#{ids}::integer[], proposals.id)")
   end
 
   def similar

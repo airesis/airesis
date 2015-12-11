@@ -749,6 +749,10 @@ bo-BT:
       index:
         blog_subtitle: 'crwdns7943:0%{posts}crwdnd7943:0%{comments}crwdne7943:0'
         find_blog_label: crwdns8102:0crwdne8102:0
+        search_description: crwdns9985:0crwdne9985:0
+        search_with_query: crwdns9986:0crwdne9986:0
+        find_title: crwdns9987:0crwdne9987:0
+        search_with_place: crwdns9988:0crwdne9988:0
     quorums:
       index:
         title: crwdns7268:0crwdne7268:0
@@ -888,6 +892,8 @@ bo-BT:
     tags:
       show:
         related_title: crwdns7372:0crwdne7372:0
+        not_found: 'crwdns9982:0%{tag}crwdne9982:0'
+        title: 'crwdns9983:0%{tag}crwdne9983:0'
       list_proposals_with_tag: crwdns8115:0crwdne8115:0
       no_proposals_with_tag: crwdns7374:0crwdne7374:0
       list_posts_with_tag: crwdns8116:0crwdne8116:0
@@ -899,6 +905,8 @@ bo-BT:
       groups_tab: crwdns7381:0crwdne7381:0
       not_found:
         subtitle: crwdns7382:0crwdne7382:0
+      index:
+        title: crwdns9984:0crwdne9984:0
     footer:
       for_edemocracy: crwdns7383:0crwdne7383:0
       go_to_main_site: crwdns7384:0crwdne7384:0
@@ -1421,3 +1429,6 @@ bo-BT:
   blog:
     delete:
       confirm_message: 'crwdns9975:0%{count}crwdne9975:0'
+  click_here_to_view: 'crwdns9979:0%{app_short_name}crwdne9979:0'
+  unsubscribe_from_topic: 'crwdns9980:0%{click_here}crwdne9980:0'
+  select_debate_duration: crwdns9981:0crwdne9981:0
