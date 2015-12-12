@@ -31,16 +31,6 @@ Finally, an implementation of the method schulze will always hold genuine electi
 
 Absolutely simple and intuitive interface will allow everyone in a short time, to find all the information they want.
 
-author
------------
-Alessandro Rodi ( [ coorasse@gmail.com ] (mailto: coorasse@gmail.com ) )
-
-Contributors
-------------------
-[ List of Contributors to the project Airesis ] ( http://www.airesis.it/chisiamo )
-
-[ Tecnologie Democratiche Association  ] ( http://www.tecnologiedemocratiche.it )
-
 Reference website
 -------
 [ http://www.airesis.it ] ( http://www.airesis.it )
@@ -79,7 +69,7 @@ Install the libraries
 
     bundle install
 
-Configure database, application and PayPal
+Configure database, application and other cool stuff
 
     cp config/database.example.yml config/database.yml
     cp config/application.example.yml config/application.yml
@@ -189,3 +179,16 @@ We want to take out everything which is related to our installation and make it 
 We are working mainly on the proposals and the layout.
 
 Our main goal is to make it even more simple and usable for everybody!
+
+Author
+-----------
+
+![Alessandro Rodi](http://www.gravatar.com/avatar/32d80da41830a6e6c1bb3eb977537e3e)
+
+Alessandro Rodi ( [ coorasse@gmail.com ] (mailto: coorasse@gmail.com ) )
+
+Contributors
+------------------
+[ List of Contributors to the project Airesis ] ( http://www.airesis.it/chisiamo )
+
+[ Tecnologie Democratiche Association  ] ( http://www.tecnologiedemocratiche.it )
