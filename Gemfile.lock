@@ -212,7 +212,7 @@ GEM
       mail (~> 2.2)
     erubis (2.7.0)
     eventmachine (1.0.7)
-    execjs (2.5.2)
+    execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -463,7 +463,7 @@ GEM
     rdoc (4.2.0)
     recaptcha (0.4.0)
     redcarpet (3.3.2)
-    redis (3.2.1)
+    redis (3.2.2)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
     ref (2.0.0)
@@ -529,12 +529,12 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    sidekiq (3.4.1)
+    sidekiq (3.4.2)
       celluloid (~> 0.16.0)
-      connection_pool (>= 2.1.1)
-      json
-      redis (>= 3.0.6)
-      redis-namespace (>= 1.3.1)
+      connection_pool (~> 2.2, >= 2.2.0)
+      json (~> 1.0)
+      redis (~> 3.2, >= 3.2.1)
+      redis-namespace (~> 1.5, >= 1.5.2)
     sidekiq-failures (0.4.4)
       sidekiq (>= 2.16.0)
     sidetiq (0.6.3)
@@ -618,7 +618,7 @@ GEM
       rack-accept (~> 0.4)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (2.7.1)
+    uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unf (0.1.4)
@@ -724,7 +724,7 @@ DEPENDENCIES
   select2-rails
   selenium-webdriver
   sentry-raven!
-  sidekiq
+  sidekiq (= 3.4.2)
   sidekiq-failures
   sidetiq
   simple_form
