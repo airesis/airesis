@@ -523,12 +523,6 @@
   .rankcontainer {
     float: left;
   }
-  .votedup-mini {
-    float: none;
-  }
-  .voteddown-mini {
-    float: none;
-  }
 }
 
 .proposalTitle {
@@ -1491,4 +1485,8 @@ ul.friends_list {
       display: inline-block;
     }
   }
+}
+
+.ranking-count {
+  font-size: 1.5rem;
 }

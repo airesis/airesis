@@ -1,21 +1,12 @@
-<% my_rank = current_user.comment_rank(comment) %>
-
-<% if my_rank == 3 %>
-    <div class="voteddown-mini" style="margin-right:10px" title="<%= t('pages.proposals.show.votedown') %>"></div>
-<% else %>
-    <div class="notvoteddown-mini" style="margin-right:10px" title="<%= t('pages.proposals.show.votedown') %>"></div>
-<% end %>
-<span class="rightFloat" style="margin-right:3px"><%= comment.rankings.negatives.count %></span>
-<% if my_rank == 2 %>
-    <div class="votednil-mini" style="margin-right:10px" title="<%= t('pages.proposals.show.votenil') %>"></div>
-<% else %>
-    <div class="notvotednil-mini" style="margin-right:10px" title="<%= t('pages.proposals.show.votenil') %>"></div>
-<% end %>
-<span class="rightFloat" style="margin-right:3px"><%= comment.rankings.neutrals.count %></span>
-<% if my_rank == 1 %>
-    <div class="votedup-mini" style="margin-right:10px" title="<%= t('pages.proposals.show.voteup') %>"></div>
-<% else %>
-    <div class="notvotedup-mini" style="margin-right:10px" title="<%= t('pages.proposals.show.voteup') %>"></div>
-<% end %>
-<span class="rightFloat" style="margin-right:3px"><%= comment.rankings.positives.count %></span>
 <span class="rightFloat think"><%= t('pages.proposals.edit.contribution_valuation') %></span>
+
+<span class="ranking-count"><%= comment.rankings.positives.count %></span>
+<i class="icon-smile" title="<%= t('pages.proposals.show.voteup') %>"></i>
+
+<span class="ranking-count"><%= comment.rankings.neutrals.count %></span>
+<i class="icon-baffled" title="<%= t('pages.proposals.show.votenil') %>"></i>
+
+<span class="ranking-count"><%= comment.rankings.negatives.count %></span>
+<i class="icon-sad" title="<%= t('pages.proposals.show.votedown') %>"></i>
+
+
