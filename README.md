@@ -121,6 +121,23 @@ Users can reply into the forum by email. Run
     
 in background to receive emails.    
 
+SOLR
+----
+
+We strongly suggest to edit solrconfig.xml setting
+ 
+      <autoCommit> 
+        <maxTime>500</maxTime>
+        <openSearcher>false</openSearcher> 
+      </autoCommit>
+ 
+      <autoSoftCommit> 
+        <maxTime>500</maxTime>
+      </autoSoftCommit>
+
+To generate new collections create another solr subfolder like `solr/new_collection` and in solr.xml add
+`<core name="new_collection" instanceDir="." dataDir="new_collection/data"/>`
+
 Data
 ----
 
