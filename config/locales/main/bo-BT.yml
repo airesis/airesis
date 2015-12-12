@@ -540,7 +540,7 @@ bo-BT:
         report_description: crwdns7096:0crwdne7096:0
       vote_panel:
         title: crwdns7097:0crwdne7097:0
-        schulze_title: 'crwdns7098:0%{max}crwdne7098:0'
+        schulze_title: crwdns9989:0crwdne9989:0
         secret_vote: crwdns7099:0crwdne7099:0
         clear_vote: crwdns7100:0crwdne7100:0
         single_title: crwdns7101:0crwdne7101:0
@@ -1377,6 +1377,8 @@ bo-BT:
         proceed_to_proposals: crwdns8172:0crwdne8172:0
       from_blogs:
         proceed_to_blogs: crwdns8173:0crwdne8173:0
+      topics:
+        title: crwdns9990:0crwdne9990:0
   confirm_detach: crwdns8174:0crwdne8174:0
   alert_detach: crwdns8175:0crwdne8175:0
   users:

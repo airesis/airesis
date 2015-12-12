@@ -504,7 +504,6 @@ de-DE:
         report_description: 'Du kannst den Web-Administrator darüber informieren, dass dieser Beitrag gegen geltende Regeln verstößt. <br/> Bestätigt sich der Verdacht, so wird der Beitrag gelöscht. Missbrauche dieses Werkzeug nicht.'
       vote_panel:
         title: Gib Deine Stimme ab!
-        schulze_title: 'Es gibt mehrere Lösungen zu diesem Vorschlag. <br/> Ordnen Sie sie  nach Ihren Präferenzen  <br/>von 1 (gefällt mir nicht) bis %{max} (gefällt mir sehr)'
         secret_vote: Deine Wahl ist geheim. Es ist nicht möglich deine Stimme zurück zu ziehen oder zu ändern nachdem die Wahl getroffen wurde.
         clear_vote: Deine Wahl ist dokumentiert und ist dadurch verifizierbar.
         single_title: Zu diesem Vorschlag gibt es nur eine Lösung. Sage deine Meinung!

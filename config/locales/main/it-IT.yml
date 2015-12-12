@@ -556,7 +556,7 @@ it-IT:
         report_description: 'Puoi indicare ai webmaster che tale contributo viola le leggi attualmente in               vigore.<br/>               Una volta appurata la violazione il contributo verrà rimosso.Non abusare di questo strumento.'
       vote_panel:
         title: Esprimi il tuo voto!
-        schulze_title: 'Sono presenti più soluzioni a questa proposta.<br/>Ordinale in base alle tue preferenze da <b>1 (non mi piace)</b> a <b>%{max} (mi piace molto)</b>.'
+        schulze_title: 'Ci sono diverse soluzioni a questa proposta. <br>Ordinale secondo le tue preferenze.'
         secret_vote: Il tuo voto è segreto e non sarà possibile recuperarlo o modificarlo una volta espresso.
         clear_vote: Il tuo voto è palese e sarà quindi verificabile.
         single_title: "In questa proposta è presente un'unica soluzione. Esprimi il tuo giudizio!"
@@ -1437,6 +1437,8 @@ it-IT:
         proceed_to_proposals: Vai alle proposte
       from_blogs:
         proceed_to_blogs: Vai ai blog
+      topics:
+        title: Topic che stai seguendo
   confirm_detach: Sei sicuro di voler scollegare questo Identity Provider? Non potrai più accedere tramite esso.
   alert_detach: "Per poter rimuovere l'Identity Provider devi prima fornire un indirizzo email valido e confermarlo dal menu 'Informazioni Generali'."
   users:
