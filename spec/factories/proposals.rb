@@ -53,6 +53,7 @@ FactoryBot.define do
             proposal.check_phase(true)
             proposal.reload
             proposal.vote_period.start_votation
+            proposal.reload
           end
         end
       end

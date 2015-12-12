@@ -72,6 +72,8 @@ class Proposal < ActiveRecord::Base
 
   has_many :alerts, as: :trackable
 
+  has_one :proposal_votation_result, autosave: true
+
   # validation
   validates :title, presence: true, uniqueness: true
   validates_presence_of :proposal_category_id, message: 'obbligatorio'

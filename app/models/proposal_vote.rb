@@ -2,7 +2,7 @@ class ProposalVote < ActiveRecord::Base
   belongs_to :proposal
 
   def number
-    positive + negative + neutral
+    valuables + neutral
   end
 
   def positive_perc
@@ -15,6 +15,23 @@ class ProposalVote < ActiveRecord::Base
 
   def neutral_perc
     perc(neutral)
+  end
+
+  def valuables
+    positive + negative
+  end
+
+  # returns true if there was at least one vote
+  def any_vote?
+    number > 0
+  end
+
+  def any_valuable_vote?
+    valuables > 0
+  end
+
+  def positive_perc_over_valuable
+    positive.to_f / valuables.to_f
   end
 
   protected
