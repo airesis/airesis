@@ -724,7 +724,7 @@ DEPENDENCIES
   select2-rails
   selenium-webdriver
   sentry-raven!
-  sidekiq (= 3.4.2)
+  sidekiq
   sidekiq-failures
   sidetiq
   simple_form
