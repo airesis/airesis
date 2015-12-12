@@ -171,10 +171,8 @@ Is also necessary to have Redis in order to execute Sidekiq and all background j
 Environment variables
 ---------------------
 
-GEOSPATIAL_NAME is used to geocode users when they register. Is your username in http://www.geonames.org/.
-It is used by https://github.com/panthomakos/timezone to obtain timezone based on latitude and longitude and you don't need it in development.
+Look at `application.example.yml` for a detailed explanation of each environment variable.
 
-MAPS_API_KEY is a browser key provided by google to access map services (https://console.developers.google.com)
 
 Internationalization
 --------------------
