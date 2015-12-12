@@ -17,6 +17,7 @@ config/application.yml
 config/paypal.yml
 config/private_pub.yml
 config/sidekiq.yml
+config/sunspot.yml
 test/fixtures
 script/igraph-0.5.4
 public/assets
