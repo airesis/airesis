@@ -24,12 +24,7 @@ public/assets
 public/system
 public/ckeditor_assets
 private
-solr/data/
-solr/development
-solr/production
-solr/test
-solr/default
-solr/pids
+solr
 *.orig
 bin/alwaysdata
 config/secrets.yml
