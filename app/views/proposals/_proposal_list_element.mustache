@@ -26,7 +26,7 @@
         {{/current_user.signed_in?}}
       </div>
       <div style=" position: relative">
-        <div class="maintitle {{#current_user.can_vote?}}'voteright'{{/current_user.can_vote?}}">
+        <div class="maintitle {{#current_user.can_vote?}}voteright{{/current_user.can_vote?}}">
         {{#current_user.signed_in?}}
             {{{current_user.valutation_image}}}
         {{/current_user.signed_in?}}

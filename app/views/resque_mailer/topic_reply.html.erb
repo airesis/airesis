@@ -12,5 +12,5 @@
 <div style="clear:both;"></div>
 
 <p>
-  <%= I18n.t('unsubscribe_from_topic', click_here: (link_to t('mailer.default.click_here'), unsubscribe_group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic)).html_safe) %>
+  <%=raw I18n.t('unsubscribe_from_topic', click_here: (link_to t('mailer.default.click_here'), unsubscribe_group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic))) %>
 </p>

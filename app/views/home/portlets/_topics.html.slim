@@ -1,0 +1,7 @@
+.title
+  = t('home.portlets.topics.title')
+- topics = @user.viewed_topics.order('created_at desc').limit(10)
+- unless topics.empty?
+  .scrollable
+    .mini_topics
+      = render partial: 'frm/topics/mini_topic', collection: topics, as: 'topic'

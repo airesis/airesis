@@ -515,7 +515,6 @@ pt-PT:
         report_description: 'Pode apontar para o webmaster que esta contribuição viola as leis em vigor. <br/> Uma vez verificada a violação, a contribuição será removida. Não abuse desta ferramenta.'
       vote_panel:
         title: Faça o seu voto!
-        schulze_title: 'Há várias soluções para esta proposta. <br/> Ordene-as de acordo com suas preferências de <br/> de 1 (não gosto) %{max} (gosto)'
         secret_vote: O seu voto é secreto, e não será capaz de o recuperar ou alterá-lo uma vez que seja expresso.
         clear_vote: O seu voto foi registado e, portanto, será verificável.
         single_title: Nesta proposta, há apenas uma solução. Vá directo ao assunto!

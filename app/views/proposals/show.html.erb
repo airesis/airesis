@@ -12,6 +12,8 @@
     <meta property="article:author" content="<%= (@proposal.users.first || @proposal.proposal_lives.first.users.first).fullname %>">
     <meta property="article:section" content="<%= @proposal.category.description %>">
     <meta property="article:tag" content="<%= @proposal.tags_list %>">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.4.2/Sortable.min.js"></script>
 <% end %>
 
 <%= render partial: 'proposals/show_proposal' %>

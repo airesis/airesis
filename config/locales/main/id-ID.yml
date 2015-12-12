@@ -535,7 +535,6 @@ id-ID:
         report_description: 'Anda dapat menunjukkan ke master web bahwa kontribusi ini melanggar hukum yang berlaku saat ini. <br/> Setelah pelanggaran dipastikan, kontribusi ini akan dihapus. Jangan menyalahgunakan perangkat ini.'
       vote_panel:
         title: Berikan voting Anda!
-        schulze_title: 'Ada beberapa solusi untuk proposal ini.<br> Urutkan mereka berdasarkan pilihan Anda <br>dari 1 (tidak suka) hingga %{max} (sangat suka)'
         secret_vote: Vote Anda rahasia dan Anda tidak akan bisa mendapatkannya kembali atau mengubahnya begitu diberikan.
         clear_vote: Vote Anda dicatat dan oleh karenanya, akan dapat diverifikasi.
         single_title: Dalam proposal ini, hanya ada satu solusi. Berikan pendapat Anda!
