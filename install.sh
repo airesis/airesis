@@ -16,8 +16,11 @@ echo "If you press y or Y will be yes, if you press n, N or Enter will be no."
 echo "We suggest you to keep default configuration if that is your first configuration."
 echo "Press ENTER when you are ready to proceed"
 read
-cp config/application.example.yml config/application.yml
 cp config/database.example.yml config/database.yml
+cp config/application.example.yml config/application.yml
+cp config/private_pub.example.yml config/private_pub.yml
+cp config/sidekiq.example.yml config/sidekiq.yml
+cp config/sunspot.example.yml config/sunspot.yml
 mkdir -p private/elfinder
 echo "Please check your config/database.yml, setup it correctly and then continue."
 echo "Press ENTER when you have configured your config/database.yml file"

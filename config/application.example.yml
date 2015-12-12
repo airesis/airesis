@@ -45,7 +45,7 @@ GOOGLE_ANALYTICS_ID: "YOUR GOOGLE ANALYTICS ID"
 RECAPTCHA_PUBLIC: ""
 RECAPTCHA_PRIVATE: ""
 
-# go to geonames.org and obtain a username to put in here
+# is used to geocode users when they register. Get a username at http://www.geonames.org/.
 GEOSPATIAL_NAME: ""
 
 #####################

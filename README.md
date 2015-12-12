@@ -31,16 +31,6 @@ Finally, an implementation of the method schulze will always hold genuine electi
 
 Absolutely simple and intuitive interface will allow everyone in a short time, to find all the information they want.
 
-author
------------
-Alessandro Rodi ( [ coorasse@gmail.com ] (mailto: coorasse@gmail.com ) )
-
-Contributors
-------------------
-[ List of Contributors to the project Airesis ] ( http://www.airesis.it/chisiamo )
-
-[ Tecnologie Democratiche Association  ] ( http://www.tecnologiedemocratiche.it )
-
 Reference website
 -------
 [ http://www.airesis.it ] ( http://www.airesis.it )
@@ -79,10 +69,13 @@ Install the libraries
 
     bundle install
 
-Configure database, application and PayPal
+Configure database, application and other cool stuff
 
-    cp config/database.example.yml config/database.yml`
-    cp config/application.example.yml config/application.yml`
+    cp config/database.example.yml config/database.yml
+    cp config/application.example.yml config/application.yml
+    cp config/private_pub.example.yml config/private_pub.yml
+    cp config/sidekiq.example.yml config/sidekiq.yml
+    cp config/sunspot.example.yml config/sunspot.yml
 
 edit the files and set your custom values    
     
@@ -118,6 +111,23 @@ Users can reply into the forum by email. Run
     
 in background to receive emails.    
 
+SOLR
+----
+
+We strongly suggest to edit solrconfig.xml setting
+ 
+      <autoCommit> 
+        <maxTime>500</maxTime>
+        <openSearcher>false</openSearcher> 
+      </autoCommit>
+ 
+      <autoSoftCommit> 
+        <maxTime>500</maxTime>
+      </autoSoftCommit>
+
+To generate new collections create another solr subfolder like `solr/new_collection` and in solr.xml add
+`<core name="new_collection" instanceDir="." dataDir="new_collection/data"/>`
+
 Data
 ----
 
@@ -151,10 +161,8 @@ Is also necessary to have Redis in order to execute Sidekiq and all background j
 Environment variables
 ---------------------
 
-GEOSPATIAL_NAME is used to geocode users when they register. Is your username in http://www.geonames.org/.
-It is used by https://github.com/panthomakos/timezone to obtain timezone based on latitude and longitude and you don't need it in development.
+Look at `application.example.yml` for a detailed explanation of each environment variable.
 
-MAPS_API_KEY is a browser key provided by google to access map services (https://console.developers.google.com)
 
 Internationalization
 --------------------
@@ -171,3 +179,16 @@ We want to take out everything which is related to our installation and make it 
 We are working mainly on the proposals and the layout.
 
 Our main goal is to make it even more simple and usable for everybody!
+
+Author
+-----------
+
+![Alessandro Rodi](http://www.gravatar.com/avatar/32d80da41830a6e6c1bb3eb977537e3e)
+
+Alessandro Rodi ( [ coorasse@gmail.com ] (mailto: coorasse@gmail.com ) )
+
+Contributors
+------------------
+[ List of Contributors to the project Airesis ] ( http://www.airesis.it/chisiamo )
+
+[ Tecnologie Democratiche Association  ] ( http://www.tecnologiedemocratiche.it )
