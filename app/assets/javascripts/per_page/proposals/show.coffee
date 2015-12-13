@@ -39,12 +39,11 @@ window.ProposalsShow =
     $(document).on 'ajax:beforeSend', '.vote_comment', (n, xhr)->
       $(this).parent().find('.vote_comment').hide()
       $(this).parent().find('.loading').show()
-    $(document).on 'ajax:beforeSend', '.votedown-mini', (n, xhr)->
+    $(document).on 'ajax:beforeSend', '.icon-sad-change', (n, xhr)->
       num = $(this).data('id')
       $(this).parent().find('.vote_comment').hide()
       $(this).parent().find('.loading').show()
-      $(".reply_textarea[data-id=#{num}]").focus().attr('placeholder',
-        'Indica il motivo della tua valutazione negativa').effect('highlight', {}, 3000)
+      $(".reply_textarea[data-id=#{num}]").focus().attr('placeholder', Airesis.i18n.rankdown_reason).effect('highlight', {}, 3000)
     $(document).ajaxError (e, XHR, options)->
       if XHR.status == 401
         window.location.replace(Airesis.new_user_session_path)

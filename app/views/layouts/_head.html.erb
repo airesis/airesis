@@ -67,8 +67,9 @@
       alarm_settings: '<%=j raw t('pages.groups.header.alarm_settings')%>',
       no_alerts: '<%=j raw t('pages.header.no_alerts')%>',
       type_for_town: '<%=j raw t('pages.events.new.type_for_town')%>',
-      locale: '<%=I18n.locale%>',
-      l: '<%=params[:l]%>',
+      locale: '<%= I18n.locale%>',
+      l: '<%= params[:l]%>',
+      rankdown_reason: '<%= I18n.t('rankdown_reason')%>',
       feedback: {
         h2cPath: '<%= javascript_path 'html2canvas'%>',
         label: '<%=j t('pages.feedback.send_feedback')%>',

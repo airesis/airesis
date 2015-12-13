@@ -1,3 +1,5 @@
+/* this file is not in vendor because arrows have been changed. it does not use foundation arrows but font-awesome ones*/
+
 /* =========================================================
  * bootstrap-datetimepicker.js
  * =========================================================
@@ -157,10 +159,10 @@
             this.picker.addClass('datetimepicker-rtl');
             if (this.bootcssVer == 3) {
                 this.picker.find('.prev span, .next span')
-                    .toggleClass('fi-arrow-left fi-arrow-right');
+                    .toggleClass('fa fa-arrow-left fa-arrow-right');
             } else {
                 this.picker.find('.prev i, .next i')
-                    .toggleClass('fi-arrow-left fi-arrow-right');
+                    .toggleClass('fa fa-arrow-left fa-arrow-right');
             }
             ;
 
@@ -1603,16 +1605,16 @@
         },
         headTemplate:     '<thead>' +
             '<tr>' +
-            '<th class="prev"><i class="fi-arrow-left"/></th>' +
+            '<th class="prev"><i class="fa fa-arrow-left"/></th>' +
             '<th colspan="5" class="switch"></th>' +
-            '<th class="next"><i class="fi-arrow-right"/></th>' +
+            '<th class="next"><i class="fa fa-arrow-right"/></th>' +
             '</tr>' +
             '</thead>',
         headTemplateV3:   '<thead>' +
             '<tr>' +
-            '<th class="prev"><i class="fi-arrow-left"></i> </th>' +
+            '<th class="prev"><i class="fa fa-arrow-left"></i> </th>' +
             '<th colspan="5" class="switch"></th>' +
-            '<th class="next"><i class="fi-arrow-right"></i> </th>' +
+            '<th class="next"><i class="fa fa-arrow-right"></i> </th>' +
             '</tr>' +
             '</thead>',
         contTemplate:     '<tbody><tr><td colspan="7"></td></tr></tbody>',
