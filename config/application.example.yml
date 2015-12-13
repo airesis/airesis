@@ -274,3 +274,6 @@ MAILMAN_PASSWORD: 'email_password'
 # there must be a %token%
 MAILMAN_EMAIL: 'replytest+%token%@airesis.it'
 MAILMAN_SENDER: 'Airesis Forum'
+
+# if the user does not access the platform for this number of days, his session will be destroyed
+SESSION_DAYS: '14'
