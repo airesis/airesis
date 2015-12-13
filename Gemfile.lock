@@ -26,12 +26,6 @@ GIT
     timezone (0.2.2)
 
 GIT
-  remote: git://github.com/coorasse/vote-schulze.git
-  revision: 0f47cbbe6c1e0020369fb6071a1a73bf93bbf7f7
-  specs:
-    vote-schulze (0.2.0)
-
-GIT
   remote: git://github.com/gaffneyc/sunspot-queue.git
   revision: d0fbd1a5da31bde83c1c97b3510a319c85ec17d9
   specs:
@@ -519,6 +513,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (~> 1.1)
+    schulze-vote (2.0.6)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
@@ -720,6 +715,7 @@ DEPENDENCIES
   rvm1-capistrano3
   sanitize
   sass-rails
+  schulze-vote
   sdoc
   select2-rails
   selenium-webdriver
@@ -750,7 +746,6 @@ DEPENDENCIES
   turnout
   uglifier
   uri-js-rails
-  vote-schulze!
   wicked_pdf
   workflow
 
