@@ -11,43 +11,31 @@
         <span class="ranking-count"><%= comment.rankings.positives.count %></span>
         <% if my_rank == 1 %>
             <i class="icon-smile-full" style="margin-right:10px" title="<%= t('pages.proposals.show.voteup') %>"></i>
+        <% elsif can_rank_again %>
+            <%= link_to_rankup(@proposal, comment) %>
         <% else %>
-            <% if can_rank_again %>
-                <%= link_to '', {action: "rankup", controller: "proposal_comments", id: comment.id, proposal_id: @proposal.id},
-                            remote: true, method: :put,
-                            data: {id: comment.id}, class: "icon-smile-change vote_comment", title: t('pages.proposals.show.voteup') %>
-            <% else %>
-                <i class="icon-smile" title="<%= t('pages.proposals.show.voteup') %>"></i>
-            <% end %>
+            <i class="icon-smile" title="<%= t('pages.proposals.show.voteup') %>"></i>
         <% end %>
 
         <span class="ranking-count" style="margin-right:3px"><%= comment.rankings.neutrals.count %></span>
         <% if my_rank == 2 %>
             <i class="icon-baffled-full" style="margin-right:10px" title="<%= t('pages.proposals.show.votenil') %>"></i>
+        <% elsif can_rank_again %>
+            <%= link_to_ranknil(@proposal, comment) %>
         <% else %>
-            <% if can_rank_again %>
-                <%= link_to '', {action: "ranknil", controller: "proposal_comments", id: comment.id, proposal_id: @proposal.id},
-                            remote: true, method: :put,
-                            data: {id: comment.id}, class: "icon-baffled-change vote_comment", title: t('pages.proposals.show.votenil') %>
-            <% else %>
-                <i class="icon-baffled" title="<%= t('pages.proposals.show.votenil') %>"></i>
-            <% end %>
+            <i class="icon-baffled" title="<%= t('pages.proposals.show.votenil') %>"></i>
         <% end %>
 
         <span class="ranking-count"><%= comment.rankings.negatives.count %></span>
         <% if my_rank == 3 %>
             <i class="icon-sad-full" title="<%= t('pages.proposals.show.votedown') %>"></i>
+        <% elsif can_rank_again %>
+            <%= link_to_rankdown(@proposal, comment) %>
         <% else %>
-            <% if can_rank_again %>
-                <%= link_to '', {action: "rankdown", controller: "proposal_comments", id: comment.id, proposal_id: @proposal.id},
-                            remote: true, method: :put,
-                            data: {id: comment.id}, class: "icon-sad-change vote_comment", title: t('pages.proposals.show.votedown') %>
-            <% else %>
-                <i class="icon-sad" title="<%= t('pages.proposals.show.votedown') %>"></i>
-            <% end %>
+            <i class="icon-sad" title="<%= t('pages.proposals.show.votedown') %>"></i>
         <% end %>
     <% else %>
-        <%= render 'ranking_panel_others', {comment: comment} %>
+        <%= render 'ranking_panel_others', { comment: comment } %>
     <% end %>
 
 <% else %>

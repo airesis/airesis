@@ -2515,10 +2515,20 @@ input[type=file] {
   }
 }
 
+.fa.fv-control-feedback {
+  top: 26px;
+  right: 0;
+}
+
 .fv-has-success {
   .fa.fv-control-feedback {
     color: green;
   }
+}
+
+.fa.fa-arrow-right {
+  margin-left: 5px;
+  margin-right: 0px;
 }
 
 .top-bar.expanded {

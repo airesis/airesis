@@ -1499,3 +1499,4 @@ en-EU:
   click_here_to_view: "Click here to view it on %{app_short_name}."
   unsubscribe_from_topic: "To unsubscribe from this topic, %{click_here}"
   select_debate_duration: "Select first a debate duration"
+  rankdown_reason: "Say why you evaluated this contribute negatively"
