@@ -157,10 +157,6 @@ class OldQuorum < Quorum
     NotificationProposalVoteClosed.perform_async(proposal.id)
   end
 
-  def has_bad_score?
-    bad_score && (bad_score != good_score)
-  end
-
   def debate_progress
     percentages = []
     if valutations

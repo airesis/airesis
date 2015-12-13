@@ -117,7 +117,7 @@ class BestQuorum < Quorum
 
     vpassed = !valutations || (proposal.valutations >= valutations)
     if (proposal.rank >= good_score) && vpassed # and we passed the debate quorum
-      if proposal.vote_defined # the user already chose the votation period! that's great, we can just sit along the river waiting for it to begin
+      if proposal.vote_defined # the user already chose the votation period
         proposal.proposal_state_id = ProposalState::WAIT
         # automatically create
         if proposal.vote_event_id
@@ -138,13 +138,14 @@ class BestQuorum < Quorum
           end
         end
         proposal.vote_period = @event
-      else
-        proposal.proposal_state_id = ProposalState::WAIT_DATE # we passed the debate, we are now waiting for someone to choose the vote date
+      else # we passed the debate, we are now waiting for someone to choose the vote date
+        proposal.proposal_state_id = ProposalState::WAIT_DATE
         NotificationProposalReadyForVote.perform_async(proposal.id)
       end
       proposal.save
       # remove the timer if is still there
-      # Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id}) if minutes #TODO remove job
+      # TODO remove job
+      # Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id}) if minutes
     else
       proposal.abandon
     end
@@ -163,20 +164,28 @@ class BestQuorum < Quorum
 
   def close_vote_phase
     if proposal.is_schulze?
-      proposal.build_proposal_votation_result(data: SchulzeSolver.new(proposal).calculate)
-      votes = proposal.schulze_votes.sum(:count)
-      proposal.proposal_state_id = exceed_vote_quorum?(votes) ? ProposalState::ACCEPTED : ProposalState::REJECTED
+      close_vote_phase_schulze
     else
-      vote_data = proposal.vote
-      proposal.proposal_state_id = if exceed_conditions?(vote_data)
-                                     ProposalState::ACCEPTED
-                                   else
-                                     ProposalState::REJECTED
-                                   end
+      close_vote_phase_standard
     end
     proposal.save!
     NotificationProposalVoteClosed.perform_async(proposal.id)
     true
+  end
+
+  def close_vote_phase_standard
+    vote_data = proposal.vote
+    proposal.proposal_state_id = if exceed_conditions?(vote_data)
+                                   ProposalState::ACCEPTED
+                                 else
+                                   ProposalState::REJECTED
+                                 end
+  end
+
+  def close_vote_phase_schulze
+    proposal.build_proposal_votation_result(data: SchulzeSolver.new(proposal).calculate)
+    votes = proposal.schulze_votes.sum(:count)
+    proposal.proposal_state_id = exceed_vote_quorum?(votes) ? ProposalState::ACCEPTED : ProposalState::REJECTED
   end
 
   def debate_progress

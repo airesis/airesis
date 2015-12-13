@@ -27,20 +27,6 @@ class Quorum < ActiveRecord::Base
     self.minutes = nil if minutes == 0
   end
 
-  def populate_accessor
-    self.minutes_m = minutes
-    if minutes_m
-      if minutes_m > 59
-        self.hours_m = minutes_m / 60
-        self.minutes_m = minutes_m % 60
-        if hours_m > 23
-          self.days_m = hours_m / 24
-          self.hours_m = hours_m % 24
-        end
-      end
-    end
-  end
-
   # return true if there is still time left to the end of the quorum
   def time_left?
     ends_at && (ends_at - Time.now > 0)
@@ -110,5 +96,15 @@ class Quorum < ActiveRecord::Base
   # calculate minimum number of participants
   def min_vote_participants
     @min_vote_participants ||= min_vote_participants_pop
+  end
+
+  protected
+
+  def populate_accessor
+    self.minutes_m = minutes
+    return unless minutes_m.to_f > 59
+    self.hours_m, self.minutes_m = minutes_m.divmod 60
+    return unless hours_m > 23
+    self.days_m, self.hours_m = hours_m.divmod 24
   end
 end
