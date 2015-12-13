@@ -12,18 +12,6 @@ class BestQuorum < Quorum
     (read_attribute :valutations) || 1
   end
 
-  def populate_accessor
-    super
-    self.vote_minutes_m = vote_minutes
-    return unless vote_minutes_m
-    return unless vote_minutes_m > 59
-    self.vote_hours_m = vote_minutes_m / 60
-    self.vote_minutes_m = vote_minutes_m % 60
-    return unless vote_hours_m > 23
-    self.vote_days_m = vote_hours_m / 24
-    self.vote_hours_m = vote_hours_m % 24
-  end
-
   # calculate minutes from user input only if they were not set already
   def populate_vote
     unless vote_minutes
@@ -198,23 +186,28 @@ class BestQuorum < Quorum
     NotificationProposalVoteClosed.perform_async(proposal.id)
   end
 
-  def has_bad_score?
-    false # new quora does not have bad score
-  end
-
   def debate_progress
     minimum = [Time.now, ends_at].min
     minimum = ((minimum - started_at) / 60)
     percentagetime = minimum.to_f / minutes.to_f
-    percentagetime *= 100
+    percentagetime * 100
   end
 
   protected
 
+  def populate_accessor
+    super
+    self.vote_minutes_m = vote_minutes
+    return unless vote_minutes_m.to_f > 59
+    self.vote_hours_m, self.vote_minutes_m = vote_minutes_m.divmod 60
+    return unless vote_hours_m > 23
+    self.vote_days_m, self.vote_hours_m = vote_hours_m.divmod 24
+  end
+
   def min_participants_pop
     percentage_f = percentage.to_f
-    count = if group
-              percentage_f * 0.01 * group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count # TODO: group areas
+    count = if group # TODO: group areas
+              percentage_f * 0.01 * group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count
             else
               percentage_f * 0.001 * User.count
             end
@@ -223,8 +216,8 @@ class BestQuorum < Quorum
 
   def min_vote_participants_pop
     vote_percentage_f = vote_percentage.to_f
-    count = if group
-              vote_percentage_f * 0.01 * group.scoped_participants(GroupAction::PROPOSAL_VOTE).count # TODO: group areas
+    count = if group # TODO: group areas
+              vote_percentage_f * 0.01 * group.scoped_participants(GroupAction::PROPOSAL_VOTE).count
             else
               vote_percentage_f * 0.001 * User.count
             end
@@ -232,55 +225,47 @@ class BestQuorum < Quorum
   end
 
   def explanation_pop
-    conditions = []
-    ret = ''
-    if assigned? # explain a quorum assigned to a proposal
-      if proposal_life.present? || proposal.abandoned?
-        ret = terminated_explanation_pop
-      else
-        ret = assigned_explanation_pop
-      end
-    else
-      ret = unassigned_explanation_pop # it a non assigned quorum
-    end
-
-    ret += '.'
+    ret = if assigned? # explain a quorum assigned to a proposal
+            if proposal_life.present? || proposal.abandoned?
+              terminated_explanation_pop
+            else
+              assigned_explanation_pop
+            end
+          else
+            unassigned_explanation_pop # it a non assigned quorum
+          end + '.'
     ret.html_safe
   end
 
   # TODO: we need to refactor this part of code but at least now is more clear
   # explain a quorum when assigned to a proposal in it's current state
   def assigned_explanation_pop
-    ret = ''
     time = "<b>#{self.time}</b> "
     time += I18n.t('models.quorum.until_date', date: I18n.l(ends_at))
     ret = I18n.translate('models.quorum.time_condition_1', time: time) # display the time left for discussion
     ret += '<br/>'
     participants = I18n.t('models.quorum.participants', count: valutations)
-    ret += I18n.translate('models.best_quorum.good_score_condition', good_score: good_score, participants: participants)
-    ret
+    ret + I18n.translate('models.best_quorum.good_score_condition', good_score: good_score, participants: participants)
   end
 
   # explain a quorum in a proposal that has terminated her life cycle
   def terminated_explanation_pop
-    ret = ''
     time = "<b>#{self.time(true)}</b> " # show total time if the quorum is terminated
     time += I18n.t('models.quorum.until_date', date: I18n.l(ends_at))
     ret = I18n.translate('models.quorum.time_condition_1_past', time: time) # display the time left for discussion
     ret += '<br/>'
     participants = I18n.t('models.quorum.participants_past', count: valutations)
-    ret += I18n.translate('models.best_quorum.good_score_condition_past', good_score: good_score, participants: participants)
-    ret
+    ret + I18n.translate('models.best_quorum.good_score_condition_past',
+                         good_score: good_score, participants: participants)
   end
 
   # explain a non assigned quorum
   def unassigned_explanation_pop
-    ret = ''
     time = "<b>#{self.time}</b> "
     ret = I18n.translate('models.quorum.time_condition_1', time: time) # display the time left for discussion
     ret += '<br/>'
     participants = I18n.t('models.quorum.participants', count: min_participants)
-    ret += I18n.translate('models.best_quorum.good_score_condition', good_score: good_score, participants: participants)
-    ret
+    ret + I18n.translate('models.best_quorum.good_score_condition',
+                         good_score: good_score, participants: participants)
   end
 end
