@@ -1,11 +1,5 @@
-<%= link_to '', {action: "rankdown", controller: "proposal_comments", id: comment.id, proposal_id: @proposal.id},
-            remote: true, method: :put,
-            data: {id: comment.id}, class: "votedown-mini vote_comment", style: "margin-right:10px", title: t('pages.proposals.show.votedown') %>
-<%= link_to '', {action: "ranknil", controller: "proposal_comments", id: comment.id, proposal_id: @proposal.id},
-            remote: true, method: :put,
-            data: {id: comment.id}, class: "votenil-mini vote_comment", style: "margin-right:10px", title: t('pages.proposals.show.votenil') %>
-<%= link_to '', {action: "rankup", controller: "proposal_comments", id: comment.id, proposal_id: @proposal.id},
-            remote: true, method: :put,
-            data: {id: comment.id}, class: "voteup-mini vote_comment", style: "margin-right:10px", title: t('pages.proposals.show.voteup') %>
-<span class="rightFloat think"><%= t('pages.proposals.contribution_valuation') %></span>
-<%= image_tag "spinner.gif", style: 'display: none;', class: 'rightFloat loading' %>
+<span class="think"><%= t('pages.proposals.contribution_valuation') %></span>
+<%= image_tag "spinner.gif", style: 'display: none;', class: 'loading' %>
+<%= link_to_rankup(@proposal, comment) %>
+<%= link_to_ranknil(@proposal, comment) %>
+<%= link_to_rankdown(@proposal, comment) %>
