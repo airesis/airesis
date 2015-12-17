@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151212193308) do
+ActiveRecord::Schema.define(version: 20151217100857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1494,6 +1494,7 @@ ActiveRecord::Schema.define(version: 20151212193308) do
   end
 
   add_foreign_key "action_abilitations", "group_actions", name: "action_abilitations_group_action_id_fk"
+  add_foreign_key "action_abilitations", "groups", name: "action_abilitations_group_id_fk", on_update: :cascade
   add_foreign_key "action_abilitations", "participation_roles", name: "action_abilitations_partecipation_role_id_fk"
   add_foreign_key "alerts", "notifications", name: "user_alerts_notification_id_fk"
   add_foreign_key "alerts", "users", name: "user_alerts_user_id_fk"
@@ -1577,6 +1578,7 @@ ActiveRecord::Schema.define(version: 20151212193308) do
   add_foreign_key "old_proposal_presentations", "users", name: "old_proposal_presentations_user_id_fk"
   add_foreign_key "paragraph_histories", "proposals", name: "paragraph_histories_proposal_id_fk"
   add_foreign_key "paragraphs", "sections", name: "paragraphs_section_id_fk"
+  add_foreign_key "participation_roles", "groups", name: "partecipation_roles_group_id_fk", on_update: :cascade
   add_foreign_key "participation_roles", "participation_roles", column: "parent_participation_role_id", name: "partecipation_roles_parent_partecipation_role_id_fk"
   add_foreign_key "post_publishings", "blog_posts", name: "post_publishings_blog_post_id_fk"
   add_foreign_key "post_publishings", "groups", name: "post_publishings_group_id_fk", on_update: :cascade

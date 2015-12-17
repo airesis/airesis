@@ -16,8 +16,6 @@
 //= require fullcalendar
 //= require gcal
 //= require charCount
-//= require jquery.dataTables.min
-//= require jquery.dataTables.columnFilter
 //= require jquery.steps.min
 //= require jquery.elastic
 //= require jqlplot/jquery.jqplot

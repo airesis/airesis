@@ -1063,6 +1063,7 @@ en-EU:
       random_ordered_votes: "Random ordered votes"
       number_of_voters: "Number of voters"
       vote: "Their vote"
+      voters: "Voters"
     authors_list_panel:
       dont_want_to_be_an_author: "I don't want to be an author anymore"
     left_panel:

@@ -1,6 +1,7 @@
 class ProposalSchulzeVote < ActiveRecord::Base
   belongs_to :proposal, class_name: 'Proposal', foreign_key: :proposal_id
 
+  # TODO: what the hell is that?
   def description
     desc = ''
     # ids is an array of two. each element with his previous delimiter

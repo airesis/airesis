@@ -1,6 +1,6 @@
 window.ProposalsVoteResults =
   init: ->
-    @.showVoteResults
+    @.showVoteResults()
     $('[data-plot]').each ->
       dataa = [
         [ProposalsVoteResults.positive, $(this).data('positive')]
@@ -20,7 +20,7 @@ window.ProposalsVoteResults =
         ProposalsVoteResults.plot1.replot()
 
   showVoteResults: ->
-    $('#votes_table').dataTable 'oLanguage':
+    $('[data-votes-table]').dataTable 'oLanguage':
       'sLengthMenu': 'Mostra _MENU_ utenti per pagina'
       'sSearch': 'Cerca:'
       'sZeroRecords': 'Nessun utente, spiacente..'
@@ -30,7 +30,7 @@ window.ProposalsVoteResults =
       'oPaginate':
         'sPrevious': 'Pagina precedente'
         'sNext': 'Pagina successiva'
-    $('#votes_table_wrapper label').css('font-weight', 'normal').css 'font-size', '12px'
+    $('.dataTables_wrapper label').css('font-weight', 'normal').css 'font-size', '12px'
     $('#cast_table').dataTable
       'oLanguage':
         'sLengthMenu': 'Mostra _MENU_ voti per pagina'

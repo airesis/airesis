@@ -372,6 +372,7 @@ class ProposalsController < ApplicationController
   def vote_results
     return redirect_to vote_results_group_proposal_path(@proposal.group, @proposal) if wrong_url?
     authorize! :show, @proposal
+    @proposal_votation_result = @proposal.proposal_votation_result
   end
 
   # exlipcitly close the debate of a proposal
