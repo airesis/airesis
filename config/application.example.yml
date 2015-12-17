@@ -246,5 +246,8 @@ MAILMAN_SENDER: 'Airesis Forum'
 # if the user does not access the platform for this number of days, his session will be destroyed
 SESSION_DAYS: '14'
 
+# from 1 to 10
+MAX_RANKINGS_NUMBER: 1
+
 PRIVATEPUB_SERVER: 'http://localhost:9292/faye'
 PRIVATEPUB_SECRET_TOKEN: 'hello'
