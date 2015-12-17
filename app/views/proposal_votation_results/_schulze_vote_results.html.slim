@@ -1,0 +1,14 @@
+div
+  dl.tabs[data-tab]
+    dd.active
+      = link_to t('proposals.schulze_vote_results.results'), '#results'
+    dd
+      = link_to t('proposals.schulze_vote_results.votes'), '#votes'
+  .tabs-content
+    #results.content.active
+      .card
+        h3= t('pages.proposals.results.total', count: @proposal.schulze_votes.sum(:count))
+      = render 'proposal_votation_results/schulze_classifications'
+      = render 'proposal_votation_results/schulze_voters'
+    #votes.content
+      = render 'proposal_votation_results/schulze_votes'

@@ -1,0 +1,13 @@
+.card
+  h3 = t('proposals.schulze_vote_results.random_ordered_votes')
+  table#cast_table
+    thead
+      tr
+        th = t('proposals.schulze_vote_results.number_of_voters')
+        th = t('proposals.schulze_vote_results.vote')
+    tbody
+      - @proposal.schulze_votes.each do |vote|
+        tr
+          td= vote.count
+          td
+            = render 'proposal_votation_results/vote_preferences', preferences: vote.preferences
