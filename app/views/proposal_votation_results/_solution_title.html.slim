@@ -1,0 +1,2 @@
+= raw I18n.t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}", num: @solution_ids.index(id) + 1)
+= @solutions.find { |solution| solution.id == id }.title

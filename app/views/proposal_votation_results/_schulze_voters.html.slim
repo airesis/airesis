@@ -1,0 +1,17 @@
+.card
+  h3 = t('proposals.schulze_vote_results.voters')
+  table.votes-table[data-votes-table]
+    thead
+      tr
+        th = t('pages.proposals.results.name_surname_column')
+        th = t('pages.proposals.results.date_time_column')
+        - unless @proposal.secret_vote
+          th = t('pages.proposals.results.vote_column')
+    tbody
+      - @proposal.user_votes.includes(:user).each do |user_vote|
+        tr
+          td = user_vote.user.fullname
+          td = l user_vote.created_at
+          - unless @proposal.secret_vote
+            td
+              = render 'proposal_votation_results/vote_preferences', preferences: user_vote.vote_schulze
