@@ -10,7 +10,7 @@ class TagsController < ApplicationController
       @page_title = I18n.t('pages.tags.show.title', tag: params[:id])
       @tag = params[:id]
       @blog_posts_ids = BlogPost.published.joins(:tags).where(tags: { text: @tag }).pluck('blog_posts.id')
-      @blog_posts = BlogPost.where(id: @blog_posts_ids).includes(:blog, :tags, :user).order('created_at desc')
+      @blog_posts = BlogPost.includes(:blog, :tags, :user).where(id: @blog_posts_ids).order('created_at desc')
       @proposals = Proposal.joins(:tags).for_list(current_user.try(:id)).where(tags: { text: @tag })
       @groups = Group.joins(:tags).where(tags: { text: @tag })
 

@@ -25,16 +25,12 @@
 
   <div class="content" id="posts">
     <h2><%= t('pages.tags.list_posts_with_tag') %></h2>
-    <% if @blog_posts.size == 0 %>
+    <% if @blog_posts.empty? %>
         <div class="blogPost">
           <p><%= t('pages.tags.no_posts_with_tag') %></p>
         </div>
     <% else %>
-        <% @blog_posts.each do |blog_post| %>
-            <div>
-              <%= render 'blog_posts/blog_post', blog_post: blog_post %>
-            </div>
-        <% end %>
+        <%= render partial: 'blog_posts/blog_post', collection: @blog_posts %>
     <% end %>
   </div>
 
