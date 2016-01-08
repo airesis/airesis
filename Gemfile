@@ -19,7 +19,7 @@ gem 'pg'
 gem 'rails_admin'
 
 gem 'sunspot_rails'
-gem 'sunspot-queue', github: 'gaffneyc/sunspot-queue'
+gem 'sunspot-queue', git: 'https://github.com/gaffneyc/sunspot-queue'
 
 gem 'capistrano'
 gem 'capistrano-bundler'
@@ -52,10 +52,11 @@ group :development do
   gem 'awesome_print'
   gem 'letter_opener'
   gem 'foreman'
+  gem 'spring'
   gem 'thin', require: false
 end
 
-group :development, :test do
+group :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
@@ -63,7 +64,6 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'capybara-webkit'
   gem 'capybara-screenshot'
-  gem 'spring'
   gem 'sunspot_test'
   gem 'timecop'
 end
@@ -84,7 +84,7 @@ end
 group :production do
   gem 'therubyracer'
   gem 'newrelic_rpm'
-  gem 'sentry-raven', github: 'getsentry/raven-ruby'
+  gem 'sentry-raven', git: 'https://github.com/getsentry/raven-ruby'
 end
 
 group :doc do
@@ -96,7 +96,7 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-meetup'
 gem 'omniauth-linkedin'
-gem 'omniauth-tecnologiedemocratiche', github: 'TecnologieDemocratiche/omniauth-tecnologiedemocratiche'
+gem 'omniauth-tecnologiedemocratiche', git: 'https://github.com/TecnologieDemocratiche/omniauth-tecnologiedemocratiche'
 
 gem 'paperclip'
 
@@ -110,7 +110,7 @@ gem 'jbuilder'
 
 gem 'devise'
 
-gem 'devise_traceable', github: 'coorasse/devise_traceable'
+gem 'devise_traceable', git: 'https://github.com/coorasse/devise_traceable'
 
 gem 'koala'
 
@@ -126,7 +126,7 @@ gem 'sitemap_generator'
 
 gem 'geocoder'
 
-gem 'vote-schulze', github: 'coorasse/vote-schulze'
+gem 'schulze-vote', git: 'https://github.com/coorasse/schulze-vote'
 
 gem 'rails_autolink'
 
@@ -152,7 +152,7 @@ gem 'rotp'
 
 gem 'ckeditor'
 
-gem 'timezone', github: 'coorasse/timezone'
+gem 'timezone', git: 'https://github.com/coorasse/timezone'
 
 gem 'friendly_id'
 gem 'simple_form'
@@ -174,12 +174,12 @@ gem 'faker'
 
 gem 'sshkit'
 
-gem 'cookies_eu', github: 'coorasse/cookies_eu'
+gem 'cookies_eu', git: 'https://github.com/coorasse/cookies_eu'
 
 gem 'font-awesome-rails'
 
 gem 'truncate_html'
 
-gem 'sunspot-rails-http-basic-auth', github: 'jwachira/sunspot-rails-http-basic-auth'
+gem 'sunspot-rails-http-basic-auth', git: 'https://github.com/jwachira/sunspot-rails-http-basic-auth'
 
 gem 'activerecord-session_store'
