@@ -68,10 +68,13 @@ group :test do
   gem 'timecop'
 end
 
+group :development, :test do
+  gem 'test-unit'
+end
+
 group :test do
   gem 'codeclimate-test-reporter', require: nil
   gem 'ruby-prof'
-  gem 'test-unit'
   gem 'simplecov', require: false
   gem 'email_spec'
 end
