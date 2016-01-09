@@ -33,17 +33,17 @@ Absolutely simple and intuitive interface will allow everyone in a short time, t
 
 Reference website
 -------
-[ http://www.airesis.it ] ( http://www.airesis.it )
-[ http://www.airesis.eu ] ( http://www.airesis.eu )
-[ http://www.airesis.us ] ( http://www.airesis.us )
-[ http://www.airesis.fr ] ( http://www.airesis.fr )
-[ http://www.airesis.de ] ( http://www.airesis.de )
-[ http://www.airesis.cn ] ( http://www.airesis.cn )
-[ http://www.airesis.es ] ( http://www.airesis.es )
-[ http://www.airesis.pt ] ( http://www.airesis.pt )
+* [ www.airesis.it ] ( http://www.airesis.it )
+* [ www.airesis.eu ] ( http://www.airesis.eu )
+* [ www.airesis.us ] ( http://www.airesis.us )
+* [ www.airesis.fr ] ( http://www.airesis.fr )
+* [ www.airesis.de ] ( http://www.airesis.de )
+* [ www.airesis.cn ] ( http://www.airesis.cn )
+* [ www.airesis.es ] ( http://www.airesis.es )
+* [ www.airesis.pt ] ( http://www.airesis.pt )
 
 
-License to use
+License
 --------------
 
 This software is released under AGPL .
@@ -52,64 +52,105 @@ For the terms of the license can be found in the LICENSE file available within t
 
 Anyone which installs the application and is required to comply with the terms of the license and to incorporate in the footer of the website the following statement:
 
-Powered by <a href="http://www.airesis.eu"> Airesis - The Social Network for eDemocracy </ a>
+Powered by <a href="http://www.airesis.eu"> Airesis - The Social Network for eDemocracy </a>
 
 
-Setup and Installation
+Installation and Setup
 ----------------------
+You can install Airesis to run locally on your machine, or if you prefer using [Docker containers](#Docker) for a quick and easy setup.
 
+###Local installation
 The application installs itself as any other RubyOnRails application.
 
-Download the project
+####Requirements
+* PostgreSQL 9 with the hstore extension enabled.
+* Redis in order to execute Sidekiq and all background jobs.
+* A JVM installed to run SOLR server, used for searching inside Airesis.
 
-    git clone https://github.com/coorasse/Airesis.git
-    cd airesis
+####Tutorial
+1. Download the project
+```
+git clone https://github.com/coorasse/Airesis.git
+cd airesis
+```
+2. Install the libraries
+```
+bundle install
+```
+3. Configure the database connection and other application variables (such as PayPal, Google Maps API, etc.), run
+```
+cp config/database.example.yml config/database.yml
+cp config/application.example.yml config/application.yml
+cp config/private_pub.example.yml config/private_pub.yml
+cp config/sidekiq.example.yml config/sidekiq.yml
+cp config/sunspot.example.yml config/sunspot.yml
+```
+then edit the `.yml` files and set your custom values
+4. Bootstrap the database, populating it with initial data (be advised: it will date some time!)
+```    
+bundle exec rake db:setup
+```
+5. Run Airesis
+```
+bundle exec rails s
+```
+6. run SOLR
+```
+bundle exec rake sunspot:solr:run
+```
+7. run Sidekiq
+```
+bundle exec sidekiq
+```
 
-Install the libraries
+That's it! Now you have a running installation of Airesis!
 
-    bundle install
-
-Configure database, application and other cool stuff
-
-    cp config/database.example.yml config/database.yml
-    cp config/application.example.yml config/application.yml
-    cp config/private_pub.example.yml config/private_pub.yml
-    cp config/sidekiq.example.yml config/sidekiq.yml
-    cp config/sunspot.example.yml config/sunspot.yml
-
-edit the files and set your custom values    
-    
-    bundle exec rake db:setup
-
-run Airesis
-
-    bundle exec rails s
-
-run SOLR
-
-    bundle exec rake sunspot:solr:run
-
-run Sidekiq
-
-    bundle exec sidekiq
-
-
-That's it!
-
-If you want to run them all you can use Foreman
-
-    bundle exec foreman start
-    
+####Foreman
+If you want to run them all in a single command you can use Foreman
+```
+bundle exec foreman start
+```   
 and it will take care of running everything for you.
 
-Mailman
--------
+####Mailman
+Users can reply in the forum by email. Run
+```
+ruby script/mailman_server.rb
+```    
+in background to receive emails and create forum posts from them.  
 
-Users can reply into the forum by email. Run
 
-    ruby script/mailman_server.rb
-    
-in background to receive emails.    
+###Docker
+Docker takes care of all the required dependencies for you, and with it you use a fixed and standard dev environment between all of developers. This eliminate inconsistencies problem that can lead to bugs and other complications in running the application.
+
+####Requirements
+* [Docker](https://www.docker.com/)
+* [Docker Compose](https://github.com/docker/compose)
+
+###Tutorial
+1. Download the project
+```
+git clone https://github.com/coorasse/Airesis.git
+cd airesis
+```
+2. Create the required Docker containers
+```
+docker-compose build
+```
+3. To configure application variables (such as PayPal, Google Maps API, etc.), run
+```
+cp config/database.example.yml config/database.yml
+cp config/application.example.yml config/application.yml
+```
+then edit the `.yml` files and set your custom values
+4. Bootstrap and seed the DB
+```
+docker-compose run --rm airesis bundle exec rake db:setup
+```
+5. Run Airesis
+```
+docker-compose up
+```
 
 SOLR
 ----
@@ -128,7 +169,8 @@ We strongly suggest to edit solrconfig.xml setting
 To generate new collections create another solr subfolder like `solr/new_collection` and in solr.xml add
 `<core name="new_collection" instanceDir="." dataDir="new_collection/data"/>`
 
-Data
+
+Seeding more data
 ----
 
 You'll probably need some fake data in your development environment to test stuff.
@@ -148,16 +190,13 @@ Destroy all the proposals in the database
 
 To generate other fake data look at `spec/factories` folder.
 
-Database
---------
+###Using Docker
+You can run all the previous command if you use Docker. Juste prefix them with `docker-compose run --rm airesis` to run them in the airesis container.
 
-Airesis has been developed and tested using PostgreSQL 9.
-
-It's necessary to have PostgreSQL installed with the hstore extension enabled.
-
-Is also necessary to have Redis in order to execute Sidekiq and all background jobs.
-
-
+Fo instance
+```
+docker-compose run --rm airesis bundle exec rake airesis:seed:more:public_proposals[number]
+```
 Environment variables
 ---------------------
 
