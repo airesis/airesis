@@ -37,6 +37,8 @@ gem 'rack-mini-profiler', require: false
 
 gem 'daemons'
 
+gem 'activerecord-import', '>= 0.10'
+
 group :development do
   gem 'sunspot_solr'
   gem 'better_errors'
