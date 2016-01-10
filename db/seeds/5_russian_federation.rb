@@ -94,7 +94,10 @@ region = Region.create(description: "Astrakhanskaya Oblast'", country: state, co
 province = region.provinces.create(description: "Akhtubinskiy Rayon", country: state, continent: continent,  geoname_id: 583796, population: 0)
 province = region.provinces.create(description: "Chernoyarskiy Rayon", country: state, continent: continent,  geoname_id: 568698, population: 0)
 province = region.provinces.create(description: "Gorod Astrakhan'", country: state, continent: continent,  geoname_id: 824964, population: 0)
-province.municipalities.create(description: "Astrakhan", region: region, country: state, continent: continent, geoname_id: 580497, population: 502533)
+municipalities = [
+province.municipalities.new(description: "Astrakhan", region: region, country: state, continent: continent, geoname_id: 580497, population: 502533),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Ikryaninskiy Rayon", country: state, continent: continent,  geoname_id: 557391, population: 0)
 province = region.provinces.create(description: "Kamyzyakskiy Rayon", country: state, continent: continent,  geoname_id: 553246, population: 0)
 province = region.provinces.create(description: "Kharabalinskiy Rayon", country: state, continent: continent,  geoname_id: 550669, population: 0)
@@ -106,12 +109,18 @@ province = region.provinces.create(description: "Volodarskiy Rayon", country: st
 province = region.provinces.create(description: "Yenotayevskiy Rayon", country: state, continent: continent,  geoname_id: 467477, population: 0)
 region = Region.create(description: "Bashkortostan", country: state, continent: continent, geoname_id: 578853)
 province = region.provinces.create(description: "Belokatayskiy Rayon", country: state, continent: continent,  geoname_id: 577943, population: 0)
-province.municipalities.create(description: "Kusimovo", region: region, country: state, continent: continent, geoname_id: 538332, population: 0)
+municipalities = [
+province.municipalities.new(description: "Kusimovo", region: region, country: state, continent: continent, geoname_id: 538332, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Khaybullinskiy Rayon", country: state, continent: continent,  geoname_id: 550406, population: 0)
 region = Region.create(description: "Belgorodskaya Oblast'", country: state, continent: continent, geoname_id: 578071)
 province = region.provinces.create(description: "Alekseyevskiy Rayon", country: state, continent: continent,  geoname_id: 582787, population: 0)
 province = region.provinces.create(description: "Belgorodskiy Rayon", country: state, continent: continent,  geoname_id: 578070, population: 77700)
-province.municipalities.create(description: "Belgorod", region: region, country: state, continent: continent, geoname_id: 578072, population: 345289)
+municipalities = [
+province.municipalities.new(description: "Belgorod", region: region, country: state, continent: continent, geoname_id: 578072, population: 345289),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Borisovskiy Rayon", country: state, continent: continent,  geoname_id: 572391, population: 26000)
 province = region.provinces.create(description: "Chernyanskiy Rayon", country: state, continent: continent,  geoname_id: 568584, population: 32918)
 province = region.provinces.create(description: "Gorod Alekseyevka", country: state, continent: continent,  geoname_id: 824989, population: 0)
@@ -135,7 +144,10 @@ province = region.provinces.create(description: "Yakovlevskiy Rayon", country: s
 region = Region.create(description: "Bryanskaya Oblast'", country: state, continent: continent, geoname_id: 571473)
 province = region.provinces.create(description: "Brasovskiy Rayon", country: state, continent: continent,  geoname_id: 571745, population: 0)
 province = region.provinces.create(description: "Bryanskiy Rayon", country: state, continent: continent,  geoname_id: 571467, population: 0)
-province.municipalities.create(description: "Bryansk", region: region, country: state, continent: continent, geoname_id: 571476, population: 427236)
+municipalities = [
+province.municipalities.new(description: "Bryansk", region: region, country: state, continent: continent, geoname_id: 571476, population: 427236),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Dubrovskiy Rayon", country: state, continent: continent,  geoname_id: 564343, population: 0)
 province = region.provinces.create(description: "Dyat'kovskiy Rayon", country: state, continent: continent,  geoname_id: 563821, population: 0)
 province = region.provinces.create(description: "Gordeyevskiy Rayon", country: state, continent: continent,  geoname_id: 824993, population: 0)
@@ -152,11 +164,17 @@ province = region.provinces.create(description: "Mglinskiy Rayon", country: stat
 province = region.provinces.create(description: "Navlinskiy Rayon", country: state, continent: continent,  geoname_id: 523187, population: 0)
 province = region.provinces.create(description: "Novozybkovskiy Rayon", country: state, continent: continent,  geoname_id: 517267, population: 0)
 province = region.provinces.create(description: "Pochepskiy Rayon", country: state, continent: continent,  geoname_id: 508648, population: 0)
-province.municipalities.create(description: "Pochep", region: region, country: state, continent: continent, geoname_id: 508656, population: 15100)
+municipalities = [
+province.municipalities.new(description: "Pochep", region: region, country: state, continent: continent, geoname_id: 508656, population: 15100),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Pogarskiy Rayon", country: state, continent: continent,  geoname_id: 507867, population: 0)
 province = region.provinces.create(description: "Rognedinskiy Rayon", country: state, continent: continent,  geoname_id: 501624, population: 0)
 province = region.provinces.create(description: "Sevskiy Rayon", country: state, continent: continent,  geoname_id: 496244, population: 0)
-province.municipalities.create(description: "Dobrovod'ye", region: region, country: state, continent: continent, geoname_id: 565822, population: 150)
+municipalities = [
+province.municipalities.new(description: "Dobrovod'ye", region: region, country: state, continent: continent, geoname_id: 565822, population: 150),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Starodubskiy Rayon", country: state, continent: continent,  geoname_id: 488848, population: 0)
 province = region.provinces.create(description: "Surazhskiy Rayon", country: state, continent: continent,  geoname_id: 486147, population: 0)
 province = region.provinces.create(description: "Suzemskiy Rayon", country: state, continent: continent,  geoname_id: 485815, population: 0)
@@ -169,26 +187,35 @@ province = region.provinces.create(description: "Zlynkovskiy Rayon", country: st
 region = Region.create(description: "Chechnya", country: state, continent: continent, geoname_id: 569665)
 province = region.provinces.create(description: "Achkhoy-Martanovskiy Rayon", country: state, continent: continent,  geoname_id: 584297, population: 68410)
 province = region.provinces.create(description: "Gudermesskiy Rayon", country: state, continent: continent,  geoname_id: 558115, population: 72881)
-province.municipalities.create(description: "Ergbatoy", region: region, country: state, continent: continent, geoname_id: 796769, population: 0)
+municipalities = [
+province.municipalities.new(description: "Ergbatoy", region: region, country: state, continent: continent, geoname_id: 796769, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Nadterechnyy Rayon", country: state, continent: continent,  geoname_id: 523654, population: 53823)
 province = region.provinces.create(description: "Naurskiy Rayon", country: state, continent: continent,  geoname_id: 523209, population: 51967)
 province = region.provinces.create(description: "Nozhay-Yurtovskiy Rayon", country: state, continent: continent,  geoname_id: 516779, population: 42443)
-province.municipalities.create(description: "Amir-Kort", region: region, country: state, continent: continent, geoname_id: 796377, population: 0)
-province.municipalities.create(description: "Asmal", region: region, country: state, continent: continent, geoname_id: 796502, population: 0)
-province.municipalities.create(description: "Chachanki", region: region, country: state, continent: continent, geoname_id: 858650, population: 0)
-province.municipalities.create(description: "Galayty", region: region, country: state, continent: continent, geoname_id: 562183, population: 0)
-province.municipalities.create(description: "Gurzhi-Mokhk", region: region, country: state, continent: continent, geoname_id: 557945, population: 0)
-province.municipalities.create(description: "Khayedy", region: region, country: state, continent: continent, geoname_id: 796479, population: 0)
-province.municipalities.create(description: "Laley Mokhk", region: region, country: state, continent: continent, geoname_id: 796500, population: 0)
-province.municipalities.create(description: "Manal", region: region, country: state, continent: continent, geoname_id: 796499, population: 0)
-province.municipalities.create(description: "Tasha", region: region, country: state, continent: continent, geoname_id: 796475, population: 0)
-province.municipalities.create(description: "Umarovo", region: region, country: state, continent: continent, geoname_id: 796508, population: 0)
-province.municipalities.create(description: "Zamay Khutor", region: region, country: state, continent: continent, geoname_id: 796276, population: 0)
-province.municipalities.create(description: "Амдук", region: region, country: state, continent: continent, geoname_id: 797619, population: 0)
+municipalities = [
+province.municipalities.new(description: "Amir-Kort", region: region, country: state, continent: continent, geoname_id: 796377, population: 0),
+province.municipalities.new(description: "Asmal", region: region, country: state, continent: continent, geoname_id: 796502, population: 0),
+province.municipalities.new(description: "Chachanki", region: region, country: state, continent: continent, geoname_id: 858650, population: 0),
+province.municipalities.new(description: "Galayty", region: region, country: state, continent: continent, geoname_id: 562183, population: 0),
+province.municipalities.new(description: "Gurzhi-Mokhk", region: region, country: state, continent: continent, geoname_id: 557945, population: 0),
+province.municipalities.new(description: "Khayedy", region: region, country: state, continent: continent, geoname_id: 796479, population: 0),
+province.municipalities.new(description: "Laley Mokhk", region: region, country: state, continent: continent, geoname_id: 796500, population: 0),
+province.municipalities.new(description: "Manal", region: region, country: state, continent: continent, geoname_id: 796499, population: 0),
+province.municipalities.new(description: "Tasha", region: region, country: state, continent: continent, geoname_id: 796475, population: 0),
+province.municipalities.new(description: "Umarovo", region: region, country: state, continent: continent, geoname_id: 796508, population: 0),
+province.municipalities.new(description: "Zamay Khutor", region: region, country: state, continent: continent, geoname_id: 796276, population: 0),
+province.municipalities.new(description: "Амдук", region: region, country: state, continent: continent, geoname_id: 797619, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Shalinskiy Rayon", country: state, continent: continent,  geoname_id: 495940, population: 70354)
-province.municipalities.create(description: "Alleroy", region: region, country: state, continent: continent, geoname_id: 582462, population: 10247)
-province.municipalities.create(description: "Avtury", region: region, country: state, continent: continent, geoname_id: 580218, population: 18370)
-province.municipalities.create(description: "Bachi-Yurt", region: region, country: state, continent: continent, geoname_id: 579831, population: 14788)
+municipalities = [
+province.municipalities.new(description: "Alleroy", region: region, country: state, continent: continent, geoname_id: 582462, population: 10247),
+province.municipalities.new(description: "Avtury", region: region, country: state, continent: continent, geoname_id: 580218, population: 18370),
+province.municipalities.new(description: "Bachi-Yurt", region: region, country: state, continent: continent, geoname_id: 579831, population: 14788),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Shelkovskiy Rayon", country: state, continent: continent,  geoname_id: 494999, population: 51783)
 province = region.provinces.create(description: "Vedenskiy Rayon", country: state, continent: continent,  geoname_id: 476248, population: 0)
 region = Region.create(description: "Chelyabinsk", country: state, continent: continent, geoname_id: 1508290)
@@ -199,13 +226,19 @@ province = region.provinces.create(description: "Bredinskiy Rayon", country: sta
 province = region.provinces.create(description: "Chebarkul'skiy Rayon", country: state, continent: continent,  geoname_id: 1508346, population: 0)
 province = region.provinces.create(description: "Chesmenskiy Rayon", country: state, continent: continent,  geoname_id: 1507924, population: 0)
 province = region.provinces.create(description: "Gorod Chelyabinsk", country: state, continent: continent,  geoname_id: 1535932, population: 3577253)
-province.municipalities.create(description: "Chelyabinsk", region: region, country: state, continent: continent, geoname_id: 1508291, population: 1062919)
+municipalities = [
+province.municipalities.new(description: "Chelyabinsk", region: region, country: state, continent: continent, geoname_id: 1508291, population: 1062919),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Gorod Karabash", country: state, continent: continent,  geoname_id: 1535935, population: 0)
 province = region.provinces.create(description: "Gorod Kopeysk", country: state, continent: continent,  geoname_id: 1535936, population: 0)
 province = region.provinces.create(description: "Gorod Korkino", country: state, continent: continent,  geoname_id: 1535937, population: 0)
 province = region.provinces.create(description: "Gorod Kyshtym", country: state, continent: continent,  geoname_id: 1535938, population: 0)
 province = region.provinces.create(description: "Gorod Magnitogorsk", country: state, continent: continent,  geoname_id: 825030, population: 0)
-province.municipalities.create(description: "Magnitogorsk", region: region, country: state, continent: continent, geoname_id: 532288, population: 413351)
+municipalities = [
+province.municipalities.new(description: "Magnitogorsk", region: region, country: state, continent: continent, geoname_id: 532288, population: 413351),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Gorod Miass", country: state, continent: continent,  geoname_id: 1535939, population: 0)
 province = region.provinces.create(description: "Gorod Plast", country: state, continent: continent,  geoname_id: 1535940, population: 0)
 province = region.provinces.create(description: "Gorod Ust'-Katav", country: state, continent: continent,  geoname_id: 825031, population: 0)
@@ -224,7 +257,10 @@ province = region.provinces.create(description: "Nagaybakskiy Rayon", country: s
 province = region.provinces.create(description: "Nyazepetrovskiy Rayon", country: state, continent: continent,  geoname_id: 516613, population: 0)
 province = region.provinces.create(description: "Oktyabr'skiy Rayon", country: state, continent: continent,  geoname_id: 1496266, population: 0)
 province = region.provinces.create(description: "Satkinskiy Rayon", country: state, continent: continent,  geoname_id: 498416, population: 0)
-province.municipalities.create(description: "Zyuratkul'", region: region, country: state, continent: continent, geoname_id: 461753, population: 0)
+municipalities = [
+province.municipalities.new(description: "Zyuratkul'", region: region, country: state, continent: continent, geoname_id: 461753, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Sosnovskiy Rayon", country: state, continent: continent,  geoname_id: 1491282, population: 0)
 province = region.provinces.create(description: "Troitskiy Rayon", country: state, continent: continent,  geoname_id: 1489213, population: 0)
 province = region.provinces.create(description: "Uvel'skiy Rayon", country: state, continent: continent,  geoname_id: 1487930, population: 0)
@@ -236,10 +272,13 @@ region = Region.create(description: "Chukotskiy Avtonomnyy Okrug", country: stat
 province = region.provinces.create(description: "Anadyrskiy Rayon", country: state, continent: continent,  geoname_id: 2127198, population: 0)
 province = region.provinces.create(description: "Beringovskiy Rayon", country: state, continent: continent,  geoname_id: 2126709, population: 0)
 province = region.provinces.create(description: "Bilibinskiy Rayon", country: state, continent: continent,  geoname_id: 2126681, population: 0)
-province.municipalities.create(description: "Bilibino", region: region, country: state, continent: continent, geoname_id: 2126682, population: 5757)
-province.municipalities.create(description: "Bol'shaya Baranikha", region: region, country: state, continent: continent, geoname_id: 2126622, population: 0)
-province.municipalities.create(description: "Keperveyem", region: region, country: state, continent: continent, geoname_id: 2124860, population: 0)
-province.municipalities.create(description: "Vstrechnyy", region: region, country: state, continent: continent, geoname_id: 2119683, population: 12)
+municipalities = [
+province.municipalities.new(description: "Bilibino", region: region, country: state, continent: continent, geoname_id: 2126682, population: 5757),
+province.municipalities.new(description: "Bol'shaya Baranikha", region: region, country: state, continent: continent, geoname_id: 2126622, population: 0),
+province.municipalities.new(description: "Keperveyem", region: region, country: state, continent: continent, geoname_id: 2124860, population: 0),
+province.municipalities.new(description: "Vstrechnyy", region: region, country: state, continent: continent, geoname_id: 2119683, population: 12),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Chaunskiy Rayon", country: state, continent: continent,  geoname_id: 2126275, population: 0)
 province = region.provinces.create(description: "Chukotskiy Rayon", country: state, continent: continent,  geoname_id: 4031750, population: 0)
 province = region.provinces.create(description: "Iul'tinskiy Rayon", country: state, continent: continent,  geoname_id: 4031694, population: 0)
@@ -250,7 +289,10 @@ province = region.provinces.create(description: "Alatyrskiy Rayon", country: sta
 province = region.provinces.create(description: "Alikovskiy Rayon", country: state, continent: continent,  geoname_id: 582532, population: 0)
 province = region.provinces.create(description: "Batyrevskiy Rayon", country: state, continent: continent,  geoname_id: 578658, population: 0)
 province = region.provinces.create(description: "Cheboksarskiy Rayon", country: state, continent: continent,  geoname_id: 569698, population: 0)
-province.municipalities.create(description: "Cheboksary", region: region, country: state, continent: continent, geoname_id: 569696, population: 446781)
+municipalities = [
+province.municipalities.new(description: "Cheboksary", region: region, country: state, continent: continent, geoname_id: 569696, population: 446781),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Ibresinskiy Rayon", country: state, continent: continent,  geoname_id: 557627, population: 0)
 province = region.provinces.create(description: "Kanashskiy Rayon", country: state, continent: continent,  geoname_id: 553213, population: 0)
 province = region.provinces.create(description: "Komsomol'skiy Rayon", country: state, continent: continent,  geoname_id: 545703, population: 0)
@@ -272,75 +314,87 @@ region = Region.create(description: "Dagestan", country: state, continent: conti
 province = region.provinces.create(description: "Agul'skiy Rayon", country: state, continent: continent,  geoname_id: 583977, population: 11201)
 province = region.provinces.create(description: "Akhtynskiy Rayon", country: state, continent: continent,  geoname_id: 583791, population: 31598)
 province = region.provinces.create(description: "Akhvakhskiy Rayon", country: state, continent: continent,  geoname_id: 583776, population: 20705)
-province.municipalities.create(description: "Anchik", region: region, country: state, continent: continent, geoname_id: 582138, population: 0)
-province.municipalities.create(description: "Archo", region: region, country: state, continent: continent, geoname_id: 581199, population: 0)
-province.municipalities.create(description: "Ingerdakh", region: region, country: state, continent: continent, geoname_id: 556356, population: 0)
-province.municipalities.create(description: "Kudiyabroso", region: region, country: state, continent: continent, geoname_id: 539879, population: 0)
-province.municipalities.create(description: "Kvankero", region: region, country: state, continent: continent, geoname_id: 858068, population: 0)
-province.municipalities.create(description: "Lologonitl'", region: region, country: state, continent: continent, geoname_id: 534389, population: 0)
-province.municipalities.create(description: "Mashtada", region: region, country: state, continent: continent, geoname_id: 858050, population: 0)
-province.municipalities.create(description: "Mesterukh", region: region, country: state, continent: continent, geoname_id: 527378, population: 0)
-province.municipalities.create(description: "Rachabulda", region: region, country: state, continent: continent, geoname_id: 501848, population: 0)
-province.municipalities.create(description: "Ratsitl'", region: region, country: state, continent: continent, geoname_id: 502611, population: 0)
-province.municipalities.create(description: "Tad-Magitl'", region: region, country: state, continent: continent, geoname_id: 484919, population: 0)
-province.municipalities.create(description: "Tad-Magitl'", region: region, country: state, continent: continent, geoname_id: 860428, population: 0)
-province.municipalities.create(description: "Tlibisho", region: region, country: state, continent: continent, geoname_id: 482602, population: 0)
-province.municipalities.create(description: "Tlisi", region: region, country: state, continent: continent, geoname_id: 482600, population: 0)
-province.municipalities.create(description: "Tsoloda", region: region, country: state, continent: continent, geoname_id: 480825, population: 0)
-province.municipalities.create(description: "Tsumali", region: region, country: state, continent: continent, geoname_id: 858048, population: 0)
-province.municipalities.create(description: "Tsvakilkolo", region: region, country: state, continent: continent, geoname_id: 858069, population: 0)
-province.municipalities.create(description: "Tukita", region: region, country: state, continent: continent, geoname_id: 480590, population: 0)
-province.municipalities.create(description: "Verkhneye Inkhelo", region: region, country: state, continent: continent, geoname_id: 475382, population: 0)
+municipalities = [
+province.municipalities.new(description: "Anchik", region: region, country: state, continent: continent, geoname_id: 582138, population: 0),
+province.municipalities.new(description: "Archo", region: region, country: state, continent: continent, geoname_id: 581199, population: 0),
+province.municipalities.new(description: "Ingerdakh", region: region, country: state, continent: continent, geoname_id: 556356, population: 0),
+province.municipalities.new(description: "Kudiyabroso", region: region, country: state, continent: continent, geoname_id: 539879, population: 0),
+province.municipalities.new(description: "Kvankero", region: region, country: state, continent: continent, geoname_id: 858068, population: 0),
+province.municipalities.new(description: "Lologonitl'", region: region, country: state, continent: continent, geoname_id: 534389, population: 0),
+province.municipalities.new(description: "Mashtada", region: region, country: state, continent: continent, geoname_id: 858050, population: 0),
+province.municipalities.new(description: "Mesterukh", region: region, country: state, continent: continent, geoname_id: 527378, population: 0),
+province.municipalities.new(description: "Rachabulda", region: region, country: state, continent: continent, geoname_id: 501848, population: 0),
+province.municipalities.new(description: "Ratsitl'", region: region, country: state, continent: continent, geoname_id: 502611, population: 0),
+province.municipalities.new(description: "Tad-Magitl'", region: region, country: state, continent: continent, geoname_id: 484919, population: 0),
+province.municipalities.new(description: "Tad-Magitl'", region: region, country: state, continent: continent, geoname_id: 860428, population: 0),
+province.municipalities.new(description: "Tlibisho", region: region, country: state, continent: continent, geoname_id: 482602, population: 0),
+province.municipalities.new(description: "Tlisi", region: region, country: state, continent: continent, geoname_id: 482600, population: 0),
+province.municipalities.new(description: "Tsoloda", region: region, country: state, continent: continent, geoname_id: 480825, population: 0),
+province.municipalities.new(description: "Tsumali", region: region, country: state, continent: continent, geoname_id: 858048, population: 0),
+province.municipalities.new(description: "Tsvakilkolo", region: region, country: state, continent: continent, geoname_id: 858069, population: 0),
+province.municipalities.new(description: "Tukita", region: region, country: state, continent: continent, geoname_id: 480590, population: 0),
+province.municipalities.new(description: "Verkhneye Inkhelo", region: region, country: state, continent: continent, geoname_id: 475382, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Akushinskiy Rayon", country: state, continent: continent,  geoname_id: 583511, population: 0)
 province = region.provinces.create(description: "Babayurtovskiy Rayon", country: state, continent: continent,  geoname_id: 579998, population: 42554)
 province = region.provinces.create(description: "Bezhtinskiy Uchastok Rayon", country: state, continent: continent,  geoname_id: 830805, population: 0)
-province.municipalities.create(description: "Bezhta", region: region, country: state, continent: continent, geoname_id: 576558, population: 3994)
-province.municipalities.create(description: "Garbutl'", region: region, country: state, continent: continent, geoname_id: 561998, population: 0)
-province.municipalities.create(description: "Gunzib", region: region, country: state, continent: continent, geoname_id: 567089, population: 0)
-province.municipalities.create(description: "Khasharkhota", region: region, country: state, continent: continent, geoname_id: 858608, population: 0)
-province.municipalities.create(description: "Nakhada", region: region, country: state, continent: continent, geoname_id: 858610, population: 0)
-province.municipalities.create(description: "Tlyadal'", region: region, country: state, continent: continent, geoname_id: 482596, population: 0)
+municipalities = [
+province.municipalities.new(description: "Bezhta", region: region, country: state, continent: continent, geoname_id: 576558, population: 3994),
+province.municipalities.new(description: "Garbutl'", region: region, country: state, continent: continent, geoname_id: 561998, population: 0),
+province.municipalities.new(description: "Gunzib", region: region, country: state, continent: continent, geoname_id: 567089, population: 0),
+province.municipalities.new(description: "Khasharkhota", region: region, country: state, continent: continent, geoname_id: 858608, population: 0),
+province.municipalities.new(description: "Nakhada", region: region, country: state, continent: continent, geoname_id: 858610, population: 0),
+province.municipalities.new(description: "Tlyadal'", region: region, country: state, continent: continent, geoname_id: 482596, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Botlikhskiy Rayon", country: state, continent: continent,  geoname_id: 571887, population: 50680)
-province.municipalities.create(description: "Alak", region: region, country: state, continent: continent, geoname_id: 583477, population: 0)
-province.municipalities.create(description: "Andi", region: region, country: state, continent: continent, geoname_id: 582123, population: 5318)
-province.municipalities.create(description: "Ankho", region: region, country: state, continent: continent, geoname_id: 858680, population: 0)
-province.municipalities.create(description: "Ansalta", region: region, country: state, continent: continent, geoname_id: 581568, population: 5654)
-province.municipalities.create(description: "Ashali", region: region, country: state, continent: continent, geoname_id: 580648, population: 0)
-province.municipalities.create(description: "Ashino", region: region, country: state, continent: continent, geoname_id: 858383, population: 0)
-province.municipalities.create(description: "Botlikh", region: region, country: state, continent: continent, geoname_id: 571888, population: 0)
-province.municipalities.create(description: "Chanko", region: region, country: state, continent: continent, geoname_id: 569990, population: 0)
-province.municipalities.create(description: "Godoberi", region: region, country: state, continent: continent, geoname_id: 475133, population: 0)
-province.municipalities.create(description: "Gunkha", region: region, country: state, continent: continent, geoname_id: 860471, population: 0)
-province.municipalities.create(description: "Kheleturi", region: region, country: state, continent: continent, geoname_id: 550370, population: 0)
-province.municipalities.create(description: "Kizhani", region: region, country: state, continent: continent, geoname_id: 547867, population: 0)
-province.municipalities.create(description: "Kvankhidatli", region: region, country: state, continent: continent, geoname_id: 858046, population: 0)
-province.municipalities.create(description: "Miarso", region: region, country: state, continent: continent, geoname_id: 527214, population: 0)
-province.municipalities.create(description: "Miarso", region: region, country: state, continent: continent, geoname_id: 860421, population: 0)
-province.municipalities.create(description: "Muni", region: region, country: state, continent: continent, geoname_id: 524452, population: 0)
-province.municipalities.create(description: "Nizhneye Inkhelo", region: region, country: state, continent: continent, geoname_id: 520967, population: 0)
-province.municipalities.create(description: "Nizhniye Godoberi", region: region, country: state, continent: continent, geoname_id: 520746, population: 0)
-province.municipalities.create(description: "Ortakolo", region: region, country: state, continent: continent, geoname_id: 514731, population: 0)
-province.municipalities.create(description: "Rakhata", region: region, country: state, continent: continent, geoname_id: 503132, population: 0)
-province.municipalities.create(description: "Rikvani", region: region, country: state, continent: continent, geoname_id: 501913, population: 0)
-province.municipalities.create(description: "Rushukha", region: region, country: state, continent: continent, geoname_id: 858677, population: 0)
-province.municipalities.create(description: "Shivor", region: region, country: state, continent: continent, geoname_id: 858679, population: 0)
-province.municipalities.create(description: "Shodroda", region: region, country: state, continent: continent, geoname_id: 493893, population: 0)
-province.municipalities.create(description: "Tlokh", region: region, country: state, continent: continent, geoname_id: 482599, population: 0)
-province.municipalities.create(description: "Tsibilta", region: region, country: state, continent: continent, geoname_id: 480908, population: 0)
-province.municipalities.create(description: "Zilo", region: region, country: state, continent: continent, geoname_id: 462607, population: 0)
+municipalities = [
+province.municipalities.new(description: "Alak", region: region, country: state, continent: continent, geoname_id: 583477, population: 0),
+province.municipalities.new(description: "Andi", region: region, country: state, continent: continent, geoname_id: 582123, population: 5318),
+province.municipalities.new(description: "Ankho", region: region, country: state, continent: continent, geoname_id: 858680, population: 0),
+province.municipalities.new(description: "Ansalta", region: region, country: state, continent: continent, geoname_id: 581568, population: 5654),
+province.municipalities.new(description: "Ashali", region: region, country: state, continent: continent, geoname_id: 580648, population: 0),
+province.municipalities.new(description: "Ashino", region: region, country: state, continent: continent, geoname_id: 858383, population: 0),
+province.municipalities.new(description: "Botlikh", region: region, country: state, continent: continent, geoname_id: 571888, population: 0),
+province.municipalities.new(description: "Chanko", region: region, country: state, continent: continent, geoname_id: 569990, population: 0),
+province.municipalities.new(description: "Godoberi", region: region, country: state, continent: continent, geoname_id: 475133, population: 0),
+province.municipalities.new(description: "Gunkha", region: region, country: state, continent: continent, geoname_id: 860471, population: 0),
+province.municipalities.new(description: "Kheleturi", region: region, country: state, continent: continent, geoname_id: 550370, population: 0),
+province.municipalities.new(description: "Kizhani", region: region, country: state, continent: continent, geoname_id: 547867, population: 0),
+province.municipalities.new(description: "Kvankhidatli", region: region, country: state, continent: continent, geoname_id: 858046, population: 0),
+province.municipalities.new(description: "Miarso", region: region, country: state, continent: continent, geoname_id: 527214, population: 0),
+province.municipalities.new(description: "Miarso", region: region, country: state, continent: continent, geoname_id: 860421, population: 0),
+province.municipalities.new(description: "Muni", region: region, country: state, continent: continent, geoname_id: 524452, population: 0),
+province.municipalities.new(description: "Nizhneye Inkhelo", region: region, country: state, continent: continent, geoname_id: 520967, population: 0),
+province.municipalities.new(description: "Nizhniye Godoberi", region: region, country: state, continent: continent, geoname_id: 520746, population: 0),
+province.municipalities.new(description: "Ortakolo", region: region, country: state, continent: continent, geoname_id: 514731, population: 0),
+province.municipalities.new(description: "Rakhata", region: region, country: state, continent: continent, geoname_id: 503132, population: 0),
+province.municipalities.new(description: "Rikvani", region: region, country: state, continent: continent, geoname_id: 501913, population: 0),
+province.municipalities.new(description: "Rushukha", region: region, country: state, continent: continent, geoname_id: 858677, population: 0),
+province.municipalities.new(description: "Shivor", region: region, country: state, continent: continent, geoname_id: 858679, population: 0),
+province.municipalities.new(description: "Shodroda", region: region, country: state, continent: continent, geoname_id: 493893, population: 0),
+province.municipalities.new(description: "Tlokh", region: region, country: state, continent: continent, geoname_id: 482599, population: 0),
+province.municipalities.new(description: "Tsibilta", region: region, country: state, continent: continent, geoname_id: 480908, population: 0),
+province.municipalities.new(description: "Zilo", region: region, country: state, continent: continent, geoname_id: 462607, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Buynakskiy Rayon", country: state, continent: continent,  geoname_id: 570478, population: 0)
 province = region.provinces.create(description: "Charodinskiy Rayon", country: state, continent: continent,  geoname_id: 569892, population: 11607)
 province = region.provinces.create(description: "Dakhadayevskiy Rayon", country: state, continent: continent,  geoname_id: 567284, population: 0)
 province = region.provinces.create(description: "Derbentskiy Rayon", country: state, continent: continent,  geoname_id: 566528, population: 0)
 province = region.provinces.create(description: "Dokuzparinskiy Rayon", country: state, continent: continent,  geoname_id: 825033, population: 0)
 province = region.provinces.create(description: "Gergebil'skiy Rayon", country: state, continent: continent,  geoname_id: 561559, population: 18483)
-province.municipalities.create(description: "Chalda", region: region, country: state, continent: continent, geoname_id: 858133, population: 0)
-province.municipalities.create(description: "Gotsob", region: region, country: state, continent: continent, geoname_id: 559204, population: 0)
-province.municipalities.create(description: "Iputa", region: region, country: state, continent: continent, geoname_id: 858146, population: 0)
-province.municipalities.create(description: "Khvarada", region: region, country: state, continent: continent, geoname_id: 858147, population: 0)
-province.municipalities.create(description: "Maali", region: region, country: state, continent: continent, geoname_id: 532351, population: 0)
-province.municipalities.create(description: "Mogokh", region: region, country: state, continent: continent, geoname_id: 525879, population: 0)
-province.municipalities.create(description: "Tunzy", region: region, country: state, continent: continent, geoname_id: 480405, population: 0)
+municipalities = [
+province.municipalities.new(description: "Chalda", region: region, country: state, continent: continent, geoname_id: 858133, population: 0),
+province.municipalities.new(description: "Gotsob", region: region, country: state, continent: continent, geoname_id: 559204, population: 0),
+province.municipalities.new(description: "Iputa", region: region, country: state, continent: continent, geoname_id: 858146, population: 0),
+province.municipalities.new(description: "Khvarada", region: region, country: state, continent: continent, geoname_id: 858147, population: 0),
+province.municipalities.new(description: "Maali", region: region, country: state, continent: continent, geoname_id: 532351, population: 0),
+province.municipalities.new(description: "Mogokh", region: region, country: state, continent: continent, geoname_id: 525879, population: 0),
+province.municipalities.new(description: "Tunzy", region: region, country: state, continent: continent, geoname_id: 480405, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Gorod Buynaksk", country: state, continent: continent,  geoname_id: 830807, population: 0)
 province = region.provinces.create(description: "Gorod Dagestanskiye Ogni", country: state, continent: continent,  geoname_id: 830810, population: 0)
 province = region.provinces.create(description: "Gorod Derbent", country: state, continent: continent,  geoname_id: 830809, population: 0)
@@ -350,143 +404,161 @@ province = region.provinces.create(description: "Gorod Kizlyar", country: state,
 province = region.provinces.create(description: "Gorod Makhachkala", country: state, continent: continent,  geoname_id: 826309, population: 0)
 province = region.provinces.create(description: "Gorod Yuzhno-Sukhokumsk", country: state, continent: continent,  geoname_id: 830816, population: 0)
 province = region.provinces.create(description: "Gumbetovskiy Rayon", country: state, continent: continent,  geoname_id: 558024, population: 18067)
-province.municipalities.create(description: "Argvani", region: region, country: state, continent: continent, geoname_id: 581129, population: 0)
-province.municipalities.create(description: "Chirkata", region: region, country: state, continent: continent, geoname_id: 568078, population: 0)
-province.municipalities.create(description: "Chitl'", region: region, country: state, continent: continent, geoname_id: 567953, population: 0)
-province.municipalities.create(description: "Danukh", region: region, country: state, continent: continent, geoname_id: 567091, population: 0)
-province.municipalities.create(description: "Gadari", region: region, country: state, continent: continent, geoname_id: 562262, population: 0)
-province.municipalities.create(description: "Ichichali", region: region, country: state, continent: continent, geoname_id: 557615, population: 0)
-province.municipalities.create(description: "Igali", region: region, country: state, continent: continent, geoname_id: 557578, population: 0)
-province.municipalities.create(description: "Ingishi", region: region, country: state, continent: continent, geoname_id: 556354, population: 0)
-province.municipalities.create(description: "Kilyatl'", region: region, country: state, continent: continent, geoname_id: 548674, population: 0)
-province.municipalities.create(description: "Kunzakh", region: region, country: state, continent: continent, geoname_id: 858684, population: 0)
-province.municipalities.create(description: "Mekhel'ta", region: region, country: state, continent: continent, geoname_id: 527821, population: 0)
-province.municipalities.create(description: "Nizhneye Inkho", region: region, country: state, continent: continent, geoname_id: 858682, population: 0)
-province.municipalities.create(description: "Nizhniy Aradirikh", region: region, country: state, continent: continent, geoname_id: 858702, population: 0)
-province.municipalities.create(description: "Novyye Argvani", region: region, country: state, continent: continent, geoname_id: 858687, population: 0)
-province.municipalities.create(description: "Shabdukh", region: region, country: state, continent: continent, geoname_id: 496166, population: 0)
-province.municipalities.create(description: "Sredniy Aradirikh", region: region, country: state, continent: continent, geoname_id: 581283, population: 0)
-province.municipalities.create(description: "Tantari", region: region, country: state, continent: continent, geoname_id: 858686, population: 0)
-province.municipalities.create(description: "Tenetu", region: region, country: state, continent: continent, geoname_id: 858685, population: 0)
-province.municipalities.create(description: "Tlyarata", region: region, country: state, continent: continent, geoname_id: 482587, population: 0)
-province.municipalities.create(description: "Tsanatl'", region: region, country: state, continent: continent, geoname_id: 858683, population: 0)
-province.municipalities.create(description: "Tsilitl'", region: region, country: state, continent: continent, geoname_id: 480886, population: 0)
-province.municipalities.create(description: "Tsundi", region: region, country: state, continent: continent, geoname_id: 564166, population: 0)
-province.municipalities.create(description: "Verkhneye Inkho", region: region, country: state, continent: continent, geoname_id: 475381, population: 0)
-province.municipalities.create(description: "Verkhniy Aradirikh", region: region, country: state, continent: continent, geoname_id: 802614, population: 0)
+municipalities = [
+province.municipalities.new(description: "Argvani", region: region, country: state, continent: continent, geoname_id: 581129, population: 0),
+province.municipalities.new(description: "Chirkata", region: region, country: state, continent: continent, geoname_id: 568078, population: 0),
+province.municipalities.new(description: "Chitl'", region: region, country: state, continent: continent, geoname_id: 567953, population: 0),
+province.municipalities.new(description: "Danukh", region: region, country: state, continent: continent, geoname_id: 567091, population: 0),
+province.municipalities.new(description: "Gadari", region: region, country: state, continent: continent, geoname_id: 562262, population: 0),
+province.municipalities.new(description: "Ichichali", region: region, country: state, continent: continent, geoname_id: 557615, population: 0),
+province.municipalities.new(description: "Igali", region: region, country: state, continent: continent, geoname_id: 557578, population: 0),
+province.municipalities.new(description: "Ingishi", region: region, country: state, continent: continent, geoname_id: 556354, population: 0),
+province.municipalities.new(description: "Kilyatl'", region: region, country: state, continent: continent, geoname_id: 548674, population: 0),
+province.municipalities.new(description: "Kunzakh", region: region, country: state, continent: continent, geoname_id: 858684, population: 0),
+province.municipalities.new(description: "Mekhel'ta", region: region, country: state, continent: continent, geoname_id: 527821, population: 0),
+province.municipalities.new(description: "Nizhneye Inkho", region: region, country: state, continent: continent, geoname_id: 858682, population: 0),
+province.municipalities.new(description: "Nizhniy Aradirikh", region: region, country: state, continent: continent, geoname_id: 858702, population: 0),
+province.municipalities.new(description: "Novyye Argvani", region: region, country: state, continent: continent, geoname_id: 858687, population: 0),
+province.municipalities.new(description: "Shabdukh", region: region, country: state, continent: continent, geoname_id: 496166, population: 0),
+province.municipalities.new(description: "Sredniy Aradirikh", region: region, country: state, continent: continent, geoname_id: 581283, population: 0),
+province.municipalities.new(description: "Tantari", region: region, country: state, continent: continent, geoname_id: 858686, population: 0),
+province.municipalities.new(description: "Tenetu", region: region, country: state, continent: continent, geoname_id: 858685, population: 0),
+province.municipalities.new(description: "Tlyarata", region: region, country: state, continent: continent, geoname_id: 482587, population: 0),
+province.municipalities.new(description: "Tsanatl'", region: region, country: state, continent: continent, geoname_id: 858683, population: 0),
+province.municipalities.new(description: "Tsilitl'", region: region, country: state, continent: continent, geoname_id: 480886, population: 0),
+province.municipalities.new(description: "Tsundi", region: region, country: state, continent: continent, geoname_id: 564166, population: 0),
+province.municipalities.new(description: "Verkhneye Inkho", region: region, country: state, continent: continent, geoname_id: 475381, population: 0),
+province.municipalities.new(description: "Verkhniy Aradirikh", region: region, country: state, continent: continent, geoname_id: 802614, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Gunibskiy Rayon", country: state, continent: continent,  geoname_id: 557977, population: 25040)
-province.municipalities.create(description: "Agada", region: region, country: state, continent: continent, geoname_id: 858203, population: 0)
-province.municipalities.create(description: "Akhnada", region: region, country: state, continent: continent, geoname_id: 858556, population: 0)
-province.municipalities.create(description: "Ala", region: region, country: state, continent: continent, geoname_id: 858198, population: 0)
-province.municipalities.create(description: "Amuarib", region: region, country: state, continent: continent, geoname_id: 858205, population: 0)
-province.municipalities.create(description: "Askhabil'-Kuli", region: region, country: state, continent: continent, geoname_id: 858207, population: 0)
-province.municipalities.create(description: "Baldutl'", region: region, country: state, continent: continent, geoname_id: 858241, population: 0)
-province.municipalities.create(description: "Basar", region: region, country: state, continent: continent, geoname_id: 858239, population: 0)
-province.municipalities.create(description: "Batsada", region: region, country: state, continent: continent, geoname_id: 578688, population: 0)
-province.municipalities.create(description: "Batsikvarikh", region: region, country: state, continent: continent, geoname_id: 858208, population: 0)
-province.municipalities.create(description: "Bukhty", region: region, country: state, continent: continent, geoname_id: 571114, population: 0)
-province.municipalities.create(description: "Chonob", region: region, country: state, continent: continent, geoname_id: 858206, population: 0)
-province.municipalities.create(description: "Egeda", region: region, country: state, continent: continent, geoname_id: 858204, population: 0)
-province.municipalities.create(description: "Enseruda", region: region, country: state, continent: continent, geoname_id: 858209, population: 0)
-province.municipalities.create(description: "Gamsutl'", region: region, country: state, continent: continent, geoname_id: 858579, population: 0)
-province.municipalities.create(description: "Garbilazda", region: region, country: state, continent: continent, geoname_id: 858244, population: 0)
-province.municipalities.create(description: "Gonoda", region: region, country: state, continent: continent, geoname_id: 560380, population: 0)
-province.municipalities.create(description: "Ivaylazda", region: region, country: state, continent: continent, geoname_id: 858238, population: 0)
-province.municipalities.create(description: "Karadakh", region: region, country: state, continent: continent, geoname_id: 552901, population: 0)
-province.municipalities.create(description: "Khamagib", region: region, country: state, continent: continent, geoname_id: 858212, population: 0)
-province.municipalities.create(description: "Khatsunob", region: region, country: state, continent: continent, geoname_id: 858240, population: 0)
-province.municipalities.create(description: "Khenda", region: region, country: state, continent: continent, geoname_id: 858237, population: 0)
-province.municipalities.create(description: "Khindakh", region: region, country: state, continent: continent, geoname_id: 550275, population: 0)
-province.municipalities.create(description: "Khopor", region: region, country: state, continent: continent, geoname_id: 858164, population: 0)
-province.municipalities.create(description: "Khotoch", region: region, country: state, continent: continent, geoname_id: 802244, population: 0)
-province.municipalities.create(description: "Kommuna", region: region, country: state, continent: continent, geoname_id: 858159, population: 0)
-province.municipalities.create(description: "Koroda", region: region, country: state, continent: continent, geoname_id: 802237, population: 0)
-province.municipalities.create(description: "Kukor", region: region, country: state, continent: continent, geoname_id: 858242, population: 0)
-province.municipalities.create(description: "Kulla", region: region, country: state, continent: continent, geoname_id: 539418, population: 0)
-province.municipalities.create(description: "Lakhnayda", region: region, country: state, continent: continent, geoname_id: 858233, population: 0)
-province.municipalities.create(description: "Mugdab", region: region, country: state, continent: continent, geoname_id: 858234, population: 0)
-province.municipalities.create(description: "Nakazukh", region: region, country: state, continent: continent, geoname_id: 858574, population: 0)
-province.municipalities.create(description: "Obonub", region: region, country: state, continent: continent, geoname_id: 858213, population: 0)
-province.municipalities.create(description: "Rosutl'", region: region, country: state, continent: continent, geoname_id: 858199, population: 0)
-province.municipalities.create(description: "Rugudzha", region: region, country: state, continent: continent, geoname_id: 802220, population: 0)
-province.municipalities.create(description: "Sekh", region: region, country: state, continent: continent, geoname_id: 858200, population: 0)
-province.municipalities.create(description: "Shulani", region: region, country: state, continent: continent, geoname_id: 493534, population: 0)
-province.municipalities.create(description: "Sogratl'", region: region, country: state, continent: continent, geoname_id: 491313, population: 0)
-province.municipalities.create(description: "Tlogob", region: region, country: state, continent: continent, geoname_id: 802241, population: 0)
-province.municipalities.create(description: "Tsalada", region: region, country: state, continent: continent, geoname_id: 858235, population: 0)
-province.municipalities.create(description: "Tsamla", region: region, country: state, continent: continent, geoname_id: 858197, population: 0)
-province.municipalities.create(description: "Unkida", region: region, country: state, continent: continent, geoname_id: 858572, population: 0)
-province.municipalities.create(description: "Unty", region: region, country: state, continent: continent, geoname_id: 478961, population: 0)
-province.municipalities.create(description: "Urala", region: region, country: state, continent: continent, geoname_id: 858236, population: 0)
+municipalities = [
+province.municipalities.new(description: "Agada", region: region, country: state, continent: continent, geoname_id: 858203, population: 0),
+province.municipalities.new(description: "Akhnada", region: region, country: state, continent: continent, geoname_id: 858556, population: 0),
+province.municipalities.new(description: "Ala", region: region, country: state, continent: continent, geoname_id: 858198, population: 0),
+province.municipalities.new(description: "Amuarib", region: region, country: state, continent: continent, geoname_id: 858205, population: 0),
+province.municipalities.new(description: "Askhabil'-Kuli", region: region, country: state, continent: continent, geoname_id: 858207, population: 0),
+province.municipalities.new(description: "Baldutl'", region: region, country: state, continent: continent, geoname_id: 858241, population: 0),
+province.municipalities.new(description: "Basar", region: region, country: state, continent: continent, geoname_id: 858239, population: 0),
+province.municipalities.new(description: "Batsada", region: region, country: state, continent: continent, geoname_id: 578688, population: 0),
+province.municipalities.new(description: "Batsikvarikh", region: region, country: state, continent: continent, geoname_id: 858208, population: 0),
+province.municipalities.new(description: "Bukhty", region: region, country: state, continent: continent, geoname_id: 571114, population: 0),
+province.municipalities.new(description: "Chonob", region: region, country: state, continent: continent, geoname_id: 858206, population: 0),
+province.municipalities.new(description: "Egeda", region: region, country: state, continent: continent, geoname_id: 858204, population: 0),
+province.municipalities.new(description: "Enseruda", region: region, country: state, continent: continent, geoname_id: 858209, population: 0),
+province.municipalities.new(description: "Gamsutl'", region: region, country: state, continent: continent, geoname_id: 858579, population: 0),
+province.municipalities.new(description: "Garbilazda", region: region, country: state, continent: continent, geoname_id: 858244, population: 0),
+province.municipalities.new(description: "Gonoda", region: region, country: state, continent: continent, geoname_id: 560380, population: 0),
+province.municipalities.new(description: "Ivaylazda", region: region, country: state, continent: continent, geoname_id: 858238, population: 0),
+province.municipalities.new(description: "Karadakh", region: region, country: state, continent: continent, geoname_id: 552901, population: 0),
+province.municipalities.new(description: "Khamagib", region: region, country: state, continent: continent, geoname_id: 858212, population: 0),
+province.municipalities.new(description: "Khatsunob", region: region, country: state, continent: continent, geoname_id: 858240, population: 0),
+province.municipalities.new(description: "Khenda", region: region, country: state, continent: continent, geoname_id: 858237, population: 0),
+province.municipalities.new(description: "Khindakh", region: region, country: state, continent: continent, geoname_id: 550275, population: 0),
+province.municipalities.new(description: "Khopor", region: region, country: state, continent: continent, geoname_id: 858164, population: 0),
+province.municipalities.new(description: "Khotoch", region: region, country: state, continent: continent, geoname_id: 802244, population: 0),
+province.municipalities.new(description: "Kommuna", region: region, country: state, continent: continent, geoname_id: 858159, population: 0),
+province.municipalities.new(description: "Koroda", region: region, country: state, continent: continent, geoname_id: 802237, population: 0),
+province.municipalities.new(description: "Kukor", region: region, country: state, continent: continent, geoname_id: 858242, population: 0),
+province.municipalities.new(description: "Kulla", region: region, country: state, continent: continent, geoname_id: 539418, population: 0),
+province.municipalities.new(description: "Lakhnayda", region: region, country: state, continent: continent, geoname_id: 858233, population: 0),
+province.municipalities.new(description: "Mugdab", region: region, country: state, continent: continent, geoname_id: 858234, population: 0),
+province.municipalities.new(description: "Nakazukh", region: region, country: state, continent: continent, geoname_id: 858574, population: 0),
+province.municipalities.new(description: "Obonub", region: region, country: state, continent: continent, geoname_id: 858213, population: 0),
+province.municipalities.new(description: "Rosutl'", region: region, country: state, continent: continent, geoname_id: 858199, population: 0),
+province.municipalities.new(description: "Rugudzha", region: region, country: state, continent: continent, geoname_id: 802220, population: 0),
+province.municipalities.new(description: "Sekh", region: region, country: state, continent: continent, geoname_id: 858200, population: 0),
+province.municipalities.new(description: "Shulani", region: region, country: state, continent: continent, geoname_id: 493534, population: 0),
+province.municipalities.new(description: "Sogratl'", region: region, country: state, continent: continent, geoname_id: 491313, population: 0),
+province.municipalities.new(description: "Tlogob", region: region, country: state, continent: continent, geoname_id: 802241, population: 0),
+province.municipalities.new(description: "Tsalada", region: region, country: state, continent: continent, geoname_id: 858235, population: 0),
+province.municipalities.new(description: "Tsamla", region: region, country: state, continent: continent, geoname_id: 858197, population: 0),
+province.municipalities.new(description: "Unkida", region: region, country: state, continent: continent, geoname_id: 858572, population: 0),
+province.municipalities.new(description: "Unty", region: region, country: state, continent: continent, geoname_id: 478961, population: 0),
+province.municipalities.new(description: "Urala", region: region, country: state, continent: continent, geoname_id: 858236, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Karabudakhkentskiy Rayon", country: state, continent: continent,  geoname_id: 536044, population: 0)
 province = region.provinces.create(description: "Kayakentskiy Rayon", country: state, continent: continent,  geoname_id: 551645, population: 0)
 province = region.provinces.create(description: "Kaytagskiy Rayon", country: state, continent: continent,  geoname_id: 551590, population: 0)
 province = region.provinces.create(description: "Kazbekovskiy Rayon", country: state, continent: continent,  geoname_id: 551375, population: 34074)
-province.municipalities.create(description: "Artlukh", region: region, country: state, continent: continent, geoname_id: 580779, population: 0)
-province.municipalities.create(description: "Druzhba", region: region, country: state, continent: continent, geoname_id: 564930, population: 0)
-province.municipalities.create(description: "Khalata-Tala", region: region, country: state, continent: continent, geoname_id: 796545, population: 0)
-province.municipalities.create(description: "Kuriman", region: region, country: state, continent: continent, geoname_id: 796378, population: 0)
-province.municipalities.create(description: "Makhi", region: region, country: state, continent: continent, geoname_id: 532084, population: 0)
-province.municipalities.create(description: "Nizhniy Bursun", region: region, country: state, continent: continent, geoname_id: 796532, population: 0)
-province.municipalities.create(description: "Shaydan", region: region, country: state, continent: continent, geoname_id: 796543, population: 0)
-province.municipalities.create(description: "Verkhniy Bursun", region: region, country: state, continent: continent, geoname_id: 796529, population: 0)
+municipalities = [
+province.municipalities.new(description: "Artlukh", region: region, country: state, continent: continent, geoname_id: 580779, population: 0),
+province.municipalities.new(description: "Druzhba", region: region, country: state, continent: continent, geoname_id: 564930, population: 0),
+province.municipalities.new(description: "Khalata-Tala", region: region, country: state, continent: continent, geoname_id: 796545, population: 0),
+province.municipalities.new(description: "Kuriman", region: region, country: state, continent: continent, geoname_id: 796378, population: 0),
+province.municipalities.new(description: "Makhi", region: region, country: state, continent: continent, geoname_id: 532084, population: 0),
+province.municipalities.new(description: "Nizhniy Bursun", region: region, country: state, continent: continent, geoname_id: 796532, population: 0),
+province.municipalities.new(description: "Shaydan", region: region, country: state, continent: continent, geoname_id: 796543, population: 0),
+province.municipalities.new(description: "Verkhniy Bursun", region: region, country: state, continent: continent, geoname_id: 796529, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Khasavyurtovskiy Rayon", country: state, continent: continent,  geoname_id: 550476, population: 130471)
-province.municipalities.create(description: "Aktash-Karlan", region: region, country: state, continent: continent, geoname_id: 796697, population: 0)
-province.municipalities.create(description: "Botayurt", region: region, country: state, continent: continent, geoname_id: 578738, population: 4093)
-province.municipalities.create(description: "Tsiyab-Tsoloda", region: region, country: state, continent: continent, geoname_id: 858713, population: 0)
+municipalities = [
+province.municipalities.new(description: "Aktash-Karlan", region: region, country: state, continent: continent, geoname_id: 796697, population: 0),
+province.municipalities.new(description: "Botayurt", region: region, country: state, continent: continent, geoname_id: 578738, population: 4093),
+province.municipalities.new(description: "Tsiyab-Tsoloda", region: region, country: state, continent: continent, geoname_id: 858713, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Khivskiy Rayon", country: state, continent: continent,  geoname_id: 550200, population: 20748)
 province = region.provinces.create(description: "Khunzakhskiy Rayon", country: state, continent: continent,  geoname_id: 549104, population: 0)
-province.municipalities.create(description: "Akhalchi", region: region, country: state, continent: continent, geoname_id: 583883, population: 0)
-province.municipalities.create(description: "Akhalchi", region: region, country: state, continent: continent, geoname_id: 858083, population: 0)
-province.municipalities.create(description: "Amishta", region: region, country: state, continent: continent, geoname_id: 582260, population: 0)
-province.municipalities.create(description: "Arani", region: region, country: state, continent: continent, geoname_id: 581265, population: 0)
-province.municipalities.create(description: "Baitl'", region: region, country: state, continent: continent, geoname_id: 858089, population: 0)
-province.municipalities.create(description: "Batlaich", region: region, country: state, continent: continent, geoname_id: 578717, population: 0)
-province.municipalities.create(description: "Bol'shiye Amushi", region: region, country: state, continent: continent, geoname_id: 574278, population: 0)
-province.municipalities.create(description: "Bol'shoy Gotsatl'", region: region, country: state, continent: continent, geoname_id: 573115, population: 0)
-province.municipalities.create(description: "Butsra", region: region, country: state, continent: continent, geoname_id: 570569, population: 0)
-province.municipalities.create(description: "Chondotl'", region: region, country: state, continent: continent, geoname_id: 567862, population: 0)
-province.municipalities.create(description: "Dzhalaturi", region: region, country: state, continent: continent, geoname_id: 563686, population: 0)
-province.municipalities.create(description: "Ebuta", region: region, country: state, continent: continent, geoname_id: 858088, population: 0)
-province.municipalities.create(description: "Gatsalukh", region: region, country: state, continent: continent, geoname_id: 802587, population: 0)
-province.municipalities.create(description: "Genichutl'", region: region, country: state, continent: continent, geoname_id: 561645, population: 0)
-province.municipalities.create(description: "Gonokh", region: region, country: state, continent: continent, geoname_id: 560379, population: 0)
-province.municipalities.create(description: "Gortkolo", region: region, country: state, continent: continent, geoname_id: 559367, population: 0)
-province.municipalities.create(description: "Gozolokolo", region: region, country: state, continent: continent, geoname_id: 858099, population: 0)
-province.municipalities.create(description: "Kakh", region: region, country: state, continent: continent, geoname_id: 554451, population: 0)
-province.municipalities.create(description: "Kharakhi", region: region, country: state, continent: continent, geoname_id: 550663, population: 0)
-province.municipalities.create(description: "Kharikolo", region: region, country: state, continent: continent, geoname_id: 550625, population: 0)
-province.municipalities.create(description: "Khimakoro", region: region, country: state, continent: continent, geoname_id: 858101, population: 0)
-province.municipalities.create(description: "Khimakoro", region: region, country: state, continent: continent, geoname_id: 858105, population: 0)
-province.municipalities.create(description: "Khindakh", region: region, country: state, continent: continent, geoname_id: 550273, population: 0)
-province.municipalities.create(description: "Khini", region: region, country: state, continent: continent, geoname_id: 550267, population: 0)
-province.municipalities.create(description: "Kolo", region: region, country: state, continent: continent, geoname_id: 858077, population: 0)
-province.municipalities.create(description: "Malyy Gotsatl'", region: region, country: state, continent: continent, geoname_id: 529949, population: 0)
-province.municipalities.create(description: "Malyye Amushi", region: region, country: state, continent: continent, geoname_id: 858074, population: 73)
-province.municipalities.create(description: "Matlas", region: region, country: state, continent: continent, geoname_id: 858104, population: 0)
-province.municipalities.create(description: "Mochokh", region: region, country: state, continent: continent, geoname_id: 525928, population: 0)
-province.municipalities.create(description: "Mushuli", region: region, country: state, continent: continent, geoname_id: 524201, population: 0)
-province.municipalities.create(description: "Nakitl'", region: region, country: state, continent: continent, geoname_id: 802592, population: 0)
-province.municipalities.create(description: "Novaya Butsra", region: region, country: state, continent: continent, geoname_id: 858142, population: 0)
-province.municipalities.create(description: "Oboda", region: region, country: state, continent: continent, geoname_id: 516429, population: 0)
-province.municipalities.create(description: "Ochlo", region: region, country: state, continent: continent, geoname_id: 516243, population: 0)
-province.municipalities.create(description: "Orkachi", region: region, country: state, continent: continent, geoname_id: 563438, population: 0)
-province.municipalities.create(description: "Orota", region: region, country: state, continent: continent, geoname_id: 514751, population: 0)
-province.municipalities.create(description: "Shakhada", region: region, country: state, continent: continent, geoname_id: 496066, population: 0)
-province.municipalities.create(description: "Shotota", region: region, country: state, continent: continent, geoname_id: 493724, population: 0)
-province.municipalities.create(description: "Tanusi", region: region, country: state, continent: continent, geoname_id: 484559, population: 0)
-province.municipalities.create(description: "Tekita", region: region, country: state, continent: continent, geoname_id: 483834, population: 0)
-province.municipalities.create(description: "Tlaylukh", region: region, country: state, continent: continent, geoname_id: 482604, population: 0)
-province.municipalities.create(description: "Tsada", region: region, country: state, continent: continent, geoname_id: 802583, population: 185)
-province.municipalities.create(description: "Tsalkita", region: region, country: state, continent: continent, geoname_id: 481109, population: 0)
-province.municipalities.create(description: "Tsel'mes", region: region, country: state, continent: continent, geoname_id: 858076, population: 0)
-province.municipalities.create(description: "Tumagari", region: region, country: state, continent: continent, geoname_id: 858100, population: 0)
-province.municipalities.create(description: "Uzdalroso", region: region, country: state, continent: continent, geoname_id: 802239, population: 0)
-province.municipalities.create(description: "Verkhniye Akhalchi", region: region, country: state, continent: continent, geoname_id: 858097, population: 0)
-province.municipalities.create(description: "Zaib", region: region, country: state, continent: continent, geoname_id: 858256, population: 0)
+municipalities = [
+province.municipalities.new(description: "Akhalchi", region: region, country: state, continent: continent, geoname_id: 583883, population: 0),
+province.municipalities.new(description: "Akhalchi", region: region, country: state, continent: continent, geoname_id: 858083, population: 0),
+province.municipalities.new(description: "Amishta", region: region, country: state, continent: continent, geoname_id: 582260, population: 0),
+province.municipalities.new(description: "Arani", region: region, country: state, continent: continent, geoname_id: 581265, population: 0),
+province.municipalities.new(description: "Baitl'", region: region, country: state, continent: continent, geoname_id: 858089, population: 0),
+province.municipalities.new(description: "Batlaich", region: region, country: state, continent: continent, geoname_id: 578717, population: 0),
+province.municipalities.new(description: "Bol'shiye Amushi", region: region, country: state, continent: continent, geoname_id: 574278, population: 0),
+province.municipalities.new(description: "Bol'shoy Gotsatl'", region: region, country: state, continent: continent, geoname_id: 573115, population: 0),
+province.municipalities.new(description: "Butsra", region: region, country: state, continent: continent, geoname_id: 570569, population: 0),
+province.municipalities.new(description: "Chondotl'", region: region, country: state, continent: continent, geoname_id: 567862, population: 0),
+province.municipalities.new(description: "Dzhalaturi", region: region, country: state, continent: continent, geoname_id: 563686, population: 0),
+province.municipalities.new(description: "Ebuta", region: region, country: state, continent: continent, geoname_id: 858088, population: 0),
+province.municipalities.new(description: "Gatsalukh", region: region, country: state, continent: continent, geoname_id: 802587, population: 0),
+province.municipalities.new(description: "Genichutl'", region: region, country: state, continent: continent, geoname_id: 561645, population: 0),
+province.municipalities.new(description: "Gonokh", region: region, country: state, continent: continent, geoname_id: 560379, population: 0),
+province.municipalities.new(description: "Gortkolo", region: region, country: state, continent: continent, geoname_id: 559367, population: 0),
+province.municipalities.new(description: "Gozolokolo", region: region, country: state, continent: continent, geoname_id: 858099, population: 0),
+province.municipalities.new(description: "Kakh", region: region, country: state, continent: continent, geoname_id: 554451, population: 0),
+province.municipalities.new(description: "Kharakhi", region: region, country: state, continent: continent, geoname_id: 550663, population: 0),
+province.municipalities.new(description: "Kharikolo", region: region, country: state, continent: continent, geoname_id: 550625, population: 0),
+province.municipalities.new(description: "Khimakoro", region: region, country: state, continent: continent, geoname_id: 858101, population: 0),
+province.municipalities.new(description: "Khimakoro", region: region, country: state, continent: continent, geoname_id: 858105, population: 0),
+province.municipalities.new(description: "Khindakh", region: region, country: state, continent: continent, geoname_id: 550273, population: 0),
+province.municipalities.new(description: "Khini", region: region, country: state, continent: continent, geoname_id: 550267, population: 0),
+province.municipalities.new(description: "Kolo", region: region, country: state, continent: continent, geoname_id: 858077, population: 0),
+province.municipalities.new(description: "Malyy Gotsatl'", region: region, country: state, continent: continent, geoname_id: 529949, population: 0),
+province.municipalities.new(description: "Malyye Amushi", region: region, country: state, continent: continent, geoname_id: 858074, population: 73),
+province.municipalities.new(description: "Matlas", region: region, country: state, continent: continent, geoname_id: 858104, population: 0),
+province.municipalities.new(description: "Mochokh", region: region, country: state, continent: continent, geoname_id: 525928, population: 0),
+province.municipalities.new(description: "Mushuli", region: region, country: state, continent: continent, geoname_id: 524201, population: 0),
+province.municipalities.new(description: "Nakitl'", region: region, country: state, continent: continent, geoname_id: 802592, population: 0),
+province.municipalities.new(description: "Novaya Butsra", region: region, country: state, continent: continent, geoname_id: 858142, population: 0),
+province.municipalities.new(description: "Oboda", region: region, country: state, continent: continent, geoname_id: 516429, population: 0),
+province.municipalities.new(description: "Ochlo", region: region, country: state, continent: continent, geoname_id: 516243, population: 0),
+province.municipalities.new(description: "Orkachi", region: region, country: state, continent: continent, geoname_id: 563438, population: 0),
+province.municipalities.new(description: "Orota", region: region, country: state, continent: continent, geoname_id: 514751, population: 0),
+province.municipalities.new(description: "Shakhada", region: region, country: state, continent: continent, geoname_id: 496066, population: 0),
+province.municipalities.new(description: "Shotota", region: region, country: state, continent: continent, geoname_id: 493724, population: 0),
+province.municipalities.new(description: "Tanusi", region: region, country: state, continent: continent, geoname_id: 484559, population: 0),
+province.municipalities.new(description: "Tekita", region: region, country: state, continent: continent, geoname_id: 483834, population: 0),
+province.municipalities.new(description: "Tlaylukh", region: region, country: state, continent: continent, geoname_id: 482604, population: 0),
+province.municipalities.new(description: "Tsada", region: region, country: state, continent: continent, geoname_id: 802583, population: 185),
+province.municipalities.new(description: "Tsalkita", region: region, country: state, continent: continent, geoname_id: 481109, population: 0),
+province.municipalities.new(description: "Tsel'mes", region: region, country: state, continent: continent, geoname_id: 858076, population: 0),
+province.municipalities.new(description: "Tumagari", region: region, country: state, continent: continent, geoname_id: 858100, population: 0),
+province.municipalities.new(description: "Uzdalroso", region: region, country: state, continent: continent, geoname_id: 802239, population: 0),
+province.municipalities.new(description: "Verkhniye Akhalchi", region: region, country: state, continent: continent, geoname_id: 858097, population: 0),
+province.municipalities.new(description: "Zaib", region: region, country: state, continent: continent, geoname_id: 858256, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kizilyurtovskiy Rayon", country: state, continent: continent,  geoname_id: 547846, population: 71826)
-province.municipalities.create(description: "Nechayevka", region: region, country: state, continent: continent, geoname_id: 796804, population: 0)
-province.municipalities.create(description: "Shamshudinovka", region: region, country: state, continent: continent, geoname_id: 495876, population: 0)
+municipalities = [
+province.municipalities.new(description: "Nechayevka", region: region, country: state, continent: continent, geoname_id: 796804, population: 0),
+province.municipalities.new(description: "Shamshudinovka", region: region, country: state, continent: continent, geoname_id: 495876, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kizlyarskiy Rayon", country: state, continent: continent,  geoname_id: 547836, population: 60590)
 province = region.provinces.create(description: "Kulinskiy Rayon", country: state, continent: continent,  geoname_id: 539432, population: 10608)
 province = region.provinces.create(description: "Kumtorkalinskiy Rayon", country: state, continent: continent,  geoname_id: 825034, population: 0)
@@ -496,127 +568,139 @@ province = region.provinces.create(description: "Levashinskiy Rayon", country: s
 province = region.provinces.create(description: "Magaramkentskiy Rayon", country: state, continent: continent,  geoname_id: 532306, population: 59763)
 province = region.provinces.create(description: "Nogayskiy Rayon", country: state, continent: continent,  geoname_id: 520075, population: 0)
 province = region.provinces.create(description: "Novolakskiy Rayon", country: state, continent: continent,  geoname_id: 518649, population: 23441)
-province.municipalities.create(description: "Shushiya", region: region, country: state, continent: continent, geoname_id: 858653, population: 0)
+municipalities = [
+province.municipalities.new(description: "Shushiya", region: region, country: state, continent: continent, geoname_id: 858653, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Rutul'skiy Rayon", country: state, continent: continent,  geoname_id: 500315, population: 23190)
 province = region.provinces.create(description: "Sergokalinskiy Rayon", country: state, continent: continent,  geoname_id: 496609, population: 0)
 province = region.provinces.create(description: "Shamil'skiy Rayon", country: state, continent: continent,  geoname_id: 490031, population: 26343)
-province.municipalities.create(description: "Dagbash", region: region, country: state, continent: continent, geoname_id: 567294, population: 0)
-province.municipalities.create(description: "Datuna", region: region, country: state, continent: continent, geoname_id: 567016, population: 0)
-province.municipalities.create(description: "Genitsurib", region: region, country: state, continent: continent, geoname_id: 858260, population: 0)
-province.municipalities.create(description: "Genta", region: region, country: state, continent: continent, geoname_id: 561644, population: 0)
-province.municipalities.create(description: "Gidatlinskiy Most", region: region, country: state, continent: continent, geoname_id: 858320, population: 0)
-province.municipalities.create(description: "Gogotl'", region: region, country: state, continent: continent, geoname_id: 560827, population: 0)
-province.municipalities.create(description: "Golotl'", region: region, country: state, continent: continent, geoname_id: 560691, population: 0)
-province.municipalities.create(description: "Goor", region: region, country: state, continent: continent, geoname_id: 560371, population: 0)
-province.municipalities.create(description: "Goor-Khindakh", region: region, country: state, continent: continent, geoname_id: 550274, population: 0)
-province.municipalities.create(description: "Goor-Khindakh", region: region, country: state, continent: continent, geoname_id: 860417, population: 0)
-province.municipalities.create(description: "Kakhib", region: region, country: state, continent: continent, geoname_id: 554449, population: 0)
-province.municipalities.create(description: "Khamakal", region: region, country: state, continent: continent, geoname_id: 858272, population: 0)
-province.municipalities.create(description: "Khindakh", region: region, country: state, continent: continent, geoname_id: 802275, population: 0)
-province.municipalities.create(description: "Khonokh", region: region, country: state, continent: continent, geoname_id: 858499, population: 0)
-province.municipalities.create(description: "Khoroda", region: region, country: state, continent: continent, geoname_id: 802264, population: 0)
-province.municipalities.create(description: "Khotoda", region: region, country: state, continent: continent, geoname_id: 549366, population: 0)
-province.municipalities.create(description: "Khuchada", region: region, country: state, continent: continent, geoname_id: 549177, population: 0)
-province.municipalities.create(description: "Kienikh", region: region, country: state, continent: continent, geoname_id: 858274, population: 0)
-province.municipalities.create(description: "Kuanib", region: region, country: state, continent: continent, geoname_id: 540088, population: 0)
-province.municipalities.create(description: "Machada", region: region, country: state, continent: continent, geoname_id: 525968, population: 0)
-province.municipalities.create(description: "Mitliurib", region: region, country: state, continent: continent, geoname_id: 858258, population: 0)
-province.municipalities.create(description: "Mogokh", region: region, country: state, continent: continent, geoname_id: 525880, population: 0)
-province.municipalities.create(description: "Mokoda", region: region, country: state, continent: continent, geoname_id: 858271, population: 0)
-province.municipalities.create(description: "Musrukh", region: region, country: state, continent: continent, geoname_id: 524175, population: 0)
-province.municipalities.create(description: "Nakitl'", region: region, country: state, continent: continent, geoname_id: 802263, population: 0)
-province.municipalities.create(description: "Nitab", region: region, country: state, continent: continent, geoname_id: 521295, population: 0)
-province.municipalities.create(description: "Nizhniy Batlukh", region: region, country: state, continent: continent, geoname_id: 520797, population: 0)
-province.municipalities.create(description: "Nizhniy Kolob", region: region, country: state, continent: continent, geoname_id: 858273, population: 0)
-province.municipalities.create(description: "Nizhniy Togokh", region: region, country: state, continent: continent, geoname_id: 858259, population: 0)
-province.municipalities.create(description: "Ratlub", region: region, country: state, continent: continent, geoname_id: 502629, population: 0)
-province.municipalities.create(description: "Rugel'da", region: region, country: state, continent: continent, geoname_id: 500633, population: 0)
-province.municipalities.create(description: "Rukdakh", region: region, country: state, continent: continent, geoname_id: 858340, population: 0)
-province.municipalities.create(description: "Somoda", region: region, country: state, continent: continent, geoname_id: 490691, population: 0)
-province.municipalities.create(description: "Teletl'", region: region, country: state, continent: continent, geoname_id: 483782, population: 0)
-province.municipalities.create(description: "Tidib", region: region, country: state, continent: continent, geoname_id: 483126, population: 0)
-province.municipalities.create(description: "Tlezda", region: region, country: state, continent: continent, geoname_id: 858261, population: 0)
-province.municipalities.create(description: "Tlyakh", region: region, country: state, continent: continent, geoname_id: 858312, population: 0)
-province.municipalities.create(description: "Tlyanub", region: region, country: state, continent: continent, geoname_id: 482590, population: 0)
-province.municipalities.create(description: "Tsekob", region: region, country: state, continent: continent, geoname_id: 481045, population: 0)
-province.municipalities.create(description: "Urada", region: region, country: state, continent: continent, geoname_id: 478899, population: 0)
-province.municipalities.create(description: "Urchukh", region: region, country: state, continent: continent, geoname_id: 478774, population: 0)
-province.municipalities.create(description: "Urib", region: region, country: state, continent: continent, geoname_id: 478728, population: 0)
-province.municipalities.create(description: "Verkhniy Batlukh", region: region, country: state, continent: continent, geoname_id: 858326, population: 0)
-province.municipalities.create(description: "Verkhniy Kolob", region: region, country: state, continent: continent, geoname_id: 858270, population: 0)
-province.municipalities.create(description: "Verkhniy Togokh", region: region, country: state, continent: continent, geoname_id: 802265, population: 0)
-province.municipalities.create(description: "Zanata", region: region, country: state, continent: continent, geoname_id: 465020, population: 0)
-province.municipalities.create(description: "Ziurib", region: region, country: state, continent: continent, geoname_id: 462452, population: 0)
+municipalities = [
+province.municipalities.new(description: "Dagbash", region: region, country: state, continent: continent, geoname_id: 567294, population: 0),
+province.municipalities.new(description: "Datuna", region: region, country: state, continent: continent, geoname_id: 567016, population: 0),
+province.municipalities.new(description: "Genitsurib", region: region, country: state, continent: continent, geoname_id: 858260, population: 0),
+province.municipalities.new(description: "Genta", region: region, country: state, continent: continent, geoname_id: 561644, population: 0),
+province.municipalities.new(description: "Gidatlinskiy Most", region: region, country: state, continent: continent, geoname_id: 858320, population: 0),
+province.municipalities.new(description: "Gogotl'", region: region, country: state, continent: continent, geoname_id: 560827, population: 0),
+province.municipalities.new(description: "Golotl'", region: region, country: state, continent: continent, geoname_id: 560691, population: 0),
+province.municipalities.new(description: "Goor", region: region, country: state, continent: continent, geoname_id: 560371, population: 0),
+province.municipalities.new(description: "Goor-Khindakh", region: region, country: state, continent: continent, geoname_id: 550274, population: 0),
+province.municipalities.new(description: "Goor-Khindakh", region: region, country: state, continent: continent, geoname_id: 860417, population: 0),
+province.municipalities.new(description: "Kakhib", region: region, country: state, continent: continent, geoname_id: 554449, population: 0),
+province.municipalities.new(description: "Khamakal", region: region, country: state, continent: continent, geoname_id: 858272, population: 0),
+province.municipalities.new(description: "Khindakh", region: region, country: state, continent: continent, geoname_id: 802275, population: 0),
+province.municipalities.new(description: "Khonokh", region: region, country: state, continent: continent, geoname_id: 858499, population: 0),
+province.municipalities.new(description: "Khoroda", region: region, country: state, continent: continent, geoname_id: 802264, population: 0),
+province.municipalities.new(description: "Khotoda", region: region, country: state, continent: continent, geoname_id: 549366, population: 0),
+province.municipalities.new(description: "Khuchada", region: region, country: state, continent: continent, geoname_id: 549177, population: 0),
+province.municipalities.new(description: "Kienikh", region: region, country: state, continent: continent, geoname_id: 858274, population: 0),
+province.municipalities.new(description: "Kuanib", region: region, country: state, continent: continent, geoname_id: 540088, population: 0),
+province.municipalities.new(description: "Machada", region: region, country: state, continent: continent, geoname_id: 525968, population: 0),
+province.municipalities.new(description: "Mitliurib", region: region, country: state, continent: continent, geoname_id: 858258, population: 0),
+province.municipalities.new(description: "Mogokh", region: region, country: state, continent: continent, geoname_id: 525880, population: 0),
+province.municipalities.new(description: "Mokoda", region: region, country: state, continent: continent, geoname_id: 858271, population: 0),
+province.municipalities.new(description: "Musrukh", region: region, country: state, continent: continent, geoname_id: 524175, population: 0),
+province.municipalities.new(description: "Nakitl'", region: region, country: state, continent: continent, geoname_id: 802263, population: 0),
+province.municipalities.new(description: "Nitab", region: region, country: state, continent: continent, geoname_id: 521295, population: 0),
+province.municipalities.new(description: "Nizhniy Batlukh", region: region, country: state, continent: continent, geoname_id: 520797, population: 0),
+province.municipalities.new(description: "Nizhniy Kolob", region: region, country: state, continent: continent, geoname_id: 858273, population: 0),
+province.municipalities.new(description: "Nizhniy Togokh", region: region, country: state, continent: continent, geoname_id: 858259, population: 0),
+province.municipalities.new(description: "Ratlub", region: region, country: state, continent: continent, geoname_id: 502629, population: 0),
+province.municipalities.new(description: "Rugel'da", region: region, country: state, continent: continent, geoname_id: 500633, population: 0),
+province.municipalities.new(description: "Rukdakh", region: region, country: state, continent: continent, geoname_id: 858340, population: 0),
+province.municipalities.new(description: "Somoda", region: region, country: state, continent: continent, geoname_id: 490691, population: 0),
+province.municipalities.new(description: "Teletl'", region: region, country: state, continent: continent, geoname_id: 483782, population: 0),
+province.municipalities.new(description: "Tidib", region: region, country: state, continent: continent, geoname_id: 483126, population: 0),
+province.municipalities.new(description: "Tlezda", region: region, country: state, continent: continent, geoname_id: 858261, population: 0),
+province.municipalities.new(description: "Tlyakh", region: region, country: state, continent: continent, geoname_id: 858312, population: 0),
+province.municipalities.new(description: "Tlyanub", region: region, country: state, continent: continent, geoname_id: 482590, population: 0),
+province.municipalities.new(description: "Tsekob", region: region, country: state, continent: continent, geoname_id: 481045, population: 0),
+province.municipalities.new(description: "Urada", region: region, country: state, continent: continent, geoname_id: 478899, population: 0),
+province.municipalities.new(description: "Urchukh", region: region, country: state, continent: continent, geoname_id: 478774, population: 0),
+province.municipalities.new(description: "Urib", region: region, country: state, continent: continent, geoname_id: 478728, population: 0),
+province.municipalities.new(description: "Verkhniy Batlukh", region: region, country: state, continent: continent, geoname_id: 858326, population: 0),
+province.municipalities.new(description: "Verkhniy Kolob", region: region, country: state, continent: continent, geoname_id: 858270, population: 0),
+province.municipalities.new(description: "Verkhniy Togokh", region: region, country: state, continent: continent, geoname_id: 802265, population: 0),
+province.municipalities.new(description: "Zanata", region: region, country: state, continent: continent, geoname_id: 465020, population: 0),
+province.municipalities.new(description: "Ziurib", region: region, country: state, continent: continent, geoname_id: 462452, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Suleyman-Stal'skiy Rayon", country: state, continent: continent,  geoname_id: 486360, population: 54027)
 province = region.provinces.create(description: "Tabasaranskiy Rayon", country: state, continent: continent,  geoname_id: 484957, population: 54822)
 province = region.provinces.create(description: "Tarumovskiy Rayon", country: state, continent: continent,  geoname_id: 484288, population: 0)
 province = region.provinces.create(description: "Tlyaratinskiy Rayon", country: state, continent: continent,  geoname_id: 482588, population: 22536)
 province = region.provinces.create(description: "Tsumadinskiy Rayon", country: state, continent: continent,  geoname_id: 480804, population: 21667)
-province.municipalities.create(description: "Agvali", region: region, country: state, continent: continent, geoname_id: 583973, population: 2158)
-province.municipalities.create(description: "Aknada", region: region, country: state, continent: continent, geoname_id: 583707, population: 4070)
-province.municipalities.create(description: "Angida", region: region, country: state, continent: continent, geoname_id: 581772, population: 0)
-province.municipalities.create(description: "Asha", region: region, country: state, continent: continent, geoname_id: 580661, population: 0)
-province.municipalities.create(description: "Batlakhatli", region: region, country: state, continent: continent, geoname_id: 858010, population: 13)
-province.municipalities.create(description: "Boto", region: region, country: state, continent: continent, geoname_id: 802372, population: 0)
-province.municipalities.create(description: "Daatla", region: region, country: state, continent: continent, geoname_id: 802343, population: 0)
-province.municipalities.create(description: "Echeda", region: region, country: state, continent: continent, geoname_id: 563565, population: 0)
-province.municipalities.create(description: "Gachitli", region: region, country: state, continent: continent, geoname_id: 562267, population: 0)
-province.municipalities.create(description: "Gadaichi", region: region, country: state, continent: continent, geoname_id: 858423, population: 0)
-province.municipalities.create(description: "Gadiri", region: region, country: state, continent: continent, geoname_id: 562257, population: 0)
-province.municipalities.create(description: "Gakko", region: region, country: state, continent: continent, geoname_id: 562197, population: 0)
-province.municipalities.create(description: "Gigatli-Urukh", region: region, country: state, continent: continent, geoname_id: 858016, population: 0)
-province.municipalities.create(description: "Gigatl'", region: region, country: state, continent: continent, geoname_id: 561492, population: 0)
-province.municipalities.create(description: "Gigikh", region: region, country: state, continent: continent, geoname_id: 858035, population: 0)
-province.municipalities.create(description: "Gimerso", region: region, country: state, continent: continent, geoname_id: 561479, population: 0)
-province.municipalities.create(description: "Gunduchi", region: region, country: state, continent: continent, geoname_id: 858409, population: 0)
-province.municipalities.create(description: "Gvanachi", region: region, country: state, continent: continent, geoname_id: 860419, population: 0)
-province.municipalities.create(description: "Gvanachi", region: region, country: state, continent: continent, geoname_id: 858412, population: 0)
-province.municipalities.create(description: "Inkhokvari", region: region, country: state, continent: continent, geoname_id: 556344, population: 0)
-province.municipalities.create(description: "Issi", region: region, country: state, continent: continent, geoname_id: 858438, population: 0)
-province.municipalities.create(description: "Kedi", region: region, country: state, continent: continent, geoname_id: 551247, population: 0)
-province.municipalities.create(description: "Khalikh", region: region, country: state, continent: continent, geoname_id: 858422, population: 0)
-province.municipalities.create(description: "Khonokh", region: region, country: state, continent: continent, geoname_id: 549923, population: 0)
-province.municipalities.create(description: "Khushet", region: region, country: state, continent: continent, geoname_id: 549083, population: 0)
-province.municipalities.create(description: "Khushtada", region: region, country: state, continent: continent, geoname_id: 549082, population: 0)
-province.municipalities.create(description: "Khvarshi", region: region, country: state, continent: continent, geoname_id: 548978, population: 0)
-province.municipalities.create(description: "Khvayni", region: region, country: state, continent: continent, geoname_id: 548960, population: 0)
-province.municipalities.create(description: "Kochali", region: region, country: state, continent: continent, geoname_id: 858036, population: 0)
-province.municipalities.create(description: "Kvanada", region: region, country: state, continent: continent, geoname_id: 537543, population: 0)
-province.municipalities.create(description: "Kvantlada", region: region, country: state, continent: continent, geoname_id: 802342, population: 0)
-province.municipalities.create(description: "Metrada", region: region, country: state, continent: continent, geoname_id: 527337, population: 0)
-province.municipalities.create(description: "Mukharkh", region: region, country: state, continent: continent, geoname_id: 858415, population: 0)
-province.municipalities.create(description: "Nizhniye Gakvari", region: region, country: state, continent: continent, geoname_id: 520748, population: 0)
-province.municipalities.create(description: "Nizhniye Khvarshini", region: region, country: state, continent: continent, geoname_id: 520727, population: 0)
-province.municipalities.create(description: "Richaganikh", region: region, country: state, continent: continent, geoname_id: 802411, population: 0)
-province.municipalities.create(description: "Santlada", region: region, country: state, continent: continent, geoname_id: 498796, population: 0)
-province.municipalities.create(description: "Sanukh", region: region, country: state, continent: continent, geoname_id: 858417, population: 0)
-province.municipalities.create(description: "Sasitli", region: region, country: state, continent: continent, geoname_id: 498443, population: 0)
-province.municipalities.create(description: "Sil'di", region: region, country: state, continent: continent, geoname_id: 492980, population: 0)
-province.municipalities.create(description: "Tenla", region: region, country: state, continent: continent, geoname_id: 858416, population: 0)
-province.municipalities.create(description: "Tindi", region: region, country: state, continent: continent, geoname_id: 482802, population: 0)
-province.municipalities.create(description: "Tissi", region: region, country: state, continent: continent, geoname_id: 482704, population: 0)
-province.municipalities.create(description: "Tissi-Akhitli", region: region, country: state, continent: continent, geoname_id: 802409, population: 0)
-province.municipalities.create(description: "Tlondoda", region: region, country: state, continent: continent, geoname_id: 482598, population: 0)
-province.municipalities.create(description: "Tsidatl'", region: region, country: state, continent: continent, geoname_id: 858041, population: 0)
-province.municipalities.create(description: "Tsidatl'", region: region, country: state, continent: continent, geoname_id: 860425, population: 0)
-province.municipalities.create(description: "Tsumada", region: region, country: state, continent: continent, geoname_id: 480805, population: 0)
-province.municipalities.create(description: "Tsumada-Urukh", region: region, country: state, continent: continent, geoname_id: 858437, population: 0)
-province.municipalities.create(description: "Tsuydi", region: region, country: state, continent: continent, geoname_id: 858042, population: 0)
-province.municipalities.create(description: "Tsykhalakh", region: region, country: state, continent: continent, geoname_id: 800523, population: 0)
-province.municipalities.create(description: "Verkhniye Gakvari", region: region, country: state, continent: continent, geoname_id: 475135, population: 0)
-province.municipalities.create(description: "Verkhniye Khvarshini", region: region, country: state, continent: continent, geoname_id: 475106, population: 0)
+municipalities = [
+province.municipalities.new(description: "Agvali", region: region, country: state, continent: continent, geoname_id: 583973, population: 2158),
+province.municipalities.new(description: "Aknada", region: region, country: state, continent: continent, geoname_id: 583707, population: 4070),
+province.municipalities.new(description: "Angida", region: region, country: state, continent: continent, geoname_id: 581772, population: 0),
+province.municipalities.new(description: "Asha", region: region, country: state, continent: continent, geoname_id: 580661, population: 0),
+province.municipalities.new(description: "Batlakhatli", region: region, country: state, continent: continent, geoname_id: 858010, population: 13),
+province.municipalities.new(description: "Boto", region: region, country: state, continent: continent, geoname_id: 802372, population: 0),
+province.municipalities.new(description: "Daatla", region: region, country: state, continent: continent, geoname_id: 802343, population: 0),
+province.municipalities.new(description: "Echeda", region: region, country: state, continent: continent, geoname_id: 563565, population: 0),
+province.municipalities.new(description: "Gachitli", region: region, country: state, continent: continent, geoname_id: 562267, population: 0),
+province.municipalities.new(description: "Gadaichi", region: region, country: state, continent: continent, geoname_id: 858423, population: 0),
+province.municipalities.new(description: "Gadiri", region: region, country: state, continent: continent, geoname_id: 562257, population: 0),
+province.municipalities.new(description: "Gakko", region: region, country: state, continent: continent, geoname_id: 562197, population: 0),
+province.municipalities.new(description: "Gigatli-Urukh", region: region, country: state, continent: continent, geoname_id: 858016, population: 0),
+province.municipalities.new(description: "Gigatl'", region: region, country: state, continent: continent, geoname_id: 561492, population: 0),
+province.municipalities.new(description: "Gigikh", region: region, country: state, continent: continent, geoname_id: 858035, population: 0),
+province.municipalities.new(description: "Gimerso", region: region, country: state, continent: continent, geoname_id: 561479, population: 0),
+province.municipalities.new(description: "Gunduchi", region: region, country: state, continent: continent, geoname_id: 858409, population: 0),
+province.municipalities.new(description: "Gvanachi", region: region, country: state, continent: continent, geoname_id: 860419, population: 0),
+province.municipalities.new(description: "Gvanachi", region: region, country: state, continent: continent, geoname_id: 858412, population: 0),
+province.municipalities.new(description: "Inkhokvari", region: region, country: state, continent: continent, geoname_id: 556344, population: 0),
+province.municipalities.new(description: "Issi", region: region, country: state, continent: continent, geoname_id: 858438, population: 0),
+province.municipalities.new(description: "Kedi", region: region, country: state, continent: continent, geoname_id: 551247, population: 0),
+province.municipalities.new(description: "Khalikh", region: region, country: state, continent: continent, geoname_id: 858422, population: 0),
+province.municipalities.new(description: "Khonokh", region: region, country: state, continent: continent, geoname_id: 549923, population: 0),
+province.municipalities.new(description: "Khushet", region: region, country: state, continent: continent, geoname_id: 549083, population: 0),
+province.municipalities.new(description: "Khushtada", region: region, country: state, continent: continent, geoname_id: 549082, population: 0),
+province.municipalities.new(description: "Khvarshi", region: region, country: state, continent: continent, geoname_id: 548978, population: 0),
+province.municipalities.new(description: "Khvayni", region: region, country: state, continent: continent, geoname_id: 548960, population: 0),
+province.municipalities.new(description: "Kochali", region: region, country: state, continent: continent, geoname_id: 858036, population: 0),
+province.municipalities.new(description: "Kvanada", region: region, country: state, continent: continent, geoname_id: 537543, population: 0),
+province.municipalities.new(description: "Kvantlada", region: region, country: state, continent: continent, geoname_id: 802342, population: 0),
+province.municipalities.new(description: "Metrada", region: region, country: state, continent: continent, geoname_id: 527337, population: 0),
+province.municipalities.new(description: "Mukharkh", region: region, country: state, continent: continent, geoname_id: 858415, population: 0),
+province.municipalities.new(description: "Nizhniye Gakvari", region: region, country: state, continent: continent, geoname_id: 520748, population: 0),
+province.municipalities.new(description: "Nizhniye Khvarshini", region: region, country: state, continent: continent, geoname_id: 520727, population: 0),
+province.municipalities.new(description: "Richaganikh", region: region, country: state, continent: continent, geoname_id: 802411, population: 0),
+province.municipalities.new(description: "Santlada", region: region, country: state, continent: continent, geoname_id: 498796, population: 0),
+province.municipalities.new(description: "Sanukh", region: region, country: state, continent: continent, geoname_id: 858417, population: 0),
+province.municipalities.new(description: "Sasitli", region: region, country: state, continent: continent, geoname_id: 498443, population: 0),
+province.municipalities.new(description: "Sil'di", region: region, country: state, continent: continent, geoname_id: 492980, population: 0),
+province.municipalities.new(description: "Tenla", region: region, country: state, continent: continent, geoname_id: 858416, population: 0),
+province.municipalities.new(description: "Tindi", region: region, country: state, continent: continent, geoname_id: 482802, population: 0),
+province.municipalities.new(description: "Tissi", region: region, country: state, continent: continent, geoname_id: 482704, population: 0),
+province.municipalities.new(description: "Tissi-Akhitli", region: region, country: state, continent: continent, geoname_id: 802409, population: 0),
+province.municipalities.new(description: "Tlondoda", region: region, country: state, continent: continent, geoname_id: 482598, population: 0),
+province.municipalities.new(description: "Tsidatl'", region: region, country: state, continent: continent, geoname_id: 858041, population: 0),
+province.municipalities.new(description: "Tsidatl'", region: region, country: state, continent: continent, geoname_id: 860425, population: 0),
+province.municipalities.new(description: "Tsumada", region: region, country: state, continent: continent, geoname_id: 480805, population: 0),
+province.municipalities.new(description: "Tsumada-Urukh", region: region, country: state, continent: continent, geoname_id: 858437, population: 0),
+province.municipalities.new(description: "Tsuydi", region: region, country: state, continent: continent, geoname_id: 858042, population: 0),
+province.municipalities.new(description: "Tsykhalakh", region: region, country: state, continent: continent, geoname_id: 800523, population: 0),
+province.municipalities.new(description: "Verkhniye Gakvari", region: region, country: state, continent: continent, geoname_id: 475135, population: 0),
+province.municipalities.new(description: "Verkhniye Khvarshini", region: region, country: state, continent: continent, geoname_id: 475106, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Tsuntinskiy Rayon", country: state, continent: continent,  geoname_id: 480801, population: 17530)
 province = region.provinces.create(description: "Untsukul'skiy Rayon", country: state, continent: continent,  geoname_id: 478962, population: 27839)
-province.municipalities.create(description: "Inkvalita", region: region, country: state, continent: continent, geoname_id: 556337, population: 0)
-province.municipalities.create(description: "Irganay", region: region, country: state, continent: continent, geoname_id: 556198, population: 2336)
-province.municipalities.create(description: "Ishtiburi", region: region, country: state, continent: continent, geoname_id: 802616, population: 0)
-province.municipalities.create(description: "Kakhabroso", region: region, country: state, continent: continent, geoname_id: 554450, population: 0)
-province.municipalities.create(description: "Kharachi", region: region, country: state, continent: continent, geoname_id: 550666, population: 0)
-province.municipalities.create(description: "Kolob", region: region, country: state, continent: continent, geoname_id: 546387, population: 0)
-province.municipalities.create(description: "Maydanskoye", region: region, country: state, continent: continent, geoname_id: 858126, population: 0)
-province.municipalities.create(description: "Moksokh", region: region, country: state, continent: continent, geoname_id: 525652, population: 0)
-province.municipalities.create(description: "Tsatanikh", region: region, country: state, continent: continent, geoname_id: 481054, population: 0)
-province.municipalities.create(description: "Zirani", region: region, country: state, continent: continent, geoname_id: 462470, population: 0)
+municipalities = [
+province.municipalities.new(description: "Inkvalita", region: region, country: state, continent: continent, geoname_id: 556337, population: 0),
+province.municipalities.new(description: "Irganay", region: region, country: state, continent: continent, geoname_id: 556198, population: 2336),
+province.municipalities.new(description: "Ishtiburi", region: region, country: state, continent: continent, geoname_id: 802616, population: 0),
+province.municipalities.new(description: "Kakhabroso", region: region, country: state, continent: continent, geoname_id: 554450, population: 0),
+province.municipalities.new(description: "Kharachi", region: region, country: state, continent: continent, geoname_id: 550666, population: 0),
+province.municipalities.new(description: "Kolob", region: region, country: state, continent: continent, geoname_id: 546387, population: 0),
+province.municipalities.new(description: "Maydanskoye", region: region, country: state, continent: continent, geoname_id: 858126, population: 0),
+province.municipalities.new(description: "Moksokh", region: region, country: state, continent: continent, geoname_id: 525652, population: 0),
+province.municipalities.new(description: "Tsatanikh", region: region, country: state, continent: continent, geoname_id: 481054, population: 0),
+province.municipalities.new(description: "Zirani", region: region, country: state, continent: continent, geoname_id: 462470, population: 0),
+]
+Municipality.import municipalities
 region = Region.create(description: "Irkutskaya Oblast'", country: state, continent: continent, geoname_id: 2023468)
 province = region.provinces.create(description: "Alarskiy Rayon", country: state, continent: continent,  geoname_id: 2027984, population: 0)
 province = region.provinces.create(description: "Angarskiy Rayon", country: state, continent: continent,  geoname_id: 2050918, population: 0)
@@ -629,12 +713,15 @@ province = region.provinces.create(description: "Cheremkhovskiy Rayon", country:
 province = region.provinces.create(description: "Chunskiy Rayon", country: state, continent: continent,  geoname_id: 1507634, population: 0)
 province = region.provinces.create(description: "Ekhirit-Bulagatskiy Rayon", country: state, continent: continent,  geoname_id: 2024464, population: 0)
 province = region.provinces.create(description: "Irkutskiy Rayon", country: state, continent: continent,  geoname_id: 2023464, population: 0)
-province.municipalities.create(description: "Irkutsk", region: region, country: state, continent: continent, geoname_id: 2023469, population: 586695)
-province.municipalities.create(description: "Irkutsk", region: region, country: state, continent: continent, geoname_id: 7536078, population: 0)
-province.municipalities.create(description: "Listvyanka", region: region, country: state, continent: continent, geoname_id: 2020744, population: 1700)
-province.municipalities.create(description: "Nikola", region: region, country: state, continent: continent, geoname_id: 2019270, population: 119)
-province.municipalities.create(description: "Shara-Togot", region: region, country: state, continent: continent, geoname_id: 2016799, population: 375)
-province.municipalities.create(description: "Zogi", region: region, country: state, continent: continent, geoname_id: 2012459, population: 0)
+municipalities = [
+province.municipalities.new(description: "Irkutsk", region: region, country: state, continent: continent, geoname_id: 2023469, population: 586695),
+province.municipalities.new(description: "Irkutsk", region: region, country: state, continent: continent, geoname_id: 7536078, population: 0),
+province.municipalities.new(description: "Listvyanka", region: region, country: state, continent: continent, geoname_id: 2020744, population: 1700),
+province.municipalities.new(description: "Nikola", region: region, country: state, continent: continent, geoname_id: 2019270, population: 119),
+province.municipalities.new(description: "Shara-Togot", region: region, country: state, continent: continent, geoname_id: 2016799, population: 375),
+province.municipalities.new(description: "Zogi", region: region, country: state, continent: continent, geoname_id: 2012459, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kachugskiy Rayon", country: state, continent: continent,  geoname_id: 2023332, population: 0)
 province = region.provinces.create(description: "Katangskiy Rayon", country: state, continent: continent,  geoname_id: 2023075, population: 0)
 province = region.provinces.create(description: "Kazachinsko-Lenskiy Rayon", country: state, continent: continent,  geoname_id: 2023030, population: 0)
@@ -645,7 +732,10 @@ province = region.provinces.create(description: "Nizhneilimskiy Rayon", country:
 province = region.provinces.create(description: "Nizhneudinskiy Rayon", country: state, continent: continent,  geoname_id: 1497548, population: 0)
 province = region.provinces.create(description: "Nukutskiy Rayon", country: state, continent: continent,  geoname_id: 2018795, population: 0)
 province = region.provinces.create(description: "Ol'khonskiy Rayon", country: state, continent: continent,  geoname_id: 2018527, population: 0)
-province.municipalities.create(description: "Sakhyurta", region: region, country: state, continent: continent, geoname_id: 2050712, population: 224)
+municipalities = [
+province.municipalities.new(description: "Sakhyurta", region: region, country: state, continent: continent, geoname_id: 2050712, population: 224),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Osinskiy Rayon", country: state, continent: continent,  geoname_id: 2018281, population: 0)
 province = region.provinces.create(description: "Shelekhovskiy Rayon", country: state, continent: continent,  geoname_id: 2050920, population: 0)
 province = region.provinces.create(description: "Slyudyanskiy Rayon", country: state, continent: continent,  geoname_id: 2016415, population: 0)
@@ -664,7 +754,10 @@ province = region.provinces.create(description: "Furmanovskiy Rayon", country: s
 province = region.provinces.create(description: "Gavrilovo-Posadskiy Rayon", country: state, continent: continent,  geoname_id: 561784, population: 0)
 province = region.provinces.create(description: "Gorod Furmanovo", country: state, continent: continent,  geoname_id: 826310, population: 0)
 province = region.provinces.create(description: "Gorod Ivanovo", country: state, continent: continent,  geoname_id: 825094, population: 0)
-province.municipalities.create(description: "Ivanovo", region: region, country: state, continent: continent, geoname_id: 555312, population: 420839)
+municipalities = [
+province.municipalities.new(description: "Ivanovo", region: region, country: state, continent: continent, geoname_id: 555312, population: 420839),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Gorod Kineshma", country: state, continent: continent,  geoname_id: 825092, population: 0)
 province = region.provinces.create(description: "Gorod Shuya", country: state, continent: continent,  geoname_id: 825093, population: 0)
 province = region.provinces.create(description: "Gorod Teykovo", country: state, continent: continent,  geoname_id: 825095, population: 0)
@@ -678,7 +771,10 @@ province = region.provinces.create(description: "Lukhskiy Rayon", country: state
 province = region.provinces.create(description: "Palekhskiy Rayon", country: state, continent: continent,  geoname_id: 513094, population: 0)
 province = region.provinces.create(description: "Pestyakovskiy Rayon", country: state, continent: continent,  geoname_id: 510322, population: 0)
 province = region.provinces.create(description: "Privolzhskiy Rayon", country: state, continent: continent,  geoname_id: 505049, population: 0)
-province.municipalities.create(description: "Plës", region: region, country: state, continent: continent, geoname_id: 509029, population: 2790)
+municipalities = [
+province.municipalities.new(description: "Plës", region: region, country: state, continent: continent, geoname_id: 509029, population: 2790),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Puchezhskiy Rayon", country: state, continent: continent,  geoname_id: 504293, population: 0)
 province = region.provinces.create(description: "Rodnikovskiy Rayon", country: state, continent: continent,  geoname_id: 501709, population: 0)
 province = region.provinces.create(description: "Savinskiy Rayon", country: state, continent: continent,  geoname_id: 498203, population: 0)
@@ -700,10 +796,16 @@ province = region.provinces.create(description: "Baksanskiy Rayon", country: sta
 province = region.provinces.create(description: "Chegemskiy Rayon", country: state, continent: continent,  geoname_id: 569634, population: 0)
 province = region.provinces.create(description: "Cherekskiy Rayon", country: state, continent: continent,  geoname_id: 490029, population: 0)
 province = region.provinces.create(description: "El'brusskiy Rayon", country: state, continent: continent,  geoname_id: 825097, population: 0)
-province.municipalities.create(description: "El'brus", region: region, country: state, continent: continent, geoname_id: 563534, population: 3300)
-province.municipalities.create(description: "Tegenekli", region: region, country: state, continent: continent, geoname_id: 795309, population: 0)
+municipalities = [
+province.municipalities.new(description: "El'brus", region: region, country: state, continent: continent, geoname_id: 563534, population: 3300),
+province.municipalities.new(description: "Tegenekli", region: region, country: state, continent: continent, geoname_id: 795309, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Gorod Nal'chik", country: state, continent: continent,  geoname_id: 825098, population: 0)
-province.municipalities.create(description: "Nal'chik", region: region, country: state, continent: continent, geoname_id: 523523, population: 272800)
+municipalities = [
+province.municipalities.new(description: "Nal'chik", region: region, country: state, continent: continent, geoname_id: 523523, population: 272800),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Mayskiy Rayon", country: state, continent: continent,  geoname_id: 528218, population: 0)
 province = region.provinces.create(description: "Prokhladnenskiy Rayon", country: state, continent: continent,  geoname_id: 504938, population: 0)
 province = region.provinces.create(description: "Terskiy Rayon", country: state, continent: continent,  geoname_id: 483273, population: 0)
@@ -716,15 +818,21 @@ province = region.provinces.create(description: "Gorod Baltiysk", country: state
 province = region.provinces.create(description: "Gorod Chernyakhovsk", country: state, continent: continent,  geoname_id: 825119, population: 0)
 province = region.provinces.create(description: "Gorod Gusev", country: state, continent: continent,  geoname_id: 825120, population: 0)
 province = region.provinces.create(description: "Gorod Kaliningrad", country: state, continent: continent,  geoname_id: 825118, population: 0)
-province.municipalities.create(description: "Baltiysk", region: region, country: state, continent: continent, geoname_id: 2609906, population: 34540)
-province.municipalities.create(description: "Kaliningrad", region: region, country: state, continent: continent, geoname_id: 554234, population: 434954)
-province.municipalities.create(description: "Pionerskiy", region: region, country: state, continent: continent, geoname_id: 509437, population: 11856)
-province.municipalities.create(description: "Yantarnyy", region: region, country: state, continent: continent, geoname_id: 2609894, population: 5527)
+municipalities = [
+province.municipalities.new(description: "Baltiysk", region: region, country: state, continent: continent, geoname_id: 2609906, population: 34540),
+province.municipalities.new(description: "Kaliningrad", region: region, country: state, continent: continent, geoname_id: 554234, population: 434954),
+province.municipalities.new(description: "Pionerskiy", region: region, country: state, continent: continent, geoname_id: 509437, population: 11856),
+province.municipalities.new(description: "Yantarnyy", region: region, country: state, continent: continent, geoname_id: 2609894, population: 5527),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Gorod Neman", country: state, continent: continent,  geoname_id: 825114, population: 0)
 province = region.provinces.create(description: "Gorod Pionerskiy", country: state, continent: continent,  geoname_id: 825116, population: 0)
 province = region.provinces.create(description: "Gorod Sovetsk", country: state, continent: continent,  geoname_id: 825113, population: 0)
 province = region.provinces.create(description: "Gorod Svetlogorsk", country: state, continent: continent,  geoname_id: 825115, population: 0)
-province.municipalities.create(description: "Svetlogorsk", region: region, country: state, continent: continent, geoname_id: 485699, population: 11000)
+municipalities = [
+province.municipalities.new(description: "Svetlogorsk", region: region, country: state, continent: continent, geoname_id: 485699, population: 11000),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Gorod Svetlyy", country: state, continent: continent,  geoname_id: 825117, population: 0)
 province = region.provinces.create(description: "Gur'yevskiy Rayon", country: state, continent: continent,  geoname_id: 557904, population: 0)
 province = region.provinces.create(description: "Gusevskiy Rayon", country: state, continent: continent,  geoname_id: 557841, population: 0)
@@ -737,8 +845,11 @@ province = region.provinces.create(description: "Polesskiy Rayon", country: stat
 province = region.provinces.create(description: "Pravdinskiy Rayon", country: state, continent: continent,  geoname_id: 505596, population: 0)
 province = region.provinces.create(description: "Slavskiy Rayon", country: state, continent: continent,  geoname_id: 492111, population: 0)
 province = region.provinces.create(description: "Zelenogradskiy Rayon", country: state, continent: continent,  geoname_id: 463825, population: 0)
-province.municipalities.create(description: "Morskoye", region: region, country: state, continent: continent, geoname_id: 525121, population: 300)
-province.municipalities.create(description: "Zelenogradsk", region: region, country: state, continent: continent, geoname_id: 463828, population: 12846)
+municipalities = [
+province.municipalities.new(description: "Morskoye", region: region, country: state, continent: continent, geoname_id: 525121, population: 300),
+province.municipalities.new(description: "Zelenogradsk", region: region, country: state, continent: continent, geoname_id: 463828, population: 12846),
+]
+Municipality.import municipalities
 region = Region.create(description: "Kalmykiya", country: state, continent: continent, geoname_id: 553972)
 province = region.provinces.create(description: "Adyk", country: state, continent: continent,  geoname_id: 584219, population: 0)
 province = region.provinces.create(description: "Akhnud", country: state, continent: continent,  geoname_id: 583828, population: 0)
@@ -788,7 +899,10 @@ province = region.provinces.create(description: "Godzhur", country: state, conti
 province = region.provinces.create(description: "Gorodoviki", country: state, continent: continent,  geoname_id: 559478, population: 10706)
 province = region.provinces.create(description: "Gorodovikovo", country: state, continent: continent,  geoname_id: 559476, population: 0)
 province = region.provinces.create(description: "Gorodovikovsk", country: state, continent: continent,  geoname_id: 559475, population: 9809)
-province.municipalities.create(description: "Don-Ural", region: region, country: state, continent: continent, geoname_id: 565273, population: 0)
+municipalities = [
+province.municipalities.new(description: "Don-Ural", region: region, country: state, continent: continent, geoname_id: 565273, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Gyudik", country: state, continent: continent,  geoname_id: 557667, population: 0)
 province = region.provinces.create(description: "Iki Chonos", country: state, continent: continent,  geoname_id: 557409, population: 0)
 province = region.provinces.create(description: "Iki-Burul", country: state, continent: continent,  geoname_id: 557413, population: 3709)
@@ -961,7 +1075,10 @@ province = region.provinces.create(description: "Yukhnovskiy Rayon", country: st
 province = region.provinces.create(description: "Zhizdrinskiy Rayon", country: state, continent: continent,  geoname_id: 462912, population: 0)
 region = Region.create(description: "Kamtchatski Kray", country: state, continent: continent, geoname_id: 2125072)
 province = region.provinces.create(description: "Koryakskiy Okrug", country: state, continent: continent,  geoname_id: 2124279, population: 0)
-province.municipalities.create(description: "Palana", region: region, country: state, continent: continent, geoname_id: 2122262, population: 3671)
+municipalities = [
+province.municipalities.new(description: "Palana", region: region, country: state, continent: continent, geoname_id: 2122262, population: 3671),
+]
+Municipality.import municipalities
 region = Region.create(description: "Karachayevo-Cherkesiya", country: state, continent: continent, geoname_id: 552927)
 province = region.provinces.create(description: "Abaza-Khabl'", country: state, continent: continent,  geoname_id: 584497, population: 0)
 province = region.provinces.create(description: "Abazakt", country: state, continent: continent,  geoname_id: 584496, population: 0)
@@ -985,7 +1102,10 @@ province = region.provinces.create(description: "Bol'shevik", country: state, co
 province = region.provinces.create(description: "Bukovyy Uchastok", country: state, continent: continent,  geoname_id: 571089, population: 0)
 province = region.provinces.create(description: "Chapayevskoye", country: state, continent: continent,  geoname_id: 569978, population: 0)
 province = region.provinces.create(description: "Cherkessk", country: state, continent: continent,  geoname_id: 569154, population: 116224)
-province.municipalities.create(description: "Yubileynyy", region: region, country: state, continent: continent, geoname_id: 7889335, population: 0)
+municipalities = [
+province.municipalities.new(description: "Yubileynyy", region: region, country: state, continent: continent, geoname_id: 7889335, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Damkhurts", country: state, continent: continent,  geoname_id: 864185, population: 0)
 province = region.provinces.create(description: "Dausuz", country: state, continent: continent,  geoname_id: 567014, population: 0)
 province = region.provinces.create(description: "Dombay", country: state, continent: continent,  geoname_id: 565405, population: 405)
@@ -1026,15 +1146,24 @@ province = region.provinces.create(description: "Khabez", country: state, contin
 province = region.provinces.create(description: "Khasaut", country: state, continent: continent,  geoname_id: 550481, population: 0)
 province = region.provinces.create(description: "Khasaut-Grecheskoye", country: state, continent: continent,  geoname_id: 550479, population: 0)
 province = region.provinces.create(description: "Kholodnorodnikovskoye", country: state, continent: continent,  geoname_id: 549703, population: 0)
-province.municipalities.create(description: "Gandroburovskiy", region: region, country: state, continent: continent, geoname_id: 562055, population: 0)
-province.municipalities.create(description: "Issayevskiy", region: region, country: state, continent: continent, geoname_id: 555792, population: 0)
-province.municipalities.create(description: "Pritulinskiy", region: region, country: state, continent: continent, geoname_id: 505138, population: 0)
-province.municipalities.create(description: "Ukleinskiy", region: region, country: state, continent: continent, geoname_id: 479364, population: 0)
+municipalities = [
+province.municipalities.new(description: "Gandroburovskiy", region: region, country: state, continent: continent, geoname_id: 562055, population: 0),
+province.municipalities.new(description: "Issayevskiy", region: region, country: state, continent: continent, geoname_id: 555792, population: 0),
+province.municipalities.new(description: "Pritulinskiy", region: region, country: state, continent: continent, geoname_id: 505138, population: 0),
+province.municipalities.new(description: "Ukleinskiy", region: region, country: state, continent: continent, geoname_id: 479364, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kholodnorodnikovskoye", country: state, continent: continent,  geoname_id: 841289, population: 0)
-province.municipalities.create(description: "Kravtsovskiy", region: region, country: state, continent: continent, geoname_id: 541275, population: 0)
+municipalities = [
+province.municipalities.new(description: "Kravtsovskiy", region: region, country: state, continent: continent, geoname_id: 541275, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Khoperskiy", country: state, continent: continent,  geoname_id: 805844, population: 0)
 province = region.provinces.create(description: "Khotodnyy", country: state, continent: continent,  geoname_id: 805837, population: 0)
-province.municipalities.create(description: "Il'ich", region: region, country: state, continent: continent, geoname_id: 557286, population: 0)
+municipalities = [
+province.municipalities.new(description: "Il'ich", region: region, country: state, continent: continent, geoname_id: 557286, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Khudes", country: state, continent: continent,  geoname_id: 549166, population: 0)
 province = region.provinces.create(description: "Khudes", country: state, continent: continent,  geoname_id: 795099, population: 0)
 province = region.provinces.create(description: "Khumara", country: state, continent: continent,  geoname_id: 549117, population: 0)
@@ -1049,7 +1178,10 @@ province = region.provinces.create(description: "Kommunstroy", country: state, c
 province = region.provinces.create(description: "Kosh-Khabl'", country: state, continent: continent,  geoname_id: 544204, population: 0)
 province = region.provinces.create(description: "Kotlyarovskiy", country: state, continent: continent,  geoname_id: 543668, population: 0)
 province = region.provinces.create(description: "Koydan", country: state, continent: continent,  geoname_id: 543401, population: 0)
-province.municipalities.create(description: "Darkin", region: region, country: state, continent: continent, geoname_id: 567061, population: 0)
+municipalities = [
+province.municipalities.new(description: "Darkin", region: region, country: state, continent: continent, geoname_id: 567061, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Krasivyy", country: state, continent: continent,  geoname_id: 542846, population: 0)
 province = region.provinces.create(description: "Krasnaya Zvezda", country: state, continent: continent,  geoname_id: 542533, population: 0)
 province = region.provinces.create(description: "Krasnogorskaya", country: state, continent: continent,  geoname_id: 542373, population: 0)
@@ -1082,7 +1214,10 @@ province = region.provinces.create(description: "Morkh", country: state, contine
 province = region.provinces.create(description: "Mukhina", country: state, continent: continent,  geoname_id: 524567, population: 0)
 province = region.provinces.create(description: "Musht", country: state, continent: continent,  geoname_id: 524208, population: 0)
 province = region.provinces.create(description: "Nikolayevskoye", country: state, continent: continent,  geoname_id: 521845, population: 0)
-province.municipalities.create(description: "Bocharovskiy", region: region, country: state, continent: continent, geoname_id: 575825, population: 0)
+municipalities = [
+province.municipalities.new(description: "Bocharovskiy", region: region, country: state, continent: continent, geoname_id: 575825, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Nikolinskoye", country: state, continent: continent,  geoname_id: 521819, population: 0)
 province = region.provinces.create(description: "Nizhniy Arkhyz", country: state, continent: continent,  geoname_id: 520806, population: 2000)
 province = region.provinces.create(description: "Nizhniy Beskes", country: state, continent: continent,  geoname_id: 520795, population: 0)
@@ -1123,12 +1258,15 @@ province = region.provinces.create(description: "Sadovaya Dolina", country: stat
 province = region.provinces.create(description: "Sadovoye", country: state, continent: continent,  geoname_id: 499521, population: 0)
 province = region.provinces.create(description: "Sary-Tyuz", country: state, continent: continent,  geoname_id: 498462, population: 3188)
 province = region.provinces.create(description: "Schastlivoye", country: state, continent: continent,  geoname_id: 498010, population: 0)
-province.municipalities.create(description: "Alenovskiy", region: region, country: state, continent: continent, geoname_id: 582697, population: 0)
-province.municipalities.create(description: "Bulavinskiy", region: region, country: state, continent: continent, geoname_id: 571034, population: 0)
-province.municipalities.create(description: "Golubenovskiy", region: region, country: state, continent: continent, geoname_id: 560536, population: 0)
-province.municipalities.create(description: "Kosyakinskiy", region: region, country: state, continent: continent, geoname_id: 543792, population: 0)
-province.municipalities.create(description: "Kramorovskiy", region: region, country: state, continent: continent, geoname_id: 542968, population: 0)
-province.municipalities.create(description: "Kucherovskiy", region: region, country: state, continent: continent, geoname_id: 539982, population: 0)
+municipalities = [
+province.municipalities.new(description: "Alenovskiy", region: region, country: state, continent: continent, geoname_id: 582697, population: 0),
+province.municipalities.new(description: "Bulavinskiy", region: region, country: state, continent: continent, geoname_id: 571034, population: 0),
+province.municipalities.new(description: "Golubenovskiy", region: region, country: state, continent: continent, geoname_id: 560536, population: 0),
+province.municipalities.new(description: "Kosyakinskiy", region: region, country: state, continent: continent, geoname_id: 543792, population: 0),
+province.municipalities.new(description: "Kramorovskiy", region: region, country: state, continent: continent, geoname_id: 542968, population: 0),
+province.municipalities.new(description: "Kucherovskiy", region: region, country: state, continent: continent, geoname_id: 539982, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Severnyy Priyut", country: state, continent: continent,  geoname_id: 865501, population: 0)
 province = region.provinces.create(description: "Shkol'nyy", country: state, continent: continent,  geoname_id: 795100, population: 0)
 province = region.provinces.create(description: "Solnechnaya Dolina", country: state, continent: continent,  geoname_id: 491000, population: 0)
@@ -1138,9 +1276,12 @@ province = region.provinces.create(description: "Starokuvinskiy", country: state
 province = region.provinces.create(description: "Starokuvinskiy", country: state, continent: continent,  geoname_id: 805226, population: 0)
 province = region.provinces.create(description: "Storozhevaya", country: state, continent: continent,  geoname_id: 487372, population: 7986)
 province = region.provinces.create(description: "Svetloye", country: state, continent: continent,  geoname_id: 485690, population: 0)
-province.municipalities.create(description: "Morozovskiy", region: region, country: state, continent: continent, geoname_id: 525151, population: 0)
-province.municipalities.create(description: "Pogorelovskiy", region: region, country: state, continent: continent, geoname_id: 507761, population: 0)
-province.municipalities.create(description: "Popovskiy", region: region, country: state, continent: continent, geoname_id: 506350, population: 0)
+municipalities = [
+province.municipalities.new(description: "Morozovskiy", region: region, country: state, continent: continent, geoname_id: 525151, population: 0),
+province.municipalities.new(description: "Pogorelovskiy", region: region, country: state, continent: continent, geoname_id: 507761, population: 0),
+province.municipalities.new(description: "Popovskiy", region: region, country: state, continent: continent, geoname_id: 506350, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Svinyachi", country: state, continent: continent,  geoname_id: 485585, population: 0)
 province = region.provinces.create(description: "Sychëv", country: state, continent: continent,  geoname_id: 485289, population: 0)
 province = region.provinces.create(description: "Tallyk", country: state, continent: continent,  geoname_id: 841290, population: 0)
@@ -1150,7 +1291,10 @@ province = region.provinces.create(description: "Tereze", country: state, contin
 province = region.provinces.create(description: "Tsementnyy", country: state, continent: continent,  geoname_id: 841051, population: 0)
 province = region.provinces.create(description: "Tëplyy", country: state, continent: continent,  geoname_id: 483558, population: 0)
 province = region.provinces.create(description: "Uchkeken", country: state, continent: continent,  geoname_id: 479687, population: 15118)
-province.municipalities.create(description: "Rim Gorskiy", region: region, country: state, continent: continent, geoname_id: 501909, population: 0)
+municipalities = [
+province.municipalities.new(description: "Rim Gorskiy", region: region, country: state, continent: continent, geoname_id: 501909, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Uchkulan", country: state, continent: continent,  geoname_id: 479685, population: 5000)
 province = region.provinces.create(description: "Udarnyy", country: state, continent: continent,  geoname_id: 841270, population: 1142)
 province = region.provinces.create(description: "Udarnyy", country: state, continent: continent,  geoname_id: 479645, population: 0)
@@ -1182,14 +1326,20 @@ province = region.provinces.create(description: "Zelenchukskaya", country: state
 province = region.provinces.create(description: "Zeyuko", country: state, continent: continent,  geoname_id: 463616, population: 0)
 province = region.provinces.create(description: "Zhako", country: state, continent: continent,  geoname_id: 463560, population: 0)
 province = region.provinces.create(description: "Znamenka", country: state, continent: continent,  geoname_id: 462371, population: 0)
-province.municipalities.create(description: "Nekrasovskiy", region: region, country: state, continent: continent, geoname_id: 522802, population: 0)
-province.municipalities.create(description: "Valuyskiy", region: region, country: state, continent: continent, geoname_id: 477190, population: 0)
+municipalities = [
+province.municipalities.new(description: "Nekrasovskiy", region: region, country: state, continent: continent, geoname_id: 522802, population: 0),
+province.municipalities.new(description: "Valuyskiy", region: region, country: state, continent: continent, geoname_id: 477190, population: 0),
+]
+Municipality.import municipalities
 region = Region.create(description: "Kemerovskaya Oblast'", country: state, continent: continent, geoname_id: 1503900)
 province = region.provinces.create(description: "Yurginskiy Rayon", country: state, continent: continent,  geoname_id: 1485714, population: 0)
 region = Region.create(description: "Khabarovsk Krai", country: state, continent: continent, geoname_id: 2022888)
 province = region.provinces.create(description: "Bikinskiy Rayon", country: state, continent: continent,  geoname_id: 2026693, population: 0)
 province = region.provinces.create(description: "Khabarovskiy Rayon", country: state, continent: continent,  geoname_id: 2022887, population: 0)
-province.municipalities.create(description: "Khabarovsk", region: region, country: state, continent: continent, geoname_id: 2022890, population: 579000)
+municipalities = [
+province.municipalities.new(description: "Khabarovsk", region: region, country: state, continent: continent, geoname_id: 2022890, population: 579000),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Vyazemskiy Rayon", country: state, continent: continent,  geoname_id: 2013228, population: 0)
 region = Region.create(description: "Khanty-Mansiyskiy Avtonomnyy Okrug-Yugra", country: state, continent: continent, geoname_id: 1503773)
 province = region.provinces.create(description: "Achimovy", country: state, continent: continent,  geoname_id: 1512168, population: 0)
@@ -1395,7 +1545,10 @@ province = region.provinces.create(description: "Zelenoborsk", country: state, c
 region = Region.create(description: "Kirovskaya Oblast'", country: state, continent: continent, geoname_id: 548389)
 province = region.provinces.create(description: "Arbazhskiy Rayon", country: state, continent: continent,  geoname_id: 581227, population: 0)
 province = region.provinces.create(description: "Kirovo-Chepetskiy Rayon", country: state, continent: continent,  geoname_id: 548394, population: 0)
-province.municipalities.create(description: "Kirov", region: region, country: state, continent: continent, geoname_id: 548408, population: 457383)
+municipalities = [
+province.municipalities.new(description: "Kirov", region: region, country: state, continent: continent, geoname_id: 548408, population: 457383),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kotel'nichskiy Rayon", country: state, continent: continent,  geoname_id: 543733, population: 0)
 province = region.provinces.create(description: "Kumenskiy Rayon", country: state, continent: continent,  geoname_id: 539285, population: 0)
 province = region.provinces.create(description: "Nagorskiy Rayon", country: state, continent: continent,  geoname_id: 523582, population: 0)
@@ -1411,24 +1564,36 @@ region = Region.create(description: "Komi Republic", country: state, continent: 
 province = region.provinces.create(description: "Koygorodskiy Rayon", country: state, continent: continent,  geoname_id: 543395, population: 0)
 province = region.provinces.create(description: "Priluzskiy Rayon", country: state, continent: continent,  geoname_id: 505282, population: 0)
 province = region.provinces.create(description: "Syktyvdinskiy Rayon", country: state, continent: continent,  geoname_id: 485241, population: 0)
-province.municipalities.create(description: "Syktyvkar", region: region, country: state, continent: continent, geoname_id: 485239, population: 230139)
+municipalities = [
+province.municipalities.new(description: "Syktyvkar", region: region, country: state, continent: continent, geoname_id: 485239, population: 230139),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Sysol'skiy Rayon", country: state, continent: continent,  geoname_id: 485121, population: 0)
 region = Region.create(description: "Kostromskaya Oblast'", country: state, continent: continent, geoname_id: 543871)
 province = region.provinces.create(description: "Kostromskoy Rayon", country: state, continent: continent,  geoname_id: 543869, population: 0)
-province.municipalities.create(description: "Kostroma", region: region, country: state, continent: continent, geoname_id: 543878, population: 277656)
+municipalities = [
+province.municipalities.new(description: "Kostroma", region: region, country: state, continent: continent, geoname_id: 543878, population: 277656),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Nerekhtskiy Rayon", country: state, continent: continent,  geoname_id: 522591, population: 0)
 province = region.provinces.create(description: "Ostrovskiy Rayon", country: state, continent: continent,  geoname_id: 514056, population: 0)
 region = Region.create(description: "Krasnodarskiy Kray", country: state, continent: continent, geoname_id: 542415)
 province = region.provinces.create(description: "Sochi City", country: state, continent: continent,  geoname_id: 6695246, population: 0)
-province.municipalities.create(description: "Dagomys", region: region, country: state, continent: continent, geoname_id: 567288, population: 0)
-province.municipalities.create(description: "Estosadok", region: region, country: state, continent: continent, geoname_id: 563401, population: 704)
-province.municipalities.create(description: "Khosta", region: region, country: state, continent: continent, geoname_id: 549424, population: 20000)
-province.municipalities.create(description: "Krasnaya Polyana", region: region, country: state, continent: continent, geoname_id: 542681, population: 4020)
-province.municipalities.create(description: "Lazarevskoye", region: region, country: state, continent: continent, geoname_id: 536625, population: 30000)
-province.municipalities.create(description: "Sochi", region: region, country: state, continent: continent, geoname_id: 491422, population: 327608)
-province.municipalities.create(description: "Yakornaya Shchel'", region: region, country: state, continent: continent, geoname_id: 805548, population: 0)
+municipalities = [
+province.municipalities.new(description: "Dagomys", region: region, country: state, continent: continent, geoname_id: 567288, population: 0),
+province.municipalities.new(description: "Estosadok", region: region, country: state, continent: continent, geoname_id: 563401, population: 704),
+province.municipalities.new(description: "Khosta", region: region, country: state, continent: continent, geoname_id: 549424, population: 20000),
+province.municipalities.new(description: "Krasnaya Polyana", region: region, country: state, continent: continent, geoname_id: 542681, population: 4020),
+province.municipalities.new(description: "Lazarevskoye", region: region, country: state, continent: continent, geoname_id: 536625, population: 30000),
+province.municipalities.new(description: "Sochi", region: region, country: state, continent: continent, geoname_id: 491422, population: 327608),
+province.municipalities.new(description: "Yakornaya Shchel'", region: region, country: state, continent: continent, geoname_id: 805548, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Taymyrsky Dolgano-Nenetsky District", country: state, continent: continent,  geoname_id: 1489879, population: 0)
-province.municipalities.create(description: "Golubitskaya", region: region, country: state, continent: continent, geoname_id: 560513, population: 4138)
+municipalities = [
+province.municipalities.new(description: "Golubitskaya", region: region, country: state, continent: continent, geoname_id: 560513, population: 4138),
+]
+Municipality.import municipalities
 region = Region.create(description: "Krasnoyarskiy Kray", country: state, continent: continent, geoname_id: 1502020)
 province = region.provinces.create(description: "Abanskiy Rayon", country: state, continent: continent,  geoname_id: 1512216, population: 0)
 province = region.provinces.create(description: "Achinskiy Rayon", country: state, continent: continent,  geoname_id: 1512163, population: 0)
@@ -1510,18 +1675,21 @@ province = region.provinces.create(description: "Kremenëvka", country: state, c
 province = region.provinces.create(description: "Kropani", country: state, continent: continent,  geoname_id: 1501761, population: 0)
 province = region.provinces.create(description: "Kukushkino", country: state, continent: continent,  geoname_id: 1501541, population: 0)
 province = region.provinces.create(description: "Kurgan", country: state, continent: continent,  geoname_id: 1501321, population: 343129)
-province.municipalities.create(description: "Galkino", region: region, country: state, continent: continent, geoname_id: 1542718, population: 0)
-province.municipalities.create(description: "Inkubator", region: region, country: state, continent: continent, geoname_id: 1542727, population: 0)
-province.municipalities.create(description: "Kamchikha", region: region, country: state, continent: continent, geoname_id: 1504921, population: 0)
-province.municipalities.create(description: "Karchevskaya Roshcha", region: region, country: state, continent: continent, geoname_id: 1542716, population: 0)
-province.municipalities.create(description: "Keramzit", region: region, country: state, continent: continent, geoname_id: 1542734, population: 0)
-province.municipalities.create(description: "Kurganka", region: region, country: state, continent: continent, geoname_id: 1501313, population: 0)
-province.municipalities.create(description: "Ryabkovo", region: region, country: state, continent: continent, geoname_id: 1493402, population: 0)
-province.municipalities.create(description: "Severnyy", region: region, country: state, continent: continent, geoname_id: 1542728, population: 0)
-province.municipalities.create(description: "Smolino", region: region, country: state, continent: continent, geoname_id: 1491628, population: 0)
-province.municipalities.create(description: "Torfyaniki", region: region, country: state, continent: continent, geoname_id: 1542729, population: 0)
-province.municipalities.create(description: "Voronovka", region: region, country: state, continent: continent, geoname_id: 1542731, population: 0)
-province.municipalities.create(description: "Vostochnyy", region: region, country: state, continent: continent, geoname_id: 1542724, population: 0)
+municipalities = [
+province.municipalities.new(description: "Galkino", region: region, country: state, continent: continent, geoname_id: 1542718, population: 0),
+province.municipalities.new(description: "Inkubator", region: region, country: state, continent: continent, geoname_id: 1542727, population: 0),
+province.municipalities.new(description: "Kamchikha", region: region, country: state, continent: continent, geoname_id: 1504921, population: 0),
+province.municipalities.new(description: "Karchevskaya Roshcha", region: region, country: state, continent: continent, geoname_id: 1542716, population: 0),
+province.municipalities.new(description: "Keramzit", region: region, country: state, continent: continent, geoname_id: 1542734, population: 0),
+province.municipalities.new(description: "Kurganka", region: region, country: state, continent: continent, geoname_id: 1501313, population: 0),
+province.municipalities.new(description: "Ryabkovo", region: region, country: state, continent: continent, geoname_id: 1493402, population: 0),
+province.municipalities.new(description: "Severnyy", region: region, country: state, continent: continent, geoname_id: 1542728, population: 0),
+province.municipalities.new(description: "Smolino", region: region, country: state, continent: continent, geoname_id: 1491628, population: 0),
+province.municipalities.new(description: "Torfyaniki", region: region, country: state, continent: continent, geoname_id: 1542729, population: 0),
+province.municipalities.new(description: "Voronovka", region: region, country: state, continent: continent, geoname_id: 1542731, population: 0),
+province.municipalities.new(description: "Vostochnyy", region: region, country: state, continent: continent, geoname_id: 1542724, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kurort Ozero Medvezh'ye", country: state, continent: continent,  geoname_id: 1495726, population: 0)
 province = region.provinces.create(description: "Kurtamysh", country: state, continent: continent,  geoname_id: 1501255, population: 17936)
 province = region.provinces.create(description: "Lebyazh'ye", country: state, continent: continent,  geoname_id: 1500764, population: 6900)
@@ -1648,7 +1816,10 @@ province = region.provinces.create(description: "Shatrovo", country: state, cont
 province = region.provinces.create(description: "Shchuch'ye", country: state, continent: continent,  geoname_id: 1498293, population: 0)
 province = region.provinces.create(description: "Shchuchanka", country: state, continent: continent,  geoname_id: 1541457, population: 0)
 province = region.provinces.create(description: "Shumikha", country: state, continent: continent,  geoname_id: 1491999, population: 18499)
-province.municipalities.create(description: "Mayevka", region: region, country: state, continent: continent, geoname_id: 1541249, population: 0)
+municipalities = [
+province.municipalities.new(description: "Mayevka", region: region, country: state, continent: continent, geoname_id: 1541249, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Slevnoye", country: state, continent: continent,  geoname_id: 1543684, population: 0)
 province = region.provinces.create(description: "Strizhovo", country: state, continent: continent,  geoname_id: 1490793, population: 0)
 province = region.provinces.create(description: "Sumki", country: state, continent: continent,  geoname_id: 1543140, population: 0)
@@ -1660,13 +1831,22 @@ province = region.provinces.create(description: "Oboyanskiy Rayon", country: sta
 province = region.provinces.create(description: "Pristenskiy Rayon", country: state, continent: continent,  geoname_id: 505150, population: 0)
 region = Region.create(description: "Leningrad", country: state, continent: continent, geoname_id: 536199)
 province = region.provinces.create(description: "Kingiseppskiy Rayon", country: state, continent: continent,  geoname_id: 548601, population: 0)
-province.municipalities.create(description: "Klenno", region: region, country: state, continent: continent, geoname_id: 547772, population: 0)
+municipalities = [
+province.municipalities.new(description: "Klenno", region: region, country: state, continent: continent, geoname_id: 547772, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Lomonosovskiy Rayon", country: state, continent: continent,  geoname_id: 534332, population: 37420)
 province = region.provinces.create(description: "Priozersk Region", country: state, continent: continent,  geoname_id: 6695196, population: 0)
 province = region.provinces.create(description: "Volosovsky Region", country: state, continent: continent,  geoname_id: 472350, population: 47925)
-province.municipalities.create(description: "Shlissel'burg", region: region, country: state, continent: continent, geoname_id: 493970, population: 12115)
+municipalities = [
+province.municipalities.new(description: "Shlissel'burg", region: region, country: state, continent: continent, geoname_id: 493970, population: 12115),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Всеволжский Район", country: state, continent: continent,  geoname_id: 6695195, population: 0)
-province.municipalities.create(description: "Vaskelovo", region: region, country: state, continent: continent, geoname_id: 476500, population: 12388)
+municipalities = [
+province.municipalities.new(description: "Vaskelovo", region: region, country: state, continent: continent, geoname_id: 476500, population: 12388),
+]
+Municipality.import municipalities
 region = Region.create(description: "Lipetskaya Oblast'", country: state, continent: continent, geoname_id: 535120)
 province = region.provinces.create(description: "Aleksandrovka Pervaya", country: state, continent: continent,  geoname_id: 511064, population: 0)
 province = region.provinces.create(description: "Argamach-Pal'na", country: state, continent: continent,  geoname_id: 581142, population: 0)
@@ -1676,12 +1856,18 @@ province = region.provinces.create(description: "Borinskoye", country: state, co
 province = region.provinces.create(description: "Burdino", country: state, continent: continent,  geoname_id: 570858, population: 0)
 province = region.provinces.create(description: "Chamlyk-Nikol'skoye", country: state, continent: continent,  geoname_id: 521721, population: 0)
 province = region.provinces.create(description: "Chaplygin", country: state, continent: continent,  geoname_id: 569934, population: 13488)
-province.municipalities.create(description: "Gai", region: region, country: state, continent: continent, geoname_id: 562202, population: 0)
-province.municipalities.create(description: "Kryuchki", region: region, country: state, continent: continent, geoname_id: 540224, population: 0)
+municipalities = [
+province.municipalities.new(description: "Gai", region: region, country: state, continent: continent, geoname_id: 562202, population: 0),
+province.municipalities.new(description: "Kryuchki", region: region, country: state, continent: continent, geoname_id: 540224, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Dankov", country: state, continent: continent,  geoname_id: 567109, population: 22913)
-province.municipalities.create(description: "Bogoslovka", region: region, country: state, continent: continent, geoname_id: 575490, population: 0)
-province.municipalities.create(description: "Storozhevaya", region: region, country: state, continent: continent, geoname_id: 487368, population: 0)
-province.municipalities.create(description: "Streletskaya", region: region, country: state, continent: continent, geoname_id: 487282, population: 0)
+municipalities = [
+province.municipalities.new(description: "Bogoslovka", region: region, country: state, continent: continent, geoname_id: 575490, population: 0),
+province.municipalities.new(description: "Storozhevaya", region: region, country: state, continent: continent, geoname_id: 487368, population: 0),
+province.municipalities.new(description: "Streletskaya", region: region, country: state, continent: continent, geoname_id: 487282, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Dmitryashëvka", country: state, continent: continent,  geoname_id: 565901, population: 0)
 province = region.provinces.create(description: "Dobrinka", country: state, continent: continent,  geoname_id: 565857, population: 10063)
 province = region.provinces.create(description: "Dobroye", country: state, continent: continent,  geoname_id: 565803, population: 5550)
@@ -1694,8 +1880,11 @@ province = region.provinces.create(description: "Fashchëvka", country: state, c
 province = region.provinces.create(description: "Fëdorovka", country: state, continent: continent,  geoname_id: 563198, population: 0)
 province = region.provinces.create(description: "Gatishche", country: state, continent: continent,  geoname_id: 561879, population: 0)
 province = region.provinces.create(description: "Glotovo", country: state, continent: continent,  geoname_id: 561177, population: 0)
-province.municipalities.create(description: "Glotovo-Vasil'yevka Tret'ya", region: region, country: state, continent: continent, geoname_id: 561172, population: 0)
-province.municipalities.create(description: "Glotovo-Vasil'yevka Vtoraya", region: region, country: state, continent: continent, geoname_id: 561171, population: 0)
+municipalities = [
+province.municipalities.new(description: "Glotovo-Vasil'yevka Tret'ya", region: region, country: state, continent: continent, geoname_id: 561172, population: 0),
+province.municipalities.new(description: "Glotovo-Vasil'yevka Vtoraya", region: region, country: state, continent: continent, geoname_id: 561171, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Glushitsa", country: state, continent: continent,  geoname_id: 561016, population: 0)
 province = region.provinces.create(description: "Gnilovody", country: state, continent: continent,  geoname_id: 560906, population: 0)
 province = region.provinces.create(description: "Gnilusha", country: state, continent: continent,  geoname_id: 560889, population: 0)
@@ -1745,14 +1934,20 @@ province = region.provinces.create(description: "Kulikovo", country: state, cont
 province = region.provinces.create(description: "Kurgano-Golovino", country: state, continent: continent,  geoname_id: 538822, population: 0)
 province = region.provinces.create(description: "Lamskoye", country: state, continent: continent,  geoname_id: 537051, population: 0)
 province = region.provinces.create(description: "Lebedyan'", country: state, continent: continent,  geoname_id: 536518, population: 22970)
-province.municipalities.create(description: "Monastyrskaya Sloboda", region: region, country: state, continent: continent, geoname_id: 525414, population: 0)
+municipalities = [
+province.municipalities.new(description: "Monastyrskaya Sloboda", region: region, country: state, continent: continent, geoname_id: 525414, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Lebyazh'ye", country: state, continent: continent,  geoname_id: 558831, population: 0)
 province = region.provinces.create(description: "Lev Tolstoy", country: state, continent: continent,  geoname_id: 535417, population: 8955)
 province = region.provinces.create(description: "Lipetsk", country: state, continent: continent,  geoname_id: 535121, population: 515655)
-province.municipalities.create(description: "Novolipetsk", region: region, country: state, continent: continent, geoname_id: 516967, population: 0)
-province.municipalities.create(description: "Sokol'skoye", region: region, country: state, continent: continent, geoname_id: 491143, population: 0)
-province.municipalities.create(description: "Svobodnyy Sokol", region: region, country: state, continent: continent, geoname_id: 827991, population: 0)
-province.municipalities.create(description: "Traktornyy", region: region, country: state, continent: continent, geoname_id: 7452197, population: 0)
+municipalities = [
+province.municipalities.new(description: "Novolipetsk", region: region, country: state, continent: continent, geoname_id: 516967, population: 0),
+province.municipalities.new(description: "Sokol'skoye", region: region, country: state, continent: continent, geoname_id: 491143, population: 0),
+province.municipalities.new(description: "Svobodnyy Sokol", region: region, country: state, continent: continent, geoname_id: 827991, population: 0),
+province.municipalities.new(description: "Traktornyy", region: region, country: state, continent: continent, geoname_id: 7452197, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Malyye Borki", country: state, continent: continent,  geoname_id: 530210, population: 0)
 province = region.provinces.create(description: "Matyskiy", country: state, continent: continent,  geoname_id: 528429, population: 0)
 province = region.provinces.create(description: "Mazeyka", country: state, continent: continent,  geoname_id: 528181, population: 0)
@@ -1784,7 +1979,10 @@ province = region.provinces.create(description: "Petrovka-Kitayevo", country: st
 province = region.provinces.create(description: "Petrovskiye Krugi", country: state, continent: continent,  geoname_id: 540713, population: 0)
 province = region.provinces.create(description: "Plakhovo", country: state, continent: continent,  geoname_id: 509156, population: 0)
 province = region.provinces.create(description: "Plastinka", country: state, continent: continent,  geoname_id: 509129, population: 0)
-province.municipalities.create(description: "Vtoraya Plastinka", region: region, country: state, continent: continent, geoname_id: 471044, population: 0)
+municipalities = [
+province.municipalities.new(description: "Vtoraya Plastinka", region: region, country: state, continent: continent, geoname_id: 471044, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Plekhanovo", country: state, continent: continent,  geoname_id: 509047, population: 1850)
 province = region.provinces.create(description: "Ploskoye", country: state, continent: continent,  geoname_id: 489290, population: 5211)
 province = region.provinces.create(description: "Poddubrovka", country: state, continent: continent,  geoname_id: 508429, population: 0)
@@ -1793,7 +1991,10 @@ province = region.provinces.create(description: "Podgornoye", country: state, co
 province = region.provinces.create(description: "Pokrovskoye", country: state, continent: continent,  geoname_id: 507412, population: 0)
 province = region.provinces.create(description: "Pokrovskoye", country: state, continent: continent,  geoname_id: 507424, population: 0)
 province = region.provinces.create(description: "Polevyye Lokottsy", country: state, continent: continent,  geoname_id: 507244, population: 0)
-province.municipalities.create(description: "Polevyye Lokottsy Vtoryye", region: region, country: state, continent: continent, geoname_id: 507241, population: 0)
+municipalities = [
+province.municipalities.new(description: "Polevyye Lokottsy Vtoryye", region: region, country: state, continent: continent, geoname_id: 507241, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Polibino", country: state, continent: continent,  geoname_id: 507223, population: 0)
 province = region.provinces.create(description: "Ponomarëvo", country: state, continent: continent,  geoname_id: 506638, population: 0)
 province = region.provinces.create(description: "Poroy", country: state, continent: continent,  geoname_id: 506227, population: 0)
@@ -1880,8 +2081,11 @@ province = region.provinces.create(description: "Vislaya Polyana", country: stat
 province = region.provinces.create(description: "Volovo", country: state, continent: continent,  geoname_id: 472306, population: 4036)
 province = region.provinces.create(description: "Yazykovo", country: state, continent: continent,  geoname_id: 507566, population: 0)
 province = region.provinces.create(description: "Yelets", country: state, continent: continent,  geoname_id: 467978, population: 115688)
-province.municipalities.create(description: "Argamach", region: region, country: state, continent: continent, geoname_id: 581144, population: 0)
-province.municipalities.create(description: "Zaton", region: region, country: state, continent: continent, geoname_id: 7451878, population: 0)
+municipalities = [
+province.municipalities.new(description: "Argamach", region: region, country: state, continent: continent, geoname_id: 581144, population: 0),
+province.municipalities.new(description: "Zaton", region: region, country: state, continent: continent, geoname_id: 7451878, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Zadonsk", country: state, continent: continent,  geoname_id: 465726, population: 10326)
 province = region.provinces.create(description: "Zarechnoye", country: state, continent: continent,  geoname_id: 551333, population: 0)
 region = Region.create(description: "MO", country: state, continent: continent, geoname_id: 524925)
@@ -1901,8 +2105,11 @@ province = region.provinces.create(description: "Bogorodskoye District", country
 province = region.provinces.create(description: "Brateyevo District", country: state, continent: continent,  geoname_id: 9882997, population: 0)
 province = region.provinces.create(description: "Butyrsky District", country: state, continent: continent,  geoname_id: 9881979, population: 0)
 province = region.provinces.create(description: "Chekhovskiy Rayon", country: state, continent: continent,  geoname_id: 569587, population: 0)
-province.municipalities.create(description: "Chekhov", region: region, country: state, continent: continent, geoname_id: 569591, population: 75643)
-province.municipalities.create(description: "Novaya Ol'khovka", region: region, country: state, continent: continent, geoname_id: 818501, population: 0)
+municipalities = [
+province.municipalities.new(description: "Chekhov", region: region, country: state, continent: continent, geoname_id: 569591, population: 75643),
+province.municipalities.new(description: "Novaya Ol'khovka", region: region, country: state, continent: continent, geoname_id: 818501, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Chertanovo Severnoye District", country: state, continent: continent,  geoname_id: 9882998, population: 0)
 province = region.provinces.create(description: "Chertanovo Tsentralnoye District", country: state, continent: continent,  geoname_id: 9882999, population: 0)
 province = region.provinces.create(description: "Chertanovo Yuzhnoye District", country: state, continent: continent,  geoname_id: 9883000, population: 0)
@@ -1939,18 +2146,24 @@ province = region.provinces.create(description: "Kurkino District", country: sta
 province = region.provinces.create(description: "Kuzminki District", country: state, continent: continent,  geoname_id: 9882965, population: 0)
 province = region.provinces.create(description: "Lefortovo District", country: state, continent: continent,  geoname_id: 9882966, population: 0)
 province = region.provinces.create(description: "Leninskiy Rayon", country: state, continent: continent,  geoname_id: 536086, population: 0)
-province.municipalities.create(description: "Michurinets", region: region, country: state, continent: continent, geoname_id: 6417569, population: 0)
-province.municipalities.create(description: "Molokovo", region: region, country: state, continent: continent, geoname_id: 525510, population: 3080)
-province.municipalities.create(description: "Sovkhoz Imeni Lenina", region: region, country: state, continent: continent, geoname_id: 6417432, population: 0)
-province.municipalities.create(description: "Vnukovo", region: region, country: state, continent: continent, geoname_id: 857689, population: 20000)
+municipalities = [
+province.municipalities.new(description: "Michurinets", region: region, country: state, continent: continent, geoname_id: 6417569, population: 0),
+province.municipalities.new(description: "Molokovo", region: region, country: state, continent: continent, geoname_id: 525510, population: 3080),
+province.municipalities.new(description: "Sovkhoz Imeni Lenina", region: region, country: state, continent: continent, geoname_id: 6417432, population: 0),
+province.municipalities.new(description: "Vnukovo", region: region, country: state, continent: continent, geoname_id: 857689, population: 20000),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Levoberezhny District", country: state, continent: continent,  geoname_id: 9881967, population: 0)
 province = region.provinces.create(description: "Lianozovo District", country: state, continent: continent,  geoname_id: 9881980, population: 0)
 province = region.provinces.create(description: "Lomonosovsky District", country: state, continent: continent,  geoname_id: 9883016, population: 0)
 province = region.provinces.create(description: "Losinoostrovsky District", country: state, continent: continent,  geoname_id: 9881983, population: 0)
 province = region.provinces.create(description: "Lotoshinskiy Rayon", country: state, continent: continent,  geoname_id: 533974, population: 18111)
 province = region.provinces.create(description: "Lyuberetskiy Rayon", country: state, continent: continent,  geoname_id: 532616, population: 0)
-province.municipalities.create(description: "Пляж", region: region, country: state, continent: continent, geoname_id: 7303562, population: 0)
-province.municipalities.create(description: "Угрешская 6", region: region, country: state, continent: continent, geoname_id: 7303556, population: 0)
+municipalities = [
+province.municipalities.new(description: "Пляж", region: region, country: state, continent: continent, geoname_id: 7303562, population: 0),
+province.municipalities.new(description: "Угрешская 6", region: region, country: state, continent: continent, geoname_id: 7303556, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Lyublino District", country: state, continent: continent,  geoname_id: 9882967, population: 0)
 province = region.provinces.create(description: "Marfino District", country: state, continent: continent,  geoname_id: 9881984, population: 0)
 province = region.provinces.create(description: "Maryina Roshcha District", country: state, continent: continent,  geoname_id: 9881985, population: 0)
@@ -1963,7 +2176,10 @@ province = region.provinces.create(description: "Molzhaninovsky District", count
 province = region.provinces.create(description: "Moskvorechye-Saburovo District", country: state, continent: continent,  geoname_id: 9883003, population: 0)
 province = region.provinces.create(description: "Mozhaysky District", country: state, continent: continent,  geoname_id: 9883032, population: 0)
 province = region.provinces.create(description: "Mytishchinskiy Rayon", country: state, continent: continent,  geoname_id: 523810, population: 0)
-province.municipalities.create(description: "Vysokovo", region: region, country: state, continent: continent, geoname_id: 470135, population: 0)
+municipalities = [
+province.municipalities.new(description: "Vysokovo", region: region, country: state, continent: continent, geoname_id: 470135, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Nagatino-Sadovniki District", country: state, continent: continent,  geoname_id: 9883004, population: 0)
 province = region.provinces.create(description: "Nagatinsky Zaton District", country: state, continent: continent,  geoname_id: 9883005, population: 0)
 province = region.provinces.create(description: "Nagorny District", country: state, continent: continent,  geoname_id: 9883006, population: 0)
@@ -1982,7 +2198,10 @@ province = region.provinces.create(description: "Otradnoye District", country: s
 province = region.provinces.create(description: "Pavlovo-Posadskiy Rayon", country: state, continent: continent,  geoname_id: 512055, population: 0)
 province = region.provinces.create(description: "Pechatniki District", country: state, continent: continent,  geoname_id: 9882973, population: 0)
 province = region.provinces.create(description: "Podol'skiy Rayon", country: state, continent: continent,  geoname_id: 508091, population: 0)
-province.municipalities.create(description: "Podolsk", region: region, country: state, continent: continent, geoname_id: 508101, population: 179400)
+municipalities = [
+province.municipalities.new(description: "Podolsk", region: region, country: state, continent: continent, geoname_id: 508101, population: 179400),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Pokrovskoye-Streshnevo District", country: state, continent: continent,  geoname_id: 9883057, population: 0)
 province = region.provinces.create(description: "Preobrazhenskoye District", country: state, continent: continent,  geoname_id: 9882957, population: 0)
 province = region.provinces.create(description: "Presnensky District", country: state, continent: continent,  geoname_id: 9881953, population: 0)
@@ -2001,15 +2220,18 @@ province = region.provinces.create(description: "Severny District", country: sta
 province = region.provinces.create(description: "Shakhovskoy Rayon", country: state, continent: continent,  geoname_id: 496029, population: 24915)
 province = region.provinces.create(description: "Shchukino District", country: state, continent: continent,  geoname_id: 9883059, population: 0)
 province = region.provinces.create(description: "Shchëlkovskiy Rayon", country: state, continent: continent,  geoname_id: 495337, population: 0)
-province.municipalities.create(description: "Bogoslovo", region: region, country: state, continent: continent, geoname_id: 575488, population: 685)
-province.municipalities.create(description: "Grebnevo", region: region, country: state, continent: continent, geoname_id: 518858, population: 1161)
-province.municipalities.create(description: "Kamshilovka", region: region, country: state, continent: continent, geoname_id: 875363, population: 6)
-province.municipalities.create(description: "Koryakino", region: region, country: state, continent: continent, geoname_id: 552053, population: 7)
-province.municipalities.create(description: "Novaya Sloboda", region: region, country: state, continent: continent, geoname_id: 519493, population: 91)
-province.municipalities.create(description: "Novo", region: region, country: state, continent: continent, geoname_id: 8299507, population: 252)
-province.municipalities.create(description: "Novofryazino", region: region, country: state, continent: continent, geoname_id: 8299506, population: 321)
-province.municipalities.create(description: "Saburovo", region: region, country: state, continent: continent, geoname_id: 499624, population: 30)
-province.municipalities.create(description: "Staraya Sloboda", region: region, country: state, continent: continent, geoname_id: 489067, population: 117)
+municipalities = [
+province.municipalities.new(description: "Bogoslovo", region: region, country: state, continent: continent, geoname_id: 575488, population: 685),
+province.municipalities.new(description: "Grebnevo", region: region, country: state, continent: continent, geoname_id: 518858, population: 1161),
+province.municipalities.new(description: "Kamshilovka", region: region, country: state, continent: continent, geoname_id: 875363, population: 6),
+province.municipalities.new(description: "Koryakino", region: region, country: state, continent: continent, geoname_id: 552053, population: 7),
+province.municipalities.new(description: "Novaya Sloboda", region: region, country: state, continent: continent, geoname_id: 519493, population: 91),
+province.municipalities.new(description: "Novo", region: region, country: state, continent: continent, geoname_id: 8299507, population: 252),
+province.municipalities.new(description: "Novofryazino", region: region, country: state, continent: continent, geoname_id: 8299506, population: 321),
+province.municipalities.new(description: "Saburovo", region: region, country: state, continent: continent, geoname_id: 499624, population: 30),
+province.municipalities.new(description: "Staraya Sloboda", region: region, country: state, continent: continent, geoname_id: 489067, population: 117),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Silino District", country: state, continent: continent,  geoname_id: 9883064, population: 0)
 province = region.provinces.create(description: "Sokol District", country: state, continent: continent,  geoname_id: 9881970, population: 0)
 province = region.provinces.create(description: "Sokolinaya gora District", country: state, continent: continent,  geoname_id: 9882959, population: 0)
@@ -2027,7 +2249,10 @@ province = region.provinces.create(description: "Tverskoy District", country: st
 province = region.provinces.create(description: "Tyoply Stan District", country: state, continent: continent,  geoname_id: 9883019, population: 0)
 province = region.provinces.create(description: "Veshnyaki District", country: state, continent: continent,  geoname_id: 9882961, population: 0)
 province = region.provinces.create(description: "Volokolamskiy Rayon", country: state, continent: continent,  geoname_id: 472430, population: 31435)
-province.municipalities.create(description: "Volokolamsk", region: region, country: state, continent: continent, geoname_id: 472433, population: 16276)
+municipalities = [
+province.municipalities.new(description: "Volokolamsk", region: region, country: state, continent: continent, geoname_id: 472433, population: 16276),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Vostochnoye Degunino District", country: state, continent: continent,  geoname_id: 9881972, population: 0)
 province = region.provinces.create(description: "Vostochnoye Izmaylovo District", country: state, continent: continent,  geoname_id: 9882962, population: 0)
 province = region.provinces.create(description: "Vostochny District", country: state, continent: continent,  geoname_id: 9882963, population: 0)
@@ -2057,34 +2282,46 @@ region = Region.create(description: "Moscow", country: state, continent: contine
 province = region.provinces.create(description: "Central Administrative Okrug", country: state, continent: continent,  geoname_id: 562331, population: 0)
 province = region.provinces.create(description: "North-Eastern Administrative Okrug", country: state, continent: continent,  geoname_id: 579866, population: 0)
 province = region.provinces.create(description: "Novomoskovsky Administrative Okrug", country: state, continent: continent,  geoname_id: 8520892, population: 0)
-province.municipalities.create(description: "Kokoshkino", region: region, country: state, continent: continent, geoname_id: 546606, population: 9818)
-province.municipalities.create(description: "Marushkino", region: region, country: state, continent: continent, geoname_id: 528919, population: 0)
-province.municipalities.create(description: "Moskovskiy", region: region, country: state, continent: continent, geoname_id: 857690, population: 15435)
-province.municipalities.create(description: "Sharapovo", region: region, country: state, continent: continent, geoname_id: 495742, population: 0)
-province.municipalities.create(description: "Shcherbinka", region: region, country: state, continent: continent, geoname_id: 495260, population: 28065)
-province.municipalities.create(description: "Starosyrovo", region: region, country: state, continent: continent, geoname_id: 485157, population: 0)
-province.municipalities.create(description: "Znamya Oktyabrya", region: region, country: state, continent: continent, geoname_id: 6417084, population: 0)
+municipalities = [
+province.municipalities.new(description: "Kokoshkino", region: region, country: state, continent: continent, geoname_id: 546606, population: 9818),
+province.municipalities.new(description: "Marushkino", region: region, country: state, continent: continent, geoname_id: 528919, population: 0),
+province.municipalities.new(description: "Moskovskiy", region: region, country: state, continent: continent, geoname_id: 857690, population: 15435),
+province.municipalities.new(description: "Sharapovo", region: region, country: state, continent: continent, geoname_id: 495742, population: 0),
+province.municipalities.new(description: "Shcherbinka", region: region, country: state, continent: continent, geoname_id: 495260, population: 28065),
+province.municipalities.new(description: "Starosyrovo", region: region, country: state, continent: continent, geoname_id: 485157, population: 0),
+province.municipalities.new(description: "Znamya Oktyabrya", region: region, country: state, continent: continent, geoname_id: 6417084, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Severnyy Administrativnyy Okrug", country: state, continent: continent,  geoname_id: 471823, population: 0)
 province = region.provinces.create(description: "Severo-Zapadnyy Administrativnyy Okrug", country: state, continent: continent,  geoname_id: 480141, population: 0)
 province = region.provinces.create(description: "South-Eastern Administrative Okrug", country: state, continent: continent,  geoname_id: 532527, population: 0)
 province = region.provinces.create(description: "South-Western Administrative Okrug", country: state, continent: continent,  geoname_id: 562221, population: 0)
 province = region.provinces.create(description: "Southern Administrative Okrug", country: state, continent: continent,  geoname_id: 490025, population: 0)
 province = region.provinces.create(description: "Troitsky Administrative Okrug", country: state, continent: continent,  geoname_id: 8520893, population: 0)
-province.municipalities.create(description: "Rassudovo", region: region, country: state, continent: continent, geoname_id: 502751, population: 300)
-province.municipalities.create(description: "Troitsk", region: region, country: state, continent: continent, geoname_id: 481608, population: 37591)
-province.municipalities.create(description: "Zhukovka", region: region, country: state, continent: continent, geoname_id: 6417158, population: 0)
+municipalities = [
+province.municipalities.new(description: "Rassudovo", region: region, country: state, continent: continent, geoname_id: 502751, population: 300),
+province.municipalities.new(description: "Troitsk", region: region, country: state, continent: continent, geoname_id: 481608, population: 37591),
+province.municipalities.new(description: "Zhukovka", region: region, country: state, continent: continent, geoname_id: 6417158, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Zapadnyy Administrativnyy Okrug", country: state, continent: continent,  geoname_id: 490968, population: 0)
 province = region.provinces.create(description: "Zelenogradsky Administrative Okrug", country: state, continent: continent,  geoname_id: 8520888, population: 0)
 province = region.provinces.create(description: "ВАО", country: state, continent: continent,  geoname_id: 8520891, population: 0)
 region = Region.create(description: "Murmansk", country: state, continent: continent, geoname_id: 524304)
 province = region.provinces.create(description: "Abram Mys", country: state, continent: continent,  geoname_id: 559324, population: 0)
-province.municipalities.create(description: "Abram-Mys", region: region, country: state, continent: continent, geoname_id: 584410, population: 0)
+municipalities = [
+province.municipalities.new(description: "Abram-Mys", region: region, country: state, continent: continent, geoname_id: 584410, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Afrikanda", country: state, continent: continent,  geoname_id: 584087, population: 1800)
 province = region.provinces.create(description: "Akhmalakhti", country: state, continent: continent,  geoname_id: 583867, population: 0)
 province = region.provinces.create(description: "Alakurtti", country: state, continent: continent,  geoname_id: 583472, population: 6293)
 province = region.provinces.create(description: "Apatity", country: state, continent: continent,  geoname_id: 581357, population: 61186)
-province.municipalities.create(description: "Belorechenskiy", region: region, country: state, continent: continent, geoname_id: 577887, population: 0)
-province.municipalities.create(description: "Molodëzhnyy", region: region, country: state, continent: continent, geoname_id: 525555, population: 0)
+municipalities = [
+province.municipalities.new(description: "Belorechenskiy", region: region, country: state, continent: continent, geoname_id: 577887, population: 0),
+province.municipalities.new(description: "Molodëzhnyy", region: region, country: state, continent: continent, geoname_id: 525555, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Ara", country: state, continent: continent,  geoname_id: 581289, population: 0)
 province = region.provinces.create(description: "Belokamenka", country: state, continent: continent,  geoname_id: 577949, population: 0)
 province = region.provinces.create(description: "Beloye More", country: state, continent: continent,  geoname_id: 871270, population: 0)
@@ -2115,7 +2352,10 @@ province = region.provinces.create(description: "Kakuri", country: state, contin
 province = region.provinces.create(description: "Kalyuzhnyy", country: state, continent: continent,  geoname_id: 831274, population: 0)
 province = region.provinces.create(description: "Kamenskiy", country: state, continent: continent,  geoname_id: 553412, population: 0)
 province = region.provinces.create(description: "Kandalaksha", country: state, continent: continent,  geoname_id: 553190, population: 38431)
-province.municipalities.create(description: "Niva Tret'ya", region: region, country: state, continent: continent, geoname_id: 521264, population: 0)
+municipalities = [
+province.municipalities.new(description: "Niva Tret'ya", region: region, country: state, continent: continent, geoname_id: 521264, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kanëvka", country: state, continent: continent,  geoname_id: 553153, population: 0)
 province = region.provinces.create(description: "Kashkarantsy", country: state, continent: continent,  geoname_id: 551933, population: 80)
 province = region.provinces.create(description: "Katskim-Ozero", country: state, continent: continent,  geoname_id: 551745, population: 0)
@@ -2167,16 +2407,22 @@ province = region.provinces.create(description: "Mishukovo", country: state, con
 province = region.provinces.create(description: "Mokket", country: state, continent: continent,  geoname_id: 525768, population: 0)
 province = region.provinces.create(description: "Molochnyy", country: state, continent: continent,  geoname_id: 866057, population: 5308)
 province = region.provinces.create(description: "Monchegorsk", country: state, continent: continent,  geoname_id: 525404, population: 49868)
-province.municipalities.create(description: "Sotsialisticheskiy Gorod", region: region, country: state, continent: continent, geoname_id: 490094, population: 0)
+municipalities = [
+province.municipalities.new(description: "Sotsialisticheskiy Gorod", region: region, country: state, continent: continent, geoname_id: 490094, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Mosha", country: state, continent: continent,  geoname_id: 525059, population: 0)
 province = region.provinces.create(description: "Murmansk", country: state, continent: continent,  geoname_id: 524305, population: 319263)
-province.municipalities.create(description: "Bol'nichnyy Gorodok", region: region, country: state, continent: continent, geoname_id: 795258, population: 0)
-province.municipalities.create(description: "Drovyanoy", region: region, country: state, continent: continent, geoname_id: 564965, population: 0)
-province.municipalities.create(description: "Novoye Plato", region: region, country: state, continent: continent, geoname_id: 795259, population: 0)
-province.municipalities.create(description: "Rosta", region: region, country: state, continent: continent, geoname_id: 501203, population: 0)
-province.municipalities.create(description: "Severnoye Nagornoye", region: region, country: state, continent: continent, geoname_id: 523599, population: 0)
-province.municipalities.create(description: "Stroiteley", region: region, country: state, continent: continent, geoname_id: 795257, population: 0)
-province.municipalities.create(description: "Zelënyy Mys", region: region, country: state, continent: continent, geoname_id: 795260, population: 0)
+municipalities = [
+province.municipalities.new(description: "Bol'nichnyy Gorodok", region: region, country: state, continent: continent, geoname_id: 795258, population: 0),
+province.municipalities.new(description: "Drovyanoy", region: region, country: state, continent: continent, geoname_id: 564965, population: 0),
+province.municipalities.new(description: "Novoye Plato", region: region, country: state, continent: continent, geoname_id: 795259, population: 0),
+province.municipalities.new(description: "Rosta", region: region, country: state, continent: continent, geoname_id: 501203, population: 0),
+province.municipalities.new(description: "Severnoye Nagornoye", region: region, country: state, continent: continent, geoname_id: 523599, population: 0),
+province.municipalities.new(description: "Stroiteley", region: region, country: state, continent: continent, geoname_id: 795257, population: 0),
+province.municipalities.new(description: "Zelënyy Mys", region: region, country: state, continent: continent, geoname_id: 795260, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Murmashi", country: state, continent: continent,  geoname_id: 524299, population: 14152)
 province = region.provinces.create(description: "Nautsi", country: state, continent: continent,  geoname_id: 523205, population: 0)
 province = region.provinces.create(description: "Neyukhenyarvi", country: state, continent: continent,  geoname_id: 550334, population: 0)
@@ -2230,27 +2476,42 @@ province = region.provinces.create(description: "Ristikent", country: state, con
 province = region.provinces.create(description: "Riyka", country: state, continent: continent,  geoname_id: 501869, population: 0)
 province = region.provinces.create(description: "Rizh-Guba", country: state, continent: continent,  geoname_id: 501866, population: 0)
 province = region.provinces.create(description: "Roslyakovo", country: state, continent: continent,  geoname_id: 501265, population: 8921)
-province.municipalities.create(description: "Malaya Chalmpushka", region: region, country: state, continent: continent, geoname_id: 570032, population: 0)
+municipalities = [
+province.municipalities.new(description: "Malaya Chalmpushka", region: region, country: state, continent: continent, geoname_id: 570032, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Ruch'i", country: state, continent: continent,  geoname_id: 871272, population: 0)
 province = region.provinces.create(description: "Ruchey Tretiy", country: state, continent: continent,  geoname_id: 500800, population: 0)
-province.municipalities.create(description: "Tri Ruch'ya", region: region, country: state, continent: continent, geoname_id: 481676, population: 0)
+municipalities = [
+province.municipalities.new(description: "Tri Ruch'ya", region: region, country: state, continent: continent, geoname_id: 481676, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Ruchey Vtoroy", country: state, continent: continent,  geoname_id: 500799, population: 0)
-province.municipalities.create(description: "Dva Ruch'ya", region: region, country: state, continent: continent, geoname_id: 795251, population: 0)
+municipalities = [
+province.municipalities.new(description: "Dva Ruch'ya", region: region, country: state, continent: continent, geoname_id: 795251, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Rybpromkhoz", country: state, continent: continent,  geoname_id: 499954, population: 0)
 province = region.provinces.create(description: "Rynda", country: state, continent: continent,  geoname_id: 499885, population: 0)
 province = region.provinces.create(description: "Safonovo", country: state, continent: continent,  geoname_id: 499439, population: 4578)
 province = region.provinces.create(description: "Sal'miyarvi", country: state, continent: continent,  geoname_id: 499225, population: 0)
 province = region.provinces.create(description: "Sal'nitsa", country: state, continent: continent,  geoname_id: 499208, population: 0)
 province = region.provinces.create(description: "Sava-Guba", country: state, continent: continent,  geoname_id: 498377, population: 0)
-province.municipalities.create(description: "Ozero Dlinnaya Guba", region: region, country: state, continent: continent, geoname_id: 566134, population: 0)
+municipalities = [
+province.municipalities.new(description: "Ozero Dlinnaya Guba", region: region, country: state, continent: continent, geoname_id: 566134, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Sayda-Guba", country: state, continent: continent,  geoname_id: 498103, population: 0)
 province = region.provinces.create(description: "Set'-Navolok", country: state, continent: continent,  geoname_id: 795240, population: 0)
 province = region.provinces.create(description: "Severnyy", country: state, continent: continent,  geoname_id: 496342, population: 0)
 province = region.provinces.create(description: "Severomorsk", country: state, continent: continent,  geoname_id: 496278, population: 53921)
-province.municipalities.create(description: "Nizhneye Varlamovo", region: region, country: state, continent: continent, geoname_id: 477001, population: 0)
-province.municipalities.create(description: "Severomorsk Odin", region: region, country: state, continent: continent, geoname_id: 795276, population: 0)
-province.municipalities.create(description: "Staraya Vayenga", region: region, country: state, continent: continent, geoname_id: 795278, population: 0)
-province.municipalities.create(description: "Verkhneye Varlamovo", region: region, country: state, continent: continent, geoname_id: 795271, population: 0)
+municipalities = [
+province.municipalities.new(description: "Nizhneye Varlamovo", region: region, country: state, continent: continent, geoname_id: 477001, population: 0),
+province.municipalities.new(description: "Severomorsk Odin", region: region, country: state, continent: continent, geoname_id: 795276, population: 0),
+province.municipalities.new(description: "Staraya Vayenga", region: region, country: state, continent: continent, geoname_id: 795278, population: 0),
+province.municipalities.new(description: "Verkhneye Varlamovo", region: region, country: state, continent: continent, geoname_id: 795271, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Severomorsk-3", country: state, continent: continent,  geoname_id: 6696921, population: 3125)
 province = region.provinces.create(description: "Shchuch'ye", country: state, continent: continent,  geoname_id: 505814, population: 0)
 province = region.provinces.create(description: "Shonguy", country: state, continent: continent,  geoname_id: 493795, population: 1122)
@@ -2282,7 +2543,10 @@ province = region.provinces.create(description: "Vaydaguba", country: state, con
 province = region.provinces.create(description: "Verkhnetulomskiy", country: state, continent: continent,  geoname_id: 475469, population: 1889)
 province = region.provinces.create(description: "Vidyayevo", country: state, continent: continent,  geoname_id: 795235, population: 7062)
 province = region.provinces.create(description: "Vidyayevo", country: state, continent: continent,  geoname_id: 473762, population: 5949)
-province.municipalities.create(description: "Yuzhnoye Nagornoye", region: region, country: state, continent: continent, geoname_id: 795252, population: 0)
+municipalities = [
+province.municipalities.new(description: "Yuzhnoye Nagornoye", region: region, country: state, continent: continent, geoname_id: 795252, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Vostochnaya Guba", country: state, continent: continent,  geoname_id: 471548, population: 0)
 province = region.provinces.create(description: "Vostochnaya Litsa", country: state, continent: continent,  geoname_id: 471544, population: 0)
 province = region.provinces.create(description: "Vostochnoye Munozero", country: state, continent: continent,  geoname_id: 471526, population: 0)
@@ -2294,7 +2558,10 @@ province = region.provinces.create(description: "Yënskiy", country: state, cont
 province = region.provinces.create(description: "Zakhrebetnoye", country: state, continent: continent,  geoname_id: 465359, population: 0)
 province = region.provinces.create(description: "Zaozërsk", country: state, continent: continent,  geoname_id: 828218, population: 13429)
 province = region.provinces.create(description: "Zapolyarnyy", country: state, continent: continent,  geoname_id: 464790, population: 17789)
-province.municipalities.create(description: "Gornyy", region: region, country: state, continent: continent, geoname_id: 559720, population: 0)
+municipalities = [
+province.municipalities.new(description: "Gornyy", region: region, country: state, continent: continent, geoname_id: 559720, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Zarechensk", country: state, continent: continent,  geoname_id: 464680, population: 0)
 province = region.provinces.create(description: "Zasheyek", country: state, continent: continent,  geoname_id: 464310, population: 983)
 province = region.provinces.create(description: "Zelenoborskiy", country: state, continent: continent,  geoname_id: 463838, population: 7207)

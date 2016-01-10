@@ -4,7 +4,7 @@ Dir[File.join(Rails.root, 'db', 'seeds', '*.rb')].sort.each { |seed|
   load seed
   endTime = Time.now
   delta = endTime - startTime
-  puts 'Completed ' + File.basename(seed) + ' in ' + delta  + 's'
+  puts 'Completed ' + File.basename(seed) + ' in ' + delta.abs.to_s  + 's'
 }
 
 puts "creating an admin user with the following credentials: #{ENV['ADMIN_EMAIL']}/#{ENV['ADMIN_PASSWORD']}"

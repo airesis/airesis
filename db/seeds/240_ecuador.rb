@@ -21,8 +21,11 @@ province = region.provinces.create(description: "Huaquillas", country: state, co
 province = region.provinces.create(description: "Machala", country: state, continent: continent,  geoname_id: 3654532, population: 0)
 province = region.provinces.create(description: "Pasaje", country: state, continent: continent,  geoname_id: 3653402, population: 0)
 province = region.provinces.create(description: "Piñas", country: state, continent: continent,  geoname_id: 3653129, population: 0)
-province.municipalities.create(description: "Moromoro", region: region, country: state, continent: continent, geoname_id: 3654009, population: 0)
-province.municipalities.create(description: "Patagrande", region: region, country: state, continent: continent, geoname_id: 3653386, population: 0)
+municipalities = [
+province.municipalities.new(description: "Moromoro", region: region, country: state, continent: continent, geoname_id: 3654009, population: 0),
+province.municipalities.new(description: "Patagrande", region: region, country: state, continent: continent, geoname_id: 3653386, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Portovelo", country: state, continent: continent,  geoname_id: 3652942, population: 0)
 province = region.provinces.create(description: "Santa Rosa", country: state, continent: continent,  geoname_id: 3651355, population: 0)
 province = region.provinces.create(description: "Zaruma", country: state, continent: continent,  geoname_id: 3649913, population: 0)
@@ -31,21 +34,30 @@ province = region.provinces.create(description: "Eloy Alfaro", country: state, c
 province = region.provinces.create(description: "Esmeraldas", country: state, continent: continent,  geoname_id: 3657987, population: 0)
 province = region.provinces.create(description: "Muisne", country: state, continent: continent,  geoname_id: 3653966, population: 0)
 province = region.provinces.create(description: "Quinindé", country: state, continent: continent,  geoname_id: 3652499, population: 0)
-province.municipalities.create(description: "Cube", region: region, country: state, continent: continent, geoname_id: 3658701, population: 0)
-province.municipalities.create(description: "Juncal", region: region, country: state, continent: continent, geoname_id: 8470112, population: 0)
+municipalities = [
+province.municipalities.new(description: "Cube", region: region, country: state, continent: continent, geoname_id: 3658701, population: 0),
+province.municipalities.new(description: "Juncal", region: region, country: state, continent: continent, geoname_id: 8470112, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "San Lorenzo", country: state, continent: continent,  geoname_id: 3651686, population: 0)
 region = Region.create(description: "Francisco de Orellana", country: state, continent: continent, geoname_id: 3830306)
 province = region.provinces.create(description: "Aguarico", country: state, continent: continent,  geoname_id: 3660839, population: 0)
 province = region.provinces.create(description: "Urellana", country: state, continent: continent,  geoname_id: 3650339, population: 0)
 region = Region.create(description: "Galápagos", country: state, continent: continent, geoname_id: 3657879)
 province = region.provinces.create(description: "Isabela", country: state, continent: continent,  geoname_id: 3655572, population: 0)
-province.municipalities.create(description: "Puerto Villamil", region: region, country: state, continent: continent, geoname_id: 3652694, population: 2200)
+municipalities = [
+province.municipalities.new(description: "Puerto Villamil", region: region, country: state, continent: continent, geoname_id: 3652694, population: 2200),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "San Cristóbal", country: state, continent: continent,  geoname_id: 3651947, population: 0)
 province = region.provinces.create(description: "Santa Cruz", country: state, continent: continent,  geoname_id: 3651446, population: 0)
 region = Region.create(description: "Imbabura", country: state, continent: continent, geoname_id: 3655635)
 province = region.provinces.create(description: "Antonio Ante", country: state, continent: continent,  geoname_id: 3660592, population: 0)
 province = region.provinces.create(description: "Cotacachi", country: state, continent: continent,  geoname_id: 3658780, population: 0)
-province.municipalities.create(description: "Santa Isabel", region: region, country: state, continent: continent, geoname_id: 9257731, population: 0)
+municipalities = [
+province.municipalities.new(description: "Santa Isabel", region: region, country: state, continent: continent, geoname_id: 9257731, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Otavalo", country: state, continent: continent,  geoname_id: 3653692, population: 0)
 province = region.provinces.create(description: "Pimampiro", country: state, continent: continent,  geoname_id: 3653145, population: 0)
 province = region.provinces.create(description: "Ibarra", country: state, continent: continent,  geoname_id: 3655672, population: 0)
@@ -66,7 +78,10 @@ region = Region.create(description: "Los Ríos", country: state, continent: cont
 province = region.provinces.create(description: "Baba", country: state, continent: continent,  geoname_id: 3660421, population: 0)
 province = region.provinces.create(description: "Babahoyo", country: state, continent: continent,  geoname_id: 3660417, population: 0)
 province = region.provinces.create(description: "Buena Fe", country: state, continent: continent,  geoname_id: 8471975, population: 0)
-province.municipalities.create(description: "Patricia Pilar", region: region, country: state, continent: continent, geoname_id: 8471974, population: 0)
+municipalities = [
+province.municipalities.new(description: "Patricia Pilar", region: region, country: state, continent: continent, geoname_id: 8471974, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Puebloviejo", country: state, continent: continent,  geoname_id: 3652785, population: 0)
 province = region.provinces.create(description: "Quevedo", country: state, continent: continent,  geoname_id: 3652566, population: 0)
 province = region.provinces.create(description: "Urdaneta", country: state, continent: continent,  geoname_id: 3650340, population: 0)
@@ -78,7 +93,10 @@ province = region.provinces.create(description: "Canton Pedernales", country: st
 province = region.provinces.create(description: "Bolívar", country: state, continent: continent,  geoname_id: 3660131, population: 0)
 province = region.provinces.create(description: "Chone", country: state, continent: continent,  geoname_id: 3659138, population: 0)
 province = region.provinces.create(description: "El Carmen", country: state, continent: continent,  geoname_id: 3658324, population: 0)
-province.municipalities.create(description: "Wilfrido Loor Moreira", region: region, country: state, continent: continent, geoname_id: 9255326, population: 0)
+municipalities = [
+province.municipalities.new(description: "Wilfrido Loor Moreira", region: region, country: state, continent: continent, geoname_id: 9255326, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Jipijapa", country: state, continent: continent,  geoname_id: 3655445, population: 0)
 province = region.provinces.create(description: "Junín", country: state, continent: continent,  geoname_id: 3655383, population: 0)
 province = region.provinces.create(description: "Manta", country: state, continent: continent,  geoname_id: 3654408, population: 0)
@@ -95,9 +113,12 @@ province = region.provinces.create(description: "Limón Indanza", country: state
 province = region.provinces.create(description: "Morona", country: state, continent: continent,  geoname_id: 3654006, population: 0)
 province = region.provinces.create(description: "Palora", country: state, continent: continent,  geoname_id: 3653522, population: 0)
 province = region.provinces.create(description: "Santiago", country: state, continent: continent,  geoname_id: 3651317, population: 0)
-province.municipalities.create(description: "Logroño", region: region, country: state, continent: continent, geoname_id: 3654668, population: 0)
-province.municipalities.create(description: "Patuca", region: region, country: state, continent: continent, geoname_id: 3653348, population: 0)
-province.municipalities.create(description: "San Luis de El Acho", region: region, country: state, continent: continent, geoname_id: 3651659, population: 0)
+municipalities = [
+province.municipalities.new(description: "Logroño", region: region, country: state, continent: continent, geoname_id: 3654668, population: 0),
+province.municipalities.new(description: "Patuca", region: region, country: state, continent: continent, geoname_id: 3653348, population: 0),
+province.municipalities.new(description: "San Luis de El Acho", region: region, country: state, continent: continent, geoname_id: 3651659, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Sucúa", country: state, continent: continent,  geoname_id: 3650955, population: 0)
 region = Region.create(description: "Napo", country: state, continent: continent, geoname_id: 3653890)
 province = region.provinces.create(description: "Archidona", country: state, continent: continent,  geoname_id: 3660572, population: 0)
@@ -113,27 +134,45 @@ province = region.provinces.create(description: "Quito", country: state, contine
 province = region.provinces.create(description: "Rumiñahui", country: state, continent: continent,  geoname_id: 3652228, population: 0)
 region = Region.create(description: "Santa Elena", country: state, continent: continent, geoname_id: 7062138)
 province = region.provinces.create(description: "Salinas", country: state, continent: continent,  geoname_id: 3652097, population: 0)
-province.municipalities.create(description: "Chinchipe", region: region, country: state, continent: continent, geoname_id: 3659210, population: 0)
-province.municipalities.create(description: "Salinas", region: region, country: state, continent: continent, geoname_id: 3652100, population: 43862)
+municipalities = [
+province.municipalities.new(description: "Chinchipe", region: region, country: state, continent: continent, geoname_id: 3659210, population: 0),
+province.municipalities.new(description: "Salinas", region: region, country: state, continent: continent, geoname_id: 3652100, population: 43862),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Santa Elena", country: state, continent: continent,  geoname_id: 3651436, population: 0)
-province.municipalities.create(description: "Santa Elena", region: region, country: state, continent: continent, geoname_id: 3651438, population: 42214)
+municipalities = [
+province.municipalities.new(description: "Santa Elena", region: region, country: state, continent: continent, geoname_id: 3651438, population: 42214),
+]
+Municipality.import municipalities
 region = Region.create(description: "Santo Domingo de los Tsáchilas", country: state, continent: continent, geoname_id: 7062136)
 province = region.provinces.create(description: "Santo Domingo de los Colorados", country: state, continent: continent,  geoname_id: 3651296, population: 0)
-province.municipalities.create(description: "Santo Domingo de los Colorados", region: region, country: state, continent: continent, geoname_id: 3651297, population: 200421)
+municipalities = [
+province.municipalities.new(description: "Santo Domingo de los Colorados", region: region, country: state, continent: continent, geoname_id: 3651297, population: 200421),
+]
+Municipality.import municipalities
 region = Region.create(description: "Sucumbíos", country: state, continent: continent, geoname_id: 3830305)
 province = region.provinces.create(description: "Lago Agrio", country: state, continent: continent,  geoname_id: 3655184, population: 0)
 province = region.provinces.create(description: "Putumayo", country: state, continent: continent,  geoname_id: 3652592, population: 0)
 province = region.provinces.create(description: "Sucumbíos", country: state, continent: continent,  geoname_id: 3650954, population: 0)
-province.municipalities.create(description: "San Francisco", region: region, country: state, continent: continent, geoname_id: 3651915, population: 0)
+municipalities = [
+province.municipalities.new(description: "San Francisco", region: region, country: state, continent: continent, geoname_id: 3651915, population: 0),
+]
+Municipality.import municipalities
 region = Region.create(description: "Zamora-Chinchipe", country: state, continent: continent, geoname_id: 3649953)
 province = region.provinces.create(description: "Chinchipe", country: state, continent: continent,  geoname_id: 3659209, population: 0)
 province = region.provinces.create(description: "Yacuambi", country: state, continent: continent,  geoname_id: 3650141, population: 0)
 province = region.provinces.create(description: "Yantzaza", country: state, continent: continent,  geoname_id: 3650052, population: 0)
 province = region.provinces.create(description: "Zamora", country: state, continent: continent,  geoname_id: 3649958, population: 0)
-province.municipalities.create(description: "Toscón", region: region, country: state, continent: continent, geoname_id: 3746433, population: 0)
+municipalities = [
+province.municipalities.new(description: "Toscón", region: region, country: state, continent: continent, geoname_id: 3746433, population: 0),
+]
+Municipality.import municipalities
 region = Region.create(description: "Azuay", country: state, continent: continent, geoname_id: 3660431)
 province = region.provinces.create(description: "Cuenca", country: state, continent: continent,  geoname_id: 3658665, population: 0)
-province.municipalities.create(description: "Hacienda Lazareto", region: region, country: state, continent: continent, geoname_id: 3656668, population: 0)
+municipalities = [
+province.municipalities.new(description: "Hacienda Lazareto", region: region, country: state, continent: continent, geoname_id: 3656668, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Girón", country: state, continent: continent,  geoname_id: 3657793, population: 0)
 province = region.provinces.create(description: "Gualaceo", country: state, continent: continent,  geoname_id: 3657669, population: 0)
 province = region.provinces.create(description: "Nabón", country: state, continent: continent,  geoname_id: 7648116, population: 0)
@@ -147,8 +186,11 @@ province = region.provinces.create(description: "Espejo", country: state, contin
 province = region.provinces.create(description: "Mira", country: state, continent: continent,  geoname_id: 3654172, population: 0)
 province = region.provinces.create(description: "Montúfar", country: state, continent: continent,  geoname_id: 3654038, population: 0)
 province = region.provinces.create(description: "Tulcán", country: state, continent: continent,  geoname_id: 3650471, population: 0)
-province.municipalities.create(description: "Hacienda Tanyolpud", region: region, country: state, continent: continent, geoname_id: 3655957, population: 0)
-province.municipalities.create(description: "La Estrella", region: region, country: state, continent: continent, geoname_id: 9174582, population: 0)
+municipalities = [
+province.municipalities.new(description: "Hacienda Tanyolpud", region: region, country: state, continent: continent, geoname_id: 3655957, population: 0),
+province.municipalities.new(description: "La Estrella", region: region, country: state, continent: continent, geoname_id: 9174582, population: 0),
+]
+Municipality.import municipalities
 region = Region.create(description: "Cañar", country: state, continent: continent, geoname_id: 3659849)
 province = region.provinces.create(description: "Canton Cumanda", country: state, continent: continent,  geoname_id: 9155071, population: 0)
 province = region.provinces.create(description: "Canton El Tambo", country: state, continent: continent,  geoname_id: 9155281, population: 0)
@@ -178,7 +220,10 @@ province = region.provinces.create(description: "Yaguachi", country: state, cont
 region = Region.create(description: "Pastaza", country: state, continent: continent, geoname_id: 3653392)
 province = region.provinces.create(description: "Mera", country: state, continent: continent,  geoname_id: 3654246, population: 0)
 province = region.provinces.create(description: "Pastaza", country: state, continent: continent,  geoname_id: 3653394, population: 0)
-province.municipalities.create(description: "Montalvo", region: region, country: state, continent: continent, geoname_id: 3654063, population: 0)
+municipalities = [
+province.municipalities.new(description: "Montalvo", region: region, country: state, continent: continent, geoname_id: 3654063, population: 0),
+]
+Municipality.import municipalities
 region = Region.create(description: "Tungurahua", country: state, continent: continent, geoname_id: 3650445)
 province = region.provinces.create(description: "Ambato", country: state, continent: continent,  geoname_id: 3660688, population: 0)
 province = region.provinces.create(description: "Baños", country: state, continent: continent,  geoname_id: 3660343, population: 0)
@@ -186,4 +231,7 @@ province = region.provinces.create(description: "Patate", country: state, contin
 province = region.provinces.create(description: "Pelileo", country: state, continent: continent,  geoname_id: 3653286, population: 0)
 province = region.provinces.create(description: "Píllaro", country: state, continent: continent,  geoname_id: 3653158, population: 0)
 province = region.provinces.create(description: "Quero", country: state, continent: continent,  geoname_id: 3652572, population: 0)
-province.municipalities.create(description: "Quero", region: region, country: state, continent: continent, geoname_id: 3652573, population: 0)
+municipalities = [
+province.municipalities.new(description: "Quero", region: region, country: state, continent: continent, geoname_id: 3652573, population: 0),
+]
+Municipality.import municipalities

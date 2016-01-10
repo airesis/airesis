@@ -40,89 +40,92 @@ province = region.provinces.create(description: "Tokaji Járás", country: state
 province = region.provinces.create(description: "Ózdi Járás", country: state, continent: continent,  geoname_id: 9644325, population: 0)
 region = Region.create(description: "Budapest főváros", country: state, continent: continent, geoname_id: 3054638)
 province = region.provinces.create(description: "Budapest", country: state, continent: continent,  geoname_id: 3054643, population: 1741041)
-province.municipalities.create(description: "Adyliget", region: region, country: state, continent: continent, geoname_id: 3056402, population: 0)
-province.municipalities.create(description: "Alagi Major", region: region, country: state, continent: continent, geoname_id: 3056334, population: 0)
-province.municipalities.create(description: "Albertfalva", region: region, country: state, continent: continent, geoname_id: 3056327, population: 0)
-province.municipalities.create(description: "Angyalföld", region: region, country: state, continent: continent, geoname_id: 3055970, population: 0)
-province.municipalities.create(description: "Buda", region: region, country: state, continent: continent, geoname_id: 3054667, population: 0)
-province.municipalities.create(description: "Budafok", region: region, country: state, continent: continent, geoname_id: 3054663, population: 0)
-province.municipalities.create(description: "Budai vár", region: region, country: state, continent: continent, geoname_id: 3043197, population: 0)
-province.municipalities.create(description: "Budapest I. kerület", region: region, country: state, continent: continent, geoname_id: 7284844, population: 24728)
-province.municipalities.create(description: "Budapest II. kerület", region: region, country: state, continent: continent, geoname_id: 7284843, population: 88729)
-province.municipalities.create(description: "Budapest III. kerület", region: region, country: state, continent: continent, geoname_id: 7284842, population: 123723)
-province.municipalities.create(description: "Budapest IV. kerület", region: region, country: state, continent: continent, geoname_id: 7284831, population: 98374)
-province.municipalities.create(description: "Budapest IX. kerület", region: region, country: state, continent: continent, geoname_id: 7284825, population: 61576)
-province.municipalities.create(description: "Budapest V. kerület", region: region, country: state, continent: continent, geoname_id: 7117203, population: 0)
-province.municipalities.create(description: "Budapest VI. kerület", region: region, country: state, continent: continent, geoname_id: 7284828, population: 42120)
-province.municipalities.create(description: "Budapest VII. kerület", region: region, country: state, continent: continent, geoname_id: 7284827, population: 62530)
-province.municipalities.create(description: "Budapest VIII. kerület", region: region, country: state, continent: continent, geoname_id: 7284826, population: 82222)
-province.municipalities.create(description: "Budapest X. kerület", region: region, country: state, continent: continent, geoname_id: 7284834, population: 79270)
-province.municipalities.create(description: "Budapest XI. kerület", region: region, country: state, continent: continent, geoname_id: 7284824, population: 139049)
-province.municipalities.create(description: "Budapest XII. kerület", region: region, country: state, continent: continent, geoname_id: 7284823, population: 56544)
-province.municipalities.create(description: "Budapest XIII. kerület", region: region, country: state, continent: continent, geoname_id: 7284830, population: 113531)
-province.municipalities.create(description: "Budapest XIV. kerület", region: region, country: state, continent: continent, geoname_id: 7284829, population: 120148)
-province.municipalities.create(description: "Budapest XIX. kerület", region: region, country: state, continent: continent, geoname_id: 7284835, population: 61610)
-province.municipalities.create(description: "Budapest XV. kerület", region: region, country: state, continent: continent, geoname_id: 7284832, population: 80218)
-province.municipalities.create(description: "Budapest XVI. kerület", region: region, country: state, continent: continent, geoname_id: 7284833, population: 68484)
-province.municipalities.create(description: "Budapest XVII. kerület", region: region, country: state, continent: continent, geoname_id: 7284841, population: 78250)
-province.municipalities.create(description: "Budapest XVIII. kerület", region: region, country: state, continent: continent, geoname_id: 7284836, population: 93225)
-province.municipalities.create(description: "Budapest XX. kerület", region: region, country: state, continent: continent, geoname_id: 7284840, population: 63371)
-province.municipalities.create(description: "Budapest XXI. kerület", region: region, country: state, continent: continent, geoname_id: 7284839, population: 76339)
-province.municipalities.create(description: "Budapest XXII. kerület", region: region, country: state, continent: continent, geoname_id: 7284838, population: 50499)
-province.municipalities.create(description: "Budapest XXIII. kerület", region: region, country: state, continent: continent, geoname_id: 7284837, population: 20387)
-province.municipalities.create(description: "Budatétény", region: region, country: state, continent: continent, geoname_id: 3054630, population: 0)
-province.municipalities.create(description: "Békásmegyer", region: region, country: state, continent: continent, geoname_id: 3055234, population: 0)
-province.municipalities.create(description: "Cinkota", region: region, country: state, continent: continent, geoname_id: 3054484, population: 0)
-province.municipalities.create(description: "Csepel", region: region, country: state, continent: continent, geoname_id: 3054269, population: 0)
-province.municipalities.create(description: "Csillebérc", region: region, country: state, continent: continent, geoname_id: 3054063, population: 0)
-province.municipalities.create(description: "Erzsébetpuszta", region: region, country: state, continent: continent, geoname_id: 3053180, population: 0)
-province.municipalities.create(description: "Erzsébetváros", region: region, country: state, continent: continent, geoname_id: 3053176, population: 0)
-province.municipalities.create(description: "Felsőhalom", region: region, country: state, continent: continent, geoname_id: 3052894, population: 0)
-province.municipalities.create(description: "Ferencváros", region: region, country: state, continent: continent, geoname_id: 3052655, population: 0)
-province.municipalities.create(description: "Gellérthegy", region: region, country: state, continent: continent, geoname_id: 3052342, population: 0)
-province.municipalities.create(description: "Iharos", region: region, country: state, continent: continent, geoname_id: 3051194, population: 0)
-province.municipalities.create(description: "Juliannamajor", region: region, country: state, continent: continent, geoname_id: 3050804, population: 0)
-province.municipalities.create(description: "Kamaraerdő", region: region, country: state, continent: continent, geoname_id: 3050699, population: 0)
-province.municipalities.create(description: "Kelenföld", region: region, country: state, continent: continent, geoname_id: 3050393, population: 0)
-province.municipalities.create(description: "Kelenvölgy", region: region, country: state, continent: continent, geoname_id: 3050392, population: 0)
-province.municipalities.create(description: "Kis-Gellérthegy", region: region, country: state, continent: continent, geoname_id: 3049998, population: 0)
-province.municipalities.create(description: "Kispest", region: region, country: state, continent: continent, geoname_id: 3049795, population: 0)
-province.municipalities.create(description: "Középhegy", region: region, country: state, continent: continent, geoname_id: 3049249, population: 0)
-province.municipalities.create(description: "Kőbánya", region: region, country: state, continent: continent, geoname_id: 3049646, population: 0)
-province.municipalities.create(description: "Lágymányos", region: region, country: state, continent: continent, geoname_id: 3049022, population: 0)
-province.municipalities.create(description: "Makkosmária", region: region, country: state, continent: continent, geoname_id: 3048398, population: 0)
-province.municipalities.create(description: "Mártonhegy", region: region, country: state, continent: continent, geoname_id: 3048331, population: 0)
-province.municipalities.create(description: "Mátyásföld", region: region, country: state, continent: continent, geoname_id: 3048274, population: 0)
-province.municipalities.create(description: "Nagytétény", region: region, country: state, continent: continent, geoname_id: 3047502, population: 0)
-province.municipalities.create(description: "Naphegy", region: region, country: state, continent: continent, geoname_id: 3047450, population: 0)
-province.municipalities.create(description: "Neu-Pest", region: region, country: state, continent: continent, geoname_id: 3043470, population: 0)
-province.municipalities.create(description: "Pest", region: region, country: state, continent: continent, geoname_id: 3046446, population: 0)
-province.municipalities.create(description: "Pesterzsébet", region: region, country: state, continent: continent, geoname_id: 3046445, population: 0)
-province.municipalities.create(description: "Pesthidegkút", region: region, country: state, continent: continent, geoname_id: 3046442, population: 0)
-province.municipalities.create(description: "Pestimre", region: region, country: state, continent: continent, geoname_id: 3046438, population: 0)
-province.municipalities.create(description: "Pestlőrinc", region: region, country: state, continent: continent, geoname_id: 3046433, population: 0)
-province.municipalities.create(description: "Pestújhely", region: region, country: state, continent: continent, geoname_id: 3046430, population: 0)
-province.municipalities.create(description: "Remetekertváros", region: region, country: state, continent: continent, geoname_id: 3045898, population: 0)
-province.municipalities.create(description: "Ráczug", region: region, country: state, continent: continent, geoname_id: 3046012, population: 0)
-province.municipalities.create(description: "Rákoshegy", region: region, country: state, continent: continent, geoname_id: 3045974, population: 0)
-province.municipalities.create(description: "Rákoskeresztúr", region: region, country: state, continent: continent, geoname_id: 3045971, population: 0)
-province.municipalities.create(description: "Rákosliget", region: region, country: state, continent: continent, geoname_id: 3045968, population: 0)
-province.municipalities.create(description: "Rákospalota", region: region, country: state, continent: continent, geoname_id: 3045965, population: 0)
-province.municipalities.create(description: "Rákosszentmihály", region: region, country: state, continent: continent, geoname_id: 3045960, population: 0)
-province.municipalities.create(description: "Rétipálya", region: region, country: state, continent: continent, geoname_id: 3045855, population: 0)
-province.municipalities.create(description: "Rómaifürdő", region: region, country: state, continent: continent, geoname_id: 3045762, population: 0)
-province.municipalities.create(description: "Sashalom", region: region, country: state, continent: continent, geoname_id: 3045476, population: 0)
-province.municipalities.create(description: "Sikátorpuszta", region: region, country: state, continent: continent, geoname_id: 3045367, population: 0)
-province.municipalities.create(description: "Soroksár", region: region, country: state, continent: continent, geoname_id: 3045154, population: 0)
-province.municipalities.create(description: "Szabadságliget", region: region, country: state, continent: continent, geoname_id: 3045021, population: 0)
-province.municipalities.create(description: "Széchenyitelep", region: region, country: state, continent: continent, geoname_id: 3044811, population: 0)
-province.municipalities.create(description: "Tabán", region: region, country: state, continent: continent, geoname_id: 3044219, population: 0)
-province.municipalities.create(description: "Teréziamajor", region: region, country: state, continent: continent, geoname_id: 3043965, population: 0)
-province.municipalities.create(description: "Városmajor", region: region, country: state, continent: continent, geoname_id: 3043097, population: 0)
-province.municipalities.create(description: "Zugliget", region: region, country: state, continent: continent, geoname_id: 3042431, population: 0)
-province.municipalities.create(description: "Zugló", region: region, country: state, continent: continent, geoname_id: 3042430, population: 0)
-province.municipalities.create(description: "Óbuda", region: region, country: state, continent: continent, geoname_id: 3047211, population: 0)
-province.municipalities.create(description: "Újpalota", region: region, country: state, continent: continent, geoname_id: 6690770, population: 0)
+municipalities = [
+province.municipalities.new(description: "Adyliget", region: region, country: state, continent: continent, geoname_id: 3056402, population: 0),
+province.municipalities.new(description: "Alagi Major", region: region, country: state, continent: continent, geoname_id: 3056334, population: 0),
+province.municipalities.new(description: "Albertfalva", region: region, country: state, continent: continent, geoname_id: 3056327, population: 0),
+province.municipalities.new(description: "Angyalföld", region: region, country: state, continent: continent, geoname_id: 3055970, population: 0),
+province.municipalities.new(description: "Buda", region: region, country: state, continent: continent, geoname_id: 3054667, population: 0),
+province.municipalities.new(description: "Budafok", region: region, country: state, continent: continent, geoname_id: 3054663, population: 0),
+province.municipalities.new(description: "Budai vár", region: region, country: state, continent: continent, geoname_id: 3043197, population: 0),
+province.municipalities.new(description: "Budapest I. kerület", region: region, country: state, continent: continent, geoname_id: 7284844, population: 24728),
+province.municipalities.new(description: "Budapest II. kerület", region: region, country: state, continent: continent, geoname_id: 7284843, population: 88729),
+province.municipalities.new(description: "Budapest III. kerület", region: region, country: state, continent: continent, geoname_id: 7284842, population: 123723),
+province.municipalities.new(description: "Budapest IV. kerület", region: region, country: state, continent: continent, geoname_id: 7284831, population: 98374),
+province.municipalities.new(description: "Budapest IX. kerület", region: region, country: state, continent: continent, geoname_id: 7284825, population: 61576),
+province.municipalities.new(description: "Budapest V. kerület", region: region, country: state, continent: continent, geoname_id: 7117203, population: 0),
+province.municipalities.new(description: "Budapest VI. kerület", region: region, country: state, continent: continent, geoname_id: 7284828, population: 42120),
+province.municipalities.new(description: "Budapest VII. kerület", region: region, country: state, continent: continent, geoname_id: 7284827, population: 62530),
+province.municipalities.new(description: "Budapest VIII. kerület", region: region, country: state, continent: continent, geoname_id: 7284826, population: 82222),
+province.municipalities.new(description: "Budapest X. kerület", region: region, country: state, continent: continent, geoname_id: 7284834, population: 79270),
+province.municipalities.new(description: "Budapest XI. kerület", region: region, country: state, continent: continent, geoname_id: 7284824, population: 139049),
+province.municipalities.new(description: "Budapest XII. kerület", region: region, country: state, continent: continent, geoname_id: 7284823, population: 56544),
+province.municipalities.new(description: "Budapest XIII. kerület", region: region, country: state, continent: continent, geoname_id: 7284830, population: 113531),
+province.municipalities.new(description: "Budapest XIV. kerület", region: region, country: state, continent: continent, geoname_id: 7284829, population: 120148),
+province.municipalities.new(description: "Budapest XIX. kerület", region: region, country: state, continent: continent, geoname_id: 7284835, population: 61610),
+province.municipalities.new(description: "Budapest XV. kerület", region: region, country: state, continent: continent, geoname_id: 7284832, population: 80218),
+province.municipalities.new(description: "Budapest XVI. kerület", region: region, country: state, continent: continent, geoname_id: 7284833, population: 68484),
+province.municipalities.new(description: "Budapest XVII. kerület", region: region, country: state, continent: continent, geoname_id: 7284841, population: 78250),
+province.municipalities.new(description: "Budapest XVIII. kerület", region: region, country: state, continent: continent, geoname_id: 7284836, population: 93225),
+province.municipalities.new(description: "Budapest XX. kerület", region: region, country: state, continent: continent, geoname_id: 7284840, population: 63371),
+province.municipalities.new(description: "Budapest XXI. kerület", region: region, country: state, continent: continent, geoname_id: 7284839, population: 76339),
+province.municipalities.new(description: "Budapest XXII. kerület", region: region, country: state, continent: continent, geoname_id: 7284838, population: 50499),
+province.municipalities.new(description: "Budapest XXIII. kerület", region: region, country: state, continent: continent, geoname_id: 7284837, population: 20387),
+province.municipalities.new(description: "Budatétény", region: region, country: state, continent: continent, geoname_id: 3054630, population: 0),
+province.municipalities.new(description: "Békásmegyer", region: region, country: state, continent: continent, geoname_id: 3055234, population: 0),
+province.municipalities.new(description: "Cinkota", region: region, country: state, continent: continent, geoname_id: 3054484, population: 0),
+province.municipalities.new(description: "Csepel", region: region, country: state, continent: continent, geoname_id: 3054269, population: 0),
+province.municipalities.new(description: "Csillebérc", region: region, country: state, continent: continent, geoname_id: 3054063, population: 0),
+province.municipalities.new(description: "Erzsébetpuszta", region: region, country: state, continent: continent, geoname_id: 3053180, population: 0),
+province.municipalities.new(description: "Erzsébetváros", region: region, country: state, continent: continent, geoname_id: 3053176, population: 0),
+province.municipalities.new(description: "Felsőhalom", region: region, country: state, continent: continent, geoname_id: 3052894, population: 0),
+province.municipalities.new(description: "Ferencváros", region: region, country: state, continent: continent, geoname_id: 3052655, population: 0),
+province.municipalities.new(description: "Gellérthegy", region: region, country: state, continent: continent, geoname_id: 3052342, population: 0),
+province.municipalities.new(description: "Iharos", region: region, country: state, continent: continent, geoname_id: 3051194, population: 0),
+province.municipalities.new(description: "Juliannamajor", region: region, country: state, continent: continent, geoname_id: 3050804, population: 0),
+province.municipalities.new(description: "Kamaraerdő", region: region, country: state, continent: continent, geoname_id: 3050699, population: 0),
+province.municipalities.new(description: "Kelenföld", region: region, country: state, continent: continent, geoname_id: 3050393, population: 0),
+province.municipalities.new(description: "Kelenvölgy", region: region, country: state, continent: continent, geoname_id: 3050392, population: 0),
+province.municipalities.new(description: "Kis-Gellérthegy", region: region, country: state, continent: continent, geoname_id: 3049998, population: 0),
+province.municipalities.new(description: "Kispest", region: region, country: state, continent: continent, geoname_id: 3049795, population: 0),
+province.municipalities.new(description: "Középhegy", region: region, country: state, continent: continent, geoname_id: 3049249, population: 0),
+province.municipalities.new(description: "Kőbánya", region: region, country: state, continent: continent, geoname_id: 3049646, population: 0),
+province.municipalities.new(description: "Lágymányos", region: region, country: state, continent: continent, geoname_id: 3049022, population: 0),
+province.municipalities.new(description: "Makkosmária", region: region, country: state, continent: continent, geoname_id: 3048398, population: 0),
+province.municipalities.new(description: "Mártonhegy", region: region, country: state, continent: continent, geoname_id: 3048331, population: 0),
+province.municipalities.new(description: "Mátyásföld", region: region, country: state, continent: continent, geoname_id: 3048274, population: 0),
+province.municipalities.new(description: "Nagytétény", region: region, country: state, continent: continent, geoname_id: 3047502, population: 0),
+province.municipalities.new(description: "Naphegy", region: region, country: state, continent: continent, geoname_id: 3047450, population: 0),
+province.municipalities.new(description: "Neu-Pest", region: region, country: state, continent: continent, geoname_id: 3043470, population: 0),
+province.municipalities.new(description: "Pest", region: region, country: state, continent: continent, geoname_id: 3046446, population: 0),
+province.municipalities.new(description: "Pesterzsébet", region: region, country: state, continent: continent, geoname_id: 3046445, population: 0),
+province.municipalities.new(description: "Pesthidegkút", region: region, country: state, continent: continent, geoname_id: 3046442, population: 0),
+province.municipalities.new(description: "Pestimre", region: region, country: state, continent: continent, geoname_id: 3046438, population: 0),
+province.municipalities.new(description: "Pestlőrinc", region: region, country: state, continent: continent, geoname_id: 3046433, population: 0),
+province.municipalities.new(description: "Pestújhely", region: region, country: state, continent: continent, geoname_id: 3046430, population: 0),
+province.municipalities.new(description: "Remetekertváros", region: region, country: state, continent: continent, geoname_id: 3045898, population: 0),
+province.municipalities.new(description: "Ráczug", region: region, country: state, continent: continent, geoname_id: 3046012, population: 0),
+province.municipalities.new(description: "Rákoshegy", region: region, country: state, continent: continent, geoname_id: 3045974, population: 0),
+province.municipalities.new(description: "Rákoskeresztúr", region: region, country: state, continent: continent, geoname_id: 3045971, population: 0),
+province.municipalities.new(description: "Rákosliget", region: region, country: state, continent: continent, geoname_id: 3045968, population: 0),
+province.municipalities.new(description: "Rákospalota", region: region, country: state, continent: continent, geoname_id: 3045965, population: 0),
+province.municipalities.new(description: "Rákosszentmihály", region: region, country: state, continent: continent, geoname_id: 3045960, population: 0),
+province.municipalities.new(description: "Rétipálya", region: region, country: state, continent: continent, geoname_id: 3045855, population: 0),
+province.municipalities.new(description: "Rómaifürdő", region: region, country: state, continent: continent, geoname_id: 3045762, population: 0),
+province.municipalities.new(description: "Sashalom", region: region, country: state, continent: continent, geoname_id: 3045476, population: 0),
+province.municipalities.new(description: "Sikátorpuszta", region: region, country: state, continent: continent, geoname_id: 3045367, population: 0),
+province.municipalities.new(description: "Soroksár", region: region, country: state, continent: continent, geoname_id: 3045154, population: 0),
+province.municipalities.new(description: "Szabadságliget", region: region, country: state, continent: continent, geoname_id: 3045021, population: 0),
+province.municipalities.new(description: "Széchenyitelep", region: region, country: state, continent: continent, geoname_id: 3044811, population: 0),
+province.municipalities.new(description: "Tabán", region: region, country: state, continent: continent, geoname_id: 3044219, population: 0),
+province.municipalities.new(description: "Teréziamajor", region: region, country: state, continent: continent, geoname_id: 3043965, population: 0),
+province.municipalities.new(description: "Városmajor", region: region, country: state, continent: continent, geoname_id: 3043097, population: 0),
+province.municipalities.new(description: "Zugliget", region: region, country: state, continent: continent, geoname_id: 3042431, population: 0),
+province.municipalities.new(description: "Zugló", region: region, country: state, continent: continent, geoname_id: 3042430, population: 0),
+province.municipalities.new(description: "Óbuda", region: region, country: state, continent: continent, geoname_id: 3047211, population: 0),
+province.municipalities.new(description: "Újpalota", region: region, country: state, continent: continent, geoname_id: 6690770, population: 0),
+]
+Municipality.import municipalities
 region = Region.create(description: "Bács-Kiskun county", country: state, continent: continent, geoname_id: 3055744)
 province = region.provinces.create(description: "Bajai Járás", country: state, continent: continent,  geoname_id: 9644263, population: 0)
 province = region.provinces.create(description: "Bácsalmási Járás", country: state, continent: continent,  geoname_id: 9644264, population: 0)
