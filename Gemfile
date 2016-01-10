@@ -40,6 +40,7 @@ gem 'daemons'
 gem 'activerecord-import', '>= 0.10'
 
 group :development do
+  gem 'parallel', '>=1.6'
   gem 'sunspot_solr'
   gem 'better_errors'
   gem 'binding_of_caller'
