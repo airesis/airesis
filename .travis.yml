@@ -4,21 +4,24 @@ services:
   - docker
 
 before_install:
-  - echo "installing docker compose"
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
+
+install:
   - docker build -t airesis_airesis .
   - docker build -t airesis_test ./spec/
   - docker-compose -f docker-compose.yml -f docker-compose.test.yml build
+
+before_script:
   - cp config/database.example.yml config/database.yml
   - cp config/application.example.yml config/application.yml
   - cp config/sunspot.example.yml config/sunspot.yml
   - cp config/sidekiq.example.yml config/sidekiq.yml
   - docker-compose -f docker-compose.yml -f docker-compose.test.yml run airesis bundle exec rake db:setup
-  - docker-compose -f docker-compose.yml -f docker-compose.test.yml up airesis
 
+script: docker-compose -f docker-compose.yml -f docker-compose.test.yml run --rm airesis
 
 after_failure:
  - cat log/test.log
