@@ -1385,13 +1385,15 @@ ul, ol {
     margin-top: -1px;
     line-height: 1.3rem;
     vertical-align: middle;
-    margin-left: -10px;
     a {
       display: inline-block;
       border-radius: 20px;
       padding: 3px 10px 3px 10px;
       &.sel {
         background-color: rgba(255, 255, 255, 0.3);
+      }
+      .fa {
+        font-size: 1.3rem;
       }
     }
     @media #{$medium-up} {
