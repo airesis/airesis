@@ -142,6 +142,9 @@ docker-compose build
 ```
 cp config/database.example.yml config/database.yml
 cp config/application.example.yml config/application.yml
+cp config/private_pub.example.yml config/private_pub.yml
+cp config/sidekiq.example.yml config/sidekiq.yml
+cp config/sunspot.example.yml config/sunspot.yml
 ```
 then edit the `.yml` files and set your custom values
 4. Bootstrap and seed the DB
