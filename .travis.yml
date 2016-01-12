@@ -26,3 +26,4 @@ script: docker-compose -f docker-compose.yml -f docker-compose.test.yml run aire
 env:
   global:
     - DOCKER_COMPOSE_VERSION=1.5.2
+    - DISABLE_SCREENSHOTS=true

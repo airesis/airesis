@@ -4,3 +4,4 @@ airesis:
   environment:
     - DISPLAY=:99
     - RAILS_ENV=test
+    - DISABLE_SCREENSHOTS
