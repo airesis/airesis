@@ -37,7 +37,9 @@ sidekiq:
     - airesis
 
 sunspot:
-  build: ./solr/
+  build: ./DockerfileSolar
   command: "bundle exec rake sunspot:solr:run"
   volumes:
     - ./:/usr/src/app
+  ports:
+    - 8983:8983

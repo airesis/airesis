@@ -21,10 +21,7 @@ before_script:
   - cp config/sidekiq.example.yml config/sidekiq.yml
   - docker-compose -f docker-compose.yml -f docker-compose.test.yml run airesis bundle exec rake db:setup
 
-script: docker-compose -f docker-compose.yml -f docker-compose.test.yml run --rm airesis
-
-after_failure:
- - cat log/test.log
+script: docker-compose -f docker-compose.yml -f docker-compose.test.yml run airesis
 
 env:
   global:
