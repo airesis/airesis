@@ -1,8 +1,4 @@
-Dir[File.join(Rails.root, 'db', 'seeds', '*.rb')].sort.each { |seed|
-  puts "Seeding " + File.basename(seed)
-  load seed
-  puts "Completed " + File.basename(seed)
-}
+Dir[File.join(Rails.root, 'db', 'seeds', '*.rb')].sort.each { |seed| load seed }
 
 puts "creating an admin user with the following credentials: #{ENV['ADMIN_EMAIL']}/#{ENV['ADMIN_PASSWORD']}"
 
