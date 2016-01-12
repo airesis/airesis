@@ -1,0 +1,43 @@
+airesis:
+  build: .
+  command: "bundle exec rails s -b 0.0.0.0 --pid=/tmp/server.pid"
+  environment:
+    - SOLR_HOST=sunspot
+    - DATABASE_URL=postgresql://db/
+    - REDIS_URL=redis://redis:6379
+  volumes:
+    - ./:/usr/src/app
+  links:
+    - db
+    - redis
+    - sunspot
+  ports:
+    - 3000:3000
+
+db:
+  image: postgres
+  volumes:
+    - airesisDB:/var/lib/postgresql/data
+  ports:
+    - 5433:5432
+
+redis:
+  image: redis
+
+sidekiq:
+  image: airesis_airesis
+  command: "bundle exec sidekiq"
+  environment:
+    - DATABASE_URL=postgresql://db/airesis_development
+    - REDIS_URL=redis://redis:6379
+  links:
+    - db
+    - redis
+  volumes_from:
+    - airesis
+
+sunspot:
+  build: ./solr/
+  command: "bundle exec rake sunspot:solr:run"
+  volumes:
+    - ./:/usr/src/app
