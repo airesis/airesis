@@ -1,34 +1,28 @@
-sudo: false
-language: ruby
-cache: bundler
-bundler_args: --without production -j3 --deployment
-before_script:
- - "sh -e /etc/init.d/xvfb start"
- - curl https://raw.githubusercontent.com/moliware/travis-solr/master/travis-solr.sh | SOLR_VERSION=4.2.0 bash
- - cp config/database.example.yml config/database.yml
- - cp config/application.example.yml config/application.yml
- - cp config/sunspot.example.yml config/sunspot.yml
- - cp config/sidekiq.example.yml config/sidekiq.yml
- - bundle exec rake db:setup
- - bundle exec sidekiq -d -L /tmp/sidekiq.log
- - sleep 3
-script: bundle exec rspec --tag ~ci_ignore
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - echo "installing docker compose"
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker build -t airesis_airesis .
+  - docker build -t airesis_test ./spec/
+  - docker-compose -f docker-compose.yml -f docker-compose.test.yml build
+  - cp config/database.example.yml config/database.yml
+  - cp config/application.example.yml config/application.yml
+  - cp config/sunspot.example.yml config/sunspot.yml
+  - cp config/sidekiq.example.yml config/sidekiq.yml
+  - docker-compose -f docker-compose.yml -f docker-compose.test.yml run airesis bundle exec rake db:setup
+  - docker-compose -f docker-compose.yml -f docker-compose.test.yml up airesis
+
+
 after_failure:
  - cat log/test.log
-services:
- - redis-server
+
 env:
   global:
-    - DISPLAY=:99.0
-    - DISABLE_SCREENSHOTS=true
-    - QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
-addons:
-  apt:
-    sources:
-      - ubuntu-sdk-team
-    packages:
-      - libqt5webkit5-dev
-      - qt5-default
-      - gstreamer1.0-plugins-base
-      - gstreamer1.0-tools
-      - gstreamer1.0-x
+    - DOCKER_COMPOSE_VERSION=1.5.2
