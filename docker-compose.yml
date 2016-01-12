@@ -37,7 +37,7 @@ sidekiq:
     - airesis
 
 sunspot:
-  build: ./DockerfileSolar
+  image: airesis_airesis
   command: "bundle exec rake sunspot:solr:run"
   volumes:
     - ./:/usr/src/app
