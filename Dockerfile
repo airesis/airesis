@@ -8,8 +8,4 @@ COPY Gemfile /usr/src/app/
 COPY Gemfile.lock /usr/src/app/
 COPY .ruby-version /usr/src/app/
 
-RUN ["bundle", "install", "--without=test", "-j8"]
-
-
-
-CMD ["bundle", "exec", "rails", "s"]
+RUN ["bundle", "install", "--without=test", "-j4"]
