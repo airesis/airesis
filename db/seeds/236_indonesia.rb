@@ -5,7 +5,10 @@ province = region.provinces.create(description: "Kabupaten Badung", country: sta
 province = region.provinces.create(description: "Kabupaten Bangli", country: state, continent: continent,  geoname_id: 1650263, population: 215353)
 province = region.provinces.create(description: "Kabupaten Buleleng", country: state, continent: continent,  geoname_id: 1647803, population: 624125)
 province = region.provinces.create(description: "Kabupaten Gianyar", country: state, continent: continent,  geoname_id: 1644098, population: 469777)
-province.municipalities.create(description: "Ubud", region: region, country: state, continent: continent, geoname_id: 1622846, population: 28373)
+municipalities = [
+province.municipalities.new(description: "Ubud", region: region, country: state, continent: continent, geoname_id: 1622846, population: 28373),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Jembrana", country: state, continent: continent,  geoname_id: 1642584, population: 261638)
 province = region.provinces.create(description: "Kabupaten Karangasem", country: state, continent: continent,  geoname_id: 7086954, population: 396487)
 province = region.provinces.create(description: "Kabupaten Klungkung", country: state, continent: continent,  geoname_id: 1639849, population: 170543)
@@ -38,14 +41,20 @@ province = region.provinces.create(description: "Kabupaten Blora", country: stat
 province = region.provinces.create(description: "Kabupaten Boyolali", country: state, continent: continent,  geoname_id: 1648083, population: 979748)
 province = region.provinces.create(description: "Kabupaten Brebes", country: state, continent: continent,  geoname_id: 1648064, population: 1817040)
 province = region.provinces.create(description: "Kabupaten Cilacap", country: state, continent: continent,  geoname_id: 6384572, population: 1761387)
-province.municipalities.create(description: "Sidaurip", region: region, country: state, continent: continent, geoname_id: 7688426, population: 0)
+municipalities = [
+province.municipalities.new(description: "Sidaurip", region: region, country: state, continent: continent, geoname_id: 7688426, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Demak", country: state, continent: continent,  geoname_id: 6739766, population: 1133846)
 province = region.provinces.create(description: "Kabupaten Grobogan", country: state, continent: continent,  geoname_id: 1643768, population: 1387816)
 province = region.provinces.create(description: "Kabupaten Jepara", country: state, continent: continent,  geoname_id: 1642545, population: 1150332)
 province = region.provinces.create(description: "Kabupaten Karanganyar", country: state, continent: continent,  geoname_id: 6560140, population: 857721)
 province = region.provinces.create(description: "Kabupaten Kebumen", country: state, continent: continent,  geoname_id: 6376498, population: 1218169)
 province = region.provinces.create(description: "Kabupaten Kendal", country: state, continent: continent,  geoname_id: 6745680, population: 949565)
-province.municipalities.create(description: "Patukangan", region: region, country: state, continent: continent, geoname_id: 6732559, population: 0)
+municipalities = [
+province.municipalities.new(description: "Patukangan", region: region, country: state, continent: continent, geoname_id: 6732559, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Klaten", country: state, continent: continent,  geoname_id: 1639899, population: 1184319)
 province = region.provinces.create(description: "Kabupaten Kudus", country: state, continent: continent,  geoname_id: 1639214, population: 822994)
 province = region.provinces.create(description: "Kabupaten Magelang", country: state, continent: continent,  geoname_id: 6199035, population: 1228169)
@@ -61,7 +70,10 @@ province = region.provinces.create(description: "Kabupaten Sukoharjo", country: 
 province = region.provinces.create(description: "Kabupaten Tegal", country: state, continent: continent,  geoname_id: 1624493, population: 1458226)
 province = region.provinces.create(description: "Kabupaten Temanggung", country: state, continent: continent,  geoname_id: 1624237, population: 738490)
 province = region.provinces.create(description: "Kabupaten Wonogiri", country: state, continent: continent,  geoname_id: 1621430, population: 965516)
-province.municipalities.create(description: "Senggolan", region: region, country: state, continent: continent, geoname_id: 6386832, population: 0)
+municipalities = [
+province.municipalities.new(description: "Senggolan", region: region, country: state, continent: continent, geoname_id: 6386832, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Wonosobo", country: state, continent: continent,  geoname_id: 6405140, population: 775639)
 province = region.provinces.create(description: "Kota Magelang", country: state, continent: continent,  geoname_id: 1636882, population: 118227)
 province = region.provinces.create(description: "Kota Salatiga", country: state, continent: continent,  geoname_id: 6257933, population: 170332)
@@ -102,7 +114,10 @@ province = region.provinces.create(description: "Kabupaten Tulungagung", country
 province = region.provinces.create(description: "Kota Batu", country: state, continent: continent,  geoname_id: 9849812, population: 190184)
 province = region.provinces.create(description: "Kota Kediri", country: state, continent: continent,  geoname_id: 1640656, population: 268507)
 province = region.provinces.create(description: "Kota Surabaya", country: state, continent: continent,  geoname_id: 1625820, population: 2765487)
-province.municipalities.create(description: "Kota Surabaya", region: region, country: state, continent: continent, geoname_id: 1625822, population: 2374658)
+municipalities = [
+province.municipalities.new(description: "Kota Surabaya", region: region, country: state, continent: continent, geoname_id: 1625822, population: 2374658),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kotamadya Blitar", country: state, continent: continent,  geoname_id: 1648578, population: 131968)
 province = region.provinces.create(description: "Kotamadya Madiun", country: state, continent: continent,  geoname_id: 1636927, population: 170964)
 province = region.provinces.create(description: "Kotamadya Malang", country: state, continent: continent,  geoname_id: 1636712, population: 820243)
@@ -129,7 +144,10 @@ province = region.provinces.create(description: "Kabupaten Barito Selatan", coun
 province = region.provinces.create(description: "Kabupaten Barito Timur", country: state, continent: continent,  geoname_id: 1649990, population: 97372)
 province = region.provinces.create(description: "Kabupaten Barito Utara", country: state, continent: continent,  geoname_id: 1649989, population: 121573)
 province = region.provinces.create(description: "Kabupaten Gunung Mas", country: state, continent: continent,  geoname_id: 1643597, population: 96990)
-province.municipalities.create(description: "Batu Badinging", region: region, country: state, continent: continent, geoname_id: 9405219, population: 0)
+municipalities = [
+province.municipalities.new(description: "Batu Badinging", region: region, country: state, continent: continent, geoname_id: 9405219, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Kapuas", country: state, continent: continent,  geoname_id: 1641398, population: 329646)
 province = region.provinces.create(description: "Kabupaten Katingan", country: state, continent: continent,  geoname_id: 1640948, population: 146439)
 province = region.provinces.create(description: "Kabupaten Kotawaringin Barat", country: state, continent: continent,  geoname_id: 1639476, population: 235803)
@@ -138,10 +156,16 @@ province = region.provinces.create(description: "Kabupaten Lamandau", country: s
 province = region.provinces.create(description: "Kabupaten Murung Raya", country: state, continent: continent,  geoname_id: 1634654, population: 96857)
 province = region.provinces.create(description: "Kabupaten Pulang Pisau", country: state, continent: continent,  geoname_id: 8741175, population: 120062)
 province = region.provinces.create(description: "Kabupaten Seruyan", country: state, continent: continent,  geoname_id: 1627443, population: 139931)
-province.municipalities.create(description: "Halimaung Jaya (F-3)", region: region, country: state, continent: continent, geoname_id: 9405294, population: 0)
-province.municipalities.create(description: "Halimaung Jaya (F-3) District", region: region, country: state, continent: continent, geoname_id: 9405300, population: 0)
+municipalities = [
+province.municipalities.new(description: "Halimaung Jaya (F-3)", region: region, country: state, continent: continent, geoname_id: 9405294, population: 0),
+province.municipalities.new(description: "Halimaung Jaya (F-3) District", region: region, country: state, continent: continent, geoname_id: 9405300, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Sukamara", country: state, continent: continent,  geoname_id: 9166125, population: 44952)
-province.municipalities.create(description: "Sukamara", region: region, country: state, continent: continent, geoname_id: 1626345, population: 0)
+municipalities = [
+province.municipalities.new(description: "Sukamara", region: region, country: state, continent: continent, geoname_id: 1626345, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kota Palangka Raya", country: state, continent: continent,  geoname_id: 1633117, population: 220962)
 region = Region.create(description: "Kalimantan Timur", country: state, continent: continent, geoname_id: 1641897)
 province = region.provinces.create(description: "Kabupaten Berau", country: state, continent: continent,  geoname_id: 1649040, population: 179079)
@@ -194,9 +218,15 @@ province = region.provinces.create(description: "Kabupaten Tana Tidung", country
 province = region.provinces.create(description: "Kota Tarakan", country: state, continent: continent,  geoname_id: 8613334, population: 0)
 region = Region.create(description: "Papua", country: state, continent: continent, geoname_id: 1643012)
 province = region.provinces.create(description: "Kabupaten Asmat", country: state, continent: continent,  geoname_id: 9165711, population: 76577)
-province.municipalities.create(description: "Ayr", region: region, country: state, continent: continent, geoname_id: 9881631, population: 0)
+municipalities = [
+province.municipalities.new(description: "Ayr", region: region, country: state, continent: continent, geoname_id: 9881631, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Biak Numfor", country: state, continent: continent,  geoname_id: 8530432, population: 126798)
-province.municipalities.create(description: "Urami", region: region, country: state, continent: continent, geoname_id: 7651064, population: 0)
+municipalities = [
+province.municipalities.new(description: "Urami", region: region, country: state, continent: continent, geoname_id: 7651064, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Boven Digoel", country: state, continent: continent,  geoname_id: 9166001, population: 55784)
 province = region.provinces.create(description: "Kabupaten Deiyai", country: state, continent: continent,  geoname_id: 9821956, population: 62119)
 province = region.provinces.create(description: "Kabupaten Dogiyai", country: state, continent: continent,  geoname_id: 9821957, population: 84230)
@@ -210,7 +240,10 @@ province = region.provinces.create(description: "Kabupaten Mamberamo Raya", coun
 province = region.provinces.create(description: "Kabupaten Mamberamo Tengah", country: state, continent: continent,  geoname_id: 9828820, population: 39537)
 province = region.provinces.create(description: "Kabupaten Mappi", country: state, continent: continent,  geoname_id: 9165710, population: 81658)
 province = region.provinces.create(description: "Kabupaten Merauke", country: state, continent: continent,  geoname_id: 1635387, population: 195716)
-province.municipalities.create(description: "Merauke", region: region, country: state, continent: continent, geoname_id: 2082539, population: 0)
+municipalities = [
+province.municipalities.new(description: "Merauke", region: region, country: state, continent: continent, geoname_id: 2082539, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Mimika", country: state, continent: continent,  geoname_id: 9172049, population: 182001)
 province = region.provinces.create(description: "Kabupaten Nabire", country: state, continent: continent,  geoname_id: 7910937, population: 129893)
 province = region.provinces.create(description: "Kabupaten Nduga", country: state, continent: continent,  geoname_id: 9828977, population: 79053)
@@ -219,10 +252,13 @@ province = region.provinces.create(description: "Kabupaten Pegunungan Bintang", 
 province = region.provinces.create(description: "Kabupaten Puncak", country: state, continent: continent,  geoname_id: 9846669, population: 93218)
 province = region.provinces.create(description: "Kabupaten Puncak Jaya", country: state, continent: continent,  geoname_id: 9172050, population: 101148)
 province = region.provinces.create(description: "Kabupaten Sarmi", country: state, continent: continent,  geoname_id: 8531251, population: 32971)
-province.municipalities.create(description: "Nemporewa", region: region, country: state, continent: continent, geoname_id: 1634231, population: 0)
-province.municipalities.create(description: "Sarmi", region: region, country: state, continent: continent, geoname_id: 1628587, population: 0)
-province.municipalities.create(description: "Sarmi Selatan", region: region, country: state, continent: continent, geoname_id: 10228374, population: 0)
-province.municipalities.create(description: "Sawar", region: region, country: state, continent: continent, geoname_id: 1628446, population: 0)
+municipalities = [
+province.municipalities.new(description: "Nemporewa", region: region, country: state, continent: continent, geoname_id: 1634231, population: 0),
+province.municipalities.new(description: "Sarmi", region: region, country: state, continent: continent, geoname_id: 1628587, population: 0),
+province.municipalities.new(description: "Sarmi Selatan", region: region, country: state, continent: continent, geoname_id: 10228374, population: 0),
+province.municipalities.new(description: "Sawar", region: region, country: state, continent: continent, geoname_id: 1628446, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Supiori", country: state, continent: continent,  geoname_id: 9172047, population: 15874)
 province = region.provinces.create(description: "Kabupaten Tolikara", country: state, continent: continent,  geoname_id: 9846653, population: 114427)
 province = region.provinces.create(description: "Kabupaten Waropen", country: state, continent: continent,  geoname_id: 1621238, population: 24639)
@@ -280,7 +316,10 @@ province = region.provinces.create(description: "Kabupaten Indramayu", country: 
 province = region.provinces.create(description: "Kabupaten Karawang", country: state, continent: continent,  geoname_id: 1641133, population: 2267233)
 province = region.provinces.create(description: "Kabupaten Kuningan", country: state, continent: continent,  geoname_id: 1639093, population: 1096434)
 province = region.provinces.create(description: "Kabupaten Majalengka", country: state, continent: continent,  geoname_id: 1636815, population: 1238218)
-province.municipalities.create(description: "Pancurendang Tonggoh", region: region, country: state, continent: continent, geoname_id: 1632864, population: 0)
+municipalities = [
+province.municipalities.new(description: "Pancurendang Tonggoh", region: region, country: state, continent: continent, geoname_id: 1632864, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Pangandaran", country: state, continent: continent,  geoname_id: 9827974, population: 0)
 province = region.provinces.create(description: "Kabupaten Purwakarta", country: state, continent: continent,  geoname_id: 1630340, population: 873804)
 province = region.provinces.create(description: "Kabupaten Subang", country: state, continent: continent,  geoname_id: 6581948, population: 1566916)
@@ -302,7 +341,10 @@ province = region.provinces.create(description: "Kabupaten Banjar", country: sta
 province = region.provinces.create(description: "Kabupaten Barito Kuala", country: state, continent: continent,  geoname_id: 1649992, population: 276147)
 province = region.provinces.create(description: "Kabupaten Hulu Sungai Selatan", country: state, continent: continent,  geoname_id: 1643246, population: 212485)
 province = region.provinces.create(description: "Kabupaten Hulu Sungai Tengah", country: state, continent: continent,  geoname_id: 1643245, population: 243460)
-province.municipalities.create(description: "Barikin", region: region, country: state, continent: continent, geoname_id: 9958154, population: 0)
+municipalities = [
+province.municipalities.new(description: "Barikin", region: region, country: state, continent: continent, geoname_id: 9958154, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Hulu Sungai Utara", country: state, continent: continent,  geoname_id: 1643244, population: 209246)
 province = region.provinces.create(description: "Kabupaten Kota Baru", country: state, continent: continent,  geoname_id: 1639532, population: 290142)
 province = region.provinces.create(description: "Kabupaten Tabalong", country: state, continent: continent,  geoname_id: 1625714, population: 218620)
@@ -329,7 +371,10 @@ province = region.provinces.create(description: "Halmahera Timur", country: stat
 province = region.provinces.create(description: "Kabupaten Halmahera Selatan", country: state, continent: continent,  geoname_id: 7910927, population: 198911)
 province = region.provinces.create(description: "Kabupaten Halmahera Tengah", country: state, continent: continent,  geoname_id: 1643475, population: 42815)
 province = region.provinces.create(description: "Kabupaten Halmahera Utara", country: state, continent: continent,  geoname_id: 9165798, population: 161847)
-province.municipalities.create(description: "Galela", region: region, country: state, continent: continent, geoname_id: 1644608, population: 0)
+municipalities = [
+province.municipalities.new(description: "Galela", region: region, country: state, continent: continent, geoname_id: 1644608, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Kepulauan Sula", country: state, continent: continent,  geoname_id: 9172043, population: 132524)
 province = region.provinces.create(description: "Kabupaten Pulau Morotai", country: state, continent: continent,  geoname_id: 9844899, population: 52697)
 province = region.provinces.create(description: "Kabupaten Pulau Taliabu", country: state, continent: continent,  geoname_id: 9828029, population: 0)
@@ -337,31 +382,49 @@ province = region.provinces.create(description: "Kota Ternate", country: state, 
 province = region.provinces.create(description: "Kota Tidore Kepulauan", country: state, continent: continent,  geoname_id: 9845501, population: 90055)
 region = Region.create(description: "Provinsi Nanggroe Aceh Darussalam", country: state, continent: continent, geoname_id: 1215638)
 province = region.provinces.create(description: "Banda Aceh", country: state, continent: continent,  geoname_id: 1215501, population: 226608)
-province.municipalities.create(description: "Ateuk Deah Tanoh", region: region, country: state, continent: continent, geoname_id: 10177548, population: 0)
-province.municipalities.create(description: "Ateuk Jowo", region: region, country: state, continent: continent, geoname_id: 6700831, population: 0)
-province.municipalities.create(description: "Kota Banda Aceh", region: region, country: state, continent: continent, geoname_id: 1215502, population: 250757)
+municipalities = [
+province.municipalities.new(description: "Ateuk Deah Tanoh", region: region, country: state, continent: continent, geoname_id: 10177548, population: 0),
+province.municipalities.new(description: "Ateuk Jowo", region: region, country: state, continent: continent, geoname_id: 6700831, population: 0),
+province.municipalities.new(description: "Kota Banda Aceh", region: region, country: state, continent: continent, geoname_id: 1215502, population: 250757),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Aceh Barat", country: state, continent: continent,  geoname_id: 1215636, population: 187687)
 province = region.provinces.create(description: "Kabupaten Aceh Barat Daya", country: state, continent: continent,  geoname_id: 6701674, population: 131019)
 province = region.provinces.create(description: "Kabupaten Aceh Besar", country: state, continent: continent,  geoname_id: 1215635, population: 382582)
 province = region.provinces.create(description: "Kabupaten Aceh Selatan", country: state, continent: continent,  geoname_id: 1215634, population: 211554)
-province.municipalities.create(description: "Gelombang", region: region, country: state, continent: continent, geoname_id: 6714965, population: 0)
+municipalities = [
+province.municipalities.new(description: "Gelombang", region: region, country: state, continent: continent, geoname_id: 6714965, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Aceh Singkil", country: state, continent: continent,  geoname_id: 6713333, population: 103711)
-province.municipalities.create(description: "Kayu Menang Baru", region: region, country: state, continent: continent, geoname_id: 6705753, population: 0)
-province.municipalities.create(description: "Kuala Baru Laut", region: region, country: state, continent: continent, geoname_id: 6705750, population: 0)
-province.municipalities.create(description: "Rantau Gedang", region: region, country: state, continent: continent, geoname_id: 6711738, population: 0)
-province.municipalities.create(description: "Rimo", region: region, country: state, continent: continent, geoname_id: 6711705, population: 0)
+municipalities = [
+province.municipalities.new(description: "Kayu Menang Baru", region: region, country: state, continent: continent, geoname_id: 6705753, population: 0),
+province.municipalities.new(description: "Kuala Baru Laut", region: region, country: state, continent: continent, geoname_id: 6705750, population: 0),
+province.municipalities.new(description: "Rantau Gedang", region: region, country: state, continent: continent, geoname_id: 6711738, population: 0),
+province.municipalities.new(description: "Rimo", region: region, country: state, continent: continent, geoname_id: 6711705, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Aceh Tamiang", country: state, continent: continent,  geoname_id: 6701575, population: 262358)
 province = region.provinces.create(description: "Kabupaten Aceh Tengah", country: state, continent: continent,  geoname_id: 1215633, population: 189939)
 province = region.provinces.create(description: "Kabupaten Aceh Tenggara", country: state, continent: continent,  geoname_id: 1215632, population: 186880)
-province.municipalities.create(description: "Kutacane", region: region, country: state, continent: continent, geoname_id: 1214815, population: 0)
+municipalities = [
+province.municipalities.new(description: "Kutacane", region: region, country: state, continent: continent, geoname_id: 1214815, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Aceh Timur", country: state, continent: continent,  geoname_id: 1215631, population: 379455)
 province = region.provinces.create(description: "Kabupaten Aceh Utara", country: state, continent: continent,  geoname_id: 1215630, population: 564428)
 province = region.provinces.create(description: "Kabupaten Ache Jaya", country: state, continent: continent,  geoname_id: 6705241, population: 80472)
 province = region.provinces.create(description: "Kabupaten Bener Meriah", country: state, continent: continent,  geoname_id: 6712486, population: 127228)
-province.municipalities.create(description: "Permata", region: region, country: state, continent: continent, geoname_id: 8572026, population: 0)
+municipalities = [
+province.municipalities.new(description: "Permata", region: region, country: state, continent: continent, geoname_id: 8572026, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Bireuen", country: state, continent: continent,  geoname_id: 6729814, population: 406786)
 province = region.provinces.create(description: "Kabupaten Gayo Lues", country: state, continent: continent,  geoname_id: 8224054, population: 83466)
-province.municipalities.create(description: "Ketambe", region: region, country: state, continent: continent, geoname_id: 6705418, population: 0)
+municipalities = [
+province.municipalities.new(description: "Ketambe", region: region, country: state, continent: continent, geoname_id: 6705418, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Nagan Rayan", country: state, continent: continent,  geoname_id: 6703019, population: 147215)
 province = region.provinces.create(description: "Kabupaten Pidie", country: state, continent: continent,  geoname_id: 8224055, population: 397698)
 province = region.provinces.create(description: "Kabupaten Simeulue", country: state, continent: continent,  geoname_id: 6704825, population: 81164)
@@ -379,7 +442,10 @@ province = region.provinces.create(description: "Kabupaten Kupang", country: sta
 province = region.provinces.create(description: "Kabupaten Lembata", country: state, continent: continent,  geoname_id: 9165593, population: 117829)
 province = region.provinces.create(description: "Kabupaten Malaka", country: state, continent: continent,  geoname_id: 9846667, population: 0)
 province = region.provinces.create(description: "Kabupaten Manggarai", country: state, continent: continent,  geoname_id: 1636422, population: 292451)
-province.municipalities.create(description: "KDS", region: region, country: state, continent: continent, geoname_id: 7569776, population: 500)
+municipalities = [
+province.municipalities.new(description: "KDS", region: region, country: state, continent: continent, geoname_id: 7569776, population: 500),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Manggarai Barat", country: state, continent: continent,  geoname_id: 9165681, population: 221703)
 province = region.provinces.create(description: "Kabupaten Manggarai Timur", country: state, continent: continent,  geoname_id: 9828927, population: 252744)
 province = region.provinces.create(description: "Kabupaten Nagekeo", country: state, continent: continent,  geoname_id: 9828965, population: 130120)
@@ -404,7 +470,10 @@ province = region.provinces.create(description: "Kabupaten Pegunungan Arfak", co
 province = region.provinces.create(description: "Kabupaten Raja Ampat", country: state, continent: continent,  geoname_id: 1630210, population: 42507)
 province = region.provinces.create(description: "Kabupaten Sorong", country: state, continent: continent,  geoname_id: 1626541, population: 70619)
 province = region.provinces.create(description: "Kabupaten Sorong Selatan", country: state, continent: continent,  geoname_id: 7910924, population: 37900)
-province.municipalities.create(description: "Sailolof", region: region, country: state, continent: continent, geoname_id: 1629218, population: 0)
+municipalities = [
+province.municipalities.new(description: "Sailolof", region: region, country: state, continent: continent, geoname_id: 1629218, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Tambrauw", country: state, continent: continent,  geoname_id: 9845477, population: 6144)
 province = region.provinces.create(description: "Kabupaten Teluk Bintuni", country: state, continent: continent,  geoname_id: 9166002, population: 52422)
 province = region.provinces.create(description: "Kabupaten Teluk Wondama", country: state, continent: continent,  geoname_id: 7910908, population: 26321)
@@ -416,11 +485,17 @@ province = region.provinces.create(description: "Kabupaten Mamuju", country: sta
 province = region.provinces.create(description: "Kabupaten Mamuju Tengah", country: state, continent: continent,  geoname_id: 9827966, population: 0)
 province = region.provinces.create(description: "Kabupaten Mamuju Utara", country: state, continent: continent,  geoname_id: 9828890, population: 134369)
 province = region.provinces.create(description: "Kabupaten Polewali Mandar", country: state, continent: continent,  geoname_id: 1630933, population: 396120)
-province.municipalities.create(description: "Kecamatan Polewali", region: region, country: state, continent: continent, geoname_id: 7589545, population: 0)
+municipalities = [
+province.municipalities.new(description: "Kecamatan Polewali", region: region, country: state, continent: continent, geoname_id: 7589545, population: 0),
+]
+Municipality.import municipalities
 region = Region.create(description: "Provinsi Sulawesi Tenggara", country: state, continent: continent, geoname_id: 1626230)
 province = region.provinces.create(description: "Kabupaten Bombana", country: state, continent: continent,  geoname_id: 9170724, population: 139235)
 province = region.provinces.create(description: "Kabupaten Buton", country: state, continent: continent,  geoname_id: 1647498, population: 255712)
-province.municipalities.create(description: "Todanga", region: region, country: state, continent: continent, geoname_id: 6977226, population: 0)
+municipalities = [
+province.municipalities.new(description: "Todanga", region: region, country: state, continent: continent, geoname_id: 6977226, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Buton Utara", country: state, continent: continent,  geoname_id: 9821954, population: 54736)
 province = region.provinces.create(description: "Kabupaten Kolaka", country: state, continent: continent,  geoname_id: 1639753, population: 315232)
 province = region.provinces.create(description: "Kabupaten Kolaka Timur", country: state, continent: continent,  geoname_id: 9846666, population: 0)
@@ -433,7 +508,10 @@ province = region.provinces.create(description: "Kabupaten Muna", country: state
 province = region.provinces.create(description: "Kabupaten Wakatobi", country: state, continent: continent,  geoname_id: 9165996, population: 92995)
 province = region.provinces.create(description: "Kota Administratip Baubau", country: state, continent: continent,  geoname_id: 6974096, population: 136991)
 province = region.provinces.create(description: "Kotamadya Kendari", country: state, continent: continent,  geoname_id: 1640342, population: 289966)
-province.municipalities.create(description: "Unaaha", region: region, country: state, continent: continent, geoname_id: 1974329, population: 0)
+municipalities = [
+province.municipalities.new(description: "Unaaha", region: region, country: state, continent: continent, geoname_id: 1974329, population: 0),
+]
+Municipality.import municipalities
 region = Region.create(description: "Riau", country: state, continent: continent, geoname_id: 1629652)
 province = region.provinces.create(description: "Kabupaten Bengkalis", country: state, continent: continent,  geoname_id: 8597074, population: 525656)
 province = region.provinces.create(description: "Kabupaten Indragiri Hilir", country: state, continent: continent,  geoname_id: 1643082, population: 681898)
@@ -457,7 +535,10 @@ province = region.provinces.create(description: "Kabupaten Gowa", country: state
 province = region.provinces.create(description: "Kabupaten Jeneponto", country: state, continent: continent,  geoname_id: 1642569, population: 342700)
 province = region.provinces.create(description: "Kabupaten Luwu", country: state, continent: continent,  geoname_id: 6965895, population: 332482)
 province = region.provinces.create(description: "Kabupaten Luwu Timur", country: state, continent: continent,  geoname_id: 9165704, population: 243069)
-province.municipalities.create(description: "Nuha", region: region, country: state, continent: continent, geoname_id: 1633845, population: 0)
+municipalities = [
+province.municipalities.new(description: "Nuha", region: region, country: state, continent: continent, geoname_id: 1633845, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Luwu Utara", country: state, continent: continent,  geoname_id: 9165788, population: 287472)
 province = region.provinces.create(description: "Kabupaten Maros", country: state, continent: continent,  geoname_id: 1636028, population: 319002)
 province = region.provinces.create(description: "Kabupaten Pangkajene dan Kepulauan", country: state, continent: continent,  geoname_id: 1632723, population: 305737)
@@ -525,20 +606,32 @@ province = region.provinces.create(description: "Kotamadya Sawahlunto", country:
 province = region.provinces.create(description: "Kotamadya Solok", country: state, continent: continent,  geoname_id: 1626645, population: 59396)
 region = Region.create(description: "Sumatera Utara", country: state, continent: continent, geoname_id: 1213642)
 province = region.provinces.create(description: "Kabupaten Asahan", country: state, continent: continent,  geoname_id: 1215554, population: 710498)
-province.municipalities.create(description: "Asahan", region: region, country: state, continent: continent, geoname_id: 6703622, population: 0)
+municipalities = [
+province.municipalities.new(description: "Asahan", region: region, country: state, continent: continent, geoname_id: 6703622, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Batu Bara", country: state, continent: continent,  geoname_id: 9821911, population: 401477)
 province = region.provinces.create(description: "Kabupaten Dairi", country: state, continent: continent,  geoname_id: 1215221, population: 283335)
-province.municipalities.create(description: "Pargambiran", region: region, country: state, continent: continent, geoname_id: 8639367, population: 0)
+municipalities = [
+province.municipalities.new(description: "Pargambiran", region: region, country: state, continent: continent, geoname_id: 8639367, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Deli Serdang", country: state, continent: continent,  geoname_id: 1215200, population: 1886915)
 province = region.provinces.create(description: "Kabupaten Humbang Hasundutan", country: state, continent: continent,  geoname_id: 9162086, population: 175548)
 province = region.provinces.create(description: "Kabupaten Karo", country: state, continent: continent,  geoname_id: 1214929, population: 381603)
 province = region.provinces.create(description: "Kabupaten Labuanbatu", country: state, continent: continent,  geoname_id: 8611929, population: 286173)
 province = region.provinces.create(description: "Kabupaten Labuhan Batu", country: state, continent: continent,  geoname_id: 1214801, population: 445254)
-province.municipalities.create(description: "Kampungtempel", region: region, country: state, continent: continent, geoname_id: 6715400, population: 0)
+municipalities = [
+province.municipalities.new(description: "Kampungtempel", region: region, country: state, continent: continent, geoname_id: 6715400, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Labuhan Batu Utara", country: state, continent: continent,  geoname_id: 9821913, population: 354079)
 province = region.provinces.create(description: "Kabupaten Langkat", country: state, continent: continent,  geoname_id: 1214728, population: 1027258)
-province.municipalities.create(description: "Stabat", region: region, country: state, continent: continent, geoname_id: 1213655, population: 26862)
-province.municipalities.create(description: "Stabat", region: region, country: state, continent: continent, geoname_id: 1213654, population: 0)
+municipalities = [
+province.municipalities.new(description: "Stabat", region: region, country: state, continent: continent, geoname_id: 1213655, population: 26862),
+province.municipalities.new(description: "Stabat", region: region, country: state, continent: continent, geoname_id: 1213654, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Mandailing Natal", country: state, continent: continent,  geoname_id: 9161518, population: 426194)
 province = region.provinces.create(description: "Kabupaten Nias", country: state, continent: continent,  geoname_id: 1214405, population: 138360)
 province = region.provinces.create(description: "Kabupaten Nias Barat", country: state, continent: continent,  geoname_id: 9828978, population: 89308)
@@ -553,10 +646,16 @@ province = region.provinces.create(description: "Kabupaten Simalungun", country:
 province = region.provinces.create(description: "Kabupaten Tapanuli Selatan", country: state, continent: continent,  geoname_id: 1213519, population: 272489)
 province = region.provinces.create(description: "Kabupaten Tapanuli Tengah", country: state, continent: continent,  geoname_id: 1213518, population: 318550)
 province = region.provinces.create(description: "Kabupaten Tapanuli Utara", country: state, continent: continent,  geoname_id: 6726149, population: 292797)
-province.municipalities.create(description: "Huta Raja Habinsaran", region: region, country: state, continent: continent, geoname_id: 8636559, population: 0)
+municipalities = [
+province.municipalities.new(description: "Huta Raja Habinsaran", region: region, country: state, continent: continent, geoname_id: 8636559, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kabupaten Toba Samosir", country: state, continent: continent,  geoname_id: 9165769, population: 181371)
-province.municipalities.create(description: "Parapat", region: region, country: state, continent: continent, geoname_id: 1214135, population: 0)
-province.municipalities.create(description: "Sibisa", region: region, country: state, continent: continent, geoname_id: 7743046, population: 0)
+municipalities = [
+province.municipalities.new(description: "Parapat", region: region, country: state, continent: continent, geoname_id: 1214135, population: 0),
+province.municipalities.new(description: "Sibisa", region: region, country: state, continent: continent, geoname_id: 7743046, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Kota Binjai", country: state, continent: continent,  geoname_id: 1648725, population: 261487)
 province = region.provinces.create(description: "Kota Gunungsitoli", country: state, continent: continent,  geoname_id: 9846663, population: 134511)
 province = region.provinces.create(description: "Kota Medan", country: state, continent: continent,  geoname_id: 1214519, population: 2246142)

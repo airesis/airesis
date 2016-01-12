@@ -3,51 +3,75 @@ state = Country.find_by(description: 'Croatia')
 region = Region.create(description: "Bjelovarsko-Bilogorska Županija", country: state, continent: continent, geoname_id: 3337511)
 province = region.provinces.create(description: "Grad Bjelovar", country: state, continent: continent,  geoname_id: 3203981, population: 0)
 province = region.provinces.create(description: "Grad Daruvar", country: state, continent: continent,  geoname_id: 3202183, population: 0)
-province.municipalities.create(description: "Daruvar", region: region, country: state, continent: continent, geoname_id: 3202184, population: 9863)
+municipalities = [
+province.municipalities.new(description: "Daruvar", region: region, country: state, continent: continent, geoname_id: 3202184, population: 9863),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Garešnica", country: state, continent: continent,  geoname_id: 3200709, population: 0)
 province = region.provinces.create(description: "Grad Grubišno Polje", country: state, continent: continent,  geoname_id: 3199514, population: 0)
-province.municipalities.create(description: "Mala Barna", region: region, country: state, continent: continent, geoname_id: 3195876, population: 30)
-province.municipalities.create(description: "Mala Peratovica", region: region, country: state, continent: continent, geoname_id: 3195811, population: 0)
-province.municipalities.create(description: "Mali Zdenci", region: region, country: state, continent: continent, geoname_id: 3195595, population: 0)
-province.municipalities.create(description: "Velika Barna", region: region, country: state, continent: continent, geoname_id: 3188275, population: 333)
-province.municipalities.create(description: "Velika Jasenovača", region: region, country: state, continent: continent, geoname_id: 3188230, population: 0)
+municipalities = [
+province.municipalities.new(description: "Mala Barna", region: region, country: state, continent: continent, geoname_id: 3195876, population: 30),
+province.municipalities.new(description: "Mala Peratovica", region: region, country: state, continent: continent, geoname_id: 3195811, population: 0),
+province.municipalities.new(description: "Mali Zdenci", region: region, country: state, continent: continent, geoname_id: 3195595, population: 0),
+province.municipalities.new(description: "Velika Barna", region: region, country: state, continent: continent, geoname_id: 3188275, population: 333),
+province.municipalities.new(description: "Velika Jasenovača", region: region, country: state, continent: continent, geoname_id: 3188230, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Čazma", country: state, continent: continent,  geoname_id: 3202819, population: 0)
-province.municipalities.create(description: "Čazma", region: region, country: state, continent: continent, geoname_id: 3202820, population: 2892)
+municipalities = [
+province.municipalities.new(description: "Čazma", region: region, country: state, continent: continent, geoname_id: 3202820, population: 2892),
+]
+Municipality.import municipalities
 region = Region.create(description: "Brodsko-Posavska Županija", country: state, continent: continent, geoname_id: 3337512)
 province = region.provinces.create(description: "Grad Nova Gradiška", country: state, continent: continent,  geoname_id: 3194448, population: 0)
 province = region.provinces.create(description: "Grad Slavonski Brod", country: state, continent: continent,  geoname_id: 3190585, population: 0)
-province.municipalities.create(description: "Slavonski Brod", region: region, country: state, continent: continent, geoname_id: 3190586, population: 60742)
+municipalities = [
+province.municipalities.new(description: "Slavonski Brod", region: region, country: state, continent: continent, geoname_id: 3190586, population: 60742),
+]
+Municipality.import municipalities
 region = Region.create(description: "Dubrovačko-Neretvanska Županija", country: state, continent: continent, geoname_id: 3337513)
 province = region.provinces.create(description: "Grad Dubrovnik", country: state, continent: continent,  geoname_id: 7577034, population: 43770)
-province.municipalities.create(description: "Blace", region: region, country: state, continent: continent, geoname_id: 3214573, population: 0)
-province.municipalities.create(description: "Bosanka", region: region, country: state, continent: continent, geoname_id: 3263666, population: 0)
-province.municipalities.create(description: "Brsečine", region: region, country: state, continent: continent, geoname_id: 3203217, population: 99)
-province.municipalities.create(description: "Dubravica", region: region, country: state, continent: continent, geoname_id: 3201059, population: 37)
-province.municipalities.create(description: "Dubrovnik", region: region, country: state, continent: continent, geoname_id: 3201047, population: 28428)
-province.municipalities.create(description: "Gruda", region: region, country: state, continent: continent, geoname_id: 3199511, population: 0)
-province.municipalities.create(description: "Koločep", region: region, country: state, continent: continent, geoname_id: 3265134, population: 0)
-province.municipalities.create(description: "Metković", region: region, country: state, continent: continent, geoname_id: 3195222, population: 13941)
-province.municipalities.create(description: "Mokošica", region: region, country: state, continent: continent, geoname_id: 3194919, population: 1494)
-province.municipalities.create(description: "Mrčevo", region: region, country: state, continent: continent, geoname_id: 3194749, population: 86)
-province.municipalities.create(description: "Opuzen", region: region, country: state, continent: continent, geoname_id: 3194075, population: 2743)
-province.municipalities.create(description: "Orašac", region: region, country: state, continent: continent, geoname_id: 3194044, population: 300)
-province.municipalities.create(description: "Plat", region: region, country: state, continent: continent, geoname_id: 3193235, population: 0)
-province.municipalities.create(description: "Putniković", region: region, country: state, continent: continent, geoname_id: 3192181, population: 0)
-province.municipalities.create(description: "Sudurad", region: region, country: state, continent: continent, geoname_id: 3189580, population: 0)
-province.municipalities.create(description: "Trpanj", region: region, country: state, continent: continent, geoname_id: 3188734, population: 0)
-province.municipalities.create(description: "Trsteno", region: region, country: state, continent: continent, geoname_id: 3188708, population: 0)
-province.municipalities.create(description: "Vela Luka", region: region, country: state, continent: continent, geoname_id: 3188326, population: 4380)
-province.municipalities.create(description: "Vid", region: region, country: state, continent: continent, geoname_id: 3187815, population: 0)
-province.municipalities.create(description: "Viganj", region: region, country: state, continent: continent, geoname_id: 3187777, population: 0)
-province.municipalities.create(description: "Štikovica", region: region, country: state, continent: continent, geoname_id: 3189881, population: 0)
+municipalities = [
+province.municipalities.new(description: "Blace", region: region, country: state, continent: continent, geoname_id: 3214573, population: 0),
+province.municipalities.new(description: "Bosanka", region: region, country: state, continent: continent, geoname_id: 3263666, population: 0),
+province.municipalities.new(description: "Brsečine", region: region, country: state, continent: continent, geoname_id: 3203217, population: 99),
+province.municipalities.new(description: "Dubravica", region: region, country: state, continent: continent, geoname_id: 3201059, population: 37),
+province.municipalities.new(description: "Dubrovnik", region: region, country: state, continent: continent, geoname_id: 3201047, population: 28428),
+province.municipalities.new(description: "Gruda", region: region, country: state, continent: continent, geoname_id: 3199511, population: 0),
+province.municipalities.new(description: "Koločep", region: region, country: state, continent: continent, geoname_id: 3265134, population: 0),
+province.municipalities.new(description: "Metković", region: region, country: state, continent: continent, geoname_id: 3195222, population: 13941),
+province.municipalities.new(description: "Mokošica", region: region, country: state, continent: continent, geoname_id: 3194919, population: 1494),
+province.municipalities.new(description: "Mrčevo", region: region, country: state, continent: continent, geoname_id: 3194749, population: 86),
+province.municipalities.new(description: "Opuzen", region: region, country: state, continent: continent, geoname_id: 3194075, population: 2743),
+province.municipalities.new(description: "Orašac", region: region, country: state, continent: continent, geoname_id: 3194044, population: 300),
+province.municipalities.new(description: "Plat", region: region, country: state, continent: continent, geoname_id: 3193235, population: 0),
+province.municipalities.new(description: "Putniković", region: region, country: state, continent: continent, geoname_id: 3192181, population: 0),
+province.municipalities.new(description: "Sudurad", region: region, country: state, continent: continent, geoname_id: 3189580, population: 0),
+province.municipalities.new(description: "Trpanj", region: region, country: state, continent: continent, geoname_id: 3188734, population: 0),
+province.municipalities.new(description: "Trsteno", region: region, country: state, continent: continent, geoname_id: 3188708, population: 0),
+province.municipalities.new(description: "Vela Luka", region: region, country: state, continent: continent, geoname_id: 3188326, population: 4380),
+province.municipalities.new(description: "Vid", region: region, country: state, continent: continent, geoname_id: 3187815, population: 0),
+province.municipalities.new(description: "Viganj", region: region, country: state, continent: continent, geoname_id: 3187777, population: 0),
+province.municipalities.new(description: "Štikovica", region: region, country: state, continent: continent, geoname_id: 3189881, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Korčula", country: state, continent: continent,  geoname_id: 3197709, population: 0)
-province.municipalities.create(description: "Zavalatica", region: region, country: state, continent: continent, geoname_id: 3186722, population: 0)
-province.municipalities.create(description: "Čara", region: region, country: state, continent: continent, geoname_id: 3202868, population: 0)
-province.municipalities.create(description: "Žrnovo", region: region, country: state, continent: continent, geoname_id: 3186331, population: 1302)
+municipalities = [
+province.municipalities.new(description: "Zavalatica", region: region, country: state, continent: continent, geoname_id: 3186722, population: 0),
+province.municipalities.new(description: "Čara", region: region, country: state, continent: continent, geoname_id: 3202868, population: 0),
+province.municipalities.new(description: "Žrnovo", region: region, country: state, continent: continent, geoname_id: 3186331, population: 1302),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Ploče", country: state, continent: continent,  geoname_id: 3193146, population: 0)
-province.municipalities.create(description: "Ploče", region: region, country: state, continent: continent, geoname_id: 3193150, population: 0)
+municipalities = [
+province.municipalities.new(description: "Ploče", region: region, country: state, continent: continent, geoname_id: 3193150, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Općina Lastovo", country: state, continent: continent,  geoname_id: 3196753, population: 0)
-province.municipalities.create(description: "Lastovo", region: region, country: state, continent: continent, geoname_id: 3196754, population: 0)
+municipalities = [
+province.municipalities.new(description: "Lastovo", region: region, country: state, continent: continent, geoname_id: 3196754, population: 0),
+]
+Municipality.import municipalities
 region = Region.create(description: "Grad Zagreb", country: state, continent: continent, geoname_id: 3337532)
 province = region.provinces.create(description: "Gradska cetvrt Pescenica - Zitnjak", country: state, continent: continent,  geoname_id: 8531823, population: 0)
 province = region.provinces.create(description: "Gradska četvrt Brezovica", country: state, continent: continent,  geoname_id: 8531834, population: 0)
@@ -66,52 +90,82 @@ province = region.provinces.create(description: "Gradska četvrt Črnomerec", co
 province = region.provinces.create(description: "New Zagreb - east", country: state, continent: continent,  geoname_id: 8531824, population: 0)
 province = region.provinces.create(description: "Podsused - Vrapce", country: state, continent: continent,  geoname_id: 8531832, population: 0)
 province = region.provinces.create(description: "Sesvete", country: state, continent: continent,  geoname_id: 3190965, population: 70000)
-province.municipalities.create(description: "Sesvete", region: region, country: state, continent: continent, geoname_id: 3190966, population: 52411)
+municipalities = [
+province.municipalities.new(description: "Sesvete", region: region, country: state, continent: continent, geoname_id: 3190966, population: 52411),
+]
+Municipality.import municipalities
 region = Region.create(description: "Istarska Županija", country: state, continent: continent, geoname_id: 3337514)
 province = region.provinces.create(description: "Grad Buje", country: state, continent: continent,  geoname_id: 3203088, population: 0)
 province = region.provinces.create(description: "Grad Buzet", country: state, continent: continent,  geoname_id: 3202941, population: 0)
-province.municipalities.create(description: "Hum", region: region, country: state, continent: continent, geoname_id: 3199205, population: 17)
+municipalities = [
+province.municipalities.new(description: "Hum", region: region, country: state, continent: continent, geoname_id: 3199205, population: 17),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Labin", country: state, continent: continent,  geoname_id: 3196833, population: 0)
-province.municipalities.create(description: "Labin", region: region, country: state, continent: continent, geoname_id: 3196834, population: 7943)
-province.municipalities.create(description: "Rabac", region: region, country: state, continent: continent, geoname_id: 3192174, population: 1479)
+municipalities = [
+province.municipalities.new(description: "Labin", region: region, country: state, continent: continent, geoname_id: 3196834, population: 7943),
+province.municipalities.new(description: "Rabac", region: region, country: state, continent: continent, geoname_id: 3192174, population: 1479),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Pazin", country: state, continent: continent,  geoname_id: 3193560, population: 0)
 province = region.provinces.create(description: "Grad Poreč", country: state, continent: continent,  geoname_id: 3192696, population: 0)
-province.municipalities.create(description: "Nova Vas", region: region, country: state, continent: continent, geoname_id: 3194406, population: 0)
-province.municipalities.create(description: "Poreč", region: region, country: state, continent: continent, geoname_id: 3192699, population: 10499)
-province.municipalities.create(description: "Tar", region: region, country: state, continent: continent, geoname_id: 3189204, population: 890)
-province.municipalities.create(description: "Višnjan", region: region, country: state, continent: continent, geoname_id: 3187662, population: 0)
+municipalities = [
+province.municipalities.new(description: "Nova Vas", region: region, country: state, continent: continent, geoname_id: 3194406, population: 0),
+province.municipalities.new(description: "Poreč", region: region, country: state, continent: continent, geoname_id: 3192699, population: 10499),
+province.municipalities.new(description: "Tar", region: region, country: state, continent: continent, geoname_id: 3189204, population: 890),
+province.municipalities.new(description: "Višnjan", region: region, country: state, continent: continent, geoname_id: 3187662, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Pula", country: state, continent: continent,  geoname_id: 3192222, population: 0)
-province.municipalities.create(description: "Pula", region: region, country: state, continent: continent, geoname_id: 3192224, population: 59078)
-province.municipalities.create(description: "Štinjan", region: region, country: state, continent: continent, geoname_id: 3189873, population: 0)
+municipalities = [
+province.municipalities.new(description: "Pula", region: region, country: state, continent: continent, geoname_id: 3192224, population: 59078),
+province.municipalities.new(description: "Štinjan", region: region, country: state, continent: continent, geoname_id: 3189873, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Rovinj", country: state, continent: continent,  geoname_id: 3191516, population: 0)
-province.municipalities.create(description: "Rovinj", region: region, country: state, continent: continent, geoname_id: 3191518, population: 13533)
-province.municipalities.create(description: "Rovinjsko Selo", region: region, country: state, continent: continent, geoname_id: 3191515, population: 0)
+municipalities = [
+province.municipalities.new(description: "Rovinj", region: region, country: state, continent: continent, geoname_id: 3191518, population: 13533),
+province.municipalities.new(description: "Rovinjsko Selo", region: region, country: state, continent: continent, geoname_id: 3191515, population: 0),
+]
+Municipality.import municipalities
 region = Region.create(description: "Karlovačka Županija", country: state, continent: continent, geoname_id: 3337515)
 province = region.provinces.create(description: "Grad Duga Resa", country: state, continent: continent,  geoname_id: 3201029, population: 0)
 province = region.provinces.create(description: "Grad Karlovac", country: state, continent: continent,  geoname_id: 3198257, population: 142480)
-province.municipalities.create(description: "Cerovac Vukmanicki", region: region, country: state, continent: continent, geoname_id: 7732831, population: 0)
-province.municipalities.create(description: "Gornji Zvečaj", region: region, country: state, continent: continent, geoname_id: 3199888, population: 0)
-province.municipalities.create(description: "Josipdol", region: region, country: state, continent: continent, geoname_id: 3198578, population: 998)
-province.municipalities.create(description: "Karlovac", region: region, country: state, continent: continent, geoname_id: 3198259, population: 48123)
-province.municipalities.create(description: "Ribnik", region: region, country: state, continent: continent, geoname_id: 3191677, population: 0)
-province.municipalities.create(description: "Slunj", region: region, country: state, continent: continent, geoname_id: 3190523, population: 1785)
+municipalities = [
+province.municipalities.new(description: "Cerovac Vukmanicki", region: region, country: state, continent: continent, geoname_id: 7732831, population: 0),
+province.municipalities.new(description: "Gornji Zvečaj", region: region, country: state, continent: continent, geoname_id: 3199888, population: 0),
+province.municipalities.new(description: "Josipdol", region: region, country: state, continent: continent, geoname_id: 3198578, population: 998),
+province.municipalities.new(description: "Karlovac", region: region, country: state, continent: continent, geoname_id: 3198259, population: 48123),
+province.municipalities.new(description: "Ribnik", region: region, country: state, continent: continent, geoname_id: 3191677, population: 0),
+province.municipalities.new(description: "Slunj", region: region, country: state, continent: continent, geoname_id: 3190523, population: 1785),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Ogulin", country: state, continent: continent,  geoname_id: 3194182, population: 0)
-province.municipalities.create(description: "Ogulin", region: region, country: state, continent: continent, geoname_id: 3194183, population: 8755)
+municipalities = [
+province.municipalities.new(description: "Ogulin", region: region, country: state, continent: continent, geoname_id: 3194183, population: 8755),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Ozalj", country: state, continent: continent,  geoname_id: 3193753, population: 0)
 province = region.provinces.create(description: "Grad Slunj", country: state, continent: continent,  geoname_id: 3190522, population: 0)
 province = region.provinces.create(description: "Općina Vojnić", country: state, continent: continent,  geoname_id: 3187450, population: 0)
 region = Region.create(description: "Koprivničko-Križevačka Županija", country: state, continent: continent, geoname_id: 3337518)
 province = region.provinces.create(description: "Grad Koprivnica", country: state, continent: continent,  geoname_id: 3197726, population: 0)
-province.municipalities.create(description: "Koprivnica", region: region, country: state, continent: continent, geoname_id: 3197728, population: 25579)
-province.municipalities.create(description: "Koprivnička Rijeka", region: region, country: state, continent: continent, geoname_id: 3197724, population: 0)
+municipalities = [
+province.municipalities.new(description: "Koprivnica", region: region, country: state, continent: continent, geoname_id: 3197728, population: 25579),
+province.municipalities.new(description: "Koprivnička Rijeka", region: region, country: state, continent: continent, geoname_id: 3197724, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Križevci", country: state, continent: continent,  geoname_id: 3197228, population: 0)
 province = region.provinces.create(description: "Grad Đurđevac", country: state, continent: continent,  geoname_id: 3200960, population: 0)
 region = Region.create(description: "Krapinsko-Zagorska Županija", country: state, continent: continent, geoname_id: 3337519)
 province = region.provinces.create(description: "Grad Donja Stubica", country: state, continent: continent,  geoname_id: 3201620, population: 0)
 province = region.provinces.create(description: "Grad Klanjec", country: state, continent: continent,  geoname_id: 3198102, population: 0)
 province = region.provinces.create(description: "Grad Krapina", country: state, continent: continent,  geoname_id: 3197366, population: 0)
-province.municipalities.create(description: "Krapina", region: region, country: state, continent: continent, geoname_id: 3197369, population: 4725)
-province.municipalities.create(description: "Tuhelj", region: region, country: state, continent: continent, geoname_id: 3188668, population: 0)
+municipalities = [
+province.municipalities.new(description: "Krapina", region: region, country: state, continent: continent, geoname_id: 3197369, population: 4725),
+province.municipalities.new(description: "Tuhelj", region: region, country: state, continent: continent, geoname_id: 3188668, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Zabok", country: state, continent: continent,  geoname_id: 3186983, population: 0)
 province = region.provinces.create(description: "Grad Zlatar", country: state, continent: continent,  geoname_id: 3186405, population: 0)
 region = Region.create(description: "Ličko-Senjska Županija", country: state, continent: continent, geoname_id: 3337520)
@@ -322,9 +376,12 @@ province = region.provinces.create(description: "Grad Beli Manastir", country: s
 province = region.provinces.create(description: "Grad Donji Miholjac", country: state, continent: continent,  geoname_id: 3201431, population: 10000)
 province = region.provinces.create(description: "Grad Našice", country: state, continent: continent,  geoname_id: 3194580, population: 0)
 province = region.provinces.create(description: "Grad Osijek", country: state, continent: continent,  geoname_id: 3193934, population: 0)
-province.municipalities.create(description: "Bilje", region: region, country: state, continent: continent, geoname_id: 3204145, population: 3282)
-province.municipalities.create(description: "Karanac", region: region, country: state, continent: continent, geoname_id: 3198286, population: 1070)
-province.municipalities.create(description: "Osijek", region: region, country: state, continent: continent, geoname_id: 3193935, population: 88140)
+municipalities = [
+province.municipalities.new(description: "Bilje", region: region, country: state, continent: continent, geoname_id: 3204145, population: 3282),
+province.municipalities.new(description: "Karanac", region: region, country: state, continent: continent, geoname_id: 3198286, population: 1070),
+province.municipalities.new(description: "Osijek", region: region, country: state, continent: continent, geoname_id: 3193935, population: 88140),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Valpovo", country: state, continent: continent,  geoname_id: 3188394, population: 0)
 province = region.provinces.create(description: "Grad Đakovo", country: state, continent: continent,  geoname_id: 3202219, population: 0)
 region = Region.create(description: "Požeško-Slavonska Županija", country: state, continent: continent, geoname_id: 3337523)
@@ -332,21 +389,39 @@ province = region.provinces.create(description: "Grad Pakrac", country: state, c
 province = region.provinces.create(description: "Grad Požega", country: state, continent: continent,  geoname_id: 3190588, population: 0)
 region = Region.create(description: "Primorsko-Goranska Županija", country: state, continent: continent, geoname_id: 3337524)
 province = region.provinces.create(description: "Grad Crikvenica", country: state, continent: continent,  geoname_id: 3202506, population: 0)
-province.municipalities.create(description: "Crikvenica", region: region, country: state, continent: continent, geoname_id: 3202507, population: 7156)
-province.municipalities.create(description: "Dramalj", region: region, country: state, continent: continent, geoname_id: 7870346, population: 0)
-province.municipalities.create(description: "Jadranovo", region: region, country: state, continent: continent, geoname_id: 3198964, population: 1154)
+municipalities = [
+province.municipalities.new(description: "Crikvenica", region: region, country: state, continent: continent, geoname_id: 3202507, population: 7156),
+province.municipalities.new(description: "Dramalj", region: region, country: state, continent: continent, geoname_id: 7870346, population: 0),
+province.municipalities.new(description: "Jadranovo", region: region, country: state, continent: continent, geoname_id: 3198964, population: 1154),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Delnice", country: state, continent: continent,  geoname_id: 3202102, population: 0)
-province.municipalities.create(description: "Delnice", region: region, country: state, continent: continent, geoname_id: 3202104, population: 4473)
+municipalities = [
+province.municipalities.new(description: "Delnice", region: region, country: state, continent: continent, geoname_id: 3202104, population: 4473),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Krk", country: state, continent: continent,  geoname_id: 3197207, population: 0)
-province.municipalities.create(description: "Krk", region: region, country: state, continent: continent, geoname_id: 3197208, population: 3380)
+municipalities = [
+province.municipalities.new(description: "Krk", region: region, country: state, continent: continent, geoname_id: 3197208, population: 3380),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Opatija", country: state, continent: continent,  geoname_id: 3194097, population: 0)
-province.municipalities.create(description: "Ičići", region: region, country: state, continent: continent, geoname_id: 3199174, population: 0)
-province.municipalities.create(description: "Opatija", region: region, country: state, continent: continent, geoname_id: 3194099, population: 7888)
+municipalities = [
+province.municipalities.new(description: "Ičići", region: region, country: state, continent: continent, geoname_id: 3199174, population: 0),
+province.municipalities.new(description: "Opatija", region: region, country: state, continent: continent, geoname_id: 3194099, population: 7888),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Rijeka", country: state, continent: continent,  geoname_id: 3191647, population: 0)
-province.municipalities.create(description: "Rijeka", region: region, country: state, continent: continent, geoname_id: 3189469, population: 0)
+municipalities = [
+province.municipalities.new(description: "Rijeka", region: region, country: state, continent: continent, geoname_id: 3189469, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Vrbovsko", country: state, continent: continent,  geoname_id: 3187256, population: 0)
 province = region.provinces.create(description: "Grad Čabar", country: state, continent: continent,  geoname_id: 3202931, population: 0)
-province.municipalities.create(description: "Dobrinj", region: region, country: state, continent: continent, geoname_id: 3201934, population: 0)
+municipalities = [
+province.municipalities.new(description: "Dobrinj", region: region, country: state, continent: continent, geoname_id: 3201934, population: 0),
+]
+Municipality.import municipalities
 region = Region.create(description: "Sisačko-Moslavačka Županija", country: state, continent: continent, geoname_id: 3337526)
 province = region.provinces.create(description: "Grad Glina", country: state, continent: continent,  geoname_id: 3200597, population: 0)
 province = region.provinces.create(description: "Grad Hrvatska Kostajnica", country: state, continent: continent,  geoname_id: 3197593, population: 0)
@@ -354,43 +429,70 @@ province = region.provinces.create(description: "Grad Kutina", country: state, c
 province = region.provinces.create(description: "Grad Novska", country: state, continent: continent,  geoname_id: 3194318, population: 0)
 province = region.provinces.create(description: "Grad Petrinja", country: state, continent: continent,  geoname_id: 3193419, population: 0)
 province = region.provinces.create(description: "Grad Sisak", country: state, continent: continent,  geoname_id: 3190812, population: 0)
-province.municipalities.create(description: "Krapje", region: region, country: state, continent: continent, geoname_id: 3197363, population: 0)
-province.municipalities.create(description: "Sisak", region: region, country: state, continent: continent, geoname_id: 3190813, population: 35748)
+municipalities = [
+province.municipalities.new(description: "Krapje", region: region, country: state, continent: continent, geoname_id: 3197363, population: 0),
+province.municipalities.new(description: "Sisak", region: region, country: state, continent: continent, geoname_id: 3190813, population: 35748),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Općina Dvor", country: state, continent: continent,  geoname_id: 3200915, population: 0)
 province = region.provinces.create(description: "Općina Gvozd", country: state, continent: continent,  geoname_id: 3187231, population: 0)
 region = Region.create(description: "Splitsko-Dalmatinska Županija", country: state, continent: continent, geoname_id: 3337527)
 province = region.provinces.create(description: "Dugi Rat Općina", country: state, continent: continent,  geoname_id: 9076752, population: 7305)
 province = region.provinces.create(description: "Grad Hvar", country: state, continent: continent,  geoname_id: 3199178, population: 0)
-province.municipalities.create(description: "Hvar", region: region, country: state, continent: continent, geoname_id: 3199180, population: 3690)
+municipalities = [
+province.municipalities.new(description: "Hvar", region: region, country: state, continent: continent, geoname_id: 3199180, population: 3690),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Imotski", country: state, continent: continent,  geoname_id: 3199110, population: 0)
 province = region.provinces.create(description: "Grad Makarska", country: state, continent: continent,  geoname_id: 3195888, population: 0)
-province.municipalities.create(description: "Makarska", region: region, country: state, continent: continent, geoname_id: 3195890, population: 13446)
+municipalities = [
+province.municipalities.new(description: "Makarska", region: region, country: state, continent: continent, geoname_id: 3195890, population: 13446),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Omiš", country: state, continent: continent,  geoname_id: 3194113, population: 0)
-province.municipalities.create(description: "Lokva Rogoznica", region: region, country: state, continent: continent, geoname_id: 3214741, population: 0)
-province.municipalities.create(description: "Mimice", region: region, country: state, continent: continent, geoname_id: 8063832, population: 0)
-province.municipalities.create(description: "Nemira", region: region, country: state, continent: continent, geoname_id: 8643047, population: 0)
-province.municipalities.create(description: "Omiš", region: region, country: state, continent: continent, geoname_id: 3194114, population: 6597)
-province.municipalities.create(description: "Pisak", region: region, country: state, continent: continent, geoname_id: 3193328, population: 0)
-province.municipalities.create(description: "Ravnice", region: region, country: state, continent: continent, geoname_id: 3191823, population: 0)
-province.municipalities.create(description: "Stanići", region: region, country: state, continent: continent, geoname_id: 8643049, population: 0)
-province.municipalities.create(description: "Tice", region: region, country: state, continent: continent, geoname_id: 3214753, population: 0)
-province.municipalities.create(description: "Čelina", region: region, country: state, continent: continent, geoname_id: 3214748, population: 0)
+municipalities = [
+province.municipalities.new(description: "Lokva Rogoznica", region: region, country: state, continent: continent, geoname_id: 3214741, population: 0),
+province.municipalities.new(description: "Mimice", region: region, country: state, continent: continent, geoname_id: 8063832, population: 0),
+province.municipalities.new(description: "Nemira", region: region, country: state, continent: continent, geoname_id: 8643047, population: 0),
+province.municipalities.new(description: "Omiš", region: region, country: state, continent: continent, geoname_id: 3194114, population: 6597),
+province.municipalities.new(description: "Pisak", region: region, country: state, continent: continent, geoname_id: 3193328, population: 0),
+province.municipalities.new(description: "Ravnice", region: region, country: state, continent: continent, geoname_id: 3191823, population: 0),
+province.municipalities.new(description: "Stanići", region: region, country: state, continent: continent, geoname_id: 8643049, population: 0),
+province.municipalities.new(description: "Tice", region: region, country: state, continent: continent, geoname_id: 3214753, population: 0),
+province.municipalities.new(description: "Čelina", region: region, country: state, continent: continent, geoname_id: 3214748, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Sinj", country: state, continent: continent,  geoname_id: 3190864, population: 0)
-province.municipalities.create(description: "Povlja", region: region, country: state, continent: continent, geoname_id: 3192623, population: 0)
+municipalities = [
+province.municipalities.new(description: "Povlja", region: region, country: state, continent: continent, geoname_id: 3192623, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Split", country: state, continent: continent,  geoname_id: 3190259, population: 0)
-province.municipalities.create(description: "Slatine", region: region, country: state, continent: continent, geoname_id: 3190610, population: 1000)
-province.municipalities.create(description: "Split", region: region, country: state, continent: continent, geoname_id: 3190261, population: 176314)
-province.municipalities.create(description: "Stobreč", region: region, country: state, continent: continent, geoname_id: 3189844, population: 5866)
-province.municipalities.create(description: "Stomorska", region: region, country: state, continent: continent, geoname_id: 3189812, population: 0)
-province.municipalities.create(description: "Sućuraj", region: region, country: state, continent: continent, geoname_id: 3189587, population: 0)
+municipalities = [
+province.municipalities.new(description: "Slatine", region: region, country: state, continent: continent, geoname_id: 3190610, population: 1000),
+province.municipalities.new(description: "Split", region: region, country: state, continent: continent, geoname_id: 3190261, population: 176314),
+province.municipalities.new(description: "Stobreč", region: region, country: state, continent: continent, geoname_id: 3189844, population: 5866),
+province.municipalities.new(description: "Stomorska", region: region, country: state, continent: continent, geoname_id: 3189812, population: 0),
+province.municipalities.new(description: "Sućuraj", region: region, country: state, continent: continent, geoname_id: 3189587, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Supetar", country: state, continent: continent,  geoname_id: 3203595, population: 0)
-province.municipalities.create(description: "Mirca", region: region, country: state, continent: continent, geoname_id: 3195055, population: 0)
+municipalities = [
+province.municipalities.new(description: "Mirca", region: region, country: state, continent: continent, geoname_id: 3195055, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Trogir", country: state, continent: continent,  geoname_id: 3188762, population: 0)
-province.municipalities.create(description: "Mastrinka", region: region, country: state, continent: continent, geoname_id: 3215309, population: 0)
-province.municipalities.create(description: "Trogir", region: region, country: state, continent: continent, geoname_id: 3188763, population: 10960)
-province.municipalities.create(description: "Žedno", region: region, country: state, continent: continent, geoname_id: 3186632, population: 0)
+municipalities = [
+province.municipalities.new(description: "Mastrinka", region: region, country: state, continent: continent, geoname_id: 3215309, population: 0),
+province.municipalities.new(description: "Trogir", region: region, country: state, continent: continent, geoname_id: 3188763, population: 10960),
+province.municipalities.new(description: "Žedno", region: region, country: state, continent: continent, geoname_id: 3186632, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Vis", country: state, continent: continent,  geoname_id: 3187684, population: 0)
-province.municipalities.create(description: "Vis", region: region, country: state, continent: continent, geoname_id: 3187685, population: 1785)
+municipalities = [
+province.municipalities.new(description: "Vis", region: region, country: state, continent: continent, geoname_id: 3187685, population: 1785),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Vrgorac", country: state, continent: continent,  geoname_id: 3187229, population: 0)
 region = Region.create(description: "Varaždinska Županija", country: state, continent: continent, geoname_id: 3337528)
 province = region.provinces.create(description: "Grad Ivanec", country: state, continent: continent,  geoname_id: 3199075, population: 0)
@@ -401,7 +503,10 @@ region = Region.create(description: "Virovitičko-Podravska Županija", country:
 province = region.provinces.create(description: "Grad Orahovica", country: state, continent: continent,  geoname_id: 3194063, population: 0)
 province = region.provinces.create(description: "Grad Slatina", country: state, continent: continent,  geoname_id: 3192931, population: 0)
 province = region.provinces.create(description: "Grad Virovitica", country: state, continent: continent,  geoname_id: 3187693, population: 0)
-province.municipalities.create(description: "Virovitica", region: region, country: state, continent: continent, geoname_id: 3187694, population: 15665)
+municipalities = [
+province.municipalities.new(description: "Virovitica", region: region, country: state, continent: continent, geoname_id: 3187694, population: 15665),
+]
+Municipality.import municipalities
 region = Region.create(description: "Vukovarsko-Srijemska Županija", country: state, continent: continent, geoname_id: 3337529)
 province = region.provinces.create(description: "Grad Vinkovci", country: state, continent: continent,  geoname_id: 3187718, population: 0)
 province = region.provinces.create(description: "Grad Vukovar", country: state, continent: continent,  geoname_id: 3187046, population: 0)
@@ -413,29 +518,44 @@ region = Region.create(description: "Zagreb County", country: state, continent: 
 province = region.provinces.create(description: "Grad Dugo Selo", country: state, continent: continent,  geoname_id: 3201007, population: 0)
 province = region.provinces.create(description: "Grad Jastrebarsko", country: state, continent: continent,  geoname_id: 3198798, population: 0)
 province = region.provinces.create(description: "Grad Samobor", country: state, continent: continent,  geoname_id: 3191315, population: 0)
-province.municipalities.create(description: "Samobor", region: region, country: state, continent: continent, geoname_id: 3191316, population: 15221)
+municipalities = [
+province.municipalities.new(description: "Samobor", region: region, country: state, continent: continent, geoname_id: 3191316, population: 15221),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Sveti Ivan Zelina", country: state, continent: continent,  geoname_id: 3186602, population: 0)
 province = region.provinces.create(description: "Grad Velika Gorica", country: state, continent: continent,  geoname_id: 3188243, population: 0)
-province.municipalities.create(description: "Velika Gorica", region: region, country: state, continent: continent, geoname_id: 3188244, population: 35072)
+municipalities = [
+province.municipalities.new(description: "Velika Gorica", region: region, country: state, continent: continent, geoname_id: 3188244, population: 35072),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Vrbovec", country: state, continent: continent,  geoname_id: 3187264, population: 4862)
-province.municipalities.create(description: "Vrbovec", region: region, country: state, continent: continent, geoname_id: 3187265, population: 4886)
+municipalities = [
+province.municipalities.new(description: "Vrbovec", region: region, country: state, continent: continent, geoname_id: 3187265, population: 4886),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Grad Zaprešić", country: state, continent: continent,  geoname_id: 3186780, population: 0)
 province = region.provinces.create(description: "Ivanić-Grad", country: state, continent: continent,  geoname_id: 3199068, population: 0)
-province.municipalities.create(description: "Graberje Ivanićko", region: region, country: state, continent: continent, geoname_id: 3199828, population: 0)
-province.municipalities.create(description: "Ivanić-Grad", region: region, country: state, continent: continent, geoname_id: 3199069, population: 0)
+municipalities = [
+province.municipalities.new(description: "Graberje Ivanićko", region: region, country: state, continent: continent, geoname_id: 3199828, population: 0),
+province.municipalities.new(description: "Ivanić-Grad", region: region, country: state, continent: continent, geoname_id: 3199069, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Općina Dubrava", country: state, continent: continent,  geoname_id: 8260123, population: 0)
 region = Region.create(description: "Šibensko-Kninska Županija", country: state, continent: continent, geoname_id: 3337525)
 province = region.provinces.create(description: "Grad Drniš", country: state, continent: continent,  geoname_id: 3201161, population: 0)
 province = region.provinces.create(description: "Grad Šibenik", country: state, continent: continent,  geoname_id: 3190938, population: 0)
-province.municipalities.create(description: "Betina", region: region, country: state, continent: continent, geoname_id: 3204251, population: 0)
-province.municipalities.create(description: "Brodarica", region: region, country: state, continent: continent, geoname_id: 3213267, population: 2366)
-province.municipalities.create(description: "Grebaštica", region: region, country: state, continent: continent, geoname_id: 3199613, population: 897)
-province.municipalities.create(description: "Lozovac", region: region, country: state, continent: continent, geoname_id: 3196145, population: 0)
-province.municipalities.create(description: "Pirovac", region: region, country: state, continent: continent, geoname_id: 3193331, population: 1616)
-province.municipalities.create(description: "Prvić Luka", region: region, country: state, continent: continent, geoname_id: 3192257, population: 190)
-province.municipalities.create(description: "Ražanj", region: region, country: state, continent: continent, geoname_id: 3213284, population: 0)
-province.municipalities.create(description: "Tisno", region: region, country: state, continent: continent, geoname_id: 3189120, population: 1384)
-province.municipalities.create(description: "Zaboric", region: region, country: state, continent: continent, geoname_id: 8261470, population: 0)
-province.municipalities.create(description: "Šibenik", region: region, country: state, continent: continent, geoname_id: 3190941, population: 37112)
-province.municipalities.create(description: "Žirje", region: region, country: state, continent: continent, geoname_id: 3186448, population: 0)
+municipalities = [
+province.municipalities.new(description: "Betina", region: region, country: state, continent: continent, geoname_id: 3204251, population: 0),
+province.municipalities.new(description: "Brodarica", region: region, country: state, continent: continent, geoname_id: 3213267, population: 2366),
+province.municipalities.new(description: "Grebaštica", region: region, country: state, continent: continent, geoname_id: 3199613, population: 897),
+province.municipalities.new(description: "Lozovac", region: region, country: state, continent: continent, geoname_id: 3196145, population: 0),
+province.municipalities.new(description: "Pirovac", region: region, country: state, continent: continent, geoname_id: 3193331, population: 1616),
+province.municipalities.new(description: "Prvić Luka", region: region, country: state, continent: continent, geoname_id: 3192257, population: 190),
+province.municipalities.new(description: "Ražanj", region: region, country: state, continent: continent, geoname_id: 3213284, population: 0),
+province.municipalities.new(description: "Tisno", region: region, country: state, continent: continent, geoname_id: 3189120, population: 1384),
+province.municipalities.new(description: "Zaboric", region: region, country: state, continent: continent, geoname_id: 8261470, population: 0),
+province.municipalities.new(description: "Šibenik", region: region, country: state, continent: continent, geoname_id: 3190941, population: 37112),
+province.municipalities.new(description: "Žirje", region: region, country: state, continent: continent, geoname_id: 3186448, population: 0),
+]
+Municipality.import municipalities
 province = region.provinces.create(description: "Rogoznica Općina", country: state, continent: continent,  geoname_id: 9076750, population: 2391)
