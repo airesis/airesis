@@ -1,22 +1,22 @@
-before_install:
-  - sh -e /etc/init.d/xvfb start
-  - which qmake
+sudo: false
 language: ruby
 cache: bundler
-sudo: false
-bundler_args: --without production
+bundler_args: --without production -j3 --deployment
 before_script:
+ - "sh -e /etc/init.d/xvfb start"
  - curl https://raw.githubusercontent.com/moliware/travis-solr/master/travis-solr.sh | SOLR_VERSION=4.2.0 bash
  - cp config/database.example.yml config/database.yml
- - sed /AWS_HOST/d config/application.example.yml > config/application.yml
+ - cp config/application.example.yml config/application.yml
+ - cp config/sunspot.example.yml config/sunspot.yml
+ - cp config/sidekiq.example.yml config/sidekiq.yml
  - bundle exec rake db:setup
  - bundle exec sidekiq -d -L /tmp/sidekiq.log
- - sleep 1
+ - sleep 3
+script: bundle exec rspec --tag ~ci_ignore
 after_failure:
  - cat log/test.log
 services:
  - redis-server
-script: bundle exec rspec --tag ~ci_ignore
 env:
   global:
     - DISPLAY=:99.0
@@ -25,7 +25,10 @@ env:
 addons:
   apt:
     sources:
-    - ubuntu-sdk-team
+      - ubuntu-sdk-team
     packages:
       - libqt5webkit5-dev
-      - qtdeclarative5-dev
+      - qt5-default
+      - gstreamer1.0-plugins-base
+      - gstreamer1.0-tools
+      - gstreamer1.0-x
