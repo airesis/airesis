@@ -16,7 +16,7 @@ development:
 
 test:
   solr:
-    hostname: <%= ENV['SOLR_PORT'] %>
+    hostname: <%= ENV['SOLR_HOST'] %>
     port: <%= ENV['SOLR_PORT'] %>
     log_level: WARNING
     path: /solr/test
