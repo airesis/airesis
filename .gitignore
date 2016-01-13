@@ -29,3 +29,4 @@ solr
 bin/alwaysdata
 config/secrets.yml
 .ruby-gemset
+*.pid
