@@ -21,9 +21,10 @@ GIT
 
 GIT
   remote: https://github.com/coorasse/schulze-vote
-  revision: e9270191e32378b3d66e14d26912459edf7c34ca
+  revision: 0f47cbbe6c1e0020369fb6071a1a73bf93bbf7f7
+  ref: 0f47cbb
   specs:
-    schulze-vote (2.0.6)
+    vote-schulze (0.2.0)
 
 GIT
   remote: https://github.com/coorasse/timezone
@@ -718,7 +719,6 @@ DEPENDENCIES
   rvm1-capistrano3
   sanitize
   sass-rails
-  schulze-vote!
   sdoc
   select2-rails
   selenium-webdriver
@@ -749,6 +749,7 @@ DEPENDENCIES
   turnout
   uglifier
   uri-js-rails
+  vote-schulze!
   wicked_pdf
   workflow
 
