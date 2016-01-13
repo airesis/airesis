@@ -16,12 +16,12 @@ install:
 
 before_script:
   - cp config/database.example.yml config/database.yml
-  - cp config/application.example.yml config/application.yml
+  - sed /AWS_HOST/d config/application.example.yml > config/application.yml
   - cp config/sunspot.example.yml config/sunspot.yml
   - cp config/sidekiq.example.yml config/sidekiq.yml
-  - docker-compose -f docker-compose.yml -f docker-compose.test.yml run airesis bundle exec rake db:setup
+  - docker-compose -f docker-compose.yml -f docker-compose.travis.yml run airesis bundle exec rake db:setup
 
-script: docker-compose -f docker-compose.yml -f docker-compose.test.yml run airesis
+script: docker-compose -f docker-compose.yml -f docker-compose.travis.yml run airesis
 
 env:
   global:
