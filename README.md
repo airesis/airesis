@@ -33,14 +33,14 @@ Absolutely simple and intuitive interface will allow everyone in a short time, t
 
 Reference website
 -------
-* [ www.airesis.it ] ( http://www.airesis.it )
-* [ www.airesis.eu ] ( http://www.airesis.eu )
-* [ www.airesis.us ] ( http://www.airesis.us )
-* [ www.airesis.fr ] ( http://www.airesis.fr )
-* [ www.airesis.de ] ( http://www.airesis.de )
-* [ www.airesis.cn ] ( http://www.airesis.cn )
-* [ www.airesis.es ] ( http://www.airesis.es )
-* [ www.airesis.pt ] ( http://www.airesis.pt )
+* [ www.airesis.it ] ( https://www.airesis.it )
+* [ www.airesis.eu ] ( https://www.airesis.eu )
+* [ www.airesis.us ] ( https://www.airesis.us )
+* [ www.airesis.fr ] ( https://www.airesis.fr )
+* [ www.airesis.de ] ( https://www.airesis.de )
+* [ www.airesis.cn ] ( https://www.airesis.cn )
+* [ www.airesis.es ] ( https://www.airesis.es )
+* [ www.airesis.pt ] ( https://www.airesis.pt )
 
 
 License
@@ -52,7 +52,7 @@ For the terms of the license can be found in the LICENSE file available within t
 
 Anyone which installs the application and is required to comply with the terms of the license and to incorporate in the footer of the website the following statement:
 
-Powered by <a href="http://www.airesis.eu"> Airesis - The Social Network for eDemocracy </a>
+Powered by <a href="https://www.airesis.eu"> Airesis - The Social Network for eDemocracy </a>
 
 
 Installation and Setup
@@ -208,7 +208,7 @@ To generate other fake data look at `spec/factories` folder.
 ###Using Docker
 You can run all the previous command if you use Docker. Juste prefix them with `docker-compose run --rm airesis` to run them in the airesis container.
 
-Fo instance
+For instance
 ```
 docker-compose run --rm airesis bundle exec rake airesis:seed:more:public_proposals[number]
 ```
@@ -221,7 +221,7 @@ Look at `application.example.yml` for a detailed explanation of each environment
 Internationalization
 --------------------
 
-http://wiki.airesis.eu/doku.php?id=en:internationalization
+See [this wiki page](https://wiki.airesis.eu/doku.php?id=en:internationalization) for information on how to configure the language of the application
 
 What else should I know? What are we working on right now?
 ------------------
@@ -243,6 +243,6 @@ Alessandro Rodi ( [ coorasse@gmail.com ] (mailto: coorasse@gmail.com ) )
 
 Contributors
 ------------------
-[ List of Contributors to the project Airesis ] ( http://www.airesis.it/chisiamo )
+[ List of Contributors to the project Airesis ] ( https://www.airesis.it/chisiamo )
 
 [ Tecnologie Democratiche Association  ] ( http://www.tecnologiedemocratiche.it )
