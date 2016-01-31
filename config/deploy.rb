@@ -7,7 +7,7 @@ set :deploy_to, '~/airesis_capistrano'
 
 set :rails_env, 'production'
 
-set :linked_files, %w(config/application.yml config/database.yml config/private_pub.yml config/sunspot.yml .htaccess)
+set :linked_files, %w(config/application.yml config/database.yml config/private_pub.yml config/sidekiq.yml config/sunspot.yml .htaccess)
 
 set :linked_dirs, %w(bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets solr private/elfinder public/ckeditor_assets)
 

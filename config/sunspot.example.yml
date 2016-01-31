@@ -9,14 +9,14 @@ production:
 
 development:
   solr:
-    hostname: localhost
-    port: 8982
+    hostname: <%= ENV['SOLR_HOST'] %>
+    port: <%= ENV['SOLR_PORT'] %>
     log_level: INFO
     path: /solr/development
 
 test:
   solr:
-    hostname: localhost
-    port: 8981
+    hostname: <%= ENV['SOLR_HOST'] %>
+    port: <%= ENV['SOLR_PORT'] %>
     log_level: WARNING
     path: /solr/test

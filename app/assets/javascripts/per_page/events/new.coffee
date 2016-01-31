@@ -7,7 +7,7 @@ window.EventsNew =
       autoFocus: true
       labels: {
         previous: '<i class="fa fa-arrow-left"></i>' + Airesis.i18n.buttons.goBack
-        next: '<i class="fa fa-arrow-right"></i>' + Airesis.i18n.buttons.next
+        next: Airesis.i18n.buttons.next + '<i class="fa fa-arrow-right"></i>'
         finish: Airesis.i18n.buttons.eventsFinish
       }
       onStepChanging: (e, currentIndex, newIndex)->

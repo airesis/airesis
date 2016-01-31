@@ -535,7 +535,6 @@ me-ME:
         report_description: 'Možete ukazati web masteru da ovaj doprinos krši trenutno važeće zakone. <br/> Nakon ustanovljavanja kršenja, doprinos će biti uklonjen. Nemojte zloupotrebljavati ovu alatku.'
       vote_panel:
         title: Glasajte!
-        schulze_title: 'Postoji nekoliko rješenja za ovaj prijedlog.<br> Uredite ih prema vašim prioritetima <br>od 1 (ne dopada mi se) do %{max} (zaista mi se dopada)'
         secret_vote: Vaš glas je tajan i nećete moći da ga obnovite ili izmjenite kada ga izrazite.
         clear_vote: Vaš glas je zabilježen i, dakle, biće proverljiv.
         single_title: Ovaj prijedlog ima samo jedno rješenje. Iskažite svoje mišljenje!

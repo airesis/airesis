@@ -542,7 +542,6 @@ sr-CS:
         report_description: 'Možete ukazati veb-masteru da ovaj doprinos krši trenutno važeće zakone. <br/> Nakon ustanovljavanja kršenja, doprinos će biti uklonjen. Nemojte zloupotrebljavati ovu alatku.'
       vote_panel:
         title: Glasajte!
-        schulze_title: 'Postoji nekoliko rešenja za ovaj predlog.<br> Uredite ih prema vašim prioritetima <br>od 1 (ne dopada mi se) do %{max} (zaista mi se dopada)'
         secret_vote: Vaš glas je tajan i nećete moći da ga obnovite ili izmenite kada ga izrazite.
         clear_vote: Vaš glas je zabeležen i, dakle, biće proverljiv.
         single_title: Ovaj predlog ima samo jedno rešenje. Iskažite svoje mišljenje!
