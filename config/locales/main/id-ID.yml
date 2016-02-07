@@ -75,7 +75,6 @@ id-ID:
         show_urls: Tampilkan URL Facebook, Google+ dan LinkedIn ke pengguna
         private_messages: Menerima pesan dari pengguna lain
         join_accounts: Gabungkan akun lain
-        join_accounts_description: 'Di Airesis, Anda memiliki kemampuan untuk menghubungkan semua Jejaring Sosial Anda ke satu akun. <br/> Pilih penyedia yang ingin dihubungkan dan Anda akan selalu dapat mengakses akun yang sama dari Facebook, Google, Twitter, dan lebih banyak lagi!'
         joined_all: Anda telah menggabungkan semua penyedia yang ada. Terima kasih!
         join_facebook: Gabungkan akun Facebook Anda
         join_google: Gabungkan akun Google Anda
@@ -258,7 +257,6 @@ id-ID:
       edit_work_areas:
         index:
           not_enabled: Area kerja tidak diaktifkan
-          description: Airesis memungkinkan Anda mengatur area kerja berbeda di dalam grup.
           description2: Dengan fitur ini, Anda dapat mengatur peserta dan peran mereka dengan lebih baik.
           description3: Hati-hati! Ini fitur lanjutan, dirancang hanya untuk grup yang lebih besar dan pengguna ahli.
           description4: 'Sebelum mengaktifkan area kerja, periksa apakah Anda dapat mengatur anggota grup yang langsung menggunakan '
@@ -488,13 +486,7 @@ id-ID:
         title_placeholder: 'Contoh: "Memfasilitasi transportasi sepeda di kereta api"'
         interest_borders_tkn_placeholder: Kota, Wilayah atau Negara Bagian yang diminati proposal ini
         tags_list_placeholder: Masukkan beberapa label untuk proposal Anda
-        step_1_title: 'Anda dapat mengajukan masalah untuk diselesaikan, ide-ide untuk meningkatkan, inisiatif untuk mengatur... Yang penting adalah memiliki tujuan yang jelas: Airesis akan membantu Anda mencapainya dengan bantuan orang lain, melalui proses penyelesaian masalah bersama.'
         step_2_title: 'Mungkin seseorang telah membuat proposal serupa: lihat di bawah dan jangan membuat proposal ini untuk menghindari duplikasi. Bergabung memberi kekuatan kepada ide-ide Anda! Dengan mengeklik judulnya, proposal akan dibuka di tab baru.'
-        step_4_title: 'Sempurna! Pilih opsi Anda dan klik "Buat proposal ini" untuk menyelesaikan panduan ini. Proposal Anda akan dimasukakn ke Airesis dan Anda akan dapat menambah informasi lebih lanjut ketika Anda menginginkannya.'
-        step_4_footer_html: |
-          Airesis akan membantu Anda mencapai tujuan Anda melalui penyelesaian masalah bersama: pengguna akan mengusulkan modifikasi dan kontribusi untuk teks Anda dan <b>Anda yang menentukan</b> untuk memasukkan yang paling disukai.<br/>
-          Jika Anda tidak melakukannya, proposal Anda tidak akan masuk ke tahap voting.<br/>
-          Semoga berhasil dan jangan takut: Anda dapat dibantu orang lain dalam tugas Anda.
         category_prompt: --Pilih satu kategori--
         tags_separated_by_comma: (dipisahkan oleh koma)
         cannot_add_proposal_in_work_area: Anda tidak memiliki hak izin yang dibutuhkan untuk menambah proposal ini ke area mana pun
@@ -543,7 +535,6 @@ id-ID:
         report_description: 'Anda dapat menunjukkan ke master web bahwa kontribusi ini melanggar hukum yang berlaku saat ini. <br/> Setelah pelanggaran dipastikan, kontribusi ini akan dihapus. Jangan menyalahgunakan perangkat ini.'
       vote_panel:
         title: Berikan voting Anda!
-        schulze_title: 'Ada beberapa solusi untuk proposal ini.<br> Urutkan mereka berdasarkan pilihan Anda <br>dari 1 (tidak suka) hingga %{max} (sangat suka)'
         secret_vote: Vote Anda rahasia dan Anda tidak akan bisa mendapatkannya kembali atau mengubahnya begitu diberikan.
         clear_vote: Vote Anda dicatat dan oleh karenanya, akan dapat diverifikasi.
         single_title: Dalam proposal ini, hanya ada satu solusi. Berikan pendapat Anda!
@@ -565,14 +556,6 @@ id-ID:
         you_know_what_you_do: Apakah Anda tahu yang Anda akan lakukan?
         schulze_title: Satu solusi atau lebih?
         inserted_contributes: Tandatangani kontribusi yang Anda masukkan ke dalam revisi ini
-        more_solutions_explained_html: |
-          <b>Kenapa kami bertanya apakah Anda tahu yang akan Anda lakukan?</b><br/>
-          Airesis memungkinkan Anda menambah satu solusi atau lebih ke dalam sebuah proposal.<br/>
-          Jika hanya ada satu solusi, dalam tahap voting, peserta akan memiliki opsi untuk menyetujui atau menolak teks yang telah dibuat drafnya.<br/>
-          Jika ada lebih dari satu solusi, voting akan berbeda dan setiap peserta akan dapat memberi voting dengan menggunakan metode Schulze.<br/>
-          Jika Anda mencoba membuat draf ringkasan dari suatu masalah dan Anda ingin teks berbagi, <b>jangan membuat solusi alternatif</b>!<br/>
-          Jika, sebaliknya, Anda mencari pol atau Anda menginginkan alternatif yang tidak dapat dimasukkan ke solusi pertama, silakan melanjutkan.<br/>
-          Ingat, sebelum debat berakhir, Anda akan dapat menambah atau menghapus solusi, memodifikasi metode voting yang digunakan.
         paragraph: Paragraf
         confirm_paragraph_deletion: Yakin Anda ingin menghapus paragraf ini?
         confirm_solution_deletion: Yakin Anda ingin menghapus solusi ini?
@@ -689,8 +672,6 @@ id-ID:
       published_button: Tulisan yang telah diterbitkan
       view:
         comments: 'Komentar (%{count})'
-      index:
-        title: Tulisan terakhir di Airesis
       edit:
         title: Sunting tulisan ini
       archives:
@@ -869,7 +850,6 @@ id-ID:
         newdescription5: Jika menurut Anda debat harus berlanjut, gunakan tombol ini
         newdescription6: Ketika teks proposal akan diperbarui, Anda akan dapat mengubah evaluasi Anda
       welcome:
-        title_html: '<b>Selamat datang di Airesis, %{user}</b><br/>'
         description_html: |
           Tutorial singkat ini akan membantu Anda dalam beberapa pilihan pertama di dalam platform ini.<br/>
           Ini desktop Anda: di sini, Anda akan menemukan semua informasi yang Anda butuhkan untuk berhubungan dengan wilayah Anda.<br/>

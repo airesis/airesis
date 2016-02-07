@@ -1385,13 +1385,15 @@ ul, ol {
     margin-top: -1px;
     line-height: 1.3rem;
     vertical-align: middle;
-    margin-left: -10px;
     a {
       display: inline-block;
       border-radius: 20px;
       padding: 3px 10px 3px 10px;
       &.sel {
         background-color: rgba(255, 255, 255, 0.3);
+      }
+      .fa {
+        font-size: 1.3rem;
       }
     }
     @media #{$medium-up} {
@@ -2515,10 +2517,20 @@ input[type=file] {
   }
 }
 
+.fa.fv-control-feedback {
+  top: 26px;
+  right: 0;
+}
+
 .fv-has-success {
   .fa.fv-control-feedback {
     color: green;
   }
+}
+
+.fa.fa-arrow-right {
+  margin-left: 5px;
+  margin-right: 0px;
 }
 
 .top-bar.expanded {
@@ -2529,6 +2541,12 @@ input[type=file] {
   ul {
     &.left {
       width: auto;
+      @media #{$small-only} {
+        width: 50%;
+        input {
+          width: 110px;
+        }
+      }
       li {
         float: left;
       }
@@ -2539,6 +2557,9 @@ input[type=file] {
     }
     &.right {
       width: auto;
+      @media #{$small-only} {
+      width: 50%;
+      }
       li {
         float: left;
         a {
@@ -2902,14 +2923,7 @@ ul.social-network {
 }
 
 @media #{$small-only} {
-  #proposals-tabs {
-    dd {
-      width: 50%;
-    }
-  }
-
-  .tabs dd {
-    float: none;
+  .button-group.stack-for-small > li {
     width: 100%;
   }
 }

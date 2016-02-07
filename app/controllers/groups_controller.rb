@@ -64,7 +64,7 @@ class GroupsController < ApplicationController
 
   def by_year_and_month
     @group_posts = @group.post_publishings.
-      viewable_by(current_user).
+      accessible_by(current_ability).
       where(' extract(year from blog_posts.created_at) = ? AND extract(month from blog_posts.created_at) = ? ', params[:year], params[:month]).
       order('post_publishings.featured desc, published_at DESC').
       select('post_publishings.*, published_at').
@@ -86,9 +86,17 @@ class GroupsController < ApplicationController
 
   def load_page_data
     @group_participations = @group.participants
-    @archives = @group.blog_posts.select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').group(' MONTH, YEAR ').order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
-    @last_topics = @group.topics.accessible_by(Ability.new(current_user), :index, false).includes(:views, :forum).order('frm_topics.created_at desc').limit(10)
-    @next_events = @group.events.accessible_by(Ability.new(current_user), :index, false).next.order('starttime asc').limit(4)
+    @archives = @group.blog_posts.
+      accessible_by(current_ability, false).
+      select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').
+      group(' MONTH, YEAR ').
+      order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
+    @last_topics = @group.topics.
+      accessible_by(Ability.new(current_user), :index, false).
+      includes(:views, :forum).order('frm_topics.created_at desc').limit(10)
+    @next_events = @group.events.
+      accessible_by(Ability.new(current_user), :index, false).next.
+      order('starttime asc').limit(4)
   end
 
   def new
@@ -180,24 +188,23 @@ class GroupsController < ApplicationController
       groups.each do |group_id|
         group = Group.find(group_id)
         request = current_user.group_participation_requests.find_by(group_id: group.id)
-        unless request # se non l'ha mai fatta
-          participation = current_user.groups.find_by_id(group.id)
-          if participation # verifica se per caso non fa già parte del gruppo
-            # crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
-            request = GroupParticipationRequest.new
-            request.user_id = current_user.id
-            request.group_id = group.id
-            request.group_participation_request_status_id = 3 # accettata, dati corretti
-            request.save!
-          else
-            # inoltra la richiesta di partecipazione con stato IN ATTESA
-            request = GroupParticipationRequest.new
-            request.user_id = current_user.id
-            request.group_id = group.id
-            request.group_participation_request_status_id = 1 # in attesa...
-            request.save!
-            number += 1
-          end
+        next if request
+        participation = current_user.groups.find_by_id(group.id)
+        if participation # verifica se per caso non fa già parte del gruppo
+          # crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
+          request = GroupParticipationRequest.new
+          request.user_id = current_user.id
+          request.group_id = group.id
+          request.group_participation_request_status_id = 3 # accettata, dati corretti
+          request.save!
+        else
+          # inoltra la richiesta di partecipazione con stato IN ATTESA
+          request = GroupParticipationRequest.new
+          request.user_id = current_user.id
+          request.group_id = group.id
+          request.group_participation_request_status_id = 1 # in attesa...
+          request.save!
+          number += 1
         end
       end
       flash[:notice] = t('info.participation_request.multiple_request', count: number)
@@ -370,7 +377,6 @@ class GroupsController < ApplicationController
   end
 
   def feature_post
-    fail Exception unless can? :remove_post, @group
     publishing = @group.post_publishings.find_by(blog_post_id: params[:post_id])
     publishing.update(featured: !publishing.featured)
     flash[:notice] = t("info.groups.post_featured.#{publishing.featured}")

@@ -18,11 +18,8 @@ gem 'pg'
 
 gem 'rails_admin'
 
-# content indexing
-
 gem 'sunspot_rails'
 gem 'sunspot-queue', github: 'gaffneyc/sunspot-queue'
-gem 'sunspot-rails-http-basic-auth', github: 'jwachira/sunspot-rails-http-basic-auth'
 
 gem 'capistrano'
 gem 'capistrano-bundler'
@@ -32,85 +29,11 @@ gem 'premailer-rails'
 
 gem 'uri-js-rails'
 
-
-gem 'rack-mini-profiler', require: false
-
-# login and sessions
-gem 'devise'
-gem 'devise_traceable', github: 'coorasse/devise_traceable'
-gem 'simple_token_authentication'
-
-gem 'omniauth-facebook'
-gem 'omniauth-google-oauth2'
-gem 'omniauth-twitter'
-gem 'omniauth-meetup'
-gem 'omniauth-linkedin'
-gem 'omniauth-tecnologiedemocratiche', github: 'TecnologieDemocratiche/omniauth-tecnologiedemocratiche'
-
-# json apis
-gem 'rack-cors', :require => 'rack/cors'
-gem 'jbuilder'
-
-gem 'aws-sdk', '< 2.0'
-gem 'paperclip'
-
-# frontend libraries
 gem 'mustache'
 gem 'mustache-js-rails'
 gem 'slim-rails'
-gem 'sanitize'
-gem 'sitemap_generator'
-gem 'jquery-rails'
-gem 'turbolinks'
-gem 'friendly_id'
-gem 'simple_form'
-gem 'gemoji'
-gem 'workflow'
-gem 'select2-rails'
-gem 'redcarpet'
-gem 'kaminari'
-gem 'cookies_eu', github: 'coorasse/cookies_eu'
-gem 'font-awesome-rails'
-gem 'truncate_html'
 
-gem 'koala'
-
-gem 'sinatra', require: false
-
-gem 'sidekiq'
-gem 'sidekiq-failures'
-gem 'sidetiq'
-
-gem 'cancancan'
-
-gem 'geocoder'
-
-gem 'vote-schulze', github: 'coorasse/vote-schulze'
-
-gem 'rails_autolink'
-
-gem 'nickname_generator'
-
-gem 'el_finder'
-
-gem 'recaptcha', require: 'recaptcha/rails'
-
-gem 'globalize'
-
-gem 'wicked_pdf'
-gem 'httparty'
-gem 'icalendar'
-gem 'private_pub'
-gem 'rotp'
-gem 'ckeditor'
-gem 'timezone', github: 'coorasse/timezone'
-gem 'mailman', require: false
-gem 'email_reply_parser'
-gem 'paper_trail'
-gem 'figaro'
-gem 'faker'
-gem 'sshkit'
-gem 'activerecord-session_store'
+gem 'rack-mini-profiler', require: false
 
 group :development do
   gem 'sunspot_solr'
@@ -144,7 +67,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "codeclimate-test-reporter", require: nil
+  gem 'codeclimate-test-reporter', require: nil
   gem 'ruby-prof'
   gem 'test-unit'
   gem 'simplecov', require: false
@@ -165,3 +88,96 @@ end
 group :doc do
   gem 'sdoc', require: false
 end
+
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-twitter'
+gem 'omniauth-meetup'
+gem 'omniauth-linkedin'
+gem 'omniauth-tecnologiedemocratiche', github: 'TecnologieDemocratiche/omniauth-tecnologiedemocratiche'
+
+gem 'paperclip'
+
+gem 'aws-sdk', '< 2.0'
+
+gem 'jquery-rails'
+
+gem 'turbolinks'
+
+gem 'jbuilder'
+
+gem 'devise'
+
+gem 'devise_traceable', github: 'coorasse/devise_traceable'
+
+gem 'koala'
+
+gem 'sinatra', require: false
+
+gem 'sidekiq'
+gem 'sidekiq-failures'
+gem 'sidetiq'
+
+gem 'cancancan'
+
+gem 'sitemap_generator'
+
+gem 'geocoder'
+
+gem 'vote-schulze', github: 'coorasse/vote-schulze'
+
+gem 'rails_autolink'
+
+gem 'nickname_generator'
+
+gem 'el_finder'
+
+gem 'recaptcha', require: 'recaptcha/rails'
+
+gem 'globalize'
+
+gem 'sanitize'
+
+gem 'wicked_pdf'
+
+gem 'httparty'
+
+gem 'icalendar'
+
+gem 'private_pub'
+
+gem 'rotp'
+
+gem 'ckeditor'
+
+gem 'timezone', github: 'coorasse/timezone'
+
+gem 'friendly_id'
+gem 'simple_form'
+gem 'gemoji'
+gem 'workflow'
+gem 'select2-rails'
+gem 'redcarpet'
+gem 'kaminari'
+
+gem 'mailman', require: false
+
+gem 'email_reply_parser'
+
+gem 'paper_trail'
+
+gem 'figaro'
+
+gem 'faker'
+
+gem 'sshkit'
+
+gem 'cookies_eu', github: 'coorasse/cookies_eu'
+
+gem 'font-awesome-rails'
+
+gem 'truncate_html'
+
+gem 'sunspot-rails-http-basic-auth', github: 'jwachira/sunspot-rails-http-basic-auth'
+
+gem 'activerecord-session_store'

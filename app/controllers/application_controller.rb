@@ -176,14 +176,35 @@ class ApplicationController < ActionController::Base
   end
 
   def invalid_locale(exception)
-    log_error(exception)
-    respond_to do |format|
-      format.js do
-        flash.now[:error] = 'You are asking for a locale which is not available, sorry'
-        render template: '/errors/invalid_locale.js.erb', status: 500, layout: 'application'
-      end
-      format.html do
-        render template: '/errors/invalid_locale.html.erb', status: 500, layout: 'application'
+    locales_replacement = { en: :'en-EU',
+                            zh: :'zh-TW',
+                            ru: :'ru-RU',
+                            fr: :'fr-FR',
+                            pt: :'pt-PT',
+                            hu: :'hu-HU',
+                            el: :'el-GR',
+                            de: :'de-DE' }.with_indifferent_access
+    required_locale = params[:l]
+    replacement_locale = locales_replacement[required_locale]
+    if replacement_locale
+      redirect_to url_for(params.merge(l: replacement_locale).merge(only_path: true)), status: :moved_permanently
+    else
+      log_error(exception)
+      respond_to do |format|
+        format.js do
+          flash.now[:error] = 'You are asking for a locale which is not available, sorry'
+          render template: '/errors/invalid_locale.js.erb', status: 500, layout: 'application'
+        end
+        format.html do
+          render template: '/errors/invalid_locale.html.erb', status: 500, layout: 'application'
+        end
+        log_error(exception)
+        respond_to do |format|
+          format.js do
+          end
+          format.html do
+          end
+        end
       end
     end
   end
@@ -241,7 +262,7 @@ class ApplicationController < ActionController::Base
     # Difference in years, less one if you have not had a birthday this year.
     a = today.year - birthdate.year
     a -= 1 if birthdate.month > today.month ||
-      (birthdate.month >= today.month && birthdate.day > today.day)
+        (birthdate.month >= today.month && birthdate.day > today.day)
 
     a
   end
@@ -381,23 +402,23 @@ class ApplicationController < ActionController::Base
   def check_page_alerts
     return unless current_user
     case params[:controller]
-      when 'proposals'
-        case params[:action]
-          when 'show'
-            # mark as checked all user alerts about this proposal
-            @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'proposal_id') = ? and alerts.checked = ?", @proposal.id.to_s, false])
-            if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
-              flash[:info] = t('info.proposal.available_authors')
-            end
-            @unread.check_all
+    when 'proposals'
+      case params[:action]
+      when 'show'
+        # mark as checked all user alerts about this proposal
+        @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'proposal_id') = ? and alerts.checked = ?", @proposal.id.to_s, false])
+        if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
+          flash[:info] = t('info.proposal.available_authors')
         end
-      when 'blog_posts'
-        case params[:action]
-          when 'show'
-            # mark as checked all user alerts about this proposal
-            @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'blog_post_id') = ? and alerts.checked = ?", @blog_post.id.to_s, false])
-            @unread.check_all
-        end
+        @unread.check_all
+      end
+    when 'blog_posts'
+      case params[:action]
+      when 'show'
+        # mark as checked all user alerts about this proposal
+        @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'blog_post_id') = ? and alerts.checked = ?", @blog_post.id.to_s, false])
+        @unread.check_all
+      end
     end
   end
 

@@ -28,14 +28,14 @@ class BestQuorum < Quorum
   def populate_vote
     unless vote_minutes
       self.vote_minutes = vote_minutes_m.to_i + (vote_hours_m.to_i * 60) + (vote_days_m.to_i * 24 * 60)
-      self.vote_minutes = nil if (vote_minutes == 0)
+      self.vote_minutes = nil if vote_minutes == 0
     end
     self.bad_score = good_score
   end
 
   def populate_vote!
     self.vote_minutes = vote_minutes_m.to_i + (vote_hours_m.to_i * 60) + (vote_days_m.to_i * 24 * 60)
-    self.vote_minutes = nil if (vote_minutes == 0)
+    self.vote_minutes = nil if vote_minutes == 0
   end
 
   def or?
@@ -136,7 +136,7 @@ class BestQuorum < Quorum
           @event = Event.find(proposal.vote_event_id)
         else
           event_p = {
-            event_type_id: EventType::VOTAZIONE,
+            event_type_id: EventType::VOTATION,
             title: "Votation #{proposal.title}",
             starttime: proposal.vote_starts_at,
             endtime: proposal.vote_ends_at,

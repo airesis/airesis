@@ -33,9 +33,6 @@ crowdin:
       updated: crwdns4012:0crwdne4012:0
       updated_not_active: crwdns4013:0crwdne4013:0
       send_paranoid_instructions: crwdns4014:0crwdne4014:0
-      user:
-        updated: crwdns7975:0crwdne7975:0
-        send_instructions: crwdns7976:0crwdne7976:0
     confirmations:
       send_instructions: crwdns4015:0crwdne4015:0
       send_paranoid_instructions: crwdns4016:0crwdne4016:0

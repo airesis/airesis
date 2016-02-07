@@ -66,7 +66,6 @@ es-ES:
         show_urls: Mostrar Facebook, Google + y LinkedIn URLs a usuarios
         private_messages: Recibir mensajes privados de otros usuarios
         join_accounts: Unirse a otra cuenta
-        join_accounts_description: 'Airesis tienes la posibilidad de conectar toda su Red Social a una sola cuenta. <br/> Seleccionar el proveedor para conectarlo y siempre podrás acceder a la misma cuenta de Facebook, Google, Twitter y muchos más!'
         joined_all: Ya te uniste a todos los proveedores disponibles. ¡Gracias!
         join_facebook: Únete a tu cuenta de Facebook
         join_google: Únete a tu cuenta de Google
@@ -219,7 +218,6 @@ es-ES:
       edit_work_areas:
         index:
           not_enabled: Áreas de trabajo no habilitadas
-          description: Airesis le permite administrar áreas de trabajo dentro del grupo.
           description2: With this feature you can better manage the participants and their roles.
           description3: ¡Ten cuidado! Esto es una característica avanzada, diseñada sólo para usuarios expertos y grupos más grandes.
           description4: 'Antes de activar las áreas de trabajo, verifique si puede administrar grupos miembros directamente usando '
@@ -400,9 +398,7 @@ es-ES:
         title_placeholder: "ex. 'Facilitate bike transport on trains'"
         interest_borders_tkn_placeholder: Cities, Regions or States interested by the proposal
         tags_list_placeholder: Insert some tags for your proposal
-        step_1_title: 'You can pose a problem to solve, an idea to improve, an initiative to organize ... The important thing is to have a clear goal: Airesis will help you achieve it with the help of other people, through a process of shared problem solving.'
         step_2_title: 'Maybe someone has already created a similar proposal: check below and eventually stop your creation to avoid duplication. Joining forces gives strength to your ideas! Clicking on the title the proposals will be opened in a new tab.'
-        step_4_title: "Perfect! Choose your options and click 'Create the proposal' to complete the guide. Your proposal will be included in Airesis and you will be able to fill it out when you want with more information."
         category_prompt: --Choose a category--
         tags_separated_by_comma: (separated by comma)
         cannot_add_proposal_in_work_area: "You dont' have the required permissions to add the proposal in any area"
@@ -441,7 +437,6 @@ es-ES:
         report_description: "You can point out to the webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
       vote_panel:
         title: Make your vote!
-        schulze_title: "There are several solutions to this proposal.<br/> Order them according to your preferences <br/>from 1 (don't like) to %{max} (I really like)"
         secret_vote: Your vote is secret and you will not be able to recover or change it once expressed.
         clear_vote: Your vote is recorded and will therefore be verifiable.
         single_title: In this proposal there is only one solution. Make your point!
@@ -463,14 +458,6 @@ es-ES:
         you_know_what_you_do: Do you know what are you going to do?
         schulze_title: One or more solutions?
         inserted_contributes: Sign the contributions you have integrated in this revision
-        more_solutions_explained_html: |
-          <b>Why do we ask you if you know what you are doing?</b><br/>
-          Airesis lets you add one or more solutions in a proposal.<br/>
-          If there will be only a solution, in the voting phase participants will have the option to approve or refuse the text that has been drafted.<br/>
-          If there will be more than a solution, the vote will be different and each participant will be able to vote using Schulze method.<br/>
-          If you are trying to draft the summary of a problem and you want a shared text <b>don't create alternative solutions</b>!<br/>
-          If, on the contrary, you are searching for a poll or you want an alternative that is not integrable in the first solution then proceed.<br/>
-          Remember that, before the debate ends, you will be able to add or remove solutions, modifying the method of vote used.
         paragraph: Paragraph
         confirm_paragraph_deletion: You sure you want to delete this paragraph?
         confirm_solution_deletion: You sure you want to delete this solution?
@@ -550,8 +537,6 @@ es-ES:
       published_button: Published posts
       view:
         comments: 'Comments (%{count})'
-      index:
-        title: Blogs
     alerts:
       polling:
         show_all: Show all notifications
@@ -703,7 +688,6 @@ es-ES:
         newdescription5: If you think that the debate should continue, use this button
         newdescription6: When the text of the proposal will be updated, you will be able to change your evaluation
       welcome:
-        title_html: '<b>Welcome on Airesis, %{user}</b><br/>'
         description_html: |
           This short tutorial will help you in the first choices inside the platform.<br/>
           This is your desktop: here you will find all the information you need to keep in touch with your territory.<br/>

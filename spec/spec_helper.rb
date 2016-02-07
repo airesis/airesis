@@ -35,9 +35,10 @@ RSpec.configure do |config|
                     mts1.googleapis.com fonts.googleapis.com connect.facebook.net/en/sdk.js fbstatic-a.akamaihd.net
                     graph.facebook.com connect.facebook.net fbexternal-a.akamaihd.net
                     fbcdn-profile-a.akamaihd.net cdn.ckeditor.com fbcdn-photos-e-a.akamaihd.net
-                    platform.twitter.com www.gravatar.com cdnjs.cloudflare.com)
+                    platform.twitter.com www.gravatar.com cdnjs.cloudflare.com calendar.google.com)
 
   Capybara::Webkit.configure do |config|
+    config.block_unknown_urls
     allowed_urls.each do |allowed_url|
       config.allow_url(allowed_url)
     end
@@ -63,7 +64,8 @@ RSpec.configure do |config|
 
   Capybara.javascript_driver = :webkit
 
-  Capybara::Screenshot.autosave_on_failure = true unless ENV['DISABLE_SCREENSHOTS']
+  Capybara::Screenshot.autosave_on_failure = true
+  Capybara::Screenshot.append_timestamp = true
 end
 
 OmniAuth.config.test_mode = true

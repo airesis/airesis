@@ -20,19 +20,20 @@ class ResqueMailer < ActionMailer::Base
   end
   # specific templates for notification types
   TEMPLATES = {
-    NotificationType::NEW_CONTRIBUTES => 'new_contribute',
-    NotificationType::NEW_CONTRIBUTES_MINE => 'new_contribute',
-    NotificationType::NEW_COMMENTS_MINE => 'new_contribute',
-    NotificationType::NEW_COMMENTS => 'new_contribute',
-    NotificationType::TEXT_UPDATE => 'text_update',
-    NotificationType::NEW_PUBLIC_PROPOSALS => 'new_proposal',
-    NotificationType::NEW_PROPOSALS => 'new_proposal',
+    NotificationType::NEW_CONTRIBUTES => 'notifications/new_contribute',
+    NotificationType::NEW_CONTRIBUTES_MINE => 'notifications/new_contribute',
+    NotificationType::NEW_COMMENTS_MINE => 'notifications/new_contribute',
+    NotificationType::NEW_COMMENTS => 'notifications/new_contribute',
+    NotificationType::TEXT_UPDATE => 'notifications/text_update',
+    NotificationType::NEW_PUBLIC_PROPOSALS => 'notifications/new_proposal',
+    NotificationType::NEW_PROPOSALS => 'notifications/new_proposal',
     NotificationType::NEW_PUBLIC_EVENTS => 'notifications/new_event',
     NotificationType::NEW_EVENTS => 'notifications/new_event',
     NotificationType::AVAILABLE_AUTHOR => 'notifications/available_author',
-    NotificationType::UNINTEGRATED_CONTRIBUTE => 'unintegrated_contribute',
-    NotificationType::NEW_BLOG_COMMENT => 'new_blog_comment',
-    NotificationType::CONTRIBUTE_UPDATE => 'notifications/update_contribute'
+    NotificationType::UNINTEGRATED_CONTRIBUTE => 'notifications/unintegrated_contribute',
+    NotificationType::NEW_BLOG_COMMENT => 'notifications/new_blog_comment',
+    NotificationType::CONTRIBUTE_UPDATE => 'notifications/update_contribute',
+    NotificationType.find_by(name: NotificationType::NEW_FORUM_TOPIC).id => 'notifications/new_forum_topic'
   }
 
   def notification(alert_id)
@@ -54,13 +55,13 @@ class ResqueMailer < ActionMailer::Base
 
   def admin_message(msg)
     @msg = msg
-    mail(to: ENV['ADMIN_EMAIL'], subject: ENV['APP_SHORT_NAME'] + ' - Messaggio di amministrazione')
+    mail(to: ENV['ADMIN_EMAIL'], subject: "#{APP_SHORT_NAME} - Messaggio di amministrazione")
   end
 
   def report_message(report_id)
     @report = ProposalCommentReport.find(report_id)
 
-    mail(to: ENV['ADMIN_EMAIL'], subject: ENV['APP_SHORT_NAME'] + ' - Segnalazione Contributo')
+    mail(to: ENV['ADMIN_EMAIL'], subject: "#{APP_SHORT_NAME} - Segnalazione Contributo")
   end
 
   # send an invite to subscribe in the group
@@ -118,7 +119,14 @@ class ResqueMailer < ActionMailer::Base
     @post = Frm::Post.find(post_id)
     @group = @post.forum.group
     @user = User.find(subscriber_id)
-    mail(from: "Airesis Forum <replytest+#{@post.token}@airesis.it>", to: @user.email, subject: "[#{@group.name}] #{@post.topic.subject}") # TODO: extract email
+    I18n.locale = @user.locale.key || :'en-EU'
+    from_address = if ENV['MAILMAN_EMAIL'].present?
+                     composed_email = ENV['MAILMAN_EMAIL'].gsub(/%.*%/, @post.token)
+                     "#{ENV['MAILMAN_SENDER']} <#{composed_email}>"
+                   else
+                     ENV['DEFAULT_FROM']
+    end
+    mail(from: from_address, to: @user.email, subject: "[#{@group.name}] #{@post.topic.subject}")
   end
 
   def test_mail

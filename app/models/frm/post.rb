@@ -101,6 +101,13 @@ module Frm
       user == other_user || other_user.can_moderate_forem_forum?(forum) || other_user.forem_admin?(group)
     end
 
+    # returns the number of his page in case of pagination on the topic
+    def page
+      ids = topic.posts.pluck(:id)
+      position = ids.index(id)
+      (position.to_f / TOPICS_PER_PAGE).ceil
+    end
+
     protected
 
     def subscribe_replier

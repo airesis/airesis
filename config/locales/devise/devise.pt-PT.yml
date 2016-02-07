@@ -32,9 +32,6 @@ pt-PT:
       updated: A sua senha foi alterada com êxito. Você está agora conetado
       updated_not_active: A sua palavra-passe foi alterada com sucesso
       send_paranoid_instructions: Se o seu e-mail existe na nossa base de de dados, receberá um link de recuperação de senha na sua caixa de correio
-      user:
-        updated: Palavra-passe atualizada correctamente
-        send_instructions: Instruções foram enviadas para o seu e-mail
     confirmations:
       send_instructions: Receberá um e-mail com instruções sobre como confirmar a sua conta dentro de alguns minutos
       send_paranoid_instructions: Se o seu e-mail existe na nossa base de dados, receberá um e-mail com instruções sobre como confirmar a sua conta dentro de poucos minutos

@@ -25,8 +25,8 @@ class ProposalComment < ActiveRecord::Base
 
   validate :check_last_comment
 
-  scope :contributes, -> { where(['parent_proposal_comment_id is null']) }
-  scope :comments, -> { where(['parent_proposal_comment_id is not null']) }
+  scope :contributes, -> { where(parent_proposal_comment_id: nil) }
+  scope :comments, -> { where.not(parent_proposal_comment_id: nil) }
 
   scope :unintegrated, -> { where(integrated: false) }
   scope :integrated, -> { where(integrated: true) }
@@ -35,21 +35,31 @@ class ProposalComment < ActiveRecord::Base
 
   scope :listable, -> { where(integrated: false, noise: false) }
 
-  scope :unread, ->(user_id, proposal_id) { where(['proposal_comments.id not in (select p2.id from proposal_comments p2 join proposal_comment_rankings pr on p2.id = pr.proposal_comment_id where pr.user_id = ? and p2.proposal_id = ?) ', user_id, proposal_id]) }
+  scope :unread, lambda { |user_id, proposal_id|
+    where('proposal_comments.id not in (select p2.id
+                                        from proposal_comments p2
+                                        join proposal_comment_rankings pr on p2.id = pr.proposal_comment_id
+                                        where pr.user_id = ? and p2.proposal_id = ?)',
+          user_id, proposal_id)
+  }
 
-  scope :removable, -> { where(['soft_reports_count >= ? and noise = false', CONTRIBUTE_MARKS]) }
+  scope :removable, -> { noisy.where(noise: false) }
 
   # a contribute marked more than three times as spam
-  scope :spam, -> { where(['grave_reports_count >= ?', CONTRIBUTE_MARKS]) }
+  scope :spam, -> { where('grave_reports_count >= ?', CONTRIBUTE_MARKS) }
 
   # a contribute marked more than three times as noisy
-  scope :noisy, -> { where(['soft_reports_count >= ?', CONTRIBUTE_MARKS]) }
+  scope :noisy, -> { where('soft_reports_count >= ?', CONTRIBUTE_MARKS) }
 
   attr_accessor :section_id
 
   before_create :set_paragraph_id
 
   after_create :generate_nickname
+
+  after_create :increment_contributes_counter_cache, if: :is_contribute?
+  after_destroy :decrement_contributes_counter_cache, if: :is_contribute?
+
   after_commit :send_email, on: :create
   after_commit :send_update_notifications, on: :update
 
@@ -120,5 +130,19 @@ class ProposalComment < ActiveRecord::Base
   def unintegrate
     integrated_contribute.destroy
     update(integrated: false)
+  end
+
+  private
+
+  def decrement_contributes_counter_cache
+    add_to_contributes_counter(-1)
+  end
+
+  def increment_contributes_counter_cache
+    add_to_contributes_counter(1)
+  end
+
+  def add_to_contributes_counter(num)
+    proposal.update_columns(proposal_contributes_count: proposal.proposal_contributes_count + num)
   end
 end

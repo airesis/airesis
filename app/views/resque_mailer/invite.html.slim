@@ -28,7 +28,7 @@ br
 br
 = t('mailer.invite.accept_or_reject')
 br
-= t('mailer.invite.no_more', { app_name: ENV['APP_SHORT_NAME'] })
+= t('mailer.invite.no_more', { app_name: APP_SHORT_NAME })
 br
 = link_to t('mailer.invite.accept'),
           accept_group_group_invitation_group_invitation_email_url(@group, @group_invitation, @group_invitation_email.token, email: @group_invitation_email.email),

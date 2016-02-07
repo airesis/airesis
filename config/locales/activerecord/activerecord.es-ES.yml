@@ -94,7 +94,22 @@ es-ES:
         percentage_title: Número mínimo de participantes de la discusión en porcentaje respecto al número de participantes del grupo
         good_score: Madurez
         condition: Condición
+        vote_minutes: Duración del voto
+        vote_percentage: Quorom (votantes)
+        vote_good_score: Aprobación
+      search_participant:
+        role_id: Rol
+        keywords: Nombre o apellido
+      sys_movement:
+        sys_movement_type_id: Tipo
+        made_on: Hecho en
+        amount: Cantidad
+        sys_currency_id: Moneda
       user:
+        name: Nombre
+        email: Dirección de correo
+        surname: Apellido
+        password: Contraseña
         linkedinpageurl: Tu página en LinkedIn
         facebookpageurl: Tu página en Facebook
         accept_conditions: Condiciones de uso
@@ -125,6 +140,7 @@ es-ES:
         wrong_length: 'debe tener %{count} caracteres'
         taken: ya está en uso
         not_a_number: no es un número
+        not_an_email: no es una dirección de correo válida
         greater_than: 'debe ser mayor de %{count}'
         greater_than_or_equal_to: 'debe ser mayor o igual a %{count}'
         equal_to: 'debe ser igual a %{count}'

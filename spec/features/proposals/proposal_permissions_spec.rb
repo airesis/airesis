@@ -57,7 +57,7 @@ describe 'check user permissions on proposals', type: :feature, js: true, search
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         area = create(:group_area, group: group)
-        proposal = create(:group_proposal, current_user_id: user.id, group_proposals: [GroupProposal.new(group: create(:group, current_user_id: create(:user).id))], visible_outside: true)
+        proposal = create(:group_proposal, current_user_id: user.id, group_proposals: [GroupProposal.new(group: create(:group))], visible_outside: true)
 
         visit group_proposals_path(group)
         expect(page).to_not have_content proposal.title

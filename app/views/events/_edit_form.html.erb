@@ -10,7 +10,7 @@
         <%= f.input :title %>
         <%= f.input :description, rows: 4, cols: 30 %>
 
-        <% if @event.is_votazione? %>
+        <% if @event.votation? %>
             <%= f.hidden_field :private %>
         <% else %>
             <%= f.label :private do %>
@@ -48,7 +48,7 @@
       </div>
 
       <div class="columns medium-6">
-        <% if @event.is_incontro? %>
+        <% if @event.meeting? %>
             <%= f.simple_fields_for :meeting, @meeting do |m| %>
                 <%= m.simple_fields_for :place, @place do |p| %>
                     <div id="edit_luogo">
@@ -84,7 +84,7 @@
 
 <script type="text/javascript">
     EventsEdit.eventId = <%=@event.id%>;
-    EventsEdit.votation = <%=@event.is_votazione?%>;
+    EventsEdit.votation = <%=@event.votation?%>;
     <%if @event.place%>
     EventsEdit.placeDefined = true;
     EventsEdit.latitudeOriginal = <%=@event.place.latitude_original%>;

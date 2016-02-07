@@ -1,0 +1,114 @@
+@font-face {
+  font-family: 'emoticons';
+  src: font-url('emoticons.eot?dn5j0r');
+  src: url('emoticons.eot?dn5j0r#iefix') format('embedded-opentype'),
+  font-url('emoticons.ttf?dn5j0r') format('truetype'),
+  font-url('emoticons.woff?dn5j0r') format('woff'),
+  font-url('emoticons.svg?dn5j0r#emoticons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'emoticons' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  font-size: 1.5rem;
+  text-transform: none;
+  line-height: 1;
+  margin-right: 1rem;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+$smile-color: #02af01;
+$sad-color: #EF0909;
+$baffled-color: #A1A1A1;
+
+$icon-smile: "\e900";
+$icon-smile-full: "\e901";
+$icon-sad: "\e902";
+$icon-sad-full: "\e903";
+$icon-baffled: "\e904";
+$icon-baffled-full: "\e905";
+
+[class |= 'icon-smile'] {
+  color: $smile-color;
+  &:hover {
+    color: $smile-color;
+    text-decoration: none;
+  }
+}
+
+.icon-smile-change {
+  &:hover:before {
+    content: $icon-smile-full;
+  }
+  &:before {
+    content: $icon-smile;
+  }
+}
+
+.icon-smile:before {
+  content: $icon-smile;
+}
+
+.icon-smile-full:before {
+  content: $icon-smile-full;
+}
+
+[class |= 'icon-sad'] {
+  color: $sad-color;
+  &:hover {
+    color: $sad-color;
+    text-decoration: none;
+  }
+}
+
+.icon-sad-change {
+  &:hover:before {
+    content: $icon-sad-full;
+  }
+  &:before {
+    content: $icon-sad;
+  }
+}
+
+.icon-sad:before {
+  content: $icon-sad;
+}
+
+.icon-sad-full:before {
+  content: $icon-sad-full;
+}
+
+[class |= 'icon-baffled'] {
+  color: $baffled-color;
+  &:hover {
+    color: $baffled-color;
+    text-decoration: none;
+
+  }
+}
+
+.icon-baffled-change {
+  &:hover:before {
+    content: $icon-baffled-full;
+  }
+  &:before {
+    content: $icon-baffled;
+  }
+}
+
+.icon-baffled:before {
+  content: $icon-baffled;
+}
+
+.icon-baffled-full:before {
+  content: $icon-baffled-full;
+}

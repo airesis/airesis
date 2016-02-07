@@ -1,0 +1,7 @@
+airesis:
+  image: airesis_test
+  command: "bash -c 'Xvfb :99 & bundle exec rspec --tag ~ci_ignore'"
+  environment:
+    - DISPLAY=:99
+    - RAILS_ENV=test
+    - DISABLE_SCREENSHOTS

@@ -126,7 +126,7 @@
           <h2><%= t('pages.proposals.edit.schulze_title') %></h2>
 
           <p>
-            <%= t('pages.proposals.edit.more_solutions_explained_html') %>
+            <%= t('pages.proposals.edit.more_solutions_explained_html', app_short_name: APP_SHORT_NAME) %>
           </p>
           <a class="close-reveal-modal">&#215;</a>
         </div>
@@ -147,7 +147,7 @@
       <div class="suggestion-title card">
         <%= t('pages.proposals.edit.inserted_contributes') %>
       </div>
-      <i class="fi-x close-right-section" data-close-edit-right-section></i>
+      <i class="fa fa-times close-right-section" data-close-edit-right-section></i>
 
       <div id="loading_contributes" style="margin:auto;text-align:center;">
         <%= image_tag 'ajax-loader.gif' %>

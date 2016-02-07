@@ -133,7 +133,6 @@ en-US:
         create_group_button: "Create a new group"
         find_group_label: "Find a group you may be interested in"
         find_title: "Search in the group name or description"
-        find_button: "Search"
         groups_list: "Groups you participate in"
         groups_registration: "Group Registration"
         groups_list_2: "Groups list"

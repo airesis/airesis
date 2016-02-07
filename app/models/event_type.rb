@@ -1,9 +1,6 @@
 class EventType < ActiveRecord::Base
-  INCONTRO = 1
-  VOTAZIONE = 2
-
-  MEETING = INCONTRO
-  VOTATION = VOTAZIONE
+  MEETING = 1
+  VOTATION = 2
 
   has_many :events
 

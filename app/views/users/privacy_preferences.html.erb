@@ -52,7 +52,7 @@
   <% if ::Configuration::socialnetwork_active %>
       <h2><%= t('pages.users.privacy_preferences.join_accounts') %></h2>
       <h5>
-        <%= raw t('pages.users.privacy_preferences.join_accounts_description') %></h5>
+        <%= raw t('pages.users.privacy_preferences.join_accounts_description', app_short_name: APP_SHORT_NAME) %></h5>
 
       <%
          authentications = current_user.authentications

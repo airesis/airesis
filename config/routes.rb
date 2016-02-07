@@ -9,7 +9,7 @@ Airesis::Application.routes.draw do
 
   resources :sys_payment_notifications, only: [:create]
 
-  resources :user_likes
+  resources :user_likes, only: [:create, :destroy]
 
   resources :proposal_nicknames, only: [:update]
 
@@ -92,7 +92,6 @@ Airesis::Application.routes.draw do
     member do
       get :rankup
       get :rankdown
-      get :statistics
       patch :set_votation_date
       post :available_author
       get :available_authors_list
@@ -114,15 +113,12 @@ Airesis::Application.routes.draw do
     post :hide, on: :member
   end
 
-  resources :tutorial_progresses
-
-  resources :tutorials do
-    resources :steps do
+  resources :tutorials, only: [] do
+    resources :steps, only: [] do
       member do
         get :complete
       end
     end
-    resources :tutorial_assignees
   end
 
   resources :alerts do
@@ -515,7 +511,7 @@ Airesis::Application.routes.draw do
     end
 
     constraints moderator_required do
-      get 'moderator_panel', to: 'moderator#show', as: 'moderator/panel'
+      get 'moderator_panel', to: 'admin/moderator#show', as: 'moderator/panel'
     end
 
     constraints admin_required do
@@ -546,7 +542,7 @@ Airesis::Application.routes.draw do
           get :download_translations
           get :extract_delete_zip
         end
-        resources :tutorials
+
         resources :users, only: [] do
           get :unblock, on: :member
           collection do

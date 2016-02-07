@@ -115,7 +115,7 @@ class User < ActiveRecord::Base
                     path: (Paperclip::Attachment.default_options[:storage] == :s3) ?
                       'avatars/:id/:style/:basename.:extension' : ':rails_root/public:url'
 
-  validates_attachment_size :avatar, less_than: 2.megabytes
+  validates_attachment_size :avatar, less_than: UPLOAD_LIMIT_IMAGES.bytes
   validates_attachment_content_type :avatar, content_type: ['image/jpeg', 'image/png', 'image/gif', 'image/jpg']
 
   scope :all_except, ->(user) { where.not(id: user) }
@@ -130,8 +130,8 @@ class User < ActiveRecord::Base
   scope :autocomplete, ->(term) { where('lower(users.name) LIKE :term or lower(users.surname) LIKE :term', term: "%#{term.to_s.downcase}%").order('users.surname desc, users.name desc').limit(10) }
   scope :non_blocking_notification, lambda { |notification_type|
     User.where.not(id: User.select('users.id').
-                     joins(:blocked_alerts).
-                     where(blocked_alerts: { notification_type_id: notification_type }))
+      joins(:blocked_alerts).
+      where(blocked_alerts: { notification_type_id: notification_type }))
   }
 
   validate :cannot_change_info_if_certified, on: :update
@@ -502,11 +502,11 @@ class User < ActiveRecord::Base
   end
 
   def twitter_page_url
-    "https://twitter.com/intent/user?user_id=#{authentications.where(provider: Authentication::TWITTER).uid}"
+    "https://twitter.com/intent/user?user_id=#{authentications.find_by(provider: Authentication::TWITTER).uid}"
   end
 
   def meetup_page_url
-    "http://www.meetup.com/members/#{authentications.where(provider: Authentication::MEETUP).uid}"
+    "http://www.meetup.com/members/#{authentications.find_by(provider: Authentication::MEETUP).uid}"
   end
 
   def certify_with_info(user_info)

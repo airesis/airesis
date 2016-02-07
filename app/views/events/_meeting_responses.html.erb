@@ -1,10 +1,10 @@
 <div class="mybox">
-  <h4><%= @event.is_past? ? t('pages.events.show.participants') : t('pages.events.show.will_partecipate') %></h4>
+  <h4><%= @event.past? ? t('pages.events.show.participants') : t('pages.events.show.will_partecipate') %></h4>
   <div class="mybox_button"></div>
   <div class="mycont">
     <%= render partial: 'events/participants', locals: {participants: @event.meeting.yes_participations} %>
     <% if @event.meeting.yes_participations.empty? %>
-        <% if @event.is_past? %>
+        <% if @event.past? %>
             <h4><%= t('pages.events.show.no_participants') %></h4>
         <% else %>
             <h4><%= t('pages.events.show.no_participants_yet') %></h4>
@@ -15,7 +15,7 @@
 
 <div class="mybox">
 
-  <h4><%= @event.is_past? ? t('pages.events.show.non_participants') : t('pages.events.show.will_non_participants') %></h4>
+  <h4><%= @event.past? ? t('pages.events.show.non_participants') : t('pages.events.show.will_non_participants') %></h4>
   <div class="mybox_button close" data-menu2show=0></div>
   <div class="mycont" style="display:none">
     <%= render partial: 'events/participants', locals: {participants: @event.meeting.no_participations} %>
