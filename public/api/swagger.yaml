@@ -10,7 +10,7 @@ info:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 host: "localhost:3000"
-basePath: "/"
+basePath: "/api/v1"
 tags:
   -
     name: "proposals"
@@ -24,7 +24,7 @@ tags:
 schemes:
   - "http"
 paths:
-  /api/v1/login:
+  /login:
     post:
       tags:
         - "sessions"
@@ -46,7 +46,7 @@ paths:
       responses:
         200:
           description: "successful operation"
-  /api/v1/proposals:
+  /proposals:
     get:
       tags:
         - "proposals"
@@ -80,7 +80,7 @@ paths:
       responses:
         200:
           description: "successful operation"
-  /api/v1/proposals/{id}:
+  /proposals/{id}:
     get:
       tags:
         - "proposals"
