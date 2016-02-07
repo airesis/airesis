@@ -37,6 +37,8 @@ gem 'rack-mini-profiler', require: false
 
 gem 'daemons'
 
+gem 'rack-cors', :require => 'rack/cors'
+
 group :development do
   gem 'sunspot_solr'
   gem 'better_errors'
@@ -114,6 +116,7 @@ gem 'jbuilder'
 gem 'devise'
 
 gem 'devise_traceable', git: 'https://github.com/coorasse/devise_traceable'
+gem 'simple_token_authentication'
 
 gem 'koala'
 
