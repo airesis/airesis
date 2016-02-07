@@ -998,11 +998,11 @@ ActiveRecord::Schema.define(version: 20151210171038) do
     t.datetime "vote_ends_at"
     t.integer  "vote_event_id"
     t.integer  "signatures"
-    t.boolean  "area_private",                             default: false, null: false
+    t.integer  "views_count",                              default: 0,     null: false
     t.integer  "user_votes_count"
     t.text     "short_content"
     t.integer  "proposal_contributes_count",               default: 0,     null: false
-    t.integer  "views_count",                             default: 0,     null: false
+    t.boolean  "area_private",                             default: false, null: false
   end
 
   add_index "proposals", ["proposal_category_id"], name: "_idx_proposals_proposal_category_id", using: :btree
