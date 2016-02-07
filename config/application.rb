@@ -102,5 +102,15 @@ module Airesis
       end
       config.paperclip_defaults = options
     end
+
+    config.middleware.insert_before 0, 'Rack::Cors', debug: Rails.env.development? do
+      allow do
+        origins '*'
+
+        resource '/api/*',
+                 headers: :any,
+                 methods: [:get, :post, :patch, :delete]
+      end
+    end
   end
 end
