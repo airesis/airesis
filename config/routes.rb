@@ -348,6 +348,9 @@ Airesis::Application.routes.draw do
     namespace :api do
       namespace :v1 do
         resources :proposals, only: [:show, :index]
+        devise_scope :user do
+          post 'login' => 'sessions#create', as: :login
+        end
       end
     end
 
