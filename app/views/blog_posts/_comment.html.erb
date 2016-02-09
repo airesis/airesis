@@ -2,7 +2,7 @@
      <% if comment.collapsed %>data-collapsed
      <% end %>>
   <div class="blog-comment-image">
-    <%= comment.user_image_tag(20) %>
+    <%= avatar(comment.user, size: 20) %>
     <span class="blogPoster"><%= link_to_user comment.user %></span>
   </div>
   <div class="blog-comment-content">

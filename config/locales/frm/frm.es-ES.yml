@@ -1,0 +1,173 @@
+es-ES:
+  frm:
+    general:
+      forum: Foro
+      topics: Temas
+      topic: Tema
+      posts: Mensajes
+      posts_count:
+        one: 1 mensaje
+        other: '%{count} mensajes'
+      flagged_for_spam: Su cuenta ha sido marcada como spam.
+      cannot_create_topic: Usted no puede crear un tema nuevo en este momento.
+      cannot_create_post: Usted no puede crear un mensaje nuevo en este momento.
+    access_denied: No tiene permiso para hacer eso.
+    admin:
+      area: Área de administración
+      forum:
+        index: Organizar Foros
+        new: Crear un nuevo foro
+        new_link: Nuevo Foro
+        deleted: El foro seleccionado ha sido borrado.
+        created: El foro ha sido creado.
+        not_created: El foro no pudo ser creado.
+        updated: El foro ha sido modificado.
+        not_updated: El foro no pudo ser modificado.
+      forums:
+        edit: Editar
+        delete: Borrar
+        category: Categoría
+        delete_confirm: ¿Está seguro de que quiere borrar el foro?
+        index:
+          last_post: Último mensaje
+          none: Ninguno
+          moderators: Moderadores
+      category:
+        index: Organizar las categorías de foro
+        new: Crear una nueva categoría de foro
+        new_link: Nueva categoría de foro
+        deleted: La categoría de foro seleccionado ha sido borrada.
+        created: La categoría de foro ha sido creada.
+        not_created: Esta categoría de foro no ha podido ser creada.
+        updated: La categoría de foro ha sido modificada.
+        not_updated: Esta categoría de foro no pudo ser modificada.
+      categories:
+        edit: Editar
+        delete: Borrar
+        category: Categoría
+        delete_confirm: ¿Esta seguro de que quiere borrar esta categoría de foro?
+      group:
+        index: Organizar Grupos
+    common:
+      pages: Páginas
+    errors:
+      not_signed_in: Primero debe registrarse.
+      access_denied: Accesso negado.
+    forum:
+      header: 'Viendo %{title}'
+      forums: Foros
+      new: Creando un foro nuevo
+      edit: 'Modificando el foro %{title}'
+      topics_count:
+        one: 1 tema
+        other: '%{count} temas'
+      posts_count:
+        one: 1 mensaje
+        other: '%{count} mensajes'
+      moderator_tools: Herramientas de Moderaciónr
+    forums:
+      index:
+        title: Foros
+        forum: Foro
+        views: Vistas
+        last_post: 'Último Mensaje:'
+        none: Ninguno
+    topic:
+      headings:
+        topic: Tema
+        latest: Último
+        posts: Mensajes
+        views: Vistas
+      moderation:
+        success: El tema seleccionado ha sido modificado por el moderador.
+        no_option_selected: Ninguna opción de moderación fue seleccionada.
+      received_reply: Un tema al que te has subscripto ha recibido una respuesta.
+      reply: Responder
+      quote: Citar
+      delete: Borrar
+      created: Este tema ha sido creado.
+      new: Creando un tema nuevo
+      edit: Modificando tema
+      not_created: Este tema no pudo ser creado.
+      deleted: Su tema ha sido borrado.
+      cannot_delete: Usted no puede borrar un tema que no es suyo.
+      updated: Este tema ha sido modificado.
+      not_updated: Este tema no pudo ser modificado.
+      subscribed: Usted se ha registrado en este tema.
+      unsubscribed: Usted ya no está registrado en este tema.
+      none: Actualemente no hay temas en este foro.
+      links:
+        new: Tema nuevo
+        back_to_topics: Volver a temas
+        edit: Modificar tema
+      not_found: El tema que esta buscando no pudo ser encontrado
+      hidden:
+        "true": Este tema ahora está oculto.
+        "false": Este tema ahora es visible.
+      locked:
+        "true": Este tema ha sido bloqueado.
+        "false": Este tema ha sido desbloqueado.
+      pinned:
+        "true": Este tema ha sido fijado.
+        "false": Esta tema está desfijado.
+    topics:
+      show:
+        reply: Responder
+        delete: Borrar
+        subscribe: Suscribirse
+        unsubscribe: Remover Subscripción
+        reply_to_topic: Responder a Tema
+        pending_review: Este tema está actualemente pendiente de revisión. Solamente el autor y los moderadores tienen acceso.
+        hide:
+          "true": Mostrar Tema
+          "false": Ocultar Tema
+        lock:
+          "true": Desbloquear Tema
+          "false": Bloquear Tema
+        pin:
+          "true": Desfijar Tema
+          "false": Fijar Tema
+    post:
+      buttons:
+        reply: Responder
+        edit: Modificar
+      created: Su respuesta ha sido publicada.
+      new: Responder
+      edit: Modificar
+      not_created: Su respuesta no pudo ser publicada.
+      not_created_topic_locked: Usted no puedo un tema bloqueado.
+      edited: Su mensaje ha sido modificado.
+      not_edited: Su mensaje no pudo ser modificado.
+      deleted: Su mensaje ha sido borrado.
+      deleted_with_topic: El único mensaje del tema ha sido borrado. Tema eliminado.
+      cannot_delete: Usted no puede borrar un mensaje ajeno
+    posts:
+      moderation:
+        moderate: Moderar
+        approve: Aprobar
+        spam: Spam
+        success: Los temas seleccionados han sido moderados
+      post:
+        pending_review: Este mensaje está en revisión. Solamente el autor y los moderadores pueden verlo.
+  helpers:
+    submit:
+      topic:
+        create: Crear Tema
+        update: Modificar Tema
+  simple_form:
+    labels:
+      topic:
+        subject: Tema
+        locked: Bloqueado
+        pinned: Fijado
+        hidden: Oculto
+        posts:
+          text: Texto
+      post:
+        text: Texto
+  time_ago_in_words: '%{time} atrás'
+  ago: ' atrás'
+  ago_by: ' atrás por'
+  by: por
+  started_by: 'Iniciado por '
+  are_you_sure: ¿Está seguro?

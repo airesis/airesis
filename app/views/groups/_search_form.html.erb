@@ -1,0 +1,42 @@
+<%= form_for groups_path, method: 'get', remote: true do |f| %>
+    <div class="row">
+      <div class="columns">
+        <%= f.label t('buttons.search'), t('pages.groups.index.search_with_query') %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns small-9">
+        <%= text_field_tag :search, params[:search], title: t('pages.groups.index.find_title') %>
+      </div>
+      <div class="columns small-3">
+        <div class="search_words">
+          <%= check_box_tag :and, params[:and], title: "Scegli se cercare tutte le parole o almeno una" %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns">
+        <%= f.label :interest_border, t('pages.groups.index.search_with_place') %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns small-9">
+        <%= text_field_tag :interest_border, params[:interest_border],
+                           title: t('pages.groups.index.find_title'),
+                           data: {pre: ([@interest_border].to_json if @interest_border)} %>
+      </div>
+      <div class="columns small-3">
+        <div class="search_borders">
+          <%= check_box_tag :area, params[:area], title: "Scegli se cercare in maniera precisa o all'interno dell'area indicata" %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns">
+        <%= f.button onclick: 'return GroupsIndex.checkCharacters();', class: 'btn', data: {disable_with: t('loading')} do %>
+            <i class="fa fa-search"></i>
+            <%= t('buttons.search') %>
+        <% end %>
+      </div>
+    </div>
+<% end %>

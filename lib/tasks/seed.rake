@@ -10,32 +10,32 @@ namespace :airesis do
       num = 0
       File.open(filename(num), 'w') do |f|
         f.puts("#encoding: utf-8")
-        Continente.all.each do |continente|
-          f.puts("a#{continente.id} = Continente.create(description: \"#{continente.description}\")")
-          continente.translations.each do |trans|
-            f.puts("  a#{continente.id}.translations.where(locale: \"#{trans.locale}\").first_or_create.update_attributes(description: \"#{trans.description}\")")
+        Continent.all.each do |continent|
+          f.puts("a#{continent.id} = Continent.create(description: \"#{continent.description}\")")
+          continent.translations.each do |trans|
+            f.puts("  a#{continent.id}.translations.where(locale: \"#{trans.locale}\").first_or_create.update_attributes(description: \"#{trans.description}\")")
           end
-          continente.statos.each do |stato|
-            f.puts(" s#{stato.id} = Stato.create( description: \"#{stato.description}\", continente_id: a#{continente.id}.id, sigla: \"#{stato.sigla}\", sigla_ext: \"#{stato.sigla_ext}\")")
-            stato.translations.each do |trans|
-              f.puts("  s#{stato.id}.translations.where(locale: \"#{trans.locale}\").first_or_create.update_attributes(description: \"#{trans.description}\")")
+          continent.countries.each do |country|
+            f.puts(" s#{country.id} = Country.create( description: \"#{country.description}\", continent_id: a#{continent.id}.id, sigla: \"#{country.sigla}\", sigla_ext: \"#{country.sigla_ext}\")")
+            country.translations.each do |trans|
+              f.puts("  s#{country.id}.translations.where(locale: \"#{trans.locale}\").first_or_create.update_attributes(description: \"#{trans.description}\")")
             end
-            stato.regiones.each do |regione|
-              f.puts("  r#{regione.id} = Regione.create(description: \"#{regione.description}\", stato_id: s#{stato.id}.id, continente_id: a#{continente.id}.id)")
-              regione.provincias.each do |provincia|
-                f.puts("   Provincia.create(description: \"#{provincia.description}\", regione_id: r#{regione.id}.id, stato_id: s#{stato.id}.id, continente_id: a#{continente.id}.id, sigla: \"#{provincia.sigla}\"){ |c| c.id = #{provincia.id}}.save")
+            country.regions.each do |region|
+              f.puts("  r#{region.id} = Region.create(description: \"#{region.description}\", country_id: s#{country.id}.id, continent_id: a#{continent.id}.id)")
+              region.provinces.each do |province|
+                f.puts("   Province.create(description: \"#{province.description}\", region_id:  r#{region.id}.id, country_id: s#{country.id}.id, continent_id: a#{continent.id}.id, sigla: \"#{province.sigla}\"){ |c| c.id = #{province.id}}.save")
               end
             end
           end
         end
       end
 
-      Provincia.all.each do |provincia|
+      Province.all.each do |province|
         num += 1
         File.open(filename(num), 'w') do |f|
           f.puts("#encoding: utf-8")
-          provincia.comunes.each do |comune|
-            f.puts("Comune.create(description: \"#{comune.description}\", provincia_id: #{provincia.id}, regione_id: #{provincia.regione.id}, stato_id: #{provincia.stato.id}, continente_id: #{provincia.continente.id} " + (comune.population ? ", population: #{comune.population}" : "") + ")")
+          province.municipalities.each do |municipality|
+            f.puts("Municipality.create(description: \"#{municipality.description}\", province_id: #{province.id}, region_id:  #{province.region.id}, country_id: #{province.country.id}, continent_id: #{province.continent.id} " + (municipality.population ? ", population: #{municipality.population}" : "") + ")")
           end
         end
       end
@@ -86,7 +86,7 @@ namespace :airesis do
           f.puts("UserType.create( description: \"#{usertype.description}\", short_name: \"#{usertype.short_name}\" ){ |c| c.id = #{usertype.id}}.save")
         end
 
-        Quorum.public.each do |quorum|
+        Quorum.visible.each do |quorum|
           f.puts("Quorum.create(name: \"#{quorum.name}\", percentage: #{quorum.percentage || 'nil'}, minutes: #{quorum.minutes || 'nil'}, good_score: #{quorum.good_score || 'nil'}, bad_score: #{quorum.bad_score || 'nil'}, vote_percentage: #{quorum.vote_percentage || 'nil'}, vote_minutes: #{quorum.vote_minutes || 'nil'}, vote_good_score: #{quorum.vote_good_score || 'nil'}, t_percentage: \"#{quorum.t_percentage}\", t_minutes: \"#{quorum.t_minutes}\", t_good_score: \"#{quorum.t_good_score}\", t_vote_percentage: \"#{quorum.t_vote_percentage}\", t_vote_minutes: \"#{quorum.t_vote_minutes}\", t_vote_good_score: \"#{quorum.t_vote_good_score}\", public: true, seq: #{quorum.seq || 'nil'})")
         end
 
@@ -115,10 +115,6 @@ namespace :airesis do
         SysMovementType.all.each do |currency|
           f.puts("SysMovementType.create(description: \"#{currency.description}\")")
         end
-
-
-        #f.puts("@u = User.create(user_type_id: 1, name: 'Administrator', surname: 'Admin', email: \"#{APP_EMAIL_ADDRESS}\", login: 'admin', confirmed_at: Time.now)")
-
       end
     end
   end

@@ -1,16 +1,16 @@
-#encoding: utf-8
 class ParticipationRolesController < ApplicationController
   layout 'groups'
 
-  #l'utente deve aver fatto login
   before_filter :authenticate_user!
 
   before_filter :load_group
+
   authorize_resource :group
+  before_filter :load_participation_roles, only: [:index]
   load_and_authorize_resource through: :group
 
   def index
-    @page_title = t("pages.groups.edit_permissions.title")
+    @page_title = t('pages.groups.edit_permissions.title')
   end
 
   def new
@@ -61,17 +61,17 @@ class ParticipationRolesController < ApplicationController
     redirect_to group_participation_roles_path(@group)
   end
 
-  #change role permissions
-  #todo move from here and put in action_abilitation#create and action_abilitations#destroy
+  # change role permissions
+  # TODO: move from here and put in action_abilitation#create and action_abilitations#destroy
   def change_group_permission
     ActionAbilitation.transaction do
-      if params[:block] == "true" #devo togliere i permessi
+      if params[:block] == 'true' # devo togliere i permessi
         abilitation = @participation_role.action_abilitations.where(group_action_id: params[:action_id])
         if abilitation.exists?
           flash[:notice] = t('info.participation_roles.permissions_updated')
           abilitation.destroy_all
         end
-      else #devo abilitare
+      else # devo abilitare
         flash[:notice] = t('info.participation_roles.permissions_updated')
         @participation_role.action_abilitations.create!(group_action_id: params[:action_id], group_id: params[:group_id])
 
@@ -84,6 +84,10 @@ class ParticipationRolesController < ApplicationController
   end
 
   protected
+
+  def load_participation_roles
+    @participation_roles = @group.participation_roles
+  end
 
   def participation_role_params
     params.require(:participation_role).permit(:id, :parent_participation_role_id, :name, :description)

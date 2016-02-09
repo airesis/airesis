@@ -1,6 +1,6 @@
 module Frm
   class Post < FrmTable
-    include Workflow, BlogKitModelHelper
+    include Workflow
 
     workflow_column :state
     workflow do
@@ -19,11 +19,11 @@ module Frm
 
     belongs_to :topic
     belongs_to :user, class_name: 'User'
-    belongs_to :reply_to, class_name: "Post"
+    belongs_to :reply_to, class_name: 'Post'
 
-    has_many :replies, class_name: "Post",
-             foreign_key: "reply_to_id",
-             dependent: :nullify
+    has_many :replies, class_name: 'Post',
+                       foreign_key: 'reply_to_id',
+                       dependent: :nullify
 
     validates :text, presence: true
 
@@ -32,26 +32,25 @@ module Frm
     delegate :group, to: :forum
 
     after_create :set_topic_last_post_at
-    after_create :subscribe_replier, if: :user_auto_subscribe?
+    after_create :subscribe_replier
     after_create :skip_pending_review
 
     before_create :populate_token
 
     after_save :approve_user, if: :approved?
     after_save :blacklist_user, if: :spam?
-    after_save :email_topic_subscribers, if: Proc.new { |p| p.approved? && !p.notified? }
+    after_save :email_topic_subscribers, if: proc { |p| p.approved? && !p.notified? }
 
     class << self
-
       def approved
-        where(state: "approved")
+        where(state: 'approved')
       end
 
       def approved_or_pending_review_for(user)
         if user
           where arel_table[:state].eq('approved').or(
-                    arel_table[:state].eq('pending_review').and(arel_table[:user_id].eq(user.id))
-                )
+            arel_table[:state].eq('pending_review').and(arel_table[:user_id].eq(user.id))
+          )
         else
           approved
         end
@@ -73,13 +72,12 @@ module Frm
         if user
           joins(:topic).where('frm_topics.hidden = false or frm_topics.user_id = ?', user.id)
         else
-          joins(:topic).where(frm_topics: {hidden: false})
+          joins(:topic).where(frm_topics: { hidden: false })
         end
-
       end
 
       def topic_not_pending_review
-        joins(:topic).where(frm_topics: {state: 'approved'})
+        joins(:topic).where(frm_topics: { state: 'approved' })
       end
 
       def moderate!(posts)
@@ -92,23 +90,28 @@ module Frm
     end
 
     def user_auto_subscribe?
-      user && user.auto_subscribe?
+      user.present?
     end
 
     def owner_or_admin?(other_user)
-      user == other_user || other_user.forem_admin?(self.group)
+      user == other_user || other_user.forem_admin?(group)
     end
 
     def owner_or_moderator?(other_user)
       user == other_user || other_user.can_moderate_forem_forum?(forum) || other_user.forem_admin?(group)
     end
 
+    # returns the number of his page in case of pagination on the topic
+    def page
+      ids = topic.posts.pluck(:id)
+      position = ids.index(id)
+      (position.to_f / TOPICS_PER_PAGE).ceil
+    end
+
     protected
 
     def subscribe_replier
-      if topic && user
-        topic.subscribe_user(user.id)
-      end
+      topic.subscribe_user(user.id) if topic && user
     end
 
     def email_topic_subscribers
@@ -123,7 +126,7 @@ module Frm
     end
 
     def skip_pending_review
-      approve! unless user && user.forem_moderate_posts?
+      approve!
     end
 
     def populate_token
@@ -134,12 +137,11 @@ module Frm
     end
 
     def approve_user
-      #todo disattivato user.update_attribute(:forem_state, "approved") if user && user.forem_state != "approved"
+      # TODO: disattivato user.update_attribute(:forem_state, "approved") if user && user.forem_state != "approved"
     end
 
     def blacklist_user
-      user.update_attribute(:forem_state, "spam") if user
+      user.update_attribute(:forem_state, 'spam') if user
     end
-
   end
 end

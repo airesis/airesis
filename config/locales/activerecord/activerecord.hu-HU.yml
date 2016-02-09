@@ -1,4 +1,4 @@
-hu:
+hu-HU:
   activerecord:
     models:
       meeting: Találkozó
@@ -7,12 +7,6 @@ hu:
       blog_comment:
         body: Hozzászólás
         created_at: AntiSpam
-      candidate:
-        user: Jelölt
-        election: Választás
-      election:
-        groups_end_time: Deadline date for group entry
-        candidates_end_time: Deadline date for candidates entry
       event:
         title: Esemény megnevezése
         description: Leírás
@@ -23,12 +17,6 @@ hu:
         period: Ismétlés
         frequency: Ismétlődik minden
         private: Személyes
-        candidates_end_time: Határidő a jelöltek jelentkezésére
-      event/meeting/place:
-        address: Cím
-        comune_id: Város
-        latitude_original: Szélesség
-        longitude_original: Hosszúság
       group:
         facebook_page_url: Facebook oldal címe
         name: Név
@@ -77,7 +65,6 @@ hu:
         content: Szöveg
         interest_borders_tkn: Földrajzi érdeklődési kör
         tags_list: Cimkék
-        quorum_id: Határozatképesség
         anonima: Ideiglenes anonimitás
         visible_outside: Nyilvánosan látható
         secret_vote: Titkos szavazás
@@ -107,17 +94,13 @@ hu:
         vote_good_score: Jóváhagyás
       search_participant:
         role_id: Szerepkör
-        keywords: Családnév vagy vezetéknév
       sys_movement:
         sys_movement_type_id: Típus
         made_on: Készült
         amount: Mennyiség
         sys_currency_id: Pénznem
       user:
-        name: Név
         email: E-mail cím
-        surname: Vezetéknév
-        login: Felhasználó név
         password: jelszó
         linkedinpageurl: Linkedin oldalad
         facebookpageurl: Facebook oldalad
@@ -129,11 +112,6 @@ hu:
         description: Leírás
         default_role_name: Alapértelmezett szerepkör neve
     errors:
-      template:
-        header:
-          one: 'egy hiba akadályozza a  %{model} mentését'
-          other: '%{count} hiba akadályozza a %{model} mentésést'
-        body: Problémák merültek fel az alábbi mezőkkel
       messages:
         inclusion: nem szerepel a listában
         exclusion: foglalt
@@ -157,13 +135,8 @@ hu:
         record_invalid: 'Az ellenőrzés nem sikerült %{errors}'
         not_found: nem található.
         TOS: El kell fogadod a felhasználási feltételeket
-      full_messages:
-        format: '%{attribute} %{message}'
       models:
         user:
           attributes:
             email:
               already_confirmed: Ez az e-mail cím már regisztrálva van
-        group:
-          portavoce:
-            required: Ki kell választanod egy szóvivőt

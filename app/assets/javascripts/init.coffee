@@ -8,13 +8,18 @@ $ ->
       button.attr 'disabled', 'disabled'
       false
 
-  ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible :input:enabled[data-validate]'
   $(document).foundation()
+  new AiresisFormValidation($('form:not("[data-disable-form-validator]")'))
   Facebook.load()
-  if Airesis.env == 'production'
+  if Airesis.environment == 'production'
     GoogleAnalytics.load()
-  if Airesis.env == 'test'
+  if Airesis.environment == 'test'
     $.fx.off = true
+  # ajax requests
+  $.ajaxPrefilter (options, originalOptions, jqXHR)->
+    if Airesis.i18n.l isnt ''
+      options.data = $.param($.extend(originalOptions.data, { l: Airesis.i18n.l }))
+    return true
   #polling alerts
   if Airesis.signed_in
     PrivatePub.subscribe '/notifications/' + Airesis.id, (data, channel) ->
@@ -58,8 +63,6 @@ $ ->
     ])
   #remove attributes for introjs from aside hidden menu. so they can work correctly
   $('aside [data-ijs]').removeAttr 'data-ijs'
-
-  ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible ~ :input:enabled[data-validate]'
 
   $.fn.qtip.defaults = $.extend(true, {}, $.fn.qtip.defaults, style: classes: 'qtip-light qtip-shadow')
 
@@ -125,7 +128,8 @@ $ ->
         create_proposal_.append $('#loading-fragment').clone()
         $.ajax
           url: link.attr('href')
-          data: 'proposal_type_id=' + type_id
+          data:
+            proposal_type_id: type_id
           dataType: 'script'
     airesis_reveal create_proposal_
     false
@@ -140,7 +144,7 @@ $ ->
 
   $('[data-tag-cloud] a').tagcloud()
 
-  #proposals index, search by text field
+  # proposals index, search by text field
   $('.search-by-text').on 'click', ->
     field = $(this).prevAll('.field-by-text')
     condition = $(this).prevAll('.condition-for-text:checked')
@@ -170,3 +174,11 @@ $ ->
   #executes page specific js
   page = $('body').data('page')
   execute_page_js page
+
+  #select fdatetimepicker mode in according to All day checkbox
+  $(document).on 'change', '#event_all_day', ->
+    if $(this).is(':checked')
+      fdatetimepicker_only_date $('#event_starttime'), $("#event_endtime")
+    else
+      fdatetimepicker_date_and_time $('#event_starttime'), $("#event_endtime")
+

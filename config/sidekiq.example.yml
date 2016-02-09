@@ -1,0 +1,12 @@
+:concurrency: 15
+test:
+  :concurrency: 5
+production:
+  :concurrency: 20
+:queues:
+  - [high_priority,5]
+  - [sunspot,4]
+  - [notifications,3]
+  - [default,2]
+  - [low_priority, 1]
+  - [mailers, 1]

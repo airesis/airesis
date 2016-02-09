@@ -1,5 +1,4 @@
 class ProposalCommentSearch
-
   attr_reader :section
 
   def initialize(params, proposal, current_user = nil)
@@ -11,7 +10,7 @@ class ProposalCommentSearch
     @section_id = params[:section_id]
     @section = Section.find(@section_id) if @section_id.present?
     @contributes = params[:contributes]
-    @limit = params[:disable_limit] ? 9999999 : COMMENTS_PER_PAGE
+    @limit = params[:disable_limit] ? 9_999_999 : COMMENTS_PER_PAGE
     @current_user = current_user
   end
 
@@ -32,8 +31,8 @@ class ProposalCommentSearch
     return @evaluated_ids if @evaluated_ids
     if @current_user
       @evaluated_ids = ProposalComment.joins(:rankings).
-        where(proposal_comment_rankings: {user_id: @current_user.id},
-              proposal_comments: {proposal_id: @proposal.id}).uniq.pluck(:id)
+        where(proposal_comment_rankings: { user_id: @current_user.id },
+              proposal_comments: { proposal_id: @proposal.id }).uniq.pluck(:id)
     else
       @evaluated_ids = []
     end
@@ -62,10 +61,9 @@ class ProposalCommentSearch
     end
 
     if random_order?
-
       order = order_clause
 
-      #remove already shown contributes
+      # remove already shown contributes
       conditions_arel = conditions_arel.and(proposal_comments_t[:id].not_in @contributes) if @contributes
       left = @limit
       tmp_comments = []

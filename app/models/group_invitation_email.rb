@@ -1,5 +1,4 @@
 class GroupInvitationEmail < ActiveRecord::Base
-
   belongs_to :group_invitation
   belongs_to :invited, class_name: 'User', foreign_key: :user_id
 
@@ -16,9 +15,9 @@ class GroupInvitationEmail < ActiveRecord::Base
   end
 
   def reject
-      self.consumed = true
-      self.accepted = 'N'
-      save
+    self.consumed = true
+    self.accepted = 'N'
+    save
   end
 
   def anymore
@@ -36,7 +35,6 @@ class GroupInvitationEmail < ActiveRecord::Base
   end
 
   def send_emails
-    ResqueMailer.delay.invite(id)
+    ResqueMailer.invite(id).deliver_later
   end
-
 end

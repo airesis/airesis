@@ -1,24 +1,23 @@
 module Frm
   module Admin
     class TopicsController < BaseController
-
       load_and_authorize_resource :forum, class: 'Frm::Forum', through: :group
       load_and_authorize_resource class: 'Frm::Topic', through: :forum
 
       def update
         if @topic.update(topic_params)
-          flash[:notice] = t("frm.topic.updated")
+          flash[:notice] = t('frm.topic.updated')
           redirect_to group_forum_topic_url(@group, @topic.forum, @topic)
         else
-          flash.alert = t("frm.topic.not_updated")
-          render action: "edit"
+          flash.alert = t('frm.topic.not_updated')
+          render action: 'edit'
         end
       end
 
       def destroy
         forum = @topic.forum
         @topic.destroy
-        flash[:notice] = t("frm.topic.deleted")
+        flash[:notice] = t('frm.topic.deleted')
         redirect_to group_forum_topics_url(@group, forum)
       end
 
@@ -45,7 +44,6 @@ module Frm
       def topic_params
         params.require(:frm_topic).permit(:subject, :posts_attributes, :tags_list, :pinned, :locked, :hidden, :forum_id, as: :admin)
       end
-
     end
   end
 end

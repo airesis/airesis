@@ -1,0 +1,84 @@
+en-EU:
+  errors:
+    messages:
+      expired: "has expired, please request a new one"
+      not_found: "not found"
+      already_confirmed: "was already confirmed, please try signing in"
+      not_locked: "was not locked"
+      not_saved:
+        one: "1 error prohibited this %{resource} from being saved:"
+        other: "%{count} errors prohibited this %{resource} from being saved:"
+  devise:
+    failure:
+      locked: 'Your account is locked'
+      invalid: 'Invalid email or password'
+      invalid_token: 'Invalid authentication token'
+      timeout: 'Your session expired, please sign in again to continue'
+      inactive: 'Your account has not been activated yet'
+      already_authenticated: 'You are already registered'
+      unauthenticated: 'Log-in required to access this page.  Please log-in.'
+      unconfirmed: "Account has not been confirmed yet"
+      user:
+        invalid: 'Invalid username or password'
+        not_found_in_database: 'Invalid username or password'
+    sessions:
+      signed_in: 'Signed in successfully'
+      signed_out: 'Signed out successfully'
+      user:
+        signed_out: 'You have successfully logged out.  Good-bye'
+        signed_in: 'You have signed in. Welcome!'
+        signed_up: 'You have successfully completed your registration. Welcome!'
+    passwords:
+      send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes'
+      updated: 'Your password was changed successfully. You are now signed in'
+      updated_not_active: 'Your password was changed successfully'
+      send_paranoid_instructions: "If your email exists on our database, you will receive a password recovery link on your inbox"
+    confirmations:
+      send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes'
+      send_paranoid_instructions: 'If your email exists on our database, you will receive an email with instructions about how to confirm your account in a few minutes'
+      confirmed: 'Your account was successfully confirmed. You are now signed in'
+      user:
+        confirmed: 'Your registration has been successfully completed'
+        send_instructions: 'Instructions have been sent to your designated email'
+    registrations:
+      signed_up: 'Welcome! You have signed up successfully'
+      signed_up_but_unconfirmed: 'A message with a confirmation link has been sent to your email address. Please open the link to activate your account'
+      signed_up_but_inactive: 'You have signed up successfully. However, we could not sign you in because your account is not yet activated'
+      signed_up_but_locked: 'You have signed up successfully. However, we could not sign you in because your account is locked.'
+      updated: 'You updated your account successfully'
+      update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address"
+      destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon'
+      user:
+        inactive_signed_up: 'To complete your registration please click on the link in the email you received'
+        signed_up_but_unconfirmed: 'Click on the link in the email sent to your address to complete the registration process'
+    unlocks:
+      send_instructions: 'You will receive an email with instructions about on how to unlock your account in a few minutes'
+      unlocked: 'Your account has been unlocked successfully. Please sign in to continue'
+      send_paranoid_instructions: 'If your account exists, you will receive an email with instructions about how to unlock it in a few minutes'
+    omniauth_callbacks:
+      success: 'Your registration has been completed. Welcome!'
+      failure: 'Could not authorize you from %{kind} because "%{reason}"'
+      creation_failure: "Error while accessing through %{provider}"
+      join_success: "Accounts successfully merged. Congratulations, now you can login through %{provider}."
+      join_failure: "Another %{provider} account exists. The feature to join accounts will be available soon."
+      certified_email_taken: "Another account with your certified email exists."
+      already_certified: "Another account has been certified with your tax code."
+      account_not_verified: "Account %{provider} not verified. Please verify your account on %{provider}."
+    mailer:
+      confirmation_instructions:
+        subject: 'Confirmation instructions'
+        welcome: "Welcome on %{app_name} %{user}!"
+        follow_link: "You can confirm your e-mail address by clicking the following link:"
+        confirm_account: "Confirm account"
+        follow_link_2: "or by visiting the following url:"
+        access_by_email: "Then you can log in %{app_name} with the provided e-mail and the chosen password"
+        contact_assistance: "If you have any problem with the procedure contact an administrator: %{mail}"
+      reset_password_instructions:
+        subject: 'Reset password instructions'
+        hi_user: "Hello %{user}!"
+        follow_link: "You can change your password by clicking on the following link:"
+        change_password: "Change password"
+        ignore: "If you didn't ask the change your password, please ignore this e-mail."
+        password_will_not_change: "Your password will not change until you click on the previous link."
+      unlock_instructions:
+        subject: 'Unlock Instructions'

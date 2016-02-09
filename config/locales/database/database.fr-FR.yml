@@ -1,22 +1,12 @@
-fr:
+fr-FR:
   db:
     sys_locales:
-      it-IT:
-        description: Italien
-      en:
-        description: Anglais
-      en-US:
-        description: Anglais (États-Unis)
-      fr:
-        description: Français
       es-ES:
         description: Espagnol
-      pt-PT:
-        description: Portugais
+      it-IT:
+        description: Italien
       pt-BR:
         description: Portugais (Brésil)
-      de:
-        description: Allemand
     proposal_types:
       STANDARD:
         description: Proposition standard
@@ -56,8 +46,6 @@ fr:
         description: Soutenir les propositions au nom du groupe
       REQUEST_ACCEPT:
         description: Ajouter des nouveaux membres au groupe
-      SEND_CANDIDATES:
-        description: "Nommer des membres pour l'élection"
       PROPOSAL_VIEW:
         description: Voir les propositions privées
       PROPOSAL_PARTICIPATION:
@@ -98,16 +86,16 @@ fr:
         message: '%{user} a ajouté un nouveau message dans son blog <b>%{blog}</b>'
       new_valutation_mine:
         description: Nouvelle évaluation à une de mes propositions
-        email_subject: '%{title} - Nouvelle évaluation'
-        message: 'Votre proposition <b>%{title}</b> a reçu une nouvelle évaluation'
       new_valutation:
         description: Nouvelle évaluation à une proposition à laquelle je participe
-        email_subject: '%{title} - Nouvelle évaluation'
-        message: 'Votre proposition <b>%{title}</b> a reçu une nouvelle évaluation'
       available_author:
         description: "Utilisateur disponible pour devenir éditeur d'une proposition"
-        email_subject: '%{title} - Nouveaux éditeurs disponibles'
-        message: '%{user}  est disponible à rédiger la proposition <b>%{title}</b>'
+        email_subject:
+          one: '%{title} - un nouvel éditeur est disponible'
+          other: '%{title} - %{count} nouveaux éditeurs sont disponibles'
+        message:
+          one: '%{user}  est disponible pour rédiger la proposition <b>%{title}</b>'
+          other: '%{count} utilisateurs sont disponibles pour devenir rédacteur de la proposition <b>%{title}</b>'
       author_accepted:
         description: "Acceptation en tant qu'éditeur d'une proposition"
         email_subject: '%{title} - Vous êtes maintenant un de ses éditeurs !'
@@ -121,17 +109,30 @@ fr:
         email_subject: '%{proposal} - Contribution remise en débat'
         message: 'Une contribution que vous avez intégré dans la proposition <b>%{proposal}</b> a été remise en débat'
       new_contributes:
-        description: Nouvelles contributions aux propositions auxquelles je participe
-        email_subject: '%{title} - nouvelle contribution'
-        message: '<b>%{name}</b> a ajouté une nouvelle contribution à la proposition <b>%{title}</b>'
+        description: Nouvelles contributions dans les propositions auxquelles je participe à
+        email_subject:
+          one: '%{title} - une nouvelle contribution a été insérée'
+          other: '%{title} - il y a  les %{count} nouvelles contributions'
+        message:
+          one: '<b>%{name}</b> a ajouté une nouvelle contribution à la proposition <b>%{title}</b>'
+          other: 'Il y a <b>%{count}</b> nouvelles contributions dans la proposition <b>%{title}</b>'
       text_update:
         description: "Mise à jour du texte d'une proposition à laquelle je participe"
-        email_subject: '%{title} - Le texte a été modifié'
-        message: 'La proposition <b>%{title}</b> a été mise à jour'
+        email_subject:
+          one: '%{title} a été mis à jour'
+          other: '%{title} a été mis à jour %{count} fois'
+        message:
+          one: 'La proposition <b>%{title}</b> a été mise à jour'
+          other: 'La proposition <b>%{title}</b> a été modifiée %{count} fois'
       new_contributes_mine:
         description: Nouvelles contributions à mes propositions
-        email_subject: '%{title} - Nouvelle contribution'
-        message: '<b>%{name}</b> a ajouté une contribution à votre proposition <b>%{title}</b>'
+        email_subject:
+          one: '%{title} - une nouvelle contribution a été insérée'
+          other: '%{title} - il y a %{count} nouvelles contributions'
+        message:
+          zero: '<b>%{name}</b> a ajouté une nouvelle contribution à votre proposition <b>%{title}</b>'
+          one: '<b>%{name}</b> a ajouté une nouvelle contribution à votre proposition <b>%{title}</b>'
+          other: 'Il y a <b>%{count}</b> nouvelles contributions dans la proposition <b>%{title}</b>'
       change_status:
         description: "Changement de statut d'une proposition à laquelle je participe"
         email_subject:
@@ -179,6 +180,18 @@ fr:
           1_hour: 'Le débat sur <b>%{title}</b> se termine dans une heure !'
           24_hours_vote: 'Le vote sur <b>%{title}</b> se termine demain !'
           1_hour_vote: 'Le vote sur <b>%{title}</b> se termine dans une heure !'
+      proposal_phase_ending:
+        description: 'Un débat  ou un vote de la proposition vont se terminer bientôt'
+        email_subject:
+          24_hours: 'Le débat sur %{title} se termine demain!'
+          1_hour: 'Le débat sur %{title} se termine dans une heure!'
+          24_hours_vote: 'Le vote sur %{title} se termine demain!'
+          1_hour_vote: 'Le vote sur %{title} se termine dans une heure!'
+        message:
+          24_hours: 'Le débat sur <b>%{title}</b> se termine demain!'
+          1_hour: 'Le débat sur <b>%{title}</b> se termine dans une heure!'
+          24_hours_vote: 'Le vote sur <b>%{title}</b> se termine demain!'
+          1_hour_vote: 'Le vote sur <b>%{title}</b> se termine dans une heure!'
       new_posts_group_follow:
         description: Nouveaux messages sur les Murs des groupes que je suis
         email_subject: Nouveau message
@@ -196,12 +209,20 @@ fr:
         message: 'Nouvelle proposition <b>%{proposal}</b> créée dans le groupe <b>%{group}</b>'
       new_participation_request:
         description: Nouvelle demande de participation
-        email_subject: Nouvelle demande de participation
-        message: '<b>%{user}</b> a demandé à participer au groupe <b>%{group}</b>'
+        email_subject:
+          one: Il y a une nouvelle demande de participation
+          other: 'Il y a %{count} nouvelles demandes de participation'
+        message:
+          one: '<b>%{user}</b> a demandé à participer au groupe <b>%{group}</b>'
+          other: '<b>%{count} utilisateurs</b> invités à participer dans le groupe <b>%{group}</b>'
       new_blog_comment:
         description: Nouveau commentaire dans mon blog
-        email_subject: Nouveau commentaire dans votre blog
-        message: '<b>%{user}</b> a commenté votre message <b>%{title}</b>'
+        email_subject:
+          one: Un nouveau commentaire dans votre blog
+          other: '%{count} nouveaux commentaires dans votre blog'
+        message:
+          one: '<b>%{user}</b> a commenté votre message <b>%{title}</b>'
+          other: 'Il y a de nouveaux commentaires <b>%{count}</b> sur votre post <b>%{title}</b>'
       new_comments_mine:
         description: Nouveaux commentaires à mes propositions
         email_subject: Nouveau commentaire à ma proposition

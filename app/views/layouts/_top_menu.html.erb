@@ -1,13 +1,11 @@
 <div class="fixed">
   <nav class="top-bar" data-topbar>
     <section class="top-bar-section">
-      <div class="logo-wrapper show-for-large-up">
+      <div class="logo-wrapper show-for-medium-up">
         <div class="logo">
           <%= link_to (image_tag 'logo_completo_white_mini.png', class: "logo1", data: ({dropdown: "airesis_panel", options: "is_hover:false;align:center;"} unless true)), root_path, tabindex: 1 %>
         </div>
       </div>
-
-
       <ul class="left">
         <% unless in_subdomain? %>
             <li>
@@ -19,7 +17,7 @@
         <% end %>
         <% if current_user %>
             <li class="has-form">
-              <%= simple_form_for Search.new, data: {remote: true} do |f| %>
+              <%= simple_form_for Search.new, data: {remote: true, disable_form_validator: ''} do |f| %>
                   <div class="row collapse">
                     <div class="large-12 small-10 columns">
                       <%= f.text_field :q, placeholder: t('placeholder.find') %>
@@ -32,6 +30,10 @@
       </ul>
 
       <ul class="right">
+        <li >
+          <%= link_to open_space_path, class: 'cur globe', title: t('open_space') do %>
+              <i class="fa fa-globe medium"></i>
+          <% end %></li>
         <li class="hide-for-small"><%= link_to sostienici_path, class: 'cur love', title: t('pages.header.support_us') do %>
               <i class="fa fa-heart medium"></i>
           <% end %></li>
@@ -44,11 +46,11 @@
         <% if current_user %>
             <li>
               <%= link_to '#', class: 'button account show-for-large-up', data: {dropdown: "personal_menu_large", options: "is_hover:false"} do %>
-                  <%= current_user.user_image_tag 34, cert: false %>
+                  <%= avatar(current_user, size: 34, cert: false) %>
                   <span><%= current_user.fullname %></span>
               <% end %>
               <%= link_to '#', class: 'small account hide-for-large-up', data: {dropdown: "personal_menu_small", options: "is_hover:false"} do %>
-                  <%= current_user.user_image_tag 34, cert: false %>
+                  <%= avatar(current_user, size: 34, cert: false) %>
               <% end %>
             </li>
             <li>
@@ -131,6 +133,7 @@
           <% else %>
               <%= render partial: 'groups/group_menu_item', collection: current_user.groups, as: :group %>
           <% end %>
+          <%= render 'groups/open_space_menu_item' %>
       <% end %>
       <div class="group-item">
         <%= link_to new_group_url(subdomain: false), class: 'btn blue' do %>

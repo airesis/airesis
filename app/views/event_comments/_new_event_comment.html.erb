@@ -2,20 +2,13 @@
   <% if !user_signed_in? %>
       <h2><%= t('pages.proposals.show.login_to_comment') %></h2>
   <% else %>
-      <label><%= t('pages.proposals.show.add_comment') %></label>
-      <%= form_for [@event, event_comment], remote: true do |f| %>
-          <% if event_comment.errors.any? %>
-              <ul>
-                <% event_comment.errors.full_messages.each do |msg| %>
-                    <li><%= msg %></li>
-                <% end %>
-              </ul>
-          <% end %>
-
-            <%= f.text_area :body, class: 'blogNewCommentField', rows: 5, cols: 70 %>
-
+      <%= simple_form_for [@event, event_comment], remote: true do |f| %>
+          <%= f.input :body,
+                      as: :text,
+                      label: t('pages.proposals.show.add_comment'),
+                      input_html: { class: 'blogNewCommentField', rows: 5, cols: 70 } %>
           <p>
-            <%= f.submit t('pages.event_comments.new.insert_comment'), data: {disable_with: t('loading')}, class: 'btn green' %>
+            <%= f.submit t('pages.event_comments.new.insert_comment'), data: { disable_with: t('loading') }, class: 'btn green' %>
           </p>
       <% end %>
   <% end %>

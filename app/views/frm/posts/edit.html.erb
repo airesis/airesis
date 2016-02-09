@@ -1,8 +1,8 @@
-<%= render partial: 'frm/forums/head', locals: { forum: @topic.forum } %>
+<%= render partial: 'frm/forums/head', locals: {forum: @topic.forum} %>
 
-<h2><%= t("frm.post.edit") %></h2>
+<h2><%= t('frm.post.edit') %></h2>
 
-<%= simple_form_for @post, url: group_forum_topic_post_url(@group,@topic.forum,@topic,@post) do |f| %>
-  <%= render partial: "form", locals: { f: f } %>
-  <%= f.submit t("frm.post.buttons.edit"), class: 'btn blue' %>
+<%= simple_form_for @post, url: group_forum_topic_post_url(@group, @topic.forum, @topic, @post) do |f| %>
+    <%= render partial: 'form', locals: {f: f} %>
+    <%= f.submit t("frm.post.buttons.edit"), class: 'btn blue' %>
 <% end %>

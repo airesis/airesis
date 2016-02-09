@@ -1,4 +1,3 @@
-#encoding: utf-8
 class BlogsController < ApplicationController
   layout :choose_layout
 
@@ -7,9 +6,16 @@ class BlogsController < ApplicationController
   before_filter :load_blog_data, only: [:show, :edit, :by_year_and_month]
 
   def index
-    @tags = Tag.most_blogs.shuffle unless request.xhr?
+    @tags = Tag.most_blogs(current_domain.territory).shuffle unless request.xhr?
     @page_title = t('pages.blogs.show.title')
+
+    params[:interest_border_obj] = @interest_border = if params[:interest_border].nil?
+                                                        InterestBorder.find_or_create_by(territory: current_domain.territory)
+                                                      else
+                                                        InterestBorder.find_or_create_by_key(params[:interest_border])
+                                                      end
     @blogs = Blog.look(params)
+
     respond_to do |format|
       format.html
       format.js
@@ -28,8 +34,8 @@ class BlogsController < ApplicationController
   end
 
   def by_year_and_month
-    @page_title = t('pages.blog_posts.archives.title', year: params[:year], month: t('date.month_names')[params[:month].to_i])
-    @blog_posts = @blog_posts.published.where("extract(year from created_at) = ? AND extract(month from created_at) = ? ", params[:year], params[:month]).order("created_at DESC").page(params[:page]).per(COMMENTS_PER_PAGE)
+    @page_title = t('pages.blog_posts.archives.title', year: params[:year], month: t('calendar.monthNames')[params[:month].to_i - 1])
+    @blog_posts = @blog_posts.published.where('extract(year from created_at) = ? AND extract(month from created_at) = ? ', params[:year], params[:month]).order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
       format.html
@@ -44,10 +50,7 @@ class BlogsController < ApplicationController
     else
       @user = current_user
       @blog.user = current_user
-
-      respond_to do |format|
-        format.html # new.html.erb
-      end
+      @page_title = t('pages.blogs.new.title')
     end
   end
 
@@ -66,7 +69,7 @@ class BlogsController < ApplicationController
       end
     else
       @user = current_user
-      render action: "new"
+      render action: 'new'
     end
   end
 
@@ -75,14 +78,15 @@ class BlogsController < ApplicationController
       flash[:notice] = t('info.blog.title_updated')
       redirect_to @blog
     else
-      render action: "edit"
+      render action: 'edit'
     end
   end
 
   def destroy
     @blog = Blog.friendly.find(params[:id])
     @blog.destroy
-    redirect_to blogs_url
+    flash[:notice] = t('info.blog.destroyed')
+    redirect_to root_path
   end
 
   protected

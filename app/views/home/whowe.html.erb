@@ -1,5 +1,5 @@
 <% @page_title = t('.title') %>
-<% @page_descr = t('.description') %>
+<% @meta_description = t('.description') %>
 
 <div class="slide">
   <div class="row centered">
@@ -153,12 +153,11 @@
       <div class="descrizione_volontario">
         <h3>Jacopo Tolja</h3>
         <h4><%= t('.tolja_jacopo.title') %></h4>
-        <%= t('.tolja_jacopo.content_html') %>
+        <%= t('.tolja_jacopo.content_html', age: age(Date.new(1963, 01, 11))) %>
       </div>
     </div>
   </div>
 </div>
-
 
 <div class="slide red">
   <div class="row centered">

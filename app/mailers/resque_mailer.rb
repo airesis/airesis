@@ -6,7 +6,11 @@ class ResqueMailer < ActionMailer::Base
 
   def url_options
     options = {}
-    options.merge!(host: @user.locale.host, l: @user.locale.lang) if @user
+    if @user
+      options.merge!(host: @user.locale.host, protocol: DEFAULT_EMAIL_PROTOCOL)
+      options.merge!(subdomain: @user.subdomain) if @user.subdomain
+      options.merge!(l: @user.locale.lang) unless @user.locale.lang.blank?
+    end
     options
   end
 
@@ -16,33 +20,34 @@ class ResqueMailer < ActionMailer::Base
   end
   # specific templates for notification types
   TEMPLATES = {
-      NotificationType::NEW_CONTRIBUTES => 'new_contribute',
-      NotificationType::NEW_CONTRIBUTES_MINE => 'new_contribute',
-      NotificationType::NEW_COMMENTS_MINE => 'new_contribute',
-      NotificationType::NEW_COMMENTS => 'new_contribute',
-      NotificationType::TEXT_UPDATE => 'text_update',
-      NotificationType::NEW_PUBLIC_PROPOSALS => 'new_proposal',
-      NotificationType::NEW_PROPOSALS => 'new_proposal',
-      NotificationType::NEW_PUBLIC_EVENTS => 'notifications/new_event',
-      NotificationType::NEW_EVENTS => 'notifications/new_event',
-      NotificationType::AVAILABLE_AUTHOR => 'notifications/available_author',
-      NotificationType::UNINTEGRATED_CONTRIBUTE => 'unintegrated_contribute',
-      NotificationType::NEW_BLOG_COMMENT => 'new_blog_comment',
-      NotificationType::CONTRIBUTE_UPDATE => 'notifications/update_contribute'
+    NotificationType::NEW_CONTRIBUTES => 'notifications/new_contribute',
+    NotificationType::NEW_CONTRIBUTES_MINE => 'notifications/new_contribute',
+    NotificationType::NEW_COMMENTS_MINE => 'notifications/new_contribute',
+    NotificationType::NEW_COMMENTS => 'notifications/new_contribute',
+    NotificationType::TEXT_UPDATE => 'notifications/text_update',
+    NotificationType::NEW_PUBLIC_PROPOSALS => 'notifications/new_proposal',
+    NotificationType::NEW_PROPOSALS => 'notifications/new_proposal',
+    NotificationType::NEW_PUBLIC_EVENTS => 'notifications/new_event',
+    NotificationType::NEW_EVENTS => 'notifications/new_event',
+    NotificationType::AVAILABLE_AUTHOR => 'notifications/available_author',
+    NotificationType::UNINTEGRATED_CONTRIBUTE => 'notifications/unintegrated_contribute',
+    NotificationType::NEW_BLOG_COMMENT => 'notifications/new_blog_comment',
+    NotificationType::CONTRIBUTE_UPDATE => 'notifications/update_contribute',
+    NotificationType.find_by(name: NotificationType::NEW_FORUM_TOPIC).id => 'notifications/new_forum_topic'
   }
 
   def notification(alert_id)
     @alert = Alert.find(alert_id)
     @user = @alert.user
     return if @alert.checked # do not send emails for already checked alerts
-    I18n.locale = @user.locale.key || 'en'
+    I18n.locale = @user.locale.key || :'en-EU'
     @data = @alert.data
     to_id = @data[:to_id]
     subject_id = @data[:subject]
     subject = @alert.email_subject
     template_name = TEMPLATES[@alert.notification.notification_type_id] || 'notification'
     if to_id
-      mail(to: "discussion+#{to_id}@airesis.it", bcc: @user.email, subject: subject, template_name: template_name) #todo extract email
+      mail(to: "discussion+#{to_id}@airesis.it", bcc: @user.email, subject: subject, template_name: template_name) # TODO: extract email
     else
       mail(to: @user.email, from: ENV['NOREPLY_EMAIL'], subject: subject, template_name: template_name)
     end
@@ -50,18 +55,13 @@ class ResqueMailer < ActionMailer::Base
 
   def admin_message(msg)
     @msg = msg
-    mail(to: ENV['ADMIN_EMAIL'], subject: ENV['APP_SHORT_NAME'] + " - Messaggio di amministrazione")
+    mail(to: ENV['ADMIN_EMAIL'], subject: "#{APP_SHORT_NAME} - Messaggio di amministrazione")
   end
 
   def report_message(report_id)
     @report = ProposalCommentReport.find(report_id)
 
-    mail(to: ENV['ADMIN_EMAIL'], subject: ENV['APP_SHORT_NAME'] + " - Segnalazione Contributo")
-  end
-
-
-  def info_message(msg)
-    mail(to: ENV['ADMIN_EMAIL'], subject: ENV['APP_SHORT_NAME'] + " - Messaggio di informazione")
+    mail(to: ENV['ADMIN_EMAIL'], subject: "#{APP_SHORT_NAME} - Segnalazione Contributo")
   end
 
   # send an invite to subscribe in the group
@@ -80,7 +80,7 @@ class ResqueMailer < ActionMailer::Base
     @body = body
     @from = User.find(from_id)
     @user = User.find(to_id)
-    I18n.locale = @user.locale.key || 'en'
+    I18n.locale = @user.locale.key || :'en-EU'
     mail(to: @user.email, from: ENV['NOREPLY_EMAIL'], reply_to: @from.email, subject: subject)
   end
 
@@ -90,15 +90,13 @@ class ResqueMailer < ActionMailer::Base
     @group = Group.find(group_id)
     @user = @from
     @to = @group.participants.where('users.id in (?)', to_ids.split(','))
-    mail(bcc: @to.map { |u| u.email }, from: ENV['NOREPLY_EMAIL'], reply_to: @from.email, to: "test@airesis.it", subject: subject) #todo extract email
+    mail(bcc: @to.map(&:email), from: ENV['NOREPLY_EMAIL'], reply_to: @from.email, to: 'test@airesis.it', subject: subject) # TODO: extract email
   end
-
-
 
   def publish(newsletter_id, user_id)
     @user = User.find(user_id)
     @newsletter = Newsletter.find(newsletter_id)
-    I18n.locale = @user.locale.key || 'en'
+    I18n.locale = @user.locale.key || 'en-EU'
 
     mail(subject: @newsletter.subject, to: @user.email) do |format|
       format.html { render inline: @newsletter.body, layout: 'newsletters/default' }
@@ -121,16 +119,22 @@ class ResqueMailer < ActionMailer::Base
     @post = Frm::Post.find(post_id)
     @group = @post.forum.group
     @user = User.find(subscriber_id)
-    mail(from: "Airesis Forum <replytest+#{@post.token}@airesis.it>", to: @user.email, subject: "[#{@group.name}] #{@post.topic.subject}") #todo extract email
+    I18n.locale = @user.locale.key || :'en-EU'
+    from_address = if ENV['MAILMAN_EMAIL'].present?
+                     composed_email = ENV['MAILMAN_EMAIL'].gsub(/%.*%/, @post.token)
+                     "#{ENV['MAILMAN_SENDER']} <#{composed_email}>"
+                   else
+                     ENV['DEFAULT_FROM']
+    end
+    mail(from: from_address, to: @user.email, subject: "[#{@group.name}] #{@post.topic.subject}")
   end
 
-
   def test_mail
-    mail(to: ENV['ADMIN_EMAIL'], subject: "Test Redis To Go")
+    mail(to: ENV['ADMIN_EMAIL'], subject: 'Test Redis To Go')
   end
 
   def few_users_a(group_id)
-    @group =Group.find(group_id)
+    @group = Group.find(group_id)
     @user = @group.portavoce.first
     mail(to: @user.email, subject: "#{@group.name} non ha ancora dei partecipanti") if @user.email
   end

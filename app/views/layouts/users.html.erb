@@ -5,50 +5,55 @@
 <% end %>
 
 <% content_for :menu do %>
-      <% if @user %>
-          <div class="topimage hide-for-small">
-            <%= @user.user_image_tag 30 %>
-          </div>
-          <div class="topmenu">
+    <% if @user %>
+        <div class="topimage hide-for-small">
+          <%= avatar(@user, size: 30) %>
+        </div>
+        <div class="topmenu">
 
-            <span class="tit"><%= @user.fullname %></span>
-            <div class="submenu">
-              <% if current_user && (@user == current_user) %>
-                  <%= link_to(home_url, class: (params[:controller] == 'home' ? 'sel' : '')) do %>
-                      <span class="show-for-large-up"><%= t('pages.header.menu.my_page') %></span>
-                      <div class="icon-home small hide-for-large-up" title="<%= t('pages.header.menu.my_page') %>"></div>
-                  <% end %>
+          <span class="tit"><%= @user.fullname %></span>
 
-                  <span> ⋅ </span>
-                  <% if @user.blog %>
-                      <%= link_to(@user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '')) do%>
-                          <span class="show-for-large-up"><%= t('pages.header.menu.my_blog') %></span>
-                          <div class="icon-pencil small hide-for-large-up" title="<%= t('pages.header.menu.my_blog') %>"></div>
-                      <%end%>
-                  <% else %>
-                      <%= link_to(new_blog_path, class: (['blogs', 'blog_posts'].include? params[:controller] ? 'sel' : '')) do%>
-                          <span class="show-for-large-up"><%= t('pages.header.menu.create_blog') %></span>
-                          <div class="icon-pencil small hide-for-large-up" title="<%= t('pages.header.menu.create_blog') %>"></div>
-                      <%end%>
-                  <% end %>
-                  <span> ⋅ </span>
-                  <%= link_to(@user, class: ((['users', 'alerts'].include? params[:controller]) ? 'sel' : '')) do%>
-                      <span class="show-for-large-up"><%=  t('pages.header.menu.preferences') %></span>
-                      <div class="icon-cog small hide-for-large-up" title="<%=  t('pages.header.menu.preferences') %>"></div>
-                  <%end%>
-              <% end %>
-              <% if @user != current_user %>
-                  <% unless @user.new_record? %>
-                      <%= link_to t('pages.header.menu.profile'), @user, class: ((['home', 'users'].include? params[:controller]) ? 'sel' : '') %>
-                  <% end %>
-                  <% if @user.blog %>
-                      <span> ⋅ </span>
-                      <%= link_to 'BLOG', @user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '') %>
-                  <% end %>
-              <% end %>
-            </div>
+          <div class="submenu">
+            <% if current_user && (@user == current_user) %>
+                <%= link_to(home_url, class: (params[:controller] == 'home' ? 'sel' : '')) do %>
+                    <span class="show-for-large-up"><%= t('pages.header.menu.my_page') %></span>
+
+                    <div class="fa fa-home small hide-for-large-up" title="<%= t('pages.header.menu.my_page') %>"></div>
+                <% end %>
+
+                <span> ⋅ </span>
+                <% if @user.blog %>
+                    <%= link_to(@user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '')) do %>
+                        <span class="show-for-large-up"><%= t('pages.header.menu.my_blog') %></span>
+
+                        <div class="fa fa-pencil small hide-for-large-up" title="<%= t('pages.header.menu.my_blog') %>"></div>
+                    <% end %>
+                <% else %>
+                    <%= link_to(new_blog_path, class: (['blogs', 'blog_posts'].include? params[:controller] ? 'sel' : '')) do %>
+                        <span class="show-for-large-up"><%= t('pages.header.menu.create_blog') %></span>
+
+                        <div class="fa fa-pencil small hide-for-large-up" title="<%= t('pages.header.menu.create_blog') %>"></div>
+                    <% end %>
+                <% end %>
+                <span> ⋅ </span>
+                <%= link_to(@user, class: ((['users', 'alerts'].include? params[:controller]) ? 'sel' : '')) do %>
+                    <span class="show-for-large-up"><%= t('pages.header.menu.preferences') %></span>
+
+                    <div class="fa fa-cog small hide-for-large-up" title="<%= t('pages.header.menu.preferences') %>"></div>
+                <% end %>
+            <% end %>
+            <% if @user != current_user %>
+                <% unless @user.new_record? %>
+                    <%= link_to t('pages.header.menu.profile'), @user, class: ((['home', 'users'].include? params[:controller]) ? 'sel' : '') %>
+                <% end %>
+                <% if @user.blog %>
+                    <span> ⋅ </span>
+                    <%= link_to 'BLOG', @user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '') %>
+                <% end %>
+            <% end %>
           </div>
-      <% end %>
+        </div>
+    <% end %>
 <% end %>
 
 <%= render 'layouts/general' %>

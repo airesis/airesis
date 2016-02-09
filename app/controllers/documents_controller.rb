@@ -1,6 +1,4 @@
-#encoding: utf-8
 class DocumentsController < ApplicationController
-
   layout 'groups'
 
   before_filter :load_group, except: [:view]
@@ -13,7 +11,7 @@ class DocumentsController < ApplicationController
 
   def view
     url = params[:url]
-    group_id = params[:url][/\/private\/elfinder\/([^\/]*)\/(.*)/,1]
+    group_id = params[:url][/\/private\/elfinder\/([^\/]*)\/(.*)/, 1]
     @group = Group.find(group_id)
 
     authorize! :view_documents, @group

@@ -1,5 +1,4 @@
 class SearchProposalsController < ApplicationController
-
   def create
     @proposals = SearchProposal.new(params[:search_proposal]).results
     flash[:notice] = t('info.groups.search_proposal')

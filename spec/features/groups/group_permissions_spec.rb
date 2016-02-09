@@ -1,8 +1,9 @@
 require 'spec_helper'
 require 'requests_helper'
 
-describe "check permissions are actually working inside groups", type: :feature do
+describe 'check permissions are actually working inside groups', type: :feature do
   before :each do
+    load_database
     @user = create(:user)
     @ability = Ability.new(@user)
     @group = create(:group, current_user_id: @user.id)
@@ -12,8 +13,8 @@ describe "check permissions are actually working inside groups", type: :feature 
     logout(:user)
   end
 
-  it "sets correctly the permissions when the group is created" do
-    #the permission to view proposals is given by default to every user
+  it 'sets correctly the permissions when the group is created' do
+    # the permission to view proposals is given by default to every user
 
     group1_users = []
     10.times do
@@ -22,11 +23,11 @@ describe "check permissions are actually working inside groups", type: :feature 
       group1_users << user
     end
 
-    #one of participants is also administrator of another group
+    # one of participants is also administrator of another group
     @user2 = create(:user)
     @group2 = create(:group, current_user_id: @user2.id)
     create_participation(@user2, @group)
-    #people ing group2 can support proposals by default
+    # people ing group2 can support proposals by default
     @group2.default_role.action_abilitations.create(group_action_id: GroupAction::SUPPORT_PROPOSAL, group_id: @group2.id)
     group1_users.sample(5).each do |user|
       create_participation(user, @group2)

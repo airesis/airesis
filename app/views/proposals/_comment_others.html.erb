@@ -8,7 +8,7 @@
     <% if (proposal_nickname && @proposal.is_anonima?) %>
         <img src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(proposal_nickname.nickname) %>?s=40&d=identicon&r=PG"/>
     <% else %>
-        <%= comment.user_image_tag(40) %>
+        <%= avatar(comment.user, size: 40) %>
     <% end %>
   </div>
   <div class="proposal_comment">
@@ -20,15 +20,15 @@
         <div class="right report_contribute hidden_link">
         </div>
         <div class="report_menu hidden_menu">
-          <div class="menu_item" data-report-contribute="<%=comment.id%>">
-            <%= t('buttons.report')%>
+          <div class="menu_item" data-report-contribute="<%= comment.id %>">
+            <%= t('buttons.report') %>
           </div>
         </div>
       </div>
       <div class="baloon-content">
-        <%= parsed_content(comment,@proposal.is_anonima?) %>
+        <%= parsed_content(comment, @proposal.is_anonima?) %>
       </div>
-      <div class="baloon-footer" title='<%=l(comment.created_at)%>'>
+      <div class="baloon-footer" title='<%= l(comment.created_at) %>'>
         <% who = (proposal_nickname && @proposal.is_anonima?) ? proposal_nickname.nickname : (link_to_user comment.user, content_text: comment.user.fullname + ((proposal_nickname && @proposal.is_anonima?) ? (' (' + proposal_nickname.nickname + ')') : '')) %>
         <%= raw t('pages.proposals.show.comment_inserted_by', when: time_in_words(comment.created_at), who: who) %>
         <%= "in \"#{comment.paragraph.section.title}\"" if comment.paragraph %>
@@ -49,21 +49,21 @@
   <div id="<%= comment.id %>_new_replies">
   </div>
 
-      <div class="reply_img" style="display:none">
+  <div class="reply_img" style="display:none">
 
-      </div>
-      <div class="proposal_comment_reply"  style="display:none">
-        <div class="baloon-triangle"></div>
-        <div id="<%= comment.id %>_reply_area_msg"></div>
-        <%= form_for [@proposal, ProposalComment.new], html: {class: "disableForm"}, remote: true do |f| %>
-            <div class="reply_area">
-              <%= f.hidden_field :parent_proposal_comment_id, value: comment.id %>
-              <%= f.text_area :content, class: 'reply_textarea', data: {id: comment.id}, id: "#{comment.id}_reply_text_area", placeholder: t('pages.proposals.show.reply_placeholder') %>
-            </div>
-            <div class="reply_button">
-              <%= f.submit t('pages.proposals.show.reply_button'), class: 'btn disable', data:{disable_with: t('sending')} %>
-            </div>
-            <div style="clear: both;"></div>
-        <% end %>
-      </div>
+  </div>
+  <div class="proposal_comment_reply" style="display:none">
+    <div class="baloon-triangle"></div>
+    <div id="<%= comment.id %>_reply_area_msg"></div>
+    <%= form_for [@proposal, ProposalComment.new], remote: true do |f| %>
+        <div class="reply_area">
+          <%= f.hidden_field :parent_proposal_comment_id, value: comment.id %>
+          <%= f.text_area :content, class: 'reply_textarea', data: {id: comment.id}, id: "#{comment.id}_reply_text_area", placeholder: t('pages.proposals.show.reply_placeholder') %>
+        </div>
+        <div class="reply_button">
+          <%= f.submit t('pages.proposals.show.reply_button'), class: 'btn disable', data: {disable_with: t('sending')} %>
+        </div>
+        <div style="clear: both;"></div>
+    <% end %>
+  </div>
 </div>

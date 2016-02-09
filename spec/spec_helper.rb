@@ -1,30 +1,47 @@
-ENV['RAILS_ENV'] ||= 'test'
+require 'codeclimate-test-reporter'
+CodeClimate::TestReporter.start
+
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'database_cleaner'
 require 'sidekiq/testing'
+require 'simplecov'
 require 'sunspot_test/rspec'
 
-DEBUG=false
-unless DEBUG
-  require 'capybara-screenshot/rspec'
-end
+require 'capybara-screenshot/rspec' unless ENV['DISABLE_SCREENSHOTS']
 
-#Sidekiq::Testing.inline!
+SimpleCov.start 'rails'
+SimpleCov.minimum_coverage 70
+SimpleCov.maximum_coverage_drop 0
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
-
   config.use_transactional_fixtures = false
 
   config.before(:each) do
     ActionMailer::Base.deliveries.clear
     Sidekiq::Worker.clear_all
-    I18n.locale = I18n.default_locale = :en
+    I18n.locale = I18n.default_locale = :'en-EU'
     Proposal.remove_all_from_index!
+  end
+
+  allowed_urls = %w(abs.twimg.com pbs.twimg.com syndication.twitter.com platform.twitter.com
+                    static.xx.fbcdn.net external.xx.fbcdn.net scontent.xx.fbcdn.net
+                    maps.googleapis.com apis.google.com oauth.googleusercontent.com ssl.gstatic.com maps.gstatic.com
+                    www.google.com csi.gstatic.com mt0.googleapis.com mt1.googleapis.com mts0.googleapis.com
+                    mts1.googleapis.com fonts.googleapis.com connect.facebook.net/en/sdk.js fbstatic-a.akamaihd.net
+                    graph.facebook.com connect.facebook.net fbexternal-a.akamaihd.net
+                    fbcdn-profile-a.akamaihd.net cdn.ckeditor.com fbcdn-photos-e-a.akamaihd.net
+                    platform.twitter.com www.gravatar.com cdnjs.cloudflare.com calendar.google.com)
+
+  Capybara::Webkit.configure do |config|
+    config.block_unknown_urls
+    allowed_urls.each do |allowed_url|
+      config.allow_url(allowed_url)
+    end
   end
 
   config.order = 'random'
@@ -37,23 +54,18 @@ RSpec.configure do |config|
 
   config.include Capybara::Select2
 
+  config.infer_spec_type_from_file_location!
+
   Warden.test_mode!
 
   # loading seeds
-  #config.include Rails.application.routes.url_helpers
+  # config.include Rails.application.routes.url_helpers
   config.include Rails.application.routes.url_helpers
 
-  #Capybara.register_driver :selenium do |app|
-  #  Selenium::WebDriver::Firefox::Binary.path='/opt/homebrew-cask/Caskroom/firefox/latest/Firefox.app/Contents/MacOS/firefox-bin'
-  #  Capybara::Selenium::Driver.new(app, :browser => :firefox)
-  #end
+  Capybara.javascript_driver = :webkit
 
-  unless DEBUG
-    Capybara.javascript_driver = :webkit
-    Capybara::Screenshot.autosave_on_failure = true
-    Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
-      "screenshot_#{example.description.gsub(' ', '-').gsub(/^.*\/spec\//, '')}"
-    end
-    Capybara::Screenshot.append_timestamp = false
-  end
+  Capybara::Screenshot.autosave_on_failure = true
+  Capybara::Screenshot.append_timestamp = true
 end
+
+OmniAuth.config.test_mode = true

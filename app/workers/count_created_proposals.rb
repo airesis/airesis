@@ -5,7 +5,7 @@ class CountCreatedProposals
   recurrence { daily.hour_of_day(1) }
   sidekiq_options queue: :low_priority
 
-  def perform(*args)
+  def perform(*_args)
     start = (Time.now - 1.day).utc.at_beginning_of_day
     fin = Time.now.utc.at_beginning_of_day
     num = Proposal.where(created_at: start..fin).count

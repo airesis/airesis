@@ -1,30 +1,29 @@
 source 'http://rubygems.org'
 
-ruby '2.1.0'
+ruby File.read('.ruby-version').strip
 
-gem 'rails', '4.0.2'
-
-gem 'therubyracer', platforms: :ruby
-
-gem 'maktoub'
+gem 'rails', '~> 4.2.0'
 
 gem 'turnout'
 
-gem 'sass-rails', '~> 4.0.0'
-gem 'coffee-rails', '~> 4.0.0'
-gem 'uglifier', '>= 1.3.0'
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
 
-# not the official repossitory. waiting for update to 5.4.7
-gem 'foundation-rails', github: 'johnantoni/foundation-rails', branch: 'foundation-5.4.7'
+gem 'sprockets', '2.12.4' # FIXME: https://github.com/rails/sprockets/issues/59
+
+gem 'foundation-rails'
 
 gem 'pg'
 
-gem 'sunspot_rails', github: 'coorasse/sunspot', tag: 'v2.1.1-threadsafe'
-gem 'sunspot-queue'
+gem 'rails_admin'
 
-gem 'capistrano', '~> 3.2.0'
-gem 'capistrano-bundler', '~> 1.1.2'
-gem 'capistrano-rails', '~> 1.1'
+gem 'sunspot_rails'
+gem 'sunspot-queue', git: 'https://github.com/gaffneyc/sunspot-queue'
+
+gem 'capistrano'
+gem 'capistrano-bundler'
+gem 'capistrano-rails'
 gem 'rvm1-capistrano3', require: false
 gem 'premailer-rails'
 
@@ -32,6 +31,13 @@ gem 'uri-js-rails'
 
 gem 'mustache'
 gem 'mustache-js-rails'
+gem 'slim-rails'
+
+gem 'rack-mini-profiler', require: false
+
+gem 'daemons'
+
+gem 'rack-cors', :require => 'rack/cors'
 
 group :development do
   gem 'sunspot_solr'
@@ -40,24 +46,51 @@ group :development do
   gem 'quiet_assets'
   gem 'capistrano-sidekiq'
   gem 'capistrano-passenger'
-  gem 'i18n-tasks', '~> 0.7.7'
+  gem 'i18n-tasks'
   gem 'rubocop'
+  gem 'bullet'
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'awesome_print'
+  gem 'letter_opener'
+  gem 'foreman'
+  gem 'spring'
+  gem 'thin', require: false
 end
 
-group :development, :test do
-  gem 'rspec-rails', '~> 3.0.0'
+group :test do
+  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'selenium-webdriver'
   gem 'capybara-webkit'
   gem 'capybara-screenshot'
-  gem 'spring'
   gem 'sunspot_test'
+  gem 'timecop'
 end
 
-gem 'crowdin-api', group: [:development, :staging]
-gem 'rubyzip', group: [:development, :staging]
+group :development, :test do
+  gem 'test-unit'
+end
+
+group :test do
+  gem 'codeclimate-test-reporter', require: nil
+  gem 'ruby-prof'
+  gem 'simplecov', require: false
+  gem 'email_spec'
+end
+
+group :development do
+  gem 'crowdin-api'
+  gem 'rubyzip'
+end
+
+group :production do
+  gem 'therubyracer'
+  gem 'newrelic_rpm'
+  gem 'sentry-raven', git: 'https://github.com/getsentry/raven-ruby'
+end
 
 group :doc do
   gem 'sdoc', require: false
@@ -68,40 +101,38 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-meetup'
 gem 'omniauth-linkedin'
+gem 'omniauth-tecnologiedemocratiche', git: 'https://github.com/TecnologieDemocratiche/omniauth-tecnologiedemocratiche'
 
 gem 'paperclip'
 
-gem 'aws-sdk'
+gem 'aws-sdk', '< 2.0'
 
 gem 'jquery-rails'
 
 gem 'turbolinks'
 
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder'
 
 gem 'devise'
 
-gem 'devise_traceable', github: 'coorasse/devise_traceable'
+gem 'devise_traceable', git: 'https://github.com/coorasse/devise_traceable'
+gem 'simple_token_authentication'
 
-gem 'koala', '~> 1.8.0rc1'
+gem 'koala'
 
-gem 'xmpp4r_facebook'
-
-gem 'sinatra', '>= 1.3.0', require: nil
+gem 'sinatra', require: false
 
 gem 'sidekiq'
 gem 'sidekiq-failures'
 gem 'sidetiq'
 
-gem 'cancancan', '~> 1.9'
-
-gem 'foreigner'
+gem 'cancancan'
 
 gem 'sitemap_generator'
 
 gem 'geocoder'
 
-gem 'vote-schulze', github: 'coorasse/vote-schulze'
+gem 'vote-schulze', git: 'https://github.com/coorasse/schulze-vote', ref: '0f47cbb'
 
 gem 'rails_autolink'
 
@@ -111,12 +142,7 @@ gem 'el_finder'
 
 gem 'recaptcha', require: 'recaptcha/rails'
 
-gem 'bullet', group: :development
-gem 'thin'
-gem 'ruby-prof', group: :test
-gem 'test-unit', group: :test
-
-gem 'globalize', '~> 4.0.0'
+gem 'globalize'
 
 gem 'sanitize'
 
@@ -132,7 +158,7 @@ gem 'rotp'
 
 gem 'ckeditor'
 
-gem 'timezone', github: 'coorasse/timezone'
+gem 'timezone', git: 'https://github.com/coorasse/timezone'
 
 gem 'friendly_id'
 gem 'simple_form'
@@ -146,24 +172,20 @@ gem 'mailman', require: false
 
 gem 'email_reply_parser'
 
-gem 'paper_trail', '~> 3.0.0'
-
-gem 'client_side_validations', github: 'coorasse/client_side_validations', branch: '4-0-beta'
-
-gem 'client_side_validations-simple_form', github: 'coorasse/client_side_validations-simple_form'
+gem 'paper_trail'
 
 gem 'figaro'
 
 gem 'faker'
 
-gem 'sshkit', '1.3.0'
+gem 'sshkit'
+
+gem 'cookies_eu', git: 'https://github.com/coorasse/cookies_eu'
 
 gem 'font-awesome-rails'
 
 gem 'truncate_html'
 
-gem 'sunspot-rails-http-basic-auth', github: 'jwachira/sunspot-rails-http-basic-auth'
+gem 'sunspot-rails-http-basic-auth', git: 'https://github.com/jwachira/sunspot-rails-http-basic-auth'
 
 gem 'activerecord-session_store'
-
-gem 'sentry-raven', github: 'getsentry/raven-ruby', group: [:staging, :production]

@@ -1,0 +1,10 @@
+.group-item
+  div style="float:left;"
+    = image_tag 'logo120.png', style: 'width: 60px'
+  .p1
+    = link_to t('open_space'), open_space_path
+  .p2
+    = link_to t('pages.header.groups.proposals'), proposals_path
+    '  -
+    = link_to t('pages.header.groups.events'), events_path
+  .clearboth

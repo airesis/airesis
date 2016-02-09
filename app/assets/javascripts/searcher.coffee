@@ -55,3 +55,7 @@ class Airesis.Searcher
       el.append link_
       el.appendTo ul
       el
+    search_f.on 'keypress', (e)->
+      code = if e.keyCode then e.keyCode else e.which
+      if code is 13
+        false

@@ -1,0 +1,80 @@
+id-ID:
+  errors:
+    messages:
+      expired: telah kedaluwarsa, silakan meminta yang baru
+      not_found: tidak ditemukan
+      already_confirmed: telah dikonfirmasi, cobalah masuk
+      not_locked: tidak terkunci
+      not_saved:
+        one: '1 eror mencegah %{resource} ini disimpan:'
+        other: '%{count} eror mencegah %{resource} ini disimpan:'
+  devise:
+    failure:
+      locked: Akun Anda terkunci
+      invalid: Alamat surel atau kata sandi salah
+      invalid_token: Token otentikasi salah
+      timeout: Sesi Anda berakhir, silakan masuk kembali untuk melanjutkan
+      inactive: Akun Anda belum diaktifkan
+      already_authenticated: Anda telah terdaftar
+      unauthenticated: Anda harus masuk untuk mengakses halaman ini. Silakan masuk.
+      unconfirmed: Akun belum dikonfirmasi
+      user:
+        invalid: Nama pengguna atau kata sandi salah
+    sessions:
+      signed_in: Berhasil masuk
+      signed_out: Berhasil keluar
+      user:
+        signed_out: Anda berhasil keluar. Sampai nanti
+        signed_in: Anda telah masuk. Selamat datang!
+        signed_up: Anda berhasil menyelesaikan pendaftaran Anda. Selamat datang!
+    passwords:
+      send_instructions: Anda akan menerima surel yang berisi instruksi tentang cara menyetel ulang kata sandi Anda beberapa menit lagi
+      updated: Kata sandi berhasil diubah. Kini Anda telah masuk
+      updated_not_active: Kata sandi Anda berhasil diubah
+      send_paranoid_instructions: Jika surel Anda ada di basis data kami, Anda akan menerima tautan untuk pemulihan kata sandi di kotak masuk Anda
+    confirmations:
+      send_instructions: Anda akan menerima surel berisi instruksi tentang cara mengonfimasi akun Anda beberapa menit lagi
+      send_paranoid_instructions: Jika surel Anda ada di basis data kami, Anda akan menerima surel dengan instruksi tentang cara mengonfirmasi akun Anda beberapa menit lagi
+      confirmed: Akun Anda berhasil dikonfirmasi. Kini Anda telah masuk
+      user:
+        confirmed: Pendaftaran Anda telah berhasil diselesaikan
+        send_instructions: Instruksi telah dikirim ke surel yang Anda tentukan
+    registrations:
+      signed_up: Selamat datang! Anda telah berhasil mendaftar
+      signed_up_but_unconfirmed: Sebuah pesan berisi tautan konfirmasi telah dikirim ke alamat surel Anda. Buka tautan tersebut untuk mengaktifkan akun Anda
+      signed_up_but_inactive: Anda berhasil mendaftar. Namun, Anda tidak dapat masuk karena akun Anda belum diaktifkan
+      signed_up_but_locked: Anda berhasil mendaftar. Namun, Anda tidak dapat masuk karena akun Anda terkunci.
+      updated: Anda berhasil memperbarui akun Anda
+      update_needs_confirmation: Anda berhasil memperbarui akun Anda, namun alamat surel baru Anda harus diverifikasi. Periksa surel Anda dan klik tautan konfirmasi untuk mengonfirmasi alamat surel baru Anda
+      destroyed: Sampai nanti! Akun Anda berhasil dibatalkan. Semoga kita segera berjumpa lagi
+      user:
+        inactive_signed_up: Untuk melengkapi pendaftaran Anda, klik tautan dalam surel yang Anda terima
+        signed_up_but_unconfirmed: Klik tautan dalam surel yang dikirim ke alamat Anda untuk melengkapi proses pendaftaran
+    unlocks:
+      send_instructions: Anda akan menerima surel berisi instruksi tentang cara membuka kunci akun Anda beberapa menit lagi
+      unlocked: Kunci akun Anda berhasil dibuka. Masuklah untuk melanjutkan
+      send_paranoid_instructions: Jika akun Anda ada, Anda akan menerima surel berisi insturksi tentang cara membuka kuncinya beberapa menit lagi
+    omniauth_callbacks:
+      success: Pendaftaran Anda telah selesai. Selamat datang!
+      failure: 'Tidak dapat mengotorisasi Anda dari %{kind} karena "%{reason}"'
+      creation_failure: 'Eror selagi mengakses melalui %{provider}'
+      join_success: 'Akun berhasil digabungkan. Selamat, kini Anda dapat masuk melalui %{provider}.'
+      join_failure: 'Ada akun %{provider} lain. Fitur untuk menggabungkan akun akan segera tersedia.'
+    mailer:
+      confirmation_instructions:
+        subject: Instruksi konfirmasi
+        welcome: 'Selamat datang di %{app_name}, %{user}!'
+        follow_link: 'Anda dapat mengonfirmasi alamat surel Anda dengan membuka tautan berikut:'
+        confirm_account: Konfirmasi akun
+        follow_link_2: 'atau dengan mengunjungi URL berikut:'
+        access_by_email: 'Kemudian Anda dapat masuk ke %{app_name} dengan surel yang diberikan dan kata sandi yang dipilih'
+        contact_assistance: 'Jika Anda memiliki masalah dengan prosedur ini, hubungi administrator: %{mail}'
+      reset_password_instructions:
+        subject: Instruksi menyetel ulang kata sandi
+        hi_user: 'Halo, %{user}!'
+        follow_link: 'Anda dapat mengubah kata sandi Anda dengan membuka tautan berikut:'
+        change_password: Ubah kata sandi
+        ignore: Jika Anda tidak meminta untuk mengubah kata sandi, abaikan surel ini.
+        password_will_not_change: Kata sandi Anda tidak akan berubah sampai Anda membuka tautan sebelumnya.
+      unlock_instructions:
+        subject: Instruksi untuk membuka akun

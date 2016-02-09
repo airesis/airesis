@@ -1,5 +1,6 @@
 window.ProposalsShow =
   voting: false
+  abandoned: false
   contributesUrl: ''
   rightlistUrl: ''
   clicked: null
@@ -16,7 +17,7 @@ window.ProposalsShow =
   init: ->
     @currentView = if Airesis.signed_in then 1 else 3
     $('[data-scroll-to="vote_panel"]').on 'click', ->
-      @scroll_to_vote_panel()
+      ProposalsShow.scroll_to_vote_panel()
     $(document).on 'click', '[data-cancel-edit-comment]', ->
       ProposalsShow.cancel_edit_comment($(this).data('cancel-edit-comment'))
       return false
@@ -38,17 +39,17 @@ window.ProposalsShow =
     $(document).on 'ajax:beforeSend', '.vote_comment', (n, xhr)->
       $(this).parent().find('.vote_comment').hide()
       $(this).parent().find('.loading').show()
-    $(document).on 'ajax:beforeSend', '.votedown-mini', (n, xhr)->
+    $(document).on 'ajax:beforeSend', '.icon-sad-change', (n, xhr)->
       num = $(this).data('id')
       $(this).parent().find('.vote_comment').hide()
       $(this).parent().find('.loading').show()
-      $(".reply_textarea[data-id=#{num}]").focus().attr('placeholder',
-        'Indica il motivo della tua valutazione negativa').effect('highlight', {}, 3000)
+      $(".reply_textarea[data-id=#{num}]").focus().attr('placeholder', Airesis.i18n.rankdown_reason).effect('highlight', {}, 3000)
     $(document).ajaxError (e, XHR, options)->
       if XHR.status == 401
         window.location.replace(Airesis.new_user_session_path)
-
-    unless @voting
+    if @voting
+      new Airesis.ProposalVotationManager()
+    else
       @currentPage++;
       $.ajax
         url: @contributesUrl,
@@ -75,7 +76,8 @@ window.ProposalsShow =
     @init_contributes_button()
     @init_countdowns()
     @initVotePeriodSelect()
-
+    if @abandoned
+      new Airesis.QuorumSelector()
     #open the contribute if it's a link from an email
     if Airesis.show_section_id
       $(".contribute-button[data-section_id=#{Airesis.show_section_id}]").trigger('click', [Airesis.show_comment_id])
@@ -267,7 +269,7 @@ window.ProposalsShow =
       since: updateDate
       significant: 1
       format: 'YODHMS'
-      layout: Airesis.i18n.countdown2
+      layout: Airesis.i18n.countdown.layout2
     ,
       $.countdown.regionalOptions[Airesis.i18n.locale]
 
@@ -291,7 +293,7 @@ window.ProposalsShow =
   initVotePeriodSelect: ->
     $('#proposal_vote_period_id').select2
       minimumResultsForSearch: -1,
-      formatResult: formatPeriod,
-      formatSelection: formatPeriod,
+      templateResult: formatPeriod,
+      templateSelection: formatPeriod,
       escapeMarkup: (m)->
         m

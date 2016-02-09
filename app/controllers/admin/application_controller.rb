@@ -1,12 +1,13 @@
-class Admin::ApplicationController < ApplicationController
+module Admin
+  class ApplicationController < ::ApplicationController
+    layout 'admin'
 
-  layout 'admin'
+    before_filter :admin_required
 
-  before_filter :admin_required
+    protected
 
-  protected
-
-  def admin_required
-    is_admin? || admin_denied
+    def admin_required
+      is_admin? || admin_denied
+    end
   end
 end

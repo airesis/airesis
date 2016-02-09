@@ -1,0 +1,81 @@
+sr-CS:
+  errors:
+    messages:
+      expired: istekla je, molimo zatražite novu
+      not_found: nije pronađeno
+      already_confirmed: već je potvrđena, molimo pokušajte da se prijavite
+      not_locked: nije zaključano
+      not_saved:
+        one: '1 greška je sprečila da se ovaj %{resource} sačuva:'
+        other: '%{count} grešaka su sprečile da se ovaj %{resource} sačuva:'
+  devise:
+    failure:
+      locked: Vaš nalog je zaključan
+      invalid: Nevažeća e-pošta ili lozinka
+      invalid_token: Nevažeći token provere autentičnosti
+      timeout: Vaša sesija je istekla, molimo prijavite se ponovo da biste nastavili
+      inactive: Vaš nalog još nije aktiviran
+      already_authenticated: Već ste registrovani
+      unauthenticated: Prijava je neophodna za pristup ovoj stranici. Molimo prijavite se.
+      unconfirmed: Nalog još nije potvrđen
+      user:
+        invalid: Neispravno korisničko ime ili lozinka
+        not_found_in_database: Neispravno korisničko ime ili lozinka
+    sessions:
+      signed_in: Prijavljivanje uspešno
+      signed_out: Odjavljivanje uspešno
+      user:
+        signed_out: Uspešno ste odjavljeni. Zbogom
+        signed_in: Prijavili ste se. Dobro došli!
+        signed_up: Uspešno ste završili registraciju. Dobro došli!
+    passwords:
+      send_instructions: Za nekoliko minuta ćete primiti e-poštu sa uputstvima kako da resetujete lozinku
+      updated: Vaša lozinka je uspešno promenjena. Sada ste prijavljeni
+      updated_not_active: Vaša lozinka je uspešno promenjena
+      send_paranoid_instructions: Ako vaša e-pošta postoji u našoj bazi, dobićete link za oporavak lozinke u vaš inboks
+    confirmations:
+      send_instructions: Za nekoliko minuta ćete dobiti e-poštu sa uputstvima kako da potvrdite vaš nalog
+      send_paranoid_instructions: Ako vaša e-pošta postoji u našoj bazi, za nekoliko minuta ćete dobiti e-poštu sa uputstvima kako da potvrdite svoj nalog
+      confirmed: Vaš nalog je uspešno potvrđen. Sada ste prijavljeni
+      user:
+        confirmed: Vaše prijavljivanje je uspešno završeno
+        send_instructions: Uputstva su poslata na vašu naznačenu e-poštu
+    registrations:
+      signed_up: Dobro došli! Uspešno ste se prijavili
+      signed_up_but_unconfirmed: Poruka s linkom za potvrdu je poslata na vašu adresu e-pošte. Molimo otvorite link da biste aktivirali nalog
+      signed_up_but_inactive: Uspešno ste se registrovali. Međutim, ne možemo da vas prijavimo jer vaš nalog još nije aktiviran
+      signed_up_but_locked: Uspešno ste se registrovali. Međutim, ne možemo da vas prijavimo jer je vaš nalog zaključan.
+      updated: Uspešno ste ažurirali vaš nalog
+      update_needs_confirmation: Uspešno ste ažurirali vaš nalog, ali moramo verifikovati vašu novu adresu e-pošte. Molimo proverite vašu e-poštu i kliknite na link potvrde da se dovrši potvrđivanje vaše nove adrese e-pošte
+      destroyed: Doviđenja! Vaš nalog je uspešno otkazan. Nadamo se da ćemo vas uskoro opet videti
+      user:
+        inactive_signed_up: Da dovršite registraciju, molimo kliknite na link koji ste dobili u e-pošti
+        signed_up_but_unconfirmed: Kliknite na link koji vam je poslat u e-pošti da dovršite proces registracije
+    unlocks:
+      send_instructions: Za nekoliko minuta ćete dobiti e-poštu sa uputstvima kako da otključate vaš nalog
+      unlocked: Vaš nalog je uspešno otključan. Molimo prijavite se da biste nastavili
+      send_paranoid_instructions: Ako vaš nalog postoji, za nekoliko minuta ćete primiti e-poštu sa uputstvima kako da ga otključate
+    omniauth_callbacks:
+      success: Vaša registracija je završena. Dobro došli!
+      failure: 'Nismo vas mogli autorizovati iz %{kind} zbog "%{reason}"'
+      creation_failure: 'Greška prilikom pristupanja preko %{provider}'
+      join_success: 'Nalozi su uspešno objedinjeni. Čestitamo, sada se možete prijaviti preko %{provider}.'
+      join_failure: 'Postoji još jedan %{provider} nalog. Funkcija za pridruživanje naloga će biti dostupna uskoro.'
+    mailer:
+      confirmation_instructions:
+        subject: Uputstva za potvrdu
+        welcome: 'Dobro došli na %{app_name} %{user}!'
+        follow_link: 'Možete potvrditi vašu adresu e-pošte klikom na sledeći link:'
+        confirm_account: Potvrdite nalog
+        follow_link_2: 'ili posetom na sledeći url:'
+        access_by_email: 'Onda možete da se prijavite %{app_name} sa odobrenom e-poštom i izabranom lozinkom'
+        contact_assistance: 'Ako imate bilo kakav problem s procedurom, molimo kontaktirajte administratora: %{mail}'
+      reset_password_instructions:
+        subject: Uputstva za resetovanje lozinke
+        hi_user: 'Zdravo, %{user}!'
+        follow_link: 'Možete promeniti lozinku tako što ćete kliknuti na sledeći link:'
+        change_password: Promenite lozinku
+        ignore: Ako niste zatražili promenu lozinke, molimo ignorišite ovu e-poštu.
+        password_will_not_change: Vaša lozinka se neće promeniti sve dok ne kliknete na prethodni link.
+      unlock_instructions:
+        subject: Uputstva za otključavanje

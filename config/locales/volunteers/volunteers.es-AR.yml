@@ -1,26 +1,30 @@
 es-AR:
   home:
     whowe:
-      title: Sobre nosotros
+      title: Acerca de nosotros
       description: Un grupo de voluntarios que quieren mejorar el mundo en que vivimos, los ciudadanos como tú.
       intro:
         title: Ciudadanos deseando una mejor democracia
-        description_html: '<p>Airesis es el resultado de la fusión de dos proyectos: Agor & asepulcro 2.0 y DemocracyOnline, que vino accionar en la asociación <a href="http://www.tecnologiedemocratiche.it/" target="_blank"> Tecnologie parecen</a>, con uno de su principal objetivo es el desarrollo de un software innovador open source e-democracia.</p> <p>Es el objetivo del equipo, <strong>hizo entarely de voluntarios</strong> dar a los ciudadanos y grupos de una plataforma de software que permita hacer frente a la <strong>mayoría de los problemas</strong> de nuestra sociedad al permitir la <strong>creación</strong>, la <strong>discusión</strong> y <strong>votación</strong> sobre las propuestas de manera <strong>transparente</strong>, <strong>democrática</strong>, <strong>constructiva</strong> y <strong>participativa</strong> forma, permitiendo que la <strong>inteligencia colectiva</strong> emerger.</p> <p>Si también compartes nuestra meta, puedes <a href="/partecipa"> unirte a nosotros</a> en contacto con nuestros voluntarios.</p> <p>Por favor, echa un vistazo a <a href=%{story}>; la historia de Airesis</a>. Averiguar cómo nació nuestro proyecto y cuáles son nuestros objetivos futuros.</p>'
+        description_html: |
+          <p>Airesis es el resultado de la fusión de dos proyectos: Agor&agrave 2.0 y DemocracyOnline, que surgió en la asociación <a href="http://www.tecnologiedemocratiche.it/" target="_blank"> TecnologieDemocratiche</a>, siendo uno de sus principales objetivos el desarrollo de un software de código abierto innovador de democracia-e.</p>
+          <p>Es el objetivo del equipo, <strong>compuesto completamente por voluntarios</strong> es brindar a los ciudadanos y grupos de una plataforma de software que les permita hacer frente a la <strong>mayoría de problemas</strong> de nuestra sociedad al permitir la <strong>creación</strong>, la <strong>discusión</strong> y <strong>votación</strong> de propuestas en una manera <strong>transparente</strong>, <strong>democrática</strong>, <strong>constructiva</strong> y <strong>participativa</strong>, permitiendo que la <strong>inteligencia colectiva</strong> emerja.</p>
+          <p>Si también compartes nuestra meta, puedes <a href="/partecipa"> unirte a nosotros</a> contactando a nuestros voluntarios.</p> 
+          <p>Por favor, echa un vistazo a <a href=%{story}>; la historia de Airesis</a>. Averigua cómo nació nuestro proyecto y cuáles son nuestros objetivos futuros.</p>
       development_area: Área de desarrollo
       other_voluteers: Otros voluntarios activos en el proyecto
       contributors: Colaboradores
-      contributors_desc: 'Ellos dedicaron tiempo libre para el proyecto (en orden alfabético):'
-      special_thanks: Un agradecimiento especial
+      contributors_desc: 'Ellos dedicaron tiempo libre al proyecto (en orden alfabético):'
+      special_thanks: Un agradecimiento especial a
       tilatti_marino:
-        title: Desarrollador y Coordinador
-        content_html: '<p>Durante mis estudios de graduacion, me di cuenta de las grandes posibilidades que ofrece internet a la humanidad.   Graduado en Ciencias económicas y empresariales que decidí dedicarme a mis pasiones y en unos pocos años que le di vida a varios importantes portales sobre el mundo de los animales y bienes raíces de lujo, así como algunos Application Service Provider.   Sin embargo, mi sueño, es siempre realizar una herramienta de toma de decisiones capaz de aplicar la democracia directa, por esta razón, en cuanto me enteré de este proyecto que me arrojé precipitadamente a pesar de mis otros compromisos y mis dos hijos maravillosos.   Soy el responsable de asegurar los aspectos graficos y de utilizo, SEO en asuntos de comunicacion, además de la programación y soporte puramente técnica. </p>'
+        title: Desarrollador y coordinador
+        content_html: '<p>Durante mis estudios universitarios, me di cuenta de las grandes posibilidades que ofrece internet a la humanidad.  Apenas me gradué en Economía y Negocios, decidí dedicarme a mis pasiones y en unos pocos años que le di vida a varios sitios web importantes sobre el mundo de los animales y bienes raíces de lujo, así como algunos Proveedores de Servicios de Aplicaciones.  Sin embargo, mi sueño siempre ha sido crear una herramienta de toma de decisiones capaz de aplicar la democracia directa, por esta razón, en cuanto me enteré de este proyecto me metí de cabeza a pesar de mis otros compromisos y mis dos maravillosos hijos.   Soy el responsable de asegurar los aspectos gráficos y de experiencia de usuario, SEO y asuntos de comunicación, además del soporte en programación puramente técnico. </p>'
       rodi_alessandro:
         title: Webmaster y desarrollador principal
         content_html: '<p>Tengo%{age} años y vivo en Zurich donde trabajo como Java y Ruby en Rails developer. Cultivo pasión por la programación durante muchos años y en 2009 completé mis estudios en Ciencias de la computación graduándose en Bolonia. Apasionado de la política y las tecnologías digitales, en julio de 2011 me acerque a Ruby On Rails y yo comenzamos a sentar las bases del código fuente Airesis, teniendo en cuenta un ambicioso proyecto: la creación de un software para la democracia participativa. Fascinado por cómo está cambiando la política en los últimos años y por el hecho de que pronto tendrá que lidiar con la world wide web, me di cuenta que tal instrumento no se nunca ha hecho disponible a los ciudadanos y así... aquí estoy! Dentro del proyecto de trabajo en la coordinación de las actividades de desarrollo y cuido de la programación Ofrezco apoyo a otros programadores y actuar como el supervisor de la calidad del código fuente. Por otra parte ayudo en el desarrollo de la lógica y en la definición de ventanas de tiempo y los plazos necesarios para su terminación. </p>'
       analysis_area: Área de análisis
       giulietti_nicola:
         title: Analista y Coordinador
-        content_html: |
+        content_html: |2
           <p>Tengo %{age} años y desde aproximadamente %{volunteer} participan en el sector del voluntariado, en el que coordinaba muchas actividades.   Estudié ingeniería ambiental e ingeniería de la energía.
            Durante la Universidad asistí a algunos proyectos de innovación tecnológica y han trabajado en el campo de la sostenibilidad y la democracia participativa. 
            Dentro de Agora 2,0 - Airesis proyectos me encargué de todo pero la programación: el estudio de la lógica de la aplicación, coordinación, gráficos.

@@ -7,36 +7,32 @@ module Concerns
     end
 
     def tags_list
-      @tags_list ||= self.tags.map(&:text).join(', ')
+      @tags_list ||= tags.map(&:text).join(', ')
     end
 
     def tags_list_json
-      @tags_list ||= self.tags.map(&:text).join(', ')
+      @tags_list ||= tags.map(&:text).join(', ')
     end
 
     def tags_data
-      self.tags.map { |t| {id: t.text, name: t.text} }.to_json
+      tags.map { |t| { id: t.text, name: t.text } }.to_json
     end
 
-    def tags_list=(tags_list)
-      @tags_list = tags_list
-    end
+    attr_writer :tags_list
 
     def tags_with_links
-      html = self.tags.collect { |t| "<a href=\"/tags/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
-      return html
+      tags.collect { |t| "<a href=\"/tags/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
     end
 
     def save_tags
-      if @tags_list
-        tids = []
-        @tags_list.split(/,/).each do |tag|
-          stripped = tag.strip.downcase.gsub('.', '')
-          t = Tag.find_or_create_by(text: stripped)
-          tids << t.id
-        end
-        self.tag_ids = tids
+      return unless @tags_list
+      tids = []
+      @tags_list.split(/,/).each do |tag|
+        stripped = tag.strip.downcase.delete('.')
+        t = Tag.find_or_create_by(text: stripped)
+        tids << t.id
       end
+      self.tag_ids = tids
     end
 
     def not_resaving?

@@ -39,16 +39,16 @@ es-AR:
           no_category: (Sin categoría)
         default_private: Foro privado
         default_public: Foro público
-        default_private_description: Foro reservado a los partecipantes del grupo
+        default_private_description: Foro reservado a los participantes del grupo
         default_public_description: Foro visible para todos los usuarios Airesis. También los usuarios que no están en el grupo
-      group:
+      mod:
         index: Administrar grupos
         new: Nuevo grupo
         created: El grupo fue creado con éxito
         not_created: No se pudo crear grupo
         deleted: El grupo seleccionado se ha eliminado
         members: 'Miembros en %{group}'
-      groups:
+      mods:
         show:
           add_member: Añadir
           add_a_new_member: Añadir un nuevo miembro
@@ -92,6 +92,7 @@ es-AR:
       moderator_tools: Herramientas de moderación
       topic_tools: Tema Herramientas
       admin_tools: Herramientas de administración
+      title: Nuevo foro
     forums:
       index:
         title: Foro
@@ -167,8 +168,8 @@ es-AR:
       edited: Tu post ha sido editado
       not_edited: No se puede editar tu post
       deleted: Su mensaje ha sido borrado
-      deleted_with_topic: Sólo post en tema eliminado. Tema también eliminado
       cannot_delete: No es posible borrar un post que no posee
+      cannot_quote_deleted_post: La publicación que intentó citar ya no existe.
     posts:
       moderation:
         moderate: Moderada
@@ -189,10 +190,11 @@ es-AR:
       topic:
         create: Crear tema
         update: Actualizar tema
-      frm_group:
+      frm_mod:
         create: Crear grupo
       frm_category:
         create: Crear categoría
+        update: Actualizar categoría
   simple_form:
     labels:
       frm_forum:
@@ -212,7 +214,7 @@ es-AR:
         name: Nombre
       post:
         text: Texto
-      frm_group:
+      frm_mod:
         name: Nombre
   time_ago_in_words: '%{time} atras'
   ago: ' hace'

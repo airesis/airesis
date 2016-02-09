@@ -1,0 +1,65 @@
+sr-CS:
+  tutorial:
+    proposals_index:
+      welcome_open_space: Dobro došli u otvoreni prostor Airesis-a! Otvoreni prostor je grupa uz učešće svih korisnika. Ovde ćete naći spisak predloga slobodno dodatih od strane korisnika aplikacije a možete dodati i svoje predloge
+      welcome_group: 'Ovo je lista predloga grupe <b>%{group_name}</b>. Ovde ćete naći spisak predloga dodatih od strane članova grupe i čak možete dodati svoje, s obzirom da je to dozvoljeno'
+      new_proposal: U desnom bočnom meniju ćete naći taster za kreiranje novih predloga...
+      filters: ... i različite filtere da pronađete predloge za koje ste zainteresovani
+      tabs: Predlozi u Airesisu prate definisanu putanju koja se sastoji od četiri glavna statusa. Hajde da ih otkrijemo!
+      tab_debate: |
+        Novi predlozi počinju u debatnoj fazi i svi korisnici ili članovi grupe mogu da učestvuju u debati i razradi predloga, kako bi došli do faze za glasanje
+         
+      tab_vote: Kada se debata završi, predlozi se prebacuju u Tabelu za glasanje, gde svaki korisnik može da glasa za rešenja nastala tokom debate
+      tab_voted: Nakon glasanja, svi izglasani predlozi prelaze u tabelu Izglasano, gde je moguće razmotriti rezultat kompletnog ciklusa predloga
+      abandoned: Svi predlozi koji ne prođu debatu se premeštaju u tabelu Napušteno, iz koje mogu biti vraćeni u debatu kako bi se nastavila diskusija
+      proposal_list: Svaki predlog se prikazuje u prozoru poput ovoga, gde su sve informacije o njegovom statusu dok je u debati
+      model: Šablon korišćen za kreiranje predloga
+      category_icon: Izabrana kategorija
+      status: Status predloga. Tokom debate, to je poslednje ažuriranje predloga
+      maintitle: Naslov predloga, to je tema diskusije
+      text_content: Prve linije problema ili rešenja
+      timeline: Tabela koja prikazuje status debate ili glasanja
+      timeleft: Vreme i/ili ocene potrebne za završetak debate
+      rankDescription: Zrelost predloga koja pokazuje da li je predlog spreman za glasanje, na osnovu ocenjivanja učesnika
+      participants: 'Broj ljudi koji učestvuju u ovom predlogu s predloženim idejama - doprinosima i ocenjivanjima'
+      contributes: 'Broj dodatih predloženih ideja - doprinosa'
+      end: Ovo je struktura liste predloga. Ista je za svaku grupu u kojoj učestvujete a pomoći će vam da se snađete u diskusijama grupe
+    proposals_show:
+      welcome: Dobro došli u ovaj predlog, u debatu Airesisa. Ovaj tutorijal će detaljno objasniti različite delove od kojih je sastavljen
+      title: Ovo je naslov predloga, to je tema o kojoj se diskutuje
+      status_description: Ovo prikazuje uslove za završetak debate
+      main: Ovo su stavke od kojih su predlozi sačinjeni
+      solution_main: Ovo je rešenje. Čak je i rešenje sastavljeno od različitih stavki. Urednici će napisati jedno ili više rešenja da reše nastali problem
+      contributeButton: Korišćenjem ovih tastera možete da vidite doprinose drugih korisnika i dodate svoj. Doprinosi se uvek odnose na stavku u kojoj su dostupni
+      newComment: Koristite ovo polje da dodate doprinos koji se ne odnosi na specifičnu stavku
+      menu_left: U ovom levom meniju možete naći sve informacije o predlogu
+      evaluations: Broj ocenjivanja izražen od strane učesnika, koji pokazuje da li je predlog spreman za glasanje ili debata treba da se nastavi
+      ranking: Zrelost predloga, tj. procenat učesnika koji misle da je predlog spreman za glasanje
+      status: Status predloga. U ovom slučaju, on je u fazi debate
+      dates: Datum kreiranja i poslednjeg ažuriranja predloga
+      condition_left: Uslovi za okončanje debate
+      socialnetwork: Tasteri za deljenje predloga na društvenim mrežama i pozivanje prijatelja u diskusiju
+      authors: Stvarni urednici predloga
+      category: Kategorija ovog predloga
+      history: Istorijat predloga, u kojem možete videti sve njegove izmene i razvoj
+    groups_edit:
+      welcome: To je administrativni panel za grupe. Objasnićemo vam pojedinačne odeljke...
+      group_info: Ovde možete promeniti sve informacije o grupi i njenu sliku. Molimo unesite ključne reči ako to već niste učinili. One su važne kako bi se vaša grupa mogla pronaći.
+      group_roles: Ovde možete upravljati funkcijama dostupnim u grupi. Možete upravljati njihovim dozvolama i urediti one koje su već postojeće.
+      group_users: Ovde možete upravljati učesnicima u vašoj grupi. Možete im dodeliti funkcije i slati e-poštu.
+      group_proposals: 'Ovo je stranica gde možete promeniti sve vezano za predloge: kvorume i postavke.'
+      group_areas: Područja su dostupna ako želite da ih aktivirate. Ona će vam omogućiti da podelite vašu grupu u manje grupe
+      group_forum: I konačno, ovde imate sve postavke foruma.
+    users_alarm_preferences:
+      intro: Na ovoj stranici možete urediti sva podešavanja za upozorenja i obaveštenja.
+      alerts: Možete izabrati koja obaveštenja da primate na Airesisu...
+      emails: ... e-poštom, ili na oba načina.
+      no_emails: 'Upamtite: ako odlučite da isključite obaveštenja o Airesisu, nećete ih primiti na Airesisu.'
+    users_border_preferences:
+      intro: Postavite geografske granice vašeg interesovanja. Airesis će ih uskoro koristiti za filtriranje sadržaja.
+    welcome:
+      intro: 'Dobro došli na Airesis %{name}. Ovi tutorijali će vas voditi kroz aplikaciju, i objasniti vam kako da je koristite, i gde da pronađete potrebne informacije.'
+    next: Sledeće
+    back: Nazad
+    done_label: Gotovo
+    skip_label: X

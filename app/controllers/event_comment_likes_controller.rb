@@ -1,13 +1,10 @@
-#encoding: utf-8
 class EventCommentLikesController < ApplicationController
-
   before_filter :authenticate_user!
 
   before_filter :load_event_comment
   before_filter :load_event_comment_like, only: :delete
 
   before_filter :check_author, only: [:delete]
-
 
   def create
     @event_comment.likers << current_user
@@ -30,7 +27,6 @@ class EventCommentLikesController < ApplicationController
 
   def load_event_comment_like
     @event_comment_like = @event_comment.likes.find(params[:event_comment_like_id])
-
   end
 
   def check_author

@@ -1,0 +1,236 @@
+id-ID:
+  frm:
+    general:
+      forum: Forum
+      topics: Topik
+      topic: Topik
+      posts: Tulisan
+      posts_count:
+        other: '%{count} tulisan'
+      flagged_for_spam: Akun Anda telah ditandai karena melakukan spam.
+      cannot_create_topic: Anda tidak dapat membuat topik baru saat ini.
+      cannot_create_post: Anda tidak dapat membuat tulisan baru saat ini.
+    access_denied: Anda tidak diizinkan untuk melakukan itu.
+    admin:
+      area: Area Admin
+      back_to_admin: Kembali ke Admin
+      back_to_forums: Kembali ke forum
+      back_to_groups: Kembali ke grup
+      forum:
+        moderator_groups: Grup moderator
+        index: Kelola Forum
+        new: Membuat forum baru
+        new_link: Forum baru
+        deleted: Forum yang dipilih telah dihapus
+        created: Forum ini telah dibuat.
+        not_created: Forum ini tidak dapat dibuat
+        updated: Forum ini telah diperbarui.
+        not_updated: Forum ini tidak dapat diperbarui
+      forums:
+        edit: Sunting
+        delete: Hapus
+        category: Kategori
+        delete_confirm: Apakah Anda yakin Anda ingin menghapus forum ini?
+        index:
+          last_post: Tulisan terakhir
+          none: Tidak ada
+          moderators: Moderator
+          no_category: (Tidak ada kategori)
+        default_private: Forum Tertutup
+        default_public: Forum Umum
+        default_private_description: Forum untuk peserta grup
+        default_public_description: Forum terlihat oleh semua pengguna Airesis. Juga pengguna yang bukan anggota grup
+      mod:
+        index: Atur grup
+        new: Grup Baru
+        created: Grup berhasil dibuat
+        not_created: Grup tidak dapat dibuat
+        deleted: Grup yang dipilih telah dihapus
+        members: 'Anggota dalam %{group}'
+      mods:
+        show:
+          add_member: Tambahkan
+          add_a_new_member: Tambahkan anggota baru
+          current_members: Anggota Saat Ini
+        edit: Sunting
+        delete: Hapus
+        name: Nama
+      category:
+        index: Kelola Kategori Forum
+        new: Membuat Kategori Forum baru
+        edit: 'Menyunting kategori %{title}'
+        new_link: Kategori Forum Baru
+        deleted: Kategori forum yang dipilih telah dihapus
+        created: Kategori forum ini telah dibuat
+        not_created: Kategori forum ini tidak dapat dibuat
+        updated: Kategori film ini telah diperbarui
+        not_updated: Kategori forum ini tidak dapat diperbarui
+      categories:
+        edit: Sunting
+        delete: Hapus
+        category: Kategori
+        delete_confirm: Yakin Anda ingin menghapus kategori forum ini?
+        default_private: Bagian tertutup
+        default_public: Bagian umum
+      group:
+        index: Atur grup moderator
+        show:
+          title: Atur moderator
+    common:
+      pages: Halaman
+    errors:
+      not_signed_in: Anda harus masuk (sign in) lebih dulu
+      access_denied: Akses ditolak.
+    forum:
+      header: 'Melihat %{title}'
+      forums: Forum
+      new: Membuat forum baru
+      edit: 'Menyunting forum %{title}'
+      topics_count:
+        other: '%{count} topik'
+      posts_count:
+        other: '%{count} tulisan'
+      moderator_tools: Alat moderasi
+      topic_tools: Alat topik
+      admin_tools: Alat administrasi
+      title: Forum baru
+    forums:
+      index:
+        title: Forum
+        forum: Forum
+        views: Dilihat
+        last_post: 'Tulisan Terakhir:'
+        none: Tidak Ada
+    topic:
+      headings:
+        topic: Topik
+        latest: Terbaru
+        posts: Tulisan
+        views: Dilihat
+      moderation:
+        success: Topik yang dipilih telah dimoderasi
+        no_option_selected: Tidak ada pilihan moderasi yang dipilih
+      received_reply: Topik balasan Anda telah menerima satu balasan
+      reply: Balas
+      quote: Kutip
+      delete: Hapus
+      created: Topik ini telah dibuat
+      new: Membuat topik baru
+      edit: Menyunting topik
+      not_created: Topik ini tidak dapat dibuat
+      deleted: Topik Anda telah dihapus
+      cannot_delete: Anda tidak dapat menghapus topik yang bukan milik Anda
+      updated: Topik ini telah diperbarui
+      not_updated: Topik ini tidak dapat diperbarui
+      subscribed: Anda telah berlangganan ke topik ini
+      unsubscribed: Anda telah berhenti berlangganan ke topik ini
+      none: Tidak ada topik dalam forum ini saat ini
+      links:
+        new: Topik baru
+        back_to_topics: Kembali ke topik
+        edit: Sunting topik
+      not_found: Topik yang Anda cari tidak dapat ditemukan
+      hidden:
+        "true": Topik ini sekarang tersembunyi
+        "false": Topik ini sekarang terlihat
+      locked:
+        "true": Topik ini sekarang terkunci
+        "false": Topik ini sekarang tidak terkunci
+      pinned:
+        "true": Topik ini sekarang disematkan
+        "false": Topik ini sekarang tidak disematkan
+    topics:
+      show:
+        reply: Balas
+        delete: Hapus
+        subscribe: Berlangganan
+        unsubscribe: Berhenti berlangganan
+        reply_to_topic: Balas Topik
+        pending_review: 'Topik ini sedang menunggu pemeriksaan. Hanya pengguna yang membuatnya  dan moderator yang dapat melihatnya.'
+        hide:
+          "true": Tampilkan topik ini
+          "false": Sembunyikan topik ini
+        lock:
+          "true": Buka kunci topik ini
+          "false": Kunci topik ini
+        pin:
+          "true": Lepaskan sematan topik ini
+          "false": Sematkan topik ini
+        related_proposals: Proposal terkait
+    post:
+      buttons:
+        reply: Kirim balasan
+        edit: Sunting
+      created: Balasan Anda telah dikirim
+      new: Tulis balasan ke
+      edit: Sunting
+      not_created: Balasan Anda tidak dapat dikirim
+      not_created_topic_locked: Anda tidak dapat membalas topik yang dikunci
+      edited: Tulisan Anda telah disunting
+      not_edited: Tulisan Anda tidak dapat disunting
+      deleted: Tulisan Anda telah dihapus
+      deleted_with_topic: Tulisan terakhir dalam topik ini telah dihapus. Seluruh topik ini juga telah dihapus
+      cannot_delete: Anda tidak dapat menghapus tulisan yang bukan milik Anda
+      cannot_quote_deleted_post: Tulisan yang Anda coba kutip tidak ada lagi.
+    posts:
+      moderation:
+        moderate: Moderasikan
+        approve: Setujui
+        spam: Spam
+        success: Tulisan yang dipilih telah dimoderasi
+      post:
+        pending_review: Tulisan ini sedang menunggu untuk diperiksa. Hanya pengguna yang menulisnya dan moderator yang dapat melihatnya.
+        in_reply_to: balasan untuk
+    moderation:
+      index:
+        title: 'Alat moderasi untuk %{forum}'
+  helpers:
+    submit:
+      frm_forum:
+        create: Buat Forum
+        update: Perbarui Forum
+      topic:
+        create: Buat Topik
+        update: Perbarui Topik
+      frm_mod:
+        create: Buat grup
+      frm_category:
+        create: Buat kategori
+        update: Perbarui kategori
+  simple_form:
+    labels:
+      frm_forum:
+        category: Kategori
+        title: Judul
+        description: Deskripsi
+        moderators: Moderator
+        visible_outside: Dapat dilihat oleh non-anggota
+      topic:
+        subject: Perihal
+        locked: Terkunci
+        pinned: Disematkan
+        hidden: Tersembunyi
+        posts:
+          text: Teks
+      frm_category:
+        name: Nama
+      post:
+        text: Teks
+      frm_mod:
+        name: Nama
+  time_ago_in_words: '%{time} yang lalu'
+  ago: ' yang lalu'
+  ago_by: ' yang lalu oleh'
+  by: oleh
+  started_by: 'Dimulai oleh '
+  are_you_sure: Anda yakin?
+  lst_post: Tulisan terakhir
+  last_post: Topik terakhir
+  back_to_forums: Kembali ke forum
+  pages:
+    forum_groups:
+      index:
+        create_first: Belum ada grup moderator. Buat grup pertamanya!
+  info:
+    members:
+      ok_message: Pengguna berhasil ditambahkan ke grup

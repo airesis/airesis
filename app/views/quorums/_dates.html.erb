@@ -1,5 +1,4 @@
 <div class="inner">
-
   <div class="clearboth"></div>
   <%= fields_for 'proposal' do |f| %>
       <%= f.fields_for 'votation' do |v| %>
@@ -18,7 +17,7 @@
             <% end %>
 
           </div>
-          <% if @group && (can? :create_date, @group) %>
+          <% if !@group || (can? :create_date, @group) %>
               <div class="choise_b">
                 <% unless @dates.empty? %>
                     <%= v.radio_button 'choise', 'new' %>

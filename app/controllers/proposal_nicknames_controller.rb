@@ -1,16 +1,15 @@
 class ProposalNicknamesController < ApplicationController
-
-  #carica la proposta
+  # carica la proposta
   before_filter :load_proposal_nickname
 
-  ###SICUREZZA###
+  # ##SICUREZZA###
 
   # l'utente deve aver fatto login
   before_filter :authenticate_user!
 
   def update
     loop = true
-    while loop do
+    while loop
       @nickname = NicknameGeneratorHelper.give_me_a_nickname
       loop = ProposalNickname.find_by_proposal_id_and_nickname(@proposal_nickname.proposal.id, @nickname)
     end

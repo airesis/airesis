@@ -14,8 +14,6 @@ function switchText(button) {
 }
 
 function scrollToElement(element, callback) {
-    console.log('scroll bitch!');
-    console.log(Airesis.viewport);
     Airesis.viewport.animate({
         scrollTop: element.offset().top - 160
     }, 2000, 'swing', callback);
@@ -135,34 +133,6 @@ function disegnaProgressBar() {
                 fixed: true,
                 delay: 500
             }
-        });
-    });
-
-
-    $('.proposal_bottom .participants').each(function () {
-        $(this).qtip({
-            content: $('.authors', this),
-            position: {
-                at: 'bottom center',
-                my: 'top center'
-            },
-            style: {
-                classes: 'qtip-light qtip-shadow',
-                tip: {
-                    corner: true,
-                    width: 5,
-                    height: 5
-                }
-            }
-        });
-    });
-
-    $(function () {
-        $(".progress_bar").progressBar({
-            boxImage: '<%=asset_path "progressbar.gif"%>',
-            barImage: '<%=asset_path "progressbg_green.gif"%>',
-            showText: true,
-            textFormat: 'custom'
         });
     });
 }
@@ -343,15 +313,16 @@ function start_end_fdatetimepicker(start, end, min_minutes, suggested_minutes) {
 
     start.fdatetimepicker()
         .on('hide', function (event) {
-            var settings = window.ClientSideValidations.forms[event.currentTarget.form.id];
-            $(event.currentTarget).isValid(settings.validators);
-            var eventStartTime_ = $(event.currentTarget).fdatetimepicker('getDate');
+            $field = $(event.currentTarget);
+            var fv = $field.parent('form').data('formValidation');
+            $field.parent('form').formValidation('revalidateField', $field.attr('id'));
+            var eventStartTime_ = $field.fdatetimepicker('getDate');
             var minStartTime = addMinutes(eventStartTime_, min_minutes);
             var eventEndTime_ = end.fdatetimepicker("getDate");
             end.fdatetimepicker("setStartDate", minStartTime);
             if (eventEndTime_ < minStartTime) {
                 end.fdatetimepicker("setDate", addMinutes(eventStartTime_, suggested_minutes));
-                showOnField(end, 'Changed!');
+                showOnField(end, Airesis.i18n.datepicker.changed);
             }
 
         });
@@ -360,41 +331,22 @@ function start_end_fdatetimepicker(start, end, min_minutes, suggested_minutes) {
     var minTime_ = start.fdatetimepicker('getDate');
     end.fdatetimepicker({startDate: minTime_})
         .on('hide', function (event) {
-            var settings = window.ClientSideValidations.forms[event.currentTarget.form.id];
-            $(event.currentTarget).isValid(settings.validators);
+            $field = $(event.currentTarget);
+            var fv = $field.parent('form').data('formValidation');
+            $field.parent('form').formValidation('revalidateField', $field.attr('id'));
         });
 }
 
+function fdatetimepicker_only_date(start, end) {
+    start.fdatetimepicker('pickOnlyDate');
+    start.fdatetimepicker('setBeginOfDay');
+    end.fdatetimepicker('pickOnlyDate');
+    end.fdatetimepicker('setEndOfDay');
+}
 
-function select2town(element) {
-    element.select2({
-        cacheDataSource: [],
-        placeholder: Airesis.i18n.type_for_town,
-        query: function (query) {
-            self = this;
-            var key = query.term;
-            var cachedData = self.cacheDataSource[key];
-
-            if (cachedData) {
-                query.callback({results: cachedData});
-                return;
-            } else {
-                $.ajax({
-                    url: '/comunes',
-                    data: {q: query.term},
-                    dataType: 'json',
-                    type: 'GET',
-                    success: function (data) {
-                        self.cacheDataSource[key] = data;
-                        query.callback({results: data});
-                    }
-                })
-            }
-        },
-        escapeMarkup: function (m) {
-            return m;
-        }
-    });
+function fdatetimepicker_date_and_time(start, end) {
+    start.fdatetimepicker('pickDateAndTime');
+    end.fdatetimepicker('pickDateAndTime');
 }
 
 function disegnaCountdown() {
@@ -403,7 +355,7 @@ function disegnaCountdown() {
             since: new Date($(this).data('time')),
             significant: 1,
             format: 'ms',
-            layout: Airesis.i18n.countdown
+            layout: Airesis.i18n.countdown.layout1
         }, $.countdown.regionalOptions[Airesis.i18n.locale]));
     })
 }
@@ -532,10 +484,10 @@ function read_notifica(el) {
 
 function sign_all_as_read(id) {
     $.ajax({
-        data: 'id=' + id,
         url: '/alerts/check_all/',
         type: 'post',
         dataType: 'script',
+        data: {id: id},
         complete: function (data) {
             reset_alerts_number();
             $('.card.mess').each(function () {
@@ -566,8 +518,11 @@ function poll() {
             n_container.empty();
             var read_container = $('<div class="read_all">');
             read_container.append($('<a href="#" onclick="sign_all_as_read(' + data.id + ');return false;">' + Airesis.i18n.alerts_sign_has_read + '</a>'));
-            read_container.append(' · ')
-            read_container.append($('<a href="/users/alarm_preferences">' + Airesis.i18n.alarm_settings + '</a>'));
+            read_container.append(' · ');
+            var url = '/users/alarm_preferences';
+            if (Airesis.i18n.l !== '')
+                url += '?l='+Airesis.i18n.l;
+            read_container.append($('<a href="'+url+'">' + Airesis.i18n.alarm_settings + '</a>'));
             var sub_container = $('<div class="cont1">');
             n_container.append(read_container).append(sub_container);
             for (var j = 0; j < data.alerts.length; j++) {
@@ -735,6 +690,12 @@ function formatQuorum(state) {
     return "<div> <div class=\"quorum_title\">" + state.text + "</div> <div class=\"quorum_desc\">" + $(element_).data('description') + "</div></div>";
 }
 
+function formatQuorumSelection(state) {
+    var element_ = state.element;
+    if (!state.id) return state.text; // optgroup
+    return "<div><div class=\"quorum_title\">" + state.text + "</div></div>";
+}
+
 //custom formatter for vote period in select2 dropdown
 function formatPeriod(state) {
     var element_ = state.element;
@@ -763,7 +724,6 @@ function initTextAreaTag() {
 }
 
 function airesis_close_reveal() {
-    "use strict";
     $('.reveal-modal:visible').foundation('reveal', 'close');
 }
 
@@ -771,7 +731,7 @@ function airesis_reveal(element_, remove_on_close) {
     remove_on_close = typeof remove_on_close !== 'undefined' ? remove_on_close : true;
     element_.foundation().foundation('reveal', 'open');
     if (remove_on_close) {
-        $(document).on('closed', element_, function () {
+        $(document).on('closed.fndtn.reveal', element_, function () {
             element_.remove();
         });
     }
@@ -795,7 +755,9 @@ function search_stuff() {
         if (query != null && query != "") {
             $.ajax({
                 url: '/searches',
-                data: 'search[q]=' + query,
+                data: {
+                    'search[q]': query
+                },
                 method: 'POST'
             });
         }

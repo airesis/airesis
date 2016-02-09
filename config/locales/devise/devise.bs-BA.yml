@@ -1,0 +1,39 @@
+bs-BA:
+  errors:
+    messages:
+      expired: istekla je, molimo zatražite novu
+      not_found: nije pronađeno
+      already_confirmed: je već potvrđena, Molimo pokušajte se prijaviti
+      not_locked: nije zaključano
+      not_saved:
+        one: '1 greška je spriječila da se ovaj %{resource} sačuva:'
+        other: '%{count} grešaka su spriječile da se ovaj %{resource} sačuva:'
+  devise:
+    failure:
+      locked: Vaš nalog je zaključan
+      invalid: Nevažeći e-mail ili lozinka
+      invalid_token: Nevažeći token provjere autentičnosti
+      timeout: Vaša sesija je istekla, molimo prijavite se ponovo da nastavite
+      inactive: Vaš nalog još nije aktiviran
+      already_authenticated: Već ste registrovani
+      unauthenticated: Prijava je neophodna za pristup ovoj stranici. Molimo da se prijavite.
+      unconfirmed: Nalog još nije potvrđen
+      user:
+        invalid: Neispravno korisničko Ime ili lozinka
+    sessions:
+      signed_in: Uspješna prijava
+      signed_out: Uspješno ste se odjavili
+      user:
+        signed_out: 'Uspješno ste odjavljeni.  Zbogom'
+        signed_in: Prijavili ste se. Dobrodošli!
+        signed_up: Uspješno ste završili registraciju. Dobrodošli!
+    passwords:
+      send_instructions: Za nekoliko minuta ćete primiti e-mail sa instrukcijama o tome kako resetujete lozinku
+      updated: Vaša lozinka je uspješno promijenjena. Sada ste prijavljeni
+      updated_not_active: Vaša lozinka je uspješno promijenjena
+    mailer:
+      confirmation_instructions:
+        welcome: 'Dobro došli na %{app_name} %{user}!'
+      reset_password_instructions:
+        hi_user: 'Pozdrav %{user}!'
+        change_password: Promjena lozinke

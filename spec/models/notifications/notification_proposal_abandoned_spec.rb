@@ -2,8 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationProposalAbandoned, type: :model, emails: true, notifications: true do
-
+describe NotificationProposalAbandoned, type: :model, emails: true, notifications: true, seeds: true do
   it 'when is abandoned sends correctly an email to authors and participants' do
     user = create(:user)
     group = create(:group, current_user_id: user.id)
@@ -19,8 +18,7 @@ describe NotificationProposalAbandoned, type: :model, emails: true, notification
     create(:negative_ranking, proposal: proposal, user: participants[1])
     proposal.save!
 
-    proposal.check_phase(true)  #force the abandon of the proposal
-
+    proposal.check_phase(true)  # force the abandon of the proposal
 
     expect(described_class.jobs.size).to eq 1
     described_class.drain
@@ -41,11 +39,11 @@ describe NotificationProposalAbandoned, type: :model, emails: true, notification
     receiver_emails = participants.map(&:email)
     expect(emails).to match_array receiver_emails
 
-    expect(Alert.count).to eq 3
+    expect(Alert.unscoped.count).to eq 3
     expect(Alert.first.user).to eq user
     expect(Alert.first.notification_type.id).to eq NotificationType::CHANGE_STATUS_MINE
 
-    expect(Alert.last(2).map { |a| a.user }).to match_array participants
+    expect(Alert.last(2).map(&:user)).to match_array participants
     expect(Alert.last.notification_type.id).to eq NotificationType::CHANGE_STATUS
   end
 end

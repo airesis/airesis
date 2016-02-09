@@ -1,0 +1,42 @@
+table.row
+  tbody
+    tr
+      td.wrapper.last
+        table.twelve.columns
+          tbody
+            tr
+              td
+                h1 = t('mailer.invite.hi_user')
+                p.lead
+                  = raw t('mailer.invite.invitation',
+                          { user: @user.fullname,
+                            group: (link_to @group.name, group_url(@group)),
+                            app_name: (link_to ENV['APP_LONG_NAME'], NEWSLETTER_HOME_URL) })
+                p = t('mailer.invite.message_intro')
+table.row.callout
+  tbody
+    tr
+      td.wrapper.last
+        table.twelve.columns
+          tbody
+            tr
+              td.panel
+                - if @group_invitation.testo
+                  p
+                    = h @group_invitation.testo
+br
+br
+= t('mailer.invite.accept_or_reject')
+br
+= t('mailer.invite.no_more', { app_name: APP_SHORT_NAME })
+br
+= link_to t('mailer.invite.accept'),
+          accept_group_group_invitation_group_invitation_email_url(@group, @group_invitation, @group_invitation_email.token, email: @group_invitation_email.email),
+          style: 'text-decoration: none;text-shadow: 0 1px rgba(0, 0, 0, 0.1);font: bold 14px Arial, sans-serif;color: #444;line-height: 20px;display: inline-block;margin: 5px;padding: 8px 14px;background: #F3F3F3;border: solid 1px #D9D9D9;border-radius: 2px;-webkit-border-radius: 2px;-moz-border-radius: 2px;-webkit-transition: border-color .20s;-moz-transition: border-color .20s;-o-transition: border-color .20s;transition: border-color .20s;cursor: pointer;position: relative;'
+
+= link_to t('mailer.invite.reject'), reject_group_group_invitation_group_invitation_email_url(@group, @group_invitation, @group_invitation_email.token, email: @group_invitation_email.email),
+          style: 'text-decoration: none;text-shadow: 0 1px rgba(0, 0, 0, 0.1);font: bold 14px Arial, sans-serif;color: #444;line-height: 20px;display: inline-block;margin: 5px;padding: 8px 14px;background: #F3F3F3;border: solid 1px #D9D9D9;border-radius: 2px;-webkit-border-radius : 2 px;-moz-border-radius : 2 px;-webkit-transition : border-color .20 s;-moz-transition : border-color .20 s;-o-transition : border-color .20 s;transition: border-color .20s;cursor: pointer;position: relative;'
+br
+br
+= t('mailer.invite.greetings')
+br

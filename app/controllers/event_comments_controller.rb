@@ -1,6 +1,4 @@
-#encoding: utf-8
 class EventCommentsController < ApplicationController
-
   load_and_authorize_resource :event
   load_and_authorize_resource through: :event
 
@@ -17,7 +15,7 @@ class EventCommentsController < ApplicationController
         format.js
       else
         flash[:notice] = t('error.event.comment_added')
-        format.js { render 'event_comments/errors/create'}
+        format.js { render 'event_comments/errors/create' }
       end
     end
   end
@@ -26,22 +24,21 @@ class EventCommentsController < ApplicationController
     @event_comment.destroy
     flash[:notice] = 'The comment has been deleted'
     respond_to do |format|
-      format.js {
-          @event_comments = @event.event_comments.order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
-      }
+      format.js do
+        @event_comments = @event.event_comments.order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
+      end
     end
   end
 
   def like
     (@event_comment.likers.include? current_user) ?
-        @event_comment.likers.delete(current_user) :
-        @event_comment.likers << current_user
+      @event_comment.likers.delete(current_user) :
+      @event_comment.likers << current_user
     @event_comment.save!
     respond_to do |format|
-      format.js { render 'layouts/success'}
+      format.js { render 'layouts/success' }
     end
   end
-
 
   protected
 

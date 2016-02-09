@@ -1,0 +1,53 @@
+<li id="proposal{{proposal.id}}" class="proposal_list">
+  <div class="proposal_cont card appear">
+    <div class="left_cont hide-for-small">
+      <div class="inner_cont">
+        <div class="model">
+            {{proposal.type_description}}
+        </div>
+        <div class="category_icon">
+            {{{proposal.group_image_tag}}}
+        </div>
+        <div class="status">
+            {{{proposal.status}}}
+        </div>
+      </div>
+    </div>
+    <div class="right_cont">
+      <div class="alerts_and_vote">
+        {{#current_user.signed_in?}}
+            {{#current_user.can_vote?}}
+                <a href="{{proposal.vote_url}}" class="btn blue vote-button">{{texts.vote}}</a>
+            {{/current_user.can_vote?}}
+            {{#current_user.show_alerts?}}
+                <a href="#" class="alert notify" data-load="true" data-proposal-id="{{proposal.id}}">{{current_user.notifications}}</a>
+            {{/current_user.show_alerts?}}
+        {{/current_user.signed_in?}}
+      </div>
+      <div style=" position: relative">
+        <div class="maintitle {{#current_user.can_vote?}}voteright{{/current_user.can_vote?}}">
+        {{#current_user.signed_in?}}
+            {{{current_user.valutation_image}}}
+        {{/current_user.signed_in?}}
+            {{{proposal.title_link}}}
+        </div>
+      </div>
+
+      <div class="text_content">
+        <p>
+            {{{proposal.short_content}}}
+        </p>
+      </div>
+      {{#proposal.voting_or_voted?}}
+          {{> proposals/_new_vote_bar}}
+      {{/proposal.voting_or_voted?}}
+      {{^proposal.voting_or_voted?}}
+          {{> proposals/_new_rank_bar}}
+      {{/proposal.voting_or_voted?}}
+
+      <div class="clearboth"></div>
+        {{> proposals/_list_element_bottom}}
+    </div>
+    <div class="clearboth"></div>
+  </div>
+</li>

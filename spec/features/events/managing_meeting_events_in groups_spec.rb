@@ -2,46 +2,39 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe "manage correctly meeting events", type: :feature, js: true, ci_ignore: true do
+describe 'manage correctly meeting events', type: :feature, js: true, seeds: true do
+  let(:user) { create(:user) }
+  let(:group) { create(:group, current_user_id: user.id) }
+  let(:user2) { create(:user) }
+  let(:user3) { create(:user) }
+  let(:group2) { create(:group, current_user_id: user2.id) }
 
-  let!(:user) { create(:user) }
-  let!(:group) { create(:group, current_user_id: user.id) }
-  let!(:user2) { create(:user) }
-  let!(:user3) { create(:user) }
-  let!(:group2) { create(:group, current_user_id: user2.id) }
   before :each do
     create_participation(user2, group)
     create_participation(user3, group)
   end
 
-  it "participants can create meeting events" do
-    #can manage his event
+  it 'participants can create meeting events' do
     login_as user2, scope: :user
     visit new_group_event_path(group)
-    page.execute_script("$('#create_event_dialog').foundation('reveal', 'open');")
     expect(page).to have_content(I18n.t('pages.events.new.title_meeting'))
     title = Faker::Lorem.sentence
     description = Faker::Lorem.paragraph
     fill_in I18n.t('activerecord.attributes.event.title'), with: title
     fill_in I18n.t('activerecord.attributes.event.description'), with: description
     check I18n.t('activerecord.attributes.event.private')
-    click_button I18n.t('buttons.next')
+    click_link I18n.t('buttons.next')
     fill_in I18n.t('activerecord.attributes.event.starttime'), with: (I18n.l Time.now, format: :datetimepicker)
     page.execute_script("$('#event_starttime').fdatetimepicker('hide');")
     fill_in I18n.t('activerecord.attributes.event.endtime'), with: (I18n.l Time.now + 1.day, format: :datetimepicker)
     page.execute_script("$('#event_endtime').fdatetimepicker('hide');")
-    click_button I18n.t('buttons.next')
-    expect(page).to have_selector('#s2id_event_meeting_attributes_place_attributes_comune_id')
-    select2("Bologna", xpath: "//div[@id='s2id_event_meeting_attributes_place_attributes_comune_id']")
-    fill_in I18n.t('activerecord.attributes.event.meeting.place.address'), with: 'Via Rizzoli 2'
-    #page.execute_script("codeAddress('luogo');") google does not work during tests
+    click_link I18n.t('buttons.next')
+    select2ajax('#event_meeting_attributes_place_attributes_municipality_id', 'Bologna')
+    fill_in I18n.t('activerecord.attributes.place.address'), with: 'Via Rizzoli 2'
     page.execute_script("$('#event_meeting_attributes_place_attributes_latitude_original').val(#{Faker::Address.latitude});")
     page.execute_script("$('#event_meeting_attributes_place_attributes_longitude_original').val(#{Faker::Address.longitude});")
-    #find(:xpath, "//input[@id='event_meeting_attributes_place_attributes_longitude_original']").set Faker::Address.longitude
-    #find(:xpath, "//input[@id='event_meeting_attributes_place_attributes_latitude_center']").set Faker::Address.latitude
-    #find(:xpath, "//input[@id='event_meeting_attributes_place_attributes_longitude_center']").set Faker::Address.longitude
 
-    click_button I18n.t('pages.events.new.submit')
+    click_link I18n.t('pages.events.new.submit')
     wait_for_ajax
     expect(page.current_path).to eq(group_events_path(group))
     expect(page).to have_content(title)
@@ -55,10 +48,9 @@ describe "manage correctly meeting events", type: :feature, js: true, ci_ignore:
     logout :user
   end
 
-  it "can delete events" do
+  it 'can delete events' do
     event = create(:meeting_event, user: user2)
-    meeting_organization = create(:meeting_organization, event: event, group: group)
-    meeting = create(:meeting, event: event)
+    create(:meeting_organization, event: event, group: group)
 
     expect(Ability.new(user2)).to be_able_to(:destroy, event)
 
@@ -69,5 +61,4 @@ describe "manage correctly meeting events", type: :feature, js: true, ci_ignore:
     expect(MeetingOrganization.count).to eq 0
     expect(Place.count).to eq 0
   end
-
 end

@@ -17,7 +17,9 @@ module Frm
     has_many :forum_tags, dependent: :destroy, foreign_key: 'frm_forum_id'
     has_many :tags, through: :forum_tags, class_name: 'Tag'
 
-    validates :category, :name, :description, presence: true
+    validates :category_id, presence: true
+    validates :name, presence: true
+    validates :description, presence: true
 
     validate :visibility
 
@@ -43,10 +45,14 @@ module Frm
       name
     end
 
+    def should_generate_new_friendly_id?
+      name_changed?
+    end
+
     protected
 
     def visibility
-      self.errors.add(:visible_outside, "Un forum non può essere visibile all'esterno se la sezione in cui è contenuto non è visibile") if visible_outside && !category.visible_outside
+      errors.add(:visible_outside, I18n.t('activerecord.errors.messages.forum_visibility')) if visible_outside && !category.visible_outside
     end
   end
 end

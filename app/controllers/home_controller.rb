@@ -1,17 +1,19 @@
 class HomeController < ApplicationController
-
   layout :choose_layout
 
-  #l'utente deve aver fatto login
-  before_filter :authenticate_user!, only: [:show]
+  # l'utente deve aver fatto login
+  before_action :authenticate_user!, only: [:show]
 
-  before_filter :initialize_roadmap, only: [:bugtracking]
+  before_action :initialize_roadmap, only: [:bugtracking]
+
+  prepend_before_action :load_tutorial, :set_tutorial_parameters, only: :index
 
   def index
     @page_title = 'Home'
     if current_user
-      load_open_space_resources
-      render 'open_space'
+      @user = current_user
+      @page_title = @user.fullname
+      render 'show'
     end
   end
 
@@ -34,7 +36,7 @@ class HomeController < ApplicationController
 
   def donations
     @features = SysFeature.all
-    @colors = ['red', 'yellow', 'blue', 'violet', 'green']
+    @colors = %w(red yellow blue violet green)
   end
 
   def press
@@ -69,6 +71,9 @@ class HomeController < ApplicationController
   def terms
   end
 
+  def cookie_law
+  end
+
   def movements
     @income = SysMovement.income
     @outcome = SysMovement.outcome
@@ -76,7 +81,6 @@ class HomeController < ApplicationController
 
   def statistics
     @stat1 = StatNumProposal.extract
-
   end
 
   def show
@@ -86,12 +90,11 @@ class HomeController < ApplicationController
 
   def feedback
     respond_to do |format|
-
-      format.js {
+      format.js do
         feedback = JSON.parse(params[:data])
-        data = feedback[1][22..-1] if feedback[1] #get the feedback image data
+        data = feedback[1][22..-1] if feedback[1] # get the feedback image data
 
-        stack = ""
+        stack = ''
         if current_user
           stack << "user id: #{current_user.id}\n"
           stack << "user email: #{current_user.email}\n"
@@ -99,7 +102,7 @@ class HomeController < ApplicationController
         end
         feedback = SentFeedback.new(message: feedback[0]['message'], stack: stack)
 
-        feedback.email = current_user.email if current_user #save user email if is logged in
+        feedback.email = current_user.email if current_user # save user email if is logged in
 
         if data
           temp_file = Tempfile.new(['tmp', '.png'], encoding: 'ascii-8bit')
@@ -113,30 +116,36 @@ class HomeController < ApplicationController
         end
         feedback.save!
 
-        ResqueMailer.delay.feedback(feedback.id)
+        ResqueMailer.feedback(feedback.id).deliver_later
         render nothing: true
-      }
+      end
       format.html { render nothing: true }
     end
   end
 
   protected
 
+  def set_tutorial_parameters
+    @tutorial_action = 'show'
+  end
+
   def load_open_space_resources
-    @blog_posts = BlogPost.includes(:blog,user: [:user_type,:image]).order('blog_posts.created_at desc').limit(10).accessible_by(Ability.new(current_user))
-    @events = Event.next.order('starttime asc').limit(10).accessible_by(Ability.new(current_user))
+    @blog_posts = BlogPost.open_space(current_user, current_domain)
+    @events = Event.in_territory(current_domain.territory).next.order('starttime asc').accessible_by(Ability.new(current_user)).limit(10)
+    @proposals = Proposal.open_space_portlet(current_user, current_domain.territory)
+    @most_active_groups = Group.most_active(current_domain.territory)
+    @tags = Tag.most_used(current_domain.territory).limit(100)
   end
 
   def initialize_roadmap
     @roadmap ||= Roadmap.new(ENV['BUGTRACKING_USERNAME'], ENV['BUGTRACKING_PASSWORD'])
   end
 
-
   def choose_layout
     if ['landing'].include? action_name
       false
     elsif ['index'].include? action_name
-      current_user ? 'open_space' : false
+      current_user ? 'users' : false
     elsif ['show'].include? action_name
       'users'
     elsif ['public'].include? action_name
@@ -145,6 +154,4 @@ class HomeController < ApplicationController
       'landing'
     end
   end
-
-
 end

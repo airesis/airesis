@@ -1,7 +1,6 @@
 module Frm
   module Admin
     class CategoriesController < BaseController
-
       load_and_authorize_resource class: 'Frm::Category', through: :group
 
       def index
@@ -43,56 +42,53 @@ module Frm
       private
 
       def create_successful
-        flash[:notice] = t("frm.admin.category.created")
+        flash[:notice] = t('frm.admin.category.created')
         respond_to do |format|
-          format.html {
+          format.html do
             redirect_to group_frm_admin_categories_url(@group)
-          }
+          end
           format.js
         end
       end
 
       def create_failed
-        flash.now.alert = t("frm.admin.category.not_created")
+        flash.now.alert = t('frm.admin.category.not_created')
         render action: :new
       end
 
       def destroy_successful
-        flash[:notice] = t("frm.admin.category.deleted")
+        flash[:notice] = t('frm.admin.category.deleted')
         respond_to do |format|
-          format.html {
+          format.html do
             redirect_to group_frm_admin_categories_url(@group)
-          }
+          end
           format.js
         end
       end
 
       def update_successful
-        flash[:notice] = t("frm.admin.category.updated")
+        flash[:notice] = t('frm.admin.category.updated')
         respond_to do |format|
-          format.html {
+          format.html do
             redirect_to group_frm_admin_categories_url(@group)
-          }
+          end
           format.js
         end
-
       end
 
       def update_failed
-        flash.now.alert = t("frm.admin.category.not_updated")
+        flash.now.alert = t('frm.admin.category.not_updated')
         respond_to do |format|
-          format.html {
+          format.html do
             render action: :edit
-          }
-          format.js {
+          end
+          format.js do
             render :update do |page|
-              page.replace_html 'category_container', partial: 'edit', locals: {remote: true}
+              page.replace_html 'category_container', partial: 'edit', locals: { remote: true }
             end
-          }
+          end
         end
-
       end
-
     end
   end
 end

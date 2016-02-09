@@ -133,6 +133,7 @@
       $(function() {
           var input = $('#proposal_interest_borders_tkn')
           input.tokenInput("<%=interest_borders_path(format: :json)%>", {
+              propertyToSearch: 'text',
               crossDomain: false,
               prePopulate: input.data("pre"),
               hintText: "<%=t('interest_borders.hint')%>",
@@ -159,8 +160,8 @@
 
           $('#proposal_proposal_category_id').select2({
               minimumResultsForSearch: -1,
-              formatResult: formatCategory,
-              formatSelection: formatCategory,
+              templateResult: formatCategory,
+              templateSelection: formatCategory,
               escapeMarkup: function(m) { return m; }
           });
       });

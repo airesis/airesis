@@ -1,4 +1,4 @@
-fr:
+fr-FR:
   errors:
     messages:
       expired: a expirée, veuillez en demander une nouvelle
@@ -32,9 +32,6 @@ fr:
       updated: 'Votre mot de passe  a bien été modifié. Vous êtes maintenant connecté'
       updated_not_active: Votre mot de passe a bien été modifié
       send_paranoid_instructions: Si votre courriel existe dans notre base de données, vous recevrez un lien de récupération de mot de passe dans votre boîte de réception
-      user:
-        updated: Le mot de passe a été mis à jour correctement
-        send_instructions: Les instructions ont été transmises à votre adresse e-mail
     confirmations:
       send_instructions: Vous allez recevoir un courriel contenant les instructions permettant de confirmer votre compte dans quelques minutes
       send_paranoid_instructions: Si votre courriel existe dans notre base de données, vous recevrez un message avec les instructions sur la façon de confirmer votre compte dans quelques minutes
@@ -60,6 +57,11 @@ fr:
     omniauth_callbacks:
       success: Votre inscription est terminée. Bienvenue !
       failure: 'Nous ne pouvons pas vous autoriser depuis %{kind} car "%{reason}"'
+      creation_failure: "Erreur lors de l'accès par %{provider}"
+      join_success: 'Comptes fusionnés avec succès. Félicitations, vous pouvez maintenant vous connecter par le biais de %{provider}.'
+      join_failure: 'Il existe un autre compte de %{provider}. La fonction de fusion des comptes sera bientôt disponible.'
+      certified_email_taken: Il existe un autre compte avec votre email vérifié.
+      already_certified: Un autre compte a été certifié avec votre code des impôts.
     mailer:
       confirmation_instructions:
         subject: Instructions de confirmation

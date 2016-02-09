@@ -1,0 +1,61 @@
+id-ID:
+  tutorial:
+    proposals_index:
+      welcome_open_space: Selamat datang di Ruang Terbuka Airesis! Ruang Terbuka ini adalah grup yang sangat khusus tempat semua pengguna dapat berpartisipasi. Di sini, Anda menemukan daftar proposal yang bebas ditambahkan oleh pengguna aplikasi ini dan Anda bahkan dapat menambahkan proposal Anda sendiri
+      welcome_group: 'Ini daftar propsal grup <b>%{group_name}</b>. Di sini, Anda menemukan daftar proposal yang ditambahkan oleh anggota grup dan Anda bahkan dapat menambahkan proposal Anda sendiri, jika Anda memiliki izin'
+      new_proposal: Pada menu sebelah kanan, Anda akan menemukan tombol untuk membuat proposal baru...
+      filters: ...dan filter-filter berbeda untuk menemukan proposal yang Anda minati
+      tabs: Proposal-proposal di Airesis mengikuti jalur tertentu yang terdiri dari empat ketetapan utama. Mari kita telusuri!
+      tab_debate: Proposal baru berawal dalam tahap debat dan semua pengguna atau anggota grup dapat berpartisipasi, berdebat, dan memerinci proposal itu untuk mencapai maturitas untuk voting
+      tab_vote: Ketika debat berakhir, proposal masuk ke tab Voting, tempat setiap pengguna dapat memberi voting terhadap solusi yang muncul selama debat
+      tab_voted: Setelah voting, semua proposal yang telah diberi voting masuk ke tab Telah Divoting, yang memungkinkan untuk mengulas hasil daur hidup proposal lengkapnya
+      abandoned: Semua proposal yang tidak lolos debat dimasukkan ke tab Ditinggalkan, tempat mereka dapat dimasukkan kembali ke debat untuk melanjutkan diskusi
+      proposal_list: Setiap proposal ditampilkan dalam sebuah kotak seperti ini, tempat ada semua informasi tentang statusnya selagi berada dalam debat
+      model: Templat yang digunakan untuk pembuatan proposal
+      category_icon: Kategori terpilih
+      status: Status proposal. Selama debat, ini terakhir kali teks diperbarui
+      maintitle: Judul proposal, yaitu topik diskusi ini
+      text_content: Baris pertama dari masalah atau solusi
+      timeline: Bilah yang menampilkan status debat atau voting
+      timeleft: Waktu dan/atau evaluasi yang dibutuhkan untuk mengakhiri debat
+      rankDescription: Maturitas proposal, yang menampilkan apakah proposal siap untuk diberi voting, berdasarkan evaluasi para peserta
+      participants: Jumlah orang yang berpartisipasi dalam proposal ini dengan kontribusi dan evaluasi mereka
+      contributes: Jumlah kontribusi yang ditambahkan
+      end: Ini adalah struktur daftar proposal. Ini sama dalam setiap grup yang Anda ikuti dan akan membantu Anda memosisikan diri dalam diskusi grup
+    proposals_show:
+      welcome: Selamat datang dalam proposal ini, dalam debat di Airesis. Tutorial ini akan menjelaskan secara detail tentang berbagai bagian yang menyusunnya
+      title: Ini judul proposal, yaitu topik yang didiskusikan
+      status_description: Ini menampilakn persyaratan untuk mengakhiri debat
+      main: Ini adalah paragraf yang menyusun proposal
+      solution_main: Ini adalah solusi. Bahkan solusi terdiri dari berbagai paragraf. Penyunting akan menulis satu solusi atau lebih untuk menyelesaikan masalah yang ditemukan
+      contributeButton: Dengan menggunakan tombol-tombol ini, Anda dapat melihat kontribusi penguna lain dan menambahkan kontribusi Anda sendiri. Kontribusi selalu mengacu pada paragraf tempat mereka dapat diakses
+      newComment: Gunakan kolom ini untuk menambahkan kontribusi yang tidak mengacu kepada paragraf tertentu
+      menu_left: Di menu sebelah kiri ini, Anda dapat menemukan semua informasi tentang proposal ini
+      evaluations: Jumlah evaluasi yang diberikan oleh peserta, yang telah menunjukkan apakah proposal ini siap untuk diberi voting atau debat harus berlanjut
+      ranking: Maturitas proposal, yaitu persentasi peserta yang menganggap proposal ini siap untuk diberi voting
+      status: Status proposal. Dalam hal ini, proposal berada dalam tahap debat
+      dates: Tanggal pembuatan dan pembaruan proposal
+      condition_left: Persyaratan untuk mengakhiri debat
+      socialnetwork: Tombol untuk membagi proposal di jejaring sosial Anda dan mengundang teman-teman Anda ke diskusi
+      authors: Penyunting proposal ini saat ini
+      category: Kategori proposal ini
+      history: Riwayat proposal, tempat Anda dapat melihat modifikasi dan evolusinya
+    groups_edit:
+      welcome: Itu panel administrator untuk grup. Kami akan menjelaskan bagian-bagiannya...
+      group_info: Di sini, Anda dapat mengubah semua informasi tentang grup dan fotonya. Isi kata kuncinya jika Anda belum melakukannya. Mereka penting agar grup Anda dapat ditemukan.
+      group_roles: Di sini, Anda dapat mengatur peran yang tersedia dalam grup. Anda dapat mengatur hak izin mereka dan menyunting yang sudah ada.
+      group_users: Di sini, Anda dapat mengatur peserta dalam grup Anda. Anda dapat menetapkan peran untuk mereka dan mengirim surel.
+      group_proposals: 'Ini halaman tempat Anda dapat mengubah semua yang berkaitan dengan proposal: kuorum dan pengaturan.'
+      group_areas: Area yang tersedia jika Anda ingin mengaktifkannya. Mereka akan memungkinkan Anda membagi grup Anda menjadi grup-grup yang lebih kecil
+      group_forum: Dan terakhir, di sini ada semua pengaturan untuk Forum.
+    users_alarm_preferences:
+      intro: Pada halaman ini, Anda dapat menyunting semua pengaturan tentang peringatan dan notifikasi.
+      alerts: Anda dapat memilih peringatan mana yang akan diterima di Airesis...
+      emails: ...dengan surel, atau keduanya.
+      no_emails: 'Ingat: jika Anda menonaktifkan peringatan di Airesis, Anda tidak akan menerimanya di Airesis juga.'
+    users_border_preferences:
+      intro: Jika Anda belum melakukannya, tentukan batas geografis yang diminati. Airesis akan segera menggunakan mereka untuk menunjukkan konten-konten tertentu.
+    welcome:
+      intro: 'Selamat datang di Airesis, %{name}. Tutorial ini akan memandu Anda menelusuri aplikasi ini dan menjelaskan cara menggunakannya dan tempat untuk mencari informasi yang Anda butuhkan.'
+    next: Berikutnya
+    back: Kembali

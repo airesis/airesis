@@ -1,0 +1,201 @@
+zh-TW:
+  frm:
+    general:
+      forum: 論壇
+      topics: 主題
+      topic: 主題
+      posts: 文章
+      posts_count:
+        other: '%{count} 篇文章'
+      flagged_for_spam: 您的帳號已被標記為垃圾攻擊
+      cannot_create_topic: 你目前不能增加一個新的主題
+      cannot_create_post: 你目前不能增加一個新的文章
+    access_denied: 您不允許這樣做。
+    admin:
+      area: 管理頁面
+      back_to_admin: 回到管理頁面
+      back_to_forums: 回到論壇
+      back_to_groups: 回到群組
+      forum:
+        moderator_groups: 版主群
+        index: 管理論壇
+        new: 建立一個新的論壇
+        new_link: 新的論壇
+        deleted: 選取的論壇已被刪除
+        created: 這個論壇建立了
+        not_created: 無法建立此論壇
+        updated: 這個論壇已被更新。
+        not_updated: 無法更新這個論壇
+      forums:
+        edit: 編輯
+        delete: 刪除
+        category: 類別
+        delete_confirm: 確定要刪除這個論壇？
+        index:
+          last_post: 最新文章
+          none: 無
+          moderators: 版主
+          no_category: (沒有類別)
+      category:
+        index: 管理論壇分類
+        new: 建立一個新的論壇分類
+        edit: '編輯 %{title} 分類'
+        new_link: 新的論壇分類
+        deleted: 選取的論壇類分類已被刪除
+        created: 已建立這個論壇分類
+        not_created: 無法建立這個論壇分類
+        updated: 這個論壇類別已更新
+        not_updated: 這個論壇分類不能更新
+      categories:
+        edit: 編輯
+        delete: 刪除
+        category: 分類
+        delete_confirm: 確定要刪除這個論壇分類？
+    common:
+      pages: 頁面
+    errors:
+      not_signed_in: 你必須先登入
+      access_denied: 權限被拒
+    forum:
+      header: '檢視 %{title}'
+      forums: 論壇
+      new: 建立一個新的論壇
+      edit: '編輯 %{title} 論壇'
+      topics_count:
+        other: '%{count} 個主題'
+      posts_count:
+        other: '%{count} 篇文章'
+      moderator_tools: 版主工具
+      topic_tools: 主題工具
+      admin_tools: 管理者工具
+    forums:
+      index:
+        forum: 論壇
+        views: 檢視
+        last_post: 最新發表：
+        none: 無
+    topic:
+      headings:
+        topic: 主題
+        latest: 最新
+        posts: 文章
+        views: 檢視
+      moderation:
+        success: 選取的主題已經更新
+        no_option_selected: 沒有選取任何操作選項
+      received_reply: 你訂閱的主題有新的回應
+      reply: 回覆
+      quote: 引用
+      delete: 刪除
+      created: 主題已建立
+      new: 建立一個新的主題
+      edit: 編輯主題
+      not_created: 無法建立主題
+      deleted: 你的主題已被刪除
+      cannot_delete: 你不能刪除不屬於你的主題
+      updated: 這個主題已更新
+      not_updated: 不能更新這個主題
+      subscribed: 你已經訂閱了本主題
+      unsubscribed: 你已經取消訂閱本主題
+      none: 這個論壇目前沒有任何主題
+      links:
+        new: 新的主題
+        back_to_topics: 回到主題
+        edit: 編輯主題
+      not_found: 找不到你要找的主題
+      hidden:
+        "true": 這個主題現在已隱藏
+        "false": 這個主題現在可以公開檢視
+      locked:
+        "true": 這個主題已鎖定
+        "false": 本主題目前解鎖
+      pinned:
+        "true": 這個主題現在是置頂
+        "false": 這個主題取消置頂了
+    topics:
+      show:
+        reply: 回覆
+        delete: 刪除
+        subscribe: 訂閱
+        unsubscribe: 取消訂閱
+        reply_to_topic: 回覆主題
+        pending_review: 本主題正在等待審查。只有建立者和版主可以檢視。
+        hide:
+          "true": 顯示本主題
+          "false": 隱藏此主題
+        lock:
+          "true": 解鎖此主題
+          "false": 鎖定此主題
+        pin:
+          "true": 取消置頂
+          "false": 置頂
+    post:
+      buttons:
+        reply: 文章回覆
+        edit: 編輯
+      created: 你的回應已經發佈
+      new: 發佈回應到
+      edit: 編輯
+      not_created: 你的回覆無法送出
+      not_created_topic_locked: 你不能回覆一個被鎖定的主題
+      edited: 你已編輯你的文章
+      not_edited: 無法編輯你的文章
+      deleted: 您的文章已被刪除
+      cannot_delete: 你不能刪除不屬於你的文章
+    posts:
+      moderation:
+        moderate: 管理
+        approve: 核准
+        spam: 垃圾訊息
+        success: 選取的文章已被修改
+      post:
+        pending_review: 本主題正在等待審查。只有建立者和版主可以檢視。
+        in_reply_to: 在答覆
+    moderation:
+      index:
+        title: '%{forum} 的管理工具'
+  helpers:
+    submit:
+      frm_forum:
+        create: 建立論壇
+        update: 更新論壇
+      topic:
+        create: 建立主題
+        update: 更新主題
+      frm_category:
+        create: 建立分類
+  simple_form:
+    labels:
+      frm_forum:
+        category: 分類
+        title: 標題
+        description: 描述
+        moderators: 版主群
+        visible_outside: 公開檢視
+      topic:
+        subject: 標題
+        locked: 已鎖定
+        pinned: 置頂
+        hidden: 隱藏
+        posts:
+          text: 內文
+      frm_category:
+        name: 名稱
+      post:
+        text: 內文
+  time_ago_in_words: '%{time} 前'
+  ago: 前
+  ago_by: 前由
+  by: 由
+  started_by: 開始於
+  are_you_sure: 確定嗎？
+  lst_post: 最新文章
+  last_post: 最新主題
+  back_to_forums: 回論壇
+  pages:
+    forum_groups:
+      index:
+        create_first: 尚未有群組的管理者，建立第一個 ！
+  info:
+    members:
+      ok_message: 成功地將使用者加入到群組中

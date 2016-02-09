@@ -21,20 +21,20 @@
             <%= link_to(@group, class: ((controller_name == 'groups' && (['show', 'by_year_and_month'].include? action_name)) || (controller_name == 'blog_posts') || (!(can? :update, @group) && controller_name == 'group_participations')) ? 'sel' : '') do %>
                 <span class="show-for-large-up"><%= t('pages.groups.layout.home_button') %></span>
 
-                <div class="icon-home small hide-for-large-up" title="<%= t('pages.groups.layout.home_button') %>"></div>
+                <div class="fa fa-home small hide-for-large-up" title="<%= t('pages.groups.layout.home_button') %>"></div>
             <% end %>
             <span> ⋅ </span>
             <%= link_to(group_proposals_url(@group), class: ((['proposals', 'proposal_revisions'].include? controller_name) ? 'sel' : '')) do %>
                 <span class="show-for-large-up"><%= t('pages.groups.layout.proposals_button') %></span>
 
-                <div class="icon-file small hide-for-large-up" title="<%= t('pages.groups.layout.proposals_button') %>"></div>
+                <div class="fa fa-lightbulb-o small hide-for-large-up" title="<%= t('pages.groups.layout.proposals_button') %>"></div>
             <% end %>
             <span> ⋅ </span>
             <% if ::Configuration::groups_calendar %>
                 <%= link_to(group_events_url(@group), class: (controller_name == 'events' ? 'sel' : '')) do %>
                     <span class="show-for-large-up"><%= t('pages.groups.layout.calendar') %></span>
 
-                    <div class="icon-calendar small hide-for-large-up" title="<%= t('pages.groups.layout.calendar') %>"></div>
+                    <div class="fa fa-calendar small hide-for-large-up" title="<%= t('pages.groups.layout.calendar') %>"></div>
                 <% end %>
             <% end %>
             <% if ::Configuration::documents_active && !@group.disable_documents && (can? :view_documents, @group) %>
@@ -42,7 +42,7 @@
                 <%= link_to(group_documents_url(@group), class: (controller_name == 'documents' ? 'sel' : '')) do %>
                     <span class="show-for-large-up"><%= t('pages.groups.header.documents') %></span>
 
-                    <div class="icon-folder-open small hide-for-large-up" title="<%= t('pages.groups.header.documents') %>"></div>
+                    <div class="fa fa-folder-o small hide-for-large-up" title="<%= t('pages.groups.header.documents') %>"></div>
                 <% end %>
             <% end %>
 
@@ -51,7 +51,7 @@
                 <%= link_to(group_forums_url(@group), class: (((controller_path.start_with? 'frm/') && !(controller_path.start_with? 'frm/admin')) ? 'sel' : '')) do %>
                     <span class="show-for-large-up"><%= t('pages.groups.header.forums') %></span>
 
-                    <div class="icon-bubbles small hide-for-large-up" title="<%= t('pages.groups.header.forums') %>"></div>
+                    <div class="fa fa-comment small hide-for-large-up" title="<%= t('pages.groups.header.forums') %>"></div>
                 <% end %>
             <% end %>
             <% if can? :update, @group %>
@@ -59,7 +59,7 @@
                 <%= link_to(edit_group_url(@group), class: ((controller_name == 'groups' && action_name != 'show') || (['group_areas', 'group_participations', 'search_participants', 'quorums'].include? controller_name) || (controller_path.start_with? 'frm/admin') ? 'sel' : '')) do %>
                     <span class="show-for-large-up"><%= t('pages.groups.header.settings') %></span>
 
-                    <div class="icon-cog small hide-for-large-up" title="<%= t('pages.groups.header.settings') %>"></div>
+                    <div class="fa fa-cog small hide-for-large-up" title="<%= t('pages.groups.header.settings') %>"></div>
                 <% end %>
             <% end %>
         <% end %>

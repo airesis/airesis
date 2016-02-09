@@ -5,7 +5,7 @@ html, body {
 #great_container {
   position: relative;
   min-height: 100%;
-  padding-bottom:40px;
+  padding-bottom: 40px;
 }
 
 #footer, footer {
@@ -153,7 +153,6 @@ p small {
   visibility: hidden
 }
 
-
 /* frontpage */
 
 .last-bar em {
@@ -236,13 +235,13 @@ p small {
 
 #language {
   a {
-  font-size: 1.5em;
-  line-height: 1.5em;
+    font-size: 1.5em;
+    line-height: 1.5em;
   }
   img {
     max-width: 100%;
   }
-  h1 {
+  li {
     text-align: center;
   }
 }

@@ -1,0 +1,1421 @@
+id-ID:
+  unauthorized:
+    default: Anda tidak memiliki izin yang dibutuhkan untuk melakukan ini
+    create:
+      group: Anda tidak dapat membuat lebih dari satu grup per hari
+  permissions_required: Anda tidak diizinkan untuk melakukan operasi ini
+  test: Tes
+  open_space: Ruang Terbuka
+  hello: Halo, Dunia
+  pages:
+    top_panel:
+      login: Masuk atau mendaftar
+      facebook_login: Masuk dengan Facebook
+      google_login: Masuk dengan Google
+      twitter_login: Masuk dengan Twitter
+      meetup_login: Masuk dengan Meetup
+      linkedin_login: Masuk dengan LinkedIn
+      openid_login: Masuk dengan OpenID
+      find_groups: Cari Grup
+      parma_login: Masuk dengan Parma
+      tecnologiedemocratiche_login: Masuk dengan Tecnologie Democratiche
+    user:
+      notifications: Alarm dan Notifikasi
+      privacy: Akun dan privasi
+    users:
+      index:
+        title: Daftar Pengguna
+      show:
+        groups_title: Grup Saya
+        group_column: Grup
+        role_column: Peran
+        get_out_of_group_button: Tinggalkan grup ini
+        get_out_of_group_confermation: Anda yakin?
+        secret_vote: Rahasia
+        votations_title: Vote yang Anda ikuti
+        proposal_column: Proposal
+        votation_date_column: Tanggal
+        vote_column: Vote
+        profile_info: Info profil
+        profile_info_unconfirmed: (pengguna yang belum dikonfirmasi)
+        send_message_button: Kirim pesan
+        name_label: Nama
+        email_label: Surel
+        edit_image: Sunting gambar
+        to_be_confirmed: untuk dikonfirmasi
+        password_label: Kata sandi
+        facebook_url_label: URL Facebook
+        googleplus_url_label: URL Google+
+        linkedin_url: URL LinkedIn
+        username_label: Nama Pengguna
+        registered_from: Terdaftar dari
+        load_image: Muat gambar
+        max_file_size: 'Ukuran maksimum: 2 MB'
+        what_can_i_do: Apa yang dapat saya lakukan?
+        what_i_cant_do: Apa yang tidak dapat saya lakukan?
+        certified_from: Mendapat sertifikasi dari
+        group_level_permission_title: Hak izin tingkat grup
+        admin_permissions: Anda administrator grup ini dan Anda memiliki semua hak izin
+      send_message:
+        subject_label: Judul
+        body_label: Isi
+        massive_email: Mengirim banyak surel
+      left_panel:
+        general_info: Informasi Umum
+        alarm_and_notifications: Alarm dan Notifikasi
+        geographic_borders: Batas geografis
+        account_and_privacy: Akun dan privasi
+        title: PENGATURAN DAN PREFERENSI
+      alarm_preferences:
+        receive_on_address: 'Dapatkan buletin di %{email}'
+        alerts: Peringatan
+        emails: Surel
+      privacy_preferences:
+        tooltips: Tampilkan tooltip
+        show_urls: Tampilkan URL Facebook, Google+ dan LinkedIn ke pengguna
+        private_messages: Menerima pesan dari pengguna lain
+        join_accounts: Gabungkan akun lain
+        joined_all: Anda telah menggabungkan semua penyedia yang ada. Terima kasih!
+        join_facebook: Gabungkan akun Facebook Anda
+        join_google: Gabungkan akun Google Anda
+        join_twitter: Gabungkan akun Twitter Anda
+        join_linkedin: Gabungkan akun LinkedIn Anda
+        join_meetup: Gabungkan akun Meetup Anda
+        providers_list: Daftar penyedia yang diaktifkan
+        options: Opsi
+        rotp: Aktifkan Token Keamanan
+        rotp_title: Token Keamanan
+        rotp_confirm_enable: Yakin Anda ingin mengaktifkan token keamanan?
+        rotp_confirm_disable: Yakin Anda ingin menonaktifkan token keamanan?
+        mail_language: Bahasa untuk surel
+        time_zone: Zona Waktu
+      border_preferences:
+        updating: Harap tunggu selagi kami memperbarui preferensi Anda sesuai dengan preferensi batas Anda
+        your_borders: Batas geografis yang Anda minati
+      send_message_title: 'Kirim pesan ke %{name}'
+    groups:
+      accept_requests:
+        portavoce: 'Administrator: ketika seorang pengguna ingin bergabung dengan grup, hanya administrator grup yang dapat menerima permintaan tersebut. Ketika administrator menerima permintaan tersebut, pengguna menjadi anggota grup itu.'
+        unavailable_option: Opsi belum tersedia
+      administration_panel:
+        title: Panel Administrasi
+        info: Informasi dasar
+        events: Kegiatan dan Pertemuan
+        permissions: Peran dan Hak Izin
+        proposals: Kuorum dan poposal
+        areas: Area kerja
+        forum: Administrasi forum
+        users: Atur pengguna
+      edit_events:
+        title: Atur kegiatan grup
+      edit_permissions:
+        title: Atur peran dan hak izin
+        new_role: Tambahkan peran baru
+        edit_role_title: Sunting peran
+        new_role_title: Peran baru
+        user_title: Pengguna
+        role_title: Peran
+        no_users_yet: Di sini, Anda dapat mengatur peran peserta, ketika ada.
+        default_role: Peran standar dalam grup
+        confirm_role_deletion: Yakin Anda ingin menghapus peran ini?
+        remove_user: Hapus pengguna
+        confirm_role_change1: Peran pengguna
+        confirm_role_change2: akan berubah dari
+        confirm_role_change3: menjadi
+        confirm_role_change4: Konfirmasi?
+        confirm_delete_1: 'Operasi ini mungkin membutuhkan beberapa menit. Yakin Anda ingin menghapus %{count} pengguna dari grup ini?'
+        confirm_delete_2: 'Operasi ini menerapkan penghapusan seluruh %{count} pengguna yang dipilih dan tidak dapat dibatalkan! Apakah Anda benar-benar yakin akan melanjutkan?'
+      edit_proposals:
+        title: Atur kuorum dan proposal
+      index:
+        title: Semua grup
+        open_space_button: Kunjungi Ruang Terbuka
+        create_group_button: Buat grup baru
+        find_group_label: Cari grup yang mungkin menarik bagi Anda
+        find_title: Cari dalam nama atau deskripsi grup
+        find_button: Cari
+        groups_list: Grup yang Anda ikuti
+        groups_registration: Pendaftaran Grup
+        groups_list_2: Daftar Grup
+        no_groups_yet: 'Anda belum berpartisipasi dalam %{name} apa pun'
+        open_space_title: Kegiatan publik
+        show_more: Tunjukkan grup lainnya
+        search_mask: Alat pencari
+        search_with_query: dengan menggunakan pencarian pribadi
+        search_with_place: atau batas geografis
+        search_description: Gunakan alat pencari atau klik sebuah label untuk mencari grup yang Anda minati
+        insert_query_or_place: Anda harus memasukkan setidaknya tiga karakter atau batas geografis
+        tags: Label
+        participants_number: Jumlah peserta
+        proposals_number: Jumlah proposal
+        events_number: Jumlah kegiatan
+        no_results: Tidak ada grup yang ditemukan
+        limit_reached: Anda dapat membuat maksimal satu grup per hari
+        switchButton:
+          exact_border: 'Pencarian persis: cari semua grup yang menggunakan batas geografis ini'
+          area_border: 'Pencarian area: cari semua grup dalam batas geografis ini'
+          all_words: Cari semua grup yang mengandung semua kata ini
+          one_word: Cari semua grup yang mengandung setidaknya satu dari kata-kata ini
+      new:
+        title: Buat grup baru
+        new_group: Grup baru
+        create_button: Buat grup!
+        change_permissions_button: Anda ingin mengubah hak izin standar?
+        change_permissions_title: Ubah hak izin standar pengguna baru
+        change_permissions_description: 'Ini adalah hal-hal yang dapat dilakukan pengguna baru dalam grup: ingat, Anda selalu dapat memodifikasi mereka dan membuat peran-peran baru!'
+        errors_title: 'Maaf, namun tulisan ini tidak dapat disisipkan:'
+        tags:
+          title: Label (dipisahkan oleh koma)
+      edit:
+        title: Sunting Pengaturan Grup
+        change_permissions: Dalam Pengaturan Hak Izin dan Peran, Anda selalu dapat mengubah hak izin anggota.
+        remove_user_confirm: 'Yakin Anda ingin menghapus %{name} dari grup ini?'
+        modify_group: Modifikasi grup
+        private_warning_html: |
+          <b> Saran untuk grup tertutup </ b> <br/>
+          Proposal publik akan tetap dapat dilihat dari luar. <br/>
+          Kunjungi <b>%{link}</b> dan nonaktifkan opsi 'Proposal dapat dilihat dari luar'. <br/>
+          Tulisan yang dipublikasikan di dinding grup akan selalu dapat dilihat di halaman pribadi pengguna. <br/>
+          Forum publik selalu dapat dilihat dari luar.
+      layout:
+        home_button: DINDING
+        proposals_button: PROPOSAL
+        calendar: KALENDER
+      show:
+        rules_button: Aturan
+        post_button: Tulis di dinding grup
+        blog_button: Buat Blog saya
+        participants_list: 'Daftar peserta '
+        invite_button: Undang teman-teman Anda!
+        show_all_participants: 'Tampilkan semua %{count} ...'
+        show_all_admins: 'Tampilkan semua %{count} ...'
+        show_all_requests: 'Tampilkan semua %{count} ...'
+        participants_full_list: Daftar lengkap anggota grup
+        no_participants: Belum ada pengguna yang berpartisipasi dalam grup ini.
+        no_blogs_yet: Belum ada tulisan blog dalam grup ini, kembalilah segera.
+        waiting_participation_requests: Permintaan partisipasi menunggu jawaban
+        accept_request_button: Terima
+        reject_request_button: Tolak
+        ask_participate_button: Minta untuk menjadi anggota grup
+        remove_post: Hapus dari panel grup
+        destroy_button: Hapus
+        confirm_destroy: ANDA AKAN MENGHAPUS GRUP INI!!! Yakin Anda ingin melakukan itu?
+        list_permissions:
+          title: Daftar hak izin Anda di dalam grup ini
+          button: Daftar hak izin
+        print_all_participants: Cetak daftar peserta
+        last_proposals: Proposal yang baru ditambahkan
+        last_topics: Topik terakhir yang dibuat
+        next_events: Kegiatan berikutnya
+        rule_book_html: |
+          Aturan dapat dipilih selagi membuat grup.<br/>
+          <p>Semua pengguna dapat membuat grup, hingga saat ini.</p>
+          <p>Ketika Anda berpartisipasi dalam grup, tulisan dalam blog Anda dapat ditampilkan di Dinding grup.</p>
+          <p>Grup dapat memperpanjang proposal, membuat yang baru, membuat survei, dan mengatur anggota dengan menggunakan peran dan hak izin.</p>
+          <p>Perubahan aturan grup ini dapat dilakukan melalui <b>Pengaturannya</b>.</p>
+        short_url: URL pendek
+        featured_post:
+          "true": Lepas Sematan
+          "false": Sematkan di atas
+        permissions_title: Anda dan grup
+      header:
+        settings: PENGATURAN
+        documents: DOKUMEN
+        forums: FORUM
+        alarm_settings: Pengaturan
+      documents:
+        documents_archive: Arsip dokumen
+        storage_size: Ukuran penyimpanan yang terisi
+        max_storage_size: Ukuran penyimpanan maksimum yang tersedia
+        current_storage_usage: Penggunaan ukuran penyimpanan
+        not_authorized: Anda tidak memiliki hak izin untuk melihat dokumen-dokumen ini. Hubungi administrator grup
+      edit_quorums:
+        new_quorum:
+          title: Kuorum baru
+          simple: Sederhana
+          advanced: Lanjutan
+          time_description: 'Debat berlangsung %{days} %{hours} %{minutes}'
+          simple_percentage_description: 'dan maturitas sama atau lebih besar dari %{good_score}%.'
+          advanced_percentage_description: 'Namun jika maturitas kurang dari %{bad_score}%, proposal akan ditinggalkan.'
+          advanced_percentage_description3: Proposal tetap berada dalam debat jika maturitas berada di antara kedua batas ini.
+        active: Aktif
+        name: Nama
+        participants: Peserta
+        condition: Persyaratan
+        good_percentage: '% Maturitas'
+        bad_percentage: '% Penolakan'
+        confirm_deletion: 'Yakin Anda ingin menghapus kuorum %{quorum}?'
+        add_quorum: Buat kuorum baru
+        edit_quorum: Modifikasi kuorum
+        configure_proposal_parameters: Atur parameter proposal
+        default_anonymous_proposal: Anonimitas temporer aktif
+        default_private_proposal: Proposal dapat dilihat dari luar grup
+        default_secret_vote: Vote rahasia
+        let_editor_change_settings: Penyunting dapat memilih opsi-opsi di atas dengan bebas
+        time: Waktu
+        edit_quorum_warning: Peringatan! Modifikasi kuorum ini tidak akan memengaruhi proposal yang telah menggunakannya!
+      edit_work_areas:
+        index:
+          not_enabled: Area kerja tidak diaktifkan
+          description2: Dengan fitur ini, Anda dapat mengatur peserta dan peran mereka dengan lebih baik.
+          description3: Hati-hati! Ini fitur lanjutan, dirancang hanya untuk grup yang lebih besar dan pengguna ahli.
+          description4: 'Sebelum mengaktifkan area kerja, periksa apakah Anda dapat mengatur anggota grup yang langsung menggunakan '
+        manage:
+          new_area: Buat area kerja
+          switch_area_participants: Beralih ke manajemen peserta
+          list_title: Daftar area kerja. Untuk setiap area kerja, pilih peserta atau klik nama untuk mengatur peran dan hak izin dalam area kerja tersebut
+          title: Pengaturan area kerja
+          list_participants: Daftar anggota grup. Pilih area kerja tempat mereka berada.
+          switch_area_management: Beralih ke manajemen area kerja
+          confirm_deletion: Yakin Anda ingin menghapus area kerja ini?
+          manage_roles_in_area: 'Sunting peran dan hak izin dalam area kerja %{area}'
+        manage_group_areas: Atur pengguna dalam area kerja
+        form:
+          title: Area kerja baru
+      default_admin_title: Administrator
+      invite_your_friends:
+        type_email_addresses: Masukkan alamat surel, dipisahkan dengan koma
+        email_not_valid: Alamat surel salah
+        text_to_send: Teks untuk dikirim (opsional)
+        title: Undang teman-teman Anda untuk bergabung dalam grup ini!
+      participations:
+        list_participations: Daftar peserta
+        search: Cari
+        filter: Filter
+        anything: Semua
+        operations_on_user: Operasi yang tersedia pada pengguna
+        send_email: Kirim surel
+        name: Nama
+        role: Peran
+        member_since: Anggota sejak
+        participants_html:
+          other: '<b>%{count}</b> peserta'
+        added_by: Ditambahkan oleh
+        remove_all: Hapus semua
+      statistics:
+        title: 'Nilai rata-rata telah dihitung (perbaruan terakhir pada %{date})'
+      archives:
+        page_title: 'Arsip untuk %{month}, %{year}'
+    login:
+      title: Masuk
+    confirmation:
+      title: Kirim ulang petunjuk konfirmasi
+      submit: Kirim petunjuk kepada saya
+    password:
+      title: Lupa kata sandi Anda?
+      submit: Kirim petunjuk untuk menyetel ulang kata sandi
+      edit:
+        new_password: Kata sandi baru
+        confirm_password: Konfirmasi kata sandi baru
+        confirm_button: Ubah kata sandi saya
+    registration:
+      title: Daftar
+      email_confirmed: Jika Anda mendaftar dengan alamat surel tersebut, Anda tidak akan diminta untuk mengonfirmasi alamat surel Anda.
+      choose_password: Pilih kata sandi
+      confirm_password: Konfirmasi kata sandi
+      accept_conditions: Terima Ketentuan Layanan
+      register_button: Daftar
+      identity_provviders_title: Masuk segera dengan akun favorit Anda
+      accept_privacy: Terima Ketentuan Privasi
+    proposals:
+      index:
+        title: Daftar proposal
+        debate: Semua proposal yang ditinjau sedang diperdebatkan
+        voting: Semua proposal sedang menunggu voting atau dalam tahap voting
+        accepted: Semua proposal yang selesai tahap voting
+        revision: Semua proposal yang tidak lulus debat dan dapat dikembalikan ke debat
+        last: Terakhir ditambahkan
+        most_popular: Paling populer
+        most_valutated: Paling dieveluasi
+        continue_reading: Terus baca proposal ini
+        debate_title: 'Dalam debat ⋅ %{count}'
+        voting_title: 'Voting ⋅ %{count}'
+        accepted_title: 'Telah diberi voting ⋅ %{count}'
+        revision_title: 'Ditinggalkan ⋅ %{count}'
+        login_with: 'masuk dengan:'
+        group_areas_title: Area kerja
+        no_group_areas: Tidak ada area
+        all_areas: Semua area
+        categories_title: KATEGORI
+        all_categories: Semua kategori
+        loading_proposals: Memuat proposal, harap tunggu...
+        title_with_category: 'Proposal-proposal dalam kategori %{category}'
+        all_categories_title: Proposal dalam semua kategori
+        in_group_area_title: dalam area kerja
+        last_title: Terakhir dimasukkan (TODO)
+        most_popular_title: Paling populer (TODO)
+        most_voted_title: Paling dinilai (TODO)
+        show_more: Tampilkan proposal lainnya...
+        loading_alt: Memuat
+        choose_model: Pilih model proposal
+        search_title: Cari dalam proposal grup
+        search_placeholder: Masukkan sedikitnya dua karakter untuk mencari
+        search_words: Kata apa pun
+        participants_number: PESERTA
+        contributes_number: KONTRIBUSI
+        rank: MATURITAS
+        voters: PEMBERI VOTE
+        date_range: 'dibuat antara %{start} dan %{end}'
+        proposal_types_title: MODEL
+        all_proposal_types: Semua model
+        with_text: "mengandung '%{text}'"
+        last_24h: dibuat dalam 24 jam terakhir
+        last_1h: dibuat dalam satu jam terakhir
+        last_7d: dibuat dalam minggu terakhir
+        last_1m: dibuat pada bulan lalu
+        last_1y: dibuat tahun lalu
+      show:
+        voteup: Saya setuju
+        votenil: Saya tidak tahu / Saya tidak mengerti
+        votedown: Saya tidak setuju
+        random_stack: Penyortiran cerdas
+        most_recent: Terbaru
+        most_ranked: Paling dievaluasi
+        history_button: Riwayat
+        choose_votation_period: Pilih periode voting
+        choose_votation_period_alert: Apakah Anda yakin tentang periode voting ini? Anda tidak dapat mengubahnya nanti!
+        choose_votation_period_button: Saya telah memilih!
+        no_periods_contact_group: Tidak ada tanggal voting yang ditetapkan, hubungi administrator untuk memilih tanggal.
+        choose_new_votation_period_button: Pilih tanggal voting baru
+        loading_contributions: Memuat kontribusi, harap tunggu...
+        previos_contributes: Kontribusi sebelumnya...
+        delete_contribute_confirmation: Yakin Anda ingin menghapus kontribusi ini?
+        delete_suggestion_confirmation: Yakin Anda ingin menghapus komentar ini?
+        offered_as_editor_message: Anda menawarkan diri sebagai penyunting untuk proposal ini
+        offer_as_editor_button: Saya ingin menjadi penyunting proposal ini!
+        available_editors_button: Penyunting yang tersedia
+        confirm_editors_button: Apakah Anda ingin menawarkan diri sebagai penyunting proposal ini?
+        editors_list_title: Daftar penyunting yang tersedia untuk proposal ini
+        attached_documents: Dokumen terlampir
+        no_document_attached: Tidak ada dokumen terlampir
+        geographic_boundaries_title: Batas geografis
+        tags_title: Label
+        similar_proposals_title: Proposal serupa
+        category_title: Kategori
+        edit_button: Sunting
+        delete_button: Hapus
+        delete_proposal_confirmation: Yakin Anda ingin menghapus proposal ini?
+        votation_message: 'Proposal ini akan divote dari %{from} sampai %{to}'
+        editing_message_1: Proposal ini akan dikembangkan oleh penyunting berkat semua kontribusi
+        editing_message_2: Untuk dilakukan voting, harus mencapai
+        editing_message_3: maturitas minimum
+        votation_page_button: Kunjungi halaman voting
+        vote_button: Vote!
+        send_contribute_button: Kirim
+        characters_left: 'Karakter tersisa:'
+        score: Evaluasi
+        rank: Maturitas
+        created_at_html: 'Dibuat %{time} yang lalu:<br/><b>%{date}</b>'
+        updated_at_html: 'Diperbarui %{time} yang lalu:<br/><b>%{date}</b>'
+        votation_results: Hasil
+        votation_results_title: Hasil voting
+        in_votation_html: 'Voting dari: <br/><b>%{start}</b><br/> sampai: <br/><b>%{end}</b>'
+        in_votation_now: Voting sekarang!
+        in_votation_until_html: 'Voting berakhir pada:<br/><b>%{date}</b>'
+        anonimity_active: Anonimitas temporer aktif
+        your_nickname_is: Nama julukan Anda adalah
+        editors_title: Penyunting
+        supporting_group: Grup pendukung
+        no_supporting_group: Tidak ada grup yang mendukung proposal ini
+        support_proposal_button: Dukung proposal ini...
+        close_debate_button: Tutup debat
+        close_debate_proposal_confirmation: Tutup debat segera dan beralih ke tahap berikutnya?
+        during_debate: Proses debat
+        comment_inserted_by: '%{who} - %{when}'
+        comment_updated_by: '%{who} - diperbarui %{when}'
+        replies:
+          show_all: 'Tunjukkan semua %{count} komentar...'
+          delete: Hapus
+        reply_button: Balas
+        reply_placeholder: Beri komentar Anda
+        export_pdf: Cetak PDF
+        manage_noise_folder: 'Kontribusi yang dihapus (%{removable}/%{removed})'
+        noise_folder: Kontribusi yang dihapus
+        what_nickname: Apa itu?
+        give_contribute: TULIS DNA TUNJUKKAN KONTRIBUSI
+        no_contributes: Walaupun kontribusi voting tidak ditampilkan
+        new_valutation_message: Proposal ini menerima evaluasi baru
+        old_editors_title: Penyunting lama
+        back_debate_button: Kembalikan ke debat
+        new_quorum_title: Pilih kuorum baru
+        enable_alerts: Aktifkan peringatan
+        disable_alerts: Nonaktifkan peringatan
+        close_contribute: TUTUP KONTRIBUSI
+        contributes_list: "Daftar kontribusi dalam '%{section}'"
+        add_comment: Tambahkan komentar
+        add_contribute: Beri ide-ide Anda! Usulkan modifikasi teks dan bantu penyunting meningkatkan proposal ini
+        login_to_comment: Masuk untuk menambahkan komentar
+        regenerate_nickname: Buat ulang nama julukan
+        add_contribution_no_paragraph: TIdak ada paragraf yang ditentukan
+        debate_ends_html: Akhiri debat dalam
+        debate_ends_valutations_or: atau dengan
+        debate_ends_valutations_and: dan dengan
+        debate_ends_valutations: Akhiri debat dengan
+        error_loading_paragraph: Paragraf ini telah dihapus. Muat ulang halaman ini untuk melihat proposal yang telah diperbarui
+        generic_fake_content: Bagian ini belum disusun. Bantu penyunting dengan memasukkan kontribusi!
+        model_title: Templat
+        created_events: Kegiatan yang telah dibuat
+        create_new_votation_period: Buat kegiatan baru di akhir debat
+        choose_later: Tidak, terima kasih. Saya akan memilihnya nanti
+        choose_now: Saya ingin memilihnya sekarang
+        group_area: Area kerja
+        nickname_assigned: "Kami memberi Anda nama julukan '%{nickname}'. Jika Anda tidak menyukainya, Anda dapat mengubahnya dari menu di sebelah kiri dalam 10 menit"
+        cant_participate:
+          no_permissions: Anda tidak dapat berpartisipasi dalam proposal ini karena Anda adalah anggota grup ini, namun Anda tidak memiliki hak izin untuk berpartisipasi.
+          ask_permissions: Minta hak izin kepada administrator Anda, kirim pesan kepadanya.
+          request_pending: Anda tidak dapat berpartisipasi dalam proposal ini karena Anda telah meminta untuk bergabung dengan grup ini, namun permintaan Anda belum diterima.
+          send_message: Anda ingin mengirim pesan kepada administrator grup ini?
+          not_a_member: Anda tidak dapat berpartisipasi dalam proposal ini karena Anda bukan anggota grup ini.
+          not_logged_in: 'Anda tidak dapat berpartisipasi dalam proposal ini karena Anda tidak masuk saat ini. '
+        read_contribute: TAMPILKAN KONTRIBUSI
+        security_token: Token Keamanan
+        you_can_choose_vote_dates: 'Proposal ini telah menunggu tanggal voting selama %{count} hari. Jadi, sekarang Anda boleh memilih tanggalnya.'
+        no_contributes_yet: Belum ada kontribusi di sini
+      new:
+        quorum_prompt: Pilih kuorum
+        quorum_help: Bantuan
+        step_classification: Klasifikasi
+        step_similar: Proposal serupa
+        step_3: Masalah/Hambatan
+        step_dates: Debat dan voting
+        step_3_title: Jelaskan masalah-masalah yang Anda hadapi secara lengkap dan apa tujuan yang ingin dicapai proposal ini
+        create_button: Buat proposal ini
+        title: Proposal baru
+        title_group: '%{name}:'
+        title_synthetic: Tujuan (secara ringkas)
+        title_placeholder: 'Contoh: "Memfasilitasi transportasi sepeda di kereta api"'
+        interest_borders_tkn_placeholder: Kota, Wilayah atau Negara Bagian yang diminati proposal ini
+        tags_list_placeholder: Masukkan beberapa label untuk proposal Anda
+        step_2_title: 'Mungkin seseorang telah membuat proposal serupa: lihat di bawah dan jangan membuat proposal ini untuk menghindari duplikasi. Bergabung memberi kekuatan kepada ide-ide Anda! Dengan mengeklik judulnya, proposal akan dibuka di tab baru.'
+        category_prompt: --Pilih satu kategori--
+        tags_separated_by_comma: (dipisahkan oleh koma)
+        cannot_add_proposal_in_work_area: Anda tidak memiliki hak izin yang dibutuhkan untuk menambah proposal ini ke area mana pun
+        no_work_area_selected: Tidak ada area kerja
+        solution1: Butir agenda
+        solution: Butir agenda
+        step_base_info: Informasi awal
+        advanced_options: Opsi lanjutan
+        wait: |
+          Anda hanya dapat membuat satu proposal setiap dua menit
+          Tunggu %{minutes} menit dan %{seconds} detik.
+      tabs:
+        last_inserted: Terakhir kali diperbarui
+        most_popular: Peringkat yang lebih tinggi
+        most_valutated: Evaluasi lain
+        most_urgent: Paling mendesak
+      list:
+        last_update: 'diperbarui <br/>%{time_ago}'
+        waiting_date: Menunggu tanggal
+        voting_from_to: 'Dari %{from} hingga %{to}'
+        voting_until: 'Hingga <br/>%{date}'
+        votation_finished: 'Berakhir <br/>%{time_ago}'
+        no_votation: Belum ada vote
+        votation_finished_approved: 'Disetujui <br/> %{date}'
+        interest_borders: Batas geografis
+        authors: Penyunting
+        support_group: Grup pendukung
+        no_proposals: Belum ada proposal
+        condition_left: Persyaratan untuk mengakhiri debat
+        time_left: Waktu yang tersisa
+        vote: VOTE
+      delete_comment: Hapus
+      results:
+        total: 'Total pemberi voting: %{count}'
+        vote_column: Vote
+        number_column: Jumlah
+        percentage_column: Persentase
+        positive: Setuju
+        negative: Menolak
+        neutral: Netral
+        date_time_column: Tanggal dan waktu voting
+      report_contribute:
+        mark_title: Tandai kontribusi
+        mark_description: 'Anda dapat menunjukkan kepada penyunting proposal ini bahwa kontribusi ini tidak berisi informasi yang relevan untuk mencari solusi proposal ini.<br/> Jika kontribusi ditandai %{num} kali, penyunting proposal dapat menghapusnya dari diskusi dan memasukkannya ke folder "gangguan".<br/>'
+        report_title: Laporkan kontribusi
+        report_description: 'Anda dapat menunjukkan ke master web bahwa kontribusi ini melanggar hukum yang berlaku saat ini. <br/> Setelah pelanggaran dipastikan, kontribusi ini akan dihapus. Jangan menyalahgunakan perangkat ini.'
+      vote_panel:
+        title: Berikan voting Anda!
+        secret_vote: Vote Anda rahasia dan Anda tidak akan bisa mendapatkannya kembali atau mengubahnya begitu diberikan.
+        clear_vote: Vote Anda dicatat dan oleh karenanya, akan dapat diverifikasi.
+        single_title: Dalam proposal ini, hanya ada satu solusi. Berikan pendapat Anda!
+        results_time: 'Anda memberikan vote pada %{when}'
+        hidden_vote: Vote ini rahasia, jadi, tidak dapat ditampilkan.
+        preferences_order: 'Urutan preferensi Anda adalah:'
+        expressed_vote: 'Anda memberikan %{vote} vote'
+      edit:
+        title: "Sunting proposal '%{title}'"
+        hurry_up: Cepatlah!
+        last_minutes: 'Anda boleh menyunting kolom-kolom ini hanya selama %{minutes} menit.'
+        no_participants: Anda boleh menyunting kolom-kolom ini hanya jika belum ada yang berpartisipasi!
+        remove_section: Hapus paragraf
+        add_paragraph: Tambahkan paragraf baru
+        edit_proposal: Modifikasi dan perbarui teks proposal ini!
+        remove_solution: Hapus solusi
+        press_to_compress: Klik judul untuk meringkas solusi ini
+        add_paragraph_to_solution: Tambahkan paragraf ke solusi ini
+        you_know_what_you_do: Apakah Anda tahu yang Anda akan lakukan?
+        schulze_title: Satu solusi atau lebih?
+        inserted_contributes: Tandatangani kontribusi yang Anda masukkan ke dalam revisi ini
+        paragraph: Paragraf
+        confirm_paragraph_deletion: Yakin Anda ingin menghapus paragraf ini?
+        confirm_solution_deletion: Yakin Anda ingin menghapus solusi ini?
+        press_to_expand: Klik judul untuk memperluas solusi ini
+        integrated: Telah dimasukkan
+        contribution_valuation: Apa pendapat mereka?
+        navigator: Navigator
+        compress_solutions: Ciutkan solusi
+        hide_contributes: Sembunyikan kontribusi
+        expand_solutions: Perluas solusi
+        show_contributes: Tampilkan kontribusi
+        cancel_confirm: Batalkan operasi Anda dan tampilkan proposal?
+        update_confirm: Anda belum memasukkan kontribusi apa pun. Yakin Anda ingin melanjutkan?
+      manage_noise:
+        available: Kontribusi yang layak dihapus
+        removed: Kontribusi dihapus dari diskusi
+      contribution_valuation: Apa pendapat Anda?
+      contribution_valuation_again: Berubah pikiran?
+      new_rank_bar:
+        creation: 'PEMBUATAN: %{time_ago}<br/>%{date}'
+        end: 'AKHIRI DEBAT:<br/> %{date}'
+        valutations:
+          other: '%{count} EVALUASI'
+        good_score: 'KUORUM POSITIF %{score}%'
+        bad_score: 'KUORUM NEGATIF %{score}%'
+        now: 'TERSISA %{left}'
+      left_panel:
+        creation_date: Tanggal pembuatan
+        any_date: Tanggal apa saja
+        choose_creation_date: Pilih interval waktu
+        last_hour: Jam terakhir
+        last_24_hour: 24 jam terakhir
+        last_week: Minggu lalu
+        last_month: Bulan lalu
+        last_year: Tahun lalu
+        date_range: Interval waktu
+      update_comment: Sunting
+    events:
+      index:
+        title: Kalender
+        group_title: Kalender kegiatan
+        choose_type: PILIH JENIS KEGIATAN
+      new:
+        private_tooltip: Hanya anggota grup yang dapat melihat dan berpartisipasi dalam kegiatan ini
+        title: Kegiatan Baru
+        submit: Buat kegiatan
+        type_for_town: Ketik beberapa karakter untuk mencari kota
+        no_town_found: Tidak ada kota yang ditemukan
+        town_searching: Mencari
+        title_event: KEGIATAN VOTING BARU
+        title_meeting: KEGIATAN MEETUP BARU
+        step_1: Jenis kegiatan
+        step_2: Keterangan
+        step_3: Kapan
+        step_4: Di mana
+      show:
+        map: Peta
+        event_place: Tempat kegiatan
+        when_past: Kapan itu terjadi?
+        when: Kapan?
+        where_past: Di mana itu terjadi?
+        where: Di mana?
+        show_on_map: Tunjukkan pada peta
+        reply: Balas!
+        no_answer: Anda belum menjawab undangan ini
+        yes_partecipated: Anda telah berpartisipasi dalam kegiatan
+        no_partecipated: Anda belum berpartisipasi dalam kegiatan
+        yes_partecipate: Anda akan berpartisipasi dalam kegiatan
+        no_partecipate: Anda tidak akan berpartisipasi dalam kegiatan
+        with_guests: 'dengan %{field} tamu'
+        will_be_in: Apakah Anda akan menghadiri kegiatan ini?
+        participants: Siapa yang menghadiri?
+        will_partecipate: Siapa yang akan menghadiri?
+        no_participants: Tidak ada yang hadir
+        no_participants_yet: Masih belum ada peserta
+        non_participants: Siapa yang tidak menghadiri?
+        will_non_participants: Siapa yang tidak akan menghadiri?
+        voting_proposals: Selama periode ini, proposal ini akan diberi voting
+        no_voting_proposals: Tidak ada proposal yang diberi voting selama periode ini
+    votations:
+      show:
+        vote_positive: Rating positif
+        vote_neutral: Rating netral
+        vote_negative: Rating negatif
+        confirm_positive: "Konfirmasikan voting POSITIF Anda untuk proposal '%{name}'?  Setelah Anda memberi voting, tidak dapat dimodifikasi."
+        confirm_neutral: "Konfirmasikan voting NETRAL Anda untuk proposal '%{name}'?  Setelah Anda memberi voting, tidak dapat dimodifikasi."
+        confirm_negative: "Konfirmasikan voting NEGATIF Anda untuk proposal '%{name}'?  Setelah Anda memberi voting, tidak dapat dimodifikasi."
+        confirm_schulze: "Konfirmasikan voting Anda untuk proposal '%{name}'?  Setelah Anda memberi voting, tidak dapat dimodifikasi."
+    blog_posts:
+      new:
+        title: Tambahkan tulisan baru
+        published_in_groups: 'Tulisan akan diterbitkan di grup berikut ini:'
+      new_button: Tambahkan tulisan baru
+      drafts_button: Tulisan yang belum diterbitkan
+      drafts:
+        title: '%{blog} - tulisan yang belum diterbitkan'
+      edit_button: Modifikasi
+      delete_button: Hapus
+      comment:
+        delete_button: Hapus
+        confirm_delete: Yakin Anda ingin menghapus tulisan ini?
+        inserted_when: 'Ditambahkan %{when}'
+      list_elements:
+        inserted: 'Ditambahkan oleh %{name} pada %{date}'
+      show:
+        previous_comments: Komentar sebelumnya...
+        tags_title: 'Label:'
+        edit_button: Sunting
+        delete_button: Hapus
+        delete_button_confirm: Yakin Anda ingin menghapus tulisan ini?
+        draft: Draf
+        comments_says: mengatakan...
+        reserved: disimpan
+      published_button: Tulisan yang telah diterbitkan
+      view:
+        comments: 'Komentar (%{count})'
+      edit:
+        title: Sunting tulisan ini
+      archives:
+        title: 'Arsip untuk %{month}, %{year}'
+    alerts:
+      polling:
+        show_all: Tampilkan semua notifikasi
+      index:
+        new_not_read: Notifikasi baru yang belum dibaca
+        no_new: Tidak ada notifikasi baru
+        old_not_read: Notifikasi lama yang telah dibaca
+        no_old: Tidak ada notifikasi
+    blog_comments:
+      new:
+        insert_comment: Masukkan komentar
+    header:
+      groups:
+        events: KEGIATAN
+        proposals: PROPOSAL
+        forum: FORUM
+      no_groups_yet: Anda belum menjadi anggota grup apa pun.
+      menu:
+        my_page: LAMAN SAYA
+        my_blog: BLOG SAYA
+        create_blog: BUAT BLOG ANDA
+        preferences: PREFERENSI
+        administration: ADMINISTRASI
+        logout: KELUAR
+        remember_me: Ingat saya di komputer ini
+        login_button: Masuk
+        registration_button: BERGABUNGLAH DENGAN KAMI
+        forgot_password_button: Lupa kata sandi?
+        resend_email_button: Anda belum menerima surel konfirmasi?
+        no_notifications: Tidak ada notifikasi
+        sign_has_read: Tandai telah dibaca
+        moderator: PANEL MODERATOR
+        profile: PROFIL
+      welcome: Selamat Datang
+      groups_title: GRUP
+      login: MASUK
+      groups_list: Grup yang Anda ikuti
+      open_group: Mulai grup baru
+      new_group: Cari grup
+      support_us: DUKUNG KAMI
+      no_alerts: Tidak ada peringatan
+      read: Telah dibaca
+    blogs:
+      show:
+        no_posts: Tidak ada tulisan
+        no_posts_long: Belum ada tulisan dalam blog ini, periksa lagi nanti.
+        tag: Label
+        previous_posts: Tulisan sebelumnya...
+        edit_button: Sunting blog
+        title: Daftar blog
+        no_unpublished_posts: Tidak ada tulisan yang belum diterbitkan saat ini
+        other_blogs: Blog lainnya
+      new:
+        title: Buat blog pribadi Anda!
+        cancel_button: Tidak, terima kasih!
+        create_button: Buat
+      edit:
+        title: Sunting blog
+        title_label: Judul blog
+        back_to_blog: Kembali ke blog saya
+      index:
+        blog_subtitle: '%{posts} tulisan, %{comments} komentar'
+        find_blog_label: Cari blog yang mungkin menarik minat Anda
+    quorums:
+      index:
+        title: Semua kuorum yang tersedia
+        how_read: Apa kuorumnya?
+        debate_end: akhir debat
+    home:
+      index:
+        whatis: TENTANG
+        partecipate: TERLIBAT
+        videos: PANDUAN VIDEO
+        whowe: TENTANG KAMI
+        support: ♥ DUKUNG KAMI
+        cloud_1: SARAN
+        cloud_2: BERKOLABORASI
+        cloud_3: DEMOKRASI VIRTUAL
+        cloud_4: LAPOR
+        cloud_5: BAHAS
+        cloud_6: PERDEBATKAN
+        cloud_7: TERLIBAT
+        cloud_8: VOTE
+        cloud_9: ' PILIH'
+        try_it: Coba
+        register: Daftar
+        login: Masuk
+        forgot_password: Lupa kata sandi?
+        follw_on_twitter: Ikuti @democracyo di Twitter
+        field_1:
+          title: '<em>Usulkan</em> solusi'
+          content: Tempat untuk melaporkan masalah, mengusulkan solusi, membahas alternatif, meringkas keputusan bersama. Perangkat hebat untuk meningkatkan kecerdasan kolektif.
+        field_2:
+          title: '<em>Terlibat</em> dalam demokrasi virtual'
+          content: Bergabung dengan Grup, pilih yang mewakili Anda dan berpartisipasi dalam kegiatan-kegiatan menurut minat Anda. Bersama kita lebih kuat.
+        field_3:
+          title: '<em>Pilih</em> masa depan Anda'
+          content: Perangkat pembuat keputusan untuk menentukan pilihan inovatif dalam grup. Sebuah sistem voting sederhana, yang mewujudkan demokrasi delegatif dan langsung.
+        field_4:
+          title: '<em>Bekerja</em> demi kepentingan Anda'
+          content: Bagi pengalaman Anda, tingkatkan proposal pengguna lain. Temukan teman baru yang satu pikiran dengan Anda. Wujudkan ide-ide Anda bersama yang lain.
+        keep_connected: Pertahankan sesi
+        feedback: KIRIM MASUKAN
+        FAQ: FAQ
+        guide: PANDUAN
+        change_language: Ubah bahasa
+        most_used_tags: Label yang paling sering digunakan
+        show_tags: Tampilkan semua label
+        next_events: Kegiatan berikutnya
+        show_events: Tampilkan kalender
+        most_active_groups: Grup yang paling aktif
+        show_groups: Tampilkan semua grup
+        last_proposals: Proposal umum terakhir
+        from_blogs: Tulisan terakhir dari blog
+        features: Fitur
+        donations: Donasi
+        volunteers: Relawan
+      show:
+        your_proposals: Proposal yang Anda ikuti
+        proposals:
+          title: Judul
+          last_edit: Suntingan terakhir
+          authors: Penyunting
+          notifications: Notifikasi
+        notifications:
+          title: Peringatan
+        your_contributes: Kontribusi terakhir Anda
+        your_territory: Wilayah Anda (tes)
+        no_proposals_to_vote_now: Tidak ada proposal dalam tahap voting saat ini
+        proposals_now_voting: Proposal untuk diberi voting sekarang
+    open_space:
+      layout:
+        proposals_button: PROPOSAL
+        calendar_button: KALENDER
+        map_button: PETA
+        groups_button: GRUP
+        blogs_button: BLOG
+        petitions_button: PETISI
+        tags_button: LABEL
+    proposal_supports:
+      new:
+        panel_title: Konfirmasikan dukungan proposal
+        no_available_groups: Anda tidak diizinkan untuk mendukung proposal ini atas nama grup apa pun
+      confirm_button: Konfirmasi
+    calendar:
+      create_event_button: Buat kegiatan baru
+    sessions:
+      new:
+        remember_me_label: Ingat saya
+      links:
+        register: Belum terdaftar? Mendaftarlah!
+        forgot_password: Lupa kata sandi Anda?
+        havent_received_email: Belum menerima surel konfirmasi?
+    steps:
+      next: Lanjutkan
+      interest_borders:
+        title: Mulai berpartisipasi
+        description_html: |
+          Tentukan batas geografis yang Anda minati.<br />
+          Jika mengetahui wilayah apa yang Anda minati, Airesis dapat mengusulkan grup untuk diikuti dan menampilkan proposal-proposal baru yang berkaitan dengan wilayah Anda.<br />
+      rank_bar_explain:
+        title: Bilah maturitas
+        description_html: |
+          Bilah maturitas terletak di menu sebelah kiri.<br />
+          Bilah ini menampilkan maturitas persetujuan proposal di antara peserta.<br />
+          Anda dapat mengusulkannya apakah teks proposal lengkap atau tidak dengan menggunakan dua tombol di bawah bilah tersebut.<br />
+          Penyunting proposal harus menulis teks berdasarkan kontribusi peserta lainnya. Ketika teks proposal berubah, Anda akan diberi peluang untuk mengusulkan apakah Anda menyukai teks baru itu atau tidak, dan sebagai hasilnya, memodifikasi evaluasi Anda sebelumnya.<br />
+          Bilah warna menunjukkan apakah proposal siap masuk ke tahap voting, sementara panjangnya menunjukkan berapa banyak waktu dan/atau evaluasi yang tersisa sebelum diskusi berakhir.<br />
+        newdescription2: Bilah ini menampilkan maturitas proposal di antara peserta dan berapa banyak waktu yang tersisa hingga akhir debat
+        newdescription3: Warna menunjukkan apakah proposal akan dapat masuk ke tahap voting, sementara panjangnya menunjukkan berapa banyak waktu yang tersisa sebelum debat berakhir
+        newdescription4: Jika menurut Anda debat telah bearkhir dan penyunting memasukkan kontribusi para pengguna lain, gunakan tombol ini
+        newdescription5: Jika menurut Anda debat harus berlanjut, gunakan tombol ini
+        newdescription6: Ketika teks proposal akan diperbarui, Anda akan dapat mengubah evaluasi Anda
+      welcome:
+        description_html: |
+          Tutorial singkat ini akan membantu Anda dalam beberapa pilihan pertama di dalam platform ini.<br/>
+          Ini desktop Anda: di sini, Anda akan menemukan semua informasi yang Anda butuhkan untuk berhubungan dengan wilayah Anda.<br/>
+          Anda dapat mengatur proposal dan grup Anda, melihat kegiatan di sekitar Anda, dan berhubungan dengan warga lainnya.<br/>
+          Tingkatkan Airesis dengan mengirim masukan ke <a href="mailto:info@airesis.it">info@airesis.it</a>.<br/>
+      choose_follow:
+        description_html: |
+          Inilah grup-grup paling aktif di wilayah dalam batas yang Anda minati.<br />
+          Pilih yang ingin Anda ikuti, agar Anda dapat berhubungan dengan mereka dan berpartisipasi dalam kegiatan-kegiatan dan proposal mereka.<br />
+          Klik satu kali untuk memilih, klik lagi untuk membatalkan pilihan.<br />
+      first_proposal:
+        title_html: Kontribusi pertama Anda
+        description_html: |
+          Ini saatnya untuk memberi pendapat Anda!<br />
+          Tambahkan proposal, ide atau masukan dari wilayah. <br />
+          Berkontribusi dalam diskusi dan memungkinkan pengguna lain mengenal Anda. <br/>
+          Proposal Anda akan ditambahkan dalam %{proposal} dan mungkin didukung oleh grup-grup di wilayah Anda!
+    proposal_histories:
+      index:
+        title: '%{title} - Riwayat Revisi'
+        back_to_proposal: Kembali ke proposal
+      title: Riwayat Revisi
+      loading_revisions: Memuat revisi...
+      editor_name: 'Penulis revisi:'
+      revision: Revisi
+      date_and_time: Tanggal dan waktu
+      present_life_cycle: Daur hidup saat ini
+      no_revision: Tidak ada revisi
+      life_cycle: Daur hidup
+      life_cycle_number: 'Jumlah daur hidup %{life}'
+      end_date: 'Tanggal berakhir:'
+      score_reached: 'Maturitas tercapai:'
+      evaluation_reached: 'Jumlah evaluasi:'
+      quorum_used: 'Kuorum yang digunakan:'
+      editors_in_life_cycle: 'Penyunting dalam daur hidup ini:'
+      solutions:
+        added: SOLUSI BARU
+        removed: HAPUS SOLUSI
+      sections:
+        added: PARAGRAF BARU
+        removed: HAPUS PARAGRAF
+    tags:
+      show:
+        related_title: Label terkait
+      list_proposals_with_tag: Proposal
+      no_proposals_with_tag: Belum ada proposal dengan label ini
+      list_posts_with_tag: Tulisan
+      no_posts_with_tag: Tidak ada tulisan dengan label ini
+      list_groups_with_tags: Grup
+      no_groups_with_tag: TIdak ada grup dengan label ini
+      proposals_tab: Proposal
+      posts_tab: Tulisan
+      groups_tab: Grup
+      not_found:
+        subtitle: Ini kata kunci yang paling sering digunakan di Airesis
+    footer:
+      for_edemocracy: untuk demokrasi virtual
+      go_to_main_site: Kunjungi situs utama
+      for_edemocracy_html: 'Proyek <a href="https://github.com/coorasse/Airesis" target="_blank">Sumber Terbuka</a> untuk demokrasi virtual'
+    moderator_panel:
+      title: Panel moderator
+      block_user: Blokir pengguna
+      blocked_user_list: Daftar pengguna yang diblokir
+      block: Buka Blokir
+    feedback:
+      send_feedback: Masukan
+      add_details: Tambahkan detail
+      view_preview: Pratinjau
+      send_succes: Masukan berhasil dikirim. Terima kasih!
+      send_error: Maaf, namun terjadi kesalahan saat mengirim masukan
+      describe_problem: 'Tulis pesan Anda di sini:'
+      highlight_or_blackout: Sorot atau sensor informasi penting
+      blackout: Sensor
+      highlight: Sorot
+    passwords:
+      edit:
+        title: Ubah kata sandi Anda
+    event_comments:
+      new:
+        insert_comment: Masukkan komentar
+    propsoals:
+      index:
+        type: 'dari jenis %{type}'
+    proposal_comments:
+      title: Riwayat Kontribusi
+      noise:
+        title: Daftar kontribusi yang mengganggu
+        no_contributes: Tidak ada kontribusi di sini
+    available_authors:
+      index:
+        explain_html: |
+          Pilih pengguna yang Anda ingin untuk membantu Anda membuat ringkasan proposal dan klik "Simpan".<br/>
+          Hati-hati! Pengguna ini akan memiliki hak izin yang sama dalam mengatur proposal Anda.
+    participation_roles:
+      edit:
+        title: Sunting Peran Partisipasi
+    group_participations:
+      index:
+        title: Daftar Peserta
+  pl:
+    comments:
+      other: '%{count} komentar'
+  models:
+    best_quorum:
+      good_score_condition: 'Proposal akan masuk ke voting jika memiliki maturitas lebih besar dari <b>%{good_score}%</b> dan %{participants}. Jika tidak, proposal akan ditinggalkan'
+      good_score_condition_past: 'Proposal seharusnya akan masuk ke voting jika memiliki maturitas lebih besar dari <b>%{good_score}%</b> dan %{participants}. Jika tidak, proposal akan ditinggalkan'
+    quorum:
+      participants:
+        other: 'mereka telah berpartisipasi  <b>%{count}</b> orang'
+      participants_past:
+        other: 'mereka telah berpartisipasi  <b>%{count}</b> orang'
+      or_condition_1: 'Debat akan berakhir dalam %{time} atau ketika %{participants_num}.'
+      or_condition_1_past: 'Debat berlangsung %{time} atau ketika %{participants_num}.'
+      and_condition_1: 'Debat akan berakhir dalam %{time}, namun akan berlanjut, kecuali %{participants_num}.'
+      and_condition_1_past: 'Debat berlangsung selama %{time}, namun berlanjut, kecuali %{participants_num}.'
+      time_condition_1: 'Debat akan berakhir dalam %{time}'
+      time_condition_1_past: 'Debat berlangsung selama %{time}'
+      participants_condition_1: 'Debat akan berlanjut hingga %{participants_num}.'
+      participants_condition_1_past: 'Debat berlanjut hingga %{participants_num}.'
+      good_score_condition: 'Proposal akan masuk ke voting jika memiliki maturitas lebih besar dari <b>%{good_score}%</b>. Jika tidak, proposal akan ditinggalkan'
+      good_score_condition_past: 'Proposal seharusnya akan masuk ke voting jika memiliki maturitas lebih besar dari <b>%{good_score}%</b>. Jika tidak, proposal akan ditinggalkan'
+      bad_score_explain: |
+        Jika memiliki maturitas lebih dari <b>%{good_score}%</b>, proposal akan masuk ke tahap voting. Namun jika mendapat peringkat di bawah <b>%{bad_score}%</b>, proposal akan ditinggalkan.<br/>
+        Debat akan berlanjut jika peringkat tetap berada di antara kedua batas ini, tanpa memperhatikan waktu atau jumlah evaluasi
+      bad_score_explain_past: |
+        Jika memiliki maturitas lebih dari <b>%{good_score}%</b>, proposal masuk ke tahap voting. Namun jika mendapat peringkat di bawah <b>%{bad_score}%</b>, proposal akan ditinggalkan.<br/>
+        Debat berlanjut jika peringkat tetap berada di antara kedua batas ini, tanpa memperhatikan waktu atau jumlah evaluasi
+      until_date: '(hingga %{date})'
+      help_content:
+        description_html: |
+          <h3>Apakah kuorum itu?</h3>
+          <p>
+          Kuorum adalah parameter yang menentukan kapan debat proposal berakhir dan tahap voting dimulai.<br />
+          Ketika membuat proposal baru, Anda memilih salah satu kuorum yang tersedia dalam Ruang Terbuka atau salah satu di antara kuorum yang tersedia dalam grup Anda.<br />
+          Dalam jendela ini, Anda dapat mengeklik kuorum lain untuk melihat karakteristiknya: Anda akan menemukan keterangan dan daftar parameter yang dipilih.<br />
+          </p>
+        participants: 'Jumlah peserta minimum:'
+        not_specified: Tidak ditentukan
+        time_discussion: 'Periode diskusi:'
+        condition: 'Persyaratan alur:'
+        at_least_one: Setidaknya satu
+        both: Keduanya
+        good_score: 'Maturitas:'
+        bad_score: 'Penolakan:'
+  proposals:
+    create_button: Buat proposal
+    show:
+      ready_for_vote: Siap untuk voting
+      keep_discuss: Lanjutkan diskusi
+    regenerate_button: Kembalikan ke debat
+    edit:
+      expand_all: Perluas semua
+      collapse_all: Ciutkan semua
+    schulze_vote_results:
+      results: Hasil
+      votes: Vote
+      solution: Solusi
+      points: Poin
+      random_ordered_votes: Vote yang diurutkan secara acak
+      number_of_voters: Jumlah pemberi voting
+      vote: Vote mereka
+    authors_list_panel:
+      dont_want_to_be_an_author: Saya tidak ingin menjadi penulis lagi
+    left_panel:
+      promote_proposal: Promosikan proposal
+      share_with_friends: Bagi dengan teman
+  digit_tags: Tulis label yang Anda ingin tambahkan
+  buttons:
+    cancel: Batalkan
+    save: Simpan
+    report: Laporkan
+    update: Perbarui
+    send: Kirim
+    create: Buat
+    delete: Hapus
+    search: Cari
+    close: Tutup
+    edit: Sunting
+    next: Berikutnya
+    go_back: Kembali
+    chosen: Saya telah memilih!
+    ok: OKE
+    yes_word: YA
+    no_word: TIDAK
+    mark: Tandai
+    detach: Lepaskan
+    login: Masuk
+    show: Tampilkan
+    preview: Pratinjau
+    new_newsletter: Buat buletin
+    unlock: Buka kunci
+    vote_here: vote di sini
+    unintegrate: Kembalikan ke debat
+  tooltips:
+    random_stack_1: '<strong>Bagaimana cara kerjanya?</strong><br/>Pertama, kontribusi baru atau yang belum Anda evaluasi ditampilkan, lalu kontribusi yang telah Anda evaluasi dalam urutan popularitas. <br/> <b>Catatan</b>: Rating Anda akan mengubah urutan ini!'
+    random_stack_2: '<strong>Bagaimana cara kerjanya?</strong><br/>Kontribusi ditampilkan dalam urutan kronologis yang dimulai dengan yang terkini'
+    random_stack_3: '<strong>Bagaimana cara kerjanya?</strong><br/>Kontribusi ditampilkan dalam urutan popularitas. <br/> <b>Catatan</b>: Rating Anda akan mengubah urutan ini!'
+    miglioricontributi: '<strong>Bagaimana saya dapat membantu? </strong> <br/> Kontribusi bukanlah menyatakan apresiasi sederhana, melainkan perubahan besar terhadap teks: kritik membangun, alternatif atau peningkatan terhadap proposal akan membantu penulisnya untuk mengembangkan ringkasan teks bersama. <br /> <br/> <b>Catatan</b>: Kontribusi yang paling berhargalah yang memungkinkan untuk mencari solusi proposal itu!'
+    voglioredigere: Minta penyunting mengizinkan Anda menyunting teks proposal berdasarkan kontribusi pengguna.
+    voteup: Proposal ini mencapai maturitas yang cukup dan dapat masuk ke tahap voting (Anda dapat mengubah evaluasi Anda ketika teks proposal diperbarui)
+    votedown: Teks proposal ini belum mencapai maturitas, karena kontribusi pengguna harus dimasukkan (Anda dapat mengubah evaluasi Anda ketika teks proposal akan diperbarui)
+    valutazioni: Jumlah evaluasi yang diterima
+    gradimento: total persentase evaluasi positif
+    nickname: '<strong> Dalam proposal ini, kami telah memilih untuk berdiskusi secara anonim </strong> <br /> Dengan cara ini, pengguna lain tidak dapat mengetahui identitas Anda dan sekaligus, Anda tidak dapat mengetahui identitas pengguna lain. <br /> Dengan bekerja dan berdiskusi seperti ini, Anda akan dapat membuat keputusan dan mengevaluasi proposal hanya berdasarkan isinya. <br/> <b>Catatan</b>: Ketika diskusi berakhir dan proposal akan disetujui atau ditolak, Anda akan melihat nama asli para pengguna!'
+    manage_noise: '<strong> Atur kontribusi yang tidak berguna</strong> <br /> Peserta akan kontribusi mana yang tidak berguna untuk diskusi ini. Dengan panel ini, Anda dapat megnhapus dan memasukkan mereka ke folder Kontribusi yang Dihapus.'
+    view_noise: 'Lihat <strong>kontribusi yang tidak berguna</strong> <br /> Di sini, Anda akan menemukan semua kontribusi yang telah dianggap tidak berguna dan menghapus diskusi dengan penyunting proposal'
+    quorum_minutes: 'sampai <b>%{date}</b> pada %{time}'
+    quorum_valutations: 'sampai diberi rating oleh <b>setidaknya %{valutations} orang</b>'
+    quorum_description: 'Proposal ini akan dimasukkan dalam debat %{conditions}. Proposal hanya akan masuk ke tahap voting jika <b>maturitasnya</b> lebih besar dari <b>%{good_score}%</b>.'
+  group: grup
+  saving: Menyimpan...
+  sending: Mengirim...
+  updating: Memperbarui...
+  loading: Memuat...
+  error:
+    setting_preferences: Eror saat mengatur preferensi
+    admin_required: Anda harus menjadi admin untuk melihat halaman ini
+    permissions_required: Anda tidak diizinkan untuk melakukan operasi ini
+    portavoce_required: Anda harus menjadi admin grup untuk melihat halaman ini
+    blog_required: Untuk melakukan ini, Anda harus membuat blog pribadi Anda
+    not_your_blog: Ini tidak dapat dilakukan pada blog pengguna lain
+    role_permission_change: Hak izin ini tidak dapat diubah
+    event_answer: Eror saat mengirim jawaban
+    event_already_answered: Anda telah menjawab kegiatan ini
+    event_past: Kegiatan ini telah berakhir
+    configuration_required: Modul tidak diaktifkan
+    areas_required: Area kerja harus diaktifkan
+    quorums:
+      quorum_creation: Eror saat membuat kuorum
+      quorum_modification: Eror saat memperbarui kuorum
+      advanced_proposals_settings: Eror saat mengatur preferensi
+    participation_roles:
+      role_updated: Eror saat memperbaiki peran
+      role_created: Eror saat membuat peran
+    groups:
+      update: Eror saat memperbarui grup
+      work_area:
+        area_created: Eror saat membuat area kerja
+      creation: Eror saat membuat grup
+      post_removed: Eror saat menghapus tulisan dari grup
+    proposals:
+      view_proposal: Anda tidak memiliki hak izin yang diperlukan untuk melihat proposal ini
+      participate: Anda tidak memiliki hak izin yang dibutuhkan untuk berpartisipasi secara aktif dalam proposal ini. Hubungi admin grup
+      modify_comments: Anda tidak dapat menyunting komentar yang bukan milik Anda
+      insert_comment: Eror saat menambahkan komentar
+      contribute_report: Eror saat melaporkan kontribusi
+      updating: Eror saat memperbarui
+      proposal_rank: Eror saat mencatat evaluasi Anda. Maaf atas ketidaknyamanan ini. Silakan coba lagi nanti. Terima kasih
+      proposal_not_waiting_date: Proposal ini tidak sedang menunggu tanggal untuk diberi voting
+      proposal_not_voted: Proposal ini belum menyelesaikan tahap voting. Jadi, Anda tidak dapat melakukan ini lagi
+      proposal_not_valuating: Proposal ini tidak sedang berada dalam tahap voting. Jadi, Anda tidak dapat melakukan ini lagi
+      proposal_already_ranked: Anda pernah mengevaluasi proposal ini. Proposal ini belum dimodifikasi sejak evaluasi terakhir Anda
+      proposal_not_your: Anda tidak dapat menyunting proposal yang bukan buatan Anda
+      creation: Maaf, namun terjadi eror saat membuat proposal
+      editors_added: Eror saat menambahkan penyunting
+      close_debate: Eror saat menutup debat
+      vote_period_incorrect: Silakan pilih kegiatan voting lainnya
+      vote_period_soon: 'Kegiatan voting harus dimulai setidaknya %{time} menit setelah akhir debat'
+      vote_period_short: Kegiatan voting harus berlangsung minimal 10 menit
+      same_title: Ada proposal lain yang memiliki judul yang sama.
+    registration:
+      recaptcha: Eror dalam memvalidasi captcha. Silakan ketik kembali
+      user_not_found: Pengguna tidak ditemukan
+    blog:
+      cannot_edit: Anda tidak dapat menyunting blog yang bukan milik Anda
+      already_have: Maaf. Anda telah memiliki sebuah blog
+      comment_added: Eror saat menambahkan komentar
+    users:
+      join_accounts: Eror saat menggabungkan akun.
+      join_accounts_password: Kata sandi salah
+    group_participations:
+      destroy: Anda tidak dapat meninggalkan grup yang administrator satu-satunya adalah Anda
+      already_member: Eror saat membuat permintaan partisipasi. Anda telah menjadi anggota grup ini!
+      request_not_registered: Anda telah menjadi anggota grup ini, namun permintaan partisipasi Anda belum terdaftar. Data tidak benar
+      request_sent: Eror saat membuat permintaan partisipasi
+      request_not_found: Permintaan tidak ditemukan. Operasi eror
+      error_saving: Eror dalam prosedur. Tidak dapat melanjutkan
+    error_404:
+      proposals:
+        title: Proposal ini tidak ada
+        description: Proposal yang Anda cari tidak ada atau telah dihapus
+      blog_posts:
+        title: Tulisan ini tidak ada
+        description: Tulisan yang Anda cari tidak ada atau telah dihapus
+      events:
+        title: Kegiatan ini tidak ada
+        description: Kegiatan yang Anda cari tidak ada atau telah dihapus
+      groups:
+        title: Grup ini tidak ada
+        description: Grup yang Anda cari tidak ada atau telah dihapus
+      title: Halaman yang Anda cari tidak ada
+      description: Alamat Anda mungkin salah, atau halaman ini tidak ada lagi
+    error_500:
+      title: Ups... Ini kesalahan kami
+      description: Laporan telah dikirim dan masalah in akan diselesaikan secepat mungkin.
+    event:
+      comment_added: Eror saat memasukkan komentar
+    participations_destroyed: Eror saat melakukan operasi
+    error_indexer:
+      title: Layanan tidak tersedia
+      description: Kami sedang mengalami masalah dengan sistem internal. Coba beberapa menit lagi.
+    error_302:
+      title: Akses tidak sah
+      description: Maaf. Anda tidak memiliki hak izin untuk mengakses sumber daya ini.
+    area_participation:
+      create: Eror saat menambahkan pengguna ke area ini
+    area:
+      update: Eror saat memperbarui area ini
+    group_invitations:
+      code_expired: Kode Undangan telah kedaluwarsa
+      already_participant: Anda telah menjadi peserta grup ini
+  info:
+    setting_preferences: Pengaturan berhasil diubah
+    blog_created: Tulisan berhasil dibuat
+    proposal:
+      can_change_valutation: Proposal ini telah dimodifikasi sejak Anda mengevaluasinya. Jika ingin, Anda dapat mengubah evaluasi Anda!
+      waiting_date: Proposal ini telah melalui tahap diskusi dan kini menunggu tanggal untuk voting
+      voting: Proposal ini sedang dalam tahap voting
+      ask_participation: Minta untuk menjadi anggota grup untuk mengevaluasi dan berkontribusi terhadap proposal ini
+      public_visible: Proposal ini dapat dilihat oleh umum
+      public_visible_short: Dapat dilihat oleh umum
+      available_authors: Ada penyunting baru yang tersedia untuk proposal ini
+      updated_comment: Komentar Anda berhasil diperbarui
+      comment_deleted: Komentar ini berhasil dihapus
+      contribute_reported: Kontribusi berhasil dilaporkan
+      contribute_added: Kontribusi berhasil ditambahkan
+      comment_added: Komentar berhasil ditambahkan
+      contribute_added_right: |-
+        Kontribusi berhasil ditamba.<br/>Untuk melihatnya, klik "Tulisan dan Tampilkan Kontribusi" di sebelah paragraf '%{section}'
+      proposal_created: Proposal berhasil dibuat. Lanjutkan penjabaran dengan mengisi formulir yang tersisa
+      proposal_updated: Proposal berhasil diperbarui
+      proposal_deleted: Proposal berhasil dihapus
+      date_selected: Proposal ini akan diberi voting dalam periode yang dipilih
+      rank_recorderd: Evaluasi Anda telah terdaftar
+      comment_already_ranked: Anda telah mengevaluasi komentar ini. Anda belum dapat memodifikasi evaluasi komentar
+      comment_not_your: Anda tidak memiliki hak yang dibutuhkan untuk menghapus komentar ini
+      login_to_contribute: Masuk untuk menambahkan kontribusi Anda
+      back_in_debate: Proposal ini kini dimasukkan ke debat lagi. Kini Anda adalah penyuntingnya
+      editors_added: Penyunting baru berhasil ditambahkan!
+      offered_editor: Anda menawarkan diri untuk menulis proposal ini!
+      authors_added: Penulis baru telah ditambahkan dengan benar
+    message_sent: Pesan berhasil dikirim
+    private_messages_active: Pengguna lain dapat mengirim pesan kepada Anda
+    private_messages_inactive: Pengguna lain tidak dapat mengirim pesan kepada Anda
+    rotp_active: Token keamanan diaktifkan
+    rotp_inactive: Token keamanan dinonaktifkan
+    quorums:
+      quorum_created: Kuorum berhasil dibuat
+      quorum_updated: Kuorum berhasil diperbarui
+      quorum_deleted: Kuorum berhasil dihapus
+      quorum_activated: Kuorum diaktifkan
+      quorum_deactivated: Kuorum dinonaktifkan
+      can_modify_advanced_proposals_settings: Penyunting dapat memodifikasi pengaturan lanjut
+      cannot_modify_advanced_proposals_settings: Penyunting tidak dapat memodifikasi pengaturan lanjut
+      anonymous_proposals: Proposal grup ini akan anonim secara standar
+      non_anonymous_proposals: Proposal grup ini tidak akan anonim secara standar
+      public_proposals: Proposal grup ini akan dapat dilihat umum secara standar
+      private_proposals: Proposal grup ini tidak akan dapat dilihat umum secara standar
+      secret_vote: Proposal grup ini akan menggunakan pemungutan suara rahasia secara standar
+      non_secret_vote: Proposal grup ini tidak akan menggunakan pemungutan suara rahasia secara standar
+    groups:
+      group_updated: Grup berhasil diperbarui
+      work_area:
+        area_created: Area kerja berhasil dibuat
+      group_deleted: Grup dihapus dengan benar
+      group_created: Grup dibuat dengan benar
+      search_participants: Pencarian selesai. Hasil pencarian telah diperbarui
+      post_removed: Tulisan ini telah dihapus dari Dinding grup
+      area_updated: Area telah diperbarui
+      post_featured:
+        "true": Tulisan disematkan di atas
+        "false": Tulisan tidak disematkan lagi
+    participation_roles:
+      role_updated: Peran berhasil diperbarui
+      permissions_updated: Hak izin telah diperbarui
+      role_created: Peran berhasil dibuat
+      role_changed: Peran berhasil diubah
+      role_deleted: Peran berhasil dihapus
+      user_removed_from_group: '%{name} berhasil dihapus dari grup'
+    user:
+      click_to_change: Klik informasi yang Anda ingin ubah
+      info_updated: Informasi berhasil diperbarui
+      account_joined: Akun berhasil digabungkan!
+      tooltips_enabled: Tooltip diaktifkan
+      tooltips_disabled: Tooltip dinonaktifkan
+      url_shown: URL terlihat
+      url_hidden: URL disembunyikan
+      update_border: Batas geografis yang diminati telah diperbarui dengan benar
+      confirm_email: Anda harus mengonfirmasi alamat surel baru
+      IP_disabled: Penyedia Identitas dihapus
+      time_zone_changed: Zona waktu disimpan
+    blog:
+      blog_created: Blog berhasil dibuat
+      title_updated: Judul blog telah berhasil diperbarui
+      comment_added: Komentar berhasil dibuat
+    events:
+      event_deleted: Kegiatan berhasil dihapus
+      event_updated: Kegiatan berhasil diperbarui
+    moderator_panel:
+      account_blocked: Akun terblokir
+      account_unblocked: Blokir akun telah dibuka
+    locale_changed: Lokalisasi berhasil diubah
+    blog_post_updated: Tulisan Anda berhasil diperbarui
+    blog_post_deleted: Tulisan Anda berhasil dihapus
+    participation_request:
+      multiple_request:
+        other: 'Anda meminta untuk berpartisipasi dalam %{count} grup baru'
+    group_participations:
+      destroy_ok_1: Anda telah keluar dari grup ini. Anda dapat meminta untuk berpartisipasi lagi nanti
+      request_sent: Permintaan partisipasi berhasil dikirim
+      request_alredy_sent: Anda telah mengirim permintaan partisipasi untuk grup ini
+      status_accepted: Permintaan partisipasi telah diterima
+      status_voting: Permintaan partisipasi dapat diberi voting sekarang
+      status_declined: Permintaan partisipasi telah ditolak
+    event:
+      comment_added: Komentar berhasil dimasukkan
+    topic:
+      hidden: Topik ini disembunyikan
+    participations_destroyed: Pengguna dihapus. Silakan muat kembali halaman ini.
+    area_participation:
+      create: Pengguna ditambahkan ke area ini
+      destroy: Pengguna dihapus dari area ini
+    group_invitations:
+      create:
+        other: '%{count} undangan telah dikirim ke %{email_addresses}'
+      accept: Undangan diterima! Kini Anda adalah anggota grup ini.
+      reject: Undangan ditolak.
+      anymore: Undangan ditolak. Anda tidak akan menerima undangan lain.
+    blog_comment:
+      destroyed: Komentar ini telah dihapus
+  interest_borders:
+    hint: Tulis beberapa karakter untuk mencari tempat
+    no_place_found: Tidak ada tempat yang ditemukan
+    searching: Sedang mencari, harap tunggu...
+    region: '%{name}  (Wilayah)'
+    province: '%{name} (Provinsi)'
+    town: '%{name}  (Kota)'
+    country: '%{name}  (Negara)'
+    continent: '%{name} (Benua)'
+  mailer:
+    default:
+      follow_twitter: ikuti kami di Twitter
+      follow_facebook: ikuti kami di Facebook
+      follow_google: ikuti kami di Google+
+      footer:
+        registered_at: 'Anda menerima surel ini karena Anda terdaftar di %{url}.'
+      edit_preferences: Preferensi
+      click_here: Klik di sini
+    new_contribute:
+      title: '%{user} memasukkan %{comment} baru dalam proposal ini'
+      view_proposal: '%{click_here} untuk melihat proposal ini.'
+    text_update:
+      view_proposal:
+        other: 'Proposal <b>%{proposal}</b> telah diperbarui %{count} kali.'
+      integrated_contributes: 'Selamat! Kontribusi berikut ini yang telah Anda masukkan telah diintegrasikan oleh penyunting:'
+      view_proposal_2: '%{click_here} dan verifikasi bahwa teks baru ini berisi usulan Anda. <br/> Jika Anda tidak puas, Anda selalu dapat memasukkan kontribusi Anda kembali ke debat dengan mengeluarkan mereka dari Riwayat.'
+      connect: 'Masuk %{name}'
+    unintegrated_contribute:
+      view_proposal: 'Sebuah kontribusi yang telah dimasukkan ke proposal <b>%{click_here}</b> telah dimasukkan kembali ke debat oleh pembuatnya.'
+      view_proposal_2: '%{click_here} kenapa pembuatnya tidak mempertimbangkan bahwa kontribsinya telah dimasukkan dengan benar.'
+      verify: Periksa
+    user_message:
+      hi_user: 'Hai, %{user},'
+      user_sent_message: '%{user} mengirimkan pesan berikut kepada Anda:'
+      reply_to_user: 'Anda dapat membalas %{user} dengan membalas surel ini.'
+    blocked:
+      hi_user: 'Hai, %{user},'
+      deleted_correctly: kami memberitahukan bahwa akun Anda berhasil dihapus dari Airesis.
+      greetings: 'Salam,<br/> Tim Airesis'
+    new_blog_comment:
+      title: '%{user} menambahkan komentar baru ke tulisan Anda %{post}.'
+      click_here: Klik di sini
+      view_post: '%{click_here} untuk melihat tulisan ini.'
+    invite:
+      hi_user: Halo!
+      invitation: '%{user} mengundang Anda untuk berpartisipasi dalam grup <b>%{group}</b> di %{app_name}, platform demokrasi virtual untuk demokrasi langsung dan partisipatoris.'
+      message_intro: 'Ini pesan yang dia kirimkan kepada Anda:'
+      accept_or_reject: 'JIka Anda menerima undangan ini, klik "Terima". Jika tidak, klik "Tolak".'
+      no_more: 'Jika Anda tidak ingin menerima undangan dari %{app_name}, klik "Jangan kirim undangan lagi".'
+      accept: Terima
+      reject: Tolak
+      greetings: Salam!
+      no_more_button: Tidak ada undangan lain
+      subject: 'Anda telah diundang ke %{group_name}'
+    update_contribute:
+      title: '%{user} mengubah kontribusinya'
+      view_proposal: '%{click_here} untuk melihat kontribusi dan mengubah evaluasi Anda'
+  words:
+    contribute: kontribusi
+    comment: komentar
+    or: atau
+    and: dan
+    terms_of_service: Ketentuan Layanan
+    privacy_policy: Privasi
+    guide: FAQ
+  terms_of_service: Ketentuan
+  privacy_policy: Privasi
+  controllers:
+    searches:
+      index:
+        groups_divider: Grup
+  tags:
+    index:
+      tag_title: '%{proposals} proposal - %{blog_posts} tulisan blog - %{groups} grup'
+  blog_posts:
+    form:
+      published_title: Tulisan Anda akan diterbitkan di web dan semua orang akan dapat melihat, membagi, dan mengomentarinya
+      reserved_title: Tulisan Anda hanya akan dapat dilihat oleh pengguna yang menjadi anggota grup tempat Anda menerbitkannya
+      draft_title: Tulisan Anda hanya dapat dilihat oleh Anda
+  confirm_delete: Anda yakin?
+  you: Anda
+  twitter:
+    share:
+      blog_post: 'Lihat tulisan ini di #%{app}! %{tags}'
+      event: 'Ada kegiatan baru di #%{app}'
+  home:
+    portlets:
+      last_proposals:
+        proceed_to_proposals: Lanjutkan ke proposal
+      from_blogs:
+        proceed_to_blogs: Lanjutkan ke blog
+  confirm_detach: Yakin Anda ingin menghapus Penyedia Identitas ini? Anda tidak akan dapat menggunakannya nanti.
+  alert_detach: Anda harus menyediakan alamat surel yang benar untuk menghapus Penyedia Identitas ini
+  users:
+    confirm_credentials:
+      title: Konfirmasikan kredensial Anda
+      instructions_html: |
+        Sudah ada pengguna lain di Airesis yang menggunakan alamat surel yang sama.<br />
+        Masukkan kata sandi ke Airesis untuk menggabungkan kedua akun.<br />
+        Jika Anda lupa kata sandinya, lanjutkan ke halaman "Pulihkan Kata Sandi".
+    statistics:
+      title: Statistik pengguna
+      last_login: Login terakhir
+      integrated_count: Jumlah kontribusi yang terintegrasi
+      spam_count: Jumlah kontribusi sampah
+      noisy_count: Jumlah kontribusi yang mengganggu
+      total_count: Jumlah kontribusi total
+      total_comments_count: Jumlah komentar total
+      proposals_editor: Jumlah proposal yang telah Anda sunting
+      proposals_voted: Jumlah proposal yang telah diberi voting
+      average_rank_voted_proposals: Peringkat rata-rata proposal yang telah diberi voting
+      proposals_accepted_count: Jumlah proposal yang telah diterima
+      proposals_abandonend_count: Jumlah proposal yang telah ditinggalkan
+      good_writer: Penulis kontribusi yang baik
+      good_proposals_writer: Penulis proposal yang baik
+  proposal_comments:
+    manage_noise:
+      title: Atur kontribusi yang tidak berguna
+      help: Seret dan jatuhkan kontribusi yang Anda anggap tidak berguna untuk diskusi ini ke kanan
+  votations:
+    create:
+      confirm: Voting telah terdaftar dengan benar. Terima kasih!
+  errors:
+    messages:
+      invalid_token: Token Keamanan tidak valid
+      votation: Maaf, namun ada masalah saat memasukkan voting Anda. Coba lagi nanti.
+    votation:
+      already_voted: Anda telah memberi voting untuk proposal ini
+    proposal:
+      authors_added: Eror saat menambahkan penulis baru
+  draft_tooltip: Tulisan ini hanya dapat dilihat oleh Anda
+  reserved_tooltip: Tulisan ini hanya dapat dilihat oleh peserta grup
+  placeholder:
+    find: Cari Sesuatu
+  keep_reading: teruskan membaca
+  feedback_subject: '%{time} - Masukan baru'
+  delete_event_confirm: Yakin Anda ingin menghapus komentar ini?
+  confirm:
+    unintegrate: Anda akan mengembalikan kontribusi Anda ke diskusi. Anda yakin?

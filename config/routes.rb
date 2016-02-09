@@ -1,12 +1,15 @@
 require 'sidekiq/web'
 
 Airesis::Application.routes.draw do
+  get '/validators/uniqueness/group/', to: 'validators/uniqueness#group'
+  get '/validators/uniqueness/user/', to: 'validators/uniqueness#user'
+  get '/validators/uniqueness/proposal/', to: 'validators/uniqueness#proposal'
 
-  resources :searches
+  resources :searches, only: [:index]
 
   resources :sys_payment_notifications, only: [:create]
 
-  resources :user_likes
+  resources :user_likes, only: [:create, :destroy]
 
   resources :proposal_nicknames, only: [:update]
 
@@ -14,7 +17,7 @@ Airesis::Application.routes.draw do
 
   get 'home' => 'home#show'
   get 'landing' => 'home#landing'
-  get 'public' => 'home#public'
+  get 'public' => 'home#public', as: :open_space
   get 'partecipa' => 'home#engage'
   get 'chisiamo' => 'home#whowe'
   get 'roadmap' => 'home#roadmap'
@@ -28,14 +31,14 @@ Airesis::Application.routes.draw do
   get 'press' => 'home#press'
   get 'privacy' => 'home#privacy'
   get 'terms' => 'home#terms'
+  get 'cookie_law' => 'home#cookie_law'
   post 'send_feedback' => 'home#feedback'
   get 'statistics' => 'home#statistics'
   get 'movements' => 'home#movements'
   get 'school' => 'home#school'
   get 'municipality' => 'home#municipality'
 
-
-  #common routes both for main app and subdomains
+  # common routes both for main app and subdomains
 
   resources :quorums do
     collection do
@@ -89,18 +92,16 @@ Airesis::Application.routes.draw do
     member do
       get :rankup
       get :rankdown
-      get :statistics
       patch :set_votation_date
       post :available_author
       get :available_authors_list
       put :add_authors
       get :vote_results
       post :close_debate
+      post :start_votation
       patch :regenerate
       get :geocode
-      get :facebook_share
       get :promote
-      post :facebook_send_message
       get :banner
       get :test_banner
     end
@@ -112,21 +113,18 @@ Airesis::Application.routes.draw do
     post :hide, on: :member
   end
 
-  resources :tutorial_progresses
-
-  resources :tutorials do
-    resources :steps do
+  resources :tutorials, only: [] do
+    resources :steps, only: [] do
       member do
         get :complete
       end
     end
-    resources :tutorial_assignees
   end
 
   resources :alerts do
     member do
       get :check
-      get :check_alert #todo remove in one year from 08-05-2014
+      get :check_alert # TODO: remove in one year from 08-05-2014
     end
 
     collection do
@@ -136,24 +134,23 @@ Airesis::Application.routes.draw do
   end
 
   resources :interest_borders
-  resources :comunes
+  resources :municipalities
 
   get 'elfinder' => 'elfinder#elfinder'
   post 'elfinder' => 'elfinder#elfinder'
 
-  devise_for :users, controllers: {omniauth_callbacks: 'users/omniauth_callbacks', sessions: 'sessions', registrations: 'registrations', passwords: 'passwords', confirmations: 'confirmations'} do
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', sessions: 'sessions', registrations: 'registrations', passwords: 'passwords', confirmations: 'confirmations' } do
     get '/users/sign_in', to: 'devise/sessions#new'
     get '/users/sign_out', to: 'devise/sessions#destroy'
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
 
-
   resources :users do
     collection do
       get :confirm_credentials
-      get :alarm_preferences #preferenze allarmi utente
-      get :border_preferences #preferenze confini di interesse utente
-      post :set_interest_borders #cambia i confini di interesse
+      get :alarm_preferences # preferenze allarmi utente
+      get :border_preferences # preferenze confini di interesse utente
+      post :set_interest_borders # cambia i confini di interesse
       post :join_accounts
       get :privacy_preferences
       get :statistics
@@ -194,7 +191,6 @@ Airesis::Application.routes.draw do
     concerns :blog_posts
     get '/:year/:month' => 'blogs#by_year_and_month', as: :posts_by_year_and_month, on: :member
   end
-
 
   resources :tags
 
@@ -262,7 +258,6 @@ Airesis::Application.routes.draw do
       end
     end
 
-
     resources :best_quorums, controller: 'quorums'
     resources :old_quorums, controller: 'quorums'
 
@@ -304,12 +299,9 @@ Airesis::Application.routes.draw do
         end
       end
 
-
       resources :topics, controller: 'frm/topics', only: [:new, :create, :index, :show, :destroy] do
         resources :posts, controller: 'frm/posts'
       end
-
-
     end
 
     namespace :frm do
@@ -341,21 +333,26 @@ Airesis::Application.routes.draw do
         end
 
         resources :categories
-
       end
     end
 
     get '/:action', controller: 'groups'
     put '/:action', controller: 'groups'
     post '/:action', controller: 'groups'
-
   end
 
   # routes available only on main site
   constraints NoSubdomain do
 
     root to: 'home#index'
-
+    namespace :api do
+      namespace :v1 do
+        resources :proposals, only: [:show, :index]
+        devise_scope :user do
+          post 'login' => 'sessions#create', as: :login
+        end
+      end
+    end
 
     resources :proposal_categories do
       get :index, scope: :collection
@@ -363,8 +360,7 @@ Airesis::Application.routes.draw do
 
     resources :groups do
       member do
-        get :ask_for_participation
-        get :ask_for_follow
+        post :ask_for_participation
         put :participation_request_confirm
         put :participation_request_decline
         post :create_event
@@ -384,7 +380,6 @@ Airesis::Application.routes.draw do
         get :autocomplete
       end
 
-
       resources :forums, controller: 'frm/forums', only: [:index, :show] do
         resources :topics, controller: 'frm/topics' do
           member do
@@ -393,12 +388,9 @@ Airesis::Application.routes.draw do
           end
         end
 
-
         resources :topics, controller: 'frm/topics', only: [:new, :create, :index, :show, :destroy] do
           resources :posts, controller: 'frm/posts'
         end
-
-
       end
 
       namespace :frm do
@@ -430,7 +422,6 @@ Airesis::Application.routes.draw do
           end
 
           resources :categories
-
         end
       end
 
@@ -464,6 +455,7 @@ Airesis::Application.routes.draw do
         end
         member do
           post :close_debate
+          post :start_votation
           patch :regenerate
           patch :set_votation_date
           get :geocode
@@ -476,7 +468,6 @@ Airesis::Application.routes.draw do
           post :change_status
         end
       end
-
 
       resources :best_quorums, controller: 'quorums'
       resources :old_quorums, controller: 'quorums'
@@ -515,15 +506,15 @@ Airesis::Application.routes.draw do
     end
 
     admin_required = lambda do |request|
-      request.env['warden'].authenticate? and request.env['warden'].user.admin?
+      request.env['warden'].authenticate? && request.env['warden'].user.admin?
     end
 
     moderator_required = lambda do |request|
-      request.env['warden'].authenticate? and request.env['warden'].user.moderator?
+      request.env['warden'].authenticate? && request.env['warden'].user.moderator?
     end
 
     constraints moderator_required do
-      get 'moderator_panel', to: 'moderator#show', as: 'moderator/panel'
+      get 'moderator_panel', to: 'admin/moderator#show', as: 'moderator/panel'
     end
 
     constraints admin_required do
@@ -534,6 +525,7 @@ Airesis::Application.routes.draw do
             patch :publish
           end
         end
+        mount RailsAdmin::Engine => '/data', as: 'rails_admin'
         mount Sidekiq::Web => '/sidekiq'
         get '/', to: 'panel#show', as: 'panel'
         resource :panel, controller: 'panel' do
@@ -545,7 +537,6 @@ Airesis::Application.routes.draw do
           get :test_scheduler
           get :test_exceptions
           get :calculate_user_group_affinity
-          post :become
         end
         resource :crowdin, only: [] do
           get :upload_sources
@@ -554,7 +545,7 @@ Airesis::Application.routes.draw do
           get :download_translations
           get :extract_delete_zip
         end
-        resources :tutorials
+
         resources :users, only: [] do
           get :unblock, on: :member
           collection do
@@ -568,12 +559,7 @@ Airesis::Application.routes.draw do
             get :document
           end
         end
-        resources :sys_features
-        resources :sys_movements
-        resources :announcements
-        resources :sys_payment_notifications, only: [:index]
       end
-      mount Maktoub::Engine => '/maktoub/'
     end
 
     resources :tokens, only: [:create, :destroy]

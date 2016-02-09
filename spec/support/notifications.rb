@@ -1,14 +1,14 @@
 RSpec.configure do |config|
   config.before(:each, notifications: true) do
-    AlertJob.any_instance.stub(:sidekiq_job) do |alert_job|
+    allow_any_instance_of(AlertJob).to receive(:sidekiq_job) do |alert_job|
       AlertsWorker.jobs.select { |job| job['jid'] == alert_job.jid }[0]
     end
-    AlertJob.any_instance.stub(:reschedule)
+    allow_any_instance_of(AlertJob).to receive(:reschedule)
 
-    EmailJob.any_instance.stub(:sidekiq_job) do |email_job|
+    allow_any_instance_of(EmailJob).to receive(:sidekiq_job) do |email_job|
       EmailsWorker.jobs.select { |job| job['jid'] == email_job.jid }[0]
     end
-    EmailJob.any_instance.stub(:reschedule)
+    allow_any_instance_of(EmailJob).to receive(:reschedule)
   end
 end
 
@@ -22,7 +22,6 @@ def cumulable_event_process_spec
   end
 
   context 'event chain running' do
-
     before(:each) do
       event_class.drain
     end
@@ -87,7 +86,8 @@ def cumulable_event_process_spec
           it 'accumulates on the alerts sent already' do
             Alert.all.each do |alert|
               expect(alert.properties['count'].to_i).to eq 2
-              expect(Alert.last.message).to eq I18n.t("db.notification_types.#{notification_type.name}.message.other", alert.data)
+              expect(Alert.last.message).
+                to eq I18n.t("db.notification_types.#{notification_type.name}.message.other", alert.data)
             end
           end
 
@@ -105,14 +105,16 @@ def cumulable_event_process_spec
 
             it 'sends email correctly' do
               last_deliveries = ActionMailer::Base.deliveries.last(expected_alerts)
-              expect(last_deliveries.sample.subject).to include I18n.t("db.notification_types.#{notification_type.name}.email_subject.other", Alert.last.data)
+              data = Alert.last.data
+              expect(last_deliveries.sample.subject).
+                to include I18n.t("db.notification_types.#{notification_type.name}.email_subject.other", data)
             end
           end
         end
       end
 
       it 'are sent to users' do
-        expect(Alert.count).to eq expected_alerts
+        expect(Alert.unscoped.count).to eq expected_alerts
         Alert.all.each do |alert|
           expect(alert.notification_type).to eq notification_type
           expect(alert.properties['count'].to_i).to eq 1
@@ -135,7 +137,8 @@ def cumulable_event_process_spec
 
         it 'sends email correctly' do
           last_deliveries = ActionMailer::Base.deliveries.last(expected_alerts)
-          expect(last_deliveries.sample.subject).to include I18n.t("db.notification_types.#{notification_type.name}.email_subject.one", Alert.last.data)
+          expect(last_deliveries.sample.subject).
+            to include I18n.t("db.notification_types.#{notification_type.name}.email_subject.one", Alert.last.data)
         end
 
         context 'another event happens before the user check the alerts' do
@@ -159,7 +162,8 @@ def cumulable_event_process_spec
             it 'accumulates on the alerts sent already' do
               Alert.all.each do |alert|
                 expect(alert.properties['count'].to_i).to eq 2
-                expect(Alert.last.message).to eq I18n.t("db.notification_types.#{notification_type.name}.message.other", alert.data)
+                expect(Alert.last.message).
+                  to eq I18n.t("db.notification_types.#{notification_type.name}.message.other", alert.data)
               end
             end
 
@@ -172,7 +176,6 @@ def cumulable_event_process_spec
     end
   end
 end
-
 
 def event_process_spec
   before(:each) do
@@ -198,8 +201,8 @@ def event_process_spec
       end
 
       it 'sent alerts correctly' do
-        expect(Alert.count).to eq expected_alerts
-        expect(Alert.last(3).map { |a| a.user }).to match_array receivers
+        expect(Alert.unscoped.count).to eq expected_alerts
+        expect(Alert.last(3).map(&:user)).to match_array receivers
         expect(Alert.last.notification_type.id).to eq notification_type
       end
 

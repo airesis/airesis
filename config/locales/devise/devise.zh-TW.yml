@@ -1,0 +1,58 @@
+zh-TW:
+  errors:
+    messages:
+      expired: 過期了, 請重新申請一次 has expired, please request a new one
+      not_found: 找不到
+      already_confirmed: 已經確認，請試著直接登入
+      not_locked: 沒有被鎖定
+      not_saved:
+        one: '因為 1 個錯誤，禁止 %{resource} 被儲存。'
+        other: '%{count} 個錯誤不允許這 %{resource} 存檔:'
+  devise:
+    failure:
+      locked: 你的帳號已被鎖定。
+      invalid: 帳號或密碼不正確。
+      invalid_token: 無效的認證安全碼。
+      timeout: 你已離開太久，請重新登入。
+      inactive: 你的帳號被凍結了。
+    sessions:
+      signed_in: 成功登入！
+      signed_out: 你已登出。
+    passwords:
+      send_instructions: 為了確認此你是帳號所有人，我們已將重設密碼的操作步驟寄到你的電子信箱，應該會在數分鐘內收到。
+      updated: 你的密碼變更成功，現在已登入。
+      updated_not_active: 你的密碼變更成功。
+      send_paranoid_instructions: 如果你的 E-mail 曾經註冊過，你將會在數分鐘內，收到一封含有密碼回復連結的信件。
+    confirmations:
+      send_instructions: 為了確認此 E-mail 屬於你本人，我們已將一封帳號確認信件寄到你的信箱，應該會在數分鐘內收到。
+      send_paranoid_instructions: 如果你的 E-mail 曾經註冊過，你將會在數分鐘內，收到一封含有確認賬號連結的信件。
+      confirmed: 你已成功確認帳號，現在已登入。
+    registrations:
+      signed_up: 歡迎！你已成功完成註冊！
+      signed_up_but_unconfirmed: 為了確認此 E-mail 屬於你本人，我們已將一封帳號確認信件寄到你的信箱，請點擊信件中的連結來完成註冊。
+      signed_up_but_inactive: 你的登入資訊正確，但是你的帳號現在正被凍結中。
+      signed_up_but_locked: 你的登入資訊正確，但是你的帳號現在正被鎖定中
+      updated: 成功修改帳號資訊。
+      update_needs_confirmation: 你已經成功修改帳號資訊，為了確認此新的 email 屬於你本人，我們已將一封帳號確認信件寄到你的信箱，請點擊信件中的連結來完成註冊。
+      destroyed: 你的帳號已經被刪除，再見！
+    unlocks:
+      unlocked: 你的帳號已經成功解除鎖定，請重新登入。
+      send_paranoid_instructions: 如果你的電子信箱曾經註冊過，你將會在數分鐘內，收到一封含有解除鎖定連結的信件。
+    omniauth_callbacks:
+      failure: '無法連結你的 %{kind} 帳號，錯誤理由是："%{reason}".'
+    mailer:
+      confirmation_instructions:
+        subject: 帳號確認通知
+        welcome: '歡迎來到 %{app_name}，%{user}！'
+        follow_link: 你可以點擊下列的連結，來認證這個 e-mail 位置。
+        confirm_account: 認證帳號
+        follow_link_2: 或瀏覽這個網址：
+        access_by_email: '你現在可以用你設定的 e-mail 與密碼登入 %{app_name}'
+        contact_assistance: '如果你對這個過程有任何問題，請聯繫網站管理者 %{mail}'
+      reset_password_instructions:
+        subject: 重設你的密碼
+        hi_user: 'Hello %{user}！'
+        change_password: 變更密碼
+        password_will_not_change: 直到你按下上一個的連結之前，你的密碼不會更新
+      unlock_instructions:
+        subject: 解除帳號鎖定

@@ -7,78 +7,98 @@ class SearchProposal < ActiveRecord::Base
   belongs_to :tag
   belongs_to :interest_border
 
-  attr_accessor :order_id, :time_type, :order_dir, :page, :per_page, :text, :or, :proposal_id
+  attr_accessor :order_id, :time_type, :order_dir, :page, :per_page, :text, :or, :proposal_id, :proposal_state_tab
 
-  ORDER_RANDOM="1"
-  ORDER_BY_DATE="2"
-  ORDER_BY_RANK="3"
-  ORDER_BY_VOTES="4" #order by number of valutations
-  ORDER_BY_END="5"
-  ORDER_BY_VOTATION_END="6"
-  ORDER_BY_VOTES_NUMBER="7" #orde by number of votes
-  ORDER_ASC="a"
-  ORDER_DESC="d"
+  ORDER_RANDOM = '1'
+  ORDER_BY_DATE = '2'
+  ORDER_BY_RANK = '3'
+  ORDER_BY_VOTES = '4' # order by number of valutations
+  ORDER_BY_END = '5'
+  ORDER_BY_VOTATION_END = '6'
+  ORDER_BY_VOTES_NUMBER = '7' # orde by number of votes
+  ORDER_ASC = 'a'
+  ORDER_DESC = 'd'
 
-  def results
-    @search = Proposal.search(include: [:category, :quorum, {users: [:image]}, :vote_period, :groups, :supporting_groups, :interest_borders]) do
+  def counters
+    ret = { ProposalState::TAB_VOTATION => 0,
+            ProposalState::TAB_VOTED => 0,
+            ProposalState::TAB_REVISION => 0,
+            ProposalState::TAB_DEBATE => 0 }
+    search.facet(:proposal_state_id).rows.each do |facet|
+      if [ProposalState::WAIT, ProposalState::WAIT_DATE, ProposalState::VOTING].include? facet.value
+        ret[ProposalState::TAB_VOTATION] += facet.count
+      elsif [ProposalState::ACCEPTED, ProposalState::REJECTED].include? facet.value
+        ret[ProposalState::TAB_VOTED] += facet.count
+      elsif [ProposalState::ABANDONED].include? facet.value
+        ret[ProposalState::TAB_REVISION] += facet.count
+      else
+        ret[ProposalState::TAB_DEBATE] += facet.count
+      end
+    end
+    ret
+  end
 
+  def search
+    Proposal.search do
       fulltext text, minimum_match: self.or if text
+      facet :proposal_state_id
       all_of do
-        if proposal_state_id
-          if proposal_state_id == ProposalState::TAB_VOTATION
+        if proposal_state_tab
+          if proposal_state_tab == ProposalState::TAB_VOTATION
             @states = [ProposalState::WAIT, ProposalState::WAIT_DATE, ProposalState::VOTING]
-          elsif proposal_state_id == ProposalState::TAB_VOTED
+          elsif proposal_state_tab == ProposalState::TAB_VOTED
             @states = [ProposalState::ACCEPTED, ProposalState::REJECTED]
-          elsif proposal_state_id == ProposalState::TAB_REVISION
+          elsif proposal_state_tab == ProposalState::TAB_REVISION
             @states = [ProposalState::ABANDONED]
           else
             @states = [ProposalState::VALUTATION]
           end
-          with(:proposal_state_id, @states) #search for specific state if defined
+          with(:proposal_state_id, @states) # search for specific state if defined
         end
 
         with(:proposal_category_id, proposal_category_id) if proposal_category_id
 
         with(:proposal_type_id, proposal_type_id) if proposal_type_id
-        without(:proposal_type_id, 11) #TODO removed petitions
+        without(:proposal_type_id, 11) # TODO: removed petitions
 
         if created_at_from
           ends = created_at_to || Time.now
           with(:created_at).between(created_at_from..ends)
         end
 
-        #sicurezza - replicare nelle ricerche
-        if group_id #if we are searching in groups
-          any_of do #the proposal should satisfy one of the following
-            all_of do #should be public and supported by the group
+        # sicurezza - replicare nelle ricerche
+        if group_id # if we are searching in groups
+          any_of do # the proposal should satisfy one of the following
+            all_of do # should be public and supported by the group
               with(:private, false)
               with(:supporting_group_ids, group_id)
             end
-            all_of do #or inside the group but visible outside
+            all_of do # or inside the group but visible outside
               with(:visible_outside, true)
               with(:group_ids, group_id)
             end
-            if user && (user.can? :view_proposal, Group.find(group_id)) #if the user is logged in and can view group private proposals
-              all_of do #show also group private proposals
+            if user && (user.can? :view_proposal, Group.find(group_id)) # if the user is logged in and can view group private proposals
+              all_of do # show also group private proposals
                 with(:private, true)
                 with(:group_ids, group_id)
               end
             end
           end
-          areas = user ? user.scoped_areas(group_id, GroupAction::PROPOSAL_VIEW).pluck('group_areas.id') : [] #get all areas ids the user ca view
+          areas = user ? user.scoped_areas(group_id, GroupAction::PROPOSAL_VIEW).pluck('group_areas.id') : [] # get all areas ids the user ca view
           any_of do
             with(:presentation_area_ids, nil)
             with(:presentation_area_ids, areas) unless areas.empty?
             with(:visible_outside, true)
-          end #the proposals should not be in an area or the user must be authorized to view them
+          end # the proposals should not be in an area or the user must be authorized to view them
 
-          with(:presentation_area_ids, group_area_id) if group_area_id #only proposals in the group area if required
+          with(:presentation_area_ids, group_area_id) if group_area_id # only proposals in the group area if required
 
-        else #open space proposals
+        else # open space proposals
           any_of do
             with(:private, false)
             with(:visible_outside, true)
           end
+          with(interest_border.solr_search_field, interest_border.territory.id) if interest_border.present?
         end
       end
 
@@ -104,15 +124,28 @@ class SearchProposal < ActiveRecord::Base
       end
       paginate page: page, per_page: per_page if page && per_page
     end
-    @proposals = @search.results
   end
 
+  def hits
+    @hits ||= search.hits
+  end
+
+  def results
+    ids = hits.map { |hit| hit.primary_key.to_i }
+    Proposal.
+      includes(:proposal_type, :user_votes, :category, :quorum, :groups, :interest_borders).
+      select('proposals.*',
+             Proposal.alerts_count_subquery(user_id).as('alerts_count'),
+             Proposal.ranking_subquery(user_id).as('ranking')).
+      where(id: ids).
+      order("idx(array#{ids}::integer[], proposals.id)")
+  end
 
   def similar
     search = Proposal.search do
-      fulltext(self.text, minimum_match: 1) do
+      fulltext(text, minimum_match: 1) do
         fields(:title, :content, :tags_list)
-        boost(10.0) { with(:group_ids, self.user.groups.pluck(:id)) } if self.user
+        boost(10.0) { with(:group_ids, user.groups.pluck(:id)) } if user
       end
       secure_retrieve(self)
       paginate page: 1, per_page: 10
@@ -122,40 +155,40 @@ class SearchProposal < ActiveRecord::Base
 
   def secure_retrieve(sunspot)
     sunspot.instance_eval do
-      #sicurezza - replicare nelle ricerche
-      if group_id #if we are searching in groups
-        any_of do #the proposal should satisfy one of the following
-          all_of do #should be public and supported by the group
+      # sicurezza - replicare nelle ricerche
+      if group_id # if we are searching in groups
+        any_of do # the proposal should satisfy one of the following
+          all_of do # should be public and supported by the group
             with(:private, false)
             with(:supporting_group_ids, group_id)
           end
-          all_of do #or inside the group but visible outside
+          all_of do # or inside the group but visible outside
             with(:visible_outside, true)
             with(:group_ids, group_id)
           end
-          if user && (user.can? :view_proposal, Group.find(group_id)) #if the user is logged in and can view group private proposals
-            all_of do #show also group private proposals
+          if user && (user.can? :view_proposal, Group.find(group_id)) # if the user is logged in and can view group private proposals
+            all_of do # show also group private proposals
               with(:private, true)
               with(:group_ids, group_id)
             end
           end
         end
-        areas = user ? user.scoped_areas(group_id, GroupAction::PROPOSAL_VIEW).pluck('group_areas.id') : [] #get all areas ids the user ca view
+        areas = user ? user.scoped_areas(group_id, GroupAction::PROPOSAL_VIEW).pluck('group_areas.id') : [] # get all areas ids the user ca view
         any_of do
           with(:presentation_area_ids, nil)
           with(:presentation_area_ids, areas) unless areas.empty?
           with(:visible_outside, true)
-        end #the proposals should not be in an area or the user must be authorized to view them
+        end # the proposals should not be in an area or the user must be authorized to view them
 
-        with(:presentation_area_ids, group_area_id) if group_area_id #only proposals in the group area if required
-      else #open space proposals
+        with(:presentation_area_ids, group_area_id) if group_area_id # only proposals in the group area if required
+      else # open space proposals
         any_of do
           with(:private, false)
           with(:visible_outside, true)
           if user
-            all_of do #show also group private proposals
+            all_of do # show also group private proposals
               with(:private, true)
-              with(:group_ids, self.user.groups.pluck(:id))
+              with(:group_ids, user.groups.pluck(:id))
             end
           end
         end
@@ -164,13 +197,13 @@ class SearchProposal < ActiveRecord::Base
   end
 
   def order
-    order_s = ""
-    dir = (self.order_dir == 'a') ? 'asc' : 'desc'
-    if self.order_id == SearchProposal::ORDER_BY_RANK
+    order_s = ''
+    dir = (order_dir == 'a') ? 'asc' : 'desc'
+    if order_id == SearchProposal::ORDER_BY_RANK
       order_s << " proposals.rank #{dir}, proposals.created_at #{dir}"
-    elsif self.order_id == SearchProposal::ORDER_BY_VOTES
+    elsif order_id == SearchProposal::ORDER_BY_VOTES
       order_s << " proposals.valutations #{dir}, proposals.created_at #{dir}"
-    elsif self.order_id == SearchProposal::ORDER_BY_END
+    elsif order_id == SearchProposal::ORDER_BY_END
       order_s << " quorums.ends_at #{dir}, proposals.valutations #{dir}"
     else
       order_s << "proposals.updated_at #{dir}, proposals.created_at #{dir}"

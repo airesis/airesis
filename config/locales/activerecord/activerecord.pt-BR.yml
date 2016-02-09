@@ -1,4 +1,4 @@
-pt:
+pt-BR:
   activerecord:
     models:
       meeting: Encontro
@@ -7,9 +7,6 @@ pt:
       blog_comment:
         body: Comentario
         created_at: AntiSpam
-      candidate:
-        user: Candidado
-        election: Eleição
       event:
         title: Titulo do evento
         description: Descrição
@@ -20,10 +17,6 @@ pt:
         period: Repetir Evento
         frequency: Repita cada
         private: Privado
-        meeting:
-          place:
-            address: Endereço
-            comune_id: Cidade
       group:
         facebook_page_url: Endereço pagina no Facebook
         name: Nome
@@ -35,7 +28,7 @@ pt:
         interest_border_id: Local geográfico de interesse
         image_url: Endereço da imagem
         default_role_name: Qual é o nome para novos usuários?
-        default_role_name_placeholder: "Por exemplo: Usuários, membros, ativistas, piratas"
+        default_role_name_placeholder: 'Por exemplo: Usuários, membros, ativistas, piratas'
         title_bar_placeholder: Titulo da paina do grupo.
         image_url_placeholder: URL da imagem do grupo
         facebook_page_url_placeholder: Página de Facebook do grupo? Inserir link aqui.
@@ -50,9 +43,6 @@ pt:
         published: Estado
         published_true: Publicado
         published_false: Rascunho
-      participation_role:
-        name: Nome
-        description: Breve descrição
       group_invitation:
         emails_list: Correio eletronico
         testo: Messagem de texto
@@ -66,7 +56,6 @@ pt:
         objectives: Objetivos
         content: Texto
         interest_borders_tkn: Local geográfico de interesse
-        quorum_id: Quórum
         anonima: Anonimato temporário
         visible_outside: Publicamente visível
         secret_vote: Voto secreto
@@ -80,22 +69,14 @@ pt:
         days_m: Dias
         hours_m: horas
         minutes_m: Minutos
-        percentage: Partecipantes (percentagem)
-        percentage_title: Número mínimo de partecipantes na discussão como uma percentagem do número de partecipantes no grupo
-        good_score: Quórum (percentagem)
+        percentage_title: Número mínimo de participantes na discussão como uma percentagem do número de participantes no grupo
         good_score_title: Avaliação necessaria para que a proposta passe a fase de votação
         condition: Condição
-      search_participant:
-        role_id: Função
-        keywords: Nome ou sobrenome
       sys_movement:
         sys_movement_type_id: Tipo
         sys_currency_id: Moeda
       user:
-        name: Nome
         email: Endereço de e-mail
-        surname: Sobrenome
-        login: Usùario
         password: Senha
         linkedinpageurl: Sua pagina em Linkedin
         facebookpageurl: Sua pagina no Facebook
@@ -106,8 +87,6 @@ pt:
         name: Nome
         description: Descrição
     errors:
-      template:
-        body: Houve problemas com os seguintes campos
       messages:
         inclusion: Não está incluído na lista
         exclusion: é reservado
@@ -116,25 +95,22 @@ pt:
         blank: deve ser preenchido
         too_long: O texto é muito longo
         too_short: O texto é muito curto
-        wrong_length: "deve ser %{count} caracteres)'"
+        wrong_length: 'deve ser %{count} caracteres'
         not_a_number: Não é um número
-        greater_than: "deve ser maior que %{count}"
-        greater_than_or_equal_to: "deve ser maior ou igual de %{count}"
-        equal_to: "deve ser igual a %{count}"
-        less_than: "deve ser menor que %{count}"
-        less_than_or_equal_to: "deve ser menor ou igual a %{count}"
+        greater_than: 'deve ser maior que %{count}'
+        greater_than_or_equal_to: 'deve ser maior ou igual de %{count}'
+        equal_to: 'deve ser igual a %{count}'
+        less_than: 'deve ser menor que %{count}'
+        less_than_or_equal_to: 'deve ser menor ou igual a %{count}'
         odd: deve ser par
         even: deve ser ímpar
-        record_invalid: "Falha na validação %{errors}"
+        record_invalid: 'Falha na validação %{errors}'
         not_found: não encontrado.
         TOS: É necessário aceitar os TDS
       full_messages:
-        format: "%{attribute} %{message}"
+        format: '%{attribute} %{message}'
       models:
         user:
           attributes:
             email:
               already_confirmed: Este endereço de e-mail já está registrado
-        group:
-          portavoce:
-            required: Você deve escolher um porta-voz

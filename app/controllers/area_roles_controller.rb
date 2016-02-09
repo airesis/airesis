@@ -8,11 +8,9 @@ class AreaRolesController < ApplicationController
   load_and_authorize_resource through: :group_area
 
   def new
-
   end
 
   def edit
-
   end
 
   def create
@@ -24,7 +22,7 @@ class AreaRolesController < ApplicationController
       else
         flash[:error] = t('error.participation_roles.role_created')
         format.html { render action: :new }
-        format.js { render 'layouts/active_record_error', locals: {object: @area_role} }
+        format.js { render 'layouts/active_record_error', locals: { object: @area_role } }
       end
     end
   end
@@ -47,15 +45,15 @@ class AreaRolesController < ApplicationController
 
   def change
     AreaActionAbilitation.transaction do
-      if params[:block] == "true" #devo togliere i permessi
+      if params[:block] == 'true' # devo togliere i permessi
         abilitation = @area_role.area_action_abilitations.find_by(group_action_id: params[:action_id], group_area_id: params[:group_area_id])
         if abilitation
           abilitation.destroy
-          flash[:notice] =t('info.participation_roles.permissions_updated')
+          flash[:notice] = t('info.participation_roles.permissions_updated')
         end
-      else #devo abilitare
+      else # devo abilitare
         abilitation = @area_role.area_action_abilitations.find_or_create_by(group_action_id: params[:action_id], group_area_id: params[:group_area_id])
-        flash[:notice] =t('info.participation_roles.permissions_updated')
+        flash[:notice] = t('info.participation_roles.permissions_updated')
       end
     end
 
@@ -73,7 +71,6 @@ class AreaRolesController < ApplicationController
       format.js { render 'layouts/success' }
     end
   end
-
 
   protected
 

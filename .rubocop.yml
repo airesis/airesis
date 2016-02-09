@@ -1,12 +1,31 @@
-Style/Encoding:
-  Enabled: false
+AllCops:
+  RunRailsCops: true
+
 Metrics/LineLength:
   Max: 120
-Style/MultilineOperationIndentation:
-  EnforcedStyle: indented
-Style/EndOfLine:
+
+Style/Documentation:
   Enabled: false
-Style/SpaceInsideBlockBraces:
-  EnforcedStyle: space
+
+Style/MultilineOperationIndentation:
+    EnforcedStyle: indented
+
+Style/NonNilCheck:
+  IncludeSemanticChanges: true
+
 Style/DotPosition:
   EnforcedStyle: trailing
+
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'uploads/**/*'
+    - 'bin/**/*'
+    - 'script/**/*'
+    - 'log/**/*'
+    - 'public/**/*'
+    - 'tmp/**/*'
+    - 'db/**/*'
+    - 'spec/**/*'

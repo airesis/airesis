@@ -1,6 +1,4 @@
 class BlogPostsController < ApplicationController
-  helper :blog
-
   layout :choose_layout
 
   before_filter :load_group
@@ -24,7 +22,7 @@ class BlogPostsController < ApplicationController
       redirect_to (@blog || @group)
     else
       @blog_posts = @blog_posts.published.order(published_at: :desc).page(params[:page]).per(COMMENTS_PER_PAGE)
-      @page_title = t('pages.blog_posts.index.title')
+      @page_title = t('pages.blog_posts.index.title', app_short_name: APP_SHORT_NAME)
       respond_to do |format|
         format.html
         format.js
@@ -69,9 +67,9 @@ class BlogPostsController < ApplicationController
     respond_to do |format|
       if @blog_post.save
         flash[:notice] = t('info.blog_created')
-        format.html {
+        format.html do
           redirect_to @group ? group_url(@group) : @blog
-        }
+        end
       else
         @user = @blog.user
         format.html { render action: :new }
@@ -115,12 +113,12 @@ class BlogPostsController < ApplicationController
 
   private
 
-  def render_404(exception=nil)
+  def render_404(exception = nil)
     log_error(exception) if exception
     respond_to do |format|
       @title = t('error.error_404.blog_posts.title')
       @message = t('error.error_404.blog_posts.description')
-      format.html { render "errors/404", status: 404, layout: true }
+      format.html { render 'errors/404', status: 404, layout: true }
     end
     true
   end

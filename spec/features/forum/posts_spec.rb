@@ -1,14 +1,18 @@
 require 'spec_helper'
 require 'requests_helper'
-require "cancan/matchers"
+require 'cancan/matchers'
 
-describe 'posts', type: :feature, js: true, ci_ignore: true do
-  let!(:user) { create(:user) }
-  let!(:group) { create(:group, current_user_id: user.id) }
-  let!(:free_category) { create(:frm_category, group: group, visible_outside: true) }
-  let!(:forum) { create(:frm_forum, group: group, category: free_category) }
-  let!(:topic) { create(:approved_topic, forum: forum, user: user) }
+describe 'posts', type: :feature, js: true do
+  let(:user) { create(:user) }
+  let(:group) { create(:group, current_user_id: user.id) }
+  let(:free_category) { create(:frm_category, group: group, visible_outside: true) }
+  let(:forum) { create(:frm_forum, group: group, category: free_category) }
+  let(:topic) { create(:approved_topic, forum: forum, user: user) }
 
+  before(:each) do
+    load_database
+    topic
+  end
   context 'not signed in users' do
     it 'cannot begin to post a reply' do
       visit new_group_forum_topic_post_path(group, topic.forum, topic)
@@ -60,7 +64,7 @@ describe 'posts', type: :feature, js: true, ci_ignore: true do
           fill_in_ckeditor 'frm_post_text', with: text
           click_button 'Post Reply'
           expect(page).to have_content('Your reply has been posted')
-          expect(page).to have_content("in reply to #{topic.posts.first.user.login}")
+          expect(page).to have_content("in reply to #{topic.posts.first.user.name}")
         end
       end
 
@@ -77,14 +81,7 @@ describe 'posts', type: :feature, js: true, ci_ignore: true do
 
       it 'cannot post a reply to a topic with blank text' do
         click_button 'Post Reply'
-        expect(page).to have_content('Your reply could not be posted')
-      end
-
-      it 'does not hold over failed post flash to next request' do
-        click_button 'Post Reply'
-        expect(page).to have_content('Your reply could not be posted')
-        visit root_path
-        expect(page).to_not have_content('Your reply could not be posted')
+        expect(page).to have_content('can not be blank')
       end
     end
 
@@ -117,6 +114,7 @@ describe 'posts', type: :feature, js: true, ci_ignore: true do
         within_first_post do
           click_link('Edit')
         end
+        sleep 5
         text = Faker::Lorem.paragraph
         fill_in_ckeditor 'frm_post_text', with: text
 
@@ -148,11 +146,11 @@ describe 'posts', type: :feature, js: true, ci_ignore: true do
         it "shows correct 'started by' and 'last post' information" do
           visit group_forum_path(group, forum)
           within('.topic .started-by') do
-            page.should have_content(user.name)
+            expect(page).to have_content(user.name)
           end
 
           within('.topic .latest-post') do
-            page.should have_content(@user.name)
+            expect(page).to have_content(@user.name)
           end
         end
 
@@ -176,13 +174,12 @@ describe 'posts', type: :feature, js: true, ci_ignore: true do
           visit group_forum_topic_path(group, forum, topic)
         end
 
-        it 'topic is deleted if only post', js: false do
+        it 'topic is deleted if only post' do
           expect(Frm::Topic.count).to eq 1
-          screenshot_and_save_page
           within_first_post do
             click_link('Delete')
           end
-
+          expect(page).to have_content(I18n.t('frm.post.deleted_with_topic'))
           expect(Frm::Topic.count).to eq 0
           expect(Frm::Post.count).to eq 0
         end

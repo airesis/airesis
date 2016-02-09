@@ -1,27 +1,11 @@
-<h2><%= @title %></h2>
+<h2><%= @page_title %></h2>
 <div id="create_event">
-  <%= simple_form_for (@group && !in_subdomain?) ? [@group, @event] : @event, remote: true, validate: true do |f| %>
-
+  <%= simple_form_for (@group && !in_subdomain?) ? [@group, @event] : @event, remote: request.xhr?, data: {disable_form_validator: ''} do |f| %>
       <div class="legend">
-        <div class="number">1</div>
         <div class="title">
           <%= t('pages.events.new.step_2') %>
         </div>
       </div>
-      <div class="legend">
-        <div class="number">2</div>
-        <div class="title">
-          <%= t('pages.events.new.step_3') %>
-        </div>
-      </div>
-      <% unless @event.is_votazione? %>
-          <div class="legend last">
-            <div class="number">3</div>
-            <div class="title">
-              <%= t('pages.events.new.step_4') %>
-            </div>
-          </div>
-      <% end %>
 
       <div class="step root root">
         <div class="row">
@@ -35,8 +19,8 @@
           </div>
         </div>
 
-        <% if @event.is_votazione? %>
-            <%= f.hidden_field :private, value: true %>
+        <% if @event.votation? %>
+            <%= f.hidden_field :private %>
         <% else %>
             <div class="row">
               <div class="columns small-12">
@@ -52,17 +36,28 @@
         <%= f.hidden_field :event_type_id %>
 
       </div>
+
+      <div class="legend">
+        <div class="title">
+          <%= t('pages.events.new.step_3') %>
+        </div>
+      </div>
+
       <div class="step">
 
         <div class="row">
           <div class="large-6 columns">
-            <%= f.input :starttime, as: :datetimepicker, input_html: {value: (l @event.starttime, format: :datetimepicker)} %>
+            <%= f.input :starttime,
+                        as: :datetimepicker,
+                        input_html: { value: (l @event.starttime, format: :datetimepicker) } %>
           </div>
         </div>
 
         <div class="row">
           <div class="large-6 columns">
-            <%= f.input :endtime, as: :datetimepicker, input_html: {value: (l @event.endtime, format: :datetimepicker)} %>
+            <%= f.input :endtime,
+                        as: :datetimepicker,
+                        input_html: { value: (l @event.endtime, format: :datetimepicker) } %>
           </div>
         </div>
 
@@ -75,11 +70,13 @@
           </div>
         </div>
 
-
         <div class="row" style="display:none">
           <div class="large-4 columns">
             <%= f.label :period %>
-            <%= f.select :period, Event::REPEATS, {}, onchange: "showPeriodAndFrequency(this.value);", disabled: true, title: "Opzione non ancora disponibile" %>
+            <%= f.select :period,
+                         Event::REPEATS, {},
+                         onchange: "showPeriodAndFrequency(this.value);", disabled: true,
+                         title: "Opzione non ancora disponibile" %>
           </div>
         </div>
 
@@ -91,14 +88,22 @@
         </div>
       </div>
 
-      <% unless @event.is_votazione? %>
+      <% unless @event.votation? %>
+          <div class="legend last">
+            <div class="title">
+              <%= t('pages.events.new.step_4') %>
+            </div>
+          </div>
+
           <div class="step">
             <%= f.simple_fields_for :meeting do |m| %>
                 <%= m.simple_fields_for :place do |p| %>
                     <div id="luogo">
                       <div class="row">
                         <div class="large-6 columns">
-                          <%= p.input :comune_id, input_html: {data: {cities: ''}, style: 'width:100%'} %>
+                          <%= p.input :municipality_id,
+                                      as: :select,
+                                      input_html: { style: 'width:100%', data: { cities: '' } } %>
                         </div>
                       </div>
                       <div class="row">
@@ -124,21 +129,10 @@
             <% end %>
           </div>
       <% end %>
-      <%= f.submit t('pages.events.new.submit'), class: 'btn blue disable', onclick: "return confirmEventData(this);", data: {disable_with: t('saving')} %>
   <% end %>
 </div>
 <a class="close-reveal-modal">&#215;</a>
 
-
 <script type="text/javascript">
-    $(function () {
-
-        select2town($("#event_meeting_attributes_place_attributes_comune_id"));
-        $('#event_meeting_attributes_place_attributes_comune_id').on('change', function () {
-            codeAddress('luogo');
-        });
-        $('#event_meeting_attributes_place_attributes_address').keyup(function () {
-            codeAddress('luogo');
-        });
-    });
+  EventsEdit.votation = <%= @event.votation?%>;
 </script>

@@ -1,8 +1,9 @@
 require 'spec_helper'
 require 'requests_helper'
 
-describe "the management of forum", type: :feature, js: true do
+describe 'the management of forum', type: :feature, js: true do
   before :each do
+    load_database
     @user = create(:user)
     @ability = Ability.new(@user)
     @group = create(:group, current_user_id: @user.id)
@@ -13,7 +14,7 @@ describe "the management of forum", type: :feature, js: true do
     logout(:user)
   end
 
-  it "can manage categories" do
+  it 'can manage categories' do
     visit group_frm_admin_root_path(@group)
     page_should_be_ok
     click_link I18n.t('frm.admin.category.index')
@@ -31,7 +32,7 @@ describe "the management of forum", type: :feature, js: true do
     expect(page).to have_content(new_name)
   end
 
-  it "can manage moderators" do
+  it 'can manage moderators' do
     visit group_frm_admin_root_path(@group)
     page_should_be_ok
     click_link I18n.t('frm.admin.mod.index')

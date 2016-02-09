@@ -1,5 +1,5 @@
 module ProposalsHelper
-  def navigator_actions(args={})
+  def navigator_actions(args = {})
     classes = "action #{args[:classes]}"
     (link_to '#', onclick: 'return false', class: "#{classes} move_up" do
       '<i class="fa fa-arrow-up"></i>'.html_safe
@@ -13,32 +13,30 @@ module ProposalsHelper
   end
 
   def reload_message
-    ret = "toastr.options = {tapToDismiss: false, extendedTimeOut: 0, timeOut: 0};"
+    ret = 'toastr.options = {tapToDismiss: false, extendedTimeOut: 0, timeOut: 0};'
     ret += "toastr.info('<div id=\"reload_proposal\">"
     ret += 'This page is outdate.<br/>Please reload the page.'
-    ret += "<br/>"
+    ret += '<br/>'
     ret += '<a href="" class="btn" style="color: #444">Reload</a>'
     ret += "</div>');"
     ret.html_safe
   end
 
-
   # return a parsed section
   def parsed_section(section)
     sanitize(section.paragraphs.first.content).gsub(/<.{1,3}>/, '').blank? ?
-      "<p><span class=\"fake_content\">#{ section.question || t('pages.proposals.show.generic_fake_content')}</span></p>".html_safe :
+      "<p><span class=\"fake_content\">#{section.question || t('pages.proposals.show.generic_fake_content')}</span></p>".html_safe :
       sanitize(section.paragraphs.first.content)
   end
 
-
-  def parsed_content(proposal_comment, anonimous=true)
-    scanned = CGI.escapeHTML(proposal_comment.content).gsub(/(@)\[\[(\d+):([\w\s\.\-]+):([\w\s@\.,-\/#!$%\^&\*;:{}=\-_`~()]+)\]\]/) do |match|
-      nick = ProposalNickname.find($2)
+  def parsed_content(proposal_comment, anonimous = true)
+    scanned = CGI.escapeHTML(proposal_comment.content).gsub(/(@)\[\[(\d+):([\w\s\.\-]+):([\w\s@\.,-\/#!$%\^&\*;:{}=\-_`~()]+)\]\]/) do |_match|
+      nick = ProposalNickname.find(Regexp.last_match(2))
       anonimous ?
         "<span class='cite nickname'>#{nick.nickname}</span>" :
         "<span class='cite nickname'>#{link_to nick.user.fullname, nick.user}</span>"
     end
-    auto_link(scanned.gsub(/\n/, '<br/>'), html: {target: '_blank'}, sanitize: false) do |text|
+    auto_link(scanned.gsub(/\n/, '<br/>'), html: { target: '_blank' }, sanitize: false) do |text|
       truncate(text, length: 15)
     end.html_safe
   end
@@ -47,7 +45,7 @@ module ProposalsHelper
     if @group || !proposal.group
       proposal_category_image_tag(proposal)
     else
-      image_tag(proposal.group.image, title: proposal.group.name, data: {qtip: ''})
+      image_tag(proposal.group.image, title: proposal.group.name, data: { qtip: '' })
     end
   end
 
@@ -78,70 +76,25 @@ module ProposalsHelper
     end
   end
 
-  def section_for_mustache(section, i)
-    {mustache: {
-      section: {id: i,
-                seq: section.seq,
-                removeSection: t('pages.proposals.edit.remove_section'),
-                title: section.title,
-                paragraphId: section.paragraph.id,
-                content: section.paragraph.content,
-                contentDirty: section.paragraph.content_dirty,
-                persisted: true}}}
-  end
-
-  def solution_for_mustache(solution, i)
-    title_interpolation = "pages.proposals.edit.new_solution_title.#{solution.proposal.proposal_type.name.downcase}"
-    placeholder_interpolation = "pages.proposals.edit.insert_title.#{solution.proposal.proposal_type.name.downcase}"
-    {mustache: {
-      solution: {id: i,
-                 seq: solution.seq,
-                 persisted: true,
-                 title_placeholder: t(placeholder_interpolation),
-                 solution_title: t(title_interpolation, num: i+1),
-                 title: solution.title,
-                 removeSolution: t('pages.proposals.edit.remove_solution'),
-                 addParagraph: t('pages.proposals.edit.add_paragraph_to_solution'),
-                 sections: solution.sections.map.with_index do |section, j|
-                   solution_section_for_mustache(section, i, j)[:mustache]
-                 end}}}
-  end
-
-  def solution_section_for_mustache(section, i, j)
-    {mustache: {
-      section: {idx: j,
-                id: section.id,
-                data_id: (i + 1) * 100 + j,
-                seq: section.seq,
-                removeSection: t('pages.proposals.edit.remove_section'),
-                title: section.title,
-                paragraphId: section.paragraph.id,
-                content: section.paragraph.content,
-                contentDirty: section.paragraph.content_dirty,
-                persisted: true},
-      solution: {id: i}}}
-  end
-
-  def proposal_tag(proposal, options={})
+  def proposal_tag(proposal, _options = {})
     ret = "<div class='proposal_tag'>"
     ret += link_to_proposal(proposal)
-    ret += "</div>"
+    ret += '</div>'
     ret.html_safe
   end
 
-  def link_to_proposal(proposal, options={})
-    group = proposal.groups.first
-    link_to proposal.title,
-            (group ?
-              group_proposal_url(group, proposal) :
-              proposal_url(proposal, subdomain: false)),
-            options
+  def link_to_proposal(proposal, options = {})
+    link_to proposal.title, url_for_proposal(proposal), options
+  end
+
+  def url_for_proposal(proposal, options = {})
+    proposal.group ? group_proposal_url(proposal.group, proposal, options) : proposal_url(proposal, options)
   end
 
   # return an array of nicknames for the proposal, in json format
   def json_nicknames(proposal)
     if proposal.is_anonima?
-      proposal.proposal_nicknames.collect(&:to_json).to_json.gsub('"', '\'')
+      proposal.proposal_nicknames.collect(&:to_json).to_json.tr('"', '\'')
     else
       '[]'
     end.html_safe

@@ -1,5 +1,4 @@
 class GroupsController < ApplicationController
-
   layout :choose_layout
 
   before_filter :authenticate_user!, except: [:index, :show, :by_year_and_month]
@@ -15,29 +14,28 @@ class GroupsController < ApplicationController
   def autocomplete
     groups = Group.autocomplete(params[:term])
     groups = groups.map do |u|
-      {id: u.id, identifier: "#{u.name}", image_path: "#{u.group_image_tag 20}"}
+      { id: u.id, identifier: "#{u.name}", image_path: "#{u.group_image_tag 20}" }
     end
     render json: groups
   end
 
-
   def index
     unless request.xhr?
-      @tags = Tag.most_groups(10).shuffle
+      @tags = Tag.most_groups(current_domain.territory, 10).shuffle
     end
 
-    interest_border_key = params[:interest_border]
-    if interest_border_key.to_s != ''
-      ftype = interest_border_key[0, 1] #tipologia (primo carattere)
-      fid = interest_border_key[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
-      @interest_border = InterestBorder.find_by_territory_type_and_territory_id(InterestBorder::I_TYPE_MAP[ftype], fid)
-    end
-    params[:interest_border_obj] = @interest_border
+    params[:interest_border_obj] = @interest_border = if params[:interest_border].nil?
+                                                        InterestBorder.find_or_create_by(territory: current_domain.territory)
+                                                      else
+                                                        InterestBorder.find_or_create_by_key(params[:interest_border])
+                                                      end
 
     @groups = Group.look(params)
     respond_to do |format|
       format.html
-      format.js
+      format.js do
+        @disable_per_page = true
+      end
     end
   end
 
@@ -47,50 +45,59 @@ class GroupsController < ApplicationController
       order('post_publishings.featured desc, blog_posts.published_at DESC, blog_posts.created_at DESC')
 
     respond_to do |format|
-      format.html {
+      format.html do
         if request.url.split('?')[0] != group_url(@group).split('?')[0]
           redirect_to group_url(@group), status: :moved_permanently
           return
         end
         @page_title = @group.name
-        @group_participations = @group.participants
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
-        @archives = @group.blog_posts.select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').group(' MONTH, YEAR ').order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
-        @last_topics = @group.topics.accessible_by(Ability.new(current_user)).includes(:views, :forum).order('frm_topics.created_at desc').limit(10)
-      }
-      format.js {
+        load_page_data
+      end
+      format.js do
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
-      }
+      end
       format.atom
       format.json
     end
   end
 
-
   def by_year_and_month
-    @group_posts = @group.post_publishings
-                       .viewable_by(current_user)
-                       .where(' extract(year from blog_posts.created_at) = ? AND extract(month from blog_posts.created_at) = ? ', params[:year], params[:month])
-                       .order('post_publishings.featured desc, published_at DESC')
-                       .select('post_publishings.*, published_at')
-                       .uniq
-                       .page(params[:page]).per(COMMENTS_PER_PAGE)
+    @group_posts = @group.post_publishings.
+      accessible_by(current_ability).
+      where(' extract(year from blog_posts.created_at) = ? AND extract(month from blog_posts.created_at) = ? ', params[:year], params[:month]).
+      order('post_publishings.featured desc, published_at DESC').
+      select('post_publishings.*, published_at').
+      uniq.
+      page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
-      format.html {
-        @page_title = t('pages.groups.archives.title', group: @group.name, year: params[:year], month: t('date.month_names')[params[:month].to_i])
-        @group_participations = @group.participants
-        @archives = @group.blog_posts.select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').group(' MONTH, YEAR ').order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
-        @last_topics = @group.topics.accessible_by(Ability.new(current_user)).includes(:views, :forum).order('frm_topics.created_at desc').limit(10)
+      format.html do
+        @page_title = t('pages.groups.archives.title', group: @group.name, year: params[:year], month: t('calendar.monthNames')[params[:month].to_i - 1])
+        load_page_data
         render 'show'
-      }
-      format.js {
+      end
+      format.js do
         render 'show'
-      }
+      end
       format.json { render 'show' }
     end
   end
 
+  def load_page_data
+    @group_participations = @group.participants
+    @archives = @group.blog_posts.
+      accessible_by(current_ability, false).
+      select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').
+      group(' MONTH, YEAR ').
+      order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
+    @last_topics = @group.topics.
+      accessible_by(Ability.new(current_user), :index, false).
+      includes(:views, :forum).order('frm_topics.created_at desc').limit(10)
+    @next_events = @group.events.
+      accessible_by(Ability.new(current_user), :index, false).next.
+      order('starttime asc').limit(4)
+  end
 
   def new
     authorize! :create, Group
@@ -103,8 +110,6 @@ class GroupsController < ApplicationController
     @page_title = t('pages.groups.edit.title')
   end
 
-
-  #crea un nuovo gruppo
   def create
     @group.current_user_id = current_user.id
     if @group.save
@@ -115,7 +120,7 @@ class GroupsController < ApplicationController
     else
       respond_to do |format|
         format.html { render :new }
-        format.js { render 'layouts/active_record_error', locals: {object: @group} }
+        format.js { render 'layouts/active_record_error', locals: { object: @group } }
       end
     end
   end
@@ -130,7 +135,6 @@ class GroupsController < ApplicationController
     end
   end
 
-
   def destroy
     authorize! :destroy, @group
     @group.destroy
@@ -141,20 +145,19 @@ class GroupsController < ApplicationController
     end
   end
 
-  #fa partire una richiesta per la partecipazione dell'utente corrente al gruppo
   def ask_for_participation
-    #verifica se l'utente ha già effettuato una richiesta di partecipazione a questo gruppo
+    # verifica se l'utente ha già effettuato una richiesta di partecipazione a questo gruppo
     request = current_user.group_participation_requests.find_by(group_id: @group.id)
-    if request #se non l'ha mai fatta
+    if request # se non l'ha mai fatta
       flash[:notice] = t('info.group_participations.request_alredy_sent')
     else
       participation = @group.participants.include? current_user
-      if participation #verifica se per caso non fa già parte del gruppo
-        #crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
+      if participation # verifica se per caso non fa già parte del gruppo
+        # crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
         request = GroupParticipationRequest.new
         request.user_id = current_user.id
         request.group_id = @group.id
-        request.group_participation_request_status_id = 3 #accettata, dati corretti
+        request.group_participation_request_status_id = 3 # accettata, dati corretti
         saved = request.save
         if saved
           flash[:error] = t('error.group_participations.request_not_registered')
@@ -162,11 +165,11 @@ class GroupsController < ApplicationController
           flash[:notice] = t('error.group_participations.already_member')
         end
       else
-        #inoltra la richiesta di partecipazione con stato IN ATTESA
+        # inoltra la richiesta di partecipazione con stato IN ATTESA
         request = GroupParticipationRequest.new
         request.user_id = current_user.id
         request.group_id = @group.id
-        request.group_participation_request_status_id = 1 #in attesa...
+        request.group_participation_request_status_id = 1 # in attesa...
         saved = request.save
         if saved
           flash[:notice] = t('info.group_participations.request_sent')
@@ -175,31 +178,9 @@ class GroupsController < ApplicationController
         end
       end
     end
-    redirect_to :back
+    redirect_to_back(group_path(@group))
   end
 
-  #fa partire una richiesta per seguire il gruppo
-  def ask_for_follow
-    #verifica se l'utente stà già seguendo questo gruppo
-    follow = current_user.group_follows.find_by(group_id: @group.id)
-
-    if (!follow) #se non lo segue
-      #segui il gruppo
-      follow = current_user.group_follows.build(group_id: @group.id)
-
-      saved = follow.save
-      if (!saved)
-        flash[:error] = 'Errore nella procedura per seguire il gruppo. Spiacenti!'
-      else
-        flash[:notice] = 'Ora segui questo gruppo'
-      end
-    else
-      flash[:error] = 'Stai già seguendo questo gruppo'
-    end
-    redirect_to group_url(@group)
-  end
-
-  #fa partire una richiesta di partecipazione a ciascun gruppo
   def ask_for_multiple_follow
     Group.transaction do
       groups = params[:groupsi][:group_ids].split(';')
@@ -207,35 +188,30 @@ class GroupsController < ApplicationController
       groups.each do |group_id|
         group = Group.find(group_id)
         request = current_user.group_participation_requests.find_by(group_id: group.id)
-        unless request #se non l'ha mai fatta
-          participation = current_user.groups.find_by_id(group.id)
-          if participation #verifica se per caso non fa già parte del gruppo
-            #crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
-            request = GroupParticipationRequest.new
-            request.user_id = current_user.id
-            request.group_id = group.id
-            request.group_participation_request_status_id = 3 #accettata, dati corretti
-            request.save!
-          else
-            #inoltra la richiesta di partecipazione con stato IN ATTESA
-            request = GroupParticipationRequest.new
-            request.user_id = current_user.id
-            request.group_id = group.id
-            request.group_participation_request_status_id = 1 #in attesa...
-            request.save!
-            number += 1
-          end
+        next if request
+        participation = current_user.groups.find_by_id(group.id)
+        if participation # verifica se per caso non fa già parte del gruppo
+          # crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
+          request = GroupParticipationRequest.new
+          request.user_id = current_user.id
+          request.group_id = group.id
+          request.group_participation_request_status_id = 3 # accettata, dati corretti
+          request.save!
+        else
+          # inoltra la richiesta di partecipazione con stato IN ATTESA
+          request = GroupParticipationRequest.new
+          request.user_id = current_user.id
+          request.group_id = group.id
+          request.group_participation_request_status_id = 1 # in attesa...
+          request.save!
+          number += 1
         end
       end
       flash[:notice] = t('info.participation_request.multiple_request', count: number)
       redirect_to home_path
     end
-
   end
 
-
-  #accetta una richiesta di partecipazione passandola allo stato IN VOTAZIONE se
-  # è previsto o accettandola altrimenti.
   def participation_request_confirm
     authorize! :accept_requests, @group
     @request = @group.participation_requests.pending.find(params[:request_id])
@@ -257,13 +233,14 @@ class GroupsController < ApplicationController
     else
       flash[:error] = t('error.group_participations.error_saving')
       respond_to do |format|
-        format.html {
+        format.html do
           redirect_to group_url(@group)
-        }
-        format.js { render :update do |page|
-          page.replace_html ' flash_messages ', partial: 'layouts/flash', locals: {flash: flash}
         end
-        }
+        format.js do
+          render :update do |page|
+            page.replace_html ' flash_messages ', partial: 'layouts/flash', locals: { flash: flash }
+          end
+        end
       end
     end
   end
@@ -274,13 +251,14 @@ class GroupsController < ApplicationController
     if !@request
       flash[:error] = t('error.group_participations.request_not_found')
       respond_to do |format|
-        format.html {
+        format.html do
           redirect_to group_url(@group)
-        }
-        format.js { render :update do |page|
-          page.replace_html ' flash_messages ', partial: 'layouts/flash', locals: {flash: flash}
         end
-        }
+        format.js do
+          render :update do |page|
+            page.replace_html ' flash_messages ', partial: 'layouts/flash', locals: { flash: flash }
+          end
+        end
       end
     else
       if @group.request_by_portavoce?
@@ -292,13 +270,14 @@ class GroupsController < ApplicationController
       if !saved
         flash[:error] = t('error.group_participations.error_saving')
         respond_to do |format|
-          format.html {
+          format.html do
             redirect_to group_url(@group)
-          }
-          format.js { render :update do |page|
-            page.replace_html ' flash_messages ', partial: 'layouts/flash', locals: {flash: flash}
           end
-          }
+          format.js do
+            render :update do |page|
+              page.replace_html ' flash_messages ', partial: 'layouts/flash', locals: { flash: flash }
+            end
+          end
         end
       else
         if @group.request_by_portavoce?
@@ -307,9 +286,9 @@ class GroupsController < ApplicationController
           flash[:notice] = t('info.group_participations.status_voting')
         end
         respond_to do |format|
-          format.html {
+          format.html do
             redirect_to group_url(@group)
-          }
+          end
           format.js
         end
       end
@@ -321,8 +300,8 @@ class GroupsController < ApplicationController
     @group.change_advanced_options = advanced_option
     if @group.save
       flash[:notice] = advanced_option ?
-          t('info.quorums.can_modify_advanced_proposals_settings') :
-          t('info.quorums.cannot_modify_advanced_proposals_settings')
+        t('info.quorums.can_modify_advanced_proposals_settings') :
+        t('info.quorums.cannot_modify_advanced_proposals_settings')
       render 'layouts/success'
     else
       flash[:error] = t('error.quorums.advanced_proposals_settings')
@@ -335,8 +314,8 @@ class GroupsController < ApplicationController
     @group.default_anonima = default_anonima
     if @group.save
       flash[:notice] = default_anonima ?
-          t('info.quorums.anonymous_proposals') :
-          t('info.quorums.non_anonymous_proposals')
+        t('info.quorums.anonymous_proposals') :
+        t('info.quorums.non_anonymous_proposals')
       render 'layouts/success'
     else
       flash[:error] = t('error.quorums.advanced_proposals_settings')
@@ -344,14 +323,13 @@ class GroupsController < ApplicationController
     end
   end
 
-  #change the default option in a group for the public proposals
   def change_default_visible_outside
     default_visible_outside = (params[:active] == 'true')
     @group.default_visible_outside = default_visible_outside
     if @group.save
       flash[:notice] = default_visible_outside ?
-          t('info.quorums.public_proposals') :
-          t('info.quorums.private_proposals')
+        t('info.quorums.public_proposals') :
+        t('info.quorums.private_proposals')
       render 'layouts/success'
     else
       flash[:error] = t('error.quorums.advanced_proposals_settings')
@@ -359,14 +337,13 @@ class GroupsController < ApplicationController
     end
   end
 
-  #change the default option in a group for the secret vote
   def change_default_secret_vote
     default_secret_vote = (params[:active] == 'true')
     @group.default_secret_vote = default_secret_vote
     if @group.save
       flash[:notice] = default_secret_vote ?
-          t('info.quorums.secret_vote') :
-          t('info.quorums.non_secret_vote')
+        t('info.quorums.secret_vote') :
+        t('info.quorums.non_secret_vote')
       render 'layouts/success'
     else
       flash[:error] = t('error.quorums.advanced_proposals_settings')
@@ -374,9 +351,7 @@ class GroupsController < ApplicationController
     end
   end
 
-
   def reload_storage_size
-
   end
 
   def enable_areas
@@ -385,7 +360,7 @@ class GroupsController < ApplicationController
   end
 
   def remove_post
-    raise Exception unless (can? :remove_post, @group) || (can? :update, BlogPost.find(params[:post_id]))
+    fail Exception unless (can? :remove_post, @group) || (can? :update, BlogPost.find(params[:post_id]))
     @publishing = @group.post_publishings.find_by_blog_post_id(params[:post_id])
     @publishing.destroy
     flash[:notice] = t('info.groups.post_removed')
@@ -393,15 +368,15 @@ class GroupsController < ApplicationController
   rescue Exception => e
     respond_to do |format|
       flash[:error] = t('error.groups.post_removed')
-      format.js { render :update do |page|
-        page.replace_html ' flash_messages ', partial: 'layouts/flash', locals: {flash: flash}
+      format.js do
+        render :update do |page|
+          page.replace_html ' flash_messages ', partial: 'layouts/flash', locals: { flash: flash }
+        end
       end
-      }
     end
   end
 
   def feature_post
-    raise Exception unless (can? :remove_post, @group)
     publishing = @group.post_publishings.find_by(blog_post_id: params[:post_id])
     publishing.update(featured: !publishing.featured)
     flash[:notice] = t("info.groups.post_featured.#{publishing.featured}")
@@ -428,8 +403,8 @@ class GroupsController < ApplicationController
                                   default_role_actions: [])
   end
 
-  def render_404(exception=nil)
-    #log_error(exception) if exception
+  def render_404(_exception = nil)
+    # log_error(exception) if exception
     respond_to do |format|
       @title = I18n.t('error.error_404.groups.title')
       @message = I18n.t('error.error_404.groups.description')
@@ -444,10 +419,3 @@ class GroupsController < ApplicationController
     @group ? 'groups' : 'open_space'
   end
 end
-
-
-
-
-
-
-

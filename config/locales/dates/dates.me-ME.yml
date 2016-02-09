@@ -1,0 +1,175 @@
+me-ME:
+  countdowns:
+    labelsPlural:
+      - Godina
+      - Mjeseci
+      - Nedjelja
+      - Dana
+      - Sati
+      - Minuta
+      - Sekundi
+    labelsSingular:
+      - Godina
+      - Mjesec
+      - Nedjelja
+      - Dan
+      - Sat
+      - Minut
+      - Sekunda
+    compactLabelsPlural:
+      - g
+      - m
+      - 'n'
+      - d
+    compactLabelsSingular:
+      - g
+      - m
+      - 'n'
+      - d
+  calendar:
+    monthNames:
+      - Januar
+      - Februar
+      - Mart
+      - April
+      - Maj
+      - Jun
+      - Jul
+      - Avgust
+      - Septembar
+      - Oktobar
+      - Novembar
+      - Decembar
+    monthNamesShort:
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - Maj
+      - Jun
+      - Jul
+      - Avg
+      - Sep
+      - Okt
+      - Nov
+      - Dec
+    dayNames:
+      - Nedjelja
+      - Ponedjeljak
+      - Utorak
+      - Srijeda
+      - Četvrtak
+      - Petak
+      - Subota
+    dayNamesShort:
+      - Ned
+      - Pon
+      - Uto
+      - Sri
+      - Čet
+      - Pet
+      - Sub
+    today: danas
+    month: mjesec
+    week: nedjelja
+    day: dan
+    firstDay: 0
+    timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
+  date:
+    formats:
+      short: '%b %d'
+      long: '%d %B %Y'
+  time:
+    formats:
+      default: '%d %b %Y u %I:%M %p'
+      long: '%A %d %B %Y u %I:%M %p'
+      long_date: '%A %d %B %Y'
+      long_date_time: '%A %d %B %Y u %I:%M %p'
+      from_long_date_time: 'Od %A %d %B %Y u %I:%M %p'
+      until_long_date_time: 'Do %A %d %B %Y u %I:%M %p'
+      short: '%d %b %Y'
+      two_rows: '%d %b %Y <br/> %I:%M %p'
+      weekday: '%a u %I:%M %p'
+      month: '%B'
+      dayandmonth: '%d/%m'
+      hour: '%I:%M %p'
+      yesterday_at: 'juče u %I:%M %p'
+      textfield: '%d/%m/%Y %I:%M %p'
+      datepicker: '%Y-%m-%d'
+      datetimepicker: '%Y-%m-%d %H:%M'
+    am: prijepodne
+    pm: poslijepodne
+    left:
+      seconds:
+        one: 1 sekunda
+        few: '%{count} sekundi'
+        other: '%{count} sekundi'
+      minutes:
+        one: 1 minut
+        few: '%{count} minuta'
+        other: '%{count} minuta'
+      hours:
+        one: 1 sat
+        few: '%{count} sati'
+        other: '%{count} sati'
+      days:
+        one: 1 dan
+        few: '%{count} dana'
+        other: '%{count} dana'
+      months:
+        one: 1 mjesec
+        few: '%{count} mjeseci'
+        other: '%{count} mjeseci'
+  datetime:
+    added_on: 'na %{date}'
+    distance_in_words:
+      about_x_hours:
+        one: otprilike prije 1 sat
+        few: 'otprilike prije %{count} sati'
+        other: 'otprilike prije %{count} sati'
+      about_x_months:
+        one: otprilike prije 1 mjesec
+        few: 'otprilike prije %{count} mjeseci'
+        other: 'otprilike prije %{count} mjeseci'
+      about_x_years:
+        one: otprilike prije 1 godine
+        few: 'otprilike prije %{count} godina'
+        other: 'otprilike prije %{count} godina'
+      almost_x_years:
+        one: skoro prije 1 godine
+        few: 'skoro prije %{count} godina'
+        other: 'skoro prije %{count} godina'
+      half_a_minute: prije pola minuta
+      less_than_x_minutes:
+        one: prije manje od 1 minuta
+        few: 'prije manje  od %{count} minuta'
+        other: 'prije manje  od %{count} minuta'
+      less_than_x_seconds:
+        one: prije manje od 1 sekunde
+        few: 'prije manje od %{count} sekundi'
+        other: 'prije manje od %{count} sekundi'
+      over_x_years:
+        one: prije više od 1 godine
+        few: 'prije više od %{count} godina'
+        other: 'prije više od %{count} godina'
+      x_days:
+        one: prije 1 dan
+        few: ! 'prije %{count} dana'
+        other: ! 'prije %{count} dana'
+      x_minutes:
+        one: prije 1 minut
+        few: ! 'prije %{count} minuta'
+        other: ! 'prije %{count} minuta'
+      x_months:
+        one: prije 1 mjesec
+        few: ! 'prije %{count} mjeseci'
+        other: ! 'prije %{count} mjeseci'
+      x_seconds:
+        one: prije 1 sekunde
+        few: ! 'prije %{count} sekundi'
+        other: ! 'prije %{count} sekundi'
+  label:
+    from: od
+    to: do
+  countdown: '{m<}{mn} {ml} prije {m>} {s<}upravo sada{s>}'
+  countdown2: '{y<}{yn} {yl}{y>} {o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>} {s<}nekoliko sekundi{s>}'

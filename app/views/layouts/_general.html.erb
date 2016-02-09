@@ -1,20 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= I18n.locale %>" lang="<%= I18n.locale %>" <%= yield :html_options %>>
 <head>
-  <title><%= (@page_title || t('open_space')) + ' - ' + ENV['APP_SHORT_NAME'] %></title>
+  <title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME %></title>
   <%= render partial: "layouts/head" %>
 </head>
 <body data-page="<%= body_page_name %>">
-
 <%= render partial: "layouts/header" %>
 <div id="menu-top">
   <div style="position:relative">
     <div id="menu-group" class="title-area">
       <% if content_for? :left_panel %>
-          <a class="left-off-canvas-toggle show-for-small-only left icon-menu2 medium" href="#"></a>
-          <!--<a href="#" onclick="return false;" class="menu-activator icon-menu2 medium show-for-small-only left">
-            <div></div>
-          </a>-->
+          <a class="left-off-canvas-toggle show-for-small-only left fa fa-bars medium" href="#"></a>
       <% end %>
       <%= yield :menu %>
     </div>
@@ -38,7 +34,7 @@
                 <div class="columns large-12">
                   <%= yield :left_panel %>
                   <div id="flash_messages">
-                    <%= render partial: 'layouts/flash', locals: {flash: flash} %>
+                    <%= render partial: 'layouts/flash', locals: { flash: flash } %>
                   </div>
                   <%= render partial: 'layouts/tutorials' %>
                   <%= yield :layout %>
@@ -54,9 +50,9 @@
                 </div>
             <% end %>
             <div id="centerpanelextended" class="centerpanelextended <%= 'noleft' unless content_for?(:left_panel) %> <%= 'nomargin' if @nomargin %>">
-              <div class="centerfloat <%= 'extended' if @extend %>">
+              <div class="row centerfloat <%= 'extended' if @extend %>">
                 <div id="flash_messages">
-                  <%= render partial: 'layouts/flash', locals: {flash: flash} %>
+                  <%= render partial: 'layouts/flash', locals: { flash: flash } %>
                 </div>
                 <%= render partial: 'layouts/tutorials' %>
                 <%= yield :layout %>

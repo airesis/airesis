@@ -1,4 +1,4 @@
-fr:
+fr-FR:
   home:
     whowe:
       title: Qui sommes-nous
@@ -39,7 +39,7 @@ fr:
         content_html: "<p>j'ai %{age} ans et depuis environ %{volunteer} sont engagés dans le secteur bénévole et communautaire, dans lequel j'ai coordonné plusieurs activités.   J'ai étudié le génie de l'environnement et du génie de l'énergie.   Pendant les études collégiales, j'ai participé à certains projets d'innovation technologique et travaillé dans le domaine du développement durable et démocratie participative. Au sein de l'Agora 2,0 - Airesis projets, j'ai pris soin de tout, sauf de la programmation : l'étude de la logique d'application, de coordination, des graphiques.   Il n'est pas facile d'être entouré de professionnels des sciences informatiques et diplômés, mais je résisterai jusqu'à Airesis permette aux gens de s'organiser efficacement et démocratiquement afin de me retirer de ce monde de fous.</p>"
       baiotto_marco:
         title: Analyste
-        content_html: |
+        content_html: |2
           <p>
             Joue le rôle de chef de l'information pour deux grandes entreprises de fabrication appartenant à une entreprise internationale dans le secteur automobile . Toujours divisée entre l'informatique et les sciences humaines , il est journaliste et critique littéraire . Conservateur du site <a href="http://www.lordglenn.com" target="_blank"> www.lordglenn.com </a> ( ainsi que juge au concours littéraire homonyme dédié aux animaux ) , a publié sur plusieurs sites et magazines culturel (y compris <a href="http://www.literary.it" target="_blank"> www.literary.it </a> ), ainsi que dans des anthologies. Créateur de " Iperrelazionismo sensibile » , une construction philosophique dans la fabrication, est l'auteur de l'essai "Wide democracy , au-delà de la politique" synthèse de 3 ans d' études consacrée à créer un logiciel certifié pour l'e-démocratie et les questions de délibération en ligne ( resté au stade de prototype ) .
             Atterrit accidentellement dans le projet Airesis , il a été conquis par son principal concept et sa philosophie.
@@ -58,7 +58,7 @@ fr:
       i18n_area: Espace Internationalisation
       tolja_jacopo:
         title: Responsable de recrutement et de la coordination des traducteurs
-        content_html: |
+        content_html: |2
           <p>
              Je suis âgé de 50 ans, un peu désabusé, mais j'ai trouvé dans Airesis une raison de revenir dans le jeu et j'espère développer une société meilleure pour moi, mais surtout pour mes enfants et aussi pour vous qui arrivez à ce niveau et lisez cette phrase.
               J'ai tout fait au cours de ma vie, les voyages, les aventures, les tentatives d'exploitation et j'ai apporté mon expérience en tant que citoyen du monde pour m'assurer que Airesis soit utilisé par le plus grand nombre de personnes dans le moindre coin le plus reculé du monde.
@@ -69,7 +69,7 @@ fr:
       communication_area: Espace Communication
       curini_simone:
         title: Diffusion du projet et des contacts avec Meetup
-        content_html: |
+        content_html: |2
           <p>
           J'ai %{age} ans et environs %{volunteers} en tant que bénévoles ont été engagés dans le mouvement politique et social appelé "mouvement Cinq étoiles" de Florence.
              J'ai étudié l'économie et les entreprises (des marchés financiers), puis j'ai réalisé qui (ou quoi) je dois être pour être en mesure d'honorer mes études et j'ai préféré de rives familières.
@@ -80,7 +80,7 @@ fr:
       test_area: Espace de Test
       mion_carlo:
         title: Testeur et développeur
-        content_html: |
+        content_html: |2
           <p>
           Je suis un étudiant à l'Université de Trento. J'ai eu une passion pour l'informatique depuis que je suis jeune, donc j'ai commencé mes études universitaires afin d'étudier plus avant cette science.C'est fascinant pour moi parce qu'il a révolutionné nos vies et continue d'évoluer jour après jour. <br/>
             Pendant mes années à l'école secondaire, j'ai appris que certains intellectuels ont théorisé une démocratie dans laquelle il a été possible de prendre des décisions partagées grâce à la participation de ces mêmes citoyens. Je pense que Airesis rend cela possible et c'est pourquoi j'ai donné ma disponibilité pour aider à son développement. <br/>
@@ -88,7 +88,7 @@ fr:
           </p>
       zanellato_luca:
         title: Analyste et testeur
-        content_html: |
+        content_html: |2
           <p>
            J'ai 47 ans et je suis une électronicien.
               En tant que citoyen, je me demandais si il pourrait y avoir une autre façon de vivre la politique, ou plus généralement, de collaborer avec d'autres.

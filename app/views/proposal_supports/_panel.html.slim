@@ -1,0 +1,16 @@
+h2 = t('pages.proposal_supports.new.panel_title')
+- @available_groups = current_user.scoped_groups(GroupAction::SUPPORT_PROPOSAL, @proposal.groups)
+- if @available_groups.empty?
+  = t('pages.proposal_supports.new.no_available_groups')
+- else
+  = form_for [@proposal, @proposal_support], remote: request.xhr? do |f|
+    - @available_groups.each do |group|
+      = f.label group.name do
+        = check_box_tag "proposal[supporting_group_ids][]", group.id,
+                        ProposalSupport.where(group_id: group.id, proposal_id: @proposal.id).exists?
+        = group.name
+        = group.group_image_tag 20
+      br
+    = link_to t('buttons.cancel'), '#', class: 'btn', data: { reveal_close: '' }
+    = f.submit t('pages.proposal_supports.confirm_button'), class: 'btn blue', data: { disable_with: t('loading') }
+a class="close-reveal-modal" &#215;

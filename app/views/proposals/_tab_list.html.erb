@@ -1,11 +1,11 @@
 <% unless @proposals.empty? || !::Configuration.phases_active %>
-    <%= render partial: '/proposals/orders/order_bar' %>
+    <%= render '/proposals/orders/order_bar' %>
 <% end %>
 
 <ul id="proposalsListContainer<%= params[:state] || params[:view] %>" class="small-block-grid-1 xlarge-block-grid-2">
-  <%= render partial: 'list', locals: {proposals: @proposals} %>
+  <%= render 'list', proposals: @proposals %>
 </ul>
-<% unless @proposals.last_page? %>
+<% unless @search.hits.last_page? %>
     <div id="loading_proposals<%= params[:state] || params[:view] %>" class="loading_proposals card">
       <span><%= t('pages.proposals.index.show_more') %></span>
     </div>
@@ -24,8 +24,8 @@
                 currentPage++;
                 var cat = <%=params[:category] || 'null'%>;
                 var view = <%=params[:view] || 'null'%>;
-                var state = <%=params[:state] || 'null'%>;
-                var group = <%=params[:group_id] || 'null'%>;
+                var state = <%=raw "'#{@search.proposal_state_tab}'" || 'null'%>;
+                var group = <%=@search.group_id || 'null'%>;
                 var order = '<%=params[:order] || 'null'%>';
                 var nurl = '/proposals/endless_index?scroll=true';
                 if (cat != null && cat != 'null')
@@ -38,7 +38,10 @@
                     nurl += '&group_id=' + group;
                 if (order != null && order != 'null')
                     nurl += '&order=' + order;
-                $.ajax({ url: nurl + '&page=' + currentPage, type: 'get'});
+                $.ajax({
+                    url: nurl,
+                    data: {page: currentPage},
+                    type: 'get'});
             });
         })
     </script>

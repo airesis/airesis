@@ -1,4 +1,4 @@
-fr:
+fr-FR:
   activerecord:
     models:
       meeting: Rendez-vous
@@ -7,12 +7,6 @@ fr:
       blog_comment:
         body: Commentaire
         created_at: AntiSpam
-      candidate:
-        user: Candidat
-        election: Élection
-      election:
-        groups_end_time: "Date limite d'inscription au groupe"
-        candidates_end_time: "Date limite d'inscription des candidats"
       event:
         title: "Titre de l'événement"
         description: Description
@@ -23,11 +17,6 @@ fr:
         period: Répéter
         frequency: Répéter chaque
         private: Privé
-        candidates_end_time: "Date limite d'inscription des candidats"
-        meeting:
-          place:
-            address: Adresse
-            comune_id: Ville
       group:
         facebook_page_url: Adresse de la page Facebook
         name: Nom
@@ -76,10 +65,11 @@ fr:
         content: Texte
         interest_borders_tkn: "Lieux géographiques d'intérêt"
         tags_list: Mots-clés
-        quorum_id: Quorum
         anonima: Anonymat temporaire
         visible_outside: Visible au public
         secret_vote: Vote secret
+        vote_starts_at: le Vote commence à
+        vote_ends_at: le Vote se termine à
       proposal_comment:
         content: Contenu
       quorum:
@@ -104,17 +94,13 @@ fr:
         vote_good_score: Agrément
       search_participant:
         role_id: Rôle
-        keywords: Nom ou prénom
       sys_movement:
         sys_movement_type_id: Type
         made_on: Fait sur
         amount: Montant
         sys_currency_id: Devise
       user:
-        name: Nom
         email: Adresse de courriel
-        surname: Nom de famille
-        login: "Nom d'utilisateur"
         password: Mot de passe
         linkedinpageurl: Votre page sur LinkedIn
         facebookpageurl: Votre page sur Facebook
@@ -126,11 +112,6 @@ fr:
         description: Description
         default_role_name: Nom du rôle par défaut
     errors:
-      template:
-        header:
-          one: "une erreur n'a pas permis à %{model} d'être enregistré"
-          other: "%{count} erreurs n'ont pas permis à %{model} d'être enregistré"
-        body: Il y a eu des problèmes avec les champs suivants
       messages:
         inclusion: "n'est pas inclus dans la liste"
         exclusion: est réservé
@@ -141,7 +122,7 @@ fr:
         blank: doit être rempli
         too_long: Le texte est trop long
         too_short: Le texte est trop court
-        wrong_length: "doit contenir %{count} caractères)'"
+        wrong_length: 'doit contenir %{count} caractères'
         taken: est déjà pris
         not_a_number: "n'est pas un nombre"
         greater_than: 'doit être supérieur à %{count}'
@@ -154,6 +135,7 @@ fr:
         record_invalid: 'Validation échouée %{errors}'
         not_found: non trouvé.
         TOS: "Il est nécessaire d'accepter les CGU"
+        certified_cannot_edit: ne peut pas être modifié si vous êtes un utilisateur certifié
       full_messages:
         format: '%{attribute} %{message}'
       models:
@@ -161,6 +143,3 @@ fr:
           attributes:
             email:
               already_confirmed: Cette adresse courriel est déjà enregistrée
-        group:
-          portavoce:
-            required: Vous devez choisir un porte-parole

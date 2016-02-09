@@ -1,29 +1,16 @@
 class Notification < ActiveRecord::Base
   belongs_to :notification_type
   has_many :alerts, dependent: :destroy
-  has_many :notification_data, class_name: "NotificationData", dependent: :destroy, foreign_key: :notification_id
+  has_many :notification_data, class_name: 'NotificationData', dependent: :destroy, foreign_key: :notification_id
 
   def data
-    ret = self.properties.symbolize_keys
+    ret = properties.symbolize_keys
     ret[:count] = ret[:count].to_i
     ret
-    #unless @data
-    #  @data = {}
-    #  self.notification_data.each do |d|
-    #    name = d.name.to_sym
-    #    value = d.value
-    #    value = (name == :count) ? d.value.to_i : d.value
-    #    @data[name] = value
-    #  end
-    #end
-    #@data
   end
 
   def data=(data)
-    self.properties=data
-    #data.each_key do |key|
-    #  self.notification_data.build(name: key, value: data[key])
-    #end
+    self.properties = data
   end
 
   def message_interpolation

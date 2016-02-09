@@ -1,22 +1,66 @@
-it:
+it-IT:
   db:
     sys_locales:
-      it-IT:
-        description: Italiano
-      en:
-        description: Inglese
+      bs-BA:
+        description: Bosniaco
+      crowdin:
+        description: Crowdin (solo per sviluppatori)
+      de-DE:
+        description: Tedesco
+      el-GR:
+        description: Greco
+      en-AU:
+        description: Inglese (Australia)
+      en-EU:
+        description: Inglese (Europa)
+      en-GB:
+        description: Inglese (Inghilterra)
+      en-IE:
+        description: Inglese (Irlanda)
+      en-NZ:
+        description: Inglese (Nuova Zelanda)
       en-US:
-        description: Inglese (US)
-      fr:
-        description: Francese
+        description: Inglese (Stati Uniti)
+      en-ZA:
+        description: Inglese (Sud Africa)
+      es-AR:
+        description: Spagnolo (Argentina)
+      es-CL:
+        description: Spagnolo (Cile)
+      es-EC:
+        description: Spagnolo (Ecuador)
       es-ES:
         description: Spagnolo
-      pt-PT:
-        description: Portoghese
+      fr-FR:
+        description: Francese
+      hu-HU:
+        description: Ungherese
+      id-ID:
+        description: Indonesiano
+      it-IT:
+        description: Italiano
+      jp-JP:
+        description: Giapponese
+      me-ME:
+        description: Montenegrino
+      nl-NL:
+        description: Olandese
       pt-BR:
         description: Portoghese (Brasiliano)
-      de:
-        description: Tedesco
+      pt-PT:
+        description: Portoghese (Portogallo)
+      ro-RO:
+        description: Romeno
+      ru-RU:
+        description: Russo
+      sh-HR:
+        description: Serbo-Croato
+      sr-CS:
+        description: Serbo Latino
+      sr-SP:
+        description: Serbo Cirillico
+      zh-TW:
+        description: Cinese
     proposal_types:
       STANDARD:
         description: Proposta standard
@@ -56,8 +100,6 @@ it:
         description: Sostenere proposte a nome del gruppo
       REQUEST_ACCEPT:
         description: Aggiungere membri nel gruppo
-      SEND_CANDIDATES:
-        description: Candidare utenti alle elezioni
       PROPOSAL_VIEW:
         description: Visualizzare le proposte private
       PROPOSAL_PARTICIPATION:
@@ -98,16 +140,28 @@ it:
         message: '%{user} ha inserito un nuovo post nel suo blog <b>%{blog}</b>'
       new_valutation_mine:
         description: Nuova valutazione ad una mia proposta
-        email_subject: '%{title} - Nuova valutazione'
-        message: 'La tua proposta <b>%{title}</b> ha ricevuto una nuova valutazione'
+        email_subject:
+          one: '%{title} ha una nuova valutazione'
+          other: '%{title} ha una %{count} nuove valutazioni'
+        message:
+          one: 'La tua proposta <b>%{title}</b> ha ricevuto una nuova valutazione'
+          other: 'La tua proposta <b>%{title}</b> ha ricevuto %{count} nuove valutazioni'
       new_valutation:
         description: Nuova valutazione ad una proposta a cui partecipo
-        email_subject: '%{title} - Nuova valutazione'
-        message: 'La proposta <b>%{title}</b> ha ricevuto una nuova valutazione'
+        email_subject:
+          one: '%{title} ha una nuova valutazione'
+          other: '%{title} ha %{count} nuove valutazioni'
+        message:
+          one: 'La proposta <b>%{title}</b> ha ricevuto una nuova valutazione'
+          other: 'La proposta <b>%{title}</b> ha ricevuto %{count} nuove valutazioni'
       available_author:
         description: Utente disponibile a redigere la sintesi di una proposta
-        email_subject: '%{title} -  Nuovo redattore disponibile'
-        message: '%{user} si è offerto come redattore della proposta <b>%{title}</b>'
+        email_subject:
+          one: '%{title} - Un nuovo redattore è disponibile'
+          other: '%{title} %{count} nuovi redattori sono disponibili'
+        message:
+          one: '%{user} si è offerto come redattore della proposta <b>%{title}</b>'
+          other: '%{count} utenti si sono resi disponibili come redattori della proposta <b>%{title}</b>'
       author_accepted:
         description: Approvazione come redattore di una proposta
         email_subject: '%{title} - Ora ne sei redattore!'
@@ -122,18 +176,25 @@ it:
         message: 'Un contributo che avevi integrato nella proposta <b>%{proposal}</b> è stato rimesso in dibattito'
       new_contributes:
         description: Nuovi contributi alle proposte a cui partecipo
-        email_subject: '%{title} - Nuovo contributo'
+        email_subject:
+          one: '%{title} - Un nuovo contributo è stato inserito'
+          other: '%{title} - Ci sono %{count} nuovi contributi'
         message:
-          zero: '<b>%{name}</b> ha inserito un contributo alla proposta <b>%{title}</b>'
           one: '<b>%{name}</b> ha inserito un contributo alla proposta <b>%{title}</b>'
           other: 'Ci sono <b>%{count}</b> nuovi contributi nella proposta <b>%{title}</b>'
       text_update:
         description: Aggiornamento del testo di una proposta a cui partecipo
-        email_subject: '%{title} - Il testo è stato modificato'
-        message: 'La proposta <b>%{title}</b> è stata aggiornata'
+        email_subject:
+          one: '%{title} è stata aggiornata'
+          other: '%{title} è stata aggiornata %{count} volte'
+        message:
+          one: 'La proposta <b>%{title}</b> è stata aggiornata'
+          other: 'La proposta <b>%{title}</b> è stata aggiornata %{count} volte'
       new_contributes_mine:
         description: Nuovi contributi alle mie proposte
-        email_subject: '%{title} - Nuovo contributo'
+        email_subject:
+          one: '%{title} - Un nuovo contributo è stato inserito'
+          other: '%{title} - Ci sono %{count} nuovi contributi'
         message:
           zero: '<b>%{name}</b> ha inserito un contributo alla proposta <b>%{title}</b>'
           one: '<b>%{name}</b> ha inserito un contributo alla proposta <b>%{title}</b>'
@@ -214,15 +275,26 @@ it:
         message: 'Nuova proposta <b>%{proposal}</b> creata nel gruppo <b>%{group}</b>'
       new_participation_request:
         description: Nuova richiesta di partecipazione
-        email_subject: Nuova richiesta di partecipazione
-        message: '<b>%{user}</b> ha richiesto di partecipare al gruppo <b>%{group}</b>'
+        email_subject:
+          one: "C'è una nuova richiesta di partecipazione"
+          other: 'Ci sono %{count} nuove richieste di partecipazione'
+        message:
+          one: '<b>%{user}</b> ha richiesto di partecipare al gruppo <b>%{group}</b>'
+          other: '<b>%{count} utenti</b> hanno richiesto di partecipare al gruppo <b>%{group}</b>'
       new_blog_comment:
         description: Nuovo commento nel mio blog
-        email_subject: "E' stato inserito un nuovo commento nel tuo blog"
+        email_subject:
+          one: Nuovo commento nel tuo blog
+          other: '%{count} nuovi commenti nel tuo blog'
         message:
-          zero: '<b>%{user}</b> ha commentato il tuo post <b>%{title}</b>'
           one: '<b>%{user}</b> ha commentato il tuo post <b>%{title}</b>'
           other: 'Ci sono <b>%{count}</b> nuovi commenti nel tuo post <b>%{title}</b>'
+      new_forum_topic:
+        message:
+          one: "Un topic '%{topic_subject}' è stato creato in <b>%{group_name}</b>"
+          other: '%{count} topic sono stati creati in <b>%{group_name}</b>'
+        description: Nuovi topic nel forum
+        email_subject: "Un topic '%{topic_subject}' è stato creato in %{group_name}"
       new_comments_mine:
         description: Nuovi commenti alle mie proposte
         email_subject: Nuovo commento ad una mia proposta

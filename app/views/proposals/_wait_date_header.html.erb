@@ -7,32 +7,31 @@
           </p>
       <% end %>
       <% if @group %>
-          <% collection = @group.events.private.vote_period.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] } %>
+          <% collection = @group.events.not_visible.vote_period.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, { 'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title }] } %>
       <% else %>
-          <% collection = Event.public.vote_period.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] } %>
+          <% collection = Event.visible.vote_period.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, { 'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title }] } %>
       <% end %>
       <% if collection.size > 0 %>
           <%= form_for @group ? [:set_votation_date, @group, @proposal] : [:set_votation_date, @proposal] do |f| %>
               <p>
                 <%= t('pages.proposals.show.choose_votation_period') %>
-                <%= f.select :vote_period_id, options_for_select(collection), {style: 'width:400px'} %>
-                <%= f.submit t('pages.proposals.show.choose_votation_period_button'), data: {confirm: t('pages.proposals.show.choose_votation_period_alert')}, class: 'btn blue' %>
+                <%= f.select :vote_period_id, options_for_select(collection), { style: 'width:400px' } %>
+                <%= f.submit t('pages.proposals.show.choose_votation_period_button'), data: { confirm: t('pages.proposals.show.choose_votation_period_alert') }, class: 'btn blue' %>
               </p>
           <% end %>
       <% else %>
           <p>
-          <% if @group %>
-              <%= t('pages.proposals.show.create_votation_period') %>
-          <% else %>
-              <%= raw t('pages.proposals.show.no_periods_contact_admin', email: (mail_to ENV['APP_EMAIL_ADDRESS'])) %>
-          <% end %>
+            <%= t('pages.proposals.show.create_votation_period') %>
           </p>
       <% end %>
 
-      <%= link_to new_group_event_url(@group, event_type_id: EventType::VOTAZIONE, proposal_id: @proposal.id), remote: true, class: 'btn disable' do %>
+      <%= link_to @group ?
+                          new_group_event_url(@group, event_type_id: EventType::VOTATION, proposal_id: @proposal.id) :
+                          new_event_url(event_type_id: EventType::VOTATION, proposal_id: @proposal.id),
+                  remote: true, class: 'btn disable' do %>
           <i class="fa fa-plus"></i>
           <%= t('pages.proposals.show.choose_new_votation_period_button') %>
-      <% end if @group && (can? :create_date, @group) %>
+      <% end if !@group || (can? :create_date, @group) %>
   <% else %>
       <%= t('pages.proposals.show.no_periods_contact_group') %>
   <% end %>

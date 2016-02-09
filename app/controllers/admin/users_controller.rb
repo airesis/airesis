@@ -1,5 +1,6 @@
 module Admin
   class UsersController < Admin::ApplicationController
+    include UsersHelper
 
     def block
       @user = User.find_by(id: params[:user_id])
@@ -36,10 +37,9 @@ module Admin
     def autocomplete
       users = User.autocomplete(params[:term])
       users = users.map do |u|
-        { id: u.id, identifier: "#{u.surname} #{u.name}", name: "#{u.name}", surname: "#{u.surname}", image_path: "#{u.user_image_tag 20}" }
+        { id: u.id, identifier: "#{u.surname} #{u.name}", name: "#{u.name}", surname: "#{u.surname}", image_path: "#{avatar(u, size: 20)}" }
       end
       render json: users
     end
-
   end
 end

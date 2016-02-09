@@ -1,0 +1,583 @@
+sh-HR:
+  unauthorized:
+    default: Nemate potrebne ovlasti za izvršavanje ove radnje
+    create:
+      group: Ne možete kreirati više od jedne grupe dnevno
+  permissions_required: Nije vam dozvoljeno napraviti ovu operaciju
+  test: Test
+  open_space: Open space
+  hello: Zdravo svijete
+  pages:
+    top_panel:
+      login: Prijava ili registracija
+      facebook_login: Prijava s Facebook
+      google_login: Prijava s Google
+      twitter_login: Prijava s Twitter
+      meetup_login: Prijava s Meetup
+      linkedin_login: Prijava s LinkedIn
+      openid_login: Prijava s OpenID
+      find_groups: Pretraživanje grupa
+      parma_login: Prijava s Parma
+      tecnologiedemocratiche_login: Prijava s Tecnologie Democratiche
+      tecnologiedemocratiche: Tecnologie Democratiche
+    user:
+      notifications: Alarmi i obavjesti
+      privacy: Nalog i privatnost
+    users:
+      index:
+        title: Popis korisnika
+      show:
+        groups_title: Moje grupe
+        group_column: Grupa
+        role_column: Funkcija
+        get_out_of_group_button: Napustiti ovu grupu
+        get_out_of_group_confermation: Jeste li sigurni?
+        secret_vote: Tajno
+        votations_title: Glasanje u kojem ste sudjelovali
+        proposal_column: Prijedlog
+        votation_date_column: Datum
+        vote_column: Glas
+        profile_info: Informacije o profilu
+        profile_info_unconfirmed: (nepotvrđen korisnik)
+        send_message_button: Pošalji privatnu poruku
+        name_label: Ime
+        email_label: Elektronička pošta
+        edit_image: Uređivanje slike
+        to_be_confirmed: da se potvrdi
+        password_label: Lozinka
+        facebook_url_label: Facebook URL
+        googleplus_url_label: Google+ URL
+        linkedin_url: LinkedIn URL
+        username_label: Korisničko ime
+        registered_from: Prijavljen iz
+        load_image: Učitavanje slike
+        max_file_size: 'Max veličina: 2MB'
+        what_can_i_do: Što mogu učiniti?
+        what_i_cant_do: Što ne mogu učiniti?
+        certified_from: Potvrđen iz
+        group_level_permission_title: Dozvole nivoa grupe
+        admin_permissions: Vi ste administrator ove grupe i imate sve dozvole
+      send_message:
+        subject_label: Naslov
+        body_label: Glavni dio
+        massive_email: Slanje masovne elektroničke pošte
+      left_panel:
+        general_info: Opće informacije
+        alarm_and_notifications: Alarmi i obavjesti
+        geographic_borders: Geografske granice
+        account_and_privacy: Nalog i privatnost
+        title: POSTAVKE I PODEŠAVANJA
+      alarm_preferences:
+        receive_on_address: 'Primanje biltena na %{email}'
+        alerts: Upozorenja
+        emails: Elektroničke pošte
+      privacy_preferences:
+        tooltips: Prikaži opise alata
+        show_urls: Prikaži Facebook, Google+ i LinkedIn URL-ove korisnicima
+        private_messages: Primati privatne poruke od drugih korisnika
+        join_accounts: Pridružiti još jedan nalog
+        joined_all: Već ste pristupili svim dostupnim davataljima. Hvala!
+        join_facebook: Pridružite vaš Facebook nalog
+        join_google: Pridružite vaš Google nalog
+        join_twitter: Pridružite vaš Twitter nalog
+        join_linkedin: Pridružite vaš LinkedIn nalog
+        join_meetup: Pridružite vaš Meetup nalog
+        providers_list: Popis aktiviranih davatelja
+        options: Opcije
+        rotp: Omogućiti sigurnosni token
+        rotp_title: Sigurnosni token
+        rotp_confirm_enable: Jeste li sigurni da želite omogućiti sigurnosni token?
+        rotp_confirm_disable: Jeste li sigurni da želite onesposobiti sigurnosni token?
+        mail_language: Jezik za elektroničke pošte
+        time_zone: Vremenska zona
+      border_preferences:
+        updating: Molimo pričekajte dok ažuriramo postavke prema vašim željama graničnim postavkama
+        your_borders: Vaše geografske granice interesa
+      send_message_title: 'Pošalji poruku %{name}'
+    groups:
+      accept_requests:
+        portavoce: 'Administrator: kada se korisnik želi pridružiti grupi samo administrator grupe može prihvatiti zahtjev. Kada administrator prihvati zahtjev, korisnik zapravo postaje član grupe.'
+        unavailable_option: Opcija još nije dostupna
+      administration_panel:
+        title: Administrativni panel
+        info: Osnovne informacije
+        events: Događaji i sastanci
+        permissions: Funkcije i dozvole
+        proposals: Kvorum i prijedlozi
+        areas: Područja rada
+        forum: Administracija foruma
+        users: Upravljanje korisnicima
+      edit_events:
+        title: Upravljanje događajima grupe
+      edit_permissions:
+        title: Upravljanje funkcijama i dozvolama
+        new_role: Dodaj novu funkciju
+        edit_role_title: Uređivanje funkcije
+        new_role_title: Nova funkcija
+        user_title: Korisnik
+        role_title: Funkcija
+        no_users_yet: Ovdje ćete biti u mogućnosti upravljati funkcijama učesnika, kada ih bude.
+        default_role: Zadana funkcija u grupi
+        confirm_role_deletion: Jeste li sigurni da želite obrisati ovu funkciju?
+        remove_user: Ukloniti korisnika
+        confirm_role_change1: Funkcija korisnika
+        confirm_role_change2: će se promijeniti iz
+        confirm_role_change3: u
+        confirm_role_change4: Potvrditi?
+        confirm_delete_1: 'Operacija može zahtijevati nekoliko minuta... Jeste li sigurni da uklonite %{count} korisnike iz grupe?'
+        confirm_delete_2: 'Ova operacija podrazumijeva uklanjanje svih %{count} odabranih korisnika i ne može se poništiti! Jeste li sigurni da želite nastaviti?'
+      edit_proposals:
+        title: Upravljanje kvorumom i prijedlozima
+      index:
+        title: Sve grupe
+        open_space_button: Idite na Open Space
+        create_group_button: Kreiranje nove grupe
+        find_group_label: Pronađite grupu koja bi vas mogla interesirati
+        find_title: Pretraživanje po imenu ili opisu grupe
+        find_button: Pretraživanje
+        groups_list: Grupe u kojima učestvujete
+        groups_registration: Registracija grupe
+        groups_list_2: Popis grupa
+        no_groups_yet: 'Vi ne učestvujete u bilo kojoj %{name} još'
+        open_space_title: Javna događanja
+        show_more: Pokazati više grupa
+        search_mask: Alat za pretraživanje
+        search_with_query: koristeći personalizirani upit
+        search_with_place: ili geografsku granicu
+        search_description: Koristite alat za pretraživanje ili kliknite na oznaku da pronađete grupu koja vas interesira
+        insert_query_or_place: Morate upisati najmanje tri znaka ili geografsku granicu
+        tags: Oznake
+        participants_number: Broj učesnika
+        proposals_number: Broj prijedloga
+        events_number: Broj događaja
+        no_results: Nema pronađenih grupa
+        limit_reached: Možete kreirati najviše jednu grupu na dan
+        switchButton:
+          exact_border: 'Točno pretraživanje: pretraživanje svih grupa koje koriste ovu točnu geografsku granicu'
+          area_border: 'Pretraživanje po teritoriji: pretraživanje svih grupa u okviru ove geografske granice'
+          all_words: Pretraživanje svih grupa koje imaju sve ove riječi
+          one_word: Pretraživanje svih grupa koje imaju makar jednu od ovih riječi
+      new:
+        title: Kreiranje nove grupe
+        new_group: Nova grupa
+        create_button: Kreirati grupu!
+        change_permissions_button: Želite li promijeniti standardne dozvole?
+        change_permissions_title: Promijenite standardne dozvole novih korisnika
+        change_permissions_description: 'To su aktivnosti koje novi korisnici mogu obavljati u okviru grupe: ne zaboravite da uvijek možete ih mijenjati i stvarati nove funkcije!'
+        errors_title: 'Žao nam je, ali post se ne može umetnuti:'
+        tags:
+          title: Oznake (razdvojene zarezima)
+      edit:
+        title: Uređivanje postavki grupe
+        change_permissions: U postavkama uloga i dozvola uvijek možete promijeniti dozvole članova.
+        remove_user_confirm: 'Jeste li sigurni da želite ukloniti %{name} iz grupe?'
+        modify_group: Izmjena grupe
+        private_warning_html: |
+          <b> Savjet za privatne grupe </ b> <br/>
+          Javni prijedlozi će i dalje biti vidljivi izvana. <br/>
+          Idite na <b>%{link}</b> i onemogućite opciju „Prijedlozi vidljivi izvana“. <br/>
+          Prijedlozi objavljeni na zidu grupe su uvijek vidljivi na ličnim stranicama korisnika. <br/>
+          Javni forumi su uvijek vidljivi izvana.
+      layout:
+        home_button: ZID
+        proposals_button: PRIJEDLOZI
+        calendar: KALENDAR
+      show:
+        rules_button: Pravila
+        post_button: Post na zidu grupe
+        blog_button: Kreiranje mog bloga
+        participants_list: 'Popis učesnika '
+        invite_button: Pozovi svoje prijatelje!
+        show_all_participants: 'Prikaži sve %{count} ...'
+        show_all_admins: 'Prikaži sve %{count} ...'
+        show_all_requests: 'Prikaži sve %{count} ...'
+        participants_full_list: Kompletan popis članova grupe
+        no_participants: Još nema korisnika koji učestvuju u ovoj grupi.
+        no_blogs_yet: Još nema blog postova u ovoj grupi, navratite uskoro.
+        waiting_participation_requests: Zahtjevi za učešće čekaju odgovor
+        accept_request_button: Prihvatiti
+        reject_request_button: Odbiti
+        ask_participate_button: Zatražite da budete dio grupe
+        remove_post: Ukloniti iz kartice grupe
+        destroy_button: Izbrisati
+        confirm_destroy: BRIŠETE GRUPU!!! Jeste li sigurni da želite to učiniti?
+        list_permissions:
+          title: Popis vaših dozvola unutar grupe
+          button: Popis dozvola
+        print_all_participants: Štampati popis učesnika
+        last_proposals: Nedavno dodani prijedlozi
+        last_topics: Posljednja kreirana tema
+        next_events: Sljedeći događaji
+        rule_book_html: |
+          Pravila se mogu odabrati tijekom kreiranja grupe.<br/>
+          <p>Od sada, svi korisnici mogu kreirati grupu.</p>
+          <p>Kada učestvujete u grupi, postovi u vašem blogu mogu biti prikazani na zidu grupe.</p>
+          <p>Grupe mogu podržati prijedloge, kreirati nove, kreirati ankete i organizirati članove pomoću funkcija i dozvola.</p>
+          <p>Moguće je promijeniti pravila ove grupe preko <b>postavki</b>.</p>
+        short_url: Kratki url
+        featured_post:
+          "true": Otkvačiti
+          "false": Prikačiti na vrhu
+        permissions_title: Vi i grupa
+      header:
+        settings: POSTAVKE
+        documents: DOKUMENTI
+        forums: FORUM
+        alarm_settings: Postavke
+      documents:
+        documents_archive: Arhiva dokumenata
+        storage_size: Veličina zauzetog skladišnog prostora
+        max_storage_size: Maksimalna veličina dostupna za skladištenje
+        current_storage_usage: Korištenje veličine skladišnog prostora
+        not_authorized: Nemate potrebne dozvole za pregled dokumenata. Obratite se administratoru grupe
+      edit_quorums:
+        new_quorum:
+          title: Novi kvorum
+          simple: Jednostavno
+          advanced: Napredno
+          time_description: 'Rasprava traje %{days} %{hours} %{minutes}'
+          simple_percentage_description: 'a zrelost je jednaka ili viša od %{good_score}%.'
+          advanced_participation_description: '(%{current_number} od %{total_number} koji imaju pravo) <b>(prosječna vrijednost: %{average})</b>'
+          advanced_percentage_description: 'Ako je zrelost niža od %{bad_score}%, prijedlog se odbacuje.'
+          advanced_percentage_description3: Prijedlog ostaje u raspravi, ako je zrelost između dva granične vrijednosti.
+        active: Aktivan
+        name: Ime
+        participants: Učesnici
+        condition: Uslov
+        good_percentage: '% Zrelost'
+        bad_percentage: '% Odbacivanje'
+        confirm_deletion: 'Jeste li sigurni da želite izbrisati kvorum %{quorum}?'
+        add_quorum: Kreiranje novog kvoruma
+        edit_quorum: Izmjena kvoruma
+        configure_proposal_parameters: Konfiguracija parametara prijedloga
+        default_anonymous_proposal: Privremena anonimnost aktivna
+        default_private_proposal: Prijedlozi vidljivi izvan grupe
+        default_secret_vote: Tajno glasovanje
+        let_editor_change_settings: Urednici mogu slobodno izabrati gore navedene opcije
+        time: Vrijeme
+        edit_quorum_warning: Upozorenje! Izmjene tog kvoruma neće utjecati na prijedloge već u uporabi!
+      edit_work_areas:
+        index:
+          not_enabled: Područja rada nisu omogućena
+          description2: S ovom odlikom možete bolje upravljati učesnicima i njihovim funkcijama.
+          description3: Budite oprezni! Ovo je napredna odlika, dizajnirana samo za veće grupe i stručne korisnike.
+          description4: 'Prije aktiviranja područja rada, provjerite ako možete upravljati članovima grupe izravno koristeći '
+        manage:
+          new_area: Kreirajte područje rada
+          switch_area_participants: Prebaci se na upravljanje učesnicima
+          list_title: Popis područja rada. Za svaku od njih odaberite učesnike, ili kliknite na naziv za upravljanje funkcijama i dozvolama u tom području rada
+          title: Postavke područja rada
+          list_participants: Popis članova grupe. Odaberite za svakog od njih područja rada kojima pripadaju.
+          switch_area_management: Prebaci se na upravljanje područja rada
+          confirm_deletion: Jeste li sigurni da želite izbrisati ovo područje rada?
+          manage_roles_in_area: 'Uredite funkcije i dozvole u području rada %{area}'
+        manage_group_areas: Upravljanje korisnicima u područjima rada
+        form:
+          title: Novo područje rada
+      default_admin_title: Administrator
+      invite_your_friends:
+        type_email_addresses: Upišite adrese elektroničkih pošta, odvojene zarezima
+        email_not_valid: Adresa elektroničke pošte nije važeća
+        text_to_send: Tekst za slanje (neobavezno)
+        title: Pozovite svoje prijatelje da se pridruže grupi!
+      participations:
+        list_participations: Popis učesnika
+        search: Pretraživanje
+        filter: Filter
+        anything: Svi
+        operations_on_user: Operacije dostupne na korisnicima
+        send_email: Pošalji elektroničku poštu
+        name: Ime
+        role: Funkcija
+        member_since: Član od
+        participants_html:
+          one: '<b>1</b> učesnik'
+          few: '<b>%{count}</b> učesnici'
+          many: '<b>%{count}</b> učesnici'
+          other: '<b>%{count}</b> učesnici'
+        added_by: Dodan od
+        remove_all: Ukloniti sve
+      statistics:
+        title: 'Prosječne vrijednosti izračunate (posljednje ažuriranje na %{date})'
+      archives:
+        page_title: 'Arhiva za %{month}, %{year}'
+    login:
+      title: Prijava
+    confirmation:
+      title: Ponovno slanje uputa za potvrdu
+      submit: Pošaljite mi upute
+    password:
+      title: Jeste li zaboravili lozinku?
+      submit: Molim pošaljite mi upute za resetiranje lozinke
+      edit:
+        new_password: Nova lozinka
+        confirm_password: Potvrditi novu lozinku
+        confirm_button: Promijeni moju lozinku
+    registration:
+      title: Registrirajte se
+      email_confirmed: Ako se registrirate s tom adresom elektroničke pošte neće biti zatraženo da potvrdite svoju adresu elektroničke pošte.
+      choose_password: Odaberite lozinku
+      confirm_password: Potvrdite lozinku
+      accept_conditions: Prihvatite Uvjete korištenja
+      register_button: Registrirajte se
+      identity_provviders_title: Ulogujte se odmah sa svojim omiljenim nalogom
+      accept_privacy: Prihvatite Uvjete korištenja
+    proposals:
+      index:
+        title: Popis prijedloga
+        debate: Svi prijedlozi u pregledu rasprave
+        voting: Svi prijedlozi koji trenutačno čekaju glasovanje ili u fazi glasovanja
+        accepted: Svi prijedlozi koji su završili fazu glasovanja
+        revision: Svi prijedlozi koji nisu prošli raspravu i mogu biti vraćeni u raspravu
+        last: Posljednje dodan
+        most_popular: Najpopularniji
+        most_valutated: Najbolje ocjenjen
+        continue_reading: Nastavite čitati prijedlog
+        debate_title: 'U raspravi - %{count}'
+        voting_title: 'Glasovanje - %{count}'
+        accepted_title: 'Glasano - %{count}'
+        revision_title: 'Odbačeno - %{count}'
+        login_with: 'prijava sa:'
+        group_areas_title: Područja rada
+        no_group_areas: Nema područja
+        all_areas: Sva područja
+        categories_title: KATEGORIJE
+        all_categories: Sve kategorije
+        loading_proposals: Učitavanje prijedloga, molimo sačekajte...
+        title_with_category: 'Prijedlozi u kategoriji %{category}'
+        all_categories_title: Prijedlozi u svim kategorijama
+        in_group_area_title: u području rada
+        last_title: Posljednje umetnuto (TODO)
+        most_popular_title: Najpopularnije (TODO)
+        most_voted_title: Najbolje rangirano (TODO)
+        show_more: Prikazati više prijedloga...
+        loading_alt: Učitavanje
+        choose_model: Odaberati model prijedloga
+        search_title: Pretraga u prijedlozima grupe
+        search_placeholder: Umetnite najmanje dva znaka za pretraživanje
+        search_words: Bilo koje riječi
+        participants_number: UČESNICI
+        contributes_number: DOPRINOSI
+        rank: ZRELOST
+        voters: GLASAČI
+        date_range: 'kreirano između %{start} i %{end}'
+        proposal_types_title: MODELI
+        all_proposal_types: Svi modeli
+        with_text: "sadrži '%{text}'"
+        last_24h: kreirano u u posljednja 24 sata
+        last_1h: kreirano u posljednjih sat vremena
+        last_7d: kreirano u zadnjih tjedan dana
+        last_1m: kreirano u prošlom mjesecu
+        last_1y: kreirano u prošloj godini
+      show:
+        voteup: Slažem se
+        votenil: Ne znam / ne razumijem
+        votedown: Ne slažem se
+        random_stack: Pametno sortiranje
+        most_recent: Najnovije
+        most_ranked: Najbolje ocjenjeno
+        history_button: Povijest
+        choose_votation_period: Odaberite period glasovanja
+        choose_votation_period_alert: Jeste li sigurni za period glasovanja? Ne možete ga promijeniti kasnije!
+        choose_votation_period_button: Biram!
+        no_periods_contact_group: Datumi glasovanja nisu podešeni, molimo kontaktirajte administratore da bi odabrali datum.
+        choose_new_votation_period_button: Molimo izaberite novi datum za glasovanje
+        loading_contributions: Učitavanje doprinosa, molimo pričekajte...
+        previos_contributes: Prijašni doprinosi...
+        delete_contribute_confirmation: Jeste li sigurni da želite izbrisati ovaj doprinos?
+        delete_suggestion_confirmation: Jeste li sigurni da želite izbrisati ovaj komentar?
+        offered_as_editor_message: Ponudili ste da budete urednik ovog prijedloga
+        offer_as_editor_button: Želim biti urednik ovog prijedloga!
+        available_editors_button: Dostupni urednici
+        confirm_editors_button: Želite li ponuditi da budete urednik ovog prijedloga?
+        editors_list_title: Popis dostupnih urednika za ovaj prijedlog
+        attached_documents: Priložena dokumenta
+        no_document_attached: Nema priloženih dokumenata
+        geographic_boundaries_title: Geografske granice
+        tags_title: Oznake
+        similar_proposals_title: Slični prijedlozi
+        category_title: Kategorija
+        edit_button: Urediti
+        delete_button: Izbrisati
+        delete_proposal_confirmation: Jeste li sigurni da želite izbrisati ovaj prijedlog?
+        votation_message: 'Za ovaj prijedlog će se glasovati od %{from} do %{to}'
+        editing_message_1: Ovaj prijedlog će biti razvijen od strane urednika zahvaljujući svim doprinosima
+        editing_message_2: Kako bi se glasovalo morat će dostići
+        editing_message_3: minimalnu zrelost
+        votation_page_button: Idite na stranicu za glasovanje
+        vote_button: Glasaj!
+        send_contribute_button: Pošalji
+        characters_left: 'Preostalo znakova:'
+        score: Procjene
+        rank: Zrelost
+        created_at_html: 'Kreirano %{time} prije:<br/><b>%{date}</b>'
+        updated_at_html: 'Ažurirano %{time} prije:<br/><b>%{date}</b>'
+        votation_results: Rezultati
+        votation_results_title: Rezultati glasovanja
+        in_votation_html: 'Glasovanje od: <br/><b>%{start}</b><br/> do: <br/><b>%{end}</b>'
+        in_votation_now: Glasovanje upravo sada!
+        in_votation_until_html: 'Kraj glasovanja u:<br/><b>%{date}</b>'
+        anonimity_active: Privremena anonimnost aktivna
+        your_nickname_is: Vaš nadimak je
+        editors_title: Urednici
+        supporting_group: Grupe za podršku
+        no_supporting_group: Nijedna grupa ne podržava ovaj prijedlog
+        support_proposal_button: Podržite ovaj prijedlog...
+        close_debate_button: Zatvoriti raspravu
+        close_debate_proposal_confirmation: Zatvorite raspravu odmah i idite na sljedeću fazu?
+        during_debate: Postupak rasprave
+        comment_inserted_by: '%{who} - %{when}'
+        comment_updated_by: '%{who} - ažurirano %{when}'
+        replies:
+          show_all: 'Prikaži sve %{count} komentare...'
+          delete: Izbrisati
+        reply_button: Odgovoriti
+        reply_placeholder: Dajte svoj komentar
+        export_pdf: Štampati PDF
+        manage_noise_folder: 'Uklonjeni doprinosi (%{removable}/%{removed})'
+        noise_folder: Uklonjeni doprinosi
+        what_nickname: Što je to?
+        give_contribute: NAPISATI I PRIKAZATI DOPRINOSE
+        no_contributes: Tijekom glasovanja doprinosi nisu prikazani
+        new_valutation_message: Prijedlog je dobio novo ocjenjivanje
+        old_editors_title: Stari urednici
+        back_debate_button: Vraćanje u raspravu
+        new_quorum_title: Odaberite novi kvorum
+        enable_alerts: Omogućiti upozorenja
+        disable_alerts: Onemogućiti upozorenja
+        close_contribute: ZATVORITI DOPRINOSE
+        contributes_list: "Popis doprinosa u '%{section}'"
+        add_comment: Dodaj komentar
+        add_contribute: Dajte svoje ideje! Predložite izmjene teksta i pomozite uredniku poboljšati prijedlog
+        login_to_comment: Prijavite se da dodate komentar
+        regenerate_nickname: Regenerirati nadimak
+        add_contribution_no_paragraph: Nijedna stavka nije određena
+        debate_ends_html: Završetak rasprave u
+        debate_ends_valutations_or: ili sa
+        debate_ends_valutations_and: i sa
+        debate_ends_valutations: Završetak rasprave sa
+        error_loading_paragraph: Ova stavka je uklonjen. Ponovo učitajte stranicu za pregled ažuriranog prijedloga
+        generic_fake_content: Ovaj dio još nije sastavljen. Pomozite uredniku umetanjem doprinosa!
+        model_title: Šablon
+        created_events: Već kreirani događaji
+        create_new_votation_period: Kreiranje novog događaja na kraju rasprave
+        choose_later: Ne hvala. Odabraću kasnije
+        choose_now: Želim izabrati sada
+        group_area: Područje rada
+        nickname_assigned: "Dodijeljen vam je nadimak '%{nickname}'. Ako vam se ne sviđa, možete ga promijeniti iz lijevog izbornika u roku od 10 minuta"
+        cant_participate:
+          no_permissions: Ne možete učestvovati u ovom prijedlogu jer iako ste član grupe, ali nemate dopuštenje za učestvovanje.
+          ask_permissions: Pitajte administratora za dozvole, šaljući mu poruku.
+          request_pending: Ne možete učestvovati u ovom prijedlogu, jer iako ste zatražili da budete član ove grupe, vaš zahtjev još nije prihvaćen.
+          send_message: Želite li poslati poruku administratoru grupe?
+          not_a_member: Ne možete učestvovati u ovom prijedlogu jer niste član ove grupe.
+          not_logged_in: 'Ne možete učestvovati u ovom prijedlogu, jer trenutno niste prijavljeni. '
+        read_contribute: PRIKAŽI DOPRINOSE
+      new:
+        step_similar: Slični prijedlozi
+        title: Novi prijedlog
+        title_group: '%{name}:'
+        step_2_title: 'Možda je netko već kreirao sličan prijedlog: Provjerite u nastavku i eventualno zaustavite kreiranje kako bi se izbjeglo dupliciranje. Udruživanje snaga ojačava vaše ideje! Klikom na naslov prijedlozi će se otvoriti u novoj kartici.'
+        category_prompt: --Odaberite kategoriju--
+        tags_separated_by_comma: (odvojeno zarezima)
+        cannot_add_proposal_in_work_area: Nemate potrebne dozvole za dodavanje prijedloga u bilo koje područje
+        no_work_area_selected: Nema područja rada
+        solution1: Točka dnevnog reda
+        solution: Točka dnevnog reda
+        step_base_info: Početne informacije
+        advanced_options: Napredne opcije
+        wait: |
+          Možete kreirati samo jedan prijedlog svake dvije minute
+          Pričekajte %{minutes} minuta i %{seconds} sekundi.
+      tabs:
+        last_inserted: Posljednje ažurirano
+        most_popular: Viši rang
+        most_valutated: Više ocjena
+        most_urgent: Najhitnije
+      list:
+        last_update: 'Ažurirano<br/>%{time_ago}'
+        waiting_date: Čeka datum
+        voting_from_to: 'Od %{from} do %{to}'
+        voting_until: 'Do <br/>%{date}'
+        votation_finished: 'Završeno<br/>%{time_ago}'
+        no_votation: Nema glasova
+        votation_finished_approved: 'Odobreno<br/> %{date}'
+        interest_borders: Geografske granice
+        authors: Urednici
+        support_group: Grupe za podršku
+        no_proposals: Još nema prijedloga
+        condition_left: Uslov za svršetak rasprave
+        time_left: Preostalo vrijeme
+        vote: GLASOVANJE
+      delete_comment: Izbrisati
+      results:
+        total: 'Ukupno glasača: %{count}'
+        vote_column: Glasaj
+        number_column: Broj
+        percentage_column: Postotak
+        positive: Povoljno
+        negative: Nepovoljno
+        neutral: Uzdržano
+        date_time_column: Datum i vrijeme glasovanja
+      report_contribute:
+        mark_title: Obilježite doprinos
+        report_title: Prijaviti doprinos
+        report_description: 'Možete ukazati na webmasteru da ovaj doprinos krši važeće zakone. <br/> Nakon što jse ustanovi prekršaj, doprinos će biti uklonjeni. Nemojte zlorabiti ovaj alat.'
+      update_comment: Urediti
+    events:
+      index:
+        title: Kalendar
+      new:
+        step_1: Tip događaja
+        step_2: Opis
+      show:
+        reply: Odgovoriti!
+    blog_posts:
+      delete_button: Izbrisati
+      comment:
+        delete_button: Izbrisati
+        confirm_delete: Jeste li sigurni da želite obrisati ovaj post?
+      show:
+        tags_title: 'Oznake:'
+        edit_button: Urediti
+        delete_button: Izbrisati
+        delete_button_confirm: Jeste li sigurni da želite obrisati ovaj post?
+      archives:
+        title: 'Arhiva za %{month}, %{year}'
+    header:
+      groups:
+        proposals: PRIJEDLOZI
+        forum: FORUM
+      menu:
+        login_button: Prijava
+    home:
+      index:
+        next_events: Sljedeći događaji
+      show:
+        proposals:
+          title: Naslov
+          authors: Urednici
+    open_space:
+      layout:
+        proposals_button: PRIJEDLOZI
+        calendar_button: KALENDAR
+    proposal_supports:
+      confirm_button: Potvrditi
+    proposal_histories:
+      date_and_time: Datum i vrijeme
+    tags:
+      list_posts_with_tag: Postovi
+      list_groups_with_tags: Grupe
+      posts_tab: Postovi
+      groups_tab: Grupe
+    feedback:
+      send_feedback: Povratna informacija
+  errors:
+    proposal:
+      authors_added: Greška prilikom dodavanja novih autora
+  draft_tooltip: Ovaj post je vidljiv samo vama
+  reserved_tooltip: Ovaj post je vidljiv samo učesnicima grupe
+  feedback_subject: '%{time} - Nova povratna informacija'
+  delete_event_confirm: Jeste li sigurni da želite izbrisati ovaj komentar?
+  confirm:
+    unintegrate: Vraćate doprinos u raspravu. Jeste li sigurni?

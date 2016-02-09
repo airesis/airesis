@@ -1,0 +1,168 @@
+en-EU:
+  countdowns:
+    labelsPlural:
+      - Years
+      - Months
+      - Weeks
+      - Days
+      - Hours
+      - Minutes
+      - Seconds
+    labelsSingular:
+      - Year
+      - Month
+      - Week
+      - Day
+      - Hour
+      - Minute
+      - Second
+    compactLabelsPlural:
+      - 'y'
+      - 'm'
+      - 'w'
+      - 'd'
+    compactLabelsSingular:
+      - 'y'
+      - 'm'
+      - 'w'
+      - 'd'
+  calendar:
+    monthNames:
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December
+    monthNamesShort:
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - May
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Oct
+      - Nov
+      - Dec
+    dayNames:
+      - Sunday
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+    dayNamesShort:
+      - Sun
+      - Mon
+      - Tue
+      - Wed
+      - Thu
+      - Fri
+      - Sat
+    today: 'today'
+    month: 'month'
+    week: 'week'
+    day: 'day'
+    firstDay: 0
+    timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
+    changed: 'Changed!'
+    eventsFormat: 'h(:mm)t'
+  date:
+    order:
+      - :day
+      - :month
+      - :year
+    formats:
+      default: "%d-%m-%Y"
+      short: "%b %d"
+      long: "%d %B %Y"
+  time:
+    formats:
+     default: "%d %b %Y at %I:%M %p"
+     long: "%A %d %B %Y at %I:%M %p"
+     long_date: "%A %d %B %Y"
+     long_date_time: "%A %d %B %Y at %I:%M %p"
+     from_long_date_time: "From %A %d %B %Y at %I:%M %p"
+     until_long_date_time: "To %A %d %B %Y at %I:%M %p"
+     from_long_date: "From %A %d %B %Y"
+     until_long_date: "To %A %d %B %Y"
+     short: "%d %b %Y"
+     two_rows: "%d %b %Y <br/> %I:%M %p"
+     weekday: "%a at %I:%M %p"
+     month: "%B"
+     dayandmonth: "%d/%m"
+     hour: "%I:%M %p"
+     yesterday_at: "yesterday at %I:%M %p"
+     textfield: "%d/%m/%Y %I:%M %p"
+     datepicker: "%Y-%m-%d"
+     datetimepicker: "%Y-%m-%d %H:%M"
+    am: "am"
+    pm: "pm"
+    left:
+      seconds:
+        one: "1 second"
+        other: "%{count} seconds"
+      minutes:
+        one: "1 minute"
+        other: "%{count} minutes"
+      hours:
+        one: "1 hour"
+        other: "%{count} hours"
+      days:
+        one: "1 day"
+        other: "%{count} days"
+      months:
+        one: "1 month"
+        other: "%{count} months"
+  datetime:
+    added_on: "on %{date}"
+    distance_in_words:
+      about_x_hours:
+        one: about 1 hour ago
+        other: about %{count} hours ago
+      about_x_months:
+        one: about 1 month ago
+        other: about %{count} months ago
+      about_x_years:
+        one: about 1 year ago
+        other: about %{count} years ago
+      almost_x_years:
+        one: almost 1 year ago
+        other: almost %{count} years ago
+      half_a_minute: half a minute ago
+      less_than_x_minutes:
+        one: less than 1 minute ago
+        other: less than %{count} minutes ago
+      less_than_x_seconds:
+        one: less than 1 second ago
+        other: less than %{count} seconds ago
+      over_x_years:
+        one: more than 1 year ago
+        other: more than %{count} years ago
+      x_days:
+        one: 1 day ago
+        other: ! '%{count} days ago'
+      x_minutes:
+        one: 1 minute ago
+        other: ! '%{count} minutes ago'
+      x_months:
+        one: 1 month ago
+        other: ! '%{count} months ago'
+      x_seconds:
+        one: "1 second ago"
+        other: ! "%{count} seconds ago"
+  label:
+    from: "from"
+    to: "to"
+  countdown: "{m<}{mn} {ml} ago{m>} {s<}just now{s>}"
+  countdown2: "{y<}{yn} {yl}{y>} {o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>} {s<}few seconds{s>}"

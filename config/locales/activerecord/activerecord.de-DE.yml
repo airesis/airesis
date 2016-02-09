@@ -1,4 +1,4 @@
-de:
+de-DE:
   activerecord:
     models:
       meeting: Meeting
@@ -7,12 +7,6 @@ de:
       blog_comment:
         body: Kommentar
         created_at: AntiSpam
-      candidate:
-        user: Kandidat
-        election: Wahl
-      election:
-        groups_end_time: Stichtag für Gruppeneintrags
-        candidates_end_time: Stichtag für Kandidaten Eintritt
       event:
         title: Titel der Veranstaltung
         description: Beschreibung
@@ -23,11 +17,6 @@ de:
         period: Wiederholen
         frequency: Wiederholen Sie alle
         private: Privat
-        candidates_end_time: Stichtag für Kandidaten Eintritt
-        meeting:
-          place:
-            address: Adresse
-            comune_id: Stadt
       group:
         facebook_page_url: Adresse der Facebook-Seite
         name: Name
@@ -58,6 +47,9 @@ de:
         published: Status
         published_true: Veröffentlicht
         published_false: Entwurf
+      participation_role:
+        name: Name
+        description: Kurzbeschreibung
       group_invitation:
         emails_list: E-Mail-Adressen
         testo: Nachrichtentext
@@ -73,10 +65,11 @@ de:
         content: Text
         interest_borders_tkn: Geographischer Ort von Interesse
         tags_list: Schlagwörter
-        quorum_id: Quorum
         anonima: Temporäre Anonymität
         visible_outside: Öffentlich sichtbar
         secret_vote: Geheime Abstimmung
+        vote_starts_at: Abstimmung beginnt am
+        vote_ends_at: Abstimmung endet am
       proposal_comment:
         content: Inhalt
       quorum:
@@ -84,25 +77,30 @@ de:
         name_title: Bitte geben Sie einen kurzen, erklärenden Titel ein
         description: Beschreibung / kurze Erläuterung
         description_title: Eine Beschreibung zum verstehen dieses Quorum
+        minutes: Debattendauer
         days_m: Tage
         hours_m: Stunden
         minutes_m: Minuten
+        percentage: Quorum (Teilnehmer)
         percentage_title: Mindestanzahl der Teilnehmer in der Diskussion als Prozentsatz der Anzahl der Teilnehmer in der Gruppe
+        good_score: Reife
         good_score_title: Bewertung die erzielt werden muss, um den Vorschlag in die Abstimmungsphase zu bringen
         bad_score: Schlechtes Quorum (in Prozent)
         bad_score_title: Bewertung unter der der Vorschlag abgelehnt wird. Erlaubt die Diskussion weiter zu führen, wenn die Zeit oder Teilnehmer-Bedingungen nicht erfüllt sind
         condition: Bedingung
         condition_title: Müssen beide Bedingungen (Zeit und Teilnehmer) bestehen oder nur eine der beiden?
+        vote_minutes: Dauer der Abstimmung
+        vote_percentage: Quorum (Wähler)
+        vote_good_score: Zustimmung
+      search_participant:
+        role_id: Rolle
       sys_movement:
         sys_movement_type_id: Typ
         made_on: Gemacht auf
         amount: Betrag
         sys_currency_id: Währung
       user:
-        name: Name
         email: E-Mail-Adresse
-        surname: Familienname
-        login: Benutzername
         password: Passwort
         linkedinpageurl: Ihre Seite auf LinkedIn
         facebookpageurl: Ihre Seite auf Facebook
@@ -114,11 +112,6 @@ de:
         description: Beschreibung
         default_role_name: Name der Standard-Rolle
     errors:
-      template:
-        header:
-          one: 'ein Fehler war es nicht möglich diese %{Model} gespeichert werden'
-          other: '%{count} ein Fehler erlaubt nicht diese %{model} zu speichern'
-        body: Es gibt Probleme mit den folgenden Feldern
       messages:
         inclusion: ist nicht in der Liste enthalten
         exclusion: ist reserviert
@@ -129,7 +122,7 @@ de:
         blank: muss ausgefüllt sein
         too_long: Der Text ist zu lang
         too_short: Der Text ist zu kurz
-        wrong_length: "sollte%{count} Zeichen)' sein"
+        wrong_length: 'sollte %{count} Zeichen sein'
         taken: ist bereits vergeben
         not_a_number: ist keine Zahl
         greater_than: 'muss größer als %{count} sein'
@@ -149,6 +142,3 @@ de:
           attributes:
             email:
               already_confirmed: Diese E-mail-Adresse ist bereits registriert
-        group:
-          portavoce:
-            required: Du musst einen Sprecher wählen

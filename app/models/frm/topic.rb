@@ -1,5 +1,3 @@
-require 'friendly_id'
-
 module Frm
   class Topic < FrmTable
     include Frm::Concerns::Viewable
@@ -30,10 +28,14 @@ module Frm
     has_many :topic_tags, dependent: :destroy, foreign_key: 'frm_topic_id'
     has_many :tags, through: :topic_tags, class_name: 'Tag'
 
-    #forum
     has_many :topic_proposals, class_name: 'Frm::TopicProposal', foreign_key: 'topic_id'
     has_many :proposals, class_name: '::Proposal', through: :topic_proposals
 
+    scope :by_pinned, -> { order('frm_topics.pinned DESC').order('frm_topics.id') }
+    scope :by_most_recent_post, -> { order('frm_topics.last_post_at DESC').order('frm_topics.id') }
+    scope :by_pinned_or_most_recent_post, -> { order('frm_topics.pinned DESC').by_most_recent_post }
+    scope :pending_review, -> { where(state: 'pending_review') }
+    scope :approved, -> { where(state: 'approved') }
     accepts_nested_attributes_for :posts
 
     validates :subject, presence: true
@@ -42,46 +44,17 @@ module Frm
     before_save :set_first_post_user
     after_save :approve_user_and_posts, if: :approved?
     after_create :subscribe_poster
-    after_create :skip_pending_review, unless: :moderated?
+    after_create :skip_pending_review
+    after_commit :send_notifications, on: :create
 
     class << self
-      def visible(user=nil)
-        if user
-          where('hidden = false or user_id = ?', user.id)
-        else
-          where(hidden: false)
-        end
-
-      end
-
-      def by_pinned
-        order('frm_topics.pinned DESC').
-            order('frm_topics.id')
-      end
-
-      def by_most_recent_post
-        order('frm_topics.last_post_at DESC').
-            order('frm_topics.id')
-      end
-
-      def by_pinned_or_most_recent_post
-        order('frm_topics.pinned DESC').
-            order('frm_topics.last_post_at DESC').
-            order('frm_topics.id')
-      end
-
-      def pending_review
-        where(state: 'pending_review')
-      end
-
-      def approved
-        where(state: 'approved')
+      def visible(user = nil)
+        user ? where('hidden = false or user_id = ?', user.id) : where(hidden: false)
       end
 
       def approved_or_pending_review_for(user)
         if user
-          where("frm_topics.state = ? OR " +
-                    "(frm_topics.state = ? AND frm_topics.user_id = ?)",
+          where('frm_topics.state = ? OR (frm_topics.state = ? AND frm_topics.user_id = ?)',
                 'approved', 'pending_review', user.id)
         else
           approved
@@ -125,9 +98,8 @@ module Frm
     end
 
     def subscribe_user(subscriber_id)
-      if subscriber_id && !subscriber?(subscriber_id)
-        subscriptions.create!(subscriber_id: subscriber_id)
-      end
+      return if !subscriber_id || subscriber?(subscriber_id)
+      subscriptions.create!(subscriber_id: subscriber_id)
     end
 
     def unsubscribe_user(subscriber_id)
@@ -147,7 +119,11 @@ module Frm
     end
 
     def last_page
-      (self.posts.count.to_f / TOPICS_PER_PAGE.to_f).ceil
+      (posts.count.to_f / TOPICS_PER_PAGE.to_f).ceil
+    end
+
+    def should_generate_new_friendly_id?
+      subject_changed?
     end
 
     protected
@@ -170,13 +146,10 @@ module Frm
 
       first_post = posts.by_created_at.first
       first_post.approve! unless first_post.approved?
-      #TODO disattivato user.update_attribute(:forem_state, 'approved') if user.forem_state != 'approved'
     end
 
-    def moderated?
-      user.forem_moderate_posts?
+    def send_notifications
+      NotificationForumTopicCreate.perform_async(id) if approved?
     end
-
-
   end
 end

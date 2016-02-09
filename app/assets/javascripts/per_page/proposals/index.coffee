@@ -1,9 +1,5 @@
 window.ProposalsIndex =
   init: ->
-    $("[data-href=#{@hash_tab_value()}]").addClass('active')
-    @mytabCallback()
-    $('#proposals-tabs').on 'toggled', (event, tab)=>
-      @mytabCallback()
     $('[name="time[start_w]"],[name="time[end_w]"]').fdatetimepicker
       format: $.fn.fdatetimepicker.defaults.dateFormat
     $('.creation_date').each ->
@@ -28,21 +24,27 @@ window.ProposalsIndex =
         at: "right bottom"
         of: $(this)
       event.stopPropagation()
-  active_tab: ->
-    $('#proposals-tabs').find('.active')
-  hash_tab_value: ->
-    uri = new URI()
-    if uri.fragment() then uri.fragment().replace('_', '') else 'debate'
-  mytabCallback: ->
-    obj = ProposalsIndex.active_tab()
-    active_ = $('#proposals-content .content.active')
-    if !obj.data('ititialized')
-      url_ = obj.find('a').attr('data-href')
-      $.ajax
-        dataType: 'html'
-        url: url_
-        complete: (data)->
-          target = active_
-          target.html(data.responseText)
-          obj.data('ititialized', true)
-    window.location.hash = obj.find('a').attr('href').replace('#', '_')
+
+    input = $('.interest_borders')
+
+    input.select2
+      placeholder: Airesis.i18n.interestBorders.hintText
+      allowClear: true
+      ajax:
+        url: '/interest_borders'
+        dataType: 'json'
+        delay: 250
+        data: (params) ->
+          {
+          q: params.term
+          l: Airesis.i18n.locale
+          pp: 'disable'
+          }
+        processResults: (data, page) ->
+          { results: data }
+        cache: true
+      escapeMarkup: (markup) ->
+        markup
+      minimumInputLength: 1
+    .on "change", (e)->
+      @.closest('form').submit()

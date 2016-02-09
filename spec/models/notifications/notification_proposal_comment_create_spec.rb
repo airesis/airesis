@@ -3,8 +3,7 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 # new contributes on own proposal
-describe NotificationProposalCommentCreate, type: :model, emails: true, notifications: true do
-
+describe NotificationProposalCommentCreate, type: :model, emails: true, notifications: true, seeds: true do
   let!(:event_class) { NotificationProposalCommentCreate }
   let!(:notification_type) { NotificationType.find_by(name: 'new_contributes_mine') }
   let!(:expected_alerts) { 1 }
@@ -27,5 +26,4 @@ describe NotificationProposalCommentCreate, type: :model, emails: true, notifica
   end
 
   cumulable_event_process_spec
-
 end

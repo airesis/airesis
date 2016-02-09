@@ -1,6 +1,4 @@
-#encoding: utf-8
 class AreaParticipationsController < ApplicationController
-
   layout 'groups'
 
   before_filter :load_group
@@ -14,18 +12,16 @@ class AreaParticipationsController < ApplicationController
 
   load_and_authorize_resource through: :group_area
 
-
-
   def create
-      #part = @group_area.area_participations.new
-      #part.user_id = params[:user_id]
-    #todo check if the user can be added to the area
+    # part = @group_area.area_participations.new
+    # part.user_id = params[:user_id]
+    # TODO: check if the user can be added to the area
     @area_participation.area_role_id = @group_area.area_role_id
-      if @area_participation.save
-        flash[:notice] = t('info.area_participation.create')
-      else
-        flash[:error] = t('error.area_participation.create')
-      end
+    if @area_participation.save
+      flash[:notice] = t('info.area_participation.create')
+    else
+      flash[:error] = t('error.area_participation.create')
+    end
   end
 
   def destroy
@@ -42,5 +38,4 @@ class AreaParticipationsController < ApplicationController
   def area_participation_params
     params.require(:area_participation).permit(:user_id)
   end
-
 end

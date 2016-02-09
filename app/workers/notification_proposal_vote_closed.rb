@@ -1,11 +1,10 @@
 class NotificationProposalVoteClosed < NotificationSender
-
   def perform(proposal_id)
     @proposal = Proposal.find(proposal_id)
     @trackable = @proposal
     group = @proposal.group
     group_area = @proposal.group_area
-    data = {proposal_id: @proposal.id, title: @proposal.title}
+    data = { proposal_id: @proposal.id, title: @proposal.title }
     data[:extension] = @proposal.accepted? ? 'voted' : 'rejected'
     if group
       data[:group] = group.name
@@ -18,7 +17,7 @@ class NotificationProposalVoteClosed < NotificationSender
                                          url: url_for_proposal, data: data)
     if @proposal.accepted?
       send_notification_to_voters(notification_b)
-    else #rejected
+    else # rejected
       send_notification_to_participants(notification_b)
     end
   end
@@ -33,17 +32,17 @@ class NotificationProposalVoteClosed < NotificationSender
     end
   end
 
-  #all with the right to vote (no authors)
+  # all with the right to vote (no authors)
   def send_notification_to_voters(notification)
     send_notification_no_authors(voters, notification)
   end
 
-  #participants (no authors)
+  # participants (no authors)
   def send_notification_to_participants(notification)
     send_notification_no_authors(@proposal.participants, notification)
   end
 
-  #people with the right to vote for the proposal
+  # people with the right to vote for the proposal
   def voters
     return @proposal.group_area.scoped_participants(GroupAction::PROPOSAL_VOTE) if @proposal.group_area
     return @proposal.group.scoped_participants(GroupAction::PROPOSAL_VOTE) if @proposal.group

@@ -1,6 +1,4 @@
 class BlogCommentsController < ApplicationController
-  helper :blog
-
   layout('application')
 
   before_filter :save_comment, only: :create
@@ -62,8 +60,8 @@ class BlogCommentsController < ApplicationController
   end
 
   def check_author
-    if (current_user.id != @blog_comment.user_id and
-      current_user.id != @blog_post.user_id)
+    if current_user.id != @blog_comment.user_id &&
+        current_user.id != @blog_post.user_id
       flash[:notice] = t('info.proposal.comment_not_your')
       redirect_to :back
     end

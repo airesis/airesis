@@ -3,7 +3,7 @@ es-ES:
     proposals:
       new:
         standard:
-          problems_title: Problems
+          problems_title: Problemas
           problems_title_label: What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?
           objectives_title: Objectives
           step_4_title: You can enter a text of the proposal or write it later based on the input received
@@ -17,13 +17,13 @@ es-ES:
             pros: Pros
             cons: Cons
           suggestion_html: |
-            <div><b>Example:<b/></div>
+            <div><b>Example:</b></div>
             <div>Reduce the usage of drinking water for irrigation.</div>
             <div>Using drinking water to water public parks and private gardens is a waste and has relevant costs. Moreover the aquifer that supplies the aqueduct is running low</div>
         rule_book:
           problems_title_label: What are the problems to be solved with the application of this regulation? What are the issues to be regulated? Why?
           suggestion_html: |
-            <div><b>Example:<b/></div>
+            <div><b>Example:</b></div>
             <div>Rule book to reserve the St. Peter's hall</div>
             <div>The town of  Silverham has a conference room that nowadays is used only by the Mayor's "fellows". It is time to choose an impartial procedure to grant all citizens and public associations the right to book the room for public events.</div>
           solution:
@@ -61,7 +61,6 @@ es-ES:
             <div>Choose an agenda for our meeting.</div>
             <div>Ordinary co-ordination meeting to exchange experiences with the referents of the local committees for the biological agriculture of Italy.</div>
           solution:
-            points: Agenda items
             priorities: Items priorities
             links: Insights links
         event:
@@ -82,17 +81,12 @@ es-ES:
             pros: Pros
             cons: Cons
         candidates:
-          suggestion_html: |
-            <div><b>Example:</b></div>
-            <div>Elect the new referent for the communication group.</div>
-            <div>The communication group has just been established and it is necessary to elect a referent. All the people that have benn members of the group for at least 5 months can be nominated.</div>
           solution:
             name: Candidate Name and Surname
             data: Personal data
             curriculum: Curriculum
-            available: Availability for the position
         simple:
           problems_title: Problem
+          problems_title_label: What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?
           solution:
             description: Description
-          problems_title_label: What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?

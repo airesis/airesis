@@ -1,4 +1,4 @@
-hu:
+hu-HU:
   errors:
     messages:
       expired: már lejárt, kérj egy újat
@@ -32,9 +32,6 @@ hu:
       updated: 'A jelszó sikeresen megváltoztatva. Ön bejelentkezett '
       updated_not_active: Jelszava sikeresen megváltoztatva
       send_paranoid_instructions: Ha e-mail címe szerepel adatbázisunkban, egy linket fog kapni a jelszava helyreállításához
-      user:
-        updated: Jelszó frissítése sikeresen megtörtént
-        send_instructions: Az utasításokat e-mail címére továbbítottuk
     confirmations:
       send_instructions: Pár percen belül e-mailen utasításokat fog kapni, hogyan kell accountját megerősíteni
       send_paranoid_instructions: Ha e-mail címe szerepel adatbázisunkban, pár percen belül e-mailen utasításokat fog kapni, hogyan kell accountját megerősíteni

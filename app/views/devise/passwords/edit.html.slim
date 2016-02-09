@@ -1,0 +1,16 @@
+- @page_title = t('pages.passwords.edit.title')
+.card
+  h2
+    = @page_title
+
+  = simple_form_for(@user, url: user_password_path, html: { method: :put }) do |f|
+    = render partial: 'fragments/error_messages', locals: { resource: resource }
+
+    = f.hidden_field :reset_password_token
+    = f.input :password, label: t('pages.password.edit.new_password'), required: true
+    = f.input :password_confirmation,
+              label: t('pages.password.edit.confirm_password'), required: true,
+              input_html: { data: { fv_identical_field: 'user[password]', fv_identical: true } }
+    = f.submit t('pages.password.edit.confirm_button'), class: 'btn blue'
+
+  = render partial: 'devise/shared/links'

@@ -7,7 +7,7 @@
     <% if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) %>
         <img src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(proposal_nickname.nickname) %>?s=40&d=identicon&r=PG"/>
     <% else %>
-        <%= comment.user_image_tag(40) %>
+        <%= avatar(comment.user, size: 40) %>
     <% end %>
   </div>
   <div class="proposal_comment" data-comment-id="<%= comment.id %>">
@@ -17,7 +17,7 @@
   <% if params[:comment_id].present? && (comment.replies.include? ProposalComment.find(params[:comment_id])) %>
       <% @lastreplies = comment.replies.order('proposal_comments.created_at ASC') %>
   <% else %>
-      <% @lastreplies = comment.replies.where(["proposal_comments.created_at > ?", comment.updated_at || comment.created_at]).order('proposal_comments.created_at DESC').page(1).per(5).reverse! %>
+      <% @lastreplies = comment.replies.where(["proposal_comments.created_at > ?", comment.updated_at || comment.created_at]).order('proposal_comments.created_at DESC').page(1).per(5).to_a.reverse! %>
   <% end %>
   <% if countreplies > @lastreplies.length %>
       <div id="<%= comment.id %>_show" class="show_all_comments">
@@ -39,7 +39,7 @@
 
   <% if can? :participate, @proposal %>
       <div class="reply_img">
-        <%= current_user.user_image_tag(32) %>
+        <%= avatar(current_user, size: 32) %>
       </div>
       <div class="proposal_comment_reply">
         <div class="baloon-triangle"></div>

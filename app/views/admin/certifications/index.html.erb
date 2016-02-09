@@ -1,13 +1,11 @@
-<fieldset>
-  <legend>Certify a group</legend>
-  <%= form_for admin_certification_path do |f| %>
-      <%= label_tag 'group_id', 'Group' %>   <br/>
-      <%= text_field_tag "group_id" %>           <br/>
-      <%= label_tag 'domain', 'Subdomain' %>   <br/>
-      <%= text_field_tag "domain", '', required: true %>  <br/>
-      <%= submit_tag 'Certify it!', class: 'btn blue' %>
+<div class="card">
+  <h2><%= 'Certify a group' %></h2>
+  <%= simple_form_for admin_certifications_path do |f| %>
+      <%= f.input "group_id" %>
+      <%= f.input "domain", required: true %>
+      <%= submit_tag 'Certify', class: 'btn blue' %>
   <% end %>
-</fieldset>
+</div>
 
 <script type="text/javascript">
     function format(state) {
@@ -26,17 +24,21 @@
                 return {results: data};
             }
         },
-        formatResult: format,
-        formatSelection: format
+        templateResult: format,
+        templateSelection: format
     });
 </script>
 
-<h4><%= 'Certified groups' %></h4>
+<h4><%= t('pages.certifications.index.title') %></h4>
 <table>
   <% Group.where(certified: true).each do |group| %>
       <tr>
         <td><%= link_to group.name, group_url(group) %></td>
-        <td><%= link_to 'Remove', admin_certification_path(group.id), method: :delete, confirm: 'Are you sure?', data: {disable_with: t('loading')}, class: 'btn' %></td>
+        <td><%= link_to 'Remove', admin_certification_path(group.id),
+                        method: :delete,
+                        confirm: 'Are you sure?',
+                        data: {disable_with: t('loading')},
+                        class: 'btn' %></td>
       </tr>
   <% end %>
 </table>

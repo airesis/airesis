@@ -933,7 +933,7 @@ crowdin:
         meeting:
           place:
             address: "{crwdns7421:0}{crwdne7421:0}"
-            comune_id: "{crwdns7422:0}{crwdne7422:0}"
+            municipality_id: "{crwdns7422:0}{crwdne7422:0}"
       group:
         facebook_page_url: "{crwdns7423:0}{crwdne7423:0}"
         name: "{crwdns7424:0}{crwdne7424:0}"

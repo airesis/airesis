@@ -11,20 +11,16 @@ module Admin
 
     # change proposal states
     def change_proposals_state
-      #check all proposals in debate and tim expired and close the debate
-      Proposal.invalid_debate_phase.each do |proposal| #per ciascuna proposta il cui tempo di valutazione è terminato
-        proposal.check_phase
-      end
+      # check all proposals in debate and expired and close the debate
+      Proposal.invalid_debate_phase.each(&:check_phase)
 
-      #check all proposals waiting and put them in votation
-      Proposal.invalid_waiting_phase.each do |proposal| #per ciascuna proposta da chiudere
+      # check all proposals waiting and put them in votation
+      Proposal.invalid_waiting_phase.each do |proposal|
         EventsWorker.new.start_votation(proposal.vote_period.id)
       end
 
-      #check all proposals in votation that has to be closed but are still in votation and the period has passed
-      Proposal.invalid_vote_phase.each do |proposal| #per ciascuna proposta da chiudere
-        proposal.close_vote_phase
-      end
+      # check all proposals in votation that has to be closed but are still in votation and the period has passed
+      Proposal.invalid_vote_phase.each(&:close_vote_phase)
 
       flash[:notice] = 'Stato proposte aggiornato'
       redirect_to admin_panel_path
@@ -42,14 +38,14 @@ module Admin
       redirect_to admin_panel_path
     end
 
-    #invia una mail di prova tramite resque e redis
+    # invia una mail di prova tramite resque e redis
     def test_redis
       ResqueMailer.delay.test_mail
       flash[:notice] = 'Test avviato'
       redirect_to admin_panel_path
     end
 
-    #invia una notifica di prova tramite resque e redis
+    # invia una notifica di prova tramite resque e redis
     def test_notification
       if params[:alert_id].to_s != ''
         ResqueMailer.delay.notification(params[:alert_id])
@@ -65,10 +61,10 @@ module Admin
     end
 
     def test_exceptions
-      raise Exception.new("Test this exception!")
+      fail Exception.new('Test this exception!')
     end
 
-    #esegue un job di prova tramite resque_scheduler
+    # esegue un job di prova tramite resque_scheduler
     def test_scheduler
       ProposalsWorker.perform_at(15.seconds.from_now, proposal_id: 1)
       flash[:notice] = 'Test avviato'
@@ -77,43 +73,25 @@ module Admin
       puts e.backtrace
     end
 
-    def become
-      sign_in User.find(params[:user_id]), bypass: true
-      redirect_to root_url # or user_root_url
-    end
-
     def write_sitemap
-      Rake::Task["sitemap:refresh"].invoke
+      Rake::Task['sitemap:refresh'].invoke
       flash[:notice] = 'Sitemap aggiornata.'
       redirect_to admin_panel_path
     end
 
-    def mailing_list
-
-    end
-
-    def send_newsletter
-      NewsletterSender.perform_at(30.seconds.from_now, params)
-      flash[:notice] = "Newsletter pubblicata correttamente"
-      redirect_to controller: 'admin', action: 'mailing_list'
-    end
-
-
     def proposals_stats
-      ret = []
-      Proposal.voted.joins(:solutions).group('proposals.id').having('count(solutions.*) > 1').count.map do |proposal_id, count|
+      ret = Proposal.voted.
+        joins(:solutions).
+        group('proposals.id').
+        having('count(solutions.*) > 1').count.map do |proposal_id, count|
         proposal = Proposal.find(proposal_id)
-        phash = {proposal_id: proposal_id, solutions_count: count, votes_count: proposal.user_votes.count, solutions: proposal.solutions.map { |s| s.id }.join(',')}
-        votes = []
-        proposal.schulze_votes.each do |vote|
-          votes << {count: vote.count, data: vote.preferences}
-        end
-        phash[:preferences] = votes
-        ret << phash
+        { proposal_id: proposal_id,
+          solutions_count: count,
+          votes_count: proposal.user_votes_count,
+          solutions: proposal.solutions.map(&:id).join(','),
+          preferences: proposal.schulze_votes.map { |vote| { count: vote.count, data: vote.preferences } } }
       end
-      File.open('stat.json', 'w') do |f|
-        f.puts JSON.pretty_generate(ret)
-      end
+      File.open('stat.json', 'w') { |f| f.puts JSON.pretty_generate(ret) }
     end
   end
 end

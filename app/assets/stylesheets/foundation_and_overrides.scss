@@ -1,74 +1,16 @@
-//
-// FOUNDATION SETTINGS
-//
-
-// This is the default html and body font-size for the base rem value.
-// $rem-base: 16px;
 $base-font-size: 13px !default;
 
 $rem-base: $base-font-size;
 
-// Allows the use of rem-calc() or lower-bound() in your settings
 @import "foundation/functions";
 
-// $experimental: true;
-
-// The default font-size is set to 100% of the browser style sheet (usually 16px)
-// for compatibility with brower-based text zoom or user-set defaults.
-
-// Since the typical default browser font-size is 16px, that makes the calculation for grid size.
-// If you want your base font-size to be different and not have it affect the grid breakpoints,
-// set $rem-base to $base-font-size and make sure $base-font-size is a px value.
-//$base-font-size: 13px;
-
-// The $base-line-height is 100% while $base-font-size is 150%
-// $base-line-height: 150%;
 $base-line-height: 1.28em;
 
-// We use this to control whether or not CSS classes come through in the gem files.
-// $include-html-classes: true;
-// $include-print-styles: true;
-// $include-html-global-classes: $include-html-classes;
-
-// Grid
-
-// $include-html-grid-classes: $include-html-classes;
-
-// $row-width: rem-calc(1000);
-// $column-gutter: rem-calc(30);
-// $total-columns: 12;
-
-// We use these to control various global styles
-// $body-bg: #fff;
-// $body-font-color: #222;
 $body-font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
-// $body-font-weight: normal;
-// $body-font-style: normal;
 
-// We use this to control font-smoothing
-// $font-smoothing: antialiased;
-
-// We use these to control text direction settings
-// $text-direction: ltr;
-// $opposite-direction: right;
 $default-float: left;
 
-// We use these as default colors throughout
 $primary-color: #008CBA;
-// $secondary-color: #e7e7e7;
-// $alert-color: #f04124;
-// $success-color: #43AC6A;
-// $warning-color: #f08a24;
-// $info-color: #a0d3e8;
-
-// We use these to make sure border radius matches unless we want it different.
-// $global-radius: 3px;
-// $global-rounded: 1000px;
-
-// We use these to control inset shadow shiny edges and depressions.
-// $shiny-edge-size: 0 1px 0;
-// $shiny-edge-color: rgba(#fff, .5);
-// $shiny-edge-active-color: rgba(#000, .2);
 
 // Media Query Ranges
 $small-range: (0em, 40em);
@@ -82,8 +24,8 @@ $screen: "only screen";
 // $landscape: "#{$screen} and (orientation: landscape)";
 // $portrait: "#{$screen} and (orientation: portrait)";
 
-$small-up: $screen;
-$small-only: "#{$screen} and (max-width: #{upper-bound($small-range)})";
+//$small-up: $screen;
+//$small-only: "#{$screen} and (max-width: #{upper-bound($small-range)})";
 
 // $medium-up: "#{$screen} and (min-width:#{lower-bound($medium-range)})";
 // $medium-only: "#{$screen} and (min-width:#{lower-bound($medium-range)}) and (max-width:#{upper-bound($medium-range)})";
@@ -143,10 +85,10 @@ $small-only: "#{$screen} and (max-width: #{upper-bound($small-range)})";
 // We use this for close hover effect.
 // $alert-function-factor: -14%;
 
-$h1-font-size: rem-calc(36);
-$h2-font-size: rem-calc(29);
-$h3-font-size: rem-calc(19);
-$h4-font-size: rem-calc(15);
+//$h1-font-size: rem-calc(36);
+//$h2-font-size: rem-calc(29);
+//$h3-font-size: rem-calc(19);
+//$h4-font-size: rem-calc(15);
 // $alert-border-color: scale-color($primary-color, $lightness: $alert-function-factor);
 // $alert-bottom-margin: rem-calc(20);
 
@@ -247,7 +189,7 @@ $h4-font-size: rem-calc(15);
 // Button Groups
 
 // $include-html-button-classes: $include-html-classes;
-$include-html-button-classes: false;
+$include-html-button-classes: true;
 
 // Sets the margin for the right side by default, and the left margin if right-to-left direction is used
 // $button-bar-margin-opposite: rem-calc(10);
@@ -1023,7 +965,7 @@ $topbar-bg-color: #33b5e5;
 $topbar-bg: $topbar-bg-color;
 
 // Height and margin
-$topbar-height: 40px;
+$topbar-height: rem-calc(40px);
 // $topbar-margin-bottom: 0;
 
 // Controlling the styles for the title in the top bar
@@ -1201,18 +1143,18 @@ $namespace: false;
 @import 'foundation';
 
 //airesis specific
-$page-min-width: 320px;
-$left-menu-width: 250px;
+$page-min-width: em-calc(320);
+$left-menu-width: rem-calc(250);
 
-$sectionbar-height-large: 40px;
-$sectionbar-height-small: $sectionbar-height-large + 20;
+$sectionbar-height-large: rem-calc(40px);
+$sectionbar-height-small: $sectionbar-height-large + rem-calc(20);
 $sectionbar-bg-color: #808080;
 
 $footer-height-large: 31px;
 $footer-height-small: 48px;
 
-$top-small: $topbar-height+$sectionbar-height-small;
-$top-large: $topbar-height+$sectionbar-height-large;
+$top-small: $topbar-height + $sectionbar-height-small;
+$top-large: $topbar-height + $sectionbar-height-large;
 
 .medium-bar {
   background: none;
@@ -1235,14 +1177,10 @@ $top-large: $topbar-height+$sectionbar-height-large;
   #menu-top a.show-for-small {
     display: inline !important;
   }
-  input#search_q {
-    width: 130px;
-  }
 
   .top-bar-section .has-form {
-    padding: 0 0px;
+    padding: 0 0;
   }
-
 }
 
 .top-bar-section li:not(.has-form) a:not(.button) {
@@ -1369,7 +1307,7 @@ ul, ol {
   height: $sectionbar-height-small;
   background-color: $sectionbar-bg-color;
   position: fixed;
-  left: 0px;
+  left: 0;
   width: 100%;
   z-index: 9;
   top: inherit;
@@ -1404,7 +1342,7 @@ ul, ol {
 
   @media #{$small-only} {
     .topmenu.noleft {
-      margin-left: 0px;
+      margin-left: 0;
     }
   }
 }
@@ -1447,7 +1385,6 @@ ul, ol {
     margin-top: -1px;
     line-height: 1.3rem;
     vertical-align: middle;
-    margin-left: -10px;
     a {
       display: inline-block;
       border-radius: 20px;
@@ -1455,12 +1392,19 @@ ul, ol {
       &.sel {
         background-color: rgba(255, 255, 255, 0.3);
       }
+      .fa {
+        font-size: 1.3rem;
+      }
     }
     @media #{$medium-up} {
-      margin-left: 0px;
+      margin-left: 0;
       display: inline-block;
     }
   }
+}
+
+.left-off-canvas-menu {
+  height: calc(100vh - #{$sectionbar-height-small} - 88px);
 }
 
 #main, .left-off-canvas-menu {
@@ -1522,6 +1466,10 @@ body {
   min-height: calc(100% - #{$footer-height-small});
   @media #{$medium-up} {
     min-height: calc(100% - #{$footer-height-large});
+  }
+  &.move-right {
+    height: calc(100vh - 88px);
+    min-height: inherit;
   }
 }
 
@@ -1587,7 +1535,7 @@ body {
 
 .mycont {
   .row {
-    margin: 4px 0px;
+    margin: 4px 0;
     .columns img {
       max-width: none;
     }
@@ -1677,12 +1625,17 @@ a.zocial:hover {
   a:hover {
     text-decoration: none;
   }
+  input {
+    @media #{$medium-up} {
+      top: 0;
+    }
+  }
 }
 
 $logo-width: 100px;
 
 .logo-wrapper {
-  @media #{$large-up} {
+  @media #{$medium-up} {
     position: relative;
     .logo {
       width: $logo-width;
@@ -1693,7 +1646,7 @@ $logo-width: 100px;
       margin-left: -($logo-width/2);
     }
   }
-  @media #{$medium-only} {
+  @media #{$small-only} {
     float: left;
   }
 }
@@ -1708,9 +1661,9 @@ $logo-width: 100px;
 
 #footer, footer {
   position: absolute;
-  bottom: 0px;
-  right: 0px;
-  left: 0px;
+  bottom: 0;
+  right: 0;
+  left: 0;
   padding: 7px;
   background-color: #33b5e5;
   color: white;
@@ -1732,6 +1685,10 @@ $logo-width: 100px;
     text-align: center;
     .language.footer {
       max-width: 50%;
+    }
+    .columns {
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 }
@@ -1851,8 +1808,8 @@ $logo-width: 100px;
   }
   .centerpanelextended {
     &.contributes_shown {
-      margin-left: 0px;
-      padding-right: 0px;
+      margin-left: 0;
+      padding-right: 0;
     }
   }
 }
@@ -1861,7 +1818,7 @@ $logo-width: 100px;
   .centerpanelextended {
     &.contributes_shown {
       max-width: 40%;
-      padding-right: 0px;
+      padding-right: 0;
     }
   }
   .suggestion_right {
@@ -1900,7 +1857,7 @@ html, body {
 }
 
 #toast-container {
-  right: 0px;
+  right: 0;
   top: 100px;
   z-index: 10000 !important;
   &.sticky:hover {
@@ -1995,7 +1952,7 @@ small.warning {
   position: absolute;
   width: 20px;
   right: -3px;
-  top: 0px;
+  top: 0;
 }
 
 #tolr {
@@ -2020,7 +1977,7 @@ small.warning {
 #inlog {
   position: absolute;
   top: 37px;
-  right: 0px;
+  right: 0;
   width: 200px;
   color: white;
   font-size: 13px;
@@ -2069,7 +2026,7 @@ small.warning {
 
 #menu-right .box .logo {
   position: absolute;
-  right: 0px;
+  right: 0;
   width: 50px;
   height: 50px;
   margin: 10px;
@@ -2087,7 +2044,7 @@ small.warning {
   font-weight: bold;
   font-size: 10px;
   box-shadow: -1px 1px 1px #000;
-  border: 0px;
+  border: 0;
   z-index: 998;
   min-width: 18px;
   &:hover {
@@ -2097,6 +2054,7 @@ small.warning {
     position: absolute;
     right: 15px;
     top: 3px;
+    height: 20px;
   }
 }
 
@@ -2116,7 +2074,7 @@ small.warning {
 
 .qtip.qtip-login {
   border-radius: 5px;
-  box-shadow: 0px 0px 5px #333;
+  box-shadow: 0 0 5px #333;
   color: black;
   background-color: rgba(255, 255, 255, 0.9);
   width: 400px;
@@ -2183,6 +2141,7 @@ small.warning {
   margin-bottom: 10px;
   font-size: 0.9em;
   position: relative;
+  box-sizing: border-box;
 
   &.socialnetwork {
     padding: 6px;
@@ -2205,13 +2164,12 @@ small.warning {
     border-top: 1px solid #bebebe;
     display: block;
   }
-
 }
 
 #create_proposal_container {
   h4 {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     margin: 5px;
     margin-bottom: 10px;
     color: #808080;
@@ -2225,7 +2183,7 @@ small.warning {
     font-size: 1.5em;
     line-height: 1.5em;
   }
-  h1 {
+  li {
     text-align: center;
   }
 }
@@ -2280,6 +2238,7 @@ small.warning {
   .btn {
     width: 100%;
     text-align: center;
+    box-sizing: border-box;
     &.little {
       width: 40%;
       margin-right: 10px;
@@ -2309,6 +2268,12 @@ small.warning {
   position: relative;
   &.btn-participation {
     display: inline-block;
+  }
+  &[disabled] {
+    background-color: #F3F3F3;
+    border-color: #D9D9D9;
+    color: #444;
+    opacity: 0.5;
   }
 }
 
@@ -2359,7 +2324,7 @@ small.warning {
 .btn.blue:active {
   border-color: #2F5BB7 !important;
   background: #357ae8;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 1);
 }
 
 .btn.green {
@@ -2508,7 +2473,7 @@ small.warning {
 
 .btn img {
   height: 18px;
-  margin: 0px;
+  margin: 0;
   margin-bottom: -6px;
   margin-left: 5px;
   margin-right: -5px;
@@ -2547,20 +2512,82 @@ input[type=file] {
 
 .cke.cke_chrome {
   margin: 0 0 $form-spacing 0;
+  .error & {
+    margin: 0;
+  }
 }
 
-.top-bar-section ul li {
-  a.button {
-    background-color: transparent;
-    top: 0px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    &:hover {
-      background-color: #008cba;
-    }
+.fa.fv-control-feedback {
+  top: 26px;
+  right: 0;
+}
 
-    &.account {
-      line-height: 40px;
+.fv-has-success {
+  .fa.fv-control-feedback {
+    color: green;
+  }
+}
+
+.fa.fa-arrow-right {
+  margin-left: 5px;
+  margin-right: 0px;
+}
+
+.top-bar.expanded {
+  background: #33b5e5;
+}
+
+.top-bar-section {
+  ul {
+    &.left {
+      width: auto;
+      @media #{$small-only} {
+        width: 50%;
+        input {
+          width: 110px;
+        }
+      }
+      li {
+        float: left;
+      }
+      .has-form {
+        float: left;
+        padding: 0.44rem 0;
+      }
+    }
+    &.right {
+      width: auto;
+      @media #{$small-only} {
+      width: 50%;
+      }
+      li {
+        float: left;
+        a {
+          padding: 0 1.02564rem;
+        }
+      }
+    }
+    li {
+      a.button {
+        background-color: transparent;
+        top: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        &:hover {
+          background-color: #008cba;
+        }
+
+        &.account {
+          line-height: 40px;
+          height: $topbar-height;
+        }
+        &#logo-but {
+          height: $topbar-height;
+          span {
+            line-height: 1.9rem;
+          }
+        }
+      }
     }
   }
 }
@@ -2858,7 +2885,7 @@ input[type=file] {
       font-weight: bold;
       white-space: nowrap;
       overflow-x: hidden;
-      margin: 5px 0px 5px 0px;
+      margin: 5px 0 5px 0;
     }
   }
   .bottom {
@@ -2880,7 +2907,7 @@ input[type=file] {
 }
 
 .introjs-helperNumberLayer {
-  padding: 0px;
+  padding: 0;
   font-size: 11px;
   line-height: 17px;
   border: 2px solid white;
@@ -2896,13 +2923,10 @@ ul.social-network {
 }
 
 @media #{$small-only} {
-  #proposals-tabs {
-    dd {
-      width: 50%;
-    }
+  .button-group.stack-for-small > li {
+    width: 100%;
   }
 }
-
 
 h1 .label {
   font-size: $h1-font-size;

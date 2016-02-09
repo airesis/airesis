@@ -1,0 +1,32 @@
+- @extend=true
+- @page_title = t('pages.groups.index.title')
+h1 = t('pages.groups.index.find_group_label')
+.row
+  #group_search_form.columns.large-6
+    .card
+      = render 'groups/search_form'
+  .columns.large-6.show-for-large-up
+    .card data-tag-cloud=""
+      - @tags.each do |tag|
+        = link_to tag.text, groups_url(tag: tag.text), remote: true, rel: tag.groups_count, class: 'round label'
+- if @groups.any?
+  ul#groups_list.small-block-grid-1.large-block-grid-2.xlarge-block-grid-3.xxlarge-block-grid-4
+    = render partial: "group_tag", collection: @groups, as: :group
+- else
+  h2 = t('pages.groups.index.search_description')
+#more_groups_container
+  = render partial: 'more_groups'
+
+= content_for :left_panel do
+  .mybox
+    - if !current_user || (can? :create, Group)
+      = link_to new_group_path, class: "btn blue" do
+        i.fa.fa-plus
+        = t('pages.groups.index.create_group_button')
+    - else
+      = t('pages.groups.index.limit_reached')
+  = render partial: 'users/user_groups_panel'
+
+javascript:
+  GroupsIndex.areaParam = #{params[:area] == 'on'};
+  GroupsIndex.andParam = #{params[:and] == 'on'};

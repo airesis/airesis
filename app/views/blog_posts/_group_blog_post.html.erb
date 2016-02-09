@@ -5,12 +5,19 @@
       </div>
       <ul id="drop<%= blog_post.id %>" class="f-dropdown small" data-dropdown-content>
         <% if can? :remove_post, @group %>
-            <li><%= link_to t("pages.groups.show.featured_post.#{post_publishing.featured}"), feature_post_group_path(@group, post_id: blog_post.id), method: :put, remote: true, class: 'menu_item' %></li>
+            <li><%= link_to t("pages.groups.show.featured_post.#{post_publishing.featured}"),
+                            feature_post_group_path(@group, post_id: blog_post.id), method: :put, remote: true, class: 'menu_item' %></li>
         <% end %>
-        <li><%= link_to t('pages.groups.show.remove_post'), remove_post_group_path(@group, post_id: blog_post.id), method: :put, remote: true, class: 'menu_item', data: {confirm: "Sei sicuro di voler rimuovere il post '#{blog_post.title}' dalla bacheca del gruppo?"} %></li>
+        <li><%= link_to t('pages.groups.show.remove_post'),
+                        remove_post_group_path(@group, post_id: blog_post.id), method: :put, remote: true, class: 'menu_item', data: {confirm: "Sei sicuro di voler rimuovere il post '#{blog_post.title}' dalla bacheca del gruppo?"} %></li>
         <% if can? :update, blog_post %>
-            <li><%= link_to t('pages.blog_posts.edit_button'), edit_blog_blog_post_path(blog_post.blog, blog_post), class: 'menu_item' %></li>
-            <li><%= link_to t('pages.blog_posts.delete_button'), blog_blog_post_path(blog_post.blog, blog_post), method: :delete, class: 'menu_item', data: {confirm: "Sei sicuro di voler cancellare il post '#{blog_post.title}'. Esso scomparirà sia dall bacheca del gruppo che dal tuo blog personale e non sarà più possibile recuperarlo."} %></li>
+            <li><%= link_to t('pages.blog_posts.edit_button'),
+                            edit_blog_blog_post_path(blog_post.blog, blog_post), class: 'menu_item' %></li>
+            <li><%= link_to t('pages.blog_posts.delete_button'),
+                            blog_blog_post_path(blog_post.blog, blog_post),
+                            method: :delete,
+                            class: 'menu_item',
+                            data: {confirm: "Sei sicuro di voler cancellare il post '#{blog_post.title}'. Esso scomparirà sia dall bacheca del gruppo che dal tuo blog personale e non sarà più possibile recuperarlo."} %></li>
         <% end %>
       </ul>
   <% end %>
@@ -29,7 +36,8 @@
 
 
     <div class="blogPostPostedAt">
-      <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to ((blog_post.user_image_tag 15) + blog_post.user.fullname), blog_post.user), date: (l blog_post.created_at)) %>
+      <%- name = link_to((avatar(blog_post.user, size: 15, cert: false) + blog_post.user.fullname), blog_post.user) %>
+      <%= raw t('pages.blog_posts.list_elements.inserted', name: name, date: (l blog_post.created_at)) %>
       |
       <span class="blogComments">
 
@@ -43,7 +51,7 @@
           <a href="https://twitter.com/share"
              class="twitter-share-button"
              data-lang="en"
-             data-text="<%= t('twitter.share.blog_post', app: ENV['APP_SHORT_NAME'], tags: blog_post.tags.for_twitter) %>"
+             data-text="<%= t('twitter.share.blog_post', app: APP_SHORT_NAME, tags: blog_post.tags.for_twitter) %>"
              data-url="<%= group_blog_post_url(@group, blog_post) %>">Tweet</a>
           |
           <div class="fb-like" data-href="<%= group_blog_post_url(@group, blog_post) %>" data-width="450" data-layout="button_count" data-show-faces="true" data-likeable_type="<%= blog_post.class.class_name %>" data-likeable_id="<%= blog_post.id %>" data-send="true"></div>

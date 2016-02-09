@@ -36,10 +36,10 @@
     </div>
     <div class="blogPostFooter">
       <div class="blogPostPostedAt">
-        <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to ((@blog_post.user_image_tag 15) + @blog_post.user.fullname), @blog_post.user), date: (l @blog_post.created_at)) %>
+        <%- name = link_to((avatar(@blog_post.user, size: 15, cert: false) + @blog_post.user.fullname), @blog_post.user) %>
+        <%= raw t('pages.blog_posts.list_elements.inserted', name: name, date: (l @blog_post.created_at)) %>
         |
       <span class="blogComments">
-
       <%= link_to t('pages.blog_posts.view.comments', count: @blog_post.blog_comments.count), '#blogPostCommentsContainer' %>
       </span>
       </div>
@@ -50,7 +50,7 @@
             <a href="https://twitter.com/share"
                class="twitter-share-button"
                data-lang="en"
-               data-text="<%= t('twitter.share.blog_post', app: ENV['APP_SHORT_NAME'], tags: @blog_post.tags.for_twitter) %>"
+               data-text="<%= t('twitter.share.blog_post', app: APP_SHORT_NAME, tags: @blog_post.tags.for_twitter) %>"
                data-url="<%= blog_blog_post_url(@blog_post.blog, @blog_post) %>">Tweet</a>
             |
             <div class="fb-like" data-href="<%= @blog_url %>" data-width="450" data-layout="button_count" data-show-faces="true" data-send="true"></div>
@@ -98,7 +98,7 @@
              class="twitter-share-button"
              data-lang="en"
              data-count="vertical"
-             data-text="<%= t('twitter.share.blog_post', app: ENV['APP_SHORT_NAME'], tags: @blog_post.tags.for_twitter) %>">Tweet</a>
+             data-text="<%= t('twitter.share.blog_post', app: APP_SHORT_NAME, tags: @blog_post.tags.for_twitter) %>">Tweet</a>
           <g:plusone size="tall"></g:plusone>
           <%= raw facebook_like %>   <br/>
         </div>

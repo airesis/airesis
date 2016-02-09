@@ -101,7 +101,6 @@
                     cache: true,
                     url: '/proposals/<%=@proposal.id%>/proposal_lives/' + newval,
                     method: 'get',
-                    data: '<%= params[:l] ? "l=#{params[:l]}" : ''%>',
                     dataType: 'script',
                     beforeSend: function (msg) {
                         $('.diffview .diffcontainer').hide();
@@ -119,7 +118,6 @@
                     cache: true,
                     url: '/proposals/<%=@proposal.id%>/proposal_revisions/' + newval,
                     method: 'get',
-                    data: '<%= params[:l] ? "l=#{params[:l]}" : ''%>',
                     dataType: 'script',
                     beforeSend: function (msg) {
                         $('.diffview .diffcontainer').hide();

@@ -1,0 +1,140 @@
+de-DE:
+  home:
+    intro:
+      title: Das erste soziale Netzwerk für E-Demokratie in der Welt
+      description: Ein Instrument der direkten Demokratie das entwickelt wurde um über jegliche Vorschläge und Ideen unhabhängig davon wo sie entstanden sind und welches Thema sie betreffen, gemeinsam zu entscheiden und zu handeln.
+      paragraph_1:
+        title: Das soziale Netzwerk für E-Demokratie
+        content_html: '<p>Airesis ist eine <a href="http://en.wikipedia.org/wiki/Free_software"> freie Software-Plattform</a>, die von einem Team von italienischen Entwicklern und Mitwirkenden kreiert wurde um Gemeinschaften und Gruppen zu ermöglichen, sich effektiv nach den Prinzipien der <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank"> direkten Demokratie</a> und der Partizipation zu organisieren.</p>  <p>Um dieses Ziel zu erreichen, wurde die Anwendung als ein multifunktionales System konzipiert . In diesem sind alle Tools integriert, die die Entwicklung einer Gemeinschaft fördern können und insbesondere was "social" und die deliberative Werkzeuge betrifft .</p>  <p>Airesis bietet unter <strong>social-Tools</strong>, Blogs und ein System zur Förderung von Veranstaltungen und Meetings mit einem genauen Ablaufplan. Unter <strong>deliberative Werkzeugen</strong> umfasst es Bereiche für die Sammlung der Vorschläge und Initiativen, für die Beschlussfassung, und ein Wahlsystem für die Wahl der Kandidaten. Die Plattform ermöglicht auch Gruppen mit reglementierter Zugangsberechtigung zu kreieren und benutzerdefinierte Berechtigungen zu erstellen. Da das Ziel von Airesis diejenige ist, die Participation zu fördern,  wurde der Maximierung der Intuitivität der ganzen Plattform große Aufmerksamkeit geschenkt. Die Entwicklungsphilosophie konzentriert sich auf eine ständige Verbesserung, eine Art Entwicklungsprozess basierend auf das Feedback der Benutzer. Das Entwickler-Team ist verfügbar auf die Bedürfnisse der Gemeinschaften die die Software gemäß dem Geist der direkten Demokratie nutzen wollen, einzugehen.</p>'
+      paragraph_3:
+        title: Grundsätze und Werte
+        content_html: |
+          <p>Airesis ist ein open-Source Tool für Entscheidungsprozesse in der e-Demokratie. Sie ist stark orientiert zur Problemlösung und zum Maximieren der immensen Entwickungskraft der<a heref="http://en.wikipedia.org/wiki/Collective_intelligence" target="_blank">kollektiven Intelligenz</a>.</p>
+          <p>Komplett von Freiwilligen und ohne Gewinnzweck entwickelt, wurde Airesis dazukreiert um schneller und  informierter Entscheidungen zu treffen, zu teilen und dabei mitwirken zu können.<br/>
+          Sie basiert auf den folgenden Prinzipien</p>
+          <ul>
+          <li><strong>Beteiligung</strong> <br/>
+          Bürger zu involvieren bedeutet mehr Energie und mehr Standpunkte zu haben.
+          Nur durch die direkte Beteiligung ist es möglich Probleme zu prüfen und zu verstehen was die Leute wirklich wollen. Die Beteiligung ist die Essenz der demokratischen Entscheidungen.
+          </li>
+          
+          <li><strong>Transparency and Security</strong><br/>
+          Without transparency, rules can be easily circumvented and democracy can quickly degenerate.
+          Transparency also means openness, ability to receive: for this reasons Airesis also allows unregistered users to view the contents of the site.
+          The source code of the software is also "transparent", being it entirely open source.</li>
+          
+          <li><strong>Constructive dialogue</strong><br/>
+          No one owns all the right answers. Using appropriate tools, elaborating ideas proposed by many people can be more productive than doing it yourself.</li>
+          
+          <li><strong>Equal opportunities</strong><br/>
+          To be intended as how effective equality, in terms of offered possibilities, can be pursued by the system.
+          </li>
+          
+          <li><strong>Flexibility</strong><br/>
+          Each group ha its own needs, each proposal is different from the others, each user has its own needs.</li>
+      paragraph_4:
+        title: 'Unser Ziel: direkte und partizipative Demokratie'
+      paragraph_5:
+        title: Merkmale und Funktionen
+      paragraph_6:
+        title: Grundfunktionen
+        content_html: |
+          <ul>
+          <li><strong>Registrierung und Anmeldung</strong> <br>
+          von jeder Seite aus oder sogar nachdem du ein Kommentar oder einen Beitrag hinzugefügt hast. Es ist auch möglich sich über Facebook, Google +, Meetup, Twitter oder Linkedin, anzumelden.
+          </li>
+          <li><strong>Öffentlicher oder privater Bereich für Gruppen</strong> (<a href="http://youtu.be/n_ZruAcNkVk" target="blank">More info in this video-tutorial</a>) <br>
+          Die Registrierung ermöglicht dir am Open Space teilzunehmen, einer bereits existierenden Gruppe anzuschliessen oder eine neue Gruppe zu erstellen.
+          </li>
+          <li><strong>Erstellen von Vorschlägen und Diskussionen</strong>
+          Sowohl in den Gruppen als auch im Open Space ist es möglich Vorschläge/Initiativen zu posten, Beiträge, Kommentare und Bewertungen zu empfangen und eine mitgeteilte Zusammenfassung der Vorschläge die die grösste Zustimmung bekommen können, zu bearbeiten.
+          </li>
+          <li><strong>Quorum und Abstimmung der Vorschläge </strong> <br>
+          Jeder Vorschlag besitzt sein eigenes Quorum. Abgestimmt wird durch die Abgabe einer Präferenz nach der Schulze-Methode.
+          </li>
+          <li><strong>verwaltung von Veranstaltungen/Kalender</strong> <br>
+          Es ist möglich Veranstaltungen die Meetings, Abstimmungen, Kandidatenwahlen innerhalb von Gruppen oder im Open Space betreffen, einzuplanen.
+          </li>
+          <li><strong>Newsletter</strong> über Veranstaltungen und Neugkeiten über die Plattform </li>
+          <li><strong>Nachrichtenservice</strong> und <strong>E-Mail-Meldung</strong> (durch den Benutzer anpassbar)
+          </li>
+          <li><strong>Laden und Verwalten von Dokumenten</strong> und Anhängen der Vorschläge (Funktion ist aktuell deaktiviert)
+          </li>
+          <li><strong>Umfragen</strong> sowohl interne als auch externe nach der Schulze-Abstimmmethode.</li>
+          <li><strong>Mobile App</strong></li>
+          </ul>
+      paragraph_7:
+        title: 'Vorschlags- und Diskussionstool'
+      paragraph_9:
+        title: Förderung der gemeinsamen Vorschläge und partizipative Demokratie
+      paragraph_11:
+        title: Verwalten von Gruppen und Benutzerrollen
+    whatis:
+      title: Das erste soziale Netzwerk für E-Demokratie in der Welt
+      description: Ein Instrument der direkten Demokratie das entwickelt wurde um über jegliche Vorschläge und Ideen unhabhängig davon wo sie entstanden sind und welches Thema sie betreffen, gemeinsam zu entscheiden und zu handeln.
+      paragraph_1:
+        title: Das soziale Netzwerk für E-Demokratie
+      paragraph_2:
+        title: Erstelle deine Gruppe
+      paragraph_3:
+        title: Trilnehmer organisieren
+      paragraph_4:
+        title: Vorschlagen und beraten
+      paragraph_7:
+        title: Ein Ort zum Diskutieren
+      paragraph_8:
+        link: Einführungsseite
+    press:
+      title: Pressemitteilung
+    roadmap:
+      paragraph1:
+        title: 'Ziel: Direkte Demokratie'
+    engage:
+      nav:
+        banner: Banner
+      paragraph1:
+        title: Airesis ist offen für alle
+      paragraph2:
+        title: Wie trage ich dazu bei
+        description_html: |
+          <p>Jeder kann zum open-source Projekt Airesis beitragen: Es ist nicht nötig ein Programmierer zu sein, da es viel Arbeit in verschienen Bereichen zu erledigen gibt.
+          Bei diesem Projekt <a href=%{chisiamo}>arbeiten wir freiwillig und werden nicht bezahlt</a> und teilen den Willen, dem Bürger zu helfen, sich transparent zu organisieren und an der Realisierung einer bestmöglichen Demokratie teilzuhaben. </p>
+          <p>Um deine Bereitschaft mitzuteilen, fülle bitte <a href="%{form}" target="_blank"><strong>folgendes Formular</strong></a> aus, oder kontaktiere <strong>Nicola Giulietti</strong>&nbsp;- %{email} - cell. %{cell} wenn du Zweifel hast oder mehr Informationen brauchst. </p>
+          <p>Anbei eine Liste der Tätigkeiten, die wir benötigen:</p>
+      developer:
+        title: Entwickler
+        description_html: |
+          <p>
+          Der Entwickler ist die Person, die tatsächlich den Code von Airesis schreibt. <br/>
+          Er folgt den Vorgaben und Richtilinien die mit dem Team vereinbart wurden.
+          Falls neue Funktionen oder HTML_Seiten hinzugefügt werden, wird der Entwickler neue Module in Ruby schreiben und dabei auch - im Fall von UI-Funktionalitäten - CSS und Javascript benutzen.<br/>
+          Die Personen die diese Rolle übernehmen möchten, werden, um ihre Jobs leichter anfangen zu können, bei ihren ersten Schritten durch den <a href="%{chisiamo}" target="_blank">leitenden Programmmierer</a> geholfen und angeleitet.
+          </p>
+      analyst:
+        title: Analyst
+      first_lev_tester:
+        title: Tester erster Ebene
+      sec_lev_tester:
+        title: Tester zweiter Ebene
+        description_html: |
+          <p>
+          Um Tester zweiter Ebene zu werden, werden gute Programmierkenntnisse benötigt. DieserTester sollte strengere und ausführlichere Tests als der Tester der ersten Ebene, ausführen. Ein Tester der zweiten Ebene befasst sich mit komplexen Aspekten und ist in der Lage auch in Stresssituationen, das ganze System voranzutreiben und versteckte Probleme zu entdecken.
+          </p>
+      graphic:
+        title: Grafikdesigner
+        description_html: |
+          <p>
+          Der Grafikdesigner zeichnet die Benutzeroberflächen und übergibt der Entwicklungsgruppe seine Zeichnungen.
+          Er verbessert die Verwendbarkeit und die Vollständigkeit der Texte in der Software (z.B.: Benutzerhilfe...)
+          </p>
+      recruiter:
+        title: Rekrutierung
+        description_html: |
+          <p>
+          Er ist für die Suche von neuen Freiwilligen zuständig die bereit sind, diesen Projekt zu unterstützen: Tester aber auch Gruppen die bereit sind, diese Software für die eigenen Bedürfnisse, zu benutzen.
+          Er beteiligt Gruppen von Personen die von der Entwicklungsgruppe nicht vertreten werden (Frauen, Personen mit geringen Informatikkenntnissen, u.s.w...) um ihnen die Software, aufgrund ihrer Feedbacks, attraktiv zu machen.
+          </p>
+      communication:
+        title: Communication Manager
+      i18n:
+        title: Internationalisierung

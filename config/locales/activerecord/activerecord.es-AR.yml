@@ -7,12 +7,6 @@ es-AR:
       blog_comment:
         body: Comentario
         created_at: AntiSpam
-      candidate:
-        user: Candidato
-        election: elecciones
-      election:
-        groups_end_time: Fecha límite para la entrada de grupo
-        candidates_end_time: Fecha límite para la entrada de candidatos
       event:
         title: Título del evento
         description: Descripción
@@ -23,11 +17,6 @@ es-AR:
         period: Repetir
         frequency: Repetir cada
         private: Privado
-        candidates_end_time: Fecha límite para la entrada de candidatos
-        meeting:
-          place:
-            address: Dirección
-            comune_id: Ciudad
       group:
         facebook_page_url: 'Dirección de la página  Facebook'
         name: Nombre
@@ -58,6 +47,9 @@ es-AR:
         published: Estado
         published_true: Publicado
         published_false: Proyecto
+      participation_role:
+        name: Nombre
+        description: Descripción corta
       group_invitation:
         emails_list: Direcciones de correo electrónico
         testo: Mensaje de texto
@@ -73,10 +65,11 @@ es-AR:
         content: Texto
         interest_borders_tkn: Lugar geográfico de interés
         tags_list: Etiquetas
-        quorum_id: Quórum
         anonima: Anonimato temporal
         visible_outside: Públicamente visible
         secret_vote: Voto secreto
+        vote_starts_at: 'La  votación comienza en'
+        vote_ends_at: La votación termina en
       proposal_comment:
         content: Contenido
       quorum:
@@ -99,16 +92,15 @@ es-AR:
         vote_minutes: Duración de la votación
         vote_percentage: Quórum (votantes)
         vote_good_score: Aprobación
+      search_participant:
+        role_id: Rol
       sys_movement:
         sys_movement_type_id: Tipo
         made_on: Hecho en
         amount: Cantidad
         sys_currency_id: Moneda
       user:
-        name: Nombre
         email: Dirección de correo electrónico
-        surname: Apellido
-        login: Nombre de Usuario
         password: Contraseña
         linkedinpageurl: Su página en LinkedIn
         facebookpageurl: Su página en Facebook
@@ -120,8 +112,6 @@ es-AR:
         description: Descripción
         default_role_name: Nombre predeterminado de la regla
     errors:
-      template:
-        body: Hubo problemas con los siguientes campos
       messages:
         inclusion: No está incluido en la lista
         exclusion: está reservado
@@ -132,7 +122,7 @@ es-AR:
         blank: debe ser llenado
         too_long: El texto es demasiado largo
         too_short: El texto es muy corto
-        wrong_length: "deben ser % {count} characters)'"
+        wrong_length: 'deben ser %{count} characters'
         taken: Ya está ocupado
         not_a_number: No es un número
         greater_than: 'debe ser mayor que %{count}'
@@ -152,6 +142,3 @@ es-AR:
           attributes:
             email:
               already_confirmed: Esta dirección de correo electrónico ya está registrada
-        group:
-          portavoce:
-            required: Usted debe elegir un portavoz

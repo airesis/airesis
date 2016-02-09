@@ -14,20 +14,12 @@
 
 <h4><%= t('pages.groups.show.participants_list') %></h4>
 
-<% if can? :accept_requests, @group %>
-    <%= link_to new_group_group_invitation_path(@group), remote: true, class: "btn disable" do %>
-        <i class="fa fa-envelope-o"></i>
-        <%= t('pages.groups.show.invite_button') %>
-    <% end %>
-    <div id="new_invitation_container"></div>
-<% end %>
-
 <% @participation_request = current_user.has_asked_for_participation?(@group.id) if user_signed_in? %>
 <% unless @participation_request %>
     <% if @group.disable_participation_requests %>
         <%= eval "#{@group.subdomain}_participation_request" %>
     <% else %>
-        <%= link_to ask_for_participation_group_url(@group), class: "btn blue" do %>
+        <%= link_to ask_for_participation_group_url(@group), method: :post, class: "btn blue" do %>
             <i class="fa fa-pencil"></i>
             <%= t('pages.groups.show.ask_participate_button') %>
         <% end %>
@@ -53,4 +45,11 @@
     <p>
       <b><%= t('pages.groups.show.no_participants') %></b>
     </p>
+<% end %>
+<% if can? :accept_requests, @group %>
+    <%= link_to new_group_group_invitation_path(@group), remote: true, class: "btn disable" do %>
+        <i class="fa fa-envelope-o"></i>
+        <%= t('pages.groups.show.invite_button') %>
+    <% end %>
+    <div id="new_invitation_container"></div>
 <% end %>

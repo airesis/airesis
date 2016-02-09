@@ -1,0 +1,250 @@
+en-EU:
+  frm:
+    general:
+      forum: Forum
+      topics: Topics
+      topic: Topic
+      posts: Posts
+      posts_count:
+        zero: No posts
+        one: 1 post
+        other: "%{count} posts"
+      flagged_for_spam: Your account has been flagged for spam.
+      cannot_create_topic: You cannot create a new topic at this time.
+      cannot_create_post: You cannot create a new post at this time.
+
+    access_denied: "You are not allowed to do that."
+    admin:
+      area: Admin Area
+      back_to_admin: "Back to Admin"
+      back_to_forums: "Back to forums"
+      back_to_groups: "Back to groups"
+      forum:
+        moderator_groups: Moderator groups
+        index: Manage Forums
+        new: Creating a new forum
+        new_link: New Forum
+        deleted: The selected forum has been deleted
+        created: This forum has been created.
+        not_created: This forum could not be created
+        updated: This forum has been updated.
+        not_updated: This forum could not be updated
+      forums:
+        edit: Edit
+        delete: Delete
+        category: Category
+        delete_confirm: Are you sure you want to delete this forum?
+        index:
+          last_post: Last post
+          none: None
+          moderators: Moderators
+          no_category: (No Category)
+        default_private: "Private Forum"
+        default_public: "Public Forum"
+        default_private_description: "Forum reserved to group participants"
+        default_public_description: "Forum visible to all Airesis users. Also users that are not in the group"
+      mod:
+        index: Manage Groups
+        new: New Group
+        created: The group was successfully created
+        not_created: Group could not be created
+        deleted: The selected group has been deleted
+        members: "Members in %{group}"
+      mods:
+        show:
+          add_member: Add
+          add_a_new_member: "Add a new member"
+          current_members: "Current Members"
+        edit: Edit
+        delete: Delete
+        name: Name
+      category:
+        index: Manage Forum Categories
+        new: Creating a new Forum Category
+        edit: "Editing the %{title} category"
+        new_link: New Forum Category
+        deleted: The selected forum category has been deleted
+        created: This forum category has been created
+        not_created: This forum category could not be created
+        updated: This forum category has been updated
+        not_updated: This forum category could not be updated
+      categories:
+        edit: Edit
+        delete: Delete
+        category: Category
+        delete_confirm: Are you sure you want to delete this forum category?
+        default_private: "Private section"
+        default_public: "Public Section"
+      group:
+        index: "Manage moderator groups"
+        show:
+          title: "Manage moderators"
+        new: "New Moderators Group"
+        created: "Succesfully created moderators group"
+        not_created: "Error creating the Moderators group"
+        deleted: "Succesfully deleted Moderators group"
+    common:
+      pages: Pages
+    errors:
+      not_signed_in: You must sign in first
+      access_denied: Access denied.
+    forum:
+      header: "Viewing %{title}"
+      forums: Forums
+      new: Creating a new forum
+      edit: "Editing the %{title} forum"
+      topics_count:
+        zero: 0 topics
+        one: 1 topic
+        other: "%{count} topics"
+      posts_count:
+        zero: 0 posts
+        one: 1 post
+        other: "%{count} posts"
+      moderator_tools: "Moderation tools"
+      topic_tools: "Topic tools"
+      admin_tools: "Administration tools"
+      title: "New forum"
+    forums:
+      index:
+        title: Forum
+        forum: Forum
+        views: Views
+        last_post: 'Last Post:'
+        none: None
+    topic:
+      headings:
+        topic: Topic
+        latest: Latest
+        posts: Posts
+        views: Views
+      moderation:
+        success: The selected topic has been moderated
+        no_option_selected: No moderation option was selected
+      received_reply: A topic you have subscribed to has received a reply
+      reply: Reply
+      quote: Quote
+      delete: Delete
+      created: This topic has been created
+      new: Creating a new topic
+      edit: Editing topic
+      not_created: This topic could not be created
+      deleted: Your topic has been deleted
+      cannot_delete: You cannot delete a topic you do not own
+      updated: This topic has been updated
+      not_updated: This topic could not be updated
+      subscribed: You have subscribed to this topic
+      unsubscribed: You have unsubscribed from this topic
+      none: There are no topics in this forum currently
+      links:
+        new: New topic
+        back_to_topics: Back to topics
+        edit: Edit topic
+      not_found: The topic you are looking for could not be found
+      hidden:
+        'true': This topic is now hidden
+        'false': This topic is now visible
+      locked:
+        'true': This topic is now locked
+        'false': This topic is now unlocked
+      pinned:
+        'true': This topic is now pinned
+        'false': This topic is now unpinned
+    topics:
+      show:
+        reply: Reply
+        delete: Delete
+        subscribe: Subscribe
+        unsubscribe: Unsubscribe
+        reply_to_topic: Reply to Topic
+        pending_review: This topic is currently pending review. Only the user who created it and moderators can view it.
+        hide:
+          'true': Show this topic
+          'false': Hide this topic
+        lock:
+          'true': Unlock this topic
+          'false': Lock this topic
+        pin:
+          'true': Unpin this topic
+          'false': Pin this topic
+        related_proposals: "Related proposals"
+    post:
+      buttons:
+        reply: Post Reply
+        edit: Edit
+      created: Your reply has been posted
+      new: Post reply to
+      edit: Edit
+      not_created: Your reply could not be posted
+      not_created_topic_locked: You cannot reply to a locked topic
+      edited: Your post has been edited
+      not_edited: Your post could not be edited
+      deleted: Your post has been deleted
+      deleted_with_topic: The last post in the topic has been deleted. The entire Topic has been also deleted
+      cannot_delete: You cannot delete a post you do not own
+      cannot_quote_deleted_post: The post you tried to quote does not exist anymore.
+    posts:
+      moderation:
+        moderate: Moderate
+        approve: Approve
+        spam: Spam
+        success: The selected posts have been moderated
+      post:
+        pending_review: This post is currently pending review. Only the user who posted it and moderators can view it.
+        in_reply_to: in reply to
+    moderation:
+      index:
+        title: "Moderation tools for %{forum}"
+  helpers:
+    submit:
+      frm_forum:
+        create: Create Forum
+        update: Update Forum
+      topic:
+        create: Create Topic
+        update: Update Topic
+      frm_mod:
+        create: Create group
+      frm_category:
+        create: Create category
+        update: Update category
+  simple_form:
+    labels:
+      frm_forum:
+        category: Category
+        title: Title
+        name: Title
+        description: Description
+        moderators: Moderators
+        visible_outside: Visible outside of the group
+      topic:
+        subject: Subject
+        locked: Locked
+        pinned: Pinned
+        hidden: Hidden
+        posts:
+          text: Text
+      frm_category:
+        name: Name
+      post:
+        text: Text
+      frm_mod:
+        name: Name
+
+  # General stuff
+  time_ago_in_words: "%{time} ago"
+  ago: " ago"
+  ago_by: " ago by"
+  by: by
+  started_by: "Started by "
+  are_you_sure: Are you sure?
+  lst_post: "Last post"
+  last_post: "Last topic"
+  back_to_forums: "Back to forum"
+  pages:
+    forum_groups:
+      index:
+        create_first: There are no groups of moderators yet. Create the first one!
+  info:
+    members:
+      ok_message: User successfully added to the group

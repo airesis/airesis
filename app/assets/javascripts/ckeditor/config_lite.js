@@ -1,76 +1,22 @@
-/*
- Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
- For licensing, see LICENSE.html or http://ckeditor.com/license
- */
-
-var LITE = {
-    Events: {
-        INIT: "lite:init",
-        ACCEPT: "lite:accept",
-        REJECT: "lite:reject",
-        SHOW_HIDE: "lite:showHide",
-        TRACKING: "lite:tracking"
-    },
-
-    Commands: {
-        TOGGLE_TRACKING: "lite.ToggleTracking",
-        TOGGLE_SHOW: "lite.ToggleShow",
-        ACCEPT_ALL: "lite.AcceptAll",
-        REJECT_ALL: "lite.RejectAll",
-        ACCEPT_ONE: "lite.AcceptOne",
-        REJECT_ONE: "lite.RejectOne"
-    }
-};
-
-CKEDITOR.editorConfig = function( config )
-{
-    // Define changes to default configuration here. For example:
-    // config.language = 'fr';
-    // config.uiColor = '#AADC6E';
-    config.toolbar_blog = [
-        { items: ["Cut","Copy","Paste","PasteText","PasteFromWord","-","Undo","Redo"]},
-        { items: ["Link","Unlink","Anchor"]},
-        { items: ["Image","Youtube","Table"]},
-        '/',
-        { items: [ "Bold","Italic","Underline","Strike"] },
-        { items: [ "NumberedList","BulletedList",'-',"Outdent","Indent",'-',"Blockquote",'-',"JustifyLeft","JustifyCenter","JustifyRight","JustifyBlock" ]},
-        '/',
-        { items: [ "Styles","Format","Font","FontSize"]},
-        { items: [ "TextColor","BGColor"]},
-        { items: [ "Maximize" ]}
-
-    ];
-
+CKEDITOR.editorConfig = function( config ) {
     config.toolbar_proposal = [
-        { items: [ "Bold","Italic","Underline"]},
         { items: ["Cut","Copy","Paste","PasteText","PasteFromWord","-","Undo","Redo"]},
         { items: ["Link","Unlink","Anchor"]},
         { items: ["Image","Youtube","Table"]},
-        { items: [ "NumberedList","BulletedList"]},
+        { items: [ "Bold","Italic","Underline"]},
+        { items: [ "NumberedList","BulletedList","-","JustifyLeft","JustifyCenter","JustifyRight","JustifyBlock" ]},
         { items: [ "FontSize"]},
         { items: [ "TextColor","BGColor"]},
-        { items: [ "lite_ToggleShow" ]}
+        { items: [ "lite_ToggleShow" ]},
+        { items: [ "Maximize"]}
     ];
 
-    config.toolbar_forum = [
-        { items: ["Cut","Copy","Paste","PasteText","PasteFromWord","-","Undo","Redo"]},
-        { items: ["Link","Unlink","Anchor"]},
-        { items: ["Image","Youtube","Table"]},
-        { items: ["Smiley"]},
-        '/',
-        { items: [ "Bold","Italic","Underline","Strike"] },
-        { items: [ "NumberedList","BulletedList",'-',"Outdent","Indent",'-',"Blockquote",'-',"JustifyLeft","JustifyCenter","JustifyRight","JustifyBlock" ]},
-        '/',
-        { items: [ "Styles","Format","Font","FontSize"]},
-        { items: [ "TextColor","BGColor"]},
-        { items: [ "Maximize" ]}
-
-    ];
-
-    config.extraPlugins = 'youtube,smiley,lite' ;
+    config.extraPlugins = 'justify,font,colorbutton,youtube,smiley,lite';
 
     //var lite = config.lite|| {};
     //config.lite = lite;
+    //config.lite.commands = [LITE.Commands.TOGGLE_SHOW];
+    //config.lite.jQueryPath = "<%= javascript_path 'jquery'  %>";
     //config.lite.commands = [LITE.Commands.TOGGLE_SHOW, LITE.Commands.ACCEPT_ALL, LITE.Commands.REJECT_ALL];
 
 

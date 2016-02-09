@@ -1,21 +1,29 @@
-before_install:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-language: ruby
-rvm:
-  - 2.1.0
-before_script:
- - "curl https://raw.githubusercontent.com/moliware/travis-solr/master/travis-solr.sh | SOLR_VERSION=4.2.0 bash"
- - "cp config/database.travis.yml config/database.yml"
- - "cp config/application.example.yml config/application.yml"
- - "cp config/paypal.example.yml config/paypal.yml"
- - "cp config/secrets.ci.yml config/secrets.yml"
- - "RAILS_ENV=test bundle exec rake db:setup --trace"
- - bundle exec sidekiq -d -L /tmp/sidekiq.log
- - sleep 1
+sudo: required
+
 services:
- - redis-server
-script: RAILS_ENV=test DISPLAY=:99.0 bundle exec rspec --tag ~ci_ignore
-notifications:
-  recipients:
-    - coorasse@gmail.com
+  - docker
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+install:
+  - docker build -t airesis_airesis .
+  - docker build -t airesis_test ./spec/
+  - docker-compose -f docker-compose.yml -f docker-compose.test.yml build
+
+before_script:
+  - cp config/database.example.yml config/database.yml
+  - sed /AWS_HOST/d config/application.example.yml > config/application.yml
+  - cp config/sunspot.example.yml config/sunspot.yml
+  - cp config/sidekiq.example.yml config/sidekiq.yml
+  - docker-compose -f docker-compose.yml -f docker-compose.travis.yml run airesis bundle exec rake db:setup
+
+script: docker-compose -f docker-compose.yml -f docker-compose.travis.yml run airesis
+
+env:
+  global:
+    - DOCKER_COMPOSE_VERSION=1.5.2
+    - DISABLE_SCREENSHOTS=true

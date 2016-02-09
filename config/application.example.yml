@@ -1,33 +1,56 @@
-#encoding: utf-8
-#####################
-#social networks and services keys
-#####################
+# remove it if you don't want to force ssl
+FORCE_SSL: 'true'
 
+SECRET_KEY_BASE: "rake secret"
+DEVISE_SECRET_KEY: "rake secret"
+
+# if you want to allow the users to login via facebook fill these variables
 FACEBOOK_APP_ID: ""
-GOOGLE_APP_ID: ""
-TWITTER_APP_ID: ""
-MEETUP_APP_ID: ""
-LINKEDIN_APP_ID: ""
-PARMA_APP_ID: ""
-
-MAPS_API_KEY: ""
-
 FACEBOOK_APP_SECRET: ""
+
+# if you want to allow the users to login via google fill these variables
+GOOGLE_APP_ID: ""
 GOOGLE_APP_SECRET: ""
+
+# if you want to allow the users to login via twitter fill these variables
+TWITTER_APP_ID: ""
 TWITTER_APP_SECRET: ""
+
+# if you want to allow the users to login via meetup fill these variables
+MEETUP_APP_ID: ""
 MEETUP_APP_SECRET: ""
+
+# if you want to allow the users to login via linkedin fill these variables
+LINKEDIN_APP_ID: ""
 LINKEDIN_APP_SECRET: ""
+
+# if you want to allow the users to login via Parma fill these variables
+PARMA_APP_ID: ""
 PARMA_APP_SECRET: ""
 
+# if you want to allow the users to login via Tecnologie Democratiche fill these variables
+# send an email to alessandro.rodi@airesis.it to ask for credentials
+TECNOLOGIEDEMOCRATICHE_APP_ID: ''
+TECNOLOGIEDEMOCRATICHE_APP_SECRET: ''
+TECNOLOGIEDEMOCRATICHE_APP_URL: "https://tecnologiedemocratiche.herokuapp.com/"
+
+# google maps api key. obtain one from google developers console
+# registering a new application and generating a new browser key
+MAPS_API_KEY: ""
+
+# if you are using google analytics put in here the ID
+GOOGLE_ANALYTICS_ID: "YOUR GOOGLE ANALYTICS ID"
+
+# do you want to protect registration via captcha? fill these variables!
 RECAPTCHA_PUBLIC: ""
 RECAPTCHA_PRIVATE: ""
 
+# is used to geocode users when they register. Get a username at http://www.geonames.org/.
 GEOSPATIAL_NAME: ""
 
 #####################
 #email service
 #####################
-
 EMAIL_ADDRESS: ""
 EMAIL_USERNAME: ""
 EMAIL_PASSWORD: ""
@@ -40,7 +63,6 @@ OVERRIDE_MAIL_RECIPIENT: ""
 #####################
 #newsletter parameters
 #####################
-
 NEWSLETTER_FROM_ADDRESS: ""
 NEWSLETTER_TWITTER_URL: ""
 NEWSLETTER_FACEBOOK_URL: ""
@@ -62,10 +84,17 @@ FEEDBACK_RECEIVER: "help@example.com"
 DEFAULT_FROM: "App <info@example.com>"
 NOREPLY_EMAIL: "No Reply <noreply@example.com>"
 
+# when we send emails the default protocol to use for urls.
+# airesis tries not to use the rails default ActionMailer Default Host
+# because it depends on which host the user registered.
+# You still have the MAILER_DEFAULT_HOST for emails which are not directed to registered users.
+# for other users the domain on which they registered counts and this is the protocol used.
+# you can specify http or https. if not specified the default is https.
+#DEFAULT_EMAIL_PROTOCOL: 'https'
+
 #####################
 #redmine integration (optional)
 #####################
-
 BUGTRACKING_URL: ""
 BUGTRACKING_USERNAME: ""
 BUGTRACKING_PASSWORD: ""
@@ -73,31 +102,46 @@ BUGTRACKING_PASSWORD: ""
 #####################
 #application parameters
 #####################
+APP_SHORT_NAME: "My App"
+APP_LONG_NAME: "My App - My short slogan"
 
-APP_SHORT_NAME: "Airesis"
-APP_LONG_NAME: "Airesis - Scegli di partecipare"
+# default reference email address for the website. is used in the app to tell the user which email address he
+# has to contact for information. it is also shown in the footer of the emails as main contact address.
 APP_EMAIL_ADDRESS: "info@example.com"
-SITE: "http://www.airesis.eu"
+
+# default administrator credentials
 ADMIN_EMAIL: "youremail@example.com"
 ADMIN_PASSWORD: "password"
 
-DEVISE_SECRET_KEY: ""
+# sitemap host and email assets url (for images)
+SITE: "https://www.example.com"
 
+# where is listening your redis installation?
 REDIS_URL: "redis://127.0.0.1:6379/12"
 
-# remove this variable if you are not using amazon s3
+#host address ànd port of the Apache SOLR server
+SOLR_HOST: "localhost"
+SOLR_PORT: "8983"
+
+# remove these variables if you are not using amazon s3
 AWS_HOST: "s3-eu-west-1.amazonaws.com"
 AWS_BUCKET: ""
 AWS_ACCESS_KEY_ID: ""
 AWS_SECRET_ACCESS_KEY: ""
 
+# assets on a cdn. remove it if you are not using a cdn
+ASSETS_HOST: ""
+
 # remove this variable if you are not using cloudfront. set it to cloudfront alias if you want to you it
 AWS_ALIAS: "static.yourwebsite.com"
+
+# Newrelic configurations
+NEW_RELIC_LICENSE_KEY: 'FROM NEW RELCI'
+NEW_RELIC_APP_NAME: 'YOUR NEW RELIC APP NAME'
 
 #####################
 #crowdin integration (optional)
 #####################
-
 CROWDIN_API: ""
 CROWDIN_PROJECT_ID: ""
 CROWDIN_ACCOUNT_KEY: ""
@@ -105,7 +149,6 @@ CROWDIN_ACCOUNT_KEY: ""
 #####################
 #capistrano settings (optional)
 #####################
-
 CAP_STAGING_USER: ""
 CAP_STAGING_SERVER: ""
 
@@ -113,7 +156,6 @@ CAP_STAGING_SERVER: ""
 ##############
 #sentry settings. remove these keys to not use it (leaving them empty will throw an error)
 #############
-
 SENTRY_PUBLIC_KEY: ""
 SENTRY_PRIVATE_KEY: ""
 SENTRY_PORT: ""
@@ -165,12 +207,26 @@ LIMIT_PROPOSALS: "false"
 #must be defined in seconds
 PROPOSALS_TIME_LIMIT: "60"
 
+# the number of minutes within you can destroy a proposal or edit some of the attributes
+# after that time (in minutes!) the users will not be able to destroy the proposal or edit some fields
+# if this variable is not set the default is 10 minutes
+EDIT_PROPOSAL_TIME_LIMIT: '10'
+
 #groups creation is limited?
 LIMIT_GROUPS: "true"
 
 #if groups creation is limited this is the minimum amount of time between two subsequent creations from the same user
 #must be specified in hours
 GROUPS_TIME_LIMIT: "24"
+
+# default maximum space available for group's documents (in MB)
+UPLOAD_LIMIT_GROUPS: '50'
+
+# default maximum size for images (in MB)
+UPLOAD_LIMIT_IMAGES: '2'
+
+# default maximum size for attachments (in MB)
+UPLOAD_LIMIT_ATTACHMENTS: '5'
 
 #if you are using tokens for voting yoy may need to set a drift for token creation.
 #must be specified in seconds
@@ -200,3 +256,28 @@ DEFAULT_AREA_ACTIONS: "6, 7, 8, 11, 12"
 
 #after this number of days, if the author has not chose a voting date, the users which have the right to choose a vote day, can do it
 OTHERS_CHOOSE_VOTE_DATE_DAYS: "5"
+
+### PAYPAL CONFIGURATION ###
+
+PAYPAL_MERCHANT: "YOURMERCHANTID"
+#test
+PAYPAL_URL: "https://www.sandbox.paypal.com/cgi-bin/webscr"
+#production:
+#PAYPAL_URL: "https://www.paypal.com/cgi-bin/webscr"
+
+# path to wkhtmltopdf exacutable
+# if this variable is not set then the value of `which wkhtmltopdf` is taken.
+# WKHTMLTOPDF_PATH: '/usr/bin/wkhtmltopdf'
+
+# mailman configuration to be able to reply to messages in forums
+# if variables are not set then emails are sent from standard address and is not possible to reply in forums by email
+# read the documentation to know how to configure the application to receive emails
+MAILMAN_SERVER: 'pop.server.com'
+MAILMAN_USERNAME: 'email_username'
+MAILMAN_PASSWORD: 'email_password'
+# there must be a %token%
+MAILMAN_EMAIL: 'replytest+%token%@airesis.it'
+MAILMAN_SENDER: 'Airesis Forum'
+
+# if the user does not access the platform for this number of days, his session will be destroyed
+SESSION_DAYS: '14'

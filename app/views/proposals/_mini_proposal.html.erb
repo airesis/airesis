@@ -17,10 +17,11 @@
       </div>
       <% if proposal.is_petition? %>
       <% else %>
-          <% if proposal.voting? || proposal.voted? %>
-              <%= render partial: 'proposals/new_vote_bar', locals: {proposal: proposal} %>
+          <% mustache_proposal = proposal_for_mustache(proposal) %>
+          <% if mustache_proposal['voting_or_voted?'] %>
+              <%= render 'proposals/new_vote_bar', mustache_proposal %>
           <% else %>
-              <%= render partial: 'proposals/new_rank_bar', locals: {proposal: proposal} %>
+              <%= render 'proposals/new_rank_bar', mustache_proposal %>
           <% end %>
       <% end %>
 

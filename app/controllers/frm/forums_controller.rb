@@ -1,6 +1,5 @@
 module Frm
   class ForumsController < Frm::ApplicationController
-
     load_and_authorize_resource class: 'Frm::Forum', through: :group
 
     helper 'frm/topics'
@@ -8,7 +7,7 @@ module Frm
     layout 'groups'
 
     def index
-      @categories = @group.categories.load
+      @categories = @group.categories.includes(:forums)
     end
 
     def show
@@ -16,10 +15,10 @@ module Frm
       register_view
 
       @topics = if forem_admin_or_moderator?(@forum)
-        @forum.topics
-      else
-        @forum.topics.visible.approved_or_pending_review_for(current_user)
-      end
+                  @forum.topics
+                else
+                  @forum.topics.visible.approved_or_pending_review_for(current_user)
+                end
 
       @topics = @topics.by_pinned_or_most_recent_post.page(params[:page]).per(TOPICS_PER_PAGE)
 
@@ -31,9 +30,9 @@ module Frm
 
     private
 
-    #def check_permissions
+    # def check_permissions
     #  raise CanCan::AccessDenied unless @group.participants.include? current_user
-    #end
+    # end
 
     def register_view
       @forum.register_view_by(current_user)

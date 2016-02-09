@@ -2,8 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationParticipationRequestCreate, type: :model, emails: true, notifications: true do
-
+describe NotificationParticipationRequestCreate, type: :model, emails: true, notifications: true, seeds: true do
   let!(:event_class) { NotificationParticipationRequestCreate }
   let!(:notification_type) { NotificationType.find_by(name: 'new_participation_request') }
   let!(:expected_alerts) { 3 }
@@ -25,5 +24,4 @@ describe NotificationParticipationRequestCreate, type: :model, emails: true, not
   end
 
   cumulable_event_process_spec
-
 end

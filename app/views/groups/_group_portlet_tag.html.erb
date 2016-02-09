@@ -1,7 +1,6 @@
 <div class="groupPortletListContainer" data-id="<%= group.id %>">
   <div class="card">
     <div class="row">
-
       <div class="groupUserImage small-3 large-3 columns">
         <%= link_to (group.group_image_tag nil), group_url(group), title: group.name %>
       </div>
@@ -16,20 +15,6 @@
           <div class="fade_out"></div>
         </div>
       </div>
-
-      <!--div class="groupEvent" style="float:right">
-    <%# event = group.events.first
-      # if event %>
-        <a href="<%#= event_url(event) %>">
-          <div class="event_calendar_mini">
-            <div class="day">
-              <%#= I18n.localize(event.starttime, format: :dayandmonth) %>
-            </div>
-
-          </div>
-        </a>
-    <%# end %>
-  </div>-->
     </div>
     <div class="group_bottom row">
       <div class="groupDescription small-3 large-3 columns">
@@ -38,11 +23,11 @@
       </div>
       <div class="groupDescription small-3 large-3 columns">
         <%= link_to (image_tag 'group_proposals.png'), group_proposals_url(group), title: t('pages.groups.index.proposals_number') %>
-        <span class="count"><%= group.proposals.count %></span>
+        <span class="count"><%= group.proposals_count %></span>
       </div>
       <div class="groupDescription small-3 large-3 columns">
         <%= link_to (image_tag 'group_events.png'), group_events_url(group), title: t('pages.groups.index.events_number') %>
-        <span class="count"><%= group.events.count %></span>
+        <span class="count"><%= group.meeting_organizations_count %></span>
       </div>
       <div class="territoryDescription small-3 large-3 columns">
         <%= link_to group.interest_border.territory.description, groups_url(interest_border: group.interest_border.as_json[:id]) %>

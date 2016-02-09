@@ -1,0 +1,10 @@
+- @extend = true
+.card
+  h1 = @page_title
+  div[data-tag-cloud]
+    p
+      - @tags.each do |tag|
+        = link_to tag.text, tag_path(tag.text), rel: tag.groups_count, class: 'round label',
+                  title: t('.tag_title', {proposals: tag.proposals_count,
+                                          blog_posts: tag.blog_posts_count,
+                                          groups: tag.groups_count})

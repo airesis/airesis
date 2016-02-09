@@ -1,4 +1,4 @@
-hu:
+hu-HU:
   unauthorized:
     default: Ehhez nincs jogosultságod
     create:
@@ -32,14 +32,13 @@ hu:
         get_out_of_group_confermation: Biztos, hogy ezt szeretnéd tenni?
         secret_vote: titok
         votations_title: Szavazások, amiken részt vettél
-        proposal_column: Javaslat
+        proposal_column: Indítvány
         votation_date_column: dátum
         vote_column: Szavazat
         profile_info: Profil adatok
         profile_info_unconfirmed: (meg nem erősített felhasználó)
         send_message_button: Privát üzenet küldése
         name_label: Keresztnév
-        surname_label: Vezetéknév
         email_label: e-mail cím
         edit_image: Kép szerkesztés
         to_be_confirmed: megerősítendő
@@ -64,7 +63,7 @@ hu:
         alarm_and_notifications: Értesítések
         geographic_borders: Földrajzi behatárolás
         account_and_privacy: Felhasználói fiók és adatvédelem
-        title: Beállítások
+        title: Beállítások és tulajdonságok
       alarm_preferences:
         receive_on_address: 'Kérek hírlevelet a %{email} címre'
         alerts: Riasztások
@@ -74,7 +73,6 @@ hu:
         show_urls: Mutasd a Facebook, Google+ és a LinkedIn URL-eket a felhasználóknak
         private_messages: Kaphatok privát üzeneteket más felhasználóktól
         join_accounts: Összekapcsolás másik fiókkal
-        join_accounts_description: 'Az Airesis-on megvan a lehetőséged, hogy hozzákösd az összes a közösségi hálós profilodat egyetlen felhasználóhoz. <br/> Kérlek válaszd ki a listából, hogy mely szolgáltatókat szeretnéd csatlakoztatni a fiókodhoz! Facebook, Google, Twitter, stb...'
         joined_all: Már csatlakoztál az összes általunk támogatott közösségi háló szolgáltatójának profiljával. Köszönjük!
         join_facebook: Csatlakozás a Facebook profiloddal
         join_google: Csatlakozás a Google profiloddal
@@ -137,7 +135,7 @@ hu:
         groups_list: Csoporttagságaim
         groups_registration: Csoport regisztráció
         groups_list_2: Csoportok listája
-        no_groups_yet: 'Még nem veszel részt egyik %{name} nevű csoportban sem'
+        no_groups_yet: 'Még nem vesz részt egyik %{name}ban sem'
         open_space_title: Nyilvános rendezvények
         show_more: Még több csoport
         search_mask: Kereső eszköz
@@ -147,7 +145,7 @@ hu:
         insert_query_or_place: Meg kell adnia legalább három karaktert, vagy egy földrajzi határt
         tags: Címkék
         participants_number: A résztvevők száma
-        proposals_number: Javaslatok száma
+        proposals_number: Indítványok száma
         events_number: Események száma
         no_results: Nem találtam ilyen csoportot
         limit_reached: Létrehozhat naponta legfeljebb egy csoportot
@@ -216,7 +214,6 @@ hu:
         short_url: Rövid url
       header:
         settings: BEÁLLÍTÁSOK
-        elections: VÁLASZTÁSOK
         documents: DOKUMENTUMOK
         forums: FÓRUM
         alarm_settings: Beállítások
@@ -233,7 +230,6 @@ hu:
           advanced: Speciális
           time_description: 'Az utolsó vita %{days} %{hours} %{minutes} ideje volt'
           simple_percentage_description: 'és a támogatottsága egyenlő vagy nagyobb, mint %{good_score}%.'
-          advanced_participation_description: '%{participants_percentage}% + 1 (%{total_number}-ből %{current_number}-nek van joga) <b>(átlag: %{average})</b>'
           advanced_percentage_description: 'Ha azonban a támogatottsága kisebb, mint %{bad_score}% az indítvány nem áll készen a szavazásra.'
           advanced_percentage_description3: Az indítvány továbbra is a vita fázisban marad, amíg a támogatottsága a két küszöbérték közé nem kerül.
         active: Aktív
@@ -255,10 +251,8 @@ hu:
       edit_work_areas:
         index:
           not_enabled: Munkaterületek nincsenek engedélyezve
-          description: Airesis segítségével kezelhet több különböző munkaterületet a csoporton belül.
           description2: Ezzel a funkcióval kezelhetőbbek a résztvevők és szerepköreik.
           description3: Légyen óvatos! Ez egy speciális funkció, nagyobb csoportoknak és gyakorlott felhasználóknak lett kifejlesztve.
-          enable: Engedélyezze a munkaterületeket!
           description4: Mielőtt aktiválna munkaterületeket, ellenőrizze, hogy tudja-e kezelni az azt közvetlenül használó csoportok tagjait
         manage:
           new_area: Munkaterület létrehozása
@@ -285,7 +279,6 @@ hu:
         anything: Mindegyik
         operations_on_user: A felhasználók számára elérhető műveletek
         send_email: Levél küldése
-        surname: Vezetéknév
         name: Név
         role: Szerepkör
         member_since: Tag ettől
@@ -322,7 +315,7 @@ hu:
       index:
         title: Indítványok listája
         debate: Minden indítványról a listán vita folyik
-        voting: Jelenleg minden indítvány folyamatban lévő szavazáson van vagy a szavazásra vár
+        voting: Jelenleg minden indítvány folyamatban lévő szavazáson van, vagy a szavazásra vár
         accepted: Minden indítvány, ami szavazáson túl van
         revision: Minden indítvány, mely nem lett sikeresen megvitatva, és újra vitára lehet bocsátani
         last: Legutóbb hozzáadott
@@ -376,9 +369,7 @@ hu:
         choose_votation_period: Válasszon szavazási időszakot
         choose_votation_period_alert: Biztos a szavazási időszakban? Később nem módosítható!
         choose_votation_period_button: Választottam!
-        create_votation_period: Nincsenek megadva szavazási időpontok, kérjük állítson be új dátumot
         no_periods_contact_group: Nincsenek megadva szavazási időpontok, kérjük lépjen kapcsolatba az adminisztrátorokkal időpont választáshoz.
-        no_periods_contact_admin: 'Nincs szavazási dátum jelen pillanatban. Be kell állítani. Ha szükséges, írjon emailt: %{email}'
         choose_new_votation_period_button: Válasszon egy új szavazási időpontot
         loading_contributions: Hozzájárulások betöltése, kis türelmet...
         previos_contributes: Korábbi hozzájárulások...
@@ -397,7 +388,7 @@ hu:
         category_title: Kategória
         edit_button: Szerkesztés
         delete_button: Eltávolítás
-        delete_proposal_confirmation: Biztosan törli ezt a javaslatot?
+        delete_proposal_confirmation: Biztosan törli ezt az indítványt?
         votation_message: 'Ezen indítvány szavazása %{from} és %{to} között lesz'
         editing_message_1: Ezt az indítványt ki fogják dolgozni a szerkesztők, köszönhetően a hozzájárulásoknak
         editing_message_2: A megszavazhatósághoz el kell érnie a
@@ -408,15 +399,11 @@ hu:
         characters_left: 'Még ennyi karaktered lehet:'
         score: Értékelések
         rank: Támogatottság
-        created_at_html: |
-          Létrehozva %{time} óta:<br>
-          <b>%{date}</b>
-        updated_at_html: |
-          Frissítve %{time}: <br>
-          <b>%{date}</b>
+        created_at_html: 'Létrehozva (%{time}):<br/><b>%{date}</b>'
+        updated_at_html: 'Frissítve (%{time}): <br/><b>%{date}</b>'
         votation_results: Eredmények
         votation_results_title: Szavazás eredmények
-        in_votation_html: 'Szavazás: <br><b>%{start}</b>-tól<br>,: <br><b>%{end}-ig</b>'
+        in_votation_html: 'Szavazás: <br><b>%{start}</b>-tól<br>-<br><b>%{end}</b>-ig'
         in_votation_now: Most van a szavazás!
         in_votation_until_html: 'A szavazás vége: <br/> <b>%{date}</b>'
         anonimity_active: Ideiglenes anonimitás aktív
@@ -431,7 +418,7 @@ hu:
         comment_inserted_by: '%{who} - %{when}'
         comment_updated_by: '%{who} - frissíve: %{when}'
         replies:
-          show_all: 'Az összes %{count} megjegyzés megjelenítése...'
+          show_all: 'Mind a %{count} hozzászólás megjelenítése...'
           delete: Eltávolítás
         reply_button: Válasz
         reply_placeholder: Szóljon hozzá
@@ -439,7 +426,7 @@ hu:
         manage_noise_folder: 'Eltávolított hozzájárulások (%{removable}/%{removed})'
         noise_folder: Eltávolított hozzájárulások
         what_nickname: Az mi?
-        give_contribute: Vélemények megtekintése, hozzáadása
+        give_contribute: Módosító indítványok megtekintése, hozzáadása
         no_contributes: Szavazás alatt a hozzájárulások nem jelennek meg
         new_valutation_message: Az indítvány egy új értékelést kapott
         old_editors_title: Régi szerkesztők
@@ -448,7 +435,7 @@ hu:
         enable_alerts: Értesítések engedélyezése
         disable_alerts: Értesítések letiltása
         close_contribute: HOZZÁJÁRULÁSOK BEZÁRÁSA
-        contributes_list: 'A "%{section}" szekció hozzájárulásainak listája'
+        contributes_list: 'A "%{section}" szekció hozzászólásai'
         add_comment: Megjegyzés hozzáadása
         add_contribute: Ossza meg az elképzeléseit! Javasoljon szövegrész módosításokat, és segítsen a szerkesztőknek az indítvány feljavításában
         login_to_comment: Hozzászóláshoz jelentkezzen be
@@ -480,24 +467,18 @@ hu:
         quorum_prompt: Válassza ki a határozatképességet
         quorum_help: Segítség
         step_classification: Osztályozás
-        step_similar: Hasonló jellegű javaslatok
+        step_similar: Hasonló jellegű indítványok
         step_3: Problémák/Akadályok
         step_dates: Vita és szavazás
-        step_3_title: Átfogóan ismertesse a felmerült problémákat, és milyen célokat akar az indítvány érni
+        step_3_title: Átfogóan ismertesse a felmerült problémákat, és milyen célokat akar az indítvány elérni
         create_button: Indítvány létrehozása
-        title: Új javaslat
+        title: Új indítvány
         title_group: '%{name}:'
         title_synthetic: Célkitűzés (néhány szóban összefoglalva)
         title_placeholder: "pl.: 'Kerékpár vonaton való szállításának elősegítése'"
         interest_borders_tkn_placeholder: Az indítvány által érdekelt városok, régiók vagy megyék
         tags_list_placeholder: Adjon hozzá pár címkét az indítványához
-        step_1_title: Felvethetsz egy problémát megoldás céljából, egy ötlet feljavítását, egy kezdeményezés szervezését ... nagyon fontos, hogy legyen egy jól megfogalmazott, világos célkitűzés. Az Airesis segít ezt elérni más emberek segítségével, a közös probléma megoldási folyamaton keresztül.
         step_2_title: 'Talán valaki már létrehozott egy hasonló indítványt: ellenőrizze lentebb. Ha így van, ne hozzon létre még egyet, kerülendő az idő és erőforrás pazarlás. Az összefogás ad erőt ötleteinek! A javaslatok címére kattintva nyithatja meg egy új fülön.'
-        step_4_title: 'Tökéletes! Válassza ki a beállításait és kattintson az "Indítvány létrehozása"-ra a segédlet befejezéséhez. Az indítvány bekerül az Airesis rendszerébe, ahol később további információval bővítheti, ha szükséges.'
-        step_4_footer_html: |
-          Airesis segíteni fog, hogy elérje célját a közös problémamegoldáson keresztül: a felhasználók javasolni fognak módosításokat a szöveges részhez, és <b>az Önön múlik,</b> hogy integrálja a legkedveltebb javaslatokat.<br>
-          Ha ezt nem teszi meg, a javaslat nem fog eljutni a szavazási fázisig.<br>
-          Sok szerencsét és ne ijedjen meg: mások segíthetnek az indítvánnyal kapcsolatos munkában.
         category_prompt: --Válasszon egy kategóriát--
         tags_separated_by_comma: (vesszővel elválasztva)
         cannot_add_proposal_in_work_area: Nem rendelkezik megfelelő jogosultsággal, hogy hozzáadja az indítványt bármely területhez
@@ -523,7 +504,7 @@ hu:
         interest_borders: Földrajzi határok
         authors: Szerkesztők
         support_group: Támogató csoportok
-        no_proposals: Még nincs javaslatok
+        no_proposals: Még nincsenek indítványok
         condition_left: A vita befejezésének feltétele
         time_left: Hátralévő idő
         vote: SZAVAZÁS
@@ -536,7 +517,6 @@ hu:
         positive: Kedvező
         negative: Ezzel szemben
         neutral: Semleges
-        name_surname_column: Vezetéknév és keresztnév
         date_time_column: Szavazás dátuma és időpontja
       report_contribute:
         mark_title: Jelölje meg a hozzájárulást
@@ -574,14 +554,6 @@ hu:
         you_know_what_you_do: Tudod, mit fogsz csinálni?
         schulze_title: Egy vagy több megoldás?
         inserted_contributes: Jelöld meg a hozzájárulásokat, amiket te építettél be ebbe a verzióba
-        more_solutions_explained_html: |
-          <b>Miért faggatunk annyit, ha úgyis udod, mit csinálsz?</b><br/>
-          Airesis lehetőséget ad egy vagy több megoldási javaslat hozzáadására.<br/>
-          Ha csak egyetlen megoldás lesz, a szavazásnál a résztvevők elfogadhatják, vagy elutasíthatják a piszkozat szövegét.<br/>
-          Ha több megoldás is lesz, a szavazás eltérő lesz, és minden résztvevő a Schulze-módszer segítségével szavazhat.<br/>
-          Ha próbálja összefoglalni a problémát és szeretne egy közösen készített szöveget, akkor <b>ne készítsen alternatív megoldásokat</b>!<br/>
-          Ha ennek az ellenkezőjét szeretné, szavazást szeretne, vagy alternatívát, mely nem építhető be az első megoldásba, akkor folytassa.<br/>
-          Emlékeztetőül, még a vita vége előtt hozzáadhat, vagy eltávolíthat megoldásokat, módosítva ezzel a szavazási módszert.
         paragraph: Bekezdés
         confirm_paragraph_deletion: Biztosan törli ezt a bekezdést?
         confirm_solution_deletion: Biztosan törli ezt a megoldást?
@@ -598,7 +570,7 @@ hu:
       manage_noise:
         available: Törlésre jelölhető hozzájárulások
         removed: Párbeszédből eltávolított hozzájárulások
-      contribution_valuation: Mit gondol?
+      contribution_valuation: Mi a véleményed erről?
       contribution_valuation_again: Meggondolta magát?
       new_rank_bar:
         creation: 'LÉTREHOZVA: %{time_ago} <br/>%{date}'
@@ -699,8 +671,6 @@ hu:
       published_button: Közzétett hírek
       view:
         comments: 'Hozzászólások (%{count})'
-      index:
-        title: Utolsó hírek az Airesis rendszeren
       edit:
         title: Hír szerkesztése
       archives:
@@ -729,8 +699,6 @@ hu:
         preferences: Beállítások
         administration: ADMINISZTRÁCIÓ
         logout: KIJELENTKEZÉS
-        become_user: Legyél felhasználó
-        become_user_button: Mehet!
         remember_me: Emlékezzen rám ezen a számítógépen
         login_button: Bejelentkezés
         registration_button: REGISZTRÁCIÓ
@@ -743,7 +711,6 @@ hu:
       welcome: Üdvözöljük
       groups_title: CSOPORTOK
       login: BEJELENTKEZÉS
-      login_placeholder: Email cím vagy felhasználónév
       groups_list: Csoportok, melyekben részt vesz
       open_group: Új csoport indítása
       new_group: Csoportok keresése
@@ -778,7 +745,6 @@ hu:
         debate_end: vita vége
     home:
       index:
-        whatis: MI IS EZ?
         partecipate: Vegyél részt
         videos: VIDEÓGALÉRIA
         whowe: RÓLUNK
@@ -837,7 +803,7 @@ hu:
         proposals_now_voting: Szavazás alatt álló indítványok
     open_space:
       layout:
-        proposals_button: JAVASLATOK
+        proposals_button: INDÍTVÁNYOK
         calendar_button: NAPTÁR
         map_button: TÉRKÉP
         groups_button: CSOPORTOK
@@ -851,25 +817,8 @@ hu:
       confirm_button: Megerősít
     calendar:
       create_event_button: Új esemény létrehozása
-    candidates:
-      new:
-        title: '%{name}: új jelölt'
-        description: Válassza ki az egyik csoport résztvevőjét és küldje el jelöltként az egyik elérhető választásra.
-        send_button: Jelölés elküldése
-      index:
-        description: 'Ezen az oldalon lehet nyomon követni a választások alatt, a csoport által létrehozott pályázatokat. <br /> Mielőtt jelölni tudna, a csoportnak kell '
-        create_election: tartson választást
-        user_column: Felhasználó
-        election_column: Választás
-        state_column: Állapot
-        candidates_phase: felhasználói jelölések
-        voting_phase: szavazási fázis
-        terminated_phase: leállítva
-        send_candidate_button: Jelöljön egy felhasználót
-        create_election_button: Hozzon létre egy új választást
     sessions:
       new:
-        login_label: Felhasználónév vagy e-mail cím
         remember_me_label: Emlékezz rám
       links:
         register: Még nem regisztrált? Regisztráljon most!
@@ -896,7 +845,6 @@ hu:
         newdescription5: Ha úgy gondolja, hogy további vitára van szükség, használhatja ezt a gombot
         newdescription6: Ha frissül az indítvány szövege, lehetősége nyílik megváltoztatni a hozzá kapcsolódó értékelését
       welcome:
-        title_html: '<b>Üdvözöljük az Airesis, %{user}</b> <br/>'
         description_html: |
           Ez a rövid bemutató segít az első választásoknál a platformon belül.<br/>
           Ez az Ön asztala: itt talál minden szükséges információt, hogy kapcsolatban maradhasson a területével.<br/>
@@ -997,165 +945,6 @@ hu:
     comments:
       one: egy hozzászólás
       other: '%{count} hozzászólás'
-  activerecord:
-    models:
-      meeting: Találkozó
-      places: Hely
-    attributes:
-      blog_comment:
-        body: Hozzászólás
-        created_at: AntiSpam
-      candidate:
-        user: Jelölt
-        election: Választás
-      election:
-        groups_end_time: Csoport nevezési határidő
-        candidates_end_time: Határidő a jelöltek jelentkezésére
-      event:
-        title: Esemény megnevezése
-        description: Leírás
-        event_type_id: Esemény típus
-        starttime: Kezdés dátuma
-        endtime: Befejezés dátuma
-        all_day: Egész napos
-        period: Ismétlés
-        frequency: Ismételjen meg mindent
-        private: Személyes
-        candidates_end_time: Határidő a jelöltek jelentkezésére
-        meeting:
-          place:
-            address: Cím
-            comune_id: Város
-      group:
-        facebook_page_url: Facebook oldal címe
-        name: Név
-        title_bar: Címsor
-        description: Leírás
-        accept_requests: Részvételi kérelem
-        porta_id: Adminisztrátor
-        interest_border_tkn: Földrajzi érdeklődési kör
-        interest_border_id: Földrajzi érdeklődési kör
-        image_url: Kép címe
-        default_role_name: Új felhasználók neve?
-        default_role_name_placeholder: 'Pl.: felhasználók, tagok, aktivisták, kalózok'
-        name_placeholder: Válassz egy nevet ami jellemzi a csoportodat és/vagy a földrajzi elhelyezkedését.
-        title_bar_placeholder: Csoport oldal címe.
-        description_placeholder: Ez az üzenet a csoport első oldalán lesz
-        image_url_placeholder: Csoport kép URL-címe
-        facebook_page_url_placeholder: Van a csoportnak Facebook oldala? Illessze be ide a címét.
-        admin_title: Hogy nevezik a csoport adminisztrátorait?
-        private: Privát csoport
-        rule_book: Szabályzat
-        image: Kép betöltése
-        admin_title_placeholder: 'A csoport-adminisztrátorok szerepkörének a neve (alapértelmezett: Administrator)'
-      blog:
-        title: Cím
-      blog_post:
-        title: Cím
-        body: Szöveg
-        published: Állapot
-        published_true: Publikálva
-        published_false: Piszkozat
-        published_reserved: Foglalt
-      participation_role:
-        name: Név
-        description: Rövid leírás
-      group_invitation:
-        emails_list: E-mail címek
-        testo: Üzenet szövege
-      place:
-        address: Cím
-      proposal:
-        group_area_id: Munkaterület
-        proposal_category_id: Kategória
-        title: Cím
-        content: Szöveg
-        interest_borders_tkn: Földrajzi érdeklődési kör
-        tags_list: Címkék
-        quorum_id: Vita időtartama
-        anonima: Ideiglenes anonimitás
-        visible_outside: Nyilvánosan látható
-        secret_vote: Titkos szavazat
-      proposal_comment:
-        content: Tartalom
-      quorum:
-        name: Határozatképesség neve
-        name_title: Kérjük, írjon egy rövid magyarázó címet
-        description: Leírás / rövid magyarázat
-        description_title: Leírás, hogy érthető legyen jelen határozatképesség célja
-        days_m: Napok
-        hours_m: órák
-        minutes_m: Percek
-        percentage: Résztvevők (százalék)
-        percentage_title: A vitában minimálisan résztvevők száma a csoport tagjai számának százalékában kifejezve
-        good_score: Határozatképesség (százalék)
-        good_score_title: Az indítvány szavazási fázisba kerüléséhez elérendő értékelés
-        bad_score: Rossz határozatképesség (százalék)
-        bad_score_title: 'Értékelés, amely alatt a javaslat elutasításra kerül. Lehetővé teszi, hogy folytassák a párbeszédet, ha az "Idő" vagy a "Résztvevők" feltételek nem teljesülnek'
-        condition: Feltétel
-        condition_title: 'Az "Idő" és "Résztvevők" feltételeknek egyszerre kell teljesülniük, vagy csak az egyiknek?'
-      search_participant:
-        role_id: Szerepkör
-        keywords: Családnév vagy vezetéknév
-      sys_movement:
-        sys_movement_type_id: Típus
-        made_on: Készült
-        amount: Mennyiség
-        sys_currency_id: Pénznem
-      user:
-        name: Keresztnév vagy becenév
-        email: E-mail cím
-        surname: Vezetéknév
-        login: Felhasználónév
-        password: jelszó
-        linkedinpageurl: Linkedin oldalad
-        facebookpageurl: Facebook oldalad
-        accept_conditions: Felhasználási feltételek
-        receive_newsletter: Hírlevelet kérek
-        blocked: Hiba
-      group_area:
-        name: Név
-        description: Leírás
-        default_role_name: Alapértelmezett szerepkör neve
-    errors:
-      template:
-        header:
-          one: 'egy hiba nem engedte a %{model} mentését'
-          other: '%{count} hiba nem engedte a %{model} mentését'
-        body: Problémák merültek fel az alábbi mezőkkel
-      messages:
-        inclusion: nem szerepel a listán
-        exclusion: foglalt
-        invalid: érvénytelen
-        confirmation: hibás megerősítés
-        accepted: el kell fogadni
-        empty: nem lehet üres
-        blank: ki kell tölteni
-        too_long: A szöveg túl hosszú
-        too_short: A szöveg túl rövid
-        wrong_length: '%{count} karakternek kell lennie)"'
-        taken: már foglalt
-        not_a_number: nem szám
-        greater_than: 'nagyobbnak kell lenni mint %{count}'
-        greater_than_or_equal_to: 'nem lehet kisebb, mint %{count}'
-        equal_to: 'pontosan %{count}-nak kell lennie'
-        less_than: 'kisebbnek kell lennie, mint %{count}'
-        less_than_or_equal_to: 'nem lehet nagyobb, mint %{count}'
-        odd: párosnak kell lennie
-        even: páratlannak kell lennie
-        record_invalid: '%{errors} ellenőrzési hiba'
-        not_found: nem található.
-        TOS: El kell fogadnia a felhasználási feltételeket
-      full_messages:
-        format: '%{attribute} %{message}'
-      models:
-        user:
-          attributes:
-            email:
-              already_confirmed: Ez az e-mail cím már regisztrálva van
-        group:
-          portavoce:
-            required: Választania kell egy adminisztrátort
   models:
     best_quorum:
       good_score_condition: 'Az indítvány átkerül a szavazási fázisba, ha a támogatottsága nagyobb, mint <b>%{good_score}%</b> és %{participants}, különben el lesz vetve'
@@ -1224,10 +1013,10 @@ hu:
     cancel: Mégsem
     save: Mentés
     report: jelentés
-    update: Frissítés
+    update: Elfogad
     send: Küldés
     create: Létrehozás
-    delete: Tőrlés
+    delete: Törlés
     search: Keresés
     close: Bezár
     edit: Szerkesztés
@@ -1238,7 +1027,6 @@ hu:
     yes_word: IGEN
     no_word: NEM
     mark: Megjelöl
-    update_and_continue: Mentés és folytatás
     detach: Leválasztás
   tooltips:
     random_stack_1: |
@@ -1264,7 +1052,7 @@ hu:
   saving: Mentés...
   sending: Küldés...
   updating: Frissítés...
-  loading: Betöltés...
+  loading: Betöltés ...
   error:
     setting_preferences: Hiba történt a beállítások módosítása közben
     admin_required: Adminisztrátornak kell lennie, hogy megnézze ezt az oldalt
@@ -1319,7 +1107,6 @@ hu:
       already_have: Sajnáljuk. Már van egy blogja
       comment_added: Hiba történt a megjegyzés hozzáadása közben
     users:
-      join_accounts: Hiba történt felhasználói fiókok összekötése közben. Ez a művelet jelenleg nem elérhető
       join_accounts_password: Hibás jelszó
     group_participations:
       destroy: Nem léphet ki egy csoportból, amelyben Ön az egyetlen adminisztrátor
@@ -1488,7 +1275,6 @@ hu:
       title: '%{user} felhasználó hozzászólt: %{comment} ehhez az indítványhoz'
       view_proposal: '%{click_here}, hogy megtekintse az indítványt.'
     text_update:
-      view_proposal: 'A(z) <b>%{proposal}</b> indítvány frissült!'
       integrated_contributes: 'Gratulálok! A következő hozzájárulásait beépítették a szerkesztők:'
       view_proposal_2: '%{click_here} és ellenőrizze, hogy az új szöveg tartalmazza-e a javaslatait. <br/> Ha Ön nem elégedett, mindig visszabocsáthatja vitára a hozzájárulásait úgy, hogy áthúzza őket a Történet-ből.'
       connect: 'Jelentkezz be %{name}'
@@ -1555,7 +1341,7 @@ hu:
       last_proposals:
         proceed_to_proposals: Tovább az indítványokhoz
       from_blogs:
-        proceed_to_blogs: Tovább a bogokhoz
+        proceed_to_blogs: Tovább a blogokhoz
   confirm_detach: Biztos, hogy eltávolítja ezt a személyazonosság szolgáltatót? Később nem tudja majd használni.
   alert_detach: Meg kell adnia egy érvényes e-mail címet a személyazonosság szolgáltató eltávolításához
   users:

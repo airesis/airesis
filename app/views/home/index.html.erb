@@ -44,6 +44,26 @@
       <script type="text/javascript" src="//cdn.crowdin.net/jipt/jipt.js">
       </script>
   <% end %>
+
+  //google analytics
+  <% if Rails.env.production? && ENV['GOOGLE_ANALYTICS'].present? %>
+      <script type="text/javascript">
+          (function (i, s, o, g, r, a, m) {
+              i['GoogleAnalyticsObject'] = r;
+              i[r] = i[r] || function () {
+                          (i[r].q = i[r].q || []).push(arguments)
+                      }, i[r].l = 1 * new Date();
+              a = s.createElement(o),
+                      m = s.getElementsByTagName(o)[0];
+              a.async = 1;
+              a.src = g;
+              m.parentNode.insertBefore(a, m)
+          })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+          ga('create', '<%=ENV['GOOGLE_ANALYTICS_ID']%>', 'auto');
+          ga('send', 'pageview');
+      </script>
+  <% end %>
 </head>
 
 <body>
@@ -73,23 +93,6 @@
             js.src = "//connect.facebook.net/<%="#{I18n.locale.to_s.gsub('-','_')}"%>/all.js#xfbml=1&appId=221145254619152";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
-
-        //google analytics
-        <%if Rails.env == 'production'%>
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-34897773-1']);
-        _gaq.push(['_trackPageview']);
-        _gaq.push(['_setDomainName', '<%= request.domain %>']);
-
-        (function () {
-            var ga = document.createElement('script');
-            ga.type = 'text/javascript';
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-        })();
-        <%end%>
     });
 </script>
 <div id="fb-root"></div>
@@ -116,12 +119,18 @@
 
     <ul id="nav" class="nav">
       <li><%= link_to t('pages.home.index.whatis'), edemocracy_path %></li>
-      <li><%=link_to t('pages.home.index.features'), '#features', class: 'smoothscroll'%></li>
+      <li><%= link_to t('pages.home.index.features'), '#features', class: 'smoothscroll' %></li>
       <li><%= link_to t('pages.home.index.donations'), sostienici_path %></li>
       <li><%= link_to t('pages.home.index.volunteers'), chisiamo_path %></li>
       <li><%= link_to t('pages.home.index.register'), new_user_registration_path %></li>
     </ul>
   </nav>
+
+  <div class="language-button">
+    <a href="#" data-reveal-id="language">
+      <%= image_tag "flags/#{I18n.locale}.png", class: 'language', title: t('pages.home.index.change_language') %>
+    </a>
+  </div>
 
   <ul class="header-social">
     <li><a href="https://www.facebook.com/airesisit"><i class="fa fa-facebook"></i></a></li>
@@ -139,8 +148,6 @@
       <div class="hero-text">
         <%= image_tag 'logo_completo_medium.png', alt: 'Airesis - Scegli di partecipare', title: t('home.tags.title') %>
         <h1 class="responsive-headline"><%= t('home.intro.paragraph_1.title') %></h1>
-
-
       </div>
       <div class="row" data-equalizer>
         <div class="columns large-6">
@@ -148,22 +155,33 @@
             <%= form_for resource, as: resource_name, url: user_session_path do |f| %>
                 <div class="row">
                   <div class="columns large-12 medium-10 medium-push-1 large-push-0">
-                    <ul class="social-network small-block-grid-5">
-                      <li><%= link_to t('pages.top_panel.facebook_login'), user_omniauth_authorize_path(:facebook), alt: t('pages.top_panel.facebook_login'), title: t('pages.top_panel.facebook_login'), class: 'zocial icon facebook' %></li>
-                      <li><%= link_to t('pages.top_panel.google_login'), user_omniauth_authorize_path(:google_oauth2), alt: t('pages.top_panel.google_login'), title: t('pages.top_panel.google_login'), class: 'zocial icon googleplus' %></li>
-                      <li><%= link_to t('pages.top_panel.twitter_login'), user_omniauth_authorize_path(:twitter), alt: t('pages.top_panel.twitter_login'), title: t('pages.top_panel.twitter_login'), class: 'zocial icon twitter' %></li>
-                      <li><%= link_to t('pages.top_panel.meetup_login'), user_omniauth_authorize_path(:meetup), alt: t('pages.top_panel.meetup_login'), title: t('pages.top_panel.meetup_login'), class: 'zocial icon meetup' %></li>
-                      <li><%= link_to t('pages.top_panel.linkedin_login'), user_omniauth_authorize_path(:linkedin), alt: t('pages.top_panel.linkedin_login'), title: t('pages.top_panel.linkedin_login'), class: 'zocial icon linkedin' %></li>
+                    <ul class="social-network small-block-grid-6">
+                      <li><%= link_to_ip t('pages.top_panel.facebook_login'), :facebook, 'facebook' %></li>
+                      <li><%= link_to_ip t('pages.top_panel.google_login'), :google_oauth2, 'googleplus' %></li>
+                      <li><%= link_to_ip t('pages.top_panel.twitter_login'), :twitter, 'twitter' %></li>
+                      <li><%= link_to_ip t('pages.top_panel.meetup_login'), :meetup, 'meetup' %></li>
+                      <li><%= link_to_ip t('pages.top_panel.linkedin_login'), :linkedin, 'linkedin' %></li>
+                      <li><%= link_to_ip t('pages.top_panel.tecnologiedemocratiche'), :tecnologiedemocratiche, 'tecnologiedemocratiche' %></li>
                     </ul>
                   </div>
                   <div class="columns large-12 medium-10 medium-push-1 large-push-0">
-                    <%= f.text_field :login, placeholder: 'Email' %>
+                    <%= f.email_field :email, placeholder: 'Email' %>
                     <%= f.password_field :password, placeholder: 'Password' %>
                   </div>
                   <div class="columns large-6 medium-5 medium-push-1 large-push-0  text-left">
-                    <div style="margin-top: 3px; font-size: 12px ">
-                      <%= f.check_box :remember_me, checked: true %>
-                      <%= t('pages.home.index.keep_connected') %>
+                    <div class="row">
+                      <div class="columns small-6 medium-12">
+                        <div style="margin-top: 3px; font-size: 12px ">
+                          <%= f.check_box :remember_me, checked: true %>
+                          <%= t('pages.home.index.keep_connected') %>
+                        </div>
+
+                      </div>
+                      <div class="columns small-6 medium-12">
+                        <div style="margin-top: 3px; font-size: 12px ">
+                          <%= link_to t('pages.home.index.forgot_password'), new_user_password_path %>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="column large-6 medium-5 medium-pull-1 large-pull-0 text-right">
@@ -187,7 +205,7 @@
                     <%= link_to t('pages.home.index.register'), new_user_registration_path, class: 'button trial alert' %>
                   </div>
                   <div class="columns medium-6">
-                    <%= link_to t('pages.home.index.try_it'), public_path, class: 'button' %>
+                    <%= link_to t('pages.home.index.try_it'), open_space_path, class: 'button' %>
                   </div>
                 </div>
               </div>
@@ -195,7 +213,6 @@
           </div>
         </div>
       </div>
-
       <div class="hero-image">
         <%= image_tag 'landing/hero-airesis.png' %>
       </div>
@@ -574,7 +591,6 @@
                   <i class="fa fa-plus"></i>
                 </div>
             <% end %>
-
           </div>
         </li>
 
@@ -643,7 +659,7 @@
         </a>
       </div>
       <p><a href="https://github.com/coorasse/Airesis" target="_blank"><%= t('pages.footer.for_edemocracy_html') %></a>
-        v.<%= VERSION %></p>
+        v.<%= AIRESIS_VERSION %></p>
 
       <p>Airesis is supported and promoted by the No-Profit Association 'Tecnologie Democratiche'. Many thanks to all
         the volunteers that help us to continue this important project.
@@ -680,5 +696,8 @@
     </div>
   </div>
 </footer>
+
+<%= render 'layouts/languages' %>
+<%= render 'cookies_eu/consent_banner', link: cookie_law_path %>
 </body>
 </html>

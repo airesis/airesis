@@ -1,8 +1,8 @@
-<div class="event_calendar" style="margin-right:10px;">
-  <div class="day">
-    <%=l time, format: :month%>
-  </div>
-  <div class="number">
+<div class="event-date">
+  <p class="event-month">
+    <%= month_long(time.month) %>
+  </p>
+  <p class="event-day">
     <%= time.mday %>
-  </div>
+  </p>
 </div>

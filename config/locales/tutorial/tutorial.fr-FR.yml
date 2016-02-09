@@ -1,4 +1,4 @@
-fr:
+fr-FR:
   tutorial:
     proposals_index:
       welcome_open_space: "Bienvenue dans l'espace ouvert de Airesis ! L'espace ouvert est un groupe très particulier auquel participent tous les utilisateurs. Vous trouverez une liste des propositions librement ajoutées par les utilisateurs de l'application et vous pouvez même ajouter les votre"
@@ -19,7 +19,7 @@ fr:
       timeline: "Une barre qui affichent l'état du débat ou le vote"
       timeleft: Le temps et/ou les évaluations nécessaires pour clore le débat
       rankDescription: La maturité de la proposition, qui montre si la proposition est prête à être votée, basé sur les évaluations des participants
-      participants: Le nombre de personnes qui participent à ce projet avec leurs contributions et évaluations
+      participants: Le nombre de personnes qui, par leurs contributions et leurs évaluations, participent à cette proposition
       contributes: Le nombre de contributions ajoutées
       end: "Il s'agit de la structure de la liste des propositions. C'est la même dans chaque groupe auquel vous participez et elle vous aidera à vous orienter dans les discussions du groupe"
     proposals_show:
@@ -40,5 +40,22 @@ fr:
       authors: Les éditeurs de la proposition
       category: La catégorie de cette proposition
       history: Historique de la proposition, dans lequel vous pouvez afficher ses modifications et son évolution
+    groups_edit:
+      welcome: Tableau de bord pour groupes. Nous allons vous expliquer les différentes sections...
+      group_info: "Ici, vous pouvez modifier toutes les informations sur le groupe et son image. Si vous ne le n'avez pas encore fait, veuillez remplir les mots clés. Ils sont importants pour que votre groupe puisse être localisé."
+      group_roles: Ici, vous pouvez gérer les rôles disponibles dans le groupe. Vous pouvez gérer et modifier leurs autorisations.
+      group_users: Ici, vous pouvez gérer les participants à votre groupe. Vous pouvez leur attribuer des rôles et envoyer des emails.
+      group_proposals: 'Sur cette page, vous pouvez changer tout ce qui touche aux propositions : quorums et paramètres.'
+      group_areas: Les Zones sont disponibles si vous désirez les activer. Elles vous permettront de diviser votre groupe en petits groupes
+      group_forum: Et finalement, voici tous les paramètres pour le Forum.
+    users_alarm_preferences:
+      intro: Sur cette page, vous pouvez modifier tous les paramètres des alertes et notifications.
+      alerts: Vous pouvez choisir quelles alertes vous désirez recevoir sur Airesis...
+      emails: .. .par e-mail, ou les deux.
+      no_emails: "N'oubliez pas : Si vous désactivez une alerte sur Airesis, vous ne la recevrez pas sur Airesis non plus."
+    users_border_preferences:
+      intro: "Si vous ne l'avez pas encore fait, définissez vos frontières géographiques d'intérêt. Airesis les utilisera bientôt pour vous montrer du contenu ciblé."
+    welcome:
+      intro: "Bienvenue sur Airesis %{name}. Ces tutoriels vous guideront dans cette application et vous expliquera comment l'utiliser et où trouver l'information dont vous avez besoin."
     next: Suivant
     back: Précédent
