@@ -13,30 +13,10 @@ class EventsController < ApplicationController
         @page_title = @group ? "#{t('pages.events.index.title')} - #{@group.name}" : t('pages.events.index.title')
       end
       format.ics do
-        calendar = Icalendar::Calendar.new
-        @events.each do |event|
-          calendar.add_event(event.to_ics)
-        end
-        calendar.publish
-        render text: calendar.to_ical
+        respond_with_ical_index
       end
       format.json do
-        @events = @events.time_scoped(Time.parse(params['start']), Time.parse(params['end']))
-        @events = @events.in_territory(current_domain.territory) unless @group
-        events = []
-        @events.each do |event|
-          event_obj = event.to_fc
-          if @group
-            event_obj[:group] = @group.name
-            event_obj[:group_url] = group_url(@group)
-          elsif event.groups.first
-            event_obj[:group] = event.groups.first.name
-            event_obj[:group_url] = group_url(event.groups.first)
-          end
-          event_obj[:url] = @group ? group_event_url(@group, event) : event_url(event)
-          events << event_obj
-        end
-        render text: events.to_json
+        respond_with_json_index
       end
     end
   end
@@ -47,7 +27,11 @@ class EventsController < ApplicationController
     @event_comment = @event.event_comments.new
     @event_comments = @event.event_comments.includes(:user).order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
     respond_to do |format|
-      format.html
+      format.html do
+        if @event.votation?
+          @proposals = @event.proposals.for_list(current_user.try(:id))
+        end
+      end
       format.js
       format.ics do
         calendar = Icalendar::Calendar.new
@@ -174,13 +158,10 @@ class EventsController < ApplicationController
   protected
 
   def calculate_starttime
-    if params[:starttime]
-      ret = Time.at(params[:starttime].to_i / 1000)
-      ret = ret.change(hour: Time.now.hour, min: Time.now.min) unless (params[:has_time] == 'true')
-      ret
-    else
-      10.minutes.from_now
-    end
+    return 10.minutes.from_now unless params[:starttime]
+    ret = Time.at(params[:starttime].to_i / 1000)
+    ret = ret.change(hour: Time.now.hour, min: Time.now.min) unless params[:has_time] == 'true'
+    ret
   end
 
   def event_params
@@ -198,6 +179,33 @@ class EventsController < ApplicationController
   end
 
   private
+
+  def respond_with_ical_index
+    calendar = Icalendar::Calendar.new
+    @events.each do |event|
+      calendar.add_event(event.to_ics)
+    end
+    calendar.publish
+    render text: calendar.to_ical
+  end
+
+  def respond_with_json_index
+    @events = @events.time_scoped(Time.parse(params['start']), Time.parse(params['end']))
+    @events = @events.in_territory(current_domain.territory) unless @group
+    events = @events.map { |event| generate_event_obj(event) }
+    render text: events.to_json
+  end
+
+  def generate_event_obj(event)
+    event_obj = event.to_fc
+    group = @group || event.groups.first
+    if group
+      event_obj[:group] = group.name
+      event_obj[:group_url] = group_url(group)
+    end
+    event_obj[:url] = @group ? group_event_url(@group, event) : event_url(event)
+    event_obj
+  end
 
   def render_404(exception = nil)
     log_error(exception) if exception

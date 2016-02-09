@@ -1,10 +1,10 @@
 <% if (params[:view] == SearchProposal::ORDER_BY_END) %>
     <span class="order_option sel">
-            <%= link_to t('pages.proposals.tabs.most_urgent'), current_url(action: :tab_list, view: SearchProposal::ORDER_BY_END, order: params[:order] == 'a' ? nil : 'a'),  title:"Ordina le proposte per data di termine dibattito", remote: true, data:{disable_with: t('loading')} %>
-      <span class="<%=(params[:order] == 'a') ? 'icon-arrow-up3' : 'icon-arrow-down3'%>"></span>
-          </span>
+      <%= link_to t('pages.proposals.tabs.most_urgent'), current_url(action: :tab_list, view: SearchProposal::ORDER_BY_END, order: params[:order] == 'a' ? nil : 'a'), title: "Ordina le proposte per data di termine dibattito", remote: true, data: { disable_with: t('loading') } %>
+      <%= order_arrow %>
+    </span>
 <% else %>
     <span class="order_option">
-            <%= link_to t('pages.proposals.tabs.most_urgent'), current_url(action: :tab_list, view: SearchProposal::ORDER_BY_END), title:"Ordina le proposte per data di termine dibattito", remote: true, data: {disable_with: t('loading')} %>
-          </span>
+      <%= link_to t('pages.proposals.tabs.most_urgent'), current_url(action: :tab_list, view: SearchProposal::ORDER_BY_END), title: "Ordina le proposte per data di termine dibattito", remote: true, data: { disable_with: t('loading') } %>
+    </span>
 <% end %>

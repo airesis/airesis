@@ -15,7 +15,7 @@ module OmniAuth
                                         authorize_url: '/Authorization',
                                         token_url: '/Token/OpenGet'
 
-      option :token_params,           parse: :json
+      option :token_params, parse: :json
 
       option :access_token_options,           header_format: 'OAuth %s',
                                               param_name: 'access_token'

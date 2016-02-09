@@ -14,7 +14,7 @@ class NotificationForumTopicCreate < NotificationSender
     data[:subdomain] = group.subdomain if group.certified?
 
     group.participants.each do |user|
-      next if (user == post_user)
+      next if user == post_user
       send_notification_to_user(notification, user)
     end
   end

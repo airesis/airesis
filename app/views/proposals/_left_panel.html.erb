@@ -199,16 +199,4 @@
     </div>
 <% end %>
 
-<% unless @proposal.closest(@group.try(:id)).empty? %>
-    <div class="mybox">
-      <h4><%= t('pages.proposals.show.similar_proposals_title') %></h4>
-
-      <div class="mycont">
-        <% @proposal.closest.each do |p| %>
-            <div class="panel">
-              <%= link_to_proposal p %>
-            </div>
-        <% end %>
-      </div>
-    </div>
-<% end %>
+<%= render 'proposals/closest_proposals' %>

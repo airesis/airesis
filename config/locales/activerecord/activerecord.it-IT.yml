@@ -141,6 +141,7 @@ it-IT:
         wrong_length: 'deve essere di %{count} caratteri'
         taken: è già stato preso
         not_a_number: non è un numero
+        not_an_email: non è un indirizzo email valido
         greater_than: 'deve essere maggiore di %{count}'
         greater_than_or_equal_to: 'deve essere maggiore o uguale di %{count}'
         equal_to: 'deve essere uguale a %{count}'

@@ -86,7 +86,8 @@ def cumulable_event_process_spec
           it 'accumulates on the alerts sent already' do
             Alert.all.each do |alert|
               expect(alert.properties['count'].to_i).to eq 2
-              expect(Alert.last.message).to eq I18n.t("db.notification_types.#{notification_type.name}.message.other", alert.data)
+              expect(Alert.last.message).
+                to eq I18n.t("db.notification_types.#{notification_type.name}.message.other", alert.data)
             end
           end
 
@@ -104,7 +105,9 @@ def cumulable_event_process_spec
 
             it 'sends email correctly' do
               last_deliveries = ActionMailer::Base.deliveries.last(expected_alerts)
-              expect(last_deliveries.sample.subject).to include I18n.t("db.notification_types.#{notification_type.name}.email_subject.other", Alert.last.data)
+              data = Alert.last.data
+              expect(last_deliveries.sample.subject).
+                to include I18n.t("db.notification_types.#{notification_type.name}.email_subject.other", data)
             end
           end
         end
@@ -134,7 +137,8 @@ def cumulable_event_process_spec
 
         it 'sends email correctly' do
           last_deliveries = ActionMailer::Base.deliveries.last(expected_alerts)
-          expect(last_deliveries.sample.subject).to include I18n.t("db.notification_types.#{notification_type.name}.email_subject.one", Alert.last.data)
+          expect(last_deliveries.sample.subject).
+            to include I18n.t("db.notification_types.#{notification_type.name}.email_subject.one", Alert.last.data)
         end
 
         context 'another event happens before the user check the alerts' do
@@ -158,7 +162,8 @@ def cumulable_event_process_spec
             it 'accumulates on the alerts sent already' do
               Alert.all.each do |alert|
                 expect(alert.properties['count'].to_i).to eq 2
-                expect(Alert.last.message).to eq I18n.t("db.notification_types.#{notification_type.name}.message.other", alert.data)
+                expect(Alert.last.message).
+                  to eq I18n.t("db.notification_types.#{notification_type.name}.message.other", alert.data)
               end
             end
 

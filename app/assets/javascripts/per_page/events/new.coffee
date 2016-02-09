@@ -1,16 +1,13 @@
 window.EventsNew =
   init: ->
-
     form = $('#new_event')
-    form.data('formValidation').destroy()
-
     form.steps
       headerTag: ".legend"
       bodyTag: ".step"
       autoFocus: true
       labels: {
         previous: '<i class="fa fa-arrow-left"></i>' + Airesis.i18n.buttons.goBack
-        next: '<i class="fa fa-arrow-right"></i>' + Airesis.i18n.buttons.next
+        next: Airesis.i18n.buttons.next + '<i class="fa fa-arrow-right"></i>'
         finish: Airesis.i18n.buttons.eventsFinish
       }
       onStepChanging: (e, currentIndex, newIndex)->
@@ -32,8 +29,10 @@ window.EventsNew =
         !(isValidStep is false || isValidStep is null)
       onFinished: (e, currentIndex)->
         form.formValidation('defaultSubmit')
+      onInit: (e, currentIndex)->
+        form.find('[role="menuitem"]').addClass('btn').addClass('blue')
 
-    $('#create_event_dialog').foundation('reveal', 'open', {
+    $('#create_event_dialog:not(".open")').foundation('reveal', 'open', {
       closeOnBackgroundClick: false,
       closeOnEsc: false
     })

@@ -17,7 +17,7 @@
         <% end %>
         <% if current_user %>
             <li class="has-form">
-              <%= simple_form_for Search.new, data: {remote: true} do |f| %>
+              <%= simple_form_for Search.new, data: {remote: true, no_fv_validation: ''} do |f| %>
                   <div class="row collapse">
                     <div class="large-12 small-10 columns">
                       <%= f.text_field :q, placeholder: t('placeholder.find') %>

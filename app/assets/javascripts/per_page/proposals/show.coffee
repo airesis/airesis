@@ -1,5 +1,6 @@
 window.ProposalsShow =
   voting: false
+  abandoned: false
   contributesUrl: ''
   rightlistUrl: ''
   clicked: null
@@ -40,56 +41,16 @@ window.ProposalsShow =
     $(document).on 'ajax:beforeSend', '.vote_comment', (n, xhr)->
       $(this).parent().find('.vote_comment').hide()
       $(this).parent().find('.loading').show()
-    $(document).on 'ajax:beforeSend', '.votedown-mini', (n, xhr)->
+    $(document).on 'ajax:beforeSend', '.icon-sad-change', (n, xhr)->
       num = $(this).data('id')
       $(this).parent().find('.vote_comment').hide()
       $(this).parent().find('.loading').show()
-      $(".reply_textarea[data-id=#{num}]").focus().attr('placeholder',
-        'Indica il motivo della tua valutazione negativa').effect('highlight', {}, 3000)
+      $(".reply_textarea[data-id=#{num}]").focus().attr('placeholder', Airesis.i18n.rankdown_reason).effect('highlight', {}, 3000)
     $(document).ajaxError (e, XHR, options)->
       if XHR.status == 401
         window.location.replace(Airesis.new_user_session_path)
-
     if @voting
-      $('.vote_solution_title').each ->
-        $(this).on 'click', ->
-          scrollToElement $('.solution_main[data-solution_id=' + $(this).data('id') + ']')
-          false
-        $(this).qtip content: $('.proposal_content[data-id=' + $(this).data('id') + ']').clone()
-      $('#schulze-submit').on 'click', ->
-        vote = []
-        votestring = ''
-        $('[data-slider-input]').each ->
-          val = $(this).val()
-          id = $(this).data('slider-input')
-          if !val or val == ''
-            val = '0'
-          vote.push [
-            id
-            val
-          ]
-          return
-        vote.sort (a, b) ->
-          parseInt(b[1]) - parseInt(a[1])
-        for v of vote
-          if v != '0'
-            if vote[v][1] == vote[v - 1][1]
-              votestring += ','
-            else
-              votestring += ';'
-          votestring += vote[v][0]
-        $('#data_votes').val votestring
-        true
-      $('.votebutton').on 'click', ->
-        type = $(this).data('vote-type')
-        message = if type == Airesis.i18n.proposals.vote.positive then Airesis.i18n.proposals.vote.confirm_positive else if type == Airesis.i18n.proposals.vote.neutral then Airesis.i18n.proposals.vote.confirm_neutral else Airesis.i18n.proposals.vote.confirm_negative
-        if confirm(message)
-          $('#data_vote_type').val type
-          $('.votebutton').fadeOut()
-          $('.vote_panel form').fadeOut()
-          $('.loading_vote').show()
-          $('.vote_panel form').submit()
-        false
+      new Airesis.ProposalVotationManager()
     else
       @currentPage++;
       $.ajax
@@ -117,7 +78,8 @@ window.ProposalsShow =
     @init_contributes_button()
     @init_countdowns()
     @initVotePeriodSelect()
-
+    if @abandoned
+      new Airesis.QuorumSelector()
     #open the contribute if it's a link from an email
     if Airesis.show_section_id
       $(".contribute-button[data-section_id=#{Airesis.show_section_id}]").trigger('click', [Airesis.show_comment_id])

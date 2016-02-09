@@ -24,7 +24,7 @@ class Quorum < ActiveRecord::Base
 
   def populate
     self.minutes = minutes_m.to_i + (hours_m.to_i * 60) + (days_m.to_i * 24 * 60)
-    self.minutes = nil if (minutes == 0)
+    self.minutes = nil if minutes == 0
   end
 
   def populate_accessor

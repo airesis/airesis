@@ -8,8 +8,8 @@ describe 'check if quorums are working correctly', type: :feature, js: true do
   let(:quorum) { create(:best_quorum, group_quorum: GroupQuorum.new(group: group)) } # min participants is 10% and good score is 50%. vote quorum 0, 50%+1
   let(:proposal) do
     create(:group_proposal, quorum: quorum, current_user_id: user.id,
-                            group_proposals: [GroupProposal.new(group: group)],
-                            votation: { choise: 'new', start: 10.days.from_now, end: 14.days.from_now })
+           group_proposals: [GroupProposal.new(group: group)],
+           votation: { choise: 'new', start: 10.days.from_now, end: 14.days.from_now })
   end
 
   before(:each) do
@@ -26,20 +26,18 @@ describe 'check if quorums are working correctly', type: :feature, js: true do
     proposal.reload
   end
 
-  def vote_schulze(id = proposal.solutions[0].id)
+  def vote_schulze(id)
     visit group_proposal_path(group, proposal)
-    expect(page.html).to include(I18n.t('pages.proposals.vote_panel.schulze_title', max: 3))
+    expect(page.html).to include(I18n.t('pages.proposals.vote_panel.schulze_title'))
     expect(page).to have_content(proposal.secret_vote ? I18n.t('pages.proposals.vote_panel.secret_vote') : I18n.t('pages.proposals.vote_panel.clear_vote'))
-    if id.present?
-      within (".solution_row[data-id=\"#{id}\"]") do
-        find('[data-slider-input]').set('3')
-      end
-    end
+
+    page.execute_script "el = $('.list-group-item[data-id=#{id}]');
+el.parents('.vote-items-external').prev('.vote-items-external').find('.vote-items').append(el);"
 
     page.execute_script 'window.confirm = function () { return true }'
     click_button I18n.t('pages.proposals.show.vote_button')
     expect(page).to have_content(I18n.t('votations.create.confirm'))
-    expect(page.html).to_not include(I18n.t('pages.proposals.vote_panel.schulze_title', max: 3))
+    expect(page.html).to_not include(I18n.t('pages.proposals.vote_panel.schulze_title'))
     expect(page).to have_content(I18n.t('pages.proposals.vote_panel.results_time', when: (I18n.l UserVote.last.created_at)))
     proposal.reload
   end

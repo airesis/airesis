@@ -9,7 +9,7 @@ Airesis::Application.routes.draw do
 
   resources :sys_payment_notifications, only: [:create]
 
-  resources :user_likes
+  resources :user_likes, only: [:create, :destroy]
 
   resources :proposal_nicknames, only: [:update]
 
@@ -114,15 +114,12 @@ Airesis::Application.routes.draw do
     post :hide, on: :member
   end
 
-  resources :tutorial_progresses
-
-  resources :tutorials do
-    resources :steps do
+  resources :tutorials, only: [] do
+    resources :steps, only: [] do
       member do
         get :complete
       end
     end
-    resources :tutorial_assignees
   end
 
   resources :alerts do
@@ -347,7 +344,16 @@ Airesis::Application.routes.draw do
 
   # routes available only on main site
   constraints NoSubdomain do
+
     root to: 'home#index'
+    namespace :api do
+      namespace :v1 do
+        resources :proposals, only: [:show, :index]
+        devise_scope :user do
+          post 'login' => 'sessions#create', as: :login
+        end
+      end
+    end
 
     resources :proposal_categories do
       get :index, scope: :collection
@@ -540,7 +546,7 @@ Airesis::Application.routes.draw do
           get :download_translations
           get :extract_delete_zip
         end
-        resources :tutorials
+
         resources :users, only: [] do
           get :unblock, on: :member
           collection do

@@ -8,7 +8,7 @@ $ ->
       button.attr 'disabled', 'disabled'
       false
 
-  $(document).foundation()
+  $(document).foudator]")'))
   new AiresisFormValidation($('form:not([data-no-fv-validation])'))
   Facebook.load()
   if Airesis.environment == 'production'

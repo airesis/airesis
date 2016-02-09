@@ -540,7 +540,7 @@ bo-BT:
         report_description: crwdns7096:0crwdne7096:0
       vote_panel:
         title: crwdns7097:0crwdne7097:0
-        schulze_title: 'crwdns7098:0%{max}crwdne7098:0'
+        schulze_title: crwdns9989:0crwdne9989:0
         secret_vote: crwdns7099:0crwdne7099:0
         clear_vote: crwdns7100:0crwdne7100:0
         single_title: crwdns7101:0crwdne7101:0
@@ -749,6 +749,10 @@ bo-BT:
       index:
         blog_subtitle: 'crwdns7943:0%{posts}crwdnd7943:0%{comments}crwdne7943:0'
         find_blog_label: crwdns8102:0crwdne8102:0
+        search_description: crwdns9985:0crwdne9985:0
+        search_with_query: crwdns9986:0crwdne9986:0
+        find_title: crwdns9987:0crwdne9987:0
+        search_with_place: crwdns9988:0crwdne9988:0
     quorums:
       index:
         title: crwdns7268:0crwdne7268:0
@@ -888,6 +892,8 @@ bo-BT:
     tags:
       show:
         related_title: crwdns7372:0crwdne7372:0
+        not_found: 'crwdns9982:0%{tag}crwdne9982:0'
+        title: 'crwdns9983:0%{tag}crwdne9983:0'
       list_proposals_with_tag: crwdns8115:0crwdne8115:0
       no_proposals_with_tag: crwdns7374:0crwdne7374:0
       list_posts_with_tag: crwdns8116:0crwdne8116:0
@@ -899,6 +905,8 @@ bo-BT:
       groups_tab: crwdns7381:0crwdne7381:0
       not_found:
         subtitle: crwdns7382:0crwdne7382:0
+      index:
+        title: crwdns9984:0crwdne9984:0
     footer:
       for_edemocracy: crwdns7383:0crwdne7383:0
       go_to_main_site: crwdns7384:0crwdne7384:0
@@ -1150,6 +1158,7 @@ bo-BT:
     group_invitations:
       code_expired: crwdns8277:0crwdne8277:0
       already_participant: crwdns8278:0crwdne8278:0
+      create: crwdns9978:0crwdne9978:0
   info:
     setting_preferences: crwdns7663:0crwdne7663:0
     blog_created: crwdns7664:0crwdne7664:0
@@ -1233,6 +1242,7 @@ bo-BT:
       blog_created: crwdns7729:0crwdne7729:0
       title_updated: crwdns7730:0crwdne7730:0
       comment_added: crwdns8152:0crwdne8152:0
+      destroyed: crwdns9973:0crwdne9973:0
     events:
       event_deleted: crwdns7732:0crwdne7732:0
       event_updated: crwdns7733:0crwdne7733:0
@@ -1331,6 +1341,8 @@ bo-BT:
     update_contribute:
       title: 'crwdns7950:0%{user}crwdne7950:0'
       view_proposal: 'crwdns7951:0%{click_here}crwdne7951:0'
+    new_forum_topic:
+      view: 'crwdns9974:0%{app_short_name}crwdne9974:0'
   words:
     contribute: crwdns7791:0crwdne7791:0
     comment: crwdns7792:0crwdne7792:0
@@ -1365,6 +1377,8 @@ bo-BT:
         proceed_to_proposals: crwdns8172:0crwdne8172:0
       from_blogs:
         proceed_to_blogs: crwdns8173:0crwdne8173:0
+      topics:
+        title: crwdns9990:0crwdne9990:0
   confirm_detach: crwdns8174:0crwdne8174:0
   alert_detach: crwdns8175:0crwdne8175:0
   users:
@@ -1414,3 +1428,9 @@ bo-BT:
   confirm:
     unintegrate: crwdns8406:0crwdne8406:0
   cookie_policy: crwdns9936:0crwdne9936:0
+  blog:
+    delete:
+      confirm_message: 'crwdns9975:0%{count}crwdne9975:0'
+  click_here_to_view: 'crwdns9979:0%{app_short_name}crwdne9979:0'
+  unsubscribe_from_topic: 'crwdns9980:0%{click_here}crwdne9980:0'
+  select_debate_duration: crwdns9981:0crwdne9981:0

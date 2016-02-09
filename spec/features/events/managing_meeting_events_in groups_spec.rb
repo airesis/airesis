@@ -24,7 +24,6 @@ describe 'manage correctly meeting events', type: :feature, js: true, seeds: tru
     fill_in I18n.t('activerecord.attributes.event.description'), with: description
     check I18n.t('activerecord.attributes.event.private')
     click_link I18n.t('buttons.next')
-    # page.execute_script "$('#form-wizard-next').click()"
     fill_in I18n.t('activerecord.attributes.event.starttime'), with: (I18n.l Time.now, format: :datetimepicker)
     page.execute_script("$('#event_starttime').fdatetimepicker('hide');")
     fill_in I18n.t('activerecord.attributes.event.endtime'), with: (I18n.l Time.now + 1.day, format: :datetimepicker)
@@ -34,9 +33,6 @@ describe 'manage correctly meeting events', type: :feature, js: true, seeds: tru
     fill_in I18n.t('activerecord.attributes.place.address'), with: 'Via Rizzoli 2'
     page.execute_script("$('#event_meeting_attributes_place_attributes_latitude_original').val(#{Faker::Address.latitude});")
     page.execute_script("$('#event_meeting_attributes_place_attributes_longitude_original').val(#{Faker::Address.longitude});")
-    # find(:xpath, "//input[@id='event_meeting_attributes_place_attributes_longitude_original']").set Faker::Address.longitude
-    # find(:xpath, "//input[@id='event_meeting_attributes_place_attributes_latitude_center']").set Faker::Address.latitude
-    # find(:xpath, "//input[@id='event_meeting_attributes_place_attributes_longitude_center']").set Faker::Address.longitude
 
     click_link I18n.t('pages.events.new.submit')
     wait_for_ajax
@@ -54,7 +50,7 @@ describe 'manage correctly meeting events', type: :feature, js: true, seeds: tru
 
   it 'can delete events' do
     event = create(:meeting_event, user: user2)
-    meeting_organization = create(:meeting_organization, event: event, group: group)
+    create(:meeting_organization, event: event, group: group)
 
     expect(Ability.new(user2)).to be_able_to(:destroy, event)
 

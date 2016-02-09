@@ -290,6 +290,9 @@ en-EU:
           one: "<b>%{user}</b> commented your post <b>%{title}</b>"
           other: "There are <b>%{count}</b> new comments in your post <b>%{title}</b>"
       new_forum_topic:
+        message:
+          one: "A topic '%{topic_subject}' has been created in <b>%{group_name}</b>"
+          other: "%{count} topics have been created in <b>%{group_name}</b>"
         description: New topics in forums
         email_subject: "A topic '%{topic_subject}' has been created in %{group_name}"
       new_comments_mine:

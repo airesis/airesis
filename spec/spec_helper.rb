@@ -38,6 +38,7 @@ RSpec.configure do |config|
                     platform.twitter.com www.gravatar.com cdnjs.cloudflare.com calendar.google.com)
 
   Capybara::Webkit.configure do |config|
+    config.block_unknown_urls
     allowed_urls.each do |allowed_url|
       config.allow_url(allowed_url)
     end
@@ -64,9 +65,6 @@ RSpec.configure do |config|
   Capybara.javascript_driver = :webkit
 
   Capybara::Screenshot.autosave_on_failure = true
-  Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
-    "screenshot_#{example.description.tr(' ', '-').gsub(%r{^.*\/spec\/}, '')}"
-  end
   Capybara::Screenshot.append_timestamp = true
 end
 
