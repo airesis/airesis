@@ -442,6 +442,9 @@ input[name='reason'] {
 a, button {
   i {
     margin-right: 5px;
+    .top-bar & {
+      margin-right: 0px;
+    }
   }
 }
 
