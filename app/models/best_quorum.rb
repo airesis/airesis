@@ -28,14 +28,14 @@ class BestQuorum < Quorum
   def populate_vote
     unless vote_minutes
       self.vote_minutes = vote_minutes_m.to_i + (vote_hours_m.to_i * 60) + (vote_days_m.to_i * 24 * 60)
-      self.vote_minutes = nil if (vote_minutes == 0)
+      self.vote_minutes = nil if vote_minutes == 0
     end
     self.bad_score = good_score
   end
 
   def populate_vote!
     self.vote_minutes = vote_minutes_m.to_i + (vote_hours_m.to_i * 60) + (vote_days_m.to_i * 24 * 60)
-    self.vote_minutes = nil if (vote_minutes == 0)
+    self.vote_minutes = nil if vote_minutes == 0
   end
 
   def or?
@@ -89,38 +89,38 @@ class BestQuorum < Quorum
   # show the total time of votation
   def vote_time
     case t_vote_minutes
-      when 'f'
-        'free' # TODO: I18n
-      when 's'
-        min = vote_minutes if vote_minutes
+    when 'f'
+      'free' # TODO: I18n
+    when 's'
+      min = vote_minutes if vote_minutes
 
-        if min && min > 0
-          if min > 59
-            hours = min / 60
-            min = min % 60
-            if hours > 23
-              days = hours / 24
-              hours = hours % 24
-              min = 0 if hours != 0
-              if days > 30
-                months = days / 30
-                days = days % 30
-                min = 0
-              end
+      if min && min > 0
+        if min > 59
+          hours = min / 60
+          min = min % 60
+          if hours > 23
+            days = hours / 24
+            hours = hours % 24
+            min = 0 if hours != 0
+            if days > 30
+              months = days / 30
+              days = days % 30
+              min = 0
             end
           end
-          ar = []
-          ar << I18n.t('time.left.months', count: months) if months && months > 0
-          ar << I18n.t('time.left.days', count: days) if days && days > 0
-          ar << I18n.t('time.left.hours', count: hours) if hours && hours > 0
-          ar << I18n.t('time.left.minutes', count: min) if min && min > 0
-          retstr = ar.join(" #{I18n.t('words.and')} ")
-        else
-          retstr = nil
         end
-        retstr
-      when 'r'
-        'ranged'
+        ar = []
+        ar << I18n.t('time.left.months', count: months) if months && months > 0
+        ar << I18n.t('time.left.days', count: days) if days && days > 0
+        ar << I18n.t('time.left.hours', count: hours) if hours && hours > 0
+        ar << I18n.t('time.left.minutes', count: min) if min && min > 0
+        retstr = ar.join(" #{I18n.t('words.and')} ")
+      else
+        retstr = nil
+      end
+      retstr
+    when 'r'
+      'ranged'
     end
   end
 
@@ -136,7 +136,7 @@ class BestQuorum < Quorum
           @event = Event.find(proposal.vote_event_id)
         else
           event_p = {
-            event_type_id: EventType::VOTAZIONE,
+            event_type_id: EventType::VOTATION,
             title: "Votation #{proposal.title}",
             starttime: proposal.vote_starts_at,
             endtime: proposal.vote_ends_at,

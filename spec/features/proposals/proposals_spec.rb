@@ -22,10 +22,10 @@ describe 'create a proposal in his group', type: :feature, js: true, ci_ignore: 
     proposal_name = Faker::Lorem.sentence
     within('#main-copy') do
       fill_in I18n.t('pages.proposals.new.title_synthetic'), with: proposal_name
-      fill_tokeninput '#proposal_tags_list', with: ['tag1', 'tag2', 'tag3']
+      fill_tokeninput '#proposal_tags_list', with: %w(tag1 tag2 tag3)
       fill_in_ckeditor 'proposal_sections_attributes_0_paragraphs_attributes_0_content', with: Faker::Lorem.paragraph
       quorum = group.quorums.find_by(name: '15 giorni')
-      page.execute_script(%Q|$('#proposal_quorum_id').val(#{quorum.id}).trigger('change');|)
+      page.execute_script(%|$('#proposal_quorum_id').val(#{quorum.id}).trigger('change');|)
       wait_for_ajax
       click_button I18n.t('pages.proposals.new.create_button')
     end
@@ -34,7 +34,7 @@ describe 'create a proposal in his group', type: :feature, js: true, ci_ignore: 
     @proposal = Proposal.last
 
     expect(@proposal.vote_defined).to be_truthy
-    #the proposal title is certainly displayed somewhere
+    # the proposal title is certainly displayed somewhere
     expect(page).to have_content @proposal.title
     expect(page.current_path).to eq(edit_group_proposal_path(group, @proposal))
 
@@ -92,7 +92,7 @@ describe 'create a proposal in his group', type: :feature, js: true, ci_ignore: 
       within('#menu-left') do
         expect(find_link(pressed)[:href]).to eq '#'
         expect(page).to have_content(other)
-        click_link other #change ides
+        click_link other # change ides
       end
 
       expect(page).to have_content(I18n.t('info.proposal.rank_recorderd'))
@@ -120,14 +120,14 @@ describe 'create a proposal in his group', type: :feature, js: true, ci_ignore: 
       vote_and_check
 
       proposal.reload
-      expect(proposal.valutations).to eq (i+1)+1
+      expect(proposal.valutations).to eq (i + 1) + 1
       expect(Ability.new(user2)).to_not be_able_to(:rank_up, proposal)
       logout(:user)
     end
 
     group.reload
 
-    expect(group.participants.count).to eq how_many+1
+    expect(group.participants.count).to eq how_many + 1
 
     proposal.current_user_id = user.id
 
@@ -145,8 +145,8 @@ describe 'create a proposal in his group', type: :feature, js: true, ci_ignore: 
 
     proposal.reload
 
-    expect(proposal.valutations).to eq(how_many+1)
-    expect(proposal.rank).to eq (how_many.to_f/(how_many+1).to_f)*100
+    expect(proposal.valutations).to eq(how_many + 1)
+    expect(proposal.rank).to eq (how_many.to_f / (how_many + 1).to_f) * 100
 
     logout :user
     how_many.times do |i|
@@ -154,8 +154,8 @@ describe 'create a proposal in his group', type: :feature, js: true, ci_ignore: 
       visit group_proposal_path(group, proposal)
       second_vote_and_check
       proposal.reload
-      expect(proposal.valutations).to eq(how_many+1)
-      expect(proposal.rank).to eq ((how_many - (1+i)).to_f/(how_many+1).to_f)*100
+      expect(proposal.valutations).to eq(how_many + 1)
+      expect(proposal.rank).to eq ((how_many - (1 + i)).to_f / (how_many + 1).to_f) * 100
       expect(Ability.new(other_users[i])).to_not be_able_to(:rank_down, proposal)
       logout :user
     end
@@ -173,13 +173,13 @@ describe 'create a proposal in his group', type: :feature, js: true, ci_ignore: 
       fill_in I18n.t('pages.proposals.new.title_synthetic'), with: proposal_name
       sleep 2
       click_button I18n.t('buttons.next')
-      fill_tokeninput '#proposal_tags_list', with: ['tag1', 'tag2', 'tag3']
+      fill_tokeninput '#proposal_tags_list', with: %w(tag1 tag2 tag3)
       click_button I18n.t('buttons.next')
       fill_in_ckeditor 'proposal_sections_attributes_0_paragraphs_attributes_0_content', with: Faker::Lorem.paragraph
 
       click_button I18n.t('buttons.next')
       quorum = group.quorums.find_by(name: '15 giorni')
-      page.execute_script(%Q|$('#proposal_quorum_id').val(#{quorum.id}).trigger('change');|)
+      page.execute_script(%|$('#proposal_quorum_id').val(#{quorum.id}).trigger('change');|)
       click_button I18n.t('pages.proposals.new.create_button')
     end
     page_should_be_ok

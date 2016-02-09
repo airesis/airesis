@@ -5,14 +5,14 @@ class GroupAreasController < ApplicationController
 
   before_filter :configuration_required
 
-  #carica il gruppo
+  # carica il gruppo
   before_filter :load_group
   authorize_resource :group
   load_and_authorize_resource through: :group
 
   def index
     if @group.enable_areas
-      @group_areas = @group.group_areas #.includes(:participants)
+      @group_areas = @group.group_areas # .includes(:participants)
       @group_participations = @group.participants
     else
       render 'area_inactive'
@@ -69,7 +69,6 @@ class GroupAreasController < ApplicationController
     end
   end
 
-
   def change
     group_area = GroupArea.find(params[:group_area_id])
     if params[:enable] == 'true'
@@ -81,7 +80,6 @@ class GroupAreasController < ApplicationController
       group_area.area_participations.where(user_id: params[:user_id]).destroy_all
     end
   end
-
 
   def destroy
     authorize! :destroy, @group_area

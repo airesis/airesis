@@ -3,7 +3,6 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 describe NotificationEventCreate, type: :model, emails: true, notifications: true, seeds: true do
-
   let!(:notification_type) { NotificationType::NEW_EVENTS }
   let!(:user) { create(:user) }
 
@@ -24,8 +23,8 @@ describe NotificationEventCreate, type: :model, emails: true, notifications: tru
     create(:meeting, event: event)
   end
 
-  let(:trigger_event) {create_event}
-  let(:receivers) {group_users}
+  let(:trigger_event) { create_event }
+  let(:receivers) { group_users }
 
   event_process_spec
 end

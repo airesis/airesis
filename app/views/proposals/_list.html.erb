@@ -1,8 +1,7 @@
-<% if proposals.count > 0 %>
-  <%= render partial: 'proposals/proposal_list_element', collection: proposals, as: 'proposal' %>
+<% if proposals.any? %>
+    <% proposals.each do |proposal| %>
+        <%= render 'proposals/proposal_list_element', proposal_list_element_for_mustache(proposal) %>
+    <%end%>
 <% else %>
   <%= t('pages.proposals.list.no_proposals') %>
 <% end %>
-<div id="statistics_panel">
-</div>
-

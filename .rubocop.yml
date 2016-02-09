@@ -28,4 +28,4 @@ AllCops:
     - 'public/**/*'
     - 'tmp/**/*'
     - 'db/**/*'
-    #- 'spec/**/*'
+    - 'spec/**/*'

@@ -1,5 +1,4 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-
   oauth_providers = [:facebook, :google_oauth2, :twitter, :meetup, :parma, :tecnologiedemocratiche, :linkedin]
   oauth_providers.each do |provider|
     define_method(provider) { manage_oauth_callback }
@@ -30,7 +29,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       # se c'è già un altro utente con associato l'account del provider
       if auth.present?
         if provider == Authentication::FACEBOOK
-          #se devo aggiornare il token...fallo
+          # se devo aggiornare il token...fallo
           new_token = oauth_data['credentials']['token']
           auth.update(token: new_token) if auth.token != new_token
           return redirect_to request.env['omniauth.origin'] + '?share=true' if request.env['omniauth.params']['share']
@@ -41,7 +40,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         # the certified email is already present in another account in Airesis
         # cannot update user email with one already taken
         if user_info[:certified] &&
-          User.all_except(current_user).where(email: user_info[:email]).exists?
+            User.all_except(current_user).where(email: user_info[:email]).exists?
           flash[:error] = I18n.t 'devise.omniauth_callbacks.certified_email_taken'
           return redirect_to privacy_preferences_users_url
         end

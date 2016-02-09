@@ -35,14 +35,14 @@
  *= require frm
  *= require jquery.textntags
  *= require foundation-datetimepicker
- *= require foundation-icons
  *= require cookies_eu
  *= require formValidation.min
  *= require select2-foundation
+ *= require jquery.steps
 */
 
 //@import 'nprogress';
 
 @import 'foundation_and_overrides';
-@import 'icons';
 @import 'font-awesome';
+@import 'emoticons';

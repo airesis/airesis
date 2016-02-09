@@ -7,17 +7,17 @@
 
     <div class="row">
       <div class="columns small-9">
-        <%= text_field_tag :search, params[:search], title: t('pages.groups.index.find_title')%>
+        <%= text_field_tag :search, params[:search], title: t('pages.blogs.index.find_title')%>
       </div>
       <div class="columns small-3">
         <div class="search_words">
-          <%= check_box_tag :and, params[:and], title: "Scegli se cercare tutte le parole o almeno una" %>
+          <%= check_box_tag :and, params[:and] %>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="columns">
-        <%= f.label :interest_border, t('pages.groups.index.search_with_place') %>
+        <%= f.label :interest_border, t('pages.blogs.index.search_with_place') %>
       </div>
     </div>
     <div class="row">
@@ -31,7 +31,10 @@
     </div>
     <div class="row">
       <div class="columns">
-        <%= f.button t('pages.blogs.index.find_button'), onclick: 'return checkCharacters();', class: 'btn', data: {disable_with: t('loading')} %>
+        <%= f.button onclick: 'return checkCharacters();', class: 'btn', data: {disable_with: t('loading')} do %>
+            <i class="fa fa-search"></i>
+            <%= t('buttons.search') %>
+        <% end %>
       </div>
     </div>
 <% end %>

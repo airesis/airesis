@@ -5,7 +5,7 @@
  * @version 2013-05-01
  */
 if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object') {
-	elFinder.prototype.i18.de = {
+	elFinder.prototype.i18.de_DE = {
 		translator : 'JPG & Mace &lt;dev@flying-datacenter.de&gt;, tora60 from pragmaMx.org',
 		language   : 'Deutsch',
 		direction  : 'ltr',

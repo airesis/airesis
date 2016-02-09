@@ -1,26 +1,47 @@
 window.EventsNew =
   init: ->
-    start_end_fdatetimepicker $('#event_starttime'), $("#event_endtime");
-    @initMunicipalityInput()
-
-    $('.legend').hide()
-    @initMapManager()
-
-    $('#new_event').quickWizard
-      prevButton: '<button id="form-wizard-prev" type="button" class="btn"><i class="fa fa-arrow-left"></i>' + Airesis.i18n.buttons.goBack + '</button>'
-      nextButton: '<button id="form-wizard-next" type="button" class="btn blue"><i class="fa fa-arrow-right"></i>' + Airesis.i18n.buttons.next + '</button>'
-      nextCallback: ->
+    form = $('#new_event')
+    form.steps
+      headerTag: ".legend"
+      bodyTag: ".step"
+      autoFocus: true
+      labels: {
+        previous: '<i class="fa fa-arrow-left"></i>' + Airesis.i18n.buttons.goBack
+        next: Airesis.i18n.buttons.next + '<i class="fa fa-arrow-right"></i>'
+        finish: Airesis.i18n.buttons.eventsFinish
+      }
+      onStepChanging: (e, currentIndex, newIndex)->
+        fv = form.data('formValidation')
+        $container = form.find('.step.current')
+        fv.validateContainer($container);
+        isValidStep = fv.isValidContainer($container)
+        !(isValidStep is false || isValidStep is null)
+      onStepChanged: (event, currentIndex, priorIndex)->
         setTimeout (->
           EventsNew.mapManager.refresh()
           return
         ), 1000
-        return
-      prevCallback: ->
-    new AiresisFormValidation($('#new_event'))
-    $('#create_event_dialog').foundation('reveal', 'open', {
+      onFinishing: (e, currentIndex)->
+        fv = form.data('formValidation')
+        $container = form.find('.step.current')
+        fv.validateContainer($container)
+        isValidStep = fv.isValidContainer($container)
+        !(isValidStep is false || isValidStep is null)
+      onFinished: (e, currentIndex)->
+        form.formValidation('defaultSubmit')
+      onInit: (e, currentIndex)->
+        form.find('[role="menuitem"]').addClass('btn').addClass('blue')
+
+    $('#create_event_dialog:not(".open")').foundation('reveal', 'open', {
       closeOnBackgroundClick: false,
       closeOnEsc: false
     })
+
+    start_end_fdatetimepicker $('#event_starttime'), $("#event_endtime");
+    @initMunicipalityInput()
+    @initMapManager()
+
+    new AiresisFormValidation(form)
   initMunicipalityInput: ->
     input = $('#event_meeting_attributes_place_attributes_municipality_id')
     Airesis.select2town(input)

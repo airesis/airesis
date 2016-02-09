@@ -73,7 +73,6 @@ pt-PT:
         show_urls: Mostrar URL de Facebook, Google+ e LinkedIn a outros utilizadores
         private_messages: Receber mensagens privadas de outros utilizadores
         join_accounts: Login com outra conta
-        join_accounts_description: 'No Airesis, pode ligar todas as suas contas em Redes Sociais a uma única conta. <br/> Seleccione o fornecedor para se conectar e será capaz de aceder à mesma conta no Airesis desde o Facebook, Google, Twitter e mais!'
         joined_all: Já conectou todos os fornecedores disponíveis. Obrigado!
         join_facebook: Ligue a sua conta do Facebook
         join_google: Ligue a sua conta do Google
@@ -242,7 +241,6 @@ pt-PT:
       edit_work_areas:
         index:
           not_enabled: Áreas de trabalho não ativadas
-          description: O Airesis permite gerir as áreas de trabalho diferentes dentro do grupo.
           description2: Com este recurso pode gerir melhor os participantes e as suas funções.
           description3: Tenha cuidado! Este é um recurso avançado, projectado somente para grupos maiores e para utilizadores mais experientes.
           description4: 'Antes de activar as áreas de trabalho, verifique se pode gerir os membros de grupos directamente usando '
@@ -470,10 +468,7 @@ pt-PT:
         title_placeholder: "ex. 'Facilitar o transporte de bicicletas nos comboios'"
         interest_borders_tkn_placeholder: Cidades ou regiões interessados na proposta
         tags_list_placeholder: Inserir algumas etiquetas na sua proposta
-        step_1_title: 'Pode apresentar um problema para resolver, uma ideia para melhorar ou uma iniciativa para organizar... O importante é ter um objectivo claro: o Airesis irá ajudá-lo a alcançá-lo com a ajuda de outras pessoas, através de um processo partilhado de resolução de problemas.'
         step_2_title: 'Talvez alguém já tenha criado uma proposta semelhante: verifique abaixo e eventualmente pare a sua criação para evitar duplicações. Unindo forças com os outros dará força às suas próprias ideias! Se clicar sobre o título das propostas esta será aberta numa nova aba.'
-        step_4_title: "Perfeito! Escolha as suas opções e clique em 'Criar a proposta' para completar o guia. A sua proposta será incluída no Airesis e  será capaz de preenchê-la quando quiser obter mais informações sobre a mesma."
-        step_4_footer_html: 'O Airesis vai ajudá-lo a atingir o seu objectivo de pensamento partilhado para a resolução de problemas: os utilizadores irão sugerir modificações e contribuições para o seu texto e <b>até que possa</b> para integrar o mais apreciado. <br/> Se não o fizer, a  sua proposta não irá para a fase de votação. <br/> Boa sorte e não se assuste: pode ser ajudado por outras pessoas nessa tarefa.'
         category_prompt: --Escolha uma categoria--
         tags_separated_by_comma: (separados por vírgula)
         cannot_add_proposal_in_work_area: Não tem as permissões necessárias para adicionar a proposta em nenhuma área
@@ -520,7 +515,6 @@ pt-PT:
         report_description: 'Pode apontar para o webmaster que esta contribuição viola as leis em vigor. <br/> Uma vez verificada a violação, a contribuição será removida. Não abuse desta ferramenta.'
       vote_panel:
         title: Faça o seu voto!
-        schulze_title: 'Há várias soluções para esta proposta. <br/> Ordene-as de acordo com suas preferências de <br/> de 1 (não gosto) %{max} (gosto)'
         secret_vote: O seu voto é secreto, e não será capaz de o recuperar ou alterá-lo uma vez que seja expresso.
         clear_vote: O seu voto foi registado e, portanto, será verificável.
         single_title: Nesta proposta, há apenas uma solução. Vá directo ao assunto!
@@ -542,7 +536,6 @@ pt-PT:
         you_know_what_you_do: Sabe o que vai fazer?
         schulze_title: Uma ou mais soluções?
         inserted_contributes: Assinar as contribuições que integraram nesta revisão
-        more_solutions_explained_html: '<b>Porque pergunta o Airesis se você sabe o que está a fazer?</b> <br/> O Airesis permite que adicione uma ou mais soluções numa proposta. <br/> Se houver somente uma solução, na fase de votação os participantes terão a opção de aprovar ou recusar o texto que foi redigido. <br/> Se houver mais do que uma solução, a votação será diferente e cada participante poderá votar usando o método de Schulze. <br/> Se está tentando elaborar o resumo de um problema e você quer um texto compartilhado <b>não crie soluções alternativas</b>! <br/> Se, pelo contrário, está lançando um inquérito ou se quer uma alternativa que não é integrável na primeira solução prossiga. <br/> Lembre-se que, antes do fim do debate, será capaz de adicionar ou remover soluções, modificando o método de votação utilizado.'
         paragraph: Parágrafo
         confirm_paragraph_deletion: Tem a certeza de que quer apagar este parágrafo?
         confirm_solution_deletion: Tem a certeza de que quer apagar esta solução?
@@ -660,8 +653,6 @@ pt-PT:
       published_button: Posts publicados
       view:
         comments: 'Comentários (%{count})'
-      index:
-        title: Últimos posts no Airesis
       edit:
         title: Editar o post
       archives:
@@ -702,7 +693,6 @@ pt-PT:
       welcome: Bem-vindo
       groups_title: GRUPOS
       login: LOGIN
-      login_placeholder: E-mail ou username
       groups_list: Participa nos grupos
       open_group: Iniciar um novo grupo
       new_group: Encontrar grupos
@@ -811,7 +801,6 @@ pt-PT:
       create_event_button: Criar novo evento
     sessions:
       new:
-        login_label: Nome de utilizador ou E-mail
         remember_me_label: Recorde-me
       links:
         register: Ainda não está registado? Inscrição!
@@ -831,7 +820,6 @@ pt-PT:
         newdescription5: Se acha que o debate deve continuar, use este botão
         newdescription6: Quando for atualizado o texto da proposta, será capaz de mudar sua avaliação
       welcome:
-        title_html: '<b>Bem-vindo ao Airesis, %{user}</b><br/>'
         description_html: 'Este breve tutorial irá ajudá-lo nas primeiras escolhas dentro da plataforma. <br/> Esta é sua área de trabalho: aqui vai encontrar todas as informações que precisa para manter contacto com o seu território. <br/> Pode gerir as suas propostas e grupos, ver os acontecimentos em torno de si e entrar em contacto com outros cidadãos. <br/> Melhore o Airesis enviando feedback para <a href="mailto:info@airesis.it"> info@airesis.it</a>. <br/>'
       choose_follow:
         description_html: 'Aqui estão os grupos mais cativos nos territórios dentro das fronteiras do seu interesse. <br/> escolha aqueles em que quer participar, e assim será capaz de entrar em contacto com eles e participar nos seus eventos e propostas. <br/> um clique para seleccionar, um para desmarcar. <br/>'

@@ -33,9 +33,6 @@ it-IT:
       updated: La tua password è stata cambiata. Ora sei collegato
       updated_not_active: La tua password è stata cambiata
       send_paranoid_instructions: Se la tua email esiste nel nostro database, entro qualche minuto riceverai un messaggio email contentente un link per il ripristino della password
-      user:
-        updated: Password aggiornata correttamente
-        send_instructions: "Istruzioni inviate all'indirizzo indicato"
     confirmations:
       send_instructions: Riceverai un messaggio email con le istruzioni per confermare il tuo account entro qualche minuto
       send_paranoid_instructions: Se la tua email esiste nel nostro database, entro qualche minuto riceverai un messaggio email con le istruzioni per confermare il tuo account

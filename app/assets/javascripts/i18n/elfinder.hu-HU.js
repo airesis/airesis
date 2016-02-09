@@ -4,7 +4,7 @@
  * @version 2014-12-22
  */
 if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object') {
-	elFinder.prototype.i18.hu = {
+	elFinder.prototype.i18.hu_HU = {
 		translator : 'Mikola Péter &lt;mikopet@gmail.com&gt;',
 		language   : 'Hungarian',
 		direction  : 'ltr',

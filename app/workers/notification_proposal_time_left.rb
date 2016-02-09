@@ -2,7 +2,7 @@ class NotificationProposalTimeLeft < NotificationSender
   def perform(proposal_id, type)
     @proposal = Proposal.find(proposal_id)
     @trackable = @proposal
-    data = {proposal_id: @proposal.id, title: @proposal.title, extension: type}
+    data = { proposal_id: @proposal.id, title: @proposal.title, extension: type }
     group = @proposal.group
     if group
       data['group'] = group.name

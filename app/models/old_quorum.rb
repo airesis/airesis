@@ -1,6 +1,6 @@
 class OldQuorum < Quorum
   validate :minutes_or_percentage
-  validates :condition, inclusion: {in: %w(OR AND)}
+  validates :condition, inclusion: { in: %w(OR AND) }
 
   def minutes_or_percentage
     if days_m.blank? && hours_m.blank? && minutes_m.blank? && !percentage && !minutes
@@ -90,7 +90,7 @@ class OldQuorum < Quorum
             @event = Event.find(proposal.vote_event_id)
           else
             event_p = {
-              event_type_id: EventType::VOTAZIONE,
+              event_type_id: EventType::VOTATION,
               title: "Votazione #{proposal.title}",
               starttime: proposal.vote_starts_at,
               endtime: proposal.vote_ends_at,

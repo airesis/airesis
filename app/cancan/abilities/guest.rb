@@ -21,16 +21,14 @@ module Abilities
       can [:read, :new, :report, :history, :list, :left_list, :show_all_replies],
           ProposalComment,
           proposal: { private: false }
-      can :index, Proposal
       can [:list, :left_list, :index], ProposalComment
-      can :show, Proposal, private: false
-      can :show, Proposal, visible_outside: true
+      can :read, Proposal, private: false
+      can :read, Proposal, visible_outside: true
     end
 
     def visible_groups_stuff
-      alias_action :by_year_and_month, to: :read
       can [:index, :show, :read], [Blog, Group, GroupArea]
-      can :view_data, Group, private: false
+      can [:view_data, :by_year_and_month], Group, private: false
       can :ask_for_participation, Group
       can :ask_for_multiple_follow, Group
       can :read, GroupInvitation

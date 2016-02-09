@@ -1,161 +1,163 @@
 es-ES:
   activerecord:
     models:
-      meeting: Meeting
-      places: Place
+      meeting: Reunión
+      places: Lugar
     attributes:
       blog_comment:
-        body: Comment
+        body: Comentario
         created_at: AntiSpam
-      candidate:
-        user: Candidate
-        election: Election
-      election:
-        groups_end_time: Deadline date for group entry
-        candidates_end_time: Deadline date for candidates entry
       event:
-        title: Event title
-        description: Description
-        event_type_id: Event Type
-        starttime: Start Date
-        endtime: End Date
-        all_day: All Day
-        period: Repeat
-        frequency: Repeat every
-        private: Private
-        candidates_end_time: Deadline date for candidates entry
-        meeting:
-          place:
-            address: Address
-            municipality_id: City
+        title: Título del evento
+        description: Descripción
+        event_type_id: Tipo de evento
+        starttime: Fecha de inicio
+        endtime: Fecha de finalización
+        all_day: Todo el día
+        period: Repetir
+        frequency: Repetir cada
+        private: Privado
       group:
-        facebook_page_url: Facebook page address
-        name: Name
-        title_bar: Title Bar
-        description: Description
-        accept_requests: Request for Participation
-        porta_id: Administrator
-        interest_border_tkn: Geographical place of interest
-        interest_border_id: Geographical place of interest
-        image_url: Image Address
-        default_role_name: "What's the name for new users?"
-        default_role_name_placeholder: 'Eg: Users, Members, Activists, Pirates'
-        name_placeholder: Choose a name related to the group identity and/or location.
-        title_bar_placeholder: Group page title.
-        description_placeholder: This message will be on the first page of the group
-        image_url_placeholder: Group image URL
-        facebook_page_url_placeholder: Group Facebook page? insert link here.
-        admin_title: How are the administrators of the group called?
-        private: Private group
-        rule_book: Rule book
-        image: Load image
-        admin_title_placeholder: 'Role name of the group administrators (default: Administrator)'
+        facebook_page_url: Dirección de la página de Facebook
+        name: Nombre
+        title_bar: Barra de título
+        description: Descripción
+        accept_requests: Solicitud de participación
+        porta_id: Administrador
+        interest_border_tkn: Lugar de interés geográfico
+        interest_border_id: Lugar de interés geográfico
+        image_url: Dirección de la imagen
+        default_role_name: ¿Cual es el nombre para los nuevos usuarios?
+        default_role_name_placeholder: 'Por ejemplo: Usuarios, miembros, activistas, piratas'
+        name_placeholder: Elige un nombre relacionado con la identidad de grupo y/o la ubicación.
+        title_bar_placeholder: Título de la página del grupo.
+        description_placeholder: Este mensaje estará en la primera página del grupo
+        image_url_placeholder: URL de la imagen del grupo
+        facebook_page_url_placeholder: ¿Página de facebook del grupo? Inserta el enlace aquí.
+        admin_title: ¿Cómo se llaman los administradores del grupo?
+        private: Grupo privado
+        rule_book: Libro de normas
+        image: Cargar imagen
+        admin_title_placeholder: 'Nombre del rol de los administradores del grupo (por defecto: Administrador)'
       blog:
-        title: Title
+        title: Título
       blog_post:
-        title: Title
-        body: Text
-        published: State
-        published_true: Published
-        published_false: Draft
+        title: Título
+        body: Texto
+        published: Estado
+        published_true: Publicado
+        published_false: Borrador
+        published_reserved: Reservado
+        group_ids: Publicado en los siguientes grupos
+        published_at: Publicado en
       participation_role:
-        name: Name
-        description: Short description
+        name: Nombre
+        description: Breve descripción
       group_invitation:
-        emails_list: E-mail addresses
-        testo: Message text
+        emails_list: Direcciones de correo electrónico
+        testo: Texto del mensaje
       place:
-        address: Address
+        address: Dirección
+        municipality_id: Ciudad
+        latitude_original: Latitud
+        longitude_original: Longitud
       proposal:
-        group_area_id: Work area
-        proposal_category_id: Category
-        title: Title
-        subtitle: Subtitle
-        problems: Problems
-        objectives: Objectives
-        content: Text
-        interest_borders_tkn: Geographical places of interest
-        tags_list: Tags
-        quorum_id: Quorum
-        anonima: Temporary anonymity
-        visible_outside: Publicly visible
-        secret_vote: Secret vote
+        group_area_id: Área de trabajo
+        proposal_category_id: Categoría
+        title: Título
+        subtitle: Subtítulo
+        problems: Problemas
+        objectives: Objetivos
+        content: Texto
+        interest_borders_tkn: Lugares de interés geográfico
+        tags_list: Etiquetas
+        quorum_id: Duración del debate
+        anonima: Anonimato temporal
+        visible_outside: Visible publicamente
+        secret_vote: Voto secreto
+        vote_starts_at: La votación comienza el
+        vote_ends_at: La votación acaba el
+        debate_starts_at: El debate empieza el
+        debate_ends_at: El debate acaba el
       proposal_comment:
-        content: Content
+        content: Contenido
       quorum:
-        name: Name of the quorum
-        name_title: Please enter a short, explanatory title
-        description: Description / Brief explanation
-        description_title: A description to understand the purpose of this quorum
-        days_m: Days
-        hours_m: hours
-        minutes_m: Minutes
-        percentage: Participants (percentage)
-        percentage_title: Minimum number of participants in the discussion as a percentage of the number of participants in the group
-        good_score: Quorum (percentage)
-        good_score_title: Rating to be achieved in order to bring the proposal to the voting phase
-        bad_score: Bad Quorum (percentage)
-        bad_score_title: Rating under which the proposal will be rejected. Allows you to continue the discussion if the Time or Participants conditions are not met
-        condition: Condition
-        condition_title: The conditions of Time and Participants must be both overcome or just one of them?
+        name: Nombre del cuórum
+        name_title: Por favor introduce un breve titulo explicatorio
+        description: Descripción / Explicación breve
+        description_title: Una descripción para entender el propósito de este cuórum
+        minutes: Duración del debate
+        days_m: Días
+        hours_m: horas
+        minutes_m: Minutos
+        percentage: Cuórum (participantes)
+        percentage_title: Número mínimo de participantes de la discusión en porcentaje respecto al número de participantes del grupo
+        good_score: Madurez
+        condition: Condición
+        vote_minutes: Duración del voto
+        vote_percentage: Quorom (votantes)
+        vote_good_score: Aprobación
       search_participant:
-        role_id: Role
-        keywords: Name or surname
+        role_id: Rol
+        keywords: Nombre o apellido
       sys_movement:
-        sys_movement_type_id: Type
-        made_on: Made on
-        amount: Amount
-        sys_currency_id: Currency
+        sys_movement_type_id: Tipo
+        made_on: Hecho en
+        amount: Cantidad
+        sys_currency_id: Moneda
       user:
-        name: Name
-        email: Email address
-        surname: Surname
-        login: Username
-        password: Password
-        linkedinpageurl: Your page on LinkedIn
-        facebookpageurl: Your page on Facebook
-        accept_conditions: Terms of Use
-        receive_newsletter: Newsletter via Email
+        name: Nombre
+        email: Dirección de correo
+        surname: Apellido
+        password: Contraseña
+        linkedinpageurl: Tu página en LinkedIn
+        facebookpageurl: Tu página en Facebook
+        accept_conditions: Condiciones de uso
+        receive_newsletter: Boletín por correo electrónico
         blocked: Error
+      user_sensitive:
+        name: Nombre
       group_area:
-        name: Name
-        description: Description
-        default_role_name: Default role name
+        name: Nombre
+        description: Descripción
+        default_role_name: Nombre de rol por defecto
     errors:
       template:
         header:
-          one: 'an error did not allow this %{model} from being saved'
-          other: '%{count} errors did not allow this %{model} from being saved'
-        body: There were problems with the following fields
+          one: 'un error no permitió que %{model} se guardase'
+          other: '%{count} errores no permitieron que %{model} se guardase'
+        body: Hubo problemas en los siguientes campos
       messages:
-        inclusion: is not included in the list
-        exclusion: is reserved
-        invalid: is invalid
-        confirmation: does not match confirmation
-        accepted: must be accepted
-        empty: can not be blank
-        blank: must be filled
-        too_long: The text is too long
-        too_short: The text is too short
-        wrong_length: "should be% {count} characters)'"
-        taken: is already taken
-        not_a_number: is not a number
-        greater_than: 'must be greater than %{count}'
-        greater_than_or_equal_to: 'must be greater than or equal of %{count}'
-        equal_to: 'must be equal to %{count}'
-        less_than: 'must be less than %{count}'
-        less_than_or_equal_to: 'must be less than or equal to %{count}'
-        odd: must be even
-        even: must be odd
-        record_invalid: 'Validation failed %{errors}'
-        not_found: not found.
-      full_messages:
-        format: '%{attribute} %{message}'
+        inclusion: no está incluido en la lista
+        exclusion: es reservado
+        invalid: es inválido
+        confirmation: no concuerda con la confirmación
+        accepted: debe ser aceptado
+        empty: no puede quedar en blanco
+        blank: debe rellenarse
+        too_long: El texto es demasiado largo
+        too_short: El texto es demasiado corto
+        wrong_length: 'debe tener %{count} caracteres'
+        taken: ya está en uso
+        not_a_number: no es un número
+        not_an_email: no es una dirección de correo válida
+        greater_than: 'debe ser mayor de %{count}'
+        greater_than_or_equal_to: 'debe ser mayor o igual a %{count}'
+        equal_to: 'debe ser igual a %{count}'
+        less_than: 'debe ser menor que %{count}'
+        less_than_or_equal_to: 'debe ser menor o igual a %{count}'
+        odd: debe ser par
+        even: debe ser impar
+        record_invalid: 'Validación fallida: %{errors}'
+        not_found: no encontrado.
+        TOS: Es necesario aceptar las condiciones de servicio
+        certified_cannot_edit: no puede modificarse si no eres un usuario certificado
+        forum_visibility: Un foro no puede ser visible desde fuera del grupo si la categoría es privada
       models:
         user:
           attributes:
             email:
-              already_confirmed: This e-mail address is already registered
+              already_confirmed: Este correo electrónico ya está registrado
         group:
           portavoce:
-            required: You must choose a spokesman
+            required: Debes escoger un administrador

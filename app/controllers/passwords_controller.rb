@@ -1,8 +1,8 @@
 class PasswordsController < Devise::PasswordsController
   def create
-    if params[:user] && params[:user][:login]
-      user = User.where(['(login = :login or email = :login) and users.blocked = false', login: params[:user][:login]]).first
-      if user
+    if params[:user] && params[:user][:email]
+      user = User.find_first_by_auth_conditions(params[:user])
+      if user && !user.blocked?
         super
       else
         @user = User.new
@@ -10,5 +10,11 @@ class PasswordsController < Devise::PasswordsController
         render :new
       end
     end
+  end
+
+  protected
+
+  def after_sending_reset_password_instructions_path_for(_resource_name)
+    new_user_session_path
   end
 end

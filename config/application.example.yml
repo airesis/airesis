@@ -45,7 +45,7 @@ GOOGLE_ANALYTICS_ID: "YOUR GOOGLE ANALYTICS ID"
 RECAPTCHA_PUBLIC: ""
 RECAPTCHA_PRIVATE: ""
 
-# go to geonames.org and obtain a username to put in here
+# is used to geocode users when they register. Get a username at http://www.geonames.org/.
 GEOSPATIAL_NAME: ""
 
 #####################
@@ -84,6 +84,14 @@ FEEDBACK_RECEIVER: "help@example.com"
 DEFAULT_FROM: "App <info@example.com>"
 NOREPLY_EMAIL: "No Reply <noreply@example.com>"
 
+# when we send emails the default protocol to use for urls.
+# airesis tries not to use the rails default ActionMailer Default Host
+# because it depends on which host the user registered.
+# You still have the MAILER_DEFAULT_HOST for emails which are not directed to registered users.
+# for other users the domain on which they registered counts and this is the protocol used.
+# you can specify http or https. if not specified the default is https.
+#DEFAULT_EMAIL_PROTOCOL: 'https'
+
 #####################
 #redmine integration (optional)
 #####################
@@ -110,6 +118,10 @@ SITE: "https://www.example.com"
 
 # where is listening your redis installation?
 REDIS_URL: "redis://127.0.0.1:6379/12"
+
+#host address ànd port of the Apache SOLR server
+SOLR_HOST: "localhost"
+SOLR_PORT: "8983"
 
 # remove these variables if you are not using amazon s3
 AWS_HOST: "s3-eu-west-1.amazonaws.com"
@@ -207,6 +219,15 @@ LIMIT_GROUPS: "true"
 #must be specified in hours
 GROUPS_TIME_LIMIT: "24"
 
+# default maximum space available for group's documents (in MB)
+UPLOAD_LIMIT_GROUPS: '50'
+
+# default maximum size for images (in MB)
+UPLOAD_LIMIT_IMAGES: '2'
+
+# default maximum size for attachments (in MB)
+UPLOAD_LIMIT_ATTACHMENTS: '5'
+
 #if you are using tokens for voting yoy may need to set a drift for token creation.
 #must be specified in seconds
 ROTP_DRIFT: "20"
@@ -247,3 +268,16 @@ PAYPAL_URL: "https://www.sandbox.paypal.com/cgi-bin/webscr"
 # path to wkhtmltopdf exacutable
 # if this variable is not set then the value of `which wkhtmltopdf` is taken.
 # WKHTMLTOPDF_PATH: '/usr/bin/wkhtmltopdf'
+
+# mailman configuration to be able to reply to messages in forums
+# if variables are not set then emails are sent from standard address and is not possible to reply in forums by email
+# read the documentation to know how to configure the application to receive emails
+MAILMAN_SERVER: 'pop.server.com'
+MAILMAN_USERNAME: 'email_username'
+MAILMAN_PASSWORD: 'email_password'
+# there must be a %token%
+MAILMAN_EMAIL: 'replytest+%token%@airesis.it'
+MAILMAN_SENDER: 'Airesis Forum'
+
+# if the user does not access the platform for this number of days, his session will be destroyed
+SESSION_DAYS: '14'

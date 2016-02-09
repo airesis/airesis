@@ -16,7 +16,7 @@ module ApplicationHelper
 
   # ricarica i messaggi flash
   def reload_flash
-    page.replace 'flash_messages', partial: 'layouts/flash', locals: {flash: flash}
+    page.replace 'flash_messages', partial: 'layouts/flash', locals: { flash: flash }
   end
 
   def javascript(*args)
@@ -80,5 +80,10 @@ module ApplicationHelper
 
   def add_params(to_add = {})
     params.reject { |k, _v| %w(controller action).include? k }.merge to_add
+  end
+
+  def order_arrow
+    css_class = params[:order] == 'a' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'
+    content_tag :i, nil, class: css_class
   end
 end

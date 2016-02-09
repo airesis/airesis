@@ -12,9 +12,7 @@ module Admin
     # change proposal states
     def change_proposals_state
       # check all proposals in debate and expired and close the debate
-      Proposal.invalid_debate_phase.each do |proposal|
-        proposal.check_phase
-      end
+      Proposal.invalid_debate_phase.each(&:check_phase)
 
       # check all proposals waiting and put them in votation
       Proposal.invalid_waiting_phase.each do |proposal|
@@ -22,9 +20,7 @@ module Admin
       end
 
       # check all proposals in votation that has to be closed but are still in votation and the period has passed
-      Proposal.invalid_vote_phase.each do |proposal|
-        proposal.close_vote_phase
-      end
+      Proposal.invalid_vote_phase.each(&:close_vote_phase)
 
       flash[:notice] = 'Stato proposte aggiornato'
       redirect_to admin_panel_path
@@ -65,7 +61,7 @@ module Admin
     end
 
     def test_exceptions
-      raise Exception.new('Test this exception!')
+      fail Exception.new('Test this exception!')
     end
 
     # esegue un job di prova tramite resque_scheduler
@@ -89,11 +85,11 @@ module Admin
         group('proposals.id').
         having('count(solutions.*) > 1').count.map do |proposal_id, count|
         proposal = Proposal.find(proposal_id)
-        {proposal_id: proposal_id,
-         solutions_count: count,
-         votes_count: proposal.user_votes.count,
-         solutions: proposal.solutions.map(&:id).join(','),
-         preferences: proposal.schulze_votes.map { |vote| {count: vote.count, data: vote.preferences} }}
+        { proposal_id: proposal_id,
+          solutions_count: count,
+          votes_count: proposal.user_votes_count,
+          solutions: proposal.solutions.map(&:id).join(','),
+          preferences: proposal.schulze_votes.map { |vote| { count: vote.count, data: vote.preferences } } }
       end
       File.open('stat.json', 'w') { |f| f.puts JSON.pretty_generate(ret) }
     end

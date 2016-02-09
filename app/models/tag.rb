@@ -16,7 +16,7 @@ class Tag < ActiveRecord::Base
   before_save :escape_text, on: :create
 
   def as_json(_options = {})
-    {id: text, name: text}
+    { id: text, name: text }
   end
 
   def nearest
@@ -75,6 +75,6 @@ class Tag < ActiveRecord::Base
   protected
 
   def escape_text
-    self.text = text.strip.downcase.gsub('.', '').gsub("'", '').gsub('/', '')
+    self.text = text.strip.downcase.delete('.').delete("'").delete('/')
   end
 end

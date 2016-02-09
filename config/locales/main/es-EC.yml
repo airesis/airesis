@@ -65,7 +65,6 @@ es-EC:
         show_urls: Mostrar las URLs de Facebook, Google + y LinkedIn a usuarios
         private_messages: Recibir mensajes privados de otros usuarios
         join_accounts: Unirse a otra cuenta
-        join_accounts_description: 'Airesis tienes la posibilidad de conectar toda su Red Social a una sola cuenta. <br/> Selecciona el proveedor para conectarlo y siempre podrás acceder a la misma cuenta desde Facebook, Google, Twitter y muchos más!'
         joined_all: Ya te uniste a todos los proveedores disponibles. ¡Gracias!
         join_facebook: Añade tu cuenta de Facebook
         join_google: Añade tu cuenta de Google
@@ -201,7 +200,6 @@ es-EC:
       edit_work_areas:
         index:
           not_enabled: Áreas de trabajo no habilitadas
-          description: Airesis le permite administrar áreas de trabajo dentro del grupo.
           description2: Con esta función usted puede administrar mejor a los participantes y sus funciones.
           description3: ¡Ten cuidado! Esta es una característica avanzada, diseñada sólo para usuarios expertos y grupos más grandes.
           description4: 'Antes de activar las áreas de trabajo, verifique si puede administrar a los miembros de los grupos usando directamente '
@@ -358,8 +356,6 @@ es-EC:
         title_placeholder: 'ej.: "Facilitar transporte de bicicletas en los trenes"'
         interest_borders_tkn_placeholder: Ciudades, regiones o Estados interesados por la propuesta
         tags_list_placeholder: Inserta algunas etiquetas para tu propuesta
-        step_1_title: 'Puedes plantear un problema a resolver, una idea para mejorar, una iniciativa para organizar... Lo importante es tener un objetivo claro: Airesis ayudará a lograrlo con la colaboración de otras personas, a través de un proceso de resolución de problemas compartido.'
-        step_4_title: "¡Perfecto! Selecciona tus opciones y haz clic en 'Crear la propuesta' para completar la guía. Tu propuesta se incluirán en Airesis y serás capaz de adicionar información cuando quieras."
         category_prompt: --Selecciona una categoría--
         tags_separated_by_comma: (separadas por comas)
         cannot_add_proposal_in_work_area: No tienes los permisos necesarios para agregar la propuesta en cualquier área
@@ -406,7 +402,6 @@ es-EC:
         you_know_what_you_do: ¿Sabes lo que vas a hacer?
         schulze_title: ¿Una o más soluciones?
         inserted_contributes: Firmar las contribuciones que has integrado en esta revisión
-        more_solutions_explained_html: '<b>¿Por qué preguntamos si sabes lo que estás haciendo?</b><br/> AIRESIS te permite añadir una o más soluciones en una propuesta.<br/> Si sólo existe una solución, en la fase de votación los participantes tendrán la opción de aprobar o rechazar el texto que ha sido redactado. <br/> Si hay más de una solución, la votación será diferente y cada participante podrá votar usando el método de Schulze. <br/>Si intentas resumir un problema y deseas un texto común <b>¡no crees soluciones alternativas</b>! <br/> Si, por el contrario, quieres realizar una encuesta o quieres una alternativa que no es integrable en la primera solución entonces procede. <br/> Recuerda que, antes de que termine el debate, serás capaz de añadir o quitar soluciones, modificando el método de votación utilizado.'
         paragraph: Párrafo
         confirm_paragraph_deletion: ¿Seguro que deseas eliminar este párrafo?
         confirm_solution_deletion: ¿Seguro que deseas eliminar esta solución?
@@ -513,7 +508,6 @@ es-EC:
       welcome: Bienvenid@
       groups_title: GRUPOS
       login: INICIO DE SESIÓN
-      login_placeholder: Correo electrónico o nombre de usuario
       groups_list: Grupos en los que participas
       open_group: Empieza un nuevo grupo
       new_group: Encontrar grupos
@@ -601,7 +595,6 @@ es-EC:
       create_event_button: Crear nuevo evento
     sessions:
       new:
-        login_label: Nombre de usuario o correo electrónico
         remember_me_label: Recordarme
       links:
         register: ¿Todavía no estás registrado? ¡Únete!
@@ -619,7 +612,6 @@ es-EC:
         newdescription5: Si piensas que el debate debe continuar, utiliza este botón
         newdescription6: Cuando el texto de la propuesta sea actualizado, serás capaz de cambiar su evaluación
       welcome:
-        title_html: '<b>¡Bienvenid@ a Airesis, %{user}</b> <br/>'
         description_html: 'Este breve tutorial te ayudará en las primeras opciones dentro de la plataforma. <br/> Este es tu escritorio: Aquí encontrarás toda la información que necesitas para mantenerte en contacto con tu territorio. <br/>Puedes administrar tus propuestas y grupos, ver los acontecimientos a tu alrededor y ponerte en contacto con otros ciudadanos.<br/> Mejora Airesis enviando una respuesta a <a href="mailto:info@airesis.it">info@airesis.it</a>.<br/>'
       choose_follow:
         description_html: 'Aquí tienes los grupos más activos en los territorios dentro de las fronteras de tu interés. <br/> Selecciona aquellos en los que deseas participar, así serás capaz de ponerte en contacto con ellos y participar en sus eventos y propuestas. <br/> Un clic los selecciona, un segundo elimina la selección.<br/>'

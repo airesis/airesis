@@ -72,7 +72,6 @@ pt-BR:
         show_urls: Mostrar URLs Facebook, Google+ e LinkedIn para outros usuários
         private_messages: Receber mensagens privadas de outros usuários
         join_accounts: Conectar outra conta
-        join_accounts_description: 'Em Aires, você tem a possibilidade de conectar toda a sua Rede Social em uma única conta. <br/> Selecione o provedor e você será capaz de acessar sempre a mesma conta usando Facebook, Google, Twitter e muitos outros!'
         joined_all: Você já conectou todos os provedores disponíveis. Obrigado!
         join_facebook: Conecte a sua conta Facebook
         join_google: Conecte a sua conta Google
@@ -227,7 +226,6 @@ pt-BR:
       edit_work_areas:
         index:
           not_enabled: Áreas de trabalho não habilitadas
-          description: Aires permite gerenciar áreas de trabalho diferentes dentro do grupo.
           description2: Com esse recurso permite gerenciar os participantes e suas funções.
           description3: Tenha cuidado! Este é um recurso avançado, projetado somente para grandes grupos e usuários experientes.
           description4: 'Antes de ativar áreas de trabalho, verifique se você pode gerenciar os membros de grupos diretamente usando '
@@ -661,7 +659,6 @@ pt-BR:
       create_event_button: Criar novo evento
     sessions:
       new:
-        login_label: Nome de usuário ou E-mail
         remember_me_label: Lembre-me
       links:
         register: Ainda não está registado? Inscriva-se jà!

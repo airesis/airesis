@@ -32,9 +32,6 @@ sh-HR:
       updated: Vaša lozinka je uspješno promijenjena. Sada ste prijavljeni
       updated_not_active: Vaša lozinka je uspješno promijenjena
       send_paranoid_instructions: Ako vaša elektronička pošta postoji u našoj bazi podataka, primit ćete link za oporavak lozinke u sandučić elektroničke pošte
-      user:
-        updated: Lozinka ispravno ažurirana
-        send_instructions: Upute su proslijeđene na vašu adresu elektroničke pošte
     confirmations:
       send_instructions: Za nekoliko minuta ćete primiti elektroničku poštu s uputama o tome kako bi potvrdili svoj nalog
       send_paranoid_instructions: Ako vaša elektronička pošta postoji u našoj bazi podataka, za nekoliko minuta ćete primiti elektroničku poštu s uputama kako potvrditi nalog

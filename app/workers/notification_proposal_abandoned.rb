@@ -4,7 +4,7 @@ class NotificationProposalAbandoned < NotificationSender
     @proposal = Proposal.find(proposal_id)
     @trackable = @proposal
     group = @proposal.group
-    data = {proposal_id: @proposal.id, title: @proposal.title, extension: 'abandoned'}
+    data = { proposal_id: @proposal.id, title: @proposal.title, extension: 'abandoned' }
 
     notification_a = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS_MINE,
                                          url: url_for_proposal, data: data)

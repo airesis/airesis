@@ -5,7 +5,7 @@ class NotificationProposalRejected < NotificationSender
     group = @proposal.group
     group_area = @proposal.group_area
 
-    data = {proposal_id: @proposal.id, title: @proposal.title, extension: 'rejected'}
+    data = { proposal_id: @proposal.id, title: @proposal.title, extension: 'rejected' }
     if group
       data['group'] = group.name
       data['subdomain'] = group.subdomain if group.certified?

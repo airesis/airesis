@@ -8,6 +8,8 @@ class Province < ActiveRecord::Base
   belongs_to :country
   belongs_to :continent
 
+  scope :by_hint, ->(hint) { where('lower_unaccent(provinces.description) like lower_unaccent(?)', hint) }
+
   def parent
     region
   end

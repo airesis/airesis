@@ -75,6 +75,7 @@ sr-SP:
     day: дан
     firstDay: 0
     timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
+    changed: Промењено!
   date:
     formats:
       short: '%b %d'

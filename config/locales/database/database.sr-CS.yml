@@ -1,12 +1,64 @@
 sr-CS:
   db:
     sys_locales:
+      bs-BA:
+        description: Bosanski
+      de-DE:
+        description: Nemački
+      el-GR:
+        description: Grčki
+      en-AU:
+        description: Engleski (Australija)
+      en-EU:
+        description: Engleski (Evropa)
+      en-GB:
+        description: Engleski (UK)
+      en-IE:
+        description: Engleski (Irska)
+      en-NZ:
+        description: Engleski (Novi Zeland)
+      en-US:
+        description: Engleski (USA)
+      en-ZA:
+        description: Engleski (Južna Afrika)
+      es-AR:
+        description: Španski (Argentina)
+      es-CL:
+        description: Španski (Čile)
+      es-EC:
+        description: Španski (Ekvador)
       es-ES:
         description: Španski
+      fr-FR:
+        description: Francuski
+      hu-HU:
+        description: Mađarski
+      id-ID:
+        description: Indonezijski
       it-IT:
         description: Italijanski
+      jp-JP:
+        description: Japanski
+      me-ME:
+        description: Crnogorski
+      nl-NL:
+        description: Holandija
       pt-BR:
         description: Portugalski (Brazil)
+      pt-PT:
+        description: Portugalski (Portugal)
+      ro-RO:
+        description: Rumunski
+      ru-RU:
+        description: Ruski
+      sh-HR:
+        description: Srpskohrvatski
+      sr-CS:
+        description: Srbija (latinica)
+      sr-SP:
+        description: Srbija (ćirilica)
+      zh-TW:
+        description: Kineski
     proposal_types:
       STANDARD:
         description: Standardni predlog
@@ -88,6 +140,8 @@ sr-CS:
         description: Novo ocenjivanje mog predloga
       new_valutation:
         description: Novo ocenjivanje predloga u kojem učestvujem
+        message:
+          one: 'Predlog <b>%{title}</b> je dobio novo ocenjivanje'
       available_author:
         description: Korisnik dostupan da postane urednik predloga
         email_subject:

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151011074531) do
+ActiveRecord::Schema.define(version: 20151210171038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -976,29 +976,33 @@ ActiveRecord::Schema.define(version: 20151011074531) do
 
   create_table "proposals", force: :cascade do |t|
     t.integer  "proposal_state_id"
-    t.integer  "proposal_category_id",                    default: 5,     null: false
-    t.string   "title",                     limit: 255,                   null: false
-    t.string   "content",                   limit: 20000
+    t.integer  "proposal_category_id",                     default: 5,     null: false
+    t.string   "title",                      limit: 255,                   null: false
+    t.string   "content",                    limit: 20000
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "valutations",                             default: 0
+    t.integer  "valutations",                              default: 0
     t.integer  "vote_period_id"
-    t.integer  "proposal_comments_count",                 default: 0
-    t.integer  "rank",                                    default: 0,     null: false
-    t.boolean  "show_comment_authors",                    default: true,  null: false
-    t.boolean  "private",                                 default: false, null: false
+    t.integer  "proposal_comments_count",                  default: 0
+    t.integer  "rank",                                     default: 0,     null: false
+    t.boolean  "show_comment_authors",                     default: true,  null: false
+    t.boolean  "private",                                  default: false, null: false
     t.integer  "quorum_id"
-    t.boolean  "anonima",                                 default: true,  null: false
-    t.boolean  "visible_outside",                         default: false, null: false
-    t.boolean  "secret_vote",                             default: true,  null: false
-    t.integer  "proposal_type_id",                        default: 1,     null: false
-    t.integer  "proposal_votation_type_id",               default: 1,     null: false
-    t.boolean  "vote_defined",                            default: false
+    t.boolean  "anonima",                                  default: true,  null: false
+    t.boolean  "visible_outside",                          default: false, null: false
+    t.boolean  "secret_vote",                              default: true,  null: false
+    t.integer  "proposal_type_id",                         default: 1,     null: false
+    t.integer  "proposal_votation_type_id",                default: 1,     null: false
+    t.boolean  "vote_defined",                             default: false
     t.datetime "vote_starts_at"
     t.datetime "vote_ends_at"
     t.integer  "vote_event_id"
     t.integer  "signatures"
-    t.integer  "views_count",                             default: 0,     null: false
+    t.integer  "views_count",                              default: 0,     null: false
+    t.integer  "user_votes_count"
+    t.text     "short_content"
+    t.integer  "proposal_contributes_count",               default: 0,     null: false
+    t.boolean  "area_private",                             default: false, null: false
   end
 
   add_index "proposals", ["proposal_category_id"], name: "_idx_proposals_proposal_category_id", using: :btree
@@ -1418,7 +1422,6 @@ ActiveRecord::Schema.define(version: 20151011074531) do
     t.string   "sex",                       limit: 1
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "login",                     limit: 40
     t.string   "password_salt",             limit: 40
     t.datetime "remember_token_expires_at"
     t.string   "confirmation_token",        limit: 255
@@ -1463,10 +1466,10 @@ ActiveRecord::Schema.define(version: 20151011074531) do
     t.string   "avatar_content_type",       limit: 255
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "subdomain"
   end
 
   add_index "users", ["email"], name: "uniqueemail", unique: true, using: :btree
-  add_index "users", ["login"], name: "uniquelogin", unique: true, using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",  limit: 255, null: false

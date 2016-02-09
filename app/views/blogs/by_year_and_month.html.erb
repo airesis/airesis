@@ -3,7 +3,6 @@
 <%=render layout: "layouts/page_title", locals: {title: @page_title} do%>
 <%end%>
 
-
 <% if @blog_posts.size == 0 && !params[:page] %>
 	<div class="blogPost">
 		<h1><%=t('pages.blogs.show.no_posts')%></h1>

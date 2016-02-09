@@ -1,0 +1,106 @@
+swagger: "2.0"
+info:
+  description: "This is the documentation for Airesis API V.1.0."
+  version: "1.0.0"
+  title: "Airesis Swagger"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "alessandro.rodi@airesis.it"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:3000"
+basePath: "/api/v1"
+tags:
+  -
+    name: "proposals"
+    description: "Manage proposals"
+    externalDocs:
+      description: "Find out more"
+      url: "http://swagger.io"
+  -
+    name: 'sessions'
+    description: 'Manage user session'
+schemes:
+  - "http"
+paths:
+  /login:
+    post:
+      tags:
+        - "sessions"
+      summary: "Sign in via username and password"
+      description: "Take note of the authentication_token in the response. Set X-User-Email and X-User-token in the header afterward to retrieve contents as logged in"
+      parameters:
+              -
+                in: "query"
+                name: "user[email]"
+                description: "Your email"
+                required: true
+                type: "email"
+              -
+                in: "query"
+                name: "user[password]"
+                description: "Your password"
+                required: true
+                type: "password"
+      responses:
+        200:
+          description: "successful operation"
+  /proposals:
+    get:
+      tags:
+        - "proposals"
+      summary: "Retrieves all the proposals you can read"
+      description: "A cool description"
+      operationId: "proposals#index"
+      produces:
+        - "application/json"
+      parameters:
+        -
+          in: "query"
+          name: "page"
+          description: "Results are paginated. decide which page you want to retrieve"
+          required: false
+          type: "integer"
+          default: 1
+        -
+          in: "query"
+          name: "private"
+          description: "Determine if you want proposals marked as private (from groups) or not (from public area). Default is null which means that it doesn't matter"
+          required: false
+          type: "boolean"
+          default: null
+        -
+          in: "query"
+          name: "visible_outside"
+          description: "Determine if you want group proposals marked as visible_outside (public visibile) or not (shown only to members). Default is null which means that it doesn't matter"
+          required: false
+          type: "boolean"
+          default: null
+      responses:
+        200:
+          description: "successful operation"
+  /proposals/{id}:
+    get:
+      tags:
+        - "proposals"
+      summary: "Retrieves a specific proposal by ID"
+      description: "Retrieve all the informations about a single proposal"
+      operationId: "proposals#show"
+      produces:
+        - "application/json"
+      parameters:
+        -
+          in: "path"
+          name: "id"
+          description: "Id of the proposal you want to retrieve"
+          required: true
+          type: "integer"
+          default: 1
+      responses:
+        200:
+          description: "Here it is the proposal"
+        401:
+          description: "You do not have enough permissions to see this proposal"
+        404:
+          description: "There is no proposal with this id"

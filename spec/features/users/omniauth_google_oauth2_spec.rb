@@ -2,9 +2,7 @@ require 'spec_helper'
 require 'requests_helper'
 
 describe 'the oauth2 process', type: :feature, js: true do
-
   describe 'Google oauth2' do
-
     before :each do
       @oauth_data = {
         provider: 'google_oauth2',
@@ -14,51 +12,49 @@ describe 'the oauth2 process', type: :feature, js: true do
         last_name: Faker::Name.last_name
       }
 
-      OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
-        provider: @oauth_data[:provider],
-        uid: @oauth_data[:uid],
-        info: {
-            name: "#{@oauth_data[:first_name]} #{@oauth_data[:last_name]}",
-            email: @oauth_data[:email],
-            first_name: @oauth_data[:first_name],
-            last_name: @oauth_data[:last_name],
-            image: "https://lh3.googleusercontent.com/url/photo.jpg"
-        },
-        credentials: {
-            token: "token",
-            refresh_token: "another_token",
-            expires_at: 1354920555,
-            expires: true
-        },
-        extra: {
-            raw_info: {
-                sub: "123456789",
-                email: @oauth_data[:email],
-                email_verified: true,
-                name: "#{@oauth_data[:first_name]} #{@oauth_data[:last_name]}",
-                given_name: @oauth_data[:first_name],
-                family_name: @oauth_data[:last_name],
-                profile: "https://plus.google.com/123456789",
-                picture: "https://lh3.googleusercontent.com/url/photo.jpg",
-                gender: "male",
-                birthday: "0000-06-25",
-                locale: "en",
-                hd: "company_name.com"
-            },
-            id_info: {
-                "iss" => "accounts.google.com",
-                "at_hash" => "HK6E_P6Dh8Y93mRNtsDB1Q",
-                "email_verified" => "true",
-                "sub" => "10769150350006150715113082367",
-                "azp" => "APP_ID",
-                "email" => "jsmith@example.com",
-                "aud" => "APP_ID",
-                "iat" => 1353601026,
-                "exp" => 1353604926,
-                "openid_id" => "https://www.google.com/accounts/o8/id?id=ABCdfdswawerSDFDsfdsfdfjdsf"
-            }
-          }
-        })
+      OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(provider: @oauth_data[:provider],
+                                                                         uid: @oauth_data[:uid],
+                                                                         info: {
+                                                                           name: "#{@oauth_data[:first_name]} #{@oauth_data[:last_name]}",
+                                                                           email: @oauth_data[:email],
+                                                                           first_name: @oauth_data[:first_name],
+                                                                           last_name: @oauth_data[:last_name],
+                                                                           image: 'https://lh3.googleusercontent.com/url/photo.jpg'
+                                                                         },
+                                                                         credentials: {
+                                                                           token: 'token',
+                                                                           refresh_token: 'another_token',
+                                                                           expires_at: 1_354_920_555,
+                                                                           expires: true
+                                                                         },
+                                                                         extra: {
+                                                                           raw_info: {
+                                                                             sub: '123456789',
+                                                                             email: @oauth_data[:email],
+                                                                             email_verified: true,
+                                                                             name: "#{@oauth_data[:first_name]} #{@oauth_data[:last_name]}",
+                                                                             given_name: @oauth_data[:first_name],
+                                                                             family_name: @oauth_data[:last_name],
+                                                                             profile: 'https://plus.google.com/123456789',
+                                                                             picture: 'https://lh3.googleusercontent.com/url/photo.jpg',
+                                                                             gender: 'male',
+                                                                             birthday: '0000-06-25',
+                                                                             locale: 'en',
+                                                                             hd: 'company_name.com'
+                                                                           },
+                                                                           id_info: {
+                                                                             'iss' => 'accounts.google.com',
+                                                                             'at_hash' => 'HK6E_P6Dh8Y93mRNtsDB1Q',
+                                                                             'email_verified' => 'true',
+                                                                             'sub' => '10769150350006150715113082367',
+                                                                             'azp' => 'APP_ID',
+                                                                             'email' => 'jsmith@example.com',
+                                                                             'aud' => 'APP_ID',
+                                                                             'iat' => 1_353_601_026,
+                                                                             'exp' => 1_353_604_926,
+                                                                             'openid_id' => 'https://www.google.com/accounts/o8/id?id=ABCdfdswawerSDFDsfdsfdfjdsf'
+                                                                           }
+                                                                         })
       Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
       Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:google_oauth2]
     end
@@ -135,7 +131,7 @@ describe 'the oauth2 process', type: :feature, js: true do
       expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_failure', provider: @oauth_data[:provider].capitalize)}/i)
     end
 
-    it "remembers Google account after joining" do
+    it 'remembers Google account after joining' do
       user = create(:user)
       login_as user, scope: :user
       visit '/users/auth/google_oauth2/callback'

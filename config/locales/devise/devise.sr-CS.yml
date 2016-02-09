@@ -20,6 +20,7 @@ sr-CS:
       unconfirmed: Nalog još nije potvrđen
       user:
         invalid: Neispravno korisničko ime ili lozinka
+        not_found_in_database: Neispravno korisničko ime ili lozinka
     sessions:
       signed_in: Prijavljivanje uspešno
       signed_out: Odjavljivanje uspešno
@@ -32,9 +33,6 @@ sr-CS:
       updated: Vaša lozinka je uspešno promenjena. Sada ste prijavljeni
       updated_not_active: Vaša lozinka je uspešno promenjena
       send_paranoid_instructions: Ako vaša e-pošta postoji u našoj bazi, dobićete link za oporavak lozinke u vaš inboks
-      user:
-        updated: Lozinka ispravno ažurirana
-        send_instructions: Uputstva su prosleđena na vašu adresu e-pošte
     confirmations:
       send_instructions: Za nekoliko minuta ćete dobiti e-poštu sa uputstvima kako da potvrdite vaš nalog
       send_paranoid_instructions: Ako vaša e-pošta postoji u našoj bazi, za nekoliko minuta ćete dobiti e-poštu sa uputstvima kako da potvrdite svoj nalog

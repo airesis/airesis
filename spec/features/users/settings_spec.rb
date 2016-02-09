@@ -3,7 +3,6 @@ require 'requests_helper'
 require 'email_spec'
 
 describe 'personal settings', type: :feature, js: true do
-
   let!(:user) { create(:user) }
 
   before :each do
@@ -57,16 +56,14 @@ describe 'personal settings', type: :feature, js: true do
       within '#email_modal' do
         find(:css, '#user_email').set new_email
         click_button I18n.t('buttons.save')
-        sleep 2 # fix problem with client side validation in capybara-webkit
-        click_button I18n.t('buttons.save')
       end
       expect(page).to have_content(I18n.t('info.user.info_updated'))
       user.reload
       expect(user.unconfirmed_email).to eq new_email
 
-      delivery = ActionMailer::Base.deliveries.first
+      delivery = ActionMailer::Base.deliveries.last
       expect(delivery.to[0]).to eq new_email
-      open_email(new_email)
+      open_last_email_for(new_email)
       click_first_link_in_email
       expect(page).to have_content(I18n.t('devise.confirmations.user.confirmed'))
     end

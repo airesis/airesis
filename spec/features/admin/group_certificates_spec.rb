@@ -3,9 +3,9 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 describe 'admin/certifications', type: :feature, js: true do
-
   let(:admin) { create(:admin) }
-  let(:groups) { create_list(:group, 3, current_user_id: create(:user).id) }
+  let(:user) { create(:user) }
+  let(:groups) { create_list(:group, 3, current_user_id: user.id) }
 
   before :each do
     load_database

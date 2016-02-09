@@ -75,6 +75,8 @@ en-EU:
     day: 'day'
     firstDay: 0
     timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
+    changed: 'Changed!'
+    eventsFormat: 'h(:mm)t'
   date:
     order:
       - :day
