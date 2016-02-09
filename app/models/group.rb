@@ -282,6 +282,6 @@ class Group < ActiveRecord::Base
 
   def create_folder
     dir = "#{Rails.root}/private/elfinder/#{id}"
-    Dir.mkdir dir unless File.exist?(dir)
+    FileUtils.mkdir_p dir  #it automatically create "private" folder and doesn't error if the directory is already present
   end
 end

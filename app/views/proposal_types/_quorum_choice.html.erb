@@ -6,7 +6,6 @@
   <% else %>
       <% @quorum_collection = Quorum.visible.order('seq nulls last') %>
   <% end %>
-  <%= @proposal.quorum_id %>
   <%= f.input :quorum_id, as: :select,
               collection: @quorum_collection.collect { |p| [p.name, p.id, { 'data-description' => p.description,
                                                                             'data-explanation' => p.explanation,

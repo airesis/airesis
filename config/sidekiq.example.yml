@@ -1,5 +1,4 @@
 :concurrency: 15
-:pidfile: tmp/pids/sidekiq.pid
 test:
   :concurrency: 5
 production:

@@ -18,7 +18,7 @@
                 <%= link_to(home_url, class: (params[:controller] == 'home' ? 'sel' : '')) do %>
                     <span class="show-for-large-up"><%= t('pages.header.menu.my_page') %></span>
 
-                    <div class="icon-home small hide-for-large-up" title="<%= t('pages.header.menu.my_page') %>"></div>
+                    <div class="fa fa-home small hide-for-large-up" title="<%= t('pages.header.menu.my_page') %>"></div>
                 <% end %>
 
                 <span> ⋅ </span>
@@ -26,20 +26,20 @@
                     <%= link_to(@user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '')) do %>
                         <span class="show-for-large-up"><%= t('pages.header.menu.my_blog') %></span>
 
-                        <div class="icon-pencil small hide-for-large-up" title="<%= t('pages.header.menu.my_blog') %>"></div>
+                        <div class="fa fa-pencil small hide-for-large-up" title="<%= t('pages.header.menu.my_blog') %>"></div>
                     <% end %>
                 <% else %>
                     <%= link_to(new_blog_path, class: (['blogs', 'blog_posts'].include? params[:controller] ? 'sel' : '')) do %>
                         <span class="show-for-large-up"><%= t('pages.header.menu.create_blog') %></span>
 
-                        <div class="icon-pencil small hide-for-large-up" title="<%= t('pages.header.menu.create_blog') %>"></div>
+                        <div class="fa fa-pencil small hide-for-large-up" title="<%= t('pages.header.menu.create_blog') %>"></div>
                     <% end %>
                 <% end %>
                 <span> ⋅ </span>
                 <%= link_to(@user, class: ((['users', 'alerts'].include? params[:controller]) ? 'sel' : '')) do %>
                     <span class="show-for-large-up"><%= t('pages.header.menu.preferences') %></span>
 
-                    <div class="icon-cog small hide-for-large-up" title="<%= t('pages.header.menu.preferences') %>"></div>
+                    <div class="fa fa-cog small hide-for-large-up" title="<%= t('pages.header.menu.preferences') %>"></div>
                 <% end %>
             <% end %>
             <% if @user != current_user %>
