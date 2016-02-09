@@ -62,14 +62,12 @@ class GroupParticipationsController < ApplicationController
     GroupParticipation.transaction do
       ids.each do |id|
         group_participation = GroupParticipation.find(id)
-        if group_participation.group == @group
-          unless group_participation.user == current_user
-            group_participation_request = GroupParticipationRequest.find_by_user_id_and_group_id(group_participation.user_id, group_participation.group_id)
-            group_participation_request.destroy
-            group_participation.destroy
-            AreaParticipation.joins(group_area: :group).where(['groups.id = ? AND area_participations.user_id = ?', group_participation.group_id, group_participation.user_id]).readonly(false).destroy_all
-          end
-        end
+        next unless group_participation.group == @group
+        next if group_participation.user == current_user
+        group_participation_request = GroupParticipationRequest.find_by_user_id_and_group_id(group_participation.user_id, group_participation.group_id)
+        group_participation_request.destroy
+        group_participation.destroy
+        AreaParticipation.joins(group_area: :group).where(['groups.id = ? AND area_participations.user_id = ?', group_participation.group_id, group_participation.user_id]).readonly(false).destroy_all
       end
     end
     flash[:notice] = t('info.participations_destroyed')

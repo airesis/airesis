@@ -27,7 +27,11 @@ class EventsController < ApplicationController
     @event_comment = @event.event_comments.new
     @event_comments = @event.event_comments.includes(:user).order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
     respond_to do |format|
-      format.html
+      format.html do
+        if @event.votation?
+          @proposals = @event.proposals.for_list(current_user.try(:id))
+        end
+      end
       format.js
       format.ics do
         calendar = Icalendar::Calendar.new
@@ -156,7 +160,7 @@ class EventsController < ApplicationController
   def calculate_starttime
     return 10.minutes.from_now unless params[:starttime]
     ret = Time.at(params[:starttime].to_i / 1000)
-    ret = ret.change(hour: Time.now.hour, min: Time.now.min) unless (params[:has_time] == 'true')
+    ret = ret.change(hour: Time.now.hour, min: Time.now.min) unless params[:has_time] == 'true'
     ret
   end
 

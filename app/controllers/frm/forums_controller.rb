@@ -7,7 +7,7 @@ module Frm
     layout 'groups'
 
     def index
-      @categories = @group.categories.load
+      @categories = @group.categories.includes(:forums)
     end
 
     def show

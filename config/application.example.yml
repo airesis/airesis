@@ -45,7 +45,7 @@ GOOGLE_ANALYTICS_ID: "YOUR GOOGLE ANALYTICS ID"
 RECAPTCHA_PUBLIC: ""
 RECAPTCHA_PRIVATE: ""
 
-# go to geonames.org and obtain a username to put in here
+# is used to geocode users when they register. Get a username at http://www.geonames.org/.
 GEOSPATIAL_NAME: ""
 
 #####################
@@ -118,6 +118,10 @@ SITE: "https://www.example.com"
 
 # where is listening your redis installation?
 REDIS_URL: "redis://127.0.0.1:6379/12"
+
+#host address ànd port of the Apache SOLR server
+SOLR_HOST: "localhost"
+SOLR_PORT: "8983"
 
 # remove these variables if you are not using amazon s3
 AWS_HOST: "s3-eu-west-1.amazonaws.com"
@@ -264,3 +268,16 @@ PAYPAL_URL: "https://www.sandbox.paypal.com/cgi-bin/webscr"
 # path to wkhtmltopdf exacutable
 # if this variable is not set then the value of `which wkhtmltopdf` is taken.
 # WKHTMLTOPDF_PATH: '/usr/bin/wkhtmltopdf'
+
+# mailman configuration to be able to reply to messages in forums
+# if variables are not set then emails are sent from standard address and is not possible to reply in forums by email
+# read the documentation to know how to configure the application to receive emails
+MAILMAN_SERVER: 'pop.server.com'
+MAILMAN_USERNAME: 'email_username'
+MAILMAN_PASSWORD: 'email_password'
+# there must be a %token%
+MAILMAN_EMAIL: 'replytest+%token%@airesis.it'
+MAILMAN_SENDER: 'Airesis Forum'
+
+# if the user does not access the platform for this number of days, his session will be destroyed
+SESSION_DAYS: '14'

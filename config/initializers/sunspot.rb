@@ -4,3 +4,4 @@ unless Rails.env.test?
   # Sunspot.session = Sunspot::SessionProxy::ThreadLocalSessionProxy.new
   Sunspot.session = Sunspot::Queue::SessionProxy.new(Sunspot.session, backend)
 end
+

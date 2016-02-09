@@ -75,6 +75,6 @@ class Tag < ActiveRecord::Base
   protected
 
   def escape_text
-    self.text = text.strip.downcase.gsub('.', '').gsub("'", '').gsub('/', '')
+    self.text = text.strip.downcase.delete('.').delete("'").delete('/')
   end
 end

@@ -113,7 +113,7 @@ module Frm
       unless forem_admin_or_moderator?(topic.forum)
         posts = posts.approved_or_pending_review_for(current_user)
       end
-      @posts = posts
+      @posts = posts.includes(:user, :reply_to, :topic)
     end
 
     def find_topic

@@ -188,24 +188,23 @@ class GroupsController < ApplicationController
       groups.each do |group_id|
         group = Group.find(group_id)
         request = current_user.group_participation_requests.find_by(group_id: group.id)
-        unless request # se non l'ha mai fatta
-          participation = current_user.groups.find_by_id(group.id)
-          if participation # verifica se per caso non fa già parte del gruppo
-            # crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
-            request = GroupParticipationRequest.new
-            request.user_id = current_user.id
-            request.group_id = group.id
-            request.group_participation_request_status_id = 3 # accettata, dati corretti
-            request.save!
-          else
-            # inoltra la richiesta di partecipazione con stato IN ATTESA
-            request = GroupParticipationRequest.new
-            request.user_id = current_user.id
-            request.group_id = group.id
-            request.group_participation_request_status_id = 1 # in attesa...
-            request.save!
-            number += 1
-          end
+        next if request
+        participation = current_user.groups.find_by_id(group.id)
+        if participation # verifica se per caso non fa già parte del gruppo
+          # crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
+          request = GroupParticipationRequest.new
+          request.user_id = current_user.id
+          request.group_id = group.id
+          request.group_participation_request_status_id = 3 # accettata, dati corretti
+          request.save!
+        else
+          # inoltra la richiesta di partecipazione con stato IN ATTESA
+          request = GroupParticipationRequest.new
+          request.user_id = current_user.id
+          request.group_id = group.id
+          request.group_participation_request_status_id = 1 # in attesa...
+          request.save!
+          number += 1
         end
       end
       flash[:notice] = t('info.participation_request.multiple_request', count: number)

@@ -12,7 +12,8 @@
 
         <%= f.input :title,
                     label: t('pages.proposals.new.title_synthetic'),
-                    placeholder: t('pages.proposals.new.title_placeholder') %>
+                    placeholder: t('pages.proposals.new.title_placeholder'),
+                    input_html: { autocomplete: :off, data: { fv_trigger: 'keyup' } } %>
 
         <% if @group && @group.enable_areas && @group.group_areas.any? %>
             <% available_areas = current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT) %>
@@ -87,7 +88,7 @@
       </div>
 
       <div class="step">
-        <div  id="suggestions">
+        <div id="suggestions">
 
         </div>
       </div>
@@ -137,8 +138,3 @@
   <% end %>
 </div>
 <a class="close-reveal-modal">&#215;</a>
-
-<script type="text/javascript">
-  ProposalsNew.groupId = <%= @group.try(:id) || 'null'%>;
-  ProposalsNew.debateVoteDifference = <%= DEBATE_VOTE_DIFFERENCE.to_i / 60%>;
-</script>

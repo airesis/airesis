@@ -343,7 +343,16 @@ Airesis::Application.routes.draw do
 
   # routes available only on main site
   constraints NoSubdomain do
+
     root to: 'home#index'
+    namespace :api do
+      namespace :v1 do
+        resources :proposals, only: [:show, :index]
+        devise_scope :user do
+          post 'login' => 'sessions#create', as: :login
+        end
+      end
+    end
 
     resources :proposal_categories do
       get :index, scope: :collection

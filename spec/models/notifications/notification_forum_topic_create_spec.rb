@@ -8,11 +8,7 @@ describe NotificationForumTopicCreate, type: :model, emails: true, notifications
   end
 
   let(:notification_type) { NotificationType.find_by(name: NotificationType::NEW_FORUM_TOPIC).id }
-  let(:user) do
-    user = create(:user)
-    user.blocked_alerts.destroy_all
-    user
-  end
+  let(:user) { create(:user) }
   let(:group) { create(:group, current_user_id: user.id) }
   let(:category) { create(:frm_category, group: group) }
   let(:forum) { create(:frm_forum, category: category) }

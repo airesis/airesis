@@ -6,9 +6,9 @@ class Proposal < ActiveRecord::Base
   belongs_to :vote_period, class_name: 'Event', foreign_key: :vote_period_id # attached when is decided
   belongs_to :vote_event, class_name: 'Event', foreign_key: :vote_event_id # attached when the proposal is created
 
-  # TODO: can't move tags before proposal_presentations because these are necessary when creating the tags
-  # TODO: can't destroy the proposal because proposal presentations are destroyed before the tags
-  has_many :proposal_presentations, -> { order 'id DESC' }, class_name: 'ProposalPresentation', dependent: :destroy
+  # can't move tags before proposal_presentations because these are necessary when creating the tags
+  # can't add dependent_destroy to presentations because tags must be destroyed before
+  has_many :proposal_presentations, -> { order 'id DESC' }, class_name: 'ProposalPresentation'
   has_many :proposal_tags, class_name: 'ProposalTag', dependent: :destroy
   has_many :tags, through: :proposal_tags, class_name: 'Tag'
 
@@ -132,7 +132,7 @@ class Proposal < ActiveRecord::Base
   scope :revision, -> { where(proposal_state_id: ProposalState::ABANDONED) }
 
   # all proposals visible to not logged users
-  scope :visible, -> { where(['private = ? or visible_outside = ?', false, true]) }
+  scope :visible, -> { where('private = ? or visible_outside = ?', false, true) }
 
   scope :internal, -> { where(private: true) } # proposte interne ai gruppi
 
@@ -140,6 +140,18 @@ class Proposal < ActiveRecord::Base
   scope :invalid_debate_phase, -> { in_valutation.joins(:quorum).where('current_timestamp > quorums.ends_at') }
   scope :invalid_waiting_phase, -> { waiting.joins(:vote_period).where('current_timestamp > events.starttime') }
   scope :invalid_vote_phase, -> { voting.joins(:vote_period).where('current_timestamp > events.endtime') }
+
+  scope :select_alerts_and_rankings, ->(user_id) do
+    select('proposals.*',
+           Proposal.alerts_count_subquery(user_id).as('alerts_count'),
+           Proposal.ranking_subquery(user_id).as('ranking'))
+  end
+
+  scope :for_list, ->(user_id = nil) do
+    select_alerts_and_rankings(user_id).
+      includes(:interest_borders, :user_votes, :presentation_areas, :groups,
+               :category, :quorum, :vote_period, :proposal_type)
+  end
 
   after_initialize :init
 
@@ -152,13 +164,15 @@ class Proposal < ActiveRecord::Base
 
   before_update :before_update_populate
 
+  # fix to delete relations properly
+  before_destroy :destroy_presentations
+
   after_destroy :remove_scheduled_tasks
 
   # updates the content of the short_content field which is displayed in the lists
   after_validation :update_short_content
 
   def init
-    self.quorum_id ||= Quorum::STANDARD
     self.anonima = (self.is_petition? ? false : DEFAULT_ANONIMA) if anonima.nil?
     self.visible_outside = true if visible_outside.nil?
     self.secret_vote = true if secret_vote.nil?
@@ -172,9 +186,9 @@ class Proposal < ActiveRecord::Base
     alerts_count = alerts.
       project('count(*)').
       where(alerts[:trackable_id].eq(proposals[:id]).
-              and(alerts[:trackable_type].eq('Proposal')).
-              and(alerts[:user_id].eq(user_id)).
-              and(alerts[:checked].eq(false)))
+        and(alerts[:trackable_type].eq('Proposal')).
+        and(alerts[:user_id].eq(user_id)).
+        and(alerts[:checked].eq(false)))
   end
 
   def self.ranking_subquery(user_id)
@@ -183,7 +197,7 @@ class Proposal < ActiveRecord::Base
     ranking = proposal_rankings.
       project(proposal_rankings[:ranking_type_id]).
       where(proposal_rankings[:proposal_id].eq(proposals[:id]).
-              and(proposal_rankings[:user_id].eq(user_id)))
+        and(proposal_rankings[:user_id].eq(user_id)))
   end
 
   # retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
@@ -266,7 +280,7 @@ class Proposal < ActiveRecord::Base
       join(group_proposals).on(group_proposals[:proposal_id].eq(proposals[:id])).
       join(groups).on(groups[:id].eq(group_proposals[:group_id])).
       join(group_participations).on(groups[:id].eq(group_participations[:group_id]).
-                                      and(group_participations[:user_id].eq(user.id))).
+      and(group_participations[:user_id].eq(user.id))).
       join(participation_roles).on(group_participations[:participation_role_id].eq(participation_roles[:id])).
       join(events).on(events[:id].eq(proposals[:vote_period_id])).
       join(action_abilitations, Arel::Nodes::OuterJoin).
@@ -276,7 +290,7 @@ class Proposal < ActiveRecord::Base
       where(proposals[:proposal_type_id].not_eq(petition_id)).
       where(user_votes[:id].eq(nil)).
       where(action_abilitations[:group_action_id].eq(GroupAction::PROPOSAL_VOTE).
-              or(participation_roles[:id].eq(ParticipationRole.admin.id))).
+        or(participation_roles[:id].eq(ParticipationRole.admin.id))).
       order('end_time asc').to_sql
     proposals = Proposal.find_by_sql(proposals_sql)
     ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, { users: :image }, :proposal_type, :groups,
@@ -292,10 +306,10 @@ class Proposal < ActiveRecord::Base
     alerts_count = alerts_count_subquery(user_id)
     ranking = ranking_subquery(user_id)
     Proposal.find_by_sql(proposals.
-                           project('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
-                           join(group_proposals).on(proposals[:id].eq(group_proposals[:proposal_id])).
-                           where(group_proposals[:group_id].eq(group.id)).
-                           order(proposals[:created_at].desc).take(10).to_sql)
+      project('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
+      join(group_proposals).on(proposals[:id].eq(group_proposals[:proposal_id])).
+      where(group_proposals[:group_id].eq(group.id)).
+      order(proposals[:created_at].desc).take(10).to_sql)
   end
 
   def count_notifications(user_id)
@@ -474,6 +488,7 @@ class Proposal < ActiveRecord::Base
   end
 
   # restituisce la lista delle 10 proposte più vicine a questa
+  # TODO: rewrite using arel
   def closest(group_id = nil)
     sql_q = " SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.quorum_id, p.anonima,
               p.visible_outside, p.secret_vote, p.proposal_votation_type_id, p.content,
@@ -682,7 +697,7 @@ class Proposal < ActiveRecord::Base
     return if voting?
     self.proposal_state_id = ProposalState::VOTING
     self.save!
-    unless vote # se non ha i dati per la votazione creali
+    unless vote # TODO: non è possibile che esistano già
       vote_data = ProposalVote.new(proposal_id: id, positive: 0, negative: 0, neutral: 0)
       vote_data.save!
     end
@@ -726,6 +741,10 @@ class Proposal < ActiveRecord::Base
   end
 
   private
+
+  def destroy_presentations
+    proposal_presentations.destroy_all
+  end
 
   def update_short_content
     self.short_content = generate_short_content
@@ -771,6 +790,7 @@ class Proposal < ActiveRecord::Base
       group_area = GroupArea.find(group_area_id) if group_area_id.present?
       if group_area # check user permissions for this group area
         errors.add(:group_area_id, I18n.t('permissions_required')) if current_user.cannot? :insert_proposal, group_area
+        self.area_private = true
         presentation_areas << group_area
       end
 
@@ -852,16 +872,15 @@ class Proposal < ActiveRecord::Base
       solution.sections.each do |section|
         paragraph = section.paragraphs.first
         paragraph.content = '' if paragraph.content == '<p></p>' && paragraph.content_was == ''
-        if paragraph.content_changed? || section.marked_for_destruction? || solution.marked_for_destruction?
-          something_solution = true
-          section_history = solution_history.section_histories.build(section_id: section.id,
-                                                                     title: section.title,
-                                                                     seq: section.seq,
-                                                                     added: section.new_record?,
-                                                                     removed: (section.marked_for_destruction? ||
-                                                                       solution.marked_for_destruction?))
-          section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: id)
-        end
+        next unless paragraph.content_changed? || section.marked_for_destruction? || solution.marked_for_destruction?
+        something_solution = true
+        section_history = solution_history.section_histories.build(section_id: section.id,
+                                                                   title: section.title,
+                                                                   seq: section.seq,
+                                                                   added: section.new_record?,
+                                                                   removed: (section.marked_for_destruction? ||
+                                                                     solution.marked_for_destruction?))
+        section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: id)
       end
       solution_history.destroy unless something_solution
     end
@@ -892,11 +911,10 @@ class Proposal < ActiveRecord::Base
       fid = border[2..-1] # chiave primaria (dal terzo all'ultimo carattere)
       found = InterestBorder.table_element(border)
       # se ho trovato qualcosa, allora l'identificativo è corretto e posso creare il confine di interesse
-      if found
-        interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype],
-                                                      territory_id: fid)
-        i = proposal_borders.build(interest_border_id: interest_b.id)
-      end
+      next unless found
+      interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype],
+                                                    territory_id: fid)
+      i = proposal_borders.build(interest_border_id: interest_b.id)
     end
   end
 
@@ -943,7 +961,7 @@ class Proposal < ActiveRecord::Base
     if votation && (votation[:later] != 'true')
       # if he took a vote period already existing
       if (votation[:choise] && (votation[:choise] == 'preset')) ||
-          (!votation[:choise] && votation[:vote_period_id].present?)
+        (!votation[:choise] && votation[:vote_period_id].present?)
         self.vote_event = Event.find(votation[:vote_period_id])
         # if the vote period start before the end of debate there is an error
         if vote_event.starttime < Time.now + copy.minutes.minutes + DEBATE_VOTE_DIFFERENCE

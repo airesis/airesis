@@ -28,14 +28,14 @@ class BestQuorum < Quorum
   def populate_vote
     unless vote_minutes
       self.vote_minutes = vote_minutes_m.to_i + (vote_hours_m.to_i * 60) + (vote_days_m.to_i * 24 * 60)
-      self.vote_minutes = nil if (vote_minutes == 0)
+      self.vote_minutes = nil if vote_minutes == 0
     end
     self.bad_score = good_score
   end
 
   def populate_vote!
     self.vote_minutes = vote_minutes_m.to_i + (vote_hours_m.to_i * 60) + (vote_days_m.to_i * 24 * 60)
-    self.vote_minutes = nil if (vote_minutes == 0)
+    self.vote_minutes = nil if vote_minutes == 0
   end
 
   def or?
