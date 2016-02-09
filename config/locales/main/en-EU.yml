@@ -1501,3 +1501,8 @@ en-EU:
   unsubscribe_from_topic: "To unsubscribe from this topic, %{click_here}"
   select_debate_duration: "Select first a debate duration"
   rankdown_reason: "Say why you evaluated this contribute negatively"
+  api:
+    v1:
+      sessions:
+        create:
+          message: "Successfully logged in"
