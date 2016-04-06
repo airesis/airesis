@@ -25,11 +25,15 @@ set :default_shell, 'bash -l'
 
 set :bundle_flags, '--deployment'
 
-before 'deploy', 'rvm1:install:ruby'
 
 namespace :app do
   task :update_rvm_key do
-    execute :gpg, '--keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3'
+    on roles(:app) do
+      execute :gpg, '--keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3'
+    end
   end
 end
+
+before 'deploy', 'rvm1:install:ruby'
+before 'deploy', 'rvm1:install:rvm'
 before 'rvm1:install:rvm', 'app:update_rvm_key'
