@@ -25,6 +25,7 @@ set :default_shell, 'bash -l'
 
 set :bundle_flags, '--deployment'
 
+set :keep_releases, 2
 
 namespace :app do
   task :update_rvm_key do
