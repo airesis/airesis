@@ -25,4 +25,6 @@ set :default_shell, 'bash -l'
 
 set :bundle_flags, '--deployment'
 
+set :keep_releases, 2
+
 before 'deploy', 'rvm1:install:ruby'
