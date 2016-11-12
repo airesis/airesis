@@ -88,6 +88,7 @@ group :production do
   gem 'therubyracer'
   gem 'newrelic_rpm'
   gem 'sentry-raven', git: 'https://github.com/getsentry/raven-ruby'
+  gem 'lograge'
 end
 
 group :doc do

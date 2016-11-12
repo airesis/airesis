@@ -28,6 +28,7 @@ Airesis::Application.configure do
 
   config.logger = Logger.new(Rails.root.join('log', Rails.env + '.log'), 50, 100.megabytes)
   config.log_level = :info
+  config.lograge.enabled = true
 
   config.active_record.raise_in_transactional_callbacks = true
 end
