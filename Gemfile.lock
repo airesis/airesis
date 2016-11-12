@@ -300,7 +300,6 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.4.1)
       launchy (~> 2.2)
-    libv8 (3.16.14.11)
     listen (2.10.1)
       celluloid (~> 0.16.0)
       rb-fsevent (>= 0.9.3)
@@ -465,7 +464,6 @@ GEM
     redis (3.2.2)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
-    ref (2.0.0)
     remotipart (1.2.1)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
@@ -594,9 +592,6 @@ GEM
     terminal-table (1.5.2)
     test-unit (3.1.2)
       power_assert
-    therubyracer (0.12.2)
-      libv8 (~> 3.16.14.0)
-      ref
     thin (1.6.3)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0)
@@ -740,7 +735,6 @@ DEPENDENCIES
   sunspot_solr
   sunspot_test
   test-unit
-  therubyracer
   thin
   timecop
   timezone!
@@ -753,5 +747,8 @@ DEPENDENCIES
   wicked_pdf
   workflow
 
+RUBY VERSION
+   ruby 2.3.1p112
+
 BUNDLED WITH
-   1.10.6
+   1.12.5

@@ -85,7 +85,6 @@ group :development do
 end
 
 group :production do
-  gem 'therubyracer'
   gem 'newrelic_rpm'
   gem 'sentry-raven', git: 'https://github.com/getsentry/raven-ruby'
 end
