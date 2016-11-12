@@ -1,5 +1,5 @@
-class Announcement < ActiveRecord::Base
-  validates :messages, presence: true
+ class Announcement < ActiveRecord::Base
+  validates :message, presence: true
   validates :starts_at, presence: true
   validates :ends_at, presence: true
 
