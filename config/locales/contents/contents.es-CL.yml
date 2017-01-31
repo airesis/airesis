@@ -176,12 +176,11 @@ es-CL:
       paragraph3:
         title: Cómo donar
         content_html: |
-          <p>La Asociación para la Promoción Social llamada 
-          <a href="http://www.tecnologiedemocratiche.it/" target="_blank"> Tecnologie Democratiche</a> fue creada para apoyar el desarrollo de Airesis y permitir el sostenimiento del proyecto.   
+          <p>La Asociación para la Promoción Social llamada
+          <a href="https://www.facebook.com/tecnologiedemocratiche" target="_blank"> Tecnologie Democratiche</a> fue creada para apoyar el desarrollo de Airesis y permitir el sostenimiento del proyecto.
           Su donación será enteramente dirigida al desarrollo y hosting de la plataforma.   
           Financieramente nos apoyen para poder pagar un programador senior experimentado y para el mantenimiento del servidor de hosting de nuestra aplicación:</p> 
           <ul class="disc"> 
-          <li>con una transferencia bancaria dirigida a: 'Tecnologie Democratiche' IBAN: IT76L0316501600000011758905</li> 
           <li>con una donación mediante Paypal:</li></ul>
       paragraph4:
         content_html: '<p><a href="mailto:%{mail}"> Contacta con nosotros</a> para más información.</p>'
