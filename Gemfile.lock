@@ -305,6 +305,10 @@ GEM
       celluloid (~> 0.16.0)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
+    lograge (0.4.1)
+      actionpack (>= 4, < 5.1)
+      activesupport (>= 4, < 5.1)
+      railties (>= 4, < 5.1)
     loofah (2.0.2)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -691,6 +695,7 @@ DEPENDENCIES
   kaminari
   koala
   letter_opener
+  lograge
   mailman
   mustache
   mustache-js-rails

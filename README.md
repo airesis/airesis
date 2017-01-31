@@ -245,4 +245,4 @@ Contributors
 ------------------
 [ List of Contributors to the project Airesis ] ( https://www.airesis.it/chisiamo )
 
-[ Tecnologie Democratiche Association  ] ( http://www.tecnologiedemocratiche.it )
+[ Tecnologie Democratiche Association  ] ( https://www.facebook.com/tecnologiedemocratiche )
