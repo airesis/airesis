@@ -59,15 +59,15 @@ Installation and Setup
 ----------------------
 You can install Airesis to run locally on your machine, or if you prefer using [Docker containers](#Docker) for a quick and easy setup.
 
-###Local installation
+### Local installation
 The application installs itself as any other RubyOnRails application.
 
-####Requirements
+#### Requirements
 * PostgreSQL 9 with the hstore extension enabled.
 * Redis in order to execute Sidekiq and all background jobs.
 * A JVM installed to run SOLR server, used for searching inside Airesis.
 
-####Tutorial
+#### Tutorial
 1. Download the project
 ```
 git clone https://github.com/coorasse/Airesis.git
@@ -105,14 +105,14 @@ bundle exec sidekiq
 
 That's it! Now you have a running installation of Airesis!
 
-####Foreman
+#### Foreman
 If you want to run them all in a single command you can use Foreman
 ```
 bundle exec foreman start
 ```   
 and it will take care of running everything for you.
 
-####Mailman
+#### Mailman
 Users can reply in the forum by email. Run
 ```
 ruby script/mailman_server.rb
@@ -120,14 +120,14 @@ ruby script/mailman_server.rb
 in background to receive emails and create forum posts from them.  
 
 
-###Docker
+### Docker
 Docker takes care of all the required dependencies for you, and with it you use a fixed and standard dev environment between all of developers. This eliminate inconsistencies problem that can lead to bugs and other complications in running the application.
 
-####Requirements
+#### Requirements
 * [Docker](https://www.docker.com/)
 * [Docker Compose](https://github.com/docker/compose)
 
-###Tutorial
+### Tutorial
 1. Download the project
 ```
 git clone https://github.com/coorasse/Airesis.git
@@ -205,7 +205,7 @@ Destroy all the proposals in the database
 
 To generate other fake data look at `spec/factories` folder.
 
-###Using Docker
+### Using Docker
 You can run all the previous command if you use Docker. Juste prefix them with `docker-compose run --rm airesis` to run them in the airesis container.
 
 For instance
