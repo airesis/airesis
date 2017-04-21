@@ -1,0 +1,5 @@
+FROM airesis_airesis
+
+RUN apt-get update && apt-get install -y openjdk-7-jre && rm -rf /var/lib/apt/lists/*
+
+EXPOSE 8983
