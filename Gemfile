@@ -33,7 +33,6 @@ gem 'rack-mini-profiler', require: false
 
 gem 'daemons'
 
-
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
@@ -127,6 +126,7 @@ gem 'sunspot-rails-http-basic-auth', git: 'https://github.com/jwachira/sunspot-r
 
 gem 'activerecord-session_store'
 
+gem 'puma'
 
 group :development do
   gem 'sunspot_solr'
@@ -142,7 +142,6 @@ group :development do
   gem 'letter_opener'
   gem 'foreman'
   gem 'spring'
-  gem 'thin', require: false
 end
 
 group :test do

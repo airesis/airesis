@@ -388,6 +388,7 @@ GEM
       pry (~> 0.10)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
+    puma (3.8.2)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
@@ -583,10 +584,6 @@ GEM
     terminal-table (1.5.2)
     test-unit (3.1.2)
       power_assert
-    thin (1.6.3)
-      daemons (~> 1.0, >= 1.0.9)
-      eventmachine (~> 1.0)
-      rack (~> 1.0)
     thor (0.19.1)
     thread (0.2.0)
     thread_safe (0.3.5)
@@ -686,6 +683,7 @@ DEPENDENCIES
   private_pub
   pry-byebug
   pry-rails
+  puma
   quiet_assets
   rack-mini-profiler
   rails (~> 4.2.0)
@@ -722,7 +720,6 @@ DEPENDENCIES
   sunspot_solr
   sunspot_test
   test-unit
-  thin
   timecop
   timezone!
   truncate_html
