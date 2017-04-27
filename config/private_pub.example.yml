@@ -1,9 +1,9 @@
 development:
-  server: "http://localhost:9292/faye"
-  secret_token: "secret"
+  server: <%= ENV['PRIVATEPUB_SERVER'] %>
+  secret_token: <%= ENV['PRIVATEPUB_SECRET_TOKEN'] %>
 production:
-  server: "http://localhost:9292/faye/faye"
-  secret_token: "secret"
+  server: <%= ENV['PRIVATEPUB_SERVER'] %>
+  secret_token: <%= ENV['PRIVATEPUB_SECRET_TOKEN'] %>
 test:
-  server: "http://localhost:9292/faye/faye"
-  secret_token: "secret"
+  server: <%= ENV['PRIVATEPUB_SERVER'] %>
+  secret_token: <%= ENV['PRIVATEPUB_SECRET_TOKEN'] %>
