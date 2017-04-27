@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby File.read('.ruby-version').strip
+ruby File.read('.ruby-version2').strip
 
 gem 'rails', '~> 4.2.0'
 
@@ -37,62 +37,6 @@ gem 'rack-mini-profiler', require: false
 
 gem 'daemons'
 
-group :development do
-  gem 'sunspot_solr'
-  gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'quiet_assets'
-  gem 'capistrano-sidekiq'
-  gem 'capistrano-passenger'
-  gem 'i18n-tasks'
-  gem 'rubocop'
-  gem 'bullet'
-  gem 'pry-rails'
-  gem 'pry-byebug'
-  gem 'awesome_print'
-  gem 'letter_opener'
-  gem 'foreman'
-  gem 'spring'
-  gem 'thin', require: false
-end
-
-group :test do
-  gem 'rspec-rails'
-  gem 'factory_girl_rails'
-  gem 'capybara'
-  gem 'database_cleaner'
-  gem 'selenium-webdriver'
-  gem 'capybara-webkit'
-  gem 'capybara-screenshot'
-  gem 'sunspot_test'
-  gem 'timecop'
-end
-
-group :development, :test do
-  gem 'test-unit'
-end
-
-group :test do
-  gem 'codeclimate-test-reporter', require: nil
-  gem 'ruby-prof'
-  gem 'simplecov', require: false
-  gem 'email_spec'
-end
-
-group :development do
-  gem 'crowdin-api'
-  gem 'rubyzip'
-end
-
-group :production do
-  gem 'newrelic_rpm'
-  gem 'sentry-raven', git: 'https://github.com/getsentry/raven-ruby'
-  gem 'lograge'
-end
-
-group :doc do
-  gem 'sdoc', require: false
-end
 
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
@@ -186,3 +130,62 @@ gem 'truncate_html'
 gem 'sunspot-rails-http-basic-auth', git: 'https://github.com/jwachira/sunspot-rails-http-basic-auth'
 
 gem 'activerecord-session_store'
+
+
+group :development do
+  gem 'sunspot_solr'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'quiet_assets'
+  gem 'capistrano-sidekiq'
+  gem 'capistrano-passenger'
+  gem 'i18n-tasks'
+  gem 'rubocop'
+  gem 'bullet'
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'awesome_print'
+  gem 'letter_opener'
+  gem 'foreman'
+  gem 'spring'
+  gem 'thin', require: false
+end
+
+group :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'selenium-webdriver'
+  gem 'capybara-webkit'
+  gem 'capybara-screenshot'
+  gem 'sunspot_test'
+  gem 'timecop'
+end
+
+group :development, :test do
+  gem 'test-unit'
+end
+
+group :test do
+  gem 'codeclimate-test-reporter', require: nil
+  gem 'ruby-prof'
+  gem 'simplecov', require: false
+  gem 'email_spec'
+end
+
+group :development do
+  gem 'crowdin-api'
+  gem 'rubyzip'
+end
+
+group :production do
+  gem 'newrelic_rpm'
+  gem 'sentry-raven', git: 'https://github.com/getsentry/raven-ruby'
+  gem 'lograge'
+  gem 'rails_12factor'
+end
+
+group :doc do
+  gem 'sdoc', require: false
+end
