@@ -26,7 +26,7 @@ Airesis::Application.configure do
 
   config.force_ssl = (ENV['FORCE_SSL'].try(:downcase) == 'true')
 
-  config.logger = Logger.new(Rails.root.join('log', Rails.env + '.log'), 50, 100.megabytes)
+  # config.logger = Logger.new(Rails.root.join('log', Rails.env + '.log'), 50, 100.megabytes)
   config.log_level = :info
   config.lograge.enabled = true
 
