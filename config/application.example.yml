@@ -146,13 +146,6 @@ CROWDIN_API: ""
 CROWDIN_PROJECT_ID: ""
 CROWDIN_ACCOUNT_KEY: ""
 
-#####################
-#capistrano settings (optional)
-#####################
-CAP_STAGING_USER: ""
-CAP_STAGING_SERVER: ""
-
-
 ##############
 #sentry settings. remove these keys to not use it (leaving them empty will throw an error)
 #############

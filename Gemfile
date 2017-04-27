@@ -21,10 +21,6 @@ gem 'rails_admin'
 gem 'sunspot_rails'
 gem 'sunspot-queue', git: 'https://github.com/gaffneyc/sunspot-queue'
 
-gem 'capistrano'
-gem 'capistrano-bundler'
-gem 'capistrano-rails'
-gem 'rvm1-capistrano3', require: false
 gem 'premailer-rails'
 
 gem 'uri-js-rails'
@@ -137,8 +133,6 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'quiet_assets'
-  gem 'capistrano-sidekiq'
-  gem 'capistrano-passenger'
   gem 'i18n-tasks'
   gem 'rubocop'
   gem 'bullet'
