@@ -1,0 +1,20 @@
+# For details on connection pooling, see rails configuration guide
+# http://guides.rubyonrails.org/configuring.html#database-pooling
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV["DB_POOL"] || ENV['MAX_THREADS'] || 5 %>
+  # Minimum log levels, in increasing order: debug5, debug4, debug3, debug2, debug1, log, notice, warning, error,
+  # fatal, and panic. Defaults to warning. min_messages: warning
+  url: <%= ENV['DATABASE_URL'] %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  database: airesis-test
+
+production:
+  <<: *default
