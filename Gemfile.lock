@@ -188,7 +188,7 @@ GEM
       launchy (~> 2.1)
       mail (~> 2.2)
     erubis (2.7.0)
-    eventmachine (1.0.7)
+    eventmachine (1.2.3)
     execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -714,7 +714,7 @@ DEPENDENCIES
   workflow
 
 RUBY VERSION
-   ruby 2.3.1p112
+   ruby 2.4.0p0
 
 BUNDLED WITH
    1.14.6
