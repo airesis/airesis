@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'requests_helper'
 
 describe 'can list proposals and filter them', type: :feature, js: true, search: true do

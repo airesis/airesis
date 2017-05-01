@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'requests_helper'
 
 describe 'groups#by_year_and_month', type: :feature, js: true, seeds: true do

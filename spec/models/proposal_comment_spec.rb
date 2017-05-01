@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe ProposalComment, type: :model, seeds: true do
   let(:user) { create(:user) }

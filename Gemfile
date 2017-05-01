@@ -119,8 +119,6 @@ gem 'font-awesome-rails'
 
 gem 'truncate_html'
 
-gem 'sunspot-rails-http-basic-auth', git: 'https://github.com/jwachira/sunspot-rails-http-basic-auth'
-
 gem 'activerecord-session_store'
 
 gem 'puma'

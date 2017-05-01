@@ -46,13 +46,6 @@ GIT
     sentry-raven (0.15.3)
       faraday (>= 0.7.6)
 
-GIT
-  remote: https://github.com/jwachira/sunspot-rails-http-basic-auth
-  revision: d8b4069568be1863d04704af3fbba874167a9dee
-  specs:
-    sunspot-rails-http-basic-auth (0.0.4)
-      sunspot_rails
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -707,7 +700,6 @@ DEPENDENCIES
   sprockets (= 2.12.4)
   sshkit
   sunspot-queue!
-  sunspot-rails-http-basic-auth!
   sunspot_rails
   sunspot_solr
   sunspot_test
