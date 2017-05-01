@@ -148,7 +148,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'capybara-webkit'
   gem 'capybara-screenshot'
-  gem 'sunspot_test'
+  gem 'sunspot_test', github: 'collectiveidea/sunspot_test'
   gem 'timecop'
 end
 
