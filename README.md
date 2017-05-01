@@ -1,6 +1,6 @@
 Airesis - The Social Network for eDemocracy
 ===========================================
-[ ![Codeship Status for coorasse/Airesis](https://codeship.com/projects/3bc16c10-0d16-0133-b925-7aae0ba3591b/status?branch=master)](https://codeship.com/projects/91286)
+[![Build Status](https://semaphoreci.com/api/v1/coorasse/airesis/branches/master/badge.svg)](https://semaphoreci.com/coorasse/airesis)
 [![Dependency Status](https://gemnasium.com/coorasse/Airesis.svg)](https://gemnasium.com/coorasse/Airesis)
 [![Code Climate](https://codeclimate.com/repos/5552681fe30ba02945000686/badges/2885e98c8c20799e22c8/gpa.svg)](https://codeclimate.com/repos/5552681fe30ba02945000686/feed)
 
