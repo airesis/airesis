@@ -93,13 +93,6 @@ NOREPLY_EMAIL: "No Reply <noreply@example.com>"
 #DEFAULT_EMAIL_PROTOCOL: 'https'
 
 #####################
-#redmine integration (optional)
-#####################
-BUGTRACKING_URL: ""
-BUGTRACKING_USERNAME: ""
-BUGTRACKING_PASSWORD: ""
-
-#####################
 #application parameters
 #####################
 APP_SHORT_NAME: "My App"
