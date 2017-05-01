@@ -1,10 +1,8 @@
 source 'http://rubygems.org'
 
-ruby File.read('.ruby-version').strip
+ruby File.read('.ruby-version2').strip
 
 gem 'rails', '~> 4.2.0'
-
-gem 'turnout'
 
 gem 'sass-rails'
 gem 'coffee-rails'
@@ -19,12 +17,7 @@ gem 'pg'
 gem 'rails_admin'
 
 gem 'sunspot_rails'
-gem 'sunspot-queue', git: 'https://github.com/gaffneyc/sunspot-queue'
 
-gem 'capistrano'
-gem 'capistrano-bundler'
-gem 'capistrano-rails'
-gem 'rvm1-capistrano3', require: false
 gem 'premailer-rails'
 
 gem 'uri-js-rails'
@@ -38,6 +31,64 @@ gem 'rack-mini-profiler', require: false
 gem 'daemons'
 
 gem 'rack-cors', :require => 'rack/cors'
+
+group :development do
+  gem 'sunspot_solr'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'quiet_assets'
+  gem 'capistrano-sidekiq'
+  gem 'capistrano-passenger'
+  gem 'i18n-tasks'
+  gem 'rubocop'
+  gem 'bullet'
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'awesome_print'
+  gem 'letter_opener'
+  gem 'foreman'
+  gem 'spring'
+  gem 'thin', require: false
+end
+
+group :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'selenium-webdriver'
+  gem 'capybara-webkit'
+  gem 'capybara-screenshot'
+  gem 'sunspot_test'
+  gem 'timecop'
+end
+
+group :development, :test do
+  gem 'test-unit'
+end
+
+group :test do
+  gem 'codeclimate-test-reporter', require: nil
+  gem 'ruby-prof'
+  gem 'simplecov', require: false
+  gem 'email_spec'
+end
+
+group :development do
+  gem 'crowdin-api'
+  gem 'rubyzip'
+end
+
+group :production do
+  gem 'therubyracer'
+  gem 'newrelic_rpm'
+  gem 'sentry-raven', git: 'https://github.com/getsentry/raven-ruby'
+  gem 'lograge'
+end
+
+group :doc do
+  gem 'sdoc', require: false
+end
 
 group :development do
   gem 'sunspot_solr'
@@ -125,7 +176,6 @@ gem 'sinatra', require: false
 
 gem 'sidekiq'
 gem 'sidekiq-failures'
-gem 'sidetiq'
 
 gem 'cancancan'
 
@@ -187,6 +237,62 @@ gem 'font-awesome-rails'
 
 gem 'truncate_html'
 
-gem 'sunspot-rails-http-basic-auth', git: 'https://github.com/jwachira/sunspot-rails-http-basic-auth'
-
 gem 'activerecord-session_store'
+
+gem 'puma'
+
+group :development do
+  gem 'sunspot_solr'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'quiet_assets'
+  gem 'i18n-tasks'
+  gem 'rubocop'
+  gem 'bullet'
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'awesome_print'
+  gem 'letter_opener'
+  gem 'foreman'
+  gem 'spring'
+  gem 'thin', require: false # required for private_pub
+end
+
+group :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'selenium-webdriver'
+  gem 'capybara-webkit'
+  gem 'capybara-screenshot'
+  gem 'sunspot_test', github: 'collectiveidea/sunspot_test'
+  gem 'timecop'
+end
+
+group :development, :test do
+  gem 'test-unit'
+end
+
+group :test do
+  gem 'codeclimate-test-reporter', require: nil
+  gem 'ruby-prof'
+  gem 'simplecov', require: false
+  gem 'email_spec'
+end
+
+group :development do
+  gem 'crowdin-api'
+  gem 'rubyzip'
+end
+
+group :production do
+  gem 'newrelic_rpm'
+  gem 'sentry-raven', git: 'https://github.com/getsentry/raven-ruby'
+  gem 'lograge'
+  gem 'rails_12factor'
+end
+
+group :doc do
+  gem 'sdoc', require: false
+end

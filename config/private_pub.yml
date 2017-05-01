@@ -1,0 +1,9 @@
+development:
+  server: <%= ENV['PRIVATEPUB_SERVER'] %>
+  secret_token: <%= ENV['PRIVATEPUB_SECRET_TOKEN'] %>
+production:
+  server: <%= ENV['PRIVATEPUB_SERVER'] %>
+  secret_token: <%= ENV['PRIVATEPUB_SECRET_TOKEN'] %>
+test:
+  server: <%= ENV['PRIVATEPUB_SERVER'] %>
+  secret_token: <%= ENV['PRIVATEPUB_SECRET_TOKEN'] %>

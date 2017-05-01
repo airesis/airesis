@@ -1,10 +1,4 @@
 class ElaborateEmails
-  include Sidekiq::Worker
-  include Sidetiq::Schedulable
-
-  recurrence { minutely }
-  sidekiq_options queue: :low_priority
-
   def perform(*_args)
     ReceivedEmail.where(read: false).each do |email|
       email.update!(read: true)
