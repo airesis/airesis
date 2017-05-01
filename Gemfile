@@ -58,7 +58,6 @@ gem 'sinatra', require: false
 
 gem 'sidekiq'
 gem 'sidekiq-failures'
-gem 'sidetiq'
 
 gem 'cancancan'
 

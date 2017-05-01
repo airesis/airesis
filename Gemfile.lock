@@ -259,7 +259,6 @@ GEM
       term-ansicolor
       terminal-table (>= 1.5.1)
     icalendar (2.3.0)
-    ice_cube (0.11.1)
     image_size (1.4.1)
     jbuilder (2.3.1)
       activesupport (>= 3.0.0, < 5)
@@ -524,10 +523,6 @@ GEM
       redis-namespace (~> 1.5, >= 1.5.2)
     sidekiq-failures (0.4.4)
       sidekiq (>= 2.16.0)
-    sidetiq (0.6.3)
-      celluloid (>= 0.14.1)
-      ice_cube (= 0.11.1)
-      sidekiq (>= 3.0.0)
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
@@ -704,7 +699,6 @@ DEPENDENCIES
   sentry-raven!
   sidekiq
   sidekiq-failures
-  sidetiq
   simple_form
   simplecov
   sinatra
