@@ -33,7 +33,7 @@ namespace :airesis do
     end
 
     desc 'Fix notification workers in a wrong status. Usually scheduled every hour.'
-    task fix_proposals: :environment do
+    task fix_workers: :environment do
       FixWorkers.new.perform
     end
 
