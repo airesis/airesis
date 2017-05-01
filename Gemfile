@@ -17,7 +17,6 @@ gem 'pg'
 gem 'rails_admin'
 
 gem 'sunspot_rails'
-gem 'sunspot-queue', git: 'https://github.com/gaffneyc/sunspot-queue'
 
 gem 'premailer-rails'
 

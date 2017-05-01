@@ -4,7 +4,7 @@ production:
 
 development:
   solr:
-    log_level: INFO
+    log_level: DEBUG
   auto_index_callback: after_commit
   auto_remove_callback: after_commit
 

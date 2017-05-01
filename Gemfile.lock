@@ -41,13 +41,6 @@ GIT
     timezone (0.2.2)
 
 GIT
-  remote: https://github.com/gaffneyc/sunspot-queue
-  revision: fd857f108877f7a83f4163c093eb361cc561a94c
-  specs:
-    sunspot-queue (0.10.3)
-      sunspot_rails (>= 1.3.0)
-
-GIT
   remote: https://github.com/getsentry/raven-ruby
   revision: 3b9b2af9da3d80ecfd54ac6377d91e462526bccc
   specs:
@@ -705,7 +698,6 @@ DEPENDENCIES
   spring
   sprockets (= 2.12.4)
   sshkit
-  sunspot-queue!
   sunspot_rails
   sunspot_solr
   sunspot_test!
