@@ -140,6 +140,7 @@ group :development do
   gem 'letter_opener'
   gem 'foreman'
   gem 'spring'
+  gem 'thin', require: false # required for private_pub
 end
 
 group :test do

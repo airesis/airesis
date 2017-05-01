@@ -274,3 +274,11 @@ MAILMAN_SENDER: 'Airesis Forum'
 
 # if the user does not access the platform for this number of days, his session will be destroyed
 SESSION_DAYS: '14'
+
+
+# SOLR_URL: 'http://username:password@host:port/path'
+SOLR_URL: 'http://localhost:8983/solr/development'
+
+
+PRIVATEPUB_SERVER: 'http://localhost:9292/faye'
+PRIVATEPUB_SECRET_TOKEN: 'hello'
