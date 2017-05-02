@@ -67,7 +67,7 @@ gem 'sitemap_generator'
 
 gem 'geocoder'
 
-gem 'vote-schulze', git: 'https://github.com/coorasse/schulze-vote', ref: '0f47cbb'
+gem 'schulze-vote', require: 'schulze_vote'
 
 gem 'rails_autolink'
 

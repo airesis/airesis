@@ -28,13 +28,6 @@ GIT
     devise_traceable (0.0.8)
 
 GIT
-  remote: https://github.com/coorasse/schulze-vote
-  revision: 0f47cbbe6c1e0020369fb6071a1a73bf93bbf7f7
-  ref: 0f47cbb
-  specs:
-    vote-schulze (0.2.0)
-
-GIT
   remote: https://github.com/coorasse/timezone
   revision: e0f42830c80f72eae319279ffe9f6d6128b26ad8
   specs:
@@ -498,6 +491,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (~> 1.1)
+    schulze-vote (2.0.6)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
@@ -690,6 +684,7 @@ DEPENDENCIES
   rubyzip
   sanitize
   sass-rails
+  schulze-vote
   sdoc
   select2-rails
   selenium-webdriver
@@ -716,7 +711,6 @@ DEPENDENCIES
   turbolinks
   uglifier
   uri-js-rails
-  vote-schulze!
   wicked_pdf
   workflow
 

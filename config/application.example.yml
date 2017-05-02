@@ -275,3 +275,6 @@ SOLR_URL: 'http://localhost:8983/solr/development'
 
 PRIVATEPUB_SERVER: 'http://localhost:9292/faye'
 PRIVATEPUB_SECRET_TOKEN: 'hello'
+
+# from 1 to 10
+MAX_RANKINGS_NUMBER: 1

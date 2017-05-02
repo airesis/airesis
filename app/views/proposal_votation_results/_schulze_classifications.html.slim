@@ -1,0 +1,12 @@
+.card
+  - if @proposal_votation_result.calculated && @proposal_votation_result.classifications.count == 1
+    h3 = "We calculated a final rank for your solutions"
+    = classification = @proposal_votation_result.classifications.first
+    - classification.each do |solution_id|
+      div
+        = render 'proposal_votation_results/solution_title', id: solution_id
+  - else
+  h3 = 'Here is the list of potential winners'
+  - @proposal_votation_result.winners.each do |winner_id|
+    div
+      = render 'proposal_votation_results/solution_title', id: winner_id

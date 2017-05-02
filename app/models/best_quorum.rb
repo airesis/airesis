@@ -163,39 +163,32 @@ class BestQuorum < Quorum
     proposal.reload
   end
 
+  def exceed_vote_quorum?(votes)
+    votes >= vote_valutations
+  end
+
+  def exceed_conditions?(vote_data)
+    positive_perc = vote_data.positive_perc_over_valuable
+    votes = vote_data.number
+    vote_data.any_valuable_vote? && (positive_perc > (vote_good_score.to_f / 100)) && exceed_vote_quorum?(votes)
+  end
+
   def close_vote_phase
     if proposal.is_schulze?
-      vote_data_schulze = proposal.schulze_votes
-      Proposal.transaction do
-        votesstring = '' # this is the string to pass to schulze library to calculate the score
-        vote_data_schulze.each do |vote|
-          # each row is composed by the vote string and, if more then one, the number of votes of that kind
-          vote.count > 1 ? votesstring += "#{vote.count}=#{vote.preferences}\n" : votesstring += "#{vote.preferences}\n"
-        end
-        num_solutions = proposal.solutions.count
-        vs = SchulzeBasic.do votesstring, num_solutions
-        solutions_sorted = proposal.solutions.sort { |a, b| a.id <=> b.id } # order the solutions by the id (as the plugin output the results)
-        solutions_sorted.each_with_index do |c, i|
-          c.schulze_score = vs.ranks[i].to_i # save the result in the solution
-          c.save!
-        end
-        votes = proposal.schulze_votes.sum(:count)
-        proposal.proposal_state_id = (votes >= vote_valutations) ? ProposalState::ACCEPTED : ProposalState::REJECTED
-      end # end of transaction
+      proposal.build_proposal_votation_result(data: SchulzeSolver.new(proposal).calculate)
+      votes = proposal.schulze_votes.sum(:count)
+      proposal.proposal_state_id = exceed_vote_quorum?(votes) ? ProposalState::ACCEPTED : ProposalState::REJECTED
     else
       vote_data = proposal.vote
-      positive = vote_data.positive
-      negative = vote_data.negative
-      neutral = vote_data.neutral
-      votes = positive + negative + neutral
-      if ((positive + negative) > 0) && ((positive.to_f / (positive + negative).to_f) > (vote_good_score.to_f / 100)) && (votes >= vote_valutations) # se ha avuto più voti positivi allora diventa ACCETTATA
-        proposal.proposal_state_id = ProposalState::ACCEPTED
-      else # se ne ha di più negativi allora diventa RESPINTA
-        proposal.proposal_state_id = ProposalState::REJECTED
-      end
+      proposal.proposal_state_id = if exceed_conditions?(vote_data)
+                                     ProposalState::ACCEPTED
+                                   else
+                                     ProposalState::REJECTED
+                                   end
     end
     proposal.save!
     NotificationProposalVoteClosed.perform_async(proposal.id)
+    true
   end
 
   def has_bad_score?

@@ -78,20 +78,5 @@ module Admin
       flash[:notice] = 'Sitemap aggiornata.'
       redirect_to admin_panel_path
     end
-
-    def proposals_stats
-      ret = Proposal.voted.
-        joins(:solutions).
-        group('proposals.id').
-        having('count(solutions.*) > 1').count.map do |proposal_id, count|
-        proposal = Proposal.find(proposal_id)
-        { proposal_id: proposal_id,
-          solutions_count: count,
-          votes_count: proposal.user_votes_count,
-          solutions: proposal.solutions.map(&:id).join(','),
-          preferences: proposal.schulze_votes.map { |vote| { count: vote.count, data: vote.preferences } } }
-      end
-      File.open('stat.json', 'w') { |f| f.puts JSON.pretty_generate(ret) }
-    end
   end
 end

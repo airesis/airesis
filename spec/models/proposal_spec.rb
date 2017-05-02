@@ -65,4 +65,25 @@ describe Proposal, type: :model do
       expect(public_proposal.destroy).to be_truthy
     end
   end
+
+  context 'close_vote_phase' do
+    context 'if proposal is in voting phase' do
+      context 'is schulze' do
+        let(:voting_proposal) { create(:in_vote_public_proposal) }
+        it 'can be closed' do
+          expect(voting_proposal.close_vote_phase).to eq true
+        end
+
+        it 'is signed as voted' do
+          voting_proposal.close_vote_phase
+          expect(voting_proposal.voted?).to eq true
+        end
+
+        it 'can not be close twice' do
+          voting_proposal.close_vote_phase
+          expect(voting_proposal.close_vote_phase).to be_falsey
+        end
+      end
+    end
+  end
 end
