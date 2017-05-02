@@ -29,13 +29,13 @@ class ProposalCommentSearch
   # return a list of ids of already evaluated contributes by the current_user
   def evaluated_ids
     return @evaluated_ids if @evaluated_ids
-    if @current_user
-      @evaluated_ids = ProposalComment.joins(:rankings).
-        where(proposal_comment_rankings: { user_id: @current_user.id },
-              proposal_comments: { proposal_id: @proposal.id }).uniq.pluck(:id)
-    else
-      @evaluated_ids = []
-    end
+    @evaluated_ids = if @current_user
+                       ProposalComment.joins(:rankings).
+                         where(proposal_comment_rankings: { user_id: @current_user.id },
+                               proposal_comments: { proposal_id: @proposal.id }).uniq.pluck(:id)
+                     else
+                       []
+                     end
     @evaluated_ids.delete(@comment_id) if @comment_id
     @evaluated_ids
   end
