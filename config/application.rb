@@ -42,8 +42,7 @@ module Airesis
     end
     config.i18n.fallbacks = fallbacks
 
-    config.i18n.available_locales = [:crowdin,
-                                     :'bs-BA', :'de-DE', :'el-GR', :'en-AU', :'en-EU', :'en-GB', :'en-NZ', :'en-US', :'en-ZA',
+    config.i18n.available_locales = [:'bs-BA', :'de-DE', :'el-GR', :'en-AU', :'en-EU', :'en-GB', :'en-NZ', :'en-US', :'en-ZA',
                                      :'en-IE', :'es-AR', :'es-CL', :'es-EC', :'es-ES', :'fr-FR', :'hu-HU', :'id-ID',
                                      :'it-IT', :'me-ME', :'pt-BR', :'pt-PT', :'ro-RO', :'ru-RU', :'sh-HR', :'sr-CS', :'sr-SP',
                                      :'zh-TW']

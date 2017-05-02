@@ -369,14 +369,13 @@ it-IT:
         title: Come donare
         content_html: |2
           <p>E' stata costituita l'Associazione di Promozione Sociale
-            <a href="http://www.tecnologiedemocratiche.it/" target="_blank">Tecnologie Democratiche</a>
+            <a href="https://www.facebook.com/tecnologiedemocratiche" target="_blank">Tecnologie Democratiche</a>
             al fine di supportare lo sviluppo di Airesis e permetterne il sostentamento.
             La tua donazione sarà interamente devoluta per lo sviluppo e l'hosting della piattaforma.
             Sostienici economicamente al fine di retribuire un programmatore senior e per il mantenimento del server che
             ospita la nostra applicazione:
           </p>
           <ul class="disc">
-            <li>Attraverso un bonifico intestato a: 'Tecnologie Democratiche' IBAN: IT76L0316501600000011758905</li>
             <li>Attraverso una donazione su Paypal:</li>
           </ul>
       paragraph4:

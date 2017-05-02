@@ -8,7 +8,6 @@ module Crowdin
       @extract_folder = params[:extract_folder] || '.'
       @download_folder = params[:download_folder] || 'tmp'
       @min_translation_percentage = params[:min_translation_percentage] || 20
-      @locales_mapping = { 'bo-BT' => 'crowdin' }
       auth
     end
 
@@ -97,17 +96,8 @@ module Crowdin
         end
         delete_zip(zip)
       end
-      change_fakelocale
     end
 
-    # set a fake locale for crowdin files
-    def change_fakelocale
-      @locales_mapping.each do |key, value|
-        puts "Converting '#{key}' into #{value}"
-        files = Dir["#{@extract_folder}/config/locales/*/*.#{key}.yml"]
-        files.each { |file_name| change_locale(file_name, key, value) }
-      end
-    end
 
     def change_locale(file_name, key, value)
       File.open('tmpfile', 'w') do |tmp|
@@ -140,7 +130,6 @@ module Crowdin
         next if lang['translated_progress'] < @min_translation_percentage
         @lang_ready << lang['code']
       end
-      @lang_ready << 'bo-BT'
       puts "Available languages: #{@lang_ready}"
     end
   end

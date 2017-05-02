@@ -1,10 +1,4 @@
 class DeleteOldNotifications
-  include Sidekiq::Worker
-  include Sidetiq::Schedulable
-
-  recurrence { daily.hour_of_day(1) }
-  sidekiq_options queue: :low_priority
-
   def perform(*_args)
     count = 0
     deleted = Notification.destroy_all(['created_at < ?', 6.months.ago])

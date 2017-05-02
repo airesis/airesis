@@ -90,7 +90,7 @@ fr-FR:
       paragraph3:
         title: Comment faire un don
         content_html: |-
-          <p>L'Association pour la Promotion sociale nommée <a href="http://www.tecnologiedemocratiche.it/" target="_blank"> Tecnologie Democratiche</a> a été créée afin de soutenir le développement de Airesis et permettre la subsistance du projet.   Votre don sera entièrement dédié au développement et Hébergement de la plate-forme.  Nous soutenir financièrement afin de payer un programmeur senior expérimenté et de garantir  la maintenance du serveur hébergeant notre application :</p> <ul class="disc"> <li>avec un virement bancaire, adressé à: 'Tecnologie Democratiche' IBAN : IT76L0316501600000011758905</li> <li>avec un don via Paypal :</li></ul>
+          <p>L'Association pour la Promotion sociale nommée <a href="https://www.facebook.com/tecnologiedemocratiche" target="_blank"> Tecnologie Democratiche</a> a été créée afin de soutenir le développement de Airesis et permettre la subsistance du projet.   Votre don sera entièrement dédié au développement et Hébergement de la plate-forme.  Nous soutenir financièrement afin de payer un programmeur senior expérimenté et de garantir  la maintenance du serveur hébergeant notre application :</p> <ul class="disc"> <li>avec un don via Paypal :</li></ul>
       paragraph4:
         content_html: '<p><a href="mailto:%{mail}">nous contacter</a> pour de plus amples informations.</p>'
       paragraph5:

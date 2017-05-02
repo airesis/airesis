@@ -1,10 +1,4 @@
 class CalculateGroupStatistics
-  include Sidekiq::Worker
-  include Sidetiq::Schedulable
-
-  recurrence { daily.hour_of_day(1) }
-  sidekiq_options queue: :low_priority
-
   def perform(*_args)
     Group.all.find_each do |group|
       statistic = group.statistic

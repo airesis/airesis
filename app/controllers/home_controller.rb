@@ -4,8 +4,6 @@ class HomeController < ApplicationController
   # l'utente deve aver fatto login
   before_action :authenticate_user!, only: [:show]
 
-  before_action :initialize_roadmap, only: [:bugtracking]
-
   prepend_before_action :load_tutorial, :set_tutorial_parameters, only: :index
 
   def index
@@ -40,14 +38,6 @@ class HomeController < ApplicationController
   end
 
   def press
-  end
-
-  def bugtracking
-    @versions = @roadmap.versions
-    @issues = @roadmap.issues
-    respond_to do |format|
-      format.json { render json: "{\"data\":[#{@versions.to_json},#{@issues.to_json}]}" }
-    end
   end
 
   def whowe
@@ -135,10 +125,6 @@ class HomeController < ApplicationController
     @proposals = Proposal.open_space_portlet(current_user, current_domain.territory)
     @most_active_groups = Group.most_active(current_domain.territory)
     @tags = Tag.most_used(current_domain.territory).limit(100)
-  end
-
-  def initialize_roadmap
-    @roadmap ||= Roadmap.new(ENV['BUGTRACKING_USERNAME'], ENV['BUGTRACKING_PASSWORD'])
   end
 
   def choose_layout

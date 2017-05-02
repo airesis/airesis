@@ -4,7 +4,11 @@ class ElfinderController < ApplicationController
   before_filter :load_group
 
   def elfinder
-    @can_manage = can? :manage_documents, @group
+
+    # TODO: disabled and put in readonly mode
+    @can_manage = false
+    #@can_manage = can? :manage_documents, @group
+
     @can_view = can? :view_documents, @group
 
     # create root directory if does not exists
