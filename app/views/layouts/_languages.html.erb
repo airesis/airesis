@@ -5,7 +5,6 @@
     <dd><a href="#panel3" title="Asia">Asia</a></dd>
     <dd><a href="#panel4" title="Asia">Africa</a></dd>
     <dd><a href="#panel5" title="Oceania">Oceania</a></dd>
-    <dd><a href="#panel6" title="Translate">Translate</a></dd>
   </dl>
   <dl class="accordion" data-accordion>
     <div class="tabs-content">
@@ -54,15 +53,6 @@
         <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
           <li><%= flag_for('Australia','en-AU') %></li>
           <li><%= flag_for('New Zealand','en-NZ') %></li>
-        </ul>
-      </div>
-      <div class="content" id="panel6">
-        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
-          <li>
-            <%= locale.to_s == 'crowdin' ?
-                            (link_to (image_tag 'flags/crowdin.png'), current_url(l: nil), title: "Exit Translation Mode") :
-                            (link_to (image_tag 'flags/crowdin.png'), current_url(l: :"crowdin"), title: "Activate Translation Mode") %>
-          </li>
         </ul>
       </div>
     </div>

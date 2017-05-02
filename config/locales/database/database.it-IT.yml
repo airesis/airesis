@@ -3,8 +3,6 @@ it-IT:
     sys_locales:
       bs-BA:
         description: Bosniaco
-      crowdin:
-        description: Crowdin (solo per sviluppatori)
       de-DE:
         description: Tedesco
       el-GR:

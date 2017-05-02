@@ -17,16 +17,5 @@
           <%= submit_tag 'Send' %>
       <% end %>
     </div>
-    <% if ENV['CROWDIN_API'] %>
-        <div class="card">
-          <h3>Crowdin</h3>
-          <%= link_to 'Upload sources', upload_sources_admin_crowdin_path, class: 'btn' %>
-          <%= link_to 'Upload italian translations', upload_translations_admin_crowdin_path, class: 'btn' %>
-          <%= link_to 'Update sources', update_sources_admin_crowdin_path, class: 'btn' %>
-          <%= link_to 'Download translations', download_translations_admin_crowdin_path, class: 'btn' %>
-          <%= link_to 'Unzip and delete zip files', extract_delete_zip_admin_crowdin_path, class: 'btn' %>
-        </div>
-    <% end %>
-
     <%= render 'admin/block_users' %>
 <% end %>

@@ -3,8 +3,6 @@ en-EU:
     sys_locales:
       bs-BA:
         description: Bosnian
-      crowdin:
-        description: Crowdin (only for developers)
       de-DE:
         description: German
       el-GR:
