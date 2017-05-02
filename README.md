@@ -163,7 +163,7 @@ Our main goal is to make it even more simple and usable for everybody!
 
 ![Alessandro Rodi](http://www.gravatar.com/avatar/32d80da41830a6e6c1bb3eb977537e3e)
 
-Alessandro Rodi ( [coorasse@gmail.com](mailto: coorasse@gmail.com) )
+Alessandro Rodi (coorasse@gmail.com)
 
 ## Contributors
 
