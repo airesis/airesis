@@ -111,11 +111,11 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_domain
-    if params[:l].present?
-      @current_domain = SysLocale.find_by_key(params[:l])
-    else
-      @current_domain = SysLocale.find_by(host: request.domain, lang: nil) || SysLocale.default
-    end
+    @current_domain = if params[:l].present?
+                        SysLocale.find_by_key(params[:l])
+                      else
+                        SysLocale.find_by(host: request.domain, lang: nil) || SysLocale.default
+                      end
   end
 
   attr_reader :current_domain
@@ -261,9 +261,7 @@ class ApplicationController < ActionController::Base
     today = Date.today
     # Difference in years, less one if you have not had a birthday this year.
     a = today.year - birthdate.year
-    a -= 1 if birthdate.month > today.month ||
-        (birthdate.month >= today.month && birthdate.day > today.day)
-
+    a -= 1 if birthdate.month > today.month || (birthdate.month >= today.month && birthdate.day > today.day)
     a
   end
 
@@ -374,11 +372,11 @@ class ApplicationController < ActionController::Base
         # if it's lateral show a message, else show show another message
         if @proposal_comment.paragraph
           @section = @proposal_comment.paragraph.section
-          if params[:right]
-            flash[:notice] = t('info.proposal.contribute_added')
-          else
-            flash[:notice] = t('info.proposal.contribute_added_right', section: @section.title)
-          end
+          flash[:notice] = if params[:right]
+                             t('info.proposal.contribute_added')
+                           else
+                             t('info.proposal.contribute_added_right', section: @section.title)
+                           end
         else
           flash[:notice] = t('info.proposal.contribute_added')
         end

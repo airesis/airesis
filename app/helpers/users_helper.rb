@@ -49,11 +49,11 @@ module UsersHelper
       u_nick = user.proposal_nicknames.find_by(proposal_id: proposal.id)
     end
     ret = "<div class=\"blogUserImage\" title=\"#{u_nick ? u_nick.nickname : user.email}\">"
-    if u_nick
-      ret += "<img src=\"https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(u_nick.nickname)}?s=24&d=identicon&r=PG\"/>"
-    else
-      ret += avatar(user, size: 20)
-    end
+    ret += if u_nick
+             "<img src=\"https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(u_nick.nickname)}?s=24&d=identicon&r=PG\"/>"
+           else
+             avatar(user, size: 20)
+           end
     ret += '</div>'
     ret.html_safe
   end

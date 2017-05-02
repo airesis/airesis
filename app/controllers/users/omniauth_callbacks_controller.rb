@@ -39,8 +39,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       else
         # the certified email is already present in another account in Airesis
         # cannot update user email with one already taken
-        if user_info[:certified] &&
-            User.all_except(current_user).where(email: user_info[:email]).exists?
+        if user_info[:certified] && User.all_except(current_user).where(email: user_info[:email]).exists?
           flash[:error] = I18n.t 'devise.omniauth_callbacks.certified_email_taken'
           return redirect_to privacy_preferences_users_url
         end
@@ -67,11 +66,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           sign_in_and_redirect @user, event: :authentication
         end
       else # something went wrong while creating a new user with oauth info
-        if oauth_data_parser.multiple_certification_attempt?
-          flash[:error] = I18n.t 'devise.omniauth_callbacks.already_certified'
-        else
-          flash[:error] = I18n.t('devise.omniauth_callbacks.creation_failure', provider: provider.capitalize)
-        end
+        flash[:error] = if oauth_data_parser.multiple_certification_attempt?
+                          I18n.t 'devise.omniauth_callbacks.already_certified'
+                        else
+                          I18n.t('devise.omniauth_callbacks.creation_failure', provider: provider.capitalize)
+                        end
         redirect_to new_user_registration_path
       end
     end

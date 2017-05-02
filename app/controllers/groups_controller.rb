@@ -261,11 +261,7 @@ class GroupsController < ApplicationController
         end
       end
     else
-      if @group.request_by_portavoce?
-        @request.group_participation_request_status_id = 4
-      else
-        @request.group_participation_request_status_id = 2
-      end
+      @request.group_participation_request_status_id = @group.request_by_portavoce? ? 4 : 2
       saved = @request.save
       if !saved
         flash[:error] = t('error.group_participations.error_saving')
@@ -280,11 +276,11 @@ class GroupsController < ApplicationController
           end
         end
       else
-        if @group.request_by_portavoce?
-          flash[:notice] = t('info.group_participations.status_declined')
-        else
-          flash[:notice] = t('info.group_participations.status_voting')
-        end
+        flash[:notice] = if @group.request_by_portavoce?
+                           t('info.group_participations.status_declined')
+                         else
+                           t('info.group_participations.status_voting')
+                         end
         respond_to do |format|
           format.html do
             redirect_to group_url(@group)

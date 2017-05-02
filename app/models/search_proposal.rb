@@ -44,15 +44,15 @@ class SearchProposal < ActiveRecord::Base
       facet :proposal_state_id
       all_of do
         if proposal_state_tab
-          if proposal_state_tab == ProposalState::TAB_VOTATION
-            @states = [ProposalState::WAIT, ProposalState::WAIT_DATE, ProposalState::VOTING]
-          elsif proposal_state_tab == ProposalState::TAB_VOTED
-            @states = [ProposalState::ACCEPTED, ProposalState::REJECTED]
-          elsif proposal_state_tab == ProposalState::TAB_REVISION
-            @states = [ProposalState::ABANDONED]
-          else
-            @states = [ProposalState::VALUTATION]
-          end
+          @states = if proposal_state_tab == ProposalState::TAB_VOTATION
+                      [ProposalState::WAIT, ProposalState::WAIT_DATE, ProposalState::VOTING]
+                    elsif proposal_state_tab == ProposalState::TAB_VOTED
+                      [ProposalState::ACCEPTED, ProposalState::REJECTED]
+                    elsif proposal_state_tab == ProposalState::TAB_REVISION
+                      [ProposalState::ABANDONED]
+                    else
+                      [ProposalState::VALUTATION]
+                    end
           with(:proposal_state_id, @states) # search for specific state if defined
         end
 
@@ -199,15 +199,15 @@ class SearchProposal < ActiveRecord::Base
   def order
     order_s = ''
     dir = (order_dir == 'a') ? 'asc' : 'desc'
-    if order_id == SearchProposal::ORDER_BY_RANK
-      order_s << " proposals.rank #{dir}, proposals.created_at #{dir}"
-    elsif order_id == SearchProposal::ORDER_BY_VOTES
-      order_s << " proposals.valutations #{dir}, proposals.created_at #{dir}"
-    elsif order_id == SearchProposal::ORDER_BY_END
-      order_s << " quorums.ends_at #{dir}, proposals.valutations #{dir}"
-    else
-      order_s << "proposals.updated_at #{dir}, proposals.created_at #{dir}"
-    end
+    order_s << if order_id == SearchProposal::ORDER_BY_RANK
+                 " proposals.rank #{dir}, proposals.created_at #{dir}"
+               elsif order_id == SearchProposal::ORDER_BY_VOTES
+                 " proposals.valutations #{dir}, proposals.created_at #{dir}"
+               elsif order_id == SearchProposal::ORDER_BY_END
+                 " quorums.ends_at #{dir}, proposals.valutations #{dir}"
+               else
+                 "proposals.updated_at #{dir}, proposals.created_at #{dir}"
+               end
     order_s
   end
 end
