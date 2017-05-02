@@ -156,7 +156,6 @@ Configuration.create(name: 'rotp', value: 1)
 Configuration.create(name: 'group_areas', value: 1)
 Configuration.create(name: 'recaptcha', value: 0)
 
-SysLocale.create(key: 'crowdin', host: 'localhost', lang: 'crowdin')
 SysLocale.create(key: 'bs-BA', host: 'localhost', territory: Country.find_by(description: 'Bosnia and Herzegovina'), lang: 'bs-BA')
 SysLocale.create(key: 'de-DE', host: 'localhost', territory: Country.find_by(description: 'Germany'), lang: 'de-DE')
 SysLocale.create(key: 'el-GR', host: 'localhost', territory: Country.find_by(description: 'Greece'), lang: 'el-GR')
