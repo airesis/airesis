@@ -104,11 +104,55 @@ ruby script/mailman_server.rb
 ```    
 in background to receive emails and create forum posts from them.  
 
-## Docker
+### Docker
+Docker takes care of all the required dependencies for you, and with it you use a fixed and standard dev environment between all of developers. This eliminate inconsistencies problem that can lead to bugs and other complications in running the application.
 
-See [Docker README](DOCKER_README.md)
+#### Requirements
+* [Docker](https://www.docker.com/)
+* [Docker Compose](https://github.com/docker/compose)
 
-## SOLR
+### Tutorial
+1. Download the project
+```
+git clone https://github.com/coorasse/Airesis.git
+cd airesis
+```
+2. Create the required Docker containers (first we need the container for airesis, then we can build all the others) 
+```
+docker-compose build airesis
+docker-compose build
+```
+3. To configure application variables (such as PayPal, Google Maps API, etc.), run
+```
+cp config/database.example.yml config/database.yml
+cp config/application.example.yml config/application.yml
+cp config/private_pub.example.yml config/private_pub.yml
+cp config/sidekiq.example.yml config/sidekiq.yml
+cp config/sunspot.example.yml config/sunspot.yml
+```
+then edit the `.yml` files and set your custom values
+4. Bootstrap and seed the DB
+```
+docker-compose run --rm airesis bundle exec rake db:setup
+```
+5. Run Airesis
+```
+docker-compose up
+```
+
+Testing
+---
+1. Build the test container
+```
+docker build -t airesis_test ./spec/
+```
+2. Start all the test
+```
+docker-compose -f docker-compose.yml -f docker-compose.test.yml up airesis
+```
+
+SOLR
+----
 
 We strongly suggest to edit solrconfig.xml setting
  
@@ -125,8 +169,8 @@ To generate new collections create another solr subfolder like `solr/new_collect
 `<core name="new_collection" instanceDir="." dataDir="new_collection/data"/>`
 
 
-## Seeding more data
-
+Seeding more data
+----
 
 You'll probably need some fake data in your development environment to test stuff.
 These scripts are available:
@@ -145,28 +189,44 @@ Destroy all the proposals in the database
 
 To generate other fake data look at `spec/factories` folder.
 
-## Environment variables
+### Using Docker
+You can run all the previous command if you use Docker. Juste prefix them with `docker-compose run --rm airesis` to run them in the airesis container.
+
+For instance
+```
+docker-compose run --rm airesis bundle exec rake airesis:seed:more:public_proposals[number]
+```
+Environment variables
+---------------------
 
 Look at `application.example.yml` for a detailed explanation of each environment variable.
 
-## I18n
 
-Contribute on Crowdin to the Translation of the project
+Internationalization
+--------------------
 
-## What else should I know? What are we working on right now?
+See [this wiki page](https://wiki.airesis.eu/doku.php?id=en:internationalization) for information on how to configure the language of the application
+
+What else should I know? What are we working on right now?
+------------------
+
+We are working hard trying to convert Airesis in a modular engine.
 
 We want to take out everything which is related to our installation and make it easier to install.
 
+We are working mainly on the proposals and the layout.
+
 Our main goal is to make it even more simple and usable for everybody!
 
-## The author
+Author
+-----------
 
 ![Alessandro Rodi](http://www.gravatar.com/avatar/32d80da41830a6e6c1bb3eb977537e3e)
 
 Alessandro Rodi ( [ coorasse@gmail.com ] (mailto: coorasse@gmail.com ) )
 
-## Contributors
-
+Contributors
+------------------
 [ List of Contributors to the project Airesis ] ( https://www.airesis.it/chisiamo )
 
 [ Tecnologie Democratiche Association  ] ( https://www.facebook.com/tecnologiedemocratiche )
