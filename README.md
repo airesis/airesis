@@ -41,8 +41,8 @@ Absolutely simple and intuitive interface will allow everyone in a short time, t
 
 ## Reference website
 
-* [ www.airesis.eu ] ( https://www.airesis.eu )
-* [ www.airesis.it ] ( https://www.airesis.it )
+* [www.airesis.eu](https://www.airesis.eu)
+* [www.airesis.it](https://www.airesis.it)
 
 
 ## Installation and Setup
@@ -163,13 +163,13 @@ Our main goal is to make it even more simple and usable for everybody!
 
 ![Alessandro Rodi](http://www.gravatar.com/avatar/32d80da41830a6e6c1bb3eb977537e3e)
 
-Alessandro Rodi ( [ coorasse@gmail.com ] (mailto: coorasse@gmail.com ) )
+Alessandro Rodi ( [coorasse@gmail.com](mailto: coorasse@gmail.com) )
 
 ## Contributors
 
-[ List of Contributors to the project Airesis ] ( https://www.airesis.it/chisiamo )
+[List of Contributors to the project Airesis](https://www.airesis.it/chisiamo)
 
-[ Tecnologie Democratiche Association  ] ( https://www.facebook.com/tecnologiedemocratiche )
+[Tecnologie Democratiche Association](https://www.facebook.com/tecnologiedemocratiche)
 
 ## License
 
