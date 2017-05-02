@@ -1,11 +1,4 @@
 class CalculateRankings
-  # TODO: re-enable
-  # include Sidekiq::Worker
-  # include Sidetiq::Schedulable
-
-  # recurrence { daily.hour_of_day(1) }
-  # sidekiq_options queue: :low_priority
-
   def perform(*_args)
     User.find_each do |user|
       # number of comments created

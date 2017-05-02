@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'requests_helper'
 
 describe ProposalsController, type: :controller, search: :true do

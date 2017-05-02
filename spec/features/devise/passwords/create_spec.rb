@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe 'devise/passwords#create', type: :feature, js: true do
   let!(:user) { create(:user) }

@@ -21,7 +21,6 @@ Airesis::Application.routes.draw do
   get 'partecipa' => 'home#engage'
   get 'chisiamo' => 'home#whowe'
   get 'roadmap' => 'home#roadmap'
-  get 'bugtracking' => 'home#bugtracking'
   get 'videoguide' => 'home#videoguide'
   get 'edemocracy' => 'home#intro'
   get 'eparticipation' => 'home#intro'
@@ -537,13 +536,6 @@ Airesis::Application.routes.draw do
           get :test_scheduler
           get :test_exceptions
           get :calculate_user_group_affinity
-        end
-        resource :crowdin, only: [] do
-          get :upload_sources
-          get :update_sources
-          get :upload_translations
-          get :download_translations
-          get :extract_delete_zip
         end
 
         resources :users, only: [] do

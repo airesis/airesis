@@ -12,56 +12,6 @@
     <h2 id="strumento"><%= t('.paragraph2.title') %></h2>
     <%= t('.paragraph2.content_html') %>
 
-
-    <div id="loading_roadmap" style="margin:auto;text-align:center;">
-      <%= image_tag 'ajax-loader.gif' %>
-      <br/>
-      <b><%= t('loading_roadmap') %></b>
-    </div>
+    TODO
   </div>
 </div>
-
-<script type=text/javascript>
-    $.ajax({
-        url: '<%=bugtracking_path%>',
-        format: 'json',
-        success: function (resp) {
-            var versions = resp.data[0].versions;
-            var issues = resp.data[1].issues;
-
-            versions = versions.sort(function (a, b) {
-                var date_a = $.datepicker.parseDate('yy-mm-dd', a.due_date);
-                var date_b = $.datepicker.parseDate('yy-mm-dd', b.due_date);
-                return date_a > date_b ? -1 : (date_a < date_b ? 1 : 0);
-            });
-
-            var container_ = $('<div id="roadmap_container"></div>');
-
-            var containers = {};
-            for (var i = 0; i < versions.length; i++) {
-                var version = versions[i];
-                var vcontainer_ = $('<div></div>');
-                vcontainer_.append($('<h3>' + version.name + '</h3>'));
-                container_.append(vcontainer_);
-                var issuecontainer_ = $('<ul></ul>');
-                container_.append(issuecontainer_);
-                containers[version.id] = issuecontainer_;
-            }
-
-            for (var i = 0; i < issues.length; i++) {
-                var issue = issues[i];
-                if (issue.fixed_version != null) {
-                    var vcontainer_ = containers[issue.fixed_version.id];
-                    var icontainer_ = $('<li><a href="http://<%=ENV['BUGTRACKING_URL']%>/issues/' + issue.id + '" target="_blank">' + issue.subject + '</a></li>');
-                    vcontainer_.append(icontainer_);
-                }
-
-                //vcontainer_.append($('<h3>'+version.name+'</h3>'));
-                //container_.append(vcontainer_);
-            }
-
-            $('#loading_roadmap').before(container_);
-            $('#loading_roadmap').remove();
-        }
-    })
-</script>

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'requests_helper'
 
 describe 'the user can invite other participants in the group', type: :feature, js: true do

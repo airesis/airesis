@@ -93,13 +93,6 @@ NOREPLY_EMAIL: "No Reply <noreply@example.com>"
 #DEFAULT_EMAIL_PROTOCOL: 'https'
 
 #####################
-#redmine integration (optional)
-#####################
-BUGTRACKING_URL: ""
-BUGTRACKING_USERNAME: ""
-BUGTRACKING_PASSWORD: ""
-
-#####################
 #application parameters
 #####################
 APP_SHORT_NAME: "My App"
@@ -145,13 +138,6 @@ NEW_RELIC_APP_NAME: 'YOUR NEW RELIC APP NAME'
 CROWDIN_API: ""
 CROWDIN_PROJECT_ID: ""
 CROWDIN_ACCOUNT_KEY: ""
-
-#####################
-#capistrano settings (optional)
-#####################
-CAP_STAGING_USER: ""
-CAP_STAGING_SERVER: ""
-
 
 ##############
 #sentry settings. remove these keys to not use it (leaving them empty will throw an error)
@@ -281,6 +267,13 @@ MAILMAN_SENDER: 'Airesis Forum'
 
 # if the user does not access the platform for this number of days, his session will be destroyed
 SESSION_DAYS: '14'
+
+
+# SOLR_URL: 'http://username:password@host:port/path'
+SOLR_URL: 'http://localhost:8983/solr/development'
+
+PRIVATEPUB_SERVER: 'http://localhost:9292/faye'
+PRIVATEPUB_SECRET_TOKEN: 'hello'
 
 # from 1 to 10
 MAX_RANKINGS_NUMBER: 1

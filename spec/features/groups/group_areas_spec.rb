@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'requests_helper'
 
 describe 'the management of group areas', type: :feature, js: true, seeds: true do

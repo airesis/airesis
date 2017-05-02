@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'requests_helper'
 
 describe 'the blog posts process', type: :feature, js: true, ci_ignore: true, seeds: true do
