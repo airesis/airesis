@@ -6,7 +6,6 @@
 
 The first open source web application for eDemocracy
 
-
 ## Summary
 
 This innovative tool for participatory democracy puts the citizens at the center, as the main actors, 
@@ -180,4 +179,4 @@ For the terms of the license can be found in the LICENSE file available within t
 Anyone which installs the application and is required to comply with the terms of the license and to incorporate 
 in the footer of the website the following statement:
 
-Powered by <a href="https://www.airesis.eu"> Airesis - The Social Network for eDemocracy </a>
+    Powered by <a href="https://www.airesis.eu"> Airesis - The Social Network for eDemocracy </a>
