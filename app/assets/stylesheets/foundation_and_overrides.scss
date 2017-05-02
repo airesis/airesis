@@ -1422,10 +1422,6 @@ ul, ol {
 
 footer {
   position: relative !important;
-  height: $footer-height-small;
-  @media #{$medium-up} {
-    height: $footer-height-large;
-  }
 }
 
 body {

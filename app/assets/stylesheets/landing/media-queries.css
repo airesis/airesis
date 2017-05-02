@@ -19,22 +19,6 @@
         font: 38px/1.2em 'montserrat-regular', sans-serif;
     }
 
-    /* Testimonials Section
-   ------------------------------------------------------------------- */
-    #testimonials .text-container {
-        width: 82%;
-    }
-
-    /* Call To Action Section
-    ------------------------------------------------------------------- */
-    #call-to-action h2 {
-        font: 26px/36px 'montserrat-bold', sans-serif;
-    }
-
-    #call-to-action p {
-        font-size: 16px;
-    }
-
 }
 
 /* screenwidth less than or equal 900px
@@ -79,23 +63,6 @@
         font: 10px 'montserrat-regular', sans-serif;
     }
 
-    /* Features Section
-    ------------------------------------------------------------------- */
-    #features .feature {
-        margin-bottom: 30px;
-    }
-
-    #features .right {
-        padding-left: 18px;
-    }
-
-    #features .left {
-        padding-right: 18px;
-    }
-
-    #features h3 {
-        margin-bottom: 6px;
-    }
 
     /* Pricing Section
     ------------------------------------------------------------------- */
@@ -104,43 +71,11 @@
         margin: 0 auto;
     }
 
-    /* Call To Action Section
-    ------------------------------------------------------------------- */
-    #call-to-action .header-col h1:before {
-        font-size: 66px;
-        line-height: 66px;
-    }
-
-    #call-to-action h2 {
-        font: 25px/36px 'montserrat-bold', sans-serif;
-    }
-
-    #call-to-action .action .button {
-        font: 14px/24px 'montserrat-bold', sans-serif;
-    }
-
-    #call-to-action p {
-        font-size: 15px;
-    }
-
-    /* Testimonials Section
-    ------------------------------------------------------------------- */
-    #testimonials blockquote p {
-        font-size: 24px;
-    }
 
     /* Subscribe Section
     ------------------------------------------------------------------- */
     #subscribe h1 {
         margin-bottom: 18px;
-    }
-
-    #mc_embed_signup input[type="submit"] {
-        width: 46%;
-    }
-
-    #mc_embed_signup input[type="email"] {
-        width: 46%;
     }
 }
 
@@ -277,92 +212,11 @@
         margin-bottom: 30px;
     }
 
-    /* Features Section
-    --------------------------------------------------------------------- */
-    #features h3 {
-        text-align: center;
-    }
-
     /* Pricing Section
     ------------------------------------------------------------------- */
     .pricing-tables {
         width: 80%;
     }
-
-    /* Call To Action Section
-    ----------------------------------------------------------------- */
-    #call-to-action {
-        text-align: center;
-    }
-
-    #call-to-action h1 {
-        font: 16px/24px 'montserrat-bold', sans-serif;;
-        text-align: center;
-        margin-bottom: 30px;
-        text-shadow: 0px 1px 3px rgba(0, 0, 0, 1);
-    }
-
-    #call-to-action h1 span {
-        display: block;
-    }
-
-    #call-to-action .header-col h1:before {
-        content: none;
-    }
-
-    /* Screenshots
-    ------------------------------------------------------------------- */
-    #screenshots-wrapper {
-        width: 80%;
-        margin: 0 auto;
-    }
-
-    #screenshots-wrapper .columns {
-        margin-bottom: 36px;
-    }
-
-    /* Testimonials Section
-    ------------------------------------------------------------------- */
-    #testimonials .quote-left,
-    #testimonials .quote-right {
-        font-size: 30px;
-        margin-top: -25px;
-    }
-
-    #testimonials .text-container {
-        width: 80%;
-    }
-
-    #testimonials blockquote p {
-        font-size: 20px;
-        line-height: 30px;
-    }
-
-    /* Subscribe Section
-    ------------------------------------------------------------------- */
-    #mc_embed_signup {
-        width: 90%;
-    }
-
-    #mc_embed_signup input[type="submit"],
-    #mc_embed_signup input[type="email"] {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 30px;
-    }
-
-    /* Go To Top Button */
-    #go-top {
-        margin-left: -22px;
-    }
-
-    #go-top a {
-        width: 54px;
-        height: 54px;
-        font-size: 18px;
-        line-height: 54px;
-    }
-
 }
 
 /* screenwidth less than or equal 480px - mobile wide
@@ -398,18 +252,6 @@
     .hero-text p {
         font: 13px/24px 'opensans-regular', sans-serif;
     }
-
-    /* Testimonials Section
-    ------------------------------------------------------------------- */
-    #testimonials .quote-left,
-    #testimonials .quote-right {
-        font-size: 28px;
-    }
-
-    #testimonials blockquote p {
-        font-size: 20px;
-    }
-
 }
 
 /* screenwidth less than or equal 420px - mobile narrow
@@ -427,24 +269,6 @@
     .pricing-tables {
         width: 92%;
     }
-
-    /* Screenshots
-    ------------------------------------------------------------------- */
-    #screenshots-wrapper {
-        width: 92%;
-    }
-
-    /* Testimonials Section
-    ------------------------------------------------------------------- */
-    #testimonials .text-container {
-        width: 85%;
-    }
-
-    #testimonials blockquote p {
-        font-size: 18px;
-        line-height: 27px;
-    }
-
 }
 
 /* make sure the menu is visible on larger screens
@@ -459,10 +283,7 @@
 }
 
 @media (max-width: 640px) {
-    #features .feature {
-        margin-bottom: 0px;
-        margin-top: 0px;
-    }
+
     #subscribe {
         display: none;
     }

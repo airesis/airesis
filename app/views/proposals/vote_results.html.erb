@@ -3,7 +3,7 @@
 <%= link_to t('pages.proposal_histories.index.back_to_proposal'), @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal), class: 'btn blue' %>
 <h2><%= @page_title %></h2>
 <% if @proposal.voted? %>
-    <%= render(partial: @proposal.is_schulze? ? 'schulze_vote_results' : 'vote_results') %>
+    <%= render(partial: @proposal.is_schulze? ? 'proposal_votation_results/schulze_vote_results' : 'evote_results') %>
 <% else %>
     <h3><%='This proposal has not been voted yet'%></h3>
 <% end %>

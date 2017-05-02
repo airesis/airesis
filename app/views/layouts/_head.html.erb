@@ -19,17 +19,21 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet"/>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script>
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/s/zf/dt-1.10.10,r-2.0.0/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/s/zf/dt-1.10.10,r-2.0.0/datatables.min.js"></script>
 
 <script type="text/javascript">
-  CKEDITOR.plugins.addExternal('youtube', '<%=asset_path 'ckeditor/plugins/youtube/plugin.js'%>');
-  CKEDITOR.plugins.addExternal('smiley', '<%=asset_path 'ckeditor/plugins/smiley/plugin.js'%>');
-  CKEDITOR.plugins.addExternal('lite', '<%=asset_path 'ckeditor/plugins/lite/plugin.js'%>');
-  CKEDITOR.plugins.addExternal('wordcount', '<%=asset_path 'ckeditor/plugins/wordcount/plugin.js'%>');
-  CKEDITOR.plugins.addExternal('justify', '<%=asset_path 'ckeditor/plugins/justify/plugin.js'%>');
-  CKEDITOR.plugins.addExternal('font', '<%=asset_path 'ckeditor/plugins/font/plugin.js'%>');
-  CKEDITOR.plugins.addExternal('colorbutton', '<%=asset_path 'ckeditor/plugins/colorbutton/plugin.js'%>');
-  CKEDITOR.plugins.addExternal('panelbutton', '<%=asset_path 'ckeditor/plugins/panelbutton/plugin.js'%>');
-  CKEDITOR.config.customConfig = '<%=asset_path 'ckeditor/config.js'%>';
+  if ('undefined' !== typeof(CKEDITOR)) {
+    CKEDITOR.plugins.addExternal('youtube', '<%=asset_path 'ckeditor/plugins/youtube/plugin.js'%>');
+    CKEDITOR.plugins.addExternal('smiley', '<%=asset_path 'ckeditor/plugins/smiley/plugin.js'%>');
+    CKEDITOR.plugins.addExternal('lite', '<%=asset_path 'ckeditor/plugins/lite/plugin.js'%>');
+    CKEDITOR.plugins.addExternal('wordcount', '<%=asset_path 'ckeditor/plugins/wordcount/plugin.js'%>');
+    CKEDITOR.plugins.addExternal('justify', '<%=asset_path 'ckeditor/plugins/justify/plugin.js'%>');
+    CKEDITOR.plugins.addExternal('font', '<%=asset_path 'ckeditor/plugins/font/plugin.js'%>');
+    CKEDITOR.plugins.addExternal('colorbutton', '<%=asset_path 'ckeditor/plugins/colorbutton/plugin.js'%>');
+    CKEDITOR.plugins.addExternal('panelbutton', '<%=asset_path 'ckeditor/plugins/panelbutton/plugin.js'%>');
+    CKEDITOR.config.customConfig = '<%=asset_path 'ckeditor/config.js'%>';
+  }
   Airesis.id = <%=current_user ? current_user.id : -1 %>;
   Airesis.fullName = '<%=j current_user ? current_user.fullname : ''%>';
   Airesis.email = '<%=j (current_user && current_user.email) ? current_user.email : ''%>';

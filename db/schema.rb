@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151210171038) do
+ActiveRecord::Schema.define(version: 20151217100857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -959,6 +959,13 @@ ActiveRecord::Schema.define(version: 20151210171038) do
     t.boolean "groups_available",                default: true
     t.boolean "open_space_available",            default: false
   end
+
+  create_table "proposal_votation_results", force: :cascade do |t|
+    t.integer "proposal_id"
+    t.hstore  "data",        null: false
+  end
+
+  add_index "proposal_votation_results", ["proposal_id"], name: "index_proposal_votation_results_on_proposal_id", using: :btree
 
   create_table "proposal_votation_types", force: :cascade do |t|
     t.string "short_name",  limit: 10,  null: false

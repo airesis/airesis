@@ -2,9 +2,6 @@
 /* a. General and Common Styles
 /* ------------------------------------------------------------------ */
 
-body {
-  background-color: rgba(0, 0, 0, 0.1);
-}
 
 .section-head {
   text-align: center;
@@ -22,10 +19,7 @@ body {
   opacity: 1;
 }
 
-.js #mc_embed_signup input[type="email"],
-.js #mc_embed_signup input[type="submit"] {
-  opacity: 0;
-}
+
 
 /* ------------------------------------------------------------------ */
 /* b. Header Styles
@@ -231,34 +225,6 @@ ul#nav li.current a {
   }
 }
 
-/* ------------------------------------------------------------------ */
-/* d. Features Section
-/* ------------------------------------------------------------------ */
-
-#features {
-
-  overflow: hidden;
-}
-
-#features .feature {
-  margin-top: 30px;
-  margin-bottom: 54px;
-}
-
-#features .right {
-  float: right;
-}
-
-#features .left {
-  float: left;
-}
-
-#features h3 {
-  font: 16px/24px 'montserrat-bold', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #222;
-}
 
 .feature-media {
   text-align: center;
@@ -374,9 +340,6 @@ ul.features li:nth-child(even) {
 }
 
 /* Portfolio Content */
-#screenshots-wrapper .columns {
-  padding: 0;
-}
 
 .item-wrap {
   background: #fff;
@@ -467,68 +430,6 @@ ul.features li:nth-child(even) {
   -o-transform: scale(1.2);
   -webkit-transform: scale(1.2);
   transform: scale(1.2);
-}
-
-/* ------------------------------------------------------------------ */
-/* g. Call To Action Section
-/* ------------------------------------------------------------------ */
-
-#call-to-action {
-  background: #23292F;
-  padding-top: 72px;
-  padding-bottom: 48px;
-}
-
-#call-to-action h1 {
-  font: 18px/24px 'montserrat-bold', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: #fff;
-}
-
-#call-to-action h1 span {
-  display: none;
-}
-
-#call-to-action .header-col h1:before {
-  font-family: 'FontAwesome';
-  content: "\f093";
-  padding-right: 18px;
-  padding-top: 6px;
-  font-size: 72px;
-  line-height: 72px;
-  text-align: center;
-  float: right;
-  color: #EBEEEE;
-}
-
-#call-to-action .action {
-  margin-top: 18px;
-}
-
-#call-to-action .action .button {
-  text-align: center;
-}
-
-#call-to-action h2 {
-  font: 28px/36px 'montserrat-bold', sans-serif;
-  color: #EBEEEE;
-  margin-bottom: 12px;
-}
-
-#call-to-action h2 a {
-  color: inherit;
-}
-
-#call-to-action p {
-  color: #697B8B;
-  font-size: 17px;
-  padding-right: 5px;
-}
-
-#call-to-action p span {
-  font-family: 'opensans-semibold', sans-serif;
-  color: #A9B5C0;
 }
 
 /* ------------------------------------------------------------------
