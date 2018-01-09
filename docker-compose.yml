@@ -2,7 +2,6 @@ airesis:
   build: .
   command: "bundle exec rails s -b 0.0.0.0 --pid=/tmp/server.pid"
   environment:
-    - SOLR_HOST=sunspot
     - DATABASE_URL=postgresql://db/
     - REDIS_URL=redis://redis:6379
   volumes:
@@ -10,7 +9,6 @@ airesis:
   links:
     - db
     - redis
-    - sunspot
   ports:
     - 3000:3000
 
@@ -35,11 +33,3 @@ sidekiq:
     - redis
   volumes_from:
     - airesis
-
-sunspot:
-  image: airesis_airesis
-  command: "bundle exec rake sunspot:solr:run"
-  volumes:
-    - ./:/usr/src/app
-  ports:
-    - 8983:8983

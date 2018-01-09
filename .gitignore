@@ -20,7 +20,6 @@ public/assets
 public/system
 public/ckeditor_assets
 private
-solr
 *.orig
 bin/alwaysdata
 config/secrets.yml

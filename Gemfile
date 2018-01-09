@@ -16,8 +16,6 @@ gem 'pg'
 
 gem 'rails_admin'
 
-gem 'sunspot_rails'
-
 gem 'premailer-rails'
 
 gem 'uri-js-rails'
@@ -125,8 +123,9 @@ gem 'activerecord-session_store'
 
 gem 'puma'
 
+gem 'pg_search', '1.0.6'
+
 group :development do
-  gem 'sunspot_solr'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'quiet_assets'
@@ -147,10 +146,8 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'selenium-webdriver'
-  gem 'capybara-webkit'
+  gem 'capybara-selenium'
   gem 'capybara-screenshot'
-  gem 'sunspot_test', github: 'collectiveidea/sunspot_test'
   gem 'timecop'
 end
 

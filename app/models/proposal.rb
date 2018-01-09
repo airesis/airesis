@@ -1,4 +1,19 @@
 class Proposal < ActiveRecord::Base
+  include PgSearch
+
+  pg_search_scope :search,
+                  against: { title: 'A', content: 'B' },
+                  order_within_rank: 'proposals.updated_at DESC, proposals.created_at DESC',
+                  using: { tsearch: { normalization: 2,
+                                      prefix: true,
+                                      dictionary: 'english' } }
+
+  pg_search_scope :search_similar,
+                  against: [:title, :content],
+                  associated_against: { tags: :text },
+                  order_within_rank: 'proposals.updated_at DESC, proposals.created_at DESC',
+                  using: { tsearch: { normalization: 2, any_word: true } }
+
   include Frm::Concerns::Viewable, Concerns::ProposalBuildable, Concerns::Taggable
 
   belongs_to :state, class_name: 'ProposalState', foreign_key: :proposal_state_id
@@ -11,8 +26,6 @@ class Proposal < ActiveRecord::Base
   has_many :proposal_presentations, -> { order 'id DESC' }, class_name: 'ProposalPresentation'
   has_many :proposal_tags, class_name: 'ProposalTag', dependent: :destroy
   has_many :tags, through: :proposal_tags, class_name: 'Tag'
-
-  has_many :proposal_borders, class_name: 'ProposalBorder', dependent: :destroy
 
   has_many :proposal_revisions, dependent: :destroy
   has_many :paragraph_histories, dependent: :destroy
@@ -37,7 +50,9 @@ class Proposal < ActiveRecord::Base
 
   has_many :proposal_supports, class_name: 'ProposalSupport', dependent: :destroy
   has_many :supporting_groups, through: :proposal_supports, class_name: 'Group', source: :group
-  # confini di interesse
+
+  # TODO: remove both
+  has_many :proposal_borders, class_name: 'ProposalBorder', dependent: :destroy
   has_many :interest_borders, through: :proposal_borders, class_name: 'InterestBorder'
 
   has_many :proposal_nicknames, class_name: 'ProposalNickname', dependent: :destroy
@@ -153,6 +168,8 @@ class Proposal < ActiveRecord::Base
                :category, :quorum, :vote_period, :proposal_type)
   end
 
+  scope :by_interest_borders, ->(ib) { where('proposals.derived_interest_borders_tokens @> ARRAY[?]::varchar[]', ib) }
+
   after_initialize :init
 
   before_validation :before_create_populate, on: :create
@@ -203,26 +220,17 @@ class Proposal < ActiveRecord::Base
   # retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
   def self.open_space_portlet(user = nil, current_territory = nil)
     user_id = user ? user.id : -1
-    proposals = Proposal.arel_table
-    petition_id = ProposalType.find_by(name: ProposalType::PETITION).id
-    alerts_count = alerts_count_subquery(user_id)
-    ranking = ranking_subquery(user_id)
-
-    ids = Proposal.search_ids do
-      any_of do
-        with(:private, false)
-        with(:visible_outside, true)
-      end
-      without(:proposal_type_id, 11) # TODO: removed petitions
-      with(current_territory.solr_search_field, current_territory.id) if current_territory.present?
-      order_by :updated_at, :desc
-      order_by :created_at, :desc
-      paginate page: 1, per_page: 10
-    end
 
     proposals = Proposal.
-      select('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
-      where(proposals[:id].in(ids)).order(updated_at: :desc)
+      select('distinct proposals.*',
+             alerts_count_subquery(user_id).as('alerts_count'),
+             ranking_subquery(user_id).as('ranking')).
+      where('proposals.private = false or proposals.visible_outside = false').
+      where.not(proposal_type_id: 11) # TODO: petitions excluded
+    if current_territory.present?
+      proposals = proposals.by_interest_borders(InterestBorder.to_key(current_territory))
+    end
+    proposals = proposals.order(updated_at: :desc).page(1).per(10)
     ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, :groups, :supporting_groups, :category])
     proposals
   end
@@ -447,19 +455,20 @@ class Proposal < ActiveRecord::Base
   # retrieve all the participants to the proposals that are still part of the group
   def participants
     # all users who ranked the proposal
-    a = User.joins(proposal_rankings: :proposal).where(proposals: { id: id }).load
+    rankers = User.joins(proposal_rankings: :proposal).where(proposals: { id: id }).load
+
     # all users who contributed to the proposal
-    b = User.joins(proposal_comments: :proposal).where(proposals: { id: id }).load
-    c = (a | b)
+    contributors = User.joins(proposal_comments: :proposal).where(proposals: { id: id }).load
+    rankers_and_contributors = (rankers | contributors)
     if private
       # all users that are part of the group of the proposal
-      d = supporting_groups.map(&:participants).flatten
-      e = groups.map(&:participants).flatten
-      f = d | e
+      group_supporters = supporting_groups.map(&:participants).flatten
+      group_participants = groups.map(&:participants).flatten
+      supporters_or_participants = group_supporters | group_participants
       # the participants are user that partecipated the proposal and are still in the group
-      c &= f
+      rankers_and_contributors &= supporters_or_participants
     end
-    c
+    rankers_and_contributors
   end
 
   # all users that will receive a notification that asks them to check or give their valutation to the proposal
@@ -512,110 +521,8 @@ class Proposal < ActiveRecord::Base
   end
 
   def user_territory
-    user = (proposal_presentations.first || proposal_lives.last.old_proposal_presentations.first).user
+    user = User.find(update_user_id || current_user_id)
     user.original_locale.territory
-  end
-
-  def solr_municipality_ids
-    if interest_borders.any?
-      interest_borders.map(&:municipality).map { |i| i.try(:id) }.compact
-    elsif group.present?
-      [group.interest_border.municipality.try(:id)]
-    end
-  end
-
-  def solr_province_ids
-    if interest_borders.any?
-      interest_borders.map(&:province).map { |i| i.try(:id) }.compact
-    elsif group.present?
-      [group.interest_border.province.try(:id)]
-    end
-  end
-
-  def solr_region_ids
-    if interest_borders.any?
-      interest_borders.map(&:region).map { |i| i.try(:id) }.compact
-    elsif group.present?
-      [group.interest_border.region.try(:id)]
-    end
-  end
-
-  def solr_country_ids
-    if interest_borders.any?
-      interest_borders.map(&:country).map { |i| i.try(:id) }.compact
-    elsif group.present?
-      [group.interest_border.country.try(:id)]
-    else
-      [user_territory.id] if user_territory.is_a?(Country)
-    end
-  end
-
-  def solr_continent_ids
-    if interest_borders.any?
-      interest_borders.map(&:continent).map { |i| i.try(:id) }.compact
-    elsif group.present?
-      [group.interest_border.continent.try(:id)]
-    else
-      [user_territory.is_a?(Country) ? user_territory.continent.id : user_territory.id]
-    end
-  end
-
-  searchable do
-    text :title, boost: 5
-    text :content, boost: 2
-    text :paragraphs do
-      (sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content.gsub!(/\p{Cc}/, '') } } +
-        solutions.map do |solution|
-          solution.sections.map do |section|
-            section.paragraphs.map { |paragraph| paragraph.content.gsub!(/\p{Cc}/, '') }
-          end
-        end).flatten
-    end
-    text :tags_list do
-      tags.map(&:text).join(' ')
-    end
-    boolean :visible_outside
-    boolean :private
-    integer :id
-    integer :supporting_group_ids, multiple: true # presentation groups
-    integer :group_ids, multiple: true # supporting groups
-    integer :presentation_area_ids, multiple: true # area
-    integer :proposal_state_id
-    integer :proposal_category_id
-    integer :proposal_type_id
-    time :created_at
-    time :updated_at
-    integer :valutations
-    double :rank
-    time :quorum_ends_at do
-      quorum.ends_at if quorum
-    end
-
-    integer :continent_ids, multiple: true do
-      solr_continent_ids
-    end
-    integer :country_ids, multiple: true do
-      solr_country_ids
-    end
-    integer :region_ids, multiple: true do
-      interest_borders.map(&:region).map { |ib| ib.try(:id) }.compact
-    end
-    integer :province_ids, multiple: true do
-      interest_borders.map(&:province).map { |ib| ib.try(:id) }.compact
-    end
-    integer :municipality_ids, multiple: true do
-      interest_borders.map(&:municipality).map { |ib| ib.try(:id) }.compact
-    end
-    integer :district_ids, multiple: true do
-      interest_borders.map(&:district).map { |ib| ib.try(:id) }.compact
-    end
-
-    integer :votes do
-      user_votes_count if voting? || voted?
-    end
-    time :votation_ends_at do
-      vote_period.endtime if vote_period && (voting? || voted?)
-    end
   end
 
   # restituisce la percentuale di avanzamento della proposta in base al quorum assegnato
@@ -912,9 +819,36 @@ class Proposal < ActiveRecord::Base
       found = InterestBorder.table_element(border)
       # se ho trovato qualcosa, allora l'identificativo è corretto e posso creare il confine di interesse
       next unless found
+
+      self.interest_borders_tokens << border
+      derived_row = found
+      while derived_row
+        self.derived_interest_borders_tokens |= [InterestBorder.to_key(derived_row)]
+        derived_row = derived_row.parent
+      end
+
       interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype],
                                                     territory_id: fid)
-      i = proposal_borders.build(interest_border_id: interest_b.id)
+      proposal_borders.build(interest_border_id: interest_b.id)
+    end
+
+    if derived_interest_borders_tokens.empty?
+      if group.present?
+        if group.interest_border.country.present?
+          self.interest_borders_tokens << InterestBorder.to_key(group.interest_border.country)
+          self.derived_interest_borders_tokens << InterestBorder.to_key(group.interest_border.country)
+          self.derived_interest_borders_tokens << InterestBorder.to_key(group.interest_border.continent)
+        end
+      else
+        if user_territory.present?
+          derived_row = user_territory
+          self.interest_borders_tokens << InterestBorder.to_key(derived_row)
+          while derived_row
+            self.derived_interest_borders_tokens |= [InterestBorder.to_key(derived_row)]
+            derived_row = derived_row.parent
+          end
+        end
+      end
     end
   end
 

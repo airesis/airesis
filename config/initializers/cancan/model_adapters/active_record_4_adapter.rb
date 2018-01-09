@@ -10,7 +10,7 @@ module CanCan
           if eager_load
             relation = relation.includes(joins).references(joins)
           else
-            relation = relation.joins(joins).uniq
+            relation = relation.outer_joins(joins).uniq
           end
         end
         relation

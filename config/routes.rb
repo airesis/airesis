@@ -147,9 +147,8 @@ Airesis::Application.routes.draw do
   resources :users do
     collection do
       get :confirm_credentials
-      get :alarm_preferences # preferenze allarmi utente
-      get :border_preferences # preferenze confini di interesse utente
-      post :set_interest_borders # cambia i confini di interesse
+      get :alarm_preferences
+      get :border_preferences
       post :join_accounts
       get :privacy_preferences
       get :statistics

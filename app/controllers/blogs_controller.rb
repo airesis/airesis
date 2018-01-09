@@ -9,11 +9,7 @@ class BlogsController < ApplicationController
     @tags = Tag.most_blogs(current_domain.territory).shuffle unless request.xhr?
     @page_title = t('pages.blogs.show.title')
 
-    params[:interest_border_obj] = @interest_border = if params[:interest_border].nil?
-                                                        InterestBorder.find_or_create_by(territory: current_domain.territory)
-                                                      else
-                                                        InterestBorder.find_or_create_by_key(params[:interest_border])
-                                                      end
+    params[:interest_border] ||= InterestBorder.to_key(current_domain.territory)
     @blogs = Blog.look(params)
 
     respond_to do |format|

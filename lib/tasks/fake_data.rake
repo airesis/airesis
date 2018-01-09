@@ -5,7 +5,7 @@ namespace :airesis do
       desc 'Create more public proposals in debate'
       task :public_proposals, [:number] => :environment do |task, args|
         require 'faker'
-        require 'factory_girl'
+        require 'factory_girl_rails'
         number = (args[:number] || 1).to_i
         FactoryGirl.create_list(:public_proposal, number, current_user_id: FactoryGirl.create(:user).id)
       end
@@ -13,7 +13,7 @@ namespace :airesis do
       desc 'Create more public proposals in vote for the next three days'
       task :votable_proposals, [:number, :num_solutions] => :environment do |task, args|
         require 'faker'
-        require 'factory_girl'
+        require 'factory_girl_rails'
         number = (args[:number] || 1).to_i
         num_solutions = (args[:num_solutions] || 2).to_i
 
@@ -25,7 +25,7 @@ namespace :airesis do
       desc 'Create more abadoned proposals'
       task :abandoned_proposals, [:number] => :environment do |task, args|
         require 'faker'
-        require 'factory_girl'
+        require 'factory_girl_rails'
         number = (args[:number] || 1).to_i
 
         Timecop.travel(10.days.ago) do

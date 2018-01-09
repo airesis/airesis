@@ -86,6 +86,9 @@ module Abilities
       # can see proposals in group areas in which has permission
       can :read, Proposal, presentation_areas: can_do_on_group_area(user, GroupAction::PROPOSAL_VIEW)
 
+      # can see all proposals if is admin
+      can :read, Proposal, groups: admin_of_group?(user)
+
       can [:edit, :update, :geocode, :add_authors, :available_authors_list],
           Proposal, users: { id: user.id }, proposal_state_id: ProposalState::VALUTATION
 

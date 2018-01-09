@@ -145,6 +145,7 @@ describe 'the oauth2 process', type: :feature, js: true do
 
       visit privacy_preferences_users_path
       click_link 'Detach'
+      page.driver.browser.switch_to.alert.accept
       expect(page).to have_content(/#{I18n.t('info.user.IP_disabled')}/i)
 
       logout :user

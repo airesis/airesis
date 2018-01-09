@@ -13,6 +13,10 @@ class Continent < ActiveRecord::Base
       where('lower_unaccent(continent_translations.description) like lower_unaccent(?)', hint)
   }
 
+  def parent
+    nil
+  end
+
   def name
     I18n.t('interest_borders.continent', name: description)
   end

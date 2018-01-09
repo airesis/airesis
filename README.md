@@ -52,7 +52,6 @@ or if you prefer using [Docker containers](#Docker) for a quick and easy setup.
 #### Requirements
 * PostgreSQL 9 with the hstore extension enabled.
 * Redis in order to execute Sidekiq and all background jobs.
-* A JVM installed to run SOLR server, used for searching inside Airesis.
 
 ### Local installation
 
@@ -78,10 +77,6 @@ bundle exec rake db:setup
 ```
 bundle exec rails s
 ```
-6. run SOLR
-```
-bundle exec rake sunspot:solr:run
-```
 7. run Sidekiq
 ```
 bundle exec sidekiq
@@ -93,36 +88,19 @@ Done! You have now a working version of Airesis!
 If you want to run all processes in a single command you can use Foreman
 ```
 bundle exec foreman start
-```   
+```
 and it will take care of running everything for you.
 
 #### Mailman
 Users can reply in the forum by email. Run
 ```
 ruby script/mailman_server.rb
-```    
-in background to receive emails and create forum posts from them.  
+```
+in background to receive emails and create forum posts from them.
 
 ## Docker
 
 See [Docker README](DOCKER_README.md)
-
-## SOLR
-
-We strongly suggest to edit solrconfig.xml setting
- 
-      <autoCommit> 
-        <maxTime>500</maxTime>
-        <openSearcher>false</openSearcher> 
-      </autoCommit>
- 
-      <autoSoftCommit> 
-        <maxTime>500</maxTime>
-      </autoSoftCommit>
-
-To generate new collections create another solr subfolder like `solr/new_collection` and in solr.xml add
-`<core name="new_collection" instanceDir="." dataDir="new_collection/data"/>`
-
 
 ## Seeding more data
 

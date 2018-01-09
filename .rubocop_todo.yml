@@ -235,7 +235,6 @@ Rails/Delegate:
     - 'app/models/alert_job.rb'
     - 'app/models/email_job.rb'
     - 'app/models/interest_border.rb'
-    - 'lib/sunspot/queue/session_proxy.rb'
 
 # Offense count: 45
 # Cop supports --auto-correct.
@@ -367,14 +366,6 @@ Style/AccessorMethodName:
     - 'app/models/proposal.rb'
     - 'app/workers/notification_available_author_create.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: prefer_alias, prefer_alias_method
-Style/Alias:
-  Exclude:
-    - 'lib/sunspot/queue/session_proxy.rb'
-
 # Offense count: 40
 Style/AsciiComments:
   Exclude:
@@ -403,11 +394,6 @@ Style/ClassAndModuleChildren:
     - 'app/controllers/frm/application_controller.rb'
     - 'app/controllers/users/facebook_controller.rb'
     - 'app/controllers/users/omniauth_callbacks_controller.rb'
-    - 'lib/sunspot/queue/helpers.rb'
-    - 'lib/sunspot/queue/session_proxy.rb'
-    - 'lib/sunspot/queue/sidekiq/backend.rb'
-    - 'lib/sunspot/queue/sidekiq/index_job.rb'
-    - 'lib/sunspot/queue/sidekiq/removal_job.rb'
 
 # Offense count: 2
 Style/ClassVars:
@@ -468,14 +454,6 @@ Style/EmptyLinesAroundBlockBody:
     - 'lib/tasks/recurring.rake'
     - 'lib/tasks/seed.rake'
     - 'lib/tasks/setup.rake'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines
-Style/EmptyLinesAroundClassBody:
-  Exclude:
-    - 'lib/sunspot/queue/sidekiq/backend.rb'
 
 # Offense count: 13
 # Cop supports --auto-correct.
@@ -586,13 +564,6 @@ Style/IfInsideElse:
     - 'app/helpers/proposals_helper.rb'
     - 'app/models/group.rb'
     - 'app/models/proposal.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: MaxLineLength.
-Style/IfUnlessModifier:
-  Exclude:
-    - 'lib/sunspot/queue/session_proxy.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -747,14 +718,6 @@ Style/MutableConstant:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: both, prefix, postfix
-Style/NegatedIf:
-  Exclude:
-    - 'lib/sunspot/queue/session_proxy.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 Style/NestedParenthesizedCalls:
   Exclude:
     - 'app/models/proposal_comment_search.rb'
@@ -825,7 +788,6 @@ Style/RaiseArgs:
   Exclude:
     - 'app/controllers/admin/panel_controller.rb'
     - 'app/controllers/proposal_supports_controller.rb'
-    - 'lib/sunspot/queue/session_proxy.rb'
 
 # Offense count: 17
 # Cop supports --auto-correct.
@@ -975,11 +937,6 @@ Style/StringLiterals:
     - 'app/views/frm/forums/show.atom.builder'
     - 'config/puma.rb'
     - 'lib/geonames/parser.rb'
-    - 'lib/sunspot/queue/helpers.rb'
-    - 'lib/sunspot/queue/session_proxy.rb'
-    - 'lib/sunspot/queue/sidekiq/backend.rb'
-    - 'lib/sunspot/queue/sidekiq/index_job.rb'
-    - 'lib/sunspot/queue/sidekiq/removal_job.rb'
     - 'lib/tasks/seed.rake'
     - 'lib/tasks/setup.rake'
     - 'private_pub.ru'
@@ -1012,7 +969,6 @@ Style/TrailingBlankLines:
   Exclude:
     - 'app/views/api/v1/proposals/show.jbuilder'
     - 'app/views/blog_posts/index.atom.builder'
-    - 'config/initializers/sunspot.rb'
     - 'config/initializers/version.rb'
     - 'lib/tasks/notifications.rake'
 

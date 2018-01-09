@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :frm_category, class: Frm::Category do
     name { Faker::Company.name }
-    group { create(:group_with_province) }
+    association :group
     visible_outside true
   end
 end

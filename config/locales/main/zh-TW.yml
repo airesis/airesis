@@ -805,7 +805,6 @@ zh-TW:
       account_joined: 成功連結帳號！
       tooltips_enabled: 開啟提示
       tooltips_disabled: 關閉提示
-      update_border: 成功更新了關心的地區
       confirm_email: 你需要確認新的信箱位置
       IP_disabled: 此帳號提供者已移除
       time_zone_changed: 時區已儲存

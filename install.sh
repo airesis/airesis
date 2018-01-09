@@ -20,7 +20,6 @@ cp config/database.example.yml config/database.yml
 cp config/application.example.yml config/application.yml
 cp config/private_pub.example.yml config/private_pub.yml
 cp config/sidekiq.example.yml config/sidekiq.yml
-cp config/sunspot.example.yml config/sunspot.yml
 mkdir -p private/elfinder
 echo "Please check your config/database.yml, setup it correctly and then continue."
 echo "Press ENTER when you have configured your config/database.yml file"

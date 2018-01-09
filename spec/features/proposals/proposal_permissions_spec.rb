@@ -26,7 +26,7 @@ describe 'check user permissions on proposals', type: :feature, js: true, search
         expect(page).to have_content proposal.title
       end
 
-      it 'is displayed in the open space list, group list and group area list' do
+      it 'is displayed in the open space list, group list and group area list', :aggreagte_failures do
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         area = create(:group_area, group: group)
@@ -110,7 +110,7 @@ describe 'check user permissions on proposals', type: :feature, js: true, search
         logout user
       end
 
-      it 'is displayed in the group list only if you are logged in' do
+      it 'is displayed in the group list only if you are logged in', :aggregate_failures do
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         proposal = create(:group_proposal, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
@@ -156,7 +156,7 @@ describe 'check user permissions on proposals', type: :feature, js: true, search
         # TODO: test for participants in the area
       end
 
-      it 'is displayed in the group list only if you are logged in and have the permission to see it' do
+      it 'is displayed in the group list only if you are logged in and have the permission to see it', :aggregate_failures do
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         area = create(:group_area, group: group)
@@ -169,7 +169,6 @@ describe 'check user permissions on proposals', type: :feature, js: true, search
 
         visit group_proposals_path(group)
         expect(page).to have_content proposal.title
-
         logout user
       end
 

@@ -88,5 +88,42 @@ describe Blog do
         end
       end
     end
+
+    describe '#look' do
+      # let(:municipality) { create(:municipality) }
+      # let(:province) { municipality.province }
+      let(:blogs) { [create(:blog, title: 'hello group title'),
+                      create(:blog, title: 'Miriam'),
+                      create(:blog),
+                      create(:blog)] }
+
+      before do
+        load_database
+        blogs
+        create(:blog_post, blog: blogs[1], tags_list: 'hello')
+        create(:blog_post, blog: blogs[2], tags_list: 'hello,world')
+        create(:blog_post, blog: blogs[3], tags_list: 'ciao,hello')
+      end
+
+      context 'method is called with tag parameter' do
+        it 'returns all blogs with posts with that tag associated ordered by last ones created' do
+          expect(described_class.look(tag: 'hello')).to eq [blogs[3], blogs[2], blogs[1]]
+        end
+      end
+
+      context 'search by text' do
+        it 'returns all blogs that match the word' do
+          expect(described_class.look(search: 'hello')).to eq [blogs[0]]
+        end
+
+        it 'returns all blogs that match all the words' do
+          expect(described_class.look(search: 'hello group')).to eq [blogs[0]]
+        end
+
+        it 'returns all blogs that match any of the words' do
+          expect(described_class.look(search: 'hello Miriam', and: false)).to eq [blogs[1], blogs[0]]
+        end
+      end
+    end
   end
 end

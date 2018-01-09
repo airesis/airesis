@@ -204,7 +204,7 @@ el.parents('.vote-items-external').prev('.vote-items-external').find('.vote-item
 
     expect(group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count).to be(10)
     proposal # we create the proposal with the assigned quorum
-    expect(proposal.quorum.valutations).to be (1 + 1) # calculated is ()0.1*10) + 1
+    expect(proposal.quorum.valutations).to be(1 + 1) # calculated is (0.1*10) + 1
     expect(proposal.quorum.good_score).to be 50 # copied
     expect(proposal.quorum.assigned).to be_truthy # copied
 
@@ -324,9 +324,6 @@ el.parents('.vote-items-external').prev('.vote-items-external').find('.vote-item
 
     login_as user, scope: :user
     visit group_proposal_path(group, proposal)
-    within_left_menu do
-      click_link I18n.t('pages.proposals.show.votation_results')
-    end
 
     expect(page).to have_content I18n.t('pages.proposals.results.total', count: 10)
     expect(proposal.vote.number).to eq(10)

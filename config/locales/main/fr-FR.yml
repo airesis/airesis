@@ -1208,7 +1208,6 @@ fr-FR:
       tooltips_disabled: Info-bulles désactivées
       url_shown: URLs visible
       url_hidden: URLs masquées
-      update_border: "Limites d'intérêt géographiques mis à jour correctement"
       confirm_email: Vous devez confirmer la nouvelle adresse de courriel
       IP_disabled: "Fournisseur d'identité supprimé"
       time_zone_changed: Fuseau horaire enregistré

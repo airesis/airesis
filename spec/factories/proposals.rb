@@ -9,6 +9,7 @@ FactoryGirl.define do
       num_solutions { 1 }
     end
     current_user_id { create(:user).id }
+
     factory :public_proposal do
     end
 
@@ -33,7 +34,6 @@ FactoryGirl.define do
       (evaluator.num_solutions - 1).times do |i|
         proposal.solutions.create(seq: i + 2)
       end
-      Sunspot.commit
     end
 
     factory :in_debate_public_proposal do

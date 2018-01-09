@@ -23,7 +23,7 @@
       <div class="columns small-9">
         <%= text_field_tag :interest_border, params[:interest_border],
                            title: t('pages.groups.index.find_title'),
-                           data: {pre: ([@interest_border].to_json if @interest_border)} %>
+                           data: {pre: [InterestBorder.key_to_json(params[:interest_border])]} %>
       </div>
       <div class="columns small-3">
         <div class="search_borders">

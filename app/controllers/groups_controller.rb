@@ -24,11 +24,7 @@ class GroupsController < ApplicationController
       @tags = Tag.most_groups(current_domain.territory, 10).shuffle
     end
 
-    params[:interest_border_obj] = @interest_border = if params[:interest_border].nil?
-                                                        InterestBorder.find_or_create_by(territory: current_domain.territory)
-                                                      else
-                                                        InterestBorder.find_or_create_by_key(params[:interest_border])
-                                                      end
+    params[:interest_border] ||= InterestBorder.to_key(current_domain.territory)
 
     @groups = Group.look(params)
     respond_to do |format|
@@ -91,11 +87,12 @@ class GroupsController < ApplicationController
       select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').
       group(' MONTH, YEAR ').
       order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
+    # TODO: slow query. remove eager loading
     @last_topics = @group.topics.
-      accessible_by(Ability.new(current_user), :index, false).
+      accessible_by(Ability.new(current_user)).
       includes(:views, :forum).order('frm_topics.created_at desc').limit(10)
     @next_events = @group.events.
-      accessible_by(Ability.new(current_user), :index, false).next.
+      accessible_by(Ability.new(current_user)).next.
       order('starttime asc').limit(4)
   end
 

@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   include TutorialAssigneesHelper
 
-  attr_accessor :image_url, :accept_conditions, :accept_privacy
+  attr_accessor :image_url, :accept_conditions, :accept_privacy, :interest_borders_tokens
 
   validates_presence_of :name
   validates_format_of :name, with: AuthenticationModule.name_regex, allow_nil: true
@@ -101,8 +101,9 @@ class User < ActiveRecord::Base
   has_many :frm_mods, through: :memberships, class_name: 'Frm::Mod', source: :mod
 
   before_create :init
-
   after_create :assign_tutorials, :block_alerts
+
+  before_update :before_update_populate
 
   validate :check_uncertified
 
@@ -133,6 +134,7 @@ class User < ActiveRecord::Base
       joins(:blocked_alerts).
       where(blocked_alerts: { notification_type_id: notification_type }))
   }
+  scope :by_interest_borders, ->(ib) { where('users.derived_interest_borders_tokens @> ARRAY[?]::varchar[]', ib) }
 
   validate :cannot_change_info_if_certified, on: :update
 
@@ -187,6 +189,7 @@ class User < ActiveRecord::Base
     self.rank ||= 0 # imposta il rank a zero se non è valorizzato
     self.receive_messages = true
     self.receive_newsletter = true
+    update_borders
   end
 
   # geocode user setting his default time zone
@@ -592,5 +595,33 @@ class User < ActiveRecord::Base
   def has_oauth_provider_without_email
     providers_without_email = [Authentication::TWITTER, Authentication::MEETUP, Authentication::LINKEDIN]
     providers_without_email.any? { |provider| has_provider?(provider) }
+  end
+
+  def before_create_populate
+  end
+
+  def before_update_populate
+    user_borders.destroy_all
+    update_borders
+  end
+
+  def update_borders
+    return unless interest_borders_tokens
+    interest_borders_tokens.split(',').each do |border|
+      ftype = border[0, 1]
+      fid = border[2..-1]
+      found = InterestBorder.table_element(border)
+      next unless found
+
+      derived_row = found
+      while derived_row
+        self.derived_interest_borders_tokens |= [InterestBorder.to_key(derived_row)]
+        derived_row = derived_row.parent
+      end
+
+      interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype],
+                                                    territory_id: fid)
+      user_borders.build(interest_border_id: interest_b.id)
+    end
   end
 end

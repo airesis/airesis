@@ -1266,7 +1266,6 @@ sr-SP:
       tooltips_disabled: Описи алатки су онемогућени
       url_shown: URL-ови видљиви
       url_hidden: URL-ови сакривени
-      update_border: Географске границе интересовања су исправно ажуриране
       confirm_email: Морате потврдити нову адресу е-поште
       IP_disabled: Провера идентитета уклоњена
       time_zone_changed: Временска зона сачувана

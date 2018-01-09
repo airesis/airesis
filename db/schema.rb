@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151210171038) do
+ActiveRecord::Schema.define(version: 20180109135701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -602,42 +602,44 @@ ActiveRecord::Schema.define(version: 20151210171038) do
   add_index "group_versions", ["item_type", "item_id"], name: "index_group_versions_on_item_type_and_item_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
-    t.string   "name",                           limit: 200
-    t.string   "description",                    limit: 2500
-    t.string   "accept_requests",                limit: 255,   default: "p",      null: false
+    t.string   "name",                            limit: 200
+    t.string   "description",                     limit: 2500
+    t.string   "accept_requests",                 limit: 255,   default: "p",      null: false
     t.integer  "interest_border_id"
-    t.string   "facebook_page_url",              limit: 255
+    t.string   "facebook_page_url",               limit: 255
     t.integer  "image_id"
-    t.string   "title_bar",                      limit: 255
-    t.string   "old_image_url",                  limit: 255
-    t.integer  "participation_role_id",                        default: 1,        null: false
+    t.string   "title_bar",                       limit: 255
+    t.string   "old_image_url",                   limit: 255
+    t.integer  "participation_role_id",                         default: 1,        null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "change_advanced_options",                      default: true,     null: false
-    t.boolean  "default_anonima",                              default: true,     null: false
-    t.boolean  "default_visible_outside",                      default: false,    null: false
-    t.boolean  "default_secret_vote",                          default: true,     null: false
-    t.integer  "max_storage_size",                             default: 51200,    null: false
-    t.integer  "actual_storage_size",                          default: 0,        null: false
-    t.boolean  "enable_areas",                                 default: false,    null: false
-    t.integer  "group_participations_count",                   default: 0,        null: false
-    t.string   "image_file_name",                limit: 255
-    t.string   "image_content_type",             limit: 255
+    t.boolean  "change_advanced_options",                       default: true,     null: false
+    t.boolean  "default_anonima",                               default: true,     null: false
+    t.boolean  "default_visible_outside",                       default: false,    null: false
+    t.boolean  "default_secret_vote",                           default: true,     null: false
+    t.integer  "max_storage_size",                              default: 51200,    null: false
+    t.integer  "actual_storage_size",                           default: 0,        null: false
+    t.boolean  "enable_areas",                                  default: false,    null: false
+    t.integer  "group_participations_count",                    default: 0,        null: false
+    t.string   "image_file_name",                 limit: 255
+    t.string   "image_content_type",              limit: 255
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.string   "admin_title",                    limit: 200
-    t.boolean  "private",                                      default: false
-    t.string   "rule_book",                      limit: 40000
-    t.string   "subdomain",                      limit: 100
-    t.boolean  "certified",                                    default: false,    null: false
-    t.string   "status",                         limit: 255,   default: "active", null: false
+    t.string   "admin_title",                     limit: 200
+    t.boolean  "private",                                       default: false
+    t.string   "rule_book",                       limit: 40000
+    t.string   "subdomain",                       limit: 100
+    t.boolean  "certified",                                     default: false,    null: false
+    t.string   "status",                          limit: 255,   default: "active", null: false
     t.datetime "status_changed_at"
-    t.string   "slug",                           limit: 255
-    t.boolean  "disable_participation_requests",               default: false
-    t.boolean  "disable_forums",                               default: false
-    t.boolean  "disable_documents",                            default: false
-    t.integer  "proposals_count",                              default: 0
-    t.integer  "meeting_organizations_count",                  default: 0,        null: false
+    t.string   "slug",                            limit: 255
+    t.boolean  "disable_participation_requests",                default: false
+    t.boolean  "disable_forums",                                default: false
+    t.boolean  "disable_documents",                             default: false
+    t.integer  "proposals_count",                               default: 0
+    t.integer  "meeting_organizations_count",                   default: 0,        null: false
+    t.string   "interest_border_token"
+    t.string   "derived_interest_borders_tokens",               default: [],                    array: true
   end
 
   add_index "groups", ["slug"], name: "index_groups_on_slug", using: :btree
@@ -976,33 +978,35 @@ ActiveRecord::Schema.define(version: 20151210171038) do
 
   create_table "proposals", force: :cascade do |t|
     t.integer  "proposal_state_id"
-    t.integer  "proposal_category_id",                     default: 5,     null: false
-    t.string   "title",                      limit: 255,                   null: false
-    t.string   "content",                    limit: 20000
+    t.integer  "proposal_category_id",                          default: 5,     null: false
+    t.string   "title",                           limit: 255,                   null: false
+    t.string   "content",                         limit: 20000
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "valutations",                              default: 0
+    t.integer  "valutations",                                   default: 0
     t.integer  "vote_period_id"
-    t.integer  "proposal_comments_count",                  default: 0
-    t.integer  "rank",                                     default: 0,     null: false
-    t.boolean  "show_comment_authors",                     default: true,  null: false
-    t.boolean  "private",                                  default: false, null: false
+    t.integer  "proposal_comments_count",                       default: 0
+    t.integer  "rank",                                          default: 0,     null: false
+    t.boolean  "show_comment_authors",                          default: true,  null: false
+    t.boolean  "private",                                       default: false, null: false
     t.integer  "quorum_id"
-    t.boolean  "anonima",                                  default: true,  null: false
-    t.boolean  "visible_outside",                          default: false, null: false
-    t.boolean  "secret_vote",                              default: true,  null: false
-    t.integer  "proposal_type_id",                         default: 1,     null: false
-    t.integer  "proposal_votation_type_id",                default: 1,     null: false
-    t.boolean  "vote_defined",                             default: false
+    t.boolean  "anonima",                                       default: true,  null: false
+    t.boolean  "visible_outside",                               default: false, null: false
+    t.boolean  "secret_vote",                                   default: true,  null: false
+    t.integer  "proposal_type_id",                              default: 1,     null: false
+    t.integer  "proposal_votation_type_id",                     default: 1,     null: false
+    t.boolean  "vote_defined",                                  default: false
     t.datetime "vote_starts_at"
     t.datetime "vote_ends_at"
     t.integer  "vote_event_id"
     t.integer  "signatures"
-    t.integer  "views_count",                              default: 0,     null: false
+    t.integer  "views_count",                                   default: 0,     null: false
     t.integer  "user_votes_count"
     t.text     "short_content"
-    t.integer  "proposal_contributes_count",               default: 0,     null: false
-    t.boolean  "area_private",                             default: false, null: false
+    t.integer  "proposal_contributes_count",                    default: 0,     null: false
+    t.boolean  "area_private",                                  default: false, null: false
+    t.string   "interest_borders_tokens",                       default: [],                 array: true
+    t.string   "derived_interest_borders_tokens",               default: [],                 array: true
   end
 
   add_index "proposals", ["proposal_category_id"], name: "_idx_proposals_proposal_category_id", using: :btree
@@ -1415,58 +1419,59 @@ ActiveRecord::Schema.define(version: 20151210171038) do
   add_index "user_votes", ["proposal_id", "user_id"], name: "onlyvoteuser", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.integer  "user_type_id",                           default: 3,      null: false
-    t.string   "name",                      limit: 100
-    t.string   "surname",                   limit: 100
-    t.string   "email",                     limit: 100
-    t.string   "sex",                       limit: 1
+    t.integer  "user_type_id",                                 default: 3,      null: false
+    t.string   "name",                            limit: 100
+    t.string   "surname",                         limit: 100
+    t.string   "email",                           limit: 100
+    t.string   "sex",                             limit: 1
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "password_salt",             limit: 40
+    t.string   "password_salt",                   limit: 40
     t.datetime "remember_token_expires_at"
-    t.string   "confirmation_token",        limit: 255
+    t.string   "confirmation_token",              limit: 255
     t.datetime "confirmed_at"
     t.datetime "deleted_at"
     t.text     "state"
-    t.string   "reset_password_token",      limit: 255
-    t.string   "encrypted_password",        limit: 128,                   null: false
-    t.string   "blog_image_url",            limit: 1000
+    t.string   "reset_password_token",            limit: 255
+    t.string   "encrypted_password",              limit: 128,                   null: false
+    t.string   "blog_image_url",                  limit: 1000
     t.integer  "image_id"
     t.integer  "rank"
     t.integer  "fb_user_id"
-    t.string   "email_hash",                limit: 255
+    t.string   "email_hash",                      limit: 255
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",        limit: 255
-    t.string   "last_sign_in_ip",           limit: 255
-    t.integer  "sign_in_count",                          default: 0
-    t.string   "account_type",              limit: 255
+    t.string   "current_sign_in_ip",              limit: 255
+    t.string   "last_sign_in_ip",                 limit: 255
+    t.integer  "sign_in_count",                                default: 0
+    t.string   "account_type",                    limit: 255
     t.datetime "remember_created_at"
     t.datetime "confirmation_sent_at"
-    t.boolean  "banned",                                 default: false,  null: false
-    t.boolean  "receive_newsletter",                     default: false,  null: false
+    t.boolean  "banned",                                       default: false,  null: false
+    t.boolean  "receive_newsletter",                           default: false,  null: false
     t.datetime "reset_password_sent_at"
-    t.string   "facebook_page_url",         limit: 255
-    t.string   "linkedin_page_url",         limit: 255
-    t.boolean  "blocked",                                default: false
-    t.string   "unconfirmed_email",         limit: 100
-    t.string   "google_page_url",           limit: 255
-    t.boolean  "show_tooltips",                          default: true
-    t.boolean  "show_urls",                              default: true
-    t.boolean  "receive_messages",                       default: true,   null: false
-    t.string   "authentication_token",      limit: 255
-    t.string   "rotp_secret",               limit: 16
-    t.boolean  "rotp_enabled",                           default: false
-    t.string   "blocked_name",              limit: 255
-    t.string   "blocked_surname",           limit: 255
-    t.integer  "sys_locale_id",                          default: 1,      null: false
-    t.integer  "original_sys_locale_id",                 default: 1,      null: false
-    t.string   "time_zone",                 limit: 255,  default: "Rome"
-    t.string   "avatar_file_name",          limit: 255
-    t.string   "avatar_content_type",       limit: 255
+    t.string   "facebook_page_url",               limit: 255
+    t.string   "linkedin_page_url",               limit: 255
+    t.boolean  "blocked",                                      default: false
+    t.string   "unconfirmed_email",               limit: 100
+    t.string   "google_page_url",                 limit: 255
+    t.boolean  "show_tooltips",                                default: true
+    t.boolean  "show_urls",                                    default: true
+    t.boolean  "receive_messages",                             default: true,   null: false
+    t.string   "authentication_token",            limit: 255
+    t.string   "rotp_secret",                     limit: 16
+    t.boolean  "rotp_enabled",                                 default: false
+    t.string   "blocked_name",                    limit: 255
+    t.string   "blocked_surname",                 limit: 255
+    t.integer  "sys_locale_id",                                default: 1,      null: false
+    t.integer  "original_sys_locale_id",                       default: 1,      null: false
+    t.string   "time_zone",                       limit: 255,  default: "Rome"
+    t.string   "avatar_file_name",                limit: 255
+    t.string   "avatar_content_type",             limit: 255
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string   "subdomain"
+    t.string   "derived_interest_borders_tokens",              default: [],                  array: true
   end
 
   add_index "users", ["email"], name: "uniqueemail", unique: true, using: :btree

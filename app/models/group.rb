@@ -1,6 +1,14 @@
 class Group < ActiveRecord::Base
   extend FriendlyId
   include Concerns::Taggable
+  include PgSearch
+
+  pg_search_scope :search, lambda { |query, any_word = false|
+    { query: query,
+      against: { name: 'A', description: 'B' },
+      order_within_rank: 'group_participations_count desc, created_at desc',
+      using: { tsearch: { any_word: any_word } } }
+  }
 
   friendly_id :name, use: [:slugged, :history]
 
@@ -88,11 +96,13 @@ class Group < ActiveRecord::Base
                       small: '150x150>'
                     },
                     path: (Paperclip::Attachment.default_options[:storage] == :s3) ?
-                      'groups/:id/:style/:basename.:extension' : ':rails_root/public:url',
+                            'groups/:id/:style/:basename.:extension' : ':rails_root/public:url',
                     default_url: '/img/gruppo-anonimo.png'
 
   validates_attachment_size :image, less_than: UPLOAD_LIMIT_IMAGES.bytes
   validates_attachment_content_type :image, content_type: ['image/jpeg', 'image/png', 'image/gif']
+
+  scope :by_interest_border, ->(ib) { where('derived_interest_borders_tokens @> ARRAY[?]::varchar[]', ib) }
 
   before_create :pre_populate
   after_create :after_populate
@@ -173,7 +183,7 @@ class Group < ActiveRecord::Base
   end
 
   def interest_border_tkn
-    "#{interest_border.territory_type}-#{interest_border.territory_id}" if interest_border
+    interest_border_token
   end
 
   def interest_border_tkn=(tkn)
@@ -182,8 +192,15 @@ class Group < ActiveRecord::Base
       fid = tkn[2..-1] # chiave primaria (dal terzo all'ultimo carattere)
       found = InterestBorder.table_element(tkn)
       if found # se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
+        self.interest_border_token = tkn
         interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype], territory_id: fid)
         self.interest_border = interest_b
+
+        derived_row = found
+        while derived_row
+          self.derived_interest_borders_tokens |= [InterestBorder.to_key(derived_row)]
+          derived_row = derived_row.parent
+        end
       end
     end
   end
@@ -201,70 +218,38 @@ class Group < ActiveRecord::Base
   end
 
   def self.look(params)
-    search = params[:search]
-    params[:minimum] = params[:and] ? nil : 1
-
+    query = params[:search]
+    params[:and] = params[:and].nil? || params[:and]
     tag = params[:tag]
 
     page = params[:page] || 1
-    limite = params[:limit] || 30
+    limit = params[:limit] || 30
 
     if tag
-      Group.joins(:tags).where(tags: { text: tag }).order('group_participations_count desc, created_at desc').page(page).per(limite)
+      joins(:tags).where(tags: { text: tag }).order('group_participations_count desc, created_at desc').page(page).per(limit)
     else
-      Group.search(include: [:next_events, interest_border: [:territory]]) do
-        fulltext search, minimum_match: params[:minimum] if search
-        # retrieve all possible interest borders
-        if params[:interest_border_obj]
-          border = params[:interest_border_obj]
-          if params[:area]
-            with(:interest_border_id, border.id)
-          else
-            with(border.solr_search_field, border.territory.id) if border.present?
-          end
-        end
-        order_by :score, :desc
-        order_by :group_participations_count, :desc
-        order_by :created_at, :desc
-
-        paginate page: page, per_page: limite
-      end.results
+      groups = if query.blank?
+                 Group.order(group_participations_count: :desc, created_at: :desc)
+               else
+                 search(query, !params[:and])
+               end
+      if params[:interest_border]
+        groups = if params[:area]
+                   groups.by_interest_border(params[:interest_border])
+                 else
+                   groups.where(interest_border_token: params[:interest_border])
+                 end
+      end
+      groups.page(page).per(limit)
     end
   end
 
   def self.most_active(territory = nil)
-    Group.search(include: { interest_border: [:territory] }) do
-      with(territory.solr_search_field, territory.id) if territory.present?
-      order_by :group_participations_count, :desc
-      paginate page: 1, per_page: 5
-    end.results
-  end
-
-  searchable do
-    text :name, boost: 5
-    text :description
-    integer :id
-    integer :interest_border_id
-    integer :group_participations_count
-    time :created_at
-    integer :continent_ids do
-      interest_border.continent.try(:id)
+    groups = Group.includes(interest_border: :territory)
+    if territory.present?
+      groups = groups.by_interest_border(InterestBorder.to_key(territory))
     end
-    integer :country_ids do
-      interest_border.country.try(:id)
-    end
-    integer :region_ids do
-      interest_border.region.try(:id)
-    end
-    integer :province_ids do
-      interest_border.province.try(:id)
-    end
-    integer :municipality_ids do
-      interest_border.municipality.try(:id)
-    end
-    integer :district_ids do
-      interest_border.district.try(:id)
-    end
+    groups.order(group_participations_count: :desc).page(1).per(5)
   end
 
   def should_generate_new_friendly_id?
@@ -282,6 +267,6 @@ class Group < ActiveRecord::Base
 
   def create_folder
     dir = "#{Rails.root}/private/elfinder/#{id}"
-    FileUtils.mkdir_p dir  #it automatically create "private" folder and doesn't error if the directory is already present
+    FileUtils.mkdir_p dir # it automatically create "private" folder and doesn't error if the directory is already present
   end
 end

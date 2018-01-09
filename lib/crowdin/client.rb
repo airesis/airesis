@@ -98,7 +98,6 @@ module Crowdin
       end
     end
 
-
     def change_locale(file_name, key, value)
       File.open('tmpfile', 'w') do |tmp|
         chomped = false
