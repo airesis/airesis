@@ -79,12 +79,14 @@ module Abilities
       # can see proposals in groups in which has permission, not belonging to any area
       can :read, Proposal, group_proposals: { group: can_do_on_group(user, GroupAction::PROPOSAL_VIEW) }
 
-      # but can't see proposals in presentation areas. it will be allowed in next condition
-      # TODO o it for lists as well. create a scope.
-      cannot :read, Proposal, private: true, visible_outside: false, area_private: true
-
-      # can see proposals in group areas in which has permission
-      can :read, Proposal, presentation_areas: can_do_on_group_area(user, GroupAction::PROPOSAL_VIEW)
+      # TODO: slows down performances on proposals lists.
+      # needs to be reactivated to enable group areas.
+      # # but can't see proposals in presentation areas. it will be allowed in next condition
+      # # TODO o it for lists as well. create a scope.
+      # cannot :read, Proposal, private: true, visible_outside: false, area_private: true
+      #
+      # # can see proposals in group areas in which has permission
+      # can :read, Proposal, presentation_areas: can_do_on_group_area(user, GroupAction::PROPOSAL_VIEW)
 
       # can see all proposals if is admin
       can :read, Proposal, groups: admin_of_group?(user)
