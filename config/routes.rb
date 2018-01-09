@@ -147,9 +147,8 @@ Airesis::Application.routes.draw do
   resources :users do
     collection do
       get :confirm_credentials
-      get :alarm_preferences # preferenze allarmi utente
-      get :border_preferences # preferenze confini di interesse utente
-      post :set_interest_borders # cambia i confini di interesse
+      get :alarm_preferences
+      get :border_preferences
       post :join_accounts
       get :privacy_preferences
       get :statistics
@@ -342,7 +341,16 @@ Airesis::Application.routes.draw do
 
   # routes available only on main site
   constraints NoSubdomain do
+
     root to: 'home#index'
+    namespace :api do
+      namespace :v1 do
+        resources :proposals, only: [:show, :index]
+        devise_scope :user do
+          post 'login' => 'sessions#create', as: :login
+        end
+      end
+    end
 
     resources :proposal_categories do
       get :index, scope: :collection
@@ -527,13 +535,6 @@ Airesis::Application.routes.draw do
           get :test_scheduler
           get :test_exceptions
           get :calculate_user_group_affinity
-        end
-        resource :crowdin, only: [] do
-          get :upload_sources
-          get :update_sources
-          get :upload_translations
-          get :download_translations
-          get :extract_delete_zip
         end
 
         resources :users, only: [] do

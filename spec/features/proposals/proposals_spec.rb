@@ -53,13 +53,14 @@ describe 'create a proposal in his group', type: :feature, js: true, ci_ignore: 
 
   def simple_editing
     visit edit_group_proposal_path(group, proposal)
-    sleep 5
     new_content = Faker::Lorem.paragraph
     fill_in_ckeditor 'proposal_sections_attributes_0_paragraphs_attributes_0_content_dirty', with: new_content
 
     within_left_menu do
-      click_link I18n.t('buttons.update')
+      click_link I18n.t('buttons.save_and_exit')
+      sleep 2
     end
+    wait_for_ajax
     expect(page.current_path).to eq group_proposal_path(group, proposal)
     expect(page).to have_content(new_content)
   end
@@ -70,19 +71,19 @@ describe 'create a proposal in his group', type: :feature, js: true, ci_ignore: 
 
   it 'evaluation of a proposal by the author and other users' do
     def vote_and_check
-      pressed = I18n.t('proposals.show.ready_for_vote')
-      other = I18n.t('proposals.show.keep_discuss')
+      ready_for_vote = I18n.t('proposals.show.ready_for_vote')
+      keep_discuss = I18n.t('proposals.show.keep_discuss')
       within('#menu-left') do
-        expect(page).to have_content(pressed)
-        expect(page).to have_content(other)
-        click_link pressed
+        expect(page).to have_content(ready_for_vote)
+        expect(page).to have_content(keep_discuss)
+        click_link ready_for_vote
       end
 
       expect(page).to have_content(I18n.t('info.proposal.rank_recorderd'))
 
       within('#menu-left') do
-        expect(find_link(pressed)[:href]).to eq '#'
-        expect(page).to_not have_link(other)
+        expect(find_link(ready_for_vote)[:href]).to eq 'javascript:void(0)'
+        expect(page).to_not have_link(keep_discuss)
       end
     end
 
@@ -90,7 +91,7 @@ describe 'create a proposal in his group', type: :feature, js: true, ci_ignore: 
       pressed = I18n.t('proposals.show.ready_for_vote')
       other = I18n.t('proposals.show.keep_discuss')
       within('#menu-left') do
-        expect(find_link(pressed)[:href]).to eq '#'
+        expect(find_link(pressed)[:href]).to eq 'javascript:void(0)'
         expect(page).to have_content(other)
         click_link other # change ides
       end
@@ -98,7 +99,7 @@ describe 'create a proposal in his group', type: :feature, js: true, ci_ignore: 
       expect(page).to have_content(I18n.t('info.proposal.rank_recorderd'))
 
       within('#menu-left') do
-        expect(find_link(other)[:href]).to eq '#'
+        expect(find_link(other)[:href]).to eq 'javascript:void(0)'
         expect(page).to_not have_link(pressed)
       end
     end
@@ -172,18 +173,17 @@ describe 'create a proposal in his group', type: :feature, js: true, ci_ignore: 
     within('.reveal-modal') do
       fill_in I18n.t('pages.proposals.new.title_synthetic'), with: proposal_name
       sleep 2
-      click_button I18n.t('buttons.next')
+      click_link I18n.t('buttons.next')
       fill_tokeninput '#proposal_tags_list', with: %w(tag1 tag2 tag3)
-      click_button I18n.t('buttons.next')
+      click_link I18n.t('buttons.next')
       fill_in_ckeditor 'proposal_sections_attributes_0_paragraphs_attributes_0_content', with: Faker::Lorem.paragraph
-
-      click_button I18n.t('buttons.next')
+      click_link I18n.t('buttons.next')
       quorum = group.quorums.find_by(name: '15 giorni')
       page.execute_script(%|$('#proposal_quorum_id').val(#{quorum.id}).trigger('change');|)
-      click_button I18n.t('pages.proposals.new.create_button')
+      click_link 'Finish'
     end
+    wait_for_ajax
     page_should_be_ok
-    sleep 2
     proposal2 = Proposal.order(created_at: :desc).first
     expect(page.current_path).to eq(edit_group_proposal_path(group, proposal2))
   end

@@ -8,12 +8,22 @@ FactoryGirl.define do
     transient do
       num_solutions { 1 }
     end
+    current_user_id { create(:user).id }
+
     factory :public_proposal do
     end
 
     factory :group_proposal do
-      association :group_proposals
       visible_outside true
+      transient do
+        groups []
+      end
+
+      after(:build) do |proposal, evaluator|
+        evaluator.groups.each do |group|
+          proposal.group_proposals << GroupProposal.new(group: group)
+        end
+      end
     end
 
     after(:build) do |proposal|
@@ -24,7 +34,6 @@ FactoryGirl.define do
       (evaluator.num_solutions - 1).times do |i|
         proposal.solutions.create(seq: i + 2)
       end
-      Sunspot.commit
     end
 
     factory :in_debate_public_proposal do

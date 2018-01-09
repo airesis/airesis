@@ -52,11 +52,11 @@ class Quorum < ActiveRecord::Base
   def time(total_time = false)
     min = nil
     if minutes
-      if self.assigned? && !total_time # if is assigned and we are not forcing total time show remaining
-        min = (ends_at - Time.now).to_i / 60
-      else
-        min = minutes
-      end
+      min = if self.assigned? && !total_time # if is assigned and we are not forcing total time show remaining
+              (ends_at - Time.now).to_i / 60
+            else
+              minutes
+            end
     end
     if min && min > 0
       if min > 59

@@ -98,6 +98,7 @@ describe 'the blog posts process', type: :feature, js: true, ci_ignore: true, se
     visit blog_blog_post_path(blog, blog_post)
     within_left_menu do
       click_link I18n.t('buttons.delete')
+      page.driver.browser.switch_to.alert.accept
     end
     expect(page.current_path).to eq(blog_path(blog))
     expect(page).to have_content(I18n.t('info.blog_post_deleted'))
@@ -112,6 +113,7 @@ describe 'the blog posts process', type: :feature, js: true, ci_ignore: true, se
     visit group_blog_post_path(group, blog_post)
     within_left_menu do
       click_link I18n.t('buttons.delete')
+      page.driver.browser.switch_to.alert.accept
     end
     expect(page.current_path).to eq(group_path(group))
     expect(page).to have_content(I18n.t('info.blog_post_deleted'))

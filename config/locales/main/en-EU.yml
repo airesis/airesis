@@ -1,9 +1,9 @@
 en-EU:
   unauthorized:
-    default: "You don't have the required permissions to execute this action"
+    default: "You don't have the required permissions to perform this action"
     create:
-      group: "You cannot create more than a group a day"
-  permissions_required: "You are not allowed to make this operation"
+      group: "You cannot create more than one group a day"
+  permissions_required: "You are not allowed to perform this operation"
   test: "Test"
   open_space: 'Open space'
   hello: 'Hello world'
@@ -37,7 +37,7 @@ en-EU:
         proposal_column: "Proposal"
         votation_date_column: "Date"
         vote_column: "Vote"
-        profile_info: "Profile infos"
+        profile_info: "Profile info"
         profile_info_unconfirmed: "(unconfirmed user)"
         send_message_button: "Send private message"
         name_label: "Name"
@@ -58,7 +58,7 @@ en-EU:
         certified_from: "Certified from"
         group_level_permission_title: "Group level permissions"
         admin_permissions: "You are administrator of this group and you have all permissions"
-        certified_cannot_edit_info: "You're a certified user: you can't edit your Name, Last Name and Email"
+        certified_cannot_edit_info: "You're a certified user: you can't edit your Name, Last Name, or Email"
         twitter_url: "Twitter URL"
         meetup_url: "Meetup URL"
       send_message:
@@ -101,7 +101,7 @@ en-EU:
       send_message_title: "Send a message to %{name}"
     groups:
       accept_requests:
-        portavoce: "Administrator: when a user wants to join the group only the administrator of the group can accept the request. When the administrator accepts the request, the user actually becomes a member of the group."
+        portavoce: "Administrator: when a user wants to join the group, only the administrator of the group can accept the request. When the administrator accepts the request, the user becomes an actual member of the group."
         unavailable_option: "Option not yet available"
       administration_panel:
         title: 'Administration Panel'
@@ -121,7 +121,7 @@ en-EU:
         new_role_title: "New role"
         user_title: "User"
         role_title: "Role"
-        no_users_yet: "Here you will be able to manage participants roles, when there will be some."
+        no_users_yet: "Here you will be able to manage participants roles, when there are any."
         default_role: "Default role in the group"
         confirm_role_deletion: "Are you sure you want to delete this role?"
         remove_user: "Remove user"
@@ -129,7 +129,7 @@ en-EU:
         confirm_role_change2: "will change from"
         confirm_role_change3: "to"
         confirm_role_change4: "Confirm?"
-        confirm_delete_1: "The operation may require few minutes.. Are you sure to remove  %{count} users from the group?"
+        confirm_delete_1: "The operation may require few minutes. Are you sure to remove  %{count} users from the group?"
         confirm_delete_2: "This operation implies the removal of all %{count} selected users and cannot be undone! Are you really sure to continue?"
       edit_proposals:
         title: 'Manage quorum and proposals'
@@ -143,7 +143,7 @@ en-EU:
         groups_list: "Groups you participate in"
         groups_registration: "Group Registration"
         groups_list_2: "Groups list"
-        no_groups_yet: "You don't participate at any %{name} yet"
+        no_groups_yet: "You don't participate in any %{name} yet"
         open_space_title: "Public events"
         show_more: "Show more groups"
         search_mask: "Search tool"
@@ -181,7 +181,7 @@ en-EU:
           <b> Advice for private groups </ b> <br/>
           Public proposals will still be visible from the outside. <br/>
           Go to <b>%{link}</b> and disable the option 'Proposals visible from the outside'. <br/>
-          The posts published on the group wall are always visible in the personal pages of users. <br/>
+          The posts published on the group wall are always visible on the personal pages of users. <br/>
           Public forums are always visible on the outside.
       layout:
         home_button: "WALL"
@@ -557,7 +557,7 @@ en-EU:
         report_description: "You can point out to the webmaster that this contribution violates the laws currently in force. <br/> Once the infringement is ascertained the contribution will be removed. Don't abuse this tool."
       vote_panel:
         title: "Make your vote!"
-        schulze_title: "There are several solutions to this proposal.<br> Order them according to your preferences."
+        schulze_title: "There are several solutions to this proposal.<br /> Order them according to your preferences."
         secret_vote: "Your vote is secret and you will not be able to recover or change it once expressed."
         clear_vote: "Your vote is recorded and will therefore be verifiable."
         single_title: "In this proposal there is only one solution. Make your point!"
@@ -1293,7 +1293,6 @@ en-EU:
       tooltips_disabled: "Tooltips disabled"
       url_shown: "URLs visible"
       url_hidden: "URLs hidden"
-      update_border: "Geographical interest borders updated correctly"
       confirm_email: "You need to confirm the new email address"
       IP_disabled: "Identity Provider removed"
       time_zone_changed: "Time zone saved"
@@ -1500,3 +1499,8 @@ en-EU:
   unsubscribe_from_topic: "To unsubscribe from this topic, %{click_here}"
   select_debate_duration: "Select first a debate duration"
   rankdown_reason: "Say why you evaluated this contribute negatively"
+  api:
+    v1:
+      sessions:
+        create:
+          message: "Successfully logged in"

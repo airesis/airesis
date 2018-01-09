@@ -5,7 +5,6 @@ production:
   :concurrency: 5
 :queues:
   - [high_priority,5]
-  - [sunspot,4]
   - [notifications,3]
   - [default,2]
   - [low_priority, 1]

@@ -76,6 +76,7 @@ describe 'create proposal comments', type: :feature, js: true do
     expect(page).to have_content comment
     i = 0
     page.all(:css, '.contribute-button').each do |el|
+      scroll_to el
       el.click
       expect(page).to have_content comments[i]
       i += 1
@@ -112,6 +113,7 @@ describe 'create proposal comments', type: :feature, js: true do
     max = 3
     comments = []
     page.all(:css, '.contribute-button').each do |el|
+      scroll_to el
       el.click
       section_id = el['data-section_id']
       sleep 1
@@ -130,6 +132,7 @@ describe 'create proposal comments', type: :feature, js: true do
     expect(page).to have_content comment
     i = 0
     page.all(:css, '.contribute-button').each do |el|
+      scroll_to el
       el.click
       expect(page).to have_content comments[i]
       i += 1
@@ -171,6 +174,7 @@ describe 'create proposal comments', type: :feature, js: true do
     max = 3
     comments = []
     page.all(:css, '.contribute-button').each do |el|
+      scroll_to el
       el.click
       within('.suggestion_right') do
         icomment = Faker::Lorem.sentence
@@ -187,6 +191,7 @@ describe 'create proposal comments', type: :feature, js: true do
     expect(page).to have_content comment
     i = 0
     page.all(:css, '.contribute-button').each do |el|
+      scroll_to el
       el.click
       expect(page).to have_content comments[i]
       i += 1

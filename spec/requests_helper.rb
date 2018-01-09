@@ -42,43 +42,13 @@ def page_should_be_ok
   expect(page).to_not have_content(I18n.t('error.error_404.title'))
 end
 
-def create_participation(user, group, participation_role_id = nil)
-  group.participation_requests.build(user: user, group_participation_request_status_id: 3)
-  group.group_participations.build(user: user, participation_role_id: (participation_role_id || group.participation_role_id))
-  group.save
+def scroll_to(element)
+  script = <<-JS
+      arguments[0].scrollIntoView({block: 'center', inline: 'center'});
+  JS
+  Capybara.current_session.driver.browser.execute_script(script, element.native)
 end
 
-def create_simple_vote(user, proposal, vote_type = VoteType::POSITIVE)
-  vote = UserVote.new(user: user, proposal: proposal)
-  vote.vote_type_id = vote_type unless proposal.secret_vote
-  vote.save
-
-  if vote_type == VoteType::POSITIVE
-    proposal.vote.positive += 1
-  elsif vote_type == VoteType::NEGATIVE
-    proposal.vote.negative += 1
-  elsif vote_type == VoteType::NEUTRAL
-    proposal.vote.neutral += 1
-  end
-  proposal.vote.save
-end
-
-def create_area_participation(user, group_area)
-  group_area.area_participations.build(user: user, area_role_id: group_area.area_role_id)
-  group_area.save
-end
-
-def create_public_proposal(user_id)
-  create(:public_proposal, current_user_id: user_id)
-end
-
-def activate_areas(group)
-  group.enable_areas = true
-  create(:group_area, group: group)
-  create(:group_area, group: group)
-  group.save
-  group.reload
-end
 
 def wait_for_ajax
   Timeout.timeout(Capybara.default_wait_time) do
@@ -96,13 +66,6 @@ end
 
 def expect_forbidden_page
   expect(page).to have_content(I18n.t('error.error_302.title'))
-end
-
-def add_solution(proposal)
-  solution = proposal.build_solution
-  solution.seq = 2
-  proposal.solutions << solution
-  proposal.save
 end
 
 def expect_notifications(number = 1)

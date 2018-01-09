@@ -197,16 +197,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # aggiorni i confini di interesse dell'utente
-  def set_interest_borders
-    borders = params[:token][:interest_borders]
-    # cancella i vecchi confini di interesse
-    current_user.user_borders.each(&:destroy)
-    update_borders(borders)
-    flash[:notice] = t('info.user.update_border')
-    redirect_to :back
-  end
-
   def update
     respond_to do |format|
       if @user.update(user_params)
@@ -217,7 +207,7 @@ class UsersController < ApplicationController
           if params[:back] == 'home'
             redirect_to home_url
           else
-            redirect_to @user
+            redirect_to :back
           end
         end
       else
@@ -228,7 +218,7 @@ class UsersController < ApplicationController
           if params[:back] == 'home'
             redirect_to home_url
           else
-            render action: 'show'
+            redirect_to :back
           end
         end
         format.js { render 'layouts/error' }
@@ -269,7 +259,8 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :surname, :password, :password_confirmation, :sex, :remember_me,
-                                 :accept_conditions, :receive_newsletter, :sys_locale_id, :time_zone, :avatar)
+                                 :accept_conditions, :receive_newsletter, :sys_locale_id, :time_zone, :avatar,
+                                 :interest_borders_tokens)
   end
 
   def choose_layout
@@ -284,19 +275,5 @@ class UsersController < ApplicationController
 
   def load_user
     @user = User.find(params[:id])
-  end
-
-  def update_borders(borders)
-    # confini di interesse, scorrili
-    borders.split(',').each do |border| # l'identificativo è nella forma 'X-id'
-      ftype = border[0, 1] # tipologia (primo carattere)
-      fid = border[2..-1] # chiave primaria (dal terzo all'ultimo carattere)
-      found = InterestBorder.table_element(border)
-
-      next unless found
-      interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype], territory_id: fid)
-      i = current_user.user_borders.build(interest_border_id: interest_b.id)
-      i.save
-    end
   end
 end

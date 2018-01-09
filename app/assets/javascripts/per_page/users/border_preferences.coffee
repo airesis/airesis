@@ -1,6 +1,6 @@
 window.UsersBorderPreferences =
   init: ->
-    input = $('#token_interest_borders')
+    input = $('#user_interest_borders_tokens')
     input.tokenInput "/interest_borders.json",
         propertyToSearch: 'text'
         crossDomain: false

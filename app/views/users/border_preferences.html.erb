@@ -1,9 +1,9 @@
 <% @page_title = t('pages.users.left_panel.geographic_borders') %>
 <div class="card">
-  <%= form_for 'token', url: set_interest_borders_users_path do |f| %>
+  <%= simple_form_for current_user do |f| %>
       <div id="border_fields">
         <%= f.label t('pages.users.border_preferences.your_borders') %>
-        <%= f.text_field 'interest_borders', 'data-pre' => current_user.interest_borders.to_json %>
+        <%= f.text_field :interest_borders_tokens, data: {pre: current_user.interest_borders.to_json} %>
       </div>
       <div id="loading_borders" style="margin:auto;text-align:center;display:none;">
         <%= image_tag 'ajax-loader.gif' %>

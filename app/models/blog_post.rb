@@ -7,7 +7,7 @@ class BlogPost < ActiveRecord::Base
   has_paper_trail class_name: 'BlogPostVersion'
 
   belongs_to :user
-  belongs_to :blog
+  belongs_to :blog, touch: true
 
   has_many :blog_comments, dependent: :destroy
   has_many :blog_post_tags, dependent: :destroy

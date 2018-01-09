@@ -156,7 +156,6 @@ Configuration.create(name: 'rotp', value: 1)
 Configuration.create(name: 'group_areas', value: 1)
 Configuration.create(name: 'recaptcha', value: 0)
 
-SysLocale.create(key: 'crowdin', host: 'localhost', lang: 'crowdin')
 SysLocale.create(key: 'bs-BA', host: 'localhost', territory: Country.find_by(description: 'Bosnia and Herzegovina'), lang: 'bs-BA')
 SysLocale.create(key: 'de-DE', host: 'localhost', territory: Country.find_by(description: 'Germany'), lang: 'de-DE')
 SysLocale.create(key: 'el-GR', host: 'localhost', territory: Country.find_by(description: 'Greece'), lang: 'el-GR')
@@ -201,13 +200,3 @@ connection.execute "CREATE OR REPLACE FUNCTION lower_unaccent(text)
     , '123aaaaaaaaaaaaaaaaaaacccccccddeeeeeeeeeeeeeeeeeeeeggiiiiiiiiiiiiiiiiiillnnnnnnooooooooooooooooooorrrsssssssuuuuuuuuuuuuuuuuyyyyzzzzzz'
     ));
     $$ IMMUTABLE STRICT LANGUAGE SQL"
-
-connection.execute 'CREATE OR REPLACE FUNCTION idx(anyarray, anyelement)
-  RETURNS INT AS
-$$
-  SELECT i FROM (
-     SELECT generate_series(array_lower($1,1),array_upper($1,1))
-  ) g(i)
-  WHERE $1[i] = $2
-  LIMIT 1;
-$$ LANGUAGE SQL IMMUTABLE;'

@@ -75,16 +75,19 @@ module Abilities
       end
       can :create, Proposal, group_proposals: { group: can_do_on_group(user, GroupAction::PROPOSAL_INSERT) }
 
+      #can :read, Proposal,
       # can see proposals in groups in which has permission, not belonging to any area
-      can :show, Proposal, group_proposals: { group: can_do_on_group(user, GroupAction::PROPOSAL_VIEW) }
+      can :read, Proposal, group_proposals: { group: can_do_on_group(user, GroupAction::PROPOSAL_VIEW) }
 
       # but can't see proposals in presentation areas. it will be allowed in next condition
-      cannot :show, Proposal do |proposal|
-        proposal.private && !proposal.visible_outside && proposal.presentation_areas.count > 0
-      end
+      # TODO o it for lists as well. create a scope.
+      cannot :read, Proposal, private: true, visible_outside: false, area_private: true
 
       # can see proposals in group areas in which has permission
-      can :show, Proposal, presentation_areas: can_do_on_group_area(user, GroupAction::PROPOSAL_VIEW)
+      can :read, Proposal, presentation_areas: can_do_on_group_area(user, GroupAction::PROPOSAL_VIEW)
+
+      # can see all proposals if is admin
+      can :read, Proposal, groups: admin_of_group?(user)
 
       can [:edit, :update, :geocode, :add_authors, :available_authors_list],
           Proposal, users: { id: user.id }, proposal_state_id: ProposalState::VALUTATION
@@ -109,9 +112,7 @@ module Abilities
       can :participate, Proposal, group_proposals: { group: can_do_on_group(user, GroupAction::PROPOSAL_PARTICIPATION) }
 
       # but can't see proposals in presentation areas. it will be allowed in next condition
-      cannot :participate, Proposal do |proposal|
-        proposal.presentation_areas.count > 0
-      end
+      cannot :participate, Proposal, area_private: true
       # in areas
       can :participate, Proposal, presentation_areas: can_do_on_group_area(user, GroupAction::PROPOSAL_PARTICIPATION)
 
@@ -126,9 +127,7 @@ module Abilities
           proposal_state_id: ProposalState::VOTING,
           group_proposals: { group: can_do_on_group(user, GroupAction::PROPOSAL_VOTE) }
 
-      cannot :vote, Proposal do |proposal|
-        proposal.presentation_areas.count > 0
-      end
+      cannot :vote, Proposal, area_private: true
 
       can :vote, Proposal,
           proposal_state_id: ProposalState::VOTING,

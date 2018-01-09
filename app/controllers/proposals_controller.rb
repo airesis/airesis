@@ -49,11 +49,11 @@ class ProposalsController < ApplicationController
       format.html do
         @page_head = ''
 
-        if params[:category]
-          @page_head += t('pages.proposals.index.title_with_category', category: ProposalCategory.find(params[:category]).description)
-        else
-          @page_head += t('pages.proposals.index.title')
-        end
+        @page_head += if params[:category]
+                        t('pages.proposals.index.title_with_category', category: ProposalCategory.find(params[:category]).description)
+                      else
+                        t('pages.proposals.index.title')
+                      end
 
         if params[:type]
           @page_head += " #{t('pages.propsoals.index.type', type: ProposalType.find(params[:type]).description)}"
@@ -474,10 +474,10 @@ class ProposalsController < ApplicationController
     search.proposal_category_id = params[:category]
 
     search.interest_border = if params[:interest_border].nil?
-                                InterestBorder.find_or_create_by(territory: current_domain.territory)
-                              else
-                                InterestBorder.find_or_create_by_key(params[:interest_border])
-                              end
+                               InterestBorder.find_or_create_by(territory: current_domain.territory)
+                             else
+                               InterestBorder.find_or_create_by_key(params[:interest_border])
+                             end
 
     # apply filter for the group
     if @group

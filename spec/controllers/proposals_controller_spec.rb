@@ -10,7 +10,7 @@ describe ProposalsController, type: :controller, search: :true do
   end
 
   describe 'GET index' do
-    it 'counts correctly debate proposals' do
+    it 'counts correctly debate proposals', :aggregate_failures do
       create(:public_proposal, current_user_id: user.id)
       get :index
       expect(assigns(:in_valutation_count)).to be(1)
@@ -24,7 +24,6 @@ describe ProposalsController, type: :controller, search: :true do
       proposals[3].update(proposal_state_id: ProposalState::WAIT_DATE)
       proposals[4].update(proposal_state_id: ProposalState::WAIT)
       proposals[5].update(proposal_state_id: ProposalState::VOTING)
-      Proposal.reindex
       get :index
       expect(assigns(:in_valutation_count)).to be(3)
       expect(assigns(:in_votation_count)).to be(3)
@@ -40,8 +39,6 @@ describe ProposalsController, type: :controller, search: :true do
       proposals[6].update(proposal_state_id: ProposalState::ACCEPTED)
       proposals[7].update(proposal_state_id: ProposalState::REJECTED)
 
-      Proposal.reindex
-
       get :index
       expect(assigns(:in_valutation_count)).to be(3)
       expect(assigns(:in_votation_count)).to be(3)
@@ -55,8 +52,6 @@ describe ProposalsController, type: :controller, search: :true do
       proposals[4].update(proposal_state_id: ProposalState::WAIT)
       proposals[2].update(proposal_state_id: ProposalState::ABANDONED)
       proposals[1].update(proposal_state_id: ProposalState::ABANDONED)
-
-      Proposal.reindex
 
       get :index
       expect(assigns(:in_valutation_count)).to be(1)
@@ -83,42 +78,36 @@ describe ProposalsController, type: :controller, search: :true do
 
     it 'retrieves public proposals waiting for date in votation tab' do
       proposal1.update(proposal_state_id: ProposalState::WAIT_DATE)
-      Proposal.reindex
       get :tab_list, state: ProposalState::TAB_VOTATION
       expect(assigns(:proposals)).to eq([proposal1])
     end
 
     it 'retrieves public proposals waiting in votation tab' do
       proposal1.update(proposal_state_id: ProposalState::WAIT)
-      Proposal.reindex
       get :tab_list, state: ProposalState::TAB_VOTATION
       expect(assigns(:proposals)).to eq([proposal1])
     end
 
     it 'retrieves public proposals in votation, in votation tab' do
       proposal1.update(proposal_state_id: ProposalState::VOTING)
-      Proposal.reindex
       get :tab_list, state: ProposalState::TAB_VOTATION
       expect(assigns(:proposals)).to eq([proposal1])
     end
 
     it 'retrieves public proposals accepted, in voted tab' do
       proposal1.update(proposal_state_id: ProposalState::ACCEPTED)
-      Proposal.reindex
       get :tab_list, state: ProposalState::TAB_VOTED
       expect(assigns(:proposals)).to eq([proposal1])
     end
 
     it 'retrieves public proposals rejected, in voted tab' do
       proposal1.update(proposal_state_id: ProposalState::REJECTED)
-      Proposal.reindex
       get :tab_list, state: ProposalState::TAB_VOTED
       expect(assigns(:proposals)).to eq([proposal1])
     end
 
     it 'retrieves public proposals abandoned in abandoned tab' do
       proposal1.update(proposal_state_id: ProposalState::ABANDONED)
-      Proposal.reindex
       get :tab_list, state: ProposalState::TAB_REVISION
       expect(assigns(:proposals)).to eq([proposal1])
     end
@@ -132,14 +121,22 @@ describe ProposalsController, type: :controller, search: :true do
 
     it 'can retrieve private proposals that are visible outside' do
       group = create(:group, current_user_id: user.id)
-      proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: true)
+      proposal3 = create(:group_proposal,
+                         title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!',
+                         current_user_id: user.id,
+                         group_proposals: [GroupProposal.new(group: group)],
+                         visible_outside: true)
       get :tab_list, state: ProposalState::TAB_DEBATE
       expect(assigns(:proposals)).to match_array([proposal3, proposal1])
     end
 
-    it "can't retrieve public proposals if specify a group, and can't see group's proposals if not signed in" do
+    it "can't retrieve public proposals if specifies a group, and can't see group's proposals if not signed in" do
       group = create(:group, current_user_id: user.id)
-      proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
+      proposal3 = create(:group_proposal,
+                         title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!',
+                         current_user_id: user.id,
+                         group_proposals: [GroupProposal.new(group: group)],
+                         visible_outside: false)
 
       get :tab_list, state: ProposalState::TAB_DEBATE, group_id: group.id
       expect(assigns(:proposals)).to eq([])
@@ -147,7 +144,11 @@ describe ProposalsController, type: :controller, search: :true do
 
     it "can't retrieve public proposals if specify a group, and can see group's proposals if signed in and is group admin" do
       group = create(:group, current_user_id: user.id)
-      proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
+      proposal3 = create(:group_proposal,
+                         title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!',
+                         current_user_id: user.id,
+                         group_proposals: [GroupProposal.new(group: group)],
+                         visible_outside: false)
       @request.env['devise.mapping'] = Devise.mappings[:user]
       sign_in user
 
@@ -239,10 +240,12 @@ describe ProposalsController, type: :controller, search: :true do
       expect(assigns(:proposals)).to match_array([proposal3, proposal2])
     end
 
-    it "can't retrieve public proposals if specify a group, and can't see group's proposals if not signed in" do
-      proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
+    it "can't retrieve public proposals if specifies a group, and can't see group's proposals if not signed in" do
+      hell_day = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
       group = create(:group, current_user_id: user.id)
-      proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
+      hell_group = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!',
+                         current_user_id: user.id,
+                         groups: [group], visible_outside: false)
       xhr :get, :similar, title: 'inferno', group_id: group.id, format: :js
       expect(assigns(:proposals)).to eq([])
     end
@@ -262,12 +265,15 @@ describe ProposalsController, type: :controller, search: :true do
     it "can retrieve public proposals and can see group's proposals if signed in and is group admin" do
       proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
       group = create(:group, current_user_id: user.id)
-      proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
+      proposal3 = create(:group_proposal,
+                         title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!',
+                         current_user_id: user.id,
+                         groups: [group],
+                         visible_outside: false)
 
       @request.env['devise.mapping'] = Devise.mappings[:user]
       sign_in user
 
-      # repeat same request
       xhr :get, :similar, title: 'inferno', format: :js
       expect(assigns(:proposals)).to eq([proposal3, proposal2])
     end

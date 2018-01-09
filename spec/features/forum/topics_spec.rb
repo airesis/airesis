@@ -47,6 +47,7 @@ describe 'topics', type: :feature, js: true do
         visit group_forum_topic_path(group, forum, topic)
         within_left_menu do
           click_link(I18n.t('buttons.delete'))
+          page.driver.browser.switch_to.alert.accept
         end
         expect_message I18n.t('frm.topic.deleted')
       end
@@ -86,6 +87,7 @@ describe 'topics', type: :feature, js: true do
         visit group_forum_topic_path(group, forum, topic)
         within_left_menu do
           click_link(I18n.t('buttons.delete'))
+          page.driver.browser.switch_to.alert.accept
         end
         expect_message I18n.t('frm.topic.deleted')
       end

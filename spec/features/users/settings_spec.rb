@@ -113,4 +113,14 @@ describe 'personal settings', type: :feature, js: true do
       expect(user.receive_messages).to be_truthy
     end
   end
+
+  context 'from geographical borders page' do
+    it 'can update his geographical borders of interest' do
+      municipality = create(:municipality)
+      visit border_preferences_users_path
+      fill_tokeninput '#user_interest_borders_tokens', with: [InterestBorder.to_key(municipality)]
+      click_button I18n.t('buttons.save')
+      expect(page).to have_content(I18n.t('info.user.info_updated'))
+    end
+  end
 end

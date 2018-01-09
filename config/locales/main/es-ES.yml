@@ -927,7 +927,6 @@ es-ES:
       tooltips_disabled: Tooltips disabled
       url_shown: URLs visible
       url_hidden: URLs hidden
-      update_border: Geographical interest borders updated correctly
       confirm_email: You need to confirm the new email address
       IP_disabled: Identity Provider removed
     blog:

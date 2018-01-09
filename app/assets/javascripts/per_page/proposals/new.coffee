@@ -37,4 +37,10 @@ window.ProposalsNew =
     .on 'select2:close', ->
       $('#new_proposal').formValidation 'revalidateField', 'proposal[proposal_category_id]'
 
+    id = 'proposal_sections_attributes_0_paragraphs_attributes_0_content'
+    if CKEDITOR.instances[id] is undefined
+      CKEDITOR.replace id,
+        'toolbar': 'proposal'
+        'language': Airesis.i18n.locale
+
     new Airesis.QuorumSelector()

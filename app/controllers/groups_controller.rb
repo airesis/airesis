@@ -24,11 +24,7 @@ class GroupsController < ApplicationController
       @tags = Tag.most_groups(current_domain.territory, 10).shuffle
     end
 
-    params[:interest_border_obj] = @interest_border = if params[:interest_border].nil?
-                                                        InterestBorder.find_or_create_by(territory: current_domain.territory)
-                                                      else
-                                                        InterestBorder.find_or_create_by_key(params[:interest_border])
-                                                      end
+    params[:interest_border] ||= InterestBorder.to_key(current_domain.territory)
 
     @groups = Group.look(params)
     respond_to do |format|
@@ -91,11 +87,12 @@ class GroupsController < ApplicationController
       select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').
       group(' MONTH, YEAR ').
       order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
+    # TODO: slow query. remove eager loading
     @last_topics = @group.topics.
-      accessible_by(Ability.new(current_user), :index, false).
+      accessible_by(Ability.new(current_user)).
       includes(:views, :forum).order('frm_topics.created_at desc').limit(10)
     @next_events = @group.events.
-      accessible_by(Ability.new(current_user), :index, false).next.
+      accessible_by(Ability.new(current_user)).next.
       order('starttime asc').limit(4)
   end
 
@@ -261,11 +258,7 @@ class GroupsController < ApplicationController
         end
       end
     else
-      if @group.request_by_portavoce?
-        @request.group_participation_request_status_id = 4
-      else
-        @request.group_participation_request_status_id = 2
-      end
+      @request.group_participation_request_status_id = @group.request_by_portavoce? ? 4 : 2
       saved = @request.save
       if !saved
         flash[:error] = t('error.group_participations.error_saving')
@@ -280,11 +273,11 @@ class GroupsController < ApplicationController
           end
         end
       else
-        if @group.request_by_portavoce?
-          flash[:notice] = t('info.group_participations.status_declined')
-        else
-          flash[:notice] = t('info.group_participations.status_voting')
-        end
+        flash[:notice] = if @group.request_by_portavoce?
+                           t('info.group_participations.status_declined')
+                         else
+                           t('info.group_participations.status_voting')
+                         end
         respond_to do |format|
           format.html do
             redirect_to group_url(@group)

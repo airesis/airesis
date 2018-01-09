@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
     rescue_from ActionController::RoutingError, with: :render_404
     rescue_from ActionController::UnknownController, with: :render_404
     rescue_from ::AbstractController::ActionNotFound, with: :render_404
-    rescue_from Errno::ECONNREFUSED, with: :solr_unavailable
     rescue_from I18n::InvalidLocale, with: :invalid_locale
   end
 
@@ -111,11 +110,11 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_domain
-    if params[:l].present?
-      @current_domain = SysLocale.find_by_key(params[:l])
-    else
-      @current_domain = SysLocale.find_by(host: request.domain, lang: nil) || SysLocale.default
-    end
+    @current_domain = if params[:l].present?
+                        SysLocale.find_by_key(params[:l])
+                      else
+                        SysLocale.find_by(host: request.domain, lang: nil) || SysLocale.default
+                      end
   end
 
   attr_reader :current_domain
@@ -209,25 +208,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def solr_unavailable(exception)
-    log_error(exception)
-    respond_to do |format|
-      format.js do
-        flash.now[:error] = 'Sorry. Service unavailable. Try again in few minutes.'
-        render template: '/errors/solr_unavailable.js.erb', status: 500, layout: 'application'
-      end
-      format.html do
-        render template: '/errors/solr_unavailable.html.erb', status: 500, layout: 'application'
-      end
-    end
-  end
-
   def render_404(exception = nil)
     log_error(exception) if exception
     respond_to do |format|
       format.js do
         flash.now[:error] = 'Page not available.'
-        render template: '/errors/solr_unavailable.js.erb', status: 404, layout: 'application'
+        render template: '/errors/invalid_locale.js.erb', status: 404, layout: 'application'
       end
       format.html { render 'errors/404', status: 404, layout: 'application' }
     end
@@ -261,9 +247,7 @@ class ApplicationController < ActionController::Base
     today = Date.today
     # Difference in years, less one if you have not had a birthday this year.
     a = today.year - birthdate.year
-    a -= 1 if birthdate.month > today.month ||
-        (birthdate.month >= today.month && birthdate.day > today.day)
-
+    a -= 1 if birthdate.month > today.month || (birthdate.month >= today.month && birthdate.day > today.day)
     a
   end
 
@@ -374,11 +358,11 @@ class ApplicationController < ActionController::Base
         # if it's lateral show a message, else show show another message
         if @proposal_comment.paragraph
           @section = @proposal_comment.paragraph.section
-          if params[:right]
-            flash[:notice] = t('info.proposal.contribute_added')
-          else
-            flash[:notice] = t('info.proposal.contribute_added_right', section: @section.title)
-          end
+          flash[:notice] = if params[:right]
+                             t('info.proposal.contribute_added')
+                           else
+                             t('info.proposal.contribute_added_right', section: @section.title)
+                           end
         else
           flash[:notice] = t('info.proposal.contribute_added')
         end

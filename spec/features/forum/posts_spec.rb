@@ -158,6 +158,7 @@ describe 'posts', type: :feature, js: true do
           visit group_forum_topic_path(group, forum, topic)
           within_first_post do
             click_link('Delete')
+            page.driver.browser.switch_to.alert.accept
           end
           expect(page).to have_content('Your post has been deleted')
         end
@@ -178,6 +179,7 @@ describe 'posts', type: :feature, js: true do
           expect(Frm::Topic.count).to eq 1
           within_first_post do
             click_link('Delete')
+            page.driver.browser.switch_to.alert.accept
           end
           expect(page).to have_content(I18n.t('frm.post.deleted_with_topic'))
           expect(Frm::Topic.count).to eq 0
