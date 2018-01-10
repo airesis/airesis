@@ -102,11 +102,6 @@ sr-CS:
       search_participant:
         role_id: Funkcija
         keywords: Ime ili prezime
-      sys_movement:
-        sys_movement_type_id: Vrsta
-        made_on: Urađeno
-        amount: Iznos
-        sys_currency_id: Valuta
       user:
         name: Ime
         email: E-pošta

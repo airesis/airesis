@@ -2,10 +2,6 @@ class AreaRole < ActiveRecord::Base
   has_many :area_participations
   has_many :users, through: :area_participations
 
-  # TODO: remove those two
-  has_many :area_action_abilitations, dependent: :destroy
-  has_many :area_actions, class_name: 'GroupAction', through: :area_action_abilitations, source: :group_action
-
   belongs_to :group_area
 
   validates_uniqueness_of :name, scope: :group_area_id

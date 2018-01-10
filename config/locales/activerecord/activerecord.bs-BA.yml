@@ -94,11 +94,6 @@ bs-BA:
         vote_good_score: Odobrenje
       search_participant:
         role_id: Funkcija
-      sys_movement:
-        sys_movement_type_id: Tip
-        made_on: Urađeno
-        amount: Iznos
-        sys_currency_id: Valuta
       user:
         email: E-mail
         password: Lozinka

@@ -94,11 +94,6 @@ de-DE:
         vote_good_score: Zustimmung
       search_participant:
         role_id: Rolle
-      sys_movement:
-        sys_movement_type_id: Typ
-        made_on: Gemacht auf
-        amount: Betrag
-        sys_currency_id: Währung
       user:
         email: E-Mail-Adresse
         password: Passwort

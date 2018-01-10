@@ -94,11 +94,6 @@ el-GR:
         vote_good_score: Έγκριση
       search_participant:
         role_id: Ρόλος
-      sys_movement:
-        sys_movement_type_id: Τύπος
-        made_on: Έγινε από
-        amount: Ποσό
-        sys_currency_id: Nόμισμα
       user:
         email: Διεύθυνση ηλεκτρονικού ταχυδρομείου
         password: Κωδικός

@@ -4,10 +4,6 @@ class ParticipationRole < ActiveRecord::Base
   has_many :group_participations
   has_many :users, through: :group_participations, class_name: 'User'
 
-  # TODO: remove those two
-  has_many :action_abilitations, dependent: :destroy
-  has_many :group_actions, class_name: 'GroupAction', through: :action_abilitations
-
   belongs_to :group
 
   scope :common, -> { where(id: ParticipationRole.admin.id) }

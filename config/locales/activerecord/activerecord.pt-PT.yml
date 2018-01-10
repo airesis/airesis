@@ -94,11 +94,6 @@ pt-PT:
         vote_good_score: Aprovação
       search_participant:
         role_id: Função
-      sys_movement:
-        sys_movement_type_id: Tipo
-        made_on: Feito em
-        amount: Quantia
-        sys_currency_id: Moeda
       user:
         email: Endereço de e-mail
         password: Senha

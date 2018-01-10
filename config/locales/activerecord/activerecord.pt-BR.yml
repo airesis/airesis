@@ -72,9 +72,6 @@ pt-BR:
         percentage_title: Número mínimo de participantes na discussão como uma percentagem do número de participantes no grupo
         good_score_title: Avaliação necessaria para que a proposta passe a fase de votação
         condition: Condição
-      sys_movement:
-        sys_movement_type_id: Tipo
-        sys_currency_id: Moeda
       user:
         email: Endereço de e-mail
         password: Senha
