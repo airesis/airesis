@@ -38,27 +38,27 @@ hu-HU:
       election:
         description: választás
     group_actions:
-      STREAM_POST:
+      write_to_wall:
         description: Közzététel a csoport oldalán
-      CREATE_EVENT:
+      create_events:
         description: Meetup események létrehozása
-      PROPOSAL:
+      support_proposals:
         description: Támogassa az indítványokat a csoport nevében
-      REQUEST_ACCEPT:
+      accept_participation_requests:
         description: Új tagok felvétele a csoportba
-      PROPOSAL_VIEW:
+      view_proposals:
         description: Privát javaslatok megtekintése
-      PROPOSAL_PARTICIPATION:
+      participate_proposals:
         description: Közreműködés az indítványokban
-      PROPOSAL_INSERT:
+      insert_proposals:
         description: Új indítvány a csoportba
-      DOCUMENT_VIEW:
+      view_documents:
         description: Dokumentumok megtekintése
-      DOCUMENT_MANAGE:
+      manage_documents:
         description: Dokumentumok kezelése
-      PROPOSAL_VOTE:
+      vote_proposals:
         description: Szavazás indítványokra
-      PROPOSAL_DATE:
+      choose_date_proposals:
         description: Szavazási események létrehozása
     notification_categories:
       MYPROP:

@@ -808,7 +808,6 @@ ro-RO:
       search_participants: Căutare finalizată. Rezultate de căutare actualizate
     participation_roles:
       role_updated: Rolul actualizat cu succes
-      permissions_updated: Permisiunile actualizate
       role_created: Rolul creat cu succes
       role_changed: Rolul modificat cu succes
       role_deleted: Rol şters cu succes

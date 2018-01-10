@@ -43,25 +43,6 @@ class AreaRolesController < ApplicationController
     flash[:notice] = t('info.participation_roles.role_deleted')
   end
 
-  def change
-    AreaActionAbilitation.transaction do
-      if params[:block] == 'true' # devo togliere i permessi
-        abilitation = @area_role.area_action_abilitations.find_by(group_action_id: params[:action_id], group_area_id: params[:group_area_id])
-        if abilitation
-          abilitation.destroy
-          flash[:notice] = t('info.participation_roles.permissions_updated')
-        end
-      else # devo abilitare
-        abilitation = @area_role.area_action_abilitations.find_or_create_by(group_action_id: params[:action_id], group_area_id: params[:group_area_id])
-        flash[:notice] = t('info.participation_roles.permissions_updated')
-      end
-    end
-
-    respond_to do |format|
-      format.js { render 'layouts/success' }
-    end
-  end
-
   def change_permissions
     gp = @group_area.area_participations.find_by(user_id: params[:user_id])
     gp.area_role_id = @area_role.id
@@ -75,7 +56,9 @@ class AreaRolesController < ApplicationController
   protected
 
   def area_role_params
-    params[:area_role].permit(:name, :description)
+    params[:area_role].
+      permit(:name, :description,
+             :view_proposals, :participate_proposals, :insert_proposals, :vote_proposals, :choose_date_proposals)
   end
 
   def load_group_area

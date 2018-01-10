@@ -1,5 +1,5 @@
 RSpec.configure do |config|
-  excluded_tables = %w(event_types group_actions group_participation_request_statuses notification_categories notification_types proposal_categories proposal_states proposal_types ranking_types tutorials steps user_types participation_roles action_abilitations vote_types proposal_votation_types configurations)
+  excluded_tables = %w(event_types group_participation_request_statuses notification_categories notification_types proposal_categories proposal_states proposal_types ranking_types tutorials steps user_types participation_roles vote_types proposal_votation_types configurations)
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:deletion, except: excluded_tables)

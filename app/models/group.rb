@@ -56,8 +56,6 @@ class Group < ActiveRecord::Base
   has_many :proposal_supports, class_name: 'ProposalSupport', dependent: :destroy
   has_many :supported_proposals, through: :proposal_supports, class_name: 'Proposal'
 
-  has_many :action_abilitations, class_name: 'ActionAbilitation'
-
   has_many :group_proposals, class_name: 'GroupProposal', dependent: :destroy
   has_many :proposals, through: :group_proposals, class_name: 'Proposal', source: :proposal
 
@@ -132,10 +130,10 @@ class Group < ActiveRecord::Base
       copy.save!
       group_quorums.build(quorum_id: copy.id)
     end
-    role = participation_roles.build(name: default_role_name, description: I18n.t('pages.groups.edit_permissions.default_role'))
-    default_role_actions.each do |action_id|
-      abilitation = role.action_abilitations.build(group_action_id: action_id)
-    end if default_role_actions
+
+    active_actions = Hash[default_role_actions.map { |a| [a, true] }]
+    role = participation_roles.build(active_actions.merge(name: default_role_name,
+                                                          description: I18n.t('pages.groups.edit_permissions.default_role')))
     role.save!
     self.participation_role_id = role.id
     self.max_storage_size = UPLOAD_LIMIT_GROUPS / 1024
@@ -143,8 +141,6 @@ class Group < ActiveRecord::Base
 
   def after_populate
     default_role.update_attribute(:group_id, id)
-    ids = default_role.action_abilitations.pluck(:id)
-    ActionAbilitation.where(id: ids).update_all(group_id: id)
 
     # create default forums
     private = categories.create(name: I18n.t('frm.admin.categories.default_private'), visible_outside: false)
@@ -170,11 +166,10 @@ class Group < ActiveRecord::Base
   end
 
   # utenti che possono eseguire un'azione
-  def scoped_participants(action_id)
+  def scoped_participants(action)
     participants.
-      joins(" join participation_roles on group_participations.participation_role_id = participation_roles.id
-            join action_abilitations on participation_roles.id = action_abilitations.participation_role_id").
-      where(action_abilitations: { group_action_id: action_id }).
+      joins('JOIN participation_roles on group_participations.participation_role_id = participation_roles.id').
+      where("participation_roles.#{action} = true").
       uniq
   end
 

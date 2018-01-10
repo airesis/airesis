@@ -38,27 +38,27 @@ id-ID:
       election:
         description: pemilihan
     group_actions:
-      STREAM_POST:
+      write_to_wall:
         description: Tulis di Dinding Grup
-      CREATE_EVENT:
+      create_events:
         description: Buat kegiatan pertemuan
-      PROPOSAL:
+      support_proposals:
         description: Dukung proposal atas nama grup
-      REQUEST_ACCEPT:
+      accept_participation_requests:
         description: Tambahkan anggota baru ke grup
-      PROPOSAL_VIEW:
+      view_proposals:
         description: Lihat proposal tertutup
-      PROPOSAL_PARTICIPATION:
+      participate_proposals:
         description: Bantu proposal
-      PROPOSAL_INSERT:
+      insert_proposals:
         description: Masukkan proposal baru ke dalam grup
-      DOCUMENT_VIEW:
+      view_documents:
         description: Lihat dokumen
-      DOCUMENT_MANAGE:
+      manage_documents:
         description: Kelola dokumen
-      PROPOSAL_VOTE:
+      vote_proposals:
         description: Vote proposal
-      PROPOSAL_DATE:
+      choose_date_proposals:
         description: Buat kegiatan vote
     notification_categories:
       MYPROP:

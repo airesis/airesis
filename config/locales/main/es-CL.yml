@@ -1223,7 +1223,6 @@ es-CL:
         "false": Liberar el post destacado
     participation_roles:
       role_updated: Rol actualizado correctamente
-      permissions_updated: Permisos actualizados
       role_created: Papel creado correctamente
       role_changed: Papel cambiado correctamente
       role_deleted: Papel borrado con éxito

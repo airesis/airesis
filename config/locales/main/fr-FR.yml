@@ -1195,7 +1195,6 @@ fr-FR:
         "true": Commentaire prioritaire
     participation_roles:
       role_updated: Rôle mis à jour avec succès
-      permissions_updated: Autorisations mises à jour
       role_created: Rôle créé avec succès
       role_changed: Rôle modifié avec succès
       role_deleted: Rôle supprimé avec succès

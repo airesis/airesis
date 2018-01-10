@@ -39,7 +39,7 @@ module Abilities
       can [:index, :list, :edit_list, :left_list, :show_all_replies, :manage_noise, :mark_noise], ProposalComment
       can [:show, :history, :report], ProposalComment, user_id: user.id
       can [:show, :history, :report], ProposalComment,
-          proposal: { groups: can_do_on_group(user, GroupAction::PROPOSAL_VIEW) }
+          proposal: { groups: can_do_on_group(user, :view_proposals) }
 
       create_proposal_comment_permissions(user)
 
@@ -57,7 +57,7 @@ module Abilities
 
     def create_proposal_comment_permissions(user)
       can :create, ProposalComment, proposal: { private: false }
-      can :create, ProposalComment, proposal: { groups: can_do_on_group(user, GroupAction::PROPOSAL_PARTICIPATION) }
+      can :create, ProposalComment, proposal: { groups: can_do_on_group(user, :participate_proposals) }
 
       cannot :create, ProposalComment do |_proposal_comment|
         LIMIT_COMMENTS &&
@@ -73,20 +73,20 @@ module Abilities
       can :create, Proposal do |proposal|
         proposal.group_proposals.empty?
       end
-      can :create, Proposal, group_proposals: { group: can_do_on_group(user, GroupAction::PROPOSAL_INSERT) }
+      can :create, Proposal, group_proposals: { group: can_do_on_group(user, :insert_proposals) }
 
       #can :read, Proposal,
       # can see proposals in groups in which has permission, not belonging to any area
-      can :read, Proposal, group_proposals: { group: can_do_on_group(user, GroupAction::PROPOSAL_VIEW) }
+      can :read, Proposal, group_proposals: { group: can_do_on_group(user, :view_proposals) }
 
       # TODO: slows down performances on proposals lists.
       # needs to be reactivated to enable group areas.
-      # # but can't see proposals in presentation areas. it will be allowed in next condition
-      # # TODO o it for lists as well. create a scope.
-      # cannot :read, Proposal, private: true, visible_outside: false, area_private: true
-      #
-      # # can see proposals in group areas in which has permission
-      # can :read, Proposal, presentation_areas: can_do_on_group_area(user, GroupAction::PROPOSAL_VIEW)
+      # but can't see proposals in presentation areas. it will be allowed in next condition
+      # TODO o it for lists as well. create a scope.
+      cannot :read, Proposal, private: true, visible_outside: false, area_private: true
+
+      # can see proposals in group areas in which has permission
+      can :read, Proposal, presentation_areas: can_do_on_group_area(user, :view_proposals)
 
       # can see all proposals if is admin
       can :read, Proposal, groups: admin_of_group?(user)
@@ -111,12 +111,12 @@ module Abilities
       # he can participate to public proposals
       can :participate, Proposal, private: false
       # in groups
-      can :participate, Proposal, group_proposals: { group: can_do_on_group(user, GroupAction::PROPOSAL_PARTICIPATION) }
+      can :participate, Proposal, group_proposals: { group: can_do_on_group(user, :participate_proposals) }
 
       # but can't see proposals in presentation areas. it will be allowed in next condition
       cannot :participate, Proposal, area_private: true
       # in areas
-      can :participate, Proposal, presentation_areas: can_do_on_group_area(user, GroupAction::PROPOSAL_PARTICIPATION)
+      can :participate, Proposal, presentation_areas: can_do_on_group_area(user, :participate_proposals)
 
       # can never participate if not in valutation or voted
       cannot :participate, Proposal,
@@ -127,13 +127,13 @@ module Abilities
 
       can :vote, Proposal,
           proposal_state_id: ProposalState::VOTING,
-          group_proposals: { group: can_do_on_group(user, GroupAction::PROPOSAL_VOTE) }
+          group_proposals: { group: can_do_on_group(user, :vote_proposals) }
 
       cannot :vote, Proposal, area_private: true
 
       can :vote, Proposal,
           proposal_state_id: ProposalState::VOTING,
-          presentation_areas: can_do_on_group_area(user, GroupAction::PROPOSAL_VOTE)
+          presentation_areas: can_do_on_group_area(user, :vote_proposals)
 
       # can't vote if has already voted
       cannot :vote, Proposal, user_votes: { user_id: user.id }
@@ -144,13 +144,13 @@ module Abilities
         (proposal.updated_at < (Time.now - OTHERS_CHOOSE_VOTE_DATE_DAYS.days)) &&
           (!proposal.private? ||
           (proposal.private? &&
-            can_do_on_group?(user, proposal.groups.first, GroupAction::PROPOSAL_DATE)))
+            can_do_on_group?(user, proposal.groups.first, :choose_date_proposals)))
       end
 
       can :regenerate, Proposal, proposal_state_id: ProposalState::ABANDONED, private: false
       can :regenerate, Proposal,
           proposal_state_id: ProposalState::ABANDONED,
-          group_proposals: { group: can_do_on_group(user, GroupAction::PROPOSAL_INSERT) }
+          group_proposals: { group: can_do_on_group(user, :insert_proposals) }
 
       can :destroy, Proposal do |proposal|
         (proposal.users.include? user) &&

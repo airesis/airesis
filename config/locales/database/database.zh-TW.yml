@@ -38,25 +38,25 @@ zh-TW:
       election:
         description: 選舉
     group_actions:
-      STREAM_POST:
+      write_to_wall:
         description: 發表在群組牆上
-      CREATE_EVENT:
+      create_events:
         description: 建立實體活動
-      PROPOSAL:
+      support_proposals:
         description: 以群組的名義支持此議案
-      REQUEST_ACCEPT:
+      accept_participation_requests:
         description: 在群組中增加新成員
-      PROPOSAL_VIEW:
+      view_proposals:
         description: 檢視私人提案
-      PROPOSAL_INSERT:
+      insert_proposals:
         description: 在群組中插入新的提案
-      DOCUMENT_VIEW:
+      view_documents:
         description: 檢視文件
-      DOCUMENT_MANAGE:
+      manage_documents:
         description: 管理文件
-      PROPOSAL_VOTE:
+      vote_proposals:
         description: 表決提案
-      PROPOSAL_DATE:
+      choose_date_proposals:
         description: 建立投票活動
     notification_categories:
       MYPROP:

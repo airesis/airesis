@@ -17,9 +17,24 @@
               <%= t('buttons.edit') %>
           <% end %>
           <h4><%= role.description %></h4>
-          <% GroupAction.for_group_areas.order(:seq).each do |action| %>
-              <input type="checkbox" data-area-action-abilitation data-area_role_id=<%= role.id %>  data-action_id=<%= action.id %> <%= 'checked="true"' if role.area_actions.include? action %>/>
-              <span><%= action.description %></span> <br/>
+
+          <%= simple_form_for [@group, @group_area, role], remote: true do |f| %>
+              <input type="hidden" name="no_refresh" value="1" />
+              <%= f.input :view_proposals,
+                          label: I18n.t('db.group_actions.view_proposals.description'),
+                          input_html: { data: { area_action_abilitation: '' } } %>
+              <%= f.input :participate_proposals,
+                          label: I18n.t('db.group_actions.participate_proposals.description'),
+                          input_html: { data: { area_action_abilitation: '' } } %>
+              <%= f.input :vote_proposals,
+                          label: I18n.t('db.group_actions.vote_proposals.description'),
+                          input_html: { data: { area_action_abilitation: '' } } %>
+              <%= f.input :insert_proposals,
+                          label: I18n.t('db.group_actions.insert_proposals.description'),
+                          input_html: { data: { area_action_abilitation: '' } } %>
+              <%= f.input :choose_date_proposals,
+                          label: I18n.t('db.group_actions.choose_date_proposals.description'),
+                          input_html: { data: { area_action_abilitation: '' } } %>
           <% end %>
         </div>
       </dd>

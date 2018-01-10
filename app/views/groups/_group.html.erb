@@ -50,10 +50,10 @@
             <%= t('pages.groups.new.change_permissions_description') %>
           </div>
 
-          <% GroupAction.all.each do |action| %>
-              <%= f.label action.description do %>
-                  <%= f.check_box :default_role_actions, { multiple: true }, action.id, nil %>
-                  <%= action.description %>
+          <% GroupAction::LIST.each do |action| %>
+              <%= f.label action do %>
+                  <%= f.check_box :default_role_actions, { multiple: true }, action, nil %>
+                  <%= I18n.t("db.group_actions.#{action}.description") %>
               <% end %>
 
           <% end %>

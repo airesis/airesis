@@ -1315,7 +1315,6 @@ en-US:
       post_removed: "The post has been removed from the group Wall"
     participation_roles:
       role_updated: "Role successfully updated"
-      permissions_updated: "Permissions updated"
       role_created: "Role successfully created"
       role_changed: "Role successfully changed"
       role_deleted: "Role successfully deleted"

@@ -90,27 +90,27 @@ sr-CS:
       election:
         description: izbor
     group_actions:
-      STREAM_POST:
+      write_to_wall:
         description: Poruka na zidu grupe
-      CREATE_EVENT:
+      create_events:
         description: Organizovanje neformalnih sastanaka
-      PROPOSAL:
+      support_proposals:
         description: Podrška predlozima u ime grupe
-      REQUEST_ACCEPT:
+      accept_participation_requests:
         description: Dodavanje novih članova u grupu
-      PROPOSAL_VIEW:
+      view_proposals:
         description: Vidite privatne predloge
-      PROPOSAL_PARTICIPATION:
+      participate_proposals:
         description: Doprinesite predlozima
-      PROPOSAL_INSERT:
+      insert_proposals:
         description: Ubacite nove predloge u grupu
-      DOCUMENT_VIEW:
+      view_documents:
         description: Pogledajte dokumenta
-      DOCUMENT_MANAGE:
+      manage_documents:
         description: Upravljajte dokumentima
-      PROPOSAL_VOTE:
+      vote_proposals:
         description: Glasajte za predloge
-      PROPOSAL_DATE:
+      choose_date_proposals:
         description: Kreirajte glasačke događaje
     notification_categories:
       MYPROP:

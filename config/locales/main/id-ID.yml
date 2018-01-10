@@ -1224,7 +1224,6 @@ id-ID:
         "false": Tulisan tidak disematkan lagi
     participation_roles:
       role_updated: Peran berhasil diperbarui
-      permissions_updated: Hak izin telah diperbarui
       role_created: Peran berhasil dibuat
       role_changed: Peran berhasil diubah
       role_deleted: Peran berhasil dihapus

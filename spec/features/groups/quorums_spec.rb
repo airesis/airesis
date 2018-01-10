@@ -20,7 +20,7 @@ describe 'check if quorums are working correctly', type: :feature, js: true do
     end
     # we now have 50 users in the group which can participate into a proposal
 
-    expect(group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count).to be(50)
+    expect(group.scoped_participants(:participate_proposals).count).to be(50)
     proposal # we create the proposal with the assigned quorum
     expect(proposal.quorum.valutations).to be (5 + 1) # calculated is ()0.1*50) + 1
     expect(proposal.quorum.good_score).to be 50 # copied
@@ -47,7 +47,7 @@ describe 'check if quorums are working correctly', type: :feature, js: true do
     proposal.reload
     expect(proposal.voting?).to be_truthy
 
-    expect(group.scoped_participants(GroupAction::PROPOSAL_VOTE).count).to be(50)
+    expect(group.scoped_participants(:vote_proposals).count).to be(50)
     expect(proposal.is_schulze?).to be_falsey
     expect(proposal.is_petition?).to be_falsey
 

@@ -9,7 +9,7 @@ class NotificationParticipationRequestCreate < NotificationSender
     data[:subdomain] = group.subdomain if group.certified?
     notification_a = Notification.create(notification_type_id: NotificationType::NEW_PARTICIPATION_REQUEST,
                                          url: group_url(group), data: data)
-    group.scoped_participants(GroupAction::REQUEST_ACCEPT).each do |receiver|
+    group.scoped_participants(:accept_participation_requests).each do |receiver|
       send_notification_to_user(notification_a, receiver)
     end
   end

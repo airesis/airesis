@@ -1221,7 +1221,6 @@ bo-BT:
         "false": crwdns8401:0crwdne8401:0
     participation_roles:
       role_updated: crwdns7712:0crwdne7712:0
-      permissions_updated: crwdns7713:0crwdne7713:0
       role_created: crwdns7714:0crwdne7714:0
       role_changed: crwdns7715:0crwdne7715:0
       role_deleted: crwdns7716:0crwdne7716:0

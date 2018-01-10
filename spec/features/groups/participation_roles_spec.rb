@@ -100,11 +100,11 @@ describe 'the management of participation roles in a group', type: :feature, js:
       visit group_participation_roles_path(@group)
       within("#role_#{@group.participation_roles.first.id}") do
         DEFAULT_GROUP_ACTIONS.each do |group_action|
-          find(:css, "[data-action_id='#{group_action}']").click
+          find(:css, "#participation_role_#{group_action}").click
         end
       end
       wait_for_ajax
-      expect(page).to have_content(I18n.t('info.participation_roles.permissions_updated'))
+      expect(page).to have_content(I18n.t('info.participation_roles.role_updated'))
     end
   end
 end

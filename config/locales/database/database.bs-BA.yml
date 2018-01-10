@@ -38,27 +38,27 @@ bs-BA:
       election:
         description: izbor
     group_actions:
-      STREAM_POST:
+      write_to_wall:
         description: Post na zidu grupe
-      CREATE_EVENT:
+      create_events:
         description: Kreiranje meetup događaja
-      PROPOSAL:
+      support_proposals:
         description: Podrška za prijedloge u ime grupe
-      REQUEST_ACCEPT:
+      accept_participation_requests:
         description: Dodavanje novih članova u grupi
-      PROPOSAL_VIEW:
+      view_proposals:
         description: Prikaz privatnih prijedloga
-      PROPOSAL_PARTICIPATION:
+      participate_proposals:
         description: Doprinesite prijedlogu
-      PROPOSAL_INSERT:
+      insert_proposals:
         description: Umetanje novih prijedloga u grupi
-      DOCUMENT_VIEW:
+      view_documents:
         description: Pregledavanje dokumenata
-      DOCUMENT_MANAGE:
+      manage_documents:
         description: Upravljanje dokumentima
-      PROPOSAL_VOTE:
+      vote_proposals:
         description: Glasajte za prijedloge
-      PROPOSAL_DATE:
+      choose_date_proposals:
         description: Kreiranje događaja za glasanje
     notification_categories:
       MYPROP:

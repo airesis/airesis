@@ -38,27 +38,27 @@ ru-RU:
       election:
         description: выборы
     group_actions:
-      STREAM_POST:
+      write_to_wall:
         description: Сообщение на стене группы
-      CREATE_EVENT:
+      create_events:
         description: Создать мероприятия
-      PROPOSAL:
+      support_proposals:
         description: Поддержать предложения от имени группы
-      REQUEST_ACCEPT:
+      accept_participation_requests:
         description: Добавить новых участников в группу
-      PROPOSAL_VIEW:
+      view_proposals:
         description: Просмотреть частные предложения
-      PROPOSAL_PARTICIPATION:
+      participate_proposals:
         description: Внесите свои предложения
-      PROPOSAL_INSERT:
+      insert_proposals:
         description: Добавьте новые предложения в группу
-      DOCUMENT_VIEW:
+      view_documents:
         description: Просмотр документов
-      DOCUMENT_MANAGE:
+      manage_documents:
         description: Управление документами
-      PROPOSAL_VOTE:
+      vote_proposals:
         description: Голосование
-      PROPOSAL_DATE:
+      choose_date_proposals:
         description: Дата создания
     notification_categories:
       MYPROP:

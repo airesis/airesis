@@ -214,7 +214,7 @@ class BestQuorum < Quorum
   def min_participants_pop
     percentage_f = percentage.to_f
     count = if group
-              percentage_f * 0.01 * group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count # TODO: group areas
+              percentage_f * 0.01 * group.scoped_participants(:participate_proposals).count # TODO: group areas
             else
               percentage_f * 0.001 * User.count
             end
@@ -224,7 +224,7 @@ class BestQuorum < Quorum
   def min_vote_participants_pop
     vote_percentage_f = vote_percentage.to_f
     count = if group
-              vote_percentage_f * 0.01 * group.scoped_participants(GroupAction::PROPOSAL_VOTE).count # TODO: group areas
+              vote_percentage_f * 0.01 * group.scoped_participants(:vote_proposals).count # TODO: group areas
             else
               vote_percentage_f * 0.001 * User.count
             end

@@ -90,27 +90,27 @@ en-EU:
       election:
         description: election
     group_actions:
-      STREAM_POST:
+      write_to_wall:
         description: Post on the Group Wall
-      CREATE_EVENT:
+      create_events:
         description: Create meetup events
-      PROPOSAL:
+      support_proposals:
         description: Support proposals on behalf of the group
-      REQUEST_ACCEPT:
+      accept_participation_requests:
         description: Add new members to the group
-      PROPOSAL_VIEW:
+      view_proposals:
         description: View private proposals
-      PROPOSAL_PARTICIPATION:
+      participate_proposals:
         description: Contribute to the proposals
-      PROPOSAL_INSERT:
+      insert_proposals:
         description: Insert new proposals in the group
-      DOCUMENT_VIEW:
+      view_documents:
         description: View documents
-      DOCUMENT_MANAGE:
+      manage_documents:
         description: Manage documents
-      PROPOSAL_VOTE:
+      vote_proposals:
         description: Vote proposals
-      PROPOSAL_DATE:
+      choose_date_proposals:
         description: Create vote events
     notification_categories:
       MYPROP:

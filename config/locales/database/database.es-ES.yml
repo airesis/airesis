@@ -36,21 +36,21 @@ es-ES:
       election:
         description: elecciones
     group_actions:
-      STREAM_POST:
+      write_to_wall:
         description: Publicar en el muro del grupo
-      PROPOSAL:
+      support_proposals:
         description: Apoya propuestas en nombre del grupo
-      REQUEST_ACCEPT:
+      accept_participation_requests:
         description: Añadir a nuevos miembros al grupo
-      PROPOSAL_VIEW:
+      view_proposals:
         description: Ver propuestas privadas
-      PROPOSAL_INSERT:
+      insert_proposals:
         description: Insertar nuevas propuestas en el grupo
-      DOCUMENT_VIEW:
+      view_documents:
         description: Ver documentos
-      DOCUMENT_MANAGE:
+      manage_documents:
         description: Gestione documentos
-      PROPOSAL_VOTE:
+      vote_proposals:
         description: Vota las propuestas
     notification_categories:
       MYPROP:

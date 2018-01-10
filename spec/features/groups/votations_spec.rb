@@ -50,7 +50,7 @@ el.parents('.vote-items-external').prev('.vote-items-external').find('.vote-item
     end
     # we now have 50 users in the group which can participate into a proposal
 
-    expect(group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count).to be(20)
+    expect(group.scoped_participants(:participate_proposals).count).to be(20)
     proposal # we create the proposal with the assigned quorum
     expect(proposal.quorum.valutations).to be (2 + 1) # calculated is ()0.1*20) + 1
     expect(proposal.quorum.good_score).to be 50 # copied
@@ -77,7 +77,7 @@ el.parents('.vote-items-external').prev('.vote-items-external').find('.vote-item
     proposal.reload
     expect(proposal.voting?).to be_truthy
 
-    expect(group.scoped_participants(GroupAction::PROPOSAL_VOTE).count).to be(20)
+    expect(group.scoped_participants(:vote_proposals).count).to be(20)
 
     expect(Ability.new(user)).to be_able_to(:vote, proposal)
     login_as user, scope: :user
@@ -155,7 +155,7 @@ el.parents('.vote-items-external').prev('.vote-items-external').find('.vote-item
     proposal.reload
     expect(proposal.voting?).to be_truthy
 
-    expect(group.scoped_participants(GroupAction::PROPOSAL_VOTE).count).to be(30)
+    expect(group.scoped_participants(:vote_proposals).count).to be(30)
 
     users = group.participants.sample(4)
     expect(Ability.new(users[0])).to be_able_to(:vote, proposal)
@@ -202,7 +202,7 @@ el.parents('.vote-items-external').prev('.vote-items-external').find('.vote-item
     end
     # we now have 10 users in the group which can participate into a proposal
 
-    expect(group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count).to be(10)
+    expect(group.scoped_participants(:participate_proposals).count).to be(10)
     proposal # we create the proposal with the assigned quorum
     expect(proposal.quorum.valutations).to be(1 + 1) # calculated is (0.1*10) + 1
     expect(proposal.quorum.good_score).to be 50 # copied
@@ -230,7 +230,7 @@ el.parents('.vote-items-external').prev('.vote-items-external').find('.vote-item
     proposal.reload
     expect(proposal.voting?).to be_truthy
 
-    expect(group.scoped_participants(GroupAction::PROPOSAL_VOTE).count).to be(10)
+    expect(group.scoped_participants(:vote_proposals).count).to be(10)
 
     group.participants.sample(4).each do |user1|
       expect(Ability.new(user1)).to be_able_to(:vote, proposal)

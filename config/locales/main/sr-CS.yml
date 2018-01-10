@@ -1242,7 +1242,6 @@ sr-CS:
         "false": Poruka uklonjena
     participation_roles:
       role_updated: Funkcija uspešno ažurirana
-      permissions_updated: Dozvole su ažurirane
       role_created: Funkcija je uspešno kreirana
       role_changed: Funkcija je uspešno promenjena
       role_deleted: Funkcija je uspešno izbrisana

@@ -19,23 +19,6 @@
 
 </div>
 
-<script type="text/javascript">
-    $(document).on('click', '[data-action-abilitation]', function () {
-        var role_id = $(this).data('participation_role_id');
-        var action_id = $(this).data('action_id');
-        var block_ = !this.checked;
-        $.ajax({
-            data: {
-                action_id: action_id,
-                block: block_
-            },
-            url: "/groups/<%=@group.id%>/participation_roles/" + role_id + "/change_group_permission",
-            dataType: 'script',
-            type: 'post'
-        });
-    });
-</script>
-
 <%= content_for :left_panel do %>
     <%= render 'groups/administration_panel' %>
 

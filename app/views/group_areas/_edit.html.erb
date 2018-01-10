@@ -28,18 +28,7 @@
 
 <script type="text/javascript">
     $(document).on('click', '[data-area-action-abilitation]', function () {
-        var role_id = $(this).data('area_role_id');
-        var action_id = $(this).data('action_id');
-        var block_ = !this.checked;
-        $.ajax({
-            data: {
-                action_id: action_id,
-                block: block_
-            },
-            url: "/groups/<%=@group.id%>/group_areas/<%=@group_area.id%>/area_roles/" + role_id + "/change",
-            dataType: 'script',
-            type: 'patch'
-        });
+        $(this).closest('form').submit();
     });
 
     $(function () {

@@ -1,4 +1,15 @@
 class GroupAction < ActiveRecord::Base
+  LIST = [:write_to_wall,
+          :create_events,
+          :support_proposals,
+          :accept_participation_requests,
+          :view_proposals,
+          :participate_proposals,
+          :insert_proposals,
+          :vote_proposals,
+          :choose_date_proposals,
+          :view_documents,
+          :manage_documents]
   # insert posts in groups stream
   STREAM_POST = 1
 
@@ -10,10 +21,6 @@ class GroupAction < ActiveRecord::Base
 
   # accept participation request
   REQUEST_ACCEPT = 4
-
-  # semd candidates to elections
-  # @deprecated
-  SEND_CANDIDATES = 5
 
   # view group private proposals
   PROPOSAL_VIEW = 6
@@ -34,10 +41,6 @@ class GroupAction < ActiveRecord::Base
   # choose date for proposals
   PROPOSAL_DATE = 12
 
-  has_many :action_abilitations, class_name: 'ActionAbilitation', dependent: :destroy
-  has_many :area_action_abilitations, class_name: 'AreaActionAbilitation', dependent: :destroy
-
-  scope :for_group_areas, -> { where(id: DEFAULT_AREA_ACTIONS) }
   scope :excluding_ids, ->(ids) { where.not(id: ids) if ids.any? }
 
   def description

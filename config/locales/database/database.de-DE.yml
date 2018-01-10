@@ -36,25 +36,25 @@ de-DE:
       election:
         description: Wahl
     group_actions:
-      STREAM_POST:
+      write_to_wall:
         description: Post auf der Pinnwand der Gruppe
-      CREATE_EVENT:
+      create_events:
         description: Erstellen von Meetup-Ereignissen
-      PROPOSAL:
+      support_proposals:
         description: Vorschläge im Namen der Gruppe unterstützen
-      REQUEST_ACCEPT:
+      accept_participation_requests:
         description: Fügen Sie der Gruppe neue Mitglieder hinzu
-      PROPOSAL_VIEW:
+      view_proposals:
         description: Private Vorschläge anzeigen
-      PROPOSAL_INSERT:
+      insert_proposals:
         description: Neue Vorschläge in die Gruppe eintragen
-      DOCUMENT_VIEW:
+      view_documents:
         description: Dokumente anzeigen
-      DOCUMENT_MANAGE:
+      manage_documents:
         description: Dokumente verwalten
-      PROPOSAL_VOTE:
+      vote_proposals:
         description: Abstimmung über die Vorschläge
-      PROPOSAL_DATE:
+      choose_date_proposals:
         description: Abstimmung Ereignisse erstellen
     notification_categories:
       MYPROP:
