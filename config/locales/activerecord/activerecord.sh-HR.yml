@@ -37,8 +37,6 @@ sh-HR:
         address: Adresa
       quorum:
         minutes_m: Minuta
-      sys_movement:
-        amount: Iznos
       user:
         blocked: Greška
       group_area:

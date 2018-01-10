@@ -94,11 +94,6 @@ hu-HU:
         vote_good_score: Jóváhagyás
       search_participant:
         role_id: Szerepkör
-      sys_movement:
-        sys_movement_type_id: Típus
-        made_on: Készült
-        amount: Mennyiség
-        sys_currency_id: Pénznem
       user:
         email: E-mail cím
         password: jelszó

@@ -87,11 +87,6 @@ zh-TW:
         vote_minutes: 投票持續
         vote_percentage: (選民)法定人數
         vote_good_score: 核准
-      sys_movement:
-        sys_movement_type_id: 類別
-        made_on: 製作
-        amount: 數量
-        sys_currency_id: 貨幣
       user:
         email: E-mail 位置
         password: 密碼

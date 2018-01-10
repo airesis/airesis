@@ -71,11 +71,11 @@ describe 'the management of participation roles in a group', type: :feature, js:
           click_link participation_role.name if i > 0
           sleep 0.5
           within("#role_#{participation_role.id}") do
-            GroupAction.all.each do |group_action|
-              if DEFAULT_GROUP_ACTIONS.include? group_action.id
-                expect(find(:css, "[data-action_id='#{group_action.id}']")).to be_checked
+            GroupAction::LIST.each do |group_action|
+              if DEFAULT_GROUP_ACTIONS.include? group_action
+                expect(find(:css, "#participation_role_#{group_action}")).to be_checked
               else
-                expect(find(:css, "[data-action_id='#{group_action.id}']")).to_not be_checked
+                expect(find(:css, "#participation_role_#{group_action}")).to_not be_checked
               end
             end
           end

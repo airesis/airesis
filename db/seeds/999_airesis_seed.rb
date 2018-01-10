@@ -172,13 +172,6 @@ SysLocale.create(key: 'sr-SP', host: 'localhost', territory: Country.find_by(des
 SysLocale.create(key: 'sh-HR', host: 'localhost', territory: Country.find_by(description: 'Croatia'), lang: 'sh-HR')
 SysLocale.create(key: 'zh-TW', host: 'localhost', territory: Country.find_by(description: 'China'), lang: 'zh-TW')
 
-SysCurrency.create(description: 'EUR')
-SysCurrency.create(description: 'CHF')
-SysCurrency.create(description: '$')
-
-SysMovementType.create(description: 'Entrata')
-SysMovementType.create(description: 'Uscita')
-
 connection = ActiveRecord::Base.connection
 connection.execute "CREATE OR REPLACE FUNCTION lower_unaccent(text)
     RETURNS text

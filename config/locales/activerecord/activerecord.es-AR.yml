@@ -94,11 +94,6 @@ es-AR:
         vote_good_score: Aprobación
       search_participant:
         role_id: Rol
-      sys_movement:
-        sys_movement_type_id: Tipo
-        made_on: Hecho en
-        amount: Cantidad
-        sys_currency_id: Moneda
       user:
         email: Dirección de correo electrónico
         password: Contraseña

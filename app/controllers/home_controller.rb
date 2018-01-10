@@ -64,11 +64,6 @@ class HomeController < ApplicationController
   def cookie_law
   end
 
-  def movements
-    @income = SysMovement.income
-    @outcome = SysMovement.outcome
-  end
-
   def statistics
     @stat1 = StatNumProposal.extract
   end

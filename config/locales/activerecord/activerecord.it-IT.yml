@@ -104,11 +104,6 @@ it-IT:
       search_participant:
         role_id: Ruolo
         keywords: Nome o cognome
-      sys_movement:
-        sys_movement_type_id: Tipo
-        made_on: Effettuato il
-        amount: Ammontare
-        sys_currency_id: Valuta
       user:
         name: Nome
         email: Indirizzo Email

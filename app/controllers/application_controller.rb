@@ -14,8 +14,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   after_filter :discard_flash_if_xhr
 
-  before_filter :mini_profiler
-
   before_filter :store_location
 
   before_filter :set_current_domain
@@ -422,9 +420,5 @@ class ApplicationController < ActionController::Base
 
   def redirect_url(proposal)
     proposal.private? ? group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal)
-  end
-
-  def mini_profiler
-    Rack::MiniProfiler.authorize_request if Rails.env.development? || current_user.try(:admin?)
   end
 end

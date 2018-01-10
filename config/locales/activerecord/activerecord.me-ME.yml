@@ -94,11 +94,6 @@ me-ME:
         vote_good_score: Odobrenje
       search_participant:
         role_id: Funkcija
-      sys_movement:
-        sys_movement_type_id: Vrsta
-        made_on: Urađeno
-        amount: Iznos
-        sys_currency_id: Valuta
       user:
         email: E-mail adresa
         password: Lozinka

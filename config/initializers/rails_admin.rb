@@ -42,7 +42,7 @@ RailsAdmin.config do |config|
     # history_show
   end
 
-  config.included_models = %w(User Announcement NotificationType SysLocale SysFeature SysMovement
+  config.included_models = %w(User Announcement NotificationType SysLocale SysFeature
                               SysPaymentNotification Configuration ReceivedEmail)
 
   config.model 'SysFeature' do

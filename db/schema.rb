@@ -11,19 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180110105523) do
+ActiveRecord::Schema.define(version: 20180110140324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
-
-  create_table "action_abilitations", force: :cascade do |t|
-    t.integer  "group_action_id"
-    t.integer  "participation_role_id"
-    t.integer  "group_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "alert_jobs", force: :cascade do |t|
     t.integer  "trackable_id",                                 null: false
@@ -63,14 +55,6 @@ ActiveRecord::Schema.define(version: 20180110105523) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "area_action_abilitations", force: :cascade do |t|
-    t.integer  "group_action_id", null: false
-    t.integer  "area_role_id",    null: false
-    t.integer  "group_area_id",   null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
   create_table "area_participations", force: :cascade do |t|
     t.integer  "user_id",       null: false
     t.integer  "group_area_id", null: false
@@ -79,12 +63,16 @@ ActiveRecord::Schema.define(version: 20180110105523) do
     t.datetime "updated_at",    null: false
   end
 
+  add_index "area_participations", ["group_area_id"], name: "area_participations_group_area_id_index", using: :btree
+
   create_table "area_proposals", force: :cascade do |t|
     t.integer  "proposal_id",   null: false
     t.integer  "group_area_id", null: false
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
+
+  add_index "area_proposals", ["proposal_id"], name: "area_proposals_proposal_id_index", using: :btree
 
   create_table "area_roles", force: :cascade do |t|
     t.integer  "group_area_id"
@@ -490,13 +478,6 @@ ActiveRecord::Schema.define(version: 20180110105523) do
     t.string  "type",              limit: 30,  null: false
   end
 
-  create_table "group_actions", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "seq"
-  end
-
   create_table "group_areas", force: :cascade do |t|
     t.integer  "group_id",                        null: false
     t.string   "name",               limit: 255,  null: false
@@ -558,6 +539,7 @@ ActiveRecord::Schema.define(version: 20180110105523) do
   end
 
   add_index "group_participations", ["group_id"], name: "index_group_participations_on_group_id", using: :btree
+  add_index "group_participations", ["participation_role_id"], name: "group_participations_participation_role_id_index", using: :btree
   add_index "group_participations", ["user_id", "group_id"], name: "only_once_per_group", unique: true, using: :btree
   add_index "group_participations", ["user_id"], name: "index_group_participations_on_user_id", using: :btree
 
@@ -568,7 +550,9 @@ ActiveRecord::Schema.define(version: 20180110105523) do
     t.datetime "updated_at"
   end
 
+  add_index "group_proposals", ["group_id"], name: "group_proposals_group_id_index", using: :btree
   add_index "group_proposals", ["proposal_id", "group_id"], name: "index_group_proposals_on_proposal_id_and_group_id", unique: true, using: :btree
+  add_index "group_proposals", ["proposal_id"], name: "group_proposals_proposal_id_index", using: :btree
 
   create_table "group_quorums", force: :cascade do |t|
     t.integer "quorum_id", null: false
@@ -1245,12 +1229,6 @@ ActiveRecord::Schema.define(version: 20180110105523) do
     t.string   "format",      limit: 255, default: "html"
   end
 
-  create_table "sys_currencies", force: :cascade do |t|
-    t.string   "description", limit: 10, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
   create_table "sys_document_types", force: :cascade do |t|
     t.string "description", limit: 255
   end
@@ -1275,23 +1253,6 @@ ActiveRecord::Schema.define(version: 20180110105523) do
     t.string  "territory_type", limit: 255
     t.integer "territory_id"
     t.boolean "default",                    default: false
-  end
-
-  create_table "sys_movement_types", force: :cascade do |t|
-    t.string   "description", limit: 20, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  create_table "sys_movements", force: :cascade do |t|
-    t.integer  "sys_movement_type_id",               null: false
-    t.integer  "sys_currency_id",                    null: false
-    t.datetime "made_on",                            null: false
-    t.integer  "user_id",                            null: false
-    t.float    "amount",                             null: false
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.string   "description",          limit: 10000
   end
 
   create_table "sys_payment_notifications", force: :cascade do |t|
@@ -1506,14 +1467,8 @@ ActiveRecord::Schema.define(version: 20180110105523) do
     t.string "short", limit: 255
   end
 
-  add_foreign_key "action_abilitations", "group_actions", name: "action_abilitations_group_action_id_fk"
-  add_foreign_key "action_abilitations", "groups", name: "action_abilitations_group_id_fk"
-  add_foreign_key "action_abilitations", "participation_roles", name: "action_abilitations_partecipation_role_id_fk"
   add_foreign_key "alerts", "notifications", name: "user_alerts_notification_id_fk"
   add_foreign_key "alerts", "users", name: "user_alerts_user_id_fk"
-  add_foreign_key "area_action_abilitations", "area_roles", name: "area_action_abilitations_area_role_id_fk"
-  add_foreign_key "area_action_abilitations", "group_actions", name: "area_action_abilitations_group_action_id_fk"
-  add_foreign_key "area_action_abilitations", "group_areas", name: "area_action_abilitations_group_area_id_fk"
   add_foreign_key "area_participations", "area_roles", name: "area_partecipations_area_role_id_fk"
   add_foreign_key "area_participations", "group_areas", name: "area_partecipations_group_area_id_fk"
   add_foreign_key "area_participations", "users", name: "area_partecipations_user_id_fk"
@@ -1642,9 +1597,6 @@ ActiveRecord::Schema.define(version: 20180110105523) do
   add_foreign_key "solution_sections", "sections", name: "solution_sections_section_id_fk"
   add_foreign_key "solution_sections", "solutions", name: "solution_sections_solution_id_fk"
   add_foreign_key "solutions", "proposals", name: "solutions_proposal_id_fk"
-  add_foreign_key "sys_movements", "sys_currencies", name: "sys_movements_sys_currency_id_fk"
-  add_foreign_key "sys_movements", "sys_movement_types", name: "sys_movements_sys_movement_type_id_fk"
-  add_foreign_key "sys_movements", "users", name: "sys_movements_user_id_fk"
   add_foreign_key "tutorial_assignees", "tutorials", name: "tutorial_assignees_tutorial_id_fk"
   add_foreign_key "tutorial_assignees", "users", name: "tutorial_assignees_user_id_fk"
   add_foreign_key "tutorial_progresses", "steps", name: "tutorial_progresses_step_id_fk"

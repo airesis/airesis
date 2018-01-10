@@ -33,7 +33,6 @@ Airesis::Application.routes.draw do
   get 'cookie_law' => 'home#cookie_law'
   post 'send_feedback' => 'home#feedback'
   get 'statistics' => 'home#statistics'
-  get 'movements' => 'home#movements'
   get 'school' => 'home#school'
   get 'municipality' => 'home#municipality'
 

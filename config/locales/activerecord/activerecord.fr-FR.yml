@@ -94,11 +94,6 @@ fr-FR:
         vote_good_score: Agrément
       search_participant:
         role_id: Rôle
-      sys_movement:
-        sys_movement_type_id: Type
-        made_on: Fait sur
-        amount: Montant
-        sys_currency_id: Devise
       user:
         email: Adresse de courriel
         password: Mot de passe

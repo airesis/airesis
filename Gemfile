@@ -24,8 +24,6 @@ gem 'mustache'
 gem 'mustache-js-rails'
 gem 'slim-rails'
 
-gem 'rack-mini-profiler', require: false
-
 gem 'daemons'
 
 gem 'rack-cors', :require => 'rack/cors'
@@ -137,6 +135,7 @@ group :development do
   gem 'awesome_print'
   gem 'letter_opener'
   gem 'foreman'
+  gem 'rack-mini-profiler', require: false
   gem 'spring'
   gem 'thin', require: false # required for private_pub
 end
