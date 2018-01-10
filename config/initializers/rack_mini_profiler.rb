@@ -1,6 +1,7 @@
-require 'rack-mini-profiler'
+if Rails.env.development?
+  require 'rack-mini-profiler'
 
-Rack::MiniProfiler.config.position = 'left'
-Rack::MiniProfiler.config.start_hidden = false
-# initialization is skipped so trigger it
-Rack::MiniProfilerRails.initialize!(Rails.application)
+  Rack::MiniProfiler.config.position = 'left'
+  # initialization is skipped so trigger it
+  Rack::MiniProfilerRails.initialize!(Rails.application)
+end
