@@ -36,21 +36,21 @@ ro-RO:
       election:
         description: alegere
     group_actions:
-      STREAM_POST:
+      write_to_wall:
         description: Postează pe peretele grupului
-      PROPOSAL:
+      support_proposals:
         description: Susține propuneri în numele grupului
-      REQUEST_ACCEPT:
+      accept_participation_requests:
         description: Adaugă noi membri la grup
-      PROPOSAL_VIEW:
+      view_proposals:
         description: Vizualizează propunerile private
-      PROPOSAL_INSERT:
+      insert_proposals:
         description: Introdu noi propuneri în grup
-      DOCUMENT_VIEW:
+      view_documents:
         description: Vizualizează documente
-      DOCUMENT_MANAGE:
+      manage_documents:
         description: Gestioneaza documente
-      PROPOSAL_VOTE:
+      vote_proposals:
         description: Votează propuneri
     notification_categories:
       MYPROP:

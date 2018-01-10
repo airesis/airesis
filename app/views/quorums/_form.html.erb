@@ -79,7 +79,7 @@
               <%= raw t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
                         current_number: "<span id=\"participants_number\">1</span>",
                         total_number: @group_participations_count,
-                        average: (@group.statistic.valutations*100 / @group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count).round(2)) %>
+                        average: (@group.statistic.valutations*100 / @group.scoped_participants(:participate_proposals).count).round(2)) %>
 
             </div>
           </div>
@@ -150,7 +150,7 @@
           <div class="row">
             <div class="columns small-12">
               <%= raw t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
-                        current_number: "<span id=\"vote_participants_number\">1</span>", total_number: @vote_participants_count, average: (@group.statistic.vote_valutations*100 / @group.scoped_participants(GroupAction::PROPOSAL_VOTE).count).round(2)) %>
+                        current_number: "<span id=\"vote_participants_number\">1</span>", total_number: @vote_participants_count, average: (@group.statistic.vote_valutations*100 / @group.scoped_participants(:vote_proposals).count).round(2)) %>
             </div>
           </div>
 

@@ -15,9 +15,9 @@ class NotificationProposalCreate < NotificationSender
       if group_area
         data[:group_area_id] = group_area.id.to_s
         data[:group_area] = group_area.name
-        receivers = group_area.scoped_participants(GroupAction::PROPOSAL_VIEW)
+        receivers = group_area.scoped_participants(:view_proposals)
       else
-        receivers = group.scoped_participants(GroupAction::PROPOSAL_VIEW)
+        receivers = group.scoped_participants(:view_proposals)
       end
       notification_a = Notification.create(notification_type_id: NotificationType::NEW_PROPOSALS, url: group_proposal_url(group, @proposal, host: host), data: data)
       receivers.each do |user|

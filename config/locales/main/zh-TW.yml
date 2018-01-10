@@ -795,7 +795,6 @@ zh-TW:
       group_created: 成功建立群組
     participation_roles:
       role_updated: 成功更新角色
-      permissions_updated: 成功修改權限
       role_created: 成功建立角色
       role_changed: 成功修改角色
       role_deleted: 成功刪除角色

@@ -90,27 +90,27 @@ it-IT:
       election:
         description: elezione
     group_actions:
-      STREAM_POST:
+      write_to_wall:
         description: Pubblicare nella Bacheca del gruppo
-      CREATE_EVENT:
+      create_events:
         description: Creare eventi meetup
-      PROPOSAL:
+      support_proposals:
         description: Sostenere proposte a nome del gruppo
-      REQUEST_ACCEPT:
+      accept_participation_requests:
         description: Aggiungere membri nel gruppo
-      PROPOSAL_VIEW:
+      view_proposals:
         description: Visualizzare le proposte private
-      PROPOSAL_PARTICIPATION:
+      participate_proposals:
         description: Contribuire alle proposte
-      PROPOSAL_INSERT:
+      insert_proposals:
         description: Inserire nuove proposte nel gruppo
-      DOCUMENT_VIEW:
+      view_documents:
         description: Visualizzare i documenti
-      DOCUMENT_MANAGE:
+      manage_documents:
         description: Gestire i documenti
-      PROPOSAL_VOTE:
+      vote_proposals:
         description: Votare le proposte
-      PROPOSAL_DATE:
+      choose_date_proposals:
         description: Creare eventi di votazione
     notification_categories:
       MYPROP:

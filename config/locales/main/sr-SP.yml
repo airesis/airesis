@@ -1253,7 +1253,6 @@ sr-SP:
         "false": Порука уклоњена
     participation_roles:
       role_updated: Функција успешно ажурирана
-      permissions_updated: Дозволе су ажуриране
       role_created: Функција је успешно креирана
       role_changed: Функција је успешно промењена
       role_deleted: Функција је успешно избрисана

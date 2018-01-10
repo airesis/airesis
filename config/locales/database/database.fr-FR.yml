@@ -38,27 +38,27 @@ fr-FR:
       election:
         description: élection
     group_actions:
-      STREAM_POST:
+      write_to_wall:
         description: Poster sur le Mur du Groupe
-      CREATE_EVENT:
+      create_events:
         description: Créer des Rendez-vous
-      PROPOSAL:
+      support_proposals:
         description: Soutenir les propositions au nom du groupe
-      REQUEST_ACCEPT:
+      accept_participation_requests:
         description: Ajouter des nouveaux membres au groupe
-      PROPOSAL_VIEW:
+      view_proposals:
         description: Voir les propositions privées
-      PROPOSAL_PARTICIPATION:
+      participate_proposals:
         description: Contribuer aux propositions
-      PROPOSAL_INSERT:
+      insert_proposals:
         description: Insérer des nouvelles propositions dans le groupe
-      DOCUMENT_VIEW:
+      view_documents:
         description: Voir les documents
-      DOCUMENT_MANAGE:
+      manage_documents:
         description: Gérer les documents
-      PROPOSAL_VOTE:
+      vote_proposals:
         description: Voter pour les propositions
-      PROPOSAL_DATE:
+      choose_date_proposals:
         description: Créer des votes
     notification_categories:
       MYPROP:

@@ -1152,7 +1152,6 @@ pt-PT:
       area_updated: Área actualizada
     participation_roles:
       role_updated: Papel atualizado com sucesso
-      permissions_updated: Permissões atualizadas
       role_created: Papel criado com sucesso
       role_changed: Papel alterado com êxito
       role_deleted: Papel apagado com sucesso

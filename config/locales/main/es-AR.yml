@@ -1169,7 +1169,6 @@ es-AR:
       area_updated: Área actualizada
     participation_roles:
       role_updated: Rol actualizado correctamente
-      permissions_updated: Permisos actualizados
       role_created: Rol creado correctamente
       role_changed: Rol cambiado correctamente
       role_deleted: Rol borrado con éxito

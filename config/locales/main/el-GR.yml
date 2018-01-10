@@ -1202,7 +1202,6 @@ el-GR:
       area_updated: Περιοχή ενημερώθηκε
     participation_roles:
       role_updated: Ο ρόλος ενημερώθηκε επιτυχώς
-      permissions_updated: Τα δικαιώματα ενημερώθηκαν
       role_created: Ο ρόλος δημιουργήθηκε επιτυχώς
       role_changed: Ο ρόλος άλλαξε επιτυχώς
       role_deleted: Ο ρόλος διαγράφτηκε επιτυχώς

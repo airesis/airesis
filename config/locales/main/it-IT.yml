@@ -1278,7 +1278,6 @@ it-IT:
         "false": Post sbloccato
     participation_roles:
       role_updated: Ruolo aggiornato correttamente
-      permissions_updated: Permessi aggiornati
       role_created: Ruolo creato correttamente
       role_changed: Ruolo modificato correttamente
       role_deleted: Ruolo eliminato correttamente

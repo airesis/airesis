@@ -16,8 +16,8 @@ class NotificationProposalVoteStarts < NotificationSender
 
     users = group ?
       group_area ?
-        group_area.scoped_participants(GroupAction::PROPOSAL_VOTE) :
-        group.scoped_participants(GroupAction::PROPOSAL_VOTE) :
+        group_area.scoped_participants(:vote_proposals) :
+        group.scoped_participants(:vote_proposals) :
       @proposal.participants
 
     users.each do |user|

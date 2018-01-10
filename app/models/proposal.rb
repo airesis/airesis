@@ -276,7 +276,6 @@ class Proposal < ActiveRecord::Base
     group_participations = GroupParticipation.arel_table
     groups = Group.arel_table
     events = Event.arel_table
-    action_abilitations = ActionAbilitation.arel_table
     participation_roles = ParticipationRole.arel_table
     user_votes = UserVote.arel_table
     petition_id = ProposalType.find_by(name: ProposalType::PETITION).id
@@ -291,13 +290,11 @@ class Proposal < ActiveRecord::Base
       and(group_participations[:user_id].eq(user.id))).
       join(participation_roles).on(group_participations[:participation_role_id].eq(participation_roles[:id])).
       join(events).on(events[:id].eq(proposals[:vote_period_id])).
-      join(action_abilitations, Arel::Nodes::OuterJoin).
-      on(action_abilitations[:participation_role_id].eq(participation_roles[:id])).
       join(user_votes, Arel::Nodes::OuterJoin).
       on(user_votes[:proposal_id].eq(proposals[:id]).and(user_votes[:user_id].eq(user.id))).
       where(proposals[:proposal_type_id].not_eq(petition_id)).
       where(user_votes[:id].eq(nil)).
-      where(action_abilitations[:group_action_id].eq(GroupAction::PROPOSAL_VOTE).
+      where(participation_roles[:vote_proposals].eq(true).
         or(participation_roles[:id].eq(ParticipationRole.admin.id))).
       order('end_time asc').to_sql
     proposals = Proposal.find_by_sql(proposals_sql)
@@ -433,9 +430,9 @@ class Proposal < ActiveRecord::Base
   def eligible_voters_count
     return User.confirmed.unblocked.count unless private?
     if presentation_areas.size > 0 # if we are in a working area
-      presentation_areas.first.scoped_participants(GroupAction::PROPOSAL_VOTE).count # TODO: more areas
+      presentation_areas.first.scoped_participants(:vote_proposals).count # TODO: more areas
     else
-      groups.first.scoped_participants(GroupAction::PROPOSAL_VOTE).count # TODO: more groups
+      groups.first.scoped_participants(:vote_proposals).count # TODO: more groups
     end
   end
 
@@ -868,11 +865,11 @@ class Proposal < ActiveRecord::Base
     base_valutations = 0
     base_vote_valutations = 0
     if group_area # we have to calculate the number of valutations based on group area participants
-      base_valutations = group_area.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count.to_f
-      base_vote_valutations = group_area.scoped_participants(GroupAction::PROPOSAL_VOTE).count.to_f
+      base_valutations = group_area.scoped_participants(:participate_proposals).count.to_f
+      base_vote_valutations = group_area.scoped_participants(:vote_proposals).count.to_f
     elsif group # we have to calculate the number of valutations based on group participants
-      base_valutations = group.scoped_participants(GroupAction::PROPOSAL_PARTICIPATION).count.to_f
-      base_vote_valutations = group.scoped_participants(GroupAction::PROPOSAL_VOTE).count.to_f
+      base_valutations = group.scoped_participants(:participate_proposals).count.to_f
+      base_vote_valutations = group.scoped_participants(:vote_proposals).count.to_f
     else # we calculate the number of valutations based on application users number
       base_vote_valutations = base_valutations = User.count_active
     end

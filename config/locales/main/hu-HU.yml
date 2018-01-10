@@ -1204,7 +1204,6 @@ hu-HU:
       area_updated: Terület frissítve
     participation_roles:
       role_updated: Szerepkör sikeresen frissítve
-      permissions_updated: Jogosultságok frissítve
       role_created: Szerepkör sikeresen létrehozva
       role_changed: Szerepkör sikeresen módosítva
       role_deleted: Szerepkör sikeresen törölve

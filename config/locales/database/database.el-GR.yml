@@ -38,27 +38,27 @@ el-GR:
       election:
         description: εκλογές
     group_actions:
-      STREAM_POST:
+      write_to_wall:
         description: Δημοσιεύστε στον Τοίχο της Ομάδας
-      CREATE_EVENT:
+      create_events:
         description: Δημιουργήστε εκδηλώσεις Meetup
-      PROPOSAL:
+      support_proposals:
         description: Υποστηρίξτε προτάσεις εκ μέρους της ομάδας
-      REQUEST_ACCEPT:
+      accept_participation_requests:
         description: Προσθέστε νέα μέλη στην ομάδα
-      PROPOSAL_VIEW:
+      view_proposals:
         description: Προβολή ιδιωτικων προτάσεων
-      PROPOSAL_PARTICIPATION:
+      participate_proposals:
         description: Συμβάλλετε στις προτάσεις
-      PROPOSAL_INSERT:
+      insert_proposals:
         description: Εισάγετε νέες προτάσεις στην ομάδα
-      DOCUMENT_VIEW:
+      view_documents:
         description: Προβολή εγγράφων
-      DOCUMENT_MANAGE:
+      manage_documents:
         description: Διαχείριση εγγράφων
-      PROPOSAL_VOTE:
+      vote_proposals:
         description: Ψηφοφορία προτάσεων
-      PROPOSAL_DATE:
+      choose_date_proposals:
         description: Δημιουργία ψηφοφοριών
     notification_categories:
       MYPROP:

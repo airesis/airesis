@@ -11,7 +11,7 @@ describe NotificationParticipationRequestCreate, type: :model, emails: true, not
   let!(:group) { create(:group, current_user_id: user.id) }
 
   let!(:group_users) do
-    group.default_role.action_abilitations.create(group_action_id: GroupAction::REQUEST_ACCEPT, group_id: group.id)
+    group.default_role.update(accept_participation_requests: true)
     2.times.map do
       userb = create(:user)
       create_participation(userb, group)

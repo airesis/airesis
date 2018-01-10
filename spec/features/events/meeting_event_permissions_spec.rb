@@ -20,9 +20,9 @@ describe 'check permissions on meeting events', type: :feature, seeds: true do
 
     # user2 is also administrator of group2
 
-    expect(group.scoped_participants(GroupAction::STREAM_POST).count).to eq 4
-    expect(group.scoped_participants(GroupAction::CREATE_EVENT).count).to eq 4
-    expect(group.scoped_participants(GroupAction::PROPOSAL_DATE).count).to eq 4
+    expect(group.scoped_participants(:write_to_wall).count).to eq 4
+    expect(group.scoped_participants(:create_events).count).to eq 4
+    expect(group.scoped_participants(:choose_date_proposals).count).to eq 4
   end
 
   it 'manage correctly the permissions on meeting events' do

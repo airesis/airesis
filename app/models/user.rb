@@ -205,31 +205,30 @@ class User < ActiveRecord::Base
   # restituisce l'elenco delle partecipazioni ai gruppi dell'utente
   # all'interno dei quali possiede un determinato permesso
   def scoped_group_participations(abilitation)
-    group_participations.joins(' INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id'\
-                                      ' LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id '\
-                                      ' and action_abilitations.group_id = group_participations.group_id').
-      where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ')')
+    group_participations.
+      joins(' INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id').
+      where("participation_roles.name = 'amministratore' OR participation_roles.#{abilitation} = true")
   end
 
   # restituisce l'elenco dei gruppi dell'utente
   # all'interno dei quali possiede un determinato permesso
   def scoped_groups(abilitation, excluded_groups = nil)
-    ret = groups.joins(' INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id'\
-                              ' LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id '\
-                              ' and action_abilitations.group_id = group_participations.group_id').
-      where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ')')
+    ret = groups.
+      joins(' INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id').
+      where("(participation_roles.name = 'amministratore' OR participation_roles.#{abilitation} = true")
     excluded_groups ? ret - excluded_groups : ret
   end
 
-  # return all group area participations of a particular group where the user can do a particular action or all group areas of the user in a group if abilitation_id is null
+  # return all group area participations of a particular group where the user can do a particular action or
+  # all group areas of the user in a group if abilitation_id is null
   def scoped_areas(group_id, abilitation_id = nil)
     group = Group.find(group_id)
     ret = nil
     if group.portavoce.include? self
       ret = group.group_areas
     elsif abilitation_id
-      ret = group_areas.joins(area_roles: :area_action_abilitations).
-        where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_participations.area_role_id = area_roles.id', group_id, abilitation_id]).
+      ret = group_areas.joins(:area_roles).
+        where(["group_areas.group_id = ? AND area_roles.#{abilitation_id} = true AND area_participations.area_role_id = area_roles.id", group_id]).
         uniq
     else
       ret = group_areas.joins(:area_roles).

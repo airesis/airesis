@@ -1233,7 +1233,6 @@ ru-RU:
         "false": Пост откреплён
     participation_roles:
       role_updated: Роль успешно обновлена
-      permissions_updated: Обновление разрешений
       role_created: Роль успешно создана
       role_changed: Роль успешно изменена
       role_deleted: Роль успешно удалена

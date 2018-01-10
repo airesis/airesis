@@ -1,18 +1,6 @@
 EventType.create(name: 'vote', color: '#C7E4C8') { |c| c.id = 2 }.save
 EventType.create(name: 'meeting', color: '#EDD4B6') { |c| c.id = 1 }.save
 
-GroupAction.create(name: 'STREAM_POST') { |c| c.id = 1 }.save
-GroupAction.create(name: 'CREATE_EVENT') { |c| c.id = 2 }.save
-GroupAction.create(name: 'PROPOSAL') { |c| c.id = 3 }.save
-GroupAction.create(name: 'REQUEST_ACCEPT') { |c| c.id = 4 }.save
-GroupAction.create(name: 'PROPOSAL_VIEW') { |c| c.id = 6 }.save
-GroupAction.create(name: 'PROPOSAL_PARTICIPATION') { |c| c.id = 7 }.save
-GroupAction.create(name: 'PROPOSAL_INSERT') { |c| c.id = 8 }.save
-GroupAction.create(name: 'DOCUMENT_VIEW') { |c| c.id = 9 }.save
-GroupAction.create(name: 'DOCUMENT_MANAGE') { |c| c.id = 10 }.save
-GroupAction.create(name: 'PROPOSAL_VOTE') { |c| c.id = 11 }.save
-GroupAction.create(name: 'PROPOSAL_DATE') { |c| c.id = 12 }.save
-
 GroupParticipationRequestStatus.create(description: 'Inoltrata') { |c| c.id = 1 }.save
 GroupParticipationRequestStatus.create(description: 'In votazione') { |c| c.id = 2 }.save
 GroupParticipationRequestStatus.create(description: 'Accettata') { |c| c.id = 3 }.save
@@ -127,10 +115,10 @@ BestQuorum.create(name: '15 giorni', percentage: nil, minutes_m: 0, hours_m: 0, 
                   bad_score: 50, vote_percentage: 0, vote_minutes: nil, vote_good_score: 50, t_percentage: 's', t_minutes: 's', t_good_score: 's', t_vote_percentage: 's', t_vote_minutes: 'f', t_vote_good_score: 's', public: true, seq: 4)
 BestQuorum.create(name: '30 giorni', percentage: nil, minutes_m: 0, hours_m: 0, days_m: 30, good_score: 50,
                   bad_score: 50, vote_percentage: 0, vote_minutes: nil, vote_good_score: 50, t_percentage: 's', t_minutes: 's', t_good_score: 's', t_vote_percentage: 's', t_vote_minutes: 'f', t_vote_good_score: 's', public: true, seq: 5)
-admin = ParticipationRole.create(name: 'amministratore', description: 'Amministratore')
-GroupAction.all.each do |group_action|
-  ActionAbilitation.create!(group_action: group_action, participation_role: admin)
-end
+
+
+admin = ParticipationRole.create(Hash[GroupAction::LIST.map { |a| [a, true] }].merge(name: ParticipationRole::ADMINISTRATOR, description: 'Amministratore'))
+
 VoteType.create(short: 'favorable') { |c| c.id = 1 }.save
 VoteType.create(short: 'neutral') { |c| c.id = 2 }.save
 VoteType.create(short: 'dissenting') { |c| c.id = 3 }.save

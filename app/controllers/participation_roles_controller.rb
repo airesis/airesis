@@ -61,28 +61,6 @@ class ParticipationRolesController < ApplicationController
     redirect_to group_participation_roles_path(@group)
   end
 
-  # change role permissions
-  # TODO: move from here and put in action_abilitation#create and action_abilitations#destroy
-  def change_group_permission
-    ActionAbilitation.transaction do
-      if params[:block] == 'true' # devo togliere i permessi
-        abilitation = @participation_role.action_abilitations.where(group_action_id: params[:action_id])
-        if abilitation.exists?
-          flash[:notice] = t('info.participation_roles.permissions_updated')
-          abilitation.destroy_all
-        end
-      else # devo abilitare
-        flash[:notice] = t('info.participation_roles.permissions_updated')
-        @participation_role.action_abilitations.create!(group_action_id: params[:action_id], group_id: params[:group_id])
-
-      end
-    end
-
-    respond_to do |format|
-      format.js { render partial: 'layouts/messages' }
-    end
-  end
-
   protected
 
   def load_participation_roles
@@ -90,6 +68,10 @@ class ParticipationRolesController < ApplicationController
   end
 
   def participation_role_params
-    params.require(:participation_role).permit(:id, :parent_participation_role_id, :name, :description)
+    params.require(:participation_role).
+      permit(:id, :name, :description,
+             :write_to_wall, :create_events, :support_proposals, :accept_participation_requests,
+             :view_proposals, :participate_proposals, :insert_proposals, :vote_proposals,
+             :choose_date_proposals, :view_documents, :manage_documents)
   end
 end

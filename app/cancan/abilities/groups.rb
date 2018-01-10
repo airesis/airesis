@@ -6,7 +6,7 @@ module Abilities
     def initialize(user)
       group_permissions(user)
 
-      can [:read, :create, :update, :change_group_permission], ParticipationRole, group: admin_of_group?(user)
+      can [:read, :create, :update], ParticipationRole, group: admin_of_group?(user)
       can :destroy, ParticipationRole do |participation_role|
         participation_role.id != participation_role.group.participation_role_id
       end
@@ -34,7 +34,7 @@ module Abilities
           ((group_participation.group.portavoce.include? user) && (group_participation.user != user))
       end
 
-      can [:new, :create], GroupInvitation, group: can_do_on_group(user, GroupAction::REQUEST_ACCEPT)
+      can [:new, :create], GroupInvitation, group: can_do_on_group(user, :accept_participation_requests)
 
       can [:read, :dates], [Quorum, BestQuorum, OldQuorum], group: participate_in_group(user)
       can :manage, [Quorum, BestQuorum, OldQuorum], group_quorum: { group: admin_of_group?(user) }
@@ -42,10 +42,10 @@ module Abilities
 
     def group_area_permissions(user)
       can :view_proposal, GroupArea, group: admin_of_group?(user)
-      can :view_proposal, GroupArea, can_do_on_group_area(user, GroupAction::PROPOSAL_VIEW)
+      can :view_proposal, GroupArea, can_do_on_group_area(user, :view_proposals)
 
       can :insert_proposal, GroupArea, group: admin_of_group?(user)
-      can :insert_proposal, GroupArea, can_do_on_group_area(user, GroupAction::PROPOSAL_INSERT)
+      can :insert_proposal, GroupArea, can_do_on_group_area(user, :insert_proposals)
 
       group_area_management_permissions(user)
 
@@ -92,7 +92,7 @@ module Abilities
       can [:update, :enable_areas, :change_advanced_options, :change_default_anonima, :change_default_visible_outside,
            :change_default_secret_vote], Group, admin_of_group?(user)
 
-      can :accept_requests, Group, can_do_on_group(user, GroupAction::REQUEST_ACCEPT)
+      can :accept_requests, Group, can_do_on_group(user, :accept_participation_requests)
 
       can [:view_data, :by_year_and_month, :permissions_list], Group, group_participations: { user_id: user.id }
 
@@ -117,12 +117,12 @@ module Abilities
 
     def group_posts_permissions(user)
       can [:remove_post, :feature_post], Group, admin_of_group?(user)
-      can :post_to, Group, can_do_on_group(user, GroupAction::STREAM_POST)
+      can :post_to, Group, can_do_on_group(user, :write_to_wall)
     end
 
     def group_events_permissions(user)
-      can :create_event, Group, can_do_on_group(user, GroupAction::CREATE_EVENT)
-      can :create_date, Group, can_do_on_group(user, GroupAction::PROPOSAL_DATE)
+      can :create_event, Group, can_do_on_group(user, :create_events)
+      can :create_date, Group, can_do_on_group(user, :choose_date_proposals)
 
       can :create_any_event, Group do |group|
         (can? :create_date, group) && (can? :create_event, group)
@@ -130,15 +130,15 @@ module Abilities
     end
 
     def group_documents_permissions(user)
-      can [:view_documents, :reload_storage_size], Group, can_do_on_group(user, GroupAction::DOCUMENTS_VIEW)
-      can :manage_documents, Group, can_do_on_group(user, GroupAction::DOCUMENTS_MANAGE)
+      can [:view_documents, :reload_storage_size], Group, can_do_on_group(user, :view_documents)
+      can :manage_documents, Group, can_do_on_group(user, :manage_documents)
     end
 
     def group_proposals_permissions(user)
-      can :support_proposal, Group, can_do_on_group(user, GroupAction::SUPPORT_PROPOSAL)
+      can :support_proposal, Group, can_do_on_group(user, :support_proposals)
       can :view_proposal, Group, admin_of_group?(user)
-      can :view_proposal, Group, can_do_on_group(user, GroupAction::PROPOSAL_VIEW)
-      can :insert_proposal, Group, can_do_on_group(user, GroupAction::PROPOSAL_INSERT)
+      can :view_proposal, Group, can_do_on_group(user, :view_proposals)
+      can :insert_proposal, Group, can_do_on_group(user, :insert_proposals)
     end
   end
 end

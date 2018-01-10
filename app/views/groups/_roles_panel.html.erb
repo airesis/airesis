@@ -1,6 +1,5 @@
-<%group_actions = GroupAction.order(:seq) %>
 <dl id="roles_accordion" class="accordion" data-accordion>
-  <% @participation_roles.includes(:group_actions).each_with_index do |role, idx| %>
+  <% @participation_roles.each_with_index do |role, idx| %>
       <dd class="accordion-navigation">
         <a href="#role_<%= role.id %>"><%= role.name %>
           <% if role.id == @group.participation_role_id %> (default)
@@ -9,19 +8,52 @@
 
         <div id="role_<%= role.id %>" class="content <%= 'active' if idx==0 %>">
 
-          <%= link_to group_participation_role_url(@group, role), method: :delete, class: 'btn', style: 'float:right', data: {remote: true, confirm: t('pages.groups.edit_permissions.confirm_role_deletion'), disable_with: t('loading')} do %>
+          <%= link_to group_participation_role_url(@group, role), method: :delete, class: 'btn', style: 'float:right', data: { remote: true, confirm: t('pages.groups.edit_permissions.confirm_role_deletion'), disable_with: t('loading') } do %>
               <i class="fa fa-trash-o"></i>
               <%= t('buttons.delete') %>
           <% end if can? :destroy, role %>
 
-          <%= link_to edit_group_participation_role_url(@group, role), class: 'btn', style: 'float:right', data: {remote: true, disable_with: t('loading')} do %>
+          <%= link_to edit_group_participation_role_url(@group, role), class: 'btn', style: 'float:right', data: { remote: true, disable_with: t('loading') } do %>
               <i class="fa fa-pencil"></i>
               <%= t('buttons.edit') %>
           <% end %>
           <h4><%= role.description %></h4>
-          <% group_actions.each do |action| %>
-              <input type="checkbox" data-action-abilitation data-participation_role_id=<%= role.id %>  data-action_id=<%= action.id %> <%= 'checked="true"' if role.group_actions.include? action %>/>
-              <span><%= action.description %></span> <br/>
+
+          <%= simple_form_for [@group, role], remote: true do |f| %>
+              <input type="hidden" name="no_refresh" value="1" />
+              <%= f.input :view_proposals,
+                          label: I18n.t("db.group_actions.view_proposals.description"),
+                          input_html: { data: { action_abilitation: '' } } %>
+              <%= f.input :participate_proposals,
+                          label: I18n.t("db.group_actions.participate_proposals.description"),
+                          input_html: { data: { action_abilitation: '' } } %>
+              <%= f.input :vote_proposals,
+                          label: I18n.t("db.group_actions.vote_proposals.description"),
+                          input_html: { data: { action_abilitation: '' } } %>
+              <%= f.input :insert_proposals,
+                          label: I18n.t("db.group_actions.insert_proposals.description"),
+                          input_html: { data: { action_abilitation: '' } } %>
+              <%= f.input :support_proposals,
+                          label: I18n.t("db.group_actions.support_proposals.description"),
+                          input_html: { data: { action_abilitation: '' } } %>
+              <%= f.input :view_documents,
+                          label: I18n.t("db.group_actions.view_documents.description"),
+                          input_html: { data: { action_abilitation: '' } } %>
+              <%= f.input :manage_documents,
+                          label: I18n.t("db.group_actions.manage_documents.description"),
+                          input_html: { data: { action_abilitation: '' } } %>
+              <%= f.input :create_events,
+                          label: I18n.t("db.group_actions.create_events.description"),
+                          input_html: { data: { action_abilitation: '' } } %>
+              <%= f.input :choose_date_proposals,
+                          label: I18n.t("db.group_actions.choose_date_proposals.description"),
+                          input_html: { data: { action_abilitation: '' } } %>
+              <%= f.input :write_to_wall,
+                          label: I18n.t("db.group_actions.write_to_wall.description"),
+                          input_html: { data: { action_abilitation: '' } } %>
+              <%= f.input :accept_participation_requests,
+                          label: I18n.t("db.group_actions.accept_participation_requests.description"),
+                          input_html: { data: { action_abilitation: '' } } %>
           <% end %>
         </div>
       </dd>

@@ -25,7 +25,7 @@ class ProposalSupportsController < ApplicationController
     # required groups
     groups = params[:proposal][:supporting_group_ids].collect(&:to_i) rescue []
     # his groups
-    user_groups = current_user.scoped_group_participations(GroupAction::SUPPORT_PROPOSAL).pluck('group_participations.group_id')
+    user_groups = current_user.scoped_group_participations(:support_proposals).pluck('group_participations.group_id')
 
     # allowed groups
     diff = groups - user_groups

@@ -230,11 +230,11 @@ DEFAULT_ANONIMA: "true"
 
 #actions enabled by default for users when they join a group. Look at GroupAction model to see available values.
 #expert variable, don't touch it if you don't know what are you going to do
-DEFAULT_GROUP_ACTIONS: "1, 2, 6, 7, 8, 9, 11, 12"
+DEFAULT_GROUP_ACTIONS: "write_to_wall, create_events, view_proposals, participate_proposals, insert_proposals, view_documents, vote_proposals, choose_date_proposals"
 
 #actions enabled by default for users when they join a group area. Look at GroupAction model to see available values
 #expert variable, don't touch it if you don't know what are you going to do
-DEFAULT_AREA_ACTIONS: "6, 7, 8, 11, 12"
+DEFAULT_AREA_ACTIONS: "view_proposals, participate_proposals, insert_proposals, vote_proposals, choose_date_proposals"
 
 #after this number of days, if the author has not chose a voting date, the users which have the right to choose a vote day, can do it
 OTHERS_CHOOSE_VOTE_DATE_DAYS: "5"

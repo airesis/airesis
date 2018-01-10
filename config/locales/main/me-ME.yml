@@ -1233,7 +1233,6 @@ me-ME:
         "false": Post uklonjen
     participation_roles:
       role_updated: Funkcija uspješno ažurirana
-      permissions_updated: Dozvole su ažurirane
       role_created: Funkcija je uspješno kreirana
       role_changed: Funkcija je uspješno promijenjena
       role_deleted: Funkcija je uspješno izbrisana

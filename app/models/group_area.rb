@@ -27,11 +27,8 @@ class GroupArea < ActiveRecord::Base
   end
 
   def after_populate
-    default_role.update_attribute(:group_area_id, id)
-    DEFAULT_AREA_ACTIONS.each do |action_id|
-      abilitation = default_role.area_action_abilitations.build(group_action_id: action_id, group_area_id: id)
-      abilitation.save!
-    end
+    active_actions = Hash[DEFAULT_AREA_ACTIONS.map { |a| [a, true] }]
+    default_role.update(active_actions.merge(group_area_id: id))
   end
 
   def destroy
@@ -39,11 +36,10 @@ class GroupArea < ActiveRecord::Base
   end
 
   # utenti che possono eseguire un'azione
-  def scoped_participants(action_id)
+  def scoped_participants(action)
     participants.
-      joins(" join area_roles on area_participations.area_role_id = area_roles.id
-            join area_action_abilitations on area_roles.id = area_action_abilitations.area_role_id").
-      where(area_action_abilitations: { group_action_id: action_id, group_area_id: id }).
+      joins('JOIN area_roles on area_participations.area_role_id = area_roles.id').
+      where("area_roles.#{action} = true").
       uniq
   end
 

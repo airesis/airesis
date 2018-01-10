@@ -1068,7 +1068,6 @@ de-DE:
       post_removed: Der Beitrag wurde von der Pinwand der Gruppe entfernt
     participation_roles:
       role_updated: Rolle erfolgreich aktualisiert
-      permissions_updated: Berechtigungen aktualisiert
       role_created: Rolle erfolgreich erstellt
       role_changed: Rolle erfolgreich geändert
       role_deleted: Rolle erfolgreich gelöscht

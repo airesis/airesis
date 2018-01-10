@@ -235,9 +235,6 @@ Airesis::Application.routes.draw do
       collection do
         post :change_default_role
       end
-      member do
-        post :change_group_permission
-      end
     end
   end
 
@@ -265,9 +262,6 @@ Airesis::Application.routes.draw do
 
     resources :group_areas do
       resources :area_roles do
-        member do
-          patch :change
-        end
         collection do
           patch :change_permissions
         end
