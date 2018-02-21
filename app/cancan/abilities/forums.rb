@@ -9,7 +9,7 @@ module Abilities
 
     def forum_permissions(user)
       # forum permissions
-      can :read, Frm::Category, group: participate_in_group(user)
+      can :read, Frm::Kategori, group: participate_in_group(user)
       can :read, Frm::Forum, group: participate_in_group(user)
 
       topic_permissions(user)
@@ -36,7 +36,7 @@ module Abilities
     end
 
     def forum_admin_permissions(user)
-      can :manage, Frm::Category, group: admin_of_group?(user)
+      can :manage, Frm::Kategori, group: admin_of_group?(user)
       can :manage, Frm::Forum, group: admin_of_group?(user)
       can :manage, Frm::Mod, group: admin_of_group?(user)
     end
