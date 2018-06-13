@@ -7,8 +7,6 @@ require 'sidekiq/testing'
 require 'simplecov'
 require 'selenium/webdriver'
 require 'capybara-screenshot/rspec' unless ENV['DISABLE_SCREENSHOTS']
-require 'codeclimate-test-reporter'
-CodeClimate::TestReporter.start
 
 SimpleCov.start 'rails'
 SimpleCov.minimum_coverage 70
