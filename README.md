@@ -50,15 +50,15 @@ You can install Airesis to run locally on your machine,
 or if you prefer using [Docker containers](#Docker) for a quick and easy setup.
 
 #### Requirements
-* PostgreSQL 9 with the hstore extension enabled.
-* Redis in order to execute Sidekiq and all background jobs.
+* PostgreSQL 9 with the hstore extension enabled. [PosgreSQL-Installation](PostgreSQL-Installation.md)
+* Redis in order to execute Sidekiq and all background jobs. [Redis-Installation](Redis-Installation.md)
 
 ### Local installation
 
 1. Download the project
 ```
 git clone https://github.com/coorasse/Airesis.git
-cd airesis
+cd Airesis
 ```
 2. Install the libraries
 ```
@@ -70,7 +70,7 @@ cp config/application.example.yml config/application.yml
 ```
 then edit the `.yml` file and set your custom values
 4. Bootstrap the database, populating it with initial data (be advised: it needs ~ 5 minutes)
-```    
+```
 bundle exec rake db:setup
 ```
 5. Run Airesis

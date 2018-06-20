@@ -1,6 +1,12 @@
 # For details on connection pooling, see rails configuration guide
 # http://guides.rubyonrails.org/configuring.html#database-pooling
 
+# Install the pg driver:
+#   gem install pg
+# Configure Using Gemfile
+# gem 'pg'
+#
+
 default: &default
   adapter: postgresql
   encoding: unicode
@@ -8,14 +14,22 @@ default: &default
   # Minimum log levels, in increasing order: debug5, debug4, debug3, debug2, debug1, log, notice, warning, error,
   # fatal, and panic. Defaults to warning. min_messages: warning
   url: <%= ENV['DATABASE_URL'] %>
+#username: ****add here if you need****
+#password: ****add here if you need****
 
 development:
   <<: *default
   database: airesis-production
+#username: ****add here if you need****
+#password: ****add here if you need****
 
 test:
   <<: *default
   database: airesis-test
+#username: ****add here if you need****
+#password: ****add here if you need****
 
 production:
   <<: *default
+#username: ****add here if you need****
+#password: ****add here if you need****
