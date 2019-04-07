@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :sys_locale do
     territory { create(:country) }
     key { 'it-IT' }

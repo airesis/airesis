@@ -1,7 +1,7 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'cancan/matchers'
 
-describe 'api/v1/proposals#index', type: :request, seeds: true do
+RSpec.describe 'api/v1/proposals#index', type: :request, seeds: true do
   let!(:user) { create(:user) }
   let(:group) { create(:group, current_user_id: user.id) }
   let!(:proposals) do
@@ -19,7 +19,7 @@ describe 'api/v1/proposals#index', type: :request, seeds: true do
   end
 
   def send_request(headers = {})
-    get api_v1_proposals_path, {}, headers
+    get api_v1_proposals_path, headers: headers
   end
 
   def json_response
@@ -27,7 +27,7 @@ describe 'api/v1/proposals#index', type: :request, seeds: true do
   end
 
   context 'without authentication' do
-    before(:each) do
+    before do
       send_request
     end
 
@@ -37,7 +37,7 @@ describe 'api/v1/proposals#index', type: :request, seeds: true do
   end
 
   context 'with authentication' do
-    before(:each) do
+    before do
       headers = { 'X-User-Email' => user.email, 'X-User-Token' => user.authentication_token }
       send_request(headers)
     end

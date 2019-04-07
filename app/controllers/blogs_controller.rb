@@ -3,7 +3,7 @@ class BlogsController < ApplicationController
 
   load_and_authorize_resource
 
-  before_filter :load_blog_data, only: [:show, :edit, :by_year_and_month]
+  before_action :load_blog_data, only: [:show, :edit, :by_year_and_month]
 
   def index
     @tags = Tag.most_blogs(current_domain.territory).shuffle unless request.xhr?

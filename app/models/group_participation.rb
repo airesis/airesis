@@ -3,7 +3,7 @@ class GroupParticipation < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: :user_id
   belongs_to :participation_role, class_name: 'ParticipationRole', foreign_key: :participation_role_id
   belongs_to :group, class_name: 'Group', foreign_key: :group_id, counter_cache: true
-  belongs_to :acceptor, class_name: 'User', foreign_key: :acceptor_id
+  belongs_to :acceptor, class_name: 'User', foreign_key: :acceptor_id, optional: true
 
   after_destroy :remove_user_data
 

@@ -9,7 +9,8 @@ class Meeting < ActiveRecord::Base
   has_many :participants, -> { where(meeting_participations: { response: 'Y' }) },
            through: :meeting_participations, class_name: 'User', source: :user
 
-  belongs_to :event
+  belongs_to :event, inverse_of: :meeting
+
   accepts_nested_attributes_for :place
 
   # TODO: issue fixed in Rails 4.1. cannot put dependent: :destroy because it fails (foreign_key violation)

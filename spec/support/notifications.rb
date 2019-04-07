@@ -13,7 +13,7 @@ RSpec.configure do |config|
 end
 
 def cumulable_event_process_spec
-  before(:each) do
+  before do
     trigger_event
   end
 
@@ -22,12 +22,12 @@ def cumulable_event_process_spec
   end
 
   context 'event chain running' do
-    before(:each) do
+    before do
       event_class.drain
     end
 
     context 'another event happens in the meantime, before alerts are sent' do
-      before(:each) do
+      before do
         trigger_event
       end
 
@@ -36,7 +36,7 @@ def cumulable_event_process_spec
       end
 
       context 'event chain running' do
-        before(:each) do
+        before do
           event_class.drain
         end
 
@@ -56,17 +56,17 @@ def cumulable_event_process_spec
       expect(AlertJob.count).to eq expected_alerts
       expect(AlertsWorker.jobs.size).to eq expected_alerts
       AlertJob.all.each do |alert_job|
-        expect(alert_job.scheduled?).to be_truthy
+        expect(alert_job).to be_scheduled
       end
     end
 
     context 'alerts chain running' do
-      before(:each) do
+      before do
         AlertsWorker.drain
       end
 
       context 'another event happens in the meantime, before emails are sent' do
-        before(:each) do
+        before do
           trigger_event
         end
 
@@ -75,12 +75,12 @@ def cumulable_event_process_spec
         end
 
         context 'event chain running' do
-          before(:each) do
+          before do
             event_class.drain
           end
 
           it 'does not schedule other alerts' do
-            expect(AlertJob.any?).to be_falsey
+            expect(AlertJob).not_to be_any
           end
 
           it 'accumulates on the alerts sent already' do
@@ -96,7 +96,7 @@ def cumulable_event_process_spec
           end
 
           context 'emails chain running' do
-            before(:each) do
+            before do
               Alert.all.each do |alert|
                 expect(alert.properties['count'].to_i).to eq 2
               end
@@ -126,12 +126,12 @@ def cumulable_event_process_spec
         expect(EmailJob.count).to eq expected_alerts
         expect(EmailsWorker.jobs.size).to eq expected_alerts
         EmailJob.all.each do |email_job|
-          expect(email_job.scheduled?).to be_truthy
+          expect(email_job).to be_scheduled
         end
       end
 
       context 'emails chain running' do
-        before(:each) do
+        before do
           EmailsWorker.drain
         end
 
@@ -142,7 +142,7 @@ def cumulable_event_process_spec
         end
 
         context 'another event happens before the user check the alerts' do
-          before(:each) do
+          before do
             trigger_event
           end
 
@@ -151,12 +151,12 @@ def cumulable_event_process_spec
           end
 
           context 'event chain running' do
-            before(:each) do
+            before do
               event_class.drain
             end
 
             it 'does not schedule other alerts' do
-              expect(AlertJob.any?).to be_falsey
+              expect(AlertJob).not_to be_any
             end
 
             it 'accumulates on the alerts sent already' do
@@ -178,7 +178,7 @@ def cumulable_event_process_spec
 end
 
 def event_process_spec
-  before(:each) do
+  before do
     trigger_event
   end
 
@@ -187,7 +187,7 @@ def event_process_spec
   end
 
   context 'event chain' do
-    before(:each) do
+    before do
       described_class.drain
     end
 
@@ -196,7 +196,7 @@ def event_process_spec
     end
 
     context 'alerts chain' do
-      before(:each) do
+      before do
         AlertsWorker.drain
       end
 
@@ -211,7 +211,7 @@ def event_process_spec
       end
 
       context 'emails chain' do
-        before(:each) do
+        before do
           EmailsWorker.drain
         end
 

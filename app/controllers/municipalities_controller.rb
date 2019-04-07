@@ -1,5 +1,5 @@
 class MunicipalitiesController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   def index
     Rails.logger.info "locale: #{I18n.locale}"

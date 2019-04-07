@@ -2,15 +2,21 @@ require 'rails_helper'
 
 describe Search do
   let(:user) { create(:user) }
-  let(:groups) { [create(:group, name: 'what a group'),
-                  create(:group, name: 'hello'),
-                  create(:group, description: 'hello group')] }
-  let(:proposals) { [create(:proposal, title: 'what a proposal'),
-                     create(:proposal, title: 'hello'),
-                     create(:proposal, content: 'hello proposal')] }
-  let(:blogs) { [create(:blog, title: 'hello everyone'),
-                 create(:blog, title: 'hello'),
-                 create(:blog, title: 'my new blog')] }
+  let(:groups) do
+    [create(:group, name: 'what a group'),
+     create(:group, name: 'hello'),
+     create(:group, description: 'hello group')]
+  end
+  let(:proposals) do
+    [create(:proposal, title: 'what a proposal'),
+     create(:proposal, title: 'hello'),
+     create(:proposal, content: 'hello proposal')]
+  end
+  let(:blogs) do
+    [create(:blog, title: 'hello everyone'),
+     create(:blog, title: 'hello'),
+     create(:blog, title: 'my new blog')]
+  end
 
   before do
     load_database

@@ -1,7 +1,7 @@
 class Solution < ActiveRecord::Base
-  belongs_to :proposal
-  has_many :solution_sections, dependent: :destroy
-  has_many :sections, -> { order('sections.seq, sections.id') }, through: :solution_sections
+  belongs_to :proposal, inverse_of: :solutions
+  has_many :solution_sections, inverse_of: :solution, dependent: :destroy
+  has_many :sections, -> { order('sections.seq, sections.id') }, inverse_of: :solution, through: :solution_sections
 
   accepts_nested_attributes_for :sections, allow_destroy: true
 

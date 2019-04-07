@@ -1,11 +1,11 @@
 class ProposalNicknamesController < ApplicationController
   # carica la proposta
-  before_filter :load_proposal_nickname
+  before_action :load_proposal_nickname
 
   # ##SICUREZZA###
 
   # l'utente deve aver fatto login
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   def update
     loop = true

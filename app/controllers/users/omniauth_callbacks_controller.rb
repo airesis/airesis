@@ -58,7 +58,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       @user, first_association, found_from_email = User.find_or_create_for_oauth_provider(oauth_data)
       if @user.present?
         if found_from_email && user_info[:email].present?
-          session['devise.omniauth_data'] = env['omniauth.auth']
+          session['devise.omniauth_data'] = request.env['omniauth.auth']
           redirect_to confirm_credentials_users_url
         else
           flash[:notice] = first_association ? I18n.t('devise.omniauth_callbacks.success', kind: provider.capitalize) : I18n.t('devise.sessions.user.signed_in')

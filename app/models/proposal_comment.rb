@@ -1,18 +1,18 @@
 class ProposalComment < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
 
-  has_paper_trail class_name: 'ProposalCommentVersion', only: [:content], on: [:update, :destroy]
+  has_paper_trail versions: { class_name: 'ProposalCommentVersion' }, only: [:content], on: [:update, :destroy]
 
-  belongs_to :user, class_name: 'User', foreign_key: :user_id
-  belongs_to :contribute, class_name: 'ProposalComment', foreign_key: :parent_proposal_comment_id
-  has_many :replies, class_name: 'ProposalComment', foreign_key: :parent_proposal_comment_id, dependent: :destroy
-  has_many :repliers, -> { uniq true }, class_name: 'User', through: :replies, source: :user
-  belongs_to :proposal, class_name: 'Proposal', foreign_key: :proposal_id, counter_cache: true
-  has_many :rankings, class_name: 'ProposalCommentRanking', dependent: :destroy
+  belongs_to :user, class_name: 'User', inverse_of: :proposal_comments, foreign_key: :user_id
+  belongs_to :contribute, class_name: 'ProposalComment', inverse_of: :replies, foreign_key: :parent_proposal_comment_id, optional: true
+  has_many :replies, class_name: 'ProposalComment', inverse_of: :contribute, foreign_key: :parent_proposal_comment_id, dependent: :destroy
+  has_many :repliers, -> { distinct }, class_name: 'User', through: :replies, inverse_of: :proposal_comments, source: :user
+  belongs_to :proposal, class_name: 'Proposal', foreign_key: :proposal_id, counter_cache: true, inverse_of: :proposal_comments
+  has_many :rankings, class_name: 'ProposalCommentRanking', dependent: :destroy, inverse_of: :proposal_comment
   has_many :rankers, through: :rankings, class_name: 'User', source: :user
-  belongs_to :paragraph
+  belongs_to :paragraph, optional: true, inverse_of: :proposal_comments
 
-  has_one :integrated_contribute, class_name: 'IntegratedContribute', dependent: :destroy
+  has_one :integrated_contribute, class_name: 'IntegratedContribute', inverse_of: :proposal_comment, dependent: :destroy
   has_many :proposal_revisions, class_name: 'ProposalRevision', through: :integrated_contributes
 
   has_many :reports, class_name: 'ProposalCommentReport', foreign_key: :proposal_comment_id

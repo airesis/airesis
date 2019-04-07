@@ -1,7 +1,7 @@
 class AreaRolesController < ApplicationController
   layout :choose_layout
 
-  before_filter :load_group
+  before_action :load_group
 
   authorize_resource :group
   load_and_authorize_resource :group_area, through: :group

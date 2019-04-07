@@ -2,7 +2,8 @@ class AreaRole < ActiveRecord::Base
   has_many :area_participations
   has_many :users, through: :area_participations
 
-  belongs_to :group_area
+  # TODO: not optional, but is created before the area itself at the moment
+  belongs_to :group_area, optional: true
 
   validates_uniqueness_of :name, scope: :group_area_id
 

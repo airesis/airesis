@@ -4,9 +4,9 @@ class GroupInvitationEmailsController < ApplicationController
   load_and_authorize_resource :group_invitation, through: :group
   load_and_authorize_resource through: :group_invitation, id_param: :token, find_by: :token
 
-  before_filter :authenticate_user_from_invite!, only: [:accept]
+  before_action :authenticate_user_from_invite!, only: [:accept]
 
-  before_filter :check_invite, only: [:accept, :reject, :anymore]
+  before_action :check_invite, only: [:accept, :reject, :anymore]
 
   # accept invite from email link
   def accept

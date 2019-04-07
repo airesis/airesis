@@ -71,6 +71,7 @@ en-EU:
         geographic_borders: "Geographic borders"
         account_and_privacy: "Account and privacy"
         title: "SETTINGS AND PREFERENCES"
+        statistics: "Statistics"
       alarm_preferences:
         receive_on_address: "Get newsletter on %{email}"
         alerts: "Alerts"
@@ -87,6 +88,7 @@ en-EU:
         join_twitter: "Join your Twitter account"
         join_linkedin: "Join your LinkedIn account"
         join_meetup: "Join your Meetup account"
+        join_tecnologiedemocratiche: "Join your Tecnologie Democratiche account"
         providers_list: "List of activated providers"
         options: "Options"
         rotp: "Enable Security Token"
@@ -375,6 +377,7 @@ en-EU:
         last_7d: "created in the last week"
         last_1m: "created in the last month"
         last_1y: "created in the last year"
+        territory: "Territory"
       show:
         voteup: 'I agree'
         votenil: "I don't know / I do not understand"
@@ -485,6 +488,7 @@ en-EU:
         no_contributes_yet: "No contributions here yet"
         start_votation_proposal_confirmation: "Are you sure you want to start immediatly the votation?"
         abandoned_message: "Abandoned %{ago}"
+        start_votation_button: "Start Votation"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "Help"
@@ -1361,6 +1365,8 @@ en-EU:
         email_label: "Email:"
       edit_preferences: "Preferences"
       click_here: "Click here"
+      terms: "Terms"
+      privacy: "Privacy Policy"
     new_contribute:
       title: "%{user} inserted a new %{comment} in the proposal"
       view_proposal: "%{click_here} to see the proposal."
@@ -1410,6 +1416,8 @@ en-EU:
     and: "and"
     terms_of_service: "Terms of Service"
     guide: "FAQ"
+    privacy_policy: "Privacy Policy"
+    contribution: "contribution"
   terms_of_service: "Terms"
   privacy_policy: "Privacy"
   controllers:

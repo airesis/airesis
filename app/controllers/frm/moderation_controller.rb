@@ -1,6 +1,6 @@
 module Frm
   class ModerationController < Frm::ApplicationController
-    before_filter :ensure_moderator_or_admin
+    before_action :ensure_moderator_or_admin
 
     helper 'frm/posts'
 

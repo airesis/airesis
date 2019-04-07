@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :proposal_ranking do
     association :user
     association :proposal

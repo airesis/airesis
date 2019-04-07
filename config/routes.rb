@@ -1,6 +1,6 @@
 require 'sidekiq/web'
 
-Airesis::Application.routes.draw do
+Rails.application.routes.draw do
   get '/validators/uniqueness/group/', to: 'validators/uniqueness#group'
   get '/validators/uniqueness/user/', to: 'validators/uniqueness#user'
   get '/validators/uniqueness/proposal/', to: 'validators/uniqueness#proposal'
@@ -327,9 +327,9 @@ Airesis::Application.routes.draw do
       end
     end
 
-    get '/:action', controller: 'groups'
-    put '/:action', controller: 'groups'
-    post '/:action', controller: 'groups'
+    get 'show', controller: 'groups'
+    put 'update', controller: 'groups'
+    post 'create', controller: 'groups'
   end
 
   # routes available only on main site

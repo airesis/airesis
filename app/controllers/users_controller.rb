@@ -3,9 +3,9 @@ class UsersController < ApplicationController
   include UsersHelper
   layout :choose_layout
 
-  before_filter :authenticate_user!, except: [:index, :show, :confirm_credentials, :join_accounts]
+  before_action :authenticate_user!, except: [:index, :show, :confirm_credentials, :join_accounts]
 
-  before_filter :load_user, only: [:show, :update, :show_message, :send_message]
+  before_action :load_user, only: [:show, :update, :show_message, :send_message]
 
   def confirm_credentials
     @user = User.new_with_session(nil, session)

@@ -1,12 +1,12 @@
 class ParticipationRolesController < ApplicationController
   layout 'groups'
 
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
-  before_filter :load_group
+  before_action :load_group
 
   authorize_resource :group
-  before_filter :load_participation_roles, only: [:index]
+  before_action :load_participation_roles, only: [:index]
   load_and_authorize_resource through: :group
 
   def index

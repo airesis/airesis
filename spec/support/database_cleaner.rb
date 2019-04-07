@@ -1,49 +1,15 @@
 RSpec.configure do |config|
-  excluded_tables = %w(event_types group_participation_request_statuses notification_categories notification_types proposal_categories proposal_states proposal_types ranking_types tutorials steps user_types participation_roles vote_types proposal_votation_types configurations)
-
   config.before(:suite) do
-    DatabaseCleaner.clean_with(:deletion, except: excluded_tables)
     Configuration.find_by(name: 'recaptcha').update_column(:value, 0)
-  end
-
-  config.before(:each) do
-    DatabaseCleaner.strategy = :transaction
-  end
-
-  config.before(:each, js: true) do
-    DatabaseCleaner.strategy = :deletion, { except: excluded_tables }
-  end
-
-  config.before(:each, search: true) do
-    DatabaseCleaner.strategy = :deletion, { except: excluded_tables }
-  end
-
-  config.before(:each, emails: true) do
-    DatabaseCleaner.strategy = :deletion, { except: excluded_tables }
-  end
-
-  config.before(:each) do
-    DatabaseCleaner.start
-    load_countries
-    # load_database
   end
 
   config.before(:each, seeds: true) do
     load_database
   end
 
-  config.append_after(:each) do
-    DatabaseCleaner.clean
-  end
-
-  def load_countries
-    a1 = Continent.create(description: 'Europe')
-    SysLocale.create(key: 'en-EU', host: 'airesis.eu', territory: a1, default: true)
-  end
-
   def load_municipalities
     a1 = Continent.first
-    s1 = Country.create(description: 'Italy', continent_id: a1.id, sigla: 'IT', sigla_ext: 'ITA')
+    s1 = Country.find_by(description: 'Italy')
     r14 = Region.create(description: 'Emilia Romagna', country_id: s1.id, continent_id: a1.id)
     p1 = Province.create(description: 'Bologna', region_id: r14.id, country_id: s1.id, continent_id: a1.id, sigla: 'BO')
     Municipality.create(description: 'Bologna', province_id: p1.id, region_id: r14.id, country_id: s1.id, continent_id: a1.id, population: 371_217)

@@ -4,7 +4,7 @@ describe Frm::Category do
   context 'when created' do
     let(:category) { create(:frm_category) }
 
-    before(:each) do
+    before do
       load_database
     end
 
@@ -14,7 +14,8 @@ describe Frm::Category do
 
     context 'when name changes' do
       let(:new_name) { Faker::Company.name }
-      before(:each) do
+
+      before do
         category.update(name: new_name)
       end
 

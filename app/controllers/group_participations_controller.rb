@@ -1,9 +1,9 @@
 class GroupParticipationsController < ApplicationController
   layout 'groups'
 
-  before_filter :load_group
+  before_action :load_group
 
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   load_and_authorize_resource :group
   load_and_authorize_resource through: :group, except: [:send_email, :destroy_all, :build_csv, :change_user_permission]

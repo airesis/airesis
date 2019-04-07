@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :country do
     association :continent
     sigla { Faker::Lorem.word }

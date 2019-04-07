@@ -4,7 +4,7 @@ class BlogPost < ActiveRecord::Base
   RESERVED = 'R'
   DRAFT = 'D'
 
-  has_paper_trail class_name: 'BlogPostVersion'
+  has_paper_trail versions: { class_name: 'BlogPostVersion' }
 
   belongs_to :user
   belongs_to :blog, touch: true
@@ -13,8 +13,8 @@ class BlogPost < ActiveRecord::Base
   has_many :blog_post_tags, dependent: :destroy
   has_many :tags, through: :blog_post_tags, class_name: 'Tag'
 
-  has_many :publishings, class_name: 'PostPublishing', dependent: :destroy
-  has_many :groups, through: :publishings, class_name: 'Group'
+  has_many :publishings, class_name: 'PostPublishing', inverse_of: :blog_post, dependent: :destroy
+  has_many :groups, through: :publishings, inverse_of: :blog_posts, class_name: 'Group'
 
   validates_presence_of :title
   validates_presence_of :body

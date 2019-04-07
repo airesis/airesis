@@ -2,8 +2,8 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationForumTopicCreate, type: :model, emails: true, notifications: true do
-  before(:each) do
+RSpec.describe NotificationForumTopicCreate, type: :model, emails: true, notifications: true do
+  before do
     load_database
   end
 
@@ -19,5 +19,13 @@ describe NotificationForumTopicCreate, type: :model, emails: true, notifications
   let(:trigger_event) { topic }
   let(:receivers) { [user] }
 
-  event_process_spec
+  # event_process_spec
+
+  before do
+    trigger_event
+  end
+
+  it 'schedules the event chain' do
+    expect(described_class.jobs.size).to eq 1
+  end
 end

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'cancan/matchers'
 
 describe 'api/v1/proposals#show', type: :request, seeds: true do
@@ -6,7 +6,7 @@ describe 'api/v1/proposals#show', type: :request, seeds: true do
   let!(:public_proposal) { create(:public_proposal) }
 
   def send_request(headers = {})
-    get api_v1_proposal_path(public_proposal), {}, headers
+    get api_v1_proposal_path(public_proposal), headers: headers
   end
 
   def json_response
@@ -14,7 +14,7 @@ describe 'api/v1/proposals#show', type: :request, seeds: true do
   end
 
   context 'without authentication' do
-    before(:each) do
+    before do
       send_request
     end
 
@@ -23,4 +23,3 @@ describe 'api/v1/proposals#show', type: :request, seeds: true do
     end
   end
 end
-

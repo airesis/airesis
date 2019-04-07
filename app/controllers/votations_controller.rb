@@ -3,7 +3,7 @@ class VotationsController < ApplicationController
 
   layout 'open_space'
 
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   def vote
     Proposal.transaction do
@@ -12,16 +12,16 @@ class VotationsController < ApplicationController
 
       return unless validate_security_token
 
-      vote_type = params[:data][:vote_type].to_i
+      vote_type = VoteType.find(params[:data][:vote_type].to_i)
 
-      vote = @proposal.user_votes.build(user_id: current_user.id)
-      vote.vote_type_id = vote_type unless @proposal.secret_vote
+      user_vote = @proposal.user_votes.build(user: current_user)
+      user_vote.vote_type = vote_type unless @proposal.secret_vote
 
-      if vote_type == VoteType::POSITIVE
+      if vote_type.id == VoteType::POSITIVE
         @proposal.vote.positive += 1
-      elsif vote_type == VoteType::NEGATIVE
+      elsif vote_type.id == VoteType::NEGATIVE
         @proposal.vote.negative += 1
-      elsif vote_type == VoteType::NEUTRAL
+      elsif vote_type.id == VoteType::NEUTRAL
         @proposal.vote.neutral += 1
       end
       @proposal.vote.save!

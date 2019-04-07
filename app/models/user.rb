@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   acts_as_token_authenticatable
 
   devise :database_authenticatable, :registerable, :confirmable, :omniauthable,
-         :recoverable, :rememberable, :trackable, :validatable, :blockable, :traceable
+         :blockable, :recoverable, :rememberable, :trackable, :validatable, :traceable
 
   include TutorialAssigneesHelper
 
@@ -22,36 +22,37 @@ class User < ActiveRecord::Base
   validates_acceptance_of :accept_conditions, message: I18n.t('activerecord.errors.messages.TOS')
   validates_acceptance_of :accept_privacy, message: I18n.t('activerecord.errors.messages.privacy')
 
-  has_many :proposal_presentations, dependent: :destroy # TODO: replace with anonymous
-  has_many :proposals, through: :proposal_presentations, class_name: 'Proposal'
+  has_many :proposal_presentations, inverse_of: :user, dependent: :destroy # TODO: replace with anonymous user
+  has_many :proposals, through: :proposal_presentations, class_name: 'Proposal', inverse_of: :users
   has_many :notifications, through: :alerts, class_name: 'Notification'
   has_many :meeting_participations, dependent: :destroy
-  has_one :blog, dependent: :destroy
-  has_many :blog_comments, dependent: :destroy
-  has_many :blog_posts, dependent: :destroy
-  has_many :blocked_alerts, dependent: :destroy
-  has_many :blocked_emails, dependent: :destroy
+  has_one :blog, inverse_of: :user, dependent: :destroy
+  has_many :blog_comments, inverse_of: :user, dependent: :destroy
+  has_many :blog_posts, inverse_of: :user, dependent: :destroy
+  has_many :blocked_alerts, inverse_of: :user, dependent: :destroy
+  has_many :blocked_emails, inverse_of: :user, dependent: :destroy
 
-  has_many :event_comments, dependent: :destroy
-  has_many :likes, class_name: 'EventCommentLike', dependent: :destroy
+  has_many :event_comments, dependent: :destroy, inverse_of: :user
+  has_many :likes, class_name: 'EventCommentLike', dependent: :destroy, inverse_of: :user
 
-  has_many :group_participations, dependent: :destroy
+  has_many :group_participations, dependent: :destroy, inverse_of: :user
   has_many :groups, through: :group_participations, class_name: 'Group'
   has_many :portavoce_groups, -> { joins(' INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id').where("(participation_roles.name = 'amministratore')") }, through: :group_participations, class_name: 'Group', source: 'group'
 
-  has_many :area_participations, class_name: 'AreaParticipation'
+  has_many :area_participations, class_name: 'AreaParticipation', inverse_of: :user
   has_many :group_areas, through: :area_participations, class_name: 'GroupArea'
 
-  has_many :participation_roles, through: :group_participations, class_name: 'ParticipationRole'
-  has_many :group_follows, class_name: 'GroupFollow'
+  has_many :participation_roles, through: :group_participations, class_name: 'ParticipationRole', inverse_of: :user
+  has_many :group_follows, class_name: 'GroupFollow', inverse_of: :user
   has_many :followed_groups, through: :group_follows, class_name: 'Group', source: :group
-  has_many :user_votes, class_name: 'UserVote'
-  has_many :proposal_comments, class_name: 'ProposalComment'
+  has_many :user_votes, class_name: 'UserVote', inverse_of: :user
+  has_many :proposal_comments, class_name: 'ProposalComment', inverse_of: :user
   has_many :partecipating_proposals, through: :proposal_comments, class_name: 'Proposal', source: :proposal
   has_many :proposal_comment_rankings, class_name: 'ProposalCommentRanking'
   has_many :proposal_rankings, class_name: 'ProposalRanking'
+  has_many :proposal_revisions, inverse_of: :user
   belongs_to :user_type, class_name: 'UserType', foreign_key: :user_type_id
-  belongs_to :image, class_name: 'Image', foreign_key: :image_id
+  belongs_to :image, class_name: 'Image', foreign_key: :image_id, optional: true
   has_many :authentications, class_name: 'Authentication', dependent: :destroy
 
   has_many :user_borders, class_name: 'UserBorder'
@@ -84,8 +85,8 @@ class User < ActiveRecord::Base
   has_many :tutorials, through: :tutorial_assignees, class_name: 'Tutorial', source: :user
   has_many :todo_tutorials, through: :todo_tutorial_assignees, class_name: 'Tutorial', source: :user
 
-  belongs_to :locale, class_name: 'SysLocale', foreign_key: 'sys_locale_id'
-  belongs_to :original_locale, class_name: 'SysLocale', foreign_key: 'original_sys_locale_id'
+  belongs_to :locale, class_name: 'SysLocale', inverse_of: :users, foreign_key: 'sys_locale_id'
+  belongs_to :original_locale, class_name: 'SysLocale', inverse_of: :original_users, foreign_key: 'original_sys_locale_id'
 
   has_many :events
 
@@ -97,7 +98,7 @@ class User < ActiveRecord::Base
   has_many :viewed, class_name: 'Frm::View'
   has_many :viewed_topics, class_name: 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
   has_many :unread_topics, -> { where 'frm_views.updated_at < frm_topics.last_post_at' }, class_name: 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
-  has_many :memberships, class_name: 'Frm::Membership', foreign_key: :member_id
+  has_many :memberships, class_name: 'Frm::Membership', inverse_of: :member, foreign_key: :member_id
   has_many :frm_mods, through: :memberships, class_name: 'Frm::Mod', source: :mod
 
   before_create :init
@@ -229,11 +230,10 @@ class User < ActiveRecord::Base
     elsif abilitation_id
       ret = group_areas.joins(:area_roles).
         where(["group_areas.group_id = ? AND area_roles.#{abilitation_id} = true AND area_participations.area_role_id = area_roles.id", group_id]).
-        uniq
+        distinct
     else
       ret = group_areas.joins(:area_roles).
-        where(['group_areas.group_id = ?', group_id]).
-        uniq
+        where(['group_areas.group_id = ?', group_id]).distinct
     end
     ret
   end
@@ -519,6 +519,14 @@ class User < ActiveRecord::Base
       build_certification(name: user_info[:name], surname: user_info[:surname], tax_code: user_info[:tax_code])
       update!(user_type_id: UserType::CERTIFIED)
     end
+  end
+
+  def send_reset_password_instructions
+    if blocked
+      errors.add(:base, :not_found)
+      return false
+    end
+    super
   end
 
   protected

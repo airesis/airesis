@@ -4,7 +4,7 @@ describe Frm::Topic do
   context 'when created' do
     let(:topic) { create(:frm_topic) }
 
-    before(:each) do
+    before do
       load_database
     end
 
@@ -14,7 +14,8 @@ describe Frm::Topic do
 
     context 'when subject changes' do
       let(:new_name) { Faker::Company.name }
-      before(:each) do
+
+      before do
         topic.update(subject: new_name)
       end
 

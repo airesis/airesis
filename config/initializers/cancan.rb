@@ -7,7 +7,7 @@ if defined?(CanCan)
 
   module CanCan
     module ModelAdapters
-      class ActiveRecord4Adapter < AbstractAdapter
+      class ActiveRecord4Adapter < ActiveRecordAdapter
         @@friendly_support = {}
 
         def self.find(model_class, id)

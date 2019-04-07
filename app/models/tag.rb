@@ -5,7 +5,7 @@ class Tag < ActiveRecord::Base
   has_many :blog_posts, through: :blog_post_tags
   has_many :tag_counters
 
-  scope :most_used, ->(territory, limit = 10) { very_used(territory, limit).order('random()') }
+  scope :most_used, ->(territory, limit = 10) { very_used(territory, limit).order(Arel.sql('random()')) }
 
   scope :most_groups, ->(territory, limit = 40) { used_in_groups(territory).limit(limit) }
 

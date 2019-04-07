@@ -1,6 +1,5 @@
 class ProposalVote < ActiveRecord::Base
   belongs_to :proposal
-  belongs_to :user
 
   def number
     positive + negative + neutral

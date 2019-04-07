@@ -1,5 +1,6 @@
 class ParagraphHistory < ActiveRecord::Base
-  belongs_to :section, class_name: 'SectionHistory'
+  belongs_to :section, class_name: 'SectionHistory', inverse_of: :paragraphs, foreign_key: :section_history_id
+  belongs_to :proposal
 
   # we remove title and username
   def parsed_content(anonimous = true)

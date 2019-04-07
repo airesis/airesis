@@ -12,7 +12,7 @@ class Group < ActiveRecord::Base
 
   friendly_id :name, use: [:slugged, :history]
 
-  has_paper_trail class_name: 'GroupVersion'
+  has_paper_trail versions: { class_name: 'GroupVersion' }
 
   include ImageHelper
   REQ_BY_PORTAVOCE = 'p'
@@ -34,7 +34,7 @@ class Group < ActiveRecord::Base
   attr_accessor :default_role_name, :default_role_actions, :current_user_id
 
   has_many :group_follows, class_name: 'GroupFollow', dependent: :destroy
-  has_many :post_publishings, class_name: 'PostPublishing', dependent: :destroy
+  has_many :post_publishings, class_name: 'PostPublishing', inverse_of: :group, dependent: :destroy
 
   has_many :group_participations, class_name: 'GroupParticipation', dependent: :destroy
   has_many :participants, through: :group_participations, source: :user, class_name: 'User'
@@ -132,10 +132,10 @@ class Group < ActiveRecord::Base
     end
 
     active_actions = Hash[default_role_actions.map { |a| [a, true] }]
-    role = participation_roles.build(active_actions.merge(name: default_role_name,
-                                                          description: I18n.t('pages.groups.edit_permissions.default_role')))
-    role.save!
-    self.participation_role_id = role.id
+    participation_role = participation_roles.build(active_actions.merge(name: default_role_name,
+                                                                        description: I18n.t('pages.groups.edit_permissions.default_role')))
+    participation_role.save!
+    self.default_role = participation_role
     self.max_storage_size = UPLOAD_LIMIT_GROUPS / 1024
   end
 
@@ -170,7 +170,7 @@ class Group < ActiveRecord::Base
     participants.
       joins('JOIN participation_roles on group_participations.participation_role_id = participation_roles.id').
       where("participation_roles.#{action} = true").
-      uniq
+      distinct
   end
 
   def participant_tokens=(ids)

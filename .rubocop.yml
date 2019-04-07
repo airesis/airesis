@@ -1,3 +1,5 @@
+require: rubocop-rspec
+
 Rails:
   Enabled: true
 
@@ -7,23 +9,32 @@ Rails:
 Style/Documentation:
   Enabled: false
 
-Style/MultilineOperationIndentation:
+Layout/MultilineOperationIndentation:
     EnforcedStyle: indented
 
 Style/NonNilCheck:
   IncludeSemanticChanges: true
 
-Style/DotPosition:
+Layout/DotPosition:
   EnforcedStyle: trailing
 
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Rails/ActiveRecordOverride:
+  Enabled: false
+
+RSpec/DescribeClass:
+  Enabled: false
+
+RSpec/LetSetup:
+  Enabled: false
+
+# TODO: re-enable
+RSpec/ExpectInHook:
+  Enabled: false
+
 AllCops:
-  TargetRubyVersion: 2.3
-  Include:
-    - '**/Rakefile'
-    - '**/config.ru'
   Exclude:
     - 'uploads/**/*'
     - 'bin/**/*'
@@ -32,6 +43,5 @@ AllCops:
     - 'public/**/*'
     - 'tmp/**/*'
     - 'db/**/*'
-    - 'spec/**/*'
 
 inherit_from: .rubocop_todo.yml
