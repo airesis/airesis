@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'events/show.html.erb' do
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   context 'votation event' do
     let(:event) {create(:vote_event)}

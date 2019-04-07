@@ -8,9 +8,7 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
 
-gem 'sprockets', '2.12.4' # FIXME: https://github.com/rails/sprockets/issues/59
-
-gem 'foundation-rails'
+gem 'foundation-rails', '~> 5.0'
 
 gem 'pg'
 
@@ -107,7 +105,7 @@ gem 'paper_trail'
 
 gem 'figaro'
 
-gem 'faker'
+gem 'faker', '1.5.0' # TODO: https://github.com/stympy/faker/issues/266
 
 gem 'sshkit'
 

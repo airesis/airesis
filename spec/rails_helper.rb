@@ -7,11 +7,9 @@ require 'sidekiq/testing'
 require 'simplecov'
 require 'selenium/webdriver'
 require 'capybara-screenshot/rspec' unless ENV['DISABLE_SCREENSHOTS']
-require 'codeclimate-test-reporter'
-CodeClimate::TestReporter.start
 
 SimpleCov.start 'rails'
-SimpleCov.minimum_coverage 70
+SimpleCov.minimum_coverage 45.56
 SimpleCov.maximum_coverage_drop 0
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
@@ -32,7 +30,7 @@ Capybara.register_driver :headless_chrome do |app|
   Capybara::Selenium::Driver.new app, browser: :chrome, desired_capabilities: capabilities
 end
 
-Capybara.javascript_driver = :headless_chrome
+Capybara.javascript_driver = :chrome
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
@@ -62,7 +60,7 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
 
-  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
 
   config.include Warden::Test::Helpers
 
@@ -88,6 +86,9 @@ RSpec.configure do |config|
 
   Capybara::Screenshot.autosave_on_failure = true
   Capybara::Screenshot.append_timestamp = true
+
+  Capybara.default_max_wait_time = 30
+
 end
 
 OmniAuth.config.test_mode = true

@@ -94,8 +94,8 @@ describe Blog do
       # let(:province) { municipality.province }
       let(:blogs) { [create(:blog, title: 'hello group title'),
                       create(:blog, title: 'Miriam'),
-                      create(:blog),
-                      create(:blog)] }
+                      create(:blog, title: 'My blog'),
+                      create(:blog, title: 'Astonishing news')] }
 
       before do
         load_database
