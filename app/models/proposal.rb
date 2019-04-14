@@ -18,26 +18,27 @@ class Proposal < ActiveRecord::Base
 
   belongs_to :state, class_name: 'ProposalState', foreign_key: :proposal_state_id
   belongs_to :category, class_name: 'ProposalCategory', foreign_key: :proposal_category_id
-  belongs_to :vote_period, class_name: 'Event', foreign_key: :vote_period_id # attached when is decided
-  belongs_to :vote_event, class_name: 'Event', foreign_key: :vote_event_id # attached when the proposal is created
+  belongs_to :vote_period, class_name: 'Event', foreign_key: :vote_period_id, optional: true # attached when is decided
+  belongs_to :vote_event, class_name: 'Event', foreign_key: :vote_event_id, optional: true # attached when the proposal is created
 
   # can't move tags before proposal_presentations because these are necessary when creating the tags
   # can't add dependent_destroy to presentations because tags must be destroyed before
-  has_many :proposal_presentations, -> { order 'id DESC' }, class_name: 'ProposalPresentation'
+  has_many :proposal_presentations, -> { order 'id DESC' }, class_name: 'ProposalPresentation', inverse_of: :proposal
+  has_many :users, through: :proposal_presentations, class_name: 'User', inverse_of: :proposals
   has_many :proposal_tags, class_name: 'ProposalTag', dependent: :destroy
   has_many :tags, through: :proposal_tags, class_name: 'Tag'
 
-  has_many :proposal_revisions, dependent: :destroy
-  has_many :paragraph_histories, dependent: :destroy
+  has_many :proposal_revisions, inverse_of: :proposal, dependent: :destroy
+  has_many :paragraph_histories, inverse_of: :proposal, dependent: :destroy
 
   has_one :vote, class_name: 'ProposalVote', dependent: :destroy
 
   has_many :user_votes
 
-  has_many :schulze_votes, class_name: 'ProposalSchulzeVote', dependent: :destroy
+  has_many :schulze_votes, class_name: 'ProposalSchulzeVote', inverse_of: :proposal, dependent: :destroy
 
   # all the comments related to the proposal
-  has_many :proposal_comments, class_name: 'ProposalComment', dependent: :destroy
+  has_many :proposal_comments, class_name: 'ProposalComment', inverse_of: :proposal, dependent: :destroy
   # only the main contributes related to the proposal
   has_many :contributes, -> { where(parent_proposal_comment_id: nil) },
            class_name: 'ProposalComment', dependent: :destroy
@@ -46,7 +47,6 @@ class Proposal < ActiveRecord::Base
 
   has_many :proposal_lives, -> { order 'proposal_lives.created_at DESC' },
            class_name: 'ProposalLife', dependent: :destroy
-  has_many :users, through: :proposal_presentations, class_name: 'User'
 
   has_many :proposal_supports, class_name: 'ProposalSupport', dependent: :destroy
   has_many :supporting_groups, through: :proposal_supports, class_name: 'Group', source: :group
@@ -73,7 +73,7 @@ class Proposal < ActiveRecord::Base
   has_many :proposal_sections, dependent: :destroy
   has_many :sections, -> { order :seq }, through: :proposal_sections
 
-  has_many :solutions, -> { order 'solutions.seq' }, dependent: :destroy
+  has_many :solutions, -> { order 'solutions.seq' }, inverse_of: :proposal, dependent: :destroy
 
   belongs_to :proposal_votation_type, class_name: 'ProposalVotationType'
 
@@ -282,7 +282,7 @@ class Proposal < ActiveRecord::Base
     alerts_count = alerts_count_subquery(user_id)
     ranking = ranking_subquery(user_id)
 
-    proposals_sql = Proposal.voting.uniq.
+    proposals_sql = Proposal.voting.distinct.
       project(alerts_count.as('alerts_count'), ranking.as('ranking'), events[:endtime].as('end_time')).
       join(group_proposals).on(group_proposals[:proposal_id].eq(proposals[:id])).
       join(groups).on(groups[:id].eq(group_proposals[:group_id])).
@@ -552,14 +552,13 @@ class Proposal < ActiveRecord::Base
     return unless in_valutation?
     logger.info "Abandoning proposal #{id}"
     self.proposal_state_id = ProposalState::ABANDONED
-    life = proposal_lives.build(quorum_id: quorum_id,
+    life = proposal_lives.build(quorum: quorum,
                                 valutations: valutations,
                                 rank: rank,
                                 seq: ((proposal_lives.maximum(:seq) || 0) + 1))
+
     # save old authors
-    users.each do |user|
-      life.users << user
-    end
+    users.each { |user| life.users << user }
     # delete old data
     self.valutations = 0
     self.rank = 0
@@ -571,7 +570,8 @@ class Proposal < ActiveRecord::Base
     # and rankings
     rankings.destroy_all
 
-    save
+    save!
+
     # remove the timer if is still there
     # if self.minutes #todo remove jobs
     #  Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id})

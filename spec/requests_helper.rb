@@ -5,7 +5,7 @@ def login(user, password)
     fill_in 'user_password', with: password
     click_button 'Login'
   end
-  expect(page.current_path).to eq('/')
+  expect(page).to have_current_path('/')
   expect(page).to have_content(I18n.t('devise.sessions.user.signed_in'))
 end
 
@@ -37,9 +37,9 @@ def fill_tokeninput(locator, opts)
 end
 
 def page_should_be_ok
-  expect(page).to_not have_content(I18n.t('error.error_500.title'))
-  expect(page).to_not have_content(I18n.t('error.error_302.title'))
-  expect(page).to_not have_content(I18n.t('error.error_404.title'))
+  expect(page).not_to have_content(I18n.t('error.error_500.title'))
+  expect(page).not_to have_content(I18n.t('error.error_302.title'))
+  expect(page).not_to have_content(I18n.t('error.error_404.title'))
 end
 
 def scroll_to(element)
@@ -49,19 +49,18 @@ def scroll_to(element)
   Capybara.current_session.driver.browser.execute_script(script, element.native)
 end
 
-
 def wait_for_ajax
-  Timeout.timeout(Capybara.default_wait_time) do
+  Timeout.timeout(Capybara.default_max_wait_time) do
     loop until finished_all_ajax_requests?
   end
 end
 
 def finished_all_ajax_requests?
-  page.evaluate_script('jQuery.active').zero?
+  page.evaluate_script('$.active').zero?
 end
 
 def expect_sign_in_page
-  expect(page.current_path).to eq('/users/sign_in')
+  expect(page.current_path).to include(new_user_session_path)
 end
 
 def expect_forbidden_page

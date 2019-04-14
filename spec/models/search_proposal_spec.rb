@@ -35,16 +35,16 @@ describe SearchProposal, type: :model, search: true do
       end
       expect(Proposal.count).to eq 10
 
-      ['caccapupu',
-       'today',
-       'hello',
-       'super'].each do |search_term|
+      %w[caccapupu
+         today
+         hello
+         super].each do |search_term|
         search_proposal = described_class.new
         search_proposal.user_id = user.id
         search_proposal.group_id = group.id
         search_proposal.text = search_term
         titles.select { |d| d.exclude? search_term }.each do |title|
-          expect(search_proposal.results.map(&:title)).to_not include(title)
+          expect(search_proposal.results.map(&:title)).not_to include(title)
         end
         expect(search_proposal.results.count).to(be >= 1, "No results for #{search_term}")
       end

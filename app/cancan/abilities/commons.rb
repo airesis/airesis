@@ -29,7 +29,7 @@ module Abilities
         joins(:participation_role).
         where(["group_participations.user_id = :user_id AND
                 (participation_roles.id = #{ParticipationRole.admin.id} OR
-                 participation_roles.#{action} = true)", user_id: user.id]).uniq.exists?
+                 participation_roles.#{action} = true)", user_id: user.id]).distinct.exists?
     end
   end
 end

@@ -3,21 +3,18 @@ class Event < ActiveRecord::Base
 
   attr_accessor :period, :frequency, :commit_button, :proposal_id
 
-  validates_presence_of :title, :description, :starttime, :endtime, :event_type, :user
+  validates_presence_of :title, :description, :starttime, :endtime
   validate :validate_start_time_end_time
 
+  belongs_to :user
   belongs_to :event_type
   has_many :proposals, class_name: 'Proposal', foreign_key: 'vote_period_id'
   has_many :possible_proposals, class_name: 'Proposal', foreign_key: 'vote_event_id'
-  has_one :meeting, class_name: 'Meeting', dependent: :destroy
+  has_one :meeting, class_name: 'Meeting', inverse_of: :event, dependent: :destroy
   has_one :place, through: :meeting, class_name: 'Place'
   has_many :meeting_organizations, class_name: 'MeetingOrganization', foreign_key: 'event_id', dependent: :destroy
-
   has_many :groups, through: :meeting_organizations, class_name: 'Group', source: :group
-
   has_many :event_comments, class_name: 'EventComment', foreign_key: :event_id, dependent: :destroy
-
-  belongs_to :user
 
   delegate :meeting_participations, to: :meeting
 

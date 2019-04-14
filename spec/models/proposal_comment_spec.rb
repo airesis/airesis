@@ -4,7 +4,7 @@ describe ProposalComment, type: :model, seeds: true do
   let(:user) { create(:user) }
   let(:proposal) { create(:public_proposal, current_user_id: user.id) }
 
-  before(:each) do
+  before do
     load_municipalities
     proposal
   end
@@ -12,9 +12,11 @@ describe ProposalComment, type: :model, seeds: true do
   context 'contributes count' do
     context 'when a contribute is added' do
       let!(:contribute) { create(:proposal_comment, proposal: proposal) }
-      before(:each) do
+
+      before do
         proposal.reload
       end
+
       it 'increases the number of comments of the proposal' do
         expect(proposal.proposal_comments_count).to eq 1
       end
@@ -24,9 +26,11 @@ describe ProposalComment, type: :model, seeds: true do
       end
       context 'when a comment is added' do
         let!(:comment) { create(:proposal_comment, contribute: contribute, proposal: proposal) }
-        before(:each) do
+
+        before do
           proposal.reload
         end
+
         it 'increases the number of comments of the proposal' do
           expect(proposal.proposal_comments_count).to eq 2
         end

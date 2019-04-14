@@ -29,6 +29,7 @@ bs-BA:
       left_panel:
         geographic_borders: Geografske granice
         title: POSTAVKE I PREFERENCIJE
+        statistics: ""
       privacy_preferences:
         private_messages: Primati privatne poruke od drugih korisnika
         join_facebook: Pridružite svoj Facebook nalog
@@ -119,6 +120,7 @@ bs-BA:
         proposal_types_title: MODELI
         all_proposal_types: Svi modeli
         with_text: "sadrži '%{text}'"
+        territory: ""
       show:
         votenil: Ne znam / ne razumijem
         geographic_boundaries_title: Geografske granice
@@ -140,6 +142,7 @@ bs-BA:
         new_quorum_title: Izaberite novi kvorum
         error_loading_paragraph: Ova stavka je uklonjena. Ponovno učitajte stranicu da biste vidjeli ažurirani prijedlog
         model_title: Šablon
+        start_votation_button: ""
       new:
         quorum_prompt: Odaberite kvorum
         quorum_help: Pomoć

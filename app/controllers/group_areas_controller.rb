@@ -1,12 +1,12 @@
 class GroupAreasController < ApplicationController
   layout :choose_layout
 
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
-  before_filter :configuration_required
+  before_action :configuration_required
 
   # carica il gruppo
-  before_filter :load_group
+  before_action :load_group
   authorize_resource :group
   load_and_authorize_resource through: :group
 

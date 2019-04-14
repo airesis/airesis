@@ -41,7 +41,8 @@ describe Blog do
 
     context 'when title changes' do
       let(:new_title) { Faker::Company.name }
-      before(:each) do
+
+      before do
         blog.update(title: new_title)
       end
 
@@ -55,12 +56,12 @@ describe Blog do
     end
 
     context 'retrieves territories correctly' do
-      let(:sys_locale) { create(:sys_locale, territory: territory) }
+      let(:sys_locale) { create(:sys_locale, territory: territory, key: 'weird') }
 
       context 'when user has a country attached as original locale' do
         let(:territory) { create(:country) }
 
-        before(:each) do
+        before do
           user.update(original_locale: sys_locale)
         end
 
@@ -72,10 +73,11 @@ describe Blog do
           expect(blog.solr_continent_id).to eq territory.continent_id
         end
       end
+
       context 'when user has a continent attached as original locale' do
         let(:territory) { create(:continent) }
 
-        before(:each) do
+        before do
           user.update(original_locale: sys_locale)
         end
 
@@ -92,10 +94,12 @@ describe Blog do
     describe '#look' do
       # let(:municipality) { create(:municipality) }
       # let(:province) { municipality.province }
-      let(:blogs) { [create(:blog, title: 'hello group title'),
-                      create(:blog, title: 'Miriam'),
-                      create(:blog),
-                      create(:blog)] }
+      let(:blogs) do
+        [create(:blog, title: 'hello group title'),
+         create(:blog, title: 'Miriam'),
+         create(:blog, title: 'My blog'),
+         create(:blog, title: 'Astonishing news')]
+      end
 
       before do
         load_database

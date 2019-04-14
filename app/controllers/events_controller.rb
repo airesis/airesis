@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   layout :choose_layout
 
-  before_filter :load_group, only: [:index, :new, :create]
+  before_action :load_group, only: [:index, :new, :create]
 
   load_and_authorize_resource :group
   load_and_authorize_resource :event, through: :group, shallow: true
@@ -193,7 +193,7 @@ class EventsController < ApplicationController
     @events = @events.time_scoped(Time.parse(params['start']), Time.parse(params['end']))
     @events = @events.in_territory(current_domain.territory) unless @group
     events = @events.map { |event| generate_event_obj(event) }
-    render text: events.to_json
+    render json: events.to_json
   end
 
   def generate_event_obj(event)

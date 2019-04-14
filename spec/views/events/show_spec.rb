@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe 'events/show.html.erb' do
-  include Devise::TestHelpers
+RSpec.describe 'events/show.html.erb' do
+  include Devise::Test::ControllerHelpers
 
   context 'votation event' do
-    let(:event) {create(:vote_event)}
+    let(:event) { create(:vote_event) }
 
-    before(:each) do
+    before do
       proposals = create_list(:in_vote_public_proposal, 3)
       proposals.each do |proposal|
         proposal.update_columns(vote_period_id: event.id)

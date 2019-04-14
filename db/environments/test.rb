@@ -1,13 +1,16 @@
-a1 = Continent.create(description: "Europe")
+a1 = Continent.create!(description: "Europe")
 a1.translations.where(locale: "en").first_or_create.update_attributes(description: "Europe")
 a1.translations.where(locale: "it").first_or_create.update_attributes(description: "Europa")
-s1 = Country.create(description: "Italy", continent_id: a1.id, sigla: "IT", sigla_ext: "ITA")
+s1 = Country.create!(description: "Italy", continent_id: a1.id, sigla: "IT", sigla_ext: "ITA")
 s1.translations.where(locale: "it").first_or_create.update_attributes(description: "Italia")
 s1.translations.where(locale: "en").first_or_create.update_attributes(description: "Italy")
-r14 = Region.create(description: "Emilia Romagna", country_id: s1.id, continent_id: a1.id)
-Province.create(description: "Bologna", region_id:  r14.id, country_id: s1.id, continent_id: a1.id, sigla: "BO")
-Municipality.create(description: "Bologna", province_id: 57, region_id:  r14.id, country_id: 1, continent_id: 1 , population: 371217)
-Municipality.create(description: "Marzabotto", province_id: 57, region_id:  r14.id, country_id: 1, continent_id: 1 , population: 6262)
-Municipality.create(description: "Medicina", province_id: 57, region_id:  r14.id, country_id: 1, continent_id: 1 , population: 13570)
+r14 = Region.create!(description: "Emilia Romagna", country_id: s1.id, continent_id: a1.id)
+p1 = Province.create!(description: "Bologna", region_id:  r14.id, country_id: s1.id, continent_id: a1.id, sigla: "BO")
+Municipality.create!(description: "Bologna", province_id: p1.id, region_id:  r14.id, country_id: s1.id,
+                     continent_id: a1.id , population: 371217)
+Municipality.create!(description: "Marzabotto", province_id: p1.id, region_id:  r14.id, country_id: s1.id,
+                     continent_id: a1.id , population: 6262)
+Municipality.create!(description: "Medicina", province_id: p1.id, region_id:  r14.id, country_id: s1.id,
+                     continent_id: a1.id , population: 13570)
 
 load File.join(Rails.root, 'db', 'seeds', "999_airesis_seed.rb")

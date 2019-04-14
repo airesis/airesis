@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'requests_helper'
 
-describe QuorumsController, type: :controller do
+RSpec.describe QuorumsController, type: :controller do
   let!(:province) { create(:province) }
   let!(:user) { create(:user) }
   let(:group) { create(:group, current_user_id: user.id) }
@@ -22,19 +22,20 @@ describe QuorumsController, type: :controller do
       }
     }
   end
+
   describe 'POST create' do
-    before(:each) do
+    before do
       sign_in user
     end
 
     it 'responds to js' do
-      post :create, quorum_params.merge(format: :js)
-      expect(response).to have_http_status 200
+      post :create, params: quorum_params.merge(format: :js)
+      expect(response).to have_http_status :ok
     end
 
     it 'responds to html' do
-      post :create, quorum_params
-      expect(response).to have_http_status 302
+      post :create, params: quorum_params
+      expect(response).to have_http_status :found
     end
   end
 end

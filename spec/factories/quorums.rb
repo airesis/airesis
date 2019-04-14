@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :best_quorum do
     name { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph }

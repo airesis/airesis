@@ -1,10 +1,10 @@
 class ProposalsController < ApplicationController
   include ProposalsHelper
 
-  before_filter :load_group
-  before_filter :load_group_area
+  before_action :load_group
+  before_action :load_group_area
 
-  before_filter :authorize_parent
+  before_action :authorize_parent
 
   def authorize_parent
     authorize! :read, @group if @group
@@ -17,9 +17,9 @@ class ProposalsController < ApplicationController
   layout :choose_layout
 
   # la proposta deve essere in stato 'IN VALUTAZIONE'
-  before_filter :valutation_state_required, only: [:rankup, :rankdown, :available_author, :add_authors, :geocode]
+  before_action :valutation_state_required, only: [:rankup, :rankdown, :available_author, :add_authors, :geocode]
 
-  before_filter :check_page_alerts, only: :show
+  before_action :check_page_alerts, only: :show
 
   def index
     if @group

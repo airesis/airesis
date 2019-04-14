@@ -1,6 +1,6 @@
 module UsersHelper
   def link_to_ip(title, provider, css)
-    link_to title, user_omniauth_authorize_path(provider), alt: title, title: title, class: "zocial icon #{css}"
+    link_to title, omniauth_authorize_path(:user, provider), alt: title, title: title, class: "zocial icon #{css}"
   end
 
   def link_to_user(user, options = {})

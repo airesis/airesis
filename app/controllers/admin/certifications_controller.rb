@@ -1,6 +1,6 @@
 module Admin
   class CertificationsController < Admin::ApplicationController
-    before_filter :load_group, only: [:create, :destroy]
+    before_action :load_group, only: [:create, :destroy]
 
     def index
     end

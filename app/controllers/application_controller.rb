@@ -6,30 +6,29 @@ class ApplicationController < ActionController::Base
     rescue_from Exception, with: :render_error
     rescue_from ActiveRecord::RecordNotFound, with: :render_404
     rescue_from ActionController::RoutingError, with: :render_404
-    rescue_from ActionController::UnknownController, with: :render_404
     rescue_from ::AbstractController::ActionNotFound, with: :render_404
     rescue_from I18n::InvalidLocale, with: :invalid_locale
   end
 
   protect_from_forgery
-  after_filter :discard_flash_if_xhr
+  after_action :discard_flash_if_xhr
 
-  before_filter :store_location
+  before_action :store_location
 
-  before_filter :set_current_domain
-  before_filter :set_locale
-  around_filter :user_time_zone, if: :current_user
+  before_action :set_current_domain
+  before_action :set_locale
+  around_action :user_time_zone, if: :current_user
 
-  before_filter :load_tutorial
+  before_action :load_tutorial
 
-  skip_before_filter :verify_authenticity_token, if: proc { |c| c.request.format == 'application/json' }
+  skip_before_action :verify_authenticity_token, if: proc { |c| c.request.format == 'application/json' }
 
-  before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :age, :is_group_admin?, :in_subdomain?
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :name, :surname, :accept_conditions, :sys_locale_id, :password) }
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :email, :name, :surname, :accept_conditions, :sys_locale_id, :password])
   end
 
   # redirect all'ultima pagina in cui ero
@@ -101,7 +100,10 @@ class ApplicationController < ActionController::Base
     @blog_posts = @blog.blog_posts.includes(:user, :blog, :tags).page(params[:page]).per(COMMENTS_PER_PAGE)
     @recent_comments = @blog.comments.includes(:blog_post, user: [:image, :user_type]).order('created_at DESC').limit(10)
     @recent_posts = @blog.blog_posts.published.limit(10)
-    @archives = @blog.blog_posts.select('COUNT(*) AS posts, extract(month from created_at) AS MONTH , extract(year from created_at) AS YEAR').group('MONTH, YEAR').order('YEAR desc, extract(month from created_at) desc')
+    @archives = @blog.blog_posts.
+                select('COUNT(*) AS posts, extract(month from created_at) AS MONTH , extract(year from created_at) AS YEAR').
+                group('MONTH, YEAR').
+                order(Arel.sql('YEAR desc, extract(month from created_at) desc'))
   end
 
   def extract_locale_from_tld
@@ -217,8 +219,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # TODO: avoid permit!
   def current_url(overwrite = {})
-    url_for params.merge(overwrite).merge(only_path: false)
+    url_for params.permit!.to_h.merge(overwrite).merge(only_path: false)
   end
 
   # helper method per determinare se l'utente attualmente collegato è amministratore di sistema
@@ -380,7 +383,7 @@ class ApplicationController < ActionController::Base
 
   # check as rode all the alerts of the page.
   # it's a generic method but with a per-page solution
-  # call it in an after_filter
+  # call it in an after_action
   def check_page_alerts
     return unless current_user
     case params[:controller]

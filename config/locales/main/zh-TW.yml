@@ -276,9 +276,9 @@ zh-TW:
       edit:
         new_password: 新密碼
         confirm_password: |2
-          
+
           		請確認新密碼
-          	
+
         confirm_button: 更改我的密碼
     registration:
       title: 註冊
@@ -844,6 +844,8 @@ zh-TW:
       footer:
         registered_at: '您收到這封電子郵件，是因為您在 %{url} 上註冊帳號。'
       click_here: 點擊此處
+      terms: ""
+      privacy: ""
     new_contribute:
       title: '%{user} 增加了一個新的編輯修訂 %{comment} 到這個提案'
       view_proposal: '%{click_here} 檢視此提案'
@@ -884,5 +886,6 @@ zh-TW:
     or: 或
     and: 和
     terms_of_service: 服務條款
-    privacy_policy: 隱私權
     guide: 常見問題
+    privacy_policy: ""
+    contribution: ""

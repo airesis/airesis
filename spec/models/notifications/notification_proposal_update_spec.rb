@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationProposalUpdate, type: :model, emails: true, notifications: true, seeds: true do
+RSpec.describe NotificationProposalUpdate, type: :model, emails: true, notifications: true, seeds: true do
   let!(:event_class) { NotificationProposalUpdate }
   let!(:notification_type) { NotificationType.find_by(name: 'text_update') }
   let!(:expected_alerts) { 3 }
@@ -27,7 +27,7 @@ describe NotificationProposalUpdate, type: :model, emails: true, notifications: 
     update_proposal_params = { sections_attributes:
                                 { '0' => { id: section.id, paragraphs_attributes:
                                   { '0' => { id: paragraph.id, content: content, content_dirty: content } } } } }
-    proposal.update(update_proposal_params)
+    proposal.update!(update_proposal_params)
   end
 
   cumulable_event_process_spec

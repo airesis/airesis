@@ -1,8 +1,13 @@
 require 'rails_helper'
 
-describe Event do
+RSpec.describe Event do
   let(:user) { create(:user) }
   let(:events) { create_list(:meeting_event, 3, user: user) }
+
+  it 'can be built' do
+    expect(create(:vote_event)).to be_valid
+    expect(create(:meeting_event)).to be_valid
+  end
 
   context 'time left rendering' do
     let(:now) { Time.now }
@@ -71,42 +76,43 @@ describe Event do
   end
 
   context 'scopes' do
-    before(:each) do
+    before do
       events
     end
+
     context 'in_territory' do
       it 'works' do
-        expect(Event.in_territory(Municipality.first.country).count).to eq 1
+        expect(described_class.in_territory(Municipality.last.country).count).to eq 1
       end
     end
 
     context 'visible' do
       it 'works' do
-        expect(Event.visible.count).to eq 0
+        expect(described_class.visible.count).to eq 0
       end
     end
 
     context 'not visible' do
       it 'works' do
-        expect(Event.not_visible.count).to eq 3
+        expect(described_class.not_visible.count).to eq 3
       end
     end
 
     context 'votation' do
       it 'works' do
-        expect(Event.votation.count).to eq 0
+        expect(described_class.votation.count).to eq 0
       end
     end
 
     context 'after_time' do
       it 'works' do
-        expect(Event.after_time.count).to eq 3
+        expect(described_class.after_time.count).to eq 3
       end
     end
 
     context 'vote_period' do
       it 'works' do
-        expect(Event.vote_period.count).to eq 0
+        expect(described_class.vote_period.count).to eq 0
       end
     end
   end

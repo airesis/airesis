@@ -2,11 +2,11 @@ class ProposalSupportsController < ApplicationController
   # load_and_authorize_resource
   layout 'open_space'
 
-  before_filter :load_proposal
+  before_action :load_proposal
 
   authorize_resource only: [:new]
 
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   def index
   end

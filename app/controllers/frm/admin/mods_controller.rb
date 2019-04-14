@@ -1,7 +1,7 @@
 module Frm
   module Admin
     class ModsController < BaseController
-      before_filter :load_frm_mod, only: [:show, :destroy]
+      before_action :load_frm_mod, only: [:show, :destroy]
       authorize_resource class: 'Frm::Mod'
 
       def index

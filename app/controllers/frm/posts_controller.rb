@@ -5,9 +5,9 @@ module Frm
     load_and_authorize_resource :topic, class: 'Frm::Topic', through: :forum
     load_and_authorize_resource through: :topic
 
-    before_filter :reject_locked_topic!, only: [:create]
-    before_filter :authorize_reply_for_topic!, only: [:new, :create]
-    before_filter :authorize_edit_post_for_forum!, only: [:edit, :update]
+    before_action :reject_locked_topic!, only: [:create]
+    before_action :authorize_reply_for_topic!, only: [:new, :create]
+    before_action :authorize_edit_post_for_forum!, only: [:edit, :update]
 
     def new
       find_reply_to_post
@@ -16,7 +16,7 @@ module Frm
           @post.text = view_context.forem_quote(@reply_to_post.text)
         else
           flash[:notice] = t('frm.post.cannot_quote_deleted_post')
-          redirect_to [@group, @forum, @topic]
+          redirect_to group_forum_topic_url(@group, @forum, @topic)
         end
       end
     end

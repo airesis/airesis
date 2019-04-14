@@ -1,10 +1,10 @@
 class BlogPostsController < ApplicationController
   layout :choose_layout
 
-  before_filter :load_group
-  before_filter :load_blog
+  before_action :load_group
+  before_action :load_blog
 
-  before_filter :authorize_parent
+  before_action :authorize_parent
 
   def authorize_parent
     authorize! :read, @group if @group
@@ -13,13 +13,13 @@ class BlogPostsController < ApplicationController
 
   load_and_authorize_resource through: [:blog, :group], shallow: true, collection: [:drafts]
 
-  before_filter :load_blog_data, only: [:index, :show, :drafts]
+  before_action :load_blog_data, only: [:index, :show, :drafts]
 
-  before_filter :check_page_alerts, only: :show
+  before_action :check_page_alerts, only: :show
 
   def index
     if @blog || @group
-      redirect_to (@blog || @group)
+      redirect_to(@blog || @group)
     else
       @blog_posts = @blog_posts.published.order(published_at: :desc).page(params[:page]).per(COMMENTS_PER_PAGE)
       @page_title = t('pages.blog_posts.index.title', app_short_name: APP_SHORT_NAME)

@@ -1,6 +1,6 @@
 json.total_count @proposals.total_count
 json.current_page @proposals.current_page
-json.num_pages @proposals.num_pages
+json.num_pages @proposals.total_pages
 json.proposals @proposals do |proposal|
   json.id proposal.id
   json.created_at proposal.created_at

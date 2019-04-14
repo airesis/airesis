@@ -1,8 +1,8 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :proposal do
-    proposal_category_id ProposalCategory::NO_CATEGORY
+    proposal_category_id { ProposalCategory::NO_CATEGORY }
     title { Faker::Lorem.sentence }
-    tags_list %w(tag1 tag2 tag3).join(',')
+    tags_list { %w[tag1 tag2 tag3].join(',') }
     votation { { later: 'true' } }
     quorum { BestQuorum.visible.first }
     transient do
@@ -14,9 +14,9 @@ FactoryGirl.define do
     end
 
     factory :group_proposal do
-      visible_outside true
+      visible_outside { true }
       transient do
-        groups []
+        groups { [] }
       end
 
       after(:build) do |proposal, evaluator|
@@ -26,11 +26,9 @@ FactoryGirl.define do
       end
     end
 
-    after(:build) do |proposal|
-      proposal.build_sections
-    end
+    after(:build, &:build_sections)
 
-    after(:create) do |proposal, evaluator|
+    before(:build) do |proposal, evaluator|
       (evaluator.num_solutions - 1).times do |i|
         proposal.solutions.create(seq: i + 2)
       end
@@ -40,7 +38,7 @@ FactoryGirl.define do
       transient do
         debate_duration { 2 }
       end
-      num_solutions 2
+      num_solutions { 2 }
       quorum { create(:best_quorum, percentage: 0, days_m: debate_duration) }
       current_user_id { create(:user).id }
 

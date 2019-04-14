@@ -2,7 +2,7 @@ class TagsController < ApplicationController
   layout 'open_space'
 
   # l'utente deve aver fatto login
-  before_filter :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def show
     @kt = Tag.find_by(text: params[:id])

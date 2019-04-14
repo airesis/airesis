@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :province do
     association :region
     country { region.country }

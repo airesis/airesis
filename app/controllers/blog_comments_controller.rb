@@ -1,7 +1,7 @@
 class BlogCommentsController < ApplicationController
   layout('application')
 
-  before_filter :save_comment, only: :create
+  before_action :save_comment, only: :create
 
   load_and_authorize_resource :blog
   load_and_authorize_resource :blog_post

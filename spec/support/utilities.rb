@@ -34,7 +34,6 @@ def create_proposal_in_area(visible_outside = true)
   create(:group_proposal, current_user_id: user.id, groups: [group], group_area_id: area.id, visible_outside: visible_outside).reload
 end
 
-
 def create_public_proposal(user_id)
   create(:public_proposal, current_user_id: user_id)
 end

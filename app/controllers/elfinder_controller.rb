@@ -1,7 +1,7 @@
 class ElfinderController < ApplicationController
-  skip_before_filter :verify_authenticity_token, only: ['elfinder']
+  skip_before_action :verify_authenticity_token, only: ['elfinder']
 
-  before_filter :load_group
+  before_action :load_group
 
   def elfinder
 
@@ -41,6 +41,6 @@ class ElfinderController < ApplicationController
 
     headers.merge!(h)
 
-    render (r.empty? ? { nothing: true } : { text: r.to_json }), layout: false
+    render (r.empty? ? { nothing: true } : { json: r.to_json }), layout: false
   end
 end

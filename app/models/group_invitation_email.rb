@@ -1,6 +1,6 @@
 class GroupInvitationEmail < ActiveRecord::Base
   belongs_to :group_invitation
-  belongs_to :invited, class_name: 'User', foreign_key: :user_id
+  belongs_to :invited, class_name: 'User', foreign_key: :user_id, optional: true
 
   before_create :generate_token
 

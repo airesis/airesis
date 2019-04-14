@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user_sensitive do
     association :user
     name { Faker::Name.name }

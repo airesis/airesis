@@ -2,7 +2,7 @@ module Admin
   class ApplicationController < ::ApplicationController
     layout 'admin'
 
-    before_filter :admin_required
+    before_action :admin_required
 
     protected
 

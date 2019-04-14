@@ -30,8 +30,10 @@ describe NotificationProposalCommentUnintegrate, type: :model, emails: true, not
                paragraphs_attributes: {
                  '0' => { id: paragraph.id,
                           content: content,
-                          content_dirty: content } } } },
-               integrated_contributes_ids_list: "#{comment.id}" }
+                          content_dirty: content }
+               } }
+    },
+               integrated_contributes_ids_list: comment.id.to_s }
 
     proposal.current_user_id = user.id
     saved = proposal.update(params)

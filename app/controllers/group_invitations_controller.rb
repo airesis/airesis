@@ -15,8 +15,8 @@ class GroupInvitationsController < ApplicationController
   end
 
   def create
-    @group_invitation.inviter_id = current_user.id
-    @group_invitation.save
+    @group_invitation.inviter = current_user
+    @group_invitation.save!
 
     respond_to do |format|
       if @group_invitation.group_invitation_emails.any?

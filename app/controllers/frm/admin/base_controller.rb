@@ -3,7 +3,7 @@ module Frm
     class BaseController < ApplicationController
       layout 'groups'
 
-      before_filter :authorize_frm_admin
+      before_action :authorize_frm_admin
 
       def index
       end

@@ -1,6 +1,6 @@
 class IntegratedContribute < ActiveRecord::Base
-  belongs_to :proposal_revision
-  belongs_to :proposal_comment
+  belongs_to :proposal_revision, inverse_of: :integrated_contributes
+  belongs_to :proposal_comment, inverse_of: :integrated_contribute
 
   after_commit :send_notifications, on: :destroy
 

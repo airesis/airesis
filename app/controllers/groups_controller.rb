@@ -1,15 +1,15 @@
 class GroupsController < ApplicationController
   layout :choose_layout
 
-  before_filter :authenticate_user!, except: [:index, :show, :by_year_and_month]
+  before_action :authenticate_user!, except: [:index, :show, :by_year_and_month]
 
-  before_filter :load_group, except: [:index, :new, :create, :ask_for_multiple_follow]
+  before_action :load_group, except: [:index, :new, :create, :ask_for_multiple_follow]
 
   load_resource
 
   authorize_resource except: [:participation_request_confirm, :participation_request_decline]
 
-  before_filter :admin_required, only: [:autocomplete]
+  before_action :admin_required, only: [:autocomplete]
 
   def autocomplete
     groups = Group.autocomplete(params[:term])
@@ -64,7 +64,7 @@ class GroupsController < ApplicationController
       where(' extract(year from blog_posts.created_at) = ? AND extract(month from blog_posts.created_at) = ? ', params[:year], params[:month]).
       order('post_publishings.featured desc, published_at DESC').
       select('post_publishings.*, published_at').
-      uniq.
+      distinct.
       page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
@@ -84,9 +84,9 @@ class GroupsController < ApplicationController
     @group_participations = @group.participants
     @archives = @group.blog_posts.
       accessible_by(current_ability, false).
-      select(' COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR ').
-      group(' MONTH, YEAR ').
-      order(' YEAR desc, extract(month from blog_posts.created_at) desc ')
+      select('COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR').
+      group('MONTH, YEAR').
+      order(Arel.sql('YEAR desc, extract(month from blog_posts.created_at) desc'))
     # TODO: slow query. remove eager loading
     @last_topics = @group.topics.
       accessible_by(Ability.new(current_user)).
