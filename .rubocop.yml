@@ -34,6 +34,9 @@ RSpec/LetSetup:
 RSpec/ExpectInHook:
   Enabled: false
 
+Capybara/CurrentPathExpectation:
+  Enabled: false
+
 AllCops:
   Exclude:
     - 'uploads/**/*'
