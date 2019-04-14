@@ -1,11 +1,11 @@
 class ProposalStatisticsController < ApplicationController
   # carica la proposta
-  before_filter :load_proposal
+  before_action :load_proposal
 
   # ##SICUREZZA###
 
   # l'utente deve aver fatto login
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   def rank_time
     respond_to do |format|

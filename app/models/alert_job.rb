@@ -2,7 +2,8 @@ class AlertJob < ActiveRecord::Base
   belongs_to :trackable, polymorphic: true
   belongs_to :notification_type
   belongs_to :user
-  belongs_to :alert
+  # TODO: why is this optional?
+  belongs_to :alert, optional: true
 
   validates :trackable, presence: true
   validates :notification_type, presence: true
@@ -57,9 +58,9 @@ class AlertJob < ActiveRecord::Base
                                   checked: false,
                                   trackable_id: trackable.id,
                                   trackable_type: trackable.class.name)
-    create(trackable: trackable,
-           notification_type: notification.notification_type,
-           user: user,
-           jid: jid)
+    create!(trackable: trackable,
+            notification_type: notification.notification_type,
+            user: user,
+            jid: jid)
   end
 end

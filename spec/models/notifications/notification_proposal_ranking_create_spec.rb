@@ -9,7 +9,7 @@ describe NotificationProposalRankingCreate, type: :model, emails: true, notifica
     let(:participants) { create_list(:user, 3) }
 
     context 'when the author has notifications active' do
-      before(:each) do
+      before do
         user.blocked_alerts.find_by(notification_type_id: NotificationType::NEW_VALUTATION_MINE).destroy
         participants.each do |participant|
           create(:positive_ranking, proposal: proposal, user: participant)

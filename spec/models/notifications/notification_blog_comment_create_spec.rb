@@ -3,7 +3,7 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 describe NotificationBlogCommentCreate, type: :model, emails: true, notifications: true do
-  before(:each) do
+  before do
     load_database
   end
 

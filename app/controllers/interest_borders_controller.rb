@@ -1,5 +1,5 @@
 class InterestBordersController < ApplicationController
-  # TODO: before_filter :authenticate_user!
+  # TODO: before_action :authenticate_user!
 
   def index
     hint = "#{params[:q]}%"

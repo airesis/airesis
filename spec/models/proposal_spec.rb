@@ -23,7 +23,7 @@ describe Proposal, type: :model do
   let(:public_proposal) { create(:proposal, current_user_id: user.id) }
 
   context 'group proposal' do
-    before(:each) do
+    before do
       load_municipalities
       group_proposal
     end
@@ -42,7 +42,7 @@ describe Proposal, type: :model do
   end
 
   context 'group area proposal' do
-    before(:each) do
+    before do
       load_municipalities
       group_area_proposal
     end
@@ -61,42 +61,34 @@ describe Proposal, type: :model do
   end
 
   context 'public proposal' do
-    before(:each) do
+    before do
       load_database
       public_proposal
     end
+
     it 'can be destroyed when public' do
       expect(public_proposal.destroy).to be_truthy
     end
   end
 
   describe 'interest border fields' do
-    before do
-      load_database
-    end
-
     it 'populates the attributes properly' do
-      continent = Continent.first
-      country = Country.first
-      region = Region.first
-      province = Province.first
       municipality = Municipality.first
-      municipality2 = Municipality.create(description: 'Marzabotto',
-                                          province: province,
-                                          region: region,
-                                          country: country,
-                                          continent: continent,
-                                          population: 34)
+      province = municipality.province
+      municipality2 = create(:municipality, description: 'Marzabotto', province: province)
+      region = province.region
+      country = region.country
+      continent = country.continent
 
       proposal = create(:proposal, interest_borders_tkn: "C-#{municipality.id},C-45897,C-#{municipality2.id}")
 
-      expect(proposal.interest_borders_tokens).to eq ["C-#{municipality.id}","C-#{municipality2.id}"]
+      expect(proposal.interest_borders_tokens).to eq ["C-#{municipality.id}", "C-#{municipality2.id}"]
       expect(proposal.derived_interest_borders_tokens).to match_array ["K-#{continent.id}",
-                                                              "S-#{country.id}",
-                                                              "R-#{region.id}",
-                                                              "P-#{province.id}",
-                                                              "C-#{municipality.id}",
-                                                              "C-#{municipality2.id}"]
+                                                                       "S-#{country.id}",
+                                                                       "R-#{region.id}",
+                                                                       "P-#{province.id}",
+                                                                       "C-#{municipality.id}",
+                                                                       "C-#{municipality2.id}"]
     end
 
     it 'can be searched by interest border' do

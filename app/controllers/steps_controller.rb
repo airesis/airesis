@@ -1,5 +1,5 @@
 class StepsController < ApplicationController
-  before_filter :load_tutorial
+  before_action :load_tutorial
 
   # sign as completed a tutorial step
   def complete

@@ -1,6 +1,6 @@
 module Admin
   class ModeratorController < Admin::ManagerController
-    before_filter :moderator_required
+    before_action :moderator_required
 
     layout 'users'
 

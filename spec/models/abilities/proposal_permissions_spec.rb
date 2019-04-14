@@ -2,12 +2,12 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe 'permissions on proposals', type: :model, js: true, search: true, seeds: true do
+describe 'permissions on proposals', :js, type: :model, search: true, seeds: true do
   context 'participants of the group' do
     let(:user) { create(:user) }
     let(:group) { create(:group, current_user_id: user.id) }
 
-    before :each do
+    before do
       @ability = Ability.new(user)
     end
 
@@ -19,7 +19,7 @@ describe 'permissions on proposals', type: :model, js: true, search: true, seeds
       participant = create(:user)
       create_participation(participant, group)
       expect(Ability.new(user)).to be_able_to(:show, proposal)
-      expect(Ability.new(user)).to_not be_able_to(:participate, proposal)
+      expect(Ability.new(user)).not_to be_able_to(:participate, proposal)
     end
   end
 
@@ -30,7 +30,7 @@ describe 'permissions on proposals', type: :model, js: true, search: true, seeds
     let(:ability) { Ability.new(participant) }
     let(:area) { create(:group_area, group: group) }
 
-    before :each do
+    before do
       create_participation(participant, group)
     end
 
@@ -40,28 +40,31 @@ describe 'permissions on proposals', type: :model, js: true, search: true, seeds
                                 groups: [group],
                                 group_area_id: area.id, visible_outside: false)
       end
+
       context 'does not participate in any area' do
         context 'when is in debate' do
           it 'cant participate to the proposal' do
-            expect(ability).to_not be_able_to(:participate, proposal)
+            expect(ability).not_to be_able_to(:participate, proposal)
           end
 
           it 'cant see the proposal' do
-            expect(ability).to_not be_able_to(:show, proposal)
+            expect(ability).not_to be_able_to(:show, proposal)
           end
         end
+
         context 'when is voting' do
-          before :each do
+          before do
             proposal.update_columns(proposal_state_id: ProposalState::VOTING)
           end
+
           it 'cant participate' do
-            expect(ability).to_not be_able_to(:participate, proposal)
+            expect(ability).not_to be_able_to(:participate, proposal)
           end
           it 'cant see' do
-            expect(ability).to_not be_able_to(:show, proposal)
+            expect(ability).not_to be_able_to(:show, proposal)
           end
           it 'cant vote' do
-            expect(ability).to_not be_able_to(:vote, proposal)
+            expect(ability).not_to be_able_to(:vote, proposal)
           end
         end
       end
@@ -73,28 +76,31 @@ describe 'permissions on proposals', type: :model, js: true, search: true, seeds
                                 groups: [group],
                                 group_area_id: area.id, visible_outside: true)
       end
+
       context 'does not participate in any area' do
         context 'when is in debate' do
           it 'cant participate to the proposal' do
-            expect(ability).to_not be_able_to(:participate, proposal)
+            expect(ability).not_to be_able_to(:participate, proposal)
           end
 
           it 'can see the proposal' do
             expect(ability).to be_able_to(:show, proposal)
           end
         end
+
         context 'when is voting' do
-          before :each do
+          before do
             proposal.update_columns(proposal_state_id: ProposalState::VOTING)
           end
+
           it 'cant participate' do
-            expect(ability).to_not be_able_to(:participate, proposal)
+            expect(ability).not_to be_able_to(:participate, proposal)
           end
           it 'can see' do
             expect(ability).to be_able_to(:show, proposal)
           end
           it 'cant vote' do
-            expect(ability).to_not be_able_to(:vote, proposal)
+            expect(ability).not_to be_able_to(:vote, proposal)
           end
         end
       end
@@ -102,7 +108,7 @@ describe 'permissions on proposals', type: :model, js: true, search: true, seeds
   end
 
   context 'owner of the group permissions' do
-    before :each do
+    before do
       @user = create(:user)
       @ability = Ability.new(@user)
       @group = create(:group, current_user_id: @user.id)
@@ -170,7 +176,8 @@ describe 'permissions on proposals', type: :model, js: true, search: true, seeds
       create(:group_proposal, current_user_id: participant.id,
                               groups: [group])
     end
-    before :each do
+
+    before do
       create_participation(participant, group)
     end
 
@@ -188,7 +195,7 @@ describe 'permissions on proposals', type: :model, js: true, search: true, seeds
         expect(ability).to be_able_to(:close_debate, proposal)
       end
       it 'can start the votation of proposals at any time' do
-        proposal.update_attributes(proposal_state_id: ProposalState::WAIT)
+        proposal.update(proposal_state_id: ProposalState::WAIT)
         expect(ability).to be_able_to(:start_votation, proposal)
       end
     end

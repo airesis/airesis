@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationProposalVoteStarts, type: :model, emails: true, notifications: true, seeds: true do
+RSpec.describe NotificationProposalVoteStarts, type: :model, emails: true, notifications: true, seeds: true do
   it 'when the vote for the proposal starts sends correctly an email to all authors and participants' do
     user1 = create(:user)
     proposal = create(:public_proposal, current_user_id: user1.id, votation: { choise: 'new',
@@ -18,11 +18,11 @@ describe NotificationProposalVoteStarts, type: :model, emails: true, notificatio
     proposal.check_phase(true)
     proposal.reload
 
-    expect(proposal.waiting?).to be_truthy
+    expect(proposal).to be_waiting
 
     proposal.vote_period.start_votation
     proposal.reload
-    expect(proposal.voting?).to be_truthy
+    expect(proposal).to be_voting
 
     expect(described_class.jobs.size).to eq 1
     described_class.drain

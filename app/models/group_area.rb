@@ -1,6 +1,8 @@
 class GroupArea < ActiveRecord::Base
   belongs_to :group
-  belongs_to :default_role, class_name: 'AreaRole', foreign_key: :area_role_id
+
+  # TODO: is not optional, but it does not exist before validation
+  belongs_to :default_role, class_name: 'AreaRole', foreign_key: :area_role_id, optional: true
 
   has_many :area_participations, -> { order 'id DESC' }, dependent: :destroy
   has_many :participants, through: :area_participations, source: :user, class_name: 'User'
@@ -23,7 +25,7 @@ class GroupArea < ActiveRecord::Base
   def pre_populate
     role = area_roles.build(name: default_role_name, description: 'Ruolo predefinito dell\'area')
     role.save!
-    self.area_role_id = role.id
+    self.default_role = role
   end
 
   def after_populate
@@ -39,8 +41,7 @@ class GroupArea < ActiveRecord::Base
   def scoped_participants(action)
     participants.
       joins('JOIN area_roles on area_participations.area_role_id = area_roles.id').
-      where("area_roles.#{action} = true").
-      uniq
+      where("area_roles.#{action} = true").distinct
   end
 
   def to_param

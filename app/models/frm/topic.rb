@@ -23,7 +23,7 @@ module Frm
     belongs_to :forum, class_name: 'Frm::Forum'
     belongs_to :user, class_name: 'User'
     has_many :subscriptions
-    has_many :posts, -> { order 'frm_posts.created_at ASC' }, dependent: :destroy
+    has_many :posts, -> { order 'frm_posts.created_at ASC' }, dependent: :destroy, inverse_of: :topic
 
     has_many :topic_tags, dependent: :destroy, foreign_key: 'frm_topic_id'
     has_many :tags, through: :topic_tags, class_name: 'Tag'
@@ -41,7 +41,7 @@ module Frm
     validates :subject, presence: true
     validates :user, presence: true
 
-    before_save :set_first_post_user
+    before_validation :set_first_post_user, on: :create
     after_save :approve_user_and_posts, if: :approved?
     after_create :subscribe_poster
     after_create :skip_pending_review

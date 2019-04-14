@@ -11,8 +11,8 @@ module Frm
 
     has_many :topics, class_name: 'Frm::Topic', dependent: :destroy
     has_many :posts, class_name: 'Frm::Post', through: :topics, dependent: :destroy
-    has_many :mods, through: :moderator_groups, source: :frm_mod, class_name: 'Frm::Mod'
     has_many :moderator_groups
+    has_many :mods, through: :moderator_groups, source: :frm_mod, class_name: 'Frm::Mod'
 
     has_many :forum_tags, dependent: :destroy, foreign_key: 'frm_forum_id'
     has_many :tags, through: :forum_tags, class_name: 'Tag'

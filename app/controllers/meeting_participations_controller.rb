@@ -1,5 +1,5 @@
 class MeetingParticipationsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   load_and_authorize_resource :event
   load_and_authorize_resource through: :event

@@ -32,7 +32,7 @@ class ProposalCommentSearch
     @evaluated_ids = if @current_user
                        ProposalComment.joins(:rankings).
                          where(proposal_comment_rankings: { user_id: @current_user.id },
-                               proposal_comments: { proposal_id: @proposal.id }).uniq.pluck(:id)
+                               proposal_comments: { proposal_id: @proposal.id }).distinct.pluck(:id)
                      else
                        []
                      end
@@ -61,8 +61,6 @@ class ProposalCommentSearch
     end
 
     if random_order?
-      order = order_clause
-
       # remove already shown contributes
       conditions_arel = conditions_arel.and(proposal_comments_t[:id].not_in @contributes) if @contributes
       left = @limit
@@ -71,7 +69,7 @@ class ProposalCommentSearch
       # extract not evaluated contributes
       tmp_comments += @proposal.contributes.listable.
         where(conditions_arel.and(proposal_comments_t[:id].not_in(evaluated_ids))).
-        order(order).take(left)
+        order(Arel.sql(order_clause)).take(left)
 
       left -= tmp_comments.count
 

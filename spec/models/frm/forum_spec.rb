@@ -4,7 +4,7 @@ describe Frm::Forum do
   context 'when created' do
     let(:forum) { create(:frm_forum) }
 
-    before(:each) do
+    before do
       load_database
     end
 
@@ -14,7 +14,8 @@ describe Frm::Forum do
 
     context 'when name changes' do
       let(:new_name) { Faker::Company.name }
-      before(:each) do
+
+      before do
         forum.update(name: new_name)
       end
 

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :blog do
     title { Faker::Company.name }
     association :user

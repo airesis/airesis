@@ -1,14 +1,14 @@
 class AreaParticipationsController < ApplicationController
   layout 'groups'
 
-  before_filter :load_group
+  before_action :load_group
 
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   authorize_resource :group
   load_and_authorize_resource :group_area, through: :group
 
-  before_filter :load_area_participation, only: :destroy
+  before_action :load_area_participation, only: :destroy
 
   load_and_authorize_resource through: :group_area
 

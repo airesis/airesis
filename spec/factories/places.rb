@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :place do
     association :municipality
     address { Faker::Address.street_name }
@@ -8,6 +8,6 @@ FactoryGirl.define do
     longitude_original { Faker::Address.longitude }
     latitude_center { Faker::Address.latitude }
     longitude_center { Faker::Address.longitude }
-    zoom 5
+    zoom { 5 }
   end
 end

@@ -11,7 +11,7 @@ class Country < ActiveRecord::Base
 
   scope :by_hint, lambda { |hint|
     with_translations(I18n.locale, 'en').
-      where('lower_unaccent(country_translations.description) like lower_unaccent(?)', hint).uniq
+      where('lower_unaccent(country_translations.description) like lower_unaccent(?)', hint).distinct
   }
 
   def parent

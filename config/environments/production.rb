@@ -1,4 +1,4 @@
-Airesis::Application.configure do
+Rails.application.configure do
   config.cache_classes = true
 
   config.eager_load = true
@@ -6,13 +6,12 @@ Airesis::Application.configure do
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+
   config.i18n.fallbacks = true
 
-  # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_files = false
-
-  # Compress JavaScripts and CSS
   config.assets.js_compressor = :uglifier
+  config.assets.css_compressor = :sass
 
   config.action_mailer.perform_deliveries = true
 
@@ -30,7 +29,22 @@ Airesis::Application.configure do
   config.log_level = :info
   config.lograge.enabled = true
 
+  config.log_tags = [:request_id]
+
+  config.action_mailer.perform_caching = false
+
+  config.active_support.deprecation = :notify
+
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
+    logger = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
+  end
+
+  # Do not dump schema after migrations.
+  config.active_record.dump_schema_after_migration = false
+
   config.active_record.raise_in_transactional_callbacks = true
 end
 
-Airesis::Application.default_url_options = Airesis::Application.config.action_mailer.default_url_options
+Rails.application.default_url_options = Rails.application.config.action_mailer.default_url_options

@@ -1,10 +1,10 @@
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 
 require 'rails/all'
 
 require 'csv'
 
-Bundler.require(:default, Rails.env)
+Bundler.require(*Rails.groups)
 
 # TODO: renenable token authenticable
 
@@ -12,6 +12,7 @@ module Airesis
   class Application < Rails::Application
     config.encoding = 'utf-8'
     config.coding = 'utf-8'
+    config.load_defaults 5.2
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
@@ -102,7 +103,7 @@ module Airesis
       config.paperclip_defaults = options
     end
 
-    config.middleware.insert_before 0, 'Rack::Cors', debug: Rails.env.development? do
+    config.middleware.insert_before 0, Rack::Cors, debug: Rails.env.development? do
       allow do
         origins '*'
 

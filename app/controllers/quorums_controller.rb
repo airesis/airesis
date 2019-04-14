@@ -2,9 +2,9 @@ class QuorumsController < ApplicationController
   layout :choose_layout
 
   # security controls
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
-  before_filter :load_group, except: :help
+  before_action :load_group, except: :help
 
   authorize_resource :group
 

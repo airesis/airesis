@@ -6,11 +6,11 @@ describe Group do
 
   context 'validations' do
     include Paperclip::Shoulda::Matchers
-    it { should validate_attachment_size(:image).less_than(UPLOAD_LIMIT_IMAGES.bytes) }
+    it { is_expected.to validate_attachment_size(:image).less_than(UPLOAD_LIMIT_IMAGES.bytes) }
   end
 
   context 'when created' do
-    before(:each) do
+    before do
       load_database
       group.save
     end
@@ -30,7 +30,8 @@ describe Group do
 
     context 'when title changes' do
       let(:new_name) { Faker::Company.name }
-      before(:each) do
+
+      before do
         group.update(name: new_name)
       end
 
@@ -47,12 +48,14 @@ describe Group do
   describe '#look' do
     let(:municipality) { create(:municipality) }
     let(:province) { municipality.province }
-    let(:groups) { [create(:group, num_participants: 1, name: 'hello group title'),
-                    create(:group, num_participants: 2, description: 'group hello description'),
-                    create(:group, num_participants: 2, tags_list: 'hello'),
-                    create(:group, num_participants: 3, description: 'hello'),
-                    create(:group, num_participants: 2, tags_list: 'hello,world', interest_border_tkn: InterestBorder.to_key(municipality)),
-                    create(:group, num_participants: 5, tags_list: 'ciao,hello', interest_border_tkn: InterestBorder.to_key(province))] }
+    let(:groups) do
+      [create(:group, num_participants: 1, name: 'hello group title'),
+       create(:group, num_participants: 2, description: 'group hello description'),
+       create(:group, num_participants: 2, tags_list: 'hello'),
+       create(:group, num_participants: 3, description: 'hello'),
+       create(:group, num_participants: 2, tags_list: 'hello,world', interest_border_tkn: InterestBorder.to_key(municipality)),
+       create(:group, num_participants: 5, tags_list: 'ciao,hello', interest_border_tkn: InterestBorder.to_key(province))]
+    end
 
     before do
       load_database
@@ -87,33 +90,21 @@ describe Group do
       it 'can search a specific place' do
         expect(described_class.look(interest_border: InterestBorder.to_key(province))).to eq [groups[5]]
       end
-
     end
   end
 
   describe '#most_active' do
     it 'returns a list of the 5 most active groups' do
-
     end
   end
 
   describe 'interest border field' do
-    before do
-      load_database
-    end
-
     it 'populates the attributes properly' do
-      continent = Continent.first
-      country = Country.first
-      region = Region.first
-      province = Province.first
       municipality = Municipality.first
-      municipality2 = Municipality.create(description: 'Marzabotto',
-                                          province: province,
-                                          region: region,
-                                          country: country,
-                                          continent: continent,
-                                          population: 34)
+      province = municipality.province
+      region = province.region
+      country = region.country
+      continent = country.continent
 
       group = create(:group, interest_border_tkn: "C-#{municipality.id}")
 

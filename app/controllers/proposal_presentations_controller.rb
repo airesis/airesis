@@ -1,11 +1,11 @@
 class ProposalPresentationsController < ApplicationController
   # carica la proposta
-  before_filter :load_proposal
+  before_action :load_proposal
   # carica la proposta
-  before_filter :load_proposal_presentation
+  before_action :load_proposal_presentation
 
   # l'utente deve aver fatto login
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   def destroy
     authorize! :destroy, @proposal_presentation

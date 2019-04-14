@@ -2,8 +2,8 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationAvailableAuthorCreate, type: :model, emails: true, notifications: true do
-  before(:each) do
+RSpec.describe NotificationAvailableAuthorCreate, type: :model, emails: true, notifications: true do
+  before do
     load_database
   end
 

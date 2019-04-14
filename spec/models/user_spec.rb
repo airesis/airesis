@@ -1,17 +1,12 @@
 require 'rails_helper'
 
-describe User do
-
-  before do
-    load_database
-  end
-
+RSpec.describe User do
   it 'populates the attributes properly' do
-    continent = Continent.first
-    country = Country.first
-    region = Region.first
-    province = Province.first
     municipality = Municipality.first
+    province = municipality.province
+    region = province.region
+    country = region.country
+    continent = country.continent
 
     user = create(:user, interest_borders_tokens: InterestBorder.to_key(municipality))
 
@@ -28,7 +23,7 @@ describe User do
       province = Province.first
       municipality = Municipality.first
       user = create(:user, interest_borders_tokens: InterestBorder.to_key(municipality))
-      expect(User.by_interest_borders([InterestBorder.to_key(province)])).to include user
+      expect(described_class.by_interest_borders([InterestBorder.to_key(province)])).to include user
     end
   end
 end

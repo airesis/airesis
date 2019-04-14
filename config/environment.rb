@@ -1,6 +1,6 @@
-require File.expand_path('../application', __FILE__)
+require_relative 'application'
 
-Airesis::Application.initialize!
+Rails.application.initialize!
 
 # patch to provide missing translations to rails using existing yml files
 I18n.available_locales.each do |locale|

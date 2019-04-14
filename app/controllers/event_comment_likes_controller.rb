@@ -1,10 +1,10 @@
 class EventCommentLikesController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
-  before_filter :load_event_comment
-  before_filter :load_event_comment_like, only: :delete
+  before_action :load_event_comment
+  before_action :load_event_comment_like, only: :delete
 
-  before_filter :check_author, only: [:delete]
+  before_action :check_author, only: [:delete]
 
   def create
     @event_comment.likers << current_user

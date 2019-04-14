@@ -17,9 +17,9 @@ module Frm
     # Used in the moderation tools partial
     attr_accessor :moderation_option
 
-    belongs_to :topic
+    belongs_to :topic, inverse_of: :posts
     belongs_to :user, class_name: 'User'
-    belongs_to :reply_to, class_name: 'Post'
+    belongs_to :reply_to, class_name: 'Post', optional: true
 
     has_many :replies, class_name: 'Post',
                        foreign_key: 'reply_to_id',

@@ -1,14 +1,19 @@
 require 'rails_helper'
 require 'requests_helper'
 
-describe ApplicationController, type: :controller do
+RSpec.describe ApplicationController, type: :controller do
   describe 'set_current_domain' do
     let(:host) { 'airesis.it' }
-    let!(:sys_locale) { create(:sys_locale, host: host) }
+    let(:sys_locale) { create(:sys_locale, host: host) }
+
+    before do
+      SysLocale.destroy_all
+      sys_locale
+    end
 
     context 'set from host' do
       context 'host with no subdomain' do
-        before(:each) do
+        before do
           @request.host = host
         end
 
@@ -19,7 +24,7 @@ describe ApplicationController, type: :controller do
       end
 
       context 'host with www subdomain' do
-        before(:each) do
+        before do
           @request.host = "www.#{host}"
         end
 
@@ -30,7 +35,7 @@ describe ApplicationController, type: :controller do
       end
 
       context 'host with any subdomain' do
-        before(:each) do
+        before do
           @request.host = "cicci.#{host}"
         end
 
@@ -41,7 +46,7 @@ describe ApplicationController, type: :controller do
       end
 
       context 'host not found' do
-        before(:each) do
+        before do
           @request.host = 'hello.com'
         end
 
@@ -54,7 +59,7 @@ describe ApplicationController, type: :controller do
 
     context 'set from l param' do
       context 'l found in database' do
-        before(:each) do
+        before do
           @request.host = 'hello.com'
           allow(subject).to receive(:params).and_return(l: sys_locale.key)
         end

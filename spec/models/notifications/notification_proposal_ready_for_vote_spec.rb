@@ -15,7 +15,7 @@ describe NotificationProposalReadyForVote, type: :model, emails: true, notificat
     end
     proposal.check_phase(true)
     proposal.reload
-    expect(proposal.waiting_date?).to be_truthy
+    expect(proposal).to be_waiting_date
 
     expect(described_class.jobs.size).to eq 1
     described_class.drain

@@ -1,8 +1,8 @@
 class DocumentsController < ApplicationController
   layout 'groups'
 
-  before_filter :load_group, except: [:view]
-  before_filter :authenticate_user!
+  before_action :load_group, except: [:view]
+  before_action :authenticate_user!
 
   def index
     authorize! :view_data, @group

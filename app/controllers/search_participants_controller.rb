@@ -1,5 +1,5 @@
 class SearchParticipantsController < ApplicationController
-  before_filter :load_group
+  before_action :load_group
 
   authorize_resource :group
   load_and_authorize_resource through: :group

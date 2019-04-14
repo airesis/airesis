@@ -1,5 +1,5 @@
 class UserLikesController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   def create
     @user_like = UserLike.new(user_like_params)

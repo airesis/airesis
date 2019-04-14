@@ -15,7 +15,6 @@ class Blog < ActiveRecord::Base
   has_many :comments, through: :blog_posts, source: :blog_comments
 
   validates :title, length: { in: 1..100 }
-  validates :user, presence: true
 
   def last_post
     blog_posts.order(created_at: :desc).first
@@ -40,7 +39,7 @@ class Blog < ActiveRecord::Base
 
     if tag
       Blog.joins(blog_posts: :tags).
-        where(['tags.text = ?', tag]).uniq.
+        where(['tags.text = ?', tag]).distinct.
         order(updated_at: :desc).page(page).per(limit)
     else
       blogs = if search.blank?

@@ -1,7 +1,7 @@
 class UserVote < ActiveRecord::Base
   belongs_to :user
   belongs_to :proposal, counter_cache: true
-  belongs_to :vote_type
+  belongs_to :vote_type, optional: true
   validates :user_id, uniqueness: { scope: :proposal_id }
 
   def desc_vote_schulze

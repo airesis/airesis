@@ -1,6 +1,6 @@
 class BlockedProposalAlertsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :load_proposal
+  before_action :authenticate_user!
+  before_action :load_proposal
 
   def block
     @blocked_alerts = BlockedProposalAlert.find_or_create_by(user_id: current_user.id, proposal_id: @proposal.id)

@@ -1,6 +1,8 @@
 class SysLocale < ActiveRecord::Base
-  has_many :users
+  has_many :users, inverse_of: :locale
+  has_many :original_users, inverse_of: :original_locale
   belongs_to :territory, polymorphic: true
+  validates :key, uniqueness: true
 
   def description
     I18n.t("db.#{self.class.class_name.tableize}.#{key}.description")
