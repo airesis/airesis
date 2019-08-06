@@ -562,7 +562,6 @@ es-ES:
         logout: LOGOUT
         remember_me: Remember me on this computer
         login_button: Login
-        registration_button: JOIN US
         forgot_password_button: Forgot password?
         resend_email_button: "Haven't you received a confirmation email?"
         no_notifications: No notification

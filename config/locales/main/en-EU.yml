@@ -740,7 +740,7 @@ en-EU:
         logout: "LOGOUT"
         remember_me: "Remember me on this computer"
         login_button: "Login"
-        registration_button: "JOIN US"
+        registration_button: "REGISTER"
         forgot_password_button: "Forgotten password?"
         resend_email_button: "Haven't you received a confirmation email?"
         no_notifications: "No notification"
@@ -834,7 +834,6 @@ en-EU:
         last_proposals: "Last public proposals"
         from_blogs: "Last posts from blogs"
         features: "Features"
-        donations: "Donations"
         volunteers: "Volunteers"
       show:
         your_proposals: "Proposals you participate in"

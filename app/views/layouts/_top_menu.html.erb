@@ -34,9 +34,6 @@
           <%= link_to open_space_path, class: 'cur globe', title: t('open_space') do %>
               <i class="fa fa-globe medium"></i>
           <% end %></li>
-        <li class="hide-for-small"><%= link_to sostienici_path, class: 'cur love', title: t('pages.header.support_us') do %>
-              <i class="fa fa-heart medium"></i>
-          <% end %></li>
         <li class="hide-for-small">
           <%= link_to "#", onclick: "return false;", data: {dropdown: "help_panel", options: "is_hover:false"} do %>
               <i class="fa fa-question medium cur info" title="TUTORIAL"></i>
@@ -92,12 +89,6 @@
     <% end %>
   </li>
   <li>
-    <%= link_to videoguide_path, title: t('pages.home.index.videos') do %>
-        <i class="fa fa-film"></i>
-        <%= t('pages.home.index.videos') %>
-    <% end %>
-  </li>
-  <li>
     <%= link_to 'http://wiki.airesis.eu/doku.php?id=en:faq', title: t('pages.home.index.FAQ'), target: '_blank' do %>
         <i class="fa fa-book"></i>
         <%= t('pages.home.index.FAQ') %>
@@ -113,12 +104,6 @@
     <%= link_to edemocracy_path, title: t('pages.home.index.whatis') do %>
         <i class="fa fa-info"></i>
         <%= t('pages.home.index.whatis') %>
-    <% end %>
-  </li>
-  <li>
-    <%= link_to chisiamo_path, title: t('pages.home.index.whowe') do %>
-        <i class="fa fa-users"></i>
-        <%= t('pages.home.index.whowe') %>
     <% end %>
   </li>
 </ul>

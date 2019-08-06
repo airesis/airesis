@@ -45,8 +45,6 @@ Rails.application.configure do
 
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :letter_opener
-
-  config.active_record.raise_in_transactional_callbacks = true
 end
 
 Rails.application.default_url_options = Rails.application.config.action_mailer.default_url_options

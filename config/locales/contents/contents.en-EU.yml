@@ -368,8 +368,6 @@ en-EU:
       title: "The evolution of Airesis"
       description: "Our road to realize a new software, an idea capable of evolving democracy that came to life in the web."
     helpus:
-      title: "Help us, everyone can contribute"
-      description: "Contribute to create a tool able to evolve democracy"
       paragraph1:
         title: "Why are we asking you to support Airesis?"
         content_html: |
@@ -377,29 +375,9 @@ en-EU:
            The volunteers working on this project spend a considerable amount of time in order to bring a useful software for our communities.
            However, volunteering and hard work alone are not sufficient: money is needed to maintain the server publicly available and the software updated and experiment with the new features and improvements we are developing. In addition to this, paid work is required for server maintenance and user help desk.
            </p>
-      paragraph2:
-        title: "Choose what to support"
-        content_html: |
-          <p>Airesis allow you to donate for a single feature.
-          The development group has dozens of ideas to improve the software, however funds are required to implement them</p>
-          <p>Today you can donate to realize a specific feature, or to suggest new ideas you are willing to donate for.</p>
-          <p>Go to the <a href=%{link}>donations page</a> and see what we would like to realize with your help!</p>
-      paragraph3:
-        title: "How to donate"
-        content_html: |
-          <p> The Association for Social Promotion named
-            <a href="https://www.facebook.com/tecnologiedemocratiche" target="_blank">Tecnologie Democratichez</a>
-            was created in order to support the development of Airesis and allow the project sustenance.
-            Your donation will be entirely addressed to the development and hosting of the platform.
-            Financially support us in order to pay an experienced senior programmer and for the maintenance of the server hosting our application:
-          </p>
-          <center>
-            <p>With a donation using Paypal:</p>
-          </center>
       paragraph4:
         content_html: |
           <p><a href="mailto:%{mail}">Contact us</a> for more information.</p>
-
       paragraph5:
         title: "Spread the word about this project"
       title: "Help us as you want, anyone can contribute"
@@ -421,7 +399,7 @@ en-EU:
         content_html: |
           <p>If you choose to publish your banner it will be of great help to the project. Thank you.</p>
     tags:
-      title: "Airesis - Make a decision"
+      title: "Airesis - The Social Network for E-Democracy"
       description: "A decision making tool for direct democracy and e-government: participate in discussions, bring your ideas, suggest solutions and vote online"
     engage:
       title: "Participate in the project for a new democracy"
@@ -439,7 +417,7 @@ en-EU:
             <li>Giving comments and suggestions about usability and platform UI</li>
             <li>Programming the platform UI (REQUIRED: knowledge of HTML, CSS or Javascript)</li>
             <li>Programming the platform server-side (REQUIRED: knowledge of Ruby and/or C++ language, or will to learn it with the help of other volunteers)</li>
-            <li>Supporting us with a <a href=%{donations_path}>donation</a> or raising founds</li>
+            <li>Supporting us with a donation or raising founds</li>
             <li><a href="#linkback">Spreading the word</a> about the project and managing its communication</li>
           </ul>
           <p>To help us coordinate our activities we use these tools. You can start from here:</p>

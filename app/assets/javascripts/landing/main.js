@@ -8,8 +8,6 @@ $(function () {
     $('.login-form').addClass("animated fadeInDownBig");
     $('.hero-text').addClass("animated fadeInDownBig");
     $('.buttons').addClass("animated fadeInDownBig");
-    //$('.buttons .learn-more').addClass("animated fadeInRightBig");
-    $('.js #hero .hero-image img').addClass("animated fadeInUpBig");
     $('.js #hero .buttons a.trial').addClass("animated shake");
 
     !function (d, s, id) {

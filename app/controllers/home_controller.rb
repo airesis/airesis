@@ -20,33 +20,13 @@ class HomeController < ApplicationController
     render 'open_space'
   end
 
-  def videoguide
-  end
-
-  def engage
-  end
-
   def intro
   end
 
   def roadmap
   end
 
-  def donations
-    @features = SysFeature.all
-    @colors = %w(red yellow blue violet green)
-  end
-
   def press
-  end
-
-  def whowe
-  end
-
-  def story
-  end
-
-  def helpus
   end
 
   def school
