@@ -84,9 +84,6 @@ fr-FR:
       paragraph1:
         title: Pourquoi nous vous demandons de soutenir Airesis ?
         content_html: "<p>Les bénévoles qui travaillent sur ce projet passent un temps considérable afin de fournir un logiciel utile pour nos collectivités.  Cependant, bénévolat et travail acharné ne suffisent pas : l'argent est nécessaire pour maintenir une installation serveur publiquement disponible, pour garder le logiciel à jour et expérimenter les nouvelles fonctionnalités et les améliorations que nous développons. En plus de cela, un travail rémunéré est nécessaire pour la maintenance du serveur et l'assistance à l'utilisateur.  </p>"
-      paragraph2:
-        title: "Choisissez ce qu'il faut soutenir"
-        content_html: "<p>Airesis permet de faire des dons spécifiques. Le groupe de développement a des dizaines d'idées pour améliorer le logiciel, mais des fonds sont nécessaires pour les réaliser</p> <p>aujourd'hui vous pouvez faire un don pour réaliser une fonctionnalité spécifique, ou suggérer de nouvelles idées pour lesquelles vous êtes prêts à donner </p> <p>Allez à la <a href=%{link}> page dons</a> pour voir ce que nous aimerions réaliser avec votre aide !</p>"
       paragraph3:
         title: Comment faire un don
         content_html: |-
@@ -117,7 +114,7 @@ fr-FR:
       paragraph1:
         title: Airesis est ouvert à tous
         description_html: |
-          Airesis <p>est un projet basé sur un logiciel libre et open-source. Vous pouvez contribuer à son développement :</p> <ul><li>En utilisant la plateforme et vérifier les bogues</li> <li>En Laissant des commentaires et suggestions sur la facilité d'utilisation et sur l' interface utilisateur de la plate-forme</li> <li>En programmant la plate-forme d'interface utilisateur (requis : connaissance de HTML, CSS ou Javascript)</li> <li> En programmant côté serveur (requis : connaissance du langage Ruby et/ou C++, ou la volonté de l'apprendre à l'aide d'autres bénévoles)</li> <li>En nous soutenant avec un <a href=%{donations_path}> don</a> ou la recherche de fonds</li>
+          Airesis <p>est un projet basé sur un logiciel libre et open-source. Vous pouvez contribuer à son développement :</p> <ul><li>En utilisant la plateforme et vérifier les bogues</li> <li>En Laissant des commentaires et suggestions sur la facilité d'utilisation et sur l' interface utilisateur de la plate-forme</li> <li>En programmant la plate-forme d'interface utilisateur (requis : connaissance de HTML, CSS ou Javascript)</li> <li> En programmant côté serveur (requis : connaissance du langage Ruby et/ou C++, ou la volonté de l'apprendre à l'aide d'autres bénévoles)</li> <li>En nous soutenant avec un don ou la recherche de fonds</li>
           <li><a href="#linkback"> En passant le message</a> sur le projet et la gestion de sa communication</li></ul> <p>En nous aidant à coordonner nos activités et utiliser ces outils. Vous pouvez démarrer à partir d'ici :</p> <ul><li><a href="https://groups.google.com/forum/?fromgroups=#!forum/agora-20" target="_blank"> Development group sur Google groupes</a></li> <li><a href="https://www.facebook.com/groups/airesis/" target="_blank"> groupe développement sur Faceook</a></li> <li><a href="https://github.com/coorasse/Airesis" target="_blank"> code Source</a></li></ul>
       paragraph2:
         title: Comment contribuer

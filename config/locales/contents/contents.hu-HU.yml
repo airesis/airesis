@@ -8,14 +8,14 @@ hu-HU:
         content_html: |
           <p>Az Airesis egy <a href="http://en.wikipedia.org/wiki/Free_software">szabad szoftver</a> platform, melyet olasz fejlesztői és közreműködői csapat azért hozott létre, hogy a közösségek és csoportok produktív módon szerveződhessenek a <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank">közvetlen és részvételi demokrácia</a> elvei szerint.
           </p>
-          
+
           <p>Ezen a célok elérése érdekében az alkalmazást olyan többfunkciós rendszerként terveztük meg, amely egybegyűjti mindazokat az eszközöket, különösen a közösségi és döntéshozatali eszközöket, amelyek segíthetik a közösség építését.</p>
-          
+
           <p>A <strong>közösségi eszközök</strong> között, az Airesis tartalmaz blogot, egy rendszert az események és találkozók hirdetésére, a hozzá tartozó időzítéssel.
-          A <strong>döntéshozatali eszközök</strong> között teret ad az indítványok és kezdeményezések gyűjtésének, és az azokról történő vitának, és egy szavazási rendszernek, amellyel választani lehet a jelentkezők közül. A platform lehetővé teszi csoportok szerveződését, megadható szabályokkal és jogosultságokkal. 
-          
+          A <strong>döntéshozatali eszközök</strong> között teret ad az indítványok és kezdeményezések gyűjtésének, és az azokról történő vitának, és egy szavazási rendszernek, amellyel választani lehet a jelentkezők közül. A platform lehetővé teszi csoportok szerveződését, megadható szabályokkal és jogosultságokkal.
+
           Mivel az Airesis célja a részvétel elősegítése, nagy hangsúlyt helyeztünk a teljes platform intuitivitására.
-          
+
           A fejlesztési filozófia a folytonos javításra koncentrál, ez egyfajta evolúciós folyamat amely a felhasználók visszajelzésére épül.
           A fejlesztői csapat elérhető annak érdekében, hogy kielégítse az igényeit azoknak a közösségeknek amelyek használni akarják a szoftvert, a közvetlen demokrácia szellemében.</p>
       paragraph_3:
@@ -29,19 +29,19 @@ hu-HU:
           A polgárok bevonása azt jelenti, hogy több energia és szempont válik elérhetővé.
           Csak a közvetlen részvételen keresztül lehetséges a problémák megvisgálása, és annak megértése, hogy az emberek igazából mit akarnak. A részvétel a demokratikus döntéshozatal alapja.
           </li>
-          
+
           <li><strong>Átláthatóság és biztonság</strong><br/>
           Átláthatóság nélkül a szabályokat könnyen meg lehet kerülni, és a demokrácia gyorsan leépülhet.
           Az átláthatóság egyben nyíltságot is jelent, a befogadás képességét: ebből azokból az Airesis lehetővé teszi a nem regisztrált felhasználóknak az oldal tartalmának megtekintését.
           A szoftver forráskódja szintén "átlátszó", hiszen teljes egészében nyílt forrású.</li>
-          
+
           <li><strong>Konstruktív dialógus</strong><br/>
           Senkinél sincs meg az összes jó válasz. A megfelelő eszközök használatával, a sok ember által javasolt ötletek áttekintése sokkal hatékonyabb, mint ezt egyedül megtenni.</li>
-          
+
           <li><strong>Egyenlő esélyek</strong><br/>
           Az egyenlőség azt jelenti, hogy a rendszer által felajánlott lehetőségek tekintetében mindenki ugyanazt kapja.
           </li>
-          
+
           <li><strong>Hajlékonyság</strong><br/>
           Minden csoportnak megvannak a saját igényei, minden javaslat különbözik a többitől, minden felhasználónak saját igényei vannak.</li>
       paragraph_4:
@@ -174,13 +174,13 @@ hu-HU:
         title: Időleges névtelenség, titkos szavazás és vizsgálható szavazás
         content_html: |
           <p>Az Airesis egyik különlegessége, hogy <strong>a csoportok eldönthetik, hogy a javaslatok vitája névtelen legyen vagy sem</strong>.</p>
-          
+
           <p>Ha a névtelenség engedélyezve van, a szerzők és kommentátorok javaslatai álnév alatt futnak.
           Ez a tulajdonság lehetővé teszi, hogy a javaslatokat, kritikákat és véleményeket csak a tartalmuk alapján, pártatlanul vizsgáljuk, a szerzők "neve", és az emberek közötti szeretet/gyűlölet ne befolyásolja a vitát.
           </p>
-          
+
           <p>Bármely esetben, a vita és szavazás után a résztvevőket a rendszer a saját nevük alatt fogja mutatni, és lehetőség lesz ellenőrizni azt, hogy mit ki mondott.</p>
-          
+
           <p>Ez az opció a szavazási szakaszra is alkalmazható, tehát lehetőség van eldönteni, hogy az nyilvános vagy titkos szavazással történik. Fontos - különösen a titkos szavazás esetén - annak lehetősége, hogy a szavazó ellenőrizhesse a regisztrált szavazatát és a csalás hiányát. Ez lehetséges az Airesis által implementált ellenőrizhető szavazással.
           </p>
       paragraph_11:
@@ -192,8 +192,8 @@ hu-HU:
         title: Az e-demokrácia közösségi hálózata
         content_html: |2
           <p>Az Airesis egy <a href="http://en.wikipedia.org/wiki/Free_software">szabad szoftver</a> platform, melyet olasz fejlesztői és közreműködői csapat azért hozott létre, hogy a közösségek és csoportok produktív módon szerveződhessenek a közvetlen és részvételi demokrácia elvei szerint.
-          
-          
+
+
            amelyet olasz fejlesztők építettek abból a célból, hogy közösségek és csoportok számára lehetővé tegyék, hogy saját magukat hatékonyan megszervezhessék, a  <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank">közvetlen demokrácia</a> és részvétel eszméi mentén.
           </p>
       paragraph_2:
@@ -283,13 +283,6 @@ hu-HU:
       paragraph1:
         title: Miért kérjük, hogy támogassa a Airesis-t?
         content_html: '<p>Ezen a projekten az önkéntes dolgozók jelentős mennyiségű időt töltenek annak érdekében, hogy egy hasznos szoftvert adjanak a helyi közösségeknek. Azonban az önkéntesség és a kemény munka önmagában nem elegendő: pénzre van szükség, hogy nyilvánosan elérhető szervert telepítsünk, hogy a szoftvert naprakészen tartsuk és kipróbáljuk az új funkciókat és fejlesztéseket. Ezen túlmenően fizetett munkaerőre van szükség a kiszolgáló karbantartásához, és a felhasználó segélyszolgálathoz. </p>'
-      paragraph2:
-        title: Válasszon, mit támogatna
-        content_html: |
-          <p>Airesis lehetővé teszi, hogy funkciónként is adományozhasson.
-          A fejlesztési csoportnak több tucat ötlete van, hogy javítsa a szoftvert, azonban azok végrehajtásához tőke szükséges</p>
-          <p>Ma adományozhat egy adott funkció megvalósulásához, vagy javasolhat új ötleteket, amiért hajlandó adományozni.</p>
-          <p>Menjen a <a href=%{link}> adomány oldal</a>ra, és nézze meg, mit szeretnénk megvalósítani az Ön segítségével!</p>
       paragraph3:
         title: Hogyan adományozhatsz
         content_html: |2
@@ -338,7 +331,7 @@ hu-HU:
           <li>Megoszthatja észrevételeit és javaslatait a használhatósággal és a platform UI-jával (felhasználói interfész) kapcsolatban</li>
           <li>A platform UI-jának programozása (HTML, CSS vagy Javascript ismeret szükséges)</li>
           <li>A platform szerver-oldali programozása (Ruby és/vagy C++ nyelv ismerete, vagy megtanulása szükséges más önkéntesek segítségével)</li>
-          <li>Támogathat minket <a href=%{donations_path}> adománnyal</a>, vagy tőke kereséssel</li>
+          <li>Támogathat minket adománnyal, vagy tőke kereséssel</li>
           <li><a href="#linkback">Hirdesse</a> a projektet és segítsen a kommunikálásában</li>
           </ul>
           <p>Tevékenységünk koordinálásához ezeket az eszközöket használjuk. Innen indulhat:</p>
@@ -366,9 +359,9 @@ hu-HU:
         description_html: |
           <p>
           Ő az összekötő kapocs a felhasználók és a fejlesztőcsapat között.<br/>
-          
+
           Ő gyűjti be a visszajelzéseket a csoportoktól és a polgároktól, és továbbadja a fejlesztő csapatnak az összes szükséges dokumentációt az új funkciók, illetve a meglévők fejlesztéséhez.<br/>
-          
+
           Ő kidolgozza a algoritmusokat, valamint minden funkció előnyeit és hátrányait, és az esetleges nem megfelelő felhasználást.
           </p>
       first_lev_tester:

@@ -8,14 +8,14 @@ bs-BA:
         content_html: |
           <p>Airesis je <a href="http://en.wikipedia.org/wiki/Free_software">besplatna softverka platforma</a>, postavljena
           od strane tima italijanskih programera i saradnika, sa ciljem da omogući zajednicama i grupama da se organizuju na produktivan način prema principima <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank">direktne demokratije</a> i učešća.</p>
-          
+
           <p>Za postizanje ovog cilja, aplikacija je osmišljena kao multifunkcionalni sistem koji integriše sve alate koji mogu pomoći razvoju zajednice, posebno „društvene" i savjetodavne alate.</p>
-          
+
           <p>Od <strong>društvenih alata</strong>, Airesis nudi blogove i sistem promocije događaja s graničnim ogranizovanjem.
           Od <strong>savjetodavnih alata</strong>, tu su oblasti prikupljanja i razmatranja prijedloga i inicijativa,
-          i sistem glasanja čiji je cilj izbor kandidata. Platforma vam takođe omogućava kreiranje grupa sa uvidom u politiku regulacije i prilagođenim ovlašćenjima. 
+          i sistem glasanja čiji je cilj izbor kandidata. Platforma vam takođe omogućava kreiranje grupa sa uvidom u politiku regulacije i prilagođenim ovlašćenjima.
           Pošto je cilj Airesisa da podstakne učestvovanje, velika pažnja je data maksimiziranju intuitivnosti cijele platforme.
-          Filozofija razvoja je fokusirana na kontinuirano poboljšanje, na način evolucijskog procesa zasnovanog na povratnim informacijama korisnika. 
+          Filozofija razvoja je fokusirana na kontinuirano poboljšanje, na način evolucijskog procesa zasnovanog na povratnim informacijama korisnika.
           Razvojni tim je dostupan da zadovolji potrebe zajednica koje žele da koriste softver u duhu direktne demokratije. </p>
       paragraph_3:
         title: Načela i osnovne vrijednosti
@@ -29,19 +29,19 @@ bs-BA:
           Uključivanje građana znači imati više energije i tačaka gledišta na raspolaganju.
           Samo kroz direktno učešće je moguće istražiti probleme i razumjeti šta ljudi zaista žele. Učešće je suština demokratskih odluka.
           </li>
-          
+
           <li><strong>Transparentnost i bezbjednost</strong><br/>
           Bez transparentnosti, pravila se mogu zaobići a demokratija brzo pokvariti.
           Transparentnost takođe znači otvorenost, sposobnost primanja: iz tog razloga Airesis dozvoljava i neregistrovanim korisnicima da vide sadržaj web-sajta.
           Izvorni kôd softvera je takođe „transparentan“ jer je potpuno otvorenog izvora.</li>
-          
+
           <li><strong>Konstruktivan dijalog</strong><br/>
           Niko ne posjeduje prave odgovore. Korišćenje odgovarajućih alata, razmatranje ideja predloženih od strane mnogo ljudi može biti mnogo produktivnije nego kada to radite sami.</li>
-          
+
           <li><strong>Jednake mogućnosti</strong><br/>
           Da bi bio zamišljen kao način efikasne ravnopravnosti, u smislu ponuđenih mogućnosti, može da se sprovodi od strane sistema.
           </li>
-          
+
           <li><strong>Fleksibilnost</strong><br/>
           Svaka grupa ima svoje sopstvene potrebe, svaki prijedlog je različit, svaki korisnik ima svoje sopstvene potrebe.</li>
       paragraph_4:
@@ -56,8 +56,6 @@ bs-BA:
       paragraph_1:
         title: Društvena mreža za E-demokratiju
     helpus:
-      paragraph2:
-        title: Odaberite što želite podržati
       paragraph3:
         title: Kako donirati
     linkback:

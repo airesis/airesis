@@ -790,7 +790,6 @@ es-CL:
         last_proposals: Últimas propuestas públicas
         from_blogs: Últimos posts de blogs
         features: Características
-        donations: Donaciones
         volunteers: Voluntarios
       show:
         your_proposals: Propuestas en que participas
@@ -864,7 +863,7 @@ es-CL:
         description_html: |
           Es hora de dar tu opinión! < br />
           Agregar una propuesta, una idea o un feedback del territorio. < br />
-          Contribuye a la discusión y deja que otros usuarios te conozcan. <br/> 
+          Contribuye a la discusión y deja que otros usuarios te conozcan. <br/>
           Su propuesta se añadirán en el %{proposal} y puede ser apoyada por los grupos en su territorio.
     proposal_histories:
       index:

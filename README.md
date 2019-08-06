@@ -142,12 +142,6 @@ Our main goal is to make it even more simple and usable for everybody!
 
 Alessandro Rodi (coorasse@gmail.com)
 
-## Contributors
-
-[List of Contributors to the project Airesis](https://www.airesis.it/chisiamo)
-
-[Tecnologie Democratiche Association](https://www.facebook.com/tecnologiedemocratiche)
-
 ## License
 
 This software is released under AGPL .

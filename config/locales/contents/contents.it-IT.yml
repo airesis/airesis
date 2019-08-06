@@ -9,10 +9,10 @@ it-IT:
           <p>Airesis è una <a href="http://it.wikipedia.org/wiki/Software_libero" target="_blank">piattaforma software libera</a>, realizzata
           da un team italiano, per consentire a diverse forme di comunità di organizzarsi in modo produttivo secondo i principi della
           <a href="http://it.wikipedia.org/wiki/Democrazia_diretta" target="_blank">democrazia diretta</a> e partecipativa.</p>
-          
+
           <p>A tal scopo, la piattaforma è stata pensata come un sistema multifunzionale, che integra tutti gli strumenti che possono
           servire allo sviluppo di una comunità, in particolare strumenti social e ad orientamento deliberativo.</p>
-          
+
           <p> Gli <strong>strumenti social</strong> comprendono dei blog e un sistema di promozione di eventi/incontri con annessa calendarizzazione.
           Gli <strong>strumenti deliberativi</strong> comprendono aree per la raccolta e la delibera di proposte/iniziative e un sistema di votazione di candidati.
           La piattaforma consente inoltre di creare gruppi ad accesso regolamentato tramite policy e autorizzazioni personalizzabili.<br>
@@ -32,19 +32,19 @@ it-IT:
           Coinvolgere i cittadini significa avere a disposizione più energie e punti di vista.
           Solo attraverso la partecipazione diretta è possibile approfondire i problemi e comprendere cosa si vuole veramente. La partecipazione è l'essenza di decisioni democratiche.
           </li>
-          
+
           <li><b>Trasparenza e Sicurezza</b><br/>
           Senza trasparenza le regole possono essere facilmente aggirate e la democrazia può degenerare rapidamente.
           Trasparenza significa anche apertura, capacità di accogliere: per questo Airesis consente anche agli utenti non registrati di visionare i contenuti del sito.
           Trasparente è anche il codice del software, open source.</li>
-          
+
           <li><b>Dialogo costruttivo</b><br/>
           Nessuno ha in tasca tutte le risposte giuste. Con opportuni strumenti, elaborare idee a più mani può risultare molto più produttivo che farlo da soli.</li>
-          
+
           <li><b>Pari opportunità</b><br/>
           Intesa come effettiva uguaglianza in termini di possibilità.
           </li>
-          
+
           <li><b>Flessibilità</b><br/>
           Ogni gruppo ha le proprie necessità, ogni proposta è diversa dalle altre, ogni utente ha le proprie esigenze.</li>
       paragraph_4:
@@ -190,21 +190,21 @@ it-IT:
         title: Anonimato temporaneo, voto segreto e auditable voting
         content_html: |2
           <p>Una delle particolarità di Airesis è che gruppi <strong>possono scegliere se dibattere le proposte in modo anonimo o meno</strong>. </p>
-          
+
           <p>Se l'anonimato viene abilitato, autori e commentatori delle proposte sono indicati con uno
             <strong>pseudomino</strong>. Questa peculiarità consente di valutare le proposte, le critiche e i suggerimenti
             <strong>unicamente in base al loro contenuto</strong>, in modo imparziale, senza che il "nome" degli autori e le
             dinamiche di simpatia/antipatia interpersonali influenzino il dibattito. </p>
-          
+
           <p>In ogni caso, <strong>al termine del dibattito</strong> e dopo la votazione, i partecipanti verranno <strong>visualizzati con i loro nomi</strong> in modo da poter verificare gli interventi. </p>
-          
+
           <p>Questa opzione è <strong>applicabile anche alla votazione</strong>: è dunque possibile scegliere che questa abbia
             luogo con voto palese oppure segreto. Entrambe le opzioni presentano vantaggi e svantaggi, la cui entità dipende dalla
             particolare decisione da prendere. Ad esempio, il <strong>voto segreto</strong> evita che i membri della comunità
             possano essere messi sotto pressione per le loro opinioni (o peggio, perseguitati); il <strong>voto palese</strong>
             può incentivare una scelta responsabile nei confronti della collettività. Per ogni proposta<strong> è possibile
             scegliere</strong> il metodo di voto ritenuto più appropriato. </p>
-          
+
           <p>Importante, soprattutto in caso di voto segreto, è la possibilità di verificare l'effettiva registrazione del
             proprio voto e la <strong>non presenza di brogli</strong>. Questo è possibile attraverso il sistema di
             <a href="http://en.wikipedia.org/wiki/End-to-end_auditable_voting_systems">auditable voting </a> implentato in
@@ -358,13 +358,6 @@ it-IT:
           Purtroppo però, il volontariato non basta: servono fondi per mantenere un'installazione del software aperta a
           tutti, dove sperimentare le migliorie e le funzionalità che stiamo sviluppando.
           E' inoltre necessario avvalersi di lavoro retribuito per la manutenzione del server e l'assistenza agli utenti.</p>
-      paragraph2:
-        title: Scegli cosa sostenere
-        content_html: |
-          <p>Airesis permette di effettuare donazioni mirate su singole funzionalità.
-          Il gruppo di sviluppo ha in cantiere decine di idee ma per realizzarle servono fondi per portare avanti i lavori.</p>
-          <p>Da oggi puoi scegliere di fare una donazione per la realizzazione di una specifica funzionalità, o proporci nuove idee per le quali saresti disposto a donare qualcosa.</p>
-          <p>Vai alla <a href=%{link}> pagina dedicata alle donazioni</a> e guarda cosa vorremmo realizzare con il tuo aiuto!</p>
       paragraph3:
         title: Come donare
         content_html: |2
@@ -417,7 +410,7 @@ it-IT:
           <li>Dandoci commenti e suggerimenti per migliorarne usabilità e interfaccia (UI)</li>
           <li>Programmando l'interfaccia (Richiesta: conoscenza di HTML, CSS o Javascript)</li>
           <li>Programmando la piattaforma lato server (Richiesta: conoscenza Ruby e/o linguaggio C++ , ma anche con la volontà e l'aiuto di altri volontari)</li>
-          <li>Con delle <a href=%{donations_path}>donazioni</a> o cercando finanziamenti</li>
+          <li>Con delle donazioni o cercando finanziamenti</li>
           <li><a href="#linkback">Diffondendone la conoscenza</a> del progetto e amministrandone la comunicazione</li>
           </ul>
           <p>Per aiutarci a coordinare le nostre attività usiamo diversi strumenti. Puoi cominciare da qui:</p>

@@ -8,14 +8,14 @@ sr-CS:
         content_html: |
           <p>Airesis je <a href="http://en.wikipedia.org/wiki/Free_software">besplatna softverska platforma</a>, napravljena
           od strane tima italijanskih programera i saradnika, smišljena sa ciljem da omogući zajednicama i grupama da se organizuju na produktivan način shodno principima <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank">direktne demokratije</a> i učešća.</p>
-          
+
           <p>Da bi se postigao taj cilj, aplikacija je dizajnirana kao multifunkcionalni sistem koji spaja sve alatke koje mogu pomoći razvoju zajednice, naročito „društvene" i savetodavne alatke.</p>
-          
-          <p>Od <strong>društvenih alatki</strong>, Airesis nudi blogove i sistem promocije događaja i sastanaka s graničnim organizovanjem. 
-          Od <strong>savetodavnih alatki</strong>, tu su takođe oblasti prikupljanja i razmatranja predloga i inicijativa, 
+
+          <p>Od <strong>društvenih alatki</strong>, Airesis nudi blogove i sistem promocije događaja i sastanaka s graničnim organizovanjem.
+          Od <strong>savetodavnih alatki</strong>, tu su takođe oblasti prikupljanja i razmatranja predloga i inicijativa,
           i sistem glasanja koji ima za cilj izbor kandidata. Platforma vam takođe omogućava da kreirate grupe s pristupom politici propisa i prilagođenim ovlašćenjima.
           Kako je cilj Airesisa da stimuliše učestvovanje, velika pažnja je data maksimiziranju intuitivnosti cele platforme.
-          Filozofija razvoja je usredsređena na stalno poboljšanje, na način razvojnog procesa zasnovanog na povratnoj informaciji korisnika. 
+          Filozofija razvoja je usredsređena na stalno poboljšanje, na način razvojnog procesa zasnovanog na povratnoj informaciji korisnika.
           Razvojni tim je na raspolaganju da zadovolji potrebe zajednica koje žele da koriste softver u duhu direktne demokratije. </p>
       paragraph_3:
         title: Principi i osnovne vrednosti
@@ -26,28 +26,28 @@ sr-CS:
           Zasnovan je na sledećim principima:</p>
           <ul>
           <li><strong>Učešće</strong> <br/>
-          Uključivanje građana znači imati više energije i tačaka gledišta na raspolaganju. 
+          Uključivanje građana znači imati više energije i tačaka gledišta na raspolaganju.
           Samo kroz direktno učešće je moguće istražiti probleme i shvatiti šta ljudi zaista žele. Učešće je suština demokratskih odluka.
           </li>
-          
+
           <li><strong>Transparentnost i bezbednost</strong><br/>
           Bez transparentnosti, pravila se mogu zaobići a demokratija se može brzo izopačiti.
-          Transparentnost takođe znači otvorenost, sposobnost primanja: iz tog razloga Airesis dozvoljava i neregistrovanim korisnicima da vide sadržaj veb-sajta. 
+          Transparentnost takođe znači otvorenost, sposobnost primanja: iz tog razloga Airesis dozvoljava i neregistrovanim korisnicima da vide sadržaj veb-sajta.
           Izvorni kôd softvera je takođe „transparentan“ jer je potpuno otvorenog izvora.</li>
-          
+
           <li><strong>Konstruktivni dijalog</strong><br/>
           Niko ne poseduje prave odgovore. Korišćenje odgovarajućih alatki, razmatranje ideja predloženih od strane mnogo ljudi može biti mnogo produktivnije nego kada to radite sami.</li>
-          
+
           <li><strong>Jednake mogućnosti</strong><br/>
           Da bi bio zamišljen kao način efikasne ravnopravnosti, u smislu ponuđenih mogućnosti, može da se sprovodi od strane sistema.
           </li>
-          
+
           <li><strong>Fleksibilnost</strong><br/>
           Svaka grupa ima svoje sopstvene potrebe, svaki predlog je različit, svaki korisnik ima svoje sopstvene potrebe.</li>
       paragraph_4:
         title: 'Naš cilj: direktna i participativna demokratija'
         content_html: |
-          <p>Strukturiran kao društvena mreža, Airesis dozvoljava korisnicima da angažuju druge ljude u skladu s njihovim interesovanjima i da iskoriste 
+          <p>Strukturiran kao društvena mreža, Airesis dozvoljava korisnicima da angažuju druge ljude u skladu s njihovim interesovanjima i da iskoriste
           kvalitete jedni drugih da bi sporazumno razmatrali bilo kakvu vrstu predloga.
           Konstrukcija i suštinske vrednosti dozvoljavaju platformi da sledi ciljeve društvene i konstruktivne debate po pitanjima koja mogu obuhvatati teritoriju, društveno unapređenje, sektorsku politiku, i sledstveno da proizvede najbolje ideje.</p>
           <p>Airesis obezbeđuje alatke za:
@@ -65,8 +65,8 @@ sr-CS:
       paragraph_5:
         title: Karakteristike i odlike
         content_html: |
-          <p>Razvojni tim Airesisa stvara sve funkcije i alatke 
-          <strong>prema potrebama grupa</strong> koje imaju korist od platforme. 
+          <p>Razvojni tim Airesisa stvara sve funkcije i alatke
+          <strong>prema potrebama grupa</strong> koje imaju korist od platforme.
           Ista razvojna grupa je prisutna na Airesisu i odlučuje <strong>sporazumno</strong> o budućim implementacijama.</p>
           <p>Stvarna struktura dozvoljava registrovanom korisniku da pripada <strong>otvorenom prostoru</strong>,
           da se pridruži jednoj od <strong>grupa</strong> već prisutnih ili da ustanovi novu.
@@ -80,14 +80,14 @@ sr-CS:
           sa svake stranice ili čak nakon dodavanja komentara ili doprinosa. Moguće je prijaviti se i korišćenjem Facebook, Google +, Meetup, Twitter ili LinkedIn naloga
           </li>
           <li><strong>Javno područje ili privatno područje za grupe</strong> (<a href="http://youtu.be/n_ZruAcNkVk" target="blank">Više informacija u ovom videu-tutorijalu</a>) <br>
-          Prijavljivanje vam omogućava učešće u Open Space, da se pridružite jednoj od već postojećih grupa ili da kreirate novu. 
+          Prijavljivanje vam omogućava učešće u Open Space, da se pridružite jednoj od već postojećih grupa ili da kreirate novu.
           </li>
           <li><strong>Kreiranje predloga i debata</strong>
-          I u grupama i u Open Space je moguće postaviti predloge/inicijative i dobiti doprinose, 
-          komentare i ocene za uređivanje zajedničkog rezimea koji može postići najveću moguću opštu saglasnost. 
+          I u grupama i u Open Space je moguće postaviti predloge/inicijative i dobiti doprinose,
+          komentare i ocene za uređivanje zajedničkog rezimea koji može postići najveću moguću opštu saglasnost.
           </li>
           <li><strong>Kvorum i glasanje za predloge</strong> <br>
-          Svaki predlog ima svoj kvorum. Glasanje nastaje po prioritetu, prema Šulcovoj metodi. 
+          Svaki predlog ima svoj kvorum. Glasanje nastaje po prioritetu, prema Šulcovoj metodi.
           </li>
           <li><strong>Događaji\upravljanje kalendarom</strong> <br>
           Moguće je planirati događaje u smislu sastanaka, glasanja, izbora kandidata unutar grupa ili u Open Space.
@@ -116,7 +116,7 @@ sr-CS:
           <li>Ako se <strong>kvorum za debatu ne postigne</strong>, predlog ide u <strong>odeljak „Odbačeno"</strong>, gde može biti <strong>vraćen u debatu</strong> da se ponovo započne novi ciklus.</li>
           </ul>
           <p>Naročito je interesantno usvajanje <strong>područja za diskusiju</strong> za svaki objavljeni predlog, koji dozvoljava samom predlogu da bude izmenjen od strane urednika (kao <a href="http://en.wikipedia.org/wiki/Wiki" target="blank">wiki</a>)
-          prema opštoj saglasnosti dobijenoj od pojedinačnih doprinosa. 
+          prema opštoj saglasnosti dobijenoj od pojedinačnih doprinosa.
           Područje za diskusiju je podeljeno na dva nivoa, prvi za prikupljanje doprinosa, drugi za lična razmatranja njih.
           Prvi nivo izvršava mehanizam za povećanje zrelosti predloga <strong>pripajajući ga u najpriznatije doprinose</strong>.</p>
           <p> <strong>Kvorum debate</strong>, neophodan za promovisanje predloga u fazu glasanja, sastoji se od tri različita parametra:</p>
@@ -144,7 +144,7 @@ sr-CS:
         title: Šulcov metod glasanja i direktna demokratija
         content_html: |
           <p>Kada istekne vremenski period dodeljen za debatu, i dovoljan broj ljudi se složi o zrelosti predloga (ovi uslovi variraju u zavisnosti od kvoruma debate), predlog ide u <strong>fazu glasanja</strong>.</p>
-          <p>U tom trenutku, predlog je <strong>„zamrznut“</strong> a urednik mora da <strong>izabere vremenski okvir</strong> u kojem će grupa biti u mogućnosti da glasa za predlog. 
+          <p>U tom trenutku, predlog je <strong>„zamrznut“</strong> a urednik mora da <strong>izabere vremenski okvir</strong> u kojem će grupa biti u mogućnosti da glasa za predlog.
           Događaj glasanja je ubeležen u kalendar grupe i <strong>saopšten</strong> svim članovima grupe.</p>
           <p>U vreme glasanja, novo obaveštenje se šalje, u kojem se prikazuje predlog za koji će se glasati i stranica na kojoj će se glasanje održati. U tom trenutku, svaki učesnik, nakon što je pročitao predlog i listu mogućih rešenja, može podneti svoju sklonost <strong>, uređujući</strong> ta rešenja od onih koja mu se najviše dopadaju do onih koja mu se najmanje dopadaju i tako omogućavajući obradu <a href="http://it.wikipedia.org/wiki/Metodo_Schulze" target="blank">Šulcove metode</a> kako bi se pronašlo prioritetno rešenje od strane grupe.</p>
           <p>Na kraju glasanja, predlog ide u <strong>„izglasan"</strong> status, gde je moguće razmotriti rezultate glasanja u svakom trenutku.</p>
@@ -177,17 +177,17 @@ sr-CS:
         title: Privremena anonimnost, tajnost glasačkih listića i proverljivo glasanje
         content_html: |
           <p>Jedno od osobenosti Airesisa je da <strong>grupe mogu birati da li će debate o predlozima biti anonimne ili ne</strong>.</p>
-          
-          <p>Ako je anonimnost omogućena, autori i komentatori predloga su označeni pseudonimima. 
-          Ova odlika omogućava da ocenite predloge, kritike i sugestije samo na osnovu njihovog sadržaja, nepristrasno, 
+
+          <p>Ako je anonimnost omogućena, autori i komentatori predloga su označeni pseudonimima.
+          Ova odlika omogućava da ocenite predloge, kritike i sugestije samo na osnovu njihovog sadržaja, nepristrasno,
           bez „imena" autora i dinamike uticaja interpersonalnog voljenja/nevoljenja na debatu.
           </p>
-          
+
           <p>U svakom slučaju, na kraju debate, i nakon glasanja, učesnici će biti prikazani sa svojim stvarnim imenima, tako da bude moguće da se potvrdi njihova uključenost.</p>
-          
+
           <p>Ova opcija je takođe primenljiva u fazi glasanja, tako da je moguće izabrati da li će biti javno ili tajno glasanje.
           Ono što je važno, naročito u slučaju tajnog glasanja, je mogućnost potvrđivanja svakog glasa i na taj način izbegavanja prevare.
-          To je omogućeno kroz sistem proverljivog glasanja implementiranog od strane Airesisa. 
+          To je omogućeno kroz sistem proverljivog glasanja implementiranog od strane Airesisa.
           </p>
       paragraph_11:
         title: Upravljanje grupama i funkcijama korisnika
@@ -214,7 +214,7 @@ sr-CS:
         title: Organizujte učesnike
         content_html: |
           <p>
-          Moćan mehanizam za upravljanje <strong> funkcijama i ovlašćenjima </strong> će vam omogućiti da oblikujete grupu po želji: 
+          Moćan mehanizam za upravljanje <strong> funkcijama i ovlašćenjima </strong> će vam omogućiti da oblikujete grupu po želji:
           možete imati korisnike s većim ili manjim ovlašćenjima u zavisnosti od njihove funkcije, hijerarhijski organizovati učesnike,
           ili svima obezbediti ista prava i dužnosti. </br>
           Iz tog razloga je Airesis savršeno odgovarajući za potrebe <strong> ustanove</strong>, kao i <strong>demokratskog pokreta </strong> ili <strong> udruženja </strong>.
@@ -250,7 +250,7 @@ sr-CS:
           <p>
           Najbolje ideje proizilaze iz dijaloga: zato je Airesis odlučio da obezbedi forum za svaku grupu, gde korisnici mogu razmenjivati ideje, predloge ili jednostavno slobodno ćaskati. <br/>
           Obezbeđeni forum je potpun i moderan, potpuno podesiv i s mogućnošću proširenja od strane grupe kako bi se organizovao prema njihovim potrebama.
-          Možete imate javne diskusije, vidljive svima, ili privatne diskusije, rezervisane za učesnike grupe. 
+          Možete imate javne diskusije, vidljive svima, ili privatne diskusije, rezervisane za učesnike grupe.
           Organizujte forume u odeljke i kreirajte grupe moderatora! Sve je u vašim rukama! <br/>
           U ovom trenutku već postoji %{topics} aktivnih diskusija u Airesisu!
           </p>
@@ -279,8 +279,8 @@ sr-CS:
       paragraph2:
         title: Razvoj Airesisa
         content_html: |
-          <p>Lista ispod prikazuje promene Airesisa tokom njegovog razvoja. 
-          Isto tako možete pronaći istaknute novine planirane za buduće verzije. 
+          <p>Lista ispod prikazuje promene Airesisa tokom njegovog razvoja.
+          Isto tako možete pronaći istaknute novine planirane za buduće verzije.
           Posećujte ovu stranicu često ako ste zainteresovani da saznate koje odlike se razvijaju i ponovo nas posetite!</p>
       title: Razvoj Airesisa
       description: Naš put ka stvaranju novog softvera, ideja koja je u stanju da razvije demokratiju, koja je realizovana zahvaljujući internetu.
@@ -292,22 +292,15 @@ sr-CS:
         content_html: |
           <p>
           Volonteri koji rade na ovom projektu provode dosta vremena da bi stvorili koristan softver za naše zajednice.
-          Međutim, volontiranje i naporan rad nisu dovoljni: novac je potreban za održavanje instalacije servera javno dostupnog, za ažuriranje softvera i eksperimente s novim odlikama i poboljšanjima koje razvijamo. Pored toga, plaćeni rad je neophodan za održavanje servera i korisničke službe informacija. 
+          Međutim, volontiranje i naporan rad nisu dovoljni: novac je potreban za održavanje instalacije servera javno dostupnog, za ažuriranje softvera i eksperimente s novim odlikama i poboljšanjima koje razvijamo. Pored toga, plaćeni rad je neophodan za održavanje servera i korisničke službe informacija.
           </p>
-      paragraph2:
-        title: Izaberite šta želite da podržite
-        content_html: |
-          <p>Airesis vam dozvoljava da donirate za pojedinačne elemente. 
-          Razvojni tim ima mnoštvo ideja kako da poboljša softver, ali su potrebna sredstva da se to sprovede</p>
-          <p>Već danas možete donirati za realizaciju određene odlike, ili predložiti nove ideje za koje želite da donirate.</p>
-          <p>Idite na <a href=%{link}>stranicu za donacije</a> i pogledajte šta bismo želeli da ostvarimo uz vašu pomoć!</p>
       paragraph3:
         title: Kako da donirate
         content_html: |
           <p> Udruženje za društvenu promociju pod nazivom
           <a href="https://www.facebook.com/tecnologiedemocratiche" target="_blank">Tecnologie Democratiche</a>
-          je kreirano da bi se podržao razvoj Airesis-a i omogućila održivost projekta. 
-          Vaša donacija će biti u potpunosti usmerena na razvoj i održavanje platforme. 
+          je kreirano da bi se podržao razvoj Airesis-a i omogućila održivost projekta.
+          Vaša donacija će biti u potpunosti usmerena na razvoj i održavanje platforme.
           Pomozite nas novčano da bismo platili iskusnog višeg programera i održavanje hosting servera naše aplikacije:
           </p>
           <center>
@@ -321,7 +314,7 @@ sr-CS:
       paragraph1:
         title: Pomozite nam da razglasimo ovu alatku za e-demokratiju
         content_html: |
-          <p>Naš projekat treba biti poznat svima koji brinu o budućnosti demokratije. 
+          <p>Naš projekat treba biti poznat svima koji brinu o budućnosti demokratije.
           Pomozite nam da proširimo projekat na blogovima, forumima, Facebook-u, društvenim mrežama i gde god postoji želja za demokratijom.</p>
           <p>Možete koristiti naš link ili baner na vašem veb-sajtu ili u udruženjima ili organizacijama vaših prijatelja, onih koji dele naše ciljeve projekta.
           Da biste prikazali baner ili link na vašem veb-sajtu, kopirajte kôd koji se nalazi ispod i umetnite ga u kôd stranicu vašeg veb-sajta, tamo gde želite da bude prikazan:</p>
@@ -349,7 +342,7 @@ sr-CS:
           <li>Davanjem komentara i sugestija o korisnosti i platformiUI</li>
           <li>Programiranjem platforme UI (OBAVEZNO: znanje HTML, CSS ili Javascript)</li>
           <li>Programiranjem platforme u klijent-server vezi (OBAVEZNO: poznavanje Ruby i/ili C++ programskih jezika, ili želje da se oni nauče uz pomoć drugih volontera)</li>
-          <li>Podrškom s <a href=%{donations_path}>donacijama</a> ili traženjem sredstava</li>
+          <li>Podrškom s donacijama ili traženjem sredstava</li>
           <li><a href="#linkback">Govorenjem ljudima</a> o projektu i upravljanje njegovom komunikacijom</li>
           </ul>
           <p>Kao pomoć u koordinaciji naših aktivnosti, mi koristimo ove alatke. Vi možete početi odavde:</p>
@@ -370,7 +363,7 @@ sr-CS:
         description_html: |
           <p>
           Razvojni programer je osoba koja zapravo piše kôd Airesisa. <br/>
-          On prati specifikacije i smernice dogovorene od strane tima. 
+          On prati specifikacije i smernice dogovorene od strane tima.
           Razvojni programer će napisati nove module u Ruby programskom jeziku kada budu postojale nove odlike za dodavanje, ili HTML stranice, takođe koristeći CSS i Javascript u slučaju UI funkcionalnosti.<br/>
           Novi kandidati će biti pomognuti i vođeni od strane <a href="%{chisiamo}" target="_blank">glavnog programera</a> pri prvim koracima u tom poslu kako bi ga što lakše započeli.
           </p>
@@ -386,7 +379,7 @@ sr-CS:
         title: Ispitivač prvog nivoa
         description_html: |
           <p>
-          Ispitivač prvog nivoa je osoba na raspolaganju da ispita sistem i ne mora nužno da obezbedi bilo kakvu povratnu informaciju o kôdu. 
+          Ispitivač prvog nivoa je osoba na raspolaganju da ispita sistem i ne mora nužno da obezbedi bilo kakvu povratnu informaciju o kôdu.
           Ispitivač prvog nivoa mora obavezno znati kako da pokrene sistem i da bude sposoban da koristi Internet pretraživač ili sistem društvenih mreža, ali nije obavezno da zna bilo koji programski jezik.<br/>
           Tako da će povratna informacija od ispitivača prvog nivoa biti o neočekivanim slučajevima iz sistema i grešaka u programu.
           </p>
@@ -400,7 +393,7 @@ sr-CS:
         title: Grafički dizajner
         description_html: |
           <p>
-          Grafički dizajner radi na korisničkim interfejsima i daje ih razvojnom timu. 
+          Grafički dizajner radi na korisničkim interfejsima i daje ih razvojnom timu.
           On poboljšava upotrebljivost i sveobuhvatnost tekstova u softveru (npr. priručnici...)
           </p>
       recruiter:
@@ -415,7 +408,7 @@ sr-CS:
         description_html: |
           <p>
           On upravlja kontaktima s medijima, promoviše softver u potrazi za novim korisnicima, tehničkim aspektima kao što su povratni link i SEO (Search Engine Optimization),
-          viralnim marketingom (npr., kreiranje zanimljivih predloga), videima i informativnom dokumentacijom. 
+          viralnim marketingom (npr., kreiranje zanimljivih predloga), videima i informativnom dokumentacijom.
           On ažurira društvene mreže i medije, predstavlja spoljnog referenta-portparola.
           </p>
       i18n:

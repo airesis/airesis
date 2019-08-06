@@ -732,7 +732,6 @@ Rails/OutputSafety:
     - 'app/helpers/frm/application_helper.rb'
     - 'app/helpers/frm/formatting_helper.rb'
     - 'app/helpers/proposals_helper.rb'
-    - 'app/helpers/sys_features_helper.rb'
     - 'app/helpers/users_helper.rb'
     - 'app/models/best_quorum.rb'
     - 'app/models/old_quorum.rb'

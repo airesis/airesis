@@ -110,8 +110,6 @@
     <ul id="nav" class="nav">
       <li><%= link_to t('pages.home.index.whatis'), edemocracy_path %></li>
       <li><%= link_to t('pages.home.index.features'), '#features', class: 'smoothscroll' %></li>
-      <li><%= link_to t('pages.home.index.donations'), sostienici_path %></li>
-      <li><%= link_to t('pages.home.index.volunteers'), chisiamo_path %></li>
       <li><%= link_to t('pages.home.index.register'), new_user_registration_path %></li>
     </ul>
   </nav>
@@ -330,85 +328,6 @@
 </section>
 <!-- Homepage Hero end -->
 
-<!-- Pricing Section
-================================================== -->
-<section id="pricing">
-
-  <div class="row section-head">
-
-    <h1><%= t('home.helpus.paragraph3.title') %></h1>
-
-    <p><%= t('home.helpus.paragraph3.content_html') %>
-    </p>
-
-  </div>
-
-  <div class="row">
-    <ul class="pricing-tables small-block-grid-1 medium-block-grid-2 large-block-grid-4" data-equalizer>
-      <li data-equalizer-watch>
-        <div class="price-block">
-          <h3 class="plan-title"><i class="fa fa-coffee"></i>Small</h3>
-
-          <p class="plan-price">
-            5.00€
-            <span>Buy a coffee for the developers</span>
-          </p>
-
-          <div class="plan-sign-up">
-            <%= paypal_button(size: 'small', amount: '5.00') %>
-          </div>
-        </div>
-      </li>
-      <li data-equalizer-watch>
-        <div class="price-block">
-          <h3 class="plan-title"><i class="fa fa-thumbs-up"></i>Standard</h3>
-
-          <p class="plan-price">
-            20.00€
-            <span>Become member of Tecnologie Democratiche</span>
-          </p>
-
-          <div class="plan-sign-up">
-            <%= paypal_button(size: 'small', amount: '20.00') %>
-          </div>
-        </div>
-      </li>
-      <li data-equalizer-watch>
-        <div class="price-block">
-          <h3 class="plan-title"><i class="fa fa-star"></i>Great</h3>
-
-          <p class="plan-price">
-            50.00€
-            <span>Become member of TD and contribute to the development</span>
-          </p>
-
-          <div class="plan-sign-up">
-            <%= paypal_button(size: 'small', amount: '50.00') %>
-          </div>
-        </div>
-      </li>
-      <li data-equalizer-watch>
-        <div class="price-block">
-          <h3 class="plan-title"><i class="fa fa-trophy"></i>Up to you</h3>
-
-          <p class="plan-price">--.--€
-            <span>Your help is greatly appreciated!</span>
-          </p>
-
-          <div class="plan-sign-up">
-            <%= paypal_button(size: 'small') %>
-          </div>
-        </div>
-      </li>
-    </ul>
-
-  </div>
-
-</section>
-<!-- Pricing End -->
-
-<!-- Subscribe
-================================================== -->
 <section id="subscribe">
   <h1><%= 'FOLLOW US' %></h1>
 
@@ -465,178 +384,6 @@
   </div>
 </section>
 
-<!-- Screenshots
-================================================== -->
-<section id="screenshots">
-
-  <div class="row section-head">
-
-    <h1><%= t('home.whowe.intro.title') %></h1>
-
-    <p><%= t('home.whowe.intro.description_html', story: story_path) %>
-    </p>
-
-  </div>
-
-  <div class="row">
-
-    <div class="columns">
-
-      <ul id="screenshots-wrapper" class="small-block-grid-2 medium-block-grid-4">
-
-        <li>
-          <div class="item-wrap">
-            <%= link_to chisiamo_path(anchor: 'development') do %>
-                <%= image_tag 'volunteers/rodi_alessandro.jpg' %>
-                <div class="link-icon">
-                  <div>Alessandro Rodi</div>
-                  <i class="fa fa-plus"></i>
-                </div>
-            <% end %>
-
-          </div>
-        </li>
-
-        <li>
-          <div class="item-wrap">
-            <%= link_to chisiamo_path(anchor: 'development') do %>
-                <%= image_tag 'volunteers/tilatti_marino.png' %>
-                <div class="link-icon">
-                  <div>Marino Tilatti</div>
-                  <i class="fa fa-plus"></i>
-                </div>
-            <% end %>
-          </div>
-        </li>
-
-        <li>
-          <div class="item-wrap">
-            <%= link_to chisiamo_path(anchor: 'analysis') do %>
-                <%= image_tag 'volunteers/giulietti_nicola.png' %>
-                <div class="link-icon">
-                  <div>Nicola Giulietti</div>
-                  <i class="fa fa-plus"></i>
-                </div>
-            <% end %>
-          </div>
-        </li>
-
-        <li>
-          <div class="item-wrap">
-            <%= link_to chisiamo_path(anchor: 'analysis') do %>
-                <%= image_tag 'volunteers/baiotto_marco.png' %>
-                <div class="link-icon">
-                  <div>Marco Baiotto</div>
-                  <i class="fa fa-plus"></i>
-                </div>
-            <% end %>
-
-          </div>
-        </li>
-
-
-        <li>
-          <div class="item-wrap">
-            <%= link_to chisiamo_path(anchor: 'i18n') do %>
-                <%= image_tag 'volunteers/tolja_jacopo.jpg' %>
-                <div class="link-icon">
-                  <div>Jacopo Tolja</div>
-                  <i class="fa fa-plus"></i>
-                </div>
-            <% end %>
-          </div>
-        </li>
-
-        <li>
-          <div class="item-wrap">
-            <%= link_to chisiamo_path(anchor: 'communication') do %>
-                <%= image_tag 'volunteers/curini_simone.jpg' %>
-                <div class="link-icon">
-                  <div>Simone Curini</div>
-                  <i class="fa fa-plus"></i>
-                </div>
-            <% end %>
-          </div>
-        </li>
-
-        <li>
-          <div class="item-wrap">
-            <%= link_to chisiamo_path(anchor: 'test') do %>
-                <%= image_tag 'volunteers/mion_carlo.jpg' %>
-                <div class="link-icon">
-                  <div>Carlo Mion</div>
-                  <i class="fa fa-plus"></i>
-                </div>
-            <% end %>
-
-          </div>
-        </li>
-
-        <li>
-          <div class="item-wrap">
-            <%= link_to chisiamo_path(anchor: 'test') do %>
-                <%= image_tag 'volunteers/zanellato_luca.jpg' %>
-                <div class="link-icon">
-                  <div>Luca Zanellato</div>
-                  <i class="fa fa-plus"></i>
-                </div>
-            <% end %>
-          </div>
-        </li>
-
-        <li>
-          <div class="item-wrap">
-            <%= link_to chisiamo_path(anchor: 'graphic') do %>
-                <%= image_tag 'volunteers/kabora_marcello.png' %>
-                <div class="link-icon">
-                  <div>Marcello Kabora</div>
-                  <i class="fa fa-plus"></i>
-                </div>
-            <% end %>
-          </div>
-        </li>
-
-        <li>
-          <div class="item-wrap">
-            <%= link_to chisiamo_path(anchor: 'communication') do %>
-                <%= image_tag 'volunteers/chiara_gianferrari.jpg' %>
-                <div class="link-icon">
-                  <div>Chiara Gianferrari</div>
-                  <i class="fa fa-plus"></i>
-                </div>
-            <% end %>
-          </div>
-        </li>
-
-        <li>
-          <div class="item-wrap">
-            <%= link_to chisiamo_path(anchor: 'communication') do %>
-                <%= image_tag 'volunteers/matteo_martini.jpg' %>
-                <div class="link-icon">
-                  <div>Matteo Martini</div>
-                  <i class="fa fa-plus"></i>
-                </div>
-            <% end %>
-          </div>
-        </li>
-
-        <li>
-          <div class="item-wrap">
-            <%= link_to partecipa_path(anchor: 'partecipare') do %>
-                <%= image_tag 'volunteers/you.png' %>
-                <div class="link-icon">
-                  <div><%= t('you') %></div>
-                  <i class="fa fa-plus"></i>
-                </div>
-            <% end %>
-          </div>
-        </li>
-
-      </ul>
-    </div>
-  </div>
-</section>
-
 <footer>
 
   <div class="row">
@@ -650,11 +397,6 @@
       </div>
       <p><a href="https://github.com/coorasse/Airesis" target="_blank"><%= t('pages.footer.for_edemocracy_html') %></a>
         v.<%= AIRESIS_VERSION %></p>
-
-      <p>Airesis is supported and promoted by the No-Profit Association 'Tecnologie Democratiche'. Many thanks to all
-        the volunteers that help us to continue this important project.
-      </p>
-
     </div>
 
     <div class="medium-6 columns right-cols">
@@ -664,9 +406,7 @@
         <div class="columns small-6 text-center">
           <h3 class="social">socialize</h3>
           <ul>
-            <li><a href="https://www.facebook.com/airesisit">Facebook</a></li>
             <li><a href="https://twitter.com/democracyo">Twitter</a></li>
-            <li><a href="https://plus.google.com/+AiresisIt">Google+</a></li>
           </ul>
         </div>
 
@@ -674,9 +414,6 @@
           <h3 class="contact">Contact Us</h3>
           <ul>
             <li><a href="mailto:info@airesis.it">info@airesis.it</a></li>
-            <li><a href="mailto:simone.curini@airesis.it">Simone Curini</a></li>
-            <li><a href="mailto:nicolagiulietti@hotmail.it">Nicola Giulietti</a></li>
-            <li><a href="mailto:marino.tilatti@airesis.it">Marino Tilatti</a></li>
           </ul>
         </div>
       </div>
