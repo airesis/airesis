@@ -21,7 +21,7 @@ class ProposalRanking < ActiveRecord::Base
     rankings = proposal.rankings
     nvalutations = rankings.count
     num_pos = rankings.where(ranking_type_id: POSITIVE).count
-    res = num_pos.to_f / nvalutations.to_f
+    res = num_pos.to_f / nvalutations
     ranking = nvalutations > 0 ? res * 100 : 0
     proposal.update_columns(valutations: nvalutations, rank: ranking.round)
   end

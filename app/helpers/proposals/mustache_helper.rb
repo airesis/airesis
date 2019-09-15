@@ -29,7 +29,7 @@ module Proposals
           end: "TERMINE VOTAZIONE:<br/>#{proposal.vote_period.endtime}".upcase
         }
         ret[:mustache][:proposal][:vote_percentage] = [((Time.now - proposal.vote_period.starttime) / proposal.vote_period.duration.to_f) * 100, 100].min
-        ret[:mustache][:proposal][:voters_percentage] = (proposal.user_votes_count.to_f / proposal.eligible_voters_count.to_f) * 100
+        ret[:mustache][:proposal][:voters_percentage] = (proposal.user_votes_count.to_f / proposal.eligible_voters_count) * 100
       end
       ret
     end

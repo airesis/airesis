@@ -119,7 +119,7 @@ module Frm
     end
 
     def last_page
-      (posts.count.to_f / TOPICS_PER_PAGE.to_f).ceil
+      (posts.count.to_f / TOPICS_PER_PAGE).ceil
     end
 
     def should_generate_new_friendly_id?

@@ -165,14 +165,14 @@ class OldQuorum < Quorum
     percentages = []
     if valutations
       minimum = [proposal.valutations, valutations].min
-      percentagevals = minimum.to_f / valutations.to_f
+      percentagevals = minimum.to_f / valutations
       percentagevals *= 100
       percentages << percentagevals
     end
     if minutes
       minimum = [Time.now, ends_at].min
       minimum = ((minimum - started_at) / 60)
-      percentagetime = minimum.to_f / minutes.to_f
+      percentagetime = minimum.to_f / minutes
       percentagetime *= 100
       percentages << percentagetime
     end

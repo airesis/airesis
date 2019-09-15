@@ -7,7 +7,7 @@ describe NotificationBlogCommentCreate, type: :model, emails: true, notification
     load_database
   end
 
-  let!(:event_class) { NotificationBlogCommentCreate }
+  let!(:event_class) { described_class }
   let!(:notification_type) { NotificationType.find_by(name: 'new_blog_comment') }
   let!(:expected_alerts) { 1 }
 

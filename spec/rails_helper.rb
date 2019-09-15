@@ -1,16 +1,19 @@
+require 'simplecov'
+
+unless ENV['NO_COVERAGE']
+  SimpleCov.start 'rails'
+  SimpleCov.minimum_coverage 23.99
+  SimpleCov.maximum_coverage_drop 0
+end
+
 ENV['RAILS_ENV'] ||= 'test'
 require 'rails_helper'
 require File.expand_path('../config/environment', __dir__)
 require 'rspec/rails'
 require 'sidekiq/testing'
-require 'simplecov'
 require 'capybara/rspec'
 require 'capybara/rails'
 require 'selenium/webdriver'
-
-SimpleCov.start 'rails'
-SimpleCov.minimum_coverage 45.56
-SimpleCov.maximum_coverage_drop 0
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 

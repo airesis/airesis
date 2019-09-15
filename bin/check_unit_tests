@@ -1,0 +1,5 @@
+#!/bin/sh
+
+#yarn test-single-run
+
+bundle exec rspec --exclude-pattern "**/{system,screenshots}/**/*_spec.rb"

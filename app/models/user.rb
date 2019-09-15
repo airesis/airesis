@@ -68,14 +68,10 @@ class User < ActiveRecord::Base
 
   has_many :group_participation_requests, dependent: :destroy
 
-  # record di tutti coloro che mi seguono
   has_many :followers_user_follow, class_name: 'UserFollow', foreign_key: :followed_id
-  # tutti coloro che mi seguono
   has_many :followers, through: :followers_user_follow, class_name: 'User', source: :followed
 
-  # record di tutti coloro che seguo
   has_many :followed_user_follow, class_name: 'UserFollow', foreign_key: :follower_id
-  # tutti coloro che seguo
   has_many :followed, through: :followed_user_follow, class_name: 'User', source: :follower
 
   has_many :tutorial_assignees, dependent: :destroy
