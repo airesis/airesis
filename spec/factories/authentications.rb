@@ -3,6 +3,6 @@ FactoryBot.define do
     association :user
     provider { 'facebook' }
     token { nil }
-    uid { Faker::Number.number(10) }
+    uid { Faker::Number.number(digits: 10) }
   end
 end
