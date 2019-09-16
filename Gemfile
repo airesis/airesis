@@ -67,7 +67,7 @@ gem 'paper_trail'
 gem 'figaro'
 gem 'faker'
 gem 'sshkit'
-gem 'cookies_eu', git: 'https://github.com/coorasse/cookies_eu'
+gem 'cookies_eu'
 gem 'font-awesome-rails'
 gem 'truncate_html'
 gem 'activerecord-session_store'
@@ -84,7 +84,6 @@ group :development do
   gem 'letter_opener'
   gem 'pry-byebug'
   gem 'pry-rails'
-  # gem 'quiet_assets'
   gem 'rack-mini-profiler', require: false
   gem 'spring'
   gem 'thin', require: false # required for private_pub

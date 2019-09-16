@@ -6,14 +6,6 @@ GIT
       omniauth-oauth2 (~> 1.2)
 
 GIT
-  remote: https://github.com/coorasse/cookies_eu
-  revision: d81da960320cd936bb6566bb1af1cec92baf4aae
-  specs:
-    cookies_eu (1.2.0)
-      jquery-rails
-      js_cookie_rails
-
-GIT
   remote: https://github.com/coorasse/devise_traceable
   revision: 02d6d348b2a97938faada8cee1862848f3398530
   specs:
@@ -139,6 +131,8 @@ GEM
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
     cookiejar (0.3.3)
+    cookies_eu (1.7.5)
+      js_cookie_rails (~> 2.2.0)
     crass (1.0.4)
     crowdin-api (0.6.0)
       rest-client (~> 2.0)
@@ -642,7 +636,7 @@ DEPENDENCIES
   ckeditor
   codeclimate-test-reporter
   coffee-rails
-  cookies_eu!
+  cookies_eu
   crowdin-api
   daemons
   devise
