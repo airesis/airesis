@@ -1273,7 +1273,7 @@ Style/ZeroLengthPredicate:
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
 Metrics/LineLength:
-  Max: 590
+  Max: 589
 
 Rails/HelperInstanceVariable:
   Enabled: false

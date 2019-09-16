@@ -1,6 +1,4 @@
 class Province < ActiveRecord::Base
-  include Concerns::Bordable
-
   has_many :municipalities, dependent: :destroy
   has_many :districts
 

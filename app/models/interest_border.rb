@@ -107,12 +107,7 @@ class InterestBorder < ActiveRecord::Base
   end
 
   def self.key_to_json(key)
-    splitted = key.split('-')
     { id: key, text: table_element(key).name }
-  end
-
-  def solr_search_field
-    territory.solr_search_field
   end
 
   def key

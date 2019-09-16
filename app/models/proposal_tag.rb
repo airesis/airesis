@@ -17,14 +17,15 @@ class ProposalTag < ActiveRecord::Base
 
   protected
 
+  # increases counters for each country and continent
   def add_to_counters(val)
-    if proposal.interest_borders.any? { |ib| ib.key.starts_with? InterestBorder::SHORT_COUNTRY }
-      proposal.interest_borders.select { |ib| ib.key.starts_with? InterestBorder::SHORT_COUNTRY }.each do |state_key|
+    if proposal.derived_countries_tokens.any?
+      proposal.derived_countries_tokens.each do |state_key|
         tag_counter = tag.tag_counters.find_or_create_by(territory: Country.find(state_key.split('-')[1]))
         tag_counter.update(proposals_count: tag_counter.proposals_count + val)
       end
     else
-      proposal.interest_borders.select { |ib| ib.key.starts_with? InterestBorder::SHORT_CONTINENT }.each do |continent_key|
+      proposal.derived_continents_tokens.each do |continent_key|
         tag_counter = tag.tag_counters.find_or_create_by(territory: Continent.find(continent_key.split('-')[1]))
         tag_counter.update(proposals_count: tag_counter.proposals_count + val)
       end

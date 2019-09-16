@@ -1,6 +1,4 @@
 class Municipality < ActiveRecord::Base
-  include Concerns::Bordable
-
   has_many :places, dependent: :destroy
   has_many :districts, dependent: :destroy
 
