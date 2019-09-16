@@ -76,6 +76,7 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  # TODO: enable this also in tests
   def load_tutorial
     @step = get_next_step(current_user) if current_user && !Rails.env.test?
   end
