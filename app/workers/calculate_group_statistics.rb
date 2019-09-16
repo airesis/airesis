@@ -11,7 +11,7 @@ class CalculateGroupStatistics
         vote_participants += proposal.is_schulze? ? proposal.schulze_votes.sum(:count) : proposal.vote.number
         count += 1
       end
-      statistic.vote_valutations = count > 0 ? vote_participants.to_f / count.to_f : 0
+      statistic.vote_valutations = count > 0 ? vote_participants.to_f / count : 0
       statistic.save!
     end
   end

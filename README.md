@@ -50,7 +50,7 @@ You can install Airesis to run locally on your machine,
 or if you prefer using [Docker containers](#Docker) for a quick and easy setup.
 
 #### Requirements
-* PostgreSQL 9 with the hstore extension enabled.
+* PostgreSQL >= 9 with the hstore extension enabled.
 * Redis in order to execute Sidekiq and all background jobs.
 
 ### Local installation

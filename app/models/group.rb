@@ -1,7 +1,7 @@
 class Group < ActiveRecord::Base
   extend FriendlyId
   include Concerns::Taggable
-  include PgSearch
+  include PgSearch::Model
 
   pg_search_scope :search, lambda { |query, any_word = false|
     { query: query,

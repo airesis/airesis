@@ -1,7 +1,7 @@
 class Blog < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: [:slugged, :history]
-  include PgSearch
+  include PgSearch::Model
 
   pg_search_scope :search, lambda { |query, any_word = false|
     { query: query,

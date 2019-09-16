@@ -80,7 +80,7 @@ class ProposalCommentSearch
           order('rank desc').take(left)
       end
       @proposal_comments = tmp_comments
-      @total_pages = (@proposal.contributes.listable.where(conditions_arel).count.to_f / COMMENTS_PER_PAGE.to_f).ceil
+      @total_pages = (@proposal.contributes.listable.where(conditions_arel).count.to_f / COMMENTS_PER_PAGE).ceil
       @current_page = (@page || 1).to_i
     else
       order = if rank_order?

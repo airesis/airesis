@@ -18,6 +18,7 @@ RSpec.describe 'create a proposal in his group', :js do
 
   it 'can edit a proposal' do
     visit edit_group_proposal_path(group, proposal)
+    sleep 2
     new_content = Faker::Lorem.paragraph
     fill_in_ckeditor 'proposal_sections_attributes_0_paragraphs_attributes_0_content_dirty', with: new_content
     within_left_menu do
@@ -146,7 +147,7 @@ RSpec.describe 'create a proposal in his group', :js do
     proposal.reload
 
     expect(proposal.valutations).to eq(how_many + 1)
-    expect(proposal.rank).to eq((how_many.to_f / (how_many + 1).to_f) * 100)
+    expect(proposal.rank).to eq((how_many.to_f / (how_many + 1)) * 100)
 
     logout :user
     how_many.times do |i|
@@ -155,7 +156,7 @@ RSpec.describe 'create a proposal in his group', :js do
       second_vote_and_check
       proposal.reload
       expect(proposal.valutations).to eq(how_many + 1)
-      expect(proposal.rank).to eq(((how_many - (1 + i)).to_f / (how_many + 1).to_f) * 100)
+      expect(proposal.rank).to eq(((how_many - (1 + i)).to_f / (how_many + 1)) * 100)
       expect(Ability.new(other_users[i])).not_to be_able_to(:rank_down, proposal)
       logout :user
     end

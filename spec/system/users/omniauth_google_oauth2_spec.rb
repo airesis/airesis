@@ -6,7 +6,7 @@ describe 'the oauth2 process', :js do
     before do
       @oauth_data = {
         provider: 'google_oauth2',
-        uid: Faker::Number.number(10),
+        uid: Faker::Number.number(digits: 10),
         email: Faker::Internet.email,
         first_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name

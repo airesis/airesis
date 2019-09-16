@@ -3,7 +3,7 @@ require 'requests_helper'
 require 'cancan/matchers'
 
 RSpec.describe NotificationProposalUpdate, type: :model, emails: true, notifications: true, seeds: true do
-  let!(:event_class) { NotificationProposalUpdate }
+  let!(:event_class) { described_class }
   let!(:notification_type) { NotificationType.find_by(name: 'text_update') }
   let!(:expected_alerts) { 3 }
 

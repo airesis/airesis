@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -e
+
+echo "\n== Ruby Linting =="
+bundle exec rubocop -D -c .rubocop.yml
+RC=$?
+if [ $RC -ne 0 ]; then
+  echo 'rubocop detected issues, attempting to fix them!'
+  bundle exec rubocop -a -D -c .rubocop.yml
+  exit 1
+fi
+
+#yarn sass-lint -v --no-exit app/webpack/**.*.scss
+
+#bundle exec slim-lint app/views/
+
+#yarn eslint app/webpack spec/javascripts
+
+#bundle exec brakeman -q -z --no-summary --no-pager

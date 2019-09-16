@@ -95,7 +95,7 @@ describe Proposal, type: :model do
       province = Province.first
       municipality = Municipality.first
       proposal = create(:proposal, interest_borders_tkn: "C-#{municipality.id}")
-      expect(Proposal.by_interest_borders([InterestBorder.to_key(province)])).to include proposal
+      expect(described_class.by_interest_borders([InterestBorder.to_key(province)])).to include proposal
     end
   end
 end

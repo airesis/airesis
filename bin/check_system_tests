@@ -1,0 +1,4 @@
+#!/bin/sh
+
+
+NO_COVERAGE=true bundle exec rspec --pattern "**/system/**/*_spec.rb"
