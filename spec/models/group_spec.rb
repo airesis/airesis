@@ -118,4 +118,16 @@ describe Group do
                                                                     "C-#{municipality.id}"]
     end
   end
+
+  describe '#destroy' do
+    it 'removes all the proposals that belong only to one group' do
+      group_a = create(:group)
+      group_b = create(:group)
+      create(:proposal, groups: [group_a, group_b])
+      create(:proposal, groups: [group_a])
+      create(:proposal, groups: [group_b])
+      expect { group_a.destroy }.to change(Proposal, :count).from(3).to(2)
+      expect { group_b.destroy }.to change(Proposal, :count).from(2).to(0)
+    end
+  end
 end

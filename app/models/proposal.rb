@@ -430,9 +430,9 @@ class Proposal < ActiveRecord::Base
   def eligible_voters_count
     return User.confirmed.unblocked.count unless private?
     if presentation_areas.size > 0 # if we are in a working area
-      presentation_areas.first.scoped_participants(:vote_proposals).count # TODO: more areas
+      presentation_areas.first.scoped_participants(:vote_proposals).count # TODO: it can belong to more areas
     else
-      groups.first.scoped_participants(:vote_proposals).count # TODO: more groups
+      groups.first.scoped_participants(:vote_proposals).count # TODO: it can belong to more groups
     end
   end
 
