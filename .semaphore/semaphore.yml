@@ -1,0 +1,56 @@
+version: "v1.0"
+name: airesis
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+blocks:
+  - name: cache
+    dependencies: []
+    task:
+      jobs:
+        - name: cache
+          commands:
+            - checkout
+            - cache restore
+            - bundle install --deployment --without development production --jobs=3 --path vendor/bundle
+            - cache store
+            - cache store bundleconfig .bundle
+
+  - name: Tests
+    dependencies: ['cache']
+    task:
+      env_vars:
+        - name: DATABASE_URL
+          value: postgresql://postgres@localhost/test?encoding=utf8
+        - name: RAILS_ENV
+          value: test
+      prologue:
+        commands:
+          - checkout
+          - cache restore
+          - cache restore bundleconfig
+          - cp config/application.example.yml config/application.yml
+      jobs:
+        - name: "Lint"
+          commands:
+            - bin/check_linters
+        - name: "Unit tests"
+          commands:
+            - sem-service start postgres
+            - bin/rails db:setup
+            - cache restore assets-$SEMAPHORE_GIT_BRANCH,assets-develop,assets-master
+            - cache restore sprocketscache-$SEMAPHORE_GIT_BRANCH,sprocketscache-develop,sprocketscache-master
+            - bin/rails assets:precompile
+            - bin/check_unit_tests
+        - name: "System tests"
+          commands:
+            - sem-service start postgres
+            - bin/rails db:create
+            - cache restore assets-$SEMAPHORE_GIT_BRANCH,assets-develop,assets-master
+            - cache restore sprocketscache-$SEMAPHORE_GIT_BRANCH,sprocketscache-develop,sprocketscache-master
+            - bin/rails assets:precompile
+            - cache store assets-$SEMAPHORE_GIT_BRANCH public/assets
+            - cache store sprocketscache-$SEMAPHORE_GIT_BRANCH tmp/cache/assets/sprockets
+            - bin/check_system_tests
