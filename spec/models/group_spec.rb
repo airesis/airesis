@@ -54,9 +54,9 @@ describe Group do
        create(:group, num_participants: 2, tags_list: 'rodi'),
        create(:group, num_participants: 3, description: 'rodi'),
        create(:group, num_participants: 2, tags_list: 'rodi,world',
-                      interest_border_tkn: InterestBorder.to_key(municipality)),
+              interest_border_tkn: InterestBorder.to_key(municipality)),
        create(:group, num_participants: 5, tags_list: 'ciao,rodi',
-                      interest_border_tkn: InterestBorder.to_key(province))]
+              interest_border_tkn: InterestBorder.to_key(province))]
     end
 
     before do
@@ -116,6 +116,18 @@ describe Group do
                                                                     "R-#{region.id}",
                                                                     "P-#{province.id}",
                                                                     "C-#{municipality.id}"]
+    end
+  end
+
+  describe '#destroy' do
+    it 'removes all the proposals that belong only to one group' do
+      group_a = create(:group)
+      group_b = create(:group)
+      create(:proposal, groups: [group_a, group_b])
+      create(:proposal, groups: [group_a])
+      create(:proposal, groups: [group_b])
+      expect { group_a.destroy }.to change(Proposal, :count).from(3).to(2)
+      expect { group_b.destroy }.to change(Proposal, :count).from(2).to(0)
     end
   end
 end
