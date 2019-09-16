@@ -1,8 +1,6 @@
 # Airesis - The Social Network for eDemocracy
 
-[![Build Status](https://semaphoreci.com/api/v1/coorasse/airesis/branches/master/badge.svg)](https://semaphoreci.com/coorasse/airesis)
-[![Dependency Status](https://gemnasium.com/coorasse/Airesis.svg)](https://gemnasium.com/coorasse/Airesis)
-[![Code Climate](https://codeclimate.com/repos/5552681fe30ba02945000686/badges/2885e98c8c20799e22c8/gpa.svg)](https://codeclimate.com/repos/5552681fe30ba02945000686/feed)
+[![Build Status](https://semaphoreci.com/api/v1/coorasse/airesis/branches/develop/badge.svg)](https://semaphoreci.com/coorasse/airesis)
 
 The first open source web application for eDemocracy
 
@@ -151,4 +149,4 @@ For the terms of the license can be found in the LICENSE file available within t
 Anyone which installs the application and is required to comply with the terms of the license and to incorporate 
 in the footer of the website the following statement:
 
-    Powered by <a href="https://www.airesis.eu"> Airesis - The Social Network for eDemocracy </a>
+`Powered by <a href="https://www.airesis.eu"> Airesis - The Social Network for eDemocracy </a>`
