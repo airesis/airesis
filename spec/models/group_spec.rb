@@ -54,9 +54,9 @@ describe Group do
        create(:group, num_participants: 2, tags_list: 'rodi'),
        create(:group, num_participants: 3, description: 'rodi'),
        create(:group, num_participants: 2, tags_list: 'rodi,world',
-              interest_border_tkn: InterestBorder.to_key(municipality)),
+                      interest_border_tkn: InterestBorder.to_key(municipality)),
        create(:group, num_participants: 5, tags_list: 'ciao,rodi',
-              interest_border_tkn: InterestBorder.to_key(province))]
+                      interest_border_tkn: InterestBorder.to_key(province))]
     end
 
     before do

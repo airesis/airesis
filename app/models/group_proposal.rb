@@ -8,8 +8,6 @@ class GroupProposal < ActiveRecord::Base
   private
 
   def destroy_proposal
-    if proposal.groups.count == 1
-      proposal.destroy
-    end
+    proposal.destroy if proposal.groups.count == 1
   end
 end
