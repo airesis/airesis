@@ -1,5 +1,4 @@
 class Continent < ActiveRecord::Base
-  include Concerns::Bordable
   translates :description
 
   has_many :districts

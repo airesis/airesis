@@ -60,42 +60,60 @@ describe Proposal, type: :model do
     end
   end
 
-  context 'public proposal' do
-    before do
-      load_database
-      public_proposal
+  describe '#destroy' do
+    context 'when is public' do
+      before do
+        load_database
+        public_proposal
+      end
+
+      it 'can be destroyed' do
+        expect(public_proposal.destroy).to be_truthy
+      end
     end
 
-    it 'can be destroyed when public' do
-      expect(public_proposal.destroy).to be_truthy
+    context 'when is private' do
+      let(:proposal) { create(:group_proposal) }
+
+      it 'decreases the counter cache of the tags' do
+        tag = proposal.tags.first
+        expect { proposal.destroy }.to change { tag.reload.tag_counters.first.proposals_count }.from(1).to(0)
+      end
     end
   end
 
-  describe 'interest border fields' do
+  describe 'interest borders and derived interest borders' do
+    let(:municipality) { Municipality.first }
+    let(:province) { municipality.province }
+    let(:region) { province.region }
+    let(:country) { region.country }
+    let(:continent) { country.continent }
+
     it 'populates the attributes properly' do
-      municipality = Municipality.first
-      province = municipality.province
       municipality2 = create(:municipality, description: 'Marzabotto', province: province)
-      region = province.region
-      country = region.country
-      continent = country.continent
+      proposal = create(:proposal,
+                        interest_borders_tkn: "#{InterestBorder.to_key(municipality)},C-45897,#{InterestBorder.to_key(municipality2)}")
 
-      proposal = create(:proposal, interest_borders_tkn: "C-#{municipality.id},C-45897,C-#{municipality2.id}")
-
-      expect(proposal.interest_borders_tokens).to eq ["C-#{municipality.id}", "C-#{municipality2.id}"]
-      expect(proposal.derived_interest_borders_tokens).to match_array ["K-#{continent.id}",
-                                                                       "S-#{country.id}",
-                                                                       "R-#{region.id}",
-                                                                       "P-#{province.id}",
-                                                                       "C-#{municipality.id}",
-                                                                       "C-#{municipality2.id}"]
+      expect(proposal.interest_borders_tokens).to eq [InterestBorder.to_key(municipality),
+                                                      InterestBorder.to_key(municipality2)]
+      expect(proposal.derived_interest_borders_tokens).to match_array [InterestBorder.to_key(continent),
+                                                                       InterestBorder.to_key(country),
+                                                                       InterestBorder.to_key(region),
+                                                                       InterestBorder.to_key(province),
+                                                                       InterestBorder.to_key(municipality),
+                                                                       InterestBorder.to_key(municipality2)]
     end
 
     it 'can be searched by interest border' do
-      province = Province.first
-      municipality = Municipality.first
-      proposal = create(:proposal, interest_borders_tkn: "C-#{municipality.id}")
+      proposal = create(:proposal, interest_borders_tkn: InterestBorder.to_key(municipality))
       expect(described_class.by_interest_borders([InterestBorder.to_key(province)])).to include proposal
+    end
+
+    it 'increases the counter cache of the tag for the country and the continent' do
+      proposal = create(:proposal, interest_borders_tkn: InterestBorder.to_key(municipality))
+      tag = proposal.tags.first
+      expect(tag.tag_counters.length).to eq(1)
+      expect(tag.tag_counters.first.proposals_count).to eq(1)
     end
   end
 end
