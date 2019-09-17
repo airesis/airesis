@@ -7,7 +7,7 @@ module StepsHelper
     @tutorial_action ||= params[:action]
     tutorial_assignee = current_user.todo_tutorial_assignees.
       joins(:tutorial).
-      where("tutorials.action = ? AND tutorials.controller = ?", @tutorial_action, @tutorial_controller).
+      where('tutorials.action = ? AND tutorials.controller = ?', @tutorial_action, @tutorial_controller).
       readonly(false).first
     check_tutorial_status(tutorial_assignee) if tutorial_assignee
   end
