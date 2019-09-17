@@ -75,11 +75,11 @@ class User < ActiveRecord::Base
   has_many :followed, through: :followed_user_follow, class_name: 'User', source: :follower
 
   has_many :tutorial_assignees, dependent: :destroy
+  has_many :tutorials, through: :tutorial_assignees, class_name: 'Tutorial', source: :tutorial
+
   has_many :tutorial_progresses, dependent: :destroy
   has_many :todo_tutorial_assignees, -> { where('tutorial_assignees.completed = false') }, class_name: 'TutorialAssignee'
-  # tutorial assegnati all'utente
-  has_many :tutorials, through: :tutorial_assignees, class_name: 'Tutorial', source: :user
-  has_many :todo_tutorials, through: :todo_tutorial_assignees, class_name: 'Tutorial', source: :user
+  has_many :todo_tutorials, through: :todo_tutorial_assignees, class_name: 'Tutorial', source: :tutorial
 
   belongs_to :locale, class_name: 'SysLocale', inverse_of: :users, foreign_key: 'sys_locale_id'
   belongs_to :original_locale, class_name: 'SysLocale', inverse_of: :original_users, foreign_key: 'original_sys_locale_id'
