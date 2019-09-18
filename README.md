@@ -126,6 +126,8 @@ Look at `application.example.yml` for a detailed explanation of each environment
 
 ## I18n
 
+I18n is managed in a separate gem.
+See https://github.com/airesis/airesis_i18n to contribute.
 Contribute on Crowdin to the Translation of the project
 
 ## What else should I know? What are we working on right now?
