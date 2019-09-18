@@ -6,6 +6,12 @@ GIT
       omniauth-oauth2 (~> 1.2)
 
 GIT
+  remote: https://github.com/airesis/airesis_i18n
+  revision: 20c9c0c81e39bb38a4acb152d8f2ce01bf3889d6
+  specs:
+    airesis_i18n (0.1.2)
+
+GIT
   remote: https://github.com/coorasse/devise_traceable
   revision: 02d6d348b2a97938faada8cee1862848f3398530
   specs:
@@ -624,6 +630,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
+  airesis_i18n!
   awesome_print
   aws-sdk (< 2.0)
   better_errors

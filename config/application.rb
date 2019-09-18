@@ -23,7 +23,6 @@ module Airesis
     config.autoload_paths << "#{Rails.root}/lib"
     config.time_zone = 'Rome'
     config.i18n.default_locale = :'en-EU'
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{yml}')]
 
     europe_eng_fallbacks = [:'en-GB', :'en-IE', :'en-US', :'en-ZA', :'en-AU', :'en-NZ',
                             :'sr-CS', :'sr-SP', :'sh-HR', :'zh-TW', :'me-ME', :'bs-BA',
@@ -32,15 +31,9 @@ module Airesis
     portuguese_fallbacks = [:'pt-BR']
     spanish_fallbacks = [:'es-EC', :'es-AR', :'es-CL']
     fallbacks = {}
-    europe_eng_fallbacks.each do |key|
-      fallbacks[key] = :'en-EU'
-    end
-    portuguese_fallbacks.each do |key|
-      fallbacks[key] = :'pt-PT'
-    end
-    spanish_fallbacks.each do |key|
-      fallbacks[key] = :'es-ES'
-    end
+    europe_eng_fallbacks.each { |key| fallbacks[key] = :'en-EU' }
+    portuguese_fallbacks.each { |key| fallbacks[key] = :'pt-PT' }
+    spanish_fallbacks.each { |key| fallbacks[key] = :'es-ES' }
     config.i18n.fallbacks = fallbacks
 
     config.i18n.available_locales = [:'bs-BA', :'de-DE', :'el-GR', :'en-AU', :'en-EU', :'en-GB', :'en-NZ', :'en-US', :'en-ZA',
