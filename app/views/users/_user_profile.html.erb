@@ -21,10 +21,6 @@
 <div class="card">
   <h2><%= t('pages.users.show.profile_info') %><%= t('pages.users.show.profile_info_unconfirmed') unless @user.confirmed? %></h2>
 
-  <% if current_user == @user && @user.user_type_id == UserType::CERTIFIED %>
-      <div class="alert-box secondary"><%= t('pages.users.show.certified_cannot_edit_info') %></div>
-  <% end %>
-
   <div id="name_profile" class="profile_element">
 
     <h2 class="label_profile"><%= t('pages.users.show.name_label') %>: </h2>
@@ -109,18 +105,9 @@
     <h2 class="label_profile"><%= t('pages.users.show.registered_from') %>: </h2>
 
     <div class="info_profile">
-      <%= l (@user.confirmed? ? @user.confirmed_at : @user.created_at) %>
+      <%= l(@user.confirmed? ? @user.confirmed_at : @user.created_at) %>
     </div>
   </div>
-  <% if (current_user == @user) && @user.certified? %>
-      <div id="confirmed_at_profile" class="profile_element_no_click">
-        <h2 class="label_profile"><%= t('pages.users.show.certified_from') %>: </h2>
-
-        <div class="info_profile">
-          <%= l @user.certification.created_at %>
-        </div>
-      </div>
-  <% end %>
 </div>
 
 <% if current_user == @user %>

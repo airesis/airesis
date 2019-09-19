@@ -20,7 +20,6 @@ class NotificationProposalCommentUpdate < NotificationSender
       group = @proposal.groups.first
       data[:group] = group.name
       data[:group_id] = group.id
-      data[:subdomain] = group.subdomain if group.certified?
     end
     url = url_for_proposal
     if comment.paragraph

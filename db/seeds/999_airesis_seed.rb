@@ -103,8 +103,6 @@ Step.create(tutorial_id: tut11.id, index: 0, title: 'Il nuovo MENU Impostazioni'
 UserType.create(description: 'Administrator', short_name: 'admin') { |c| c.id = 1 }.save
 UserType.create(description: 'Moderator', short_name: 'mod') { |c| c.id = 2 }.save
 UserType.create(description: 'Authenticated User', short_name: 'authuser') { |c| c.id = 3 }.save
-UserType.create(description: 'User', short_name: 'user') { |c| c.id = 4 }.save
-UserType.create(description: 'Certified', short_name: 'certified') { |c| c.id = 5 }.save
 BestQuorum.create(name: '1 giorno', percentage: nil, minutes_m: 0, hours_m: 0, days_m: 1, good_score: 50,
                   bad_score: 50, vote_percentage: 0, vote_minutes: nil, vote_good_score: 50, t_percentage: 's', t_minutes: 's', t_good_score: 's', t_vote_percentage: 's', t_vote_minutes: 'f', t_vote_good_score: 's', public: true, seq: 1)
 BestQuorum.create(name: '3 giorni', percentage: nil, minutes_m: 0, hours_m: 0, days_m: 3, good_score: 50,

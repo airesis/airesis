@@ -4,7 +4,7 @@ class CheckGroups
 
   def perform(*_args)
     Group.joins(:participants).
-      where(status: 'active', certified: false).
+      where(status: 'active').
       where(['groups.created_at < ?', 7.days.ago]).
       group('groups.id').
       having('count(users.*) < 2').readonly(false).each do |group|

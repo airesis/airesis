@@ -4,10 +4,6 @@ Devise.setup do |config|
   config.secret_key = ENV['DEVISE_SECRET_KEY']
   config.mailer_sender = ENV['DEFAULT_FROM']
 
-  config.mailer.class_eval do
-    helper :url
-  end
-
   require 'devise/orm/active_record'
 
   config.case_insensitive_keys = [:email]
@@ -46,13 +42,4 @@ Devise.setup do |config|
 
   require 'omniauth-linkedin'
   config.omniauth :linkedin, ENV['LINKEDIN_APP_ID'], ENV['LINKEDIN_APP_SECRET']
-
-  require 'omniauth-parma'
-  config.omniauth :parma, ENV['PARMA_APP_ID'], ENV['PARMA_APP_SECRET'], scope: 'email basic'
-
-  require 'omniauth/strategies/tecnologiedemocratiche'
-  config.omniauth :tecnologiedemocratiche,
-                  ENV['TECNOLOGIEDEMOCRATICHE_APP_ID'],
-                  ENV['TECNOLOGIEDEMOCRATICHE_APP_SECRET'],
-                  client_options: { site: ENV['TECNOLOGIEDEMOCRATICHE_APP_URL'] }
 end

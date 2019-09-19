@@ -21,7 +21,7 @@
   <meta property="og:site_name" content="<%= ENV['APP_LONG_NAME'] %>"/>
   <meta property="og:description" content="<%= t('home.tags.description') %>"/>
   <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>"/>
-  <meta name="author" content="Tecnologie Democratiche">
+  <meta name="author" content="Alessandro Rodi">
 
   <!-- Mobile Specific Metas
   ================================================== -->
@@ -143,13 +143,12 @@
             <%= form_for resource, as: resource_name, url: user_session_path do |f| %>
                 <div class="row">
                   <div class="columns large-12 medium-10 medium-push-1 large-push-0">
-                    <ul class="social-network small-block-grid-6">
+                    <ul class="social-network small-block-grid-5">
                       <li><%= link_to_ip t('pages.top_panel.facebook_login'), :facebook, 'facebook' %></li>
                       <li><%= link_to_ip t('pages.top_panel.google_login'), :google_oauth2, 'googleplus' %></li>
                       <li><%= link_to_ip t('pages.top_panel.twitter_login'), :twitter, 'twitter' %></li>
                       <li><%= link_to_ip t('pages.top_panel.meetup_login'), :meetup, 'meetup' %></li>
                       <li><%= link_to_ip t('pages.top_panel.linkedin_login'), :linkedin, 'linkedin' %></li>
-                      <li><%= link_to_ip t('pages.top_panel.tecnologiedemocratiche'), :tecnologiedemocratiche, 'tecnologiedemocratiche' %></li>
                     </ul>
                   </div>
                   <div class="columns large-12 medium-10 medium-push-1 large-push-0">

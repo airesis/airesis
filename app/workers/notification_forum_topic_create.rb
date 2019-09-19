@@ -11,7 +11,6 @@ class NotificationForumTopicCreate < NotificationSender
 
     data = { topic_id: frm_topic.id, topic_subject: frm_topic.subject, group_name: group.name }
     notification = Notification.create(notification_type: notification_type, url: group_forum_topic_url(forum.group, forum, frm_topic), data: data)
-    data[:subdomain] = group.subdomain if group.certified?
 
     group.participants.each do |user|
       next if user == post_user

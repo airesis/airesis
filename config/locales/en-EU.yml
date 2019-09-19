@@ -17,9 +17,6 @@ en-EU:
       linkedin_login: "Login with LinkedIn"
       openid_login: "Login with OpenID"
       find_groups: 'Search Groups'
-      parma_login: "Login with Parma"
-      tecnologiedemocratiche_login: "Login with Tecnologie Democratiche"
-      tecnologiedemocratiche: "Tecnologie Democratiche"
     user:
       notifications: 'Alarms and Notifications'
       privacy: "Account and privacy"
@@ -55,10 +52,8 @@ en-EU:
         max_file_size: "Max size: 2MB"
         what_can_i_do: "What can I do?"
         what_i_cant_do: "What can't I do?"
-        certified_from: "Certified from"
         group_level_permission_title: "Group level permissions"
         admin_permissions: "You are administrator of this group and you have all permissions"
-        certified_cannot_edit_info: "You're a certified user: you can't edit your Name, Last Name, or Email"
         twitter_url: "Twitter URL"
         meetup_url: "Meetup URL"
       send_message:
@@ -88,7 +83,6 @@ en-EU:
         join_twitter: "Join your Twitter account"
         join_linkedin: "Join your LinkedIn account"
         join_meetup: "Join your Meetup account"
-        join_tecnologiedemocratiche: "Join your Tecnologie Democratiche account"
         providers_list: "List of activated providers"
         options: "Options"
         rotp: "Enable Security Token"
@@ -984,9 +978,6 @@ en-EU:
     group_participations:
       index:
         title: "Participants List"
-    certifications:
-      index:
-        title: "Certified groups"
   pl:
     comments:
       zero: "no comments"
@@ -1327,9 +1318,6 @@ en-EU:
       anymore: "Invitation rejected. You will not receive other invites."
     blog_comment:
       destroyed: "The comment has been deleted"
-    user_sensitive:
-      updated: "User sensitive was successfully updated."
-      created: "User sensitive was successfully created."
   interest_borders:
     hint: "Type a few characters to search for a place"
     no_place_found: "No place found"
