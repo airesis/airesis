@@ -7,7 +7,7 @@
       <div class="topmenu-text">
         <% if @group %>
             <% if @group.id %>
-                <%= link_to @group.name, ((@group.certified && (request.subdomain == @group.subdomain)) ? root_path(subdomain: @group.subdomain) : @group), class: 'tit' %>
+                <%= link_to @group.name, @group, class: 'tit' %>
             <% else %>
                 <%= link_to t('pages.groups.new.title'), new_group_path, class: 'tit' %>
             <% end %>

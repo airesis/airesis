@@ -24,16 +24,6 @@ MEETUP_APP_SECRET: ""
 LINKEDIN_APP_ID: ""
 LINKEDIN_APP_SECRET: ""
 
-# if you want to allow the users to login via Parma fill these variables
-PARMA_APP_ID: ""
-PARMA_APP_SECRET: ""
-
-# if you want to allow the users to login via Tecnologie Democratiche fill these variables
-# send an email to alessandro.rodi@airesis.it to ask for credentials
-TECNOLOGIEDEMOCRATICHE_APP_ID: ''
-TECNOLOGIEDEMOCRATICHE_APP_SECRET: ''
-TECNOLOGIEDEMOCRATICHE_APP_URL: "https://tecnologiedemocratiche.herokuapp.com/"
-
 # google maps api key. obtain one from google developers console
 # registering a new application and generating a new browser key
 MAPS_API_KEY: ""

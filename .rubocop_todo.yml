@@ -409,7 +409,6 @@ Naming/AccessorMethodName:
 Naming/FileName:
   Exclude:
     - 'lib/frm-gfm_formatter.rb'
-    - 'lib/omniauth-parma.rb'
     - 'spec/features/events/managing_meeting_events_in groups_spec.rb'
     - 'spec/features/events/managing_vote_events_in groups_spec.rb'
     - 'spec/support/capybara-select2.rb'
@@ -1103,7 +1102,6 @@ Style/RedundantParentheses:
     - 'app/helpers/application_helper.rb'
     - 'app/helpers/frm/formatting_helper.rb'
     - 'app/helpers/proposals/mustache_helper.rb'
-    - 'app/helpers/url_helper.rb'
     - 'app/models/concerns/event_scopes.rb'
     - 'app/models/newsletter.rb'
     - 'app/models/proposal.rb'
@@ -1228,12 +1226,6 @@ Style/SymbolArray:
 # SupportedStyles: require_parentheses, require_no_parentheses, require_parentheses_when_complex
 Style/TernaryParentheses:
   Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/UnlessElse:
-  Exclude:
-    - 'app/helpers/url_helper.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.

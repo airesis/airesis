@@ -1,5 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  oauth_providers = [:facebook, :google_oauth2, :twitter, :meetup, :parma, :tecnologiedemocratiche, :linkedin]
+  oauth_providers = [:facebook, :google_oauth2, :twitter, :meetup, :linkedin]
   oauth_providers.each do |provider|
     define_method(provider) { manage_oauth_callback }
   end
@@ -37,19 +37,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         # cancel_operation
         flash[:error] = I18n.t('devise.omniauth_callbacks.join_failure', provider: provider.capitalize)
       else
-        # the certified email is already present in another account in Airesis
-        # cannot update user email with one already taken
-        if user_info[:certified] && User.all_except(current_user).where(email: user_info[:email]).exists?
-          flash[:error] = I18n.t 'devise.omniauth_callbacks.certified_email_taken'
-          return redirect_to privacy_preferences_users_url
-        end
-
-        # A user cannot have more than one certified account
-        if oauth_data_parser.multiple_certification_attempt?
-          flash[:error] = I18n.t 'devise.omniauth_callbacks.already_certified'
-          return redirect_to privacy_preferences_users_url
-        end
-
         current_user.oauth_join(oauth_data)
         flash[:notice] = I18n.t('devise.omniauth_callbacks.join_success', provider: provider.capitalize)
       end
@@ -66,11 +53,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           sign_in_and_redirect @user, event: :authentication
         end
       else # something went wrong while creating a new user with oauth info
-        flash[:error] = if oauth_data_parser.multiple_certification_attempt?
-                          I18n.t 'devise.omniauth_callbacks.already_certified'
-                        else
-                          I18n.t('devise.omniauth_callbacks.creation_failure', provider: provider.capitalize)
-                        end
+        flash[:error] = I18n.t('devise.omniauth_callbacks.creation_failure', provider: provider.capitalize)
         redirect_to new_user_registration_path
       end
     end

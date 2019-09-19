@@ -6,7 +6,6 @@ class NotificationParticipationRequestCreate < NotificationSender
     group = group_participation_request.group
     @trackable = group
     data = { group_id: group.id, user: user.fullname, user_id: user.id, group: group.name }
-    data[:subdomain] = group.subdomain if group.certified?
     notification_a = Notification.create(notification_type_id: NotificationType::NEW_PARTICIPATION_REQUEST,
                                          url: group_url(group), data: data)
     group.scoped_participants(:accept_participation_requests).each do |receiver|

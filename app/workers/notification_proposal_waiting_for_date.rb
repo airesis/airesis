@@ -7,10 +7,7 @@ class NotificationProposalWaitingForDate < NotificationSender
     nickname = ProposalNickname.find_by(user_id: current_user.id, proposal_id: @proposal.id)
     name = (@proposal.is_anonima? && nickname) ? nickname.nickname : current_user.fullname
     data = { proposal_id: @proposal.id, name: name, title: @proposal.title, extension: 'waiting_date' }
-    if group
-      data['group'] = group.name
-      data['subdomain'] = group.subdomain if group.certified?
-    end
+    data['group'] = group.name if group
     notification_a = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS,
                                          url: url_for_proposal, data: data)
     @proposal.participants.each do |user|

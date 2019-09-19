@@ -13,10 +13,7 @@ class NotificationProposalUpdate < NotificationSender
              user_id: @current_user.id,
              revision_id: (@proposal.proposal_revisions.last.id),
              title: @proposal.title }
-    if @group.present?
-      data[:group] = @group.name
-      data[:subdomain] = @group.subdomain if @group.certified?
-    end
+    data[:group] = @group.name if @group.present?
     Notification.create(notification_type_id: @notification_type_id,
                         url: url_for_proposal,
                         data: data)
