@@ -3,7 +3,7 @@
     <section class="top-bar-section">
       <div class="logo-wrapper show-for-medium-up">
         <div class="logo">
-          <%= link_to (image_tag 'logo_completo_white_mini.png', class: "logo1", data: ({dropdown: "airesis_panel", options: "is_hover:false;align:center;"} unless true)), root_path, tabindex: 1 %>
+          <%= link_to (image_tag 'logo_completo_white_medium.png', class: "logo1", data: ({dropdown: "airesis_panel", options: "is_hover:false;align:center;"} unless true)), root_path, tabindex: 1 %>
         </div>
       </div>
       <ul class="left">
@@ -33,10 +33,6 @@
         <li >
           <%= link_to open_space_path, class: 'cur globe', title: t('open_space') do %>
               <i class="fa fa-globe medium"></i>
-          <% end %></li>
-        <li class="hide-for-small">
-          <%= link_to "#", onclick: "return false;", data: {dropdown: "help_panel", options: "is_hover:false"} do %>
-              <i class="fa fa-question medium cur info" title="TUTORIAL"></i>
           <% end %>
         </li>
 
@@ -78,35 +74,6 @@
 
   <%= render 'layouts/personal_menu' if user_signed_in? %>
 </div>
-
-
-<ul id="help_panel" class="f-dropdown xsmall" data-dropdown-content>
-  <li>
-
-    <%= link_to '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;" do %>
-        <i class="fa fa-warning"></i>
-        <%= t('pages.home.index.feedback') %>
-    <% end %>
-  </li>
-  <li>
-    <%= link_to 'http://wiki.airesis.eu/doku.php?id=en:faq', title: t('pages.home.index.FAQ'), target: '_blank' do %>
-        <i class="fa fa-book"></i>
-        <%= t('pages.home.index.FAQ') %>
-    <% end %>
-  </li>
-  <li>
-    <%= link_to 'http://wiki.airesis.eu/', title: t('pages.home.index.guide'), target: '_blank' do %>
-        <i class="fa fa-book"></i>
-        <%= t('pages.home.index.guide') %>
-    <% end %>
-  </li>
-  <li>
-    <%= link_to edemocracy_path, title: t('pages.home.index.whatis') do %>
-        <i class="fa fa-info"></i>
-        <%= t('pages.home.index.whatis') %>
-    <% end %>
-  </li>
-</ul>
 
 <% unless in_subdomain? %>
     <div id="hover1" class="f-dropdown medium" data-dropdown-content>

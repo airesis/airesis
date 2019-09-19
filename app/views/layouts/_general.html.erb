@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= I18n.locale %>" lang="<%= I18n.locale %>" <%= yield :html_options %>>
 <head>
   <title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME %></title>
-  <%= render partial: "layouts/head" %>
+  <%= render 'layouts/head' %>
 </head>
 <body data-page="<%= body_page_name %>">
 <%= render partial: "layouts/header" %>

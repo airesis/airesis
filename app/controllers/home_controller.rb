@@ -23,9 +23,6 @@ class HomeController < ApplicationController
   def intro
   end
 
-  def roadmap
-  end
-
   def press
   end
 

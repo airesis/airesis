@@ -1,8 +1,10 @@
 en-EU:
   home:
     intro:
-      title: "The first social network for E-Democracy in the world"
+      title: "The Social Network for E-Democracy"
       description: "A tool of direct democracy born to decide and act collectively on proposals and ideas generated anywhere for any theme."
+      technical_specs:
+        title: 'Tecnical Specs'
       paragraph_1:
         title: "The Social Network for E-Democracy"
         content_html: |
@@ -95,7 +97,7 @@ en-EU:
             <li><strong>Sign up and login</strong> <br>
               from every page or even after adding a comment or a contribution. It is even possible to login using Facebook, Google +, Meetup, Twitter or Linkedin
             </li>
-            <li><strong>Public area or private area for groups</strong> (<a href="http://youtu.be/n_ZruAcNkVk" target="blank">More info in this video-tutorial</a>) <br>
+            <li><strong>Public area or private area for groups</strong><br>
               Signin up enables you to participate in the Open Space, to join one of the groups already present or to create a new one.
             </li>
             <li><strong>Creation of proposals and debates</strong>
@@ -343,30 +345,6 @@ en-EU:
         link: 'introduction page'
     press:
       title: "Press Release"
-    roadmap:
-      paragraph1:
-        title: "Destination: direct democracy"
-        content_html: |
-          <p>Airesis was born from the fusion of two projects launched over two years ago as a result of the need to be able to use a
-           software platform that could integrate the main features of social networks, event management and mass decision making system.</p>
-          <p>In March, 2012, during the meeting "Cittadini a cinque stelle" (Five Stars Citizen) organized in Rimini, Alessandro Rodi
-           with its Airesis project came to know Nicola Giulietti and the Agora 2.0 project: on one side, a good software,
-           on the other an excellent analysis of the features that a portal for direct democracy should have had.</p>
-          <p>Following this meeting it was decided to collaborate in the development of a common open source application so that it could
-           implement the functions identified by the Agora 2.0 group in more than a year long work.</p>
-          <p>The mission was (and still is) ambitious, but we know that it is possible to be achieved with the right tools, step by step.</p>
-          <p>Thanks to our determination what initially looked like a dream of freedom, found the support of many people and the help of programmers,
-           analysts, mathematicians, graphic designers and responsible citizens.</p>
-          <p>Currently software releases are published on a monthly or bi-monthly basis to meet the demands and needs of users,
-           in order to apply a process of continuous improvement.</p>
-      paragraph2:
-        title: "The evolution of Airesis"
-        content_html: |
-          <p>The list below shows the changes of Airesis during its evolution.
-           You can also find the highlighted innovations planned for future versions.
-           Check this page often if you are interested to know which features are being developed and come back to visit us!</p>
-      title: "The evolution of Airesis"
-      description: "Our road to realize a new software, an idea capable of evolving democracy that came to life in the web."
     helpus:
       paragraph1:
         title: "Why are we asking you to support Airesis?"
