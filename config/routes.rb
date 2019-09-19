@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   get 'home' => 'home#show'
   get 'landing' => 'home#landing'
   get 'public' => 'home#public', as: :open_space
-  get 'roadmap' => 'home#roadmap'
   get 'edemocracy' => 'home#intro'
   get 'eparticipation' => 'home#intro'
   get 'press' => 'home#press'
