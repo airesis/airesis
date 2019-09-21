@@ -232,48 +232,41 @@ Rails.application.routes.draw do
 
   concerns :eventable
 
-  # specific routes for subdomains
-  constraints Subdomain do
-    get '', to: 'groups#show'
-
-    get '/edit', to: 'groups#edit'
-    put '/update', to: 'groups#update'
-
-    resources :quorums do
-      member do
-        post :change_status
+  root to: 'home#index'
+  namespace :api do
+    namespace :v1 do
+      resources :proposals, only: [:show, :index]
+      devise_scope :user do
+        post 'login' => 'sessions#create', as: :login
       end
     end
+  end
 
-    resources :best_quorums, controller: 'quorums'
-    resources :old_quorums, controller: 'quorums'
+  resources :proposal_categories do
+    get :index, scope: :collection
+  end
 
-    resources :documents do
-      get :view, on: :collection
+  resources :groups do
+    member do
+      post :ask_for_participation
+      put :participation_request_confirm
+      put :participation_request_decline
+      post :create_event
+      post :change_default_anonima
+      post :change_default_visible_outside
+      post :change_advanced_options
+      post :change_default_secret_vote
+      get :reload_storage_size
+      put :enable_areas
+      put :remove_post
+      put :feature_post
+      get :permissions_list
     end
 
-    resources :group_areas do
-      resources :area_roles do
-        collection do
-          patch :change_permissions
-        end
-      end
+    collection do
+      post :ask_for_multiple_follow
+      get :autocomplete
     end
-
-    resources :group_participations do
-      collection do
-        post :send_email
-        post :destroy_all
-      end
-      member do
-        post :change_user_permission
-      end
-    end
-
-    concerns :participation_roles
-    concerns :group_invitations
-
-    resources :search_participants
 
     resources :forums, controller: 'frm/forums', only: [:index, :show] do
       resources :topics, controller: 'frm/topics' do
@@ -320,221 +313,131 @@ Rails.application.routes.draw do
       end
     end
 
-    get 'show', controller: 'groups'
-    put 'update', controller: 'groups'
-    post 'create', controller: 'groups'
-  end
+    get 'users/autocomplete', to: 'users#autocomplete', as: 'user_autocomplete'
 
-  # routes available only on main site
-  constraints NoSubdomain do
+    concerns :eventable
 
-    root to: 'home#index'
-    namespace :api do
-      namespace :v1 do
-        resources :proposals, only: [:show, :index]
-        devise_scope :user do
-          post 'login' => 'sessions#create', as: :login
-        end
-      end
-    end
+    concerns :group_invitations
 
-    resources :proposal_categories do
-      get :index, scope: :collection
-    end
+    resources :elections
 
-    resources :groups do
-      member do
-        post :ask_for_participation
-        put :participation_request_confirm
-        put :participation_request_decline
-        post :create_event
-        post :change_default_anonima
-        post :change_default_visible_outside
-        post :change_advanced_options
-        post :change_default_secret_vote
-        get :reload_storage_size
-        put :enable_areas
-        put :remove_post
-        put :feature_post
-        get :permissions_list
-      end
+    resources :candidates
 
+    resources :group_participations do
       collection do
-        post :ask_for_multiple_follow
-        get :autocomplete
+        post :send_email
+        post :destroy_all
       end
-
-      resources :forums, controller: 'frm/forums', only: [:index, :show] do
-        resources :topics, controller: 'frm/topics' do
-          member do
-            get :subscribe
-            get :unsubscribe
-          end
-        end
-
-        resources :topics, controller: 'frm/topics', only: [:new, :create, :index, :show, :destroy] do
-          resources :posts, controller: 'frm/posts'
-        end
+      member do
+        post :change_user_permission
       end
-
-      namespace :frm do
-        get 'forums/:forum_id/moderation', to: 'moderation#index', as: :forum_moderator_tools
-        # For mass moderation of posts
-        put 'forums/:forum_id/moderate/posts', to: 'moderation#posts', as: :forum_moderate_posts
-        # Moderation of a single topic
-        put 'forums/:forum_id/topics/:topic_id/moderate', to: 'moderation#topic', as: :moderate_forum_topic
-        resources :categories, only: [:index, :show]
-        namespace :admin do
-          root to: 'base#index'
-          resources :mods do
-            resources :members do
-              collection do
-                post :add
-              end
-            end
-          end
-
-          resources :forums do
-            resources :moderators
-            resources :topics do
-              member do
-                put :toggle_hide
-                put :toggle_lock
-                put :toggle_pin
-              end
-            end
-          end
-
-          resources :categories
-        end
-      end
-
-      get 'users/autocomplete', to: 'users#autocomplete', as: 'user_autocomplete'
-
-      concerns :eventable
-
-      concerns :group_invitations
-
-      resources :elections
-
-      resources :candidates
-
-      resources :group_participations do
-        collection do
-          post :send_email
-          post :destroy_all
-        end
-        member do
-          post :change_user_permission
-        end
-      end
-
-      concerns :participation_roles
-
-      resources :search_participants
-
-      resources :proposals do
-        collection do
-          get :search
-        end
-        member do
-          post :close_debate
-          post :start_votation
-          patch :regenerate
-          patch :set_votation_date
-          get :geocode
-          get :vote_results
-        end
-      end
-
-      resources :quorums do
-        member do
-          post :change_status
-        end
-      end
-
-      resources :best_quorums, controller: 'quorums'
-      resources :old_quorums, controller: 'quorums'
-
-      resources :documents do
-        collection do
-          get :view
-        end
-      end
-
-      resources :group_areas do
-        resources :area_roles do
-          member do
-            patch :change
-          end
-          collection do
-            put :change_permissions
-          end
-        end
-
-        resources :area_participations, only: [:create, :update, :destroy]
-      end
-
-      concerns :blog_posts
-
-      get '/:year/:month' => 'groups#by_year_and_month', :as => :posts_by_year_and_month, on: :member
     end
+
+    concerns :participation_roles
+
+    resources :search_participants
+
+    resources :proposals do
+      collection do
+        get :search
+      end
+      member do
+        post :close_debate
+        post :start_votation
+        patch :regenerate
+        patch :set_votation_date
+        get :geocode
+        get :vote_results
+      end
+    end
+
+    resources :quorums do
+      member do
+        post :change_status
+      end
+    end
+
+    resources :best_quorums, controller: 'quorums'
+    resources :old_quorums, controller: 'quorums'
 
     resources :documents do
       collection do
         get :view
-        get :download
-      end
-      member do
       end
     end
 
-    admin_required = lambda do |request|
-      request.env['warden'].authenticate? && request.env['warden'].user.admin?
-    end
-
-    moderator_required = lambda do |request|
-      request.env['warden'].authenticate? && request.env['warden'].user.moderator?
-    end
-
-    constraints moderator_required do
-      get 'moderator_panel', to: 'admin/moderator#show', as: 'moderator/panel'
-    end
-
-    constraints admin_required do
-      namespace :admin do
-        resources :newsletters do
-          member do
-            get :preview
-            patch :publish
-          end
+    resources :group_areas do
+      resources :area_roles do
+        member do
+          patch :change
         end
-        mount RailsAdmin::Engine => '/data', as: 'rails_admin'
-        mount Sidekiq::Web => '/sidekiq'
-        get '/', to: 'panel#show', as: 'panel'
-        resource :panel, controller: 'panel' do
-          get :calculate_rankings
-          get :change_proposals_state
-          get :write_sitemap
-          get :delete_old_notifications
-          get :test_redis
-          get :test_scheduler
-          get :test_exceptions
-          get :calculate_user_group_affinity
-        end
-
-        resources :users, only: [] do
-          get :unblock, on: :member
-          collection do
-            get :autocomplete
-            post :block
-          end
+        collection do
+          put :change_permissions
         end
       end
+
+      resources :area_participations, only: [:create, :update, :destroy]
     end
 
-    resources :tokens, only: [:create, :destroy]
+    concerns :blog_posts
 
-    get '/:id' => 'groups#show'
+    get '/:year/:month' => 'groups#by_year_and_month', :as => :posts_by_year_and_month, on: :member
   end
+
+  resources :documents do
+    collection do
+      get :view
+      get :download
+    end
+    member do
+    end
+  end
+
+  admin_required = lambda do |request|
+    request.env['warden'].authenticate? && request.env['warden'].user.admin?
+  end
+
+  moderator_required = lambda do |request|
+    request.env['warden'].authenticate? && request.env['warden'].user.moderator?
+  end
+
+  constraints moderator_required do
+    get 'moderator_panel', to: 'admin/moderator#show', as: 'moderator/panel'
+  end
+
+  constraints admin_required do
+    namespace :admin do
+      resources :newsletters do
+        member do
+          get :preview
+          patch :publish
+        end
+      end
+      mount RailsAdmin::Engine => '/data', as: 'rails_admin'
+      mount Sidekiq::Web => '/sidekiq'
+      get '/', to: 'panel#show', as: 'panel'
+      resource :panel, controller: 'panel' do
+        get :calculate_rankings
+        get :change_proposals_state
+        get :write_sitemap
+        get :delete_old_notifications
+        get :test_redis
+        get :test_scheduler
+        get :test_exceptions
+        get :calculate_user_group_affinity
+      end
+
+      resources :users, only: [] do
+        get :unblock, on: :member
+        collection do
+          get :autocomplete
+          post :block
+        end
+      end
+    end
+  end
+
+  resources :tokens, only: [:create, :destroy]
+
+  get '/:id' => 'groups#show'
 end
