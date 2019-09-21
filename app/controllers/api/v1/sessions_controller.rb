@@ -5,10 +5,8 @@ module Api
       skip_before_action :verify_authenticity_token, if: :json_request?
 
       acts_as_token_authentication_handler_for User
-      skip_before_action :authenticate_entity_from_token!
-      skip_before_action :authenticate_entity!
-      before_action :authenticate_entity_from_token!, only: [:destroy]
-      before_action :authenticate_entity!, only: [:destroy]
+      skip_before_action :authenticate_user_from_token!
+      before_action :authenticate_user_from_token!, only: [:destroy]
 
       def create
         warden.authenticate!(scope: resource_name)

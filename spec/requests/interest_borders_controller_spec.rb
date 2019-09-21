@@ -9,7 +9,6 @@ RSpec.describe InterestBordersController do
 
     it 'retrieves countries correctly' do
       get interest_borders_path, params: { q: 'Ita', format: :json }
-      puts assigns(:results)
       expect(assigns(:results).count).to eq 1
     end
 
