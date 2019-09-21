@@ -188,7 +188,7 @@ class BestQuorum < Quorum
       negative = vote_data.negative
       neutral = vote_data.neutral
       votes = positive + negative + neutral
-      if ((positive + negative) > 0) && ((positive.to_f / (positive + negative).to_f) > (vote_good_score.to_f / 100)) && (votes >= vote_valutations) # se ha avuto più voti positivi allora diventa ACCETTATA
+      if ((positive + negative) > 0) && ((positive.to_f / (positive + negative)) > (vote_good_score.to_f / 100)) && (votes >= vote_valutations) # se ha avuto più voti positivi allora diventa ACCETTATA
         proposal.proposal_state_id = ProposalState::ACCEPTED
       else # se ne ha di più negativi allora diventa RESPINTA
         proposal.proposal_state_id = ProposalState::REJECTED
@@ -205,7 +205,7 @@ class BestQuorum < Quorum
   def debate_progress
     minimum = [Time.now, ends_at].min
     minimum = ((minimum - started_at) / 60)
-    percentagetime = minimum.to_f / minutes.to_f
+    percentagetime = minimum.to_f / minutes
     percentagetime *= 100
   end
 

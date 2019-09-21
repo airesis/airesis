@@ -7,7 +7,7 @@ RSpec.describe NotificationAvailableAuthorCreate, type: :model, emails: true, no
     load_database
   end
 
-  let!(:event_class) { NotificationAvailableAuthorCreate }
+  let!(:event_class) { described_class }
   let!(:notification_type) { NotificationType.find_by(name: 'available_author') }
   let!(:expected_alerts) { 3 }
 

@@ -6,7 +6,7 @@ describe 'the oauth2 process', :js do
     before do
       @oauth_data = {
         provider: 'meetup',
-        uid: Faker::Number.number(10),
+        uid: Faker::Number.number(digits: 10),
         first_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name
       }

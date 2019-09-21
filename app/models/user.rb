@@ -68,22 +68,18 @@ class User < ActiveRecord::Base
 
   has_many :group_participation_requests, dependent: :destroy
 
-  # record di tutti coloro che mi seguono
   has_many :followers_user_follow, class_name: 'UserFollow', foreign_key: :followed_id
-  # tutti coloro che mi seguono
   has_many :followers, through: :followers_user_follow, class_name: 'User', source: :followed
 
-  # record di tutti coloro che seguo
   has_many :followed_user_follow, class_name: 'UserFollow', foreign_key: :follower_id
-  # tutti coloro che seguo
   has_many :followed, through: :followed_user_follow, class_name: 'User', source: :follower
 
   has_many :tutorial_assignees, dependent: :destroy
+  has_many :tutorials, through: :tutorial_assignees, class_name: 'Tutorial', source: :tutorial
+
   has_many :tutorial_progresses, dependent: :destroy
   has_many :todo_tutorial_assignees, -> { where('tutorial_assignees.completed = false') }, class_name: 'TutorialAssignee'
-  # tutorial assegnati all'utente
-  has_many :tutorials, through: :tutorial_assignees, class_name: 'Tutorial', source: :user
-  has_many :todo_tutorials, through: :todo_tutorial_assignees, class_name: 'Tutorial', source: :user
+  has_many :todo_tutorials, through: :todo_tutorial_assignees, class_name: 'Tutorial', source: :tutorial
 
   belongs_to :locale, class_name: 'SysLocale', inverse_of: :users, foreign_key: 'sys_locale_id'
   belongs_to :original_locale, class_name: 'SysLocale', inverse_of: :original_users, foreign_key: 'original_sys_locale_id'

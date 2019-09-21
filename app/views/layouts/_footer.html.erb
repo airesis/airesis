@@ -14,13 +14,14 @@
       <%= image_tag "flags/#{I18n.locale}.png", class: 'language footer', title: t('pages.home.index.change_language') %>
     </a>
     &nbsp|&nbsp
-    <%= link_to t('pages.home.index.support'), sostienici_path %>
-    &nbsp|&nbsp
     <%= link_to t('terms_of_service'), terms_path, class: 'terms_link' %>
     &nbsp|&nbsp
     <%= link_to t('privacy_policy'), privacy_path, class: 'privacy_link' %>
     &nbsp|&nbsp
     <%= link_to t('cookie_policy'), cookie_law_path, class: 'privacy_link' %>
+    &nbsp|&nbsp
+    <%= link_to t('pages.home.index.whatis'), edemocracy_path, class: 'privacy_link' %>
+
     <span class="show-for-medium-up">
         &nbsp|&nbsp
         <span class="feedback_space"></span>

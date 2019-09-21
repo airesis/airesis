@@ -1,20 +1,5 @@
 class Proposal < ActiveRecord::Base
-  include PgSearch
-
-  pg_search_scope :search,
-                  against: { title: 'A', content: 'B' },
-                  order_within_rank: 'proposals.updated_at DESC, proposals.created_at DESC',
-                  using: { tsearch: { normalization: 2,
-                                      prefix: true,
-                                      dictionary: 'english' } }
-
-  pg_search_scope :search_similar,
-                  against: [:title, :content],
-                  associated_against: { tags: :text },
-                  order_within_rank: 'proposals.updated_at DESC, proposals.created_at DESC',
-                  using: { tsearch: { normalization: 2, any_word: true } }
-
-  include Frm::Concerns::Viewable, Concerns::ProposalBuildable, Concerns::Taggable
+  include Concerns::ProposalSearchable, Frm::Concerns::Viewable, Concerns::ProposalBuildable, Concerns::Taggable
 
   belongs_to :state, class_name: 'ProposalState', foreign_key: :proposal_state_id
   belongs_to :category, class_name: 'ProposalCategory', foreign_key: :proposal_category_id
@@ -430,9 +415,9 @@ class Proposal < ActiveRecord::Base
   def eligible_voters_count
     return User.confirmed.unblocked.count unless private?
     if presentation_areas.size > 0 # if we are in a working area
-      presentation_areas.first.scoped_participants(:vote_proposals).count # TODO: more areas
+      presentation_areas.first.scoped_participants(:vote_proposals).count # TODO: it can belong to more areas
     else
-      groups.first.scoped_participants(:vote_proposals).count # TODO: more groups
+      groups.first.scoped_participants(:vote_proposals).count # TODO: it can belong to more groups
     end
   end
 
@@ -644,6 +629,14 @@ class Proposal < ActiveRecord::Base
     nil
   end
 
+  def derived_countries_tokens
+    derived_interest_borders_tokens.select { |ib| ib.starts_with? InterestBorder::SHORT_COUNTRY }
+  end
+
+  def derived_continents_tokens
+    derived_interest_borders_tokens.select { |ib| ib.starts_with? InterestBorder::SHORT_CONTINENT }
+  end
+
   private
 
   def destroy_presentations
@@ -810,12 +803,12 @@ class Proposal < ActiveRecord::Base
 
   def update_borders
     proposal_borders.destroy_all
-    interest_borders_tkn.to_s.split(',').each do |border| # l'identificativo è nella forma 'X-id'
-      ftype = border[0, 1] # tipologia (primo carattere)
-      fid = border[2..-1] # chiave primaria (dal terzo all'ultimo carattere)
+
+    # set the interest border and extracts the derived ones
+    interest_borders_tkn.to_s.split(',').each do |border| # the identifiers are in the format 'X-id'
       found = InterestBorder.table_element(border)
-      # se ho trovato qualcosa, allora l'identificativo è corretto e posso creare il confine di interesse
-      next unless found
+
+      next unless found # if I found something I can proceed
 
       self.interest_borders_tokens << border
       derived_row = found
@@ -824,9 +817,7 @@ class Proposal < ActiveRecord::Base
         derived_row = derived_row.parent
       end
 
-      interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype],
-                                                    territory_id: fid)
-      proposal_borders.build(interest_border_id: interest_b.id)
+      proposal_borders.build(interest_border_id: InterestBorder.find_or_create_by_key(border).id)
     end
 
     if derived_interest_borders_tokens.empty?

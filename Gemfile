@@ -67,12 +67,13 @@ gem 'paper_trail'
 gem 'figaro'
 gem 'faker'
 gem 'sshkit'
-gem 'cookies_eu', git: 'https://github.com/coorasse/cookies_eu'
+gem 'cookies_eu'
 gem 'font-awesome-rails'
 gem 'truncate_html'
 gem 'activerecord-session_store'
 gem 'puma'
 gem 'pg_search'
+gem 'airesis_i18n', git: 'https://github.com/airesis/airesis_i18n'
 
 group :development do
   gem 'awesome_print'
@@ -84,7 +85,6 @@ group :development do
   gem 'letter_opener'
   gem 'pry-byebug'
   gem 'pry-rails'
-  # gem 'quiet_assets'
   gem 'rack-mini-profiler', require: false
   gem 'spring'
   gem 'thin', require: false # required for private_pub
@@ -102,6 +102,7 @@ end
 group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'test-unit'
   gem 'byebug'

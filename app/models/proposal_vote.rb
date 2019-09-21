@@ -20,6 +20,6 @@ class ProposalVote < ActiveRecord::Base
   protected
 
   def perc(value)
-    number > 0 ? ((value.to_f / number.to_f) * 100).round(2) : 0
+    number > 0 ? ((value.to_f / number) * 100).round(2) : 0
   end
 end

@@ -1,6 +1,4 @@
 class District < ActiveRecord::Base
-  include Concerns::Bordable
-
   belongs_to :municipality
   belongs_to :province
   belongs_to :region

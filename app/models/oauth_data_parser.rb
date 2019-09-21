@@ -85,7 +85,7 @@ class OauthDataParser
 
   def verified?
     case provider
-    when Authentication::FACEBOOK then
+    when Authentication::FACEBOOK
       raw_info['verified']
     else
       true

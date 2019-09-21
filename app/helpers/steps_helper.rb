@@ -7,7 +7,7 @@ module StepsHelper
     @tutorial_action ||= params[:action]
     tutorial_assignee = current_user.todo_tutorial_assignees.
       joins(:tutorial).
-      where("tutorials.action = '#{@tutorial_action}' and tutorials.controller = '#{@tutorial_controller}'").
+      where('tutorials.action = ? AND tutorials.controller = ?', @tutorial_action, @tutorial_controller).
       readonly(false).first
     check_tutorial_status(tutorial_assignee) if tutorial_assignee
   end
@@ -22,7 +22,7 @@ module StepsHelper
         next_step = step
         break
       end
-    end # each step
+    end
     if next_step
       next_step = check_show_condition(next_step, user)
     else
@@ -32,8 +32,10 @@ module StepsHelper
   end
 
   # check if we have to show the step now, in that page, at that user
-  # is different from check step condition. check step condition check if the user already saw the step or if has already done some actions.
-  # this check, for example, if the show users page is of the current_user. We do not show the tutorial on another user page
+  # is different from check step condition. check step condition check
+  # if the user already saw the step or if has already done some actions.
+  # this check, for example, if the show users page is of the current_user.
+  # We do not show the tutorial on another user page
   def check_show_condition(step, user)
     case step.fragment
     when 'users_show'
@@ -82,12 +84,8 @@ module StepsHelper
     when 3
       return (user.proposals.count > 0)
     else
-      logger.error 'Impossibile trovare tutorial_id: ' + step.tutotial_id.to_s + ', step_index: ' + step.index.to_s
+      logger.error 'Impossibile trovare tutorial_id: ' + step.tutorial_id.to_s + ', step_index: ' + step.index.to_s
       return false
     end
-  end
-
-  # segna come completato uno step del tutorial
-  def complete_step(_step, _user)
   end
 end

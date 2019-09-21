@@ -49,12 +49,14 @@ describe Group do
     let(:municipality) { create(:municipality) }
     let(:province) { municipality.province }
     let(:groups) do
-      [create(:group, num_participants: 1, name: 'hello group title'),
-       create(:group, num_participants: 2, description: 'group hello description'),
-       create(:group, num_participants: 2, tags_list: 'hello'),
-       create(:group, num_participants: 3, description: 'hello'),
-       create(:group, num_participants: 2, tags_list: 'hello,world', interest_border_tkn: InterestBorder.to_key(municipality)),
-       create(:group, num_participants: 5, tags_list: 'ciao,hello', interest_border_tkn: InterestBorder.to_key(province))]
+      [create(:group, num_participants: 1, name: 'rodi alessandro title'),
+       create(:group, num_participants: 2, description: 'alessandro rodi description'),
+       create(:group, num_participants: 2, tags_list: 'rodi'),
+       create(:group, num_participants: 3, description: 'rodi'),
+       create(:group, num_participants: 2, tags_list: 'rodi,world',
+                      interest_border_tkn: InterestBorder.to_key(municipality)),
+       create(:group, num_participants: 5, tags_list: 'ciao,rodi',
+                      interest_border_tkn: InterestBorder.to_key(province))]
     end
 
     before do
@@ -64,17 +66,17 @@ describe Group do
 
     context 'method is called with tag parameter' do
       it 'returns all groups with that tag associated ordered by participants an date of creation' do
-        expect(described_class.look(tag: 'hello')).to eq [groups[5], groups[4], groups[2]]
+        expect(described_class.look(tag: 'rodi')).to eq [groups[5], groups[4], groups[2]]
       end
     end
 
     context 'search by text' do
       it 'returns all groups that match the word' do
-        expect(described_class.look(search: 'hello')).to eq [groups[0], groups[3], groups[1]]
+        expect(described_class.look(search: 'rodi')).to eq [groups[0], groups[3], groups[1]]
       end
 
       it 'returns all groups that match all the words' do
-        expect(described_class.look(search: 'hello group')).to eq [groups[0], groups[1]]
+        expect(described_class.look(search: 'rodi alessandro')).to eq [groups[0], groups[1]]
       end
 
       it 'returns all groups that match any of the words' do
@@ -114,6 +116,18 @@ describe Group do
                                                                     "R-#{region.id}",
                                                                     "P-#{province.id}",
                                                                     "C-#{municipality.id}"]
+    end
+  end
+
+  describe '#destroy' do
+    it 'removes all the proposals that belong only to one group' do
+      group_a = create(:group)
+      group_b = create(:group)
+      create(:proposal, groups: [group_a, group_b])
+      create(:proposal, groups: [group_a])
+      create(:proposal, groups: [group_b])
+      expect { group_a.destroy }.to change(Proposal, :count).from(3).to(2)
+      expect { group_b.destroy }.to change(Proposal, :count).from(2).to(0)
     end
   end
 end

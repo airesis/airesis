@@ -1,35 +1,12 @@
 <% @nomargin=true %>
 <% @extend=true %>
 <% content_for :menu do %>
-    <div class="topimage hide-for-small">
-      <%= image_tag 'logo120.png', width: 40, alt: ENV['APP_LONG_NAME'] %>
-    </div>
     <div class="topmenu <%= 'noleft' unless content_for? :left_panel %>">
       <span class="tit"><%= @page_title %></span>
 
       <div class="submenu">
         <%= link_to(edemocracy_path, class: ((['whatis', 'intro'].include? params[:action]) ? 'sel' : '')) do %>
             <span class="show-for-large-up"><%= t('pages.home.index.whatis') %></span>
-        <% end %>
-        <span> ⋅ </span>
-        <%= link_to(partecipa_path, class: ((['engage'].include? params[:action]) ? 'sel' : '')) do %>
-            <span class="show-for-large-up"><%= t('pages.home.index.partecipate') %></span>
-        <% end %>
-        <span> ⋅ </span>
-        <%= link_to(videoguide_path, class: ((['videoguide'].include? params[:action]) ? 'sel' : '')) do %>
-            <span class="show-for-large-up"><%= t('pages.home.index.videos') %></span>
-        <% end %>
-        <span> ⋅ </span>
-        <%= link_to(chisiamo_path, class: ((['whowe', 'story'].include? params[:action]) ? 'sel' : '')) do %>
-            <span class="show-for-large-up"><%= t('pages.home.index.whowe') %></span>
-        <% end %>
-        <span> ⋅ </span>
-        <%= link_to(sostienici_path, class: ((['helpus'].include? params[:action]) ? 'sel' : '')) do %>
-            <span class="show-for-large-up"><%= t('pages.header.support_us') %></span>
-        <% end %>
-        <span> ⋅ </span>
-        <%= link_to(roadmap_path, class: (params[:action] == 'roadmap' ? 'sel' : '')) do %>
-            <span class="show-for-large-up"><%= 'ROADMAP' %></span>
         <% end %>
         <% unless in_subdomain? %>
             <span> ⋅ </span>

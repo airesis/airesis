@@ -1,4 +1,7 @@
-require: rubocop-rspec
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
 
 Rails:
   Enabled: true
@@ -36,6 +39,10 @@ RSpec/ExpectInHook:
 
 Capybara/CurrentPathExpectation:
   Enabled: false
+
+Metrics/LineLength:
+  Exclude:
+    - config/locales/plurals.rb
 
 AllCops:
   Exclude:

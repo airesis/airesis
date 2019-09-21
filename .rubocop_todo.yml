@@ -732,7 +732,6 @@ Rails/OutputSafety:
     - 'app/helpers/frm/application_helper.rb'
     - 'app/helpers/frm/formatting_helper.rb'
     - 'app/helpers/proposals_helper.rb'
-    - 'app/helpers/sys_features_helper.rb'
     - 'app/helpers/users_helper.rb'
     - 'app/models/best_quorum.rb'
     - 'app/models/old_quorum.rb'
@@ -1274,4 +1273,10 @@ Style/ZeroLengthPredicate:
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
 Metrics/LineLength:
-  Max: 590
+  Max: 589
+
+Rails/HelperInstanceVariable:
+  Enabled: false
+
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: false

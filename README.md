@@ -1,8 +1,6 @@
 # Airesis - The Social Network for eDemocracy
 
-[![Build Status](https://semaphoreci.com/api/v1/coorasse/airesis/branches/master/badge.svg)](https://semaphoreci.com/coorasse/airesis)
-[![Dependency Status](https://gemnasium.com/coorasse/Airesis.svg)](https://gemnasium.com/coorasse/Airesis)
-[![Code Climate](https://codeclimate.com/repos/5552681fe30ba02945000686/badges/2885e98c8c20799e22c8/gpa.svg)](https://codeclimate.com/repos/5552681fe30ba02945000686/feed)
+[![Build Status](https://semaphoreci.com/api/v1/coorasse/airesis/branches/develop/badge.svg)](https://semaphoreci.com/coorasse/airesis)
 
 The first open source web application for eDemocracy
 
@@ -50,7 +48,7 @@ You can install Airesis to run locally on your machine,
 or if you prefer using [Docker containers](#Docker) for a quick and easy setup.
 
 #### Requirements
-* PostgreSQL 9 with the hstore extension enabled.
+* PostgreSQL >= 9 with the hstore extension enabled.
 * Redis in order to execute Sidekiq and all background jobs.
 
 ### Local installation
@@ -128,6 +126,8 @@ Look at `application.example.yml` for a detailed explanation of each environment
 
 ## I18n
 
+I18n is managed in a separate gem.
+See https://github.com/airesis/airesis_i18n to contribute.
 Contribute on Crowdin to the Translation of the project
 
 ## What else should I know? What are we working on right now?
@@ -142,12 +142,6 @@ Our main goal is to make it even more simple and usable for everybody!
 
 Alessandro Rodi (coorasse@gmail.com)
 
-## Contributors
-
-[List of Contributors to the project Airesis](https://www.airesis.it/chisiamo)
-
-[Tecnologie Democratiche Association](https://www.facebook.com/tecnologiedemocratiche)
-
 ## License
 
 This software is released under AGPL .
@@ -157,4 +151,4 @@ For the terms of the license can be found in the LICENSE file available within t
 Anyone which installs the application and is required to comply with the terms of the license and to incorporate 
 in the footer of the website the following statement:
 
-    Powered by <a href="https://www.airesis.eu"> Airesis - The Social Network for eDemocracy </a>
+`Powered by <a href="https://www.airesis.eu"> Airesis - The Social Network for eDemocracy </a>`
