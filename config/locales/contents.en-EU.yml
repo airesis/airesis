@@ -190,7 +190,7 @@ en-EU:
             <li>the opportunity to invite their contacts to join the discussion
             </li>
             <li>the opportunity to apply to become co-editors of a proposal;</li>
-            <li>the resolution on the proposals through the vote of the certified members.
+            <li>the resolution on the proposals through the vote of the members.
             </li>
           </ul>
       paragraph_10:
@@ -345,37 +345,6 @@ en-EU:
         link: 'introduction page'
     press:
       title: "Press Release"
-    helpus:
-      paragraph1:
-        title: "Why are we asking you to support Airesis?"
-        content_html: |
-          <p>
-           The volunteers working on this project spend a considerable amount of time in order to bring a useful software for our communities.
-           However, volunteering and hard work alone are not sufficient: money is needed to maintain the server publicly available and the software updated and experiment with the new features and improvements we are developing. In addition to this, paid work is required for server maintenance and user help desk.
-           </p>
-      paragraph4:
-        content_html: |
-          <p><a href="mailto:%{mail}">Contact us</a> for more information.</p>
-      paragraph5:
-        title: "Spread the word about this project"
-      title: "Help us as you want, anyone can contribute"
-      description: "Contribute to realize a tool capable of evolving e-democracy"
-    linkback:
-      paragraph1:
-        title: "Help us spread the word about this e-democracy tool"
-        content_html: |
-          <p>Our project needs to be known by all those who care about the future of our democracy.
-          Help us spread it in blogs and forums, on Facebook, on social networks and wherever there is a desire for democracy.</p>
-          <p>You can use our link or our banner on your site or in friends', associations' or
-          organizations' ones that share the goals of the project.
-          In order to display the banner or link on your website, copy the code found below and insert it
-          in the code page of your site, at the point where you want it to be displayed:</p>
-      paragraph2:
-        title: "Banners"
-      paragraph3:
-        title: "Text link"
-        content_html: |
-          <p>If you choose to publish your banner it will be of great help to the project. Thank you.</p>
     tags:
       title: "Airesis - The Social Network for E-Democracy"
       description: "A decision making tool for direct democracy and e-government: participate in discussions, bring your ideas, suggest solutions and vote online"

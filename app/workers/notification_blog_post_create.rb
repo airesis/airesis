@@ -19,7 +19,6 @@ class NotificationBlogPostCreate < NotificationSender
 
     blog_post.groups.each do |group|
       data = { blog_post_id: blog_post.id, group_id: group.id, user: post_user.fullname, user_id: post_user.id, group: group.name }
-      data[:subdomain] = group.subdomain if group.certified?
 
       # notify group participants, if they are also blog followers, do not notify them twice
       notification_b = Notification.create(notification_type_id: NotificationType::NEW_POST_GROUP,

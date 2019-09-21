@@ -530,12 +530,6 @@ Rails.application.routes.draw do
             post :block
           end
         end
-        resources :certifications, only: [:index, :create, :destroy]
-        resources :user_sensitives do
-          member do
-            get :document
-          end
-        end
       end
     end
 

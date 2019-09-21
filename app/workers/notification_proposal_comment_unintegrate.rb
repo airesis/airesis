@@ -10,10 +10,7 @@ class NotificationProposalCommentUnintegrate < NotificationSender
 
     data = { proposal_id: @proposal.id, comment_id: proposal_comment.id, username: name, proposal: @proposal.title }
 
-    if group
-      data[:group] = group.name
-      data[:subdomain] = group.subdomain if group.certified?
-    end
+    data[:group] = group.name if group
 
     notification_a = Notification.new(notification_type_id: NotificationType::UNINTEGRATED_CONTRIBUTE,
                                       url: url_for_proposal,

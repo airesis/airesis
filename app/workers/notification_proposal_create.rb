@@ -10,7 +10,6 @@ class NotificationProposalCreate < NotificationSender
     if group # if it's a group proposal
       data[:group_id] = group.id.to_s
       data[:group] = group.name
-      data[:subdomain] = group.subdomain if group.certified?
 
       if group_area
         data[:group_area_id] = group_area.id.to_s

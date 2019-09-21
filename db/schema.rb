@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_14_154739) do
+ActiveRecord::Schema.define(version: 2019_09_19_150518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -588,8 +588,6 @@ ActiveRecord::Schema.define(version: 2019_04_14_154739) do
     t.string "admin_title", limit: 200
     t.boolean "private", default: false
     t.string "rule_book", limit: 40000
-    t.string "subdomain", limit: 100
-    t.boolean "certified", default: false, null: false
     t.string "status", limit: 255, default: "active", null: false
     t.datetime "status_changed_at"
     t.string "slug", limit: 255
@@ -601,7 +599,6 @@ ActiveRecord::Schema.define(version: 2019_04_14_154739) do
     t.string "interest_border_token"
     t.string "derived_interest_borders_tokens", default: [], array: true
     t.index ["slug"], name: "index_groups_on_slug"
-    t.index ["subdomain"], name: "index_groups_on_subdomain", unique: true
   end
 
   create_table "images", id: :serial, force: :cascade do |t|
@@ -1176,10 +1173,6 @@ ActiveRecord::Schema.define(version: 2019_04_14_154739) do
     t.string "format", limit: 255, default: "html"
   end
 
-  create_table "sys_document_types", id: :serial, force: :cascade do |t|
-    t.string "description", limit: 255
-  end
-
   create_table "sys_locales", id: :serial, force: :cascade do |t|
     t.string "key", limit: 255
     t.string "host", limit: 255
@@ -1269,28 +1262,6 @@ ActiveRecord::Schema.define(version: 2019_04_14_154739) do
     t.integer "user_id", null: false
     t.integer "likeable_id", null: false
     t.string "likeable_type", limit: 255, null: false
-  end
-
-  create_table "user_sensitives", id: :serial, force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.string "name", limit: 255, null: false
-    t.string "surname", limit: 255, null: false
-    t.datetime "birth_date"
-    t.integer "birth_place_id"
-    t.integer "residence_place_id"
-    t.integer "home_place_id"
-    t.string "tax_code", limit: 255, null: false
-    t.string "document_id", limit: 255
-    t.integer "sys_document_type_id"
-    t.string "document_file_name", limit: 255
-    t.string "document_content_type", limit: 255
-    t.integer "document_file_size"
-    t.datetime "document_updated_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "channel", limit: 255
-    t.index ["tax_code"], name: "index_user_sensitives_on_tax_code", unique: true
-    t.index ["user_id"], name: "index_user_sensitives_on_user_id", unique: true
   end
 
   create_table "user_tracings", id: :serial, force: :cascade do |t|
@@ -1530,11 +1501,6 @@ ActiveRecord::Schema.define(version: 2019_04_14_154739) do
   add_foreign_key "user_follows", "users", column: "followed_id", name: "user_follows_followed_id_fk"
   add_foreign_key "user_follows", "users", column: "follower_id", name: "user_follows_follower_id_fk"
   add_foreign_key "user_likes", "users", name: "user_likes_user_id_fk"
-  add_foreign_key "user_sensitives", "interest_borders", column: "birth_place_id", name: "user_sensitives_birth_place_id_fk"
-  add_foreign_key "user_sensitives", "interest_borders", column: "home_place_id", name: "user_sensitives_home_place_id_fk"
-  add_foreign_key "user_sensitives", "interest_borders", column: "residence_place_id", name: "user_sensitives_residence_place_id_fk"
-  add_foreign_key "user_sensitives", "sys_document_types", name: "user_sensitives_sys_document_type_id_fk"
-  add_foreign_key "user_sensitives", "users", name: "user_sensitives_user_id_fk"
   add_foreign_key "user_votes", "users", name: "user_votes_user_id_fk"
   add_foreign_key "user_votes", "vote_types", name: "user_votes_vote_type_id_fk"
   add_foreign_key "users", "images", name: "users_image_id_fk"
