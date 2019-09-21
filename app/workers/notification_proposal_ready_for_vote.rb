@@ -5,10 +5,7 @@ class NotificationProposalReadyForVote < NotificationSender
     @trackable = @proposal
     group = @proposal.group
     data = { proposal_id: @proposal.id, title: @proposal.title, extension: 'wait' }
-    if @proposal.in_group?
-      data['group'] = group.name
-      data['subdomain'] = group.subdomain if group.certified?
-    end
+    data['group'] = group.name if @proposal.in_group?
     notification_a = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS_MINE,
                                          url: url_for_proposal, data: data)
     send_notification_to_authors(notification_a)

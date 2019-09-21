@@ -12,7 +12,6 @@ class NotificationEventCreate < NotificationSender
                group_id: organizer.id,
                user_id: user.id,
                event: event.title }
-      data[:subdomain] = organizer.subdomain if organizer.certified?
 
       notification_a = Notification.create(notification_type_id: NotificationType::NEW_EVENTS,
                                            url: group_event_url(organizer, event),

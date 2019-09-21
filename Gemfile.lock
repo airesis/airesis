@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/TecnologieDemocratiche/omniauth-tecnologiedemocratiche
-  revision: 6992d85eca9a82405ce1d89f4a94898fd800a6e7
-  specs:
-    omniauth-tecnologiedemocratiche (1.3.4)
-      omniauth-oauth2 (~> 1.2)
-
-GIT
   remote: https://github.com/airesis/airesis_i18n
   revision: 20c9c0c81e39bb38a4acb152d8f2ce01bf3889d6
   specs:
@@ -678,7 +671,6 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-linkedin
   omniauth-meetup
-  omniauth-tecnologiedemocratiche!
   omniauth-twitter
   paper_trail
   paperclip

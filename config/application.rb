@@ -53,9 +53,6 @@ module Airesis
     config.action_view.sanitized_allowed_attributes = %w(name href cite class title src xml:lang height datetime alt
                                                          abbr width id class style data-cke-realelement cellspacing
                                                          cellpadding border target)
-    config.after_initialize do
-      GroupsHelper.init
-    end
 
     config.active_job.queue_adapter = :sidekiq
 

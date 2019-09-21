@@ -88,8 +88,6 @@ class User < ActiveRecord::Base
 
   has_many :proposal_nicknames, dependent: :destroy
 
-  has_one :certification, class_name: 'UserSensitive', foreign_key: :user_id, autosave: true
-
   # forum
   has_many :viewed, class_name: 'Frm::View'
   has_many :viewed_topics, class_name: 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
@@ -101,8 +99,6 @@ class User < ActiveRecord::Base
   after_create :assign_tutorials, :block_alerts
 
   before_update :before_update_populate
-
-  validate :check_uncertified
 
   # Check for paperclip
   has_attached_file :avatar,
@@ -122,7 +118,6 @@ class User < ActiveRecord::Base
   scope :unblocked, -> { where(blocked: false) }
   scope :confirmed, -> { where 'confirmed_at is not null' }
   scope :unconfirmed, -> { where 'confirmed_at is null' }
-  scope :certified, -> { where(user_type_id: UserType::CERTIFIED) }
   scope :count_active, -> { unblocked.count.to_f * (ENV['ACTIVE_USERS_PERCENTAGE'].to_f / 100.0) }
 
   scope :autocomplete, ->(term) { where('lower(users.name) LIKE :term or lower(users.surname) LIKE :term', term: "%#{term.to_s.downcase}%").order('users.surname desc, users.name desc').limit(10) }
@@ -133,21 +128,11 @@ class User < ActiveRecord::Base
   }
   scope :by_interest_borders, ->(ib) { where('users.derived_interest_borders_tokens @> ARRAY[?]::varchar[]', ib) }
 
-  validate :cannot_change_info_if_certified, on: :update
-
   def avatar_url=(url)
     file = URI.parse(url)
     self.avatar = file
   rescue
     # ignored
-  end
-
-  def check_uncertified
-    if certified?
-      if self.name_changed? || self.surname_changed?
-        errors.add(:user_type_id, 'Non puoi modificare questi dati in quanto il tuo utente è certificato')
-      end
-    end
   end
 
   def suggested_groups
@@ -341,10 +326,6 @@ class User < ActiveRecord::Base
     ranking.updated_at < last_suggest.created_at # si, se vi sono commenti dopo la mia valutazione
   end
 
-  def certified?
-    user_type.short_name == 'certified'
-  end
-
   def admin?
     user_type.short_name == 'admin'
   end
@@ -448,10 +429,6 @@ class User < ActiveRecord::Base
     @fb_user ||= Koala::Facebook::API.new(authentications.find_by(provider: Authentication::FACEBOOK).token) rescue nil
   end
 
-  def parma
-    @parma_user ||= Parma::API.new(authentications.find_by(provider: Authentication::PARMA).token) rescue nil
-  end
-
   # return the user, a flag indicating if it's the first time the oauth account
   # is associated to the Airesis account or if it's a simple login and another flag
   # indicating if the user has been found in th db by it's email
@@ -482,12 +459,8 @@ class User < ActiveRecord::Base
     User.transaction do
       build_authentication_provider(oauth_data)
 
-      if user_info[:certified]
-        certify_with_info(user_info)
-      else
-        self.email = user_info[:email] unless email
-        set_social_network_pages(provider, raw_info)
-      end
+      self.email = user_info[:email] unless email
+      set_social_network_pages(provider, raw_info)
 
       save!
     end
@@ -505,16 +478,6 @@ class User < ActiveRecord::Base
 
   def meetup_page_url
     "http://www.meetup.com/members/#{authentications.find_by(provider: Authentication::MEETUP).uid}"
-  end
-
-  def certify_with_info(user_info)
-    fail 'Not enough info for certification' if [user_info[:name], user_info[:surname], user_info[:email]].any? &:blank?
-    User.transaction do
-      skip_reconfirmation!
-      update!(email: user_info[:email], name: user_info[:name], surname: user_info[:surname])
-      build_certification(name: user_info[:name], surname: user_info[:surname], tax_code: user_info[:tax_code])
-      update!(user_type_id: UserType::CERTIFIED)
-    end
   end
 
   def send_reset_password_instructions
@@ -540,9 +503,6 @@ class User < ActiveRecord::Base
     # Not enough info from oauth provider
     return nil if user_info[:name].blank?
 
-    # A user cannot have more than one certified account
-    return nil if oauth_data_parser.multiple_certification_attempt?
-
     user = User.new(name: user_info[:name],
                     surname: user_info[:surname],
                     password: Devise.friendly_token[0, 20],
@@ -562,35 +522,7 @@ class User < ActiveRecord::Base
         user.sign_in_count = 0
         user.confirm
         user.save!
-
-        if user_info[:certified]
-          user.build_certification(name: user.name, surname: user.surname, tax_code: user_info[:tax_code])
-          user.update!(user_type_id: UserType::CERTIFIED)
-        else
-          user.update!(user_type_id: UserType::AUTHENTICATED)
-        end
-      end
-      user.add_to_parma_group(raw_info['verified']) if provider == Authentication::PARMA
-    end
-  end
-
-  def add_to_parma_group(verified)
-    parma_group = Group.find_by(subdomain: 'parma')
-    group_participation_requests.build(group: parma_group,
-                                       group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED)
-    participation_role = group.default_role
-    if verified
-      # look for best role or fallback
-      residente = ParticipationRole.where(['group_id = ? and lower(name) = ?', group.id, 'residente']).first
-      participation_role = residente || participation_role
-    end
-    group_participations.build(group: group, participation_role_id: participation_role.id)
-  end
-
-  def cannot_change_info_if_certified
-    if user_type_id == UserType::CERTIFIED
-      [:name, :surname, :email].each do |field|
-        errors.add(field, I18n.t('activerecord.errors.messages.certified_cannot_edit')) if send("#{field}_changed?")
+        user.update!(user_type_id: UserType::AUTHENTICATED)
       end
     end
   end

@@ -4,10 +4,7 @@ class NotificationProposalTimeLeft < NotificationSender
     @trackable = @proposal
     data = { proposal_id: @proposal.id, title: @proposal.title, extension: type }
     group = @proposal.group
-    if group
-      data['group'] = group.name
-      data['subdomain'] = group.subdomain if group.certified?
-    end
+    data['group'] = group.name if group
     notification_a = Notification.create(notification_type_id: NotificationType::PHASE_ENDING,
                                          url: url_for_proposal, data: data)
     receivers.each do |user|

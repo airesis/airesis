@@ -89,11 +89,6 @@
             <%= link_to "<div class=\"zocial icon meetup vertical\"></div>".html_safe + t('pages.users.privacy_preferences.join_meetup'), omniauth_authorize_path(:user, :meetup) %>
             <br/>
         <% end %>
-
-        <% unless alreadyproviders.include? Authentication::TECNOLOGIEDEMOCRATICHE %>
-            <%= link_to "<div class=\"zocial icon tecnologiedemocratiche vertical\"></div>".html_safe + t('pages.users.privacy_preferences.join_tecnologiedemocratiche'), omniauth_authorize_path(:user, :tecnologiedemocratiche) %>
-            <br/>
-        <% end %>
       </div>
 
 
@@ -115,21 +110,14 @@
               <% elsif authentication.provider == Authentication::MEETUP %>
                   <div class="zocial icon meetup vertical"></div>
                   Meetup
-              <% elsif authentication.provider == Authentication::PARMA %>
-                  <div class="zocial icon parma vertical"></div>
-                  Comune di Parma
-              <% elsif authentication.provider == Authentication::TECNOLOGIEDEMOCRATICHE %>
-                  <div class="zocial icon tecnologiedemocratiche vertical"></div>
-                  Tecnologie Democratiche
               <% end %>
-              <% unless Authentication::UNDETACHABLE_PROVIDERS.include?(authentication.provider) %>
-                  <% if @user.email %>
-                      <%= link_to t('buttons.detach'), [@user, authentication], method: :delete, data: {confirm: t('confirm_detach')} %>
-                      <br/>
-                  <% else %>
-                      <%= link_to t('buttons.detach'), '#', data: {detach_disabled: true} %>
-                      <br/>
-                  <% end %>
+
+              <% if @user.email %>
+                  <%= link_to t('buttons.detach'), [@user, authentication], method: :delete, data: {confirm: t('confirm_detach')} %>
+                  <br/>
+              <% else %>
+                  <%= link_to t('buttons.detach'), '#', data: {detach_disabled: true} %>
+                  <br/>
               <% end %>
           <% end %>
       <% end %>

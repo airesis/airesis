@@ -73,24 +73,12 @@ module UsersHelper
 
   def avatar(user, params = {})
     size = params[:size] || 80
-    url = params[:url]
-    certification_logo = params[:cert].nil? ? true : params[:cert]
     force_size = params[:force_size].nil? ? true : params[:force_size]
-
-    size -= 6 if user.certified? && certification_logo && size < 60
 
     style = force_size ? "style=\"width:#{size}px;height:#{size}px;\"" : ''
 
     ret = "<img src=\"#{user.user_image_url(size, params)}\" #{style} alt=\"\" itemprop=\"photo\" />"
 
-    if user.certified? && certification_logo
-      if size >= 60
-        cert_img = "<img class=\"certification\" src=\"#{asset_path 'certification.png'}\"/>"
-        ret = "<div class=\"user_certified\">#{ret}#{cert_img}</div>"
-      else
-        ret = "<div class=\"user_certified_mini\"  style=\"width:#{size + 6}px;height:#{size + 6}px;\">#{ret}</div>"
-      end
-    end
     ret.html_safe
   end
 end
