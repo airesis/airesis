@@ -77,7 +77,6 @@ RailsAdmin.config do |config|
       field :receive_newsletter
       field :facebook_page_url
       field :google_page_url
-      field :linkedin_page_url
       field :show_tooltips
       field :show_urls
       field :receive_messages

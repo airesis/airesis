@@ -13,9 +13,6 @@ en-EU:
       facebook_login: 'Login with Facebook'
       google_login: 'Login with Google'
       twitter_login: "Login with Twitter"
-      meetup_login: "Login with Meetup"
-      linkedin_login: "Login with LinkedIn"
-      openid_login: "Login with OpenID"
       find_groups: 'Search Groups'
     user:
       notifications: 'Alarms and Notifications'
@@ -45,7 +42,6 @@ en-EU:
         password_label: "Password"
         facebook_url_label: "Facebook URL"
         googleplus_url_label: "Google+ URL"
-        linkedin_url: "LinkedIn URL"
         username_label: "Username"
         registered_from: "Registered from"
         load_image: "Load an image"
@@ -55,7 +51,6 @@ en-EU:
         group_level_permission_title: "Group level permissions"
         admin_permissions: "You are administrator of this group and you have all permissions"
         twitter_url: "Twitter URL"
-        meetup_url: "Meetup URL"
       send_message:
         subject_label: "Subject"
         body_label: "Body"
@@ -73,7 +68,7 @@ en-EU:
         emails: "Emails"
       privacy_preferences:
         tooltips: "Show tooltips"
-        show_urls: "Show Facebook, Google+ and LinkedIn URLs to users"
+        show_urls: "Show Facebook and Google+ URLs to users"
         private_messages: "Receive private messages from other users"
         join_accounts: "Join another account"
         join_accounts_description: "On %{app_short_name} you have the ability to connect all your Social Network to a single account. <br/> Select the provider to connect and you will always be able to access the same account from Facebook, Google, Twitter and many more!"
@@ -81,8 +76,6 @@ en-EU:
         join_facebook: "Join your Facebook account"
         join_google: "Join your Google account"
         join_twitter: "Join your Twitter account"
-        join_linkedin: "Join your LinkedIn account"
-        join_meetup: "Join your Meetup account"
         providers_list: "List of activated providers"
         options: "Options"
         rotp: "Enable Security Token"

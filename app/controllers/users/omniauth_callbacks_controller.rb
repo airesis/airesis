@@ -1,8 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  oauth_providers = [:facebook, :google_oauth2, :twitter, :meetup, :linkedin]
-  oauth_providers.each do |provider|
-    define_method(provider) { manage_oauth_callback }
-  end
+  oauth_providers = [:facebook, :google_oauth2, :twitter]
+  oauth_providers.each { |provider| define_method(provider) { manage_oauth_callback } }
 
   def passthru
     render_404

@@ -468,16 +468,11 @@ class User < ActiveRecord::Base
 
   def set_social_network_pages(provider, raw_info)
     self.google_page_url = raw_info['profile'] if provider == Authentication::GOOGLE
-    self.linkedin_page_url = raw_info['publicProfileUrl'] if provider == Authentication::LINKEDIN
     self.facebook_page_url = raw_info['link'] if provider == Authentication::FACEBOOK
   end
 
   def twitter_page_url
     "https://twitter.com/intent/user?user_id=#{authentications.find_by(provider: Authentication::TWITTER).uid}"
-  end
-
-  def meetup_page_url
-    "http://www.meetup.com/members/#{authentications.find_by(provider: Authentication::MEETUP).uid}"
   end
 
   def send_reset_password_instructions
@@ -513,7 +508,6 @@ class User < ActiveRecord::Base
       user.avatar_url = user_info[:avatar_url]
 
       user.google_page_url = raw_info['profile'] if provider == Authentication::GOOGLE
-      user.linkedin_page_url = raw_info['publicProfileUrl'] if provider == Authentication::LINKEDIN
       user.facebook_page_url = raw_info['link'] if provider == Authentication::FACEBOOK
 
       User.transaction do
@@ -528,8 +522,7 @@ class User < ActiveRecord::Base
   end
 
   def has_oauth_provider_without_email
-    providers_without_email = [Authentication::TWITTER, Authentication::MEETUP, Authentication::LINKEDIN]
-    providers_without_email.any? { |provider| has_provider?(provider) }
+    has_provider?(Authentication::TWITTER)
   end
 
   def before_create_populate

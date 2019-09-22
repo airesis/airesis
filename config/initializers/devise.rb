@@ -36,10 +36,4 @@ Devise.setup do |config|
 
   require 'omniauth-twitter'
   config.omniauth :twitter, ENV['TWITTER_APP_ID'], ENV['TWITTER_APP_SECRET']
-
-  require 'omniauth-meetup'
-  config.omniauth :meetup, ENV['MEETUP_APP_ID'], ENV['MEETUP_APP_SECRET']
-
-  require 'omniauth-linkedin'
-  config.omniauth :linkedin, ENV['LINKEDIN_APP_ID'], ENV['LINKEDIN_APP_SECRET']
 end

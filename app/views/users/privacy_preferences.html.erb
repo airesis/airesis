@@ -79,16 +79,6 @@
             <%= link_to "<div class=\"zocial icon twitter vertical\"></div>".html_safe + t('pages.users.privacy_preferences.join_twitter'), omniauth_authorize_path(:user, :twitter) %>
             <br/>
         <% end %>
-
-        <% unless alreadyproviders.include? Authentication::LINKEDIN %>
-            <%= link_to "<div class=\"zocial icon linkedin vertical\"></div>".html_safe + t('pages.users.privacy_preferences.join_linkedin'), omniauth_authorize_path(:user, :linkedin) %>
-            <br/>
-        <% end %>
-
-        <% unless alreadyproviders.include? Authentication::MEETUP %>
-            <%= link_to "<div class=\"zocial icon meetup vertical\"></div>".html_safe + t('pages.users.privacy_preferences.join_meetup'), omniauth_authorize_path(:user, :meetup) %>
-            <br/>
-        <% end %>
       </div>
 
 
@@ -104,12 +94,6 @@
               <% elsif authentication.provider == Authentication::TWITTER %>
                   <div class="zocial icon twitter vertical"></div>
                   Twitter
-              <% elsif authentication.provider == Authentication::LINKEDIN %>
-                  <div class="zocial icon linkedin vertical"></div>
-                  Linkedin
-              <% elsif authentication.provider == Authentication::MEETUP %>
-                  <div class="zocial icon meetup vertical"></div>
-                  Meetup
               <% end %>
 
               <% if @user.email %>

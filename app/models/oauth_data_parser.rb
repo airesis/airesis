@@ -6,7 +6,7 @@ class OauthDataParser
   attr_reader :data
 
   def raw_info
-    @raw_info ||= data['extra'].try(:[], 'raw_info') # Meetup, Twitter, Google, Linkedin, FB
+    @raw_info ||= data['extra'].try(:[], 'raw_info') # Twitter, Google, FB
   end
 
   def provider
@@ -29,32 +29,29 @@ class OauthDataParser
   end
 
   def user_name
-    if [Authentication::TWITTER, Authentication::MEETUP].include? provider
+    if [Authentication::TWITTER].include? provider
       fullname = raw_info['name']
       splitted = fullname.split(' ', 2)
       splitted ? splitted[0] : fullname
     else
       raw_info['first_name'] || # Facebook
-        raw_info['given_name'] || # Google
-        raw_info['firstName'] # Linkedin
+        raw_info['given_name'] # Google
     end
   end
 
   def user_surname
-    if [Authentication::TWITTER, Authentication::MEETUP].include? provider
+    if [Authentication::TWITTER].include? provider
       fullname = raw_info['name']
       splitted = fullname.split(' ', 2)
       splitted ? splitted[1] : ''
     else
       raw_info['last_name'] || # Facebook
-        raw_info['family_name'] || # Google
-        raw_info['lastName'] # Linkedin
+        raw_info['family_name'] # Google
     end
   end
 
   def user_email
-    @user_email ||= raw_info['email'] || # Google, FB
-      data['info']['email'] # Linkedin
+    @user_email ||= raw_info['email'] # Google, FB
   end
 
   def user_sex
@@ -63,9 +60,7 @@ class OauthDataParser
 
   def user_avatar_url
     @user_avatar_url ||= raw_info['picture'] || # Google
-      raw_info['pictureUrl'] || # Linkedin
       raw_info['profile_image_url'] || # Twitter
-      raw_info['photo'].try(:[], 'photo_link') || # Meetup
       "#{data['info'].try(:[], 'image')}?type=large" # Facebook
   end
 
