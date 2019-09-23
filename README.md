@@ -1,4 +1,4 @@
-# Airesis - The Social Network for eDemocracy
+# Airesis - The Social Network for E-Democracy
 
 [![Build Status](https://semaphoreci.com/api/v1/coorasse/airesis/branches/develop/badge.svg)](https://semaphoreci.com/coorasse/airesis)
 
