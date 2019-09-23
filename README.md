@@ -55,7 +55,7 @@ or if you prefer using [Docker containers](#Docker) for a quick and easy setup.
 
 1. Download the project
 ```
-git clone https://github.com/coorasse/Airesis.git
+git clone https://github.com/airesis/airesis.git
 cd airesis
 ```
 2. Install the libraries

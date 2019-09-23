@@ -371,7 +371,7 @@ en-EU:
           <ul>
             <li><a href="https://groups.google.com/forum/?fromgroups=#!forum/agora-20" target="_blank">Development group on Google Groups</a></li>
             <li><a href="https://www.facebook.com/groups/airesis/" target="_blank">Development group on Faceook</a></li>
-            <li><a href="https://github.com/coorasse/Airesis" target="_blank">Source code</a></li>
+            <li><a href="https://github.com/airesis/airesis" target="_blank">Source code</a></li>
           </ul>
       paragraph2:
         title: "How to contribute"

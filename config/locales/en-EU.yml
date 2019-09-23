@@ -930,7 +930,7 @@ en-EU:
     footer:
       for_edemocracy: "for e-democracy"
       go_to_main_site: "Go to main site"
-      for_edemocracy_html: "<a href=\"https://github.com/coorasse/Airesis\" target=\"_blank\">Open Source</a> project for e-democracy"
+      for_edemocracy_html: "<a href=\"https://github.com/airesis/airesis\" target=\"_blank\">Open Source</a> project for e-democracy"
     moderator_panel:
       title: "Moderator panel"
       block_user: "Block user"

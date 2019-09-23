@@ -8,7 +8,7 @@ Docker takes care of all the required dependencies for you, and with it you use 
 
 1. Download the project
 ```
-git clone https://github.com/coorasse/Airesis.git
+git clone https://github.com/airesis/airesis.git
 cd airesis
 ```
 2. Create the required Docker containers (first we need the container for airesis, then we can build all the others) 
