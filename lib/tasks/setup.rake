@@ -47,12 +47,12 @@ namespace :airesis do
       choose = STDIN.gets
       puts choose
       if "y" == choose.chomp.downcase
-        Configuration.find_by_name(::Configuration::SOCIALNETWORK).update_attribute(:value,1)
+        Configuration.find_by_name(::Configuration::SOCIALNETWORK).update(value: 1)
         puts "Please enter your applications private and public key in config/environment.rb file"
         print "Press ENTER when you are ready to proceed"
         STDIN.gets
       else
-        Configuration.find_by_name(::Configuration::SOCIALNETWORK).update_attribute(:value,0)
+        Configuration.find_by_name(::Configuration::SOCIALNETWORK).update(value: 0)
       end
       puts ""
       puts "Would you like to activate Recaptcha when the user register?"
@@ -60,12 +60,12 @@ namespace :airesis do
       print "Press Y or (N)..."
       choose = STDIN.gets
       if "y" == choose.chomp.downcase
-        ::Configuration.find_by_name(::Configuration::RECAPTCHA).update_attribute(:value,1)
+        ::Configuration.find_by_name(::Configuration::RECAPTCHA).update(value: 1)
         puts "Please enter your recaptcha private and public key in config/environment.rb file"
         print "Press ENTER when you are ready to proceed"
         STDIN.gets
       else
-        ::Configuration.find_by_name(::Configuration::RECAPTCHA).update_attribute(:value,0)
+        ::Configuration.find_by_name(::Configuration::RECAPTCHA).update(value: 0)
       end
 
       puts ""

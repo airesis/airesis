@@ -180,7 +180,7 @@ class User < ActiveRecord::Base
     unless @search.empty? # continue only if we found latitude and longitude
       @latlon = [@search[0].latitude, @search[0].longitude]
       @zone = Timezone::Zone.new latlon: @latlon rescue nil # if we can't find the latitude and longitude zone just set zone to nil
-      update_attribute(:time_zone, @zone.active_support_time_zone) if @zone # update zone if found
+      update(time_zone: @zone.active_support_time_zone) if @zone # update zone if found
     end
   end
 

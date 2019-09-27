@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Search do
+RSpec.describe Search do
   let(:user) { create(:user) }
   let(:groups) do
     [create(:group, name: 'what a group'),
@@ -26,7 +26,7 @@ describe Search do
   end
 
   describe '#find' do
-    it 'returns all matching groups, proposals and blogs', :aggregate_failures do
+    it 'returns all matching groups, proposals and blogs' do
       # boosts groups where user is admin
       # boosts groups where user is participant
       # boosts proposals I own

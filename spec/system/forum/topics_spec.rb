@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'requests_helper'
 
-describe 'topics', :js do
+RSpec.describe 'topics', :js do
   let(:user) { create(:user) }
   let(:group) { create(:group, current_user_id: user.id) }
   let(:free_category) { create(:frm_category, group: group, visible_outside: true) }

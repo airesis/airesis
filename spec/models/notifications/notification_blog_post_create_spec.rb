@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationBlogPostCreate, type: :model, emails: true, notifications: true do
+RSpec.describe NotificationBlogPostCreate, type: :model, emails: true, notifications: true do
   before do
     load_database
   end

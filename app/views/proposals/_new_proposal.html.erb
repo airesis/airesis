@@ -1,8 +1,15 @@
 <% if @group %>
-    <%= link_to new_proposal_path(group_id: (@group.id if @group), group_area_id: params[:group_area_id], category: params[:category], topic_id: @topic.try(:id), models: true), id: 'nuova_proposta', class: "create_proposal btn blue disable" do %>
+    <%= link_to new_proposal_path(group_id: @group&.id,
+                                  group_area_id: params[:group_area_id],
+                                  category: params[:category],
+                                  topic_id: @topic&.id,
+                                  models: true),
+                id: 'new_proposal_button',
+                class: "create_proposal btn blue disable" do %>
         <i class="fa fa-plus"></i>
         <%= t('proposals.create_button') %>
-    <% end if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
+    <% end if (!params[:group_area_id] && (can? :insert_proposal, @group)) ||
+              (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
 
     <div class="choose_model" style="display:none;">
       <h2 class="modal_title"><%= t('pages.proposals.index.choose_model') %></h2>
@@ -26,7 +33,8 @@
       <a class="close-reveal-modal">&#215;</a>
     </div>
 <% else %>
-    <%= link_to new_proposal_path(proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "btn blue disable" do %>
+    <%= link_to new_proposal_path(proposal_type_id: ProposalType::STANDARD,
+                                  category: params[:category]), id: 'new_proposal_button', class: "btn blue disable" do %>
         <i class="fa fa-plus"></i>
         <%= t('proposals.create_button') %>
     <% end %>

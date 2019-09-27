@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe 'create proposal comments', :js do
+RSpec.describe 'create proposal comments', :js do
   before do
     load_database
   end
@@ -134,6 +134,7 @@ describe 'create proposal comments', :js do
     page.all(:css, '.contribute-button').each do |el|
       scroll_to el
       el.click
+      sleep(1)
       expect(page).to have_content comments[i]
       i += 1
       break if i > max
@@ -193,6 +194,7 @@ describe 'create proposal comments', :js do
     page.all(:css, '.contribute-button').each do |el|
       scroll_to el
       el.click
+      sleep(1)
       expect(page).to have_content comments[i]
       i += 1
       break if i > max

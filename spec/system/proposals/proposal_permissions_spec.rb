@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe 'check user permissions on proposals', :js, search: true, seeds: true do
+RSpec.describe 'check user permissions on proposals', :js, search: true, seeds: true do
   def create_proposal_in_area(visible_outside = true)
     user = create(:user)
     group = create(:group, current_user_id: user.id)
@@ -110,7 +110,7 @@ describe 'check user permissions on proposals', :js, search: true, seeds: true d
         logout user
       end
 
-      it 'is displayed in the group list only if you are logged in', :aggregate_failures do
+      it 'is displayed in the group list only if you are logged in' do
         user = create(:user)
         group = create(:group, current_user_id: user.id)
         proposal = create(:group_proposal, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)

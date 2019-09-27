@@ -1,7 +1,7 @@
 module Frm
   class Topic < FrmTable
     include Frm::Concerns::Viewable
-    include Workflow, ::Concerns::Taggable
+    include Workflow, Taggable
 
     workflow_column :state
     workflow do

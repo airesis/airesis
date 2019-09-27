@@ -1,6 +1,6 @@
 module Frm
   class Category < Frm::FrmTable
-    include ::Concerns::Taggable
+    include Taggable
     extend FriendlyId
     friendly_id :name, use: :scoped, scope: :group
 

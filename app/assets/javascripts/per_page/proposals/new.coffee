@@ -44,3 +44,5 @@ window.ProposalsNew =
         'language': Airesis.i18n.locale
 
     new Airesis.QuorumSelector()
+
+window.ProposalsCreate = window.ProposalsNew

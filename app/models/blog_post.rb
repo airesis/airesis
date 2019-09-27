@@ -1,5 +1,6 @@
 class BlogPost < ActiveRecord::Base
-  include Concerns::Taggable
+  include Taggable
+
   PUBLISHED = 'P'
   RESERVED = 'R'
   DRAFT = 'D'

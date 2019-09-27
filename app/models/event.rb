@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  include Concerns::FullCalendable
+  include FullCalendable
 
   attr_accessor :period, :frequency, :commit_button, :proposal_id
 
@@ -23,7 +23,7 @@ class Event < ActiveRecord::Base
 
   before_validation :set_all_day_time
 
-  include Concerns::EventScopes
+  include EventScopes
 
   after_destroy :remove_scheduled_tasks
 

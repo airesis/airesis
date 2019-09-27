@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'requests_helper'
 
-describe 'the management of forum', :js do
+RSpec.describe 'the management of forum', :js do
   before do
     load_database
     @user = create(:user)

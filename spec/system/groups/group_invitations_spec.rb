@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'requests_helper'
 
-describe 'the user can invite other participants in the group', :js do
+RSpec.describe 'the user can invite other participants in the group', :js do
   let(:user) { create(:user) }
   let(:group) { create(:group, current_user_id: user.id) }
   let(:ability) { Ability.new(user) }
@@ -43,8 +43,8 @@ describe 'the user can invite other participants in the group', :js do
         click_button I18n.t('buttons.send')
       end
       expect(page).to have_content I18n.t('info.group_invitations.create', count: 3, email_addresses: emails.join(', '))
-      expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 3
-      ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
+      expect(ActiveJob::Base.queue_adapter.enqueued_jobs.length).to eq 3
+      perform_enqueued_jobs
       first_deliveries = ActionMailer::Base.deliveries.first(3)
       expect(first_deliveries.map { |m| m.to[0] }).to match_array emails
       logout :user
@@ -61,8 +61,8 @@ describe 'the user can invite other participants in the group', :js do
     it 'can reject the invite' do
       emails = [Faker::Internet.email, Faker::Internet.email, Faker::Internet.email]
       create(:group_invitation, group: group, emails_list: emails.join(','), inviter_id: user.id)
-      expect(ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.jobs.size).to eq 3
-      ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper.drain
+      expect(ActiveJob::Base.queue_adapter.enqueued_jobs.length).to eq 3
+      perform_enqueued_jobs
       first_deliveries = ActionMailer::Base.deliveries.first(3)
       expect(first_deliveries.map { |m| m.to[0] }).to match_array emails
 

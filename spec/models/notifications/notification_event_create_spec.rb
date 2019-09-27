@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationEventCreate, type: :model, emails: true, notifications: true, seeds: true do
+RSpec.describe NotificationEventCreate, type: :model, emails: true, notifications: true, seeds: true do
   let!(:notification_type) { NotificationType::NEW_EVENTS }
   let!(:user) { create(:user) }
 

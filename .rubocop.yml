@@ -46,6 +46,7 @@ Metrics/LineLength:
 
 AllCops:
   Exclude:
+    - 'node_modules/**/*'
     - 'uploads/**/*'
     - 'bin/**/*'
     - 'script/**/*'

@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe 'decide the votation date for a proposal', :js, seeds: true do
+RSpec.describe 'decide the votation date for a proposal', :js, seeds: true do
   let!(:user) { create(:user) }
   let!(:group) { create(:group, current_user_id: user.id) }
 

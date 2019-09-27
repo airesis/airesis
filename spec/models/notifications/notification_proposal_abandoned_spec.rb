@@ -2,8 +2,8 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationProposalAbandoned, type: :model, emails: true, notifications: true, seeds: true do
-  it 'when is abandoned sends correctly an email to authors and participants', :aggregate_failures do
+RSpec.describe NotificationProposalAbandoned, type: :model, emails: true, notifications: true, seeds: true do
+  it 'when is abandoned sends correctly an email to authors and participants' do
     user = create(:user)
     group = create(:group, current_user_id: user.id)
     proposal = create(:group_proposal, current_user_id: user.id, groups: [group]).reload
