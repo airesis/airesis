@@ -1,4 +1,4 @@
-AIRESIS_VERSION = '4.5.4'
+AIRESIS_VERSION = '4.5.5'
 
 if Rails.env.production? && SENTRY_ACTIVE
   require 'raven'
