@@ -19,3 +19,4 @@ test:
 
 production:
   <<: *default
+  database: airesis-production

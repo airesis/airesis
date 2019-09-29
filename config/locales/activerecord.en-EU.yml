@@ -109,7 +109,6 @@ en-EU:
         email: 'Email address'
         surname: 'Last Name'
         password: 'Password'
-        linkedinpageurl: 'Your page on LinkedIn'
         facebookpageurl: 'Your page on Facebook'
         accept_conditions: 'Terms of Use'
         receive_newsletter: 'Newsletter via Email'

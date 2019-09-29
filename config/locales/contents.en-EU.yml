@@ -95,7 +95,7 @@ en-EU:
         content_html: |
           <ul>
             <li><strong>Sign up and login</strong> <br>
-              from every page or even after adding a comment or a contribution. It is even possible to login using Facebook, Google +, Meetup, Twitter or Linkedin
+              from every page or even after adding a comment or a contribution. It is even possible to login using Facebook, Google +, and Twitter
             </li>
             <li><strong>Public area or private area for groups</strong><br>
               Signin up enables you to participate in the Open Space, to join one of the groups already present or to create a new one.
@@ -371,7 +371,7 @@ en-EU:
           <ul>
             <li><a href="https://groups.google.com/forum/?fromgroups=#!forum/agora-20" target="_blank">Development group on Google Groups</a></li>
             <li><a href="https://www.facebook.com/groups/airesis/" target="_blank">Development group on Faceook</a></li>
-            <li><a href="https://github.com/coorasse/Airesis" target="_blank">Source code</a></li>
+            <li><a href="https://github.com/airesis/airesis" target="_blank">Source code</a></li>
           </ul>
       paragraph2:
         title: "How to contribute"

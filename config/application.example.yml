@@ -16,14 +16,6 @@ GOOGLE_APP_SECRET: ""
 TWITTER_APP_ID: ""
 TWITTER_APP_SECRET: ""
 
-# if you want to allow the users to login via meetup fill these variables
-MEETUP_APP_ID: ""
-MEETUP_APP_SECRET: ""
-
-# if you want to allow the users to login via linkedin fill these variables
-LINKEDIN_APP_ID: ""
-LINKEDIN_APP_SECRET: ""
-
 # google maps api key. obtain one from google developers console
 # registering a new application and generating a new browser key
 MAPS_API_KEY: ""

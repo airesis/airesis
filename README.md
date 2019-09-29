@@ -1,4 +1,4 @@
-# Airesis - The Social Network for eDemocracy
+# Airesis - The Social Network for E-Democracy
 
 [![Build Status](https://semaphoreci.com/api/v1/coorasse/airesis/branches/develop/badge.svg)](https://semaphoreci.com/coorasse/airesis)
 
@@ -55,7 +55,7 @@ or if you prefer using [Docker containers](#Docker) for a quick and easy setup.
 
 1. Download the project
 ```
-git clone https://github.com/coorasse/Airesis.git
+git clone https://github.com/airesis/airesis.git
 cd airesis
 ```
 2. Install the libraries

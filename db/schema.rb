@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_19_150518) do
+ActiveRecord::Schema.define(version: 2019_09_22_170621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1324,7 +1324,6 @@ ActiveRecord::Schema.define(version: 2019_09_19_150518) do
     t.boolean "receive_newsletter", default: false, null: false
     t.datetime "reset_password_sent_at"
     t.string "facebook_page_url", limit: 255
-    t.string "linkedin_page_url", limit: 255
     t.boolean "blocked", default: false
     t.string "unconfirmed_email", limit: 100
     t.string "google_page_url", limit: 255
