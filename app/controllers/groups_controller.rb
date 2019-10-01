@@ -21,10 +21,8 @@ class GroupsController < ApplicationController
 
   def index
     unless request.xhr?
-      @tags = Tag.most_groups(current_domain.territory, 10).shuffle
+      @tags = Tag.most_groups(10).shuffle
     end
-
-    params[:interest_border] ||= InterestBorder.to_key(current_domain.territory)
 
     @groups = Group.look(params)
     respond_to do |format|

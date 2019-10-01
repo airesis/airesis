@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
     rescue_from ActiveRecord::RecordNotFound, with: :render_404
     rescue_from ActionController::RoutingError, with: :render_404
     rescue_from ::AbstractController::ActionNotFound, with: :render_404
-    rescue_from I18n::InvalidLocale, with: :invalid_locale
   end
 
   protect_from_forgery
@@ -15,7 +14,6 @@ class ApplicationController < ActionController::Base
 
   before_action :store_location
 
-  before_action :set_current_domain
   before_action :set_locale
   around_action :user_time_zone, if: :current_user
 
@@ -107,31 +105,14 @@ class ApplicationController < ActionController::Base
                 order(Arel.sql('YEAR desc, extract(month from created_at) desc'))
   end
 
-  def extract_locale_from_tld
-  end
-
-  def set_current_domain
-    @current_domain = if params[:l].present?
-                        SysLocale.find_by_key(params[:l])
-                      else
-                        SysLocale.find_by(host: request.domain, lang: nil) || SysLocale.default
-                      end
-  end
-
-  attr_reader :current_domain
-
-  def current_territory
-  end
-
   def set_locale
-    @domain_locale = request.host.split('.').last
-    @locale =
-      if Rails.env.test? || Rails.env.development?
-        params[:l].blank? ? I18n.default_locale : params[:l]
-      else
-        params[:l].blank? ? (current_domain.key || I18n.default_locale) : params[:l]
-      end
-    I18n.locale = @locale
+    I18n.locale = requested_locale
+  end
+
+  def requested_locale
+    requested_locales = [params[:l],
+                         request.env['HTTP_ACCEPT_LANGUAGE'].try(:scan, /^[a-z]{2}/).try(:first)].compact
+    requested_locales.find { |locale| I18n.locale_available?(locale) } || I18n.default_locale
   end
 
   def user_time_zone(&block)
@@ -139,10 +120,6 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options(_options = {})
-    (!params[:l] || (params[:l] == @domain_locale)) ? {} : { l: I18n.locale }
-  end
-
-  def self.default_url_options(_options = {})
     { l: I18n.locale }
   end
 
@@ -171,40 +148,6 @@ class ApplicationController < ActionController::Base
       end
       format.html do
         render template: '/errors/500.html.erb', status: 500, layout: 'application'
-      end
-    end
-  end
-
-  def invalid_locale(exception)
-    locales_replacement = { en: :'en-EU',
-                            zh: :'zh-TW',
-                            ru: :'ru-RU',
-                            fr: :'fr-FR',
-                            pt: :'pt-PT',
-                            hu: :'hu-HU',
-                            el: :'el-GR',
-                            de: :'de-DE' }.with_indifferent_access
-    required_locale = params[:l]
-    replacement_locale = locales_replacement[required_locale]
-    if replacement_locale
-      redirect_to url_for(params.merge(l: replacement_locale).merge(only_path: true)), status: :moved_permanently
-    else
-      log_error(exception)
-      respond_to do |format|
-        format.js do
-          flash.now[:error] = 'You are asking for a locale which is not available, sorry'
-          render template: '/errors/invalid_locale.js.erb', status: 500, layout: 'application'
-        end
-        format.html do
-          render template: '/errors/invalid_locale.html.erb', status: 500, layout: 'application'
-        end
-        log_error(exception)
-        respond_to do |format|
-          format.js do
-          end
-          format.html do
-          end
-        end
       end
     end
   end

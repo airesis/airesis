@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(version: 2019_09_22_170621) do
     t.integer "area_role_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["group_area_id"], name: "area_participations_group_area_id_index"
   end
 
   create_table "area_proposals", id: :serial, force: :cascade do |t|
@@ -67,7 +66,6 @@ ActiveRecord::Schema.define(version: 2019_09_22_170621) do
     t.integer "group_area_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["proposal_id"], name: "area_proposals_proposal_id_index"
   end
 
   create_table "area_roles", id: :serial, force: :cascade do |t|
@@ -512,7 +510,6 @@ ActiveRecord::Schema.define(version: 2019_09_22_170621) do
     t.datetime "updated_at"
     t.integer "acceptor_id"
     t.index ["group_id"], name: "index_group_participations_on_group_id"
-    t.index ["participation_role_id"], name: "group_participations_participation_role_id_index"
     t.index ["user_id", "group_id"], name: "only_once_per_group", unique: true
     t.index ["user_id"], name: "index_group_participations_on_user_id"
   end
@@ -522,9 +519,7 @@ ActiveRecord::Schema.define(version: 2019_09_22_170621) do
     t.integer "group_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["group_id"], name: "group_proposals_group_id_index"
     t.index ["proposal_id", "group_id"], name: "index_group_proposals_on_proposal_id_and_group_id", unique: true
-    t.index ["proposal_id"], name: "group_proposals_proposal_id_index"
   end
 
   create_table "group_quorums", id: :serial, force: :cascade do |t|

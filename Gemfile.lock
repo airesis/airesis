@@ -1,10 +1,4 @@
 GIT
-  remote: https://github.com/airesis/airesis_i18n
-  revision: 20c9c0c81e39bb38a4acb152d8f2ce01bf3889d6
-  specs:
-    airesis_i18n (0.1.2)
-
-GIT
   remote: https://github.com/coorasse/devise_traceable
   revision: 02d6d348b2a97938faada8cee1862848f3398530
   specs:
@@ -22,6 +16,11 @@ GIT
   revision: e0f42830c80f72eae319279ffe9f6d6128b26ad8
   specs:
     timezone (0.2.2)
+
+PATH
+  remote: ../airesis_i18n
+  specs:
+    airesis_i18n (0.1.2)
 
 GEM
   remote: http://rubygems.org/
@@ -690,6 +689,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails (~> 5.2.0)
   rails-controller-testing
+  rails-i18n
   rails_12factor
   rails_admin
   rails_autolink

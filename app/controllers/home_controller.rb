@@ -92,11 +92,11 @@ class HomeController < ApplicationController
   end
 
   def load_open_space_resources
-    @blog_posts = BlogPost.open_space(current_user, current_domain)
-    @events = Event.in_territory(current_domain.territory).next.order('starttime asc').accessible_by(Ability.new(current_user)).limit(10)
-    @proposals = Proposal.open_space_portlet(current_user, current_domain.territory)
-    @most_active_groups = Group.most_active(current_domain.territory)
-    @tags = Tag.most_used(current_domain.territory).limit(100)
+    @blog_posts = BlogPost.open_space(current_user)
+    @events = Event.next.order('starttime asc').accessible_by(Ability.new(current_user)).limit(10)
+    @proposals = Proposal.open_space_portlet(current_user)
+    @most_active_groups = Group.most_active
+    @tags = Tag.most_used.limit(100)
   end
 
   def choose_layout
