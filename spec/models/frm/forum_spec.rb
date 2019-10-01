@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 describe Frm::Forum do
+  describe 'validations' do
+    subject { build(:frm_forum) }
+
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:description) }
+    it { is_expected.to validate_length_of(:description).is_at_most(1.megabyte) }
+  end
+
   context 'when created' do
     let(:forum) { create(:frm_forum) }
 

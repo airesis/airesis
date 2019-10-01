@@ -2,6 +2,11 @@ require 'rails_helper'
 
 # TODO: why do we need to reload the topic? can this be removed?
 describe Frm::Post do
+  describe 'validations' do
+    it { is_expected.to validate_presence_of(:text) }
+    it { is_expected.to validate_length_of(:text).is_at_most(1.megabyte) }
+  end
+
   context 'when created' do
     context 'page calculation' do
       let(:topic) { create(:frm_topic) }
