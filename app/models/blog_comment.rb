@@ -3,7 +3,7 @@ class BlogComment < ActiveRecord::Base
   belongs_to :blog_post, counter_cache: true
   has_one :blog, through: :blog_post
 
-  validates_presence_of :body
+  validates :body, presence: true, length: { maximum: 10.kilobytes }
 
   attr_accessor :collapsed
 

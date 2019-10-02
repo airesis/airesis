@@ -3,7 +3,8 @@ class Event < ActiveRecord::Base
 
   attr_accessor :period, :frequency, :commit_button, :proposal_id
 
-  validates_presence_of :title, :description, :starttime, :endtime
+  validates_presence_of :title, :starttime, :endtime
+  validates :description, presence: true, length: { maximum: 1.megabyte }
   validate :validate_start_time_end_time
 
   belongs_to :user

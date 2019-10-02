@@ -90,6 +90,7 @@ end
 group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers'
   gem 'factory_bot_rails'
   gem 'rspec-rails'
   gem 'timecop'

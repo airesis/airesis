@@ -1,6 +1,6 @@
 class Newsletter < ActiveRecord::Base
   validates :subject, presence: true
-  validates :body, presence: true
+  validates :body, presence: true, length: { maximum: 1.megabyte }
 
   attr_accessor :receiver
 

@@ -19,7 +19,7 @@ module Frm
 
     validates :category_id, presence: true
     validates :name, presence: true
-    validates :description, presence: true
+    validates :description, presence: true, length: { maximum: 1.megabyte }
 
     validate :visibility
 

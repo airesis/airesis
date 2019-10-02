@@ -25,7 +25,7 @@ module Frm
                        foreign_key: 'reply_to_id',
                        dependent: :nullify
 
-    validates :text, presence: true
+    validates :text, presence: true, length: { maximum: 1.megabyte }
 
     delegate :forum, to: :topic
 

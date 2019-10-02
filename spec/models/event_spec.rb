@@ -118,35 +118,13 @@ RSpec.describe Event do
   end
 
   context 'validations' do
-    it 'validates presence of title' do
-      event = build(:event, title: nil)
-      expect_errors_on_model_field(event, :title, 1)
-    end
-
-    it 'validates presence of description' do
-      event = build(:event, description: nil)
-      expect_errors_on_model_field(event, :description, 1)
-    end
-
-    it 'validates presence of starttime' do
-      event = build(:event, starttime: nil)
-      expect_errors_on_model_field(event, :starttime, 1)
-    end
-
-    it 'validates presence of endtime' do
-      event = build(:event, endtime: nil)
-      expect_errors_on_model_field(event, :endtime, 1)
-    end
-
-    it 'validates presence of event_type' do
-      event = build(:event, event_type: nil)
-      expect_errors_on_model_field(event, :event_type, 1)
-    end
-
-    it 'validates presence of user' do
-      event = build(:event, user: nil)
-      expect_errors_on_model_field(event, :user, 1)
-    end
+    it { is_expected.to validate_presence_of(:title) }
+    it { is_expected.to validate_presence_of(:description) }
+    it { is_expected.to validate_length_of(:description).is_at_most(1.megabyte) }
+    it { is_expected.to validate_presence_of(:starttime) }
+    it { is_expected.to validate_presence_of(:endtime) }
+    it { is_expected.to belong_to(:event_type) }
+    it { is_expected.to belong_to(:user) }
   end
 
   context 'ics format' do
