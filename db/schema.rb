@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_22_170621) do
+ActiveRecord::Schema.define(version: 2019_10_01_213823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1287,7 +1287,6 @@ ActiveRecord::Schema.define(version: 2019_09_22_170621) do
     t.integer "vote_type_id"
     t.string "vote_schulze", limit: 255
     t.string "vote_schulze_desc", limit: 2000
-    t.text "comment"
     t.index ["proposal_id", "user_id"], name: "onlyvoteuser", unique: true
   end
 
@@ -1304,7 +1303,6 @@ ActiveRecord::Schema.define(version: 2019_09_22_170621) do
     t.string "confirmation_token", limit: 255
     t.datetime "confirmed_at"
     t.datetime "deleted_at"
-    t.text "state"
     t.string "reset_password_token", limit: 255
     t.string "encrypted_password", limit: 128, null: false
     t.string "blog_image_url", limit: 1000

@@ -16,8 +16,8 @@ class BlogPost < ActiveRecord::Base
   has_many :publishings, class_name: 'PostPublishing', inverse_of: :blog_post, dependent: :destroy
   has_many :groups, through: :publishings, inverse_of: :blog_posts, class_name: 'Group'
 
-  validates_presence_of :title
-  validates_presence_of :body
+  validates :title, presence: true
+  validates :body, presence: true, length: { maximum: 1.megabyte }
 
   scope :published, -> { where(status: [PUBLISHED, RESERVED]).order('published_at DESC') }
   scope :drafts, -> { where(status: DRAFT).order('published_at DESC') }
