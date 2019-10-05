@@ -473,11 +473,7 @@ class ProposalsController < ApplicationController
 
     search.proposal_category_id = params[:category]
 
-    search.interest_border = if params[:interest_border].nil?
-                               InterestBorder.find_or_create_by(territory: current_domain.territory)
-                             else
-                               InterestBorder.find_or_create_by_key(params[:interest_border])
-                             end
+    search.interest_border = InterestBorder.find_or_create_by_key(params[:interest_border]) if params[:interest_border]
 
     # apply filter for the group
     if @group

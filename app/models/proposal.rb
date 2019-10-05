@@ -203,7 +203,7 @@ class Proposal < ActiveRecord::Base
   end
 
   # retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
-  def self.open_space_portlet(user = nil, current_territory = nil)
+  def self.open_space_portlet(user = nil)
     user_id = user ? user.id : -1
 
     proposals = Proposal.
@@ -212,9 +212,6 @@ class Proposal < ActiveRecord::Base
              ranking_subquery(user_id).as('ranking')).
       where('proposals.private = false or proposals.visible_outside = false').
       where.not(proposal_type_id: 11) # TODO: petitions excluded
-    if current_territory.present?
-      proposals = proposals.by_interest_borders(InterestBorder.to_key(current_territory))
-    end
     proposals = proposals.order(updated_at: :desc).page(1).per(10)
     ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, :groups, :supporting_groups, :category])
     proposals

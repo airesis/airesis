@@ -5,11 +5,11 @@ class Tag < ActiveRecord::Base
   has_many :blog_posts, through: :blog_post_tags
   has_many :tag_counters
 
-  scope :most_used, ->(territory, limit = 10) { very_used(territory, limit).order(Arel.sql('random()')) }
+  scope :most_used, ->(limit = 10) { very_used(limit).order(Arel.sql('random()')) }
 
-  scope :most_groups, ->(territory, limit = 40) { used_in_groups(territory).limit(limit) }
+  scope :most_groups, ->(limit = 40) { used_in_groups.limit(limit) }
 
-  scope :most_blogs, ->(territory, limit = 40) { used_in_blogs(territory).limit(limit) }
+  scope :most_blogs, ->(limit = 40) { used_in_blogs.limit(limit) }
 
   scope :for_twitter, -> { pluck(:text).map { |t| "##{t}" }.join(', ') }
 
@@ -49,24 +49,22 @@ class Tag < ActiveRecord::Base
     arel_conditions
   end
 
-  def self.very_used(territory, limit = 40)
+  def self.very_used(limit = 40)
     joins(:tag_counters).
-      where(territory_filter(territory)).
       where('(blog_posts_count + proposals_count + groups_count) > ?', limit).
       select('tags.*, blog_posts_count, proposals_count, groups_count')
   end
 
-  def self.used_in_groups(territory)
-    used_in(territory, :groups_count)
+  def self.used_in_groups
+    used_in(:groups_count)
   end
 
-  def self.used_in_blogs(territory)
-    used_in(territory, :blog_posts_count)
+  def self.used_in_blogs
+    used_in(:blog_posts_count)
   end
 
-  def self.used_in(territory, object_name)
+  def self.used_in(object_name)
     joins(:tag_counters).
-      where(territory_filter(territory)).
       where(TagCounter.arel_table[object_name].gt(0)).
       order(TagCounter.arel_table[object_name].desc).
       select("tags.*, #{object_name}")

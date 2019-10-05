@@ -239,12 +239,8 @@ class Group < ActiveRecord::Base
     end
   end
 
-  def self.most_active(territory = nil)
-    groups = Group.includes(interest_border: :territory)
-    if territory.present?
-      groups = groups.by_interest_border(InterestBorder.to_key(territory))
-    end
-    groups.order(group_participations_count: :desc).page(1).per(5)
+  def self.most_active
+    includes(interest_border: :territory).order(group_participations_count: :desc).page(1).per(5)
   end
 
   def should_generate_new_friendly_id?

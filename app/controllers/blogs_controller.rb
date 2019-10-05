@@ -6,10 +6,9 @@ class BlogsController < ApplicationController
   before_action :load_blog_data, only: [:show, :edit, :by_year_and_month]
 
   def index
-    @tags = Tag.most_blogs(current_domain.territory).shuffle unless request.xhr?
+    @tags = Tag.most_blogs.shuffle unless request.xhr?
     @page_title = t('pages.blogs.show.title')
 
-    params[:interest_border] ||= InterestBorder.to_key(current_domain.territory)
     @blogs = Blog.look(params)
 
     respond_to do |format|

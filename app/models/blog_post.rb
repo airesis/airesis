@@ -22,9 +22,8 @@ class BlogPost < ActiveRecord::Base
   scope :published, -> { where(status: [PUBLISHED, RESERVED]).order('published_at DESC') }
   scope :drafts, -> { where(status: DRAFT).order('published_at DESC') }
 
-  scope :open_space, lambda { |user, domain|
+  scope :open_space, lambda { |user|
     includes(:blog, user: [:user_type, :image]).
-      where(users: { original_sys_locale_id: domain.id }).
       accessible_by(Ability.new(user)).
       order('blog_posts.created_at desc').limit(10)
   }

@@ -22,7 +22,7 @@ class TagsController < ApplicationController
     else
       @page_title = I18n.t('pages.tags.show.not_found', tag: params[:id])
 
-      @tags = Tag.most_used(current_domain.territory)
+      @tags = Tag.most_used
 
       respond_to do |format|
         format.html { render 'index' }
@@ -42,7 +42,7 @@ class TagsController < ApplicationController
       end
     else
       @page_title = I18n.t('pages.tags.index.title')
-      @tags = Tag.most_used(current_domain.territory)
+      @tags = Tag.most_used
       respond_to do |format|
         format.html
       end

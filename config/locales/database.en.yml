@@ -1,0 +1,335 @@
+en:
+  db:
+    sys_locales:
+      bs:
+        description: Bosnian
+      de:
+        description: German
+      el:
+        description: Greek
+      en:
+        description: English
+      es:
+        description: Spanish
+      fr:
+        description: French
+      hu:
+        description: Hungarian
+      id:
+        description: Indonesian
+      it:
+        description: Italian
+      jp:
+        description: Japanese
+      me:
+        description: Montenegrin
+      nl:
+        description: Netherland
+      pt:
+        description: Portuguese
+      ro:
+        description: Romanian
+      ru:
+        description: Russian
+      sh:
+        description: Serbo-Croatian
+      sr-CS:
+        description: Serbia (Latin)
+      sr-SP:
+        description: Serbia (Cyrillic)
+      zh:
+        description: Chinese
+    proposal_types:
+      STANDARD:
+        description: Standard Proposal
+      POLL:
+        description: Poll
+      RULE_BOOK:
+        description: Rule Book
+      PRESS:
+        description: Press Release
+      EVENT:
+        description: Event Organization
+      ESTIMATE:
+        description: Cost Estimate
+      AGENDA:
+        description: Agenda
+      CANDIDATES:
+        description: Choice of a candidate
+      SIMPLE:
+        description: Simple proposal
+      PETITION:
+        description: Petition
+    event_types:
+      meeting:
+        description: meeting
+      vote:
+        description: vote
+      meeting2:
+        description: meeting
+      election:
+        description: election
+    group_actions:
+      write_to_wall:
+        description: Post on the Group Wall
+      create_events:
+        description: Create meetup events
+      support_proposals:
+        description: Support proposals on behalf of the group
+      accept_participation_requests:
+        description: Add new members to the group
+      view_proposals:
+        description: View private proposals
+      participate_proposals:
+        description: Contribute to the proposals
+      insert_proposals:
+        description: Insert new proposals in the group
+      view_documents:
+        description: View documents
+      manage_documents:
+        description: Manage documents
+      vote_proposals:
+        description: Vote proposals
+      choose_date_proposals:
+        description: Create vote events
+    notification_categories:
+      MYPROP:
+        description: Proposals I write
+      PROP:
+        description: Proposals I participate in
+      NEWPROP:
+        description: New proposals
+      NEWEVENT:
+        description: New events
+      GROUPS:
+        description: Groups
+    notification_types:
+      new_public_events:
+        description: New public events
+        email_subject: "New public event: %{event}"
+        message: "New public event: <b>%{event}</b>"
+      new_events:
+        description: New events in the groups I participate in
+        email_subject: "New event: %{event}"
+        message: "New event <b>%{event}</b> in the group <b>%{group}</b>"
+      new_posts_user_follow:
+        description: New posts from a user I am following
+        email_subject: There is a new post
+        message: "%{user} added a new post in his blog <b>%{blog}</b>"
+      new_valutation_mine:
+        description: New evaluation for a proposal of mine
+        email_subject:
+          one: "%{title} has a new evaluation"
+          other: "%{title} has %{count} new evaluations"
+        message:
+          one: "Your proposal <b>%{title}</b> has received a new evaluation"
+          other: "Your proposal <b>%{title}</b> has received %{count} new evaluations"
+      new_valutation:
+        description: New evaluation for a proposal I participate in
+        email_subject:
+          one: "%{title} has a new evaluation"
+          other: "%{title} has %{count} new evaluations"
+        message:
+          one: "The proposal <b>%{title}</b> has received a new evaluation"
+          other: "The proposal <b>%{title}</b> has received %{count} new evaluations"
+      available_author:
+        description: User available to become an editor of a proposal
+        email_subject:
+          one: "%{title} - A new editor is available"
+          other: "%{title} - %{count} new editors are available"
+        message:
+          one: "%{user} is available to become editor of the proposal <b>%{title}</b>"
+          other: "%{count} users are available to become editor of the proposal <b>%{title}</b>"
+      author_accepted:
+        description: Acceptance as editor of a proposal
+        email_subject: "%{title} - You are now editor of it!"
+        message: "You are now editor of the proposal <b>%{title}</b>.<br/>Remember that as an editor, you should listen to to the contributions of other users and improve the text according to them<br/>"
+      new_authors:
+        description: New editors of the proposals
+        email_subject: "%{title} - New editors"
+        message: "<b>%{user}</b> is an editor of the proposal <b>%{title}</b>"
+      unintegrated_contribute:
+        description: Contributions are put back in debate
+        email_subject: "%{proposal} - Contribution back in debate"
+        message: "A contribution you integrated in the proposal <b>%{proposal}</b> has been put back in debate"
+      new_contributes:
+        description: "New contributions in the proposals I participate in"
+        email_subject:
+          one: "%{title} - A new contribution has been inserted"
+          other: "%{title} - There are %{count} new contributions"
+        message:
+          one: "<b>%{name}</b> added a new contribution in the proposal <b>%{title}</b>"
+          other: "There are <b>%{count}</b> new contributions in the proposal <b>%{title}</b>"
+      text_update:
+        description: "Update of the text of a proposal I participate in"
+        email_subject:
+          one: "%{title} has been updated"
+          other: "%{title} has been updated %{count} times"
+        message:
+          one: "The proposal <b>%{title}</b> has been updated"
+          other: "The proposal <b>%{title}</b> has been updated %{count} times"
+      new_contributes_mine:
+        description: "New contributions in my proposals"
+        email_subject:
+          one: "%{title} - A new contribution has been inserted"
+          other: "%{title} - There are %{count} new contributions"
+        message:
+          zero: "<b>%{name}</b> added a new contribution in your proposal <b>%{title}</b>"
+          one: "<b>%{name}</b> added a new contribution in your proposal <b>%{title}</b>"
+          other: "There are <b>%{count}</b> new contributions in your proposal <b>%{title}</b>"
+      change_status:
+        description: "Change in the status of a proposal I participate in"
+        email_subject:
+          wait: "%{title} - Choose the voting date"
+          waiting_date: "%{title} - The voting date has been chosen"
+          in_vote: "%{title} - COME AND VOTE!"
+          abandoned: "%{title} didn't get through the debate"
+          rejected: "%{title} has been rejected"
+          voted: "%{title} - Votation has terminated"
+          24_hours: "The debate on %{title} ends tomorrow!"
+          1_hour: "The debate on %{title} ends in an hour!"
+          24_hours_vote: "The vote on %{title} ends tomorrow!"
+          1_hour_vote: "The vote on %{title} ends in an hour!"
+        message:
+          waiting_date: "%{name} has chosen the date of the vote for the proposal<b>%{title}</b>"
+          in_vote: "The proposal <b>%{title}</b> is now being voted!"
+          abandoned: "The proposal <b>%{title}</b> has not passed the debate and has been abandoned"
+          rejected: "The proposal <b>%{title}</b> has been rejected by the participants"
+          voted: "%{title} - Vote ended"
+          24_hours: "The debate on <b>%{title}</b> ends tomorrow!"
+          1_hour: "The debate on <b>%{title}</b> ends in an hour!"
+          24_hours_vote: "The vote on <b>%{title}</b> ends tomorrow!"
+          1_hour_vote: "The vote on <b>%{title}</b> ends in an hour!"
+      change_status_mine:
+        description: Change in the status of my proposals
+        email_subject:
+          wait: "%{title} - Choose the voting date"
+          waiting_date: "%{title} - The voting date has been chosen"
+          in_vote: "%{title} - COME AND VOTE!"
+          abandoned: "%{title} didn't get through the debate"
+          rejected: "%{title} has been rejected"
+          voted: "%{title} - Vote ended"
+          24_hours: "The debate on %{title} ends tomorrow!"
+          1_hour: "The debate on %{title} ends in an hour!"
+          24_hours_vote: "The vote on %{title} ends tomorrow!"
+          1_hour_vote: "The vote on %{title} ends in an hour!"
+        message:
+          wait: "Your proposal <b>%{title}</b> has passed the discussion phase and is now waiting that you choose when to vote it"
+          waiting_date: "%{name} has chosen the voting date for the proposal <b>%{title}</b>"
+          in_vote: "Your proposal <b>%{title}</b> is now being voted!"
+          abandoned: "Your proposal <b>%{title}</b> has not passed the debate and has been abandoned, sorry"
+          rejected: "Your proposal <b>%{title}</b> has been rejected by the participants, sorry"
+          voted: "<b>%{title}</b> - Vote has terminated"
+          24_hours: "The debate on <b>%{title}</b> ends tomorrow!"
+          1_hour: "The debate on <b>%{title}</b> ends in an hour!"
+          24_hours_vote: "The vote on <b>%{title}</b> ends tomorrow!"
+          1_hour_vote: "The vote on <b>%{title}</b> ends in an hour!"
+      proposal_phase_ending:
+        description: "A proposal debate or votation is going to end soon"
+        email_subject:
+          24_hours: "The debate on %{title} ends tomorrow!"
+          1_hour: "The debate on %{title} ends in an hour!"
+          24_hours_vote: "The vote on %{title} ends tomorrow!"
+          1_hour_vote: "The vote on %{title} ends in an hour!"
+        message:
+          24_hours: "The debate on <b>%{title}</b> ends tomorrow!"
+          1_hour: "The debate on <b>%{title}</b> ends in an hour!"
+          24_hours_vote: "The vote on <b>%{title}</b> ends tomorrow!"
+          1_hour_vote: "The vote on <b>%{title}</b> ends in an hour!"
+      new_posts_group_follow:
+        description: New posts in the Walls of the groups I am following
+        email_subject: New post
+      new_posts_group:
+        description: New posts in the Walls of the groups I participate in
+        email_subject: New post
+        message: "<b>%{user}</b> has added a new post in the group <b>%{group}</b>"
+      new_public_proposals:
+        description: New proposals added in the Open Space
+        email_subject: "%{proposal}"
+        message: "New proposal <b>%{proposal}</b> added in the Open Space"
+      new_proposals:
+        description: New proposals within the group
+        email_subject: "%{proposal}"
+        message: "New proposal <b>%{proposal}</b> created in the group <b>%{group}</b>"
+      new_participation_request:
+        description: New participation request
+        email_subject:
+          one: "There is a new participation request"
+          other: "There are %{count} new participation requests"
+        message:
+          one: "<b>%{user}</b> asked to participate in the group <b>%{group}</b>"
+          other: "<b>%{count} users</b> asked to participate in the group <b>%{group}</b>"
+      new_blog_comment:
+        description: New comment in my blog
+        email_subject:
+          one: "A new comment in your blog post"
+          other: "%{count} new comments in your blog post"
+        message:
+          one: "<b>%{user}</b> commented your post <b>%{title}</b>"
+          other: "There are <b>%{count}</b> new comments in your post <b>%{title}</b>"
+      new_forum_topic:
+        message:
+          one: "A topic '%{topic_subject}' has been created in <b>%{group_name}</b>"
+          other: "%{count} topics have been created in <b>%{group_name}</b>"
+        description: New topics in forums
+        email_subject: "A topic '%{topic_subject}' has been created in %{group_name}"
+      new_comments_mine:
+        description: New comments in my proposals
+        email_subject: New comment in my proposal
+        message: "<b>%{name}</b> added a comment in a discussion in your proposal <b>%{title}</b>"
+      new_comments:
+        description: New comments in the discussions I take part in
+        email_subject: "%{title} - New comment"
+        message: "<b>%{name}</b> added a comment in a discussion you are taking part in the proposal <b>%{title}</b>"
+      contribute_update:
+        description: Update of the text of an already evaualted contribution
+        email_subject: "%{title} - A contribution you have previously evaluated has changed"
+        message: "<b>%{name}</b> changed a contribution in <b>%{title}</b> you have previously evaluated. Check if you want to change your opinion."
+    proposal_categories:
+      no_category:
+        description: Uncategorized
+      education:
+        description: Education, Research
+      health:
+        description: Health, Hygiene
+      information:
+        description: Information, Communication
+      commerce:
+        description: Commerce, Finance, Taxes
+      work:
+        description: Work and Self-realization
+      security:
+        description: Security and Justice
+      world:
+        description: World, Migration
+      minorities:
+        description: Minorities, Handicap
+      ethics:
+        description: Ethics, Solidarity, Spirituality
+      sexuality:
+        description: Sexuality, Family, Children
+      culture:
+        description: Art and Culture
+      entertainment:
+        description: Social, Sport, Entertainment
+      organization:
+        description: Internal organization
+      agricolture:
+        description: Water, Food, Agriculture
+      territory:
+        description: Territory, Nature, Animals
+      mobility:
+        description: Urbanism, Mobility, Construction
+      energy:
+        description: Energy, Climate
+      industry:
+        description: Industry, Materials and Waste
+      democracy:
+        description: Democracy, Institutions
+    vote_types:
+      favorable:
+        description: Favorable
+      neutral:
+        description: Neutral
+      dissenting:
+        description: Dissenting

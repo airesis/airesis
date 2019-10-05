@@ -191,7 +191,6 @@ class EventsController < ApplicationController
 
   def respond_with_json_index
     @events = @events.time_scoped(Time.parse(params['start']), Time.parse(params['end']))
-    @events = @events.in_territory(current_domain.territory) unless @group
     events = @events.map { |event| generate_event_obj(event) }
     render json: events.to_json
   end

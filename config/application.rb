@@ -22,26 +22,9 @@ module Airesis
 
     config.autoload_paths << "#{Rails.root}/lib"
     config.time_zone = 'Rome'
-    config.i18n.default_locale = :'en-EU'
-
-    europe_eng_fallbacks = [:'en-GB', :'en-IE', :'en-US', :'en-ZA', :'en-AU', :'en-NZ',
-                            :'sr-CS', :'sr-SP', :'sh-HR', :'zh-TW', :'me-ME', :'bs-BA',
-                            :'ru-RU', :'ro-RO', :'it-IT', :'id-ID', :'hu-HU',
-                            :'es-ES', :'de-DE', :'el-GR', :'fr-FR', :'pt-PT', :en]
-    portuguese_fallbacks = [:'pt-BR']
-    spanish_fallbacks = [:'es-EC', :'es-AR', :'es-CL']
-    fallbacks = {}
-    europe_eng_fallbacks.each { |key| fallbacks[key] = :'en-EU' }
-    portuguese_fallbacks.each { |key| fallbacks[key] = :'pt-PT' }
-    spanish_fallbacks.each { |key| fallbacks[key] = :'es-ES' }
-    config.i18n.fallbacks = fallbacks
-
-    config.i18n.available_locales = [:'bs-BA', :'de-DE', :'el-GR', :'en-AU', :'en-EU', :'en-GB', :'en-NZ', :'en-US', :'en-ZA',
-                                     :'en-IE', :'es-AR', :'es-CL', :'es-EC', :'es-ES', :'fr-FR', :'hu-HU', :'id-ID',
-                                     :'it-IT', :'me-ME', :'pt-BR', :'pt-PT', :'ro-RO', :'ru-RU', :'sh-HR', :'sr-CS', :'sr-SP',
-                                     :'zh-TW', :en]
-
-    config.i18n.enforce_available_locales = true
+    config.i18n.default_locale = :en
+    config.i18n.fallbacks = [:en]
+    config.i18n.available_locales = [:bs, :de, :el, :en, :es, :fr, :hu, :id, :it, :me, :pt, :ro, :ru, :sh, :'sr-CS', :'sr-SP', :zh]
 
     config.to_prepare do
       Devise::Mailer.layout 'newsletters/default'

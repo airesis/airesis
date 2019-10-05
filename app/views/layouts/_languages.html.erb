@@ -1,63 +1,8 @@
 <div id="language" class="reveal-modal" data-reveal>
-  <dl class="tabs" data-tab>
-    <dd class="active"><a href="#panel1" title="Europe">Europe</a></dd>
-    <dd><a href="#panel2" title="America">America</a></dd>
-    <dd><a href="#panel3" title="Asia">Asia</a></dd>
-    <dd><a href="#panel4" title="Asia">Africa</a></dd>
-    <dd><a href="#panel5" title="Oceania">Oceania</a></dd>
-  </dl>
-  <dl class="accordion" data-accordion>
-    <div class="tabs-content">
-      <div class="content active" id="panel1">
-        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">          
-          <li><%= flag_for('Europe', 'en-EU') %></li>
-          <li><%= flag_for('France', 'fr-FR') %></li>
-          <li><%= flag_for('Hungary', 'hu-HU') %></li>
-          <li><%= flag_for('Italy', 'it-IT') %></li>
-          <li><%= flag_for('Deutschland', 'de-DE') %></li>
-          <li><%= flag_for('România', 'ro-RO') %></li>
-          <li><%= flag_for('España', 'es-ES') %></li>
-          <li><%= flag_for('Portugal', 'pt-PT') %></li>
-          <li><%= flag_for('Greece', 'el-GR') %></li>
-          <li><%= flag_for('United Kingdom', 'en-GB') %></li>
-          <li><%= flag_for('Ireland', 'en-IE') %></li>
-          <li><%= flag_for('Serbia (Cyrillic)', 'sr-SP') %></li>
-          <li><%= flag_for('Serbia (Latin)', 'sr-CS') %></li>
-          <li><%= flag_for('Serbo-Croatian', 'sh-HR') %></li>
-          <li><%= flag_for('Bosnian', 'bs-BA') %></li>
-          <li><%= flag_for('Montenegrin (Latin)', 'me-ME') %></li>
-          <li><%= flag_for('Russia','ru-RU') %></li>
-        </ul>
-      </div>
-      <div class="content" id="panel2">
-        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
-          <li><%= flag_for('USA','en-US') %></li>
-          <li><%= flag_for('Brasil','pt-BR') %></li>
-          <li><%= flag_for('Ecuador','es-EC') %></li>
-          <li><%= flag_for('Chile','es-CL') %></li>
-          <li><%= flag_for('Argentina','es-AR') %></li>
-        </ul>
-      </div>
-      <div class="content" id="panel3">
-        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
-          <li><%= flag_for('Indonesia', 'id-ID') %></li>
-          <li><%= flag_for('中国','zh-TW') %></li>
-        </ul>
-      </div>
-      <div class="content" id="panel4">
-        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
-          <li><%= flag_for('South Africa','en-ZA') %></li>
-        </ul>
-      </div>
-      <div class="content" id="panel5">
-        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
-          <li><%= flag_for('Australia','en-AU') %></li>
-          <li><%= flag_for('New Zealand','en-NZ') %></li>
-        </ul>
-      </div>
-    </div>
-  </dl>
-
-
+  <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+    <% I18n.available_locales.each do |locale| %>
+      <li><%= flag_for(I18n.t("db.sys_locales.#{locale}.description"), locale) %></li>
+    <% end %>
+  </ul>
   <a class="close-reveal-modal">&#215;</a>
 </div>
