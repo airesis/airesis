@@ -70,7 +70,7 @@ gem 'truncate_html'
 gem 'activerecord-session_store'
 gem 'puma'
 gem 'pg_search'
-gem 'airesis_i18n', path: '../airesis_i18n'
+gem 'airesis_i18n', '0.2.0'
 gem 'rails-i18n'
 
 group :development do

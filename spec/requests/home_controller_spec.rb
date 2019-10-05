@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'requests_helper'
 
-RSpec.describe HomeController  do
+RSpec.describe HomeController do
   describe '#set_locale' do
     let(:locale) { nil }
     let(:http_accepted_language) { nil }

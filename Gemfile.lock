@@ -17,11 +17,6 @@ GIT
   specs:
     timezone (0.2.2)
 
-PATH
-  remote: ../airesis_i18n
-  specs:
-    airesis_i18n (0.1.2)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -78,6 +73,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    airesis_i18n (0.2.0)
     arel (9.0.0)
     ast (2.4.0)
     awesome_print (1.8.0)
@@ -629,7 +625,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
-  airesis_i18n!
+  airesis_i18n (= 0.2.0)
   awesome_print
   aws-sdk-s3
   better_errors
