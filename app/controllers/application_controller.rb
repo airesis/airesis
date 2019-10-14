@@ -154,7 +154,7 @@ class ApplicationController < ActionController::Base
         extra[:action] = exception.action.to_s
         extra[:subject] = exception.subject.class.class_name.to_s rescue nil
       end
-      Raven.capture_exception(exception, extra: extra)
+      Appsignal.set_error(exception, extra: extra)
     else
       message = "\n#{exception.class} (#{exception.message}):\n"
       Rails.logger.error(message)
