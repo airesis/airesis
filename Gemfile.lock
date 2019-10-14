@@ -79,6 +79,8 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    appsignal (2.9.6)
+      rack
     arel (9.0.0)
     ast (2.4.0)
     awesome_print (1.8.0)
@@ -324,7 +326,6 @@ GEM
       net-ssh (>= 2.6.5, < 6.0.0)
     net-ssh (5.2.0)
     netrc (0.11.0)
-    newrelic_rpm (6.6.0.358)
     nickname_generator (0.0.1)
     nio4r (2.5.1)
     nokogiri (1.10.4)
@@ -537,8 +538,6 @@ GEM
     selenium-webdriver (3.142.4)
       childprocess (>= 0.5, < 3.0)
       rubyzip (~> 1.2, >= 1.2.2)
-    sentry-raven (2.11.1)
-      faraday (>= 0.7.6, < 1.0)
     shoulda-matchers (4.1.2)
       activesupport (>= 4.2.0)
     sidekiq (6.0.0)
@@ -633,6 +632,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-session_store
   airesis_i18n!
+  appsignal
   awesome_print
   aws-sdk-s3
   better_errors
@@ -674,7 +674,6 @@ DEPENDENCIES
   mailman
   mustache
   mustache-js-rails
-  newrelic_rpm
   nickname_generator
   omniauth-facebook
   omniauth-google-oauth2
@@ -711,7 +710,6 @@ DEPENDENCIES
   sdoc
   select2-rails
   selenium-webdriver
-  sentry-raven
   shoulda-matchers
   sidekiq
   sidekiq-failures
