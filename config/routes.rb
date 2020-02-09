@@ -29,8 +29,6 @@ Rails.application.routes.draw do
   get 'school' => 'home#school'
   get 'municipality' => 'home#municipality'
 
-  # common routes both for main app and subdomains
-
   resources :quorums do
     collection do
       get :dates

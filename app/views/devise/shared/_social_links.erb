@@ -1,4 +1,4 @@
-<% if ::Configuration.socialnetwork_active && !in_subdomain? %>
+<% if ::Configuration.socialnetwork_active %>
     <div class="card">
       <h2><%= t('pages.registration.identity_provviders_title') %></h2>
       <%= link_to_ip t('pages.top_panel.facebook_login'), :facebook, 'facebook' %>

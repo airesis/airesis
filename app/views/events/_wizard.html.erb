@@ -1,6 +1,6 @@
 <h2><%= @page_title %></h2>
 <div id="create_event">
-  <%= simple_form_for (@group && !in_subdomain?) ? [@group, @event] : @event, remote: request.xhr?, data: {disable_form_validator: ''} do |f| %>
+  <%= simple_form_for @group.present? ? [@group, @event] : @event, remote: request.xhr?, data: {disable_form_validator: ''} do |f| %>
       <div class="legend">
         <div class="title">
           <%= t('pages.events.new.step_2') %>

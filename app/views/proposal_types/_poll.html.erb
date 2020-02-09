@@ -1,5 +1,5 @@
 <div id="create_proposal">
-  <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, validate: true, remote: true do |f| %>
+  <%= form_for (@group.present?) ? [@group, @proposal] : @proposal, validate: true, remote: true do |f| %>
       <%= render partial: 'proposal_types/wizard_steps' %>
 
 

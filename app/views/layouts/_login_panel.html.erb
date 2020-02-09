@@ -2,7 +2,7 @@
   <h2><%= t('pages.header.login') %></h2>
 
 
-  <% if ::Configuration.socialnetwork_active && !in_subdomain? %>
+  <% if ::Configuration.socialnetwork_active %>
       <div class="row">
         <div class="columns large-12">
           <div class="login-with-buttons">

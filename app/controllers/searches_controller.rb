@@ -1,5 +1,5 @@
 class SearchesController < ApplicationController
-  include GroupsHelper, UsersHelper
+  include UsersHelper
 
   def index
     @search = Search.new

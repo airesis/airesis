@@ -1,21 +1,19 @@
 <% @nomargin=true %>
 <% @extend=true %>
 <% content_for :menu do %>
-    <div class="topmenu <%= 'noleft' unless content_for? :left_panel %>">
-      <span class="tit"><%= @page_title %></span>
+  <div class="topmenu <%= 'noleft' unless content_for? :left_panel %>">
+    <span class="tit"><%= @page_title %></span>
 
-      <div class="submenu">
-        <%= link_to(edemocracy_path, class: ((['whatis', 'intro'].include? params[:action]) ? 'sel' : '')) do %>
-            <span class="show-for-large-up"><%= t('pages.home.index.whatis') %></span>
-        <% end %>
-        <% unless in_subdomain? %>
-            <span> ⋅ </span>
-            <%= link_to(press_path, class: (params[:action] == 'press' ? 'sel' : '')) do %>
-                <span class="show-for-large-up"><%= 'PRESS' %></span>
-            <% end %>
-        <% end %>
-      </div>
+    <div class="submenu">
+      <%= link_to(edemocracy_path, class: ((['whatis', 'intro'].include? params[:action]) ? 'sel' : '')) do %>
+          <span class="show-for-large-up"><%= t('pages.home.index.whatis') %></span>
+      <% end %>
+      <span> ⋅ </span>
+      <%= link_to(press_path, class: (params[:action] == 'press' ? 'sel' : '')) do %>
+          <span class="show-for-large-up"><%= 'PRESS' %></span>
+      <% end %>
     </div>
+  </div>
 <% end %>
 
 <%= render 'layouts/general' %>

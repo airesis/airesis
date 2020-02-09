@@ -1,6 +1,6 @@
 <h2><%=@title%></h2>
 <div id="create_proposal">
-  <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, validate: true, remote: true do |f| %>
+  <%= form_for (@group.present?) ? [@group, @proposal] : @proposal, validate: true, remote: true do |f| %>
       <% if request.xhr? %>
           <div class="legend first">
             <div class="number">1</div>

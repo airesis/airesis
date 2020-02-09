@@ -8,7 +8,7 @@
           <div class="card">
             <h2><%= t('pages.groups.participations.search') %></h2>
 
-            <%= simple_form_for !in_subdomain? ? [@group, @search_participant] : @search_participant, remote: true do |f| %>
+            <%= simple_form_for [@group, @search_participant], remote: true do |f| %>
                 <div class="row">
                   <div class="large-8 columns">
                     <%= f.input :keywords %>

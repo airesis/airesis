@@ -1,7 +1,5 @@
 <% host = @resource.original_locale.host %>
 <% url_params = {confirmation_token: @token, host: host, protocol: DEFAULT_EMAIL_PROTOCOL} %>
-<% subdomain = @resource.subdomain %>
-<% url_params[:subdomain] = subdomain if subdomain%>
 <% url_params[:l] = @resource.original_locale.lang unless @resource.original_locale.lang.blank? %>
 <% url = user_confirmation_url(url_params) %>
 

@@ -34,17 +34,6 @@ RSpec.describe ApplicationController, type: :controller do
         end
       end
 
-      context 'host with any subdomain' do
-        before do
-          @request.host = "cicci.#{host}"
-        end
-
-        it 'retrieves correctly the locale from sys_locales table depending on the request host' do
-          subject.instance_eval { set_current_domain }
-          expect(subject.instance_eval { current_domain }).to eq sys_locale
-        end
-      end
-
       context 'host not found' do
         before do
           @request.host = 'hello.com'

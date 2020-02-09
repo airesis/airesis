@@ -1,7 +1,7 @@
 
 <div id="map" style="width: 600px; height: 600px;"></div>
 
-<%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, remote: remote  do %>
+<%= form_for (@group.present?) ? [@group, @proposal] : @proposal, remote: remote  do %>
     <%=button_tag 'Fatto ;)', value: 'geocode', class: 'btn blue' %>
 <%end%>
 <script type="text/javascript">

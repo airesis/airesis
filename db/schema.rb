@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_01_213823) do
+ActiveRecord::Schema.define(version: 2020_02_09_085019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1340,7 +1340,6 @@ ActiveRecord::Schema.define(version: 2019_10_01_213823) do
     t.string "avatar_content_type", limit: 255
     t.integer "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.string "subdomain"
     t.string "derived_interest_borders_tokens", default: [], array: true
     t.index ["email"], name: "uniqueemail", unique: true
   end
