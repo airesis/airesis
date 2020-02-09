@@ -63,3 +63,7 @@ RSpec.configure do |config|
     ex.run_with_retry retry: 3
   end
 end
+
+RSpec::Matchers.define :safe_include do |expected|
+  match { |actual| actual.include?(CGI.escapeHTML(expected)) }
+end
