@@ -1,2 +1,1 @@
-# defined in raven.rb
-
+AIRESIS_VERSION = '4.5.7'

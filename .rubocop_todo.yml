@@ -640,7 +640,6 @@ Rails/Blank:
     - 'app/models/proposal.rb'
     - 'app/models/search_participant.rb'
     - 'app/workers/fix_workers.rb'
-    - 'lib/no_subdomain.rb'
 
 # Offense count: 4
 # Configuration parameters: EnforcedStyle.

@@ -1,5 +1,5 @@
 class ResqueMailer < ActionMailer::Base
-  helper ProposalsHelper, EmailHelper, GroupsHelper, UsersHelper
+  helper ProposalsHelper, EmailHelper, UsersHelper
   default from: ENV['DEFAULT_FROM']
 
   layout 'newsletters/default'
@@ -8,7 +8,6 @@ class ResqueMailer < ActionMailer::Base
     options = {}
     if @user
       options.merge!(host: @user.locale.host, protocol: DEFAULT_EMAIL_PROTOCOL)
-      options.merge!(subdomain: @user.subdomain) if @user.subdomain
       options.merge!(l: @user.locale.lang) unless @user.locale.lang.blank?
     end
     options

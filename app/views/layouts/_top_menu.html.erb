@@ -7,14 +7,12 @@
         </div>
       </div>
       <ul class="left">
-        <% unless in_subdomain? %>
-            <li>
-              <a id="logo-but" href="#" class="button" data-dropdown="hover1" data-options="is_hover:false">
-                <i class="fa fa-users medium"></i>
-                <span class="show-for-large-up"><%= t('pages.header.groups_title') %></span>
-              </a>
-            </li>
-        <% end %>
+        <li>
+          <a id="logo-but" href="#" class="button" data-dropdown="hover1" data-options="is_hover:false">
+            <i class="fa fa-users medium"></i>
+            <span class="show-for-large-up"><%= t('pages.header.groups_title') %></span>
+          </a>
+        </li>
         <% if current_user %>
             <li class="has-form">
               <%= simple_form_for Search.new, data: {remote: true, disable_form_validator: ''} do |f| %>
@@ -54,19 +52,13 @@
               <% end %>
             </li>
         <% else %>
-            <% if in_subdomain? %>
-                <li>
-                  <%= eval "#{@group.subdomain}_login" if @group %>
-                </li>
-            <% else %>
-                <li>
-                  <%= link_to t('pages.header.login'), '#', data: {reveal_id: "login-panel"}, class: "button fit-button show-for-medium-up" %>
-                  <%= link_to t('pages.header.login'), '/users/sign_in', class: "fit-button button show-for-small" %>
-                </li>
-                <li>
-                  <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name), class: 'fit-button button' %>
-                </li>
-            <% end %>
+          <li>
+            <%= link_to t('pages.header.login'), '#', data: {reveal_id: "login-panel"}, class: "button fit-button show-for-medium-up" %>
+            <%= link_to t('pages.header.login'), '/users/sign_in', class: "fit-button button show-for-small" %>
+          </li>
+          <li>
+            <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name), class: 'fit-button button' %>
+          </li>
         <% end %>
       </ul>
     </section>
@@ -75,30 +67,28 @@
   <%= render 'layouts/personal_menu' if user_signed_in? %>
 </div>
 
-<% unless in_subdomain? %>
-    <div id="hover1" class="f-dropdown medium" data-dropdown-content>
-      <% if user_signed_in? %>
-          <% if current_user.groups.empty? %>
-              <div class="group-item">
-                <h4><%= t('pages.header.no_groups_yet') %></h4>
-              </div>
-          <% else %>
-              <%= render partial: 'groups/group_menu_item', collection: current_user.groups, as: :group %>
-          <% end %>
-          <%= render 'groups/open_space_menu_item' %>
+<div id="hover1" class="f-dropdown medium" data-dropdown-content>
+  <% if user_signed_in? %>
+      <% if current_user.groups.empty? %>
+          <div class="group-item">
+            <h4><%= t('pages.header.no_groups_yet') %></h4>
+          </div>
+      <% else %>
+          <%= render partial: 'groups/group_menu_item', collection: current_user.groups, as: :group %>
       <% end %>
-      <div class="group-item">
-        <%= link_to new_group_url(subdomain: false), class: 'btn blue' do %>
-            <i class="fa fa-plus"></i>
-            <%= t('pages.header.open_group') %>
-        <% end %>
-        <%= link_to groups_url(subdomain: false), class: 'btn blue' do %>
-            <i class="fa fa-search"></i>
-            <%= t('pages.header.new_group') %>
-        <% end %>
-      </div>
-    </div>
-<% end %>
+      <%= render 'groups/open_space_menu_item' %>
+  <% end %>
+  <div class="group-item">
+    <%= link_to new_group_url, class: 'btn blue' do %>
+        <i class="fa fa-plus"></i>
+        <%= t('pages.header.open_group') %>
+    <% end %>
+    <%= link_to groups_url, class: 'btn blue' do %>
+        <i class="fa fa-search"></i>
+        <%= t('pages.header.new_group') %>
+    <% end %>
+  </div>
+</div>
 
 <%= render 'layouts/login_panel' unless signed_in? %>
 

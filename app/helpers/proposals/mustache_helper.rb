@@ -50,7 +50,7 @@ module Proposals
                                        group_image_tag: proposal_group_image_tag(proposal),
                                        status: proposal_status(proposal),
                                        short_content: proposal.short_content,
-                                       vote_url: (proposal.private ? group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal, subdomain: false)),
+                                       vote_url: (proposal.private ? group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal)),
                                        title_link: link_to_proposal(proposal, style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: proposal.title))
       ret[:mustache][:images] = {
         time_description: (image_tag 'plist/stopwatch.png'),

@@ -3,7 +3,7 @@
     <div class='panel callout'><p><%= t('pages.groups.edit_quorums.edit_quorum_warning') %></p></div>
 <% end %>
 
-<%= simple_form_for !in_subdomain? ? [@group, @quorum] : @quorum, validate: true, remote: request.xhr? do |e| %>
+<%= simple_form_for [@group, @quorum], validate: true, remote: request.xhr? do |e| %>
     <div class="row">
       <div class="columns small-12">
         <%= e.input :name %>

@@ -1,6 +1,6 @@
 # TODO: duplicated code, all that code is duplicated from notification helper. please fix it asap
 class NotificationSender
-  include Sidekiq::Worker, GroupsHelper, ProposalsHelper, Rails.application.routes.url_helpers
+  include Sidekiq::Worker, ProposalsHelper, Rails.application.routes.url_helpers
 
   sidekiq_options queue: :notifications, retry: 1
 
