@@ -1,5 +1,5 @@
 class Quorum < ActiveRecord::Base
-  include ActionView::Helpers::TextHelper, Rails.application.routes.url_helpers, GroupsHelper
+  include ActionView::Helpers::TextHelper, Rails.application.routes.url_helpers
 
   STANDARD = 2
 

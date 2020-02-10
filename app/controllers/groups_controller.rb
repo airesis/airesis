@@ -383,7 +383,7 @@ class GroupsController < ApplicationController
   protected
 
   def load_group
-    @group = params[:id] ? Group.friendly.find(params[:id]) : Group.find_by!(subdomain: request.subdomain)
+    @group = Group.friendly.find(params[:id])
   end
 
   def group_params

@@ -1,6 +1,6 @@
 <h2><%= @title %></h2>
 <div id="create_proposal">
-  <%= simple_form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, validate: true, remote: request.xhr? do |f| %>
+  <%= simple_form_for @group.present? ? [@group, @proposal] : @proposal, validate: true, remote: request.xhr? do |f| %>
       <div class="legend first">
         <div class="title">
           <%= t('pages.proposals.new.step_base_info') %>

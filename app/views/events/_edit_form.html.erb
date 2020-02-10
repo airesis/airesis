@@ -3,7 +3,7 @@
 <% else %>
     admin event
 <% end %>
-<%= simple_form_for (@group && !in_subdomain?) ? [@group, @event] : @event, validate: true do |f| %>
+<%= simple_form_for @group.present? ? [@group, @event] : @event, validate: true do |f| %>
     <%= f.hidden_field :organizer_id %>
     <div class="row">
       <div class="columns medium-6">

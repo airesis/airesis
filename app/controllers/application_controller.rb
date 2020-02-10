@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  include ApplicationHelper, GroupsHelper, StepsHelper
+  include ApplicationHelper, StepsHelper
   helper :all
 
   unless Rails.application.config.consider_all_requests_local
@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :age, :is_group_admin?, :in_subdomain?
+  helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :age, :is_group_admin?
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :email, :name, :surname, :accept_conditions, :sys_locale_id, :password])
@@ -87,12 +87,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_group
-    if params[:group_id].to_s != ''
-      @group = Group.friendly.find(params[:group_id])
-    elsif !['', 'www'].include? request.subdomain
-      @group = Group.find_by(subdomain: request.subdomain)
-    end
-    @group
+    @group = Group.friendly.find(params[:group_id]) if params[:group_id].present?
   end
 
   def load_blog_data
@@ -267,10 +262,6 @@ class ApplicationController < ActionController::Base
 
   def moderator_required
     is_admin? || is_moderator? || admin_denied
-  end
-
-  def in_subdomain?
-    request.subdomain.present? && request.subdomain != 'www'
   end
 
   # response if you must be an administrator

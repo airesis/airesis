@@ -1,5 +1,5 @@
 <h2><%= t('pages.groups.edit_permissions.new_role_title') %></h2>
-<%= simple_form_for in_subdomain? ? [@group_area, @area_role] : [@group, @group_area, @area_role], remote: remote do |f| %>
+<%= simple_form_for [@group, @group_area, @area_role], remote: remote do |f| %>
     <%= f.input :name %>
     <%= f.input :description, as: :text unless @group_area.area_role_id == @area_role.id %>
     <%= link_to t('buttons.cancel'),'#', class: 'btn', data: {'reveal-close' => ''}%>

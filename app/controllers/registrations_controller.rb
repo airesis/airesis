@@ -1,6 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
   def create
-    session[:subdomain] = request.subdomain
     session[:remote_ip] = request.remote_ip
     if session[:omniauth].nil?
       if !::Configuration.recaptcha || verify_recaptcha

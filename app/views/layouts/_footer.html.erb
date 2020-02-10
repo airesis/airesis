@@ -2,10 +2,6 @@
   <div class="large-6 medium-5 columns">
     <a href="https://github.com/airesis/airesis" target="_blank"><%= t('pages.footer.for_edemocracy_html') %></a>
     v.<%= AIRESIS_VERSION %>
-    <% if in_subdomain? %>
-        <%= link_to t('pages.footer.go_to_main_site'), root_url(subdomain: false), target: '_blank' %>
-    <% end %>
-
   </div>
 
   <div class="large-6 medium-7 columns text-right-medium-up">
