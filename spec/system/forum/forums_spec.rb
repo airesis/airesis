@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-RSpec.describe 'the management of the forum' do
+RSpec.describe 'the management of the forum', retry: 3 do
   before do
     load_database
     @user = create(:user)

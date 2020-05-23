@@ -2,6 +2,8 @@ require 'rails_helper'
 require 'requests_helper'
 
 RSpec.describe 'the user can invite other participants in the group', :js do
+  include ActiveJob::TestHelper
+
   let(:user) { create(:user) }
   let(:group) { create(:group, current_user_id: user.id) }
   let(:ability) { Ability.new(user) }
@@ -43,7 +45,7 @@ RSpec.describe 'the user can invite other participants in the group', :js do
         click_button I18n.t('buttons.send')
       end
       expect(page).to have_content I18n.t('info.group_invitations.create', count: 3, email_addresses: emails.join(', '))
-      expect(ActiveJob::Base.queue_adapter.enqueued_jobs.length).to eq 3
+      expect(enqueued_jobs_with(only: ActionMailer::MailDeliveryJob)).to eq 3
       perform_enqueued_jobs
       first_deliveries = ActionMailer::Base.deliveries.first(3)
       expect(first_deliveries.map { |m| m.to[0] }).to match_array emails
@@ -61,7 +63,7 @@ RSpec.describe 'the user can invite other participants in the group', :js do
     it 'can reject the invite' do
       emails = [Faker::Internet.email, Faker::Internet.email, Faker::Internet.email]
       create(:group_invitation, group: group, emails_list: emails.join(','), inviter_id: user.id)
-      expect(ActiveJob::Base.queue_adapter.enqueued_jobs.length).to eq 3
+      expect(enqueued_jobs_with(only: ActionMailer::MailDeliveryJob)).to eq 3
       perform_enqueued_jobs
       first_deliveries = ActionMailer::Base.deliveries.first(3)
       expect(first_deliveries.map { |m| m.to[0] }).to match_array emails
