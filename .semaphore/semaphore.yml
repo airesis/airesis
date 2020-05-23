@@ -16,6 +16,9 @@ blocks:
     task:
       secrets:
         - name: airesis
+      env_vars:
+        - name: RAILS_ENV
+          value: test
       jobs:
         - name: cache
           commands:
