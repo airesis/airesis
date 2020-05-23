@@ -40,7 +40,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :system, js: true) do
-    driven_by :selenium_chrome
+    driven_by :selenium_chrome_headless
   end
 
   config.include FactoryBot::Syntax::Methods
