@@ -1,0 +1,85 @@
+version: "v1.0"
+name: airesis
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+auto_cancel:
+  running:
+    when: "true"
+
+blocks:
+  - name: cache
+    execution_time_limit:
+      minutes: 10
+    dependencies: []
+    task:
+      secrets:
+        - name: airesis
+      jobs:
+        - name: cache
+          commands:
+            - checkout --use-cache
+            - cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master
+            - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master
+            - cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master
+            - cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master
+            - bundle install --without production development --deployment -j 4 --path vendor/bundle
+            - nvm install
+            - bin/yarn install --cache-folder ~/.cache/yarn
+            - sed /AWS_HOST/d config/application.example.yml > config/application.yml
+            - bundle exec rails assets:precompile
+            - cache store
+            - cache store packs-$SEMAPHORE_GIT_BRANCH public/packs-test
+            - cache store packstest-$SEMAPHORE_GIT_BRANCH public/packs-test
+            - cache store assets-$SEMAPHORE_GIT_BRANCH public/assets
+            - cache store sprocketscache-$SEMAPHORE_GIT_BRANCH tmp/cache/assets/sprockets
+            - cache store webpackercache-$SEMAPHORE_GIT_BRANCH tmp/cache/webpacker
+  - name: tests
+    execution_time_limit:
+      minutes: 10
+    dependencies: ['cache']
+    task:
+      secrets:
+        - name: airesis
+      env_vars:
+        - name: DATABASE_URL
+          value: postgresql://postgres@localhost/test?encoding=utf8
+        - name: RAILS_ENV
+          value: test
+      prologue:
+        commands:
+          - checkout --use-cache
+          - cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master
+          - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master
+          - cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master
+          - cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master
+          - cache restore packs-$SEMAPHORE_GIT_BRANCH,packs-develop,packs-master
+          - cache restore packstest-$SEMAPHORE_GIT_BRANCH,packstest-develop,packstest-master
+          - cache restore assets-$SEMAPHORE_GIT_BRANCH,assets-develop,assets-master
+          - cache restore sprocketscache-$SEMAPHORE_GIT_BRANCH,sprocketscache-develop,sprocketscache-master
+          - cache restore webpackercache-$SEMAPHORE_GIT_BRANCH,webpackercache-develop,webpackercache-master
+          - bundle install  --without production development --deployment --path vendor/bundle
+          - bin/yarn install --cache-folder ~/.cache/yarn
+          - sem-service start postgres
+          - sed /AWS_HOST/d config/application.example.yml > config/application.yml
+          - mkdir -p private/elfinder
+          - bundle exec rails db:create db:schema:load
+          - bundle exec rails assets:precompile
+      jobs:
+        - name: unit_tests
+          commands:
+            - bin/check_linters
+            - bin/check_unit_tests
+        - name: system_tests
+          commands:
+            - bin/check_system_tests
+promotions:
+  - name: develop
+    pipeline_file: develop-deploy.yml
+    auto_promote:
+      when: "result = 'passed' and branch = 'develop'"
+  - name: master
+    pipeline_file: master-deploy.yml
+    auto_promote:
+      when: "result = 'passed' and branch = 'master'"
