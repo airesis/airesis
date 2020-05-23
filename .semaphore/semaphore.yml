@@ -67,7 +67,7 @@ blocks:
           - sem-service start postgres
           - sed /AWS_HOST/d config/application.example.yml > config/application.yml
           - mkdir -p private/elfinder
-          - bundle exec rails db:create db:schema:load
+          - bundle exec rails db:setup
           - bundle exec rails assets:precompile
       jobs:
         - name: unit_tests
