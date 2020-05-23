@@ -7,7 +7,7 @@ RSpec.describe BlogPostsController, seeds: true do
   describe 'GET index' do
     let(:group) { create(:group, current_user_id: user.id) }
     let(:blog) { create(:blog, user: user) }
-    let!(:posts) { create_list(:blog_post, 5, blog: blog, user: user) }
+    let!(:posts) { create_list(:blog_post, 3, blog: blog, user: user) }
 
     it 'redirects to the group' do
       get blog_posts_path, params: { group_id: group.id }
@@ -23,7 +23,7 @@ RSpec.describe BlogPostsController, seeds: true do
 
     it 'show public posts' do
       get blog_posts_path
-      expect(response.body).to include(*posts.map { |post| CGI.escapeHTML(post.title) })
+      expect(CGI.unescapeHTML(response.body)).to include *posts.map(&:title)
     end
 
     it 'do not show reserved posts' do

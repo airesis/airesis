@@ -4,6 +4,7 @@ ruby File.read(File.join(__dir__, '.ruby-version'))
 
 gem 'rails', '~> 6.0.0'
 
+gem 'sprockets', '< 4.0'
 gem 'pg'
 gem 'rails_admin'
 gem 'bootsnap'

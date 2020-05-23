@@ -77,8 +77,8 @@ NOREPLY_EMAIL: "No Reply <noreply@example.com>"
 #####################
 #application parameters
 #####################
-APP_SHORT_NAME: "My App"
-APP_LONG_NAME: "My App - My short slogan"
+APP_SHORT_NAME: "Airesis"
+APP_LONG_NAME: "Airesis - The Social Network for E-Democracy"
 
 # default reference email address for the website. is used in the app to tell the user which email address he
 # has to contact for information. it is also shown in the footer of the emails as main contact address.
@@ -95,16 +95,16 @@ SITE: "https://www.example.com"
 REDIS_URL: "redis://127.0.0.1:6379/12"
 
 # remove these variables if you are not using amazon s3
-AWS_HOST: "s3-eu-west-1.amazonaws.com"
-AWS_BUCKET: ""
-AWS_ACCESS_KEY_ID: ""
-AWS_SECRET_ACCESS_KEY: ""
+# AWS_HOST: "s3-eu-west-1.amazonaws.com"
+# AWS_BUCKET: ""
+# AWS_ACCESS_KEY_ID: ""
+# AWS_SECRET_ACCESS_KEY: ""
 
 # assets on a cdn. remove it if you are not using a cdn
-ASSETS_HOST: ""
+# ASSETS_HOST: ""
 
 # remove this variable if you are not using cloudfront. set it to cloudfront alias if you want to you it
-AWS_ALIAS: "static.yourwebsite.com"
+# AWS_ALIAS: "static.yourwebsite.com"
 
 # Newrelic configurations
 NEW_RELIC_LICENSE_KEY: 'FROM NEW RELCI'

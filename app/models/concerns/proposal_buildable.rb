@@ -21,7 +21,7 @@ module ProposalBuildable
     element.sections.build(title: section_title,
                            question: section_question,
                            seq: section_seq).
-      paragraphs.build(content: '', seq: 1)
+        paragraphs.build(content: '', seq: 1)
   end
 
   def build_solution_section(solution, section_title, section_question, section_seq)
@@ -192,8 +192,7 @@ module ProposalBuildable
     solutions << solution
   end
 
-  def petition_create(_proposal)
-  end
+  def petition_create(_proposal) end
 
   def solution_builder(model, paragraphs)
     seq = 0
