@@ -21,7 +21,7 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 
   config.verbose_retry = true
-  config.around :each, :js do |ex|
+  config.around :each do |ex|
     ex.run_with_retry retry: 5
   end
 
