@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SearchProposal, type: :model, search: true do
+RSpec.describe SearchProposal, type: :model, search: true do
   let(:public_proposals) { create_list(:proposal, 3) }
 
   before do
@@ -24,7 +24,7 @@ describe SearchProposal, type: :model, search: true do
   end
 
   describe 'text search' do
-    it 'can search by text', :aggregate_failures do
+    it 'can search by text' do
       user = create(:user)
       group = create(:group, current_user_id: user.id)
       titles = ['hello everybody', 'how are you doing today', 'im a super proposal',
@@ -156,6 +156,60 @@ describe SearchProposal, type: :model, search: true do
       search_proposal.group = another_group
       expect(search_proposal.results.to_a).to match_array another_group_proposals
     end
+
+    it "can't retrieve private proposals not visible outside" do
+      user = create(:user)
+      group = create(:group, current_user_id: user.id)
+      proposal1 = create(:public_proposal, title: 'bella giornata', current_user_id: user.id)
+      proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
+      search_proposal = described_class.new
+      search_proposal.proposal_state_tab = ProposalState::TAB_DEBATE
+      expect(search_proposal.results.to_a).to match_array [proposal1]
+    end
+
+    it "can't retrieve public proposals if specifies a group, and can't see group's proposals if not signed in" do
+      user = create(:user)
+      group = create(:group, current_user_id: user.id)
+      proposal1 = create(:public_proposal, title: 'bella giornata', current_user_id: user.id)
+      proposal3 = create(:group_proposal,
+                         title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!',
+                         current_user_id: user.id,
+                         group_proposals: [GroupProposal.new(group: group)],
+                         visible_outside: false)
+
+      search_proposal = described_class.new
+      search_proposal.proposal_state_tab = ProposalState::TAB_DEBATE
+      search_proposal.group_id = group.id
+      expect(search_proposal.results.to_a).to match_array []
+    end
+
+    it "can't retrieve public proposals if specify a group, and can see group's proposals if signed in and is group admin" do
+      user = create(:user)
+      group = create(:group, current_user_id: user.id)
+      proposal1 = create(:public_proposal, title: 'bella giornata', current_user_id: user.id)
+      proposal3 = create(:group_proposal,
+                         title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!',
+                         current_user_id: user.id,
+                         group_proposals: [GroupProposal.new(group: group)],
+                         visible_outside: false)
+
+      search_proposal = described_class.new
+      search_proposal.user_id = user.id
+      search_proposal.proposal_state_tab = ProposalState::TAB_DEBATE
+      search_proposal.group_id = group.id
+      expect(search_proposal.results.to_a).to match_array [proposal3]
+    end
+
+    context 'when the administrator checks a group proposals' do
+      let(:user) { create(:admin) }
+
+      it 'can see them' do
+        group = create(:group, current_user_id: user.id)
+        proposal = create(:group_proposal, groups: [group], visible_outside: false)
+        search_proposal = described_class.new(user: user, group: group)
+        expect(search_proposal.results.to_a).to match_array [proposal]
+      end
+    end
   end
 
   describe 'filters by territory' do
@@ -169,6 +223,217 @@ describe SearchProposal, type: :model, search: true do
       search_proposal.proposal_state_tab = ProposalState::TAB_DEBATE
       search_proposal.interest_border = InterestBorder.find_by!(territory_type: 'Municipality', territory_id: bologna.id)
       expect(search_proposal.results.to_a).to match_array bologna_proposals
+    end
+  end
+
+  describe '#counters' do
+    subject(:counters) { search.counters }
+
+    let(:user) { create(:user) }
+    let(:proposals) { create_list(:public_proposal, 7, current_user_id: user.id) }
+    let(:group) { create(:group, current_user_id: user.id) }
+    let(:group_proposals) do
+      create_list(:group_proposal, 7, visible_outside: false, current_user_id: user.id, groups: [group])
+    end
+
+    let(:search) { described_class.new(user: user) }
+
+    def mix_states(proposals)
+      proposals[1].update(proposal_state_id: ProposalState::ABANDONED)
+      proposals[2].update(proposal_state_id: ProposalState::WAIT_DATE)
+      proposals[3].update(proposal_state_id: ProposalState::WAIT)
+      proposals[4].update(proposal_state_id: ProposalState::VOTING)
+      proposals[5].update(proposal_state_id: ProposalState::ACCEPTED)
+      proposals[6].update(proposal_state_id: ProposalState::REJECTED)
+    end
+
+    before do
+      mix_states(proposals)
+      mix_states(group_proposals)
+    end
+
+    context 'when in open space' do
+      it 'counts correctly proposals' do
+        expect(counters[ProposalState::TAB_DEBATE]).to eq(1)
+        expect(counters[ProposalState::TAB_VOTATION]).to eq(3)
+        expect(counters[ProposalState::TAB_VOTED]).to eq(2)
+        expect(counters[ProposalState::TAB_REVISION]).to eq(1)
+      end
+    end
+
+    context 'when counting group proposals' do
+      let(:search) { described_class.new(user: user, group: group) }
+
+      it 'displays the numbers only of the specific group' do
+        expect(counters[ProposalState::TAB_DEBATE]).to eq(1)
+        expect(counters[ProposalState::TAB_VOTATION]).to eq(3)
+        expect(counters[ProposalState::TAB_VOTED]).to eq(2)
+        expect(counters[ProposalState::TAB_REVISION]).to eq(1)
+      end
+    end
+  end
+
+  describe '#similar' do
+    let(:user) { create(:user) }
+    let(:proposal1) { create(:public_proposal, title: 'bella giornata', current_user_id: user.id) }
+
+    before { proposal1 }
+
+    it 'does not retrieve any results if no tag matches' do
+      search_proposal = described_class.new
+      search_proposal.add_tags_and_title('a,b,c', nil)
+      expect(search_proposal.similar).to eq([])
+    end
+
+    it 'retrieve correct result matching title but not tags' do
+      search_proposal = described_class.new
+      search_proposal.add_tags_and_title('a,b,c', 'bella giornata')
+      expect(search_proposal.similar).to eq([proposal1])
+    end
+
+    it 'retrieve correct result matching title' do
+      search_proposal = described_class.new
+      search_proposal.add_tags_and_title(nil, 'bella giornata')
+      expect(search_proposal.similar).to eq([proposal1])
+    end
+
+    it 'retrieve both proposals with correct tag' do
+      proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
+      search_proposal = described_class.new
+      search_proposal.add_tags_and_title('tag1', nil)
+      expect(search_proposal.similar).to eq([proposal1, proposal2])
+    end
+
+    it 'retrieve both proposals matching title with tag' do
+      proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
+      search_proposal = described_class.new
+      search_proposal.add_tags_and_title('giornata', nil)
+      expect(search_proposal.similar).to eq([proposal1, proposal2])
+    end
+
+    it 'retrieve only one if only one matches' do
+      proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
+      search_proposal = described_class.new
+      search_proposal.add_tags_and_title('inferno', nil)
+      expect(search_proposal.similar).to eq([proposal2])
+    end
+
+    it 'retrieve both proposals matching title' do
+      proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
+      search_proposal = described_class.new
+      search_proposal.add_tags_and_title(nil, 'giornata')
+      expect(search_proposal.similar).to eq([proposal1, proposal2])
+    end
+
+    it 'find first the most relevant' do
+      proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
+      search_proposal = described_class.new
+      search_proposal.add_tags_and_title('tag1', 'inferno')
+      expect(search_proposal.similar).to eq([proposal2, proposal1])
+    end
+
+    it 'find first the most relevant mixing title and tags' do
+      proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
+      search_proposal = described_class.new
+      search_proposal.add_tags_and_title('giornata', 'inferno')
+      expect(search_proposal.similar).to eq([proposal2, proposal1])
+    end
+
+    it 'find both also with some other words' do
+      proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
+      search_proposal = described_class.new
+      search_proposal.add_tags_and_title('giornata, tag1, parole, a, caso', 'inferno')
+      expect(search_proposal.similar).to eq([proposal2, proposal1])
+    end
+
+    it 'does not retrieve anything with a wrong title' do
+      proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
+      search_proposal = described_class.new
+      search_proposal.add_tags_and_title(nil, 'rappresentative')
+      expect(search_proposal.similar).to eq([])
+    end
+
+    it "can't retrieve private proposals not visible outside" do
+      proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
+      search_proposal = described_class.new
+      search_proposal.add_tags_and_title(nil, 'inferno')
+      expect(search_proposal.similar).to eq([proposal2])
+    end
+
+    it 'can retrieve private proposals that are visible outside' do
+      proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
+      group = create(:group, current_user_id: user.id)
+      proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: true)
+      search_proposal = described_class.new
+      search_proposal.add_tags_and_title('inferno', nil)
+      expect(search_proposal.similar).to eq([proposal3, proposal2])
+    end
+
+    it "can't retrieve public proposals if specifies a group, and can't see group's proposals if not signed in" do
+      hell_day = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
+      group = create(:group, current_user_id: user.id)
+      hell_group = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!',
+                                           current_user_id: user.id,
+                                           groups: [group], visible_outside: false)
+      search_proposal = described_class.new
+      search_proposal.add_tags_and_title('inferno', nil)
+      search_proposal.group_id = group.id
+      expect(search_proposal.similar).to eq([])
+    end
+
+    it "can't retrieve public proposals if specify a group, and can see group's proposals if signed in and is group admin" do
+      proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
+      group = create(:group, current_user_id: user.id)
+      proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
+
+      search_proposal = described_class.new
+      search_proposal.add_tags_and_title('inferno', nil)
+      search_proposal.user_id = user.id
+      search_proposal.group_id = group.id
+      expect(search_proposal.similar).to eq([proposal3])
+    end
+
+    it "can retrieve public proposals and can see group's proposals if signed in and is group admin" do
+      proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
+      group = create(:group, current_user_id: user.id)
+      proposal3 = create(:group_proposal,
+                         title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!',
+                         current_user_id: user.id,
+                         groups: [group],
+                         visible_outside: false)
+
+      search_proposal = described_class.new
+      search_proposal.add_tags_and_title('inferno', nil)
+      search_proposal.user_id = user.id
+      expect(search_proposal.similar).to eq([proposal3, proposal2])
+    end
+
+    it "can retrieve public proposals and can see group's proposals if he has enough permissions" do
+      proposal2 = create(:public_proposal, title: 'una giornata da inferno', current_user_id: user.id)
+      group = create(:group, current_user_id: user.id)
+      proposal3 = create(:group_proposal, title: 'questo gruppo è un INFERNO! riorganizziamolo!!!!', current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
+
+      user2 = create(:user)
+      create_participation(user2, group)
+
+      search_proposal = described_class.new
+      search_proposal.add_tags_and_title('inferno', nil)
+      search_proposal.user_id = user2.id
+      expect(search_proposal.similar).to eq([proposal3, proposal2])
+    end
+
+    it "can retrieve public proposals and can see group area's proposals if he has enough permissions" do
+      group = create(:group, current_user_id: user.id)
+      proposal3 = create(:group_proposal, title: 'questa giornata è un INFERNO! riorganizziamolo!!!!', current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)], visible_outside: false)
+
+      user2 = create(:user)
+      create_participation(user2, group)
+      activate_areas(group)
+
+      search_proposal = described_class.new
+      search_proposal.add_tags_and_title(nil, 'giornata')
+      search_proposal.user_id = user2.id
+      expect(search_proposal.similar).to eq([proposal3, proposal1])
     end
   end
 end

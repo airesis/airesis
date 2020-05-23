@@ -2,12 +2,12 @@ require 'simplecov'
 
 unless ENV['NO_COVERAGE']
   SimpleCov.start 'rails'
-  SimpleCov.minimum_coverage 34.70
+  SimpleCov.minimum_coverage 32.90
   SimpleCov.maximum_coverage_drop 0
 end
 
 ENV['RAILS_ENV'] ||= 'test'
-require 'rails_helper'
+require 'spec_helper'
 require File.expand_path('../config/environment', __dir__)
 require 'rspec/rails'
 require 'sidekiq/testing'
@@ -44,12 +44,8 @@ RSpec.configure do |config|
   end
 
   config.include FactoryBot::Syntax::Methods
-
-  config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :request
-
   config.include Warden::Test::Helpers
-
   config.include Capybara::Select2
 
   config.infer_spec_type_from_file_location!
@@ -59,8 +55,22 @@ RSpec.configure do |config|
 
   config.include Rails.application.routes.url_helpers
 
+  config.before(:all, type: :system) do
+    Capybara.server = :puma, { Silent: true }
+  end
+
+  config.verbose_retry = true
+  config.display_try_failure_messages = true
   config.around :each, :js do |ex|
     ex.run_with_retry retry: 3
+  end
+
+  # callback to be run between retries
+  config.retry_callback = proc do |ex|
+    # run some additional clean up task - can be filtered by example metadata
+    if ex.metadata[:js]
+      Capybara.reset!
+    end
   end
 end
 

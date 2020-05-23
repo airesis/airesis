@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe 'the management of the blog posts', :js do
+RSpec.describe 'the management of the blog posts', :js do
   def fill_and_submit(page)
     expect(page).to have_content(I18n.t('pages.proposals.show.add_comment'))
     comment = Faker::Lorem.sentence

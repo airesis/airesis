@@ -50,7 +50,7 @@
                 </div>
             <% end %>
             <div id="centerpanelextended" class="centerpanelextended <%= 'noleft' unless content_for?(:left_panel) %> <%= 'nomargin' if @nomargin %>">
-              <div class="row centerfloat <%= 'extended' if @extend %>">
+              <div class="row <%= 'centerfloat' if content_for?(:left_panel) %> <%= 'extended' if @extend %>">
                 <div id="flash_messages">
                   <%= render partial: 'layouts/flash', locals: { flash: flash } %>
                 </div>

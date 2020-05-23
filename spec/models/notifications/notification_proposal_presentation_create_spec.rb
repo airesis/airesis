@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationProposalPresentationCreate, type: :model, emails: true, notifications: true, seeds: true do
+RSpec.describe NotificationProposalPresentationCreate, type: :model, emails: true, notifications: true, seeds: true do
   it 'when new authors for a proposal are available sends correctly an email to all participants to the proposal' do
     user1 = create(:user)
     proposal = create(:public_proposal, current_user_id: user1.id)

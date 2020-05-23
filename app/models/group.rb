@@ -1,6 +1,6 @@
 class Group < ActiveRecord::Base
   extend FriendlyId
-  include Concerns::Taggable
+  include Taggable
   include PgSearch::Model
 
   pg_search_scope :search, lambda { |query, any_word = false|
@@ -47,7 +47,7 @@ class Group < ActiveRecord::Base
 
   has_many :participation_roles, -> { order 'participation_roles.id DESC' }, class_name: 'ParticipationRole', dependent: :destroy
   belongs_to :interest_border, class_name: 'InterestBorder', foreign_key: :interest_border_id
-  belongs_to :default_role, class_name: 'ParticipationRole', foreign_key: :participation_role_id
+  belongs_to :default_role, class_name: 'ParticipationRole', foreign_key: :participation_role_id, optional: true
   has_many :meeting_organizations, class_name: 'MeetingOrganization', foreign_key: 'group_id', dependent: :destroy
 
   has_many :events, through: :meeting_organizations, class_name: 'Event', source: :event

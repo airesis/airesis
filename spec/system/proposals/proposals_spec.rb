@@ -170,19 +170,13 @@ RSpec.describe 'create a proposal in his group', :js do
     find("div[data-id=#{type}]").click
 
     proposal_name = Faker::Lorem.sentence
-    within('.reveal-modal') do
-      fill_in I18n.t('pages.proposals.new.title_synthetic'), with: proposal_name
-      sleep 2
-      click_link I18n.t('buttons.next')
-      fill_tokeninput '#proposal_tags_list', with: %w[tag1 tag2 tag3]
-      click_link I18n.t('buttons.next')
-      fill_in_ckeditor 'proposal_sections_attributes_0_paragraphs_attributes_0_content', with: Faker::Lorem.paragraph
-      click_link I18n.t('buttons.next')
-      quorum = group.quorums.find_by(name: '15 giorni')
-      page.execute_script(%|$('#proposal_quorum_id').val(#{quorum.id}).trigger('change');|)
-      click_link 'Finish'
-    end
-    wait_for_ajax
+    fill_in I18n.t('pages.proposals.new.title_synthetic'), with: proposal_name
+    fill_tokeninput '#proposal_tags_list', with: %w[tag1 tag2 tag3]
+    fill_in_ckeditor 'proposal_sections_attributes_0_paragraphs_attributes_0_content', with: Faker::Lorem.paragraph
+    quorum = group.quorums.find_by(name: '15 giorni')
+    page.execute_script(%|$('#proposal_quorum_id').val(#{quorum.id}).trigger('change');|)
+    click_button I18n.t('pages.proposals.new.create_button')
+    expect(page).to have_content('Edit the proposal')
     page_should_be_ok
     proposal2 = Proposal.order(created_at: :desc).first
     expect(page).to have_current_path(edit_group_proposal_path(group, proposal2))

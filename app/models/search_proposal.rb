@@ -40,44 +40,25 @@ class SearchProposal < ActiveRecord::Base
 
   def search
     proposals = text ? Proposal.search(text) : Proposal.all
-
     proposals = proposals.where.not(proposal_type_id: 11) # TODO: removed petitions
-
-    if created_at_from
-      ends = created_at_to || Time.now
-      proposals = proposals.where(created_at: created_at_from..ends)
-    end
-
-    if proposal_category_id
-      proposals = proposals.where(proposal_category_id: proposal_category_id)
-    end
-
-    if proposal_type_id
-      proposals = proposals.where(proposal_type_id: proposal_type_id)
-    end
-
+    proposals = proposals.where(created_at: created_at_from..(created_at_to || Time.now)) if created_at_from
+    proposals = proposals.where(proposal_category_id: proposal_category_id) if proposal_category_id
+    proposals = proposals.where(proposal_type_id: proposal_type_id) if proposal_type_id
     proposals = proposals.accessible_by(Ability.new(user), :index, false)
 
     if group_id
       proposals = proposals.
-                  joins('LEFT JOIN proposal_supports on proposal_supports.proposal_id = proposals.id')
-      proposals = proposals.joins('LEFT JOIN group_proposals on group_proposals.proposal_id = proposals.id') unless user_id
-      proposals = proposals.where('proposal_supports.group_id = ? or group_proposals.group_id = ?', group_id, group_id)
+                  left_joins(:proposal_supports, :group_proposals).
+                  where('proposal_supports.group_id = ? or group_proposals.group_id = ?', group_id, group_id)
       if group_area_id
-        proposals = proposals.joins('LEFT JOIN area_proposals on area_proposals.proposal_id = proposals.id') unless user_id
-        proposals = proposals.where('area_proposals.group_area_id = ?', group_area_id)
+        proposals = proposals.left_joins(:area_proposals).where(area_proposals: { group_area_id: group_area_id })
       end
     else # only public
       proposals = proposals.where('proposals.private = false or proposals.visible_outside = true')
-      if interest_border.present?
-        proposals = proposals.by_interest_borders(interest_border.key)
-      end
+      proposals = proposals.by_interest_borders(interest_border.key) if interest_border.present?
     end
 
     proposals
-    # Proposal.search do
-    #   fulltext text, minimum_match: self.or if text
-    # end
   end
 
   def results
@@ -143,5 +124,9 @@ class SearchProposal < ActiveRecord::Base
     end
     proposals.select('proposals.*', "#{PgSearch::Configuration.alias('proposals')}.rank").
       reorder('proposals.private desc', "#{PgSearch::Configuration.alias('proposals')}.rank desc").page(1).per(10)
+  end
+
+  def add_tags_and_title(tags, title)
+    self.text = "#{title} #{(tags.downcase.delete('.').delete("'").split(',').map(&:strip).join(' ') if tags)}"
   end
 end

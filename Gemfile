@@ -2,8 +2,9 @@ source 'http://rubygems.org'
 
 ruby File.read(File.join(__dir__, '.ruby-version'))
 
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.0.0'
 
+gem 'sprockets', '< 4.0'
 gem 'pg'
 gem 'rails_admin'
 gem 'bootsnap'
@@ -43,6 +44,7 @@ gem 'el_finder'
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'globalize'
 gem 'sanitize'
+gem 'webpacker'
 gem 'wicked_pdf'
 gem 'httparty'
 gem 'icalendar'
@@ -77,7 +79,6 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'bullet'
-  # gem 'foreman'
   gem 'i18n-tasks'
   gem 'letter_opener'
   gem 'pry-byebug'
@@ -94,7 +95,6 @@ group :test do
   gem 'factory_bot_rails'
   gem 'rspec-rails'
   gem 'timecop'
-  gem 'rails-controller-testing'
 end
 
 group :development, :test do

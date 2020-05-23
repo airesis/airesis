@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Proposal, type: :model do
+RSpec.describe Proposal, type: :model do
   let(:user) { create(:user) }
   let(:group) { create(:group, current_user_id: user.id) }
   let(:group_area) { create(:group_area, group: group) }
@@ -114,6 +114,41 @@ describe Proposal, type: :model do
       tag = proposal.tags.first
       expect(tag.tag_counters.length).to eq(1)
       expect(tag.tag_counters.first.proposals_count).to eq(1)
+    end
+  end
+
+  describe '#votation_portlet' do
+    subject(:results) { described_class.votation_portlet(user) }
+
+    let(:user) { create(:user) }
+
+    before { proposals }
+
+    context 'when there are no proposals' do
+      let(:proposals) { [] }
+
+      it 'returns no results' do
+        expect(results).to be_empty
+      end
+    end
+
+    context 'when there are proposals he can vote' do
+      let(:proposals) do
+        owned_group = create(:group, current_user_id: user.id)
+        other_group = create(:group)
+        create_participation(user, other_group)
+        already_voted = create(:in_vote_public_proposal, groups: [owned_group])
+        create_simple_vote(user, already_voted)
+        [create(:in_vote_public_proposal, groups: [owned_group]),
+         create(:in_vote_public_proposal, groups: [other_group])]
+      end
+
+      it 'shows proposals in groups where he has the right to vote, where he is admin, and has not voted yet' do
+        expect(results).to match_array(proposals)
+        expect(results.first).to respond_to(:alerts_count)
+        expect(results.first).to respond_to(:ranking)
+        expect(results.first).to respond_to(:end_time)
+      end
     end
   end
 end

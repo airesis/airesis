@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Frm::Category do
+RSpec.describe Frm::Category do
   context 'when created' do
     let(:category) { create(:frm_category) }
 

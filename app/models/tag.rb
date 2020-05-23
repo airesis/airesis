@@ -13,7 +13,7 @@ class Tag < ActiveRecord::Base
 
   scope :for_twitter, -> { pluck(:text).map { |t| "##{t}" }.join(', ') }
 
-  before_save :escape_text, on: :create
+  before_save :escape_text
 
   def as_json(_options = {})
     { id: text, name: text }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Frm::Forum do
+RSpec.describe Frm::Forum do
   describe 'validations' do
     subject { build(:frm_forum) }
 

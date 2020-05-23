@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe 'check permissions on vote events', seeds: true do
+RSpec.describe 'check permissions on vote events', seeds: true do
   let!(:user) { create(:user) }
   let!(:group) { create(:group, current_user_id: user.id) }
   let!(:event) { create(:vote_event, user: user) }

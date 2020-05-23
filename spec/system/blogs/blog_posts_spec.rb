@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'requests_helper'
 
-describe 'the blog posts process', :js, seeds: true do
+RSpec.describe 'the blog posts process', :js, seeds: true do
   let!(:user) { create(:user) }
   let!(:blog) { create(:blog, user: user) }
 

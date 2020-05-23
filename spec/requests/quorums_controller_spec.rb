@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'requests_helper'
 
-RSpec.describe QuorumsController, type: :controller do
+RSpec.describe QuorumsController do
   let!(:province) { create(:province) }
   let!(:user) { create(:user) }
   let(:group) { create(:group, current_user_id: user.id) }
@@ -29,12 +29,12 @@ RSpec.describe QuorumsController, type: :controller do
     end
 
     it 'responds to js' do
-      post :create, params: quorum_params.merge(format: :js)
+      post best_quorums_path, params: quorum_params.merge(format: :js)
       expect(response).to have_http_status :ok
     end
 
     it 'responds to html' do
-      post :create, params: quorum_params
+      post best_quorums_path, params: quorum_params
       expect(response).to have_http_status :found
     end
   end

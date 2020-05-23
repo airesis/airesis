@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-xdescribe 'create proposal solutions', :js do
+RSpec.xdescribe 'create proposal solutions', :js do
   it 'creates solutions in his public proposal' do
     load_database
     @user = create(:user)

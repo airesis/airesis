@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'requests_helper'
 
-describe 'the authenticated user process', :js do
+RSpec.describe 'the authenticated user process', :js do
   before do
     @user = create(:user)
     login @user, 'topolino'

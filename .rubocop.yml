@@ -40,12 +40,13 @@ RSpec/ExpectInHook:
 Capybara/CurrentPathExpectation:
   Enabled: false
 
-Metrics/LineLength:
+Layout/LineLength:
   Exclude:
     - config/locales/plurals.rb
 
 AllCops:
   Exclude:
+    - 'node_modules/**/*'
     - 'uploads/**/*'
     - 'bin/**/*'
     - 'script/**/*'
@@ -54,4 +55,5 @@ AllCops:
     - 'tmp/**/*'
     - 'db/**/*'
     - 'vendor/**/*'
+    - 'node_modules/**/*'
 inherit_from: .rubocop_todo.yml

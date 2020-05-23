@@ -47,38 +47,7 @@ class ProposalsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        @page_head = ''
-
-        @page_head += if params[:category]
-                        t('pages.proposals.index.title_with_category', category: ProposalCategory.find(params[:category]).description)
-                      else
-                        t('pages.proposals.index.title')
-                      end
-
-        if params[:type]
-          @page_head += " #{t('pages.propsoals.index.type', type: ProposalType.find(params[:type]).description)}"
-        end
-
-        if params[:time]
-          if params[:time][:type] == 'f'
-            @page_head += " #{t('pages.proposals.index.date_range', start: params[:time][:start_w], end: params[:time][:end_w])}"
-          elsif params[:time][:type] == '1h'
-            @page_head += " #{t('pages.proposals.index.last_1h')}"
-          elsif params[:time][:type] == '24h'
-            @page_head += " #{t('pages.proposals.index.last_24h')}"
-          elsif params[:time][:type] == '7d'
-            @page_head += " #{t('pages.proposals.index.last_7d')}"
-          elsif params[:time][:type] == '1m'
-            @page_head += " #{t('pages.proposals.index.last_1m')}"
-          elsif params[:time][:type] == '1y'
-            @page_head += " #{t('pages.proposals.index.last_1y')}"
-          end
-        end
-        if params[:search]
-          @page_head += " #{t('pages.proposals.index.with_text', text: params[:search])}"
-        end
-        @page_head += " #{t('pages.proposals.index.in_group_area_title')} '#{@group_area.name}'" if @group_area
-
+        generate_page_head
         @page_title = @page_head
       end
       format.json
@@ -229,7 +198,6 @@ class ProposalsController < ApplicationController
     if @proposal.save
       respond_to do |format|
         flash[:notice] = I18n.t('info.proposal.proposal_created')
-        format.js
         format.html do
           if request.env['HTTP_REFERER']['back=home']
             redirect_to home_url
@@ -249,7 +217,6 @@ class ProposalsController < ApplicationController
       end
       respond_to do |format|
         format.html { render action: :new }
-        format.js { render 'error_create' }
       end
     end
   end
@@ -321,11 +288,8 @@ class ProposalsController < ApplicationController
   # se è indicato un group_id cerca anche tra quelle interne a quel gruppo
   def similar
     authorize! :index, Proposal
-    tags = params[:tags].downcase.delete('.').delete("'").split(',').map(&:strip).join(' ').html_safe if params[:tags]
-    search_q = "#{params[:title]} #{tags}"
-
-    search = SearchProposal.new(text: search_q)
-
+    search = SearchProposal.new
+    search.add_tags_and_title(params[:tags], params[:title])
     search.user_id = current_user.id if current_user
     search.group_id = @group.id if @group
     @proposals = search.similar
@@ -502,6 +466,40 @@ class ProposalsController < ApplicationController
   end
 
   private
+
+  def generate_page_head
+    @page_head = ''
+
+    @page_head += if params[:category]
+                    t('pages.proposals.index.title_with_category', category: ProposalCategory.find(params[:category]).description)
+                  else
+                    t('pages.proposals.index.title')
+                  end
+
+    if params[:type]
+      @page_head += " #{t('pages.propsoals.index.type', type: ProposalType.find(params[:type]).description)}"
+    end
+
+    if params[:time]
+      if params[:time][:type] == 'f'
+        @page_head += " #{t('pages.proposals.index.date_range', start: params[:time][:start_w], end: params[:time][:end_w])}"
+      elsif params[:time][:type] == '1h'
+        @page_head += " #{t('pages.proposals.index.last_1h')}"
+      elsif params[:time][:type] == '24h'
+        @page_head += " #{t('pages.proposals.index.last_24h')}"
+      elsif params[:time][:type] == '7d'
+        @page_head += " #{t('pages.proposals.index.last_7d')}"
+      elsif params[:time][:type] == '1m'
+        @page_head += " #{t('pages.proposals.index.last_1m')}"
+      elsif params[:time][:type] == '1y'
+        @page_head += " #{t('pages.proposals.index.last_1y')}"
+      end
+    end
+    if params[:search]
+      @page_head += " #{t('pages.proposals.index.with_text', text: params[:search])}"
+    end
+    @page_head += " #{t('pages.proposals.index.in_group_area_title')} '#{@group_area.name}'" if @group_area
+  end
 
   def proposal_params
     params.require(:proposal).permit(:proposal_category_id, :content, :title, :interest_borders_tkn, :tags_list,

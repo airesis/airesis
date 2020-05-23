@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe 'check if quorums are working correctly', :js do
+RSpec.describe 'check if quorums are working correctly', :js do
   let(:user) { create(:user) }
   let(:group) { create(:group, current_user_id: user.id) }
   let(:quorum) { create(:best_quorum, group_quorum: GroupQuorum.new(group: group)) } # min participants is 10% and good score is 50%. vote quorum 0, 50%+1

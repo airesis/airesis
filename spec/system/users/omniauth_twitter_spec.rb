@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'requests_helper'
 
-describe 'the oauth2 process', :js do
+RSpec.describe 'the oauth2 process', :js do
   describe 'Twitter' do
     before do
       @oauth_data = {

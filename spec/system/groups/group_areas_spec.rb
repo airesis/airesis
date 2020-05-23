@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'requests_helper'
 
-describe 'the management of group areas', :js, seeds: true do
+RSpec.describe 'the management of group areas', :js, seeds: true do
   before do
     @user = create(:user)
     @ability = Ability.new(@user)

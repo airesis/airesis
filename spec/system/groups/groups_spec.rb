@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'requests_helper'
 
-describe 'the creation of a group process', :js do
+RSpec.describe 'the creation of a group process', :js do
   before do
     load_database
     @user = create(:user)

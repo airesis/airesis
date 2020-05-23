@@ -1,33 +1,25 @@
-<fieldset>
-  <legend>1. <%= t('activerecord.attributes.proposal.quorum_id') %></legend>
+<% if @group %>
+  <% @quorum_collection = @group.quorums.active %>
+<% else %>
+  <% @quorum_collection = Quorum.visible.order('seq nulls last') %>
+<% end %>
+<%= f.input :quorum_id, as: :select, required: true,
+            collection: @quorum_collection.collect { |p| [p.name, p.id, { 'data-description' => p.description,
+                                                                          'data-explanation' => p.explanation,
+                                                                          'data-time_fixed' => p.time_fixed?,
+                                                                          'data-minutes' => p.minutes }] },
+            include_blank: t('pages.proposals.new.quorum_prompt'), input_html: { style: 'width: 100%' } %>
 
-  <% if @group %>
-      <% @quorum_collection = @group.quorums.active %>
-  <% else %>
-      <% @quorum_collection = Quorum.visible.order('seq nulls last') %>
-  <% end %>
-  <%= f.input :quorum_id, as: :select,
-              collection: @quorum_collection.collect { |p| [p.name, p.id, { 'data-description' => p.description,
-                                                                            'data-explanation' => p.explanation,
-                                                                            'data-time_fixed' => p.time_fixed?,
-                                                                            'data-minutes' => p.minutes }] },
-              include_blank: t('pages.proposals.new.quorum_prompt'), input_html: { style: 'width: 100%' } %>
+<div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
+</div>
 
-  <div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
+<div class="clearboth"></div>
+<p id="quorum_explanation" class="panel callout" style="display:none;">
+
+</p>
+
+<div class="content" id="choose_votation">
+  <div>
+    <%= I18n.t('select_debate_duration') %>
   </div>
-
-  <div class="clearboth"></div>
-  <p id="quorum_explanation" class="panel callout" style="display:none;">
-
-  </p>
-</fieldset>
-
-
-<fieldset id="choose_votation">
-  <legend>2. <%= t('pages.proposals.show.choose_votation_period') %></legend>
-  <div class="content">
-    <div>
-      <%= I18n.t('select_debate_duration') %>
-    </div>
-  </div>
-</fieldset>
+</div>

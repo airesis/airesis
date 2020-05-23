@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe NotificationProposalCommentUpdate, type: :model, emails: true, notifications: true, seeds: true do
+RSpec.describe NotificationProposalCommentUpdate, type: :model, emails: true, notifications: true, seeds: true do
   it 'when a proposal comment is updated sends correctly an email all people which ranked the comment' do
     user1 = create(:user)
     group = create(:group, current_user_id: user1.id)

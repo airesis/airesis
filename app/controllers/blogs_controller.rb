@@ -70,7 +70,7 @@ class BlogsController < ApplicationController
   end
 
   def update
-    if @blog.update_attributes(blog_params)
+    if @blog.update(blog_params)
       flash[:notice] = t('info.blog.title_updated')
       redirect_to @blog
     else

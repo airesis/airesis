@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'paperclip/matchers'
 
-describe Group do
+RSpec.describe Group do
   let(:group) { build(:group) }
 
   context 'validations' do
