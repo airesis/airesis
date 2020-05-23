@@ -62,6 +62,7 @@ blocks:
           - cache restore assets-$SEMAPHORE_GIT_BRANCH,assets-develop,assets-master
           - cache restore sprocketscache-$SEMAPHORE_GIT_BRANCH,sprocketscache-develop,sprocketscache-master
           - cache restore webpackercache-$SEMAPHORE_GIT_BRANCH,webpackercache-develop,webpackercache-master
+          - nvm use
           - bundle install  --without production development --deployment --path vendor/bundle
           - bin/yarn install --cache-folder ~/.cache/yarn
           - sem-service start postgres
