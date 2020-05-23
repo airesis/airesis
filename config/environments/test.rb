@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.cache_classes = true
+  config.cache_classes = false
   config.eager_load = false
   config.public_file_server.enabled = true
   config.public_file_server.headers = {

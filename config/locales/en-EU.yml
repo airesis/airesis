@@ -491,13 +491,7 @@ en-EU:
         title_placeholder: "ex. 'Facilitate bike transport on trains'"
         interest_borders_tkn_placeholder: "Cities, Regions or States interested by the proposal"
         tags_list_placeholder: "Insert some tags for your proposal"
-        step_1_title: "You can pose a problem to solve, an idea to improve, an initiative to organize ... The important thing is to have a clear goal: %{app_short_name} will help you achieve it with the help of other people, through a process of shared problem solving."
         step_2_title: "Maybe someone has already created a similar proposal: check below and eventually stop your creation to avoid duplication. Joining forces gives strength to your ideas! Clicking on the title the proposals will be opened in a new tab."
-        step_4_title: "Perfect! Choose your options and click 'Create the proposal' to complete the guide. Your proposal will be included in %{app_short_name} and you will be able to add more information whenever you want with more information."
-        step_4_footer_html: |
-          %{app_short_name} will help you to reach your goal through shared problem solving: users will suggest modifications and contributions to your text and <b>it is up to you</b> to integrate the most liked.<br/>
-          If you don't do it, your proposal won't go to the voting phase.<br/>
-          Good luck and don't get scared: you can be helped by other people in your task.
         category_prompt: "--Choose a category--"
         tags_separated_by_comma: "(separated by comma)"
         cannot_add_proposal_in_work_area: "You dont' have the required permissions to add the proposal in any area"

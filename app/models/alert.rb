@@ -71,7 +71,7 @@ class Alert < ActiveRecord::Base
   end
 
   def soft_delete
-    update_attributes!(deleted: true, deleted_at: Time.now)
+    update!(deleted: true, deleted_at: Time.now)
   end
 
   def self.soft_delete_all

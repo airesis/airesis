@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'requests_helper'
 
-describe 'view proposal revisions', :js, seeds: true do
+RSpec.describe 'view proposal revisions', :js, seeds: true do
   let!(:user) { create(:user) }
   let!(:proposal) { create(:proposal, current_user_id: user.id) }
 

@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'requests_helper'
 
-describe 'the blogs process', :js do
+RSpec.describe 'the blogs process', :js do
   before do
     @user = create(:user)
     login_as @user, scope: :user

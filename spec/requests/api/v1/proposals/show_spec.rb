@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'cancan/matchers'
 
-describe 'api/v1/proposals#show', type: :request, seeds: true do
+RSpec.describe 'api/v1/proposals#show', type: :request, seeds: true do
   let!(:user) { create(:user) }
   let!(:public_proposal) { create(:public_proposal) }
 

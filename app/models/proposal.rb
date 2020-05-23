@@ -1,5 +1,5 @@
 class Proposal < ActiveRecord::Base
-  include Concerns::ProposalSearchable, Frm::Concerns::Viewable, Concerns::ProposalBuildable, Concerns::Taggable
+  include ProposalSearchable, Frm::Concerns::Viewable, ProposalBuildable, Taggable
 
   belongs_to :state, class_name: 'ProposalState', foreign_key: :proposal_state_id
   belongs_to :category, class_name: 'ProposalCategory', foreign_key: :proposal_category_id
@@ -149,8 +149,8 @@ class Proposal < ActiveRecord::Base
 
   scope :for_list, ->(user_id = nil) do
     select_alerts_and_rankings(user_id).
-      includes(:interest_borders, :user_votes, :presentation_areas, :groups,
-               :category, :quorum, :vote_period, :proposal_type)
+        includes(:interest_borders, :user_votes, :presentation_areas, :groups,
+                 :category, :quorum, :vote_period, :proposal_type)
   end
 
   scope :by_interest_borders, ->(ib) { where('proposals.derived_interest_borders_tokens @> ARRAY[?]::varchar[]', ib) }
@@ -186,20 +186,20 @@ class Proposal < ActiveRecord::Base
     alerts = Alert.arel_table
     proposals = Proposal.arel_table
     alerts_count = alerts.
-      project('count(*)').
-      where(alerts[:trackable_id].eq(proposals[:id]).
-        and(alerts[:trackable_type].eq('Proposal')).
-        and(alerts[:user_id].eq(user_id)).
-        and(alerts[:checked].eq(false)))
+        project('count(*)').
+        where(alerts[:trackable_id].eq(proposals[:id]).
+            and(alerts[:trackable_type].eq('Proposal')).
+            and(alerts[:user_id].eq(user_id)).
+            and(alerts[:checked].eq(false)))
   end
 
   def self.ranking_subquery(user_id)
     proposals = Proposal.arel_table
     proposal_rankings = ProposalRanking.arel_table
     ranking = proposal_rankings.
-      project(proposal_rankings[:ranking_type_id]).
-      where(proposal_rankings[:proposal_id].eq(proposals[:id]).
-        and(proposal_rankings[:user_id].eq(user_id)))
+        project(proposal_rankings[:ranking_type_id]).
+        where(proposal_rankings[:proposal_id].eq(proposals[:id]).
+            and(proposal_rankings[:user_id].eq(user_id)))
   end
 
   # retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
@@ -207,11 +207,11 @@ class Proposal < ActiveRecord::Base
     user_id = user ? user.id : -1
 
     proposals = Proposal.
-      select('distinct proposals.*',
-             alerts_count_subquery(user_id).as('alerts_count'),
-             ranking_subquery(user_id).as('ranking')).
-      where('proposals.private = false or proposals.visible_outside = false').
-      where.not(proposal_type_id: 11) # TODO: petitions excluded
+        select('distinct proposals.*',
+               alerts_count_subquery(user_id).as('alerts_count'),
+               ranking_subquery(user_id).as('ranking')).
+        where('proposals.private = false or proposals.visible_outside = false').
+        where.not(proposal_type_id: 11) # TODO: petitions excluded
     if current_territory.present?
       proposals = proposals.by_interest_borders(InterestBorder.to_key(current_territory))
     end
@@ -233,10 +233,10 @@ class Proposal < ActiveRecord::Base
     return [] if list_c.empty?
 
     proposals = Proposal.current.
-      select('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
-      where(proposals[:proposal_type_id].not_eq(petition_id)).
-      where(proposals[:id].in(list_c)).
-      order(updated_at: :desc).to_a
+        select('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
+        where(proposals[:proposal_type_id].not_eq(petition_id)).
+        where(proposals[:id].in(list_c)).
+        order(updated_at: :desc).to_a
     ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, :category, { users: :image },
                                                                   :proposal_type, :groups, :supporting_groups])
     proposals
@@ -249,9 +249,9 @@ class Proposal < ActiveRecord::Base
     alerts_count = alerts_count_subquery(user.id)
 
     Proposal.visible.
-      select('distinct proposals.*', alerts_count.as('alerts_count')).
-      where(proposals[:proposal_type_id].eq(petition_id)).
-      order(updated_at: :desc).limit(10)
+        select('distinct proposals.*', alerts_count.as('alerts_count')).
+        where(proposals[:proposal_type_id].eq(petition_id)).
+        order(updated_at: :desc).limit(10)
   end
 
   def self.votation_portlet(user)
@@ -267,22 +267,14 @@ class Proposal < ActiveRecord::Base
     alerts_count = alerts_count_subquery(user_id)
     ranking = ranking_subquery(user_id)
 
-    proposals_sql = Proposal.voting.distinct.
-      project(alerts_count.as('alerts_count'), ranking.as('ranking'), events[:endtime].as('end_time')).
-      join(group_proposals).on(group_proposals[:proposal_id].eq(proposals[:id])).
-      join(groups).on(groups[:id].eq(group_proposals[:group_id])).
-      join(group_participations).on(groups[:id].eq(group_participations[:group_id]).
-      and(group_participations[:user_id].eq(user.id))).
-      join(participation_roles).on(group_participations[:participation_role_id].eq(participation_roles[:id])).
-      join(events).on(events[:id].eq(proposals[:vote_period_id])).
-      join(user_votes, Arel::Nodes::OuterJoin).
-      on(user_votes[:proposal_id].eq(proposals[:id]).and(user_votes[:user_id].eq(user.id))).
-      where(proposals[:proposal_type_id].not_eq(petition_id)).
-      where(user_votes[:id].eq(nil)).
-      where(participation_roles[:vote_proposals].eq(true).
-        or(participation_roles[:id].eq(ParticipationRole.admin.id))).
-      order('end_time asc').to_sql
-    proposals = Proposal.find_by_sql(proposals_sql)
+    proposals = Proposal.voting.distinct.
+        select('proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking'), events[:endtime].as('end_time')).
+        joins(:vote_period, groups: { group_participations: [:participation_role, :user] }).
+        left_joins(:user_votes).
+        where.not(proposals: { proposal_type_id: petition_id }).
+        where(user_votes: { id: nil }).
+        where(participation_roles[:vote_proposals].eq(true).or(participation_roles[:id].eq(ParticipationRole.admin.id))).
+        order(end_time: :asc)
     ActiveRecord::Associations::Preloader.new.preload(proposals, [:quorum, { users: :image }, :proposal_type, :groups,
                                                                   :supporting_groups, :category])
     proposals
@@ -296,10 +288,10 @@ class Proposal < ActiveRecord::Base
     alerts_count = alerts_count_subquery(user_id)
     ranking = ranking_subquery(user_id)
     Proposal.find_by_sql(proposals.
-      project('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
-      join(group_proposals).on(proposals[:id].eq(group_proposals[:proposal_id])).
-      where(group_proposals[:group_id].eq(group.id)).
-      order(proposals[:created_at].desc).take(10).to_sql)
+        project('distinct proposals.*', alerts_count.as('alerts_count'), ranking.as('ranking')).
+        join(group_proposals).on(proposals[:id].eq(group_proposals[:proposal_id])).
+        where(group_proposals[:group_id].eq(group.id)).
+        order(proposals[:created_at].desc).take(10).to_sql)
   end
 
   def count_notifications(user_id)
@@ -519,8 +511,8 @@ class Proposal < ActiveRecord::Base
 
   def users_j
     self.is_anonima? ?
-      proposal_nicknames.where(user_id: user_ids).as_json(only: [:nickname]) :
-      users.as_json(only: [:id], methods: [:fullname])
+        proposal_nicknames.where(user_id: user_ids).as_json(only: [:nickname]) :
+        users.as_json(only: [:id], methods: [:fullname])
   end
 
   # check if we have to close the debate and pass to votation phase
@@ -594,11 +586,11 @@ class Proposal < ActiveRecord::Base
     NotificationProposalVoteStarts.perform_async(id, groups.first.try(:id), presentation_areas.first.try(:id))
 
     ProposalsWorker.
-      perform_at(vote_period.endtime - 24.hours,
-                 action: ProposalsWorker::LEFT24VOTE, proposal_id: id) if (vote_period.duration / 60) > 1440
+        perform_at(vote_period.endtime - 24.hours,
+                   action: ProposalsWorker::LEFT24VOTE, proposal_id: id) if (vote_period.duration / 60) > 1440
     ProposalsWorker.
-      perform_at(vote_period.endtime - 1.hour,
-                 action: ProposalsWorker::LEFT1VOTE, proposal_id: id) if (vote_period.duration / 60) > 60
+        perform_at(vote_period.endtime - 1.hour,
+                   action: ProposalsWorker::LEFT1VOTE, proposal_id: id) if (vote_period.duration / 60) > 60
   end
 
   def set_votation_date(vote_period_id)
@@ -655,9 +647,9 @@ class Proposal < ActiveRecord::Base
   def join_users_table(table)
     users = User.arel_table
     users.
-      join(table).on(users[:id].eq(table[:user_id])).
-      where(table[:proposal_id].eq(id)).
-      project(users[:id])
+        join(table).on(users[:id].eq(table[:user_id])).
+        where(table[:proposal_id].eq(id)).
+        project(users[:id])
   end
 
   def before_update_populate
@@ -776,7 +768,7 @@ class Proposal < ActiveRecord::Base
                                                                    seq: section.seq,
                                                                    added: section.new_record?,
                                                                    removed: (section.marked_for_destruction? ||
-                                                                     solution.marked_for_destruction?))
+                                                                       solution.marked_for_destruction?))
         section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: id)
       end
       solution_history.destroy unless something_solution
@@ -883,7 +875,7 @@ class Proposal < ActiveRecord::Base
     if votation && (votation[:later] != 'true')
       # if he took a vote period already existing
       if (votation[:choise] && (votation[:choise] == 'preset')) ||
-        (!votation[:choise] && votation[:vote_period_id].present?)
+          (!votation[:choise] && votation[:vote_period_id].present?)
         self.vote_event = Event.find(votation[:vote_period_id])
         # if the vote period start before the end of debate there is an error
         if vote_event.starttime < Time.now + copy.minutes.minutes + DEBATE_VOTE_DIFFERENCE

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Frm::Topic do
+RSpec.describe Frm::Topic do
   context 'when created' do
     let(:topic) { create(:frm_topic) }
 

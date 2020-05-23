@@ -121,16 +121,13 @@ $ ->
     create_proposal_ = $('<div class="dynamic_container reveal-modal large" data-reveal></div>')
     create_proposal_.append $(this).next('.choose_model').clone().show()
     $('.proposal_model_option', create_proposal_).click ->
-      create_proposal_inner_ = $('.choose_model', create_proposal_)
       type_id = $(this).data('id')
-      create_proposal_inner_.hide 1000, ->
+      window.location.href = "#{link.attr('href')}?proposal_type_id=#{type_id}";
+      create_proposal_inner_ = $('.choose_model', create_proposal_)
+      create_proposal_inner_.hide 500, ->
         create_proposal_inner_.remove()
         create_proposal_.append $('#loading-fragment').clone()
-        $.ajax
-          url: link.attr('href')
-          data:
-            proposal_type_id: type_id
-          dataType: 'script'
+
     airesis_reveal create_proposal_
     false
   $.fn.tagcloud.defaults =

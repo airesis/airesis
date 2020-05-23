@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Blog do
+RSpec.describe Blog do
   context 'title validation' do
     it 'must be present' do
       blog = build(:blog, title: nil)

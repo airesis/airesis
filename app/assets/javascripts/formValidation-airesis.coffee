@@ -43,7 +43,7 @@ class @AiresisFormValidation
                 'proposal[id]': $field.data('fv-remote-id')
                 }
               type: 'GET'
-              delay: 2000
+              delay: 200
         'user[email]':
           validators:
             remote:

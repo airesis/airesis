@@ -28,7 +28,7 @@ class AreaRolesController < ApplicationController
   end
 
   def update
-    if @area_role.update_attributes(area_role_params)
+    if @area_role.update(area_role_params)
       flash[:notice] = t('info.participation_roles.role_updated')
     else
       respond_to do |format|

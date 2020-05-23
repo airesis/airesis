@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'requests_helper'
 require 'email_spec'
 
-describe 'personal settings', :js do
+RSpec.describe 'personal settings', :js do
   let!(:user) { create(:user) }
 
   before do

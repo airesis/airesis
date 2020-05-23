@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe 'permissions on proposals', :js, type: :model, search: true, seeds: true do
+RSpec.describe 'permissions on proposals', :js, type: :model, search: true, seeds: true do
   context 'participants of the group' do
     let(:user) { create(:user) }
     let(:group) { create(:group, current_user_id: user.id) }

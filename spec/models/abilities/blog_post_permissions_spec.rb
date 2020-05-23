@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe 'permissions blog posts', type: :model, seeds: true do
+RSpec.describe 'permissions blog posts', type: :model, seeds: true do
   let(:admin) { create(:user) }
   let!(:group) { create(:group, current_user_id: admin.id) }
 

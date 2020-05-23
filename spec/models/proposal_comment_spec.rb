@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ProposalComment, type: :model, seeds: true do
+RSpec.describe ProposalComment, type: :model, seeds: true do
   let(:user) { create(:user) }
   let(:proposal) { create(:public_proposal, current_user_id: user.id) }
 

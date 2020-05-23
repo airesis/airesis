@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'requests_helper'
 require 'cancan/matchers'
 
-describe 'the management of authors works quite good', :js do
+RSpec.describe 'the management of authors works quite good', :js do
   let(:user) { create(:user) }
   let(:group) { create(:group, current_user_id: user.id) }
   let(:proposal) { create(:group_proposal, quorum: group.quorums.active.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)]) }
