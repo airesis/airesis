@@ -232,7 +232,7 @@ Layout/SpaceInsideParens:
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: IndentationWidth.
-Layout/Tab:
+Layout/IndentationStyle:
   Exclude:
     - 'lib/tasks/setup.rake'
 
