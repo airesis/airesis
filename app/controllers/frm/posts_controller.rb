@@ -27,6 +27,7 @@ module Frm
       if @post.save
         create_successful
       else
+        Rails.logger.error("Error while creating a Frm::Post. #{@post.errors.details}")
         create_failed
       end
     end

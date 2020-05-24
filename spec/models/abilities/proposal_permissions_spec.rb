@@ -96,9 +96,11 @@ RSpec.describe 'permissions on proposals', :js, type: :model, search: true, seed
           it 'cant participate' do
             expect(ability).not_to be_able_to(:participate, proposal)
           end
+
           it 'can see' do
             expect(ability).to be_able_to(:show, proposal)
           end
+
           it 'cant vote' do
             expect(ability).not_to be_able_to(:vote, proposal)
           end
@@ -202,8 +204,7 @@ RSpec.describe 'permissions on proposals', :js, type: :model, search: true, seed
 
     context 'in other groups' do
       let!(:proposal) do
-        create(:group_proposal, current_user_id: participant.id,
-                                groups: [create(:group)])
+        create(:group_proposal, current_user_id: participant.id, groups: [create(:group)])
       end
 
       it 'cannot delete proposals' do

@@ -23,7 +23,7 @@
                 <div class="row">
                   <div class="large-8 columns">
                     <%= f.label :status_id %>
-                    <%= f.select :status_id, options_from_collection_for_select(GroupParticipationRequestStatus.active, :id, :description, (params[:search_participant][:status_id] if params[:search_participant])), include_blank: t('pages.groups.participations.anything') %>
+                    <%= f.select :status_id, options_for_select(GroupParticipationRequest.group_participation_request_status_ids.except(:voting), params.dig(:search_participant, :status_id)), include_blank: t('pages.groups.participations.anything') %>
                   </div>
                 </div>
 

@@ -17,7 +17,7 @@ RSpec.describe 'create proposal comments', :js do
     page_should_be_ok
     expect(page).to have_content @public_proposal.title
 
-    comment = Faker::Lorem.sentence
+    comment = Faker::Lorem.sentence(word_count: 10)
     within('#proposalNewComment') do
       fill_in I18n.t('pages.proposals.show.add_contribute'), with: comment
       click_button I18n.t('pages.proposals.show.send_contribute_button')
@@ -45,7 +45,7 @@ RSpec.describe 'create proposal comments', :js do
     expect(@ability).to be_able_to(:show, @public_proposal)
     expect(@ability).to be_able_to(:participate, @public_proposal)
 
-    comment = Faker::Lorem.sentence
+    comment = Faker::Lorem.sentence(word_count: 10)
     within('#proposalNewComment') do
       fill_in I18n.t('pages.proposals.show.add_contribute'), with: comment
       click_button I18n.t('pages.proposals.show.send_contribute_button')
@@ -62,7 +62,7 @@ RSpec.describe 'create proposal comments', :js do
     page.all(:css, '.contribute-button').each do |el|
       el.click
       within('.suggestion_right') do
-        icomment = Faker::Lorem.sentence
+        icomment = Faker::Lorem.sentence(word_count: 10)
         comments << icomment
         fill_in I18n.t('pages.proposals.show.add_contribute'), with: icomment
         click_button I18n.t('pages.proposals.show.send_contribute_button')
@@ -98,7 +98,7 @@ RSpec.describe 'create proposal comments', :js do
     expect(@ability).to be_able_to(:show, @proposal)
     expect(@ability).to be_able_to(:participate, @proposal)
 
-    comment = Faker::Lorem.sentence
+    comment = Faker::Lorem.sentence(word_count: 10)
     within('#proposalNewComment') do
       fill_in I18n.t('pages.proposals.show.add_contribute'), with: comment
       click_button I18n.t('pages.proposals.show.send_contribute_button')
@@ -118,7 +118,7 @@ RSpec.describe 'create proposal comments', :js do
       section_id = el['data-section_id']
       sleep 1
       within(".suggestion_right[data-section_id=\"#{section_id}\"]") do
-        icomment = Faker::Lorem.sentence
+        icomment = Faker::Lorem.sentence(word_count: 10)
         comments << icomment
         find(:css, '.blogNewCommentField').set icomment
         click_button I18n.t('pages.proposals.show.send_contribute_button')
@@ -160,7 +160,7 @@ RSpec.describe 'create proposal comments', :js do
     expect(@ability).to be_able_to(:show, @proposal)
     expect(@ability).to be_able_to(:participate, @proposal)
 
-    comment = Faker::Lorem.sentence
+    comment = Faker::Lorem.sentence(word_count: 10)
     within('#proposalNewComment') do
       fill_in I18n.t('pages.proposals.show.add_contribute'), with: comment
       click_button I18n.t('pages.proposals.show.send_contribute_button')
@@ -178,7 +178,7 @@ RSpec.describe 'create proposal comments', :js do
       scroll_to el
       el.click
       within('.suggestion_right') do
-        icomment = Faker::Lorem.sentence
+        icomment = Faker::Lorem.sentence(word_count: 10)
         comments << icomment
         fill_in 'proposal_comment_content', with: icomment
         click_button I18n.t('pages.proposals.show.send_contribute_button')

@@ -1,6 +1,6 @@
 class BlockedAlert < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :notification_type
+  belongs_to :user, inverse_of: :blocked_alerts
+  belongs_to :notification_type, inverse_of: :blocked_alerts
 
-  validates_uniqueness_of :user_id, scope: :notification_type_id, message: 'Notifica gia bloccata'
+  validates :user_id, uniqueness: { scope: :notification_type_id }
 end

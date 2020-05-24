@@ -41,7 +41,7 @@ en-EU:
         to_be_confirmed: "to be confirmed"
         password_label: "Password"
         facebook_url_label: "Facebook URL"
-        googleplus_url_label: "Google+ URL"
+        googleplus_url_label: "Google URL"
         username_label: "Username"
         registered_from: "Registered from"
         load_image: "Load an image"
@@ -366,9 +366,6 @@ en-EU:
         last_1y: "created in the last year"
         territory: "Territory"
       show:
-        voteup: 'I agree'
-        votenil: "I don't know / I do not understand"
-        votedown: 'I ​​disagree'
         random_stack: 'Smart sorting'
         most_recent: 'Most recent'
         most_ranked: 'Most evaluated'
@@ -1471,3 +1468,7 @@ en-EU:
       sessions:
         create:
           message: "Successfully logged in"
+  ranking_types:
+    positive: 'I agree'
+    neutral: "I don't know / I do not understand"
+    negative: 'I ​​disagree'

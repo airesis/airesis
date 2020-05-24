@@ -64,7 +64,7 @@
               <%= f.label :proposal_category_id %>
               <%= f.select :proposal_category_id,
                            options_for_select(ProposalCategory.all.collect do |p|
-                             [p.description, p.id, { 'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png") }]
+                             [p.description, p.id, { 'data-imagesrc' => image_path("proposal_categories/#{p.name}_s.png") }]
                            end,
                                               @proposal.proposal_category_id),
                            { include_blank: t('pages.proposals.new.category_prompt') },
@@ -131,7 +131,7 @@
         <% unless request.xhr? %>
             <p>
               <%= link_to t('buttons.cancel'), :back, class: 'btn' unless request.xhr? %>
-              <%= f.submit t('pages.proposals.new.create_button'), class: 'btn blue disable', onclick: "return validElement($('#create_proposal form'));", data: { disable_with: t('loading') } %>
+              <%= f.submit t('pages.proposals.new.create_button'), class: 'btn blue disable', data: { disable_with: t('loading') } %>
             </p>
         <% end %>
       </div>

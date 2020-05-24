@@ -16,12 +16,12 @@ RSpec.describe 'check if quorums are working correctly', :js do
     load_database
   end
 
-  def vote(classe = 'votegreen')
+  def vote(klass = 'votegreen')
     visit group_proposal_path(group, proposal)
     expect(page).to have_content(I18n.t('pages.proposals.vote_panel.single_title'))
     expect(page).to have_content(proposal.secret_vote ? I18n.t('pages.proposals.vote_panel.secret_vote') : I18n.t('pages.proposals.vote_panel.clear_vote'))
     page.execute_script 'window.confirm = function () { return true }'
-    find(".#{classe}").click
+    find(".#{klass}").click
     expect(page).to have_content(I18n.t('votations.create.confirm'))
     proposal.reload
   end
@@ -58,7 +58,7 @@ el.parents('.vote-items-external').prev('.vote-items-external').find('.vote-item
 
     group.participants.sample(10).each do |user|
       proposal.rankings.find_or_create_by(user_id: user.id) do |ranking|
-        ranking.ranking_type_id = RankingType::POSITIVE
+        ranking.ranking_type_id = :positive
       end
     end
 
@@ -136,7 +136,7 @@ el.parents('.vote-items-external').prev('.vote-items-external').find('.vote-item
 
     group.participants.sample(10).each do |user|
       proposal.rankings.find_or_create_by(user_id: user.id) do |ranking|
-        ranking.ranking_type_id = RankingType::POSITIVE
+        ranking.ranking_type_id = :positive
       end
     end
 
@@ -210,7 +210,7 @@ el.parents('.vote-items-external').prev('.vote-items-external').find('.vote-item
 
     group.participants.sample(3).each do |user|
       proposal.rankings.find_or_create_by(user_id: user.id) do |ranking|
-        ranking.ranking_type_id = RankingType::POSITIVE
+        ranking.ranking_type_id = :positive
       end
     end
 
@@ -260,7 +260,7 @@ el.parents('.vote-items-external').prev('.vote-items-external').find('.vote-item
 
     group.participants.sample(3).each do |user|
       proposal.rankings.find_or_create_by(user_id: user.id) do |ranking|
-        ranking.ranking_type_id = RankingType::POSITIVE
+        ranking.ranking_type_id = :positive
       end
     end
 
@@ -294,7 +294,7 @@ el.parents('.vote-items-external').prev('.vote-items-external').find('.vote-item
 
     group.participants.each do |user|
       proposal.rankings.find_or_create_by(user_id: user.id) do |ranking|
-        ranking.ranking_type_id = RankingType::POSITIVE
+        ranking.ranking_type_id = :positive
       end
     end
 

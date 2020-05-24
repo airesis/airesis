@@ -51,7 +51,6 @@ class User < ActiveRecord::Base
   has_many :proposal_comment_rankings, class_name: 'ProposalCommentRanking'
   has_many :proposal_rankings, class_name: 'ProposalRanking'
   has_many :proposal_revisions, inverse_of: :user
-  belongs_to :user_type, class_name: 'UserType', foreign_key: :user_type_id
   belongs_to :image, class_name: 'Image', foreign_key: :image_id, optional: true
   has_many :authentications, class_name: 'Authentication', dependent: :destroy
 
@@ -81,8 +80,8 @@ class User < ActiveRecord::Base
   has_many :todo_tutorial_assignees, -> { where('tutorial_assignees.completed = false') }, class_name: 'TutorialAssignee'
   has_many :todo_tutorials, through: :todo_tutorial_assignees, class_name: 'Tutorial', source: :tutorial
 
-  belongs_to :locale, class_name: 'SysLocale', inverse_of: :users, foreign_key: 'sys_locale_id'
-  belongs_to :original_locale, class_name: 'SysLocale', inverse_of: :original_users, foreign_key: 'original_sys_locale_id'
+  belongs_to :locale, class_name: 'SysLocale', inverse_of: :users, foreign_key: 'sys_locale_id', optional: true
+  belongs_to :original_locale, class_name: 'SysLocale', inverse_of: :original_users, foreign_key: 'original_sys_locale_id', optional: true
 
   has_many :events
 
@@ -96,9 +95,11 @@ class User < ActiveRecord::Base
   has_many :frm_mods, through: :memberships, class_name: 'Frm::Mod', source: :mod
 
   before_create :init
-  after_create :assign_tutorials, :block_alerts
+  after_create :assign_tutorials
 
   before_update :before_update_populate
+
+  enum user_type_id: { administrator: 1, moderator: 2, authenticated: 3 }, _prefix: true
 
   # Check for paperclip
   has_attached_file :avatar,
@@ -160,18 +161,15 @@ class User < ActiveRecord::Base
     GeocodeUser.perform_in(5.seconds, id)
   end
 
-  def block_alerts
-    blocked_alerts.create(notification_type_id: NotificationType::NEW_VALUTATION_MINE)
-    blocked_alerts.create(notification_type_id: NotificationType::NEW_VALUTATION)
-    blocked_alerts.create(notification_type_id: NotificationType::NEW_PUBLIC_EVENTS)
-    blocked_alerts.create(notification_type_id: NotificationType::NEW_PUBLIC_PROPOSALS)
-  end
-
   def init
     self.rank ||= 0 # imposta il rank a zero se non è valorizzato
     self.receive_messages = true
     self.receive_newsletter = true
     update_borders
+    blocked_alerts.build(notification_type_id: NotificationType::NEW_VALUTATION_MINE)
+    blocked_alerts.build(notification_type_id: NotificationType::NEW_VALUTATION)
+    blocked_alerts.build(notification_type_id: NotificationType::NEW_PUBLIC_EVENTS)
+    blocked_alerts.build(notification_type_id: NotificationType::NEW_PUBLIC_PROPOSALS)
   end
 
   # geocode user setting his default time zone
@@ -231,7 +229,8 @@ class User < ActiveRecord::Base
         user.email = user_info[:email]
       elsif (data = session[:user]) # what does it do? can't remember
         user.email = session[:user][:email]
-        if invite = session[:invite] # if is by invitation
+        invite = session[:invite]
+        if invite.present?
           group_invitation_email = GroupInvitationEmail.find_by(token: invite[:token])
           user.skip_confirmation! if user.email == group_invitation_email.email
         end
@@ -326,11 +325,11 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    user_type.short_name == 'admin'
+    user_type_id_administrator?
   end
 
   def moderator?
-    user_type.short_name == 'mod' || admin?
+    admin? || user_type_id_moderator?
   end
 
   # restituisce la richiesta di partecipazione
@@ -514,8 +513,8 @@ class User < ActiveRecord::Base
 
         user.sign_in_count = 0
         user.confirm
+        user.user_type_id = :authenticated
         user.save!
-        user.update!(user_type_id: UserType::AUTHENTICATED)
       end
     end
   end

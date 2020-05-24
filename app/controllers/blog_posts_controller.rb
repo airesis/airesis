@@ -45,7 +45,7 @@ class BlogPostsController < ApplicationController
     @blog_url = @group ? group_blog_post_url(@group, @blog_post) : blog_blog_post_url(@blog, @blog_post)
     @user = @blog_post.user
     @blog_comment = @blog_post.blog_comments.new
-    @blog_comments = @blog_post.blog_comments.includes(user: [:user_type, :image]).order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
+    @blog_comments = @blog_post.blog_comments.includes(user: [:image]).order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
     respond_to do |format|
       format.html
       format.js

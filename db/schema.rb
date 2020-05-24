@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_10_220001) do
+ActiveRecord::Schema.define(version: 2020_05_25_190623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -492,10 +492,6 @@ ActiveRecord::Schema.define(version: 2020_02_10_220001) do
     t.integer "group_id"
   end
 
-  create_table "group_participation_request_statuses", id: :serial, force: :cascade do |t|
-    t.string "description", limit: 200, null: false
-  end
-
   create_table "group_participation_requests", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "group_id", null: false
@@ -911,11 +907,6 @@ ActiveRecord::Schema.define(version: 2020_02_10_220001) do
     t.boolean "open_space_available", default: false
   end
 
-  create_table "proposal_votation_types", id: :serial, force: :cascade do |t|
-    t.string "short_name", limit: 10, null: false
-    t.string "description", limit: 255, null: false
-  end
-
   create_table "proposal_votes", id: :serial, force: :cascade do |t|
     t.bigint "proposal_id"
     t.integer "positive"
@@ -1011,10 +1002,6 @@ ActiveRecord::Schema.define(version: 2020_02_10_220001) do
     t.boolean "assigned", default: false
   end
 
-  create_table "ranking_types", id: :serial, force: :cascade do |t|
-    t.string "description", limit: 200, null: false
-  end
-
   create_table "received_emails", id: :serial, force: :cascade do |t|
     t.string "subject", limit: 255
     t.text "body"
@@ -1104,15 +1091,6 @@ ActiveRecord::Schema.define(version: 2020_02_10_220001) do
     t.text "message"
     t.string "email", limit: 255
     t.text "stack"
-  end
-
-  create_table "sessions", id: :serial, force: :cascade do |t|
-    t.string "session_id", limit: 255, null: false
-    t.text "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
-    t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
   create_table "solution_histories", id: :serial, force: :cascade do |t|
@@ -1271,12 +1249,6 @@ ActiveRecord::Schema.define(version: 2020_02_10_220001) do
     t.index ["user_id"], name: "index_user_tracings_on_user_id"
   end
 
-  create_table "user_types", id: :serial, force: :cascade do |t|
-    t.string "description", limit: 200
-    t.text "short_name"
-    t.index ["short_name"], name: "srt_name_unq", unique: true
-  end
-
   create_table "user_votes", id: :serial, force: :cascade do |t|
     t.integer "proposal_id"
     t.integer "user_id"
@@ -1405,7 +1377,6 @@ ActiveRecord::Schema.define(version: 2020_02_10_220001) do
   add_foreign_key "group_areas", "area_roles", name: "group_areas_area_role_id_fk"
   add_foreign_key "group_areas", "groups", name: "group_areas_group_id_fk"
   add_foreign_key "group_invitations", "users", column: "inviter_id", name: "group_invitations_inviter_id_fk"
-  add_foreign_key "group_participation_requests", "group_participation_request_statuses", name: "parent_fk"
   add_foreign_key "group_participation_requests", "groups", name: "group_partecipation_requests_group_id_fk"
   add_foreign_key "group_participation_requests", "users", name: "group_partecipation_requests_user_id_fk"
   add_foreign_key "group_participations", "groups", name: "group_partecipations_group_id_fk"
@@ -1442,7 +1413,6 @@ ActiveRecord::Schema.define(version: 2020_02_10_220001) do
   add_foreign_key "proposal_borders", "proposals", name: "proposal_borders_proposal_id_fk"
   add_foreign_key "proposal_categories", "proposal_categories", column: "parent_proposal_category_id", name: "proposal_categories_parent_proposal_category_id_fk"
   add_foreign_key "proposal_comment_rankings", "proposal_comments", name: "proposal_comment_rankings_proposal_comment_id_fk"
-  add_foreign_key "proposal_comment_rankings", "ranking_types", name: "proposal_comment_rankings_ranking_type_id_fk"
   add_foreign_key "proposal_comment_rankings", "users", name: "proposal_comment_rankings_user_id_fk"
   add_foreign_key "proposal_comment_reports", "proposal_comment_report_types", name: "proposal_comment_reports_proposal_comment_report_type_id_fk"
   add_foreign_key "proposal_comments", "paragraphs", name: "proposal_comments_paragraph_id_fk"
@@ -1471,7 +1441,6 @@ ActiveRecord::Schema.define(version: 2020_02_10_220001) do
   add_foreign_key "proposals", "proposal_categories", name: "proposals_proposal_category_id_fk"
   add_foreign_key "proposals", "proposal_states", name: "proposals_proposal_state_id_fk"
   add_foreign_key "proposals", "proposal_types", name: "proposals_proposal_type_id_fk"
-  add_foreign_key "proposals", "proposal_votation_types", name: "proposals_proposal_votation_type_id_fk"
   add_foreign_key "proposals", "quorums", name: "proposals_quorum_id_fk"
   add_foreign_key "provinces", "continents", name: "provincias_continente_id_fk"
   add_foreign_key "provinces", "countries", name: "provincias_stato_id_fk"
@@ -1498,5 +1467,4 @@ ActiveRecord::Schema.define(version: 2020_02_10_220001) do
   add_foreign_key "user_votes", "users", name: "user_votes_user_id_fk"
   add_foreign_key "user_votes", "vote_types", name: "user_votes_vote_type_id_fk"
   add_foreign_key "users", "images", name: "users_image_id_fk"
-  add_foreign_key "users", "user_types", name: "users_user_type_id_fk"
 end

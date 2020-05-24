@@ -90,7 +90,7 @@ class GroupParticipationsController < ApplicationController
         t('info.group_participations.destroy_ok_1') :
         t('info.participation_roles.user_removed_from_group', name: @group_participation.user.fullname)
 
-    redirect_to :back
+    redirect_back(fallback_location: group_path(@group))
   end
 
   protected

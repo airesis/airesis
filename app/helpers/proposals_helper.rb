@@ -50,7 +50,7 @@ module ProposalsHelper
   end
 
   def proposal_category_image_tag(proposal)
-    image_tag("proposal_categories/#{proposal.proposal_category_id}.png", alt: proposal.category.description, title: proposal.category.description)
+    image_tag("proposal_categories/#{proposal.category.name}.png", alt: proposal.category.description, title: proposal.category.description)
   end
 
   def proposal_status(proposal)

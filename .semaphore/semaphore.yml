@@ -68,7 +68,7 @@ blocks:
           - sem-service start postgres
           - sed /AWS_HOST/d config/application.example.yml > config/application.yml
           - mkdir -p private/elfinder
-          - bundle exec rails db:setup
+          - bundle exec rails db:create db:schema:load
           - bundle exec rails assets:precompile
       jobs:
         - name: unit_tests
@@ -78,6 +78,11 @@ blocks:
         - name: system_tests
           commands:
             - bin/check_system_tests
+      epilogue:
+        on_fail:
+          commands:
+            - artifact push job --expire-in 2w log/test.log
+            - artifact push job --expire-in 2w tmp/screenshots
 promotions:
   - name: develop
     pipeline_file: develop-deploy.yml

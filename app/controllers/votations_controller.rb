@@ -33,6 +33,11 @@ class VotationsController < ApplicationController
       end
     end
   rescue ActiveRecord::ActiveRecordError => e
+    Rails.logger.error(e.message)
+    Rails.logger.error(e.backtrace.join("\n"))
+    Rails.logger.error("Error while creating a Vote.
+Proposal errors: #{@proposal.errors.details},
+Vote errors: #{@proposal.vote.errors.details}")
     if @proposal.errors[:user_votes]
       flash[:error] = t('errors.votation.already_voted')
       respond_to do |format|

@@ -3,6 +3,7 @@
 toastr.options = {tapToDismiss: false, extendedTimeOut: 0, timeOut: 0};
 <%end%>
 <% flash.each do |key,value| %>
+<% Rails.logger.info("showing message #{value} as js response") %>
 <%if (key == 'info') %>
 toastr.info('<%=raw j value%>');
 <%elsif (key == 'notice')%>

@@ -1,18 +1,23 @@
 $('#rankleftpanel .points').html('<%=j render 'proposals/points_left_panel'%>');
 $('#rankleftpanel .rank').html('<%=j render 'proposals/rank_left_panel'%>');
 
+window.ProposalsShow.destroy_countdowns();
 $('#dates').html('<%=j render 'proposals/dates'%>');
+window.ProposalsShow.init_countdowns();
 disegnaCountdown();
+
 disegnaProgressBar();
 
-<% publish_to  proposal_path(@proposal) do %>
+<% publish_to proposal_path(@proposal) do %>
 if (Airesis.id != <%=current_user.id%>) {
 
     $('#rankleftpanel .points').html('<%=j render 'proposals/points_left_panel'%>');
 
-
+    window.ProposalsShow.destroy_countdowns();
     $('#dates').html('<%=j render 'proposals/dates'%>');
+    window.ProposalsShow.init_countdowns();
     disegnaCountdown();
+
     disegnaProgressBar();
     toastr.info('<%=j t('pages.proposals.show.new_valutation_message')%>');
 }

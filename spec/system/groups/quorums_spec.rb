@@ -28,7 +28,7 @@ RSpec.describe 'check if quorums are working correctly', :js do
 
     group.participants.sample(10).each do |user|
       proposal.rankings.find_or_create_by(user_id: user.id) do |ranking|
-        ranking.ranking_type_id = RankingType::POSITIVE
+        ranking.ranking_type_id = :positive
       end
     end
 

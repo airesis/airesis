@@ -83,7 +83,7 @@ RSpec.describe Proposal, type: :model do
   end
 
   describe 'interest borders and derived interest borders' do
-    let(:municipality) { Municipality.first }
+    let(:municipality) { create(:municipality, :bologna) }
     let(:province) { municipality.province }
     let(:region) { province.region }
     let(:country) { region.country }

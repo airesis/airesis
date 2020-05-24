@@ -33,6 +33,7 @@ RSpec.describe 'manage correctly meeting events', :js, seeds: true do
     fill_in I18n.t('activerecord.attributes.place.address'), with: 'Via Rizzoli 2'
     page.execute_script("$('#event_meeting_attributes_place_attributes_latitude_original').val(#{Faker::Address.latitude});")
     page.execute_script("$('#event_meeting_attributes_place_attributes_longitude_original').val(#{Faker::Address.longitude});")
+    page.execute_script("$('#event_meeting_attributes_place_attributes_zoom').val(8);")
 
     click_link I18n.t('pages.events.new.submit')
     wait_for_ajax

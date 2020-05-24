@@ -9,7 +9,7 @@ class GroupInvitationEmail < ActiveRecord::Base
   def accept
     self.consumed = true
     self.accepted = 'Y'
-    group_invitation.group.participation_requests.create(user: invited, group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED)
+    group_invitation.group.participation_requests.create(user: invited, group_participation_request_status_id: :accepted)
     group_invitation.group.group_participations.create(user: invited, participation_role: group_invitation.group.default_role)
     save
   end

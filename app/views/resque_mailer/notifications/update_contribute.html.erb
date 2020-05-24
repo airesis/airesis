@@ -35,7 +35,7 @@
 
 <%= blue_panel do %>
     <p>
-      Your evaluation about it is <b><%= @ranking.ranking_type.description %></b>
+      Your evaluation about it is <b><%= I18n.t(@ranking.ranking_type_id, scope: 'ranking_types') %></b>
     </p>
     <p>
       You changed your opinion?

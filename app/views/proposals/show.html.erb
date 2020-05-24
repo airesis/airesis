@@ -51,7 +51,7 @@
     <%= render partial: 'report_contribute' %>
 <% end %>
 
-<%= subscribe_to proposal_path(@proposal) if current_user %>
+<%= subscribe_to proposal_path(@proposal) if current_user && !Rails.env.test?%>
 
 <script type="text/javascript">
     Airesis.show_comment_id = <%= params[:comment_id] || 'null'%>;

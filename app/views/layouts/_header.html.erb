@@ -1,7 +1,5 @@
 <div id="fb-root" data-user-like-url="<%=user_likes_url%>" data-app-id="<%=ENV['FACEBOOK_APP_ID']%>" data-locale="<%="#{I18n.locale.to_s.gsub('-','_')}"%>"></div>
 
-<link href="https://plus.google.com/109056260698393169005" rel="publisher"/>
-
 <%= render '/layouts/top_menu' %>
 
-<%= subscribe_to "/notifications/#{current_user.id}" if user_signed_in?%>
+<%= subscribe_to "/notifications/#{current_user.id}" if user_signed_in? && !Rails.env.test?%>

@@ -18,7 +18,8 @@ window.EventsNew =
         !(isValidStep is false || isValidStep is null)
       onStepChanged: (event, currentIndex, priorIndex)->
         setTimeout (->
-          EventsNew.mapManager.refresh()
+          if !EventsEdit.votation
+            EventsNew.mapManager.refresh()
           return
         ), 1000
       onFinishing: (e, currentIndex)->

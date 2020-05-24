@@ -833,6 +833,7 @@ Rails/UniqueValidationWithoutIndex:
     - 'app/models/meeting_participation.rb'
     - 'app/models/proposal.rb'
     - 'app/models/sys_locale.rb'
+    - 'app/models/blocked_alert.rb'
 
 # Offense count: 32
 # Cop supports --auto-correct.

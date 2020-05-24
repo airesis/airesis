@@ -207,7 +207,7 @@ class UsersController < ApplicationController
           if params[:back] == 'home'
             redirect_to home_url
           else
-            redirect_to :back
+            redirect_back(fallback_location: root_path)
           end
         end
       else
@@ -218,7 +218,7 @@ class UsersController < ApplicationController
           if params[:back] == 'home'
             redirect_to home_url
           else
-            redirect_to :back
+            redirect_back(fallback_location: root_path)
           end
         end
         format.js { render 'layouts/error' }

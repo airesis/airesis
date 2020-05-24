@@ -63,7 +63,7 @@ class BlogCommentsController < ApplicationController
     if current_user.id != @blog_comment.user_id &&
         current_user.id != @blog_post.user_id
       flash[:notice] = t('info.proposal.comment_not_your')
-      redirect_to :back
+      redirect_back(fallback_location: blog_post_path(@blog_post))
     end
   end
 

@@ -171,7 +171,7 @@ class ProposalsController < ApplicationController
       end
     end
 
-    @proposal.proposal_category_id = params[:category] || ProposalCategory::NO_CATEGORY
+    @proposal.proposal_category_id = params[:category] || ProposalCategory.find_by(name: 'no_category').id
 
     @proposal.proposal_type = ProposalType.find_by(name: (params[:proposal_type_id] || ProposalType::SIMPLE))
 
@@ -207,6 +207,7 @@ class ProposalsController < ApplicationController
         end
       end
     else
+      Rails.logger.error("Error while creating a Proposal. #{@proposal.errors.details}")
       if @proposal.errors[:title].present?
         @other = Proposal.find_by(title: @proposal.title)
         @err_msg = t('error.proposals.same_title')
@@ -383,13 +384,13 @@ class ProposalsController < ApplicationController
     flash[:notice] = I18n.t('info.proposal.rank_recorderd')
     respond_to do |format|
       format.js { render 'rank' }
-      format.html { redirect_to :back }
+      format.html { redirect_back(fallback_location: proposal_path(@proposal)) }
     end
   rescue Exception => e
     log_error(e)
     flash[:error] = I18n.t('error.proposals.proposal_rank')
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_back(fallback_location: proposal_path(@proposal)) }
       format.js { render 'proposals/errors/rank' }
     end
   end
@@ -419,7 +420,7 @@ class ProposalsController < ApplicationController
     return if @proposal.in_valutation?
     flash[:error] = I18n.t('error.proposals.proposal_not_valuating')
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_back(fallback_location: proposal_path(@proposal)) }
       format.js { render 'proposals/errors/rank', layout: false }
     end
   end

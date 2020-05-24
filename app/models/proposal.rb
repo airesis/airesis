@@ -60,8 +60,6 @@ class Proposal < ActiveRecord::Base
 
   has_many :solutions, -> { order 'solutions.seq' }, inverse_of: :proposal, dependent: :destroy
 
-  belongs_to :proposal_votation_type, class_name: 'ProposalVotationType'
-
   belongs_to :proposal_type, class_name: 'ProposalType'
 
   # forum
@@ -74,7 +72,6 @@ class Proposal < ActiveRecord::Base
 
   # validation
   validates :title, presence: true, uniqueness: true
-  validates_presence_of :proposal_category_id, message: 'obbligatorio'
 
   validates_presence_of :quorum, unless: :is_petition? # TODO: bug in client_side_validation
 
@@ -83,6 +80,8 @@ class Proposal < ActiveRecord::Base
   attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids,
                 :integrated_contributes_ids_list, :topic_id, :votation, :petition_phase, :change_advanced_options,
                 :current_user_id, :interest_borders_tkn
+
+  enum proposal_votation_type_id: { standard: 1, preference: 2, schulze: 3 }, _prefix: true
 
   accepts_nested_attributes_for :sections, allow_destroy: true
   accepts_nested_attributes_for :solutions, allow_destroy: true
@@ -179,7 +178,7 @@ class Proposal < ActiveRecord::Base
     self.visible_outside = true if visible_outside.nil?
     self.secret_vote = true if secret_vote.nil?
     self.change_advanced_options = DEFAULT_CHANGE_ADVANCED_OPTIONS if change_advanced_options.nil?
-    self.proposal_votation_type_id ||= ProposalVotationType::STANDARD
+    self.proposal_votation_type_id ||= :standard
   end
 
   def self.alerts_count_subquery(user_id)
@@ -470,8 +469,7 @@ class Proposal < ActiveRecord::Base
     end
   end
 
-  # restituisce la lista delle 10 proposte più vicine a questa
-  # TODO: rewrite using arel
+  # returns 10
   def closest(group_id = nil)
     sql_q = " SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.quorum_id, p.anonima,
               p.visible_outside, p.secret_vote, p.proposal_votation_type_id, p.content,

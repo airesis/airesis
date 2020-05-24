@@ -1,11 +1,12 @@
 class ProposalCommentRanking < ActiveRecord::Base
   belongs_to :user
-  belongs_to :ranking_type
   belongs_to :proposal_comment
 
-  scope :positives, -> { where(ranking_type_id: RankingType::POSITIVE) }
-  scope :negatives, -> { where(ranking_type_id: RankingType::NEGATIVE) }
-  scope :neutrals, -> { where(ranking_type_id: RankingType::NEUTRAL) }
+  scope :positives, -> { where(ranking_type_id: :positive) }
+  scope :negatives, -> { where(ranking_type_id: :negative) }
+  scope :neutrals, -> { where(ranking_type_id: :neutral) }
+
+  enum ranking_type_id: { positive: 1, neutral: 2, negative: 3 }
 
   after_save :update_counter_cache
   after_destroy :update_counter_cache
