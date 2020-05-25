@@ -229,9 +229,9 @@ class User < ActiveRecord::Base
         user.email = user_info[:email]
       elsif (data = session[:user]) # what does it do? can't remember
         user.email = session[:user][:email]
-        invite = session[:invite]
-        if invite.present?
-          group_invitation_email = GroupInvitationEmail.find_by(token: invite[:token])
+        invite_token = session.dig(:invite, 'token')
+        if invite_token.present?
+          group_invitation_email = GroupInvitationEmail.find_by(token: invite_token)
           user.skip_confirmation! if user.email == group_invitation_email.email
         end
       end

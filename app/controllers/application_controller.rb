@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
     # se in sessione ho memorizzato un contributo, inseriscilo e mandami alla pagina della proposta
     if session[:proposal_comment] && session[:proposal_id]
       @proposal = Proposal.find(session[:proposal_id])
-      params[:proposal_comment] = session[:proposal_comment].slice(:content, :parent_proposal_comment_id, :section_id)
+      params[:proposal_comment] = session[:proposal_comment].slice('content', 'parent_proposal_comment_id', 'section_id')
       session[:proposal_id] = nil
       session[:proposal_comment] = nil
       @proposal_comment = @proposal.proposal_comments.build(params[:proposal_comment])
