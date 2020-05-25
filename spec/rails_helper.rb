@@ -65,6 +65,8 @@ RSpec.configure do |config|
       aggregate_failures 'javascript errors' do
         errors.each do |error|
           next if /Blocked attempt to show a 'beforeunload' confirmation panel/.match?(error.message)
+          next if /connect.facebook.net/.match?(error.message)
+
           # TODO: should not happen
           next if /Cannot read property 'getSelectedElement' of null/.match?(error.message)
           # TODO: should not happen

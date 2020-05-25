@@ -29,7 +29,6 @@ RSpec.describe 'the user can invite other participants in the group', :js do
       check I18n.t('pages.registration.accept_conditions')
       check I18n.t('pages.registration.accept_privacy')
       click_button I18n.t('pages.registration.register_button')
-      sleep 2
     end
 
     it 'can send inviations to an email address and can accept the invite' do
