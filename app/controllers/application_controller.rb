@@ -39,8 +39,8 @@ class ApplicationController < ActionController::Base
       params[:proposal_comment] = session[:proposal_comment].slice('content', 'parent_proposal_comment_id', 'section_id')
       session[:proposal_id] = nil
       session[:proposal_comment] = nil
-      @proposal_comment = @proposal.proposal_comments.build(params[:proposal_comment])
-      post_contribute # rescue nil
+      @proposal_comment = @proposal.proposal_comments.build(params[:proposal_comment].permit!)
+      post_contribute
       proposal_path(@proposal)
     elsif session[:blog_comment] && session[:blog_post_id] && session[:blog_id]
       blog = Blog.friendly.find(session[:blog_id])
