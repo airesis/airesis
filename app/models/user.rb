@@ -228,7 +228,7 @@ class User < ActiveRecord::Base
       if user_info
         user.email = user_info[:email]
       elsif (data = session[:user]) # what does it do? can't remember
-        user.email = session[:user][:email]
+        user.email = session[:user]['email']
         invite_token = session.dig(:invite, 'token')
         if invite_token.present?
           group_invitation_email = GroupInvitationEmail.find_by(token: invite_token)

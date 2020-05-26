@@ -69,7 +69,6 @@ class ApplicationController < ActionController::Base
     blog_comment.save
   end
 
-  # redirect alla pagina delle proposte
   def after_sign_up_path_for(_resource)
     proposals_path
   end
