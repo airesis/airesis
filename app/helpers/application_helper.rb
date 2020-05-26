@@ -39,10 +39,6 @@ module ApplicationHelper
     @resource ||= User.new
   end
 
-  def devise_mapping
-    @devise_mapping ||= Devise.mappings[:user]
-  end
-
   # return the time in words
   def time_in_words(from_time, _include_seconds = false)
     diff = Time.now - from_time # difference of time from now

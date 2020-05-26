@@ -150,7 +150,7 @@
       <div class="mycont">
         <div class="row">
           <div class="columns large-2">
-            <%= link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "_s.png", align: 'middle', alt: @proposal.category.description, style: "width:22px;padding-right:2px;"), @group ? group_proposals_url(@group, { category: @proposal.category.id }) : proposals_url(category: @proposal.category.id) %>
+            <%= link_to image_tag("proposal_categories/"+@proposal.category.name + "_s.png", align: 'middle', alt: @proposal.category.description, style: "width:22px;padding-right:2px;"), @group ? group_proposals_url(@group, { category: @proposal.category.id }) : proposals_url(category: @proposal.category.id) %>
           </div>
           <div class="columns large-10">
             <%= link_to @proposal.category.description, @group ? group_proposals_url(@group, { category: @proposal.category.id }) : proposals_url(category: @proposal.category.id) %>

@@ -34,7 +34,7 @@ module ProposalBuildable
     problems.suggestion = I18n.t('pages.proposals.new.standard.suggestion_html')
     problems.paragraphs.build(content: '', seq: 1)
     self.proposal_type = ProposalType.find_by_name(ProposalType::SIMPLE)
-    self.proposal_votation_type_id = ProposalVotationType::STANDARD
+    self.proposal_votation_type_id = :standard
   end
 
   def standard_new
@@ -44,7 +44,7 @@ module ProposalBuildable
     problems.suggestion = I18n.t('pages.proposals.new.standard.suggestion_html')
     problems.paragraphs.build(content: '', seq: 1)
     self.proposal_type = ProposalType.find_by_name(ProposalType::STANDARD)
-    self.proposal_votation_type_id = ProposalVotationType::STANDARD
+    self.proposal_votation_type_id = :standard
   end
 
   def agenda_new
@@ -54,7 +54,7 @@ module ProposalBuildable
     problems.suggestion = I18n.t('pages.proposals.new.agenda.suggestion_html')
     problems.paragraphs.build(content: '', seq: 1)
     self.proposal_type = ProposalType.find_by_name(ProposalType::AGENDA)
-    self.proposal_votation_type_id = ProposalVotationType::STANDARD
+    self.proposal_votation_type_id = :standard
   end
 
   def estimate_new
@@ -64,7 +64,7 @@ module ProposalBuildable
     problems.suggestion = I18n.t('pages.proposals.new.estimate.suggestion_html')
     problems.paragraphs.build(content: '', seq: 1)
     self.proposal_type = ProposalType.find_by_name(ProposalType::ESTIMATE)
-    self.proposal_votation_type_id = ProposalVotationType::STANDARD
+    self.proposal_votation_type_id = :standard
   end
 
   def event_new
@@ -74,7 +74,7 @@ module ProposalBuildable
     problems.suggestion = I18n.t('pages.proposals.new.event.suggestion_html')
     problems.paragraphs.build(content: '', seq: 1)
     self.proposal_type = ProposalType.find_by_name(ProposalType::EVENT)
-    self.proposal_votation_type_id = ProposalVotationType::STANDARD
+    self.proposal_votation_type_id = :standard
   end
 
   def press_new
@@ -84,7 +84,7 @@ module ProposalBuildable
     problems.suggestion = I18n.t('pages.proposals.new.press.suggestion_html')
     problems.paragraphs.build(content: '', seq: 1)
     self.proposal_type = ProposalType.find_by_name(ProposalType::PRESS)
-    self.proposal_votation_type_id = ProposalVotationType::STANDARD
+    self.proposal_votation_type_id = :standard
   end
 
   def rule_book_new
@@ -95,7 +95,7 @@ module ProposalBuildable
     problems.paragraphs.build(content: '', seq: 1)
 
     self.proposal_type = ProposalType.find_by_name(ProposalType::RULE_BOOK)
-    self.proposal_votation_type_id = ProposalVotationType::STANDARD
+    self.proposal_votation_type_id = :standard
   end
 
   def poll_new
@@ -108,7 +108,7 @@ module ProposalBuildable
     @solution_c_section = @solution_c.sections.build(title: 'Opzione 3', seq: 1)
 
     self.proposal_type_id = ProposalType::POLL
-    self.proposal_votation_type_id = ProposalVotationType::SCHULZE
+    self.proposal_votation_type_id = :schulze
   end
 
   def candidates_new

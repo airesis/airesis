@@ -80,11 +80,11 @@
               <h4><%= t('pages.groups.show.permissions_title') %></h4>
 
               <div id="permissions_list_container" title="<%= t('pages.groups.show.list_permissions.title') %>"></div>
-              <%= link_to permissions_list_group_path(@group), data: {remote: true, disable_with: t('loading')}, class: 'btn' do %>
+              <%= link_to permissions_list_group_path(@group), data: { remote: true, disable_with: t('loading') }, class: 'btn' do %>
                   <i class="fa fa-info-circle"></i>
                   <%= t('pages.groups.show.list_permissions.button') %>
               <% end %>
-              <%= link_to group_group_participation_path(@group, @myparticipation), method: :delete, data: {disable_with: t('loading'), confirm: t('pages.users.show.get_out_of_group_confermation')}, class: 'btn' do %>
+              <%= link_to group_group_participation_path(@group, @myparticipation), method: :delete, data: { disable_with: t('loading'), confirm: t('pages.users.show.get_out_of_group_confermation') }, class: 'btn' do %>
                   <i class="fa fa-sign-out"></i>
                   <%= t('pages.users.show.get_out_of_group_button') %>
               <% end if can? :destroy, @myparticipation %>

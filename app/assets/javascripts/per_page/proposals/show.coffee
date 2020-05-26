@@ -253,6 +253,12 @@ window.ProposalsShow =
         else
           ProposalsShow.close_right_contributes($(this))
       return false
+  destroy_countdowns: ->
+    $('.date-creation').each ->
+      $(this).countdown('destroy')
+    $('.date-update').countdown('destroy')
+    $('.end-debate').countdown('destroy')
+    $('.end-vote').countdown('destroy')
   init_countdowns: ->
     creationDate = new Date(ProposalsShow.times.created_at * 1000)
     $('.date-creation').each ->

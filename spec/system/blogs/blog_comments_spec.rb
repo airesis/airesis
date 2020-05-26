@@ -5,7 +5,7 @@ require 'cancan/matchers'
 RSpec.describe 'the management of the blog posts', :js do
   def fill_and_submit(page)
     expect(page).to have_content(I18n.t('pages.proposals.show.add_comment'))
-    comment = Faker::Lorem.sentence
+    comment = Faker::Lorem.sentence(word_count: 10)
     within('#blogNewComment') do
       fill_in 'blog_comment_body', with: comment
       click_button I18n.t('pages.blog_comments.new.insert_comment')

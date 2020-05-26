@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :proposal do
-    proposal_category_id { ProposalCategory::NO_CATEGORY }
+    category { build(:proposal_category, :no_category) }
+    proposal_type { build(:proposal_type, :standard) }
     title { Faker::Lorem.sentence }
     tags_list { %w[tag1 tag2 tag3].join(',') }
     votation { { later: 'true' } }
@@ -48,7 +49,7 @@ FactoryBot.define do
         end
         votation { { choise: 'new', end: vote_duration.days.from_now } }
         after(:create) do |proposal, evaluator|
-          proposal.rankings.create(user: proposal.users.first, ranking_type_id: RankingType::POSITIVE)
+          proposal.rankings.create!(user: proposal.users.first, ranking_type_id: :positive)
           Timecop.travel(evaluator.debate_duration.days.from_now) do
             proposal.check_phase(true)
             proposal.reload
@@ -59,7 +60,7 @@ FactoryBot.define do
 
       factory :abadoned_public_proposal do
         after(:create) do |proposal, evaluator|
-          proposal.rankings.create(user: proposal.users.first, ranking_type_id: RankingType::NEGATIVE)
+          proposal.rankings.create(user: proposal.users.first, ranking_type_id: :negative)
           Timecop.travel(evaluator.debate_duration.days.from_now) do
             proposal.check_phase(true)
             proposal.reload

@@ -2,9 +2,9 @@
     <div class="panel callout vote_panel">
       <h3><b><%= t('pages.proposals.vote_panel.title') %></b></h3>
       <% if @proposal.is_schulze? %>
-          <%= render 'vote_panel_schulze' %>
-      <% else #not schulze      %>
-          <%= render 'vote_panel_standard' %>
+          <%= render 'proposals/vote_panel_schulze' %>
+      <% else %>
+          <%= render 'proposals/vote_panel_standard' %>
       <% end %>
     </div>
 <% elsif current_user &&

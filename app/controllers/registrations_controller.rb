@@ -21,7 +21,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def after_sign_up_path_for(_resource)
     if session[:invite]
-      session[:invite][:return]
+      session[:invite]['return']
     else
       new_user_session_path
     end

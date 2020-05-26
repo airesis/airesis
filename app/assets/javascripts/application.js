@@ -30,8 +30,8 @@
 //= require feedback
 //= require private_pub
 //= require toastr
-//= require countdown/jquery.plugin.min
-//= require countdown/jquery.countdown.min
+//= require countdown/jquery.plugin
+//= require countdown/jquery.countdown
 //= require jquery.tagcloud
 //= require jquery.switchbutton
 //= require intro.js

@@ -1,9 +1,8 @@
 class SearchParticipant < ActiveRecord::Base
   belongs_to :group
-  belongs_to :group_participation_request_status, foreign_key: :status_id
 
   def results
-    if !status_id.present? || status_id == GroupParticipationRequestStatus::ACCEPTED
+    if !status_id.present? || status_id.to_sym == :accepted
       ret = group.group_participations.joins(:user)
       ret = ret.where(participation_role_id: role_id) if role_id.present?
       ret = ret.where(["upper(users.name) like '%' || upper(:key) || '%' or upper(users.surname) like '%' || upper(:key) || '%'", key: keywords]) if keywords.present?
@@ -12,6 +11,6 @@ class SearchParticipant < ActiveRecord::Base
     else
       ret = group.participation_requests.where(group_participation_request_status_id: status_id)
     end
-    ret.includes(user: :user_type).order('group_participations.created_at desc nulls last')
+    ret.includes(:user).order('group_participations.created_at desc nulls last')
   end
 end

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User do
   it 'populates the attributes properly' do
-    municipality = Municipality.first
+    municipality = create(:municipality, :bologna)
     province = municipality.province
     region = province.region
     country = region.country
@@ -20,10 +20,17 @@ RSpec.describe User do
 
   describe '#by_interest_borders' do
     it 'can be searched by interest border' do
-      province = Province.first
-      municipality = Municipality.first
+      municipality = create(:municipality, :bologna)
+      province = municipality.province
       user = create(:user, interest_borders_tokens: InterestBorder.to_key(municipality))
       expect(described_class.by_interest_borders([InterestBorder.to_key(province)])).to include user
+    end
+  end
+
+  describe 'when created' do
+    it 'has some alerts blocked by default' do
+      user = create(:user)
+      expect(user.reload.blocked_alerts.count).to be >= 0
     end
   end
 end

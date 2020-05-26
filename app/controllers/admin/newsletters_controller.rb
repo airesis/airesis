@@ -27,7 +27,7 @@ module Admin
       @newsletter.receiver = newsletter_params[:receiver]
       @newsletter.publish
       flash[:notice] = 'Newsletter pubblicata correttamente'
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
 
     protected

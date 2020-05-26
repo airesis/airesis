@@ -32,7 +32,7 @@ class EventCommentLikesController < ApplicationController
   def check_author
     if current_user.id != @event_comment_like.user_id
       flash[:error] = t('info.proposal.comment_not_your')
-      redirect_to :back
+      redirect_back(fallback_location: event_path(@event_comment.event))
     end
   end
 end

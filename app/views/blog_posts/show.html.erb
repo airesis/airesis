@@ -1,4 +1,4 @@
-<% if current_user %>
+<% if current_user && !Rails.env.test? %>
     <%= subscribe_to blog_blog_post_path(@blog_post.blog, @blog_post) %>
 <% end %>
 
@@ -45,8 +45,6 @@
       </div>
       <% if ::Configuration::socialnetwork_active %>
           <div class="post_buttons">
-            <g:plusone size="medium" href="<%= blog_blog_post_url(@blog_post.blog, @blog_post) %>"></g:plusone>
-            |
             <a href="https://twitter.com/share"
                class="twitter-share-button"
                data-lang="en"
@@ -99,7 +97,6 @@
              data-lang="en"
              data-count="vertical"
              data-text="<%= t('twitter.share.blog_post', app: APP_SHORT_NAME, tags: @blog_post.tags.for_twitter) %>">Tweet</a>
-          <g:plusone size="tall"></g:plusone>
           <%= raw facebook_like %>   <br/>
         </div>
     <% end %>

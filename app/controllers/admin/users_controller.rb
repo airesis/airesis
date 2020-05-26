@@ -16,7 +16,7 @@ module Admin
       end
       flash[:notice] = t('info.moderator_panel.account_blocked')
       ResqueMailer.delay.blocked(@user.id)
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
 
     def unblock
@@ -30,7 +30,7 @@ module Admin
         @user.save!
       end
       flash[:notice] = t('info.moderator_panel.account_unblocked')
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
 
     # admin user autocomplete

@@ -47,7 +47,6 @@ RSpec.describe 'the oauth2 process', :js do
                                                                         updated_time: '2011-11-11T06:21:03+0000'
                                                                       }
                                                                     })
-      Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
       Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:facebook]
     end
 
@@ -60,7 +59,7 @@ RSpec.describe 'the oauth2 process', :js do
       expect(User.count).to eq(1)
       user = User.last
 
-      expect(user.user_type_id).to eq(UserType::AUTHENTICATED)
+      expect(user.user_type_id).to eq('authenticated')
       expect(user.name).to eq(@oauth_data[:first_name])
       expect(user.surname).to eq(@oauth_data[:last_name])
       expect(user.email).to eq(@oauth_data[:email])

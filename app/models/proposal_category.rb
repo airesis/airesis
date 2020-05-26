@@ -1,5 +1,4 @@
 class ProposalCategory < ActiveRecord::Base
-  NO_CATEGORY = 5
   has_many :proposals, class_name: 'Proposal'
 
   def description

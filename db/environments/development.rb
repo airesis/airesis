@@ -11,6 +11,6 @@ admin = User.new(password: ENV['ADMIN_PASSWORD'],
                  email:  ENV['ADMIN_EMAIL'],
                  name: 'Administrator',
                  surname: 'Administrator',
-                 user_type_id: UserType::ADMINISTRATOR)
+                 user_type_id: :administrator)
 admin.skip_confirmation!
 admin.save!

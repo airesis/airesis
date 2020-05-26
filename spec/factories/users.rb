@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     before(:create) do |user|
-      user.locale = user.original_locale = SysLocale.default
+      user.locale = user.original_locale = create(:sys_locale, :default)
       user.skip_confirmation!
     end
 
@@ -10,11 +10,11 @@ FactoryBot.define do
     name { Faker::Name.first_name }
     surname { Faker::Name.last_name }
     confirmed_at { Time.now }
-    user_type_id { UserType::AUTHENTICATED }
+    user_type_id { User.user_type_ids[:authenticated] }
     email { Faker::Internet.email }
 
     factory :admin do
-      user_type_id { UserType::ADMINISTRATOR }
+      user_type_id { User.user_type_ids[:administrator] }
     end
   end
 end

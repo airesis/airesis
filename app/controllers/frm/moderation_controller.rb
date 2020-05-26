@@ -12,7 +12,7 @@ module Frm
     def posts
       Frm::Post.moderate!(params[:posts] || [])
       flash[:notice] = t('frm.posts.moderation.success')
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
 
     def topic
@@ -23,7 +23,7 @@ module Frm
       else
         flash[:error] = t('frm.topic.moderation.no_option_selected')
       end
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
 
     private

@@ -58,6 +58,7 @@ RSpec.describe 'check permissions are actually working inside groups' do
     within_left_menu do
       click_link I18n.t('pages.groups.show.list_permissions.button')
     end
+    sleep 1
     expect(page).to have_content I18n.t('pages.users.show.what_can_i_do')
   end
 end
