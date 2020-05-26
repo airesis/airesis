@@ -1,4 +1,4 @@
-class IntegratedContribute < ActiveRecord::Base
+class IntegratedContribute < ApplicationRecord
   belongs_to :proposal_revision, inverse_of: :integrated_contributes
   belongs_to :proposal_comment, inverse_of: :integrated_contribute
 

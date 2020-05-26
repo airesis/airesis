@@ -2,8 +2,8 @@ class ProposalCommentsController < ApplicationController
   before_action :save_post_and_authenticate_user, only: [:create]
 
   load_and_authorize_resource :proposal
-  load_and_authorize_resource through: :proposal, collection: [:list, :left_list, :edit_list, :show_all_replies]
-  before_action :already_ranked, only: [:rankup, :rankdown, :ranknil]
+  load_and_authorize_resource through: :proposal, collection: %i[list left_list edit_list show_all_replies]
+  before_action :already_ranked, only: %i[rankup rankdown ranknil]
 
   layout :choose_layout
 
@@ -27,15 +27,13 @@ class ProposalCommentsController < ApplicationController
     index
   end
 
-  def show
-  end
+  def show; end
 
-  def history
-  end
+  def history; end
 
   # mostra tutti i commenti dati ad un contributo
   def show_all_replies
-    @proposal_comment = ProposalComment.find_by_id(params[:id])
+    @proposal_comment = ProposalComment.find_by(id: params[:id])
     @replies = ProposalComment.where('parent_proposal_comment_id=?', params[:id]).order('created_at ASC')[0..-(params[:showed].to_i + 1)]
   end
 
@@ -43,8 +41,7 @@ class ProposalCommentsController < ApplicationController
     @proposal_comment = @proposal.proposal_comments.build
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     parent_id = params[:proposal_comment][:parent_proposal_comment_id]
@@ -58,7 +55,6 @@ class ProposalCommentsController < ApplicationController
       format.js
       format.json { head :ok }
     end
-
   rescue Exception => e
     respond_to do |format|
       flash[:error] = @proposal_comment.errors.messages.values.join(' e ')
@@ -114,12 +110,11 @@ class ProposalCommentsController < ApplicationController
 
   def report
     ProposalCommentReport.transaction do
-      report = @proposal_comment.reports.find_by_user_id(current_user.id)
-      report.destroy if report
+      report = @proposal_comment.reports.find_by(user_id: current_user.id)
+      report&.destroy
       report = @proposal_comment.reports.create(user_id: current_user.id, proposal_comment_report_type_id: params[:reason])
     end
     flash[:notice] = t('info.proposal.contribute_reported')
-
   rescue Exception => e
     # log_error(e)
     respond_to do |format|
@@ -128,11 +123,9 @@ class ProposalCommentsController < ApplicationController
     end
   end
 
-  def noise
-  end
+  def noise; end
 
-  def manage_noise
-  end
+  def manage_noise; end
 
   # the editor marked some contributes as unuseful
   def mark_noise
@@ -168,13 +161,14 @@ class ProposalCommentsController < ApplicationController
 
   def save_post_and_authenticate_user
     return if current_user
+
     session[:proposal_comment] = params[:proposal_comment]
     session[:proposal_id] = params[:proposal_id]
     flash[:info] = t('info.proposal.login_to_contribute')
   end
 
   def rank(rank_type)
-    @my_ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(current_user.id, @proposal_comment.id)
+    @my_ranking = ProposalCommentRanking.find_by(user_id: current_user.id, proposal_comment_id: @proposal_comment.id)
     if @my_ranking
       @ranking = @my_ranking
     else

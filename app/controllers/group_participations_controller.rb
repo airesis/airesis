@@ -6,7 +6,7 @@ class GroupParticipationsController < ApplicationController
   before_action :authenticate_user!
 
   load_and_authorize_resource :group
-  load_and_authorize_resource through: :group, except: [:send_email, :destroy_all, :build_csv, :change_user_permission]
+  load_and_authorize_resource through: :group, except: %i[send_email destroy_all build_csv change_user_permission]
 
   def index
     @page_title = t('pages.group_participations.index.title')
@@ -64,14 +64,14 @@ class GroupParticipationsController < ApplicationController
         group_participation = GroupParticipation.find(id)
         next unless group_participation.group == @group
         next if group_participation.user == current_user
-        group_participation_request = GroupParticipationRequest.find_by_user_id_and_group_id(group_participation.user_id, group_participation.group_id)
+
+        group_participation_request = GroupParticipationRequest.find_by(user_id: group_participation.user_id, group_id: group_participation.group_id)
         group_participation_request.destroy
         group_participation.destroy
         AreaParticipation.joins(group_area: :group).where(['groups.id = ? AND area_participations.user_id = ?', group_participation.group_id, group_participation.user_id]).readonly(false).destroy_all
       end
     end
     flash[:notice] = t('info.participations_destroyed')
-
   rescue Exception => e
     flash[:notice] = t('error.participations_destroyed')
     respond_to do |format|
@@ -86,7 +86,7 @@ class GroupParticipationsController < ApplicationController
   def destroy
     @group_participation.destroy
     flash[:notice] =
-      (current_user == @group_participation.user) ?
+      current_user == @group_participation.user ?
         t('info.group_participations.destroy_ok_1') :
         t('info.participation_roles.user_removed_from_group', name: @group_participation.user.fullname)
 

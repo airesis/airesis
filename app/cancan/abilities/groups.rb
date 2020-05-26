@@ -6,7 +6,7 @@ module Abilities
     def initialize(user)
       group_permissions(user)
 
-      can [:read, :create, :update], ParticipationRole, group: admin_of_group?(user)
+      can %i[read create update], ParticipationRole, group: admin_of_group?(user)
       can :destroy, ParticipationRole do |participation_role|
         participation_role.id != participation_role.group.participation_role_id
       end
@@ -34,9 +34,9 @@ module Abilities
           ((group_participation.group.portavoce.include? user) && (group_participation.user != user))
       end
 
-      can [:new, :create], GroupInvitation, group: can_do_on_group(user, :accept_participation_requests)
+      can %i[new create], GroupInvitation, group: can_do_on_group(user, :accept_participation_requests)
 
-      can [:read, :dates], [Quorum, BestQuorum, OldQuorum], group: participate_in_group(user)
+      can %i[read dates], [Quorum, BestQuorum, OldQuorum], group: participate_in_group(user)
       can :manage, [Quorum, BestQuorum, OldQuorum], group_quorum: { group: admin_of_group?(user) }
     end
 
@@ -53,13 +53,13 @@ module Abilities
     end
 
     def area_role_permissions(user)
-      can [:read, :create, :update, :destroy, :change], AreaRole, group_area: { group: admin_of_group?(user) }
+      can %i[read create update destroy change], AreaRole, group_area: { group: admin_of_group?(user) }
 
       cannot :destroy, AreaRole do |area_role|
         area_role.id == area_role.group_area.area_role_id
       end
 
-      can [:create, :destroy], AreaParticipation, group_area: { group: admin_of_group?(user) }
+      can %i[create destroy], AreaParticipation, group_area: { group: admin_of_group?(user) }
     end
 
     def group_area_management_permissions(user)
@@ -89,12 +89,12 @@ module Abilities
       group_create_permissions(user)
 
       can :read, Group
-      can [:update, :enable_areas, :change_advanced_options, :change_default_anonima, :change_default_visible_outside,
-           :change_default_secret_vote], Group, admin_of_group?(user)
+      can %i[update enable_areas change_advanced_options change_default_anonima change_default_visible_outside
+             change_default_secret_vote], Group, admin_of_group?(user)
 
       can :accept_requests, Group, can_do_on_group(user, :accept_participation_requests)
 
-      can [:view_data, :by_year_and_month, :permissions_list], Group, group_participations: { user_id: user.id }
+      can %i[view_data by_year_and_month permissions_list], Group, group_participations: { user_id: user.id }
 
       can :create, SearchParticipant, group: participate_in_group(user)
 
@@ -116,7 +116,7 @@ module Abilities
     end
 
     def group_posts_permissions(user)
-      can [:remove_post, :feature_post], Group, admin_of_group?(user)
+      can %i[remove_post feature_post], Group, admin_of_group?(user)
       can :post_to, Group, can_do_on_group(user, :write_to_wall)
     end
 
@@ -130,7 +130,7 @@ module Abilities
     end
 
     def group_documents_permissions(user)
-      can [:view_documents, :reload_storage_size], Group, can_do_on_group(user, :view_documents)
+      can %i[view_documents reload_storage_size], Group, can_do_on_group(user, :view_documents)
       can :manage_documents, Group, can_do_on_group(user, :manage_documents)
     end
 

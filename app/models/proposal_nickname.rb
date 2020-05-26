@@ -1,9 +1,9 @@
-class ProposalNickname < ActiveRecord::Base
+class ProposalNickname < ApplicationRecord
   belongs_to :user, class_name: 'User', foreign_key: :user_id
   belongs_to :proposal, class_name: 'Proposal', foreign_key: :proposal_id
 
-  validates_uniqueness_of :user_id, scope: :proposal_id, message: 'Questo utente ha già un nickname in questa proposta'
-  validates_uniqueness_of :nickname, scope: :proposal_id, message: 'Questo nickname è già in uso in questa proposta'
+  validates :user_id, uniqueness: { scope: :proposal_id, message: 'Questo utente ha già un nickname in questa proposta' }
+  validates :nickname, uniqueness: { scope: :proposal_id, message: 'Questo nickname è già in uso in questa proposta' }
 
   attr_accessor :generated
 
@@ -15,6 +15,7 @@ class ProposalNickname < ActiveRecord::Base
   def self.generate(user, proposal)
     proposal_nickname = ProposalNickname.find_by(user_id: user.id, proposal_id: proposal.id)
     return proposal_nickname if proposal_nickname
+
     loop = true
     while loop
       nickname = NicknameGeneratorHelper.give_me_a_nickname
@@ -25,7 +26,7 @@ class ProposalNickname < ActiveRecord::Base
     proposal_nickname
   end
 
-  def to_json
+  def to_json(*_args)
     { name: nickname, id: id, avatar: avatar(16), type: 'nickname' }
   end
 end

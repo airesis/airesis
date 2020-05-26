@@ -3,13 +3,13 @@ class UsersController < ApplicationController
   include UsersHelper
   layout :choose_layout
 
-  before_action :authenticate_user!, except: [:index, :show, :confirm_credentials, :join_accounts]
+  before_action :authenticate_user!, except: %i[index show confirm_credentials join_accounts]
 
-  before_action :load_user, only: [:show, :update, :show_message, :send_message]
+  before_action :load_user, only: %i[show update show_message send_message]
 
   def confirm_credentials
     @user = User.new_with_session(nil, session)
-    @orig = User.find_by_email(@user.email)
+    @orig = User.find_by(email: @user.email)
   end
 
   # joins two different account when logging in
@@ -42,11 +42,12 @@ class UsersController < ApplicationController
 
   def index
     return redirect_to root_path if user_signed_in?
+
     @users = User.where('upper(name) like upper(?)', "%#{params[:q]}%")
 
     respond_to do |format|
       format.html
-      format.json { render json: @users.to_json(only: [:id, :name]) }
+      format.json { render json: @users.to_json(only: %i[id name]) }
     end
   end
 
@@ -86,14 +87,11 @@ class UsersController < ApplicationController
   def change_show_tooltips
     current_user.show_tooltips = params[:active]
     current_user.save!
-    params[:active] == 'true' ?
-      flash[:notice] = t('info.user.tooltips_enabled') :
-      flash[:notice] = t('info.user.tooltips_disabled')
+    flash[:notice] = params[:active] == 'true' ? t('info.user.tooltips_enabled') : t('info.user.tooltips_disabled')
 
     respond_to do |format|
       format.js { render partial: 'layouts/messages' }
     end
-
   rescue Exception => e
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
@@ -104,14 +102,11 @@ class UsersController < ApplicationController
   def change_show_urls
     current_user.show_urls = params[:active]
     current_user.save!
-    params[:active] == 'true' ?
-      flash[:notice] = t('info.user.url_shown') :
-      flash[:notice] = t('info.user.url_hidden')
+    flash[:notice] = params[:active] == 'true' ? t('info.user.url_shown') : t('info.user.url_hidden')
 
     respond_to do |format|
       format.js { render partial: 'layouts/messages' }
     end
-
   rescue Exception => e
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
@@ -122,16 +117,15 @@ class UsersController < ApplicationController
   def change_receive_messages
     current_user.receive_messages = params[:active]
     current_user.save!
-    if params[:active] == 'true'
-      flash[:notice] = t('info.private_messages_active')
-    else
-      flash[:notice] = t('info.private_messages_inactive')
-    end
+    flash[:notice] = if params[:active] == 'true'
+                       t('info.private_messages_active')
+                     else
+                       t('info.private_messages_inactive')
+                     end
 
     respond_to do |format|
       format.js { render partial: 'layouts/messages' }
     end
-
   rescue Exception => e
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
@@ -149,7 +143,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.js { render partial: 'layouts/messages' }
     end
-
   rescue Exception => e
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
@@ -166,7 +159,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.js { render partial: 'layouts/messages' }
     end
-
   rescue Exception => e
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
@@ -189,7 +181,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.js
     end
-
   rescue Exception => e
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
@@ -246,7 +237,7 @@ class UsersController < ApplicationController
     @group = Group.friendly.find(params[:group_id])
     users = @group.participants.autocomplete(params[:term])
     users = users.map do |u|
-      { id: u.id, identifier: "#{u.surname} #{u.name}", image_path: "#{avatar(u, size: 20)}" }
+      { id: u.id, identifier: "#{u.surname} #{u.name}", image_path: avatar(u, size: 20).to_s }
     end
     render json: users
   end

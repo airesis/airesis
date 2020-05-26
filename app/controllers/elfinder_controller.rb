@@ -4,15 +4,16 @@ class ElfinderController < ApplicationController
   before_action :load_group
 
   def elfinder
-
     # TODO: disabled and put in readonly mode
     @can_manage = false
-    #@can_manage = can? :manage_documents, @group
+    # @can_manage = can? :manage_documents, @group
 
     @can_view = can? :view_documents, @group
 
     # create root directory if does not exists
-    Dir.mkdir("#{Rails.root}/private/elfinder/#{@group.id}") unless File.exist?("#{Rails.root}/private/elfinder/#{@group.id}")
+    unless File.exist?("#{Rails.root}/private/elfinder/#{@group.id}")
+      Dir.mkdir("#{Rails.root}/private/elfinder/#{@group.id}")
+    end
 
     h, r = ElFinder::Connector.new(
       root: File.join(Rails.root, 'private', 'elfinder', @group.id.to_s),
@@ -36,7 +37,6 @@ class ElfinderController < ApplicationController
         'application/x-gzip' => ['.tgz', 'tar', '-czf']
       },
       upload_max_size: "#{@group.max_storage_size - @group.actual_storage_size}K"
-
     ).run(params)
 
     headers.merge!(h)

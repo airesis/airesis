@@ -1,4 +1,4 @@
-class SectionHistory < ActiveRecord::Base
+class SectionHistory < ApplicationRecord
   has_one :revision_section_history, inverse_of: :section_history
   has_one :solution_section_history, inverse_of: :section_history
   has_one :proposal_revision, through: :revision_section_history

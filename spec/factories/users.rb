@@ -9,7 +9,7 @@ FactoryBot.define do
     password_confirmation { 'topolino' }
     name { Faker::Name.first_name }
     surname { Faker::Name.last_name }
-    confirmed_at { Time.now }
+    confirmed_at { Time.zone.now }
     user_type_id { User.user_type_ids[:authenticated] }
     email { Faker::Internet.email }
 

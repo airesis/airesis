@@ -1,4 +1,4 @@
-class ResqueMailer < ActionMailer::Base
+class ResqueMailer < ApplicationMailer
   helper ProposalsHelper, EmailHelper, UsersHelper
   default from: ENV['DEFAULT_FROM']
 
@@ -7,8 +7,9 @@ class ResqueMailer < ActionMailer::Base
   def url_options
     options = {}
     if @user
-      options.merge!(host: @user.locale.host, protocol: DEFAULT_EMAIL_PROTOCOL)
-      options.merge!(l: @user.locale.lang) unless @user.locale.lang.blank?
+      options[:host] = @user.locale.host
+      options[:protocol] = DEFAULT_EMAIL_PROTOCOL
+      options[:l] = @user.locale.lang if @user.locale.lang.present?
     end
     options
   end
@@ -33,12 +34,13 @@ class ResqueMailer < ActionMailer::Base
     NotificationType::NEW_BLOG_COMMENT => 'notifications/new_blog_comment',
     NotificationType::CONTRIBUTE_UPDATE => 'notifications/update_contribute',
     NotificationType.find_by(name: NotificationType::NEW_FORUM_TOPIC).id => 'notifications/new_forum_topic'
-  }
+  }.freeze
 
   def notification(alert_id)
     @alert = Alert.find(alert_id)
     @user = @alert.user
     return if @alert.checked # do not send emails for already checked alerts
+
     I18n.locale = @user.locale.key || :'en-EU'
     @data = @alert.data
     to_id = @data[:to_id]
@@ -105,7 +107,7 @@ class ResqueMailer < ActionMailer::Base
   def feedback(feedback_id)
     @feedback = SentFeedback.find(feedback_id)
     to_email = @feedback.email || ENV['FEEDBACK_SENDER']
-    mail(to: ENV['FEEDBACK_RECEIVER'], from: to_email, subject: t('feedback_subject', time: (l Time.now)))
+    mail(to: ENV['FEEDBACK_RECEIVER'], from: to_email, subject: t('feedback_subject', time: (l Time.zone.now)))
   end
 
   def blocked(user_id)

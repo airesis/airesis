@@ -1,7 +1,9 @@
 module Capybara
   module Select2
     def select2(value, options = {})
-      raise "Must pass a hash containing 'from' or 'xpath'" unless options.is_a?(Hash) && [:from, :xpath].any? { |k| options.key? k }
+      unless options.is_a?(Hash) && %i[from xpath].any? { |k| options.key? k }
+        raise "Must pass a hash containing 'from' or 'xpath'"
+      end
 
       if options.key? :xpath
         select2_container = first(:xpath, options[:xpath])
@@ -19,9 +21,7 @@ module Capybara
 
     def select2ajax(css_selector, value = nil)
       page.execute_script(%|$('#{css_selector}').select2("open");|)
-      if value
-        page.execute_script(%|$('.select2-search__field').val('#{value[0, 2]}').trigger('keyup');|)
-      end
+      page.execute_script(%|$('.select2-search__field').val('#{value[0, 2]}').trigger('keyup');|) if value
       page.execute_script %|
                             window.setTimeout( function() {
                               $('.select2-results__option--highlighted').trigger('mouseup');

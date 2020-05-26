@@ -33,4 +33,4 @@ module SimpleForm
   end
 end
 
-SimpleForm::Inputs::Base.send(:include, SimpleForm::Components::Minlength)
+SimpleForm::Inputs::Base.include SimpleForm::Components::Minlength

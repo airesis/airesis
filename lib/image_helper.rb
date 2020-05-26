@@ -1,6 +1,6 @@
 module ImageHelper
   def group_image_tag(size = 80, url = false)
-    group = self.respond_to?(:group) ? self.group : self
+    group = respond_to?(:group) ? self.group : self
 
     src = group.image.url
     src = "#{ENV['SITE']}#{src}" if url

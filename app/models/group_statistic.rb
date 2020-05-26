@@ -1,3 +1,3 @@
-class GroupStatistic < ActiveRecord::Base
+class GroupStatistic < ApplicationRecord
   belongs_to :group
 end

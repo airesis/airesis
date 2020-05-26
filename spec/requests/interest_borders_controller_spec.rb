@@ -4,7 +4,8 @@ RSpec.describe InterestBordersController, :aggregate_failures do
   let(:json) { JSON.parse(response.body, symbolize_names: true) }
 
   describe 'GET index' do
-    let(:json_response) {JSON.parse(response.body)}
+    let(:json_response) { JSON.parse(response.body) }
+
     it 'retrieves continents correctly' do
       continent = create(:continent, :europe)
       get interest_borders_path, params: { q: 'Eur', format: :json }

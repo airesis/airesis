@@ -24,7 +24,7 @@ module ApplicationHelper
   end
 
   def facebook_like
-    "<div class=\"fb-like\" data-send=\"false\" data-layout=\"box_count\" data-width=\"100\" data-show-faces=\"false\"></div>"
+    '<div class="fb-like" data-send="false" data-layout="box_count" data-width="100" data-show-faces="false"></div>'
   end
 
   def calendar(*_args)
@@ -41,22 +41,22 @@ module ApplicationHelper
 
   # return the time in words
   def time_in_words(from_time, _include_seconds = false)
-    diff = Time.now - from_time # difference of time from now
-    if !from_time.today? # if it's not today
-      if diff < 7.days && (from_time.wday <= Time.now.wday) # if time in this
-        if (Time.now.day - from_time.day) == 1 # if it was yesterady
-          ret = I18n.l(from_time, format: :yesterday_at)
-        else
-          ret = I18n.l(from_time, format: :weekday) # this week
-        end
-      else
-        ret = I18n.l(from_time, format: :short) # another week
-      end
-    elsif diff > 1.hours
-      ret = I18n.l(from_time, format: :hour)
-    else
-      ret = "<div data-countdown data-time='#{(from_time).to_i * 1000}' style='display:inline'></div>".html_safe
-    end
+    diff = Time.zone.now - from_time # difference of time from now
+    ret = if !from_time.today? # if it's not today
+            if diff < 7.days && (from_time.wday <= Time.zone.now.wday) # if time in this
+              if (Time.zone.now.day - from_time.day) == 1 # if it was yesterady
+                I18n.l(from_time, format: :yesterday_at)
+              else
+                I18n.l(from_time, format: :weekday) # this week
+                    end
+            else
+              I18n.l(from_time, format: :short) # another week
+                  end
+          elsif diff > 1.hour
+            I18n.l(from_time, format: :hour)
+          else
+            "<div data-countdown data-time='#{from_time.to_i * 1000}' style='display:inline'></div>".html_safe
+          end
     ret
   end
 
@@ -75,7 +75,7 @@ module ApplicationHelper
   end
 
   def add_params(to_add = {})
-    params.reject { |k, _v| %w(controller action).include? k }.merge to_add
+    params.reject { |k, _v| %w[controller action].include? k }.merge to_add
   end
 
   def order_arrow

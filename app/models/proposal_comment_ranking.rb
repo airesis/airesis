@@ -1,4 +1,4 @@
-class ProposalCommentRanking < ActiveRecord::Base
+class ProposalCommentRanking < ApplicationRecord
   belongs_to :user
   belongs_to :proposal_comment
 

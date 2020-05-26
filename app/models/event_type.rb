@@ -1,4 +1,4 @@
-class EventType < ActiveRecord::Base
+class EventType < ApplicationRecord
   MEETING = 1
   VOTATION = 2
 

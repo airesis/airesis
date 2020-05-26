@@ -1,4 +1,4 @@
-class GroupArea < ActiveRecord::Base
+class GroupArea < ApplicationRecord
   belongs_to :group
 
   # TODO: is not optional, but it does not exist before validation
@@ -29,7 +29,7 @@ class GroupArea < ActiveRecord::Base
   end
 
   def after_populate
-    active_actions = Hash[DEFAULT_AREA_ACTIONS.map { |a| [a, true] }]
+    active_actions = DEFAULT_AREA_ACTIONS.index_with { |_a| true }
     default_role.update(active_actions.merge(group_area_id: id))
   end
 

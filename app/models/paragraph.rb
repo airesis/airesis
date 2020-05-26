@@ -1,11 +1,11 @@
-class Paragraph < ActiveRecord::Base
+class Paragraph < ApplicationRecord
   belongs_to :section
 
   has_many :proposal_comments
 
   attr_accessor :content_dirty
 
-  validates_length_of :content, within: 1..40_000, allow_blank: true
+  validates :content, length: { within: 1..40_000, allow_blank: true }
 
   before_destroy :remove_related_comments
 
@@ -22,7 +22,7 @@ class Paragraph < ActiveRecord::Base
   def content=(content)
     ed_content = content ? content.gsub('&nbsp;', ' ').strip.gsub('<br></p>', '</p>') : nil
     ed_content = '<p></p>' if ed_content.to_s == ''
-    write_attribute(:content, ed_content)
+    self[:content] = ed_content
   end
 
   def empty?

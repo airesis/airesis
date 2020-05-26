@@ -11,12 +11,12 @@ class DocumentsController < ApplicationController
 
   def view
     url = params[:url]
-    group_id = params[:url][/\/private\/elfinder\/([^\/]*)\/(.*)/, 1]
+    group_id = params[:url][%r{/private/elfinder/([^/]*)/(.*)}, 1]
     @group = Group.find(group_id)
 
     authorize! :view_documents, @group
 
-    url = Rails.root.join(params[:url][1..-1])
+    url = Rails.root.join(params[:url][1..])
     if params[:download]
       send_file url
     else

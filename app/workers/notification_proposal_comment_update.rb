@@ -11,8 +11,8 @@ class NotificationProposalCommentUpdate < NotificationSender
     return unless comment.is_contribute?
 
     host = comment_user.locale.host
-    nickname = ProposalNickname.find_by_user_id_and_proposal_id(comment_user.id, @proposal.id)
-    name = (nickname && @proposal.is_anonima?) ? nickname.nickname : comment_user.fullname # send nickname if proposal is anonymous
+    nickname = ProposalNickname.find_by(user_id: comment_user.id, proposal_id: @proposal.id)
+    name = nickname && @proposal.is_anonima? ? nickname.nickname : comment_user.fullname # send nickname if proposal is anonymous
 
     data = { comment_id: comment.id.to_s, proposal_id: @proposal.id, to_id: "proposal_c_#{@proposal.id}", username: name, user_id: comment_user.id, name: name, title: @proposal.title }
     query = { comment_id: comment.id.to_s }

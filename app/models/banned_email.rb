@@ -1,2 +1,2 @@
-class BannedEmail < ActiveRecord::Base
+class BannedEmail < ApplicationRecord
 end

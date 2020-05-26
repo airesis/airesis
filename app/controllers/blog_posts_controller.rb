@@ -11,9 +11,9 @@ class BlogPostsController < ApplicationController
     authorize! :read, @blog if @blog
   end
 
-  load_and_authorize_resource through: [:blog, :group], shallow: true, collection: [:drafts]
+  load_and_authorize_resource through: %i[blog group], shallow: true, collection: [:drafts]
 
-  before_action :load_blog_data, only: [:index, :show, :drafts]
+  before_action :load_blog_data, only: %i[index show drafts]
 
   before_action :check_page_alerts, only: :show
 
@@ -107,7 +107,7 @@ class BlogPostsController < ApplicationController
 
   def blog_post_params
     ret = params.require(:blog_post).permit(:title, :body, :status, :tags_list, group_ids: [])
-    ret[:group_ids].select! { |id| (id != '') && (can? :post_to, Group.find(id)) } if ret[:group_ids]
+    ret[:group_ids]&.select! { |id| (id != '') && (can? :post_to, Group.find(id)) }
     ret
   end
 

@@ -66,7 +66,7 @@ class QuorumsController < ApplicationController
   end
 
   def destroy
-    @quorum = @group.quorums.find_by_id(params[:id])
+    @quorum = @group.quorums.find_by(id: params[:id])
     @quorum.destroy
     flash[:notice] = t('info.quorums.quorum_deleted')
 
@@ -82,7 +82,7 @@ class QuorumsController < ApplicationController
 
   def change_status
     Quorum.transaction do
-      quorum = @group.quorums.find_by_id(params[:id])
+      quorum = @group.quorums.find_by(id: params[:id])
       if quorum
         if params[:active] == 'true' # devo togliere i permessi
           quorum.active = true

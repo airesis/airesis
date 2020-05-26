@@ -1,4 +1,4 @@
-class Continent < ActiveRecord::Base
+class Continent < ApplicationRecord
   translates :description
 
   has_many :districts

@@ -3,8 +3,7 @@ module Frm
     class ForumsController < BaseController
       load_and_authorize_resource class: 'Frm::Forum', through: :group
 
-      def index
-      end
+      def index; end
 
       def new
         category = @group.categories.first

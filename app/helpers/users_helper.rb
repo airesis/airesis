@@ -21,10 +21,9 @@ module UsersHelper
   # if the proposal is_current? and the user has a nickname associated to it
   # then the user real name and image are hidden and replaced by the proposal nickname ones.
   def user_tag(user, proposal = nil, full_name = true, show_rank = false, options = {})
-    fail 'Invalid User' unless user
-    if proposal && proposal.is_anonima?
-      u_nick = user.proposal_nicknames.find_by(proposal_id: proposal.id)
-    end
+    raise 'Invalid User' unless user
+
+    u_nick = user.proposal_nicknames.find_by(proposal_id: proposal.id) if proposal&.is_anonima?
     ret = content_tag :div, class: 'user-tag' do
       (content_tag :div, class: 'user-avatar' do
         if u_nick
@@ -45,7 +44,7 @@ module UsersHelper
   end
 
   def user_tag_mini(user, proposal = nil)
-    if proposal && proposal.is_anonima? && (user != current_user)
+    if proposal&.is_anonima? && (user != current_user)
       u_nick = user.proposal_nicknames.find_by(proposal_id: proposal.id)
     end
     ret = "<div class=\"blogUserImage\" title=\"#{u_nick ? u_nick.nickname : user.email}\">"
@@ -65,9 +64,9 @@ module UsersHelper
             proposal.rankings.find_by(user_id: user.id).try(:ranking_type_id)
           end
     if val == ProposalRanking::POSITIVE
-      "<div class=\"like-mini\" style=\"display:inline-block;\" title=\"Hai valutato positivamente questa proposta\"></div>".html_safe
+      '<div class="like-mini" style="display:inline-block;" title="Hai valutato positivamente questa proposta"></div>'.html_safe
     elsif val == ProposalRanking::NEGATIVE
-      "<div class=\"dislike-mini\" style=\"display:inline-block;\" title=\"Hai valutato negativamente questa proposta\"></div>".html_safe
+      '<div class="dislike-mini" style="display:inline-block;" title="Hai valutato negativamente questa proposta"></div>'.html_safe
     end
   end
 

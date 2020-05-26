@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :sys_payment_notifications, only: [:create]
 
-  resources :user_likes, only: [:create, :destroy]
+  resources :user_likes, only: %i[create destroy]
 
   resources :proposal_nicknames, only: [:update]
 
@@ -233,7 +233,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
   namespace :api do
     namespace :v1 do
-      resources :proposals, only: [:show, :index]
+      resources :proposals, only: %i[show index]
       devise_scope :user do
         post 'login' => 'sessions#create', as: :login
       end
@@ -266,7 +266,7 @@ Rails.application.routes.draw do
       get :autocomplete
     end
 
-    resources :forums, controller: 'frm/forums', only: [:index, :show] do
+    resources :forums, controller: 'frm/forums', only: %i[index show] do
       resources :topics, controller: 'frm/topics' do
         member do
           get :subscribe
@@ -274,7 +274,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :topics, controller: 'frm/topics', only: [:new, :create, :index, :show, :destroy] do
+      resources :topics, controller: 'frm/topics', only: %i[new create index show destroy] do
         resources :posts, controller: 'frm/posts'
       end
     end
@@ -285,7 +285,7 @@ Rails.application.routes.draw do
       put 'forums/:forum_id/moderate/posts', to: 'moderation#posts', as: :forum_moderate_posts
       # Moderation of a single topic
       put 'forums/:forum_id/topics/:topic_id/moderate', to: 'moderation#topic', as: :moderate_forum_topic
-      resources :categories, only: [:index, :show]
+      resources :categories, only: %i[index show]
       namespace :admin do
         root to: 'base#index'
         resources :mods do
@@ -374,7 +374,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :area_participations, only: [:create, :update, :destroy]
+      resources :area_participations, only: %i[create update destroy]
     end
 
     concerns :blog_posts
@@ -435,7 +435,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :tokens, only: [:create, :destroy]
+  resources :tokens, only: %i[create destroy]
 
   get '/:id' => 'groups#show'
 end

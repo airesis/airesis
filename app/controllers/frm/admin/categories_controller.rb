@@ -3,11 +3,9 @@ module Frm
     class CategoriesController < BaseController
       load_and_authorize_resource class: 'Frm::Category', through: :group
 
-      def index
-      end
+      def index; end
 
-      def new
-      end
+      def new; end
 
       def create
         if @category.save

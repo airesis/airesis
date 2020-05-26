@@ -6,7 +6,7 @@ class GroupInvitationEmailsController < ApplicationController
 
   before_action :authenticate_user_from_invite!, only: [:accept]
 
-  before_action :check_invite, only: [:accept, :reject, :anymore]
+  before_action :check_invite, only: %i[accept reject anymore]
 
   # accept invite from email link
   def accept
@@ -50,6 +50,7 @@ class GroupInvitationEmailsController < ApplicationController
 
   def authenticate_user_from_invite!
     return if user_signed_in?
+
     session[:user_return_to] = request.url
     session[:user] = {}
     session[:user][:email] = params[:email]

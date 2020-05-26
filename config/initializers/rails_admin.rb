@@ -1,4 +1,4 @@
-Dir["#{Rails.root}/lib/rails_admin/*.rb"].each { |file| require file }
+Dir["#{Rails.root}/lib/rails_admin/*.rb"].sort.each { |file| require file }
 
 RailsAdmin.config do |config|
   ### Popular gems integration
@@ -21,16 +21,16 @@ RailsAdmin.config do |config|
     dashboard # mandatory
     index # mandatory
     new do
-      except %w(User SysPaymentNotification ReceivedEmail)
+      except %w[User SysPaymentNotification ReceivedEmail]
     end
     # export
     # bulk_delete
     show
     edit do
-      except %w(ReceivedEmail)
+      except %w[ReceivedEmail]
     end
     delete do
-      except %w(User SysPaymentNotification)
+      except %w[User SysPaymentNotification]
     end
     login_as do
       only ['User']
@@ -42,11 +42,11 @@ RailsAdmin.config do |config|
     # history_show
   end
 
-  config.included_models = %w(User Announcement NotificationType SysLocale SysFeature
-                              SysPaymentNotification Configuration ReceivedEmail)
+  config.included_models = %w[User Announcement NotificationType SysLocale SysFeature
+                              SysPaymentNotification Configuration ReceivedEmail]
 
   config.model 'SysFeature' do
-    exclude_fields %w(sys_payment_notifications)
+    exclude_fields %w[sys_payment_notifications]
   end
   config.model 'SysLocale' do
     object_label_method do
@@ -66,7 +66,7 @@ RailsAdmin.config do |config|
 
   config.model 'User' do
     list do
-      filters [:id, :name, :surname, :email]
+      filters %i[id name surname email]
       sort_by :id
     end
     edit do

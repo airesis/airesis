@@ -10,8 +10,8 @@ module Abilities
       # can send messages to every user although they denied it
       can :send_message, User
 
-      can [:set_votation_date, :participate, :edit, :update, :geocode, :add_authors, :destroy], Proposal
-      can [:read, :create, :update], ParticipationRole
+      can %i[set_votation_date participate edit update geocode add_authors destroy], Proposal
+      can %i[read create update], ParticipationRole
       can :index, SysPaymentNotification
       can :create_topic, Frm::Forum
       can :index, GroupParticipation

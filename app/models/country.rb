@@ -1,4 +1,4 @@
-class Country < ActiveRecord::Base
+class Country < ApplicationRecord
   translates :description
 
   has_many :districts

@@ -42,4 +42,3 @@ json.proposal do
     end
   end
 end
-

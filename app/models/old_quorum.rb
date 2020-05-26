@@ -1,6 +1,6 @@
 class OldQuorum < Quorum
   validate :minutes_or_percentage
-  validates :condition, inclusion: { in: %w(OR AND) }
+  validates :condition, inclusion: { in: %w[OR AND] }
 
   def minutes_or_percentage
     if days_m.blank? && hours_m.blank? && minutes_m.blank? && !percentage && !minutes
@@ -9,11 +9,11 @@ class OldQuorum < Quorum
   end
 
   def or?
-    condition && (condition.upcase == 'OR')
+    condition&.casecmp('OR')&.zero?
   end
 
   def and?
-    condition && (condition.upcase == 'AND')
+    condition&.casecmp('AND')&.zero?
   end
 
   def time_fixed?
@@ -32,7 +32,7 @@ class OldQuorum < Quorum
   def time_left
     ret = []
     if ends_at
-      amount = ends_at - Time.now # left in seconds
+      amount = ends_at - Time.zone.now # left in seconds
       if amount > 0
         left = I18n.t('time.left.seconds', count: amount.to_i)
         if amount >= 60 # if more or equal than 60 seconds left give me minutes
@@ -52,11 +52,9 @@ class OldQuorum < Quorum
     end
     if valutations
       valutations = self.valutations - proposal.valutations
-      if valutations > 0
-        ret << I18n.t('pages.proposals.new_rank_bar.valutations', count: valutations)
-      end
+      ret << I18n.t('pages.proposals.new_rank_bar.valutations', count: valutations) if valutations > 0
     end
-    if ret.size > 0
+    if !ret.empty?
       ret.join(or? ? " #{I18n.t('words.or').upcase} " : " #{I18n.t('words.and').upcase} ")
     else
       'IN STALLO' # TODO: i18n
@@ -66,7 +64,7 @@ class OldQuorum < Quorum
   def check_phase(force_end = false)
     proposal = self.proposal
     passed = false
-    timepassed = (!ends_at || Time.now > ends_at)
+    timepassed = (!ends_at || Time.zone.now > ends_at)
     vpassed = (!valutations || proposal.valutations >= valutations)
     # if both parameters were defined
     if ends_at && valutations
@@ -96,11 +94,11 @@ class OldQuorum < Quorum
               endtime: proposal.vote_ends_at,
               description: "Votazione #{proposal.title}"
             }
-            if proposal.private?
-              @event = proposal.groups.first.events.create!(event_p)
-            else
-              @event = Event.create!(event_p)
-            end
+            @event = if proposal.private?
+                       proposal.groups.first.events.create!(event_p)
+                     else
+                       Event.create!(event_p)
+                     end
           end
           proposal.vote_period = @event
         else
@@ -130,11 +128,11 @@ class OldQuorum < Quorum
         votesstring = ''; # stringa da passare alla libreria schulze_vote per calcolare il punteggio
         vote_data_schulze.each do |vote|
           # in ogni riga inserisco la mappa del voto ed eventualmente il numero se più di un utente ha espresso la stessa preferenza
-          vote.count > 1 ? votesstring += "#{vote.count}=#{vote.preferences}\n" : votesstring += "#{vote.preferences}\n"
+          votesstring += vote.count > 1 ? "#{vote.count}=#{vote.preferences}\n" : "#{vote.preferences}\n"
         end
         num_solutions = proposal.solutions.count
         vs = SchulzeBasic.do votesstring, num_solutions
-        solutions_sorted = proposal.solutions.sort { |a, b| a.id <=> b.id } # ordino le soluzioni secondo l'id crescente (così come vengono restituiti dalla libreria)
+        solutions_sorted = proposal.solutions.sort_by(&:id) # ordino le soluzioni secondo l'id crescente (così come vengono restituiti dalla libreria)
         solutions_sorted.each_with_index do |c, i|
           c.schulze_score = vs.ranks[i].to_i
           c.save!
@@ -170,14 +168,14 @@ class OldQuorum < Quorum
       percentages << percentagevals
     end
     if minutes
-      minimum = [Time.now, ends_at].min
+      minimum = [Time.zone.now, ends_at].min
       minimum = ((minimum - started_at) / 60)
       percentagetime = minimum.to_f / minutes
       percentagetime *= 100
       percentages << percentagetime
     end
 
-    if self.or?
+    if or?
       percentages.max
     else
       percentages.min
@@ -189,11 +187,11 @@ class OldQuorum < Quorum
   def min_participants_pop
     count = 1
     if percentage
-      if group
-        count = (percentage.to_f * 0.01 * group.scoped_participants(:participate_proposals).count) # TODO: group areas
-      else
-        count = (percentage.to_f * 0.001 * User.count)
-      end
+      count = if group
+                (percentage.to_f * 0.01 * group.scoped_participants(:participate_proposals).count) # TODO: group areas
+              else
+                (percentage.to_f * 0.001 * User.count)
+              end
       [count, 1].max.floor
     end
   end
@@ -201,15 +199,15 @@ class OldQuorum < Quorum
   def explanation_pop
     conditions = []
     ret = ''
-    if assigned? # explain a quorum assigned to a proposal
-      if proposal_life.present? || proposal.abandoned?
-        ret = terminated_explanation_pop
-      else
-        ret = assigned_explanation_pop
-      end
-    else
-      ret = unassigned_explanation_pop # it a non assigned quorum
-    end
+    ret = if assigned? # explain a quorum assigned to a proposal
+            if proposal_life.present? || proposal.abandoned?
+              terminated_explanation_pop
+            else
+              assigned_explanation_pop
+                  end
+          else
+            unassigned_explanation_pop # it a non assigned quorum
+          end
 
     ret += '.'
     ret.html_safe
@@ -219,28 +217,28 @@ class OldQuorum < Quorum
   # explain a quorum when assigned to a proposal in it's current state
   def assigned_explanation_pop
     ret = ''
-    if self.time_left? # if the quorum has a minimum time and there is still time remaining
+    if time_left? # if the quorum has a minimum time and there is still time remaining
       time = "<b>#{self.time}</b> "
       time += I18n.t('models.quorum.until_date', date: I18n.l(ends_at))
 
-      if self.valutations_left?
+      if valutations_left?
         participants = I18n.t('models.quorum.participants', count: valutations)
-        if self.or?
-          ret = I18n.translate('models.quorum.or_condition_1', # display number of required evaluations and time left
+        ret = if or?
+                I18n.translate('models.quorum.or_condition_1', # display number of required evaluations and time left
                                percentage: percentage,
                                time: time,
                                participants_num: participants)
-        else # and
-          ret = I18n.translate('models.quorum.and_condition_1', # display number of required evaluations and time left
+              else # and
+                I18n.translate('models.quorum.and_condition_1', # display number of required evaluations and time left
                                percentage: percentage,
                                time: time,
                                participants_num: participants)
 
-        end
+              end
       else # only time
         ret = I18n.translate('models.quorum.time_condition_1', time: time) # display the time left for discussion
       end
-    elsif self.valutations_left? # if the quorum has only valutations left
+    elsif valutations_left? # if the quorum has only valutations left
       participants = I18n.t('models.quorum.participants', count: valutations)
       ret = I18n.translate('models.quorum.participants_condition_1',
                            percentage: percentage,
@@ -265,17 +263,17 @@ class OldQuorum < Quorum
       time += I18n.t('models.quorum.until_date', date: I18n.l(ends_at))
       if percentage
         participants = I18n.t('models.quorum.participants_past', count: valutations)
-        if self.or?
-          ret = I18n.translate('models.quorum.or_condition_1_past', # display number of required evaluations and time left
+        ret = if or?
+                I18n.translate('models.quorum.or_condition_1_past', # display number of required evaluations and time left
                                percentage: percentage,
                                time: time,
                                participants_num: participants)
-        else # and
-          ret = I18n.translate('models.quorum.and_condition_1_past', # display number of required evaluations and time left
+              else # and
+                I18n.translate('models.quorum.and_condition_1_past', # display number of required evaluations and time left
                                percentage: percentage,
                                time: time,
                                participants_num: participants)
-        end
+              end
       else # only time
         ret = I18n.translate('models.quorum.time_condition_1_past', time: time) # display the time left for discussion
       end
@@ -301,17 +299,17 @@ class OldQuorum < Quorum
       time = "<b>#{self.time}</b> "
       if percentage
         participants = I18n.t('models.quorum.participants', count: min_participants)
-        if self.or?
-          ret = I18n.translate('models.quorum.or_condition_1', # display number of required evaluations and time left
+        ret = if or?
+                I18n.translate('models.quorum.or_condition_1', # display number of required evaluations and time left
                                percentage: percentage,
                                time: time,
                                participants_num: participants)
-        else # and
-          ret = I18n.translate('models.quorum.and_condition_1', # display number of required evaluations and time left
+              else # and
+                I18n.translate('models.quorum.and_condition_1', # display number of required evaluations and time left
                                percentage: percentage,
                                time: time,
                                participants_num: participants)
-        end
+              end
       else # if the quorum has only minimum time of discussion
         ret = I18n.translate('models.quorum.time_condition_1', time: time) # display the time left for discussion
       end

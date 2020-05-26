@@ -1,16 +1,16 @@
-class ProposalType < ActiveRecord::Base
+class ProposalType < ApplicationRecord
   has_many :proposals, class_name: 'Proposal'
 
-  SIMPLE = 'SIMPLE'
-  STANDARD = 'STANDARD'
-  POLL = 'POLL'
-  RULE_BOOK = 'RULE_BOOK'
-  PRESS = 'PRESS'
-  EVENT = 'EVENT'
-  ESTIMATE = 'ESTIMATE'
-  AGENDA = 'AGENDA'
-  CANDIDATE = 'CANDIDATE'
-  PETITION = 'PETITION'
+  SIMPLE = 'SIMPLE'.freeze
+  STANDARD = 'STANDARD'.freeze
+  POLL = 'POLL'.freeze
+  RULE_BOOK = 'RULE_BOOK'.freeze
+  PRESS = 'PRESS'.freeze
+  EVENT = 'EVENT'.freeze
+  ESTIMATE = 'ESTIMATE'.freeze
+  AGENDA = 'AGENDA'.freeze
+  CANDIDATE = 'CANDIDATE'.freeze
+  PETITION = 'PETITION'.freeze
 
   scope :active, -> { where(active: true) }
 

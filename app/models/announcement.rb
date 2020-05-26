@@ -1,4 +1,4 @@
-class Announcement < ActiveRecord::Base
+class Announcement < ApplicationRecord
   validates :message, presence: true, length: { maximum: 10.kilobytes }
   validates :starts_at, presence: true
   validates :ends_at, presence: true

@@ -1,2 +1,2 @@
-class ReceivedEmail < ActiveRecord::Base
+class ReceivedEmail < ApplicationRecord
 end

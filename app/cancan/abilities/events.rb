@@ -13,8 +13,8 @@ module Abilities
 
       can :create, Event
 
-      can [:update, :destroy], Event, user_id: user.id # can update my event
-      can [:update, :destroy], Event, groups: admin_of_group?(user)
+      can %i[update destroy], Event, user_id: user.id # can update my event
+      can %i[update destroy], Event, groups: admin_of_group?(user)
       cannot [:update, :destroy], Event do |event|
         event.proposals.any? || event.possible_proposals.any?
       end
@@ -26,12 +26,12 @@ module Abilities
     def meeting_participations_permissions(user)
       can :create, MeetingParticipation, meeting: { event: { private: false } }
       can :create, MeetingParticipation, meeting: { event: { groups: participate_in_group(user) } }
-      cannot :create, MeetingParticipation, meeting: { event: ['endtime < :limit', limit: Time.now] }
+      cannot :create, MeetingParticipation, meeting: { event: ['endtime < :limit', limit: Time.zone.now] }
     end
 
     def event_comments_permissions(user)
-      can [:create, :like], EventComment, event: { groups: participate_in_group(user) }
-      can [:create, :like], EventComment, event: { private: false }
+      can %i[create like], EventComment, event: { groups: participate_in_group(user) }
+      can %i[create like], EventComment, event: { private: false }
 
       can :destroy, EventComment, user_id: user.id
     end

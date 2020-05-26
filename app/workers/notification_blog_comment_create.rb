@@ -7,6 +7,7 @@ class NotificationBlogCommentCreate < NotificationSender
     post_user = blog_post.user
     comment_user = blog_comment.user
     return if comment_user == post_user # don't send a notification to myself
+
     data = { blog_post_id: blog_post.id,
              blog_comment_id: blog_comment.id,
              user: comment_user.fullname,

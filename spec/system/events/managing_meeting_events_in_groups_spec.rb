@@ -24,9 +24,9 @@ RSpec.describe 'manage correctly meeting events', :js, seeds: true do
     fill_in I18n.t('activerecord.attributes.event.description'), with: description
     check I18n.t('activerecord.attributes.event.private')
     click_link I18n.t('buttons.next')
-    fill_in I18n.t('activerecord.attributes.event.starttime'), with: (I18n.l Time.now, format: :datetimepicker)
+    fill_in I18n.t('activerecord.attributes.event.starttime'), with: (I18n.l Time.zone.now, format: :datetimepicker)
     page.execute_script("$('#event_starttime').fdatetimepicker('hide');")
-    fill_in I18n.t('activerecord.attributes.event.endtime'), with: (I18n.l Time.now + 1.day, format: :datetimepicker)
+    fill_in I18n.t('activerecord.attributes.event.endtime'), with: (I18n.l Time.zone.now + 1.day, format: :datetimepicker)
     page.execute_script("$('#event_endtime').fdatetimepicker('hide');")
     click_link I18n.t('buttons.next')
     select2ajax('#event_meeting_attributes_place_attributes_municipality_id', 'Bologna')

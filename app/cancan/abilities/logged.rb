@@ -11,7 +11,7 @@ module Abilities
 
       user_message_permissions(user)
 
-      can [:read, :dates], [Quorum, BestQuorum, OldQuorum], public: true
+      can %i[read dates], [Quorum, BestQuorum, OldQuorum], public: true
 
       merge Abilities::Blogs.new(user)
       merge Abilities::Events.new(user)
@@ -23,7 +23,7 @@ module Abilities
     def user_profile_permissions(user)
       can :show_tooltips, User, show_tooltips: true
       can :change_rotp_enabled, User if user.email
-      can [:read, :check], Alert, user_id: user.id
+      can %i[read check], Alert, user_id: user.id
 
       # can destroy an identity provider only if he has a valid email address
       can :destroy, Authentication do |authentication|
@@ -33,12 +33,13 @@ module Abilities
 
     def ckeditor_permissions(user)
       can :access, :ckeditor # needed to access Ckeditor filebrowser
-      can [:read, :create, :destroy], Ckeditor::Picture, assetable_id: user.id
-      can [:read, :create, :destroy], Ckeditor::AttachmentFile, assetable_id: user.id
+      can %i[read create destroy], Ckeditor::Picture, assetable_id: user.id
+      can %i[read create destroy], Ckeditor::AttachmentFile, assetable_id: user.id
     end
 
     def user_message_permissions(user)
-      return unless user.email.present? # must have an email
+      return if user.email.blank? # must have an email
+
       # can send messages if receiver has enabled it
       can :send_message, User, receive_messages: true
       # can't send messages if receiver has not an email address

@@ -1,6 +1,7 @@
 module Frm
   class Forum < Frm::FrmTable
-    include Frm::Concerns::Viewable, Taggable
+    include Taggable
+    include Frm::Concerns::Viewable
 
     extend FriendlyId
     friendly_id :name, use: :scoped, scope: :group
@@ -52,7 +53,9 @@ module Frm
     protected
 
     def visibility
-      errors.add(:visible_outside, I18n.t('activerecord.errors.messages.forum_visibility')) if visible_outside && !category.visible_outside
+      if visible_outside && !category.visible_outside
+        errors.add(:visible_outside, I18n.t('activerecord.errors.messages.forum_visibility'))
+      end
     end
   end
 end

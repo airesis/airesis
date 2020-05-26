@@ -1,4 +1,4 @@
-class SearchProposal < ActiveRecord::Base
+class SearchProposal < ApplicationRecord
   belongs_to :group
   belongs_to :user
   belongs_to :group_area
@@ -9,15 +9,15 @@ class SearchProposal < ActiveRecord::Base
 
   attr_accessor :order_id, :time_type, :order_dir, :page, :per_page, :text, :or, :proposal_id, :proposal_state_tab
 
-  ORDER_RANDOM = '1'
-  ORDER_BY_DATE = '2'
-  ORDER_BY_RANK = '3'
-  ORDER_BY_VOTES = '4' # order by number of valutations
-  ORDER_BY_END = '5'
-  ORDER_BY_VOTATION_END = '6'
-  ORDER_BY_VOTES_NUMBER = '7' # order by number of votes
-  ORDER_ASC = 'a'
-  ORDER_DESC = 'd'
+  ORDER_RANDOM = '1'.freeze
+  ORDER_BY_DATE = '2'.freeze
+  ORDER_BY_RANK = '3'.freeze
+  ORDER_BY_VOTES = '4'.freeze # order by number of valutations
+  ORDER_BY_END = '5'.freeze
+  ORDER_BY_VOTATION_END = '6'.freeze
+  ORDER_BY_VOTES_NUMBER = '7'.freeze # order by number of votes
+  ORDER_ASC = 'a'.freeze
+  ORDER_DESC = 'd'.freeze
 
   def counters
     ret = { ProposalState::TAB_VOTATION => 0,
@@ -41,7 +41,7 @@ class SearchProposal < ActiveRecord::Base
   def search
     proposals = text ? Proposal.search(text) : Proposal.all
     proposals = proposals.where.not(proposal_type_id: 11) # TODO: removed petitions
-    proposals = proposals.where(created_at: created_at_from..(created_at_to || Time.now)) if created_at_from
+    proposals = proposals.where(created_at: created_at_from..(created_at_to || Time.zone.now)) if created_at_from
     proposals = proposals.where(proposal_category_id: proposal_category_id) if proposal_category_id
     proposals = proposals.where(proposal_type_id: proposal_type_id) if proposal_type_id
     proposals = proposals.accessible_by(Ability.new(user), :index, false)
@@ -84,7 +84,7 @@ class SearchProposal < ActiveRecord::Base
                         Proposal.ranking_subquery(user_id).as('ranking').to_sql]
 
     # ordering
-    dir = (order_dir == 'a') ? :asc : :desc
+    dir = order_dir == 'a' ? :asc : :desc
     if order_id == SearchProposal::ORDER_BY_DATE
       proposals = proposals.reorder(updated_at: dir, created_at: dir)
     elsif order_id == SearchProposal::ORDER_BY_RANK

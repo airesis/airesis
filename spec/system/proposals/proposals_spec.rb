@@ -192,6 +192,7 @@ RSpec.describe 'create a proposal in his group', :js do
   it 'creates a PRESS proposal in group through dialog window' do
     create_proposal('PRESS')
   end
+
   it 'creates a EVENT proposal in group through dialog window' do
     create_proposal('EVENT')
   end

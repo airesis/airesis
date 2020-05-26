@@ -23,7 +23,7 @@ RSpec.describe BlogPostsController, seeds: true do
 
     it 'show public posts' do
       get blog_posts_path
-      expect(CGI.unescapeHTML(response.body)).to include *posts.map(&:title)
+      expect(CGI.unescapeHTML(response.body)).to include(*posts.map(&:title))
     end
 
     it 'do not show reserved posts' do

@@ -24,6 +24,7 @@ RSpec.describe ProposalComment, type: :model, seeds: true do
       it 'increases the number of contributes of the proposal' do
         expect(proposal.proposal_contributes_count).to eq 1
       end
+
       context 'when a comment is added' do
         let!(:comment) { create(:proposal_comment, contribute: contribute, proposal: proposal) }
 
