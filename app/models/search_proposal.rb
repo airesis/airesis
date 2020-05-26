@@ -50,9 +50,7 @@ class SearchProposal < ApplicationRecord
       proposals = proposals.
                   left_joins(:proposal_supports, :group_proposals).
                   where('proposal_supports.group_id = ? or group_proposals.group_id = ?', group_id, group_id)
-      if group_area_id
-        proposals = proposals.left_joins(:area_proposals).where(area_proposals: { group_area_id: group_area_id })
-      end
+      proposals = proposals.left_joins(:area_proposals).where(area_proposals: { group_area_id: group_area_id }) if group_area_id
     else # only public
       proposals = proposals.where('proposals.private = false or proposals.visible_outside = true')
       proposals = proposals.by_interest_borders(interest_border.key) if interest_border.present?

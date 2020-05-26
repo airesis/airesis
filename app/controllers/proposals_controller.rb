@@ -117,9 +117,7 @@ class ProposalsController < ApplicationController
             end
           end
         end
-        if !(can? :participate, @proposal) && @proposal.in_valutation?
-          flash[:info] = I18n.t('error.proposals.participate')
-        end
+        flash[:info] = I18n.t('error.proposals.participate') if !(can? :participate, @proposal) && @proposal.in_valutation?
       end
     end
 
@@ -130,9 +128,7 @@ class ProposalsController < ApplicationController
       format.html do
         flash.now[:info] = I18n.t('info.proposal.public_visible') if @proposal.visible_outside
         register_view(@proposal, current_user)
-        if current_user
-          @blocked_alerts = BlockedProposalAlert.find_by(user_id: current_user.id, proposal_id: @proposal.id)
-        end
+        @blocked_alerts = BlockedProposalAlert.find_by(user_id: current_user.id, proposal_id: @proposal.id) if current_user
         flash.now[:info] = I18n.t('info.proposal.voting') if @proposal.voting?
       end
       format.js do
@@ -485,9 +481,7 @@ class ProposalsController < ApplicationController
                     t('pages.proposals.index.title')
                   end
 
-    if params[:type]
-      @page_head += " #{t('pages.propsoals.index.type', type: ProposalType.find(params[:type]).description)}"
-    end
+    @page_head += " #{t('pages.propsoals.index.type', type: ProposalType.find(params[:type]).description)}" if params[:type]
 
     if params[:time]
       if params[:time][:type] == 'f'

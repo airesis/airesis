@@ -7,9 +7,7 @@ module PrivatePub
       raise ArgumentError, "The #{environment} environment does not exist in #{filename}" if yaml.nil?
 
       yaml.each { |k, v| config[k.to_sym] = v }
-      if config[:signature_expiration] && !config[:signature_expiration].is_a?(Integer)
-        config[:signature_expiration] = config[:signature_expiration].to_i
-      end
+      config[:signature_expiration] = config[:signature_expiration].to_i if config[:signature_expiration] && !config[:signature_expiration].is_a?(Integer)
     end
   end
 end

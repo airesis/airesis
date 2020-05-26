@@ -78,9 +78,7 @@ class ProposalComment < ApplicationRecord
   def check_last_comment
     comments = proposal.proposal_comments.where(user_id: user_id).order('created_at DESC')
     comment = comments.first
-    if LIMIT_COMMENTS && comment && ((Time.zone.now - comment.created_at) < 30.seconds)
-      errors.add(:created_at, "devono passare almeno trenta secondi tra un commento e l'altro.")
-    end
+    errors.add(:created_at, "devono passare almeno trenta secondi tra un commento e l'altro.") if LIMIT_COMMENTS && comment && ((Time.zone.now - comment.created_at) < 30.seconds)
   end
 
   # Used to set more tracking for akismet
@@ -114,9 +112,7 @@ class ProposalComment < ApplicationRecord
   end
 
   def send_update_notifications
-    if previous_changes.include?(:content) && previous_changes[:content].first != previous_changes[:content].last
-      NotificationProposalCommentUpdate.perform_async(id)
-    end
+    NotificationProposalCommentUpdate.perform_async(id) if previous_changes.include?(:content) && previous_changes[:content].first != previous_changes[:content].last
   end
 
   def generate_nickname

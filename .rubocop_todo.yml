@@ -535,10 +535,3 @@ Style/TernaryParentheses:
   Exclude:
     - 'app/controllers/event_comments_controller.rb'
     - 'app/controllers/proposals_controller.rb'
-
-# Offense count: 263
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
-# URISchemes: http, https
-Layout/LineLength:
-  Max: 343

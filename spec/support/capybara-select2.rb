@@ -1,9 +1,7 @@
 module Capybara
   module Select2
     def select2(value, options = {})
-      unless options.is_a?(Hash) && %i[from xpath].any? { |k| options.key? k }
-        raise "Must pass a hash containing 'from' or 'xpath'"
-      end
+      raise "Must pass a hash containing 'from' or 'xpath'" unless options.is_a?(Hash) && %i[from xpath].any? { |k| options.key? k }
 
       if options.key? :xpath
         select2_container = first(:xpath, options[:xpath])

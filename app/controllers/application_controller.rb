@@ -385,9 +385,7 @@ class ApplicationController < ActionController::Base
       when 'show'
         # mark as checked all user alerts about this proposal
         @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'proposal_id') = ? and alerts.checked = ?", @proposal.id.to_s, false])
-        if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
-          flash[:info] = t('info.proposal.available_authors')
-        end
+        flash[:info] = t('info.proposal.available_authors') if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
         @unread.check_all
       end
     when 'blog_posts'

@@ -6,9 +6,7 @@ require 'net/http'
 
 class UriValidator < ActiveModel::EachValidator
   def validate_each(object, attribute, value)
-    unless options[:format].nil? || options[:format].is_a?(Regexp)
-      raise(ArgumentError, 'A regular expression must be supplied as the :format option of the options hash')
-    end
+    raise(ArgumentError, 'A regular expression must be supplied as the :format option of the options hash') unless options[:format].nil? || options[:format].is_a?(Regexp)
 
     configuration = { message: 'is invalid or not responding', format: URI::DEFAULT_PARSER.make_regexp(%w[http https]) }
     configuration.update(options)

@@ -37,7 +37,7 @@ Capybara/CurrentPathExpectation:
   Enabled: false
 
 Layout/LineLength:
-  Max: 120
+#  Max: 120
   Exclude:
     - config/locales/plurals.rb
 

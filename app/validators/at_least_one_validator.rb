@@ -1,9 +1,7 @@
 class AtLeastOneValidator < ActiveModel::Validator
   def validate(record)
     options[:associations].each do |assoc|
-      if record.send(assoc).all?(&:marked_for_destruction?)
-        record.errors[record.class.name] << 'La proposta deve contenere almeno una soluzione'
-      end
+      record.errors[record.class.name] << 'La proposta deve contenere almeno una soluzione' if record.send(assoc).all?(&:marked_for_destruction?)
     end
   end
 end

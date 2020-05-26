@@ -11,9 +11,7 @@ class ElfinderController < ApplicationController
     @can_view = can? :view_documents, @group
 
     # create root directory if does not exists
-    unless File.exist?("#{Rails.root}/private/elfinder/#{@group.id}")
-      Dir.mkdir("#{Rails.root}/private/elfinder/#{@group.id}")
-    end
+    Dir.mkdir("#{Rails.root}/private/elfinder/#{@group.id}") unless File.exist?("#{Rails.root}/private/elfinder/#{@group.id}")
 
     h, r = ElFinder::Connector.new(
       root: File.join(Rails.root, 'private', 'elfinder', @group.id.to_s),

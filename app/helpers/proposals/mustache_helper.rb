@@ -45,9 +45,7 @@ module Proposals
                                        participants: proposal.participants_count,
                                        contributes_count: proposal.proposal_contributes_count,
                                        'has_interest_borders?' => proposal.interest_borders.any?,
-                                       interest_border: (if proposal.interest_borders.any?
-                                                           proposal.interest_borders.first.territory.description
-                                                         end),
+                                       interest_border: (proposal.interest_borders.first.territory.description if proposal.interest_borders.any?),
                                        type_description: proposal.proposal_type.description.upcase,
                                        group_image_tag: proposal_group_image_tag(proposal),
                                        status: proposal_status(proposal),

@@ -190,11 +190,11 @@ class BestQuorum < Quorum
       negative = vote_data.negative
       neutral = vote_data.neutral
       votes = positive + negative + neutral
-      if ((positive + negative) > 0) && ((positive.to_f / (positive + negative)) > (vote_good_score.to_f / 100)) && (votes >= vote_valutations) # se ha avuto più voti positivi allora diventa ACCETTATA
-        proposal.proposal_state_id = ProposalState::ACCEPTED
-      else # se ne ha di più negativi allora diventa RESPINTA
-        proposal.proposal_state_id = ProposalState::REJECTED
-      end
+      proposal.proposal_state_id = if ((positive + negative) > 0) && ((positive.to_f / (positive + negative)) > (vote_good_score.to_f / 100)) && (votes >= vote_valutations) # se ha avuto più voti positivi allora diventa ACCETTATA
+                                     ProposalState::ACCEPTED
+                                   else # se ne ha di più negativi allora diventa RESPINTA
+                                     ProposalState::REJECTED
+                                   end
     end
     proposal.save!
     NotificationProposalVoteClosed.perform_async(proposal.id)

@@ -25,9 +25,7 @@ module Frm
     protected
 
     def visibility
-      if !visible_outside && forums.where(visible_outside: true).exists?
-        errors.add(:visible_outside, 'Impossibile rendere la sezione privata. Contiene forum pubblici')
-      end
+      errors.add(:visible_outside, 'Impossibile rendere la sezione privata. Contiene forum pubblici') if !visible_outside && forums.where(visible_outside: true).exists?
     end
   end
 end

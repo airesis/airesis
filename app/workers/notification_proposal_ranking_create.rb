@@ -15,9 +15,7 @@ class NotificationProposalRankingCreate < NotificationSender
     notification_b = Notification.create(notification_type_id: NotificationType::NEW_VALUTATION,
                                          url: url_for_proposal, data: data)
     @proposal.participants.each do |participant|
-      if (participant != proposal_ranking.user) && @proposal.users.exclude?(participant)
-        send_notification_for_proposal(notification_b, participant)
-      end
+      send_notification_for_proposal(notification_b, participant) if (participant != proposal_ranking.user) && @proposal.users.exclude?(participant)
     end
   end
 end

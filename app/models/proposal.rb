@@ -898,9 +898,7 @@ class Proposal < ApplicationRecord
           (!votation[:choise] && votation[:vote_period_id].present?)
         self.vote_event = Event.find(votation[:vote_period_id])
         # if the vote period start before the end of debate there is an error
-        if vote_event.starttime < Time.zone.now + copy.minutes.minutes + DEBATE_VOTE_DIFFERENCE
-          errors.add(:base, I18n.t('error.proposals.vote_period_incorrect'))
-        end
+        errors.add(:base, I18n.t('error.proposals.vote_period_incorrect')) if vote_event.starttime < Time.zone.now + copy.minutes.minutes + DEBATE_VOTE_DIFFERENCE
       else # if he created a new period
         # look if he edited the starttime or not
         start = (votation[:start_edited].present? && votation[:start]) || (copy.ends_at + DEBATE_VOTE_DIFFERENCE)
@@ -908,9 +906,7 @@ class Proposal < ApplicationRecord
 
         self.vote_starts_at = start
         self.vote_ends_at = votation[:end]
-        if (vote_starts_at - copy.ends_at) < DEBATE_VOTE_DIFFERENCE
-          errors.add(:base, I18n.t('error.proposals.vote_period_soon', time: DEBATE_VOTE_DIFFERENCE.to_i / 60))
-        end
+        errors.add(:base, I18n.t('error.proposals.vote_period_soon', time: DEBATE_VOTE_DIFFERENCE.to_i / 60)) if (vote_starts_at - copy.ends_at) < DEBATE_VOTE_DIFFERENCE
         errors.add(:base, I18n.t('error.proposals.vote_period_short')) if vote_ends_at < (vote_starts_at + 10.minutes)
       end
       self.vote_defined = true

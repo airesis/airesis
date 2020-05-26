@@ -44,9 +44,7 @@ module UsersHelper
   end
 
   def user_tag_mini(user, proposal = nil)
-    if proposal&.is_anonima? && (user != current_user)
-      u_nick = user.proposal_nicknames.find_by(proposal_id: proposal.id)
-    end
+    u_nick = user.proposal_nicknames.find_by(proposal_id: proposal.id) if proposal&.is_anonima? && (user != current_user)
     ret = "<div class=\"blogUserImage\" title=\"#{u_nick ? u_nick.nickname : user.email}\">"
     ret += if u_nick
              "<img src=\"https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(u_nick.nickname)}?s=24&d=identicon&r=PG\"/>"

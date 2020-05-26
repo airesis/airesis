@@ -208,16 +208,16 @@ class User < ApplicationRecord
   def scoped_areas(group_id, abilitation_id = nil)
     group = Group.find(group_id)
     ret = nil
-    if group.portavoce.include? self
-      ret = group.group_areas
-    elsif abilitation_id
-      ret = group_areas.joins(:area_roles).
-            where(["group_areas.group_id = ? AND area_roles.#{abilitation_id} = true AND area_participations.area_role_id = area_roles.id", group_id]).
-            distinct
-    else
-      ret = group_areas.joins(:area_roles).
-            where(['group_areas.group_id = ?', group_id]).distinct
-    end
+    ret = if group.portavoce.include? self
+            group.group_areas
+          elsif abilitation_id
+            group_areas.joins(:area_roles).
+              where(["group_areas.group_id = ? AND area_roles.#{abilitation_id} = true AND area_participations.area_role_id = area_roles.id", group_id]).
+              distinct
+          else
+            group_areas.joins(:area_roles).
+              where(['group_areas.group_id = ?', group_id]).distinct
+          end
     ret
   end
 

@@ -53,9 +53,7 @@ module Frm
     protected
 
     def visibility
-      if visible_outside && !category.visible_outside
-        errors.add(:visible_outside, I18n.t('activerecord.errors.messages.forum_visibility'))
-      end
+      errors.add(:visible_outside, I18n.t('activerecord.errors.messages.forum_visibility')) if visible_outside && !category.visible_outside
     end
   end
 end

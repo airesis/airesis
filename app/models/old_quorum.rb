@@ -3,9 +3,7 @@ class OldQuorum < Quorum
   validates :condition, inclusion: { in: %w[OR AND] }
 
   def minutes_or_percentage
-    if days_m.blank? && hours_m.blank? && minutes_m.blank? && !percentage && !minutes
-      errors.add(:minutes, 'Devi indicare la durata della proposta o il numero minimo di partecipanti')
-    end
+    errors.add(:minutes, 'Devi indicare la durata della proposta o il numero minimo di partecipanti') if days_m.blank? && hours_m.blank? && minutes_m.blank? && !percentage && !minutes
   end
 
   def or?
@@ -247,11 +245,11 @@ class OldQuorum < Quorum
 
     end
     ret += '<br/>'
-    if bad_score && (bad_score != good_score) # if quorum has negative quorum and it is not the same as positive quorum
-      ret += I18n.translate('models.quorum.bad_score_explain', good_score: good_score, bad_score: bad_score)
-    else # if quorum has negative quorum and it is the same as positive quorum
-      ret += I18n.translate('models.quorum.good_score_condition', good_score: good_score)
-    end
+    ret += if bad_score && (bad_score != good_score) # if quorum has negative quorum and it is not the same as positive quorum
+             I18n.translate('models.quorum.bad_score_explain', good_score: good_score, bad_score: bad_score)
+           else # if quorum has negative quorum and it is the same as positive quorum
+             I18n.translate('models.quorum.good_score_condition', good_score: good_score)
+           end
     ret
   end
 
@@ -284,11 +282,11 @@ class OldQuorum < Quorum
                            participants_num: participants) # display only number of required evaluations
     end
     ret += '<br/>'
-    if bad_score && (bad_score != good_score) # if quorum has negative quorum and it is not the same as positive quorum
-      ret += I18n.translate('models.quorum.bad_score_explain_past', good_score: good_score, bad_score: bad_score)
-    else # if quorum has negative quorum and it is the same as positive quorum
-      ret += I18n.translate('models.quorum.good_score_condition_past', good_score: good_score)
-    end
+    ret += if bad_score && (bad_score != good_score) # if quorum has negative quorum and it is not the same as positive quorum
+             I18n.translate('models.quorum.bad_score_explain_past', good_score: good_score, bad_score: bad_score)
+           else # if quorum has negative quorum and it is the same as positive quorum
+             I18n.translate('models.quorum.good_score_condition_past', good_score: good_score)
+           end
     ret
   end
 
@@ -318,11 +316,11 @@ class OldQuorum < Quorum
       ret = I18n.translate('models.quorum.participants_condition_1', participants_num: participants) # display number of required evaluations
     end
     ret += '<br/>'
-    if bad_score && (bad_score != good_score) # if quorum has negative quorum and it is not the same as positive quorum
-      ret += I18n.translate('models.quorum.bad_score_explain', good_score: good_score, bad_score: bad_score)
-    else # if quorum has negative quorum and it is the same as positive quorum
-      ret += I18n.translate('models.quorum.good_score_condition', good_score: good_score)
-    end
+    ret += if bad_score && (bad_score != good_score) # if quorum has negative quorum and it is not the same as positive quorum
+             I18n.translate('models.quorum.bad_score_explain', good_score: good_score, bad_score: bad_score)
+           else # if quorum has negative quorum and it is the same as positive quorum
+             I18n.translate('models.quorum.good_score_condition', good_score: good_score)
+           end
     ret
   end
 end
