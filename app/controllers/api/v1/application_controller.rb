@@ -9,16 +9,14 @@ module Api
       rescue_from ActiveRecord::RecordNotFound, with: :render_404
       rescue_from CanCan::AccessDenied, with: :render_401
 
-
-
       protected
 
       def render_401
-        render json: {error_key: :unauthorized}, status: :unauthorized
+        render json: { error_key: :unauthorized }, status: :unauthorized
       end
 
       def render_404
-        render json: {error_key: :not_found}, status: :not_found
+        render json: { error_key: :not_found }, status: :not_found
       end
     end
   end

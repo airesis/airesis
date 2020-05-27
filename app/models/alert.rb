@@ -1,5 +1,5 @@
 # a single notification sent to a user
-class Alert < ActiveRecord::Base
+class Alert < ApplicationRecord
   belongs_to :user, class_name: 'User', foreign_key: :user_id
   belongs_to :notification, class_name: 'Notification', foreign_key: :notification_id
   belongs_to :trackable, polymorphic: true
@@ -46,11 +46,11 @@ class Alert < ActiveRecord::Base
   end
 
   def check!
-    update(checked: true, checked_at: Time.now)
+    update(checked: true, checked_at: Time.zone.now)
   end
 
   def self.check_all
-    update_all(checked: true, checked_at: Time.now)
+    update_all(checked: true, checked_at: Time.zone.now)
   end
 
   def accumulate
@@ -71,11 +71,11 @@ class Alert < ActiveRecord::Base
   end
 
   def soft_delete
-    update!(deleted: true, deleted_at: Time.now)
+    update!(deleted: true, deleted_at: Time.zone.now)
   end
 
   def self.soft_delete_all
-    update_all(deleted: true, deleted_at: Time.now)
+    update_all(deleted: true, deleted_at: Time.zone.now)
   end
 
   def trigger_user
@@ -109,7 +109,8 @@ class Alert < ActiveRecord::Base
     return if checked?
     return if user.blocked?
     return if user.blocked_email_notifications.include? notification_type
-    return unless user.email.present?
+    return if user.email.blank?
+
     delay = notification.notification_type.email_delay
     delay += notification.notification_type.alert_delay if add_alert_delay
     jid = EmailsWorker.perform_in(delay.minutes, id)
@@ -118,11 +119,11 @@ class Alert < ActiveRecord::Base
 
   def private_pub
     PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello')
-  rescue
+  rescue StandardError
     Rails.logger.error 'Error while pushing to PrivatePub'
   end
 
   def complete_alert_job
-    alert_job.destroy if alert_job
+    alert_job&.destroy
   end
 end

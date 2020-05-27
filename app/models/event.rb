@@ -1,9 +1,9 @@
-class Event < ActiveRecord::Base
+class Event < ApplicationRecord
   include FullCalendable
 
   attr_accessor :period, :frequency, :commit_button, :proposal_id
 
-  validates_presence_of :title, :starttime, :endtime
+  validates :title, :starttime, :endtime, presence: true
   validates :description, presence: true, length: { maximum: 1.megabyte }
   validate :validate_start_time_end_time
 
@@ -33,7 +33,7 @@ class Event < ActiveRecord::Base
              'Ogni giorno',
              'Ogni settimana',
              'Ogni mese',
-             'Ogni anno']
+             'Ogni anno'].freeze
 
   def valid_dates?
     starttime < endtime
@@ -41,6 +41,7 @@ class Event < ActiveRecord::Base
 
   def validate_start_time_end_time
     return unless starttime && endtime
+
     errors.add(:starttime, 'La data di inizio deve essere antecedente la data di fine') unless valid_dates?
   end
 
@@ -49,7 +50,7 @@ class Event < ActiveRecord::Base
     endtime - starttime
   end
 
-  def time_left(ends_at = Time.now)
+  def time_left(ends_at = Time.zone.now)
     amount_seconds = endtime - ends_at # left in seconds
     amount_minutes = amount_seconds / 60.0
     amount_hours = amount_minutes / 60.0
@@ -69,15 +70,15 @@ class Event < ActiveRecord::Base
   end
 
   def past?
-    endtime < Time.now
+    endtime < Time.zone.now
   end
 
   def now?
-    starttime < Time.now && endtime > Time.now
+    starttime < Time.zone.now && endtime > Time.zone.now
   end
 
   def not_started?
-    Time.now < starttime
+    Time.zone.now < starttime
   end
 
   def votation?
@@ -107,6 +108,7 @@ class Event < ActiveRecord::Base
 
   def set_all_day_time
     return unless all_day
+
     self.starttime = starttime.beginning_of_day if starttime
     self.endtime = endtime.end_of_day if endtime
   end
@@ -126,6 +128,7 @@ class Event < ActiveRecord::Base
 
     # timers for start and endtime
     return unless votation?
+
     EventsWorker.perform_at(starttime, action: EventsWorker::STARTVOTATION, event_id: id)
     EventsWorker.perform_at(endtime, action: EventsWorker::ENDVOTATION, event_id: id)
   end

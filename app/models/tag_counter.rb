@@ -1,4 +1,4 @@
-class TagCounter < ActiveRecord::Base
+class TagCounter < ApplicationRecord
   belongs_to :tag
   belongs_to :territory, polymorphic: true
 

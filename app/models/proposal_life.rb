@@ -1,4 +1,4 @@
-class ProposalLife < ActiveRecord::Base
+class ProposalLife < ApplicationRecord
   belongs_to :proposal
   belongs_to :quorum
 

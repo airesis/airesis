@@ -1,6 +1,6 @@
 require 'digest/sha1'
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   acts_as_token_authenticatable
 
   devise :database_authenticatable, :registerable, :confirmable, :omniauthable,
@@ -10,17 +10,17 @@ class User < ActiveRecord::Base
 
   attr_accessor :image_url, :accept_conditions, :accept_privacy, :interest_borders_tokens
 
-  validates_presence_of :name
-  validates_format_of :name, with: AuthenticationModule.name_regex, allow_nil: true
-  validates_length_of :name, maximum: 50
+  validates :name, presence: true
+  validates :name, format: { with: AuthenticationModule.name_regex, allow_nil: true }
+  validates :name, length: { maximum: 50 }
 
-  validates_format_of :surname, with: AuthenticationModule.name_regex, allow_nil: true
-  validates_length_of :surname, maximum: 50
+  validates :surname, format: { with: AuthenticationModule.name_regex, allow_nil: true }
+  validates :surname, length: { maximum: 50 }
 
-  validates_confirmation_of :password
+  validates :password, confirmation: true
 
-  validates_acceptance_of :accept_conditions, message: I18n.t('activerecord.errors.messages.TOS')
-  validates_acceptance_of :accept_privacy, message: I18n.t('activerecord.errors.messages.privacy')
+  validates :accept_conditions, acceptance: { message: I18n.t('activerecord.errors.messages.TOS') }
+  validates :accept_privacy, acceptance: { message: I18n.t('activerecord.errors.messages.privacy') }
 
   has_many :proposal_presentations, inverse_of: :user, dependent: :destroy # TODO: replace with anonymous user
   has_many :proposals, through: :proposal_presentations, class_name: 'Proposal', inverse_of: :users
@@ -107,7 +107,7 @@ class User < ActiveRecord::Base
                       thumb: '100x100#',
                       small: '150x150>'
                     },
-                    path: (Paperclip::Attachment.default_options[:storage] == :s3) ?
+                    path: Paperclip::Attachment.default_options[:storage] == :s3 ?
                       'avatars/:id/:style/:basename.:extension' : ':rails_root/public:url'
 
   validates_attachment_size :avatar, less_than: UPLOAD_LIMIT_IMAGES.bytes
@@ -132,7 +132,7 @@ class User < ActiveRecord::Base
   def avatar_url=(url)
     file = URI.parse(url)
     self.avatar = file
-  rescue
+  rescue StandardError
     # ignored
   end
 
@@ -155,7 +155,7 @@ class User < ActiveRecord::Base
   # dopo aver creato un nuovo utente gli assegno il primo tutorial e
   # disattivo le notifiche standard
   def assign_tutorials
-    Tutorial.all.each do |tutorial|
+    Tutorial.all.find_each do |tutorial|
       assign_tutorial(self, tutorial)
     end
     GeocodeUser.perform_in(5.seconds, id)
@@ -177,7 +177,11 @@ class User < ActiveRecord::Base
     @search = Geocoder.search(last_sign_in_ip)
     unless @search.empty? # continue only if we found latitude and longitude
       @latlon = [@search[0].latitude, @search[0].longitude]
-      @zone = Timezone::Zone.new latlon: @latlon rescue nil # if we can't find the latitude and longitude zone just set zone to nil
+      @zone = begin
+                Timezone::Zone.new latlon: @latlon
+              rescue StandardError
+                nil
+              end # if we can't find the latitude and longitude zone just set zone to nil
       update(time_zone: @zone.active_support_time_zone) if @zone # update zone if found
     end
   end
@@ -194,8 +198,8 @@ class User < ActiveRecord::Base
   # all'interno dei quali possiede un determinato permesso
   def scoped_groups(abilitation, excluded_groups = nil)
     ret = groups.
-      joins(' INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id').
-      where("(participation_roles.name = 'amministratore' OR participation_roles.#{abilitation} = true")
+          joins(' INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id').
+          where("(participation_roles.name = 'amministratore' OR participation_roles.#{abilitation} = true")
     excluded_groups ? ret - excluded_groups : ret
   end
 
@@ -204,16 +208,16 @@ class User < ActiveRecord::Base
   def scoped_areas(group_id, abilitation_id = nil)
     group = Group.find(group_id)
     ret = nil
-    if group.portavoce.include? self
-      ret = group.group_areas
-    elsif abilitation_id
-      ret = group_areas.joins(:area_roles).
-        where(["group_areas.group_id = ? AND area_roles.#{abilitation_id} = true AND area_participations.area_role_id = area_roles.id", group_id]).
-        distinct
-    else
-      ret = group_areas.joins(:area_roles).
-        where(['group_areas.group_id = ?', group_id]).distinct
-    end
+    ret = if group.portavoce.include? self
+            group.group_areas
+          elsif abilitation_id
+            group_areas.joins(:area_roles).
+              where(["group_areas.group_id = ? AND area_roles.#{abilitation_id} = true AND area_participations.area_role_id = area_roles.id", group_id]).
+              distinct
+          else
+            group_areas.joins(:area_roles).
+              where(['group_areas.group_id = ?', group_id]).distinct
+          end
     ret
   end
 
@@ -261,20 +265,20 @@ class User < ActiveRecord::Base
   def is_mine?(object)
     if object
       if object.respond_to?('user_id')
-        return object.user_id == id
+        object.user_id == id
       elsif object.respond_to?('users')
-        return object.users.find_by_id(id)
+        object.users.find_by(id: id)
       else
-        return false
+        false
       end
     else
-      return false
+      false
     end
   end
 
   # questo metodo prende in input l'id di una proposta e verifica che l'utente ne sia l'autore
   def is_my_proposal?(proposal_id)
-    proposal = proposals.find_by_id(proposal_id) # cerca tra le mie proposte quella con id 'proposal_id'
+    proposal = proposals.find_by(id: proposal_id) # cerca tra le mie proposte quella con id 'proposal_id'
     if proposal # se l'ho trovata allora è mia
       true
     else
@@ -284,7 +288,7 @@ class User < ActiveRecord::Base
 
   # questo metodo prende in input l'id di una proposta e verifica che l'utente ne sia l'autore
   def is_my_blog_post?(blog_post_id)
-    blog_post = blog_posts.find_by_id(blog_post_id) # cerca tra le mie proposte quella con id 'proposal_id'
+    blog_post = blog_posts.find_by(id: blog_post_id) # cerca tra le mie proposte quella con id 'proposal_id'
     if blog_post # se l'ho trovata allora è mia
       true
     else
@@ -316,11 +320,13 @@ class User < ActiveRecord::Base
   # ma è stato successivamente inserito un commento e può quindi valutarlo di nuovo oppure il contributo è stato modificato
   def can_rank_again_comment?(comment)
     # return false unless comment.proposal.in_valutation? #can't change opinion if not in valutation anymore
-    ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(id, comment.id)
+    ranking = ProposalCommentRanking.find_by(user_id: id, proposal_comment_id: comment.id)
     return true unless ranking # si, se non l'ho mai valutato
     return true if ranking.updated_at < comment.updated_at # si, se è stato aggiornato dopo la mia valutazione
+
     last_suggest = comment.replies.order('created_at desc').first
     return false unless last_suggest # no, se non vi è alcun commento
+
     ranking.updated_at < last_suggest.created_at # si, se vi sono commenti dopo la mia valutazione
   end
 
@@ -380,7 +386,7 @@ class User < ActiveRecord::Base
   end
 
   def forem_admin?(group)
-    self.can? :update, group
+    can? :update, group
   end
 
   def to_s
@@ -388,18 +394,18 @@ class User < ActiveRecord::Base
   end
 
   def user_image_url(size = 80, _params = {})
-    if self.respond_to?(:user)
-      user = self.user
-    else
-      user = self
-    end
+    user = if respond_to?(:user)
+             self.user
+           else
+             self
+           end
 
     if user.avatar.file?
       user.avatar.url
     else
       # Gravatar
       require 'digest/md5'
-      if !user.email.blank?
+      if user.email.present?
         email = user.email
       else
         return ''
@@ -420,11 +426,19 @@ class User < ActiveRecord::Base
   end
 
   def build_authentication_provider(access_token)
-    authentications.build(provider: access_token['provider'], uid: access_token['uid'], token: (access_token['credentials']['token'] rescue nil))
+    authentications.build(provider: access_token['provider'], uid: access_token['uid'], token: (begin
+                                                                                                  access_token['credentials']['token']
+                                                                                                rescue StandardError
+                                                                                                  nil
+                                                                                                end))
   end
 
   def facebook
-    @fb_user ||= Koala::Facebook::API.new(authentications.find_by(provider: Authentication::FACEBOOK).token) rescue nil
+    @fb_user ||= begin
+                   Koala::Facebook::API.new(authentications.find_by(provider: Authentication::FACEBOOK).token)
+                 rescue StandardError
+                   nil
+                 end
   end
 
   # return the user, a flag indicating if it's the first time the oauth account
@@ -440,11 +454,11 @@ class User < ActiveRecord::Base
     auth = Authentication.find_by(provider: provider, uid: uid)
     if auth
       # return user, first_association, found_from_email
-      return auth.user, false, false
+      [auth.user, false, false]
     else
       user = user_info[:email] && User.find_by(email: user_info[:email])
       # return user, first_association, found_from_email
-      return user ? [user, true, true] : [create_account_for_oauth(oauth_data), true, false]
+      user ? [user, true, true] : [create_account_for_oauth(oauth_data), true, false]
     end
   end
 
@@ -523,8 +537,7 @@ class User < ActiveRecord::Base
     has_provider?(Authentication::TWITTER)
   end
 
-  def before_create_populate
-  end
+  def before_create_populate; end
 
   def before_update_populate
     user_borders.destroy_all
@@ -533,9 +546,10 @@ class User < ActiveRecord::Base
 
   def update_borders
     return unless interest_borders_tokens
+
     interest_borders_tokens.split(',').each do |border|
       ftype = border[0, 1]
-      fid = border[2..-1]
+      fid = border[2..]
       found = InterestBorder.table_element(border)
       next unless found
 

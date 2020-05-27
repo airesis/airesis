@@ -1,4 +1,4 @@
-class ProposalCategory < ActiveRecord::Base
+class ProposalCategory < ApplicationRecord
   has_many :proposals, class_name: 'Proposal'
 
   def description

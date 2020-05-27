@@ -1,28 +1,28 @@
-class InterestBorder < ActiveRecord::Base
+class InterestBorder < ApplicationRecord
   has_many :proposal_borders, class_name: 'ProposalBorder'
   has_many :groups, class_name: 'Group'
 
   belongs_to :territory, polymorphic: true
 
-  DISTRICT = 'District'
-  MUNICIPALITY = 'Municipality'
-  PROVINCE = 'Province'
-  REGION = 'Region'
-  COUNTRY = 'Country'
-  CONTINENT = 'Continent'
-  GENERIC = 'Generic'
-  SHORT_MUNICIPALITY = 'C'
-  SHORT_PROVINCE = 'P'
-  SHORT_REGION = 'R'
-  SHORT_COUNTRY = 'S'
-  SHORT_CONTINENT = 'K'
-  SHORT_GENERIC = 'G'
+  DISTRICT = 'District'.freeze
+  MUNICIPALITY = 'Municipality'.freeze
+  PROVINCE = 'Province'.freeze
+  REGION = 'Region'.freeze
+  COUNTRY = 'Country'.freeze
+  CONTINENT = 'Continent'.freeze
+  GENERIC = 'Generic'.freeze
+  SHORT_MUNICIPALITY = 'C'.freeze
+  SHORT_PROVINCE = 'P'.freeze
+  SHORT_REGION = 'R'.freeze
+  SHORT_COUNTRY = 'S'.freeze
+  SHORT_CONTINENT = 'K'.freeze
+  SHORT_GENERIC = 'G'.freeze
   TYPE_MAP = { MUNICIPALITY => SHORT_MUNICIPALITY,
                REGION => SHORT_REGION,
                PROVINCE => SHORT_PROVINCE,
                COUNTRY => SHORT_COUNTRY,
                CONTINENT => SHORT_CONTINENT,
-               GENERIC => SHORT_GENERIC }
+               GENERIC => SHORT_GENERIC }.freeze
   I_TYPE_MAP = TYPE_MAP.invert
 
   def district
@@ -83,21 +83,21 @@ class InterestBorder < ActiveRecord::Base
 
   def self.table_element(border)
     ftype = border[0, 1] # tipologia (primo carattere)
-    fid = border[2..-1] # chiave primaria (dal terzo all'ultimo carattere)
+    fid = border[2..] # chiave primaria (dal terzo all'ultimo carattere)
     found = false
     case ftype
     when SHORT_MUNICIPALITY
-      found = Municipality.find_by_id(fid)
+      found = Municipality.find_by(id: fid)
     when SHORT_PROVINCE
-      found = Province.find_by_id(fid)
+      found = Province.find_by(id: fid)
     when SHORT_REGION
-      found = Region.find_by_id(fid)
+      found = Region.find_by(id: fid)
     when SHORT_COUNTRY
-      found = Country.find_by_id(fid)
+      found = Country.find_by(id: fid)
     when SHORT_CONTINENT
-      found = Continent.find_by_id(fid)
+      found = Continent.find_by(id: fid)
     when SHORT_GENERIC
-      found = GenericBorder.find_by_id(fid)
+      found = GenericBorder.find_by(id: fid)
     end
     found
   end
@@ -123,9 +123,10 @@ class InterestBorder < ActiveRecord::Base
   end
 
   def self.find_or_create_by_key(key)
-    return unless key.present?
+    return if key.blank?
+
     ftype = key[0, 1] # type (primo carattere)
-    fid = key[2..-1] # primary key (dal terzo all'ultimo carattere)
+    fid = key[2..] # primary key (dal terzo all'ultimo carattere)
     find_or_create_by(territory_type: I_TYPE_MAP[ftype], territory_id: fid)
   end
 end

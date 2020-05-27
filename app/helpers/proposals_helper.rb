@@ -30,7 +30,7 @@ module ProposalsHelper
   end
 
   def parsed_content(proposal_comment, anonimous = true)
-    scanned = CGI.escapeHTML(proposal_comment.content).gsub(/(@)\[\[(\d+):([\w\s\.\-]+):([\w\s@\.,-\/#!$%\^&\*;:{}=\-_`~()]+)\]\]/) do |_match|
+    scanned = CGI.escapeHTML(proposal_comment.content).gsub(%r{(@)\[\[(\d+):([\w\s\.\-]+):([\w\s@\.,-/#!$%\^&\*;:{}=\-_`~()]+)\]\]}) do |_match|
       nick = ProposalNickname.find(Regexp.last_match(2))
       anonimous ?
         "<span class='cite nickname'>#{nick.nickname}</span>" :

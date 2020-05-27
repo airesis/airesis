@@ -1,5 +1,6 @@
-class Quorum < ActiveRecord::Base
-  include ActionView::Helpers::TextHelper, Rails.application.routes.url_helpers
+class Quorum < ApplicationRecord
+  include Rails.application.routes.url_helpers
+  include ActionView::Helpers::TextHelper
 
   STANDARD = 2
 
@@ -43,7 +44,7 @@ class Quorum < ActiveRecord::Base
 
   # return true if there is still time left to the end of the quorum
   def time_left?
-    ends_at && (ends_at - Time.now > 0)
+    ends_at && (ends_at - Time.zone.now > 0)
   end
 
   # used to describe the remaining time left for the discussion.
@@ -52,8 +53,8 @@ class Quorum < ActiveRecord::Base
   def time(total_time = false)
     min = nil
     if minutes
-      min = if self.assigned? && !total_time # if is assigned and we are not forcing total time show remaining
-              (ends_at - Time.now).to_i / 60
+      min = if assigned? && !total_time # if is assigned and we are not forcing total time show remaining
+              (ends_at - Time.zone.now).to_i / 60
             else
               minutes
             end

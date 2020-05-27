@@ -1,4 +1,4 @@
-class Section < ActiveRecord::Base
+class Section < ApplicationRecord
   has_one :proposal_section, inverse_of: :section, dependent: :delete
   has_one :solution_section, inverse_of: :section, dependent: :delete
   has_one :proposal, through: :proposal_section

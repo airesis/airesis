@@ -1,4 +1,4 @@
-class BlogComment < ActiveRecord::Base
+class BlogComment < ApplicationRecord
   belongs_to :user
   belongs_to :blog_post, counter_cache: true
   has_one :blog, through: :blog_post
@@ -23,7 +23,7 @@ class BlogComment < ActiveRecord::Base
 
   def user_name
     name = user ? user.name : name
-    if !site_url.blank?
+    if site_url.present?
       "<a href=\"#{site_url}\">#{name}</a>"
     else
       name

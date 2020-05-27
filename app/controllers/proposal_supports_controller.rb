@@ -8,8 +8,7 @@ class ProposalSupportsController < ApplicationController
 
   before_action :authenticate_user!
 
-  def index
-  end
+  def index; end
 
   def new
     @proposal_support = @proposal.proposal_supports.build
@@ -23,14 +22,18 @@ class ProposalSupportsController < ApplicationController
     # the user must have the correct permissions on each group
 
     # required groups
-    groups = params[:proposal][:supporting_group_ids].collect(&:to_i) rescue []
+    groups = begin
+               params[:proposal][:supporting_group_ids].collect(&:to_i)
+             rescue StandardError
+               []
+             end
     # his groups
     user_groups = current_user.scoped_group_participations(:support_proposals).pluck('group_participations.group_id')
 
     # allowed groups
     diff = groups - user_groups
 
-    fail ActiveRecord::ActiveRecordError.new unless diff.empty?
+    raise ActiveRecord::ActiveRecordError unless diff.empty?
 
     no_supp = user_groups - groups # id of user groups not supported
 
@@ -46,7 +49,6 @@ class ProposalSupportsController < ApplicationController
       end
       format.js
     end
-
   rescue ActiveRecord::ActiveRecordError => e
     respond_to do |format|
       format.html redirect_to proposal_path(@proposal)
@@ -58,14 +60,11 @@ class ProposalSupportsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
-  def update
-  end
+  def update; end
 
-  def destroy
-  end
+  def destroy; end
 
   protected
 

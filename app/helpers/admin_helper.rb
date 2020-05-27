@@ -3,7 +3,7 @@ module AdminHelper
   def self.delete_old_notifications
     msg = "Cancella vecchie notifiche\n"
     count = 0
-    deleted = Notification.destroy_all(['created_at < ?', -6.month.from_now])
+    deleted = Notification.destroy_all(['created_at < ?', -6.months.from_now])
     msg += 'Cancello ' + deleted.count.to_s + ' notifiche più vecchie di 6 mesi'
     count += deleted.count
     read = Notification.destroy_all(["notifications.id not in (
@@ -46,7 +46,7 @@ module AdminHelper
       msg += '  commenti: ' + numcommenti.to_s + "\n"
       msg += '  proposte: ' + numproposte.to_s + "\n"
       msg += '  proposte accettate: ' + numok.to_s + "\n"
-      user.rank = numcommenti + 2 * (numproposte) + 10 * (numok)
+      user.rank = numcommenti + 2 * numproposte + 10 * numok
       msg += '  user rank: ' + user.rank.to_s + "\n----\n"
       user.save(validate: false)
     end

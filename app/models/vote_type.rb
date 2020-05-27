@@ -1,4 +1,4 @@
-class VoteType < ActiveRecord::Base
+class VoteType < ApplicationRecord
   POSITIVE = 1
   NEUTRAL = 2
   NEGATIVE = 3

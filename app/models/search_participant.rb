@@ -1,8 +1,8 @@
-class SearchParticipant < ActiveRecord::Base
+class SearchParticipant < ApplicationRecord
   belongs_to :group
 
   def results
-    if !status_id.present? || status_id.to_sym == :accepted
+    if status_id.blank? || status_id.to_sym == :accepted
       ret = group.group_participations.joins(:user)
       ret = ret.where(participation_role_id: role_id) if role_id.present?
       ret = ret.where(["upper(users.name) like '%' || upper(:key) || '%' or upper(users.surname) like '%' || upper(:key) || '%'", key: keywords]) if keywords.present?

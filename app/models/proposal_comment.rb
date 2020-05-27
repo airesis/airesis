@@ -1,7 +1,7 @@
-class ProposalComment < ActiveRecord::Base
+class ProposalComment < ApplicationRecord
   include ActionView::Helpers::TextHelper
 
-  has_paper_trail versions: { class_name: 'ProposalCommentVersion' }, only: [:content], on: [:update, :destroy]
+  has_paper_trail versions: { class_name: 'ProposalCommentVersion' }, only: [:content], on: %i[update destroy]
 
   belongs_to :user, class_name: 'User', inverse_of: :proposal_comments, foreign_key: :user_id
   belongs_to :contribute, class_name: 'ProposalComment', inverse_of: :replies, foreign_key: :parent_proposal_comment_id, optional: true
@@ -17,7 +17,7 @@ class ProposalComment < ActiveRecord::Base
 
   has_many :reports, class_name: 'ProposalCommentReport', foreign_key: :proposal_comment_id
 
-  validates_length_of :content, minimum: 10, maximum: CONTRIBUTE_MAX_LENGTH
+  validates :content, length: { minimum: 10, maximum: CONTRIBUTE_MAX_LENGTH }
 
   attr_accessor :collapsed, :nickname_generated
 
@@ -78,9 +78,7 @@ class ProposalComment < ActiveRecord::Base
   def check_last_comment
     comments = proposal.proposal_comments.where(user_id: user_id).order('created_at DESC')
     comment = comments.first
-    if LIMIT_COMMENTS && comment && ((Time.now - comment.created_at) < 30.seconds)
-      errors.add(:created_at, "devono passare almeno trenta secondi tra un commento e l'altro.")
-    end
+    errors.add(:created_at, "devono passare almeno trenta secondi tra un commento e l'altro.") if LIMIT_COMMENTS && comment && ((Time.zone.now - comment.created_at) < 30.seconds)
   end
 
   # Used to set more tracking for akismet
@@ -101,12 +99,10 @@ class ProposalComment < ActiveRecord::Base
 
   def location
     ret = nil
-    unless paragraph.nil?
+    if paragraph
       section = paragraph.section
-      ret = "#{section.title}"
-      unless section.solution.nil?
-        ret = "#{section.solution.title_with_seq} > #{ret}"
-      end
+      ret = section.title.to_s
+      ret = "#{section.solution.title_with_seq} > #{ret}" if section.solution
     end
     ret
   end
@@ -116,9 +112,7 @@ class ProposalComment < ActiveRecord::Base
   end
 
   def send_update_notifications
-    if previous_changes.include?(:content) && previous_changes[:content].first != previous_changes[:content].last
-      NotificationProposalCommentUpdate.perform_async(id)
-    end
+    NotificationProposalCommentUpdate.perform_async(id) if previous_changes.include?(:content) && previous_changes[:content].first != previous_changes[:content].last
   end
 
   def generate_nickname

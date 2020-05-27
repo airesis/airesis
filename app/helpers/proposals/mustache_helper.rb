@@ -3,9 +3,9 @@ module Proposals
     def proposal_for_mustache(proposal)
       ret = {
         mustache: {
-          now: (l Time.now),
+          now: (l Time.zone.now),
           proposal: {
-            good_score: (proposal.quorum.good_score),
+            good_score: proposal.quorum.good_score,
             'voted?' => proposal.voted?,
             'voting_or_voted?' => proposal.voting? || proposal.voted?,
             rank: proposal.rank,
@@ -28,7 +28,7 @@ module Proposals
           start: "INIZIO VOTAZIONE:<br/>#{(l proposal.vote_period.starttime).upcase}",
           end: "TERMINE VOTAZIONE:<br/>#{proposal.vote_period.endtime}".upcase
         }
-        ret[:mustache][:proposal][:vote_percentage] = [((Time.now - proposal.vote_period.starttime) / proposal.vote_period.duration.to_f) * 100, 100].min
+        ret[:mustache][:proposal][:vote_percentage] = [((Time.zone.now - proposal.vote_period.starttime) / proposal.vote_period.duration.to_f) * 100, 100].min
         ret[:mustache][:proposal][:voters_percentage] = (proposal.user_votes_count.to_f / proposal.eligible_voters_count) * 100
       end
       ret
@@ -87,7 +87,8 @@ module Proposals
                    paragraphId: section.paragraph.id,
                    content: section.paragraph.content,
                    contentDirty: section.paragraph.content_dirty,
-                   persisted: true } } }
+                   persisted: true }
+      } }
     end
 
     def solution_for_mustache(solution, i)
@@ -104,7 +105,8 @@ module Proposals
                     addParagraph: t('pages.proposals.edit.add_paragraph_to_solution'),
                     sections: solution.sections.map.with_index do |section, j|
                       solution_section_for_mustache(section, i, j)[:mustache]
-                    end } } }
+                    end }
+      } }
     end
 
     def solution_section_for_mustache(section, i, j)
@@ -119,7 +121,8 @@ module Proposals
                    content: section.paragraph.content,
                    contentDirty: section.paragraph.content_dirty,
                    persisted: true },
-        solution: { id: i } } }
+        solution: { id: i }
+      } }
     end
   end
 end

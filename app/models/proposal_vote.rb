@@ -1,4 +1,4 @@
-class ProposalVote < ActiveRecord::Base
+class ProposalVote < ApplicationRecord
   belongs_to :proposal
 
   def number

@@ -6,8 +6,8 @@ module Frm
     load_and_authorize_resource through: :topic
 
     before_action :reject_locked_topic!, only: [:create]
-    before_action :authorize_reply_for_topic!, only: [:new, :create]
-    before_action :authorize_edit_post_for_forum!, only: [:edit, :update]
+    before_action :authorize_reply_for_topic!, only: %i[new create]
+    before_action :authorize_edit_post_for_forum!, only: %i[edit update]
 
     def new
       find_reply_to_post
@@ -32,8 +32,7 @@ module Frm
       end
     end
 
-    def edit
-    end
+    def edit; end
 
     def update
       if @post.owner_or_moderator?(current_user) && @post.update(post_params)

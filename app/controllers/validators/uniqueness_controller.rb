@@ -19,7 +19,7 @@ module Validators
     def validate_uniqueness(model, attribute)
       fparams = params.require(model).permit(attribute, :id)
       already_exists = model.to_s.classify.constantize.where(attribute => fparams[attribute].strip)
-      already_exists = already_exists.where.not(id: fparams[:id]) unless fparams[:id].blank?
+      already_exists = already_exists.where.not(id: fparams[:id]) if fparams[:id].present?
       render json: { valid: !already_exists.exists? }
     end
   end

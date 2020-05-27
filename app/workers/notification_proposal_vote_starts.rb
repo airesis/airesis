@@ -21,9 +21,7 @@ class NotificationProposalVoteStarts < NotificationSender
       @proposal.participants
 
     users.each do |user|
-      unless @proposal.users.include? user
-        send_notification_for_proposal(notification_b, user)
-      end
+      send_notification_for_proposal(notification_b, user) unless @proposal.users.include? user
     end
   end
 end

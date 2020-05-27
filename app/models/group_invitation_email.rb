@@ -1,4 +1,4 @@
-class GroupInvitationEmail < ActiveRecord::Base
+class GroupInvitationEmail < ApplicationRecord
   belongs_to :group_invitation
   belongs_to :invited, class_name: 'User', foreign_key: :user_id, optional: true
 

@@ -40,7 +40,7 @@ module FullCalendable
     event.description = description
     event.created = ics_created_at
     event.last_modified = ics_updated_at
-    event.uid = "#{id}"
+    event.uid = id.to_s
     event.url = "#{ENV['SITE']}/events/#{id}"
     event
   end
@@ -48,11 +48,10 @@ module FullCalendable
   def to_fc # fullcalendar format
     { id: id,
       title: title, description: description || 'Some cool description here...',
-      start: "#{starttime.iso8601}", end: "#{endtime.iso8601}", allDay: all_day,
+      start: starttime.iso8601.to_s, end: endtime.iso8601.to_s, allDay: all_day,
       recurring: false,
       backgroundColor: background_color, textColor: text_color, borderColor: Colors.darken_color(background_color),
-      editable: !votation?
-    }
+      editable: !votation? }
   end
 
   def move(minutes_delta = 0, days_delta = 0, all_day = nil)

@@ -1,2 +1,2 @@
-class UserTracing < ActiveRecord::Base
+class UserTracing < ApplicationRecord
 end

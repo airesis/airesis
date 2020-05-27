@@ -55,9 +55,7 @@ class ParticipationRolesController < ApplicationController
   end
 
   def destroy
-    if @participation_role.destroy
-      flash[:notice] = t('info.participation_roles.role_deleted')
-    end
+    flash[:notice] = t('info.participation_roles.role_deleted') if @participation_role.destroy
     redirect_to group_participation_roles_path(@group)
   end
 

@@ -61,7 +61,7 @@ module Admin
     end
 
     def test_exceptions
-      fail Exception.new('Test this exception!')
+      raise StandardError, 'Test this exception!'
     end
 
     # esegue un job di prova tramite resque_scheduler
@@ -81,9 +81,9 @@ module Admin
 
     def proposals_stats
       ret = Proposal.voted.
-        joins(:solutions).
-        group('proposals.id').
-        having('count(solutions.*) > 1').count.map do |proposal_id, count|
+            joins(:solutions).
+            group('proposals.id').
+            having('count(solutions.*) > 1').count.map do |proposal_id, count|
         proposal = Proposal.find(proposal_id)
         { proposal_id: proposal_id,
           solutions_count: count,

@@ -10,8 +10,8 @@ module Abilities
     def blogs_permissions(user)
       r_blog_post_is_public = { status: BlogPost::PUBLISHED }
 
-      can [:edit, :update, :destroy], Blog, user_id: user.id
-      can [:new, :create], Blog unless user.blog
+      can %i[edit update destroy], Blog, user_id: user.id
+      can %i[new create], Blog unless user.blog
 
       can :read, BlogPost, status: BlogPost::RESERVED, groups: participate_in_group(user)
       can :read, PostPublishing, blog_post: { status: BlogPost::RESERVED, groups: participate_in_group(user) }
@@ -20,7 +20,7 @@ module Abilities
       can :read, BlogPost, user_id: user.id
       can :read, PostPublishing, blog_post: { user_id: user.id }
 
-      can [:edit, :update, :destroy], BlogPost, user_id: user.id
+      can %i[edit update destroy], BlogPost, user_id: user.id
       if user.blog
         can :create, BlogPost, blog: { user_id: user.id }
         can :create, BlogPost, publishings: { group: participate_in_group(user) }

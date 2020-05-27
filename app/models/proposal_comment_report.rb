@@ -1,5 +1,5 @@
 # the report of a user about a comment
-class ProposalCommentReport < ActiveRecord::Base
+class ProposalCommentReport < ApplicationRecord
   belongs_to :user
   belongs_to :proposal_comment_report_type
   belongs_to :proposal_comment

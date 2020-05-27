@@ -1,4 +1,4 @@
-class ProposalState < ActiveRecord::Base
+class ProposalState < ApplicationRecord
   has_many :proposals
 
   VALUTATION = 1
@@ -12,8 +12,8 @@ class ProposalState < ActiveRecord::Base
   REVISION = 7
   ABANDONED = 8
 
-  TAB_DEBATE = 'debate'
-  TAB_VOTATION = 'votation'
-  TAB_VOTED = 'voted'
-  TAB_REVISION = 'abandoned'
+  TAB_DEBATE = 'debate'.freeze
+  TAB_VOTATION = 'votation'.freeze
+  TAB_VOTED = 'voted'.freeze
+  TAB_REVISION = 'abandoned'.freeze
 end

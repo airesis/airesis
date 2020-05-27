@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :post, class: Frm::Post do
+  factory :post, class: 'Frm::Post' do
     association :topic, factory: :frm_topic
     text { Faker::Lorem.sentence }
     association :user

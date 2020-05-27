@@ -1,6 +1,5 @@
 namespace :airesis do
   namespace :recurring do
-
     desc 'Calculates group statistics. Usually scheduled once a day at 01:00'
     task groups_statistics: :environment do
       CalculateGroupStatistics.new.perform

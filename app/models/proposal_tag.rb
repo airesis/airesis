@@ -1,4 +1,4 @@
-class ProposalTag < ActiveRecord::Base
+class ProposalTag < ApplicationRecord
   belongs_to :proposal, class_name: 'Proposal'
   belongs_to :tag, class_name: 'Tag'
 

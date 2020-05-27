@@ -1,4 +1,4 @@
-class ParagraphHistory < ActiveRecord::Base
+class ParagraphHistory < ApplicationRecord
   belongs_to :section, class_name: 'SectionHistory', inverse_of: :paragraphs, foreign_key: :section_history_id
   belongs_to :proposal
 
@@ -6,8 +6,12 @@ class ParagraphHistory < ActiveRecord::Base
   def parsed_content(anonimous = true)
     if anonimous
       users = []
-      content.gsub(/data-userid="([^".]+)"/) do |match| #
-        users << User.find(Regexp.last_match(1)) rescue nil
+      content.gsub(/data-userid="([^".]+)"/) do |match|
+        begin
+          users << User.find(Regexp.last_match(1))
+        rescue StandardError
+          nil
+        end
         match
       end
       ret = content

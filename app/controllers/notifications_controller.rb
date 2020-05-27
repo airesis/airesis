@@ -10,7 +10,7 @@ class NotificationsController < ApplicationController
   end
 
   def change_email_block
-    respond_to_block current_user.update(receive_newsletter: !(params[:block] == 'true'))
+    respond_to_block current_user.update(receive_newsletter: params[:block] != 'true')
   end
 
   protected

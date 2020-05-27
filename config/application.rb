@@ -24,22 +24,22 @@ module Airesis
     config.time_zone = 'Rome'
     config.i18n.default_locale = :'en-EU'
 
-    europe_eng_fallbacks = [:'en-GB', :'en-IE', :'en-US', :'en-ZA', :'en-AU', :'en-NZ',
-                            :'sr-CS', :'sr-SP', :'sh-HR', :'zh-TW', :'me-ME', :'bs-BA',
-                            :'ru-RU', :'ro-RO', :'it-IT', :'id-ID', :'hu-HU',
-                            :'es-ES', :'de-DE', :'el-GR', :'fr-FR', :'pt-PT', :en]
+    europe_eng_fallbacks = %i[en-GB en-IE en-US en-ZA en-AU en-NZ
+                              sr-CS sr-SP sh-HR zh-TW me-ME bs-BA
+                              ru-RU ro-RO it-IT id-ID hu-HU
+                              es-ES de-DE el-GR fr-FR pt-PT en]
     portuguese_fallbacks = [:'pt-BR']
-    spanish_fallbacks = [:'es-EC', :'es-AR', :'es-CL']
+    spanish_fallbacks = %i[es-EC es-AR es-CL]
     fallbacks = {}
     europe_eng_fallbacks.each { |key| fallbacks[key] = :'en-EU' }
     portuguese_fallbacks.each { |key| fallbacks[key] = :'pt-PT' }
     spanish_fallbacks.each { |key| fallbacks[key] = :'es-ES' }
     config.i18n.fallbacks = [I18n.default_locale, fallbacks]
 
-    config.i18n.available_locales = [:'bs-BA', :'de-DE', :'el-GR', :'en-AU', :'en-EU', :'en-GB', :'en-NZ', :'en-US', :'en-ZA',
-                                     :'en-IE', :'es-AR', :'es-CL', :'es-EC', :'es-ES', :'fr-FR', :'hu-HU', :'id-ID',
-                                     :'it-IT', :'me-ME', :'pt-BR', :'pt-PT', :'ro-RO', :'ru-RU', :'sh-HR', :'sr-CS', :'sr-SP',
-                                     :'zh-TW', :en]
+    config.i18n.available_locales = %i[bs-BA de-DE el-GR en-AU en-EU en-GB en-NZ en-US en-ZA
+                                       en-IE es-AR es-CL es-EC es-ES fr-FR hu-HU id-ID
+                                       it-IT me-ME pt-BR pt-PT ro-RO ru-RU sh-HR sr-CS sr-SP
+                                       zh-TW en]
 
     config.i18n.enforce_available_locales = true
 
@@ -47,12 +47,12 @@ module Airesis
       Devise::Mailer.layout 'newsletters/default'
     end
 
-    config.action_view.sanitized_allowed_tags = %w(del dd h3 address big sub tt a ul h4 cite dfn h5 small kbd code,
-                                                   b ins img h6 sup pre strong blockquote acronym dt br p div samp,
-                                                   li ol var em h1 i abbr h2 span hr iframe table tr td th u s)
-    config.action_view.sanitized_allowed_attributes = %w(name href cite class title src xml:lang height datetime alt
+    config.action_view.sanitized_allowed_tags = %w[del dd h3 address big sub tt a ul h4 cite dfn h5 small kbd code
+                                                   b ins img h6 sup pre strong blockquote acronym dt br p div samp
+                                                   li ol var em h1 i abbr h2 span hr iframe table tr td th u s]
+    config.action_view.sanitized_allowed_attributes = %w[name href cite class title src xml:lang height datetime alt
                                                          abbr width id class style data-cke-realelement cellspacing
-                                                         cellpadding border target)
+                                                         cellpadding border target]
 
     config.active_job.queue_adapter = :sidekiq
 
@@ -84,13 +84,11 @@ module Airesis
       }
 
       if ENV['AWS_ALIAS'].present?
-        options.merge!(s3_host_alias: ENV['AWS_ALIAS'],
-                       url: ':s3_alias_url')
+        options[:s3_host_alias] = ENV['AWS_ALIAS']
+        options[:url] = ':s3_alias_url'
       end
 
-      if ENV['ASSETS_HOST'].present?
-        config.action_controller.asset_host = ENV['ASSETS_HOST']
-      end
+      config.action_controller.asset_host = ENV['ASSETS_HOST'] if ENV['ASSETS_HOST'].present?
       config.paperclip_defaults = options
     end
 
@@ -100,7 +98,7 @@ module Airesis
 
         resource '/api/*',
                  headers: :any,
-                 methods: [:get, :post, :patch, :delete]
+                 methods: %i[get post patch delete]
       end
     end
   end

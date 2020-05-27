@@ -1,4 +1,3 @@
-
 # A Site key gives additional protection against a dictionary attack if your
 # DB is ever compromised.  With no site key, we store
 #   DB_password = hash(user_password, DB_user_salt)
@@ -16,7 +15,7 @@
 # Please note: if you change this, all the passwords will be invalidated, so DO
 # keep it someplace secure.  Use the random value given or type in the lyrics to
 # your favorite Jay-Z song or something; any moderately long, unpredictable text.
-REST_AUTH_SITE_KEY         = '0a3b52cadd89a328069f698699d65ebd0b9a7a5a'
+REST_AUTH_SITE_KEY         = '0a3b52cadd89a328069f698699d65ebd0b9a7a5a'.freeze
 
 # Repeated applications of the hash make brute force (even with a compromised
 # database and site key) harder, and scale with Moore's law.

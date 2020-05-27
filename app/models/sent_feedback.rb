@@ -1,4 +1,4 @@
-class SentFeedback < ActiveRecord::Base
+class SentFeedback < ApplicationRecord
   # Check for paperclip
   has_attached_file :image,
                     url: '/assets/images/feedback/:id/:basename.:extension',

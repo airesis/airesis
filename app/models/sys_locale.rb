@@ -1,4 +1,4 @@
-class SysLocale < ActiveRecord::Base
+class SysLocale < ApplicationRecord
   has_many :users, inverse_of: :locale
   has_many :original_users, inverse_of: :original_locale
   belongs_to :territory, polymorphic: true

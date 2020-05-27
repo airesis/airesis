@@ -1,4 +1,4 @@
-class ProposalRevision < ActiveRecord::Base
+class ProposalRevision < ApplicationRecord
   belongs_to :proposal, inverse_of: :proposal_revisions
   belongs_to :user, inverse_of: :proposal_revisions
   has_many :revision_section_histories, dependent: :destroy

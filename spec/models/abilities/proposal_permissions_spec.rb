@@ -60,9 +60,11 @@ RSpec.describe 'permissions on proposals', :js, type: :model, search: true, seed
           it 'cant participate' do
             expect(ability).not_to be_able_to(:participate, proposal)
           end
+
           it 'cant see' do
             expect(ability).not_to be_able_to(:show, proposal)
           end
+
           it 'cant vote' do
             expect(ability).not_to be_able_to(:vote, proposal)
           end
@@ -196,6 +198,7 @@ RSpec.describe 'permissions on proposals', :js, type: :model, search: true, seed
       it 'can close the debate of proposals at any time' do
         expect(ability).to be_able_to(:close_debate, proposal)
       end
+
       it 'can start the votation of proposals at any time' do
         proposal.update(proposal_state_id: ProposalState::WAIT)
         expect(ability).to be_able_to(:start_votation, proposal)
@@ -214,6 +217,7 @@ RSpec.describe 'permissions on proposals', :js, type: :model, search: true, seed
       it 'cannot close the debate of proposals at any time' do
         expect(ability).not_to be_able_to(:close_debate, proposal)
       end
+
       it 'cannot start the votation of proposals at any time' do
         expect(ability).not_to be_able_to(:start_votation, proposal)
       end

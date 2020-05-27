@@ -1,10 +1,10 @@
-class GroupParticipationRequest < ActiveRecord::Base
+class GroupParticipationRequest < ApplicationRecord
   belongs_to :user
   belongs_to :group
 
   enum group_participation_request_status_id: { pending: 1, voting: 2, accepted: 3, rejected: 4 }
 
-  validates_uniqueness_of :user_id, scope: :group_id
+  validates :user_id, uniqueness: { scope: :group_id }
 
   after_commit :send_notifications, on: :create
 

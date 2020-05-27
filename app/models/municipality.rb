@@ -1,4 +1,4 @@
-class Municipality < ActiveRecord::Base
+class Municipality < ApplicationRecord
   has_many :places, dependent: :destroy
   has_many :districts, dependent: :destroy
 

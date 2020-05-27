@@ -1,4 +1,4 @@
-class AlertJob < ActiveRecord::Base
+class AlertJob < ApplicationRecord
   belongs_to :trackable, polymorphic: true
   belongs_to :notification_type
   belongs_to :user
@@ -34,9 +34,7 @@ class AlertJob < ActiveRecord::Base
     @sidekiq_job ||= Sidekiq::ScheduledSet.new.find_job(jid)
   end
 
-  def reschedule(time)
-    sidekiq_job.reschedule(time)
-  end
+  delegate :reschedule, to: :sidekiq_job
 
   def accumulate(by = 1)
     increment!(:accumulated_count, by)

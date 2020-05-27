@@ -24,6 +24,7 @@ namespace :airesis do
     task users: :environment do
       User.find_each do |user|
         next if user.interest_borders.empty?
+
         user.update(interest_borders_tokens: user.interest_borders.map(&:key).join(','),
                     updated_at: user.updated_at)
       end

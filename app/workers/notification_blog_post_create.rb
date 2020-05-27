@@ -14,6 +14,7 @@ class NotificationBlogPostCreate < NotificationSender
     # TODO: followers are not yet supported
     user_followers.each do |user|
       next if (user == post_user) || (sent_users.include? user)
+
       sent_users << user if send_notification_to_user(notification_a, user)
     end
 
@@ -25,6 +26,7 @@ class NotificationBlogPostCreate < NotificationSender
                                            url: group_blog_post_url(group, blog_post), data: data)
       group.participants.each do |user|
         next if (user == post_user) || (sent_users.include? user)
+
         sent_users << user if send_notification_to_user(notification_b, user)
       end
     end

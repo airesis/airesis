@@ -15,8 +15,8 @@ module RGL
     # rdot.rb.
 
     def to_dot_graph(params = {})
-      params['name'] ||= self.class.name.gsub(/:/, '_')
-      fontsize = params['fontsize'] ? params['fontsize'] : '8'
+      params['name'] ||= self.class.name.tr(':', '_')
+      fontsize = params['fontsize'] || '8'
       graph = (directed? ? DOT::Digraph : DOT::Graph).new(params)
       edge_class = directed? ? DOT::DirectedEdge : DOT::Edge
       each_vertex do |v|
@@ -44,7 +44,7 @@ module RGL
 
     def dotty(params = {})
       dotfile = 'graph.dot'
-      File.open(dotfile, 'w') do|f|
+      File.open(dotfile, 'w') do |f|
         print_dotted_on(params, f)
       end
       system('dotty', dotfile)

@@ -4,8 +4,7 @@ module Frm
 
     load_and_authorize_resource class: 'Frm::Category', through: :group
 
-    def show
-    end
+    def show; end
 
     protected
 

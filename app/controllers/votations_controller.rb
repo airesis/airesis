@@ -58,7 +58,9 @@ Vote errors: #{@proposal.vote.errors.details}")
       votestring = params[:data][:votes]
       solutions = votestring.split(/;|,/).map(&:to_i).sort # lista degli id delle soluzioni
       p_sol = @proposal.solutions.pluck(:id).sort
-      fail Exception unless (p_sol <=> solutions) == 0 # se c'è discrepanza tra gli id delle soluzioni e quelli inviati dal client solleva un'eccezione
+      unless (p_sol <=> solutions) == 0
+        raise StandardError
+      end # se c'è discrepanza tra gli id delle soluzioni e quelli inviati dal client solleva un'eccezione
 
       # salva la votazione dell'utente
       schulz = @proposal.schulze_votes.find_by(preferences: votestring)
@@ -78,7 +80,6 @@ Vote errors: #{@proposal.vote.errors.details}")
       format.html { render action: :show }
       format.js { render 'votations/vote_schulze' }
     end
-
   rescue Exception => e
     respond_to do |format|
       # magari ha provato a votare due volte!
@@ -93,6 +94,7 @@ Vote errors: #{@proposal.vote.errors.details}")
   def validate_security_token
     return true unless current_user.rotp_enabled && ::Configuration.rotp
     return true if check_token(current_user, params[:data][:token])
+
     flash[:error] = t('errors.messages.invalid_token')
     respond_to do |format|
       format.js { render 'votations/errors/vote_error' }

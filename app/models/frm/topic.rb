@@ -1,7 +1,8 @@
 module Frm
   class Topic < FrmTable
     include Frm::Concerns::Viewable
-    include Workflow, Taggable
+    include Taggable
+    include Workflow
 
     workflow_column :state
     workflow do
@@ -99,6 +100,7 @@ module Frm
 
     def subscribe_user(subscriber_id)
       return if !subscriber_id || subscriber?(subscriber_id)
+
       subscriptions.create!(subscriber_id: subscriber_id)
     end
 

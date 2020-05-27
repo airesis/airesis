@@ -1,4 +1,4 @@
-class ProposalRanking < ActiveRecord::Base
+class ProposalRanking < ApplicationRecord
   belongs_to :user
   belongs_to :proposal
 

@@ -1,12 +1,14 @@
 class ProposalsWorker
-  include Sidekiq::Worker, Rails.application.routes.url_helpers, ProposalsHelper
+  include ProposalsHelper
+  include Rails.application.routes.url_helpers
+  include Sidekiq::Worker
   sidekiq_options queue: :high_priority
 
-  ENDTIME = 'endtime'
-  LEFT24 = 'left24'
-  LEFT1 = 'left1'
-  LEFT24VOTE = 'left24_vote'
-  LEFT1VOTE = 'left1_vote'
+  ENDTIME = 'endtime'.freeze
+  LEFT24 = 'left24'.freeze
+  LEFT1 = 'left1'.freeze
+  LEFT24VOTE = 'left24_vote'.freeze
+  LEFT1VOTE = 'left1_vote'.freeze
 
   def perform(*args)
     params = args[0]

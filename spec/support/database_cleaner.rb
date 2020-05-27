@@ -32,8 +32,9 @@ RSpec.configure do |config|
 
   def load_database
     load_municipalities
-    admin = ParticipationRole.create(Hash[GroupAction::LIST.map { |a| [a, true] }].merge(name: ParticipationRole::ADMINISTRATOR, description: 'Amministratore'))
+    admin = ParticipationRole.create(GroupAction::LIST.index_with { |_a| true }.merge(name: ParticipationRole::ADMINISTRATOR, description: 'Amministratore'))
     return unless BestQuorum.count == 0
+
     base_attrs = { percentage: nil, minutes_m: 0, hours_m: 0, good_score: 50, bad_score: 50, vote_percentage: 0,
                    vote_minutes: nil, vote_good_score: 50, t_percentage: 's', t_minutes: 's', t_good_score: 's',
                    t_vote_percentage: 's', t_vote_minutes: 'f', t_vote_good_score: 's', public: true }

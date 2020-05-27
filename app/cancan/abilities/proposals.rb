@@ -36,9 +36,9 @@ module Abilities
       can :unintegrate, ProposalComment, user: { id: user.id }, integrated: true
 
       # TODO: better check for manage_noise and mark noise permissions
-      can [:index, :list, :edit_list, :left_list, :show_all_replies, :manage_noise, :mark_noise], ProposalComment
-      can [:show, :history, :report], ProposalComment, user_id: user.id
-      can [:show, :history, :report], ProposalComment,
+      can %i[index list edit_list left_list show_all_replies manage_noise mark_noise], ProposalComment
+      can %i[show history report], ProposalComment, user_id: user.id
+      can %i[show history report], ProposalComment,
           proposal: { groups: can_do_on_group(user, :view_proposals) }
 
       create_proposal_comment_permissions(user)
@@ -75,7 +75,7 @@ module Abilities
       end
       can :create, Proposal, group_proposals: { group: can_do_on_group(user, :insert_proposals) }
 
-      #can :read, Proposal,
+      # can :read, Proposal,
       # can see proposals in groups in which has permission, not belonging to any area
       can :read, Proposal, group_proposals: { group: can_do_on_group(user, :view_proposals) }
 
@@ -91,7 +91,7 @@ module Abilities
       # can see all proposals if is admin
       can :read, Proposal, groups: admin_of_group?(user)
 
-      can [:edit, :update, :geocode, :add_authors, :available_authors_list],
+      can %i[edit update geocode add_authors available_authors_list],
           Proposal, users: { id: user.id }, proposal_state_id: ProposalState::VALUTATION
 
       can [:rankup, :rankdown], Proposal do |proposal|
@@ -141,7 +141,7 @@ module Abilities
       can :set_votation_date, Proposal, proposal_state_id: ProposalState::WAIT_DATE, users: { id: user.id }
 
       can :set_votation_date, Proposal do |proposal| # return true if the user can put the proposal in votation
-        (proposal.updated_at < (Time.now - OTHERS_CHOOSE_VOTE_DATE_DAYS.days)) &&
+        (proposal.updated_at < (Time.zone.now - OTHERS_CHOOSE_VOTE_DATE_DAYS.days)) &&
           (!proposal.private? ||
           (proposal.private? &&
             can_do_on_group?(user, proposal.groups.first, :choose_date_proposals)))
@@ -154,7 +154,7 @@ module Abilities
 
       can :destroy, Proposal do |proposal|
         (proposal.users.include? user) &&
-          !(((Time.now - proposal.created_at) > EDIT_PROPOSAL_TIME_LIMIT) &&
+          !(((Time.zone.now - proposal.created_at) > EDIT_PROPOSAL_TIME_LIMIT) &&
             (proposal.valutations > 0 || proposal.proposal_contributes_count > 0)) && proposal.in_valutation?
       end
     end

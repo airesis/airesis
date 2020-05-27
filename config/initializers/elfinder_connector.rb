@@ -8,11 +8,11 @@ ElFinder::Connector.class_eval do
     end
     select = []
     @params[:upload].to_a.each do |file|
-      if file.respond_to?(:tempfile)
-        the_file = file.tempfile
-      else
-        the_file = file
-      end
+      the_file = if file.respond_to?(:tempfile)
+                   file.tempfile
+                 else
+                   file
+                 end
       a = File.size(the_file.path)
       b = upload_max_size_in_bytes
       if  a > b
@@ -54,7 +54,7 @@ ElFinder::Connector.class_eval do
         end
         @group.actual_storage_size = 0 if @group.actual_storage_size < 0
         @group.save!
-      rescue
+      rescue StandardError
         @response[:error] ||= 'Some files/directories were unable to be removed'
         @response[:errorData][target.basename.to_s] = 'Remove failed'
       end

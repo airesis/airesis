@@ -9,7 +9,7 @@ class BestQuorum < Quorum
   after_find :populate_accessor
 
   def valutations
-    (read_attribute :valutations) || 1
+    (self[:valutations]) || 1
   end
 
   def populate_accessor
@@ -17,9 +17,11 @@ class BestQuorum < Quorum
     self.vote_minutes_m = vote_minutes
     return unless vote_minutes_m
     return unless vote_minutes_m > 59
+
     self.vote_hours_m = vote_minutes_m / 60
     self.vote_minutes_m = vote_minutes_m % 60
     return unless vote_hours_m > 23
+
     self.vote_days_m = vote_hours_m / 24
     self.vote_hours_m = vote_hours_m % 24
   end
@@ -39,11 +41,11 @@ class BestQuorum < Quorum
   end
 
   def or?
-    fail Exception
+    raise StandardError
   end
 
   def and?
-    fail Exception
+    raise StandardError
   end
 
   def time_fixed?
@@ -65,7 +67,7 @@ class BestQuorum < Quorum
 
   # short description of time left to show in the rank bar and proposals list
   def time_left
-    amount = ends_at - Time.now # left in seconds
+    amount = ends_at - Time.zone.now # left in seconds
     if amount > 0
       left = I18n.t('time.left.seconds', count: amount.to_i)
       if amount >= 60 # if more or equal than 60 seconds left give me minutes
@@ -125,7 +127,7 @@ class BestQuorum < Quorum
   end
 
   def check_phase(force_end = false)
-    return unless force_end || (Time.now > ends_at) # skip if we have not passed the time yet
+    return unless force_end || (Time.zone.now > ends_at) # skip if we have not passed the time yet
 
     vpassed = !valutations || (proposal.valutations >= valutations)
     if (proposal.rank >= good_score) && vpassed # and we passed the debate quorum
@@ -143,11 +145,11 @@ class BestQuorum < Quorum
             description: "Votation #{proposal.title}",
             user: proposal.users.first
           }
-          if proposal.private?
-            @event = proposal.groups.first.events.create!(event_p)
-          else
-            @event = Event.create!(event_p)
-          end
+          @event = if proposal.private?
+                     proposal.groups.first.events.create!(event_p)
+                   else
+                     Event.create!(event_p)
+                   end
         end
         proposal.vote_period = @event
       else
@@ -170,17 +172,17 @@ class BestQuorum < Quorum
         votesstring = '' # this is the string to pass to schulze library to calculate the score
         vote_data_schulze.each do |vote|
           # each row is composed by the vote string and, if more then one, the number of votes of that kind
-          vote.count > 1 ? votesstring += "#{vote.count}=#{vote.preferences}\n" : votesstring += "#{vote.preferences}\n"
+          votesstring += vote.count > 1 ? "#{vote.count}=#{vote.preferences}\n" : "#{vote.preferences}\n"
         end
         num_solutions = proposal.solutions.count
         vs = SchulzeBasic.do votesstring, num_solutions
-        solutions_sorted = proposal.solutions.sort { |a, b| a.id <=> b.id } # order the solutions by the id (as the plugin output the results)
+        solutions_sorted = proposal.solutions.sort_by(&:id) # order the solutions by the id (as the plugin output the results)
         solutions_sorted.each_with_index do |c, i|
           c.schulze_score = vs.ranks[i].to_i # save the result in the solution
           c.save!
         end
         votes = proposal.schulze_votes.sum(:count)
-        proposal.proposal_state_id = (votes >= vote_valutations) ? ProposalState::ACCEPTED : ProposalState::REJECTED
+        proposal.proposal_state_id = votes >= vote_valutations ? ProposalState::ACCEPTED : ProposalState::REJECTED
       end # end of transaction
     else
       vote_data = proposal.vote
@@ -188,11 +190,11 @@ class BestQuorum < Quorum
       negative = vote_data.negative
       neutral = vote_data.neutral
       votes = positive + negative + neutral
-      if ((positive + negative) > 0) && ((positive.to_f / (positive + negative)) > (vote_good_score.to_f / 100)) && (votes >= vote_valutations) # se ha avuto più voti positivi allora diventa ACCETTATA
-        proposal.proposal_state_id = ProposalState::ACCEPTED
-      else # se ne ha di più negativi allora diventa RESPINTA
-        proposal.proposal_state_id = ProposalState::REJECTED
-      end
+      proposal.proposal_state_id = if ((positive + negative) > 0) && ((positive.to_f / (positive + negative)) > (vote_good_score.to_f / 100)) && (votes >= vote_valutations) # se ha avuto più voti positivi allora diventa ACCETTATA
+                                     ProposalState::ACCEPTED
+                                   else # se ne ha di più negativi allora diventa RESPINTA
+                                     ProposalState::REJECTED
+                                   end
     end
     proposal.save!
     NotificationProposalVoteClosed.perform_async(proposal.id)
@@ -203,7 +205,7 @@ class BestQuorum < Quorum
   end
 
   def debate_progress
-    minimum = [Time.now, ends_at].min
+    minimum = [Time.zone.now, ends_at].min
     minimum = ((minimum - started_at) / 60)
     percentagetime = minimum.to_f / minutes
     percentagetime *= 100
@@ -234,15 +236,15 @@ class BestQuorum < Quorum
   def explanation_pop
     conditions = []
     ret = ''
-    if assigned? # explain a quorum assigned to a proposal
-      if proposal_life.present? || proposal.abandoned?
-        ret = terminated_explanation_pop
-      else
-        ret = assigned_explanation_pop
-      end
-    else
-      ret = unassigned_explanation_pop # it a non assigned quorum
-    end
+    ret = if assigned? # explain a quorum assigned to a proposal
+            if proposal_life.present? || proposal.abandoned?
+              terminated_explanation_pop
+            else
+              assigned_explanation_pop
+                  end
+          else
+            unassigned_explanation_pop # it a non assigned quorum
+          end
 
     ret += '.'
     ret.html_safe

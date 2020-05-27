@@ -4,6 +4,8 @@ require 'cancan/matchers'
 
 RSpec.describe NotificationProposalCommentUnintegrate, type: :model, emails: true, notifications: true, seeds: true do
   let!(:notification_type) { NotificationType::UNINTEGRATED_CONTRIBUTE }
+  let!(:trigger_event) { create_event }
+  let(:receivers) { [user] }
   let!(:user) { create(:user) }
 
   let!(:group) { create(:group, current_user_id: user.id) }
@@ -45,9 +47,6 @@ RSpec.describe NotificationProposalCommentUnintegrate, type: :model, emails: tru
     comment.unintegrate
     comment.reload
   end
-
-  let!(:trigger_event) { create_event }
-  let(:receivers) { [user] }
 
   it 'unintegrate the contribute' do
     expect(comment.integrated).to be_falsey

@@ -11,7 +11,7 @@ class ProposalNicknamesController < ApplicationController
     loop = true
     while loop
       @nickname = NicknameGeneratorHelper.give_me_a_nickname
-      loop = ProposalNickname.find_by_proposal_id_and_nickname(@proposal_nickname.proposal.id, @nickname)
+      loop = ProposalNickname.find_by(proposal_id: @proposal_nickname.proposal.id, nickname: @nickname)
     end
     @proposal_nickname.nickname = @nickname
     @proposal_nickname.save!

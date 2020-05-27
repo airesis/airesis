@@ -10,7 +10,7 @@ RSpec.describe Event do
   end
 
   context 'time left rendering' do
-    let(:now) { Time.now }
+    let(:now) { Time.zone.now }
     let(:event) { build(:event, endtime: difference.since(now)) }
     let(:description) do
       Timecop.freeze(now) do

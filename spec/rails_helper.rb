@@ -15,7 +15,7 @@ require 'capybara/rspec'
 require 'capybara/rails'
 require 'selenium/webdriver'
 
-Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
 
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
@@ -71,6 +71,7 @@ RSpec.configure do |config|
           next if /Cannot read property 'getSelectedElement' of null/.match?(error.message)
           # TODO: should not happen
           next if /FormValidation.Framework.Bootstrap/.match?(error.message)
+
           expect(error.level).not_to eq('SEVERE'), error.message
           next unless error.level == 'WARNING'
 

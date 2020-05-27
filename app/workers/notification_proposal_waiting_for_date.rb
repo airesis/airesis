@@ -5,13 +5,14 @@ class NotificationProposalWaitingForDate < NotificationSender
     group = @proposal.group
     current_user = User.find(user_id)
     nickname = ProposalNickname.find_by(user_id: current_user.id, proposal_id: @proposal.id)
-    name = (@proposal.is_anonima? && nickname) ? nickname.nickname : current_user.fullname
+    name = @proposal.is_anonima? && nickname ? nickname.nickname : current_user.fullname
     data = { proposal_id: @proposal.id, name: name, title: @proposal.title, extension: 'waiting_date' }
     data['group'] = group.name if group
     notification_a = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS,
                                          url: url_for_proposal, data: data)
     @proposal.participants.each do |user|
       next if user == current_user
+
       send_notification_for_proposal(notification_a, user)
     end
   end

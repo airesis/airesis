@@ -1,4 +1,4 @@
-class Search < ActiveRecord::Base
+class Search < ApplicationRecord
   attr_accessor :groups, :proposals, :user_id, :blogs
 
   def find

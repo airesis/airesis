@@ -3,7 +3,7 @@ class AlertsController < ApplicationController
 
   layout 'users'
 
-  load_and_authorize_resource except: [:check_all, :proposal], through: :current_user
+  load_and_authorize_resource except: %i[check_all proposal], through: :current_user
 
   helper_method :calculate_alert_path
 
@@ -17,11 +17,11 @@ class AlertsController < ApplicationController
       end
       format.json do
         unread = @alerts.where(checked: false, deleted: false).
-          includes(:notification_type, :notification_category)
+                 includes(:notification_type, :notification_category)
         numunread = unread.length
         if numunread < 10
           unread += @alerts.where(checked: true, deleted: false).
-            includes(:notification_type, :notification_category).limit(10 - numunread)
+                    includes(:notification_type, :notification_category).limit(10 - numunread)
         end
 
         alerts = unread.map do |alert|

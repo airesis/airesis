@@ -69,6 +69,7 @@ class BlogCommentsController < ApplicationController
 
   def save_comment
     return if current_user
+
     session[:blog_comment] = blog_comment_params
     session[:blog_post_id] = params[:blog_post_id]
     session[:blog_id] = params[:blog_id]

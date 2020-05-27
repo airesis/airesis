@@ -1,6 +1,6 @@
-class Configuration < ActiveRecord::Base
-  SOCIALNETWORK = 'socialnetwork_active'
-  RECAPTCHA = 'recaptcha'
+class Configuration < ApplicationRecord
+  SOCIALNETWORK = 'socialnetwork_active'.freeze
+  RECAPTCHA = 'recaptcha'.freeze
 
   def self.phases_active
     @phases_active = config_active?('phases_active')
