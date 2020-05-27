@@ -1,4 +1,4 @@
-class District < ActiveRecord::Base
+class District < ApplicationRecord
   belongs_to :municipality
   belongs_to :province
   belongs_to :region

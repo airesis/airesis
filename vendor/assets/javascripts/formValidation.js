@@ -2219,7 +2219,7 @@ if (typeof jQuery === 'undefined') {
                 data    = $this.data('formValidation'),
                 options = 'object' === typeof option && option;
             if (!data) {
-                var framework = (options.framework || $this.attr('data-fv-framework') || 'bootstrap').toLowerCase(),
+                var framework = (options.framework || $this.attr('data-fv-framework') || 'foundation').toLowerCase(),
                     clazz     = framework.substr(0, 1).toUpperCase() + framework.substr(1);
 
                 if (typeof FormValidation.Framework[clazz] === 'undefined') {

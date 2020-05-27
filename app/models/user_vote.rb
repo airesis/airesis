@@ -1,4 +1,4 @@
-class UserVote < ActiveRecord::Base
+class UserVote < ApplicationRecord
   belongs_to :user
   belongs_to :proposal, counter_cache: true
   belongs_to :vote_type, optional: true

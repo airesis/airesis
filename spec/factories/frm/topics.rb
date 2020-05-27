@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :frm_topic, class: Frm::Topic do
+  factory :frm_topic, class: 'Frm::Topic' do
     subject { Faker::Lorem.sentence }
 
     forum { create(:frm_forum) }

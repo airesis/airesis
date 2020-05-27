@@ -14,22 +14,22 @@ module Resque
 
       def save
         # Create notification email
-        msgstr = <<END_OF_MESSAGE
-Subject: [Resque] #{exception}
-
-Queue:    #{queue}
-Worker:   #{worker}
-
-        #{payload.inspect}
-
-        #{exception}
-        #{exception.backtrace.join("\n")}
-END_OF_MESSAGE
+        msgstr = <<~END_OF_MESSAGE
+          Subject: [Resque] #{exception}
+          
+          Queue:    #{queue}
+          Worker:   #{worker}
+          
+                  #{payload.inspect}
+          
+                  #{exception}
+                  #{exception.backtrace.join("\n")}
+        END_OF_MESSAGE
 
         Net::SMTP.start(self.class.smtp[:address], self.class.smtp[:port], self.class.smtp[:address], self.class.smtp[:user], self.class.smtp[:secret]) do |smtp|
           smtp.send_message(msgstr, self.class.sender, self.class.recipients)
         end
-      rescue
+      rescue StandardError
       end
     end
   end

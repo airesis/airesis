@@ -1,4 +1,4 @@
-class SysPaymentNotification < ActiveRecord::Base
+class SysPaymentNotification < ApplicationRecord
   belongs_to :payable, polymorphic: true
   serialize :params
 

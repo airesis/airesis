@@ -1,4 +1,4 @@
-class ProposalCommentReportType < ActiveRecord::Base
+class ProposalCommentReportType < ApplicationRecord
   LOW = 0
   HIGH = 1
 

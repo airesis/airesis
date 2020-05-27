@@ -1,4 +1,4 @@
-class Solution < ActiveRecord::Base
+class Solution < ApplicationRecord
   belongs_to :proposal, inverse_of: :solutions
   has_many :solution_sections, inverse_of: :solution, dependent: :destroy
   has_many :sections, -> { order('sections.seq, sections.id') }, inverse_of: :solution, through: :solution_sections

@@ -26,9 +26,9 @@ RSpec.describe 'manage correctly vote events', :js, seeds: true do
 
     click_link I18n.t('buttons.next')
 
-    fill_in I18n.t('activerecord.attributes.event.starttime'), with: (I18n.l Time.now, format: :datetimepicker)
+    fill_in I18n.t('activerecord.attributes.event.starttime'), with: (I18n.l Time.zone.now, format: :datetimepicker)
     page.execute_script("$('#event_starttime').fdatetimepicker('hide');")
-    fill_in I18n.t('activerecord.attributes.event.endtime'), with: (I18n.l Time.now + 1.day, format: :datetimepicker)
+    fill_in I18n.t('activerecord.attributes.event.endtime'), with: (I18n.l Time.zone.now + 1.day, format: :datetimepicker)
     page.execute_script("$('#event_endtime').fdatetimepicker('hide');")
 
     click_link I18n.t('pages.events.new.submit')

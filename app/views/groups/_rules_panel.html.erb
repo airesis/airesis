@@ -5,16 +5,11 @@
   <% else %>
       <div><%= t('pages.groups.show.rule_book_html') %>
         <ul>
-          <li>Partecipazione:</li>
+          <li>Participation:</li>
           <% if @group.request_by_vote? %>
-              Quando un utente richiede di partecipare al gruppo, tutti gli altri partecipanti devono esprimere
-              il loro parere entro X giorni, al termine dei quali viene determinato se l'utente può entrare o
-              meno. <!--TODO:il18n-->
+            <%= t('pages.groups.show.request_by_vote_rules') %>
           <% elsif @group.request_by_portavoce? %>
-              Quando un utente richiede di partecipare al gruppo, l'accettazione è consentita solo ai portavoce
-              del gruppo stesso. Una volta che il portavoce avrà accettato la richiesta, l'utente sarà a tutti
-              gli
-              effetti un partecipante del gruppo. <!--TODO:il18n-->
+            <%= t('pages.groups.show.request_by_spokesman_rules') %>
           <% end %>
         </ul>
       </div>

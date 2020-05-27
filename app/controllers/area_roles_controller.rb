@@ -7,11 +7,9 @@ class AreaRolesController < ApplicationController
   load_and_authorize_resource :group_area, through: :group
   load_and_authorize_resource through: :group_area
 
-  def new
-  end
+  def new; end
 
-  def edit
-  end
+  def edit; end
 
   def create
     respond_to do |format|

@@ -5,14 +5,14 @@ module EventScopes
     scope :visible, -> { where(private: false) }
     scope :not_visible, -> { where(private: true) }
     scope :votation, -> { where(event_type_id: EventType::VOTATION) }
-    scope :after_time, ->(starttime = Time.now) { where('starttime > ?', starttime) }
-    scope :vote_period, ->(starttime = Time.now) { votation.after_time(starttime).order('starttime asc') }
+    scope :after_time, ->(starttime = Time.zone.now) { where('starttime > ?', starttime) }
+    scope :vote_period, ->(starttime = Time.zone.now) { votation.after_time(starttime).order('starttime asc') }
 
-    scope :next, -> { where(['endtime > ?', Time.now]) }
+    scope :next, -> { where(['endtime > ?', Time.zone.now]) }
 
     scope :time_scoped, (lambda do |starttime, endtime|
       event_t = Event.arel_table
-      where((event_t[:starttime].gteq(starttime).and(event_t[:starttime].lt(endtime))).
+      where(event_t[:starttime].gteq(starttime).and(event_t[:starttime].lt(endtime)).
           or(event_t[:endtime].gteq(starttime).and(event_t[:endtime].lt(endtime))))
     end)
 
@@ -32,7 +32,7 @@ module EventScopes
               else # municipality
                 :id
               end
-      conditions = (event_t[:event_type_id].eq(EventType::MEETING).and(municipality_t[field].eq(territory.id))).
+      conditions = event_t[:event_type_id].eq(EventType::MEETING).and(municipality_t[field].eq(territory.id)).
           or(event_t[:event_type_id].eq(EventType::VOTATION))
 
       includes(:event_type, place: :municipality).references(:event_type, place: :municipality).where(conditions)

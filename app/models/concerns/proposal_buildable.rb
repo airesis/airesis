@@ -21,7 +21,7 @@ module ProposalBuildable
     element.sections.build(title: section_title,
                            question: section_question,
                            seq: section_seq).
-        paragraphs.build(content: '', seq: 1)
+      paragraphs.build(content: '', seq: 1)
   end
 
   def build_solution_section(solution, section_title, section_question, section_seq)
@@ -33,8 +33,8 @@ module ProposalBuildable
                               question: I18n.t('pages.proposals.new.simple.problems_question'), seq: 1)
     problems.suggestion = I18n.t('pages.proposals.new.standard.suggestion_html')
     problems.paragraphs.build(content: '', seq: 1)
-    self.proposal_type = ProposalType.find_by_name(ProposalType::SIMPLE)
-    self.proposal_votation_type_id = ProposalVotationType::STANDARD
+    self.proposal_type = ProposalType.find_by(name: ProposalType::SIMPLE)
+    self.proposal_votation_type_id = :standard
   end
 
   def standard_new
@@ -43,8 +43,8 @@ module ProposalBuildable
                               seq: 1)
     problems.suggestion = I18n.t('pages.proposals.new.standard.suggestion_html')
     problems.paragraphs.build(content: '', seq: 1)
-    self.proposal_type = ProposalType.find_by_name(ProposalType::STANDARD)
-    self.proposal_votation_type_id = ProposalVotationType::STANDARD
+    self.proposal_type = ProposalType.find_by(name: ProposalType::STANDARD)
+    self.proposal_votation_type_id = :standard
   end
 
   def agenda_new
@@ -53,8 +53,8 @@ module ProposalBuildable
                               seq: 1)
     problems.suggestion = I18n.t('pages.proposals.new.agenda.suggestion_html')
     problems.paragraphs.build(content: '', seq: 1)
-    self.proposal_type = ProposalType.find_by_name(ProposalType::AGENDA)
-    self.proposal_votation_type_id = ProposalVotationType::STANDARD
+    self.proposal_type = ProposalType.find_by(name: ProposalType::AGENDA)
+    self.proposal_votation_type_id = :standard
   end
 
   def estimate_new
@@ -63,8 +63,8 @@ module ProposalBuildable
                               seq: 1)
     problems.suggestion = I18n.t('pages.proposals.new.estimate.suggestion_html')
     problems.paragraphs.build(content: '', seq: 1)
-    self.proposal_type = ProposalType.find_by_name(ProposalType::ESTIMATE)
-    self.proposal_votation_type_id = ProposalVotationType::STANDARD
+    self.proposal_type = ProposalType.find_by(name: ProposalType::ESTIMATE)
+    self.proposal_votation_type_id = :standard
   end
 
   def event_new
@@ -73,8 +73,8 @@ module ProposalBuildable
                               seq: 1)
     problems.suggestion = I18n.t('pages.proposals.new.event.suggestion_html')
     problems.paragraphs.build(content: '', seq: 1)
-    self.proposal_type = ProposalType.find_by_name(ProposalType::EVENT)
-    self.proposal_votation_type_id = ProposalVotationType::STANDARD
+    self.proposal_type = ProposalType.find_by(name: ProposalType::EVENT)
+    self.proposal_votation_type_id = :standard
   end
 
   def press_new
@@ -83,8 +83,8 @@ module ProposalBuildable
                               seq: 1)
     problems.suggestion = I18n.t('pages.proposals.new.press.suggestion_html')
     problems.paragraphs.build(content: '', seq: 1)
-    self.proposal_type = ProposalType.find_by_name(ProposalType::PRESS)
-    self.proposal_votation_type_id = ProposalVotationType::STANDARD
+    self.proposal_type = ProposalType.find_by(name: ProposalType::PRESS)
+    self.proposal_votation_type_id = :standard
   end
 
   def rule_book_new
@@ -94,8 +94,8 @@ module ProposalBuildable
     problems.suggestion = I18n.t('pages.proposals.new.rule_book.suggestion_html')
     problems.paragraphs.build(content: '', seq: 1)
 
-    self.proposal_type = ProposalType.find_by_name(ProposalType::RULE_BOOK)
-    self.proposal_votation_type_id = ProposalVotationType::STANDARD
+    self.proposal_type = ProposalType.find_by(name: ProposalType::RULE_BOOK)
+    self.proposal_votation_type_id = :standard
   end
 
   def poll_new
@@ -108,7 +108,7 @@ module ProposalBuildable
     @solution_c_section = @solution_c.sections.build(title: 'Opzione 3', seq: 1)
 
     self.proposal_type_id = ProposalType::POLL
-    self.proposal_votation_type_id = ProposalVotationType::SCHULZE
+    self.proposal_votation_type_id = :schulze
   end
 
   def candidates_new
@@ -143,14 +143,14 @@ module ProposalBuildable
   end
 
   def standard_create
-    paragraphs_builder('standard', %w(similar stakeholders requirements))
+    paragraphs_builder('standard', %w[similar stakeholders requirements])
     solution = standard_solution
     solution.seq = 1
     solutions << solution
   end
 
   def agenda_create
-    paragraphs_builder('agenda', %w(date_time place))
+    paragraphs_builder('agenda', %w[date_time place])
     solution = agenda_solution
     solution.seq = 1
     solutions << solution
@@ -158,35 +158,35 @@ module ProposalBuildable
 
   def estimate_create
     paragraphs_builder('estimate',
-                       %w(technical_constrains temporal_constrains other_constrains budget recipient_budget))
+                       %w[technical_constrains temporal_constrains other_constrains budget recipient_budget])
     solution = estimate_solution
     solution.seq = 1
     solutions << solution
   end
 
   def event_create
-    paragraphs_builder('event', %w(similar_experiences stakeholders desired_characteristics))
+    paragraphs_builder('event', %w[similar_experiences stakeholders desired_characteristics])
     solution = event_solution
     solution.seq = 1
     solutions << solution
   end
 
   def press_create
-    paragraphs_builder('press', %w(target))
+    paragraphs_builder('press', %w[target])
     solution = press_solution
     solution.seq = 1
     solutions << solution
   end
 
   def rule_book_create
-    paragraphs_builder('rule_book', %w(inspire stakeholders requirements))
+    paragraphs_builder('rule_book', %w[inspire stakeholders requirements])
     solution = rule_book_solution
     solution.seq = 1
     solutions << solution
   end
 
   def candidates_create
-    paragraphs_builder('candidates', %w(requirements))
+    paragraphs_builder('candidates', %w[requirements])
     solution = candidates_solution
     solution.seq = 1
     solutions << solution
@@ -213,11 +213,11 @@ module ProposalBuildable
 
   # create a solution for a standard proposal
   def standard_solution
-    solution_builder('standard', %w(description time subject resources aspects documents pros cons))
+    solution_builder('standard', %w[description time subject resources aspects documents pros cons])
   end
 
   def candidates_solution
-    solution_builder('candidates', %w(data curriculum))
+    solution_builder('candidates', %w[data curriculum])
   end
 
   def rule_book_solution
@@ -231,7 +231,7 @@ module ProposalBuildable
                              seq)
     end
 
-    %w(pros cons).each do |section_name|
+    %w[pros cons].each do |section_name|
       build_solution_section(solution,
                              I18n.t("pages.proposals.new.rule_book.solution.#{section_name}"),
                              I18n.t("pages.proposals.new.rule_book.question.solution.#{section_name}"),
@@ -241,18 +241,18 @@ module ProposalBuildable
   end
 
   def press_solution
-    solution_builder('press', %w(maintitle subtitle incipit body conclusion deep))
+    solution_builder('press', %w[maintitle subtitle incipit body conclusion deep])
   end
 
   def event_solution
-    solution_builder('event', %w(description program place organization resources))
+    solution_builder('event', %w[description program place organization resources])
   end
 
   def estimate_solution
-    solution_builder('estimate', %w(cost problems dumentation))
+    solution_builder('estimate', %w[cost problems dumentation])
   end
 
   def agenda_solution
-    solution_builder('agenda', %w(description links priorities estimated_time))
+    solution_builder('agenda', %w[description links priorities estimated_time])
   end
 end

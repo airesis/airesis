@@ -4,6 +4,7 @@ class NotificationProposalUpdate < NotificationSender
     notification_a = build_notification_a
     @proposal.participants.each do |user|
       next if user == @current_user
+
       send_notification_for_proposal(notification_a, user)
     end
   end
@@ -11,7 +12,7 @@ class NotificationProposalUpdate < NotificationSender
   def build_notification_a
     data = { proposal_id: @proposal.id,
              user_id: @current_user.id,
-             revision_id: (@proposal.proposal_revisions.last.id),
+             revision_id: @proposal.proposal_revisions.last.id,
              title: @proposal.title }
     data[:group] = @group.name if @group.present?
     Notification.create(notification_type_id: @notification_type_id,

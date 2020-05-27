@@ -27,7 +27,6 @@
                 <br/>
 
                 <div class="inner" style="opacity: <%= @dates.empty? ? 1 : 0.6 %>">
-
                   <div class="row">
                     <div id="start_preset" class="columns large-5" style="display: block;">
                       <%= v.label 'start', "#{t('label.from')} " %>
@@ -58,8 +57,6 @@
           <div class="clearboth"></div>
       <% end %>
   <% end %>
-
-
 </div>
 <%= link_to t('pages.proposals.show.choose_later'), '#', class: 'btn later', id: 'later', data: {other: t('pages.proposals.show.choose_now')} %>
 <div class="clearboth"></div>

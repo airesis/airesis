@@ -1,9 +1,9 @@
-class BlogPost < ActiveRecord::Base
+class BlogPost < ApplicationRecord
   include Taggable
 
-  PUBLISHED = 'P'
-  RESERVED = 'R'
-  DRAFT = 'D'
+  PUBLISHED = 'P'.freeze
+  RESERVED = 'R'.freeze
+  DRAFT = 'D'.freeze
 
   has_paper_trail versions: { class_name: 'BlogPostVersion' }
 
@@ -24,7 +24,7 @@ class BlogPost < ActiveRecord::Base
   scope :drafts, -> { where(status: DRAFT).order('published_at DESC') }
 
   scope :open_space, lambda { |user, domain|
-    includes(:blog, user: [:user_type, :image]).
+    includes(:blog, user: [:image]).
       where(users: { original_sys_locale_id: domain.id }).
       accessible_by(Ability.new(user)).
       order('blog_posts.created_at desc').limit(10)
@@ -48,13 +48,14 @@ class BlogPost < ActiveRecord::Base
 
   def check_published
     return if published_at.present?
+
     if new_record?
       return if draft?
     else
-      return unless status_change.present?
+      return if status_change.blank?
       return unless [[DRAFT, PUBLISHED], [DRAFT, RESERVED], [PUBLISHED, RESERVED]].include? status_change
     end
-    self.published_at = Time.now
+    self.published_at = Time.zone.now
   end
 
   def formatted_updated_at

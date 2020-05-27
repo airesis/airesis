@@ -1,4 +1,4 @@
-if ENV['OVERRIDE_MAIL_RECIPIENT'].present? && (Rails.env.development?)
+if ENV['OVERRIDE_MAIL_RECIPIENT'].present? && Rails.env.development?
   class OverrideMailRecipient
     def self.delivering_email(mail)
       mail.to = ENV['OVERRIDE_MAIL_RECIPIENT']

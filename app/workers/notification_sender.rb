@@ -1,6 +1,8 @@
 # TODO: duplicated code, all that code is duplicated from notification helper. please fix it asap
 class NotificationSender
-  include Sidekiq::Worker, ProposalsHelper, Rails.application.routes.url_helpers
+  include Rails.application.routes.url_helpers
+  include ProposalsHelper
+  include Sidekiq::Worker
 
   sidekiq_options queue: :notifications, retry: 1
 
@@ -18,6 +20,7 @@ class NotificationSender
   # check if the user blocked alerts from the proposal and then send the alert
   def send_notification_for_proposal(notification, user)
     return if BlockedProposalAlert.find_by(user: user, proposal: @proposal)
+
     send_notification_to_user(notification, user)
   end
 
@@ -46,6 +49,7 @@ class NotificationSender
   # if the user blocked the notificaiton type, then the alert is not sent
   def send_notification_to_user(notification, user)
     return if user.blocked_notifications.include? notification.notification_type # se il tipo non è bloccato
+
     check_destroyable(notification, user)
     if notification.notification_type.cumulable?
       send_cumulable_alert_to_user(notification, user)

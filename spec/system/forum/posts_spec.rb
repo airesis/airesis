@@ -124,7 +124,8 @@ RSpec.describe 'posts', :js do
         expect(page).to have_content(text)
       end
 
-      it "if you are group admin you should be allowed to edit a post you don't own" do
+      # TODO: do not test in system test but request
+      it "if you are group admin you should be allowed to edit a post you don't own", :ignore_javascript_errors do
         visit edit_group_forum_topic_post_path(group, forum, topic, @second_post)
         expect(page).not_to have_content(I18n.t('error.error_302.title'))
       end

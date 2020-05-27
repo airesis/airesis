@@ -1,4 +1,4 @@
-class NotificationCategory < ActiveRecord::Base
+class NotificationCategory < ApplicationRecord
   has_many :notification_types, -> { order('id') }
 
   def description

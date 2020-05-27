@@ -55,7 +55,6 @@ RSpec.describe 'the oauth2 process', :js do
                                                                              'openid_id' => 'https://www.google.com/accounts/o8/id?id=ABCdfdswawerSDFDsfdsfdfjdsf'
                                                                            }
                                                                          })
-      Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
       Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:google_oauth2]
     end
 
@@ -68,7 +67,7 @@ RSpec.describe 'the oauth2 process', :js do
       expect(User.count).to eq(1)
       user = User.last
 
-      expect(user.user_type_id).to eq(UserType::AUTHENTICATED)
+      expect(user.user_type_id).to eq('authenticated')
       expect(user.name).to eq(@oauth_data[:first_name])
       expect(user.surname).to eq(@oauth_data[:last_name])
       expect(user.email).to eq(@oauth_data[:email])

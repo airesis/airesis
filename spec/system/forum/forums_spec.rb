@@ -60,7 +60,8 @@ RSpec.describe 'the management of the forum', retry: 3 do
 
   # user created group1 and group2
   # user2 participate in group2
-  it 'can create a new topic only in his group or in a group in which participate' do
+  # TODO: unauthorized access should not be tested in system test but request, so that ignore_js_errors can be removed
+  it 'can create a new topic only in his group or in a group in which participate', :ignore_javascript_errors do
     @group2 = create(:group, current_user_id: @user.id)
     @user2 = create(:user)
     create_participation(@user2, @group2)

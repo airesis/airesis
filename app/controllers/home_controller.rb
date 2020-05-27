@@ -20,26 +20,19 @@ class HomeController < ApplicationController
     render 'open_space'
   end
 
-  def intro
-  end
+  def intro; end
 
-  def press
-  end
+  def press; end
 
-  def school
-  end
+  def school; end
 
-  def municipality
-  end
+  def municipality; end
 
-  def privacy
-  end
+  def privacy; end
 
-  def terms
-  end
+  def terms; end
 
-  def cookie_law
-  end
+  def cookie_law; end
 
   def statistics
     @stat1 = StatNumProposal.extract
@@ -54,7 +47,7 @@ class HomeController < ApplicationController
     respond_to do |format|
       format.js do
         feedback = JSON.parse(params[:data])
-        data = feedback[1][22..-1] if feedback[1] # get the feedback image data
+        data = feedback[1][22..] if feedback[1] # get the feedback image data
 
         stack = ''
         if current_user

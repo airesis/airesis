@@ -30,7 +30,7 @@ module ProposalsHelper
   end
 
   def parsed_content(proposal_comment, anonimous = true)
-    scanned = CGI.escapeHTML(proposal_comment.content).gsub(/(@)\[\[(\d+):([\w\s\.\-]+):([\w\s@\.,-\/#!$%\^&\*;:{}=\-_`~()]+)\]\]/) do |_match|
+    scanned = CGI.escapeHTML(proposal_comment.content).gsub(%r{(@)\[\[(\d+):([\w\s\.\-]+):([\w\s@\.,-/#!$%\^&\*;:{}=\-_`~()]+)\]\]}) do |_match|
       nick = ProposalNickname.find(Regexp.last_match(2))
       anonimous ?
         "<span class='cite nickname'>#{nick.nickname}</span>" :
@@ -50,7 +50,7 @@ module ProposalsHelper
   end
 
   def proposal_category_image_tag(proposal)
-    image_tag("proposal_categories/#{proposal.proposal_category_id}.png", alt: proposal.category.description, title: proposal.category.description)
+    image_tag("proposal_categories/#{proposal.category.name}.png", alt: proposal.category.description, title: proposal.category.description)
   end
 
   def proposal_status(proposal)

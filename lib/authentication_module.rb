@@ -3,7 +3,7 @@ module AuthenticationModule
                  :email_name_regex, :domain_head_regex, :domain_tld_regex, :email_regex, :bad_email_message
 
   self.name_regex = /\A[a-zA-Z\u00C0-\u00F6\u00F8-\u00FF][a-zA-Z\s\-\u00C0-\u00F6\u00F8-\u00FF' ]*[a-zA-Z\u00C0-\u00F6\u00F8-\u00FF]\z/
-  self.url_regex = /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?\z/ix
+  self.url_regex = %r{\A(http|https)://[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?/.*)?\z}ix
   self.bad_name_message  = 'Formato del nome non valido.'.freeze
 
   self.email_name_regex  = '[\w\.%\+\-]+'.freeze
@@ -25,7 +25,7 @@ module AuthenticationModule
     end
 
     def make_token
-      secure_digest(Time.now, (1..10).map { rand.to_s })
+      secure_digest(Time.zone.now, (1..10).map { rand.to_s })
     end
   end # class methods
 

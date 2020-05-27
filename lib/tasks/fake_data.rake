@@ -1,9 +1,8 @@
 namespace :airesis do
   namespace :seed do
-
     namespace :more do
       desc 'Create more public proposals in debate'
-      task :public_proposals, [:number] => :environment do |task, args|
+      task :public_proposals, [:number] => :environment do |_task, args|
         require 'faker'
         require 'factory_bot_rails'
         number = (args[:number] || 1).to_i
@@ -11,7 +10,7 @@ namespace :airesis do
       end
 
       desc 'Create more public proposals in vote for the next three days'
-      task :votable_proposals, [:number, :num_solutions] => :environment do |task, args|
+      task :votable_proposals, %i[number num_solutions] => :environment do |_task, args|
         require 'faker'
         require 'factory_bot_rails'
         number = (args[:number] || 1).to_i
@@ -23,7 +22,7 @@ namespace :airesis do
       end
 
       desc 'Create more abadoned proposals'
-      task :abandoned_proposals, [:number] => :environment do |task, args|
+      task :abandoned_proposals, [:number] => :environment do |_task, args|
         require 'faker'
         require 'factory_bot_rails'
         number = (args[:number] || 1).to_i

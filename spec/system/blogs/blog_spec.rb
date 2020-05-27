@@ -23,7 +23,8 @@ RSpec.describe 'the blogs process', :js do
 
   after { logout(:user) }
 
-  it "creates his blog correctly and can't create it anymore" do
+  # TODO: do not test in system test but request
+  it "creates his blog correctly and can't create it anymore", :ignore_javascript_errors do
     visit new_blog_path
     expect(page).to have_content(I18n.t('error.error_302.title'))
   end

@@ -6,11 +6,11 @@ module Frm
     end
 
     def as_quoted_text(text)
-      "<p><blockquote>#{(h(text))}</blockquote></p><p></p>".html_safe
+      "<p><blockquote>#{h(text)}</blockquote></p><p></p>".html_safe
     end
 
     def as_sanitized_text(text)
-      sanitize(text, tags: %w(p, img), attributes: ['src'])
+      sanitize(text, tags: %w[p img], attributes: ['src'])
     end
   end
 end

@@ -8,6 +8,7 @@ RSpec.describe 'create a proposal in his group', :js do
   let(:proposal) { create(:group_proposal, quorum: group.quorums.active.first, current_user_id: user.id, group_proposals: [GroupProposal.new(group: group)]) }
 
   before do
+    create(:proposal_category, :no_category)
     load_database
     login_as user, scope: :user
   end
@@ -117,9 +118,7 @@ RSpec.describe 'create a proposal in his group', :js do
       create_participation(user2, group)
       login_as user2, scope: :user
       visit group_proposal_path(group, proposal)
-
       vote_and_check
-
       proposal.reload
       expect(proposal.valutations).to eq((i + 1) + 1)
       expect(Ability.new(user2)).not_to be_able_to(:rank_up, proposal)
@@ -189,9 +188,11 @@ RSpec.describe 'create a proposal in his group', :js do
   it 'creates a RULE_BOOK proposal in group through dialog window' do
     create_proposal('RULE_BOOK')
   end
+
   it 'creates a PRESS proposal in group through dialog window' do
     create_proposal('PRESS')
   end
+
   it 'creates a EVENT proposal in group through dialog window' do
     create_proposal('EVENT')
   end

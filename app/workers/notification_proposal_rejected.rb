@@ -14,9 +14,7 @@ class NotificationProposalRejected < NotificationSender
     notification_b = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS,
                                          url: group ? group_proposal_url(group, @proposal) : proposal_url(@proposal), data: data)
     @proposal.participants.each do |user|
-      unless @proposal.users.include? user
-        send_notification_for_proposal(notification_b, user)
-      end
+      send_notification_for_proposal(notification_b, user) unless @proposal.users.include? user
     end
   end
 end

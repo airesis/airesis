@@ -15,7 +15,7 @@ require 'capybara/rspec'
 require 'capybara/rails'
 require 'selenium/webdriver'
 
-Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
 
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
@@ -35,14 +35,6 @@ RSpec.configure do |config|
     I18n.locale = I18n.default_locale = :'en-EU'
   end
 
-  config.before(:each, type: :system) do
-    driven_by :rack_test
-  end
-
-  config.before(:each, type: :system, js: true) do
-    driven_by :selenium_chrome_headless
-  end
-
   config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Warden::Test::Helpers
@@ -59,18 +51,39 @@ RSpec.configure do |config|
     Capybara.server = :puma, { Silent: true }
   end
 
-  config.verbose_retry = true
-  config.display_try_failure_messages = true
-  config.around :each, :js do |ex|
-    ex.run_with_retry retry: 3
+  config.before(:each, type: :system) do
+    driven_by :rack_test
   end
 
-  # callback to be run between retries
-  config.retry_callback = proc do |ex|
-    # run some additional clean up task - can be filtered by example metadata
-    if ex.metadata[:js]
-      Capybara.reset!
+  config.before(:each, type: :system, js: true) do
+    driven_by :selenium_chrome_headless
+  end
+
+  config.after(:each, type: :system, js: true) do |example|
+    errors = page.driver.browser.manage.logs.get(:browser)
+    if errors.present? && example.metadata[:ignore_javascript_errors].blank?
+      aggregate_failures 'javascript errors' do
+        errors.each do |error|
+          next if /Blocked attempt to show a 'beforeunload' confirmation panel/.match?(error.message)
+          next if /connect.facebook.net/.match?(error.message)
+
+          # TODO: should not happen
+          next if /Cannot read property 'getSelectedElement' of null/.match?(error.message)
+          # TODO: should not happen
+          next if /FormValidation.Framework.Bootstrap/.match?(error.message)
+
+          expect(error.level).not_to eq('SEVERE'), error.message
+          next unless error.level == 'WARNING'
+
+          warn 'WARN: javascript warning'
+          warn error.message
+        end
+      end
     end
+  end
+
+  config.before do |x|
+    Rails.logger.debug("RSpec #{x.metadata[:location]} #{x.metadata[:description]}")
   end
 end
 

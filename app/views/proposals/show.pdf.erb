@@ -107,7 +107,7 @@
               <table>
                 <tr>
                   <td style="vertical-align: middle;">
-                    <%= params[:debug].present? ? image_tag("proposal_categories/"+@proposal.category.id.to_s + "_s.png", align: 'middle', style: "width:22px;padding-right:2px;") : wicked_pdf_image_tag("proposal_categories/"+@proposal.category.id.to_s + "-22.png", align: 'middle', style: "width:22px;padding-right:2px;") %>
+                    <%= params[:debug].present? ? image_tag("proposal_categories/"+@proposal.category.name + "_s.png", align: 'middle', style: "width:22px;padding-right:2px;") : wicked_pdf_image_tag("proposal_categories/"+@proposal.category.name + "-22.png", align: 'middle', style: "width:22px;padding-right:2px;") %>
                   </td>
                   <td>
                     <%= @proposal.category.description %>

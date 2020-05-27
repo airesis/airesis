@@ -13,6 +13,7 @@ Rails.application.configure do
   config.action_controller.allow_forgery_protection = false
   config.action_mailer.perform_caching = false
   config.action_mailer.delivery_method = :test
+  config.action_mailer.logger = nil
   config.active_support.deprecation = :stderr
   config.action_view.raise_on_missing_translations = true
 

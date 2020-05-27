@@ -3,11 +3,11 @@ class GroupAreasController < ApplicationController
 
   before_action :authenticate_user!
 
-  before_action :configuration_required
-
-  # carica il gruppo
   before_action :load_group
   authorize_resource :group
+
+  before_action :configuration_required
+
   load_and_authorize_resource through: :group
 
   def index

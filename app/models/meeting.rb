@@ -1,4 +1,4 @@
-class Meeting < ActiveRecord::Base
+class Meeting < ApplicationRecord
   belongs_to :place
   has_many :meeting_organizations
   has_many :meeting_participations, dependent: :destroy

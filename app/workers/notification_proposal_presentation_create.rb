@@ -15,14 +15,12 @@ class NotificationProposalPresentationCreate < NotificationSender
     send_notification_for_proposal(notification_a, user)
 
     nickname = ProposalNickname.find_by(user_id: user.id, proposal_id: @proposal.id)
-    name = (nickname && @proposal.is_anonima?) ? nickname.nickname : user.fullname # send nickname if proposal is anonymous
+    name = nickname && @proposal.is_anonima? ? nickname.nickname : user.fullname # send nickname if proposal is anonymous
     data = { proposal_id: @proposal.id, user_id: user.id.to_s, user: name, title: @proposal.title }
     notification_b = Notification.create(notification_type_id: NotificationType::NEW_AUTHORS,
                                          url: url_for_proposal, data: data)
     @proposal.participants.each do |participant|
-      unless [user, acceptor].include? participant
-        send_notification_for_proposal(notification_b, participant)
-      end
+      send_notification_for_proposal(notification_b, participant) unless [user, acceptor].include? participant
     end
   end
 end

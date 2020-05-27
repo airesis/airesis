@@ -24,10 +24,9 @@ module Frm
     def default_gravatar
       image = Frm.default_gravatar_image
 
-      case
-      when image && URI(image).absolute?
+      if image && URI(image).absolute?
         image
-      when image
+      elsif image
         request.protocol +
           request.host_with_port +
           path_to_image(image)

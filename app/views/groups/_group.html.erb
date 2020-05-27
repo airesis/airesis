@@ -99,8 +99,6 @@
     description_editor.on('change', function (event) {
       description_editor.updateElement();
       $('form').formValidation('revalidateField', 'group[description]');
-      console.log('returning true');
-      console.log('event target is', event.relatedTarget);
       return true;
     });
 
@@ -130,7 +128,7 @@
       }, // let our custom formatter work
       minimumInputLength: 1
     }).on("select2:close", function () {
-      $('form').formValidation('revalidateField', 'group[interest_border_tkn]');
+      $('#new_group', '#edit_group').formValidation('revalidateField', 'group[interest_border_tkn]');
     });
   });
 

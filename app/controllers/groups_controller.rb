@@ -1,28 +1,26 @@
 class GroupsController < ApplicationController
   layout :choose_layout
 
-  before_action :authenticate_user!, except: [:index, :show, :by_year_and_month]
+  before_action :authenticate_user!, except: %i[index show by_year_and_month]
 
-  before_action :load_group, except: [:index, :new, :create, :ask_for_multiple_follow]
+  before_action :load_group, except: %i[index new create ask_for_multiple_follow]
 
   load_resource
 
-  authorize_resource except: [:participation_request_confirm, :participation_request_decline]
+  authorize_resource except: %i[participation_request_confirm participation_request_decline]
 
   before_action :admin_required, only: [:autocomplete]
 
   def autocomplete
     groups = Group.autocomplete(params[:term])
     groups = groups.map do |u|
-      { id: u.id, identifier: "#{u.name}", image_path: "#{u.group_image_tag 20}" }
+      { id: u.id, identifier: u.name.to_s, image_path: (u.group_image_tag 20).to_s }
     end
     render json: groups
   end
 
   def index
-    unless request.xhr?
-      @tags = Tag.most_groups(current_domain.territory, 10).shuffle
-    end
+    @tags = Tag.most_groups(current_domain.territory, 10).shuffle unless request.xhr?
 
     params[:interest_border] ||= InterestBorder.to_key(current_domain.territory)
 
@@ -37,8 +35,8 @@ class GroupsController < ApplicationController
 
   def show
     @group_posts = @group.post_publishings.
-      accessible_by(current_ability).
-      order('post_publishings.featured desc, blog_posts.published_at DESC, blog_posts.created_at DESC')
+                   accessible_by(current_ability).
+                   order('post_publishings.featured desc, blog_posts.published_at DESC, blog_posts.created_at DESC')
 
     respond_to do |format|
       format.html do
@@ -60,12 +58,12 @@ class GroupsController < ApplicationController
 
   def by_year_and_month
     @group_posts = @group.post_publishings.
-      accessible_by(current_ability).
-      where(' extract(year from blog_posts.created_at) = ? AND extract(month from blog_posts.created_at) = ? ', params[:year], params[:month]).
-      order('post_publishings.featured desc, published_at DESC').
-      select('post_publishings.*, published_at').
-      distinct.
-      page(params[:page]).per(COMMENTS_PER_PAGE)
+                   accessible_by(current_ability).
+                   where(' extract(year from blog_posts.created_at) = ? AND extract(month from blog_posts.created_at) = ? ', params[:year], params[:month]).
+                   order('post_publishings.featured desc, published_at DESC').
+                   select('post_publishings.*, published_at').
+                   distinct.
+                   page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
       format.html do
@@ -83,17 +81,17 @@ class GroupsController < ApplicationController
   def load_page_data
     @group_participations = @group.participants
     @archives = @group.blog_posts.
-      accessible_by(current_ability, false).
-      select('COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR').
-      group('MONTH, YEAR').
-      order(Arel.sql('YEAR desc, extract(month from blog_posts.created_at) desc'))
+                accessible_by(current_ability, false).
+                select('COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH, extract(year from blog_posts.created_at) AS YEAR').
+                group('MONTH, YEAR').
+                order(Arel.sql('YEAR desc, extract(month from blog_posts.created_at) desc'))
     # TODO: slow query. remove eager loading
     @last_topics = @group.topics.
-      accessible_by(Ability.new(current_user)).
-      includes(:views, :forum).order('frm_topics.created_at desc').limit(10)
+                   accessible_by(Ability.new(current_user)).
+                   includes(:views, :forum).order('frm_topics.created_at desc').limit(10)
     @next_events = @group.events.
-      accessible_by(Ability.new(current_user)).next.
-      order('starttime asc').limit(4)
+                   accessible_by(Ability.new(current_user)).next.
+                   order('starttime asc').limit(4)
   end
 
   def new
@@ -186,7 +184,8 @@ class GroupsController < ApplicationController
         group = Group.find(group_id)
         request = current_user.group_participation_requests.find_by(group_id: group.id)
         next if request
-        participation = current_user.groups.find_by_id(group.id)
+
+        participation = current_user.groups.find_by(id: group.id)
         if participation # verifica se per caso non fa già parte del gruppo
           # crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
           request = GroupParticipationRequest.new
@@ -244,7 +243,7 @@ class GroupsController < ApplicationController
 
   def participation_request_decline
     authorize! :accept_requests, @group
-    @request = @group.participation_requests.pending.find_by_id(params[:request_id])
+    @request = @group.participation_requests.pending.find_by(id: params[:request_id])
     if !@request
       flash[:error] = t('error.group_participations.request_not_found')
       respond_to do |format|
@@ -344,8 +343,7 @@ class GroupsController < ApplicationController
     end
   end
 
-  def reload_storage_size
-  end
+  def reload_storage_size; end
 
   def enable_areas
     @group.update_attribute(:enable_areas, true)
@@ -353,11 +351,11 @@ class GroupsController < ApplicationController
   end
 
   def remove_post
-    fail Exception unless (can? :remove_post, @group) || (can? :update, BlogPost.find(params[:post_id]))
-    @publishing = @group.post_publishings.find_by_blog_post_id(params[:post_id])
+    raise StandardError unless (can? :remove_post, @group) || (can? :update, BlogPost.find(params[:post_id]))
+
+    @publishing = @group.post_publishings.find_by(blog_post_id: params[:post_id])
     @publishing.destroy
     flash[:notice] = t('info.groups.post_removed')
-
   rescue Exception => e
     respond_to do |format|
       flash[:error] = t('error.groups.post_removed')
@@ -387,7 +385,7 @@ class GroupsController < ApplicationController
   end
 
   def group_params
-    params[:group][:default_role_actions].reject!(&:empty?) if params[:group][:default_role_actions]
+    params[:group][:default_role_actions]&.reject!(&:empty?)
     params.require(:group).permit(:participant_tokens, :name, :description,
                                   :accept_requests, :facebook_page_url, :group_participations,
                                   :interest_border_tkn, :title_bar, :default_role_name,

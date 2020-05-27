@@ -8,6 +8,8 @@ class Airesis.QuorumSelector
       escapeMarkup: (m) ->
         m
     quorum_.on 'change', (e) ->
+      field = $(e.currentTarget);
+      field.closest('form').formValidation('revalidateField', field);
       selected_ = quorum_.find('option:selected')
       exlanation_ = selected_.data('explanation')
       timefixed_ = selected_.data('time_fixed')

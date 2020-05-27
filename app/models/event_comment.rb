@@ -1,4 +1,4 @@
-class EventComment < ActiveRecord::Base
+class EventComment < ApplicationRecord
   belongs_to :user
   belongs_to :event
   belongs_to :comment, class_name: 'EventComment', foreign_key: :parent_event_comment_id
@@ -6,7 +6,7 @@ class EventComment < ActiveRecord::Base
   has_many :likes, class_name: 'EventCommentLike', foreign_key: :event_comment_id, dependent: :destroy
   has_many :likers, class_name: 'User', through: :likes, source: :user
 
-  validates_presence_of :body
+  validates :body, presence: true
 
   attr_accessor :collapsed
 

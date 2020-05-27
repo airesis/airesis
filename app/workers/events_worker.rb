@@ -1,10 +1,12 @@
 class EventsWorker
-  include Sidekiq::Worker, Rails.application.routes.url_helpers, ProposalsHelper
+  include ProposalsHelper
+  include Rails.application.routes.url_helpers
+  include Sidekiq::Worker
 
   sidekiq_options queue: :high_priority
 
-  STARTVOTATION = 'startvotation'
-  ENDVOTATION = 'endvotation'
+  STARTVOTATION = 'startvotation'.freeze
+  ENDVOTATION = 'endvotation'.freeze
 
   def perform(*args)
     params = args[0]

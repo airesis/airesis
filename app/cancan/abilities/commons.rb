@@ -21,14 +21,14 @@ module Abilities
 
     def admin_of_group?(user)
       { group_participations: { user_id: user.id,
-                                participation_role_id: ParticipationRole.admin.id } }
+                                participation_role: { name: ParticipationRole::ADMINISTRATOR } } }
     end
 
     def can_do_on_group?(user, group, action)
       group.group_participations.
         joins(:participation_role).
         where(["group_participations.user_id = :user_id AND
-                (participation_roles.id = #{ParticipationRole.admin.id} OR
+                (participation_roles.name = #{ParticipationRole::ADMINISTRATOR} OR
                  participation_roles.#{action} = true)", user_id: user.id]).distinct.exists?
     end
   end

@@ -10,7 +10,7 @@ module Abilities
       can :manage, Announcement
 
       # can edit participations to group areas
-      can [:create, :destroy], AreaParticipation
+      can %i[create destroy], AreaParticipation
     end
   end
 end

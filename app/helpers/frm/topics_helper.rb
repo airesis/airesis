@@ -8,10 +8,13 @@ module Frm
 
     def new_since_last_view_text(topic)
       return unless current_user
+
       forum_view = topic.forum.view_for(current_user)
       return unless forum_view
+
       topic_view = topic.view_for(current_user)
       return unless topic_view.nil? && topic.created_at > forum_view.past_viewed_at
+
       content_tag :super, 'New'
     end
 

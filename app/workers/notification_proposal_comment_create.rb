@@ -5,7 +5,7 @@ class NotificationProposalCommentCreate < NotificationSender
     @trackable = @proposal
     comment_user = comment.user
     nickname = ProposalNickname.find_by(user_id: comment_user.id, proposal_id: @proposal.id)
-    name = (nickname && @proposal.is_anonima?) ? nickname.nickname : comment_user.fullname # send nickname if proposal is anonymous
+    name = nickname && @proposal.is_anonima? ? nickname.nickname : comment_user.fullname # send nickname if proposal is anonymous
     host = comment_user.locale.host
     data = { comment_id: comment.id.to_s,
              proposal_id: @proposal.id.to_s,
@@ -24,26 +24,24 @@ class NotificationProposalCommentCreate < NotificationSender
     url = url_for_proposal
 
     if comment.is_contribute?
-      if comment.paragraph
-        query[:section_id] = data[:section_id] = comment.paragraph.section_id
-      end
+      query[:section_id] = data[:section_id] = comment.paragraph.section_id if comment.paragraph
 
       @proposal.users.each do |user| # send emails to editors
         next if user == comment_user
+
         notification_a = Notification.create!(notification_type_id: NotificationType::NEW_CONTRIBUTES_MINE, url: url + "?#{query.to_query}", data: data)
         send_notification_for_proposal(notification_a, user)
       end
 
       @proposal.participants.each do |user|
         next if (user == comment_user) || (@proposal.users.include? user)
+
         notification_b = Notification.create!(notification_type_id: NotificationType::NEW_CONTRIBUTES, url: url + "?#{query.to_query}", data: data)
         send_notification_for_proposal(notification_b, user)
       end
     else # reply
 
-      if comment.contribute.paragraph
-        query[:section_id] = data[:section_id] = comment.contribute.paragraph.section_id
-      end
+      query[:section_id] = data[:section_id] = comment.contribute.paragraph.section_id if comment.contribute.paragraph
 
       data[:parent_id] = comment.contribute.id
 
@@ -52,6 +50,7 @@ class NotificationProposalCommentCreate < NotificationSender
 
       comment.contribute.participants.each do |user|
         next if user == comment_user
+
         send_notification_for_proposal(notification_a, user)
       end
     end

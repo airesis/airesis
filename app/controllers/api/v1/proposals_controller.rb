@@ -11,12 +11,10 @@ module Api
                                          :users,
                                          :quorum,
                                          sections: :paragraphs, solutions: { sections: :paragraphs }).
-          page(params[:page]).per(20)
+                     page(params[:page]).per(20)
       end
 
-      def show
-
-      end
+      def show; end
     end
   end
 end

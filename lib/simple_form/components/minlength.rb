@@ -16,9 +16,7 @@ module SimpleForm
         else
           length_validator = find_length_validator
 
-          if length_validator && !has_tokenizer?(length_validator)
-            length_validator.options[:is] || length_validator.options[:minimum]
-          end
+          length_validator.options[:is] || length_validator.options[:minimum] if length_validator && !has_tokenizer?(length_validator)
         end
       end
 
@@ -33,4 +31,4 @@ module SimpleForm
   end
 end
 
-SimpleForm::Inputs::Base.send(:include, SimpleForm::Components::Minlength)
+SimpleForm::Inputs::Base.include SimpleForm::Components::Minlength

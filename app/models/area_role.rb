@@ -1,13 +1,13 @@
-class AreaRole < ActiveRecord::Base
+class AreaRole < ApplicationRecord
   has_many :area_participations
   has_many :users, through: :area_participations
 
   # TODO: not optional, but is created before the area itself at the moment
   belongs_to :group_area, optional: true
 
-  validates_uniqueness_of :name, scope: :group_area_id
+  validates :name, uniqueness: { scope: :group_area_id }
 
-  validates_presence_of :name, :description
+  validates :name, :description, presence: true
 
   before_destroy :change_participation_roles
 

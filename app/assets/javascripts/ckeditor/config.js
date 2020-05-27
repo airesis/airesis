@@ -9,15 +9,14 @@ CKEDITOR.editorConfig = function( config )
     // config.language = 'fr';
     // config.uiColor = '#AADC6E';
     config.toolbar_blog = [
-        { items: ["Cut","Copy","Paste","PasteText","PasteFromWord","-","Undo","Redo"]},
-        { items: ["Link","Unlink","Anchor"]},
-        { items: ["Image","Youtube","Table"]},
-        '/',
-        { items: [ "Bold","Italic","Underline","Strike"] },
-        { items: [ "NumberedList","BulletedList",'-',"Outdent","Indent",'-',"Blockquote",'-',"JustifyLeft","JustifyCenter","JustifyRight","JustifyBlock" ]},
-        { items: [ "Styles","Format","Font","FontSize"]},
-        { items: [ "TextColor","BGColor"]},
-        { items: [ "Maximize" ]}
+      { name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+      { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', '-', 'CopyFormatting', 'RemoveFormat' ] },
+      { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+      { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+      { name: 'insert', items: [ 'Image', 'Youtube', 'Table', 'HorizontalRule', 'Emoji' ] },
+      {items: ['emoji']},
+      { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
+      { name: 'colors', items: [ 'TextColor', 'BGColor' ] }
     ];
 
     config.toolbar_proposal = [
@@ -47,7 +46,7 @@ CKEDITOR.editorConfig = function( config )
 
     ];
 
-    config.extraPlugins = 'justify,font,colorbutton,youtube,smiley,wordcount' ;
+    config.extraPlugins = 'justify,font,colorbutton,youtube,wordcount,emoji' ;
 
 
     /* Filebrowser routes */

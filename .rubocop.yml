@@ -1,13 +1,9 @@
+inherit_from: .rubocop_todo.yml
+
 require:
   - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
-
-Rails:
-  Enabled: true
-
-#Metrics/LineLength:
-#  Max: 120
 
 Style/Documentation:
   Enabled: false
@@ -41,10 +37,12 @@ Capybara/CurrentPathExpectation:
   Enabled: false
 
 Layout/LineLength:
+#  Max: 120
   Exclude:
     - config/locales/plurals.rb
 
 AllCops:
+  NewCops: enable
   Exclude:
     - 'node_modules/**/*'
     - 'uploads/**/*'
@@ -56,4 +54,3 @@ AllCops:
     - 'db/**/*'
     - 'vendor/**/*'
     - 'node_modules/**/*'
-inherit_from: .rubocop_todo.yml

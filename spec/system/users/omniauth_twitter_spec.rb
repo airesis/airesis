@@ -3,19 +3,23 @@ require 'requests_helper'
 
 RSpec.describe 'the oauth2 process', :js do
   describe 'Twitter' do
-    before do
-      @oauth_data = {
+    let(:oauth_data) do
+      {
         provider: 'twitter',
         uid: Faker::Number.number(digits: 10),
         first_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name
       }
+    end
 
-      OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new(provider: @oauth_data[:provider],
-                                                                   uid: @oauth_data[:uid],
+    before do
+      oauth_data
+
+      OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new(provider: oauth_data[:provider],
+                                                                   uid: oauth_data[:uid],
                                                                    info: {
                                                                      nickname: 'johnqpublic',
-                                                                     name: "#{@oauth_data[:first_name]} #{@oauth_data[:last_name]}",
+                                                                     name: "#{oauth_data[:first_name]} #{oauth_data[:last_name]}",
                                                                      location: 'Anytown, USA',
                                                                      image: 'http://si0.twimg.com/sticky/default_profile_images/default_profile_2_normal.png',
                                                                      description: 'a very normal guy.',
@@ -31,7 +35,7 @@ RSpec.describe 'the oauth2 process', :js do
                                                                    extra: {
                                                                      access_token: '', # An OAuth::AccessToken object
                                                                      raw_info: {
-                                                                       name: "#{@oauth_data[:first_name]} #{@oauth_data[:last_name]}",
+                                                                       name: "#{oauth_data[:first_name]} #{oauth_data[:last_name]}",
                                                                        listed_count: 0,
                                                                        profile_sidebar_border_color: '181A1E',
                                                                        url: nil,
@@ -76,22 +80,21 @@ RSpec.describe 'the oauth2 process', :js do
                                                                      }
                                                                    })
 
-      Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
       Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:twitter]
     end
 
     it 'permits to sign in creating a new user' do
       visit '/users/auth/twitter/callback'
       expect(page).to have_content(/#{I18n.t("devise.omniauth_callbacks.success")}/i)
-      user_full_name = "#{@oauth_data[:first_name]} #{@oauth_data[:last_name]}"
+      user_full_name = "#{oauth_data[:first_name]} #{oauth_data[:last_name]}"
       expect(page).to have_content(/#{user_full_name}/i)
 
       expect(User.count).to eq(1)
       user = User.last
 
-      expect(user.user_type_id).to eq(UserType::AUTHENTICATED)
-      expect(user.name).to eq(@oauth_data[:first_name])
-      expect(user.surname).to eq(@oauth_data[:last_name])
+      expect(user.user_type_id).to eq('authenticated')
+      expect(user.name).to eq(oauth_data[:first_name])
+      expect(user.surname).to eq(oauth_data[:last_name])
     end
 
     it 'permits the join with an existing account when already logged in' do
@@ -103,7 +106,7 @@ RSpec.describe 'the oauth2 process', :js do
       old_email = user.email
 
       visit '/users/auth/twitter/callback'
-      expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: @oauth_data[:provider].capitalize)}/i)
+      expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: oauth_data[:provider].capitalize)}/i)
 
       user.reload
       expect(user.name).to eq(old_name)
@@ -115,21 +118,21 @@ RSpec.describe 'the oauth2 process', :js do
       user = create(:user)
       login_as user, scope: :user
       visit '/users/auth/twitter/callback'
-      expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: @oauth_data[:provider].capitalize)}/i)
+      expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: oauth_data[:provider].capitalize)}/i)
 
       logout :user
 
       user2 = create(:user)
       login_as user2, scope: :user
       visit '/users/auth/twitter/callback'
-      expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_failure', provider: @oauth_data[:provider].capitalize)}/i)
+      expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_failure', provider: oauth_data[:provider].capitalize)}/i)
     end
 
     it 'remembers Twitter account after joining' do
       user = create(:user)
       login_as user, scope: :user
       visit '/users/auth/twitter/callback'
-      expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: @oauth_data[:provider].capitalize)}/i)
+      expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: oauth_data[:provider].capitalize)}/i)
 
       logout :user
 
@@ -153,7 +156,7 @@ RSpec.describe 'the oauth2 process', :js do
       user2 = create(:user)
       login_as user2, scope: :user
       visit '/users/auth/twitter/callback'
-      expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: @oauth_data[:provider].capitalize)}/i)
+      expect(page).to have_content(/#{I18n.t('devise.omniauth_callbacks.join_success', provider: oauth_data[:provider].capitalize)}/i)
     end
   end
 end

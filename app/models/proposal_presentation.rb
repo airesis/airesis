@@ -1,4 +1,4 @@
-class ProposalPresentation < ActiveRecord::Base
+class ProposalPresentation < ApplicationRecord
   belongs_to :user, class_name: 'User', foreign_key: :user_id, inverse_of: :proposal_presentations
   belongs_to :acceptor, class_name: 'User', foreign_key: :acceptor_id, optional: true
   belongs_to :proposal, class_name: 'Proposal', foreign_key: :proposal_id, inverse_of: :proposal_presentations

@@ -3,13 +3,13 @@ FactoryBot.define do
     association :user
     association :proposal_comment
     factory :positive_comment_ranking do
-      ranking_type_id { RankingType::POSITIVE }
+      ranking_type_id { :positive }
     end
     factory :negative_comment_ranking do
-      ranking_type_id { RankingType::NEGATIVE }
+      ranking_type_id { :negative }
     end
     factory :neutral_comment_ranking do
-      ranking_type_id { RankingType::NEUTRAL }
+      ranking_type_id { :neutral }
     end
   end
 end

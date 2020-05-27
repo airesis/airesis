@@ -4,7 +4,6 @@ module Admin
 
     layout 'users'
 
-    def show
-    end
+    def show; end
   end
 end

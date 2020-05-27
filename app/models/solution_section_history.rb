@@ -1,4 +1,4 @@
-class SolutionSectionHistory < ActiveRecord::Base
+class SolutionSectionHistory < ApplicationRecord
   belongs_to :solution_history, inverse_of: :solution_section_histories
   belongs_to :section_history, inverse_of: :solution_section_history
 end

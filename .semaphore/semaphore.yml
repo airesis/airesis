@@ -27,6 +27,11 @@ blocks:
             - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master
             - cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master
             - cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master
+            - cache restore packs-$SEMAPHORE_GIT_BRANCH,packs-develop,packs-master
+            - cache restore packstest-$SEMAPHORE_GIT_BRANCH,packstest-develop,packstest-master
+            - cache restore assets-$SEMAPHORE_GIT_BRANCH,assets-develop,assets-master
+            - cache restore sprocketscache-$SEMAPHORE_GIT_BRANCH,sprocketscache-develop,sprocketscache-master
+            - cache restore webpackercache-$SEMAPHORE_GIT_BRANCH,webpackercache-develop,webpackercache-master
             - bundle install --without production development --deployment -j 4 --path vendor/bundle
             - nvm install
             - bin/yarn install --cache-folder ~/.cache/yarn
@@ -68,7 +73,7 @@ blocks:
           - sem-service start postgres
           - sed /AWS_HOST/d config/application.example.yml > config/application.yml
           - mkdir -p private/elfinder
-          - bundle exec rails db:setup
+          - bundle exec rails db:create db:schema:load
           - bundle exec rails assets:precompile
       jobs:
         - name: unit_tests
@@ -78,6 +83,11 @@ blocks:
         - name: system_tests
           commands:
             - bin/check_system_tests
+      epilogue:
+        on_fail:
+          commands:
+            - artifact push job --expire-in 2w log/test.log
+            - artifact push job --expire-in 2w tmp/screenshots
 promotions:
   - name: develop
     pipeline_file: develop-deploy.yml

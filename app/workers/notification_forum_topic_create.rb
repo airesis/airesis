@@ -14,6 +14,7 @@ class NotificationForumTopicCreate < NotificationSender
 
     group.participants.each do |user|
       next if user == post_user
+
       send_notification_to_user(notification, user)
     end
   end

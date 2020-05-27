@@ -11,9 +11,9 @@ class BlogPostsController < ApplicationController
     authorize! :read, @blog if @blog
   end
 
-  load_and_authorize_resource through: [:blog, :group], shallow: true, collection: [:drafts]
+  load_and_authorize_resource through: %i[blog group], shallow: true, collection: [:drafts]
 
-  before_action :load_blog_data, only: [:index, :show, :drafts]
+  before_action :load_blog_data, only: %i[index show drafts]
 
   before_action :check_page_alerts, only: :show
 
@@ -45,7 +45,7 @@ class BlogPostsController < ApplicationController
     @blog_url = @group ? group_blog_post_url(@group, @blog_post) : blog_blog_post_url(@blog, @blog_post)
     @user = @blog_post.user
     @blog_comment = @blog_post.blog_comments.new
-    @blog_comments = @blog_post.blog_comments.includes(user: [:user_type, :image]).order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
+    @blog_comments = @blog_post.blog_comments.includes(user: [:image]).order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
     respond_to do |format|
       format.html
       format.js
@@ -107,7 +107,7 @@ class BlogPostsController < ApplicationController
 
   def blog_post_params
     ret = params.require(:blog_post).permit(:title, :body, :status, :tags_list, group_ids: [])
-    ret[:group_ids].select! { |id| (id != '') && (can? :post_to, Group.find(id)) } if ret[:group_ids]
+    ret[:group_ids]&.select! { |id| (id != '') && (can? :post_to, Group.find(id)) }
     ret
   end
 

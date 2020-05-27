@@ -1,4 +1,4 @@
-class Notification < ActiveRecord::Base
+class Notification < ApplicationRecord
   belongs_to :notification_type
   has_many :alerts, dependent: :destroy
   has_many :notification_data, class_name: 'NotificationData', dependent: :destroy, foreign_key: :notification_id

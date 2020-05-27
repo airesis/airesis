@@ -4,6 +4,8 @@ require 'cancan/matchers'
 
 RSpec.describe NotificationEventCreate, type: :model, emails: true, notifications: true, seeds: true do
   let!(:notification_type) { NotificationType::NEW_EVENTS }
+  let(:trigger_event) { create_event }
+  let(:receivers) { group_users }
   let!(:user) { create(:user) }
 
   let!(:group) { create(:group, current_user_id: user.id) }
@@ -22,9 +24,6 @@ RSpec.describe NotificationEventCreate, type: :model, emails: true, notification
     create(:meeting_organization, event: event, group: group)
     create(:meeting, event: event)
   end
-
-  let(:trigger_event) { create_event }
-  let(:receivers) { group_users }
 
   event_process_spec
 end

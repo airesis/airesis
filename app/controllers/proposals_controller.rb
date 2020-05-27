@@ -11,13 +11,13 @@ class ProposalsController < ApplicationController
     authorize! :read, @group_area if @group_area
   end
 
-  load_and_authorize_resource through: [:group, :group_area], shallow: true, except: [:tab_list, :similar, :endless_index]
+  load_and_authorize_resource through: %i[group group_area], shallow: true, except: %i[tab_list similar endless_index]
   skip_authorize_resource only: :vote_results
 
   layout :choose_layout
 
   # la proposta deve essere in stato 'IN VALUTAZIONE'
-  before_action :valutation_state_required, only: [:rankup, :rankdown, :available_author, :add_authors, :geocode]
+  before_action :valutation_state_required, only: %i[rankup rankdown available_author add_authors geocode]
 
   before_action :check_page_alerts, only: :show
 
@@ -117,20 +117,18 @@ class ProposalsController < ApplicationController
             end
           end
         end
-        if !(can? :participate, @proposal) && @proposal.in_valutation?
-          flash[:info] = I18n.t('error.proposals.participate')
-        end
+        flash[:info] = I18n.t('error.proposals.participate') if !(can? :participate, @proposal) && @proposal.in_valutation?
       end
     end
 
-    @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
+    @my_nickname = current_user.proposal_nicknames.find_by(proposal_id: @proposal.id) if current_user
 
     load_my_vote
     respond_to do |format|
       format.html do
         flash.now[:info] = I18n.t('info.proposal.public_visible') if @proposal.visible_outside
         register_view(@proposal, current_user)
-        @blocked_alerts = BlockedProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id) if current_user
+        @blocked_alerts = BlockedProposalAlert.find_by(user_id: current_user.id, proposal_id: @proposal.id) if current_user
         flash.now[:info] = I18n.t('info.proposal.voting') if @proposal.voting?
       end
       format.js do
@@ -146,8 +144,8 @@ class ProposalsController < ApplicationController
 
   def new
     if LIMIT_PROPOSALS
-      max = current_user.proposals.maximum(:created_at) || Time.now - (PROPOSALS_TIME_LIMIT + 1.seconds)
-      @elapsed = Time.now - max
+      max = current_user.proposals.maximum(:created_at) || Time.zone.now - (PROPOSALS_TIME_LIMIT + 1.second)
+      @elapsed = Time.zone.now - max
       if @elapsed < PROPOSALS_TIME_LIMIT
         respond_to do |format|
           format.js { render 'error_new' }
@@ -171,14 +169,13 @@ class ProposalsController < ApplicationController
       end
     end
 
-    @proposal.proposal_category_id = params[:category] || ProposalCategory::NO_CATEGORY
+    @proposal.proposal_category_id = params[:category] || ProposalCategory.find_by(name: 'no_category').id
 
     @proposal.proposal_type = ProposalType.find_by(name: (params[:proposal_type_id] || ProposalType::SIMPLE))
 
     @proposal.build_sections
     @title = ''
-    @title += I18n.t('pages.proposals.new.title_group', name: @group.name) + ' ' if @group
-    @title += @proposal.proposal_type.description
+    @title += "Create a new #{@proposal.proposal_type.description}"
   end
 
   def edit
@@ -187,12 +184,11 @@ class ProposalsController < ApplicationController
       DEFAULT_CHANGE_ADVANCED_OPTIONS
   end
 
-  def geocode
-  end
+  def geocode; end
 
   def create
-    max = current_user.proposals.maximum(:created_at) || Time.now - (PROPOSALS_TIME_LIMIT + 1.seconds)
-    fail Exception if LIMIT_PROPOSALS && ((Time.now - max) < PROPOSALS_TIME_LIMIT)
+    max = current_user.proposals.maximum(:created_at) || Time.zone.now - (PROPOSALS_TIME_LIMIT + 1.second)
+    raise StandardError if LIMIT_PROPOSALS && ((Time.zone.now - max) < PROPOSALS_TIME_LIMIT)
 
     @proposal.current_user_id = current_user.id
     if @proposal.save
@@ -207,6 +203,7 @@ class ProposalsController < ApplicationController
         end
       end
     else
+      Rails.logger.error("Error while creating a Proposal. #{@proposal.errors.details}")
       if @proposal.errors[:title].present?
         @other = Proposal.find_by(title: @proposal.title)
         @err_msg = t('error.proposals.same_title')
@@ -238,7 +235,11 @@ class ProposalsController < ApplicationController
   def update
     @proposal.current_user_id = current_user.id
     if @proposal.update(update_proposal_params)
-      PrivatePub.publish_to(proposal_path(@proposal), reload_message) rescue nil
+      begin
+        PrivatePub.publish_to(proposal_path(@proposal), reload_message)
+      rescue StandardError
+        nil
+      end
       respond_to do |format|
         flash.now[:notice] = I18n.t('info.proposal.proposal_updated')
         format.html do
@@ -335,6 +336,7 @@ class ProposalsController < ApplicationController
 
   def vote_results
     return redirect_to vote_results_group_proposal_path(@proposal.group, @proposal) if wrong_url?
+
     authorize! :show, @proposal
   end
 
@@ -383,13 +385,13 @@ class ProposalsController < ApplicationController
     flash[:notice] = I18n.t('info.proposal.rank_recorderd')
     respond_to do |format|
       format.js { render 'rank' }
-      format.html { redirect_to :back }
+      format.html { redirect_back(fallback_location: proposal_path(@proposal)) }
     end
   rescue Exception => e
     log_error(e)
     flash[:error] = I18n.t('error.proposals.proposal_rank')
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_back(fallback_location: proposal_path(@proposal)) }
       format.js { render 'proposals/errors/rank' }
     end
   end
@@ -402,12 +404,13 @@ class ProposalsController < ApplicationController
   # fill @my_vote and @can_vote_again variables
   def load_my_vote
     return unless @proposal.in_valutation?
+
     ranking = ProposalRanking.find_by(user_id: current_user.id, proposal_id: @proposal.id) if current_user
     @my_vote = ranking.ranking_type_id if ranking
 
     if @my_vote
       if ranking.updated_at < @proposal.updated_at
-        flash.now[:info] = I18n.t('info.proposal.can_change_valutation') if %w(show update).include? params[:action]
+        flash.now[:info] = I18n.t('info.proposal.can_change_valutation') if %w[show update].include? params[:action]
         @can_vote_again = true
       end
     else
@@ -417,9 +420,10 @@ class ProposalsController < ApplicationController
 
   def valutation_state_required
     return if @proposal.in_valutation?
+
     flash[:error] = I18n.t('error.proposals.proposal_not_valuating')
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_back(fallback_location: proposal_path(@proposal)) }
       format.js { render 'proposals/errors/rank', layout: false }
     end
   end
@@ -453,8 +457,8 @@ class ProposalsController < ApplicationController
     end
 
     if params[:time]
-      search.created_at_from = Time.at(params[:time][:start].to_i / 1000) if params[:time][:start]
-      search.created_at_to = Time.at(params[:time][:end].to_i / 1000) if params[:time][:end]
+      search.created_at_from = Time.zone.at(params[:time][:start].to_i / 1000) if params[:time][:start]
+      search.created_at_to = Time.zone.at(params[:time][:end].to_i / 1000) if params[:time][:end]
       search.time_type = params[:time][:type]
     end
     search.text = params[:search]
@@ -476,9 +480,7 @@ class ProposalsController < ApplicationController
                     t('pages.proposals.index.title')
                   end
 
-    if params[:type]
-      @page_head += " #{t('pages.propsoals.index.type', type: ProposalType.find(params[:type]).description)}"
-    end
+    @page_head += " #{t('pages.propsoals.index.type', type: ProposalType.find(params[:type]).description)}" if params[:type]
 
     if params[:time]
       if params[:time][:type] == 'f'
@@ -495,9 +497,7 @@ class ProposalsController < ApplicationController
         @page_head += " #{t('pages.proposals.index.last_1y')}"
       end
     end
-    if params[:search]
-      @page_head += " #{t('pages.proposals.index.with_text', text: params[:search])}"
-    end
+    @page_head += " #{t('pages.proposals.index.with_text', text: params[:search])}" if params[:search]
     @page_head += " #{t('pages.proposals.index.in_group_area_title')} '#{@group_area.name}'" if @group_area
   end
 
@@ -506,14 +506,14 @@ class ProposalsController < ApplicationController
                                      :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id, :group_area_id, :topic_id,
                                      :proposal_type_id, :proposal_votation_type_id,
                                      :integrated_contributes_ids_list, :signatures, :petition_phase,
-                                     votation: [:later, :start, :start_edited, :end],
+                                     votation: %i[later start start_edited end],
                                      sections_attributes:
                                        [:id, :seq, :_destroy, :title, paragraphs_attributes:
-                                         [:id, :seq, :content, :content_dirty]],
+                                         %i[id seq content content_dirty]],
                                      solutions_attributes:
                                        [:id, :seq, :_destroy, :title, sections_attributes:
                                          [:id, :seq, :_destroy, :title, paragraphs_attributes:
-                                           [:id, :seq, :content, :content_dirty]]])
+                                           %i[id seq content content_dirty]]])
   end
 
   def update_proposal_params

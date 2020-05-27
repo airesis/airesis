@@ -2,7 +2,7 @@ class TagsController < ApplicationController
   layout 'open_space'
 
   # l'utente deve aver fatto login
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: %i[index show]
 
   def show
     @kt = Tag.find_by(text: params[:id])
@@ -14,7 +14,7 @@ class TagsController < ApplicationController
       @proposals = Proposal.visible.joins(:tags).for_list(current_user.try(:id)).where(tags: { text: @tag })
       @groups = Group.joins(:tags).where(tags: { text: @tag })
 
-      @similars = Tag.find_by_text(@tag).nearest
+      @similars = Tag.find_by(text: @tag).nearest
 
       respond_to do |format|
         format.html
@@ -34,8 +34,8 @@ class TagsController < ApplicationController
     if params[:q]
       hint = params[:q] + '%'
       @tags = Tag.includes(:tag_counters).references(:tag_counters).where('upper(text) like upper(?)', hint.strip).
-        order('(groups_count + blog_posts_count + proposals_count) desc').
-        limit(10).collect { |t| { id: t.id.to_s, name: t.text } }
+              order('(groups_count + blog_posts_count + proposals_count) desc').
+              limit(10).collect { |t| { id: t.id.to_s, name: t.text } }
 
       respond_to do |format|
         format.json { render json: @tags }

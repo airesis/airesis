@@ -1,4 +1,4 @@
-class Tag < ActiveRecord::Base
+class Tag < ApplicationRecord
   has_many :proposal_tags
   has_many :proposals, through: :proposal_tags
   has_many :blog_post_tags
@@ -41,7 +41,7 @@ class Tag < ActiveRecord::Base
   def self.territory_filter(territory)
     tag_counters_t = TagCounter.arel_table
     arel_conditions = tag_counters_t[:territory_id].eq(territory.id).
-      and(tag_counters_t[:territory_type].eq(territory.class.name))
+                      and(tag_counters_t[:territory_type].eq(territory.class.name))
     if territory.is_a?(Continent)
       arel_conditions = arel_conditions.or(tag_counters_t[:territory_id].in(territory.countries.pluck(:id)).
                                              and(tag_counters_t[:territory_type].eq(Country.class_name)))

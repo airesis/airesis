@@ -29,6 +29,7 @@ class ProposalCommentSearch
   # return a list of ids of already evaluated contributes by the current_user
   def evaluated_ids
     return @evaluated_ids if @evaluated_ids
+
     @evaluated_ids = if @current_user
                        ProposalComment.joins(:rankings).
                          where(proposal_comment_rankings: { user_id: @current_user.id },
@@ -62,22 +63,22 @@ class ProposalCommentSearch
 
     if random_order?
       # remove already shown contributes
-      conditions_arel = conditions_arel.and(proposal_comments_t[:id].not_in @contributes) if @contributes
+      conditions_arel = conditions_arel.and(proposal_comments_t[:id].not_in(@contributes)) if @contributes
       left = @limit
       tmp_comments = []
 
       # extract not evaluated contributes
       tmp_comments += @proposal.contributes.listable.
-        where(conditions_arel.and(proposal_comments_t[:id].not_in(evaluated_ids))).
-        order(Arel.sql(order_clause)).take(left)
+                      where(conditions_arel.and(proposal_comments_t[:id].not_in(evaluated_ids))).
+                      order(Arel.sql(order_clause)).take(left)
 
       left -= tmp_comments.count
 
       if left > 0 && !evaluated_ids.empty?
         # extract the evaluated ones
         tmp_comments += @proposal.contributes.listable.
-          where(conditions_arel.and(proposal_comments_t[:id].in(evaluated_ids))).
-          order('rank desc').take(left)
+                        where(conditions_arel.and(proposal_comments_t[:id].in(evaluated_ids))).
+                        order('rank desc').take(left)
       end
       @proposal_comments = tmp_comments
       @total_pages = (@proposal.contributes.listable.where(conditions_arel).count.to_f / COMMENTS_PER_PAGE).ceil

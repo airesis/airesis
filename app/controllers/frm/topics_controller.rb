@@ -98,8 +98,6 @@ module Frm
       end
     end
 
-    protected
-
     def load_forum
       @forum = @group.forums.friendly.find(params[:forum_id])
     end
@@ -110,9 +108,7 @@ module Frm
 
     def find_posts(topic)
       posts = topic.posts
-      unless forem_admin_or_moderator?(topic.forum)
-        posts = posts.approved_or_pending_review_for(current_user)
-      end
+      posts = posts.approved_or_pending_review_for(current_user) unless forem_admin_or_moderator?(topic.forum)
       @posts = posts.includes(:user, :reply_to, :topic)
     end
 

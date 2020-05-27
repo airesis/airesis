@@ -1,6 +1,6 @@
-class Place < ActiveRecord::Base
+class Place < ApplicationRecord
   belongs_to :municipality
   has_one :meeting
 
-  validates_presence_of :municipality_id, :address, :latitude_original, :longitude_original
+  validates :municipality_id, :address, :latitude_original, :longitude_original, presence: true
 end

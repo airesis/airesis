@@ -22,7 +22,7 @@ window.EventsEdit =
     input = $('#event_meeting_attributes_place_attributes_municipality_id')
     Airesis.select2town(input)
     input.change (e)->
-      $('#edit_event_' + EventsEdit.eventId).formValidation('revalidateField', input.attr('name'))
+      $('#edit_event_' + EventsEdit.eventId).formValidation('revalidateField', input)
   initMapManager: =>
     if EventsEdit.placeDefined
       latlng = new (google.maps.LatLng)(EventsEdit.latitudeOriginal, EventsEdit.longitudeOriginal)

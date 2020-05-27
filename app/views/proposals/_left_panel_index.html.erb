@@ -77,7 +77,7 @@
              categories = ProposalCategory.for_menu(@group)
              categories.each do |category| %>
               <div class="row">
-                <% cat_image = image_tag("proposal_categories/#{category.id}_s.png",
+                <% cat_image = image_tag("proposal_categories/#{category.name}_s.png",
                                          align: 'middle',
                                          alt: category.description,
                                          title: category.description,

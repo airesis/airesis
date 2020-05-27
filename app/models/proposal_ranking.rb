@@ -1,5 +1,4 @@
-class ProposalRanking < ActiveRecord::Base
-  belongs_to :ranking_type
+class ProposalRanking < ApplicationRecord
   belongs_to :user
   belongs_to :proposal
 
@@ -8,6 +7,8 @@ class ProposalRanking < ActiveRecord::Base
 
   scope :positives, -> { where(ranking_type_id: POSITIVE) }
   scope :negatives, -> { where(ranking_type_id: NEGATIVE) }
+
+  enum ranking_type_id: { positive: 1, neutral: 2, negative: 3 }
 
   after_save :update_counter_cache
   after_save :check_proposal_state

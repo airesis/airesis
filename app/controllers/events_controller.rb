@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   layout :choose_layout
 
-  before_action :load_group, only: [:index, :new, :create]
+  before_action :load_group, only: %i[index new create]
 
   load_and_authorize_resource :group
   load_and_authorize_resource :event, through: :group, shallow: true
@@ -28,9 +28,7 @@ class EventsController < ApplicationController
     @event_comments = @event.event_comments.includes(:user).order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
     respond_to do |format|
       format.html do
-        if @event.votation?
-          @proposals = @event.proposals.for_list(current_user.try(:id))
-        end
+        @proposals = @event.proposals.for_list(current_user.try(:id)) if @event.votation?
       end
       format.js
       format.ics do
@@ -60,15 +58,15 @@ class EventsController < ApplicationController
       end
     end
 
-    @page_title = @group ? "#{@group.name}" : ''
-    if event_type == EventType::VOTATION.to_s
-      @page_title += "- #{t('pages.events.new.title_event')}"
-    else
-      @page_title += "- #{t('pages.events.new.title_meeting')}"
-    end
+    @page_title = @group ? @group.name.to_s : ''
+    @page_title += if event_type == EventType::VOTATION.to_s
+                     "- #{t('pages.events.new.title_event')}"
+                   else
+                     "- #{t('pages.events.new.title_meeting')}"
+                   end
 
     @starttime = calculate_starttime
-    @endtime = @starttime + 1.days
+    @endtime = @starttime + 1.day
 
     @event = Event.new(starttime: @starttime, endtime: @endtime, period: 'Non ripetere',
                        event_type_id: event_type)
@@ -108,7 +106,6 @@ class EventsController < ApplicationController
       format.html { redirect_to @group ? group_events_url(@group) : events_url }
       format.js
     end
-
   rescue ActiveRecord::ActiveRecordError => e
     respond_to do |format|
       format.js { render 'layouts/active_record_error', locals: { object: @event } }
@@ -125,8 +122,7 @@ class EventsController < ApplicationController
     render nothing: true
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @event.update(event_params)
@@ -159,8 +155,9 @@ class EventsController < ApplicationController
 
   def calculate_starttime
     return 10.minutes.from_now unless params[:starttime]
-    ret = Time.at(params[:starttime].to_i / 1000)
-    ret = ret.change(hour: Time.now.hour, min: Time.now.min) unless params[:has_time] == 'true'
+
+    ret = Time.zone.at(params[:starttime].to_i / 1000)
+    ret = ret.change(hour: Time.zone.now.hour, min: Time.zone.now.min) unless params[:has_time] == 'true'
     ret
   end
 
@@ -169,9 +166,9 @@ class EventsController < ApplicationController
     params.require(:event).permit(:id, :title, :starttime, :endtime, :frequency, :all_day, :description,
                                   :event_type_id, :private, :proposal_id,
                                   meeting_attributes: [:id,
-                                                       place_attributes: [:id, :municipality_id, :address,
-                                                                          :latitude_original, :longitude_original,
-                                                                          :latitude_center, :longitude_center, :zoom]])
+                                                       place_attributes: %i[id municipality_id address
+                                                                            latitude_original longitude_original
+                                                                            latitude_center longitude_center zoom]])
   end
 
   def choose_layout
@@ -190,7 +187,7 @@ class EventsController < ApplicationController
   end
 
   def respond_with_json_index
-    @events = @events.time_scoped(Time.parse(params['start']), Time.parse(params['end']))
+    @events = @events.time_scoped(Time.zone.parse(params['start']), Time.zone.parse(params['end']))
     @events = @events.in_territory(current_domain.territory) unless @group
     events = @events.map { |event| generate_event_obj(event) }
     render json: events.to_json

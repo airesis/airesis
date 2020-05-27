@@ -1,6 +1,7 @@
 module Frm
   class Forum < Frm::FrmTable
-    include Frm::Concerns::Viewable, Taggable
+    include Taggable
+    include Frm::Concerns::Viewable
 
     extend FriendlyId
     friendly_id :name, use: :scoped, scope: :group

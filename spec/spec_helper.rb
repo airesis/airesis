@@ -20,16 +20,16 @@ RSpec.configure do |config|
 
   Kernel.srand config.seed
 
-  config.verbose_retry = true
-  config.around :each do |ex|
-    ex.run_with_retry retry: 5
-  end
+  if ENV['CI'] == 'true'
+    config.verbose_retry = true
+    config.around do |ex|
+      ex.run_with_retry retry: 2
+    end
 
-  # callback to be run between retries
-  config.retry_callback = proc do |ex|
-    # run some additional clean up task - can be filtered by example metadata
-    if ex.metadata[:js]
-      Capybara.reset!
+    # callback to be run between retries
+    config.retry_callback = proc do |ex|
+      # run some additional clean up task - can be filtered by example metadata
+      Capybara.reset! if ex.metadata[:js]
     end
   end
 end

@@ -1,4 +1,4 @@
-class NotificationType < ActiveRecord::Base
+class NotificationType < ApplicationRecord
   NEW_CONTRIBUTES = 1
   TEXT_UPDATE = 2
   NEW_PUBLIC_PROPOSALS = 3
@@ -22,7 +22,7 @@ class NotificationType < ActiveRecord::Base
   CONTRIBUTE_UPDATE = 29
   PHASE_ENDING = 30
 
-  NEW_FORUM_TOPIC = 'new_forum_topic'
+  NEW_FORUM_TOPIC = 'new_forum_topic'.freeze
 
   belongs_to :notification_category
   has_many :blocked_alerts

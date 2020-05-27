@@ -19,7 +19,7 @@ def create_area_participation(user, group_area)
 end
 
 def create_participation(user, group, participation_role_id = nil)
-  group.participation_requests.build(user: user, group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED)
+  group.participation_requests.build(user: user, group_participation_request_status_id: :accepted)
   group.group_participations.build(user: user, participation_role_id: (participation_role_id || group.participation_role_id))
   group.save
 end

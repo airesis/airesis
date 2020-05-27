@@ -102,7 +102,7 @@ RSpec.describe Group do
 
   describe 'interest border field' do
     it 'populates the attributes properly' do
-      municipality = Municipality.first
+      municipality = create(:municipality, :bologna)
       province = municipality.province
       region = province.region
       country = region.country

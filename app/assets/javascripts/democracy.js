@@ -314,8 +314,8 @@ function start_end_fdatetimepicker(start, end, min_minutes, suggested_minutes) {
     start.fdatetimepicker()
         .on('hide', function (event) {
             $field = $(event.currentTarget);
-            var fv = $field.parent('form').data('formValidation');
-            $field.parent('form').formValidation('revalidateField', $field.attr('id'));
+            var fv = $field.closest('form').data('formValidation');
+            $field.closest('form').formValidation('revalidateField', $field);
             var eventStartTime_ = $field.fdatetimepicker('getDate');
             var minStartTime = addMinutes(eventStartTime_, min_minutes);
             var eventEndTime_ = end.fdatetimepicker("getDate");
@@ -332,8 +332,8 @@ function start_end_fdatetimepicker(start, end, min_minutes, suggested_minutes) {
     end.fdatetimepicker({startDate: minTime_})
         .on('hide', function (event) {
             $field = $(event.currentTarget);
-            var fv = $field.parent('form').data('formValidation');
-            $field.parent('form').formValidation('revalidateField', $field.attr('id'));
+            var fv = $field.closest('form').data('formValidation');
+            $field.closest('form').formValidation('revalidateField', $field);
         });
 }
 

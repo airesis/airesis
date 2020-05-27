@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  include ApplicationHelper, StepsHelper
+  include StepsHelper
+  include ApplicationHelper
   helper :all
 
   unless Rails.application.config.consider_all_requests_local
@@ -28,7 +29,7 @@ class ApplicationController < ActionController::Base
   helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :age, :is_group_admin?
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :email, :name, :surname, :accept_conditions, :sys_locale_id, :password])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[username email name surname accept_conditions sys_locale_id password])
   end
 
   # redirect all'ultima pagina in cui ero
@@ -36,11 +37,11 @@ class ApplicationController < ActionController::Base
     # se in sessione ho memorizzato un contributo, inseriscilo e mandami alla pagina della proposta
     if session[:proposal_comment] && session[:proposal_id]
       @proposal = Proposal.find(session[:proposal_id])
-      params[:proposal_comment] = session[:proposal_comment].permit(:content, :parent_proposal_comment_id, :section_id)
+      params[:proposal_comment] = session[:proposal_comment].slice('content', 'parent_proposal_comment_id', 'section_id')
       session[:proposal_id] = nil
       session[:proposal_comment] = nil
-      @proposal_comment = @proposal.proposal_comments.build(params[:proposal_comment])
-      post_contribute # rescue nil
+      @proposal_comment = @proposal.proposal_comments.build(params[:proposal_comment].permit!)
+      post_contribute
       proposal_path(@proposal)
     elsif session[:blog_comment] && session[:blog_post_id] && session[:blog_id]
       blog = Blog.friendly.find(session[:blog_id])
@@ -69,7 +70,6 @@ class ApplicationController < ActionController::Base
     blog_comment.save
   end
 
-  # redirect alla pagina delle proposte
   def after_sign_up_path_for(_resource)
     proposals_path
   end
@@ -92,9 +92,10 @@ class ApplicationController < ActionController::Base
 
   def load_blog_data
     return unless @blog
+
     @user = @blog.user
     @blog_posts = @blog.blog_posts.includes(:user, :blog, :tags).page(params[:page]).per(COMMENTS_PER_PAGE)
-    @recent_comments = @blog.comments.includes(:blog_post, user: [:image, :user_type]).order('created_at DESC').limit(10)
+    @recent_comments = @blog.comments.includes(:blog_post, user: [:image]).order('created_at DESC').limit(10)
     @recent_posts = @blog.blog_posts.published.limit(10)
     @archives = @blog.blog_posts.
                 select('COUNT(*) AS posts, extract(month from created_at) AS MONTH , extract(year from created_at) AS YEAR').
@@ -102,12 +103,11 @@ class ApplicationController < ActionController::Base
                 order(Arel.sql('YEAR desc, extract(month from created_at) desc'))
   end
 
-  def extract_locale_from_tld
-  end
+  def extract_locale_from_tld; end
 
   def set_current_domain
     @current_domain = if params[:l].present?
-                        SysLocale.find_by_key(params[:l])
+                        SysLocale.find_by(key: params[:l])
                       else
                         SysLocale.find_by(host: request.domain, lang: nil) || SysLocale.default
                       end
@@ -115,14 +115,13 @@ class ApplicationController < ActionController::Base
 
   attr_reader :current_domain
 
-  def current_territory
-  end
+  def current_territory; end
 
   def set_locale
     @domain_locale = request.host.split('.').last
     @locale =
       if Rails.env.test? || Rails.env.development?
-        params[:l].blank? ? I18n.default_locale : params[:l]
+        params[:l].presence || I18n.default_locale
       else
         params[:l].blank? ? (current_domain.key || I18n.default_locale) : params[:l]
       end
@@ -134,7 +133,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options(_options = {})
-    (!params[:l] || (params[:l] == @domain_locale)) ? {} : { l: I18n.locale }
+    !params[:l] || (params[:l] == @domain_locale) ? {} : { l: I18n.locale }
   end
 
   def self.default_url_options(_options = {})
@@ -147,7 +146,11 @@ class ApplicationController < ActionController::Base
       extra[:current_user_id] = current_user.id if current_user
       if exception.instance_of? CanCan::AccessDenied
         extra[:action] = exception.action.to_s
-        extra[:subject] = exception.subject.class.class_name.to_s rescue nil
+        extra[:subject] = begin
+                            exception.subject.class.class_name.to_s
+                          rescue StandardError
+                            nil
+                          end
       end
       Appsignal.set_error(exception, extra: extra)
     else
@@ -237,7 +240,7 @@ class ApplicationController < ActionController::Base
 
   # helper method per determinare se l'utente attualmente collegato è il proprietario di un determinato oggetto
   def is_proprietary?(object)
-    current_user && current_user.is_mine?(object)
+    current_user&.is_mine?(object)
   end
 
   def age(birthdate)
@@ -274,17 +277,13 @@ class ApplicationController < ActionController::Base
       format.html do # ritorna indietro oppure all'HomePage
         store_location
         flash[:error] = t('error.admin_required')
-        if request.env['HTTP_REFERER']
-          redirect_to :back
-        else
-          redirect_to proposals_path
-        end
+        redirect_back(fallback_location: proposals_path)
       end
     end
   end
 
   def redirect_to_back(path)
-    redirect_to (request.env['HTTP_REFERER'] ? :back : path)
+    redirect_back(fallback_location: path)
   end
 
   # response if you do not have permissions to do an action
@@ -318,6 +317,7 @@ class ApplicationController < ActionController::Base
   # persist in session the last visited url
   def store_location
     return if skip_store_location?
+
     session[:proposal_id] = nil
     session[:proposal_comment] = nil
     session[:user_return_to] = request.url
@@ -330,7 +330,7 @@ class ApplicationController < ActionController::Base
       (params[:controller] == 'sessions') ||
       (params[:controller] == 'users/omniauth_callbacks') ||
       (params[:controller] == 'alerts' && params[:action] == 'index') ||
-      (params[:controller] == 'users' && (%w(join_accounts confirm_credentials).include? params[:action])) ||
+      (params[:controller] == 'users' && (%w[join_accounts confirm_credentials].include? params[:action])) ||
       (params[:action] == 'feedback')
   end
 
@@ -342,7 +342,7 @@ class ApplicationController < ActionController::Base
       @ranking = ProposalCommentRanking.new
       @ranking.user_id = current_user.id
       @ranking.proposal_comment_id = @proposal_comment.id
-      @ranking.ranking_type_id = RankingType::POSITIVE
+      @ranking.ranking_type_id = :positive
       @ranking.save!
 
       @generated_nickname = @proposal_comment.nickname_generated
@@ -378,15 +378,14 @@ class ApplicationController < ActionController::Base
   # call it in an after_action
   def check_page_alerts
     return unless current_user
+
     case params[:controller]
     when 'proposals'
       case params[:action]
       when 'show'
         # mark as checked all user alerts about this proposal
         @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'proposal_id') = ? and alerts.checked = ?", @proposal.id.to_s, false])
-        if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
-          flash[:info] = t('info.proposal.available_authors')
-        end
+        flash[:info] = t('info.proposal.available_authors') if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
         @unread.check_all
       end
     when 'blog_posts'

@@ -1,4 +1,4 @@
-class Region < ActiveRecord::Base
+class Region < ApplicationRecord
   has_many :districts
   has_many :municipalities
   has_many :provinces, dependent: :destroy

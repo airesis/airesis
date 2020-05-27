@@ -5,8 +5,7 @@ module Frm
 
       before_action :authorize_frm_admin
 
-      def index
-      end
+      def index; end
 
       protected
 

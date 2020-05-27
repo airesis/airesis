@@ -1,4 +1,4 @@
-class Group < ActiveRecord::Base
+class Group < ApplicationRecord
   extend FriendlyId
   include Taggable
   include PgSearch::Model
@@ -10,25 +10,25 @@ class Group < ActiveRecord::Base
       using: { tsearch: { any_word: any_word } } }
   }
 
-  friendly_id :name, use: [:slugged, :history]
+  friendly_id :name, use: %i[slugged history]
 
   has_paper_trail versions: { class_name: 'GroupVersion' }
 
   include ImageHelper
-  REQ_BY_PORTAVOCE = 'p'
-  REQ_BY_VOTE = 'v'
-  REQ_BY_BOTH = 'b'
+  REQ_BY_PORTAVOCE = 'p'.freeze
+  REQ_BY_VOTE = 'v'.freeze
+  REQ_BY_BOTH = 'b'.freeze
 
-  STATUS_ACTIVE = 'active'
-  STATUS_FEW_USERS_A = 'few_users_a'
+  STATUS_ACTIVE = 'active'.freeze
+  STATUS_FEW_USERS_A = 'few_users_a'.freeze
 
   validates :name, presence: true, uniqueness: true, length: { within: 3..60 }
 
-  validates_presence_of :description
-  validates_length_of :facebook_page_url, within: 10..255, allow_blank: true
-  validates_length_of :title_bar, within: 1..255, allow_blank: true
-  validates_presence_of :interest_border_id
-  validates_presence_of :default_role_name, on: :create
+  validates :description, presence: true
+  validates :facebook_page_url, length: { within: 10..255, allow_blank: true }
+  validates :title_bar, length: { within: 1..255, allow_blank: true }
+  validates :interest_border_id, presence: true
+  validates :default_role_name, presence: { on: :create }
 
   attr_reader :participant_tokens
   attr_accessor :default_role_name, :default_role_actions, :current_user_id
@@ -51,7 +51,7 @@ class Group < ActiveRecord::Base
   has_many :meeting_organizations, class_name: 'MeetingOrganization', foreign_key: 'group_id', dependent: :destroy
 
   has_many :events, through: :meeting_organizations, class_name: 'Event', source: :event
-  has_many :next_events, -> { where(['endtime > ?', Time.now]) }, through: :meeting_organizations, class_name: 'Event', source: :event
+  has_many :next_events, -> { where(['endtime > ?', Time.zone.now]) }, through: :meeting_organizations, class_name: 'Event', source: :event
 
   has_many :proposal_supports, class_name: 'ProposalSupport', dependent: :destroy
   has_many :supported_proposals, through: :proposal_supports, class_name: 'Proposal'
@@ -93,7 +93,7 @@ class Group < ActiveRecord::Base
                       medium: '300x300>',
                       small: '150x150>'
                     },
-                    path: (Paperclip::Attachment.default_options[:storage] == :s3) ?
+                    path: Paperclip::Attachment.default_options[:storage] == :s3 ?
                             'groups/:id/:style/:basename.:extension' : ':rails_root/public:url',
                     default_url: '/img/gruppo-anonimo.png'
 
@@ -131,7 +131,7 @@ class Group < ActiveRecord::Base
       group_quorums.build(quorum_id: copy.id)
     end
 
-    active_actions = Hash[default_role_actions.map { |a| [a, true] }]
+    active_actions = default_role_actions.index_with { |_a| true }
     participation_role = participation_roles.build(active_actions.merge(name: default_role_name,
                                                                         description: I18n.t('pages.groups.edit_permissions.default_role')))
     participation_role.save!
@@ -182,9 +182,9 @@ class Group < ActiveRecord::Base
   end
 
   def interest_border_tkn=(tkn)
-    unless tkn.blank?
+    if tkn.present?
       ftype = tkn[0, 1] # tipologia (primo carattere)
-      fid = tkn[2..-1] # chiave primaria (dal terzo all'ultimo carattere)
+      fid = tkn[2..] # chiave primaria (dal terzo all'ultimo carattere)
       found = InterestBorder.table_element(tkn)
       if found # se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
         self.interest_border_token = tkn
@@ -241,9 +241,7 @@ class Group < ActiveRecord::Base
 
   def self.most_active(territory = nil)
     groups = Group.includes(interest_border: :territory)
-    if territory.present?
-      groups = groups.by_interest_border(InterestBorder.to_key(territory))
-    end
+    groups = groups.by_interest_border(InterestBorder.to_key(territory)) if territory.present?
     groups.order(group_participations_count: :desc).page(1).per(5)
   end
 

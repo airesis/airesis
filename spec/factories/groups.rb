@@ -17,7 +17,7 @@ FactoryBot.define do
       evaluator.num_participants.times do |_i|
         user = create(:user)
         group.participation_requests.create!(user: user,
-                                             group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED)
+                                             group_participation_request_status_id: :accepted)
         group.group_participations.create!(user: user,
                                            participation_role_id: group.participation_role_id)
       end

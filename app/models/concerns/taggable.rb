@@ -25,6 +25,7 @@ module Taggable
 
   def save_tags
     return unless @tags_list
+
     tids = []
     @tags_list.split(/,/).each do |tag|
       stripped = tag.strip.downcase.delete('.')

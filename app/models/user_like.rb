@@ -1,2 +1,2 @@
-class UserLike < ActiveRecord::Base
+class UserLike < ApplicationRecord
 end

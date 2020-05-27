@@ -1,7 +1,7 @@
 <h4><%= @group.admin_title || t('pages.groups.default_admin_title') %></h4>
 
 <% @admins = @group.portavoce %>
-<% @admins.includes(:image, :user_type).limit(5).each do |user| %>
+<% @admins.includes(:image).limit(5).each do |user| %>
     <%= user_tag(user, nil, true, false) %>
 <% end %>
 
@@ -26,7 +26,7 @@
 
 <% if @group.group_participations.size > 1 %>
 
-    <% @group_participations = @group.group_participations.includes(:participation_role, user: [:image, :user_type]) %>
+    <% @group_participations = @group.group_participations.includes(:participation_role, user: [:image]) %>
 
     <% @group_participations.limit(5).each do |participant| %>
         <% next if participant.as_admin? %>

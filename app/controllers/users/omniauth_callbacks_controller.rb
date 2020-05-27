@@ -1,5 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  oauth_providers = [:facebook, :google_oauth2, :twitter]
+  oauth_providers = %i[facebook google_oauth2 twitter]
   oauth_providers.each { |provider| define_method(provider) { manage_oauth_callback } }
 
   def passthru

@@ -1,4 +1,4 @@
-class EmailJob < ActiveRecord::Base
+class EmailJob < ApplicationRecord
   belongs_to :alert
   validates :alert_id, presence: true
   validates :jid, presence: true, uniqueness: true
@@ -23,9 +23,7 @@ class EmailJob < ActiveRecord::Base
     @sidekiq_job ||= Sidekiq::ScheduledSet.new.find_job(jid)
   end
 
-  def reschedule(time)
-    sidekiq_job.reschedule(time)
-  end
+  delegate :reschedule, to: :sidekiq_job
 
   def accumulate
     nt = alert.notification_type

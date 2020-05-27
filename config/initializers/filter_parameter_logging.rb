@@ -1,1 +1,1 @@
-Rails.application.config.filter_parameters += [:password, :votes]
+Rails.application.config.filter_parameters += %i[password votes]

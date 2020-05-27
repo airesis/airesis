@@ -1,6 +1,6 @@
-class Blog < ActiveRecord::Base
+class Blog < ApplicationRecord
   extend FriendlyId
-  friendly_id :title, use: [:slugged, :history]
+  friendly_id :title, use: %i[slugged history]
   include PgSearch::Model
 
   pg_search_scope :search, lambda { |query, any_word = false|
@@ -47,9 +47,7 @@ class Blog < ActiveRecord::Base
               else
                 search(search, !params[:and])
               end
-      if interest_border
-        blogs = blogs.joins(:user).merge(User.by_interest_borders(interest_border))
-      end
+      blogs = blogs.joins(:user).merge(User.by_interest_borders(interest_border)) if interest_border
       blogs.page(page).per(limit)
     end
   end
