@@ -213,6 +213,8 @@ en-EU:
           'true': Unpin
           'false': Pin on top
         permissions_title: "You and the group"
+        request_by_vote_rules: "When a user requests to participate in the group, all other participants must express their opinion within a certain number of days, after which it is determined whether the user can enter or not."
+        request_by_spokesman_rules: "When a user requests to participate in the group, only group administrators are allowed to do so. Once the administrator has accepted the request, the user will be a full participant in the group."
       header:
         settings: "SETTINGS"
         documents: "DOCUMENTS"
@@ -454,8 +456,8 @@ en-EU:
         generic_fake_content: "This section has not yet been compiled. Help the editor by inserting a contribution!"
         model_title: "Template"
         created_events: "Already created events"
-        create_new_votation_period: "Create a new event at the end of debate"
-        choose_later: "No thanks. I will choose it later"
+        create_new_votation_period: "You can decide now the dates of the vote, at the end of the debate"
+        choose_later: "No thanks. I will choose them later"
         choose_now: "I want to choose it now"
         group_area: "Work area"
         nickname_assigned: "We assigned you the nickname '%{nickname}'. If you don't like it, you can change it from the left menu within 10 minutes"
@@ -1074,7 +1076,7 @@ en-EU:
     votedown: "The text of the proposal is not mature yet, because the users' contributions has to be integrated (you can change your evaluation when the text of the proposal will be updated)"
     valutazioni: "total number of evaluations received"
     gradimento: "percentage of positive evaluations on the total"
-    nickname: "<strong> In this proposal, we have chosen to discuss anonymously </strong> <br /> In this way is not possible for other users to know who you are and at the same time, it is not possible for you to know who the others are. <br /> working and talking this way you will be able to make decisions and evaluate proposals based only on on content. <br/> <b>Note</b>: When the discussion is finished and the proposal will be approved or rejected then you will see the real names of users!"
+    nickname: "<strong> In this proposal, we have chosen to discuss anonymously </strong> <br /> In this way is not possible for other users to know who you are and at the same time, it is not possible for you to know who the others are. <br /> working and talking this way you will be able to make decisions and evaluate proposals based only on content. <br/> <b>Note</b>: When the discussion is finished and the proposal will be approved or rejected then you will see the real names of users!"
     manage_noise: "<strong> Manage useless contributions</strong> <br /> Participants will advise you what contributions are useless to the discussion. With this panel you can remove and put them in the Deleted Contributions folder."
     view_noise: "View <strong>useless contributions</strong> <br /> In here you will find all the contributions that have been deemed useless and removed the discussion by the editors of the proposal"
     quorum_minutes: "until <b>%{date}</b> at %{time}"

@@ -99,8 +99,6 @@
     description_editor.on('change', function (event) {
       description_editor.updateElement();
       $('form').formValidation('revalidateField', 'group[description]');
-      console.log('returning true');
-      console.log('event target is', event.relatedTarget);
       return true;
     });
 

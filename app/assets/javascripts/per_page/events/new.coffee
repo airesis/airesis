@@ -47,7 +47,7 @@ window.EventsNew =
     input = $('#event_meeting_attributes_place_attributes_municipality_id')
     Airesis.select2town(input)
     input.change (e)->
-      $('#new_event').formValidation('revalidateField', input.attr('name'))
+      $('#new_event').formValidation('revalidateField', input)
   initMapManager: ->
     if !EventsEdit.votation
       EventsNew.mapManager = new Airesis.MapManager('create_map_canvas')

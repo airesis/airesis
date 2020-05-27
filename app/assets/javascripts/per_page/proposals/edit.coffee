@@ -262,7 +262,7 @@ window.ProposalsEdit =
   addSection: ->
     title = Airesis.i18n.proposals.edit.paragraph + ' ' + (ProposalsEdit.sectionsCount + 1)
     sectionId = ProposalsEdit.sectionsCount
-    section = $(Mustache.to_html($('#section_template').html(), section:
+    section = $(Mustache.render($('#section_template').html(), section:
       id: sectionId
       seq: sectionId + 1
       removeSection: Airesis.i18n.proposals.edit.removeSection
@@ -281,7 +281,7 @@ window.ProposalsEdit =
     sectionId = ProposalsEdit.numSolutionSections[solutionId]
     title = Airesis.i18n.proposals.edit.paragraph + ' ' + (sectionId + 1)
     dataId = ProposalsEdit.calculateDataId(parseInt(solutionId), sectionId)
-    solutionSection = $(Mustache.to_html($('#solution_section_template').html(),
+    solutionSection = $(Mustache.render($('#solution_section_template').html(),
       section:
         idx: sectionId
         data_id: dataId
@@ -314,7 +314,7 @@ window.ProposalsEdit =
       removeSolution: Airesis.i18n.proposals.edit.removeSolution
       addParagraph: Airesis.i18n.proposals.edit.addParagraph
       sections: ProposalsEdit.mustacheSections
-    solution = $(Mustache.to_html($('#solution_template').html(),
+    solution = $(Mustache.render($('#solution_template').html(),
       options,
       'proposals/_solution_section': $('#solution_section_template').html()))
     solution.find('.title_placeholder .num').html ProposalsEdit.fakeSolutionsCount + 1

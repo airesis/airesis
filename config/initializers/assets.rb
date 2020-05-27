@@ -12,5 +12,11 @@ Rails.application.config.assets.precompile += %w[endless_page.js paypal-button.m
                                                  homepage.js jquery.js jquery.qtip.js ice/index.js html2canvas.js i18n/*.js
                                                  proposals/show.js elfinder.full.js elFinderSupportVer1.js proposals/edit.js]
 Rails.application.config.assets.precompile += %w[back_enabled.png landing.css landing/all.css redmond/custom.css
-                                                 menu_left.css jquery.qtip.css foundation_and_overrides.css elfinder.min.css pdf/proposal.css
-                                                 newsletters.css ckeditor/*]
+                                                 menu_left.css jquery.qtip.css foundation_and_overrides.css
+                                                 elfinder.min.css pdf/proposal.css newsletters.css]
+
+Rails.application.config.assets.precompile += ['ckeditor/config.js',
+                                               'ckeditor/config_lite.js',
+                                               'ckeditor/plugins/youtube/plugin.js',
+                                               'ckeditor/plugins/lite/plugin.js',
+                                               'ckeditor/plugins/wordcount/plugin.js']
