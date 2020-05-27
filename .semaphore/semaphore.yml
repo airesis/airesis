@@ -27,6 +27,11 @@ blocks:
             - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master
             - cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master
             - cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master
+            - cache restore packs-$SEMAPHORE_GIT_BRANCH,packs-develop,packs-master
+            - cache restore packstest-$SEMAPHORE_GIT_BRANCH,packstest-develop,packstest-master
+            - cache restore assets-$SEMAPHORE_GIT_BRANCH,assets-develop,assets-master
+            - cache restore sprocketscache-$SEMAPHORE_GIT_BRANCH,sprocketscache-develop,sprocketscache-master
+            - cache restore webpackercache-$SEMAPHORE_GIT_BRANCH,webpackercache-develop,webpackercache-master
             - bundle install --without production development --deployment -j 4 --path vendor/bundle
             - nvm install
             - bin/yarn install --cache-folder ~/.cache/yarn
