@@ -3,7 +3,7 @@ class InterestBordersController < ApplicationController
 
   def index
     hint = "#{params[:q]}%"
-    @results = find_by(hint: hint)
+    @results = by_hint(hint)
 
     respond_to do |format|
       format.html
@@ -13,7 +13,7 @@ class InterestBordersController < ApplicationController
 
   protected
 
-  def find_by_hint(hint)
+  def by_hint(hint)
     territory = current_domain.territory
     limit = 10 # hints limit
     results = []
