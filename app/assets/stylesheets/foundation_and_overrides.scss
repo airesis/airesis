@@ -2512,7 +2512,7 @@ input[type=file] {
 }
 
 .fa.fv-control-feedback {
-  top: 26px;
+  top: 21px;
   right: 0;
 }
 
@@ -2930,4 +2930,12 @@ h1 .label {
   @extend .btn;
   border-radius: 0;
   height: auto;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+input[type="checkbox"] {
+  margin-right: 5px;
 }

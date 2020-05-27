@@ -95,13 +95,13 @@ class Airesis.ProposalNavigator
     if toRemove.remove()
       @solution_navigators.filter("[data-solution_id=#{solutionId}]").remove()
   addSectionNavigator: (i, title)->
-    section_navigator = $(Mustache.to_html($('#section_navigator_template').html(),
+    section_navigator = $(Mustache.render($('#section_navigator_template').html(),
       i: i
       title: title))
     nav_ = $('.navigator .sec_nav:not(.sol)').last()
     nav_.after section_navigator
   addSolutionSectionNavigator: (solutionId, i, title)->
-    solution_section_navigator = $(Mustache.to_html($('#section_navigator_template').html(),
+    solution_section_navigator = $(Mustache.render($('#section_navigator_template').html(),
       classes: 'sol',
       i: i
       title: title))
@@ -113,7 +113,7 @@ class Airesis.ProposalNavigator
     for section in solution.sections
       sectionContainer = new Airesis.SectionContainer(section)
       sections.push({id: sectionContainer.id, title: sectionContainer.title, classes: 'sol'})
-    solution_navigator = $(Mustache.to_html($('#solution_navigator_template').html(),
+    solution_navigator = $(Mustache.render($('#solution_navigator_template').html(),
       {classes: 'sol', i: solutionId, title: '&nbsp;', sections: sections},
       {'proposals/_section_navigator': $('#section_navigator_template').html()}))
     $('.navigator.navsolutions').append(solution_navigator)

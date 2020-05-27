@@ -1,25 +1,25 @@
 <% blog_post = post_publishing.blog_post %>
 <div class="card blogPost" id="blogPost<%= blog_post.id %>">
   <% if (can? :remove_post, @group) || (can? :update, blog_post) %>
-      <div class="hidden_link" data-dropdown="drop<%= blog_post.id %>">
-      </div>
-      <ul id="drop<%= blog_post.id %>" class="f-dropdown small" data-dropdown-content>
-        <% if can? :remove_post, @group %>
-            <li><%= link_to t("pages.groups.show.featured_post.#{post_publishing.featured}"),
-                            feature_post_group_path(@group, post_id: blog_post.id), method: :put, remote: true, class: 'menu_item' %></li>
-        <% end %>
-        <li><%= link_to t('pages.groups.show.remove_post'),
-                        remove_post_group_path(@group, post_id: blog_post.id), method: :put, remote: true, class: 'menu_item', data: {confirm: "Sei sicuro di voler rimuovere il post '#{blog_post.title}' dalla bacheca del gruppo?"} %></li>
-        <% if can? :update, blog_post %>
-            <li><%= link_to t('pages.blog_posts.edit_button'),
-                            edit_blog_blog_post_path(blog_post.blog, blog_post), class: 'menu_item' %></li>
-            <li><%= link_to t('pages.blog_posts.delete_button'),
-                            blog_blog_post_path(blog_post.blog, blog_post),
-                            method: :delete,
-                            class: 'menu_item',
-                            data: {confirm: "Sei sicuro di voler cancellare il post '#{blog_post.title}'. Esso scomparirà sia dall bacheca del gruppo che dal tuo blog personale e non sarà più possibile recuperarlo."} %></li>
-        <% end %>
-      </ul>
+    <div class="hidden_link" data-dropdown="drop<%= blog_post.id %>">
+    </div>
+    <ul id="drop<%= blog_post.id %>" class="f-dropdown small" data-dropdown-content>
+      <% if can? :remove_post, @group %>
+        <li><%= link_to t("pages.groups.show.featured_post.#{post_publishing.featured}"),
+                        feature_post_group_path(@group, post_id: blog_post.id), method: :put, remote: true, class: 'menu_item' %></li>
+      <% end %>
+      <li><%= link_to t('pages.groups.show.remove_post'),
+                      remove_post_group_path(@group, post_id: blog_post.id), method: :put, remote: true, class: 'menu_item', data: { confirm: "Sei sicuro di voler rimuovere il post '#{blog_post.title}' dalla bacheca del gruppo?" } %></li>
+      <% if can? :update, blog_post %>
+        <li><%= link_to t('pages.blog_posts.edit_button'),
+                        edit_blog_blog_post_path(blog_post.blog, blog_post), class: 'menu_item' %></li>
+        <li><%= link_to t('pages.blog_posts.delete_button'),
+                        blog_blog_post_path(blog_post.blog, blog_post),
+                        method: :delete,
+                        class: 'menu_item',
+                        data: { confirm: "Sei sicuro di voler cancellare il post '#{blog_post.title}'. Esso scomparirà sia dall bacheca del gruppo che dal tuo blog personale e non sarà più possibile recuperarlo." } %></li>
+      <% end %>
+    </ul>
   <% end %>
 
   <h3 class="blogPostTitle">
@@ -33,36 +33,30 @@
   </div>
 
   <div class="blogPostFooter">
-
-
     <div class="blogPostPostedAt">
       <%- name = link_to((avatar(blog_post.user, size: 15, cert: false) + blog_post.user.fullname), blog_post.user) %>
       <%= raw t('pages.blog_posts.list_elements.inserted', name: name, date: (l blog_post.created_at)) %>
       |
       <span class="blogComments">
-
-      <%= link_to t('pages.blog_posts.view.comments', count: blog_post.blog_comments_count), group_blog_post_url(@group, blog_post) %>
+        <%= link_to t('pages.blog_posts.view.comments', count: blog_post.blog_comments_count), group_blog_post_url(@group, blog_post) %>
       </span>
     </div>
     <% if ::Configuration::socialnetwork_active %>
-        <div class="post_buttons">
-          <a href="https://twitter.com/share"
-             class="twitter-share-button"
-             data-lang="en"
-             data-text="<%= t('twitter.share.blog_post', app: APP_SHORT_NAME, tags: blog_post.tags.for_twitter) %>"
-             data-url="<%= group_blog_post_url(@group, blog_post) %>">Tweet</a>
-          |
-          <div class="fb-like" data-href="<%= group_blog_post_url(@group, blog_post) %>" data-width="450" data-layout="button_count" data-show-faces="true" data-likeable_type="<%= blog_post.class.class_name %>" data-likeable_id="<%= blog_post.id %>" data-send="true"></div>
-
-
-        </div>
+      <div class="post_buttons">
+        <a href="https://twitter.com/share"
+           class="twitter-share-button"
+           data-lang="en"
+           data-text="<%= t('twitter.share.blog_post', app: APP_SHORT_NAME, tags: blog_post.tags.for_twitter) %>"
+           data-url="<%= group_blog_post_url(@group, blog_post) %>">Tweet</a>
+        <div class="fb-like" data-href="<%= group_blog_post_url(@group, blog_post) %>" data-width="450" data-layout="button_count" data-show-faces="true" data-likeable_type="<%= blog_post.class.class_name %>" data-likeable_id="<%= blog_post.id %>" data-send="true"></div>
+      </div>
     <% end %>
 
     <% unless blog_post.tags.blank? %>
-        <div class="blogPostTags">
-          <span class="tag_label">Tags: </span>
-          <span class="tags_list"><%= raw blog_post.tags_with_links %></span>
-        </div>
+      <div class="blogPostTags">
+        <span class="tag_label">Tags: </span>
+        <span class="tags_list"><%= raw blog_post.tags_with_links %></span>
+      </div>
     <% end %>
   </div>
 

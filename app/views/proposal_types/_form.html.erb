@@ -1,140 +1,100 @@
 <h2><%= @title %></h2>
+
 <div id="create_proposal">
   <%= simple_form_for @group.present? ? [@group, @proposal] : @proposal, validate: true, remote: request.xhr? do |f| %>
-      <div class="legend first">
-        <div class="title">
-          <%= t('pages.proposals.new.step_base_info') %>
-        </div>
-      </div>
+    <div class="step root root">
+      <div class="mb-2"><%= t('pages.proposals.new.step_1_title', app_short_name: APP_SHORT_NAME) %></div>
 
-      <div class="step root root">
-        <h4><%= t('pages.proposals.new.step_1_title', app_short_name: APP_SHORT_NAME) %></h4>
+      <%= f.input :title,
+                  label: t('pages.proposals.new.title_synthetic'),
+                  placeholder: t('pages.proposals.new.title_placeholder'),
+                  input_html: { autocomplete: :off, data: { fv_trigger: 'keyup' } } %>
 
-        <%= f.input :title,
-                    label: t('pages.proposals.new.title_synthetic'),
-                    placeholder: t('pages.proposals.new.title_placeholder'),
-                    input_html: { autocomplete: :off, data: { fv_trigger: 'keyup' } } %>
-
-        <% if @group && @group.enable_areas && @group.group_areas.any? %>
-            <% available_areas = current_user.scoped_areas(@group, :insert_proposals) %>
-            <p>
-              <% if available_areas.any? %>
-                  <%= f.input :group_area_id, as: :select,
-                              collection: available_areas.collect { |p| [p.name, p.id] },
-                              prompt: t('pages.proposals.new.no_work_area_selected') %>
-              <% else %>
-                  <%= t('pages.proposals.new.cannot_add_proposal_in_work_area') %>
-              <% end %>
-            </p>
-        <% end %>
-
+      <% if @group && @group.enable_areas && @group.group_areas.any? %>
+        <% available_areas = current_user.scoped_areas(@group, :insert_proposals) %>
         <p>
-          <%= f.input 'interest_borders_tkn', input_html: { "data-pre" => @proposal.interest_borders.to_json, placeholder: t('pages.proposals.new.interest_borders_tkn_placeholder'), style: "width:100%" } %>
-        </p>
-
-        <p>
-          <% if @group %>
-              <input type="hidden" name="from_group" value="<%= @group.id %>"/>
+          <% if available_areas.any? %>
+            <%= f.input :group_area_id, as: :select,
+                        collection: available_areas.collect { |p| [p.name, p.id] },
+                        prompt: t('pages.proposals.new.no_work_area_selected') %>
+          <% else %>
+            <%= t('pages.proposals.new.cannot_add_proposal_in_work_area') %>
           <% end %>
-          <%= f.hidden_field :private %>
-          <%= f.hidden_field :proposal_type_id %>
-          <%= f.hidden_field :proposal_votation_type_id %>
-          <%= f.hidden_field :topic_id %>
         </p>
+      <% end %>
+      <p>
+        <%= f.input 'interest_borders_tkn', input_html: { "data-pre" => @proposal.interest_borders.to_json, placeholder: t('pages.proposals.new.interest_borders_tkn_placeholder'), style: "width:100%" } %>
+      </p>
+    </div>
 
-        <% if @proposal.change_advanced_options %>
-            <fieldset>
-              <legend><%= t('pages.proposals.new.advanced_options') %></legend>
-              <%= f.input :anonima %>
-              <%= f.input :visible_outside %>
-              <%= f.input :secret_vote %>
-            </fieldset>
+    <div class="step">
+      <% if ::Configuration.proposal_categories %>
+        <div class="inputs">
+          <%= f.label :proposal_category_id %>
+          <%= f.select :proposal_category_id,
+                       options_for_select(ProposalCategory.all.collect do |p|
+                         [p.description, p.id, { 'data-imagesrc' => image_path("proposal_categories/#{p.name}_s.png") }]
+                       end,
+                                          @proposal.proposal_category_id),
+                       { include_blank: t('pages.proposals.new.category_prompt') },
+                       { required: true, style: 'width:100%' } %>
+        </div>
+      <% end %>
+
+      <% if ::Configuration::folksonomy %>
+        <p>
+          <%= f.input :tags_list, input_html: { placeholder: t('pages.proposals.new.tags_list_placeholder'), style: "width:100%" } %>
+        </p>
+      <% end %>
+    </div>
+
+    <%= @proposal.sections.first.title %>
+    <div class="step">
+      <%= f.fields_for :sections, @proposal.sections.first do |s| %>
+        <%= s.input :title, as: :hidden %>
+        <%= s.input :seq, as: :hidden %>
+        <%= s.fields_for :paragraphs, @proposal.sections.first.paragraphs.build(seq: 1) do |p| %>
+          <p>
+            <%= p.input :content, as: :text, label: @proposal.sections.first.question, input_html: { rows: 5 } %>
+            <%= p.input :seq, as: :hidden %>
+          </p>
         <% end %>
+      <% end %>
+
+<!--      <div class="suggestion_box">-->
+        <%#= raw @proposal.sections.first.suggestion %>
+<!--      </div>-->
+    </div>
+
+    <div class="step">
+      <%= render partial: '/proposal_types/quorum_choice', locals: { f: f } %>
+      <div class="suggestion_box">
+        <%= t('pages.proposals.new.step_4_footer_html', app_short_name: APP_SHORT_NAME) %>
       </div>
 
-      <div class="legend">
-        <div class="title">
-          <%= t('pages.proposals.new.step_classification') %>
-        </div>
-      </div>
+      <% if @proposal.change_advanced_options %>
+        <fieldset>
+          <legend><%= t('pages.proposals.new.advanced_options') %></legend>
+          <%= f.input :anonima %>
+          <%= f.input :visible_outside %>
+          <%= f.input :secret_vote %>
+        </fieldset>
+      <% end %>
 
-      <div class="step">
-        <% if ::Configuration.proposal_categories %>
-            <div class="inputs">
-              <%= f.label :proposal_category_id %>
-              <%= f.select :proposal_category_id,
-                           options_for_select(ProposalCategory.all.collect do |p|
-                             [p.description, p.id, { 'data-imagesrc' => image_path("proposal_categories/#{p.name}_s.png") }]
-                           end,
-                                              @proposal.proposal_category_id),
-                           { include_blank: t('pages.proposals.new.category_prompt') },
-                           { required: true, style: 'width:100%' } %>
-            </div>
+      <p>
+        <% if @group %>
+          <input type="hidden" name="from_group" value="<%= @group.id %>"/>
         <% end %>
+        <%= f.hidden_field :private %>
+        <%= f.hidden_field :proposal_type_id %>
+        <%= f.hidden_field :proposal_votation_type_id %>
+        <%= f.hidden_field :topic_id %>
+      </p>
 
-        <% if ::Configuration::folksonomy %>
-            <p>
-              <%= f.input :tags_list, input_html: { placeholder: t('pages.proposals.new.tags_list_placeholder'), style: "width:100%" } %>
-            </p>
-        <% end %>
-
-
-      </div>
-
-      <div class="legend">
-        <div class="title">
-          <%= t('pages.proposals.new.step_similar') %>
-        </div>
-      </div>
-
-      <div class="step">
-        <div id="suggestions">
-
-        </div>
-      </div>
-
-      <div class="legend">
-        <div class="title">
-          <%= @proposal.sections.first.title %>
-        </div>
-      </div>
-
-      <div class="step">
-        <%= f.fields_for :sections, @proposal.sections.first do |s| %>
-            <%= s.input :title, as: :hidden %>
-            <%= s.input :seq, as: :hidden %>
-            <%= s.fields_for :paragraphs, @proposal.sections.first.paragraphs.build(seq: 1) do |p| %>
-                <p>
-                  <%= p.input :content, as: :text, label: @proposal.sections.first.question, input_html: { rows: 5 } %>
-                  <%= p.input :seq, as: :hidden %>
-                </p>
-            <% end %>
-        <% end %>
-
-        <div class="suggestion_box">
-          <%= raw @proposal.sections.first.suggestion %>
-        </div>
-      </div>
-
-      <div class="legend last">
-        <div class="title">
-          <%= t('pages.proposals.new.step_dates') %>
-        </div>
-      </div>
-
-      <div class="step">
-        <h4><%= t('pages.proposals.new.step_4_title', app_short_name: APP_SHORT_NAME) if request.xhr? %></h4>
-        <%= render partial: '/proposal_types/quorum_choice', locals: { f: f } %>
-        <div class="suggestion_box">
-          <%= t('pages.proposals.new.step_4_footer_html', app_short_name: APP_SHORT_NAME) %>
-        </div>
-        <% unless request.xhr? %>
-            <p>
-              <%= link_to t('buttons.cancel'), :back, class: 'btn' unless request.xhr? %>
-              <%= f.submit t('pages.proposals.new.create_button'), class: 'btn blue disable', data: { disable_with: t('loading') } %>
-            </p>
-        <% end %>
-      </div>
+      <p>
+        <%= link_to t('buttons.cancel'), :back, class: 'btn' unless request.xhr? %>
+        <%= f.submit t('pages.proposals.new.create_button'), class: 'btn blue disable', data: { disable_with: t('loading') } %>
+      </p>
+    </div>
   <% end %>
 </div>
-<a class="close-reveal-modal">&#215;</a>

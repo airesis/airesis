@@ -175,8 +175,7 @@ class ProposalsController < ApplicationController
 
     @proposal.build_sections
     @title = ''
-    @title += I18n.t('pages.proposals.new.title_group', name: @group.name) + ' ' if @group
-    @title += @proposal.proposal_type.description
+    @title += "Create a new #{@proposal.proposal_type.description}"
   end
 
   def edit
