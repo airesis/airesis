@@ -28,36 +28,9 @@
         </tr>
         </thead>
         <tbody>
-        <% @group_participations.each do |participation| %>
-            <tr>
-              <td>
-                <%= link_to participation.group do %>
-                    <%= participation.group_image_tag 20 %>
-                    <span class="show-for-medium-up"><%= participation.group.name %></span>
-                <% end %>
-              </td>
-              <td>
-                <span>
-                <%= participation.participation_role.name %>
-                  <i class="fa fa-info-circle" id="participation_<%= participation.id %>" data-participation-tooltip></i>
-                  <span style="display: none;" data-participation-tooltip-text>
-                    <strong><%= t('pages.users.show.what_can_i_do') %></strong>
-                    <ul>
-                      <li>
-                        <%= raw participation.participation_role.group_actions.order(:seq).map { |a| a.description }.join('</li><li>') %>
-                      </li>
-                    </ul>
-                  </span>
-                    </span>
-              </td>
-              <td class="show-for-medium-up"><%= participation.created_at if participation.created_at %></td>
-              <td><%= participation.created_at.to_i if participation.created_at %></td>
-              <td><%= link_to t('pages.users.show.get_out_of_group_button'), group_group_participation_url(participation.group, participation), method: :delete, data: {confirm: t('pages.users.show.get_out_of_group_confermation')}, class: 'btn' if can? :destroy, participation %></td>
-            </tr>
-        <% end %>
+          <%= render partial: 'users/group_participation', collection: @group_participations, as: :participation %>
         </tbody>
       </table>
-
     </div>
 <% end %>
 
