@@ -1,1 +1,1 @@
-AIRESIS_VERSION = '4.5.7'.freeze
+# find me in sentry.rb
