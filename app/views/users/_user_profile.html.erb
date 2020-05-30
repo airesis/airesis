@@ -66,7 +66,7 @@
       <% end %>
       <% if @user.has_provider?(Authentication::GOOGLE) && @user.google_page_url.present?%>
           <div id="google_profile" class="profile_element_no_click">
-            <h2 class="label_profile"><%= t('pages.users.show.googleplus_url_label') %>: </h2>
+            <h2 class="label_profile"><%= t('pages.users.show.google_url_label') %>: </h2>
 
             <div class="info_profile">
               <%= link_to(@user.google_page_url, @user.google_page_url, target: '_blank', rel: 'author') %>
