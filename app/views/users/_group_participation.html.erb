@@ -1,0 +1,23 @@
+<tr>
+  <td>
+    <%= link_to participation.group do %>
+      <%= participation.group_image_tag 20 %>
+      <span class="show-for-medium-up"><%= participation.group.name %></span>
+    <% end %>
+  </td>
+  <td>
+    <%= participation.participation_role.name %>
+    <i class="fa fa-info-circle" id="participation_<%= participation.id %>" data-participation-tooltip></i>
+    <div style="display: none;" data-participation-tooltip-text>
+      <strong><%= t('pages.users.show.what_can_i_do') %></strong>
+      <ul>
+        <li>
+          <%= GroupAction::LIST.select { |action| participation.participation_role[action] }.map { |a| I18n.t("db.group_actions.#{a}.description") }.join('</li><li>').html_safe %>
+        </li>
+      </ul>
+    </div>
+  </td>
+  <td class="show-for-medium-up"><%= participation.created_at if participation.created_at %></td>
+  <td><%= participation.created_at.to_i if participation.created_at %></td>
+  <td><%= link_to t('pages.users.show.get_out_of_group_button'), group_group_participation_url(participation.group, participation), method: :delete, data: { confirm: t('pages.users.show.get_out_of_group_confermation') }, class: 'btn' if can? :destroy, participation %></td>
+</tr>
