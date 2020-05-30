@@ -1,5 +1,5 @@
 <% @page_title = t('pages.user.privacy') %>
-<%= render layout: "layouts/page_title", locals: {title: t('pages.user.privacy')} do %>
+<%= render layout: "layouts/page_title", locals: { title: t('pages.user.privacy') } do %>
 <% end %>
 
 <div class="card">
@@ -10,25 +10,24 @@
   </div>
 
   <% if ::Configuration::socialnetwork_active %>
-      <div class="show_urls">
-        <%= check_box :user, :show_urls, value: current_user.show_urls, onclick: "return change_show_urls(this);" %> <%= t('pages.users.privacy_preferences.show_urls') %>
-      </div>
-
+    <div class="show_urls">
+      <%= check_box :user, :show_urls, value: current_user.show_urls, onclick: "return change_show_urls(this);" %> <%= t('pages.users.privacy_preferences.show_urls') %>
+    </div>
   <% end %>
   <% if ::Configuration::user_messages %>
-      <div class="messages">
-        <%= check_box :user, :receive_messages, value: current_user.receive_messages, onclick: "return change_receive_messages(this);" %> <%= t('pages.users.privacy_preferences.private_messages') %>
-      </div>
+    <div class="messages">
+      <%= check_box :user, :receive_messages, value: current_user.receive_messages, onclick: "return change_receive_messages(this);" %> <%= t('pages.users.privacy_preferences.private_messages') %>
+    </div>
   <% end %>
   <% if ::Configuration.rotp %>
-      <h2><%= t('pages.users.privacy_preferences.rotp_title') %></h2>
+    <h2><%= t('pages.users.privacy_preferences.rotp_title') %></h2>
 
-      <div class="rotp">
-        <%= check_box :user, :rotp_enabled, value: current_user.rotp_enabled, onclick: "return change_rotp_enabled(this);" %> <%= t('pages.users.privacy_preferences.rotp') %>
-      </div>
-      <div id="rotp_container">
-        <%= render 'users/rotp_code' %>
-      </div>
+    <div class="rotp">
+      <%= check_box :user, :rotp_enabled, value: current_user.rotp_enabled, onclick: "return change_rotp_enabled(this);" %> <%= t('pages.users.privacy_preferences.rotp') %>
+    </div>
+    <div id="rotp_container">
+      <%= render 'users/rotp_code' %>
+    </div>
   <% end %>
 </div>
 
@@ -46,167 +45,170 @@
   </div>
 </div>
 
-
-
 <div class="card">
   <% if ::Configuration::socialnetwork_active %>
-      <h2><%= t('pages.users.privacy_preferences.join_accounts') %></h2>
-      <h5>
-        <%= raw t('pages.users.privacy_preferences.join_accounts_description', app_short_name: APP_SHORT_NAME) %></h5>
+    <h2><%= t('pages.users.privacy_preferences.join_accounts') %></h2>
+    <h5>
+      <%= raw t('pages.users.privacy_preferences.join_accounts_description', app_short_name: APP_SHORT_NAME) %>
+    </h5>
 
-      <%
-         authentications = current_user.authentications
-         alreadyproviders = current_user.authentications.pluck(:provider) %>
+    <%
+      authentications = current_user.authentications
+      alreadyproviders = current_user.authentications.pluck(:provider) %>
 
-      <% if alreadyproviders.size == 5 %>
-          <%= t('pages.users.privacy_preferences.joined_all') %>
+    <% if alreadyproviders.size == 3 %>
+      <%= t('pages.users.privacy_preferences.joined_all') %>
+    <% end %>
+    <div class="providers">
+      <% unless alreadyproviders.include? Authentication::FACEBOOK %>
+        <%= link_to omniauth_authorize_path(:user, :facebook) do %>
+          <i class="fa fa-social fa-facebook"></i>
+          <%= t('pages.users.privacy_preferences.join_facebook') %>
+        <% end %>
+        <br/>
       <% end %>
-      <div class="providers">
-        <% unless alreadyproviders.include? Authentication::FACEBOOK %>
-            <%= link_to omniauth_authorize_path(:user, :facebook) do %>
-                <div class="zocial icon facebook vertical"></div>
-                <%= t('pages.users.privacy_preferences.join_facebook') %>
-            <% end %>
-            <br/>
+
+      <% unless alreadyproviders.include? Authentication::GOOGLE %>
+        <%= link_to omniauth_authorize_path(:user, :google_oauth2) do %>
+          <i class="fa fa-social fa-google"></i>
+          <%= t('pages.users.privacy_preferences.join_google') %>
         <% end %>
-
-        <% unless alreadyproviders.include? Authentication::GOOGLE %>
-            <%= link_to "<div class=\"zocial icon googleplus vertical\"></div>".html_safe + t('pages.users.privacy_preferences.join_google'), omniauth_authorize_path(:user, :google_oauth2) %>
-            <br/>
-        <% end %>
-
-        <% unless alreadyproviders.include? Authentication::TWITTER %>
-            <%= link_to "<div class=\"zocial icon twitter vertical\"></div>".html_safe + t('pages.users.privacy_preferences.join_twitter'), omniauth_authorize_path(:user, :twitter) %>
-            <br/>
-        <% end %>
-      </div>
-
-
-      <% if alreadyproviders.size > 0 %>
-          <h2><%= t('pages.users.privacy_preferences.providers_list') %>:</h2>
-          <% authentications.each do |authentication| %>
-              <% if authentication.provider == Authentication::FACEBOOK %>
-                  <div class="zocial icon facebook vertical"></div>
-                  Facebook
-              <% elsif authentication.provider == Authentication::GOOGLE %>
-                  <div class="zocial icon google vertical"></div>
-                  Google
-              <% elsif authentication.provider == Authentication::TWITTER %>
-                  <div class="zocial icon twitter vertical"></div>
-                  Twitter
-              <% end %>
-
-              <% if @user.email %>
-                  <%= link_to t('buttons.detach'), [@user, authentication], method: :delete, data: {confirm: t('confirm_detach')} %>
-                  <br/>
-              <% else %>
-                  <%= link_to t('buttons.detach'), '#', data: {detach_disabled: true} %>
-                  <br/>
-              <% end %>
-          <% end %>
+        <br/>
       <% end %>
+
+      <% unless alreadyproviders.include? Authentication::TWITTER %>
+        <%= link_to omniauth_authorize_path(:user, :twitter) do %>
+          <i class="fa fa-social fa-twitter"></i>
+          <%= t('pages.users.privacy_preferences.join_twitter') %>
+        <% end %>
+        <br/>
+      <% end %>
+    </div>
+
+    <% if alreadyproviders.size > 0 %>
+      <h2><%= t('pages.users.privacy_preferences.providers_list') %>:</h2>
+      <% authentications.each do |authentication| %>
+        <% if authentication.provider == Authentication::FACEBOOK %>
+          <i class="fa fa-social fa-facebook"></i>
+          Facebook
+        <% elsif authentication.provider == Authentication::GOOGLE %>
+          <i class="fa fa-social fa-google"></i>
+          Google
+        <% elsif authentication.provider == Authentication::TWITTER %>
+          <i class="fa fa-social fa-twitter"></i>
+          Twitter
+        <% end %>
+
+        <% if @user.email %>
+          <%= link_to t('buttons.detach'), [@user, authentication], method: :delete, data: { confirm: t('confirm_detach') } %>
+          <br/>
+        <% else %>
+          <%= link_to t('buttons.detach'), '#', data: { detach_disabled: true } %>
+          <br/>
+        <% end %>
+      <% end %>
+    <% end %>
   <% end %>
-
 </div>
 
 <script type="text/javascript">
-    $('a[data-detach-disabled]').click(function () {
-        alert('<%=j raw t('alert_detach')%>');
-        return false;
+  $('a[data-detach-disabled]').click(function () {
+    alert('<%=j raw t('alert_detach')%>');
+    return false;
+  });
+
+  function change_show_tooltips(el) {
+    var active = (el.checked) ? "true" : "false";
+    $.ajax({
+      data: {
+        active: active
+      },
+      url: "/users/change_show_tooltips",
+      dataType: 'script',
+      type: 'post'
     });
+  }
 
-    function change_show_tooltips(el) {
-        var active = (el.checked) ? "true" : "false";
-        $.ajax({
-            data: {
-                active: active
-            },
-            url: "/users/change_show_tooltips",
-            dataType: 'script',
-            type: 'post'
-        });
-    }
-
-    function change_show_urls(el) {
-        var active = (el.checked) ? "true" : "false";
-        $.ajax({
-            data: {
-                active: active
-            },
-            url: "/users/change_show_urls",
-            dataType: 'script',
-            type: 'post'
-        });
-    }
-
-    function change_receive_messages(el) {
-        var active = (el.checked) ? "true" : "false";
-        $.ajax({
-            data: {
-                active: active
-            },
-            url: "/users/change_receive_messages",
-            dataType: 'script',
-            type: 'post'
-        });
-    }
-
-    function change_rotp_enabled(el) {
-        <%if can? :change_rotp_enabled, current_user %>
-        var confirm_msg = el.checked ? "<%=t('pages.users.privacy_preferences.rotp_confirm_enable')%>" : '<%=t('pages.users.privacy_preferences.rotp_confirm_disable')%>';
-        if (!confirm(confirm_msg)) {
-            return false;
-        }
-
-        var active = (el.checked) ? "true" : "false";
-        $.ajax({
-            data: {
-                active: active
-            },
-            url: "/users/change_rotp_enabled",
-            dataType: 'script',
-            type: 'post'
-        });
-        <%else %>
-        alert('Per abilitare il Token di sicurezza devi inserire un\'indirizzo email valido');
-        return false;
-        <%end%>
-    }
-
-    $('#locale').bind("change", function () {
-        var currentValue = $(this).val();
-        var currentLabel = $('option:selected', $(this)).text();
-        $.ajax({
-            data: {
-                locale: currentValue
-            },
-            url: "/users/change_locale",
-            dataType: 'script',
-            type: 'post'
-        });
-        return true;
+  function change_show_urls(el) {
+    var active = (el.checked) ? "true" : "false";
+    $.ajax({
+      data: {
+        active: active
+      },
+      url: "/users/change_show_urls",
+      dataType: 'script',
+      type: 'post'
     });
+  }
 
-    $('#time_zone').bind("change", function () {
-        var currentValue = $(this).val();
-        var currentLabel = $('option:selected', $(this)).text();
-        $.ajax({
-            data: {
-                time_zone: currentValue
-            },
-            url: "/users/change_time_zone",
-            dataType: 'script',
-            type: 'post'
-        });
-        return true;
+  function change_receive_messages(el) {
+    var active = (el.checked) ? "true" : "false";
+    $.ajax({
+      data: {
+        active: active
+      },
+      url: "/users/change_receive_messages",
+      dataType: 'script',
+      type: 'post'
     });
+  }
+
+  function change_rotp_enabled(el) {
+    <%if can? :change_rotp_enabled, current_user %>
+    var confirm_msg = el.checked ? "<%=t('pages.users.privacy_preferences.rotp_confirm_enable')%>" : '<%=t('pages.users.privacy_preferences.rotp_confirm_disable')%>';
+    if (!confirm(confirm_msg)) {
+      return false;
+    }
+
+    var active = (el.checked) ? "true" : "false";
+    $.ajax({
+      data: {
+        active: active
+      },
+      url: "/users/change_rotp_enabled",
+      dataType: 'script',
+      type: 'post'
+    });
+    <%else %>
+    alert('Per abilitare il Token di sicurezza devi inserire un\'indirizzo email valido');
+    return false;
+    <%end%>
+  }
+
+  $('#locale').bind("change", function () {
+    var currentValue = $(this).val();
+    var currentLabel = $('option:selected', $(this)).text();
+    $.ajax({
+      data: {
+        locale: currentValue
+      },
+      url: "/users/change_locale",
+      dataType: 'script',
+      type: 'post'
+    });
+    return true;
+  });
+
+  $('#time_zone').bind("change", function () {
+    var currentValue = $(this).val();
+    var currentLabel = $('option:selected', $(this)).text();
+    $.ajax({
+      data: {
+        time_zone: currentValue
+      },
+      url: "/users/change_time_zone",
+      dataType: 'script',
+      type: 'post'
+    });
+    return true;
+  });
 
 
 </script>
 
 
 <% content_for :left_panel do %>
-    <% if current_user %>
-        <%= render partial: 'users/preferences_panel' %>
-    <% end %>
+  <% if current_user %>
+    <%= render partial: 'users/preferences_panel' %>
+  <% end %>
 <% end %>

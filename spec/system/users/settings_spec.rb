@@ -21,7 +21,7 @@ RSpec.describe 'personal settings', :js do
       visit user_path(user)
     end
 
-    it 'has a message which informs the user that he is able to change is settings' do
+    it 'has a message which informs the users that they are able to change their settings' do
       expect(page).to have_content(I18n.t('info.user.click_to_change'))
     end
 

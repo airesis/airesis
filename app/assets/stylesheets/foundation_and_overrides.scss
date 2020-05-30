@@ -1556,11 +1556,6 @@ a.homepageButton {
   line-height: 1.6em
 }
 
-a.zocial:hover {
-  color: white;
-  text-decoration: none;
-}
-
 .reveal-modal-bg {
   z-index: 1001;
 }
@@ -2910,9 +2905,6 @@ input[type=file] {
 ul.social-network {
   li {
     padding: 0 0 1rem;
-    .zocial {
-      margin: 8px 0;
-    }
   }
 }
 
