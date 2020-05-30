@@ -3,6 +3,7 @@ class ParticipationRole < ApplicationRecord
 
   has_many :group_participations
   has_many :users, through: :group_participations, class_name: 'User'
+
   belongs_to :group, optional: true
 
   scope :common, -> { where(id: ParticipationRole.admin.id) }
