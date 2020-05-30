@@ -48,7 +48,7 @@
 
 
 
-<div class="card">
+<i class="card">
   <% if ::Configuration::socialnetwork_active %>
       <h2><%= t('pages.users.privacy_preferences.join_accounts') %></h2>
       <h5>
@@ -64,20 +64,24 @@
       <div class="providers">
         <% unless alreadyproviders.include? Authentication::FACEBOOK %>
             <%= link_to omniauth_authorize_path(:user, :facebook) do %>
-                <div class="zocial icon facebook vertical"></div>
+                <i class="fa fa-social fa-facebook"></i>
                 <%= t('pages.users.privacy_preferences.join_facebook') %>
             <% end %>
             <br/>
         <% end %>
 
         <% unless alreadyproviders.include? Authentication::GOOGLE %>
-            <%= link_to "<div class=\"zocial icon googleplus vertical\"></div>".html_safe + t('pages.users.privacy_preferences.join_google'), omniauth_authorize_path(:user, :google_oauth2) %>
+            <%= link_to omniauth_authorize_path(:user, :google_oauth2) do %>
+            <i class="fa fa-social fa-google"></i>
+            <%= t('pages.users.privacy_preferences.join_google') %>
             <br/>
         <% end %>
 
         <% unless alreadyproviders.include? Authentication::TWITTER %>
-            <%= link_to "<div class=\"zocial icon twitter vertical\"></div>".html_safe + t('pages.users.privacy_preferences.join_twitter'), omniauth_authorize_path(:user, :twitter) %>
-            <br/>
+            <%= link_to omniauth_authorize_path(:user, :twitter) do %>
+              <i class="fa fa-social fa-twitter"></i>
+              <%= t('pages.users.privacy_preferences.join_twitter') %>
+              <br/>
         <% end %>
       </div>
 
@@ -86,13 +90,13 @@
           <h2><%= t('pages.users.privacy_preferences.providers_list') %>:</h2>
           <% authentications.each do |authentication| %>
               <% if authentication.provider == Authentication::FACEBOOK %>
-                  <div class="zocial icon facebook vertical"></div>
+                  <i class="fa fa-social fa-facebook"></i>
                   Facebook
               <% elsif authentication.provider == Authentication::GOOGLE %>
-                  <div class="zocial icon google vertical"></div>
+                  <i class="fa fa-social fa-google"></i>
                   Google
               <% elsif authentication.provider == Authentication::TWITTER %>
-                  <div class="zocial icon twitter vertical"></div>
+                  <i class="fa fa-social fa-twitter"></i>
                   Twitter
               <% end %>
 

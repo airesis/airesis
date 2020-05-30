@@ -41,7 +41,7 @@ en-EU:
         to_be_confirmed: "to be confirmed"
         password_label: "Password"
         facebook_url_label: "Facebook URL"
-        googleplus_url_label: "Google URL"
+        google_url_label: "Google URL"
         username_label: "Username"
         registered_from: "Registered from"
         load_image: "Load an image"
