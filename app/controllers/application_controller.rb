@@ -152,7 +152,7 @@ class ApplicationController < ActionController::Base
                             nil
                           end
       end
-      Appsignal.set_error(exception, extra: extra)
+      Raven.capture_exception(exception, extra: extra)
     else
       message = "\n#{exception.class} (#{exception.message}):\n"
       Rails.logger.error(message)
