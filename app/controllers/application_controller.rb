@@ -141,7 +141,7 @@ class ApplicationController < ActionController::Base
   end
 
   def log_error(exception)
-    if SENTRY_ACTIVE && !Rails.env.test? && !Rails.env.development?
+    if defined?(Raven)
       extra = {}
       extra[:current_user_id] = current_user.id if current_user
       if exception.instance_of? CanCan::AccessDenied

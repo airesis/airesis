@@ -39,9 +39,6 @@ EMAIL_PASSWORD: ""
 
 MAILER_DEFAULT_HOST: "www.airesis.eu"
 
-# set your email address to override email receiver in development and test
-OVERRIDE_MAIL_RECIPIENT: ""
-
 #####################
 #newsletter parameters
 #####################
@@ -119,9 +116,8 @@ CROWDIN_ACCOUNT_KEY: ""
 ##############
 #sentry settings. remove these keys to not use it (leaving them empty will throw an error)
 #############
-SENTRY_PUBLIC_KEY: ""
-SENTRY_PRIVATE_KEY: ""
-SENTRY_PORT: ""
+#SENTRY_DSN: ""
+#SENTRY_ENVIRONMENT: ""
 
 #############
 # environment constants (leave default values for default behaviour, change them to change platform behaviour)

@@ -1,3 +1,7 @@
+# Base class for a quorum. Split into Best and Old.
+# Old will be removed since is depcrecated.
+# valutations: the minimum number of valutations to close the discussion phase
+# vote_valutations: the minimum amount of valutations to close the voting phase
 class Quorum < ApplicationRecord
   include Rails.application.routes.url_helpers
   include ActionView::Helpers::TextHelper
