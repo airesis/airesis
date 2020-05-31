@@ -185,7 +185,7 @@ class ApplicationController < ActionController::Base
     required_locale = params[:l]
     replacement_locale = locales_replacement[required_locale]
     if replacement_locale
-      redirect_to url_for(params.merge(l: replacement_locale).merge(only_path: true)), status: :moved_permanently
+      redirect_to url_for(params.permit!.merge(l: replacement_locale).merge(only_path: true)), status: :moved_permanently
     else
       log_error(exception)
       respond_to do |format|
