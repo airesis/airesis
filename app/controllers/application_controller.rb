@@ -184,27 +184,9 @@ class ApplicationController < ActionController::Base
                             de: :'de-DE' }.with_indifferent_access
     required_locale = params[:l]
     replacement_locale = locales_replacement[required_locale]
-    if replacement_locale
-      redirect_to url_for(params.permit!.merge(l: replacement_locale).merge(only_path: true)), status: :moved_permanently
-    else
-      log_error(exception)
-      respond_to do |format|
-        format.js do
-          flash.now[:error] = 'You are asking for a locale which is not available, sorry'
-          render template: '/errors/invalid_locale.js.erb', status: 500, layout: 'application'
-        end
-        format.html do
-          render template: '/errors/invalid_locale.html.erb', status: 500, layout: 'application'
-        end
-        log_error(exception)
-        respond_to do |format|
-          format.js do
-          end
-          format.html do
-          end
-        end
-      end
-    end
+    log_error(exception)
+    flash[:error] = 'You are asking for a locale which is not available, sorry'
+    redirect_to url_for(params.permit!.merge(l: replacement_locale).merge(only_path: true)), status: :moved_permanently
   end
 
   def render_404(exception = nil)
