@@ -119,9 +119,9 @@ group :development do
 end
 
 group :production do
-  gem 'sentry-raven'
   gem 'lograge'
   gem 'rails_12factor'
+  gem 'sentry-raven'
 end
 
 group :doc do
