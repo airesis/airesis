@@ -204,20 +204,12 @@
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>"></script>
 
 
-<% if Rails.env.production? && SENTRY_ACTIVE %>
-    <script src="//cdn.ravenjs.com/1.3.0/jquery,native/raven.min.js"></script>
-    <script>
-      Raven.config('https://<%=ENV['SENTRY_PUBLIC_KEY']%>@app.getsentry.com/<%=ENV['SENTRY_PORT']%>', {
-        release: '<%=AIRESIS_VERSION%>'
-        // we highly recommend restricting exceptions to a domain in order to filter out clutter
-        //whitelistUrls: ['example.com/scripts/']
-      }).install();
-      if (Airesis.signed_in) {
-        Raven.setUserContext({
-          email: Airesis.email,
-          id: Airesis.id
-        });
-      }
-    </script>
+<% if defined?(Raven) %>
+  <script type="application/javascript">
+    window.sentryConfig = {dsn: '<%= ENV['SENTRY_DSN']%>', environment: '<%= ENV['SENTRY_ENVIRONMENT']%>'};
+  </script>
+  <%= javascript_include_tag 'https://cdn.renuo.ch/sentry-ignore.min.js', crossorigin: 'anonymous' %>
+  <%= javascript_pack_tag 'sentry' %>
 <% end %>
+
 <%= yield :head %>

@@ -119,9 +119,9 @@ group :development do
 end
 
 group :production do
-  gem 'appsignal'
   gem 'lograge'
   gem 'rails_12factor'
+  gem 'sentry-raven'
 end
 
 group :doc do

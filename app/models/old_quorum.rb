@@ -123,20 +123,20 @@ class OldQuorum < Quorum
     if proposal.is_schulze?
       vote_data_schulze = proposal.schulze_votes
       Proposal.transaction do
-        votesstring = ''; # stringa da passare alla libreria schulze_vote per calcolare il punteggio
+        votesstring = '' # this is the string to pass to schulze library to calculate the score
         vote_data_schulze.each do |vote|
-          # in ogni riga inserisco la mappa del voto ed eventualmente il numero se più di un utente ha espresso la stessa preferenza
+          # each row is composed by the vote string and, if more then one, the number of votes of that kind
           votesstring += vote.count > 1 ? "#{vote.count}=#{vote.preferences}\n" : "#{vote.preferences}\n"
         end
         num_solutions = proposal.solutions.count
         vs = SchulzeBasic.do votesstring, num_solutions
-        solutions_sorted = proposal.solutions.sort_by(&:id) # ordino le soluzioni secondo l'id crescente (così come vengono restituiti dalla libreria)
+        solutions_sorted = proposal.solutions.sort_by(&:id) # order the solutions by the id (as the plugin output the results)
         solutions_sorted.each_with_index do |c, i|
-          c.schulze_score = vs.ranks[i].to_i
+          c.schulze_score = vs.ranks[i].to_i # save the result in the solution
           c.save!
         end
         proposal.proposal_state_id = ProposalState::ACCEPTED
-      end # fine transazione
+      end # end of transaction
     else
       vote_data = proposal.vote
       positive = vote_data.positive
