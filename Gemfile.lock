@@ -400,6 +400,8 @@ GEM
     puma (4.3.5)
       nio4r (~> 2.0)
     rack (2.2.2)
+    rack-attack (6.3.1)
+      rack (>= 1.0, < 3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
     rack-mini-profiler (2.0.1)
@@ -704,6 +706,7 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   puma
+  rack-attack
   rack-cors
   rack-mini-profiler
   rails (~> 6.0.0)

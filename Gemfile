@@ -69,6 +69,7 @@ gem 'mailman', require: false
 gem 'paper_trail'
 gem 'pg_search'
 gem 'puma'
+gem 'rack-attack'
 gem 'sshkit'
 gem 'truncate_html'
 gem 'workflow', '~> 1.2'
