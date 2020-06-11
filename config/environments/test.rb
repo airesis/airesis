@@ -18,6 +18,8 @@ Rails.application.configure do
   config.action_view.raise_on_missing_translations = true
 
   config.default_url_options = config.action_mailer.default_url_options
+
+  config.i18n.available_locales += %w(en)
 end
 
 Rails.application.default_url_options = Rails.application.config.action_mailer.default_url_options
