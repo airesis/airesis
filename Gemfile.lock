@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/airesis/airesis_i18n
-  revision: 34ea332e0ca4c93316bfdba266f0ee52bb5cf12c
+  revision: 4cb87d4c354774d49fdc77114f3a0572168b9695
   specs:
-    airesis_i18n (0.2.0)
+    airesis_i18n (0.2.1)
 
 GIT
   remote: https://github.com/coorasse/devise_traceable
