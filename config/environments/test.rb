@@ -19,7 +19,7 @@ Rails.application.configure do
 
   config.default_url_options = config.action_mailer.default_url_options
 
-  config.i18n.available_locales += %w(en)
+  config.i18n.available_locales += %w[en]
 end
 
 Rails.application.default_url_options = Rails.application.config.action_mailer.default_url_options
