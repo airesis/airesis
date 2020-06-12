@@ -3,13 +3,11 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   helper :all
 
-  unless Rails.application.config.consider_all_requests_local
-    rescue_from Exception, with: :render_error
-    rescue_from ActiveRecord::RecordNotFound, with: :render_404
-    rescue_from ActionController::RoutingError, with: :render_404
-    rescue_from ::AbstractController::ActionNotFound, with: :render_404
-    rescue_from I18n::InvalidLocale, with: :invalid_locale
-  end
+  rescue_from Exception, with: :render_error
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
+  rescue_from ActionController::RoutingError, with: :render_404
+  rescue_from ::AbstractController::ActionNotFound, with: :render_404
+  rescue_from I18n::InvalidLocale, with: :invalid_locale
 
   protect_from_forgery
   after_action :discard_flash_if_xhr
