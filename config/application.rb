@@ -27,7 +27,7 @@ module Airesis
     europe_eng_fallbacks = %i[en-GB en-IE en-US en-ZA en-AU en-NZ
                               sr-CS sr-SP sh-HR zh-TW me-ME bs-BA
                               ru-RU ro-RO it-IT id-ID hu-HU
-                              es-ES de-DE el-GR fr-FR pt-PT en]
+                              es-ES de-DE el-GR fr-FR pt-PT]
     portuguese_fallbacks = [:'pt-BR']
     spanish_fallbacks = %i[es-EC es-AR es-CL]
     fallbacks = {}
@@ -39,7 +39,7 @@ module Airesis
     config.i18n.available_locales = %i[bs-BA de-DE el-GR en-AU en-EU en-GB en-NZ en-US en-ZA
                                        en-IE es-AR es-CL es-EC es-ES fr-FR hu-HU id-ID
                                        it-IT me-ME pt-BR pt-PT ro-RO ru-RU sh-HR sr-CS sr-SP
-                                       zh-TW en]
+                                       zh-TW]
 
     config.i18n.enforce_available_locales = true
 

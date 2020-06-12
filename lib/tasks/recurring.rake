@@ -35,10 +35,5 @@ namespace :airesis do
     task fix_workers: :environment do
       FixWorkers.new.perform
     end
-
-    desc 'Clears all expired sessions from database. Usually scheduled daily.'
-    task clear_sessions: :environment do
-      SessionsCleanerWorker.new.perform
-    end
   end
 end
