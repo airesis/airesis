@@ -1,6 +1,6 @@
-FROM ruby:2.1.6
+FROM ruby:2.6.1
 
-RUN apt-get update && apt-get install -y openjdk-7-jre && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y openjdk-8-jre && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app
 
