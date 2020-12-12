@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/CanCanCommunity/cancancan.git
+  revision: abfa504947d08c7dfdf976a129d643b04f543b17
+  branch: develop
+  specs:
+    cancancan (3.2.0)
+
+GIT
   remote: https://github.com/airesis/airesis_i18n
   revision: 9892c81ceb7a7030050bce04716e19bbf4761403
   specs:
@@ -119,7 +126,6 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     byebug (11.1.3)
-    cancancan (3.1.0)
     capybara (3.32.2)
       addressable
       mini_mime (>= 0.1.3)
@@ -659,7 +665,7 @@ DEPENDENCIES
   bootsnap
   bullet
   byebug
-  cancancan
+  cancancan!
   capybara (>= 2.15)
   ckeditor
   codeclimate-test-reporter

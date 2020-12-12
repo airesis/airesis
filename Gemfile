@@ -6,7 +6,7 @@ gem 'rails', '~> 6.0.0'
 
 gem 'aws-sdk-s3'
 gem 'bootsnap'
-gem 'cancancan'
+gem 'cancancan', github: 'CanCanCommunity/cancancan', branch: 'develop'
 gem 'ckeditor'
 gem 'coffee-rails'
 gem 'daemons'
