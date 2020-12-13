@@ -36,7 +36,7 @@ module Airesis
     spanish_fallbacks.each { |key| fallbacks[key] = :'es-ES' }
     config.i18n.fallbacks = [I18n.default_locale, fallbacks]
 
-    config.i18n.available_locales = %i[bs-BA de-DE el-GR en-AU en-EU en-GB en-NZ en-US en-ZA
+    config.i18n.available_locales = %i[bs-BA de-DE el-GR en en-AU en-EU en-GB en-NZ en-US en-ZA
                                        en-IE es-AR es-CL es-EC es-ES fr-FR hu-HU id-ID
                                        it-IT me-ME pt-BR pt-PT ro-RO ru-RU sh-HR sr-CS sr-SP
                                        zh-TW]
