@@ -121,8 +121,8 @@ $ ->
     create_proposal_ = $('<div class="dynamic_container reveal-modal large" data-reveal></div>')
     create_proposal_.append $(this).next('.choose_model').clone().show()
     $('.proposal_model_option', create_proposal_).click ->
-      type_id = $(this).data('id')
-      window.location.href = "#{link.attr('href')}?proposal_type_id=#{type_id}";
+      url = $(this).data('url')
+      window.location.href = url;
       create_proposal_inner_ = $('.choose_model', create_proposal_)
       create_proposal_inner_.hide 500, ->
         create_proposal_inner_.remove()

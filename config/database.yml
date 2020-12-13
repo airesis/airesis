@@ -11,7 +11,7 @@ default: &default
 
 development:
   <<: *default
-  database: airesis-production-2019-10-01
+  database: airesis-development
 
 test:
   <<: *default
