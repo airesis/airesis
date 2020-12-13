@@ -1,4 +1,4 @@
-AIRESIS_VERSION = '4.8.6'.freeze
+AIRESIS_VERSION = '4.8.7'.freeze
 
 if defined?(Raven)
   Raven.configure do |config|
