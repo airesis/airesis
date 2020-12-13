@@ -1,4 +1,6 @@
 <% if @group %>
+  <% if (!params[:group_area_id] && (can? :insert_proposal, @group)) ||
+      (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
     <%= link_to new_proposal_path(group_id: @group&.id,
                                   group_area_id: params[:group_area_id],
                                   category: params[:category],
@@ -6,36 +8,42 @@
                                   models: true),
                 id: 'new_proposal_button',
                 class: "create_proposal btn blue disable" do %>
-        <i class="fa fa-plus"></i>
-        <%= t('proposals.create_button') %>
-    <% end if (!params[:group_area_id] && (can? :insert_proposal, @group)) ||
-              (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
+      <i class="fa fa-plus"></i>
+      <%= t('proposals.create_button') %>
+    <% end %>
+  <% end %>
 
-    <div class="choose_model" style="display:none;">
-      <h2 class="modal_title"><%= t('pages.proposals.index.choose_model') %></h2>
+  <div class="choose_model" style="display:none;">
+    <h2 class="modal_title"><%= t('pages.proposals.index.choose_model') %></h2>
 
-      <div class="row">
-        <% ProposalType.active.for_groups.order(:seq).each do |proposal_type| %>
-            <div class="columns large-3 medium-6 small-12 ">
-              <div class="proposal_model_option" data-id="<%= proposal_type.name %>" style="background-color: <%= proposal_type.color %>">
-                <div class="model_name">
-                  <div class="name">
-                    <%= proposal_type.description %>
-                  </div>
-                  <div class="icon">
-                    <%= image_tag("proposal_types/#{proposal_type.name.downcase}.png", align: 'middle', alt: proposal_type.description, title: proposal_type.description) %>
-                  </div>
-                </div>
+    <div class="row">
+      <% ProposalType.active.for_groups.order(:seq).each do |proposal_type| %>
+        <div class="columns large-3 medium-6 small-12 ">
+          <div class="proposal_model_option"
+               data-url="<%= new_proposal_path(group_id: @group&.id,
+                                                       group_area_id: params[:group_area_id],
+                                                       category: params[:category],
+                                                       topic_id: @topic&.id,
+                                                       proposal_type_id: proposal_type.name,
+                                                       models: true) %>" style="background-color: <%= proposal_type.color %>">
+            <div class="model_name">
+              <div class="name">
+                <%= proposal_type.description %>
+              </div>
+              <div class="icon">
+                <%= image_tag("proposal_types/#{proposal_type.name.downcase}.png", align: 'middle', alt: proposal_type.description, title: proposal_type.description) %>
               </div>
             </div>
-        <% end %>
-      </div>
-      <a class="close-reveal-modal">&#215;</a>
+          </div>
+        </div>
+      <% end %>
     </div>
+    <a class="close-reveal-modal">&#215;</a>
+  </div>
 <% else %>
-    <%= link_to new_proposal_path(proposal_type_id: ProposalType::STANDARD,
-                                  category: params[:category]), id: 'new_proposal_button', class: "btn blue disable" do %>
-        <i class="fa fa-plus"></i>
-        <%= t('proposals.create_button') %>
-    <% end %>
+  <%= link_to new_proposal_path(proposal_type_id: ProposalType::STANDARD,
+                                category: params[:category]), id: 'new_proposal_button', class: "btn blue disable" do %>
+    <i class="fa fa-plus"></i>
+    <%= t('proposals.create_button') %>
+  <% end %>
 <% end %>
